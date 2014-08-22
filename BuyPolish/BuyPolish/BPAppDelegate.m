@@ -16,6 +16,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [Parse setApplicationId:@"CropLyorPeeuJWwGTFobgwgx3peXJGhZQ8XIdNAP"
+              clientKey:@"k14ZVHMT52umlpIdJn9TysO5Zq7N742NRPrEEvCM"];
+
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
