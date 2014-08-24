@@ -7,6 +7,7 @@
 //
 
 #import "BPAppDelegate.h"
+#import <Parse/Parse.h>
 
 @implementation BPAppDelegate
 
@@ -16,6 +17,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+
     [Parse setApplicationId:@"CropLyorPeeuJWwGTFobgwgx3peXJGhZQ8XIdNAP"
               clientKey:@"k14ZVHMT52umlpIdJn9TysO5Zq7N742NRPrEEvCM"];
 

@@ -23,6 +23,16 @@
 		1D08E84819A7621A00879BD2 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D08E82C19A7621A00879BD2 /* CoreData.framework */; };
 		1D08E85019A7621A00879BD2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1D08E84E19A7621A00879BD2 /* InfoPlist.strings */; };
 		1D08E85219A7621A00879BD2 /* BuyPolishTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D08E85119A7621A00879BD2 /* BuyPolishTests.m */; };
+		37B642317C6BC629AFB0394F /* BPProductManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B642B56DC862C60A6F3CE2 /* BPProductManager.m */; };
+		37B646BC2546890EB330F4FD /* BPTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64A4E6D2911A1145CB104 /* BPTask.m */; };
+		37B647E20B1B2E3F5F0ECFA3 /* BPAPIAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B648A1A89B376DE62E2133 /* BPAPIAccessor.m */; };
+		37B649B71B7F59A1741CD9B7 /* BPProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6413AB46D8FAC81D1E72B /* BPProduct.m */; };
+		37B64A5D21387F5E0613B2AA /* BPTaskRunner.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6447BFF3F65026E98D810 /* BPTaskRunner.m */; };
+		37B64D4617BA6760E8B4101F /* BPAPIAccessor+Product.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64A5E17F2E5888839150C /* BPAPIAccessor+Product.m */; };
+		37B64E4A4C23A423A7B102CB /* BPProduct+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6473D93970F5113F3AAB3 /* BPProduct+Utilities.m */; };
+		37B64E91D41C5CE7359373EB /* BPImmediateTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64420D4DFE3CFC2AA176C /* BPImmediateTask.m */; };
+		37B64F7816B23819A90C0456 /* BPLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6464528820E718DBABAA5 /* BPLogger.m */; };
+		37B64FF08BF5367BF9669B33 /* BPUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64B74E1FAED6141BA2B25 /* BPUtilities.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +65,26 @@
 		1D08E84F19A7621A00879BD2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1D08E85119A7621A00879BD2 /* BuyPolishTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BuyPolishTests.m; sourceTree = "<group>"; };
 		252B683669D64ED8A18A3971 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		37B64096880AC9C86B2DF4B1 /* BPProduct+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BPProduct+Utilities.h"; sourceTree = "<group>"; };
+		37B640B1117CB6C80C7D6C04 /* BPAPIAccessor+Product.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BPAPIAccessor+Product.h"; sourceTree = "<group>"; };
+		37B640F75A0AFD8BE0258183 /* BPTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPTask.h; sourceTree = "<group>"; };
+		37B64100135F7EACD7C8E7E3 /* BPTaskRunner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPTaskRunner.h; sourceTree = "<group>"; };
+		37B6413AB46D8FAC81D1E72B /* BPProduct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPProduct.m; sourceTree = "<group>"; };
+		37B642B56DC862C60A6F3CE2 /* BPProductManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPProductManager.m; sourceTree = "<group>"; };
+		37B642C8016B2BC66A308398 /* BPLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPLogger.h; sourceTree = "<group>"; };
+		37B64420D4DFE3CFC2AA176C /* BPImmediateTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPImmediateTask.m; sourceTree = "<group>"; };
+		37B6447BFF3F65026E98D810 /* BPTaskRunner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPTaskRunner.m; sourceTree = "<group>"; };
+		37B644EB9663F8806E287450 /* BPAPIAccessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPAPIAccessor.h; sourceTree = "<group>"; };
+		37B645654D3B84690AEA4C0D /* BPUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPUtilities.h; sourceTree = "<group>"; };
+		37B6464528820E718DBABAA5 /* BPLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPLogger.m; sourceTree = "<group>"; };
+		37B6473D93970F5113F3AAB3 /* BPProduct+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BPProduct+Utilities.m"; sourceTree = "<group>"; };
+		37B648A1A89B376DE62E2133 /* BPAPIAccessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPAPIAccessor.m; sourceTree = "<group>"; };
+		37B649F01069BA6A92B49C15 /* BPProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPProduct.h; sourceTree = "<group>"; };
+		37B64A4E6D2911A1145CB104 /* BPTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPTask.m; sourceTree = "<group>"; };
+		37B64A5E17F2E5888839150C /* BPAPIAccessor+Product.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BPAPIAccessor+Product.m"; sourceTree = "<group>"; };
+		37B64B74E1FAED6141BA2B25 /* BPUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPUtilities.m; sourceTree = "<group>"; };
+		37B64F51708E3958AF727B6F /* BPProductManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPProductManager.h; sourceTree = "<group>"; };
+		37B64F75AEA04056F43D692C /* BPImmediateTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPImmediateTask.h; sourceTree = "<group>"; };
 		3C42626AEDC945168C07B4E4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -126,7 +156,9 @@
 				1D08E83D19A7621A00879BD2 /* Images.xcassets */,
 				1D08E83A19A7621A00879BD2 /* BuyPolish.xcdatamodeld */,
 				1D08E82F19A7621A00879BD2 /* Supporting Files */,
-				37B64C4DFDFC608C00CEB7F3 /* UI */,
+				37B64DD9591909AF06832339 /* Manager */,
+				37B64AE3A38FEC08E6CDE873 /* Model */,
+				37B6461671AB44842A0700D7 /* Utilities */,
 			);
 			path = BuyPolish;
 			sourceTree = "<group>";
@@ -160,11 +192,77 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		37B64C4DFDFC608C00CEB7F3 /* UI */ = {
+		37B642B1EB936576BE21C81B /* Task */ = {
 			isa = PBXGroup;
 			children = (
+				37B6447BFF3F65026E98D810 /* BPTaskRunner.m */,
+				37B64100135F7EACD7C8E7E3 /* BPTaskRunner.h */,
+				37B64A4E6D2911A1145CB104 /* BPTask.m */,
+				37B640F75A0AFD8BE0258183 /* BPTask.h */,
+				37B64420D4DFE3CFC2AA176C /* BPImmediateTask.m */,
+				37B64F75AEA04056F43D692C /* BPImmediateTask.h */,
 			);
-			path = UI;
+			path = Task;
+			sourceTree = "<group>";
+		};
+		37B644C120825EFA9AF52B8A /* EntityCategories */ = {
+			isa = PBXGroup;
+			children = (
+				37B6473D93970F5113F3AAB3 /* BPProduct+Utilities.m */,
+				37B64096880AC9C86B2DF4B1 /* BPProduct+Utilities.h */,
+			);
+			path = EntityCategories;
+			sourceTree = "<group>";
+		};
+		37B6461671AB44842A0700D7 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				37B64B74E1FAED6141BA2B25 /* BPUtilities.m */,
+				37B645654D3B84690AEA4C0D /* BPUtilities.h */,
+				37B6464528820E718DBABAA5 /* BPLogger.m */,
+				37B642C8016B2BC66A308398 /* BPLogger.h */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		37B64977613F0A577613F7E4 /* ProductManager */ = {
+			isa = PBXGroup;
+			children = (
+				37B642B56DC862C60A6F3CE2 /* BPProductManager.m */,
+				37B64F51708E3958AF727B6F /* BPProductManager.h */,
+			);
+			path = ProductManager;
+			sourceTree = "<group>";
+		};
+		37B64A29716085485AEAB5C1 /* APIAccessor */ = {
+			isa = PBXGroup;
+			children = (
+				37B648A1A89B376DE62E2133 /* BPAPIAccessor.m */,
+				37B644EB9663F8806E287450 /* BPAPIAccessor.h */,
+				37B64A5E17F2E5888839150C /* BPAPIAccessor+Product.m */,
+				37B640B1117CB6C80C7D6C04 /* BPAPIAccessor+Product.h */,
+			);
+			path = APIAccessor;
+			sourceTree = "<group>";
+		};
+		37B64AE3A38FEC08E6CDE873 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				37B6413AB46D8FAC81D1E72B /* BPProduct.m */,
+				37B649F01069BA6A92B49C15 /* BPProduct.h */,
+				37B642B1EB936576BE21C81B /* Task */,
+				37B644C120825EFA9AF52B8A /* EntityCategories */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		37B64DD9591909AF06832339 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				37B64977613F0A577613F7E4 /* ProductManager */,
+				37B64A29716085485AEAB5C1 /* APIAccessor */,
+			);
+			path = Manager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -303,6 +401,16 @@
 				1D08E83919A7621A00879BD2 /* BPAppDelegate.m in Sources */,
 				1D08E83519A7621A00879BD2 /* main.m in Sources */,
 				1D08E83C19A7621A00879BD2 /* BuyPolish.xcdatamodeld in Sources */,
+				37B642317C6BC629AFB0394F /* BPProductManager.m in Sources */,
+				37B649B71B7F59A1741CD9B7 /* BPProduct.m in Sources */,
+				37B64A5D21387F5E0613B2AA /* BPTaskRunner.m in Sources */,
+				37B646BC2546890EB330F4FD /* BPTask.m in Sources */,
+				37B64E91D41C5CE7359373EB /* BPImmediateTask.m in Sources */,
+				37B647E20B1B2E3F5F0ECFA3 /* BPAPIAccessor.m in Sources */,
+				37B64D4617BA6760E8B4101F /* BPAPIAccessor+Product.m in Sources */,
+				37B64FF08BF5367BF9669B33 /* BPUtilities.m in Sources */,
+				37B64E4A4C23A423A7B102CB /* BPProduct+Utilities.m in Sources */,
+				37B64F7816B23819A90C0456 /* BPLogger.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

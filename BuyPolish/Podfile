@@ -1,3 +1,4 @@
 platform :ios, '7.0'
-pod 'AFNetworking', '~> 2.3.1'
-pod 'Parse', '~> 1.2.20'
+pod 'AFNetworking', '2.3.1'
+pod 'Parse', '1.2.20'
+pod 'Objection', '1.4'
