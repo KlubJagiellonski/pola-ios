@@ -1,11 +1,11 @@
 #import <Foundation/Foundation.h>
 
 
-NSString *const BPAPIAccessorURL = @"https://api.parse.com";
-NSString *const BPAPIAccessorVersion = @"1";
+@class BPAPIResponse;
 
 
 @interface BPAPIAccessor : NSObject
 
+- (BPAPIResponse *)get:(NSString *)apiFunction parameters:(NSDictionary *)parameters error:(NSError **)error;
 
 @end
