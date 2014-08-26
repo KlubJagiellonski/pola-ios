@@ -33,10 +33,21 @@ NSString *const BPAPIAccessorAPIVersion = @"1";
 - (BPAPIResponse *)get:(NSString *)apiFunction parameters:(NSDictionary *)parameters error:(NSError **)error{
     NSString *url = [[self baseUrl] stringByAppendingPathComponent:apiFunction];
     if(parameters) {
-        [url stringByAppendingPathComponent:[self getStringFromParameters:parameters]];
+        [url stringByAppendingFormat:@"?%@", [self stringFromParameters:parameters]];
     }
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[[NSURL alloc] initWithString:url]];
     [request setHTTPMethod:@"GET"];
+    return [self performRequest:request error:error];
+}
+
+- (BPAPIResponse *)post:(NSString *)apiFunction parameters:(NSDictionary *)parameters error:(NSError **)error{
+    NSString *url = [[self baseUrl] stringByAppendingPathComponent:apiFunction];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[[NSURL alloc] initWithString:url]];
+    if(parameters) {
+        NSString *stringParameters = [self stringFromParameters:parameters];
+        [request setHTTPBody:[stringParameters dataUsingEncoding:NSUTF8StringEncoding]];
+    }
+    [request setHTTPMethod:@"POST"];
     return [self performRequest:request error:error];
 }
 
@@ -70,8 +81,8 @@ NSString *const BPAPIAccessorAPIVersion = @"1";
 
 #pragma mark - Helpers
 
-- (NSString *)getStringFromParameters:(NSDictionary *)parameters {
-    NSMutableString *getParameters = [NSMutableString stringWithString:@"?"];
+- (NSString *)stringFromParameters:(NSDictionary *)parameters {
+    NSMutableString *getParameters = [NSMutableString string];
     [parameters enumerateKeysAndObjectsUsingBlock:^(NSString *name, NSString *value, BOOL *stop) {
         [getParameters appendFormat:@"%@=%@&", name, value];
     }];

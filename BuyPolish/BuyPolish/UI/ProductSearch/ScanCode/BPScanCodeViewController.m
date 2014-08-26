@@ -4,6 +4,7 @@
 #import "BPProductManager.h"
 #import "BPProduct.h"
 #import "BPTaskRunner.h"
+#import "BPActivityIndicatorView.h"
 
 
 @interface BPScanCodeViewController ()
@@ -44,10 +45,13 @@ objection_requires_sel(@selector(productManager), @selector(taskRunner))
 }
 
 - (void)scanForBarcode:(NSString *)barcode {
+    [BPActivityIndicatorView showInView:self.view withText:NSLocalizedString(@"Loading...", @"")];
+
     weakify()
     void (^completion)(BPProduct *, NSError *) = ^(BPProduct *product, NSError *error) {
         strongify()
         [strongSelf.taskRunner runInMainQueue:^{
+            [BPActivityIndicatorView hideInView:strongSelf.view];
             [strongSelf.delegate scanCode:strongSelf requestsProductInfo:product];
         }];
     };
