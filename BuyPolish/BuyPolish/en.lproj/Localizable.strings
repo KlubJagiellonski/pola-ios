@@ -4,3 +4,6 @@
 
 "Scan Code" = "Scan Code";
 "Loading..." = "Loading...";
+"Ouch!" = "Ouch!";
+"Dismiss" = "Dismiss";
+"Cannot fetch product info from server. Please try again." = "Cannot fetch product info from server. Please try again.";

@@ -8,7 +8,7 @@
     NSDictionary *parameters = @{
             @"barcode" : barcode
     };
-    BPAPIResponse *response = [self post:@"functions/retrieveProduct" parameters:parameters error:error];
+    BPAPIResponse *response = [self post:@"functions/retrieveProduct" json:parameters error:error];
     NSDictionary *result = response.responseObject;
     return result[@"result"];
 }

@@ -23,12 +23,14 @@ PODS:
   - Bolts (1.1.2)
   - Facebook-iOS-SDK (3.17.0):
     - Bolts
+  - iOS-Hierarchy-Viewer (1.4.7)
   - Objection (1.4)
   - Parse (1.2.20):
     - Facebook-iOS-SDK (~> 3.11)
 
 DEPENDENCIES:
   - AFNetworking (= 2.3.1)
+  - iOS-Hierarchy-Viewer (= 1.4.7)
   - Objection (= 1.4)
   - Parse (= 1.2.20)
 
@@ -36,6 +38,7 @@ SPEC CHECKSUMS:
   AFNetworking: 6d7b76aa5d04c8c37daad3eef4b7e3f2a7620da3
   Bolts: 2635e8698a630774689441047f3465d78c48d485
   Facebook-iOS-SDK: f20274d809f112ba540842e2b6cbe50128d51b7b
+  iOS-Hierarchy-Viewer: f795abaeb8ccec8f652abd0891c396ad77d211d3
   Objection: 8176a996209cdcd23490c57d6e807a25faa8d54d
   Parse: 28c0dc54f30201a369d29a2f76c09fa43b2add16
 

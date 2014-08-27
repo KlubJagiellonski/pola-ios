@@ -28,6 +28,7 @@
 		37B641D5FD17D93BC7B1901B /* BPRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64960EF3268FB825DD2FE /* BPRootViewController.m */; };
 		37B641E616DF6D3029539275 /* NSLayoutConstraint+BPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64CD13446A6BEBA4B6A9A /* NSLayoutConstraint+BPAdditions.m */; };
 		37B642317C6BC629AFB0394F /* BPProductManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B642B56DC862C60A6F3CE2 /* BPProductManager.m */; };
+		37B644D57E5398A17DFA806D /* UIAlertView+BPUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64F1EE6D97F7987CF00CF /* UIAlertView+BPUtilities.m */; };
 		37B645454FC2ACC155CB1538 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B6472FF4603F63771FADE6 /* AVFoundation.framework */; };
 		37B645F07C9913D25328C568 /* BPScanCodeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64A1CFA3A5EA1F51ED5DE /* BPScanCodeView.m */; };
 		37B6466CC6A62A7DA8229188 /* BPActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64109D5EC518C82C8EA7C /* BPActivityIndicatorView.m */; };
@@ -115,7 +116,9 @@
 		37B64D1B6193C0AD0D440566 /* BPScanCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPScanCodeViewController.h; sourceTree = "<group>"; };
 		37B64DFDBDE3A5CEE19D6FDB /* BPObjectionModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPObjectionModule.m; sourceTree = "<group>"; };
 		37B64E1CECBE8D031CBF94DF /* BPProductInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPProductInfoViewController.m; sourceTree = "<group>"; };
+		37B64E26EDB5C48277AE74AE /* UIAlertView+BPUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+BPUtilities.h"; sourceTree = "<group>"; };
 		37B64F14E9AC8C4F1853EB09 /* BPProductSearchNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPProductSearchNavigationController.h; sourceTree = "<group>"; };
+		37B64F1EE6D97F7987CF00CF /* UIAlertView+BPUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+BPUtilities.m"; sourceTree = "<group>"; };
 		37B64F51708E3958AF727B6F /* BPProductManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPProductManager.h; sourceTree = "<group>"; };
 		37B64FBD633D042DEE22B04C /* BPProductSearchNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPProductSearchNavigationController.m; sourceTree = "<group>"; };
 		37B64FFC3FE96EFDE8398CF3 /* BPScanCodeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPScanCodeView.h; sourceTree = "<group>"; };
@@ -281,6 +284,8 @@
 				37B6409BC5602C24443D14E4 /* NSDictionary+BPJSON.h */,
 				37B64CD13446A6BEBA4B6A9A /* NSLayoutConstraint+BPAdditions.m */,
 				37B642E167318B93DB25452C /* NSLayoutConstraint+BPAdditions.h */,
+				37B64F1EE6D97F7987CF00CF /* UIAlertView+BPUtilities.m */,
+				37B64E26EDB5C48277AE74AE /* UIAlertView+BPUtilities.h */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -536,6 +541,7 @@
 				37B641CAB118895848603A5D /* BPProductInfoView.m in Sources */,
 				37B6466CC6A62A7DA8229188 /* BPActivityIndicatorView.m in Sources */,
 				37B641E616DF6D3029539275 /* NSLayoutConstraint+BPAdditions.m in Sources */,
+				37B644D57E5398A17DFA806D /* UIAlertView+BPUtilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

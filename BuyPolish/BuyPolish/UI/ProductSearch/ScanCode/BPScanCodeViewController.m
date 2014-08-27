@@ -5,6 +5,7 @@
 #import "BPProduct.h"
 #import "BPTaskRunner.h"
 #import "BPActivityIndicatorView.h"
+#import "UIAlertView+BPUtilities.h"
 
 
 @interface BPScanCodeViewController ()
@@ -37,25 +38,39 @@ objection_requires_sel(@selector(productManager), @selector(taskRunner))
     [_captureSession startRunning];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [BPActivityIndicatorView showInView:self.view withText:NSLocalizedString(@"Loading...", @"")];
+}
+
+
 #pragma mark - Actions
 
 - (void)foundBarcode:(NSString *)barcode corners:(NSArray *)corners {
-    [self scanForBarcode:barcode];
     [self.captureSession stopRunning];
+    [self scanForBarcode:barcode];
 }
 
 - (void)scanForBarcode:(NSString *)barcode {
+    if([BPActivityIndicatorView existInView:self.view]) {
+        return;
+    }
     [BPActivityIndicatorView showInView:self.view withText:NSLocalizedString(@"Loading...", @"")];
 
-    weakify()
-    void (^completion)(BPProduct *, NSError *) = ^(BPProduct *product, NSError *error) {
-        strongify()
-        [strongSelf.taskRunner runInMainQueue:^{
-            [BPActivityIndicatorView hideInView:strongSelf.view];
-            [strongSelf.delegate scanCode:strongSelf requestsProductInfo:product];
-        }];
-    };
-    [self.productManager retrieveProductWithBarcode:barcode completion:completion];
+//    weakify()
+//    void (^completion)(BPProduct *, NSError *) = ^(BPProduct *product, NSError *error) {
+//        strongify()
+//        [strongSelf.taskRunner runInMainQueue:^{
+//            [BPActivityIndicatorView hideInView:strongSelf.view];
+//            if(error) {
+//                [UIAlertView showErrorAlert:NSLocalizedString(@"Cannot fetch product info from server. Please try again.", @"Cannot fetch product info from server. Please try again.")];
+//                [strongSelf.captureSession startRunning];
+//            } else {
+//                [strongSelf.delegate scanCode:strongSelf requestsProductInfo:product];
+//            }
+//        }];
+//    };
+//    [self.productManager retrieveProductWithBarcode:barcode completion:completion];
 }
 
 #pragma mark - Capture session

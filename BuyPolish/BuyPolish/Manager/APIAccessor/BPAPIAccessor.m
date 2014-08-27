@@ -1,6 +1,7 @@
 #import "BPAPIAccessor.h"
 #import "AFHTTPRequestOperation.h"
 #import "BPAPIResponse.h"
+#import "NSDictionary+BPJSON.h"
 
 
 NSString *const BPAPIAccessorAPIServerUrl = @"https://api.parse.com";
@@ -40,13 +41,27 @@ NSString *const BPAPIAccessorAPIVersion = @"1";
     return [self performRequest:request error:error];
 }
 
+- (BPAPIResponse *)post:(NSString *)apiFunction json:(NSDictionary *)parameters error:(NSError **)error{
+    NSData *body;
+    if(parameters) {
+        body = [[parameters jsonString] dataUsingEncoding:NSUTF8StringEncoding];
+    }
+    return [self post:apiFunction body:body error:error];
+}
+
 - (BPAPIResponse *)post:(NSString *)apiFunction parameters:(NSDictionary *)parameters error:(NSError **)error{
-    NSString *url = [[self baseUrl] stringByAppendingPathComponent:apiFunction];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[[NSURL alloc] initWithString:url]];
+    NSData *body;
     if(parameters) {
         NSString *stringParameters = [self stringFromParameters:parameters];
-        [request setHTTPBody:[stringParameters dataUsingEncoding:NSUTF8StringEncoding]];
+        body = [stringParameters dataUsingEncoding:NSUTF8StringEncoding];
     }
+    return [self post:apiFunction body:body error:error];
+}
+
+- (BPAPIResponse *)post:(NSString *)apiFunction body:(NSData *)body error:(NSError **)error{
+    NSString *url = [[self baseUrl] stringByAppendingPathComponent:apiFunction];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[[NSURL alloc] initWithString:url]];
+    [request setHTTPBody:body];
     [request setHTTPMethod:@"POST"];
     return [self performRequest:request error:error];
 }
@@ -67,6 +82,7 @@ NSString *const BPAPIAccessorAPIVersion = @"1";
     BPLog(@"Received Response: %@", response);
 
     [self setError:error onBadResponseInOperation:operation];
+    [self setError:error onBadResponse:response];
 
     return response;
 }
@@ -86,13 +102,18 @@ NSString *const BPAPIAccessorAPIVersion = @"1";
     [parameters enumerateKeysAndObjectsUsingBlock:^(NSString *name, NSString *value, BOOL *stop) {
         [getParameters appendFormat:@"%@=%@&", name, value];
     }];
-    [getParameters substringWithRange:NSMakeRange(0, getParameters.length - 1)];
-    return getParameters;
+    return [getParameters substringWithRange:NSMakeRange(0, getParameters.length - 1)];
 }
 
 - (void)setError:(NSError **)error onBadResponseInOperation:(AFHTTPRequestOperation *)operation {
     if ((operation.error != nil || !operation.responseData) && error != NULL) {
         *error = operation.error;
+    }
+}
+
+- (void)setError:(NSError **)error onBadResponse:(BPAPIResponse *)response {
+    if(![response isSuccess]) {
+        *error = [NSError errorWithDomain:NSStringFromClass(self.class) code:response.statusCode userInfo:@{NSLocalizedDescriptionKey : [response description]}];
     }
 }
 

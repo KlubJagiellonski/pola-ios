@@ -74,6 +74,17 @@
     return activityIndicatorView;
 }
 
++ (BOOL)existInView:(UIView *)view {
+    __block BOOL exist = NO;
+    [view.subviews enumerateObjectsUsingBlock:^(UIView *subview, NSUInteger idx, BOOL *stop) {
+        if([subview isKindOfClass:[BPActivityIndicatorView class]]) {
+            exist = YES;
+            *stop = YES;
+        }
+    }];
+    return exist;
+}
+
 + (void)hideInView:(UIView *)view {
     [view.subviews enumerateObjectsUsingBlock:^(UIView *subview, NSUInteger idx, BOOL *stop) {
         if([subview isKindOfClass:[BPActivityIndicatorView class]]) {

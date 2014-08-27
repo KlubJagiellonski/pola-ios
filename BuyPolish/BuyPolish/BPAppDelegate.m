@@ -11,6 +11,7 @@
 #import "JSObjectionInjector.h"
 #import "BPObjectionModule.h"
 #import "BPRootViewController.h"
+#import "iOSHierarchyViewer.h"
 #import <Parse/Parse.h>
 
 @implementation BPAppDelegate
@@ -37,6 +38,10 @@
         [BPObjectionModule new],
     ]];
     [JSObjection setDefaultInjector:defaultInjector];
+}
+
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+    [iOSHierarchyViewer start];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
