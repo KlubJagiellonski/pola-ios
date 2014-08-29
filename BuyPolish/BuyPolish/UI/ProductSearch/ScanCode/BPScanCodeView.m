@@ -1,7 +1,6 @@
 #import "BPScanCodeView.h"
 
 
-@implementation BPScanCodeView {
+@implementation BPScanCodeView
 
-}
 @end

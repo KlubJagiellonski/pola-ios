@@ -2,9 +2,10 @@
 
 
 @class BPProduct;
+@class BPProductInfoDataSource;
 
 
-@interface BPProductInfoViewController : UIViewController
+@interface BPProductInfoViewController : UIViewController <UITableViewDelegate>
 
 @property(nonatomic, readonly) BPProduct *product;
 

@@ -4,5 +4,6 @@
 @interface BPProduct (Utilities)
 
 - (void)parse:(NSDictionary *)dictionary;
+- (BOOL)containsMainInfo;
 
 @end
