@@ -1,0 +1,1 @@
+../../BNRDynamicTypeManager/BNRDynamicTypeManager/Controls/BNRDynamicTypeManagedTextView.h

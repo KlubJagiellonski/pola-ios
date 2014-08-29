@@ -3,7 +3,10 @@
 
 
 "Scan Code" = "Scan Code";
-"Loading..." = "Loading...";
+"Loading ..." = "Loading ...";
 "Ouch!" = "Ouch!";
 "Dismiss" = "Dismiss";
 "Cannot fetch product info from server. Please try again." = "Cannot fetch product info from server. Please try again.";
+"Sorry :(
+We are working as hard as we can to gather info about all of the products, but you can still sometimes found such view." = "Sorry :(
+We are working as hard as we can to gather info about all of the products, but you can still sometimes found such view.";

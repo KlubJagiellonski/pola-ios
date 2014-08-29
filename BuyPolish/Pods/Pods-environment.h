@@ -48,6 +48,24 @@
 #define COCOAPODS_VERSION_MINOR_AFNetworking_UIKit 3
 #define COCOAPODS_VERSION_PATCH_AFNetworking_UIKit 1
 
+// BNRDynamicTypeManager
+#define COCOAPODS_POD_AVAILABLE_BNRDynamicTypeManager
+#define COCOAPODS_VERSION_MAJOR_BNRDynamicTypeManager 0
+#define COCOAPODS_VERSION_MINOR_BNRDynamicTypeManager 1
+#define COCOAPODS_VERSION_PATCH_BNRDynamicTypeManager 0
+
+// BNRDynamicTypeManager/Controls
+#define COCOAPODS_POD_AVAILABLE_BNRDynamicTypeManager_Controls
+#define COCOAPODS_VERSION_MAJOR_BNRDynamicTypeManager_Controls 0
+#define COCOAPODS_VERSION_MINOR_BNRDynamicTypeManager_Controls 1
+#define COCOAPODS_VERSION_PATCH_BNRDynamicTypeManager_Controls 0
+
+// BNRDynamicTypeManager/Core
+#define COCOAPODS_POD_AVAILABLE_BNRDynamicTypeManager_Core
+#define COCOAPODS_VERSION_MAJOR_BNRDynamicTypeManager_Core 0
+#define COCOAPODS_VERSION_MINOR_BNRDynamicTypeManager_Core 1
+#define COCOAPODS_VERSION_PATCH_BNRDynamicTypeManager_Core 0
+
 // Bolts
 #define COCOAPODS_POD_AVAILABLE_Bolts
 #define COCOAPODS_VERSION_MAJOR_Bolts 1
@@ -65,6 +83,12 @@
 #define COCOAPODS_VERSION_MAJOR_Objection 1
 #define COCOAPODS_VERSION_MINOR_Objection 4
 #define COCOAPODS_VERSION_PATCH_Objection 0
+
+// PLVisualAttributeConstraints
+#define COCOAPODS_POD_AVAILABLE_PLVisualAttributeConstraints
+#define COCOAPODS_VERSION_MAJOR_PLVisualAttributeConstraints 1
+#define COCOAPODS_VERSION_MINOR_PLVisualAttributeConstraints 0
+#define COCOAPODS_VERSION_PATCH_PLVisualAttributeConstraints 1
 
 // Parse
 #define COCOAPODS_POD_AVAILABLE_Parse

@@ -1,5 +1,6 @@
 #import "BPActivityIndicatorView.h"
 #import "NSLayoutConstraint+BPAdditions.h"
+#import "NSLayoutConstraint+PLVisualAttributeConstraints.h"
 
 
 @interface BPActivityIndicatorView ()
@@ -10,6 +11,7 @@
 
 @end
 
+
 @implementation BPActivityIndicatorView
 
 - (id)initWithFrame:(CGRect)frame {
@@ -19,12 +21,15 @@
 
         _privateConstraints = [NSMutableArray array];
 
-        _indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        _indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
         [_indicatorView startAnimating];
         [self addSubview:_indicatorView];
-        
+
         _loadingLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _loadingLabel.textColor = [UIColor whiteColor];
         [self addSubview:_loadingLabel];
+
+        [self setNeedsUpdateConstraints];
     }
 
     return self;
@@ -38,19 +43,25 @@
     [self.privateConstraints removeAllObjects];
 
     NSDictionary *views = @{
-            @"indicatorView" : self.indicatorView,
-            @"loadingLabel" : self.loadingLabel,
+        @"indicatorView" : self.indicatorView,
+        @"loadingLabel" : self.loadingLabel,
+        @"parentView" : self,
     };
 
     NSArray *formats = @[
-            @"H:|-(>0)-[indicatorView]-(>0)-|",
-            @"V:|-(>0)-[indicatorView]-(>0)-|",
-            @"H:|-(>0)-[loadingLabel]-(>0)-|",
-            @"V:[indicatorView]-[loadingLabel]"
+        @"V:[indicatorView]-[loadingLabel]"
     ];
 
     NSArray *constraints = [NSLayoutConstraint constraintsWithVisualFormats:formats options:NSLayoutFormatDirectionLeadingToTrailing metrics:nil views:views];
     [self.privateConstraints addObjectsFromArray:constraints];
+
+    NSArray *attributedFormats = @[
+        @"indicatorView.centerx == parentView.centerx",
+        @"indicatorView.centery == parentView.centery",
+        @"loadingLabel.centerx == parentView.centerx"
+    ];
+    NSArray *attributedConstraints = [NSLayoutConstraint attributeConstraintsWithVisualFormatsArray:attributedFormats views:views];
+    [self.privateConstraints addObjectsFromArray:attributedConstraints];
 
     [self addConstraints:self.privateConstraints];
     [super updateConstraints];
@@ -77,7 +88,7 @@
 + (BOOL)existInView:(UIView *)view {
     __block BOOL exist = NO;
     [view.subviews enumerateObjectsUsingBlock:^(UIView *subview, NSUInteger idx, BOOL *stop) {
-        if([subview isKindOfClass:[BPActivityIndicatorView class]]) {
+        if ([subview isKindOfClass:[BPActivityIndicatorView class]]) {
             exist = YES;
             *stop = YES;
         }
@@ -87,7 +98,7 @@
 
 + (void)hideInView:(UIView *)view {
     [view.subviews enumerateObjectsUsingBlock:^(UIView *subview, NSUInteger idx, BOOL *stop) {
-        if([subview isKindOfClass:[BPActivityIndicatorView class]]) {
+        if ([subview isKindOfClass:[BPActivityIndicatorView class]]) {
             [subview removeFromSuperview];
         }
     }];

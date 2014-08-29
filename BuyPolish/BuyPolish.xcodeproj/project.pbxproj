@@ -33,6 +33,7 @@
 		37B645F07C9913D25328C568 /* BPScanCodeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64A1CFA3A5EA1F51ED5DE /* BPScanCodeView.m */; };
 		37B6466CC6A62A7DA8229188 /* BPActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64109D5EC518C82C8EA7C /* BPActivityIndicatorView.m */; };
 		37B646BC2546890EB330F4FD /* BPTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64A4E6D2911A1145CB104 /* BPTask.m */; };
+		37B647048CA38AAAFAE34B5B /* BPNoProductInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64A1B55B938E256F8272A /* BPNoProductInfoViewController.m */; };
 		37B647E20B1B2E3F5F0ECFA3 /* BPAPIAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B648A1A89B376DE62E2133 /* BPAPIAccessor.m */; };
 		37B6498848E97978409489A6 /* NSDictionary+BPJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64059D45CBC595213920F /* NSDictionary+BPJSON.m */; };
 		37B649B3937D6158B554F509 /* BPObjectionModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64DFDBDE3A5CEE19D6FDB /* BPObjectionModule.m */; };
@@ -42,6 +43,7 @@
 		37B64B7D226FBFA23FFCA1C1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 37B645C93F848A6F598F96E2 /* Localizable.strings */; };
 		37B64BC8938BC7942D533D2F /* BPScanCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64728A5FC383EB464DA9F /* BPScanCodeViewController.m */; };
 		37B64D1253B2AD6D48DEF2EB /* BPProductSearchNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64FBD633D042DEE22B04C /* BPProductSearchNavigationController.m */; };
+		37B64D3B824625C60E337579 /* BPNoProductInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64201E2A6DEAEFF975DA0 /* BPNoProductInfoView.m */; };
 		37B64D4617BA6760E8B4101F /* BPAPIAccessor+Product.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64A5E17F2E5888839150C /* BPAPIAccessor+Product.m */; };
 		37B64E4A4C23A423A7B102CB /* BPProduct+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6473D93970F5113F3AAB3 /* BPProduct+Utilities.m */; };
 		37B64F7816B23819A90C0456 /* BPLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6464528820E718DBABAA5 /* BPLogger.m */; };
@@ -88,6 +90,7 @@
 		37B6413196A60EBDD28FA13F /* BPProductInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPProductInfoViewController.h; sourceTree = "<group>"; };
 		37B6413AB46D8FAC81D1E72B /* BPProduct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPProduct.m; sourceTree = "<group>"; };
 		37B6415103572F8588CC8D68 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		37B64201E2A6DEAEFF975DA0 /* BPNoProductInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPNoProductInfoView.m; sourceTree = "<group>"; };
 		37B642B56DC862C60A6F3CE2 /* BPProductManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPProductManager.m; sourceTree = "<group>"; };
 		37B642C8016B2BC66A308398 /* BPLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPLogger.h; sourceTree = "<group>"; };
 		37B642E167318B93DB25452C /* NSLayoutConstraint+BPAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLayoutConstraint+BPAdditions.h"; sourceTree = "<group>"; };
@@ -101,17 +104,20 @@
 		37B64728A5FC383EB464DA9F /* BPScanCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPScanCodeViewController.m; sourceTree = "<group>"; };
 		37B6472FF4603F63771FADE6 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		37B6473D93970F5113F3AAB3 /* BPProduct+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BPProduct+Utilities.m"; sourceTree = "<group>"; };
+		37B64769B7A94C77FCAEF0D7 /* BPNoProductInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPNoProductInfoViewController.h; sourceTree = "<group>"; };
 		37B647A73FC5289BC18A3B86 /* BPAPIResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPAPIResponse.h; sourceTree = "<group>"; };
 		37B64837FDD97179AAF4579D /* BPProductInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPProductInfoView.m; sourceTree = "<group>"; };
 		37B648A1A89B376DE62E2133 /* BPAPIAccessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPAPIAccessor.m; sourceTree = "<group>"; };
 		37B64960EF3268FB825DD2FE /* BPRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPRootViewController.m; sourceTree = "<group>"; };
 		37B649C1631E9ADBA6B66CC7 /* BPRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPRootViewController.h; sourceTree = "<group>"; };
 		37B649F01069BA6A92B49C15 /* BPProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPProduct.h; sourceTree = "<group>"; };
+		37B64A1B55B938E256F8272A /* BPNoProductInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPNoProductInfoViewController.m; sourceTree = "<group>"; };
 		37B64A1CFA3A5EA1F51ED5DE /* BPScanCodeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPScanCodeView.m; sourceTree = "<group>"; };
 		37B64A4E6D2911A1145CB104 /* BPTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPTask.m; sourceTree = "<group>"; };
 		37B64A5E17F2E5888839150C /* BPAPIAccessor+Product.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BPAPIAccessor+Product.m"; sourceTree = "<group>"; };
 		37B64A8330392A9AED7C2FC0 /* BPProductInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPProductInfoView.h; sourceTree = "<group>"; };
 		37B64B74E1FAED6141BA2B25 /* BPUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPUtilities.m; sourceTree = "<group>"; };
+		37B64C7A9734494225B1FA0A /* BPNoProductInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPNoProductInfoView.h; sourceTree = "<group>"; };
 		37B64CD13446A6BEBA4B6A9A /* NSLayoutConstraint+BPAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+BPAdditions.m"; sourceTree = "<group>"; };
 		37B64D1B6193C0AD0D440566 /* BPScanCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPScanCodeViewController.h; sourceTree = "<group>"; };
 		37B64DFDBDE3A5CEE19D6FDB /* BPObjectionModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPObjectionModule.m; sourceTree = "<group>"; };
@@ -260,8 +266,20 @@
 				37B64F14E9AC8C4F1853EB09 /* BPProductSearchNavigationController.h */,
 				37B64F458C8BF4C8D672DAE5 /* ScanCode */,
 				37B64B83C73E20C2B8EE7780 /* ProductInfo */,
+				37B6457E38079B6C311B9F64 /* NoProductInfo */,
 			);
 			path = ProductSearch;
+			sourceTree = "<group>";
+		};
+		37B6457E38079B6C311B9F64 /* NoProductInfo */ = {
+			isa = PBXGroup;
+			children = (
+				37B64A1B55B938E256F8272A /* BPNoProductInfoViewController.m */,
+				37B64769B7A94C77FCAEF0D7 /* BPNoProductInfoViewController.h */,
+				37B64201E2A6DEAEFF975DA0 /* BPNoProductInfoView.m */,
+				37B64C7A9734494225B1FA0A /* BPNoProductInfoView.h */,
+			);
+			path = NoProductInfo;
 			sourceTree = "<group>";
 		};
 		37B6461671AB44842A0700D7 /* Utilities */ = {
@@ -542,6 +560,8 @@
 				37B6466CC6A62A7DA8229188 /* BPActivityIndicatorView.m in Sources */,
 				37B641E616DF6D3029539275 /* NSLayoutConstraint+BPAdditions.m in Sources */,
 				37B644D57E5398A17DFA806D /* UIAlertView+BPUtilities.m in Sources */,
+				37B647048CA38AAAFAE34B5B /* BPNoProductInfoViewController.m in Sources */,
+				37B64D3B824625C60E337579 /* BPNoProductInfoView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

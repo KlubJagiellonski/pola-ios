@@ -29,7 +29,9 @@ objection_requires_sel(@selector(productManager), @selector(taskRunner))
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupCaptureSession];
+
     self.title = NSLocalizedString(@"Scan Code", @"");
+//        self.tabBarItem = [[UITabBarItem alloc] init
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -37,12 +39,6 @@ objection_requires_sel(@selector(productManager), @selector(taskRunner))
     [self setupVideoLayer];
     [_captureSession startRunning];
 }
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    [BPActivityIndicatorView showInView:self.view withText:NSLocalizedString(@"Loading...", @"")];
-}
-
 
 #pragma mark - Actions
 
@@ -55,22 +51,22 @@ objection_requires_sel(@selector(productManager), @selector(taskRunner))
     if([BPActivityIndicatorView existInView:self.view]) {
         return;
     }
-    [BPActivityIndicatorView showInView:self.view withText:NSLocalizedString(@"Loading...", @"")];
+    [BPActivityIndicatorView showInView:self.view withText:NSLocalizedString(@"Loading ...", @"")];
 
-//    weakify()
-//    void (^completion)(BPProduct *, NSError *) = ^(BPProduct *product, NSError *error) {
-//        strongify()
-//        [strongSelf.taskRunner runInMainQueue:^{
-//            [BPActivityIndicatorView hideInView:strongSelf.view];
-//            if(error) {
-//                [UIAlertView showErrorAlert:NSLocalizedString(@"Cannot fetch product info from server. Please try again.", @"Cannot fetch product info from server. Please try again.")];
-//                [strongSelf.captureSession startRunning];
-//            } else {
-//                [strongSelf.delegate scanCode:strongSelf requestsProductInfo:product];
-//            }
-//        }];
-//    };
-//    [self.productManager retrieveProductWithBarcode:barcode completion:completion];
+    weakify()
+    void (^completion)(BPProduct *, NSError *) = ^(BPProduct *product, NSError *error) {
+        strongify()
+        [strongSelf.taskRunner runInMainQueue:^{
+            [BPActivityIndicatorView hideInView:strongSelf.view];
+            if(error) {
+                [UIAlertView showErrorAlert:NSLocalizedString(@"Cannot fetch product info from server. Please try again.", @"Cannot fetch product info from server. Please try again.")];
+                [strongSelf.captureSession startRunning];
+            } else {
+                [strongSelf.delegate scanCode:strongSelf requestsProductInfo:product];
+            }
+        }];
+    };
+    [self.productManager retrieveProductWithBarcode:barcode completion:completion];
 }
 
 #pragma mark - Capture session
