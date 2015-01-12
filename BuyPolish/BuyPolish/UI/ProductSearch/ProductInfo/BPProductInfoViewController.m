@@ -30,7 +30,7 @@ objection_initializer_sel(@selector(initWithProduct:))
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.title = self.product.name;
+    self.title = self.product.barcode;
 
     UITableView *tableView = self.castView.tableView;
 

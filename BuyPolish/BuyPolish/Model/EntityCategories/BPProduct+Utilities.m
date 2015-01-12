@@ -1,4 +1,6 @@
 #import "BPProduct+Utilities.h"
+#import "BPCompany.h"
+#import "BPCompany+Utilities.h"
 
 
 @implementation BPProduct (Utilities)
@@ -6,8 +8,15 @@
 - (void)parse:(NSDictionary *)dictionary {
     self.barcode = dictionary[@"barcode"];
     self.name = dictionary[@"name"];
-    self.polish = [dictionary[@"polish"] boolValue];
-    self.checked = [dictionary[@"checked"] boolValue];
+    self.madeInPoland = dictionary[@"made_in_poland"];
+    self.madeInPolandInfo = dictionary[@"made_in_poland_info"];
+
+    NSDictionary *companyDict = dictionary[@"company"];
+    if(companyDict != nil) {
+        BPCompany *company = [[BPCompany alloc] init];
+        [company parse:companyDict];
+        self.company = company;
+    }
 }
 
 - (BOOL)containsMainInfo {

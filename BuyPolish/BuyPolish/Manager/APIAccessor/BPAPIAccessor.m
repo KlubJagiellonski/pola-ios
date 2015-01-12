@@ -4,8 +4,8 @@
 #import "NSDictionary+BPJSON.h"
 
 
-NSString *const BPAPIAccessorAPIServerUrl = @"https://api.parse.com";
-NSString *const BPAPIAccessorAPIVersion = @"1";
+NSString *const BPAPIAccessorAPIServerUrl = @"https://zyjpopolsku.herokuapp.com/api";
+NSString *const BPAPIAccessorAPIVersion = @"v1";
 
 
 @interface BPAPIAccessor ()
@@ -29,6 +29,10 @@ NSString *const BPAPIAccessorAPIVersion = @"1";
 
 - (NSString *)baseUrl {
     return [BPAPIAccessorAPIServerUrl stringByAppendingPathComponent:BPAPIAccessorAPIVersion];
+}
+
+- (BPAPIResponse *)get:(NSString *)apiFunction error:(NSError **)error{
+    return [self get:apiFunction parameters:nil error:error];
 }
 
 - (BPAPIResponse *)get:(NSString *)apiFunction parameters:(NSDictionary *)parameters error:(NSError **)error{

@@ -33,7 +33,7 @@
 - (NSString *)description {
     NSMutableString *description = [NSMutableString stringWithFormat:@"<%@: ", NSStringFromClass([self class])];
     [description appendFormat:@"responseObject: %@", _responseObject];
-    [description appendFormat:@", statusCode: %i", self.statusCode];
+    [description appendFormat:@", statusCode: %li", (long) self.statusCode];
     [description appendString:@">"];
     return description;
 }

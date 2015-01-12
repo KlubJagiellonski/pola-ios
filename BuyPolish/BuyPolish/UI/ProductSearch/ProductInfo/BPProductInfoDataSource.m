@@ -1,9 +1,7 @@
 #import "BPProductInfoDataSource.h"
 #import "BPProduct.h"
-#import "BPIsPolishTableViewCell.h"
+#import "BPCompany.h"
 
-
-NSString *const BPProductInfoDataIsPolishIdentifier = @"BPProductInfoDataIsPolishIdentifier";
 NSString *const BPProductInfoDataDefaultIdentifier = @"BPProductInfoDataDefaultIdentifier";
 
 
@@ -16,9 +14,9 @@ NSString *const BPProductInfoDataDefaultIdentifier = @"BPProductInfoDataDefaultI
 
 @implementation BPProductInfoDataSource
 
-- (instancetype)initWithProduct:(BPProduct *)product tableView:(UITableView *)tableView{
+- (instancetype)initWithProduct:(BPProduct *)product tableView:(UITableView *)tableView {
     self = [super init];
-    if(self) {
+    if (self) {
         _tableView = tableView;
         _product = product;
         [self initializeData];
@@ -27,38 +25,85 @@ NSString *const BPProductInfoDataDefaultIdentifier = @"BPProductInfoDataDefaultI
 }
 
 - (void)initializeData {
-    [self.tableView registerClass:[BPIsPolishTableViewCell class] forCellReuseIdentifier:BPProductInfoDataIsPolishIdentifier];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:BPProductInfoDataDefaultIdentifier];
 
     _data = @[
-        [BPProductInfoDataSourceSection sectionWithTitle:@"" items:@[
-            NSStringFromSelector(@selector(handleIsPolishIndexPath:)),
+        [BPProductInfoDataSourceSection sectionWithTitle:NSLocalizedString(@"Is polish", @"Is polish") items:@[
+            NSStringFromSelector(@selector(handleMadeInPolandIndexPath:)),
+            NSStringFromSelector(@selector(handleCapitalInPolandIndexPath:)),
+            NSStringFromSelector(@selector(handleTaxesInPolandIndexPath:))
         ]],
-        [BPProductInfoDataSourceSection sectionWithTitle:NSLocalizedString(@"General Info", @"") items:@[
+        [BPProductInfoDataSourceSection sectionWithTitle:NSLocalizedString(@"Produt Info", @"Produt Info") items:@[
             NSStringFromSelector(@selector(handleProductNameIndexPath:)),
+            NSStringFromSelector(@selector(handleBarcodeIndexPath:)),
+        ]],
+        [BPProductInfoDataSourceSection sectionWithTitle:NSLocalizedString(@"Company Info", @"Company Info") items:@[
+            NSStringFromSelector(@selector(handleCompanyNameIndexPath:)),
+            NSStringFromSelector(@selector(handleCompanyNipIndexPath:)),
+            NSStringFromSelector(@selector(handleCompanyRegonIndexPath:)),
         ]],
     ];
 }
 
 #pragma mark - Cells
 
-- (UITableViewCell *)handleIsPolishIndexPath:(NSIndexPath *)indexPath {
-    BPIsPolishTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:BPProductInfoDataIsPolishIdentifier forIndexPath:indexPath];
-    cell.textLabel.text = NSLocalizedString(@"Is Polish", @"Is Polish");
-    NSString *detailText;
-    if(self.product.isChecked) {
-        detailText = self.product.isPolish ? NSLocalizedString(@"Yes", @"Yes") : NSLocalizedString(@"No", @"No");
-    } else {
-        detailText = NSLocalizedString(@"Unkown", @"Unkown");
-    }
-    cell.detailTextLabel.text = detailText;
-    return cell;
-}
-
 - (UITableViewCell *)handleProductNameIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:BPProductInfoDataDefaultIdentifier forIndexPath:indexPath];
     cell.textLabel.text = NSLocalizedString(@"Name", @"Name");
     cell.detailTextLabel.text = self.product.name;
+    return cell;
+}
+
+- (UITableViewCell *)handleBarcodeIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:BPProductInfoDataDefaultIdentifier forIndexPath:indexPath];
+    cell.textLabel.text = NSLocalizedString(@"Barcode", @"Barcode");
+    cell.detailTextLabel.text = self.product.barcode;
+    return cell;
+}
+
+- (UITableViewCell *)handleMadeInPolandIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:BPProductInfoDataDefaultIdentifier forIndexPath:indexPath];
+    cell.textLabel.text = NSLocalizedString(@"Made in Poland", @"Made in Poland");
+    NSNumber *madeInPoland = self.product.madeInPoland;
+    if (madeInPoland == nil) {
+        madeInPoland = self.product.company.madeInPoland;
+    }
+    cell.detailTextLabel.text = [self percentageText:madeInPoland];
+    return cell;
+}
+
+- (UITableViewCell *)handleCapitalInPolandIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:BPProductInfoDataDefaultIdentifier forIndexPath:indexPath];
+    cell.textLabel.text = NSLocalizedString(@"Capital in Poland", @"Capital in Poland");
+    cell.detailTextLabel.text = [self percentageText:self.product.company.capitalInPoland];
+    return cell;
+}
+
+- (UITableViewCell *)handleTaxesInPolandIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:BPProductInfoDataDefaultIdentifier forIndexPath:indexPath];
+    cell.textLabel.text = NSLocalizedString(@"Taxes in Poland", @"Taxes in Poland");
+    cell.detailTextLabel.text = [self percentageText:self.product.company.taxesInPoland];
+    return cell;
+}
+
+- (UITableViewCell *)handleCompanyNameIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:BPProductInfoDataDefaultIdentifier forIndexPath:indexPath];
+    cell.textLabel.text = NSLocalizedString(@"Name", @"Name");
+    cell.detailTextLabel.text = self.product.company.name;
+    return cell;
+}
+
+- (UITableViewCell *)handleCompanyNipIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:BPProductInfoDataDefaultIdentifier forIndexPath:indexPath];
+    cell.textLabel.text = NSLocalizedString(@"Nip", @"Nip");
+    cell.detailTextLabel.text = self.product.company.nip;
+    return cell;
+}
+
+- (UITableViewCell *)handleCompanyRegonIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:BPProductInfoDataDefaultIdentifier forIndexPath:indexPath];
+    cell.textLabel.text = NSLocalizedString(@"Regon", @"Regon");
+    cell.detailTextLabel.text = self.product.company.regon;
     return cell;
 }
 
@@ -81,6 +126,16 @@ NSString *const BPProductInfoDataDefaultIdentifier = @"BPProductInfoDataDefaultI
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
     return [self performSelector:sel withObject:indexPath];
 #pragma clang diagnostic pop
+}
+
+#pragma mark - Helpers
+
+- (NSString *)percentageText:(NSNumber *)percentage {
+    if (percentage == nil) {
+        return NSLocalizedString(@"Unknown", @"Unknown");
+    } else {
+        return [NSString stringWithFormat:@"%i %%", percentage.intValue];
+    }
 }
 
 @end

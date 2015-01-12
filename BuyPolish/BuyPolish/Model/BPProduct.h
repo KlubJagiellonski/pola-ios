@@ -1,11 +1,14 @@
 #import <Foundation/Foundation.h>
 
+@class BPCompany;
+
 
 @interface BPProduct : NSObject
 
 @property(nonatomic, copy) NSString *barcode;
 @property(nonatomic, copy) NSString *name;
-@property(nonatomic, getter=isPolish) BOOL polish;
-@property(nonatomic, getter=isChecked) BOOL checked;
+@property(nonatomic, strong) NSNumber *madeInPoland;
+@property(nonatomic, copy) NSString *madeInPolandInfo;
+@property(nonatomic, strong) BPCompany *company;
 
 @end

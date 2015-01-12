@@ -7,7 +7,7 @@
     va_list args;
     va_start(args, format);
     NSString *string = [[NSString alloc] initWithFormat:format arguments:args];
-    NSLog(@"%@ [%@][%@][%i]", string, fileName, method, line);
+    NSLog(@"%@ [%@][%@][%li]", string, fileName, method, (long) line);
     va_end(args);
 }
 
