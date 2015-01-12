@@ -13,4 +13,11 @@
     return self;
 }
 
+- (void)layoutSubviews {
+    [super layoutSubviews];
+
+    self.tableView.frame = CGRectMake(0, 0, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds));
+}
+
+
 @end

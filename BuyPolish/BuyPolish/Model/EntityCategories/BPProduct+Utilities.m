@@ -6,10 +6,10 @@
 @implementation BPProduct (Utilities)
 
 - (void)parse:(NSDictionary *)dictionary {
-    self.barcode = dictionary[@"barcode"];
-    self.name = dictionary[@"name"];
-    self.madeInPoland = dictionary[@"made_in_poland"];
-    self.madeInPolandInfo = dictionary[@"made_in_poland_info"];
+    self.barcode = [BPUtilities handleNull:dictionary[@"barcode"]];
+    self.name = [BPUtilities handleNull:dictionary[@"name"]];
+    self.madeInPoland = [BPUtilities handleNull:dictionary[@"made_in_poland"]];
+    self.madeInPolandInfo = [BPUtilities handleNull:dictionary[@"made_in_poland_info"]];
 
     NSDictionary *companyDict = dictionary[@"company"];
     if(companyDict != nil) {
@@ -20,7 +20,7 @@
 }
 
 - (BOOL)containsMainInfo {
-    return self.name.length > 0;
+    return self.barcode.length > 0;
 }
 
 @end

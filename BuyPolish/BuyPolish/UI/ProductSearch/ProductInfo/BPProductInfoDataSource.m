@@ -1,6 +1,7 @@
 #import "BPProductInfoDataSource.h"
 #import "BPProduct.h"
 #import "BPCompany.h"
+#import "BPDefaultTableViewCell.h"
 
 NSString *const BPProductInfoDataDefaultIdentifier = @"BPProductInfoDataDefaultIdentifier";
 
@@ -25,7 +26,7 @@ NSString *const BPProductInfoDataDefaultIdentifier = @"BPProductInfoDataDefaultI
 }
 
 - (void)initializeData {
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:BPProductInfoDataDefaultIdentifier];
+    [self.tableView registerClass:[BPDefaultTableViewCell class] forCellReuseIdentifier:BPProductInfoDataDefaultIdentifier];
 
     _data = @[
         [BPProductInfoDataSourceSection sectionWithTitle:NSLocalizedString(@"Is polish", @"Is polish") items:@[
@@ -116,6 +117,11 @@ NSString *const BPProductInfoDataDefaultIdentifier = @"BPProductInfoDataDefaultI
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     BPProductInfoDataSourceSection *dataSourceSection = self.data[(NSUInteger) section];
     return dataSourceSection.items.count;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    BPProductInfoDataSourceSection *dataSourceSection = self.data[(NSUInteger) section];
+    return dataSourceSection.title;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

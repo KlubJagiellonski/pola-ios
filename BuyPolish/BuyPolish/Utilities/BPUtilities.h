@@ -6,4 +6,7 @@
 
 
 @interface BPUtilities : NSObject
+
++ (id)handleNull:(id)object;
+
 @end
