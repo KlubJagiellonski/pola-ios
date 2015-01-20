@@ -11,4 +11,5 @@
 @property(nonatomic, copy) NSString *madeInPolandInfo;
 @property(nonatomic, strong) BPCompany *company;
 
+- (instancetype)initWithBarcode:(NSString *)barcode;
 @end

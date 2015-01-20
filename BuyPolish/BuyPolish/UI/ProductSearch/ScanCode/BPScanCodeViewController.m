@@ -6,6 +6,7 @@
 #import "BPTaskRunner.h"
 #import "BPActivityIndicatorView.h"
 #import "UIAlertView+BPUtilities.h"
+#import "NSString+BPUtilities.h"
 
 
 @interface BPScanCodeViewController ()
@@ -44,13 +45,15 @@ objection_requires_sel(@selector(productManager), @selector(taskRunner))
 
 - (void)foundBarcode:(NSString *)barcode corners:(NSArray *)corners {
     [self.captureSession stopRunning];
-    [self scanForBarcode:barcode];
-}
 
-- (void)scanForBarcode:(NSString *)barcode {
-    if([BPActivityIndicatorView existInView:self.view]) {
+    if(![barcode isValidBarcode]) {
+        UIAlertView * alertView = [UIAlertView showErrorAlert:NSLocalizedString(@"Not valid barcode. Please try again.", @"Not valid barcode. Please try again.")];
+        [alertView setDelegate:self];
         return;
     }
+
+    BPProduct *product = [[BPProduct alloc] initWithBarcode:barcode];
+    product
     [BPActivityIndicatorView showInView:self.view withText:NSLocalizedString(@"Loading ...", @"")];
 
     weakify()
@@ -107,6 +110,13 @@ objection_requires_sel(@selector(productManager), @selector(taskRunner))
         [self foundBarcode:barcode corners:metadataObj.corners];
     }
 }
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    [_captureSession startRunning];
+}
+
 
 #pragma mark - Helpers
 

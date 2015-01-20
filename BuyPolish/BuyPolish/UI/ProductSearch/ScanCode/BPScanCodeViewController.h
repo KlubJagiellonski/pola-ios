@@ -13,7 +13,7 @@
 @end
 
 
-@interface BPScanCodeViewController : UIViewController <AVCaptureMetadataOutputObjectsDelegate>
+@interface BPScanCodeViewController : UIViewController <AVCaptureMetadataOutputObjectsDelegate, UIAlertViewDelegate>
 
 @property(nonatomic, weak) id <BPScanCodeViewControllerDelegate> delegate;
 

@@ -1,8 +1,13 @@
 #import "BPProduct.h"
-#import "BPCompany.h"
 
 
-@implementation BPProduct {
+@implementation BPProduct
 
+- (instancetype)initWithBarcode:(NSString *)barcode {
+    self = [super init];
+    if (self) {
+        _barcode = barcode;
+    }
+    return barcode;
 }
 @end
