@@ -31,8 +31,8 @@ NSString *const BPProductInfoDataDefaultIdentifier = @"BPProductInfoDataDefaultI
     _data = @[
         [BPProductInfoDataSourceSection sectionWithTitle:NSLocalizedString(@"Is polish", @"Is polish") items:@[
             NSStringFromSelector(@selector(handleMadeInPolandIndexPath:)),
+            NSStringFromSelector(@selector(handleMadeInPolandDescriptionIndexPath:)),
             NSStringFromSelector(@selector(handleCapitalInPolandIndexPath:)),
-            NSStringFromSelector(@selector(handleTaxesInPolandIndexPath:))
         ]],
         [BPProductInfoDataSourceSection sectionWithTitle:NSLocalizedString(@"Produt Info", @"Produt Info") items:@[
             NSStringFromSelector(@selector(handleProductNameIndexPath:)),
@@ -44,6 +44,11 @@ NSString *const BPProductInfoDataDefaultIdentifier = @"BPProductInfoDataDefaultI
             NSStringFromSelector(@selector(handleCompanyRegonIndexPath:)),
         ]],
     ];
+}
+
+- (void)updateProduct:(BPProduct *)product {
+    _product = product;
+    [self.tableView reloadData];
 }
 
 #pragma mark - Cells
@@ -65,11 +70,14 @@ NSString *const BPProductInfoDataDefaultIdentifier = @"BPProductInfoDataDefaultI
 - (UITableViewCell *)handleMadeInPolandIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:BPProductInfoDataDefaultIdentifier forIndexPath:indexPath];
     cell.textLabel.text = NSLocalizedString(@"Made in Poland", @"Made in Poland");
-    NSNumber *madeInPoland = self.product.madeInPoland;
-    if (madeInPoland == nil) {
-        madeInPoland = self.product.company.madeInPoland;
-    }
-    cell.detailTextLabel.text = [self percentageText:madeInPoland];
+    cell.detailTextLabel.text = [self percentageText:self.product.madeInPoland];
+    return cell;
+}
+
+- (UITableViewCell *)handleMadeInPolandDescriptionIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:BPProductInfoDataDefaultIdentifier forIndexPath:indexPath];
+    cell.textLabel.text = @"";
+    cell.detailTextLabel.text = self.product.madeInPolandInfo;
     return cell;
 }
 
@@ -77,13 +85,6 @@ NSString *const BPProductInfoDataDefaultIdentifier = @"BPProductInfoDataDefaultI
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:BPProductInfoDataDefaultIdentifier forIndexPath:indexPath];
     cell.textLabel.text = NSLocalizedString(@"Capital in Poland", @"Capital in Poland");
     cell.detailTextLabel.text = [self percentageText:self.product.company.capitalInPoland];
-    return cell;
-}
-
-- (UITableViewCell *)handleTaxesInPolandIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:BPProductInfoDataDefaultIdentifier forIndexPath:indexPath];
-    cell.textLabel.text = NSLocalizedString(@"Taxes in Poland", @"Taxes in Poland");
-    cell.detailTextLabel.text = [self percentageText:self.product.company.taxesInPoland];
     return cell;
 }
 

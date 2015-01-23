@@ -4,7 +4,6 @@
 #import "BPProduct.h"
 #import "BPProductInfoViewController.h"
 #import "BPProduct+Utilities.h"
-#import "BPNoProductInfoViewController.h"
 
 
 @implementation BPProductSearchNavigationController
@@ -26,11 +25,7 @@
 - (void)scanCode:(BPScanCodeViewController *)viewController requestsProductInfo:(BPProduct *)product {
     JSObjectionInjector *injector = [JSObjection defaultInjector];
     UIViewController *viewControllerToPush;
-    if([product containsMainInfo]) {
-        viewControllerToPush = [injector getObject:[BPProductInfoViewController class] argumentList:@[product]];
-    } else {
-        viewControllerToPush = injector[[BPNoProductInfoViewController class]];
-    }
+    viewControllerToPush = [injector getObject:[BPProductInfoViewController class] argumentList:@[product]];
     [self pushViewController:viewControllerToPush animated:YES];
 }
 

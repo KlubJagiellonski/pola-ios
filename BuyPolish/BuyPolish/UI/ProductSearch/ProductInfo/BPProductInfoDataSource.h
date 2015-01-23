@@ -10,6 +10,7 @@
 
 - (instancetype)initWithProduct:(BPProduct *)product tableView:(UITableView *)tableView;
 
+- (void)updateProduct:(BPProduct *)product;
 @end
 
 

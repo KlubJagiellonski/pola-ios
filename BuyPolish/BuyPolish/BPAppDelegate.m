@@ -13,6 +13,9 @@
 #import "BPRootViewController.h"
 #import "iOSHierarchyViewer.h"
 #import <Parse/Parse.h>
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
+
 
 @implementation BPAppDelegate
 
@@ -22,6 +25,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [Fabric with:@[CrashlyticsKit]];
+
     [self configureObjection];
 
     JSObjectionInjector *injector = [JSObjection defaultInjector];

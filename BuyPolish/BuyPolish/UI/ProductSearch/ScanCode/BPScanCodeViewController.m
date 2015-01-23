@@ -7,13 +7,13 @@
 #import "BPActivityIndicatorView.h"
 #import "UIAlertView+BPUtilities.h"
 #import "NSString+BPUtilities.h"
+#import "BPProduct+Utilities.h"
 
 
 @interface BPScanCodeViewController ()
 
 @property(nonatomic, strong) AVCaptureSession *captureSession;
 @property(nonatomic, strong) AVCaptureVideoPreviewLayer *videoPreviewLayer;
-@property(nonatomic, readonly) BPProductManager *productManager;
 @property(nonatomic, readonly) BPTaskRunner *taskRunner;
 
 @end
@@ -21,7 +21,7 @@
 
 @implementation BPScanCodeViewController
 
-objection_requires_sel(@selector(productManager), @selector(taskRunner))
+objection_requires_sel(@selector(taskRunner))
 
 - (void)loadView {
     self.view = [[BPScanCodeView alloc] initWithFrame:CGRectZero];
@@ -53,23 +53,8 @@ objection_requires_sel(@selector(productManager), @selector(taskRunner))
     }
 
     BPProduct *product = [[BPProduct alloc] initWithBarcode:barcode];
-    product
-    [BPActivityIndicatorView showInView:self.view withText:NSLocalizedString(@"Loading ...", @"")];
-
-    weakify()
-    void (^completion)(BPProduct *, NSError *) = ^(BPProduct *product, NSError *error) {
-        strongify()
-        [strongSelf.taskRunner runInMainQueue:^{
-            [BPActivityIndicatorView hideInView:strongSelf.view];
-            if(error) {
-                [UIAlertView showErrorAlert:NSLocalizedString(@"Cannot fetch product info from server. Please try again.", @"Cannot fetch product info from server. Please try again.")];
-                [strongSelf.captureSession startRunning];
-            } else {
-                [strongSelf.delegate scanCode:strongSelf requestsProductInfo:product];
-            }
-        }];
-    };
-    [self.productManager retrieveProductWithBarcode:barcode completion:completion];
+    [product fillMadeInPolandFromBarcode:barcode];
+    [self.delegate scanCode:self requestsProductInfo:product];
 }
 
 #pragma mark - Capture session

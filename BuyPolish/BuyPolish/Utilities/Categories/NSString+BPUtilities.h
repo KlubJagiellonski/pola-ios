@@ -5,5 +5,5 @@
 
 - (BOOL)isValidBarcode;
 
-- (BOOL)isPolishBarcode;
+
 @end

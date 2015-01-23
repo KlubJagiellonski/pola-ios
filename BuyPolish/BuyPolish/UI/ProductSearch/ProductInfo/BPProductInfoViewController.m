@@ -3,17 +3,22 @@
 #import "BPProductInfoView.h"
 #import "Objection.h"
 #import "BPProductInfoDataSource.h"
+#import "BPProductManager.h"
+#import "UIAlertView+BPUtilities.h"
 
 
 @interface BPProductInfoViewController ()
 
 @property(nonatomic, readonly) BPProductInfoDataSource *dataSource;
+@property(nonatomic, readonly) BPProductManager *productManager;
+
 @end
 
 
 @implementation BPProductInfoViewController
 
 objection_initializer_sel(@selector(initWithProduct:))
+objection_requires_sel(@selector(productManager))
 
 - (instancetype)initWithProduct:(BPProduct *)product {
     self = [super init];
@@ -38,6 +43,17 @@ objection_initializer_sel(@selector(initWithProduct:))
     
     tableView.delegate = self;
     tableView.dataSource = self.dataSource;
+
+    weakify();
+    [self.productManager retrieveProductWithBarcode:self.product.barcode completion:^(BPProduct *product, NSError *error) {
+        strongify()
+        if(!error) {
+            strongSelf->_product = product;
+            [strongSelf->_dataSource updateProduct:product];
+        } else {
+            [UIAlertView showErrorAlert:NSLocalizedString(@"Cannot fetch product info from server. Please try again.", @"")];
+        }
+    }];
 }
 
 #pragma mark - Helpers

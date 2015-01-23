@@ -23,6 +23,8 @@
 		1D08E84819A7621A00879BD2 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D08E82C19A7621A00879BD2 /* CoreData.framework */; };
 		1D08E85019A7621A00879BD2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1D08E84E19A7621A00879BD2 /* InfoPlist.strings */; };
 		1D08E85219A7621A00879BD2 /* BuyPolishTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D08E85119A7621A00879BD2 /* BuyPolishTests.m */; };
+		1D648C131A71B483002B413D /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D648C111A71B483002B413D /* Crashlytics.framework */; };
+		1D648C141A71B483002B413D /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D648C121A71B483002B413D /* Fabric.framework */; };
 		37B6401F7F03873B77793651 /* BPDefaultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B645CFC4DD54CD1B5AB3FC /* BPDefaultTableViewCell.m */; };
 		37B6416E16FEB2AD27BB3D9E /* BPAPIResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6468E5905EC7102613DAB /* BPAPIResponse.m */; };
 		37B641CAB118895848603A5D /* BPProductInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64837FDD97179AAF4579D /* BPProductInfoView.m */; };
@@ -35,7 +37,6 @@
 		37B645F07C9913D25328C568 /* BPScanCodeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64A1CFA3A5EA1F51ED5DE /* BPScanCodeView.m */; };
 		37B6466CC6A62A7DA8229188 /* BPActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64109D5EC518C82C8EA7C /* BPActivityIndicatorView.m */; };
 		37B646BC2546890EB330F4FD /* BPTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64A4E6D2911A1145CB104 /* BPTask.m */; };
-		37B647048CA38AAAFAE34B5B /* BPNoProductInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64A1B55B938E256F8272A /* BPNoProductInfoViewController.m */; };
 		37B64798571C9987E7041639 /* BPCompany+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B647FEED6EEF7F9C209A45 /* BPCompany+Utilities.m */; };
 		37B647E20B1B2E3F5F0ECFA3 /* BPAPIAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B648A1A89B376DE62E2133 /* BPAPIAccessor.m */; };
 		37B6480CB8E9273EAC35EDA6 /* NSString+BPUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B644631C60E8DE444885DD /* NSString+BPUtilities.m */; };
@@ -48,7 +49,6 @@
 		37B64B7D226FBFA23FFCA1C1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 37B645C93F848A6F598F96E2 /* Localizable.strings */; };
 		37B64BC8938BC7942D533D2F /* BPScanCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64728A5FC383EB464DA9F /* BPScanCodeViewController.m */; };
 		37B64D1253B2AD6D48DEF2EB /* BPProductSearchNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64FBD633D042DEE22B04C /* BPProductSearchNavigationController.m */; };
-		37B64D3B824625C60E337579 /* BPNoProductInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64201E2A6DEAEFF975DA0 /* BPNoProductInfoView.m */; };
 		37B64D4617BA6760E8B4101F /* BPAPIAccessor+Product.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64A5E17F2E5888839150C /* BPAPIAccessor+Product.m */; };
 		37B64E4A4C23A423A7B102CB /* BPProduct+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6473D93970F5113F3AAB3 /* BPProduct+Utilities.m */; };
 		37B64F7816B23819A90C0456 /* BPLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6464528820E718DBABAA5 /* BPLogger.m */; };
@@ -84,6 +84,8 @@
 		1D08E84D19A7621A00879BD2 /* BuyPolishTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BuyPolishTests-Info.plist"; sourceTree = "<group>"; };
 		1D08E84F19A7621A00879BD2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1D08E85119A7621A00879BD2 /* BuyPolishTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BuyPolishTests.m; sourceTree = "<group>"; };
+		1D648C111A71B483002B413D /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		1D648C121A71B483002B413D /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		252B683669D64ED8A18A3971 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		37B64059D45CBC595213920F /* NSDictionary+BPJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+BPJSON.m"; sourceTree = "<group>"; };
 		37B64096880AC9C86B2DF4B1 /* BPProduct+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BPProduct+Utilities.h"; sourceTree = "<group>"; };
@@ -95,7 +97,6 @@
 		37B6413196A60EBDD28FA13F /* BPProductInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPProductInfoViewController.h; sourceTree = "<group>"; };
 		37B6413AB46D8FAC81D1E72B /* BPProduct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPProduct.m; sourceTree = "<group>"; };
 		37B6415103572F8588CC8D68 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		37B64201E2A6DEAEFF975DA0 /* BPNoProductInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPNoProductInfoView.m; sourceTree = "<group>"; };
 		37B642B56DC862C60A6F3CE2 /* BPProductManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPProductManager.m; sourceTree = "<group>"; };
 		37B642C8016B2BC66A308398 /* BPLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPLogger.h; sourceTree = "<group>"; };
 		37B642E167318B93DB25452C /* NSLayoutConstraint+BPAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLayoutConstraint+BPAdditions.h"; sourceTree = "<group>"; };
@@ -112,7 +113,6 @@
 		37B64728A5FC383EB464DA9F /* BPScanCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPScanCodeViewController.m; sourceTree = "<group>"; };
 		37B6472FF4603F63771FADE6 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		37B6473D93970F5113F3AAB3 /* BPProduct+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BPProduct+Utilities.m"; sourceTree = "<group>"; };
-		37B64769B7A94C77FCAEF0D7 /* BPNoProductInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPNoProductInfoViewController.h; sourceTree = "<group>"; };
 		37B647A73FC5289BC18A3B86 /* BPAPIResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPAPIResponse.h; sourceTree = "<group>"; };
 		37B647FEED6EEF7F9C209A45 /* BPCompany+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BPCompany+Utilities.m"; sourceTree = "<group>"; };
 		37B6480F6E86E7867048D1DC /* BPCompany.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPCompany.m; sourceTree = "<group>"; };
@@ -122,13 +122,11 @@
 		37B64960EF3268FB825DD2FE /* BPRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPRootViewController.m; sourceTree = "<group>"; };
 		37B649C1631E9ADBA6B66CC7 /* BPRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPRootViewController.h; sourceTree = "<group>"; };
 		37B649F01069BA6A92B49C15 /* BPProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPProduct.h; sourceTree = "<group>"; };
-		37B64A1B55B938E256F8272A /* BPNoProductInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPNoProductInfoViewController.m; sourceTree = "<group>"; };
 		37B64A1CFA3A5EA1F51ED5DE /* BPScanCodeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPScanCodeView.m; sourceTree = "<group>"; };
 		37B64A4E6D2911A1145CB104 /* BPTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPTask.m; sourceTree = "<group>"; };
 		37B64A5E17F2E5888839150C /* BPAPIAccessor+Product.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BPAPIAccessor+Product.m"; sourceTree = "<group>"; };
 		37B64A8330392A9AED7C2FC0 /* BPProductInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPProductInfoView.h; sourceTree = "<group>"; };
 		37B64B74E1FAED6141BA2B25 /* BPUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPUtilities.m; sourceTree = "<group>"; };
-		37B64C7A9734494225B1FA0A /* BPNoProductInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPNoProductInfoView.h; sourceTree = "<group>"; };
 		37B64C7C7A19465529F97527 /* BPProductInfoDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPProductInfoDataSource.h; sourceTree = "<group>"; };
 		37B64CD13446A6BEBA4B6A9A /* NSLayoutConstraint+BPAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+BPAdditions.m"; sourceTree = "<group>"; };
 		37B64D1B6193C0AD0D440566 /* BPScanCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPScanCodeViewController.h; sourceTree = "<group>"; };
@@ -154,9 +152,11 @@
 				1D08E82919A7621A00879BD2 /* CoreGraphics.framework in Frameworks */,
 				1D08E82D19A7621A00879BD2 /* CoreData.framework in Frameworks */,
 				1D08E82B19A7621A00879BD2 /* UIKit.framework in Frameworks */,
+				1D648C141A71B483002B413D /* Fabric.framework in Frameworks */,
 				1D08E82719A7621A00879BD2 /* Foundation.framework in Frameworks */,
 				05FDDAF8950D492E88C57933 /* libPods.a in Frameworks */,
 				37B645454FC2ACC155CB1538 /* AVFoundation.framework in Frameworks */,
+				1D648C131A71B483002B413D /* Crashlytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -197,6 +197,8 @@
 		1D08E82519A7621A00879BD2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1D648C111A71B483002B413D /* Crashlytics.framework */,
+				1D648C121A71B483002B413D /* Fabric.framework */,
 				1D08E82619A7621A00879BD2 /* Foundation.framework */,
 				1D08E82819A7621A00879BD2 /* CoreGraphics.framework */,
 				1D08E82A19A7621A00879BD2 /* UIKit.framework */,
@@ -292,20 +294,8 @@
 				37B64F14E9AC8C4F1853EB09 /* BPProductSearchNavigationController.h */,
 				37B64F458C8BF4C8D672DAE5 /* ScanCode */,
 				37B64B83C73E20C2B8EE7780 /* ProductInfo */,
-				37B6457E38079B6C311B9F64 /* NoProductInfo */,
 			);
 			path = ProductSearch;
-			sourceTree = "<group>";
-		};
-		37B6457E38079B6C311B9F64 /* NoProductInfo */ = {
-			isa = PBXGroup;
-			children = (
-				37B64A1B55B938E256F8272A /* BPNoProductInfoViewController.m */,
-				37B64769B7A94C77FCAEF0D7 /* BPNoProductInfoViewController.h */,
-				37B64201E2A6DEAEFF975DA0 /* BPNoProductInfoView.m */,
-				37B64C7A9734494225B1FA0A /* BPNoProductInfoView.h */,
-			);
-			path = NoProductInfo;
 			sourceTree = "<group>";
 		};
 		37B6461671AB44842A0700D7 /* Utilities */ = {
@@ -446,6 +436,7 @@
 				1D08E82019A7621A00879BD2 /* Frameworks */,
 				1D08E82119A7621A00879BD2 /* Resources */,
 				C87678FFC5F74E0A894C9484 /* Copy Pods Resources */,
+				1D648C101A71B46D002B413D /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -532,6 +523,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		1D648C101A71B46D002B413D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run ccb68e959044cbd12b0295078e08f2f9dbb45e9b 5d87001d18edf63c4195b66bc9f74d9d75bb41273cbb805f55de94431d0023b7";
+		};
 		C87678FFC5F74E0A894C9484 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -593,8 +597,6 @@
 				37B6466CC6A62A7DA8229188 /* BPActivityIndicatorView.m in Sources */,
 				37B641E616DF6D3029539275 /* NSLayoutConstraint+BPAdditions.m in Sources */,
 				37B644D57E5398A17DFA806D /* UIAlertView+BPUtilities.m in Sources */,
-				37B647048CA38AAAFAE34B5B /* BPNoProductInfoViewController.m in Sources */,
-				37B64D3B824625C60E337579 /* BPNoProductInfoView.m in Sources */,
 				37B64A8975455DABBD369873 /* BPProductInfoDataSource.m in Sources */,
 				37B6422D02FB02F8192C7286 /* BPCompany.m in Sources */,
 				37B64798571C9987E7041639 /* BPCompany+Utilities.m in Sources */,
@@ -728,6 +730,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BuyPolish/BuyPolish-Prefix.pch";
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
@@ -747,6 +753,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BuyPolish/BuyPolish-Prefix.pch";
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;

@@ -8,6 +8,6 @@
     if (self) {
         _barcode = barcode;
     }
-    return barcode;
+    return self;
 }
 @end
