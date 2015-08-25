@@ -39,6 +39,10 @@ objection_requires_sel(@selector(taskRunner))
     [super viewWillAppear:animated];
     [self setupVideoLayer];
     [_captureSession startRunning];
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        [self foundBarcode:@"5901359000237" corners:nil];
+    });
 }
 
 #pragma mark - Actions

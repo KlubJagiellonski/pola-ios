@@ -12,7 +12,6 @@
 #import "BPObjectionModule.h"
 #import "BPRootViewController.h"
 #import "iOSHierarchyViewer.h"
-#import <Parse/Parse.h>
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 

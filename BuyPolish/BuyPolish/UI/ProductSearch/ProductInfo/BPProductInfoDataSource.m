@@ -41,7 +41,6 @@ NSString *const BPProductInfoDataDefaultIdentifier = @"BPProductInfoDataDefaultI
         [BPProductInfoDataSourceSection sectionWithTitle:NSLocalizedString(@"Company Info", @"Company Info") items:@[
             NSStringFromSelector(@selector(handleCompanyNameIndexPath:)),
             NSStringFromSelector(@selector(handleCompanyNipIndexPath:)),
-            NSStringFromSelector(@selector(handleCompanyRegonIndexPath:)),
         ]],
     ];
 }
@@ -99,13 +98,6 @@ NSString *const BPProductInfoDataDefaultIdentifier = @"BPProductInfoDataDefaultI
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:BPProductInfoDataDefaultIdentifier forIndexPath:indexPath];
     cell.textLabel.text = NSLocalizedString(@"Nip", @"Nip");
     cell.detailTextLabel.text = self.product.company.nip;
-    return cell;
-}
-
-- (UITableViewCell *)handleCompanyRegonIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:BPProductInfoDataDefaultIdentifier forIndexPath:indexPath];
-    cell.textLabel.text = NSLocalizedString(@"Regon", @"Regon");
-    cell.detailTextLabel.text = self.product.company.regon;
     return cell;
 }
 

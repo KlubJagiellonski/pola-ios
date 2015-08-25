@@ -1,21 +1,26 @@
+#import <Objection/Objection.h>
 #import "BPAPIAccessor.h"
 #import "AFHTTPRequestOperation.h"
 #import "BPAPIResponse.h"
 #import "NSDictionary+BPJSON.h"
+#import "BPDeviceManager.h"
 
 
-NSString *const BPAPIAccessorAPIServerUrl = @"https://zyjpopolsku.herokuapp.com/api";
-NSString *const BPAPIAccessorAPIVersion = @"v1";
+NSString *const BPAPIAccessorAPIServerUrl = @"https://pola-staging.herokuapp.com/api";
+NSString *const BPAPIAccessorAPIDeviceId = @"device_id";
 
 
 @interface BPAPIAccessor ()
 
 @property(nonatomic, readonly) NSOperationQueue *operationsQueue;
+@property(nonatomic, readonly) BPDeviceManager *deviceManager;
 
 @end
 
 
 @implementation BPAPIAccessor
+
+objection_requires_sel(@selector(deviceManager))
 
 - (id)init {
     self = [super init];
@@ -28,7 +33,7 @@ NSString *const BPAPIAccessorAPIVersion = @"v1";
 }
 
 - (NSString *)baseUrl {
-    return [BPAPIAccessorAPIServerUrl stringByAppendingPathComponent:BPAPIAccessorAPIVersion];
+    return BPAPIAccessorAPIServerUrl;
 }
 
 - (BPAPIResponse *)get:(NSString *)apiFunction error:(NSError **)error{
@@ -37,12 +42,19 @@ NSString *const BPAPIAccessorAPIVersion = @"v1";
 
 - (BPAPIResponse *)get:(NSString *)apiFunction parameters:(NSDictionary *)parameters error:(NSError **)error{
     NSString *url = [[self baseUrl] stringByAppendingPathComponent:apiFunction];
+    parameters = [self addDefaultParameters:parameters];
     if(parameters) {
-        [url stringByAppendingFormat:@"?%@", [self stringFromParameters:parameters]];
+        url = [url stringByAppendingFormat:@"?%@", [self stringFromParameters:parameters]];
     }
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[[NSURL alloc] initWithString:url]];
     [request setHTTPMethod:@"GET"];
     return [self performRequest:request error:error];
+}
+
+- (NSDictionary *)addDefaultParameters:(NSDictionary *)parameters {
+    NSMutableDictionary *mutableParameters = [NSMutableDictionary dictionaryWithDictionary:parameters];
+    mutableParameters[BPAPIAccessorAPIDeviceId] = self.deviceManager.deviceId;
+    return mutableParameters;
 }
 
 - (BPAPIResponse *)post:(NSString *)apiFunction json:(NSDictionary *)parameters error:(NSError **)error{

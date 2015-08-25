@@ -6,10 +6,8 @@
 @implementation BPProduct (Utilities)
 
 - (void)parse:(NSDictionary *)dictionary {
-    self.barcode = [BPUtilities handleNull:dictionary[@"barcode"]];
-    self.name = [BPUtilities handleNull:dictionary[@"name"]];
-    self.madeInPoland = [BPUtilities handleNull:dictionary[@"made_in_poland"]];
-    self.madeInPolandInfo = [BPUtilities handleNull:dictionary[@"made_in_poland_info"]];
+    self.barcode = [BPUtilities handleNull:dictionary[@"code"]];
+    [self fillMadeInPolandFromBarcode:self.barcode];
 
     NSDictionary *companyDict = dictionary[@"company"];
     if (companyDict != nil) {

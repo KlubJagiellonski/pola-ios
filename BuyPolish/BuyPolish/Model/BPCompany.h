@@ -6,8 +6,7 @@
 @property(nonatomic, copy) NSString *name;
 @property(nonatomic, strong) NSNumber *capitalInPoland;
 @property(nonatomic, copy) NSString *capitalInPolandInfo;
-@property(nonatomic, copy) NSString *krsUrl;
 @property(nonatomic, copy) NSString *nip;
-@property(nonatomic, copy) NSString *regon;
+@property(nonatomic, copy) NSString *address;
 
 @end

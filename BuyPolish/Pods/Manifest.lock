@@ -26,13 +26,8 @@ PODS:
   - BNRDynamicTypeManager/Controls (0.1.0):
     - BNRDynamicTypeManager/Core
   - BNRDynamicTypeManager/Core (0.1.0)
-  - Bolts (1.1.2)
-  - Facebook-iOS-SDK (3.17.0):
-    - Bolts
   - iOS-Hierarchy-Viewer (1.4.7)
   - Objection (1.4)
-  - Parse (1.2.20):
-    - Facebook-iOS-SDK (~> 3.11)
   - PLVisualAttributeConstraints (1.0.1)
 
 DEPENDENCIES:
@@ -40,17 +35,13 @@ DEPENDENCIES:
   - BNRDynamicTypeManager (= 0.1.0)
   - iOS-Hierarchy-Viewer (= 1.4.7)
   - Objection (= 1.4)
-  - Parse (= 1.2.20)
   - PLVisualAttributeConstraints (= 1.0.1)
 
 SPEC CHECKSUMS:
-  AFNetworking: 6d7b76aa5d04c8c37daad3eef4b7e3f2a7620da3
-  BNRDynamicTypeManager: 04448150ee840a12f6f9e0371de88cc362ae9948
-  Bolts: 2635e8698a630774689441047f3465d78c48d485
-  Facebook-iOS-SDK: f20274d809f112ba540842e2b6cbe50128d51b7b
-  iOS-Hierarchy-Viewer: f795abaeb8ccec8f652abd0891c396ad77d211d3
-  Objection: 8176a996209cdcd23490c57d6e807a25faa8d54d
-  Parse: 28c0dc54f30201a369d29a2f76c09fa43b2add16
-  PLVisualAttributeConstraints: 7cd6bedbdcbf99645decc42c4400c9a8d998e317
+  AFNetworking: 05b9f6e3aa5ac45bc383b4bb108ef338080a26c7
+  BNRDynamicTypeManager: 44ee2970cd0120cbedd3dec84da41d0381525219
+  iOS-Hierarchy-Viewer: fb8ef72b55a8915ab0575543970754ea696e9061
+  Objection: aa9875dbf1b121a077f7e13d504a6ed01816a7f1
+  PLVisualAttributeConstraints: 9ab247e576b464335f32587ad6c20adfaf7e6d5d
 
-COCOAPODS: 0.33.1
+COCOAPODS: 0.34.1
