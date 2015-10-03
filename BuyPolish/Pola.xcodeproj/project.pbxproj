@@ -40,6 +40,7 @@
 		37B64798571C9987E7041639 /* BPCompany+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B647FEED6EEF7F9C209A45 /* BPCompany+Utilities.m */; };
 		37B647E20B1B2E3F5F0ECFA3 /* BPAPIAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B648A1A89B376DE62E2133 /* BPAPIAccessor.m */; };
 		37B6480CB8E9273EAC35EDA6 /* NSString+BPUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B644631C60E8DE444885DD /* NSString+BPUtilities.m */; };
+		37B6493CFCC1602BB91CE2CD /* BPStackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64C11A94933F46816773C /* BPStackView.m */; };
 		37B6498848E97978409489A6 /* NSDictionary+BPJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64059D45CBC595213920F /* NSDictionary+BPJSON.m */; };
 		37B649B3937D6158B554F509 /* BPObjectionModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64DFDBDE3A5CEE19D6FDB /* BPObjectionModule.m */; };
 		37B649B71B7F59A1741CD9B7 /* BPProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6413AB46D8FAC81D1E72B /* BPProduct.m */; };
@@ -48,9 +49,9 @@
 		37B64A8975455DABBD369873 /* BPProductInfoDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64EBE9EBD628046621C4A /* BPProductInfoDataSource.m */; };
 		37B64B7D226FBFA23FFCA1C1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 37B645C93F848A6F598F96E2 /* Localizable.strings */; };
 		37B64BC8938BC7942D533D2F /* BPScanCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64728A5FC383EB464DA9F /* BPScanCodeViewController.m */; };
-		37B64D1253B2AD6D48DEF2EB /* BPProductSearchNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64FBD633D042DEE22B04C /* BPProductSearchNavigationController.m */; };
 		37B64D4617BA6760E8B4101F /* BPAPIAccessor+Product.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64A5E17F2E5888839150C /* BPAPIAccessor+Product.m */; };
 		37B64E4A4C23A423A7B102CB /* BPProduct+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6473D93970F5113F3AAB3 /* BPProduct+Utilities.m */; };
+		37B64E6F6DFF950B3C453228 /* BPCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B643AC4312781150E1FEF7 /* BPCardView.m */; };
 		37B64EF12E5868EADB5C5359 /* BPDeviceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B644A0DD2794AA6A426581 /* BPDeviceManager.m */; };
 		37B64F7816B23819A90C0456 /* BPLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6464528820E718DBABAA5 /* BPLogger.m */; };
 		37B64FF08BF5367BF9669B33 /* BPUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64B74E1FAED6141BA2B25 /* BPUtilities.m */; };
@@ -100,12 +101,14 @@
 		37B642B56DC862C60A6F3CE2 /* BPProductManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPProductManager.m; sourceTree = "<group>"; };
 		37B642C8016B2BC66A308398 /* BPLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPLogger.h; sourceTree = "<group>"; };
 		37B642E167318B93DB25452C /* NSLayoutConstraint+BPAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLayoutConstraint+BPAdditions.h"; sourceTree = "<group>"; };
+		37B643AC4312781150E1FEF7 /* BPCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPCardView.m; sourceTree = "<group>"; };
 		37B643CE26D1B8399F9EBE5B /* BPObjectionModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPObjectionModule.h; sourceTree = "<group>"; };
 		37B643FD7011C01F1397F84E /* BPCompany.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPCompany.h; sourceTree = "<group>"; };
 		37B644631C60E8DE444885DD /* NSString+BPUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+BPUtilities.m"; sourceTree = "<group>"; };
 		37B6447BFF3F65026E98D810 /* BPTaskRunner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPTaskRunner.m; sourceTree = "<group>"; };
 		37B644A0DD2794AA6A426581 /* BPDeviceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPDeviceManager.m; sourceTree = "<group>"; };
 		37B644EB9663F8806E287450 /* BPAPIAccessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPAPIAccessor.h; sourceTree = "<group>"; };
+		37B645012DDC0E4D3FD5B915 /* BPStackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPStackView.h; sourceTree = "<group>"; };
 		37B64563551A7A720902A511 /* BPActivityIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPActivityIndicatorView.h; sourceTree = "<group>"; };
 		37B645654D3B84690AEA4C0D /* BPUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPUtilities.h; sourceTree = "<group>"; };
 		37B645CFC4DD54CD1B5AB3FC /* BPDefaultTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPDefaultTableViewCell.m; sourceTree = "<group>"; };
@@ -129,6 +132,8 @@
 		37B64A8330392A9AED7C2FC0 /* BPProductInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPProductInfoView.h; sourceTree = "<group>"; };
 		37B64A848ED64E6728A533D8 /* BPDeviceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPDeviceManager.h; sourceTree = "<group>"; };
 		37B64B74E1FAED6141BA2B25 /* BPUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPUtilities.m; sourceTree = "<group>"; };
+		37B64C11A94933F46816773C /* BPStackView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPStackView.m; sourceTree = "<group>"; };
+		37B64C4AE8B7541331007C5D /* BPCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPCardView.h; sourceTree = "<group>"; };
 		37B64C7C7A19465529F97527 /* BPProductInfoDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPProductInfoDataSource.h; sourceTree = "<group>"; };
 		37B64CD13446A6BEBA4B6A9A /* NSLayoutConstraint+BPAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+BPAdditions.m"; sourceTree = "<group>"; };
 		37B64D1B6193C0AD0D440566 /* BPScanCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPScanCodeViewController.h; sourceTree = "<group>"; };
@@ -137,11 +142,9 @@
 		37B64E26EDB5C48277AE74AE /* UIAlertView+BPUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+BPUtilities.h"; sourceTree = "<group>"; };
 		37B64E98890D7A9D303A77E5 /* BPCompany+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BPCompany+Utilities.h"; sourceTree = "<group>"; };
 		37B64EBE9EBD628046621C4A /* BPProductInfoDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPProductInfoDataSource.m; sourceTree = "<group>"; };
-		37B64F14E9AC8C4F1853EB09 /* BPProductSearchNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPProductSearchNavigationController.h; sourceTree = "<group>"; };
 		37B64F1EE6D97F7987CF00CF /* UIAlertView+BPUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+BPUtilities.m"; sourceTree = "<group>"; };
 		37B64F51708E3958AF727B6F /* BPProductManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPProductManager.h; sourceTree = "<group>"; };
 		37B64F8C2171D2BB76F878FB /* NSString+BPUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+BPUtilities.h"; sourceTree = "<group>"; };
-		37B64FBD633D042DEE22B04C /* BPProductSearchNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPProductSearchNavigationController.m; sourceTree = "<group>"; };
 		37B64FFC3FE96EFDE8398CF3 /* BPScanCodeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPScanCodeView.h; sourceTree = "<group>"; };
 		3C42626AEDC945168C07B4E4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		87BA14D36EEA46DC5B3550D2 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -294,8 +297,6 @@
 		37B64540723CF4EABBB3AC70 /* ProductSearch */ = {
 			isa = PBXGroup;
 			children = (
-				37B64FBD633D042DEE22B04C /* BPProductSearchNavigationController.m */,
-				37B64F14E9AC8C4F1853EB09 /* BPProductSearchNavigationController.h */,
 				37B64F458C8BF4C8D672DAE5 /* ScanCode */,
 				37B64B83C73E20C2B8EE7780 /* ProductInfo */,
 			);
@@ -416,6 +417,10 @@
 				37B64D1B6193C0AD0D440566 /* BPScanCodeViewController.h */,
 				37B64A1CFA3A5EA1F51ED5DE /* BPScanCodeView.m */,
 				37B64FFC3FE96EFDE8398CF3 /* BPScanCodeView.h */,
+				37B64C11A94933F46816773C /* BPStackView.m */,
+				37B645012DDC0E4D3FD5B915 /* BPStackView.h */,
+				37B643AC4312781150E1FEF7 /* BPCardView.m */,
+				37B64C4AE8B7541331007C5D /* BPCardView.h */,
 			);
 			path = ScanCode;
 			sourceTree = "<group>";
@@ -516,6 +521,8 @@
 			mainGroup = 1D08E81A19A7621A00879BD2;
 			productRefGroup = 1D08E82419A7621A00879BD2 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+			);
 			projectRoot = "";
 			targets = (
 				1D08E82219A7621A00879BD2 /* Pola */,
@@ -612,7 +619,6 @@
 				37B6416E16FEB2AD27BB3D9E /* BPAPIResponse.m in Sources */,
 				37B649B3937D6158B554F509 /* BPObjectionModule.m in Sources */,
 				37B641D5FD17D93BC7B1901B /* BPRootViewController.m in Sources */,
-				37B64D1253B2AD6D48DEF2EB /* BPProductSearchNavigationController.m in Sources */,
 				37B64BC8938BC7942D533D2F /* BPScanCodeViewController.m in Sources */,
 				37B645F07C9913D25328C568 /* BPScanCodeView.m in Sources */,
 				37B649F5BF12054A0BAE2472 /* BPProductInfoViewController.m in Sources */,
@@ -626,6 +632,8 @@
 				37B6401F7F03873B77793651 /* BPDefaultTableViewCell.m in Sources */,
 				37B6480CB8E9273EAC35EDA6 /* NSString+BPUtilities.m in Sources */,
 				37B64EF12E5868EADB5C5359 /* BPDeviceManager.m in Sources */,
+				37B6493CFCC1602BB91CE2CD /* BPStackView.m in Sources */,
+				37B64E6F6DFF950B3C453228 /* BPCardView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

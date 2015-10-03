@@ -8,6 +8,8 @@
 #import "UIAlertView+BPUtilities.h"
 #import "NSString+BPUtilities.h"
 #import "BPProduct+Utilities.h"
+#import "BPStackView.h"
+#import "BPCardView.h"
 
 
 @interface BPScanCodeViewController ()
@@ -41,6 +43,21 @@ objection_requires_sel(@selector(taskRunner))
     [_captureSession startRunning];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+
+    [self performSelector:@selector(addCard) withObject:nil afterDelay:1.5f];
+    [self performSelector:@selector(addCard) withObject:nil afterDelay:3.0f];
+    [self performSelector:@selector(addCard) withObject:nil afterDelay:4.5f];
+
+}
+
+- (void)addCard {
+    BPCardView *cardView = [[BPCardView alloc] initWithFrame:CGRectZero];
+    cardView.backgroundColor = self.castView.stackView.cardCount % 2 == 0 ? [UIColor redColor] : [UIColor yellowColor];
+    [self.castView.stackView addCard:cardView];
+}
+
 #pragma mark - Actions
 
 - (void)foundBarcode:(NSString *)barcode corners:(NSArray *)corners {
@@ -63,8 +80,7 @@ objection_requires_sel(@selector(taskRunner))
     if (_captureSession) {
         _videoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:_captureSession];
         [_videoPreviewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
-        [_videoPreviewLayer setFrame:self.view.layer.bounds];
-        [self.view.layer addSublayer:_videoPreviewLayer];
+        [self.castView addVideoPreviewLayer:_videoPreviewLayer];
     }
 }
 

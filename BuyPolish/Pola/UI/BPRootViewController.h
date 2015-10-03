@@ -1,5 +1,5 @@
 #import <Foundation/Foundation.h>
 
 
-@interface BPRootViewController : UITabBarController
+@interface BPRootViewController : UINavigationController
 @end
