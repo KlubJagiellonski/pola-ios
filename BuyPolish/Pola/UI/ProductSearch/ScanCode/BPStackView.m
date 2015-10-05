@@ -221,7 +221,7 @@ const float SHOW_FULL_CARD_ANIMATION_DURATION = 1.0f;
 }
 
 - (int)cardViewsHeight {
-    return self.cardViewArray.count * CARD_TITLE_HEIGHT;
+    return (int)self.cardViewArray.count * (int)CARD_TITLE_HEIGHT;
 }
 
 @end
