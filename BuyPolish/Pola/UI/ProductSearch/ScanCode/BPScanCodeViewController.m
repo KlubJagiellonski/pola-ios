@@ -17,13 +17,14 @@
 @property(nonatomic, strong) AVCaptureSession *captureSession;
 @property(nonatomic, strong) AVCaptureVideoPreviewLayer *videoPreviewLayer;
 @property(nonatomic, readonly) BPTaskRunner *taskRunner;
+@property(nonatomic, readonly) BPProductManager *productManager;
 
 @end
 
 
 @implementation BPScanCodeViewController
 
-objection_requires_sel(@selector(taskRunner))
+objection_requires_sel(@selector(taskRunner), @selector(productManager))
 
 - (void)loadView {
     self.view = [[BPScanCodeView alloc] initWithFrame:CGRectZero];
@@ -31,10 +32,12 @@ objection_requires_sel(@selector(taskRunner))
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    self.castView.stackView.delegate = self;
+
     [self setupCaptureSession];
 
     self.title = NSLocalizedString(@"Scan Code", @"");
-//        self.tabBarItem = [[UITabBarItem alloc] init
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -43,27 +46,13 @@ objection_requires_sel(@selector(taskRunner))
     [_captureSession startRunning];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-
-    [self performSelector:@selector(addCard) withObject:nil afterDelay:1.5f];
-    [self performSelector:@selector(addCard) withObject:nil afterDelay:3.0f];
-    [self performSelector:@selector(addCard) withObject:nil afterDelay:4.5f];
-
-}
-
-- (void)addCard {
-    BPCardView *cardView = [[BPCardView alloc] initWithFrame:CGRectZero];
-    cardView.backgroundColor = self.castView.stackView.cardCount % 2 == 0 ? [UIColor redColor] : [UIColor yellowColor];
-    [self.castView.stackView addCard:cardView];
-}
-
 #pragma mark - Actions
 
 - (void)foundBarcode:(NSString *)barcode corners:(NSArray *)corners {
-    [self.captureSession stopRunning];
 
     if(![barcode isValidBarcode]) {
+        [self.captureSession startRunning];
+
         UIAlertView * alertView = [UIAlertView showErrorAlert:NSLocalizedString(@"Not valid barcode. Please try again.", @"Not valid barcode. Please try again.")];
         [alertView setDelegate:self];
         return;
@@ -71,7 +60,24 @@ objection_requires_sel(@selector(taskRunner))
 
     BPProduct *product = [[BPProduct alloc] initWithBarcode:barcode];
     [product fillMadeInPolandFromBarcode:barcode];
-    [self.delegate scanCode:self requestsProductInfo:product];
+    [self addCardAndDownloadDetails:product];
+}
+
+- (void)addCardAndDownloadDetails:(BPProduct *)product {
+    BPCardView *cardView = [[BPCardView alloc] initWithFrame:CGRectZero];
+    cardView.madeInPoland = product.madeInPoland;
+    cardView.inProgress = YES;
+    cardView.barcode = product.barcode;
+    [self.castView.stackView addCard:cardView];
+
+    [self.productManager retrieveProductWithBarcode:product.barcode completion:^(BPProduct *fetchedProduct, NSError *error) {
+        if(!error) {
+            cardView.inProgress = NO;
+            //todo update cardview
+        } else {
+            [UIAlertView showErrorAlert:NSLocalizedString(@"Cannot fetch product info from server. Please try again.", @"")];
+        }
+    } completionQueue:[NSOperationQueue mainQueue]];
 }
 
 #pragma mark - Capture session
@@ -128,5 +134,20 @@ objection_requires_sel(@selector(taskRunner))
 - (BPScanCodeView *)castView {
     return (BPScanCodeView *) self.view;
 }
+
+#pragma mark - BPStackViewDelegate
+
+- (void)willAddCard:(BPCardView *)cardView withAnimationDuration:(CGFloat)animationDuration {
+    [self.castView changeVideoLayerHeightWithAnimationDuration:animationDuration];
+}
+
+- (void)willEnterFullScreen:(BPCardView *)cardView withAnimationDuration:(CGFloat)animationDuration {
+    [self.captureSession stopRunning];
+}
+
+- (void)willExitFullScreen:(BPCardView *)cardView withAnimationDuration:(CGFloat)animationDuration {
+    [self.captureSession startRunning];
+}
+
 
 @end

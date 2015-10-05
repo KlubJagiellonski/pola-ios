@@ -1,5 +1,6 @@
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
+#import "BPStackView.h"
 
 
 @class BPScanCodeViewController;
@@ -8,12 +9,10 @@
 
 @protocol BPScanCodeViewControllerDelegate <NSObject>
 
-- (void)scanCode:(BPScanCodeViewController *)viewController requestsProductInfo:(BPProduct *)product;
-
 @end
 
 
-@interface BPScanCodeViewController : UIViewController <AVCaptureMetadataOutputObjectsDelegate, UIAlertViewDelegate>
+@interface BPScanCodeViewController : UIViewController <AVCaptureMetadataOutputObjectsDelegate, UIAlertViewDelegate, BPStackViewDelegate>
 
 @property(nonatomic, weak) id <BPScanCodeViewControllerDelegate> delegate;
 
