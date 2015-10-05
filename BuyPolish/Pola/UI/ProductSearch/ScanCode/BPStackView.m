@@ -27,6 +27,7 @@ const float SHOW_FULL_CARD_ANIMATION_DURATION = 1.0f;
 @property(nonatomic) NSInteger currentState;
 @property(nonatomic) NSUInteger fullScreenCardViewIndex;
 @property(nonatomic) BPCardView *cardViewToRemove;
+@property(nonatomic) BOOL addingCardInProgress;
 @end
 
 @implementation BPStackView
@@ -41,7 +42,13 @@ const float SHOW_FULL_CARD_ANIMATION_DURATION = 1.0f;
     return self;
 }
 
-- (void)addCard:(BPCardView *)cardView {
+- (BOOL)addCard:(BPCardView *)cardView {
+    if (self.addingCardInProgress) {
+        return NO;
+    }
+
+    self.addingCardInProgress = YES;
+
     [self addTapGestureToCardView:cardView];
 
     [self.delegate willAddCard:cardView withAnimationDuration:ADD_CARD_SHORT_PHASE_DURATION * 2 + ADD_CARD_LONG_PHASE_DURATION];
@@ -62,13 +69,17 @@ const float SHOW_FULL_CARD_ANIMATION_DURATION = 1.0f;
         [self layoutIfNeeded];
     };
 
+    void (^thirdAnimationPhaseCompletionBlock)(BOOL) = ^(BOOL finished) {
+        self.addingCardInProgress = NO;
+    };
+
     void (^secondAnimationPhaseCompletionBlock)(BOOL) = ^(BOOL finished) {
         [self.cardViewToRemove removeFromSuperview];
         self.cardViewToRemove = nil;
 
         self.currentState = STATE_STACK;
 
-        [UIView animateWithDuration:ADD_CARD_SHORT_PHASE_DURATION animations:layoutAnimationBlock];
+        [UIView animateWithDuration:ADD_CARD_SHORT_PHASE_DURATION animations:layoutAnimationBlock completion:thirdAnimationPhaseCompletionBlock];
     };
 
     void (^firstAnimationPhase)() = ^{
@@ -96,6 +107,8 @@ const float SHOW_FULL_CARD_ANIMATION_DURATION = 1.0f;
     [UIView animateWithDuration:ADD_CARD_SHORT_PHASE_DURATION
                      animations:firstAnimationPhase
                      completion:firstAnimationPhaseCompletionBlock];
+
+    return YES;
 }
 
 - (void)addTapGestureToCardView:(BPCardView *)cardView {

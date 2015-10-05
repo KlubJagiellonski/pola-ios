@@ -18,6 +18,7 @@
 @property(nonatomic, strong) AVCaptureVideoPreviewLayer *videoPreviewLayer;
 @property(nonatomic, readonly) BPTaskRunner *taskRunner;
 @property(nonatomic, readonly) BPProductManager *productManager;
+@property(nonatomic, strong) NSString *lastBardcodeScanned;
 
 @end
 
@@ -49,7 +50,6 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager))
 #pragma mark - Actions
 
 - (void)foundBarcode:(NSString *)barcode corners:(NSArray *)corners {
-
     if(![barcode isValidBarcode]) {
         [self.captureSession startRunning];
 
@@ -58,17 +58,27 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager))
         return;
     }
 
+    if([barcode isEqualToString:self.lastBardcodeScanned]) {
+        return;
+    }
+
     BPProduct *product = [[BPProduct alloc] initWithBarcode:barcode];
     [product fillMadeInPolandFromBarcode:barcode];
-    [self addCardAndDownloadDetails:product];
+
+    if([self addCardAndDownloadDetails:product]) {
+        self.lastBardcodeScanned = barcode;
+    }
 }
 
-- (void)addCardAndDownloadDetails:(BPProduct *)product {
+- (BOOL)addCardAndDownloadDetails:(BPProduct *)product {
     BPCardView *cardView = [[BPCardView alloc] initWithFrame:CGRectZero];
     cardView.madeInPoland = product.madeInPoland;
     cardView.inProgress = YES;
     cardView.barcode = product.barcode;
-    [self.castView.stackView addCard:cardView];
+    BOOL cardAdded = [self.castView.stackView addCard:cardView];
+    if(!cardAdded) {
+        return NO;
+    }
 
     [self.productManager retrieveProductWithBarcode:product.barcode completion:^(BPProduct *fetchedProduct, NSError *error) {
         if(!error) {
@@ -78,6 +88,8 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager))
             [UIAlertView showErrorAlert:NSLocalizedString(@"Cannot fetch product info from server. Please try again.", @"")];
         }
     } completionQueue:[NSOperationQueue mainQueue]];
+
+    return YES;
 }
 
 #pragma mark - Capture session

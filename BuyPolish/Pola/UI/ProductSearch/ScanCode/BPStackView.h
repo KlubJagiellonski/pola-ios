@@ -23,6 +23,6 @@
 @property(nonatomic, readonly) NSInteger cardCount;
 @property(nonatomic, readonly) int cardViewsHeight;
 
-- (void)addCard:(BPCardView *)cardView;
+- (BOOL)addCard:(BPCardView *)cardView;
 
 @end
