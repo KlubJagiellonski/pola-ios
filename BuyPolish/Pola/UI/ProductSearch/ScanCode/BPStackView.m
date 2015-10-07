@@ -9,8 +9,9 @@
 
 NSInteger const MAX_CARD_COUNT = 2;
 NSInteger const CARD_MARGIN = 2;
-NSInteger const CARD_SMALL_TITLE_HEIGHT = 5;
-
+NSInteger const CARD_SMALL_TITLE_HEIGHT = 15;
+float const MAX_PAN_Y = -50;
+int const PAN_MULITIPLIER = 10;
 
 NSInteger const STATE_STACK = 0;
 NSInteger const STATE_FULL_SIZE = 1;
@@ -24,6 +25,7 @@ const float SHOW_FULL_CARD_ANIMATION_DURATION = 1.0f;
 @property(nonatomic) NSInteger currentState;
 @property(nonatomic) NSUInteger fullScreenCardViewIndex;
 @property(nonatomic) BOOL animationInProgress;
+@property(nonatomic) float currentPanY;
 @end
 
 @implementation BPStackView
@@ -33,9 +35,42 @@ const float SHOW_FULL_CARD_ANIMATION_DURATION = 1.0f;
     if (self) {
         _currentState = STATE_STACK;
         _cardViewArray = [NSMutableArray array];
+        self.currentPanY = 0;
+
+        UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onPanGesture:)];
+        [self addGestureRecognizer:panGestureRecognizer];
     }
 
     return self;
+}
+
+- (void)onPanGesture:(UIPanGestureRecognizer *)panGestureRecognizer {
+    if (self.currentState == STATE_STACK) {
+        [self handlePanGestureInStackState:panGestureRecognizer];
+    } else if (self.currentState == STATE_FULL_SIZE) {
+        //todo
+    }
+}
+
+- (void)handlePanGestureInStackState:(UIPanGestureRecognizer *)panGestureRecognizer {
+    CGPoint translation = [panGestureRecognizer translationInView:self];
+
+    if (panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
+        self.currentPanY = 0;
+        if (translation.y < MAX_PAN_Y / 2 || translation.y < 10) {
+            [self animateToFullScreen:self.cardViewArray.lastObject];
+        } else {
+            [UIView animateWithDuration:0.5f animations:^{
+                [self setNeedsLayout];
+                [self layoutIfNeeded];
+            }];
+        }
+    } else {
+        self.currentPanY = (int) translation.y;
+
+        [self setNeedsLayout];
+        [self layoutIfNeeded];
+    }
 }
 
 - (BOOL)addCard:(BPCardView *)cardView {
@@ -117,28 +152,18 @@ const float SHOW_FULL_CARD_ANIMATION_DURATION = 1.0f;
 - (void)cardTapped:(UITapGestureRecognizer *)tapGestureRecognizer {
     BPCardView *tappedCardView = (BPCardView *) tapGestureRecognizer.view;
 
-    [self.delegate willEnterFullScreen:tappedCardView withAnimationDuration:SHOW_FULL_CARD_ANIMATION_DURATION];
+    if (self.currentState == STATE_STACK) {
+        [self animateToFullScreen:tappedCardView];
+    } else if (self.currentState == STATE_FULL_SIZE && [self.cardViewArray indexOfObject:tappedCardView] != self.fullScreenCardViewIndex) {
+        [self animateToStack];
+    }
+}
 
-    self.currentState = STATE_FULL_SIZE;
-    self.fullScreenCardViewIndex = [self.cardViewArray indexOfObject:tappedCardView];
+- (void)animateToStack {
+    [self.delegate willExitFullScreen:self.cardViewArray[self.fullScreenCardViewIndex] withAnimationDuration:SHOW_FULL_CARD_ANIMATION_DURATION];
 
-    const float ALPHA_ANIMATION_STEP_DURATION = SHOW_FULL_CARD_ANIMATION_DURATION / 2;
-
-    [UIView animateWithDuration:ALPHA_ANIMATION_STEP_DURATION animations:^{
-        for (BPCardView *cardView in self.cardViewArray) {
-            if (cardView != tappedCardView) {
-                cardView.alpha = 0.0f;
-            }
-        }
-    }                completion:^(BOOL finished) {
-        [UIView animateWithDuration:ALPHA_ANIMATION_STEP_DURATION animations:^{
-            for (BPCardView *cardView in self.cardViewArray) {
-                if (cardView != tappedCardView) {
-                    cardView.alpha = 1.0f;
-                }
-            }
-        }];
-    }];
+    self.currentState = STATE_STACK;
+    self.fullScreenCardViewIndex = 0;
 
     [UIView animateWithDuration:SHOW_FULL_CARD_ANIMATION_DURATION
                           delay:0
@@ -150,7 +175,24 @@ const float SHOW_FULL_CARD_ANIMATION_DURATION = 1.0f;
                          [self layoutIfNeeded];
                      }
                      completion:nil];
+}
 
+- (void)animateToFullScreen:(BPCardView *)tappedCardView {
+    [self.delegate willEnterFullScreen:tappedCardView withAnimationDuration:SHOW_FULL_CARD_ANIMATION_DURATION];
+
+    self.currentState = STATE_FULL_SIZE;
+    self.fullScreenCardViewIndex = [self.cardViewArray indexOfObject:tappedCardView];
+
+    [UIView animateWithDuration:SHOW_FULL_CARD_ANIMATION_DURATION
+                          delay:0
+         usingSpringWithDamping:0.7f
+          initialSpringVelocity:0.0f
+                        options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                         [self setNeedsLayout];
+                         [self layoutIfNeeded];
+                     }
+                     completion:nil];
 }
 
 - (NSInteger)cardCount {
@@ -169,8 +211,20 @@ const float SHOW_FULL_CARD_ANIMATION_DURATION = 1.0f;
 }
 
 - (void)layoutStackSubviews {
+    float yOffset = 0;
+    float currentPanY = self.currentPanY;
+    float maxPanWithMultiplier = MAX_PAN_Y * PAN_MULITIPLIER;
+    if (currentPanY < 0) {
+        if (currentPanY < maxPanWithMultiplier) {
+            yOffset = maxPanWithMultiplier;
+        } else {
+            yOffset = -(currentPanY * currentPanY / maxPanWithMultiplier) + 2 * currentPanY;
+        }
+        yOffset /= PAN_MULITIPLIER;
+    }
+
     CGRect cardRect = [self getCardBaseRect];
-    cardRect.origin.y = CGRectGetHeight(self.bounds) - CARD_TITLE_HEIGHT;
+    cardRect.origin.y = CGRectGetHeight(self.bounds) - CARD_TITLE_HEIGHT + yOffset;
 
     for (BPCardView *cardView in self.cardViewArray) {
         cardView.frame = cardRect;
@@ -181,7 +235,7 @@ const float SHOW_FULL_CARD_ANIMATION_DURATION = 1.0f;
 
 - (void)layoutFullSizeSubview {
     BPCardView *cardView = self.cardViewArray[self.fullScreenCardViewIndex];
-    CGFloat height = CGRectGetHeight(self.bounds) - 3 * CARD_MARGIN - [self.cardViewArray count] * CARD_SMALL_TITLE_HEIGHT;
+    CGFloat height = CGRectGetHeight(self.bounds) - 3 * CARD_MARGIN - ([self.cardViewArray count] - 1) * CARD_SMALL_TITLE_HEIGHT;
     cardView.frame = CGRectMake(CARD_MARGIN, CARD_MARGIN, CGRectGetWidth(self.bounds) - 2 * CARD_MARGIN, height);
 }
 
@@ -189,10 +243,17 @@ const float SHOW_FULL_CARD_ANIMATION_DURATION = 1.0f;
     CGRect cardRect = [self getCardBaseRect];
     cardRect.origin.y = CGRectGetHeight(self.bounds) - CARD_SMALL_TITLE_HEIGHT;
 
+    int i = 0;
     for (BPCardView *cardView in self.cardViewArray) {
+        if (i == self.fullScreenCardViewIndex) {
+            i++;
+            continue;
+        }
+
         cardView.frame = cardRect;
 
         cardRect.origin.y -= CARD_SMALL_TITLE_HEIGHT;
+        i++;
     }
 }
 
