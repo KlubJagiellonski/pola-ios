@@ -47,6 +47,21 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager))
     [_captureSession startRunning];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+
+    [self performSelector:@selector(addCard) withObject:nil afterDelay:1.5f];
+    [self performSelector:@selector(addCard) withObject:nil afterDelay:3.0f];
+    [self performSelector:@selector(addCard) withObject:nil afterDelay:4.5f];
+}
+
+- (void)addCard {
+    BPCardView *cardView = [[BPCardView alloc] initWithFrame:CGRectZero];
+    cardView.backgroundColor = self.castView.stackView.cardCount % 2 == 0 ? [UIColor redColor] : [UIColor yellowColor];
+    [self.castView.stackView addCard:cardView];
+}
+
+
 #pragma mark - Actions
 
 - (void)foundBarcode:(NSString *)barcode corners:(NSArray *)corners {
@@ -66,6 +81,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager))
     [product fillMadeInPolandFromBarcode:barcode];
 
     if([self addCardAndDownloadDetails:product]) {
+        AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
         self.lastBardcodeScanned = barcode;
     }
 }

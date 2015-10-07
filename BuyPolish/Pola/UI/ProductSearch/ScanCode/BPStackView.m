@@ -14,11 +14,8 @@ NSInteger const CARD_SMALL_TITLE_HEIGHT = 5;
 
 NSInteger const STATE_STACK = 0;
 NSInteger const STATE_FULL_SIZE = 1;
-NSInteger const STATE_SMALL_CARDS = 2;
-NSInteger const STATE_SMALL_CARDS_WITH_NEW_SHOW = 3;
 
-float const ADD_CARD_SHORT_PHASE_DURATION = 0.2f;
-float const ADD_CARD_LONG_PHASE_DURATION = 0.5f;
+float const ADD_CARD_ANIMATION_DURATION = 0.8f;
 const float SHOW_FULL_CARD_ANIMATION_DURATION = 1.0f;
 
 
@@ -26,8 +23,7 @@ const float SHOW_FULL_CARD_ANIMATION_DURATION = 1.0f;
 @property(nonatomic, readonly) NSMutableArray *cardViewArray;
 @property(nonatomic) NSInteger currentState;
 @property(nonatomic) NSUInteger fullScreenCardViewIndex;
-@property(nonatomic) BPCardView *cardViewToRemove;
-@property(nonatomic) BOOL addingCardInProgress;
+@property(nonatomic) BOOL animationInProgress;
 @end
 
 @implementation BPStackView
@@ -43,25 +39,26 @@ const float SHOW_FULL_CARD_ANIMATION_DURATION = 1.0f;
 }
 
 - (BOOL)addCard:(BPCardView *)cardView {
-    if (self.addingCardInProgress) {
+    if (self.animationInProgress || self.currentState != STATE_STACK) {
         return NO;
     }
 
-    self.addingCardInProgress = YES;
+    self.animationInProgress = YES;
 
     [self addTapGestureToCardView:cardView];
 
-    [self.delegate willAddCard:cardView withAnimationDuration:ADD_CARD_SHORT_PHASE_DURATION * 2 + ADD_CARD_LONG_PHASE_DURATION];
+    [self.delegate willAddCard:cardView withAnimationDuration:ADD_CARD_ANIMATION_DURATION];
 
     CGRect cardInitialRect = [self getCardBaseRect];
-    cardInitialRect.origin.y = CGRectGetHeight(self.bounds);
+    cardInitialRect.origin.y = CGRectGetHeight(self.bounds) - self.cardViewArray.count * CARD_TITLE_HEIGHT;
     cardView.frame = cardInitialRect;
+    cardView.alpha = 0.f;
+    [self.cardViewArray addObject:cardView];
+    [self insertSubview:cardView atIndex:0];
 
-    self.currentState = STATE_SMALL_CARDS;
-
+    BPCardView *cardViewToRemove;
     if (self.cardViewArray.count > MAX_CARD_COUNT) {
-        self.cardViewToRemove = self.cardViewArray[0];
-        [self.cardViewArray removeObject:self.cardViewToRemove];
+        cardViewToRemove = self.cardViewArray[0];
     }
 
     void (^layoutAnimationBlock)() = ^{
@@ -69,43 +66,42 @@ const float SHOW_FULL_CARD_ANIMATION_DURATION = 1.0f;
         [self layoutIfNeeded];
     };
 
-    void (^thirdAnimationPhaseCompletionBlock)(BOOL) = ^(BOOL finished) {
-        self.addingCardInProgress = NO;
-    };
-
-    void (^secondAnimationPhaseCompletionBlock)(BOOL) = ^(BOOL finished) {
-        [self.cardViewToRemove removeFromSuperview];
-        self.cardViewToRemove = nil;
-
-        self.currentState = STATE_STACK;
-
-        [UIView animateWithDuration:ADD_CARD_SHORT_PHASE_DURATION animations:layoutAnimationBlock completion:thirdAnimationPhaseCompletionBlock];
-    };
-
-    void (^firstAnimationPhase)() = ^{
-        CGRect removeCardRect = self.cardViewToRemove.frame;
-        removeCardRect.origin.y = CGRectGetHeight(self.bounds);
-        self.cardViewToRemove.frame = removeCardRect;
+    void (^firstAnimationBlock)() = ^{
+        cardView.alpha = 1.f;
         layoutAnimationBlock();
     };
 
     void (^firstAnimationPhaseCompletionBlock)(BOOL) = ^(BOOL finished) {
-        [self.cardViewArray addObject:cardView];
-        [self insertSubview:cardView atIndex:0];
+        [self.cardViewArray removeObject:cardViewToRemove];
 
-        self.currentState = STATE_SMALL_CARDS_WITH_NEW_SHOW;
+        CGRect endFrame = cardViewToRemove.frame;
+        endFrame.origin.y = CGRectGetHeight(self.bounds);
+        void (^secondAnimationBlock)() = ^{
+            cardViewToRemove.frame = endFrame;
+            cardViewToRemove.alpha = 0.f;
+            layoutAnimationBlock();
+        };
 
-        [UIView animateWithDuration:ADD_CARD_LONG_PHASE_DURATION
+        void (^secondAnimationCompletionBlock)(BOOL) = ^(BOOL finished) {
+            [cardViewToRemove removeFromSuperview];
+
+            self.animationInProgress = NO;
+        };
+        [UIView animateWithDuration:ADD_CARD_ANIMATION_DURATION / 2
                               delay:0
              usingSpringWithDamping:0.5f
               initialSpringVelocity:0.0f
                             options:UIViewAnimationOptionCurveEaseInOut
-                         animations:layoutAnimationBlock
-                         completion:secondAnimationPhaseCompletionBlock];
+                         animations:secondAnimationBlock
+                         completion:secondAnimationCompletionBlock];
     };
 
-    [UIView animateWithDuration:ADD_CARD_SHORT_PHASE_DURATION
-                     animations:firstAnimationPhase
+    [UIView animateWithDuration:ADD_CARD_ANIMATION_DURATION / 2
+                          delay:0
+         usingSpringWithDamping:0.5f
+          initialSpringVelocity:0.0f
+                        options:UIViewAnimationOptionCurveEaseInOut
+                     animations:firstAnimationBlock
                      completion:firstAnimationPhaseCompletionBlock];
 
     return YES;
@@ -169,11 +165,6 @@ const float SHOW_FULL_CARD_ANIMATION_DURATION = 1.0f;
     } else if (self.currentState == STATE_FULL_SIZE) {
         [self layoutShowingStackSubviews];
         [self layoutFullSizeSubview];
-    } else if (self.currentState == STATE_SMALL_CARDS) {
-        [self layoutShowingStackSubviews];
-    } else if (self.currentState == STATE_SMALL_CARDS_WITH_NEW_SHOW) {
-        [self layoutShowingStackSubviews];
-        [self layoutShowingNewStackSubview];
     }
 }
 
@@ -205,13 +196,6 @@ const float SHOW_FULL_CARD_ANIMATION_DURATION = 1.0f;
     }
 }
 
-- (void)layoutShowingNewStackSubview {
-    BPCardView *cardView = self.cardViewArray.lastObject;
-    CGRect cardRect = [self getCardBaseRect];
-    cardRect.origin.y = CGRectGetHeight(self.bounds) - (self.cardViewArray.count - 1) * CARD_TITLE_HEIGHT;
-    cardView.frame = cardRect;
-}
-
 - (CGRect)getCardBaseRect {
     CGRect cardRect = CGRectZero;
     cardRect.size.width = CGRectGetWidth(self.bounds) - 2 * CARD_MARGIN;
@@ -221,7 +205,7 @@ const float SHOW_FULL_CARD_ANIMATION_DURATION = 1.0f;
 }
 
 - (int)cardViewsHeight {
-    return (int)self.cardViewArray.count * (int)CARD_TITLE_HEIGHT;
+    return (int) self.cardViewArray.count * (int) CARD_TITLE_HEIGHT;
 }
 
 @end
