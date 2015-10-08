@@ -11,5 +11,4 @@
 
 - (void)addVideoPreviewLayer:(AVCaptureVideoPreviewLayer *)layer;
 
-- (void)changeVideoLayerHeightWithAnimationDuration:(CGFloat)duration;
 @end

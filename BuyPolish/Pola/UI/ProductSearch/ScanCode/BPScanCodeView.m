@@ -2,8 +2,6 @@
 #import "BPScanCodeView.h"
 #import "BPStackView.h"
 
-const int STATUS_BAR_HEIGHT = 20;
-
 @implementation BPScanCodeView
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -19,7 +17,7 @@ const int STATUS_BAR_HEIGHT = 20;
 - (void)layoutSubviews {
     [super layoutSubviews];
 
-    self.stackView.frame = CGRectMake(0, STATUS_BAR_HEIGHT, CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds) - STATUS_BAR_HEIGHT);
+    self.stackView.frame = self.bounds;
 }
 
 
@@ -45,21 +43,6 @@ const int STATUS_BAR_HEIGHT = 20;
     [self.layer addSublayer:layer];
 
     [self bringSubviewToFront:self.stackView];
-}
-
-- (void)changeVideoLayerHeightWithAnimationDuration:(CGFloat)duration {
-    CGRect rect = self.videoLayer.bounds;
-    CGRect newRect = rect;
-    newRect.size.height = CGRectGetHeight(self.bounds) - [self.stackView cardViewsHeight];
-
-    CABasicAnimation *animation = [CABasicAnimation animation];
-    animation.keyPath = @"bounds";
-    animation.fromValue = [NSValue valueWithCGRect:rect];
-    animation.toValue = [NSValue valueWithCGRect:newRect];
-    animation.duration = duration;
-    animation.fillMode = kCAFillModeForwards;
-
-    [self.videoLayer addAnimation:animation forKey:@"basic"];
 }
 
 @end

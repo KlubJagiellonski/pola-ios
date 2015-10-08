@@ -562,7 +562,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./Fabric.framework/run ccb68e959044cbd12b0295078e08f2f9dbb45e9b $POLA_FABRIC_PRIVATE_KEY";
+			shellScript = "\"${PODS_ROOT}/Fabric/Fabric.framework/run\" ccb68e959044cbd12b0295078e08f2f9dbb45e9b $POLA_FABRIC_PRIVATE_KEY";
 		};
 		C87678FFC5F74E0A894C9484 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;

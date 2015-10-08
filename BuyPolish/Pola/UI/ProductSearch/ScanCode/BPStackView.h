@@ -13,15 +13,15 @@
 - (void)willAddCard:(BPCardView *)cardView withAnimationDuration:(CGFloat)animationDuration;
 - (void)willEnterFullScreen:(BPCardView *)cardView withAnimationDuration:(CGFloat)animationDuration;
 - (void)willExitFullScreen:(BPCardView *)cardView withAnimationDuration:(CGFloat)animationDuration;
+- (void)didRemoveCard:(BPCardView *)view;
 
 @end
 
 
-@interface BPStackView : UIView
+@interface BPStackView : UIScrollView <UIGestureRecognizerDelegate>
 
-@property(nonatomic, weak) id <BPStackViewDelegate> delegate;
+@property(nonatomic, weak) id <BPStackViewDelegate> stackDelegate;
 @property(nonatomic, readonly) NSInteger cardCount;
-@property(nonatomic, readonly) int cardViewsHeight;
 
 - (BOOL)addCard:(BPCardView *)cardView;
 

@@ -1,11 +1,11 @@
 PODS:
   - AFNetworking (2.3.1):
-    - AFNetworking/NSURLConnection
-    - AFNetworking/NSURLSession
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-    - AFNetworking/UIKit
+    - AFNetworking/NSURLConnection (= 2.3.1)
+    - AFNetworking/NSURLSession (= 2.3.1)
+    - AFNetworking/Reachability (= 2.3.1)
+    - AFNetworking/Security (= 2.3.1)
+    - AFNetworking/Serialization (= 2.3.1)
+    - AFNetworking/UIKit (= 2.3.1)
   - AFNetworking/NSURLConnection (2.3.1):
     - AFNetworking/Reachability
     - AFNetworking/Security
@@ -21,11 +21,15 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - BNRDynamicTypeManager (0.1.0):
-    - BNRDynamicTypeManager/Controls
-    - BNRDynamicTypeManager/Core
+    - BNRDynamicTypeManager/Controls (= 0.1.0)
+    - BNRDynamicTypeManager/Core (= 0.1.0)
   - BNRDynamicTypeManager/Controls (0.1.0):
     - BNRDynamicTypeManager/Core
   - BNRDynamicTypeManager/Core (0.1.0)
+  - Crashlytics (3.3.4)
+  - Fabric (1.5.5):
+    - Fabric/Base (= 1.5.5)
+  - Fabric/Base (1.5.5)
   - iOS-Hierarchy-Viewer (1.4.7)
   - Objection (1.4)
   - PLVisualAttributeConstraints (1.0.1)
@@ -33,6 +37,8 @@ PODS:
 DEPENDENCIES:
   - AFNetworking (= 2.3.1)
   - BNRDynamicTypeManager (= 0.1.0)
+  - Crashlytics (~> 3.3.4)
+  - Fabric (~> 1.5.5)
   - iOS-Hierarchy-Viewer (= 1.4.7)
   - Objection (= 1.4)
   - PLVisualAttributeConstraints (= 1.0.1)
@@ -40,8 +46,10 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   AFNetworking: 05b9f6e3aa5ac45bc383b4bb108ef338080a26c7
   BNRDynamicTypeManager: 44ee2970cd0120cbedd3dec84da41d0381525219
+  Crashlytics: 41c082440d2e14da444186fff65e79c0b4b35d4c
+  Fabric: 190bf1a6eb65f7500de1347d027d2e59a7e53db1
   iOS-Hierarchy-Viewer: fb8ef72b55a8915ab0575543970754ea696e9061
   Objection: aa9875dbf1b121a077f7e13d504a6ed01816a7f1
   PLVisualAttributeConstraints: 9ab247e576b464335f32587ad6c20adfaf7e6d5d
 
-COCOAPODS: 0.34.1
+COCOAPODS: 0.36.0.beta.1

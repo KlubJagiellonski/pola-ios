@@ -34,7 +34,9 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager))
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.castView.stackView.delegate = self;
+    self.automaticallyAdjustsScrollViewInsets = NO;
+
+    self.castView.stackView.stackDelegate = self;
 
     [self setupCaptureSession];
 
@@ -166,7 +168,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager))
 #pragma mark - BPStackViewDelegate
 
 - (void)willAddCard:(BPCardView *)cardView withAnimationDuration:(CGFloat)animationDuration {
-    [self.castView changeVideoLayerHeightWithAnimationDuration:animationDuration];
+
 }
 
 - (void)willEnterFullScreen:(BPCardView *)cardView withAnimationDuration:(CGFloat)animationDuration {
@@ -175,6 +177,10 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager))
 
 - (void)willExitFullScreen:(BPCardView *)cardView withAnimationDuration:(CGFloat)animationDuration {
     [self.captureSession startRunning];
+}
+
+- (void)didRemoveCard:(BPCardView *)view {
+
 }
 
 
