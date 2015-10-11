@@ -1,9 +1,9 @@
-#import "BPProduct+Utilities.h"
+#import "BPProductResult+Utilities.h"
 #import "BPCompany.h"
 #import "BPCompany+Utilities.h"
 
 
-@implementation BPProduct (Utilities)
+@implementation BPProductResult (Utilities)
 
 - (void)parse:(NSDictionary *)dictionary {
     self.barcode = [BPUtilities handleNull:dictionary[@"code"]];

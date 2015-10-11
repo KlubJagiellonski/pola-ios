@@ -1,7 +1,7 @@
 #import <Foundation/Foundation.h>
-#import "BPProduct.h"
+#import "BPProductResult.h"
 
-@interface BPProduct (Utilities)
+@interface BPProductResult (Utilities)
 
 - (void)parse:(NSDictionary *)dictionary;
 - (void)fillMadeInPolandFromBarcode:(NSString *)barcode;

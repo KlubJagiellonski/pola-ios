@@ -1,7 +1,7 @@
-#import "BPProduct.h"
+#import "BPProductResult.h"
 
 
-@implementation BPProduct
+@implementation BPProductResult
 
 - (instancetype)initWithBarcode:(NSString *)barcode {
     self = [super init];

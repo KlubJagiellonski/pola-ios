@@ -1,10 +1,10 @@
 #import <Foundation/Foundation.h>
 
-@class BPProduct;
+@class BPProductResult;
 
 
 @interface BPProductManager : NSObject
 
-- (void)retrieveProductWithBarcode:(NSString *)barcode completion:(void (^)(BPProduct *, NSError *))completion completionQueue:(NSOperationQueue *)queue;
+- (void)retrieveProductWithBarcode:(NSString *)barcode completion:(void (^)(BPProductResult *, NSError *))completion completionQueue:(NSOperationQueue *)queue;
 
 @end

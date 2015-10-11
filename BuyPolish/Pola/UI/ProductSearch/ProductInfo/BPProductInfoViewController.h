@@ -1,14 +1,14 @@
 #import <Foundation/Foundation.h>
 
 
-@class BPProduct;
+@class BPProductResult;
 @class BPProductInfoDataSource;
 
 
 @interface BPProductInfoViewController : UIViewController <UITableViewDelegate>
 
-@property(nonatomic, readonly) BPProduct *product;
+@property(nonatomic, readonly) BPProductResult *product;
 
-- (instancetype)initWithProduct:(BPProduct *)product;
+- (instancetype)initWithProduct:(BPProductResult *)product;
 
 @end

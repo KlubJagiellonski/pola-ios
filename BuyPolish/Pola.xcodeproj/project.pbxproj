@@ -43,14 +43,14 @@
 		37B6493CFCC1602BB91CE2CD /* BPStackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64C11A94933F46816773C /* BPStackView.m */; };
 		37B6498848E97978409489A6 /* NSDictionary+BPJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64059D45CBC595213920F /* NSDictionary+BPJSON.m */; };
 		37B649B3937D6158B554F509 /* BPObjectionModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64DFDBDE3A5CEE19D6FDB /* BPObjectionModule.m */; };
-		37B649B71B7F59A1741CD9B7 /* BPProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6413AB46D8FAC81D1E72B /* BPProduct.m */; };
+		37B649B71B7F59A1741CD9B7 /* BPProductResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6413AB46D8FAC81D1E72B /* BPProductResult.m */; };
 		37B649F5BF12054A0BAE2472 /* BPProductInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64E1CECBE8D031CBF94DF /* BPProductInfoViewController.m */; };
 		37B64A5D21387F5E0613B2AA /* BPTaskRunner.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6447BFF3F65026E98D810 /* BPTaskRunner.m */; };
 		37B64A8975455DABBD369873 /* BPProductInfoDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64EBE9EBD628046621C4A /* BPProductInfoDataSource.m */; };
 		37B64B7D226FBFA23FFCA1C1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 37B645C93F848A6F598F96E2 /* Localizable.strings */; };
 		37B64BC8938BC7942D533D2F /* BPScanCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64728A5FC383EB464DA9F /* BPScanCodeViewController.m */; };
 		37B64D4617BA6760E8B4101F /* BPAPIAccessor+Product.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64A5E17F2E5888839150C /* BPAPIAccessor+Product.m */; };
-		37B64E4A4C23A423A7B102CB /* BPProduct+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6473D93970F5113F3AAB3 /* BPProduct+Utilities.m */; };
+		37B64E4A4C23A423A7B102CB /* BPProductResult+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6473D93970F5113F3AAB3 /* BPProductResult+Utilities.m */; };
 		37B64E6F6DFF950B3C453228 /* BPCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B643AC4312781150E1FEF7 /* BPCardView.m */; };
 		37B64EF12E5868EADB5C5359 /* BPDeviceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B644A0DD2794AA6A426581 /* BPDeviceManager.m */; };
 		37B64F7816B23819A90C0456 /* BPLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6464528820E718DBABAA5 /* BPLogger.m */; };
@@ -89,14 +89,14 @@
 		1D648C111A71B483002B413D /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		1D648C121A71B483002B413D /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		37B64059D45CBC595213920F /* NSDictionary+BPJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+BPJSON.m"; sourceTree = "<group>"; };
-		37B64096880AC9C86B2DF4B1 /* BPProduct+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BPProduct+Utilities.h"; sourceTree = "<group>"; };
+		37B64096880AC9C86B2DF4B1 /* BPProductResult+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BPProductResult+Utilities.h"; sourceTree = "<group>"; };
 		37B6409BC5602C24443D14E4 /* NSDictionary+BPJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+BPJSON.h"; sourceTree = "<group>"; };
 		37B640B1117CB6C80C7D6C04 /* BPAPIAccessor+Product.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BPAPIAccessor+Product.h"; sourceTree = "<group>"; };
 		37B640F75A0AFD8BE0258183 /* BPTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPTask.h; sourceTree = "<group>"; };
 		37B64100135F7EACD7C8E7E3 /* BPTaskRunner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPTaskRunner.h; sourceTree = "<group>"; };
 		37B64109D5EC518C82C8EA7C /* BPActivityIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPActivityIndicatorView.m; sourceTree = "<group>"; };
 		37B6413196A60EBDD28FA13F /* BPProductInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPProductInfoViewController.h; sourceTree = "<group>"; };
-		37B6413AB46D8FAC81D1E72B /* BPProduct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPProduct.m; sourceTree = "<group>"; };
+		37B6413AB46D8FAC81D1E72B /* BPProductResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPProductResult.m; sourceTree = "<group>"; };
 		37B6415103572F8588CC8D68 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		37B642B56DC862C60A6F3CE2 /* BPProductManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPProductManager.m; sourceTree = "<group>"; };
 		37B642C8016B2BC66A308398 /* BPLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPLogger.h; sourceTree = "<group>"; };
@@ -116,7 +116,7 @@
 		37B6468E5905EC7102613DAB /* BPAPIResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPAPIResponse.m; sourceTree = "<group>"; };
 		37B64728A5FC383EB464DA9F /* BPScanCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPScanCodeViewController.m; sourceTree = "<group>"; };
 		37B6472FF4603F63771FADE6 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		37B6473D93970F5113F3AAB3 /* BPProduct+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BPProduct+Utilities.m"; sourceTree = "<group>"; };
+		37B6473D93970F5113F3AAB3 /* BPProductResult+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BPProductResult+Utilities.m"; sourceTree = "<group>"; };
 		37B647A73FC5289BC18A3B86 /* BPAPIResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPAPIResponse.h; sourceTree = "<group>"; };
 		37B647FEED6EEF7F9C209A45 /* BPCompany+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BPCompany+Utilities.m"; sourceTree = "<group>"; };
 		37B6480F6E86E7867048D1DC /* BPCompany.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPCompany.m; sourceTree = "<group>"; };
@@ -125,7 +125,7 @@
 		37B648A1A89B376DE62E2133 /* BPAPIAccessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPAPIAccessor.m; sourceTree = "<group>"; };
 		37B64960EF3268FB825DD2FE /* BPRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPRootViewController.m; sourceTree = "<group>"; };
 		37B649C1631E9ADBA6B66CC7 /* BPRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPRootViewController.h; sourceTree = "<group>"; };
-		37B649F01069BA6A92B49C15 /* BPProduct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPProduct.h; sourceTree = "<group>"; };
+		37B649F01069BA6A92B49C15 /* BPProductResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPProductResult.h; sourceTree = "<group>"; };
 		37B64A1CFA3A5EA1F51ED5DE /* BPScanCodeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPScanCodeView.m; sourceTree = "<group>"; };
 		37B64A4E6D2911A1145CB104 /* BPTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPTask.m; sourceTree = "<group>"; };
 		37B64A5E17F2E5888839150C /* BPAPIAccessor+Product.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BPAPIAccessor+Product.m"; sourceTree = "<group>"; };
@@ -286,8 +286,8 @@
 		37B644C120825EFA9AF52B8A /* EntityCategories */ = {
 			isa = PBXGroup;
 			children = (
-				37B6473D93970F5113F3AAB3 /* BPProduct+Utilities.m */,
-				37B64096880AC9C86B2DF4B1 /* BPProduct+Utilities.h */,
+				37B6473D93970F5113F3AAB3 /* BPProductResult+Utilities.m */,
+				37B64096880AC9C86B2DF4B1 /* BPProductResult+Utilities.h */,
 				37B647FEED6EEF7F9C209A45 /* BPCompany+Utilities.m */,
 				37B64E98890D7A9D303A77E5 /* BPCompany+Utilities.h */,
 			);
@@ -365,8 +365,8 @@
 		37B64AE3A38FEC08E6CDE873 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				37B6413AB46D8FAC81D1E72B /* BPProduct.m */,
-				37B649F01069BA6A92B49C15 /* BPProduct.h */,
+				37B6413AB46D8FAC81D1E72B /* BPProductResult.m */,
+				37B649F01069BA6A92B49C15 /* BPProductResult.h */,
 				37B642B1EB936576BE21C81B /* Task */,
 				37B644C120825EFA9AF52B8A /* EntityCategories */,
 				37B6480F6E86E7867048D1DC /* BPCompany.m */,
@@ -605,13 +605,13 @@
 				1D08E83519A7621A00879BD2 /* main.m in Sources */,
 				1D08E83C19A7621A00879BD2 /* Pola.xcdatamodeld in Sources */,
 				37B642317C6BC629AFB0394F /* BPProductManager.m in Sources */,
-				37B649B71B7F59A1741CD9B7 /* BPProduct.m in Sources */,
+				37B649B71B7F59A1741CD9B7 /* BPProductResult.m in Sources */,
 				37B64A5D21387F5E0613B2AA /* BPTaskRunner.m in Sources */,
 				37B646BC2546890EB330F4FD /* BPTask.m in Sources */,
 				37B647E20B1B2E3F5F0ECFA3 /* BPAPIAccessor.m in Sources */,
 				37B64D4617BA6760E8B4101F /* BPAPIAccessor+Product.m in Sources */,
 				37B64FF08BF5367BF9669B33 /* BPUtilities.m in Sources */,
-				37B64E4A4C23A423A7B102CB /* BPProduct+Utilities.m in Sources */,
+				37B64E4A4C23A423A7B102CB /* BPProductResult+Utilities.m in Sources */,
 				37B64F7816B23819A90C0456 /* BPLogger.m in Sources */,
 				37B6498848E97978409489A6 /* NSDictionary+BPJSON.m in Sources */,
 				37B6416E16FEB2AD27BB3D9E /* BPAPIResponse.m in Sources */,

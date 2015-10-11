@@ -1,5 +1,5 @@
 #import "BPProductInfoDataSource.h"
-#import "BPProduct.h"
+#import "BPProductResult.h"
 #import "BPCompany.h"
 #import "BPDefaultTableViewCell.h"
 
@@ -15,7 +15,7 @@ NSString *const BPProductInfoDataDefaultIdentifier = @"BPProductInfoDataDefaultI
 
 @implementation BPProductInfoDataSource
 
-- (instancetype)initWithProduct:(BPProduct *)product tableView:(UITableView *)tableView {
+- (instancetype)initWithProduct:(BPProductResult *)product tableView:(UITableView *)tableView {
     self = [super init];
     if (self) {
         _tableView = tableView;
@@ -45,7 +45,7 @@ NSString *const BPProductInfoDataDefaultIdentifier = @"BPProductInfoDataDefaultI
     ];
 }
 
-- (void)updateProduct:(BPProduct *)product {
+- (void)updateProduct:(BPProductResult *)product {
     _product = product;
     [self.tableView reloadData];
 }

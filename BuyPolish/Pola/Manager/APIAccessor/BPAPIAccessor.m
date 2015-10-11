@@ -6,7 +6,7 @@
 #import "BPDeviceManager.h"
 
 
-NSString *const BPAPIAccessorAPIServerUrl = @"https://pola-staging.herokuapp.com/api";
+NSString *const BPAPIAccessorAPIServerUrl = @"https://pola-staging.herokuapp.com/cms";
 NSString *const BPAPIAccessorAPIDeviceId = @"device_id";
 
 

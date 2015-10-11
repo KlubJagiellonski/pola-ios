@@ -1,10 +1,10 @@
 #import "Objection.h"
 #import "BPProductManager.h"
-#import "BPProduct.h"
+#import "BPProductResult.h"
 #import "BPTaskRunner.h"
 #import "BPAPIAccessor.h"
 #import "BPTask.h"
-#import "BPProduct+Utilities.h"
+#import "BPProductResult+Utilities.h"
 #import "BPAPIAccessor+Product.h"
 
 
@@ -20,8 +20,8 @@
 
 objection_requires_sel(@selector(taskRunner), @selector(apiAccessor))
 
-- (void)retrieveProductWithBarcode:(NSString *)barcode completion:(void (^)(BPProduct *, NSError *))completion completionQueue:(NSOperationQueue *)completionQueue {
-    __block BPProduct *product;
+- (void)retrieveProductWithBarcode:(NSString *)barcode completion:(void (^)(BPProductResult *, NSError *))completion completionQueue:(NSOperationQueue *)completionQueue {
+    __block BPProductResult *product;
     __block NSError *error;
 
     weakify()
@@ -34,7 +34,7 @@ objection_requires_sel(@selector(taskRunner), @selector(apiAccessor))
             BPLog(@"Error while retrieve product: %@ %@", barcode, error.localizedDescription);
             return;
         }
-        product = [[BPProduct alloc] init];
+        product = [[BPProductResult alloc] init];
         [product parse:productDictionary];
     };
     void (^blockCompletion)() = ^{

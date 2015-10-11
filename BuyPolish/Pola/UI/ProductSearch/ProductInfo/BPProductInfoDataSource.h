@@ -1,16 +1,16 @@
 #import <Foundation/Foundation.h>
 
 
-@class BPProduct;
+@class BPProductResult;
 
 
 @interface BPProductInfoDataSource : NSObject <UITableViewDataSource>
 
-@property(nonatomic, readonly) BPProduct *product;
+@property(nonatomic, readonly) BPProductResult *product;
 
-- (instancetype)initWithProduct:(BPProduct *)product tableView:(UITableView *)tableView;
+- (instancetype)initWithProduct:(BPProductResult *)product tableView:(UITableView *)tableView;
 
-- (void)updateProduct:(BPProduct *)product;
+- (void)updateProduct:(BPProductResult *)product;
 @end
 
 

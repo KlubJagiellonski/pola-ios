@@ -5,7 +5,7 @@
 @implementation BPAPIAccessor (Product)
 
 - (NSDictionary *)retrieveProductWithBarcode:(NSString *)barcode error:(NSError **)error {
-    BPAPIResponse *response = [self get:[NSString stringWithFormat:@"product/%@/", barcode] error:error];
+    BPAPIResponse *response = [self get:[NSString stringWithFormat:@"product/get_by_code/%@", barcode] error:error];
     NSDictionary *result = response.responseObject;
     return result;
 }

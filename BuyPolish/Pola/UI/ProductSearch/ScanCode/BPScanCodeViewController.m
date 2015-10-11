@@ -2,12 +2,12 @@
 #import "BPScanCodeViewController.h"
 #import "BPScanCodeView.h"
 #import "BPProductManager.h"
-#import "BPProduct.h"
+#import "BPProductResult.h"
 #import "BPTaskRunner.h"
 #import "BPActivityIndicatorView.h"
 #import "UIAlertView+BPUtilities.h"
 #import "NSString+BPUtilities.h"
-#import "BPProduct+Utilities.h"
+#import "BPProductResult+Utilities.h"
 #import "BPStackView.h"
 #import "BPCardView.h"
 
@@ -79,7 +79,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager))
         return;
     }
 
-    BPProduct *product = [[BPProduct alloc] initWithBarcode:barcode];
+    BPProductResult *product = [[BPProductResult alloc] initWithBarcode:barcode];
     [product fillMadeInPolandFromBarcode:barcode];
 
     if([self addCardAndDownloadDetails:product]) {
@@ -88,7 +88,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager))
     }
 }
 
-- (BOOL)addCardAndDownloadDetails:(BPProduct *)product {
+- (BOOL)addCardAndDownloadDetails:(BPProductResult *)product {
     BPCardView *cardView = [[BPCardView alloc] initWithFrame:CGRectZero];
     cardView.madeInPoland = product.madeInPoland;
     cardView.inProgress = YES;
@@ -98,7 +98,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager))
         return NO;
     }
 
-    [self.productManager retrieveProductWithBarcode:product.barcode completion:^(BPProduct *fetchedProduct, NSError *error) {
+    [self.productManager retrieveProductWithBarcode:product.barcode completion:^(BPProductResult *fetchedProduct, NSError *error) {
         if(!error) {
             cardView.inProgress = NO;
             //todo update cardview
