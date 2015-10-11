@@ -137,16 +137,6 @@ const float PAN_THRESHOLD_TO_SHOW_OR_HIDE_FULL_SCREEN = 50;
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cardTapped:)];
     singleTap.numberOfTapsRequired = 1;
     [cardView addGestureRecognizer:singleTap];
-
-    UISwipeGestureRecognizer *leftSwipeGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(cardSwiped:)];
-    leftSwipeGestureRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
-    leftSwipeGestureRecognizer.delegate = self;
-    [cardView addGestureRecognizer:leftSwipeGestureRecognizer];
-
-    UISwipeGestureRecognizer *rightSwipeGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(cardSwiped:)];
-    rightSwipeGestureRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
-    rightSwipeGestureRecognizer.delegate = self;
-    [cardView addGestureRecognizer:rightSwipeGestureRecognizer];
 }
 
 - (void)cardTapped:(UITapGestureRecognizer *)tapGestureRecognizer {
@@ -157,36 +147,6 @@ const float PAN_THRESHOLD_TO_SHOW_OR_HIDE_FULL_SCREEN = 50;
     } else if (self.currentState == STATE_FULL_SIZE && [self.cardViewArray indexOfObject:tappedCardView] != self.fullScreenCardViewIndex) {
         [self animateToStack];
     }
-}
-
-- (void)cardSwiped:(UISwipeGestureRecognizer *)swipeGestureRecognizer {
-    if (self.currentState != STATE_STACK) {
-        return;
-    }
-
-    BPCardView *pannedCardView = (BPCardView *) swipeGestureRecognizer.view;
-
-    float animationStepDuration = REMOVE_CARD_ANIMATION_DURATION / 2;
-
-    CGRect rect = pannedCardView.frame;
-    if (swipeGestureRecognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
-        rect.origin.x = -CGRectGetWidth(self.bounds);
-    } else {
-        rect.origin.x = CGRectGetWidth(self.bounds);
-    }
-
-    [UIView animateWithDuration:animationStepDuration delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-        pannedCardView.frame = rect;
-    }                completion:^(BOOL finished) {
-        [self.cardViewArray removeObject:pannedCardView];
-        [pannedCardView removeFromSuperview];
-        [self.stackDelegate didRemoveCard:pannedCardView];
-
-        [UIView animateWithDuration:animationStepDuration animations:^{
-            [self setNeedsLayout];
-            [self layoutIfNeeded];
-        }];
-    }];
 }
 
 - (void)animateToStack {
