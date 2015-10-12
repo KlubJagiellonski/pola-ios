@@ -11,8 +11,8 @@ extern NSInteger const CARD_TITLE_HEIGHT;
 
 @property(nonatomic) BOOL inProgress;
 
-- (void)setVerified:(BOOL)verified;
+- (void)setLeftHeaderText:(NSString *)leftHeaderText;
 
-- (void)setBarcode:(NSString *)barcode;
+- (void)setRightHeaderText:(NSString *)rightHeaderText;
 
 @end

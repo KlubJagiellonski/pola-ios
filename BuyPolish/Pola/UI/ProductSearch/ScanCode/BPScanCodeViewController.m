@@ -7,6 +7,7 @@
 #import "UIAlertView+BPUtilities.h"
 #import "NSString+BPUtilities.h"
 #import "BPCardView.h"
+#import "BPCompany.h"
 
 
 @interface BPScanCodeViewController ()
@@ -49,16 +50,10 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager))
     [_captureSession startRunning];
 }
 
-- (void)addCard {
-    BPCardView *cardView = [[BPCardView alloc] initWithFrame:CGRectZero];
-    cardView.backgroundColor = self.castView.stackView.cardCount % 2 == 0 ? [UIColor redColor] : [UIColor yellowColor];
-    [self.castView.stackView addCard:cardView];
-}
-
 #pragma mark - Actions
 
 - (void)foundBarcode:(NSString *)barcode corners:(NSArray *)corners {
-    if(!self.addingCardEnabled) {
+    if (!self.addingCardEnabled) {
         return;
     }
 
@@ -83,7 +78,6 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager))
 - (BOOL)addCardAndDownloadDetails:(NSString *)barcode {
     BPCardView *cardView = [[BPCardView alloc] initWithFrame:CGRectZero];
     cardView.inProgress = YES;
-    cardView.barcode = barcode;
     BOOL cardAdded = [self.castView.stackView addCard:cardView];
     if (!cardAdded) {
         return NO;
@@ -92,7 +86,8 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager))
     [self.productManager retrieveProductWithBarcode:barcode completion:^(BPProductResult *productResult, NSError *error) {
         cardView.inProgress = NO;
         if (!error) {
-            cardView.verified = productResult.verified.boolValue;
+            [cardView setRightHeaderText:productResult.company ? productResult.company.name : @"No company"];
+            [cardView setLeftHeaderText:productResult.plScore ? productResult.plScore.stringValue : @"?"];
             //todo update cardview
         } else {
             self.lastBardcodeScanned = nil;
