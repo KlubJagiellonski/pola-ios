@@ -5,10 +5,16 @@
 
 - (void)parse:(NSDictionary *)dictionary {
     self.name = [BPUtilities handleNull:dictionary[@"name"]];
-    self.nip = [BPUtilities handleNull:dictionary[@"nip"]];
-    self.address = [BPUtilities handleNull:dictionary[@"address"]];
-    self.capitalInPoland = [BPUtilities handleNull:dictionary[@"plCapital"]];
-    self.capitalInPolandInfo = [BPUtilities handleNull:dictionary[@"plCapital_notes"]];
+    self.plWorkers = [BPUtilities handleNull:dictionary[@"plWorkers"]];
+    self.plWorkersNotes = [BPUtilities handleNull:dictionary[@"plWorkers_notes"]];
+    self.plBrand = [BPUtilities handleNull:dictionary[@"plBrand"]];
+    self.plBrandNotes = [BPUtilities handleNull:dictionary[@"plBrand_notes"]];
+    self.plTaxes = [BPUtilities handleNull:dictionary[@"plTaxes"]];
+    self.plTaxesNotes = [BPUtilities handleNull:dictionary[@"plTaxes_notes"]];
+    self.plCapital = [BPUtilities handleNull:dictionary[@"plCapital"]];
+    self.plCapitalNotes = [BPUtilities handleNull:dictionary[@"plCapital_notes"]];
+    self.plRnD = [BPUtilities handleNull:dictionary[@"plRnD"]];
+    self.plRnDNotes = [BPUtilities handleNull:dictionary[@"plRnD_notes"]];
 }
 
 @end

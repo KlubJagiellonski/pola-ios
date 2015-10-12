@@ -10,10 +10,9 @@
 @property(nonatomic, copy) NSString *plBrandNotes;
 @property(nonatomic, strong) NSNumber *plTaxes;
 @property(nonatomic, copy) NSString *plTaxesNotes;
-
-@property(nonatomic, strong) NSNumber *capitalInPoland;
-@property(nonatomic, copy) NSString *capitalInPolandInfo;
-@property(nonatomic, copy) NSString *nip;
-@property(nonatomic, copy) NSString *address;
+@property(nonatomic, strong) NSNumber *plCapital;
+@property(nonatomic, copy) NSString *plCapitalNotes;
+@property(nonatomic, strong) NSNumber *plRnD;
+@property(nonatomic, copy) NSString *plRnDNotes;
 
 @end

@@ -11,10 +11,10 @@
 @protocol BPStackViewDelegate <NSObject>
 
 - (void)willAddCard:(BPCardView *)cardView withAnimationDuration:(CGFloat)animationDuration;
-- (void)willEnterFullScreen:(BPCardView *)cardView withAnimationDuration:(CGFloat)animationDuration;
-- (void)willExitFullScreen:(BPCardView *)cardView withAnimationDuration:(CGFloat)animationDuration;
-- (void)didRemoveCard:(BPCardView *)view;
 
+- (void)willEnterFullScreen:(BPCardView *)cardView withAnimationDuration:(CGFloat)animationDuration;
+
+- (void)didExitFullScreen:(BPCardView *)cardView;
 @end
 
 

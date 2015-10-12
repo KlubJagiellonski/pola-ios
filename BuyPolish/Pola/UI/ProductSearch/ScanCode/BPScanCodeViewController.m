@@ -4,11 +4,8 @@
 #import "BPProductManager.h"
 #import "BPProductResult.h"
 #import "BPTaskRunner.h"
-#import "BPActivityIndicatorView.h"
 #import "UIAlertView+BPUtilities.h"
 #import "NSString+BPUtilities.h"
-#import "BPProductResult+Utilities.h"
-#import "BPStackView.h"
 #import "BPCardView.h"
 
 
@@ -19,6 +16,7 @@
 @property(nonatomic, readonly) BPTaskRunner *taskRunner;
 @property(nonatomic, readonly) BPProductManager *productManager;
 @property(nonatomic, strong) NSString *lastBardcodeScanned;
+@property(nonatomic) BOOL addingCardEnabled;
 
 @end
 
@@ -33,6 +31,8 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager))
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    self.addingCardEnabled = YES;
 
     self.automaticallyAdjustsScrollViewInsets = NO;
 
@@ -49,63 +49,56 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager))
     [_captureSession startRunning];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-
-    [self performSelector:@selector(addCard) withObject:nil afterDelay:1.5f];
-    [self performSelector:@selector(addCard) withObject:nil afterDelay:3.0f];
-    [self performSelector:@selector(addCard) withObject:nil afterDelay:4.5f];
-}
-
 - (void)addCard {
     BPCardView *cardView = [[BPCardView alloc] initWithFrame:CGRectZero];
     cardView.backgroundColor = self.castView.stackView.cardCount % 2 == 0 ? [UIColor redColor] : [UIColor yellowColor];
     [self.castView.stackView addCard:cardView];
 }
 
-
 #pragma mark - Actions
 
 - (void)foundBarcode:(NSString *)barcode corners:(NSArray *)corners {
-    if(![barcode isValidBarcode]) {
+    if(!self.addingCardEnabled) {
+        return;
+    }
+
+    if (![barcode isValidBarcode]) {
         [self.captureSession startRunning];
 
-        UIAlertView * alertView = [UIAlertView showErrorAlert:NSLocalizedString(@"Not valid barcode. Please try again.", @"Not valid barcode. Please try again.")];
+        UIAlertView *alertView = [UIAlertView showErrorAlert:NSLocalizedString(@"Not valid barcode. Please try again.", @"Not valid barcode. Please try again.")];
         [alertView setDelegate:self];
         return;
     }
 
-    if([barcode isEqualToString:self.lastBardcodeScanned]) {
+    if ([barcode isEqualToString:self.lastBardcodeScanned]) {
         return;
     }
 
-    BPProductResult *product = [[BPProductResult alloc] initWithBarcode:barcode];
-    [product fillMadeInPolandFromBarcode:barcode];
-
-    if([self addCardAndDownloadDetails:product]) {
+    if ([self addCardAndDownloadDetails:barcode]) {
         AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
         self.lastBardcodeScanned = barcode;
     }
 }
 
-- (BOOL)addCardAndDownloadDetails:(BPProductResult *)product {
+- (BOOL)addCardAndDownloadDetails:(NSString *)barcode {
     BPCardView *cardView = [[BPCardView alloc] initWithFrame:CGRectZero];
-    cardView.madeInPoland = product.madeInPoland;
     cardView.inProgress = YES;
-    cardView.barcode = product.barcode;
+    cardView.barcode = barcode;
     BOOL cardAdded = [self.castView.stackView addCard:cardView];
-    if(!cardAdded) {
+    if (!cardAdded) {
         return NO;
     }
 
-    [self.productManager retrieveProductWithBarcode:product.barcode completion:^(BPProductResult *fetchedProduct, NSError *error) {
-        if(!error) {
-            cardView.inProgress = NO;
+    [self.productManager retrieveProductWithBarcode:barcode completion:^(BPProductResult *productResult, NSError *error) {
+        cardView.inProgress = NO;
+        if (!error) {
+            cardView.verified = productResult.verified.boolValue;
             //todo update cardview
         } else {
+            self.lastBardcodeScanned = nil;
             [UIAlertView showErrorAlert:NSLocalizedString(@"Cannot fetch product info from server. Please try again.", @"")];
         }
-    } completionQueue:[NSOperationQueue mainQueue]];
+    }                               completionQueue:[NSOperationQueue mainQueue]];
 
     return YES;
 }
@@ -138,10 +131,10 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager))
 
 #pragma mark - AVCaptureMetadataOutputObjectsDelegate
 
-- (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection{
+- (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection {
     if (metadataObjects != nil && [metadataObjects count] > 0) {
         NSObject *metadataObj = metadataObjects.firstObject;
-        if(![metadataObj isKindOfClass:[AVMetadataMachineReadableCodeObject class]]) {
+        if (![metadataObj isKindOfClass:[AVMetadataMachineReadableCodeObject class]]) {
             return;
         }
         AVMetadataMachineReadableCodeObject *readableMetadataObj = (AVMetadataMachineReadableCodeObject *) metadataObj;
@@ -172,16 +165,11 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager))
 }
 
 - (void)willEnterFullScreen:(BPCardView *)cardView withAnimationDuration:(CGFloat)animationDuration {
-    [self.captureSession stopRunning];
+    self.addingCardEnabled = NO;
 }
 
-- (void)willExitFullScreen:(BPCardView *)cardView withAnimationDuration:(CGFloat)animationDuration {
-    [self.captureSession startRunning];
+- (void)didExitFullScreen:(BPCardView *)cardView {
+    self.addingCardEnabled = YES;
 }
-
-- (void)didRemoveCard:(BPCardView *)view {
-
-}
-
 
 @end

@@ -17,8 +17,7 @@ NSInteger const STATE_FULL_SIZE = 1;
 
 float const ADD_CARD_ANIMATION_DURATION = 0.8f;
 const float SHOW_FULL_CARD_ANIMATION_DURATION = 0.7f;
-const float REMOVE_CARD_ANIMATION_DURATION = 0.8f;
-const float PAN_THRESHOLD_TO_SHOW_OR_HIDE_FULL_SCREEN = 50;
+const float PAN_THRESHOLD_TO_SHOW_OR_HIDE_FULL_SCREEN = 20;
 
 
 @interface BPStackView ()
@@ -150,8 +149,6 @@ const float PAN_THRESHOLD_TO_SHOW_OR_HIDE_FULL_SCREEN = 50;
 }
 
 - (void)animateToStack {
-    [self.stackDelegate willExitFullScreen:self.cardViewArray[self.fullScreenCardViewIndex] withAnimationDuration:SHOW_FULL_CARD_ANIMATION_DURATION];
-
     self.currentState = STATE_STACK;
     self.fullScreenCardViewIndex = 0;
 
@@ -164,7 +161,9 @@ const float PAN_THRESHOLD_TO_SHOW_OR_HIDE_FULL_SCREEN = 50;
                          [self setNeedsLayout];
                          [self layoutIfNeeded];
                      }
-                     completion:nil];
+                     completion:^(BOOL finished) {
+                         [self.stackDelegate didExitFullScreen:self.cardViewArray[self.fullScreenCardViewIndex]];
+                     }];
 }
 
 - (void)animateToFullScreen:(BPCardView *)tappedCardView {
