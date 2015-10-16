@@ -6,17 +6,18 @@
 #import "BPTaskRunner.h"
 #import "UIAlertView+BPUtilities.h"
 #import "NSString+BPUtilities.h"
-#import "BPCardView.h"
+#import "BPProductCardView.h"
 #import "BPCompany.h"
+#import "BPReportProblemViewController.h"
 
 
 @interface BPScanCodeViewController ()
 
-@property(nonatomic, strong) AVCaptureSession *captureSession;
-@property(nonatomic, strong) AVCaptureVideoPreviewLayer *videoPreviewLayer;
+@property(nonatomic, readonly) BPCameraSessionManager *cameraSessionManager;
 @property(nonatomic, readonly) BPTaskRunner *taskRunner;
 @property(nonatomic, readonly) BPProductManager *productManager;
 @property(nonatomic, strong) NSString *lastBardcodeScanned;
+@property(nonatomic, readonly) NSMutableArray *scannedBarcodes;
 @property(nonatomic) BOOL addingCardEnabled;
 
 @end
@@ -24,7 +25,7 @@
 
 @implementation BPScanCodeViewController
 
-objection_requires_sel(@selector(taskRunner), @selector(productManager))
+objection_requires_sel(@selector(taskRunner), @selector(productManager), @selector(cameraSessionManager))
 
 - (void)loadView {
     self.view = [[BPScanCodeView alloc] initWithFrame:CGRectZero];
@@ -33,55 +34,41 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager))
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    _scannedBarcodes = [NSMutableArray array];
+
+    self.cameraSessionManager.delegate = self;
+
     self.addingCardEnabled = YES;
-
     self.automaticallyAdjustsScrollViewInsets = NO;
-
     self.castView.stackView.stackDelegate = self;
-
-    [self setupCaptureSession];
-
     self.title = NSLocalizedString(@"Scan Code", @"");
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self setupVideoLayer];
-    [_captureSession startRunning];
+
+    [self.castView addVideoPreviewLayer:self.cameraSessionManager.videoPreviewLayer];
+    [self.cameraSessionManager start];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self.cameraSessionManager stop];
 }
 
 #pragma mark - Actions
 
-- (void)foundBarcode:(NSString *)barcode corners:(NSArray *)corners {
-    if (!self.addingCardEnabled) {
-        return;
-    }
-
-    if (![barcode isValidBarcode]) {
-        [self.captureSession startRunning];
-
-        UIAlertView *alertView = [UIAlertView showErrorAlert:NSLocalizedString(@"Not valid barcode. Please try again.", @"Not valid barcode. Please try again.")];
-        [alertView setDelegate:self];
-        return;
-    }
-
-    if ([barcode isEqualToString:self.lastBardcodeScanned]) {
-        return;
-    }
-
-    if ([self addCardAndDownloadDetails:barcode]) {
-        AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
-        self.lastBardcodeScanned = barcode;
-    }
-}
-
 - (BOOL)addCardAndDownloadDetails:(NSString *)barcode {
-    BPCardView *cardView = [[BPCardView alloc] initWithFrame:CGRectZero];
+    BPProductCardView *cardView = [[BPProductCardView alloc] initWithFrame:CGRectZero];
     cardView.inProgress = YES;
     BOOL cardAdded = [self.castView.stackView addCard:cardView];
     if (!cardAdded) {
         return NO;
     }
+
+    cardView.delegate = self;
+    cardView.tag = [self.scannedBarcodes count];
+    [self.scannedBarcodes addObject:barcode];
 
     [self.productManager retrieveProductWithBarcode:barcode completion:^(BPProductResult *productResult, NSError *error) {
         cardView.inProgress = NO;
@@ -98,52 +85,14 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager))
     return YES;
 }
 
-#pragma mark - Capture session
-
-- (void)setupVideoLayer {
-    if (_captureSession) {
-        _videoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:_captureSession];
-        [_videoPreviewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
-        [self.castView addVideoPreviewLayer:_videoPreviewLayer];
-    }
-}
-
-- (void)setupCaptureSession {
-    AVCaptureDevice *captureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-    NSError *error;
-    AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:captureDevice error:&error];
-
-    if (input) {
-        _captureSession = [[AVCaptureSession alloc] init];
-        [_captureSession addInput:input];
-        AVCaptureMetadataOutput *captureMetadataOutput = [[AVCaptureMetadataOutput alloc] init];
-        [_captureSession addOutput:captureMetadataOutput];
-
-        [captureMetadataOutput setMetadataObjectsDelegate:self queue:dispatch_get_main_queue()];
-        [captureMetadataOutput setMetadataObjectTypes:@[AVMetadataObjectTypeEAN13Code, AVMetadataObjectTypeEAN8Code]];
-    }
-}
-
-#pragma mark - AVCaptureMetadataOutputObjectsDelegate
-
-- (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection {
-    if (metadataObjects != nil && [metadataObjects count] > 0) {
-        NSObject *metadataObj = metadataObjects.firstObject;
-        if (![metadataObj isKindOfClass:[AVMetadataMachineReadableCodeObject class]]) {
-            return;
-        }
-        AVMetadataMachineReadableCodeObject *readableMetadataObj = (AVMetadataMachineReadableCodeObject *) metadataObj;
-
-        NSString *barcode = readableMetadataObj.stringValue;
-        BPLog(@"Found barcode: %@", barcode);
-        [self foundBarcode:barcode corners:readableMetadataObj.corners];
-    }
+- (void)saveImageForBarcode:(NSString *)barcode {
+    [self.cameraSessionManager captureImageForBarcode:barcode];
 }
 
 #pragma mark - UIAlertViewDelegate
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    [_captureSession startRunning];
+    self.addingCardEnabled = YES;
 }
 
 
@@ -155,16 +104,53 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager))
 
 #pragma mark - BPStackViewDelegate
 
-- (void)willAddCard:(BPCardView *)cardView withAnimationDuration:(CGFloat)animationDuration {
+- (void)willAddCard:(UIView <BPCardViewProtocol> *)cardView withAnimationDuration:(CGFloat)animationDuration {
 
 }
 
-- (void)willEnterFullScreen:(BPCardView *)cardView withAnimationDuration:(CGFloat)animationDuration {
+- (void)willEnterFullScreen:(UIView <BPCardViewProtocol> *)cardView withAnimationDuration:(CGFloat)animationDuration {
     self.addingCardEnabled = NO;
 }
 
-- (void)didExitFullScreen:(BPCardView *)cardView {
+- (void)didExitFullScreen:(UIView <BPCardViewProtocol> *)cardView {
     self.addingCardEnabled = YES;
 }
+
+#pragma mark - BPCameraSessionManagerDelegate
+
+- (void)didFindBarcode:(NSString *)barcode {
+    if (!self.addingCardEnabled) {
+        return;
+    }
+
+    if (![barcode isValidBarcode]) {
+        self.addingCardEnabled = NO;
+
+        UIAlertView *alertView = [UIAlertView showErrorAlert:NSLocalizedString(@"Not valid barcode. Please try again.", @"Not valid barcode. Please try again.")];
+        [alertView setDelegate:self];
+        return;
+    }
+
+    if ([barcode isEqualToString:self.lastBardcodeScanned]) {
+        return;
+    }
+
+    if ([self addCardAndDownloadDetails:barcode]) {
+        [self saveImageForBarcode:barcode];
+        AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
+        self.lastBardcodeScanned = barcode;
+    }
+}
+
+#pragma mark - BPProductCardViewDelegate
+
+- (void)didTapReportProblem:(BPProductCardView *)productCardView {
+    NSString *barcode = self.scannedBarcodes[(NSUInteger) productCardView.tag];
+
+    JSObjectionInjector *injector = [JSObjection defaultInjector];
+    BPReportProblemViewController *reportProblemViewController = [injector getObject:[BPReportProblemViewController class] argumentList:@[barcode]];
+    [self presentViewController:reportProblemViewController animated:YES completion:nil];
+}
+
 
 @end

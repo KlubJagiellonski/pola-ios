@@ -3,18 +3,18 @@
 // Copyright (c) 2015 PJMS. All rights reserved.
 //
 
-#import "BPCardView.h"
+#import "BPProductCardView.h"
 
-NSInteger const CARD_TITLE_HEIGHT = 50;
 NSInteger const CARD_PADDING = 5;
 
-@interface BPCardView ()
+@interface BPProductCardView ()
 @property(nonatomic, readonly) UILabel *rightHeaderLabel;
 @property(nonatomic, readonly) UILabel *leftHeaderLabel;
 @property(nonatomic, readonly) UIActivityIndicatorView *progressView;
+@property(nonatomic, readonly) UIButton *reportProblemButton;
 @end
 
-@implementation BPCardView
+@implementation BPProductCardView
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -39,9 +39,19 @@ NSInteger const CARD_PADDING = 5;
         _leftHeaderLabel.adjustsFontSizeToFitWidth = YES;
         _leftHeaderLabel.minimumScaleFactor = 0.8f;
         [self addSubview:_leftHeaderLabel];
+
+        _reportProblemButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [_reportProblemButton addTarget:self action:@selector(didTapReportProblem) forControlEvents:UIControlEventTouchUpInside];
+        [_reportProblemButton setTitle:@"Report problem" forState:UIControlStateNormal];
+        [_reportProblemButton sizeToFit];
+        [self addSubview:_reportProblemButton];
     }
 
     return self;
+}
+
+- (void)didTapReportProblem {
+    [self.delegate didTapReportProblem:self];
 }
 
 - (void)layoutSubviews {
@@ -51,12 +61,12 @@ NSInteger const CARD_PADDING = 5;
 
     rect = self.progressView.frame;
     rect.origin.x = CGRectGetWidth(self.bounds) / 2 - CGRectGetWidth(rect) / 2;
-    rect.origin.y = CARD_TITLE_HEIGHT / 2 - CGRectGetHeight(rect) / 2;
+    rect.origin.y = self.titleHeight / 2 - CGRectGetHeight(rect) / 2;
     self.progressView.frame = rect;
 
     rect = self.leftHeaderLabel.frame;
     rect.origin.x = CARD_PADDING;
-    rect.origin.y = CARD_TITLE_HEIGHT / 2 - CGRectGetHeight(rect) / 2;
+    rect.origin.y = self.titleHeight / 2 - CGRectGetHeight(rect) / 2;
     rect.size.width = CGRectGetMinX(self.progressView.frame) - CGRectGetMinX(rect);
     self.leftHeaderLabel.frame = rect;
 
@@ -64,8 +74,13 @@ NSInteger const CARD_PADDING = 5;
     rect = self.rightHeaderLabel.frame;
     rect.size.width = CGRectGetWidth(self.leftHeaderLabel.frame);
     rect.origin.x = CGRectGetWidth(self.bounds) - CARD_PADDING - CGRectGetWidth(rect);
-    rect.origin.y = CARD_TITLE_HEIGHT / 2 - CGRectGetHeight(rect) / 2;
+    rect.origin.y = self.titleHeight / 2 - CGRectGetHeight(rect) / 2;
     self.rightHeaderLabel.frame = rect;
+
+    rect = self.reportProblemButton.frame;
+    rect.origin.x = 0;
+    rect.origin.y = 150; //for now temporary
+    self.reportProblemButton.frame = rect;
 }
 
 - (BOOL)inProgress {

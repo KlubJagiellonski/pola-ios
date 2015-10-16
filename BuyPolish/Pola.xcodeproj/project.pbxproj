@@ -38,16 +38,20 @@
 		37B64798571C9987E7041639 /* BPCompany+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B647FEED6EEF7F9C209A45 /* BPCompany+Utilities.m */; };
 		37B647E20B1B2E3F5F0ECFA3 /* BPAPIAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B648A1A89B376DE62E2133 /* BPAPIAccessor.m */; };
 		37B6480CB8E9273EAC35EDA6 /* NSString+BPUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B644631C60E8DE444885DD /* NSString+BPUtilities.m */; };
-		37B6493CFCC1602BB91CE2CD /* BPStackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64C11A94933F46816773C /* BPStackView.m */; };
+		37B6482F8EF3F11BE5ECEAAB /* BPReportProblemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6403F99127A3C286EA24E /* BPReportProblemView.m */; };
+		37B648580AB2106E285B58C2 /* BPReportProblemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B644E893F9831BEB40A125 /* BPReportProblemViewController.m */; };
 		37B6498848E97978409489A6 /* NSDictionary+BPJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64059D45CBC595213920F /* NSDictionary+BPJSON.m */; };
 		37B649B3937D6158B554F509 /* BPObjectionModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64DFDBDE3A5CEE19D6FDB /* BPObjectionModule.m */; };
 		37B649B71B7F59A1741CD9B7 /* BPProductResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6413AB46D8FAC81D1E72B /* BPProductResult.m */; };
+		37B64A4DC0F7F5F1DAC9D791 /* BPStackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6499FA4AA777D1E05D4C7 /* BPStackView.m */; };
 		37B64A5D21387F5E0613B2AA /* BPTaskRunner.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6447BFF3F65026E98D810 /* BPTaskRunner.m */; };
+		37B64B04E790A7948469FA50 /* BPProductImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6499F703E06B35CC81F50 /* BPProductImageManager.m */; };
+		37B64B07EFEFFFDCC225AF5E /* BPCameraSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64A6EE7790CE9A2DFFF7E /* BPCameraSessionManager.m */; };
 		37B64B7D226FBFA23FFCA1C1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 37B645C93F848A6F598F96E2 /* Localizable.strings */; };
 		37B64BC8938BC7942D533D2F /* BPScanCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64728A5FC383EB464DA9F /* BPScanCodeViewController.m */; };
 		37B64D4617BA6760E8B4101F /* BPAPIAccessor+Product.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64A5E17F2E5888839150C /* BPAPIAccessor+Product.m */; };
 		37B64E4A4C23A423A7B102CB /* BPProductResult+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6473D93970F5113F3AAB3 /* BPProductResult+Utilities.m */; };
-		37B64E6F6DFF950B3C453228 /* BPCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B643AC4312781150E1FEF7 /* BPCardView.m */; };
+		37B64E6F6DFF950B3C453228 /* BPProductCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B643AC4312781150E1FEF7 /* BPProductCardView.m */; };
 		37B64EF12E5868EADB5C5359 /* BPDeviceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B644A0DD2794AA6A426581 /* BPDeviceManager.m */; };
 		37B64F7816B23819A90C0456 /* BPLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6464528820E718DBABAA5 /* BPLogger.m */; };
 		37B64FF08BF5367BF9669B33 /* BPUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64B74E1FAED6141BA2B25 /* BPUtilities.m */; };
@@ -84,6 +88,7 @@
 		1D08E85119A7621A00879BD2 /* PolaTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PolaTests.m; sourceTree = "<group>"; };
 		1D648C111A71B483002B413D /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		1D648C121A71B483002B413D /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		37B6403F99127A3C286EA24E /* BPReportProblemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPReportProblemView.m; sourceTree = "<group>"; };
 		37B64059D45CBC595213920F /* NSDictionary+BPJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+BPJSON.m"; sourceTree = "<group>"; };
 		37B64096880AC9C86B2DF4B1 /* BPProductResult+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BPProductResult+Utilities.h"; sourceTree = "<group>"; };
 		37B6409BC5602C24443D14E4 /* NSDictionary+BPJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+BPJSON.h"; sourceTree = "<group>"; };
@@ -93,19 +98,25 @@
 		37B64109D5EC518C82C8EA7C /* BPActivityIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPActivityIndicatorView.m; sourceTree = "<group>"; };
 		37B6413AB46D8FAC81D1E72B /* BPProductResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPProductResult.m; sourceTree = "<group>"; };
 		37B6415103572F8588CC8D68 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		37B6424C5D970C2E8F298AAB /* BPCameraSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPCameraSessionManager.h; sourceTree = "<group>"; };
+		37B6429D71F43AB163A1A626 /* BPProductImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPProductImageManager.h; sourceTree = "<group>"; };
 		37B642B56DC862C60A6F3CE2 /* BPProductManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPProductManager.m; sourceTree = "<group>"; };
 		37B642C8016B2BC66A308398 /* BPLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPLogger.h; sourceTree = "<group>"; };
+		37B642D3E0C1BA54F79353A4 /* BPReportProblemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPReportProblemView.h; sourceTree = "<group>"; };
 		37B642E167318B93DB25452C /* NSLayoutConstraint+BPAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLayoutConstraint+BPAdditions.h"; sourceTree = "<group>"; };
-		37B643AC4312781150E1FEF7 /* BPCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPCardView.m; sourceTree = "<group>"; };
+		37B643AC4312781150E1FEF7 /* BPProductCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPProductCardView.m; sourceTree = "<group>"; };
 		37B643CE26D1B8399F9EBE5B /* BPObjectionModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPObjectionModule.h; sourceTree = "<group>"; };
 		37B643FD7011C01F1397F84E /* BPCompany.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPCompany.h; sourceTree = "<group>"; };
+		37B64432DC4CBFAAAC5E3DA3 /* BPCardViewProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPCardViewProtocol.h; sourceTree = "<group>"; };
 		37B644631C60E8DE444885DD /* NSString+BPUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+BPUtilities.m"; sourceTree = "<group>"; };
+		37B6447A00A8F15D1A078AF7 /* BPReportProblemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPReportProblemViewController.h; sourceTree = "<group>"; };
 		37B6447BFF3F65026E98D810 /* BPTaskRunner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPTaskRunner.m; sourceTree = "<group>"; };
 		37B644A0DD2794AA6A426581 /* BPDeviceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPDeviceManager.m; sourceTree = "<group>"; };
+		37B644E893F9831BEB40A125 /* BPReportProblemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPReportProblemViewController.m; sourceTree = "<group>"; };
 		37B644EB9663F8806E287450 /* BPAPIAccessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPAPIAccessor.h; sourceTree = "<group>"; };
-		37B645012DDC0E4D3FD5B915 /* BPStackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPStackView.h; sourceTree = "<group>"; };
 		37B64563551A7A720902A511 /* BPActivityIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPActivityIndicatorView.h; sourceTree = "<group>"; };
 		37B645654D3B84690AEA4C0D /* BPUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPUtilities.h; sourceTree = "<group>"; };
+		37B64583B2E03DD7AAB57ACC /* BPStackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPStackView.h; sourceTree = "<group>"; };
 		37B6464528820E718DBABAA5 /* BPLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPLogger.m; sourceTree = "<group>"; };
 		37B6468E5905EC7102613DAB /* BPAPIResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPAPIResponse.m; sourceTree = "<group>"; };
 		37B64728A5FC383EB464DA9F /* BPScanCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPScanCodeViewController.m; sourceTree = "<group>"; };
@@ -116,15 +127,17 @@
 		37B6480F6E86E7867048D1DC /* BPCompany.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPCompany.m; sourceTree = "<group>"; };
 		37B648A1A89B376DE62E2133 /* BPAPIAccessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPAPIAccessor.m; sourceTree = "<group>"; };
 		37B64960EF3268FB825DD2FE /* BPRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPRootViewController.m; sourceTree = "<group>"; };
+		37B6499F703E06B35CC81F50 /* BPProductImageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPProductImageManager.m; sourceTree = "<group>"; };
+		37B6499FA4AA777D1E05D4C7 /* BPStackView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPStackView.m; sourceTree = "<group>"; };
 		37B649C1631E9ADBA6B66CC7 /* BPRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPRootViewController.h; sourceTree = "<group>"; };
 		37B649F01069BA6A92B49C15 /* BPProductResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPProductResult.h; sourceTree = "<group>"; };
 		37B64A1CFA3A5EA1F51ED5DE /* BPScanCodeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPScanCodeView.m; sourceTree = "<group>"; };
 		37B64A4E6D2911A1145CB104 /* BPTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPTask.m; sourceTree = "<group>"; };
 		37B64A5E17F2E5888839150C /* BPAPIAccessor+Product.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BPAPIAccessor+Product.m"; sourceTree = "<group>"; };
+		37B64A6EE7790CE9A2DFFF7E /* BPCameraSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPCameraSessionManager.m; sourceTree = "<group>"; };
 		37B64A848ED64E6728A533D8 /* BPDeviceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPDeviceManager.h; sourceTree = "<group>"; };
 		37B64B74E1FAED6141BA2B25 /* BPUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPUtilities.m; sourceTree = "<group>"; };
-		37B64C11A94933F46816773C /* BPStackView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPStackView.m; sourceTree = "<group>"; };
-		37B64C4AE8B7541331007C5D /* BPCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPCardView.h; sourceTree = "<group>"; };
+		37B64C4AE8B7541331007C5D /* BPProductCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPProductCardView.h; sourceTree = "<group>"; };
 		37B64CD13446A6BEBA4B6A9A /* NSLayoutConstraint+BPAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+BPAdditions.m"; sourceTree = "<group>"; };
 		37B64D1B6193C0AD0D440566 /* BPScanCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPScanCodeViewController.h; sourceTree = "<group>"; };
 		37B64DFDBDE3A5CEE19D6FDB /* BPObjectionModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPObjectionModule.m; sourceTree = "<group>"; };
@@ -262,6 +275,17 @@
 			path = Task;
 			sourceTree = "<group>";
 		};
+		37B644A42C57261C707CF0B4 /* ReportProblem */ = {
+			isa = PBXGroup;
+			children = (
+				37B644E893F9831BEB40A125 /* BPReportProblemViewController.m */,
+				37B6447A00A8F15D1A078AF7 /* BPReportProblemViewController.h */,
+				37B6403F99127A3C286EA24E /* BPReportProblemView.m */,
+				37B642D3E0C1BA54F79353A4 /* BPReportProblemView.h */,
+			);
+			path = ReportProblem;
+			sourceTree = "<group>";
+		};
 		37B644C120825EFA9AF52B8A /* EntityCategories */ = {
 			isa = PBXGroup;
 			children = (
@@ -277,6 +301,7 @@
 			isa = PBXGroup;
 			children = (
 				37B64F458C8BF4C8D672DAE5 /* ScanCode */,
+				37B644A42C57261C707CF0B4 /* ReportProblem */,
 			);
 			path = ProductSearch;
 			sourceTree = "<group>";
@@ -316,6 +341,16 @@
 				37B643CE26D1B8399F9EBE5B /* BPObjectionModule.h */,
 			);
 			path = Objection;
+			sourceTree = "<group>";
+		};
+		37B64827EDC4BBBCA2FB9BAE /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				37B6499FA4AA777D1E05D4C7 /* BPStackView.m */,
+				37B64583B2E03DD7AAB57ACC /* BPStackView.h */,
+				37B64432DC4CBFAAAC5E3DA3 /* BPCardViewProtocol.h */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		37B64977613F0A577613F7E4 /* ProductManager */ = {
@@ -359,6 +394,7 @@
 				37B64960EF3268FB825DD2FE /* BPRootViewController.m */,
 				37B649C1631E9ADBA6B66CC7 /* BPRootViewController.h */,
 				37B64540723CF4EABBB3AC70 /* ProductSearch */,
+				37B64827EDC4BBBCA2FB9BAE /* Common */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -370,6 +406,10 @@
 				37B64A29716085485AEAB5C1 /* APIAccessor */,
 				37B647422EF95F37E48D11B2 /* Objection */,
 				37B64F809E34728FFCBAC658 /* DeviceManager */,
+				37B64A6EE7790CE9A2DFFF7E /* BPCameraSessionManager.m */,
+				37B6424C5D970C2E8F298AAB /* BPCameraSessionManager.h */,
+				37B6499F703E06B35CC81F50 /* BPProductImageManager.m */,
+				37B6429D71F43AB163A1A626 /* BPProductImageManager.h */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -381,10 +421,8 @@
 				37B64D1B6193C0AD0D440566 /* BPScanCodeViewController.h */,
 				37B64A1CFA3A5EA1F51ED5DE /* BPScanCodeView.m */,
 				37B64FFC3FE96EFDE8398CF3 /* BPScanCodeView.h */,
-				37B64C11A94933F46816773C /* BPStackView.m */,
-				37B645012DDC0E4D3FD5B915 /* BPStackView.h */,
-				37B643AC4312781150E1FEF7 /* BPCardView.m */,
-				37B64C4AE8B7541331007C5D /* BPCardView.h */,
+				37B643AC4312781150E1FEF7 /* BPProductCardView.m */,
+				37B64C4AE8B7541331007C5D /* BPProductCardView.h */,
 			);
 			path = ScanCode;
 			sourceTree = "<group>";
@@ -590,8 +628,12 @@
 				37B64798571C9987E7041639 /* BPCompany+Utilities.m in Sources */,
 				37B6480CB8E9273EAC35EDA6 /* NSString+BPUtilities.m in Sources */,
 				37B64EF12E5868EADB5C5359 /* BPDeviceManager.m in Sources */,
-				37B6493CFCC1602BB91CE2CD /* BPStackView.m in Sources */,
-				37B64E6F6DFF950B3C453228 /* BPCardView.m in Sources */,
+				37B64E6F6DFF950B3C453228 /* BPProductCardView.m in Sources */,
+				37B64A4DC0F7F5F1DAC9D791 /* BPStackView.m in Sources */,
+				37B64B07EFEFFFDCC225AF5E /* BPCameraSessionManager.m in Sources */,
+				37B648580AB2106E285B58C2 /* BPReportProblemViewController.m in Sources */,
+				37B6482F8EF3F11BE5ECEAAB /* BPReportProblemView.m in Sources */,
+				37B64B04E790A7948469FA50 /* BPProductImageManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

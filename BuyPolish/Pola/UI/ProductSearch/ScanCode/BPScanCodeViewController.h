@@ -1,6 +1,8 @@
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
 #import "BPStackView.h"
+#import "BPCameraSessionManager.h"
+#import "BPProductCardView.h"
 
 
 @class BPScanCodeViewController;
@@ -12,7 +14,7 @@
 @end
 
 
-@interface BPScanCodeViewController : UIViewController <AVCaptureMetadataOutputObjectsDelegate, UIAlertViewDelegate, BPStackViewDelegate>
+@interface BPScanCodeViewController : UIViewController <AVCaptureMetadataOutputObjectsDelegate, UIAlertViewDelegate, BPStackViewDelegate, BPCameraSessionManagerDelegate, BPProductCardViewDelegate>
 
 @property(nonatomic, weak) id <BPScanCodeViewControllerDelegate> delegate;
 

@@ -4,12 +4,13 @@
 //
 
 #import "BPStackView.h"
-#import "BPCardView.h"
+#import "BPCardViewProtocol.h"
 
 const int STATUS_BAR_HEIGHT = 20;
 
 NSInteger const MAX_CARD_COUNT = 4;
 NSInteger const CARD_MARGIN = 2;
+NSInteger const CARD_TITLE_HEIGHT = 50;
 NSInteger const CARD_SMALL_TITLE_HEIGHT = 15;
 
 NSInteger const STATE_STACK = 0;
@@ -61,7 +62,7 @@ const float PAN_THRESHOLD_TO_SHOW_OR_HIDE_FULL_SCREEN = 20;
     }
 }
 
-- (BOOL)addCard:(BPCardView *)cardView {
+- (BOOL)addCard:(UIView <BPCardViewProtocol> *)cardView {
     if (self.animationInProgress || self.currentState != STATE_STACK) {
         return NO;
     }
@@ -79,7 +80,7 @@ const float PAN_THRESHOLD_TO_SHOW_OR_HIDE_FULL_SCREEN = 20;
     [self.cardViewArray addObject:cardView];
     [self insertSubview:cardView atIndex:0];
 
-    BPCardView *cardViewToRemove;
+    UIView <BPCardViewProtocol> *cardViewToRemove;
     if (self.cardViewArray.count > MAX_CARD_COUNT) {
         cardViewToRemove = self.cardViewArray[0];
     }
@@ -130,7 +131,7 @@ const float PAN_THRESHOLD_TO_SHOW_OR_HIDE_FULL_SCREEN = 20;
     return YES;
 }
 
-- (void)addGestureRecognizersToCardView:(BPCardView *)cardView {
+- (void)addGestureRecognizersToCardView:(UIView <BPCardViewProtocol> *)cardView {
     [cardView setUserInteractionEnabled:YES];
 
     UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cardTapped:)];
@@ -139,7 +140,7 @@ const float PAN_THRESHOLD_TO_SHOW_OR_HIDE_FULL_SCREEN = 20;
 }
 
 - (void)cardTapped:(UITapGestureRecognizer *)tapGestureRecognizer {
-    BPCardView *tappedCardView = (BPCardView *) tapGestureRecognizer.view;
+    UIView <BPCardViewProtocol> *tappedCardView = (UIView <BPCardViewProtocol> *) tapGestureRecognizer.view;
 
     if (self.currentState == STATE_STACK) {
         [self animateToFullScreen:tappedCardView];
@@ -166,7 +167,7 @@ const float PAN_THRESHOLD_TO_SHOW_OR_HIDE_FULL_SCREEN = 20;
                      }];
 }
 
-- (void)animateToFullScreen:(BPCardView *)tappedCardView {
+- (void)animateToFullScreen:(UIView <BPCardViewProtocol> *)tappedCardView {
     [self.stackDelegate willEnterFullScreen:tappedCardView withAnimationDuration:SHOW_FULL_CARD_ANIMATION_DURATION];
 
     self.currentState = STATE_FULL_SIZE;
@@ -182,10 +183,6 @@ const float PAN_THRESHOLD_TO_SHOW_OR_HIDE_FULL_SCREEN = 20;
                          [self layoutIfNeeded];
                      }
                      completion:nil];
-}
-
-- (NSInteger)cardCount {
-    return self.cardViewArray.count;
 }
 
 - (void)layoutSubviews {
@@ -205,7 +202,7 @@ const float PAN_THRESHOLD_TO_SHOW_OR_HIDE_FULL_SCREEN = 20;
     CGRect cardRect = [self getCardBaseRect];
     cardRect.origin.y = CGRectGetHeight(self.bounds) - CARD_TITLE_HEIGHT;
 
-    for (BPCardView *cardView in self.cardViewArray) {
+    for (UIView <BPCardViewProtocol> *cardView in self.cardViewArray) {
         cardView.frame = cardRect;
 
         cardRect.origin.y -= CARD_TITLE_HEIGHT;
@@ -213,7 +210,7 @@ const float PAN_THRESHOLD_TO_SHOW_OR_HIDE_FULL_SCREEN = 20;
 }
 
 - (void)layoutFullSizeSubview {
-    BPCardView *cardView = self.cardViewArray[self.fullScreenCardViewIndex];
+    UIView <BPCardViewProtocol> *cardView = self.cardViewArray[self.fullScreenCardViewIndex];
     CGFloat height = CGRectGetHeight(self.bounds) - 3 * CARD_MARGIN - ([self.cardViewArray count] - 1) * CARD_SMALL_TITLE_HEIGHT - STATUS_BAR_HEIGHT;
     cardView.frame = CGRectMake(CARD_MARGIN, STATUS_BAR_HEIGHT + CARD_MARGIN, CGRectGetWidth(self.bounds) - 2 * CARD_MARGIN, height);
 }
@@ -223,7 +220,7 @@ const float PAN_THRESHOLD_TO_SHOW_OR_HIDE_FULL_SCREEN = 20;
     cardRect.origin.y = CGRectGetHeight(self.bounds) - CARD_SMALL_TITLE_HEIGHT + self.contentOffset.y;
 
     int i = 0;
-    for (BPCardView *cardView in self.cardViewArray) {
+    for (UIView <BPCardViewProtocol> *cardView in self.cardViewArray) {
         if (i == self.fullScreenCardViewIndex) {
             i++;
             continue;
