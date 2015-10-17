@@ -26,10 +26,12 @@
 		1D648C131A71B483002B413D /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D648C111A71B483002B413D /* Crashlytics.framework */; };
 		1D648C141A71B483002B413D /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D648C121A71B483002B413D /* Fabric.framework */; };
 		37B6416E16FEB2AD27BB3D9E /* BPAPIResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6468E5905EC7102613DAB /* BPAPIResponse.m */; };
+		37B6419F4CC6E1243C7400BF /* BPConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6423CE2C3CFAA185F7E79 /* BPConst.m */; };
 		37B641D5FD17D93BC7B1901B /* BPRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64960EF3268FB825DD2FE /* BPRootViewController.m */; };
 		37B641E616DF6D3029539275 /* NSLayoutConstraint+BPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64CD13446A6BEBA4B6A9A /* NSLayoutConstraint+BPAdditions.m */; };
 		37B6422D02FB02F8192C7286 /* BPCompany.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6480F6E86E7867048D1DC /* BPCompany.m */; };
 		37B642317C6BC629AFB0394F /* BPProductManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B642B56DC862C60A6F3CE2 /* BPProductManager.m */; };
+		37B642E8F1F16F59571A854C /* BPImageContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B643918AB6D1110984DE93 /* BPImageContainerView.m */; };
 		37B644D57E5398A17DFA806D /* UIAlertView+BPUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64F1EE6D97F7987CF00CF /* UIAlertView+BPUtilities.m */; };
 		37B645454FC2ACC155CB1538 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B6472FF4603F63771FADE6 /* AVFoundation.framework */; };
 		37B645F07C9913D25328C568 /* BPScanCodeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64A1CFA3A5EA1F51ED5DE /* BPScanCodeView.m */; };
@@ -98,12 +100,16 @@
 		37B64109D5EC518C82C8EA7C /* BPActivityIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPActivityIndicatorView.m; sourceTree = "<group>"; };
 		37B6413AB46D8FAC81D1E72B /* BPProductResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPProductResult.m; sourceTree = "<group>"; };
 		37B6415103572F8588CC8D68 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		37B6423CE2C3CFAA185F7E79 /* BPConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPConst.m; sourceTree = "<group>"; };
 		37B6424C5D970C2E8F298AAB /* BPCameraSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPCameraSessionManager.h; sourceTree = "<group>"; };
 		37B6429D71F43AB163A1A626 /* BPProductImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPProductImageManager.h; sourceTree = "<group>"; };
 		37B642B56DC862C60A6F3CE2 /* BPProductManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPProductManager.m; sourceTree = "<group>"; };
 		37B642C8016B2BC66A308398 /* BPLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPLogger.h; sourceTree = "<group>"; };
 		37B642D3E0C1BA54F79353A4 /* BPReportProblemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPReportProblemView.h; sourceTree = "<group>"; };
 		37B642E167318B93DB25452C /* NSLayoutConstraint+BPAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLayoutConstraint+BPAdditions.h"; sourceTree = "<group>"; };
+		37B64349030A91449B9DA9A2 /* BPConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPConst.h; sourceTree = "<group>"; };
+		37B6435C9D1C6649FDEECDB4 /* BPImageContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPImageContainerView.h; sourceTree = "<group>"; };
+		37B643918AB6D1110984DE93 /* BPImageContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPImageContainerView.m; sourceTree = "<group>"; };
 		37B643AC4312781150E1FEF7 /* BPProductCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPProductCardView.m; sourceTree = "<group>"; };
 		37B643CE26D1B8399F9EBE5B /* BPObjectionModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPObjectionModule.h; sourceTree = "<group>"; };
 		37B643FD7011C01F1397F84E /* BPCompany.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPCompany.h; sourceTree = "<group>"; };
@@ -282,6 +288,8 @@
 				37B6447A00A8F15D1A078AF7 /* BPReportProblemViewController.h */,
 				37B6403F99127A3C286EA24E /* BPReportProblemView.m */,
 				37B642D3E0C1BA54F79353A4 /* BPReportProblemView.h */,
+				37B643918AB6D1110984DE93 /* BPImageContainerView.m */,
+				37B6435C9D1C6649FDEECDB4 /* BPImageContainerView.h */,
 			);
 			path = ReportProblem;
 			sourceTree = "<group>";
@@ -349,6 +357,8 @@
 				37B6499FA4AA777D1E05D4C7 /* BPStackView.m */,
 				37B64583B2E03DD7AAB57ACC /* BPStackView.h */,
 				37B64432DC4CBFAAAC5E3DA3 /* BPCardViewProtocol.h */,
+				37B6423CE2C3CFAA185F7E79 /* BPConst.m */,
+				37B64349030A91449B9DA9A2 /* BPConst.h */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -523,6 +533,8 @@
 			mainGroup = 1D08E81A19A7621A00879BD2;
 			productRefGroup = 1D08E82419A7621A00879BD2 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+			);
 			projectRoot = "";
 			targets = (
 				1D08E82219A7621A00879BD2 /* Pola */,
@@ -634,6 +646,8 @@
 				37B648580AB2106E285B58C2 /* BPReportProblemViewController.m in Sources */,
 				37B6482F8EF3F11BE5ECEAAB /* BPReportProblemView.m in Sources */,
 				37B64B04E790A7948469FA50 /* BPProductImageManager.m in Sources */,
+				37B642E8F1F16F59571A854C /* BPImageContainerView.m in Sources */,
+				37B6419F4CC6E1243C7400BF /* BPConst.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

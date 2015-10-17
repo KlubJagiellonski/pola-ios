@@ -4,10 +4,19 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BPImageContainerView.h"
+
+@class BPReportProblemViewController;
+
+@protocol BPReportProblemViewControllerDelegate <NSObject>
+- (void)reportProblemWantsDismiss:(BPReportProblemViewController *)viewController;
+@end
 
 
-@interface BPReportProblemViewController : UIViewController
+@interface BPReportProblemViewController : UIViewController <BPImageContainerViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
--(instancetype)initWithBarcode:(NSString *)barcode;
+@property(nonatomic, weak) id <BPReportProblemViewControllerDelegate> delegate;
+
+- (instancetype)initWithBarcode:(NSString *)barcode;
 
 @end

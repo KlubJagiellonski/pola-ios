@@ -21,6 +21,11 @@ const float SMALL_IMAGE_WIDTH = 50;
     return CGSizeMake(SMALL_IMAGE_WIDTH, image.size.width * ratio);
 }
 
+- (BOOL)isImageExistForBarcode:(NSString *)barcode index:(int)index {
+    NSString *imagePath = [self imagePathForBarcode:barcode index:index small:YES];
+    return [[NSFileManager defaultManager] fileExistsAtPath:imagePath];
+}
+
 - (UIImage *)retrieveImageForBarcode:(NSString *)barcode index:(int)index small:(BOOL)small {
     NSString *imagePath = [self imagePathForBarcode:barcode index:index small:small];
     NSData *data = [NSData dataWithContentsOfFile:imagePath];

@@ -5,8 +5,7 @@
 
 #import "BPStackView.h"
 #import "BPCardViewProtocol.h"
-
-const int STATUS_BAR_HEIGHT = 20;
+#import "BPConst.h"
 
 NSInteger const MAX_CARD_COUNT = 4;
 NSInteger const CARD_MARGIN = 2;

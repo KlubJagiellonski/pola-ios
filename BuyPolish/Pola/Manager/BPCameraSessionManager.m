@@ -75,7 +75,7 @@ objection_requires_sel(@selector(imageManager))
 
     [self.stillImageOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler:^(CMSampleBufferRef imageSampleBuffer, NSError *error) {
         NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
-        [self.imageManager saveImage:imageData forBarcode:barcode index:0];
+        [self.imageManager saveImage:[UIImage imageWithData:imageData] forBarcode:barcode index:0];
     }];
 }
 

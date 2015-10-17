@@ -49,6 +49,8 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 
     [self.castView addVideoPreviewLayer:self.cameraSessionManager.videoPreviewLayer];
     [self.cameraSessionManager start];
+
+    [self showReportProblem:@"1234"];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -89,12 +91,18 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     [self.cameraSessionManager captureImageForBarcode:barcode];
 }
 
+- (void)showReportProblem:(NSString *)barcode {
+    JSObjectionInjector *injector = [JSObjection defaultInjector];
+    BPReportProblemViewController *reportProblemViewController = [injector getObject:[BPReportProblemViewController class] argumentList:@[barcode]];
+    [self presentViewController:reportProblemViewController animated:YES completion:nil];
+}
+
 #pragma mark - UIAlertViewDelegate
+
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     self.addingCardEnabled = YES;
 }
-
 
 #pragma mark - Helpers
 
@@ -147,10 +155,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 - (void)didTapReportProblem:(BPProductCardView *)productCardView {
     NSString *barcode = self.scannedBarcodes[(NSUInteger) productCardView.tag];
 
-    JSObjectionInjector *injector = [JSObjection defaultInjector];
-    BPReportProblemViewController *reportProblemViewController = [injector getObject:[BPReportProblemViewController class] argumentList:@[barcode]];
-    [self presentViewController:reportProblemViewController animated:YES completion:nil];
+    [self showReportProblem:barcode];
 }
-
 
 @end

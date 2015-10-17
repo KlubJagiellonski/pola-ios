@@ -10,6 +10,8 @@
 
 - (void)saveImage:(UIImage *)image forBarcode:(NSString *)barcode index:(int)index;
 
+- (BOOL)isImageExistForBarcode:(NSString *)barcode index:(int)index;
+
 - (UIImage *)retrieveImageForBarcode:(NSString *)barcode index:(int)index small:(BOOL)small;
 
 @end

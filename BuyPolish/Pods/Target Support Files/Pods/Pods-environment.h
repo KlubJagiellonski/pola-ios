@@ -96,6 +96,12 @@
 #define COCOAPODS_VERSION_MINOR_PLVisualAttributeConstraints 0
 #define COCOAPODS_VERSION_PATCH_PLVisualAttributeConstraints 1
 
+// UITextView+Placeholder
+#define COCOAPODS_POD_AVAILABLE_UITextView_Placeholder
+#define COCOAPODS_VERSION_MAJOR_UITextView_Placeholder 1
+#define COCOAPODS_VERSION_MINOR_UITextView_Placeholder 1
+#define COCOAPODS_VERSION_PATCH_UITextView_Placeholder 0
+
 // iOS-Hierarchy-Viewer
 #define COCOAPODS_POD_AVAILABLE_iOS_Hierarchy_Viewer
 #define COCOAPODS_VERSION_MAJOR_iOS_Hierarchy_Viewer 1

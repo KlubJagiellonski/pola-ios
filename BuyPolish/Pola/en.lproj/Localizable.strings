@@ -27,3 +27,11 @@ We are working as hard as we can to gather info about all of the products, but y
 "Nip" = "Nip";
 "Regon" = "Regon";
 "Not valid barcode. Please try again." = "Not valid barcode. Please try again.";
+"Report" = "Report";
+"photos:" = "photos:";
+"description (optional):" = "description (optional):";
+"Additional info" = "Additional info";
+"Send" = "Send";
+"Cancel" = "Cancel";
+"Take a photo" = "Take a photo";
+"Choose from library" = "Choose from library";
