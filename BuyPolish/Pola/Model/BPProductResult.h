@@ -7,6 +7,7 @@
 
 @property(nonatomic) NSNumber *verified;
 @property(nonatomic, strong) NSNumber *plScore;
+@property(nonatomic, copy) NSString *report;
 @property(nonatomic, strong) BPCompany *company;
 @property(nonatomic, copy) NSString *barcode;
 

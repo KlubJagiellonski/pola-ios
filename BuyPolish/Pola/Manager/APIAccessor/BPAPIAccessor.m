@@ -35,14 +35,14 @@ objection_requires_sel(@selector(deviceManager))
     return BPAPIAccessorAPIServerUrl;
 }
 
-- (BPAPIResponse *)get:(NSString *)apiFunction error:(NSError **)error{
+- (BPAPIResponse *)get:(NSString *)apiFunction error:(NSError **)error {
     return [self get:apiFunction parameters:nil error:error];
 }
 
-- (BPAPIResponse *)get:(NSString *)apiFunction parameters:(NSDictionary *)parameters error:(NSError **)error{
+- (BPAPIResponse *)get:(NSString *)apiFunction parameters:(NSDictionary *)parameters error:(NSError **)error {
     NSString *url = [[self baseUrl] stringByAppendingPathComponent:apiFunction];
     parameters = [self addDefaultParameters:parameters];
-    if(parameters) {
+    if (parameters) {
         url = [url stringByAppendingFormat:@"?%@", [self stringFromParameters:parameters]];
     }
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[[NSURL alloc] initWithString:url]];
@@ -56,25 +56,19 @@ objection_requires_sel(@selector(deviceManager))
     return mutableParameters;
 }
 
-- (BPAPIResponse *)post:(NSString *)apiFunction json:(NSDictionary *)parameters error:(NSError **)error{
+- (BPAPIResponse *)post:(NSString *)apiFunction json:(NSDictionary *)parameters error:(NSError **)error {
     NSData *body;
-    if(parameters) {
+    if (parameters) {
         body = [[parameters jsonString] dataUsingEncoding:NSUTF8StringEncoding];
     }
     return [self post:apiFunction body:body error:error];
 }
 
-- (BPAPIResponse *)post:(NSString *)apiFunction parameters:(NSDictionary *)parameters error:(NSError **)error{
-    NSData *body;
-    if(parameters) {
-        NSString *stringParameters = [self stringFromParameters:parameters];
-        body = [stringParameters dataUsingEncoding:NSUTF8StringEncoding];
-    }
-    return [self post:apiFunction body:body error:error];
-}
-
-- (BPAPIResponse *)post:(NSString *)apiFunction body:(NSData *)body error:(NSError **)error{
+- (BPAPIResponse *)post:(NSString *)apiFunction body:(NSData *)body error:(NSError **)error {
     NSString *url = [[self baseUrl] stringByAppendingPathComponent:apiFunction];
+    NSDictionary *parameters = [self addDefaultParameters:parameters];
+    url = [url stringByAppendingFormat:@"?%@", [self stringFromParameters:parameters]];
+
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[[NSURL alloc] initWithString:url]];
     [request setHTTPBody:body];
     [request setHTTPMethod:@"POST"];
@@ -92,7 +86,7 @@ objection_requires_sel(@selector(deviceManager))
     [operation waitUntilFinished];
 
     id responseObject = nil;
-    if(operation.responseData != nil) {
+    if (operation.responseData != nil) {
         responseObject = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:error];
     }
     BPAPIResponse *response = [BPAPIResponse responseWithOperation:operation responseObject:responseObject];
@@ -108,8 +102,6 @@ objection_requires_sel(@selector(deviceManager))
 - (NSURLRequest *)configureRequest:(NSURLRequest *)request {
     NSMutableURLRequest *newUrlRequest = [request mutableCopy];
     [newUrlRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [newUrlRequest setValue:@"CropLyorPeeuJWwGTFobgwgx3peXJGhZQ8XIdNAP" forHTTPHeaderField:@"X-Parse-Application-Id"];
-    [newUrlRequest setValue:@"3pwkiOpjTE4JmqfgvR188wrMIlztbFooFmtNSawe" forHTTPHeaderField:@"X-Parse-REST-API-Key"];
     return newUrlRequest;
 }
 
@@ -130,7 +122,7 @@ objection_requires_sel(@selector(deviceManager))
 }
 
 - (void)setError:(NSError **)error onBadResponse:(BPAPIResponse *)response {
-    if(![response isSuccess]) {
+    if (![response isSuccess]) {
         *error = [NSError errorWithDomain:NSStringFromClass(self.class) code:response.statusCode userInfo:@{NSLocalizedDescriptionKey : [response description]}];
     }
 }

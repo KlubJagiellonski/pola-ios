@@ -116,6 +116,8 @@ objection_requires_sel(@selector(productImageManager))
     [self.castView.imageContainerView addImage:smallImage];
 
     self.imageCount++;
+
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 

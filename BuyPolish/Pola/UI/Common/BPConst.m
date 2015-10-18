@@ -5,6 +5,7 @@
 
 #import "BPConst.h"
 
+const int STATUS_BAR_HEIGHT = 20;
 
 @implementation BPConst {
 

@@ -8,6 +8,7 @@
 - (void)parse:(NSDictionary *)dictionary {
     self.plScore = [BPUtilities handleNull:dictionary[@"plScore"]];
     self.verified = [BPUtilities handleNull:dictionary[@"verified"]];
+    self.report = [BPUtilities handleNull:dictionary[@"report"]];
 
     NSDictionary *companyDict = [BPUtilities handleNull:dictionary[@"company"]];
     if (companyDict != nil) {

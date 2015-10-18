@@ -5,14 +5,14 @@
 
 #import "BPProductImageManager.h"
 
-const float SMALL_IMAGE_WIDTH = 50;
+const float SMALL_IMAGE_WIDTH = 200;
 
 @implementation BPProductImageManager
 
 - (void)saveImage:(UIImage *)image forBarcode:(NSString *)barcode index:(int)index {
     [UIImagePNGRepresentation(image) writeToFile:[self imagePathForBarcode:barcode index:index small:NO] atomically:NO];
 
-    UIImage *smallImage = [self imageWithImage:image scaledToSize:[self createSmallSizeForImage:image]];
+    UIImage *smallImage = [self imageWithImage:image scaledToWidth:SMALL_IMAGE_WIDTH];
     [UIImagePNGRepresentation(smallImage) writeToFile:[self imagePathForBarcode:barcode index:index small:YES] atomically:NO];
 }
 
@@ -34,18 +34,21 @@ const float SMALL_IMAGE_WIDTH = 50;
 
 - (NSString *)imagePathForBarcode:(NSString *)barcode index:(int)index small:(BOOL)small {
     NSArray *paths = NSSearchPathForDirectoriesInDomains
-            (NSCachesDirectory, NSUserDomainMask, YES);
+        (NSCachesDirectory, NSUserDomainMask, YES);
     NSString *directory = paths[0];
     NSString *filename = [NSString stringWithFormat:@"%@_%i_%i", barcode, index, small];
     return [directory stringByAppendingPathComponent:filename];
 }
 
-- (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
-    //UIGraphicsBeginImageContext(newSize);
-    // In next line, pass 0.0 to use the current device's pixel scaling factor (and thus account for Retina resolution).
-    // Pass 1.0 to force exact pixel size.
-    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
-    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+- (UIImage *)imageWithImage:(UIImage *)sourceImage scaledToWidth:(float)width {
+    float oldWidth = sourceImage.size.width;
+    float scaleFactor = width / oldWidth;
+
+    float newHeight = sourceImage.size.height * scaleFactor;
+    float newWidth = oldWidth * scaleFactor;
+
+    UIGraphicsBeginImageContext(CGSizeMake(newWidth, newHeight));
+    [sourceImage drawInRect:CGRectMake(0, 0, newWidth, newHeight)];
     UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return newImage;

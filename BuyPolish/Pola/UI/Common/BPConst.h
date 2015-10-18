@@ -6,7 +6,7 @@
 #import <Foundation/Foundation.h>
 
 
-const int STATUS_BAR_HEIGHT = 20;
+extern const int STATUS_BAR_HEIGHT;
 
 
 @interface BPConst : NSObject

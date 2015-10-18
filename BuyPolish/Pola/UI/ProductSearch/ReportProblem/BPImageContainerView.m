@@ -4,10 +4,11 @@
 //
 
 #import "BPImageContainerView.h"
+#import "UIColor+BPAdditions.h"
 
 const int MAX_IMAGE_COUNT = 3;
-const int PADDING = 10;
-const int ITEM_MARGIN = 6;
+const int IMAGE_PADDING = 6;
+const int IMAGE_ITEM_MARGIN = 4;
 const int REMOVE_ITEM_MARGIN = 6;
 
 const CGFloat ANIMATION_DURATION = 0.7f;
@@ -30,6 +31,7 @@ const CGFloat ANIMATION_DURATION = 0.7f;
         _deleteButtonArray = [NSMutableArray arrayWithCapacity:MAX_IMAGE_COUNT];
 
         _addImageButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_addImageButton setBackgroundColor:[UIColor colorWithHexString:@"CCCCCC"]];
         [_addImageButton addTarget:self action:@selector(didTapAddImageButton:) forControlEvents:UIControlEventTouchUpInside];
         [_addImageButton setTitle:@"Add" forState:UIControlStateNormal];
         [self addSubview:_addImageButton];
@@ -106,8 +108,8 @@ const CGFloat ANIMATION_DURATION = 0.7f;
     int itemWidth = [self calculateItemWidth:width];
 
     CGRect rect = CGRectZero;
-    rect.origin.x = PADDING;
-    rect.origin.y = PADDING;
+    rect.origin.x = IMAGE_PADDING;
+    rect.origin.y = IMAGE_PADDING;
     rect.size.width = itemWidth;
     rect.size.height = itemWidth;
     
@@ -118,20 +120,22 @@ const CGFloat ANIMATION_DURATION = 0.7f;
         UIView *deleteView = self.deleteButtonArray[i];
         deleteView.frame = [self calculateDeleteRect:deleteView.frame ForImageRect:rect];
 
-        rect.origin.x += CGRectGetWidth(rect) + ITEM_MARGIN;
+        rect.origin.x += CGRectGetWidth(rect) + IMAGE_ITEM_MARGIN;
     }
 
     self.addImageButton.frame = rect;
+
+    self.addImageButton.alpha = [self.imageViewArray count] == MAX_IMAGE_COUNT ? 0.f : 1.f;
 }
 
 - (CGSize)sizeThatFits:(CGSize)size {
     int itemWidth = [self calculateItemWidth:size.width];
-    size.height = itemWidth + 2 * PADDING;
+    size.height = itemWidth + 2 * IMAGE_PADDING;
     return size;
 }
 
 - (int)calculateItemWidth:(CGFloat)viewWidth {
-    return (int) (viewWidth / MAX_IMAGE_COUNT - 2 * PADDING - (MAX_IMAGE_COUNT - 1) * ITEM_MARGIN);
+    return (int) ((viewWidth - 2 * IMAGE_PADDING - (MAX_IMAGE_COUNT - 1) * IMAGE_ITEM_MARGIN) / MAX_IMAGE_COUNT);
 }
 
 - (CGRect) calculateDeleteRect:(CGRect)deleteRect ForImageRect:(CGRect)imageRect {
