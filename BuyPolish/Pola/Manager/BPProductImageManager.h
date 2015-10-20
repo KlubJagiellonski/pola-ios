@@ -14,4 +14,6 @@
 
 - (UIImage *)retrieveImageForBarcode:(NSString *)barcode index:(int)index small:(BOOL)small;
 
+- (NSArray *)createImagePathArrayForBarcode:(NSString *)barcode imageCount:(int)imageCount;
+
 @end

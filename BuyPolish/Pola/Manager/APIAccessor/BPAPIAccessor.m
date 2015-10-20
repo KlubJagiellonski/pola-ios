@@ -56,22 +56,46 @@ objection_requires_sel(@selector(deviceManager))
     return mutableParameters;
 }
 
-- (BPAPIResponse *)post:(NSString *)apiFunction json:(NSDictionary *)parameters error:(NSError **)error {
+- (BPAPIResponse *)post:(NSString *)apiFunction jsonBody:(NSDictionary *)jsonBody error:(NSError **)error {
     NSData *body;
-    if (parameters) {
-        body = [[parameters jsonString] dataUsingEncoding:NSUTF8StringEncoding];
+    if (jsonBody) {
+        body = [[jsonBody jsonString] dataUsingEncoding:NSUTF8StringEncoding];
     }
-    return [self post:apiFunction body:body error:error];
+    return [self post:apiFunction body:body parameters:nil error:error];
 }
 
-- (BPAPIResponse *)post:(NSString *)apiFunction body:(NSData *)body error:(NSError **)error {
+- (BPAPIResponse *)post:(NSString *)apiFunction body:(NSData *)body parameters:(NSDictionary *)parameters error:(NSError **)error {
     NSString *url = [[self baseUrl] stringByAppendingPathComponent:apiFunction];
-    NSDictionary *parameters = [self addDefaultParameters:parameters];
+    parameters = [self addDefaultParameters:parameters];
     url = [url stringByAppendingFormat:@"?%@", [self stringFromParameters:parameters]];
 
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[[NSURL alloc] initWithString:url]];
     [request setHTTPBody:body];
     [request setHTTPMethod:@"POST"];
+    return [self performRequest:request error:error];
+}
+
+- (BPAPIResponse *)postMultipart:(NSString *)apiFunction parameters:(NSDictionary *)parameters fileName:(NSString*)filename data:(NSData *)data error:(NSError **)error {
+    NSString *url = [[self baseUrl] stringByAppendingPathComponent:apiFunction];
+    parameters = [self addDefaultParameters:parameters];
+    url = [url stringByAppendingFormat:@"?%@", [self stringFromParameters:parameters]];
+
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[[NSURL alloc] initWithString:url]];
+    [request setHTTPMethod:@"POST"];
+
+    NSString *boundary = @"IMAGE_BOUNDARY";
+    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
+    [request addValue:contentType forHTTPHeaderField:@"Content-Type"];
+
+    NSMutableData *body = [NSMutableData data];
+
+    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@\"\r\n", filename, filename] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[@"Content-Type: application/octet-stream\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[NSData dataWithData:data]];
+
+    [request setHTTPBody:body];
+
     return [self performRequest:request error:error];
 }
 

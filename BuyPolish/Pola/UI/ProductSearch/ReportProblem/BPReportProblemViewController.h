@@ -10,6 +10,8 @@
 
 @protocol BPReportProblemViewControllerDelegate <NSObject>
 - (void)reportProblemWantsDismiss:(BPReportProblemViewController *)viewController;
+
+- (void)reportProblem:(BPReportProblemViewController *)controller finishedWithResult:(BOOL)result;
 @end
 
 

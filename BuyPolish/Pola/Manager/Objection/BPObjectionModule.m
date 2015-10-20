@@ -5,6 +5,7 @@
 #import "BPDeviceManager.h"
 #import "BPCameraSessionManager.h"
 #import "BPProductImageManager.h"
+#import "BPReportManager.h"
 
 
 @implementation BPObjectionModule
@@ -18,6 +19,7 @@
     [self bindClass:[BPTaskRunner class] inScope:JSObjectionScopeSingleton];
     [self bindClass:[BPCameraSessionManager class] inScope:JSObjectionScopeNormal];
     [self bindClass:[BPProductImageManager class] inScope:JSObjectionScopeSingleton];
+    [self bindClass:[BPReportManager class] inScope:JSObjectionScopeSingleton];
 }
 
 @end

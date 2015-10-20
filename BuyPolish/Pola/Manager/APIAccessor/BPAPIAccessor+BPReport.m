@@ -11,15 +11,17 @@
 
 - (NSDictionary *)addReport:(NSString *)barcode description:(NSString *)description error:(NSError **)error {
     NSDictionary *body = @{@"description" : description};
-    BPAPIResponse *response = [self post:[NSString stringWithFormat:@"create_report"] json:body error:error];
+    BPAPIResponse *response = [self post:[NSString stringWithFormat:@"create_report"] jsonBody:body error:error];
     NSDictionary *result = response.responseObject;
     return result;
 }
 
-- (NSDictionary *)addImageAtPath:(NSString *)imageAtPath forReportId:(int)reportId error:(NSError **)error {
-
-
+- (NSDictionary *)addImageAtPath:(NSString *)imageAtPath forReportId:(NSNumber *)reportId error:(NSError **)error {
+    NSData *data = [NSData dataWithContentsOfFile:imageAtPath];
+    NSDictionary *parameters = @{@"report_id" : reportId};
+    BPAPIResponse *response = [self postMultipart:@"attach_file" parameters:parameters fileName:@"file" data:data error:error];
+    NSDictionary *result = response.responseObject;
+    return result;
 }
-
 
 @end

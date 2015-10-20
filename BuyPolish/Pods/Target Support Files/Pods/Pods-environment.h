@@ -84,6 +84,12 @@
 #define COCOAPODS_VERSION_MINOR_Fabric_Base 5
 #define COCOAPODS_VERSION_PATCH_Fabric_Base 5
 
+// KVNProgress
+#define COCOAPODS_POD_AVAILABLE_KVNProgress
+#define COCOAPODS_VERSION_MAJOR_KVNProgress 2
+#define COCOAPODS_VERSION_MINOR_KVNProgress 2
+#define COCOAPODS_VERSION_PATCH_KVNProgress 1
+
 // Objection
 #define COCOAPODS_POD_AVAILABLE_Objection
 #define COCOAPODS_VERSION_MAJOR_Objection 1

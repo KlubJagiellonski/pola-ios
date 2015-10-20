@@ -165,5 +165,9 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void)reportProblem:(BPReportProblemViewController *)controller finishedWithResult:(BOOL)result {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 
 @end

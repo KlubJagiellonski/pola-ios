@@ -54,4 +54,13 @@ const float SMALL_IMAGE_WIDTH = 200;
     return newImage;
 }
 
+- (NSArray *)createImagePathArrayForBarcode:(NSString *)barcode imageCount:(int)imageCount {
+    NSMutableArray *pathArray = [NSMutableArray arrayWithCapacity:(NSUInteger) imageCount];
+    for (int i = 0; i < imageCount; ++i) {
+        NSString *imagePath = [self imagePathForBarcode:barcode index:i small:NO];
+        [pathArray addObject:imagePath];
+    }
+    return pathArray;
+}
+
 @end

@@ -1,2 +1,0 @@
-PODS_CRASHLYTICS_FRAMEWORK_SEARCH_PATHS = "$(PODS_ROOT)/Crashlytics"
-PODS_CRASHLYTICS_OTHER_LDFLAGS = -l"c++" -l"z" -framework "Crashlytics" -framework "Security" -framework "SystemConfiguration"

@@ -7,10 +7,15 @@
 #import "BPReportProblemViewController.h"
 #import "BPProductImageManager.h"
 #import "BPReportProblemView.h"
+#import "BPReportManager.h"
+#import "BPReport.h"
+#import "BPReportResult.h"
+#import "KVNProgress.h"
 
 
 @interface BPReportProblemViewController ()
 @property(nonatomic) BPProductImageManager *productImageManager;
+@property(nonatomic) BPReportManager *reportManager;
 @property(nonatomic, readonly) NSString *barcode;
 @property(nonatomic) int imageCount;
 @property(nonatomic, strong) UIImagePickerController *imagePickerController;
@@ -19,7 +24,7 @@
 @implementation BPReportProblemViewController
 objection_initializer_sel(@selector(initWithBarcode:))
 
-objection_requires_sel(@selector(productImageManager))
+objection_requires_sel(@selector(productImageManager), @selector(reportManager))
 
 - (instancetype)initWithBarcode:(NSString *)barcode {
     self = [super init];
@@ -58,7 +63,22 @@ objection_requires_sel(@selector(productImageManager))
 }
 
 - (void)didTapSendButton:(UIButton *)button {
-    //todo handle report
+    NSArray *imagePathArray = [self.productImageManager createImagePathArrayForBarcode:self.barcode imageCount:self.imageCount];
+    BPReport *report = [BPReport reportWithBarcode:self.barcode description:self.castView.descriptionTextView.text imagePathArray:imagePathArray];
+
+    [KVNProgress show];
+
+    weakify()
+    [self.reportManager sendReport:report completion:^(BPReportResult *result, NSError *error) {
+        strongify()
+        if (result.state == REPORT_STATE_FINSIHED && error == nil) {
+            [KVNProgress showSuccess];
+            [strongSelf.delegate reportProblem:strongSelf finishedWithResult:YES];
+        } else if (error != nil) {
+            [KVNProgress showError];
+            [strongSelf.delegate reportProblem:strongSelf finishedWithResult:NO];
+        }
+    }              completionQueue:[NSOperationQueue mainQueue]];
 }
 
 - (void)showImagePickerForSourceType:(enum UIImagePickerControllerSourceType)sourceType {
@@ -95,13 +115,13 @@ objection_requires_sel(@selector(productImageManager))
 #pragma mark - UIActionSheetDelegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if(actionSheet.cancelButtonIndex == buttonIndex) {
+    if (actionSheet.cancelButtonIndex == buttonIndex) {
         return;
     }
 
-    if(buttonIndex == [actionSheet firstOtherButtonIndex]) {
+    if (buttonIndex == [actionSheet firstOtherButtonIndex]) {
         [self showImagePickerForSourceType:UIImagePickerControllerSourceTypeCamera];
-    } else if(buttonIndex == [actionSheet firstOtherButtonIndex] + 1) {
+    } else if (buttonIndex == [actionSheet firstOtherButtonIndex] + 1) {
         [self showImagePickerForSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
     }
 }

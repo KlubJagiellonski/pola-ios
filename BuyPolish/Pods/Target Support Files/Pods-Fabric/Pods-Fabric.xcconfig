@@ -1,2 +1,0 @@
-PODS_FABRIC_FRAMEWORK_SEARCH_PATHS = "$(PODS_ROOT)/Fabric"
-PODS_FABRIC_OTHER_LDFLAGS = -framework "Fabric" -framework "UIKit"
