@@ -5,6 +5,7 @@
 
 #import <Foundation/Foundation.h>
 #import "BPImageContainerView.h"
+#import "BPKeyboardManager.h"
 
 @class BPReportProblemViewController;
 
@@ -15,7 +16,7 @@
 @end
 
 
-@interface BPReportProblemViewController : UIViewController <BPImageContainerViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface BPReportProblemViewController : UIViewController <BPImageContainerViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, BPKeyboardManagerDelegate>
 
 @property(nonatomic, weak) id <BPReportProblemViewControllerDelegate> delegate;
 

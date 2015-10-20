@@ -49,8 +49,6 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 
     [self.castView addVideoPreviewLayer:self.cameraSessionManager.videoPreviewLayer];
     [self.cameraSessionManager start];
-
-    [self showReportProblem:@"1234"];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {

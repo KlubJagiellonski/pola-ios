@@ -16,6 +16,7 @@
 @interface BPReportProblemViewController ()
 @property(nonatomic) BPProductImageManager *productImageManager;
 @property(nonatomic) BPReportManager *reportManager;
+@property(nonatomic) BPKeyboardManager *keyboardManager;
 @property(nonatomic, readonly) NSString *barcode;
 @property(nonatomic) int imageCount;
 @property(nonatomic, strong) UIImagePickerController *imagePickerController;
@@ -24,7 +25,7 @@
 @implementation BPReportProblemViewController
 objection_initializer_sel(@selector(initWithBarcode:))
 
-objection_requires_sel(@selector(productImageManager), @selector(reportManager))
+objection_requires_sel(@selector(productImageManager), @selector(reportManager), @selector(keyboardManager))
 
 - (instancetype)initWithBarcode:(NSString *)barcode {
     self = [super init];
@@ -41,6 +42,8 @@ objection_requires_sel(@selector(productImageManager), @selector(reportManager))
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.keyboardManager.delegate = self;
+
     self.castView.imageContainerView.delegate = self;
     [self.castView.closeButton addTarget:self action:@selector(didTapCloseButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.castView.sendButton addTarget:self action:@selector(didTapSendButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -54,6 +57,23 @@ objection_requires_sel(@selector(productImageManager), @selector(reportManager))
         UIImage *image = [self.productImageManager retrieveImageForBarcode:self.barcode index:0 small:YES];
         [self.castView.imageContainerView addImage:image];
     }
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
+    [self.keyboardManager turnOn];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+
+    [self.keyboardManager turnOff];
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(nullable UIEvent *)event {
+    [super touchesBegan:touches withEvent:event];
+    [self.view endEditing:YES];
 }
 
 #pragma mark - actions
@@ -109,7 +129,8 @@ objection_requires_sel(@selector(productImageManager), @selector(reportManager))
 }
 
 - (void)didTapRemoveImage:(BPImageContainerView *)imageContainerView atIndex:(int)index {
-
+    [imageContainerView removeImageAtIndex:index];
+    self.imageCount--;
 }
 
 #pragma mark - UIActionSheetDelegate
@@ -143,6 +164,16 @@ objection_requires_sel(@selector(productImageManager), @selector(reportManager))
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+#pragma mark - BPKeyboardManagerDelegate
+
+- (void)keyboardWillShowWithHeight:(CGFloat)height animationDuration:(double)animationDuration animationCurve:(NSUInteger)animationCurve {
+    [self.castView keyboardWillShowWithHeight:height duration:animationDuration curve:animationCurve];
+}
+
+- (void)keyboardWillHideWithAnimationDuration:(double)animationDuration animationCurve:(NSUInteger)animationCurve {
+    [self.castView keyboardWillHideWithDuration:animationDuration curve:animationCurve];
 }
 
 @end

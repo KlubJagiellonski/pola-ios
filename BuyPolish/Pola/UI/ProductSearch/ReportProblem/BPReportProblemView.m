@@ -19,6 +19,7 @@ const int REPORT_TITLE_MARGIN = 10;
 @property(nonatomic, readonly) UILabel *titleLabel;
 @property(nonatomic, readonly) UILabel *photoTitleLable;
 @property(nonatomic, readonly) UILabel *descriptionTitleLabel;
+@property(nonatomic) CGFloat bottomMargin;
 @end
 
 @implementation BPReportProblemView
@@ -73,7 +74,7 @@ const int REPORT_TITLE_MARGIN = 10;
 
     CGRect rect = self.closeButton.frame;
     rect.origin.x = CGRectGetWidth(self.bounds) - REPORT_PADDING - CGRectGetWidth(rect);
-    rect.origin.y = STATUS_BAR_HEIGHT + REPORT_PADDING;
+    rect.origin.y = STATUS_BAR_HEIGHT + REPORT_PADDING - self.bottomMargin;
     self.closeButton.frame = rect;
 
     rect = self.titleLabel.frame;
@@ -93,18 +94,35 @@ const int REPORT_TITLE_MARGIN = 10;
 
     rect = self.descriptionTitleLabel.frame;
     rect.origin.x = REPORT_PADDING;
-    rect.origin.y = CGRectGetMaxY(self.imageContainerView.frame) + VERTICAL_MARGIN;
+    rect.origin.y = MAX(CGRectGetMaxY(self.imageContainerView.frame) + VERTICAL_MARGIN - self.bottomMargin, REPORT_PADDING + STATUS_BAR_HEIGHT);
     self.descriptionTitleLabel.frame = rect;
 
     rect.size = CGSizeMake(CGRectGetWidth(self.bounds) - 2 * REPORT_PADDING, SEND_BUTTON_HEIGHT);
     rect.origin.x = REPORT_PADDING;
-    rect.origin.y = CGRectGetHeight(self.bounds) - REPORT_PADDING - CGRectGetHeight(rect);
+    rect.origin.y = CGRectGetHeight(self.bounds) - REPORT_PADDING - CGRectGetHeight(rect) - self.bottomMargin;
     self.sendButton.frame = rect;
 
     rect.size = CGSizeMake(CGRectGetWidth(self.bounds) - 2 * REPORT_PADDING, CGRectGetMinY(self.sendButton.frame) - VERTICAL_MARGIN - CGRectGetMaxY(self.descriptionTitleLabel.frame));
     rect.origin.x = REPORT_PADDING;
     rect.origin.y = CGRectGetMaxY(self.descriptionTitleLabel.frame) + REPORT_TITLE_MARGIN;
     self.descriptionTextView.frame = rect;
+}
+
+- (void)keyboardWillShowWithHeight:(CGFloat)height duration:(double)duration curve:(NSUInteger)curve {
+    self.bottomMargin = height;
+
+    [UIView animateWithDuration:duration delay:0 options:curve animations:^{
+        [self setNeedsLayout];
+        [self layoutIfNeeded];
+    } completion:nil];
+}
+
+- (void)keyboardWillHideWithDuration:(double)duration curve:(NSUInteger)curve {
+    self.bottomMargin = 0;
+    [UIView animateWithDuration:duration delay:0 options:curve animations:^{
+        [self setNeedsLayout];
+        [self layoutIfNeeded];
+    } completion:nil];
 }
 
 @end

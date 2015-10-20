@@ -6,11 +6,13 @@
 #import "BPProductImageManager.h"
 
 const float SMALL_IMAGE_WIDTH = 200;
+const float LARGE_IMAGE_WIDTH = 800;
 
 @implementation BPProductImageManager
 
 - (void)saveImage:(UIImage *)image forBarcode:(NSString *)barcode index:(int)index {
-    [UIImagePNGRepresentation(image) writeToFile:[self imagePathForBarcode:barcode index:index small:NO] atomically:NO];
+    UIImage *largeImage = [self imageWithImage:image scaledToWidth:LARGE_IMAGE_WIDTH];
+    [UIImagePNGRepresentation(largeImage) writeToFile:[self imagePathForBarcode:barcode index:index small:NO] atomically:NO];
 
     UIImage *smallImage = [self imageWithImage:image scaledToWidth:SMALL_IMAGE_WIDTH];
     [UIImagePNGRepresentation(smallImage) writeToFile:[self imagePathForBarcode:barcode index:index small:YES] atomically:NO];

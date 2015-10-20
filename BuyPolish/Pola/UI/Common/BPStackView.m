@@ -66,6 +66,8 @@ const float PAN_THRESHOLD_TO_SHOW_OR_HIDE_FULL_SCREEN = 20;
         return NO;
     }
 
+    [cardView setTitleHeight:CARD_TITLE_HEIGHT];
+
     self.animationInProgress = YES;
 
     [self addGestureRecognizersToCardView:cardView];

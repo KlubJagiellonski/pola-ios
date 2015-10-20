@@ -11,7 +11,7 @@ const int IMAGE_PADDING = 6;
 const int IMAGE_ITEM_MARGIN = 4;
 const int REMOVE_ITEM_MARGIN = 6;
 
-const CGFloat ANIMATION_DURATION = 0.7f;
+const CGFloat ANIMATION_DURATION = 0.5f;
 
 @interface BPImageContainerView ()
 @property(nonatomic, readonly) NSMutableArray *imageViewArray;

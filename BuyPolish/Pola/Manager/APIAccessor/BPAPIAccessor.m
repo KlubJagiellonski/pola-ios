@@ -6,6 +6,7 @@
 #import "BPDeviceManager.h"
 
 NSString *const BPAPIAccessorAPIServerUrl = @"https://pola-staging.herokuapp.com/a";
+//NSString *const BPAPIAccessorAPIServerUrl = @"http://localhost:8888";
 NSString *const BPAPIAccessorAPIDeviceId = @"device_id";
 
 
@@ -75,7 +76,7 @@ objection_requires_sel(@selector(deviceManager))
     return [self performRequest:request error:error];
 }
 
-- (BPAPIResponse *)postMultipart:(NSString *)apiFunction parameters:(NSDictionary *)parameters fileName:(NSString*)filename data:(NSData *)data error:(NSError **)error {
+- (BPAPIResponse *)postMultipart:(NSString *)apiFunction parameters:(NSDictionary *)parameters fileName:(NSString *)filename data:(NSData *)data error:(NSError **)error {
     NSString *url = [[self baseUrl] stringByAppendingPathComponent:apiFunction];
     parameters = [self addDefaultParameters:parameters];
     url = [url stringByAppendingFormat:@"?%@", [self stringFromParameters:parameters]];
@@ -83,24 +84,31 @@ objection_requires_sel(@selector(deviceManager))
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[[NSURL alloc] initWithString:url]];
     [request setHTTPMethod:@"POST"];
 
-    NSString *boundary = @"IMAGE_BOUNDARY";
+    NSString *boundary = @"---------------------------14737809831466499882746641449";
     NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
     [request addValue:contentType forHTTPHeaderField:@"Content-Type"];
 
     NSMutableData *body = [NSMutableData data];
 
     [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@\"\r\n", filename, filename] dataUsingEncoding:NSUTF8StringEncoding]];
+    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@.png\"\r\n", filename, filename] dataUsingEncoding:NSUTF8StringEncoding]];
     [body appendData:[@"Content-Type: application/octet-stream\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
     [body appendData:[NSData dataWithData:data]];
+    [body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
 
     [request setHTTPBody:body];
 
-    return [self performRequest:request error:error];
+    return [self performRequest:request defaultConfiguration:NO error:error];
 }
 
 - (BPAPIResponse *)performRequest:(NSURLRequest *)request error:(NSError **)error {
-    request = [self configureRequest:request];
+    return [self performRequest:request defaultConfiguration:YES error:error];
+}
+
+- (BPAPIResponse *)performRequest:(NSURLRequest *)request defaultConfiguration:(BOOL)defaultConfiguration error:(NSError **)error {
+    if(defaultConfiguration) {
+        request = [self configureRequest:request];
+    }
 
     BPLog(@"Sending Request: %@", request);
 
