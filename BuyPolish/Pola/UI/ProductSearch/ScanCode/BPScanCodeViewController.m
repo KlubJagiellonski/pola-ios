@@ -76,7 +76,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
         cardView.inProgress = NO;
         if (!error) {
             [cardView setRightHeaderText:productResult.company ? productResult.company.name : @"No company"];
-            [cardView setLeftHeaderText:productResult.plScore ? productResult.plScore.stringValue : @"?"];
+            [cardView setTitleText:productResult.plScore ? productResult.plScore.stringValue : @"?"];
             //todo update cardview
         } else {
             self.lastBardcodeScanned = nil;

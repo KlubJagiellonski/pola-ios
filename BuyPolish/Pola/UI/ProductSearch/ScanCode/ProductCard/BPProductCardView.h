@@ -7,6 +7,9 @@
 #import "BPCardViewProtocol.h"
 
 @class BPProductCardView;
+@class BPMainProggressView;
+@class BPSecondaryProgressView;
+@class BPCheckRow;
 
 @protocol BPProductCardViewDelegate <NSObject>
 
@@ -22,8 +25,8 @@
 
 @property(nonatomic, weak) id <BPProductCardViewDelegate> delegate;
 
-- (void)setLeftHeaderText:(NSString *)leftHeaderText;
+@property(nonatomic, readonly) UIButton *moreButton;
 
-- (void)setRightHeaderText:(NSString *)rightHeaderText;
+- (void)setTitleText:(NSString *)titleText;
 
 @end
