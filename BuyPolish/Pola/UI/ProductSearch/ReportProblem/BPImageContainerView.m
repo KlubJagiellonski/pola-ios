@@ -33,7 +33,7 @@ const CGFloat ANIMATION_DURATION = 0.5f;
         _addImageButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_addImageButton setBackgroundColor:[UIColor colorWithHexString:@"CCCCCC"]];
         [_addImageButton addTarget:self action:@selector(didTapAddImageButton:) forControlEvents:UIControlEventTouchUpInside];
-        [_addImageButton setTitle:@"Add" forState:UIControlStateNormal];
+        [_addImageButton setImage:[UIImage imageNamed:@"AddIcon"] forState:UIControlStateNormal];
         [self addSubview:_addImageButton];
     }
 
@@ -46,7 +46,7 @@ const CGFloat ANIMATION_DURATION = 0.5f;
 
 - (void)didTapDeleteButton:(UIButton *)button {
     NSUInteger index = [self.deleteButtonArray indexOfObject:button];
-    [self.delegate didTapRemoveImage:self atIndex:index];
+    [self.delegate didTapRemoveImage:self atIndex:(int) index];
 }
 
 

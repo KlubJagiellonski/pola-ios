@@ -83,6 +83,8 @@ objection_requires_sel(@selector(productImageManager), @selector(reportManager),
 }
 
 - (void)didTapSendButton:(UIButton *)button {
+    [self.view endEditing:YES];
+
     NSArray *imagePathArray = [self.productImageManager createImagePathArrayForBarcode:self.barcode imageCount:self.imageCount];
     BPReport *report = [BPReport reportWithBarcode:self.barcode description:self.castView.descriptionTextView.text imagePathArray:imagePathArray];
 

@@ -8,18 +8,21 @@
 #import "UITextView+Placeholder.h"
 #import "BPConst.h"
 #import "UIColor+BPAdditions.h"
+#import "UIImage+KVNImageEffects.h"
 
 const int REPORT_PADDING = 16;
 const int REPORT_IMAGE_CONTAINER_HORIZONTAL_MARGIN = 8;
 const int VERTICAL_MARGIN = 30;
 const int SEND_BUTTON_HEIGHT = 35;
 const int REPORT_TITLE_MARGIN = 10;
+const int REPORT_DESCRIPTIONSHADOW_HEIGHT = 1;
 
 @interface BPReportProblemView ()
 @property(nonatomic, readonly) UILabel *titleLabel;
 @property(nonatomic, readonly) UILabel *photoTitleLable;
 @property(nonatomic, readonly) UILabel *descriptionTitleLabel;
 @property(nonatomic) CGFloat bottomMargin;
+@property(nonatomic, readonly) UIView *descriptionBottomShadowView;
 @end
 
 @implementation BPReportProblemView
@@ -35,7 +38,8 @@ const int REPORT_TITLE_MARGIN = 10;
         [self addSubview:_titleLabel];
 
         _closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_closeButton setTitle:@"Close" forState:UIControlStateNormal];
+        [_closeButton setImage:[[UIImage imageNamed:@"CloseIcon"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
+        _closeButton.tintColor = [UIColor darkGrayColor];
         [_closeButton sizeToFit];
         [self addSubview:_closeButton];
 
@@ -53,14 +57,19 @@ const int REPORT_TITLE_MARGIN = 10;
         [self addSubview:_descriptionTitleLabel];
 
         _descriptionTextView = [[UITextView alloc] initWithFrame:CGRectZero];
+        _descriptionTextView.textContainerInset = UIEdgeInsetsMake(10, 5, 10, 5);
         _descriptionTextView.backgroundColor = [UIColor whiteColor];
         _descriptionTextView.placeholder = NSLocalizedString(@"Additional info", @"Additional info");
         _descriptionTextView.placeholderColor = [self backgroundColor];
         [self addSubview:_descriptionTextView];
 
+        _descriptionBottomShadowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, REPORT_DESCRIPTIONSHADOW_HEIGHT)];
+        _descriptionBottomShadowView.backgroundColor = [UIColor darkGrayColor];
+        [self addSubview:_descriptionBottomShadowView];
+
         _sendButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_sendButton setTitle:[NSLocalizedString(@"Send", @"Send") uppercaseString] forState:UIControlStateNormal];
-        _sendButton.backgroundColor = [UIColor colorWithHexString:@"D93A2F"];
+        [_sendButton setBackgroundImage:[BPUtilities imageWithColor:[UIColor colorWithHexString:@"D93A2F"]] forState:UIControlStateNormal];
         [_sendButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self addSubview:_sendButton];
 
@@ -106,6 +115,11 @@ const int REPORT_TITLE_MARGIN = 10;
     rect.origin.x = REPORT_PADDING;
     rect.origin.y = CGRectGetMaxY(self.descriptionTitleLabel.frame) + REPORT_TITLE_MARGIN;
     self.descriptionTextView.frame = rect;
+
+    rect.size = CGSizeMake(CGRectGetWidth(self.descriptionTextView.bounds), CGRectGetHeight(self.descriptionBottomShadowView.bounds));
+    rect.origin.x = CGRectGetMinX(self.descriptionTextView.frame);
+    rect.origin.y = CGRectGetMaxY(self.descriptionTextView.frame);
+    self.descriptionBottomShadowView.frame = rect;
 }
 
 - (void)keyboardWillShowWithHeight:(CGFloat)height duration:(double)duration curve:(NSUInteger)curve {

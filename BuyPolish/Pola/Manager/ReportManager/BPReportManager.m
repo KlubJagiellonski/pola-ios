@@ -50,9 +50,9 @@ objection_requires_sel(@selector(taskRunner), @selector(apiAccessor))
             [completionQueue addOperationWithBlock:^{
                 if (sendImageError) {
                     BPLog(@"Error while adding images: %@ %@", report.barcode, error.localizedDescription);
-                    completion([BPReportResult resultWithState:REPORT_STATE_IMAGE_ADD report:report imageDownloadedIndex:index], sendImageError);
+                    completion([BPReportResult resultWithState:REPORT_STATE_IMAGE_ADD report:report imageDownloadedIndex:(int) index], sendImageError);
                 } else {
-                    completion([BPReportResult resultWithState:REPORT_STATE_FINSIHED report:report imageDownloadedIndex:index], sendImageError);
+                    completion([BPReportResult resultWithState:REPORT_STATE_FINSIHED report:report imageDownloadedIndex:(int) index], sendImageError);
                 }
             }];
         }];
