@@ -8,9 +8,21 @@
 
 @interface BPTheme : NSObject
 
-+ (UIColor *)lightBackground;
++ (UIColor *)lightBackgroundColor;
 + (UIColor *)actionColor;
-+ (UIColor *)strongBackground;
++ (UIColor *)strongBackgroundColor;
 
-+ (UIColor *)clearBackground;
++ (UIColor *)clearColor;
+
++ (UIColor *)defaultTextColor;
+
++ (UIFont *)titleFont;
+
++ (UIFont *)captionFont;
+
++ (UIFont *)normalFont;
+
++ (UIFont *)buttonFont;
+
++ (UIColor *)mediumBackgroundColor;
 @end

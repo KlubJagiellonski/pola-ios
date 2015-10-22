@@ -8,6 +8,9 @@
 
 @interface BPSecondaryProgressView : UIView
 
-@property(nonatomic, assign) CGFloat progress;
+- (void)setProgress:(NSNumber *)progress;
 
+- (void)setFillColor:(UIColor *)fillColor;
+
+- (void)setPercentColor:(UIColor *)percentColor;
 @end

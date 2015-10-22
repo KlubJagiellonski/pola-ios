@@ -7,25 +7,8 @@
 "Ouch!" = "Ouch!";
 "Dismiss" = "Dismiss";
 "Cannot fetch product info from server. Please try again." = "Cannot fetch product info from server. Please try again.";
-"Sorry :(
-We are working as hard as we can to gather info about all of the products, but you can still sometimes found such view." = "Sorry :(
-We are working as hard as we can to gather info about all of the products, but you can still sometimes found such view.";
-"No info" = "No info";
-"Is Polish" = "Is Polish";
-"Yes" = "Yes";
 "No" = "No";
-"Unkown" = "Unkown";
-"Name" = "Name";
-"Is polish" = "Is polish";
-"Barcode" = "Barcode";
-"Made in Poland" = "Made in Poland";
-"Capital in Poland" = "Capital in Poland";
-"Taxes in Poland" = "Taxes in Poland";
 "Unknown" = "Unknown";
-"Produt Info" = "Produt Info";
-"Company Info" = "Company Info";
-"Nip" = "Nip";
-"Regon" = "Regon";
 "Not valid barcode. Please try again." = "Not valid barcode. Please try again.";
 "Report" = "Report";
 "photos:" = "photos:";

@@ -11,11 +11,12 @@
 #import "UILabel+BPAdditions.h"
 #import "BPTheme.h"
 
-NSInteger const CARD_PADDING = 8;
+NSInteger const CARD_PADDING = 10;
 int const CARD_PROGRESS_IN_HEADER = 3;
 int const CARD_SEPARATOR_HEIGHT = 1;
-int const CARD_MAIN_PROGRESS_BOTTOM_MARGIN = 20;
-int const CARD_ROW_PADDING = 5;
+int const CARD_MAIN_PROGRESS_BOTTOM_MARGIN = 25;
+int const CARD_ROW_MARGIN = 14;
+int const CARD_REPORT_BUTTON_HEIGHT = 30;
 
 @interface BPProductCardView ()
 @property(nonatomic, readonly) UILabel *titleLabel;
@@ -30,7 +31,6 @@ int const CARD_ROW_PADDING = 5;
 @property(nonatomic, readonly) BPCheckRow *registeredInPolandCheckRow;
 @property(nonatomic, readonly) BPCheckRow *rndCheckRow;
 @property(nonatomic, readonly) BPCheckRow *producesInPolandCheckRow;
-@property(nonatomic, readonly) UIButton *moreButton;
 @end
 
 @implementation BPProductCardView
@@ -38,7 +38,7 @@ int const CARD_ROW_PADDING = 5;
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [BPTheme clearBackground];
+        self.backgroundColor = [BPTheme clearColor];
 
         self.layer.cornerRadius = 8.0f;
         [self setClipsToBounds:YES];
@@ -48,21 +48,17 @@ int const CARD_ROW_PADDING = 5;
         [self addSubview:_loadingProgressView];
 
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _titleLabel.textColor = [UIColor blackColor];
+        _titleLabel.font = [BPTheme titleFont];
+        _titleLabel.textColor = [BPTheme defaultTextColor];
         [self addSubview:_titleLabel];
 
         _mainProgressView = [[BPMainProggressView alloc] initWithFrame:CGRectZero];
         [_mainProgressView sizeToFit];
         [self addSubview:_mainProgressView];
 
-        _moreButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_moreButton addTarget:self action:@selector(didTapMoreButton:) forControlEvents:UIControlEventTouchUpInside];
-        [_moreButton setImage:[[UIImage imageNamed:@"MoreIcon"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
-        _moreButton.tintColor = [UIColor colorWithHexString:@"D93A2F"];
-        [_moreButton sizeToFit];
-        [self addSubview:_moreButton];
-
         _capitalTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _capitalTitleLabel.font = [BPTheme normalFont];
+        _capitalTitleLabel.textColor = [BPTheme defaultTextColor];
         _capitalTitleLabel.text = NSLocalizedString(@"percent of polish holders", @"percent of polish holders");
         [_capitalTitleLabel sizeToFit];
         [self addSubview:_capitalTitleLabel];
@@ -71,8 +67,12 @@ int const CARD_ROW_PADDING = 5;
         [_capitalProgressView sizeToFit];
         [self addSubview:_capitalProgressView];
 
-        _reportProblemButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        _reportProblemButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _reportProblemButton.layer.borderColor = [[BPTheme actionColor] CGColor];
+        _reportProblemButton.layer.borderWidth = 1;
         [_reportProblemButton addTarget:self action:@selector(didTapReportProblem) forControlEvents:UIControlEventTouchUpInside];
+        _reportProblemButton.titleLabel.font = [BPTheme buttonFont];
+        [_reportProblemButton setTitleColor:[BPTheme actionColor] forState:UIControlStateNormal];
         [_reportProblemButton setTitle:[NSLocalizedString(@"Report", @"Report") uppercaseString] forState:UIControlStateNormal];
         [_reportProblemButton sizeToFit];
         [self addSubview:_reportProblemButton];
@@ -80,12 +80,13 @@ int const CARD_ROW_PADDING = 5;
         _reportInfoLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _reportInfoLabel.text = NSLocalizedString(@"Report info", @"Report info");
         _reportInfoLabel.numberOfLines = 3;
-        _reportInfoLabel.textColor = [UIColor grayColor];
+        _reportInfoLabel.font = [BPTheme normalFont];
+        _reportInfoLabel.textColor = [BPTheme defaultTextColor];
         [_reportInfoLabel sizeToFit];
         [self addSubview:_reportInfoLabel];
 
         _separatorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, CARD_SEPARATOR_HEIGHT)];
-        _separatorView.backgroundColor = [UIColor grayColor];
+        _separatorView.backgroundColor = [BPTheme lightBackgroundColor];
         [self addSubview:_separatorView];
 
         _notGlobalCheckRow = [[BPCheckRow alloc] initWithFrame:CGRectZero];
@@ -110,10 +111,6 @@ int const CARD_ROW_PADDING = 5;
     }
 
     return self;
-}
-
-- (void)didTapMoreButton:(UIButton *)button {
-    [self.delegate didTapMore:self];
 }
 
 - (void)didTapReportProblem {
@@ -143,11 +140,6 @@ int const CARD_ROW_PADDING = 5;
     rect.origin.y = verticalTitleSpace;
     self.mainProgressView.frame = rect;
 
-    rect = self.moreButton.frame;
-    rect.origin.x = CGRectGetWidth(self.bounds) - CARD_PADDING - CGRectGetWidth(self.moreButton.bounds);
-    rect.origin.y = CGRectGetMaxY(self.mainProgressView.frame) + 2 * CARD_PADDING;
-    self.moreButton.frame = rect;
-
     rect = self.capitalTitleLabel.frame;
     rect.origin.x = CARD_PADDING;
     rect.origin.y = CGRectGetMaxY(self.mainProgressView.frame) + CARD_MAIN_PROGRESS_BOTTOM_MARGIN;
@@ -160,46 +152,47 @@ int const CARD_ROW_PADDING = 5;
     self.capitalProgressView.frame = rect;
 
     rect = self.reportProblemButton.frame;
+    rect.size.height = CARD_REPORT_BUTTON_HEIGHT;
     rect.size.width = widthWithPadding;
     rect.origin.x = CARD_PADDING;
-    rect.origin.y = CGRectGetHeight(self.bounds) - CARD_PADDING - CGRectGetHeight(rect);
+    rect.origin.y = CGRectGetHeight(self.bounds) - CARD_ROW_MARGIN - CGRectGetHeight(rect);
     self.reportProblemButton.frame = rect;
 
     rect = self.reportInfoLabel.frame;
     rect.size.width = widthWithPadding;
     rect.size.height = [self.reportInfoLabel heightForWidth:CGRectGetWidth(rect)];
     rect.origin.x = CARD_PADDING;
-    rect.origin.y = CGRectGetMinY(self.reportProblemButton.frame) - CARD_PADDING - CGRectGetHeight(rect);
+    rect.origin.y = CGRectGetMinY(self.reportProblemButton.frame) - CARD_ROW_MARGIN - CGRectGetHeight(rect);
     self.reportInfoLabel.frame = rect;
 
     rect = self.separatorView.frame;
     rect.size.width = CGRectGetWidth(self.bounds);
     rect.origin.x = 0;
-    rect.origin.y = CGRectGetMinY(self.reportInfoLabel.frame) - CARD_PADDING - CGRectGetHeight(rect);
+    rect.origin.y = CGRectGetMinY(self.reportInfoLabel.frame) - 25 - CGRectGetHeight(rect);
     self.separatorView.frame = rect;
 
     rect = self.notGlobalCheckRow.frame;
     rect.size.width = widthWithPadding;
     rect.origin.x = CARD_PADDING;
-    rect.origin.y = CGRectGetMinY(self.separatorView.frame) - CARD_ROW_PADDING - CGRectGetHeight(rect);
+    rect.origin.y = CGRectGetMinY(self.separatorView.frame) - CARD_ROW_MARGIN - CGRectGetHeight(rect);
     self.notGlobalCheckRow.frame = rect;
 
     rect = self.registeredInPolandCheckRow.frame;
     rect.size.width = widthWithPadding;
     rect.origin.x = CARD_PADDING;
-    rect.origin.y = CGRectGetMinY(self.notGlobalCheckRow.frame) - CARD_ROW_PADDING - CGRectGetHeight(rect);
+    rect.origin.y = CGRectGetMinY(self.notGlobalCheckRow.frame) - CARD_ROW_MARGIN - CGRectGetHeight(rect);
     self.registeredInPolandCheckRow.frame = rect;
 
     rect = self.rndCheckRow.frame;
     rect.size.width = widthWithPadding;
     rect.origin.x = CARD_PADDING;
-    rect.origin.y = CGRectGetMinY(self.registeredInPolandCheckRow.frame) - CARD_ROW_PADDING - CGRectGetHeight(rect);
+    rect.origin.y = CGRectGetMinY(self.registeredInPolandCheckRow.frame) - CARD_ROW_MARGIN - CGRectGetHeight(rect);
     self.rndCheckRow.frame = rect;
 
     rect = self.producesInPolandCheckRow.frame;
     rect.size.width = widthWithPadding;
     rect.origin.x = CARD_PADDING;
-    rect.origin.y = CGRectGetMinY(self.rndCheckRow.frame) - CARD_ROW_PADDING - CGRectGetHeight(rect);
+    rect.origin.y = CGRectGetMinY(self.rndCheckRow.frame) - CARD_ROW_MARGIN - CGRectGetHeight(rect);
     self.producesInPolandCheckRow.frame = rect;
 }
 
@@ -210,7 +203,6 @@ int const CARD_ROW_PADDING = 5;
 - (void)setInProgress:(BOOL)inProgress {
     self.loadingProgressView.hidden = !inProgress;
     self.capitalTitleLabel.hidden = inProgress;
-    self.moreButton.hidden = inProgress;
     self.capitalProgressView.hidden = inProgress;
     self.reportProblemButton.hidden = inProgress;
     self.reportInfoLabel.hidden = inProgress;
@@ -237,7 +229,7 @@ int const CARD_ROW_PADDING = 5;
     [self.mainProgressView setNeedsLayout];
 }
 
-- (void)setCapitalPercent:(CGFloat)capitalPercent {
+- (void)setCapitalPercent:(NSNumber *)capitalPercent {
     self.capitalProgressView.progress = capitalPercent;
     [self.capitalProgressView setNeedsLayout];
 }
@@ -258,9 +250,11 @@ int const CARD_ROW_PADDING = 5;
     [self.notGlobalCheckRow setChecked:notGlobal];
 }
 
-
 - (void)setNeedsData:(BOOL)needsData {
-    self.backgroundColor = needsData ? [BPTheme lightBackground] : [BPTheme clearBackground];
+    self.backgroundColor = needsData ? [BPTheme mediumBackgroundColor] : [BPTheme clearColor];
+    self.mainProgressView.backgroundColor = needsData ? [BPTheme strongBackgroundColor] : [BPTheme lightBackgroundColor];
+    self.capitalProgressView.fillColor = needsData ? [BPTheme strongBackgroundColor] : [BPTheme lightBackgroundColor];
+    self.capitalProgressView.percentColor = needsData ? [BPTheme clearColor] : [BPTheme defaultTextColor];
 }
 
 @end

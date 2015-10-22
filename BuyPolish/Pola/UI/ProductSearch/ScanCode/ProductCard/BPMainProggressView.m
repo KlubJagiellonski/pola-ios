@@ -4,10 +4,10 @@
 //
 
 #import "BPMainProggressView.h"
-#import "UIColor+BPAdditions.h"
+#import "BPTheme.h"
 
 
-const int MAIN_PROGRESS_HEIGHT = 25;
+const int MAIN_PROGRESS_HEIGHT = 20;
 const int MAIN_PROGRESS_TITLE_MARGIN = 10;
 
 
@@ -21,14 +21,15 @@ const int MAIN_PROGRESS_TITLE_MARGIN = 10;
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor colorWithHexString:@"CCCCCC"];
+        self.backgroundColor = [BPTheme lightBackgroundColor];
 
         _filledProgressView = [[UIView alloc] initWithFrame:CGRectZero];
-        _filledProgressView.backgroundColor = [UIColor colorWithHexString:@"D93A2F"];
+        _filledProgressView.backgroundColor = [BPTheme actionColor];
         [self addSubview:_filledProgressView];
 
         _percentLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _percentLabel.textColor = [UIColor whiteColor];
+        _percentLabel.font = [BPTheme captionFont];
+        _percentLabel.textColor = [BPTheme clearColor];
         [self addSubview:_percentLabel];
     }
 
@@ -59,7 +60,6 @@ const int MAIN_PROGRESS_TITLE_MARGIN = 10;
     [self setNeedsLayout];
     [self layoutIfNeeded];
 }
-
 
 - (CGSize)sizeThatFits:(CGSize)size {
     size.height = MAIN_PROGRESS_HEIGHT;

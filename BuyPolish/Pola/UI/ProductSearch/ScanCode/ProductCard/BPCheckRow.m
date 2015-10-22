@@ -4,9 +4,10 @@
 //
 
 #import "BPCheckRow.h"
+#import "BPTheme.h"
 
 
-const int CHECK_ROW_HORIZONTAL_MARGIN = 10;
+const int CHECK_ROW_HORIZONTAL_MARGIN = 7;
 
 
 @interface BPCheckRow ()
@@ -20,11 +21,12 @@ const int CHECK_ROW_HORIZONTAL_MARGIN = 10;
     self = [super initWithFrame:frame];
     if (self) {
         _checkImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
-        _checkImageView.tintColor = [UIColor grayColor];
+        _checkImageView.tintColor = [BPTheme defaultTextColor];
         [self addSubview:_checkImageView];
 
         _textLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _textLabel.textColor = [UIColor grayColor];
+        _textLabel.font = [BPTheme normalFont];
+        _textLabel.textColor = [BPTheme defaultTextColor];
         [self addSubview:_textLabel];
 
         [self setChecked:NO];

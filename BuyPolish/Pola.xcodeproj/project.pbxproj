@@ -25,6 +25,12 @@
 		1D08E85219A7621A00879BD2 /* PolaTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D08E85119A7621A00879BD2 /* PolaTests.m */; };
 		1D648C131A71B483002B413D /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D648C111A71B483002B413D /* Crashlytics.framework */; };
 		1D648C141A71B483002B413D /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D648C121A71B483002B413D /* Fabric.framework */; };
+		1DEFA1BB1BD9920600938C81 /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1DEFA1B81BD9920600938C81 /* Lato-Light.ttf */; settings = {ASSET_TAGS = (); }; };
+		1DEFA1BC1BD9920600938C81 /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1DEFA1B81BD9920600938C81 /* Lato-Light.ttf */; settings = {ASSET_TAGS = (); }; };
+		1DEFA1BD1BD9920600938C81 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1DEFA1B91BD9920600938C81 /* Lato-Regular.ttf */; settings = {ASSET_TAGS = (); }; };
+		1DEFA1BE1BD9920600938C81 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1DEFA1B91BD9920600938C81 /* Lato-Regular.ttf */; settings = {ASSET_TAGS = (); }; };
+		1DEFA1BF1BD9920600938C81 /* Lato-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1DEFA1BA1BD9920600938C81 /* Lato-Semibold.ttf */; settings = {ASSET_TAGS = (); }; };
+		1DEFA1C01BD9920600938C81 /* Lato-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1DEFA1BA1BD9920600938C81 /* Lato-Semibold.ttf */; settings = {ASSET_TAGS = (); }; };
 		37B6402EAD901CC4D954596B /* BPReportManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B644CFCD087DBE4C190DDC /* BPReportManager.m */; };
 		37B6403420F94515369E0F06 /* BPReport.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B646C0316F49D1FC593647 /* BPReport.m */; };
 		37B6405B2B77BAAD1DC986CF /* UILabel+BPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64B4F653A9EE90A4C985E /* UILabel+BPAdditions.m */; };
@@ -101,6 +107,12 @@
 		1D08E85119A7621A00879BD2 /* PolaTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PolaTests.m; sourceTree = "<group>"; };
 		1D648C111A71B483002B413D /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		1D648C121A71B483002B413D /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		1DEFA1B81BD9920600938C81 /* Lato-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Light.ttf"; sourceTree = "<group>"; };
+		1DEFA1B91BD9920600938C81 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
+		1DEFA1BA1BD9920600938C81 /* Lato-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Semibold.ttf"; sourceTree = "<group>"; };
+		1DEFA1C11BD99B8900938C81 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1DEFA1C21BD99B8900938C81 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1DEFA1C31BD99B8900938C81 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		37B6403303FCD733D9C39863 /* BPKeyboardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPKeyboardManager.h; sourceTree = "<group>"; };
 		37B6403F99127A3C286EA24E /* BPReportProblemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPReportProblemView.m; sourceTree = "<group>"; };
 		37B64052976ED2E84E372027 /* BPAPIAccessor+BPReport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BPAPIAccessor+BPReport.h"; sourceTree = "<group>"; };
@@ -276,6 +288,9 @@
 		1D08E82F19A7621A00879BD2 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				1DEFA1B81BD9920600938C81 /* Lato-Light.ttf */,
+				1DEFA1B91BD9920600938C81 /* Lato-Regular.ttf */,
+				1DEFA1BA1BD9920600938C81 /* Lato-Semibold.ttf */,
 				1D08E83019A7621A00879BD2 /* Pola-Info.plist */,
 				1D08E83119A7621A00879BD2 /* InfoPlist.strings */,
 				1D08E83419A7621A00879BD2 /* main.m */,
@@ -608,6 +623,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				pl,
 			);
 			mainGroup = 1D08E81A19A7621A00879BD2;
 			productRefGroup = 1D08E82419A7621A00879BD2 /* Products */;
@@ -627,7 +643,10 @@
 			files = (
 				1D08E83319A7621A00879BD2 /* InfoPlist.strings in Resources */,
 				1D08E83E19A7621A00879BD2 /* Images.xcassets in Resources */,
+				1DEFA1BD1BD9920600938C81 /* Lato-Regular.ttf in Resources */,
 				37B64B7D226FBFA23FFCA1C1 /* Localizable.strings in Resources */,
+				1DEFA1BB1BD9920600938C81 /* Lato-Light.ttf in Resources */,
+				1DEFA1BF1BD9920600938C81 /* Lato-Semibold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -636,6 +655,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D08E85019A7621A00879BD2 /* InfoPlist.strings in Resources */,
+				1DEFA1C01BD9920600938C81 /* Lato-Semibold.ttf in Resources */,
+				1DEFA1BE1BD9920600938C81 /* Lato-Regular.ttf in Resources */,
+				1DEFA1BC1BD9920600938C81 /* Lato-Light.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -762,6 +784,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				1D08E83219A7621A00879BD2 /* en */,
+				1DEFA1C11BD99B8900938C81 /* pl */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -770,6 +793,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				1D08E84F19A7621A00879BD2 /* en */,
+				1DEFA1C31BD99B8900938C81 /* pl */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -778,6 +802,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				37B6415103572F8588CC8D68 /* en */,
+				1DEFA1C21BD99B8900938C81 /* pl */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

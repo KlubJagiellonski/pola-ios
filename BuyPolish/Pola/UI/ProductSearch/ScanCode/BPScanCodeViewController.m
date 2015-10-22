@@ -6,10 +6,7 @@
 #import "BPTaskRunner.h"
 #import "UIAlertView+BPUtilities.h"
 #import "NSString+BPUtilities.h"
-#import "BPProductCardView.h"
 #import "BPCompany.h"
-#import "BPReportProblemViewController.h"
-#import "BPMainProggressView.h"
 
 
 @interface BPScanCodeViewController ()
@@ -96,27 +93,26 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     NSString *noDataTitleText = NSLocalizedString(@"help Pola to gain data", @"help Pola to gain data");
     [cardView setTitleText:productResult.verified.boolValue ? (company ? company.name : noDataTitleText) : noDataTitleText];
 
-    if(productResult.plScore) {
+    if (productResult.plScore) {
         [cardView setMainPercent:productResult.plScore.intValue / 100.f];
     }
 
-    if(!company) {
+    if (!company) {
         return;
     }
 
-    if(company.plCapital) {
-        [cardView setCapitalPercent:company.plCapital.intValue / 100.f];
-    }
-    if(company.plNotGlobEnt) {
+    [cardView setCapitalPercent:company.plCapital];
+
+    if (company.plNotGlobEnt) {
         [cardView setNotGlobal:company.plNotGlobEnt.boolValue];
     }
-    if(company.plWorkers) {
+    if (company.plWorkers) {
         [cardView setProducesInPoland:company.plWorkers.boolValue];
     }
-    if(company.plRegistered) {
+    if (company.plRegistered) {
         [cardView setRegisteredInPoland:company.plRegistered.boolValue];
     }
-    if(company.plRnD) {
+    if (company.plRnD) {
         [cardView setRnd:company.plRnD.boolValue];
     }
 }
@@ -191,10 +187,6 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     NSString *barcode = self.scannedBarcodes[(NSUInteger) productCardView.tag];
 
     [self showReportProblem:barcode];
-}
-
-- (void)didTapMore:(BPProductCardView *)view {
-    //todo on tap more
 }
 
 #pragma mark - BPReportProblemViewControllerDelegate

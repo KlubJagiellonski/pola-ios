@@ -15,7 +15,6 @@
 
 - (void)didTapReportProblem:(BPProductCardView *)productCardView;
 
-- (void)didTapMore:(BPProductCardView *)view;
 @end
 
 @interface BPProductCardView : UIView <BPCardViewProtocol>
@@ -30,7 +29,7 @@
 
 - (void)setMainPercent:(CGFloat)mainPercent;
 
-- (void)setCapitalPercent:(CGFloat)capitalPercent;
+- (void)setCapitalPercent:(NSNumber *)capitalPercent;
 
 - (void)setProducesInPoland:(BOOL)producesInPoland;
 

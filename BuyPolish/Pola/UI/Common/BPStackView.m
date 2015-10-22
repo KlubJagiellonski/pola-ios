@@ -8,7 +8,7 @@
 #import "BPConst.h"
 
 NSInteger const MAX_CARD_COUNT = 4;
-NSInteger const CARD_MARGIN = 2;
+NSInteger const CARD_MARGIN = 3;
 NSInteger const CARD_TITLE_HEIGHT = 50;
 NSInteger const CARD_SMALL_TITLE_HEIGHT = 15;
 

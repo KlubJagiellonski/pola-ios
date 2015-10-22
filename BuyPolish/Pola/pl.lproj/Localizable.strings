@@ -1,0 +1,27 @@
+/****************************************************************************/
+/* Localization file */
+
+
+"Scan Code" = "Scan Code";
+"Ouch!" = "Ouch!";
+"Dismiss" = "Dismiss";
+"Cannot fetch product info from server. Please try again." = "Cannot fetch product info from server. Please try again.";
+"No" = "No";
+"Unknown" = "Unknown";
+"Not valid barcode. Please try again." = "Nie poprawny kod kreskowy. Spróbuj ponwonie.";
+"Report" = "Zgłoś";
+"photos:" = "zdjęcia:";
+"description (optional):" = "opis (opcjonalny):";
+"Additional info" = "Dodatkowe informacje";
+"Send" = "Wyślij";
+"Cancel" = "Anuluj";
+"Take a photo" = "Zrób zdjęcie";
+"Choose from library" = "Wybierz z biblioteki";
+"percent of polish holders" = "odsetek polski właścicieli";
+"Report info" = "Jeżeli uważasz, że w danych są błędy, zgłoś ten fakt. Pola powstaje przy dużej pomocy jej użytkowników";
+"not part of global company" = "nie jest częścią globalnego koncernu";
+"is registered in Poland" = "jest zarejestrowana w PL";
+"created rich salary work places" = "tworzy wysokopłatne miejsca pracy w PL";
+"producing in PL" = "produkuje w PL";
+"Loading..." = "Wczytywanie...";
+"help Pola to gain data" = "pomóż Poli zdobyć dane";
