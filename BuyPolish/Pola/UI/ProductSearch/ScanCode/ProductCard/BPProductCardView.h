@@ -15,6 +15,7 @@
 
 - (void)didTapReportProblem:(BPProductCardView *)productCardView;
 
+- (void)didTapMore:(BPProductCardView *)view;
 @end
 
 @interface BPProductCardView : UIView <BPCardViewProtocol>
@@ -25,8 +26,19 @@
 
 @property(nonatomic, weak) id <BPProductCardViewDelegate> delegate;
 
-@property(nonatomic, readonly) UIButton *moreButton;
-
 - (void)setTitleText:(NSString *)titleText;
 
+- (void)setMainPercent:(CGFloat)mainPercent;
+
+- (void)setCapitalPercent:(CGFloat)capitalPercent;
+
+- (void)setProducesInPoland:(BOOL)producesInPoland;
+
+- (void)setRnd:(BOOL)rnd;
+
+- (void)setRegisteredInPoland:(BOOL)registeredInPoland;
+
+- (void)setNotGlobal:(BOOL)notGlobal;
+
+- (void)setNeedsData:(BOOL)needsData;
 @end

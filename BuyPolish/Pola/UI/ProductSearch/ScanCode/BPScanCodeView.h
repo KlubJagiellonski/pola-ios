@@ -9,6 +9,4 @@
 
 @property(nonatomic, strong) AVCaptureVideoPreviewLayer *videoLayer;
 
-- (void)addVideoPreviewLayer:(AVCaptureVideoPreviewLayer *)layer;
-
 @end

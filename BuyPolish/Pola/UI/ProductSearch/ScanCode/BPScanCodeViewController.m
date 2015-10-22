@@ -9,6 +9,7 @@
 #import "BPProductCardView.h"
 #import "BPCompany.h"
 #import "BPReportProblemViewController.h"
+#import "BPMainProggressView.h"
 
 
 @interface BPScanCodeViewController ()
@@ -47,10 +48,11 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
-    [self.castView addVideoPreviewLayer:self.cameraSessionManager.videoPreviewLayer];
+    self.castView.videoLayer = self.cameraSessionManager.videoPreviewLayer;
     [self.cameraSessionManager start];
 
-    [self showReportProblem:@"3123123"];
+    [self didFindBarcode:@"5900396019813"];
+//    [self showReportProblem:@"3123123"];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -63,6 +65,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 - (BOOL)addCardAndDownloadDetails:(NSString *)barcode {
     BPProductCardView *cardView = [[BPProductCardView alloc] initWithFrame:CGRectZero];
     cardView.inProgress = YES;
+    [cardView setTitleText:NSLocalizedString(@"Loading...", @"Loading...")];
     BOOL cardAdded = [self.castView.stackView addCard:cardView];
     if (!cardAdded) {
         return NO;
@@ -75,9 +78,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     [self.productManager retrieveProductWithBarcode:barcode completion:^(BPProductResult *productResult, NSError *error) {
         cardView.inProgress = NO;
         if (!error) {
-            [cardView setRightHeaderText:productResult.company ? productResult.company.name : @"No company"];
-            [cardView setTitleText:productResult.plScore ? productResult.plScore.stringValue : @"?"];
-            //todo update cardview
+            [self fillCard:cardView withData:productResult];
         } else {
             self.lastBardcodeScanned = nil;
             [UIAlertView showErrorAlert:NSLocalizedString(@"Cannot fetch product info from server. Please try again.", @"")];
@@ -85,6 +86,39 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     }                               completionQueue:[NSOperationQueue mainQueue]];
 
     return YES;
+}
+
+- (void)fillCard:(BPProductCardView *)cardView withData:(BPProductResult *)productResult {
+    BPCompany *company = productResult.company;
+
+    [cardView setNeedsData:!productResult.verified.boolValue];
+
+    NSString *noDataTitleText = NSLocalizedString(@"help Pola to gain data", @"help Pola to gain data");
+    [cardView setTitleText:productResult.verified.boolValue ? (company ? company.name : noDataTitleText) : noDataTitleText];
+
+    if(productResult.plScore) {
+        [cardView setMainPercent:productResult.plScore.intValue / 100.f];
+    }
+
+    if(!company) {
+        return;
+    }
+
+    if(company.plCapital) {
+        [cardView setCapitalPercent:company.plCapital.intValue / 100.f];
+    }
+    if(company.plNotGlobEnt) {
+        [cardView setNotGlobal:company.plNotGlobEnt.boolValue];
+    }
+    if(company.plWorkers) {
+        [cardView setProducesInPoland:company.plWorkers.boolValue];
+    }
+    if(company.plRegistered) {
+        [cardView setRegisteredInPoland:company.plRegistered.boolValue];
+    }
+    if(company.plRnD) {
+        [cardView setRnd:company.plRnD.boolValue];
+    }
 }
 
 - (void)saveImageForBarcode:(NSString *)barcode {
@@ -157,6 +191,10 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     NSString *barcode = self.scannedBarcodes[(NSUInteger) productCardView.tag];
 
     [self showReportProblem:barcode];
+}
+
+- (void)didTapMore:(BPProductCardView *)view {
+    //todo on tap more
 }
 
 #pragma mark - BPReportProblemViewControllerDelegate

@@ -26,6 +26,8 @@ const int CHECK_ROW_HORIZONTAL_MARGIN = 10;
         _textLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _textLabel.textColor = [UIColor grayColor];
         [self addSubview:_textLabel];
+
+        [self setChecked:NO];
     }
 
     return self;

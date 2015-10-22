@@ -27,7 +27,8 @@ const int SECONDARY_PROGRESS_TITLE_MARGIN = 10;
         [self addSubview:_filledProgressView];
 
         _percentLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _percentLabel.textColor = [UIColor darkGrayColor];
+        _percentLabel.text = @"?";
+        [_percentLabel sizeToFit];
         [self addSubview:_percentLabel];
     }
 

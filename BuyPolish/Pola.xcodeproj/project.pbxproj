@@ -59,6 +59,7 @@
 		37B64B04E790A7948469FA50 /* BPProductImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6499F703E06B35CC81F50 /* BPProductImageManager.m */; };
 		37B64B07EFEFFFDCC225AF5E /* BPCameraSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64A6EE7790CE9A2DFFF7E /* BPCameraSessionManager.m */; };
 		37B64B7D226FBFA23FFCA1C1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 37B645C93F848A6F598F96E2 /* Localizable.strings */; };
+		37B64BC4371E659752F34583 /* BPTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B649313DDC60DC19AFBFD7 /* BPTheme.m */; };
 		37B64BC8938BC7942D533D2F /* BPScanCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64728A5FC383EB464DA9F /* BPScanCodeViewController.m */; };
 		37B64D4617BA6760E8B4101F /* BPAPIAccessor+Product.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64A5E17F2E5888839150C /* BPAPIAccessor+Product.m */; };
 		37B64E4A4C23A423A7B102CB /* BPProductResult+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6473D93970F5113F3AAB3 /* BPProductResult+Utilities.m */; };
@@ -153,6 +154,7 @@
 		37B64858CB60EB44C530A2FD /* UIColor+BPAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+BPAdditions.h"; sourceTree = "<group>"; };
 		37B648A1A89B376DE62E2133 /* BPAPIAccessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPAPIAccessor.m; sourceTree = "<group>"; };
 		37B648B37FCA824C6F065D43 /* BPMainProggressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPMainProggressView.h; sourceTree = "<group>"; };
+		37B649313DDC60DC19AFBFD7 /* BPTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPTheme.m; sourceTree = "<group>"; };
 		37B64960EF3268FB825DD2FE /* BPRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPRootViewController.m; sourceTree = "<group>"; };
 		37B6499F703E06B35CC81F50 /* BPProductImageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPProductImageManager.m; sourceTree = "<group>"; };
 		37B6499FA4AA777D1E05D4C7 /* BPStackView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPStackView.m; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 		37B64B4F653A9EE90A4C985E /* UILabel+BPAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+BPAdditions.m"; sourceTree = "<group>"; };
 		37B64B74E1FAED6141BA2B25 /* BPUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPUtilities.m; sourceTree = "<group>"; };
 		37B64C3D23F4E691A0CDACA0 /* BPSecondaryProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPSecondaryProgressView.m; sourceTree = "<group>"; };
+		37B64C66C738C8F15828F02D /* BPTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPTheme.h; sourceTree = "<group>"; };
 		37B64CC5D0DF5C45420F13CA /* BPProductCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPProductCardView.m; sourceTree = "<group>"; };
 		37B64CD13446A6BEBA4B6A9A /* NSLayoutConstraint+BPAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+BPAdditions.m"; sourceTree = "<group>"; };
 		37B64D1B6193C0AD0D440566 /* BPScanCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPScanCodeViewController.h; sourceTree = "<group>"; };
@@ -469,6 +472,8 @@
 				37B649C1631E9ADBA6B66CC7 /* BPRootViewController.h */,
 				37B64540723CF4EABBB3AC70 /* ProductSearch */,
 				37B64827EDC4BBBCA2FB9BAE /* Common */,
+				37B649313DDC60DC19AFBFD7 /* BPTheme.m */,
+				37B64C66C738C8F15828F02D /* BPTheme.h */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -730,6 +735,7 @@
 				37B648D280BBB1A95E85962E /* BPSecondaryProgressView.m in Sources */,
 				37B64EBEB659B5811A9540AA /* BPCheckRow.m in Sources */,
 				37B6405B2B77BAAD1DC986CF /* UILabel+BPAdditions.m in Sources */,
+				37B64BC4371E659752F34583 /* BPTheme.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
