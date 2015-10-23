@@ -48,7 +48,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     self.castView.videoLayer = self.cameraSessionManager.videoPreviewLayer;
     [self.cameraSessionManager start];
 
-    [self didFindBarcode:@"5900396019813"];
+//    [self didFindBarcode:@"5900396019813"];
 //    [self showReportProblem:@"3123123"];
 }
 
@@ -90,8 +90,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 
     [cardView setNeedsData:!productResult.verified.boolValue];
 
-    NSString *noDataTitleText = NSLocalizedString(@"help Pola to gain data", @"help Pola to gain data");
-    [cardView setTitleText:productResult.verified.boolValue ? (company ? company.name : noDataTitleText) : noDataTitleText];
+    [cardView setTitleText:company ? company.name : NSLocalizedString(@"help Pola to gain data", @"help Pola to gain data")];
 
     if (productResult.plScore) {
         [cardView setMainPercent:productResult.plScore.intValue / 100.f];

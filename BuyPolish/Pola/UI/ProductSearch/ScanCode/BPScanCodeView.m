@@ -36,7 +36,7 @@
     self.dimView.frame = self.bounds;
 
     CGRect rect = self.rectangleView.frame;
-    rect.size.width = CGRectGetWidth(self.bounds) / 2;
+    rect.size.width = CGRectGetWidth(self.bounds) / 1.4f;
     rect.size.height = rect.size.width / 2;
     rect.origin.x = CGRectGetWidth(self.bounds) / 2 - CGRectGetWidth(rect) / 2;
     rect.origin.y = CGRectGetHeight(self.bounds) / 2 - CGRectGetHeight(rect);

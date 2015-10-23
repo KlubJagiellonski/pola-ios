@@ -212,7 +212,7 @@ const float PAN_THRESHOLD_TO_SHOW_OR_HIDE_FULL_SCREEN = 20;
 
 - (void)layoutFullSizeSubview {
     UIView <BPCardViewProtocol> *cardView = self.cardViewArray[self.fullScreenCardViewIndex];
-    CGFloat height = CGRectGetHeight(self.bounds) - 3 * CARD_MARGIN - ([self.cardViewArray count] - 1) * CARD_SMALL_TITLE_HEIGHT - STATUS_BAR_HEIGHT;
+    CGFloat height = CGRectGetHeight(self.bounds) - 3 * CARD_MARGIN - (MAX_CARD_COUNT - 1) * CARD_SMALL_TITLE_HEIGHT - STATUS_BAR_HEIGHT;
     cardView.frame = CGRectMake(CARD_MARGIN, STATUS_BAR_HEIGHT + CARD_MARGIN, CGRectGetWidth(self.bounds) - 2 * CARD_MARGIN, height);
 }
 
