@@ -31,13 +31,13 @@
 
 - (void)setCapitalPercent:(NSNumber *)capitalPercent;
 
-- (void)setProducesInPoland:(BOOL)producesInPoland;
+- (void)setProducesInPoland:(NSNumber *)producesInPoland;
 
-- (void)setRnd:(BOOL)rnd;
+- (void)setRnd:(NSNumber *)rnd;
 
-- (void)setRegisteredInPoland:(BOOL)registeredInPoland;
+- (void)setRegisteredInPoland:(NSNumber *)registeredInPoland;
 
-- (void)setNotGlobal:(BOOL)notGlobal;
+- (void)setNotGlobal:(NSNumber *)notGlobal;
 
 - (void)setNeedsData:(BOOL)needsData;
 @end

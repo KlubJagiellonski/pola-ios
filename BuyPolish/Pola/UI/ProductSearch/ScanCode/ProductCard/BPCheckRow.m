@@ -29,7 +29,7 @@ const int CHECK_ROW_HORIZONTAL_MARGIN = 7;
         _textLabel.textColor = [BPTheme defaultTextColor];
         [self addSubview:_textLabel];
 
-        [self setChecked:NO];
+        [self setChecked:nil];
     }
 
     return self;
@@ -55,8 +55,14 @@ const int CHECK_ROW_HORIZONTAL_MARGIN = 7;
     [self setNeedsLayout];
 }
 
-- (void)setChecked:(BOOL)checked {
-    self.checkImageView.image = [[UIImage imageNamed:checked ? @"TrueIcon" : @"FalseIcon"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+- (void)setChecked:(NSNumber *)checked {
+    UIImage *image;
+    if(!checked) {
+        image = [UIImage imageNamed:@"NoneIcon"];
+    } else {
+        image = [UIImage imageNamed:checked.boolValue ? @"TrueIcon" : @"FalseIcon"];
+    }
+    self.checkImageView.image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     [self.checkImageView sizeToFit];
     [self setNeedsLayout];
 }

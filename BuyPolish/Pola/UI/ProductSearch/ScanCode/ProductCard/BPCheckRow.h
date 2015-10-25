@@ -9,6 +9,6 @@
 @interface BPCheckRow : UIView
 
 - (void)setText:(NSString *)text;
-- (void)setChecked:(BOOL)checked;
+- (void)setChecked:(NSNumber *)checked;
 
 @end

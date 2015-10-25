@@ -48,7 +48,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     self.castView.videoLayer = self.cameraSessionManager.videoPreviewLayer;
     [self.cameraSessionManager start];
 
-//    [self didFindBarcode:@"5900396019813"];
+    [self didFindBarcode:@"5900396019813"];
 //    [self showReportProblem:@"3123123"];
 }
 
@@ -101,19 +101,10 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     }
 
     [cardView setCapitalPercent:company.plCapital];
-
-    if (company.plNotGlobEnt) {
-        [cardView setNotGlobal:company.plNotGlobEnt.boolValue];
-    }
-    if (company.plWorkers) {
-        [cardView setProducesInPoland:company.plWorkers.boolValue];
-    }
-    if (company.plRegistered) {
-        [cardView setRegisteredInPoland:company.plRegistered.boolValue];
-    }
-    if (company.plRnD) {
-        [cardView setRnd:company.plRnD.boolValue];
-    }
+    [cardView setNotGlobal:company.plNotGlobEnt];
+    [cardView setProducesInPoland:company.plWorkers];
+    [cardView setRegisteredInPoland:company.plRegistered];
+    [cardView setRnd:company.plRnD];
 }
 
 - (void)saveImageForBarcode:(NSString *)barcode {

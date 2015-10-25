@@ -168,7 +168,7 @@ int const CARD_REPORT_BUTTON_HEIGHT = 30;
     rect = self.separatorView.frame;
     rect.size.width = CGRectGetWidth(self.bounds);
     rect.origin.x = 0;
-    rect.origin.y = CGRectGetMinY(self.reportInfoLabel.frame) - 25 - CGRectGetHeight(rect);
+    rect.origin.y = CGRectGetMinY(self.reportInfoLabel.frame) - 20 - CGRectGetHeight(rect);
     self.separatorView.frame = rect;
 
     rect = self.notGlobalCheckRow.frame;
@@ -234,19 +234,19 @@ int const CARD_REPORT_BUTTON_HEIGHT = 30;
     [self.capitalProgressView setNeedsLayout];
 }
 
-- (void)setProducesInPoland:(BOOL)producesInPoland {
+- (void)setProducesInPoland:(NSNumber *)producesInPoland {
     [self.producesInPolandCheckRow setChecked:producesInPoland];
 }
 
-- (void)setRnd:(BOOL)rnd {
+- (void)setRnd:(NSNumber *)rnd {
     [self.rndCheckRow setChecked:rnd];
 }
 
-- (void)setRegisteredInPoland:(BOOL)registeredInPoland {
+- (void)setRegisteredInPoland:(NSNumber *)registeredInPoland {
     [self.registeredInPolandCheckRow setChecked:registeredInPoland];
 }
 
-- (void)setNotGlobal:(BOOL)notGlobal {
+- (void)setNotGlobal:(NSNumber *)notGlobal {
     [self.notGlobalCheckRow setChecked:notGlobal];
 }
 
