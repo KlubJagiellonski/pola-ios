@@ -9,11 +9,12 @@
 #import "BPConst.h"
 #import "UIColor+BPAdditions.h"
 #import "UIImage+KVNImageEffects.h"
+#import "BPTheme.h"
 
 const int REPORT_PADDING = 16;
 const int REPORT_IMAGE_CONTAINER_HORIZONTAL_MARGIN = 8;
 const int VERTICAL_MARGIN = 30;
-const int SEND_BUTTON_HEIGHT = 35;
+const int SEND_BUTTON_HEIGHT = 30;
 const int REPORT_TITLE_MARGIN = 10;
 const int REPORT_DESCRIPTIONSHADOW_HEIGHT = 1;
 
@@ -30,20 +31,24 @@ const int REPORT_DESCRIPTIONSHADOW_HEIGHT = 1;
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor colorWithHexString:@"E9E8E7"];
+        self.backgroundColor = [BPTheme mediumBackgroundColor];
 
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _titleLabel.font = [BPTheme titleFont];
+        _titleLabel.textColor = [BPTheme defaultTextColor];
         _titleLabel.text = NSLocalizedString(@"Report", @"Report");
         [_titleLabel sizeToFit];
         [self addSubview:_titleLabel];
 
         _closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_closeButton setImage:[[UIImage imageNamed:@"CloseIcon"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
-        _closeButton.tintColor = [UIColor darkGrayColor];
+        _closeButton.tintColor = [BPTheme defaultTextColor];
         [_closeButton sizeToFit];
         [self addSubview:_closeButton];
 
         _photoTitleLable = [[UILabel alloc] initWithFrame:CGRectZero];
+        _photoTitleLable.font = [BPTheme normalFont];
+        _photoTitleLable.textColor = [BPTheme defaultTextColor];
         _photoTitleLable.text = NSLocalizedString(@"photos:", @"photos:");
         [_photoTitleLable sizeToFit];
         [self addSubview:_photoTitleLable];
@@ -52,6 +57,8 @@ const int REPORT_DESCRIPTIONSHADOW_HEIGHT = 1;
         [self addSubview:_imageContainerView];
 
         _descriptionTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _descriptionTitleLabel.font = [BPTheme normalFont];
+        _descriptionTitleLabel.textColor = [BPTheme defaultTextColor];
         _descriptionTitleLabel.text = NSLocalizedString(@"description (optional):", @"description (optional):");
         [_descriptionTitleLabel sizeToFit];
         [self addSubview:_descriptionTitleLabel];
@@ -59,17 +66,21 @@ const int REPORT_DESCRIPTIONSHADOW_HEIGHT = 1;
         _descriptionTextView = [[UITextView alloc] initWithFrame:CGRectZero];
         _descriptionTextView.textContainerInset = UIEdgeInsetsMake(10, 5, 10, 5);
         _descriptionTextView.backgroundColor = [UIColor whiteColor];
+        _descriptionTextView.font = [BPTheme normalFont];
+        _descriptionTextView.textColor = [BPTheme defaultTextColor];
         _descriptionTextView.placeholder = NSLocalizedString(@"Additional info", @"Additional info");
-        _descriptionTextView.placeholderColor = [self backgroundColor];
+        _descriptionTextView.placeholderLabel.font = _descriptionTextView.font;
+        _descriptionTextView.placeholderColor = [UIColor colorWithHexString:@"C3C3C3"];
         [self addSubview:_descriptionTextView];
 
         _descriptionBottomShadowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, REPORT_DESCRIPTIONSHADOW_HEIGHT)];
-        _descriptionBottomShadowView.backgroundColor = [UIColor darkGrayColor];
+        _descriptionBottomShadowView.backgroundColor = [UIColor colorWithHexString:@"C3C3C3"];
         [self addSubview:_descriptionBottomShadowView];
 
         _sendButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _sendButton.titleLabel.font = [BPTheme buttonFont];
         [_sendButton setTitle:[NSLocalizedString(@"Send", @"Send") uppercaseString] forState:UIControlStateNormal];
-        [_sendButton setBackgroundImage:[BPUtilities imageWithColor:[UIColor colorWithHexString:@"D93A2F"]] forState:UIControlStateNormal];
+        [_sendButton setBackgroundImage:[BPUtilities imageWithColor:[BPTheme actionColor]] forState:UIControlStateNormal];
         [_sendButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self addSubview:_sendButton];
 

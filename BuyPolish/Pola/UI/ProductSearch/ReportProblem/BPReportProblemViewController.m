@@ -88,17 +88,16 @@ objection_requires_sel(@selector(productImageManager), @selector(reportManager),
     NSArray *imagePathArray = [self.productImageManager createImagePathArrayForBarcode:self.barcode imageCount:self.imageCount];
     BPReport *report = [BPReport reportWithBarcode:self.barcode description:self.castView.descriptionTextView.text imagePathArray:imagePathArray];
 
-    [KVNProgress show];
+    [KVNProgress showWithStatus:NSLocalizedString(@"Sending...", @"Wysyłanie...")];
 
     weakify()
     [self.reportManager sendReport:report completion:^(BPReportResult *result, NSError *error) {
         strongify()
         if (result.state == REPORT_STATE_FINSIHED && error == nil) {
-            [KVNProgress showSuccess];
+            [KVNProgress showSuccessWithStatus:NSLocalizedString(@"Report sent", @"Raport wysłany")];
             [strongSelf.delegate reportProblem:strongSelf finishedWithResult:YES];
         } else if (error != nil) {
-            [KVNProgress showError];
-            [strongSelf.delegate reportProblem:strongSelf finishedWithResult:NO];
+            [KVNProgress showErrorWithStatus:NSLocalizedString(@"Error occured", @"Wystąpił błąd")];
         }
     }              completionQueue:[NSOperationQueue mainQueue]];
 }

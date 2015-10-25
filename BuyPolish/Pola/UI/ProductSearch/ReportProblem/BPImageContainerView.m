@@ -65,7 +65,7 @@ const CGFloat ANIMATION_DURATION = 0.5f;
     UIButton *deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [deleteButton addTarget:self action:@selector(didTapDeleteButton:) forControlEvents:UIControlEventTouchUpInside];
     deleteButton.alpha = 0.f;
-    [deleteButton setTitle:@"Del" forState:UIControlStateNormal];
+    [deleteButton setImage:[UIImage imageNamed:@"DeleteIcon"] forState:UIControlStateNormal];
     [deleteButton sizeToFit];
     deleteButton.frame = [self calculateDeleteRect:deleteButton.frame ForImageRect:imageView.frame];
     [self addSubview:deleteButton];
