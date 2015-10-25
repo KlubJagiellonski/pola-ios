@@ -91,8 +91,8 @@
     return _managedObjectContext;
 }
 
-// Returns the managed object model for the application.
-// If the model doesn't already exist, it is created from the application's model.
+// Returns the managed object Model for the application.
+// If the Model doesn't already exist, it is created from the application's Model.
 - (NSManagedObjectModel *)managedObjectModel
 {
     if (_managedObjectModel != nil) {
@@ -123,7 +123,7 @@
          
          Typical reasons for an error here include:
          * The persistent store is not accessible;
-         * The schema for the persistent store is incompatible with current managed object model.
+         * The schema for the persistent store is incompatible with current managed object Model.
          Check the error message to determine what the actual problem was.
          
          

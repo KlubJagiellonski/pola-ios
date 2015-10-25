@@ -7,6 +7,7 @@
 #import "UIAlertView+BPUtilities.h"
 #import "NSString+BPUtilities.h"
 #import "BPCompany.h"
+#import "BPInfoNavigationController.h"
 
 
 @interface BPScanCodeViewController ()
@@ -40,6 +41,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.castView.stackView.stackDelegate = self;
     self.title = NSLocalizedString(@"Scan Code", @"");
+    [self.castView.menuButton addTarget:self action:@selector(didTapMenuButton:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -118,6 +120,14 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     [self presentViewController:reportProblemViewController animated:YES completion:nil];
 }
 
+- (void)didTapMenuButton:(UIButton *)button {
+    JSObjectionInjector *injector = [JSObjection defaultInjector];
+    BPInfoNavigationController *infoNavigationController = [injector getObject:[BPInfoNavigationController class]];
+    infoNavigationController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    infoNavigationController.infoDelegate = self;
+    [self presentViewController:infoNavigationController animated:YES completion:nil];
+}
+
 #pragma mark - UIAlertViewDelegate
 
 
@@ -189,5 +199,10 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+#pragma mark - BPInfoNavigationControllerDelegate
+
+- (void)infoCancelled:(BPInfoNavigationController *)infoNavigationController {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 @end

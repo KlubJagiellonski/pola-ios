@@ -1,6 +1,9 @@
 #import <AVFoundation/AVFoundation.h>
 #import "BPScanCodeView.h"
 #import "BPStackView.h"
+#import "BPConst.h"
+
+const int SCAN_CODE_MARGIN = 15;
 
 @interface BPScanCodeView ()
 @property(nonatomic, readonly) UIView *rectangleView;
@@ -23,6 +26,11 @@
 
         _stackView = [[BPStackView alloc] initWithFrame:CGRectZero];
         [self addSubview:_stackView];
+        
+        _menuButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_menuButton setImage:[UIImage imageNamed:@"BurgerIcon"] forState:UIControlStateNormal];
+        [_menuButton sizeToFit];
+        [self addSubview:_menuButton];
     }
 
     return self;
@@ -41,6 +49,11 @@
     rect.origin.x = CGRectGetWidth(self.bounds) / 2 - CGRectGetWidth(rect) / 2;
     rect.origin.y = CGRectGetHeight(self.bounds) / 2 - CGRectGetHeight(rect);
     self.rectangleView.frame = rect;
+
+    rect = self.menuButton.frame;
+    rect.origin.x = CGRectGetWidth(self.bounds) - SCAN_CODE_MARGIN - CGRectGetWidth(rect);
+    rect.origin.y = STATUS_BAR_HEIGHT + SCAN_CODE_MARGIN;
+    self.menuButton.frame = rect;
 }
 
 
@@ -57,6 +70,7 @@
     [self bringSubviewToFront:self.dimView];
     [self bringSubviewToFront:self.rectangleView];
     [self bringSubviewToFront:self.stackView];
+    [self bringSubviewToFront:self.menuButton];
 }
 
 @end

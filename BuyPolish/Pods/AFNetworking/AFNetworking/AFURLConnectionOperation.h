@@ -60,7 +60,7 @@
  
  ## SSL Pinning
  
- Relying on the CA trust model to validate SSL certificates exposes your app to security vulnerabilities, such as man-in-the-middle attacks. For applications that connect to known servers, SSL certificate pinning provides an increased level of security, by checking server certificate validity against those specified in the app bundle.
+ Relying on the CA trust Model to validate SSL certificates exposes your app to security vulnerabilities, such as man-in-the-middle attacks. For applications that connect to known servers, SSL certificate pinning provides an increased level of security, by checking server certificate validity against those specified in the app bundle.
  
  SSL with certificate pinning is strongly recommended for any application that transmits sensitive information to an external webservice.
 
