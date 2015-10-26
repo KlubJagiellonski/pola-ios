@@ -10,4 +10,6 @@
 @property(nonatomic, strong) AVCaptureVideoPreviewLayer *videoLayer;
 
 @property(nonatomic, readonly) UIButton *menuButton;
+
+- (void)setInfoTextVisible:(BOOL)visible;
 @end

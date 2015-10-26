@@ -54,7 +54,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     self.castView.videoLayer = self.cameraSessionManager.videoPreviewLayer;
     [self.cameraSessionManager start];
 
-    [self didFindBarcode:@"5900396019813"];
+//    [self didFindBarcode:@"5900396019813"];
 //    [self showReportProblem:@"3123123"];
 }
 
@@ -195,6 +195,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 
     if ([self addCardAndDownloadDetails:barcode]) {
         [BPAnalyticsHelper barcodeScanned:barcode];
+        [self.castView setInfoTextVisible:NO];
         [self saveImageForBarcode:barcode];
         AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
         self.lastBardcodeScanned = barcode;
