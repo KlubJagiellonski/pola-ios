@@ -5,6 +5,7 @@
 
 @interface BPProductResult : NSObject
 
+@property(nonatomic) NSNumber *id;
 @property(nonatomic) NSNumber *verified;
 @property(nonatomic, strong) NSNumber *plScore;
 @property(nonatomic, copy) NSString *report;

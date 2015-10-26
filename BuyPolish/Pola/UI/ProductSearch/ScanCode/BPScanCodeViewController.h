@@ -4,7 +4,7 @@
 #import "BPCameraSessionManager.h"
 #import "BPProductCardView.h"
 #import "BPReportProblemViewController.h"
-#import "BPInfoNavigationController.h"
+#import "BPAboutNavigationController.h"
 
 
 @class BPScanCodeViewController;

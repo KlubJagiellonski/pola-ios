@@ -6,7 +6,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface BPInfoRow : NSObject
+@interface BPAboutRow : NSObject
 
 @property(nonatomic, copy) NSString *title;
 @property(nonatomic) SEL action;

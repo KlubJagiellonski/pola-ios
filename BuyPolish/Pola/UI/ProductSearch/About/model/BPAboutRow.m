@@ -3,10 +3,10 @@
 // Copyright (c) 2015 PJMS. All rights reserved.
 //
 
-#import "BPInfoRow.h"
+#import "BPAboutRow.h"
 
 
-@implementation BPInfoRow
+@implementation BPAboutRow
 
 - (instancetype)initWithTitle:(NSString *)title action:(SEL)action {
     self = [super init];

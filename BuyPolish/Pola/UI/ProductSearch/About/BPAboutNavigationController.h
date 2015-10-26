@@ -4,17 +4,17 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "BPInfoViewController.h"
+#import "BPAboutViewController.h"
 
-@class BPInfoNavigationController;
+@class BPAboutNavigationController;
 
 
 @protocol BPInfoNavigationControllerDelegate <NSObject>
-- (void)infoCancelled:(BPInfoNavigationController *)infoNavigationController;
+- (void)infoCancelled:(BPAboutNavigationController *)infoNavigationController;
 @end
 
 
-@interface BPInfoNavigationController : UINavigationController <BPInfoViewControllerDelegate>
+@interface BPAboutNavigationController : UINavigationController <BPInfoViewControllerDelegate>
 
 @property(nonatomic, weak) id <BPInfoNavigationControllerDelegate> infoDelegate;
 

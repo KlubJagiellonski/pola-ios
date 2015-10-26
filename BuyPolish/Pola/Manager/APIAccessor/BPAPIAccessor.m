@@ -3,7 +3,7 @@
 #import "AFHTTPRequestOperation.h"
 #import "BPAPIResponse.h"
 #import "NSDictionary+BPJSON.h"
-#import "BPDeviceManager.h"
+#import "BPDeviceHelper.h"
 
 NSString *const BPAPIAccessorAPIServerUrl = @"https://www.pola-app.pl/a";
 //NSString *const BPAPIAccessorAPIServerUrl = @"https://pola-staging.herokuapp.com/a";
@@ -14,14 +14,11 @@ NSString *const BPAPIAccessorAPIDeviceId = @"device_id";
 @interface BPAPIAccessor ()
 
 @property(nonatomic, readonly) NSOperationQueue *operationsQueue;
-@property(nonatomic, readonly) BPDeviceManager *deviceManager;
 
 @end
 
 
 @implementation BPAPIAccessor
-
-objection_requires_sel(@selector(deviceManager))
 
 - (id)init {
     self = [super init];
@@ -54,7 +51,7 @@ objection_requires_sel(@selector(deviceManager))
 
 - (NSDictionary *)addDefaultParameters:(NSDictionary *)parameters {
     NSMutableDictionary *mutableParameters = [NSMutableDictionary dictionaryWithDictionary:parameters];
-    mutableParameters[BPAPIAccessorAPIDeviceId] = self.deviceManager.deviceId;
+    mutableParameters[BPAPIAccessorAPIDeviceId] = [BPDeviceHelper deviceId];
     return mutableParameters;
 }
 

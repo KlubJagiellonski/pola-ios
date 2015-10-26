@@ -1,4 +1,5 @@
 #import <Objection/Objection.h>
+#import <Crashlytics/Crashlytics.h>
 #import "BPScanCodeViewController.h"
 #import "BPScanCodeView.h"
 #import "BPProductManager.h"
@@ -7,7 +8,8 @@
 #import "UIAlertView+BPUtilities.h"
 #import "NSString+BPUtilities.h"
 #import "BPCompany.h"
-#import "BPInfoNavigationController.h"
+#import "BPAboutNavigationController.h"
+#import "BPAnalyticsHelper.h"
 
 
 @interface BPScanCodeViewController ()
@@ -17,6 +19,7 @@
 @property(nonatomic, readonly) BPProductManager *productManager;
 @property(nonatomic, strong) NSString *lastBardcodeScanned;
 @property(nonatomic, readonly) NSMutableArray *scannedBarcodes;
+@property(nonatomic, readonly) NSMutableDictionary *barcodeToProductResult;
 @property(nonatomic) BOOL addingCardEnabled;
 
 @end
@@ -34,6 +37,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     [super viewDidLoad];
 
     _scannedBarcodes = [NSMutableArray array];
+    _barcodeToProductResult = [NSMutableDictionary dictionary];
 
     self.cameraSessionManager.delegate = self;
 
@@ -77,6 +81,9 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     [self.productManager retrieveProductWithBarcode:barcode completion:^(BPProductResult *productResult, NSError *error) {
         cardView.inProgress = NO;
         if (!error) {
+            [BPAnalyticsHelper receivedProductResult:productResult];
+
+            self.barcodeToProductResult[barcode] = productResult;
             [self fillCard:cardView withData:productResult];
         } else {
             self.lastBardcodeScanned = nil;
@@ -114,6 +121,8 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 }
 
 - (void)showReportProblem:(NSString *)barcode {
+    [BPAnalyticsHelper reportShown:barcode];
+
     JSObjectionInjector *injector = [JSObjection defaultInjector];
     BPReportProblemViewController *reportProblemViewController = [injector getObject:[BPReportProblemViewController class] argumentList:@[barcode]];
     reportProblemViewController.delegate = self;
@@ -121,11 +130,12 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 }
 
 - (void)didTapMenuButton:(UIButton *)button {
+    [BPAnalyticsHelper aboutOpened:@"About Menu"];
+
     JSObjectionInjector *injector = [JSObjection defaultInjector];
-    BPInfoNavigationController *infoNavigationController = [injector getObject:[BPInfoNavigationController class]];
-    infoNavigationController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    infoNavigationController.infoDelegate = self;
-    [self presentViewController:infoNavigationController animated:YES completion:nil];
+    BPAboutNavigationController *aboutNavigationController = [injector getObject:[BPAboutNavigationController class]];
+    aboutNavigationController.infoDelegate = self;
+    [self presentViewController:aboutNavigationController animated:YES completion:nil];
 }
 
 #pragma mark - UIAlertViewDelegate
@@ -149,6 +159,15 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 
 - (void)willEnterFullScreen:(UIView <BPCardViewProtocol> *)cardView withAnimationDuration:(CGFloat)animationDuration {
     self.addingCardEnabled = NO;
+
+    NSString *barcode = self.scannedBarcodes[(NSUInteger) cardView.tag];
+    if(!barcode) {
+        return;
+    }
+    BPProductResult *productResult = self.barcodeToProductResult[barcode];
+    if(productResult) {
+        [BPAnalyticsHelper opensCard:productResult];
+    }
 }
 
 - (void)didExitFullScreen:(UIView <BPCardViewProtocol> *)cardView {
@@ -175,6 +194,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     }
 
     if ([self addCardAndDownloadDetails:barcode]) {
+        [BPAnalyticsHelper barcodeScanned:barcode];
         [self saveImageForBarcode:barcode];
         AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
         self.lastBardcodeScanned = barcode;
@@ -197,11 +217,12 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 
 - (void)reportProblem:(BPReportProblemViewController *)controller finishedWithResult:(BOOL)result {
     [self dismissViewControllerAnimated:YES completion:nil];
+    [BPAnalyticsHelper reportSent:controller.barcode success:result];
 }
 
 #pragma mark - BPInfoNavigationControllerDelegate
 
-- (void)infoCancelled:(BPInfoNavigationController *)infoNavigationController {
+- (void)infoCancelled:(BPAboutNavigationController *)infoNavigationController {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

@@ -17,7 +17,6 @@
 @property(nonatomic) BPProductImageManager *productImageManager;
 @property(nonatomic) BPReportManager *reportManager;
 @property(nonatomic) BPKeyboardManager *keyboardManager;
-@property(nonatomic, readonly) NSString *barcode;
 @property(nonatomic) int imageCount;
 @property(nonatomic, strong) UIImagePickerController *imagePickerController;
 @end

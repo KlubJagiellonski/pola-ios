@@ -6,6 +6,7 @@
 @implementation BPProductResult (Utilities)
 
 - (void)parse:(NSDictionary *)dictionary {
+    self.id = [BPUtilities handleNull:dictionary[@"id"]];
     self.plScore = [BPUtilities handleNull:dictionary[@"plScore"]];
     self.verified = [BPUtilities handleNull:dictionary[@"verified"]];
     self.report = [BPUtilities handleNull:dictionary[@"report"]];
