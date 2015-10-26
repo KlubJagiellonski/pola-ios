@@ -151,6 +151,8 @@ const float PAN_THRESHOLD_TO_SHOW_OR_HIDE_FULL_SCREEN = 20;
 }
 
 - (void)animateToStack {
+    NSUInteger lastFullScreenCardViewIndex = self.fullScreenCardViewIndex;
+
     self.currentState = STATE_STACK;
     self.fullScreenCardViewIndex = 0;
 
@@ -164,11 +166,15 @@ const float PAN_THRESHOLD_TO_SHOW_OR_HIDE_FULL_SCREEN = 20;
                          [self layoutIfNeeded];
                      }
                      completion:^(BOOL finished) {
-                         [self.stackDelegate didExitFullScreen:self.cardViewArray[self.fullScreenCardViewIndex]];
+                         [self.stackDelegate didExitFullScreen:self.cardViewArray[lastFullScreenCardViewIndex]];
                      }];
 }
 
 - (void)animateToFullScreen:(UIView <BPCardViewProtocol> *)tappedCardView {
+    if(![self.cardViewArray containsObject:tappedCardView]) {
+        return;
+    }
+
     [self.stackDelegate willEnterFullScreen:tappedCardView withAnimationDuration:SHOW_FULL_CARD_ANIMATION_DURATION];
 
     self.currentState = STATE_FULL_SIZE;

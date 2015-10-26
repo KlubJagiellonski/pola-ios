@@ -46,7 +46,12 @@ objection_requires_sel(@selector(taskRunner), @selector(apiAccessor))
             completion([BPReportResult resultWithState:REPORT_STATE_ADD report:report imageDownloadedIndex:0], error);
         }];
 
-        [self sendImagesForImagePath:report.imagePathArray reportId:reportId index:0 completion:^(NSUInteger index, NSError *sendImageError) {
+        if(report.imagePathArray.count == 0) {
+            completion([BPReportResult resultWithState:REPORT_STATE_FINSIHED report:report imageDownloadedIndex:0], error);
+            return;
+        }
+
+        [strongSelf sendImagesForImagePath:report.imagePathArray reportId:reportId index:0 completion:^(NSUInteger index, NSError *sendImageError) {
             [completionQueue addOperationWithBlock:^{
                 if (sendImageError) {
                     BPLog(@"Error while adding images: %@ %@", report.barcode, error.localizedDescription);
