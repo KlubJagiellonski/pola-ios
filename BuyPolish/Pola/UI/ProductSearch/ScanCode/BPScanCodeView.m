@@ -18,8 +18,7 @@ const int INFO_TEXT_LABEL_BOTTOM_MARGIN = 50;
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        _dimView = [[UIView alloc] initWithFrame:CGRectZero];
-        _dimView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3f];
+        _dimView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GradientImage"]];
         [self addSubview:_dimView];
 
         _rectangleView = [[UIView alloc] initWithFrame:CGRectZero];

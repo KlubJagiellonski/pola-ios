@@ -33,6 +33,11 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     self.view = [[BPScanCodeView alloc] initWithFrame:CGRectZero];
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
