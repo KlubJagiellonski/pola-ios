@@ -30,10 +30,10 @@ objection_requires_sel(@selector(taskRunner), @selector(apiAccessor))
     void (^block)() = ^{
         strongify()
 
-        NSDictionary *result = [strongSelf.apiAccessor addReport:report.barcode description:report.desc error:&error];
+        NSDictionary *result = [strongSelf.apiAccessor addReportWithDescription:report.desc error:&error];
 
         if (error) {
-            BPLog(@"Error while adding report : %@ %@", report.barcode, error.localizedDescription);
+            BPLog(@"Error while adding report : %@ %@", report.key, error.localizedDescription);
             [completionQueue addOperationWithBlock:^{
                 completion([BPReportResult resultWithState:REPORT_STATE_ADD report:report imageDownloadedIndex:0], error);
             }];
@@ -54,7 +54,7 @@ objection_requires_sel(@selector(taskRunner), @selector(apiAccessor))
         [strongSelf sendImagesForImagePath:report.imagePathArray reportId:reportId index:0 completion:^(NSUInteger index, NSError *sendImageError) {
             [completionQueue addOperationWithBlock:^{
                 if (sendImageError) {
-                    BPLog(@"Error while adding images: %@ %@", report.barcode, error.localizedDescription);
+                    BPLog(@"Error while adding images: %@ %@", report.key, error.localizedDescription);
                     completion([BPReportResult resultWithState:REPORT_STATE_IMAGE_ADD report:report imageDownloadedIndex:(int) index], sendImageError);
                 } else {
                     completion([BPReportResult resultWithState:REPORT_STATE_FINSIHED report:report imageDownloadedIndex:(int) index], sendImageError);

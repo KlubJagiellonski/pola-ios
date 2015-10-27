@@ -8,7 +8,7 @@
 
 @interface BPAPIAccessor (BPReport)
 
-- (NSDictionary *)addReport:(NSString *)barcode description:(NSString *)description error:(NSError **)error;
+- (NSDictionary *)addReportWithDescription:(NSString *)description error:(NSError **)error;
 - (NSDictionary *)addImageAtPath:(NSString *)imageAtPath forReportId:(NSNumber *)reportId error:(NSError **)error;
 
 @end

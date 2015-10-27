@@ -9,7 +9,7 @@
 
 @implementation BPAPIAccessor (BPReport)
 
-- (NSDictionary *)addReport:(NSString *)barcode description:(NSString *)description error:(NSError **)error {
+- (NSDictionary *)addReportWithDescription:(NSString *)description error:(NSError **)error {
     NSDictionary *body = @{@"description" : description};
     BPAPIResponse *response = [self post:[NSString stringWithFormat:@"create_report"] jsonBody:body error:error];
     NSDictionary *result = response.responseObject;

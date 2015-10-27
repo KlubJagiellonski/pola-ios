@@ -10,12 +10,12 @@ const float LARGE_IMAGE_WIDTH = 800;
 
 @implementation BPProductImageManager
 
-- (void)saveImage:(UIImage *)image forBarcode:(NSString *)barcode index:(int)index {
+- (void)saveImage:(UIImage *)image forKey:(NSString *)key index:(int)index {
     UIImage *largeImage = [self imageWithImage:image scaledToWidth:LARGE_IMAGE_WIDTH];
-    [UIImagePNGRepresentation(largeImage) writeToFile:[self imagePathForBarcode:barcode index:index small:NO] atomically:NO];
+    [UIImagePNGRepresentation(largeImage) writeToFile:[self imagePathForKey:key index:index small:NO] atomically:NO];
 
     UIImage *smallImage = [self imageWithImage:image scaledToWidth:SMALL_IMAGE_WIDTH];
-    [UIImagePNGRepresentation(smallImage) writeToFile:[self imagePathForBarcode:barcode index:index small:YES] atomically:NO];
+    [UIImagePNGRepresentation(smallImage) writeToFile:[self imagePathForKey:key index:index small:YES] atomically:NO];
 }
 
 - (CGSize)createSmallSizeForImage:(UIImage *)image {
@@ -23,22 +23,22 @@ const float LARGE_IMAGE_WIDTH = 800;
     return CGSizeMake(SMALL_IMAGE_WIDTH, image.size.width * ratio);
 }
 
-- (BOOL)isImageExistForBarcode:(NSString *)barcode index:(int)index {
-    NSString *imagePath = [self imagePathForBarcode:barcode index:index small:YES];
+- (BOOL)isImageExistForKey:(NSString *)key index:(int)index {
+    NSString *imagePath = [self imagePathForKey:key index:index small:YES];
     return [[NSFileManager defaultManager] fileExistsAtPath:imagePath];
 }
 
-- (UIImage *)retrieveImageForBarcode:(NSString *)barcode index:(int)index small:(BOOL)small {
-    NSString *imagePath = [self imagePathForBarcode:barcode index:index small:small];
+- (UIImage *)retrieveImageForKey:(NSString *)key index:(int)index small:(BOOL)small {
+    NSString *imagePath = [self imagePathForKey:key index:index small:small];
     NSData *data = [NSData dataWithContentsOfFile:imagePath];
     return [UIImage imageWithData:data];
 }
 
-- (NSString *)imagePathForBarcode:(NSString *)barcode index:(int)index small:(BOOL)small {
+- (NSString *)imagePathForKey:(NSString *)key index:(int)index small:(BOOL)small {
     NSArray *paths = NSSearchPathForDirectoriesInDomains
         (NSCachesDirectory, NSUserDomainMask, YES);
     NSString *directory = paths[0];
-    NSString *filename = [NSString stringWithFormat:@"%@_%i_%i", barcode, index, small];
+    NSString *filename = [NSString stringWithFormat:@"%@_%i_%i", key, index, small];
     return [directory stringByAppendingPathComponent:filename];
 }
 
@@ -56,10 +56,10 @@ const float LARGE_IMAGE_WIDTH = 800;
     return newImage;
 }
 
-- (NSArray *)createImagePathArrayForBarcode:(NSString *)barcode imageCount:(int)imageCount {
+- (NSArray *)createImagePathArrayForKey:(NSString *)key imageCount:(int)imageCount {
     NSMutableArray *pathArray = [NSMutableArray arrayWithCapacity:(NSUInteger) imageCount];
     for (int i = 0; i < imageCount; ++i) {
-        NSString *imagePath = [self imagePathForBarcode:barcode index:i small:NO];
+        NSString *imagePath = [self imagePathForKey:key index:i small:NO];
         [pathArray addObject:imagePath];
     }
     return pathArray;

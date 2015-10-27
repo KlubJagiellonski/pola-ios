@@ -8,14 +8,14 @@
 
 @interface BPReport : NSObject
 
-@property(nonatomic, readonly) NSString *barcode;
+@property(nonatomic, readonly) NSString *key;
 @property(nonatomic, readonly) NSString *desc;
 @property(nonatomic, strong, readonly) NSArray *imagePathArray;
 @property(nonatomic, strong) NSNumber *id;
 
-- (instancetype)initWithBarcode:(NSString *)barcode description:(NSString *)desc imagePathArray:(NSArray *)imagePathArray;
+- (instancetype)initWithKey:(NSString *)key description:(NSString *)desc imagePathArray:(NSArray *)imagePathArray;
 
-+ (instancetype)reportWithBarcode:(NSString *)barcode description:(NSString *)desc imagePathArray:(NSArray *)imagePathArray;
++ (instancetype)reportWithKey:(NSString *)key description:(NSString *)desc imagePathArray:(NSArray *)imagePathArray;
 
 
 @end

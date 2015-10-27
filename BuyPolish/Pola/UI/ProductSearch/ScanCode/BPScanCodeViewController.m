@@ -121,8 +121,6 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 }
 
 - (void)showReportProblem:(NSString *)barcode {
-    [BPAnalyticsHelper reportShown:barcode];
-
     JSObjectionInjector *injector = [JSObjection defaultInjector];
     BPReportProblemViewController *reportProblemViewController = [injector getObject:[BPReportProblemViewController class] argumentList:@[barcode]];
     reportProblemViewController.delegate = self;
@@ -218,7 +216,6 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 
 - (void)reportProblem:(BPReportProblemViewController *)controller finishedWithResult:(BOOL)result {
     [self dismissViewControllerAnimated:YES completion:nil];
-    [BPAnalyticsHelper reportSent:controller.barcode success:result];
 }
 
 #pragma mark - BPInfoNavigationControllerDelegate

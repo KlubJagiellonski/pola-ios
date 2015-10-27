@@ -8,10 +8,10 @@
 
 @implementation BPReport
 
-- (instancetype)initWithBarcode:(NSString *)barcode description:(NSString *)desc imagePathArray:(NSArray *)imagePathArray {
+- (instancetype)initWithKey:(NSString *)key description:(NSString *)desc imagePathArray:(NSArray *)imagePathArray {
     self = [super init];
     if (self) {
-        _barcode = barcode;
+        _key = key;
         _desc = desc;
         _imagePathArray = imagePathArray;
     }
@@ -19,8 +19,8 @@
     return self;
 }
 
-+ (instancetype)reportWithBarcode:(NSString *)barcode description:(NSString *)desc imagePathArray:(NSArray *)imagePathArray {
-    return [[self alloc] initWithBarcode:barcode description:desc imagePathArray:imagePathArray];
++ (instancetype)reportWithKey:(NSString *)key description:(NSString *)desc imagePathArray:(NSArray *)imagePathArray {
+    return [[self alloc] initWithKey:key description:desc imagePathArray:imagePathArray];
 }
 
 @end

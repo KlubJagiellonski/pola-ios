@@ -5,6 +5,7 @@
 
 #import <MessageUI/MessageUI.h>
 #import <Foundation/Foundation.h>
+#import "BPReportProblemViewController.h"
 
 @class BPAboutViewController;
 
@@ -15,7 +16,7 @@
 @end
 
 
-@interface BPAboutViewController : UITableViewController <MFMailComposeViewControllerDelegate, UINavigationControllerDelegate>
+@interface BPAboutViewController : UITableViewController <MFMailComposeViewControllerDelegate, UINavigationControllerDelegate, BPReportProblemViewControllerDelegate>
 
 @property(nonatomic, weak) id <BPInfoViewControllerDelegate> delegate;
 

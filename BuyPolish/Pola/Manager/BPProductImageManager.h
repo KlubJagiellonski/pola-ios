@@ -8,12 +8,12 @@
 
 @interface BPProductImageManager : NSObject
 
-- (void)saveImage:(UIImage *)image forBarcode:(NSString *)barcode index:(int)index;
+- (void)saveImage:(UIImage *)image forKey:(NSString *)key index:(int)index;
 
-- (BOOL)isImageExistForBarcode:(NSString *)barcode index:(int)index;
+- (BOOL)isImageExistForKey:(NSString *)key index:(int)index;
 
-- (UIImage *)retrieveImageForBarcode:(NSString *)barcode index:(int)index small:(BOOL)small;
+- (UIImage *)retrieveImageForKey:(NSString *)key index:(int)index small:(BOOL)small;
 
-- (NSArray *)createImagePathArrayForBarcode:(NSString *)barcode imageCount:(int)imageCount;
+- (NSArray *)createImagePathArrayForKey:(NSString *)key imageCount:(int)imageCount;
 
 @end

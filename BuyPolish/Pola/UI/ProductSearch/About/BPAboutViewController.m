@@ -3,13 +3,16 @@
 // Copyright (c) 2015 PJMS. All rights reserved.
 //
 
+#import <Objection/JSObjection.h>
 #import "BPAboutViewController.h"
 #import "BPWebAboutRow.h"
 #import "BPAnalyticsHelper.h"
 #import "BPDeviceHelper.h"
 
 NSString *const ABOUT_APP_STORE_APP_URL = @"itms-apps://itunes.apple.com/app/id1038401148";
-NSString *const ABOUT_MAIL = @"example@email.com";
+NSString *const ABOUT_FACEBOOK_URL = @"https://www.facebook.com/app.pola";
+NSString *const ABOUT_TWITTER_URL = @"https://twitter.com/pola_app";
+NSString *const ABOUT_MAIL = @"kontakt@pola-app.pl";
 
 
 @interface BPAboutViewController ()
@@ -30,19 +33,22 @@ NSString *const ABOUT_MAIL = @"example@email.com";
 - (NSArray *)createRowList {
     NSMutableArray *rowList = [NSMutableArray array];
     [rowList addObject:
-            [BPWebAboutRow rowWithTitle:NSLocalizedString(@"About Pola application", @"O aplikacji Pola") action:@selector(didTapWebRow:) url:@"http://www.onet.pl" analyticsName:@"O aplikacji Pola"]
+            [BPWebAboutRow rowWithTitle:NSLocalizedString(@"About Pola application", @"O aplikacji Pola") action:@selector(didTapWebRow:) url:@"www.pola-app.pl/m/about" analyticsName:@"O aplikacji Pola"]
     ];
     [rowList addObject:
-            [BPWebAboutRow rowWithTitle:NSLocalizedString(@"Metodology", @"Metodologia") action:@selector(didTapWebRow:) url:@"http://www.onet.pl" analyticsName:@"Metodologia"]
+            [BPWebAboutRow rowWithTitle:NSLocalizedString(@"Metodology", @"Metodologia") action:@selector(didTapWebRow:) url:@"www.pola-app.pl/m/method" analyticsName:@"Metodologia"]
     ];
     [rowList addObject:
-            [BPWebAboutRow rowWithTitle:NSLocalizedString(@"About KJ", @"O Klubie Jagiellońskim") action:@selector(didTapWebRow:) url:@"http://www.wp.pl" analyticsName:@"O Klubie Jagiellońskim"]
+            [BPWebAboutRow rowWithTitle:NSLocalizedString(@"About KJ", @"O Klubie Jagiellońskim") action:@selector(didTapWebRow:) url:@"www.pola-app.pl/m/kj" analyticsName:@"O Klubie Jagiellońskim"]
     ];
     [rowList addObject:
-            [BPWebAboutRow rowWithTitle:NSLocalizedString(@"Team", @"Zespół") action:@selector(didTapWebRow:) url:@"http://www.onet.pl" analyticsName:@"Zespół"]
+            [BPWebAboutRow rowWithTitle:NSLocalizedString(@"Team", @"Zespół") action:@selector(didTapWebRow:) url:@"www.pola-app.pl/m/team" analyticsName:@"Zespół"]
     ];
     [rowList addObject:
-            [BPWebAboutRow rowWithTitle:NSLocalizedString(@"Partners", @"Partnerzy") action:@selector(didTapWebRow:) url:@"http://www.wp.pl" analyticsName:@"Partnerzy"]
+            [BPWebAboutRow rowWithTitle:NSLocalizedString(@"Partners", @"Partnerzy") action:@selector(didTapWebRow:) url:@"www.pola-app.pl/m/partners" analyticsName:@"Partnerzy"]
+    ];
+    [rowList addObject:
+        [BPAboutRow rowWithTitle:NSLocalizedString(@"Report error in data", @"Zgłoś błąd w danych") action:@selector(didTapReportError:)]
     ];
     if ([MFMailComposeViewController canSendMail]) {
         [rowList addObject:
@@ -61,13 +67,25 @@ NSString *const ABOUT_MAIL = @"example@email.com";
     return rowList;
 }
 
+- (void)didTapReportError:(BPAboutRow *)row {
+    [BPAnalyticsHelper aboutOpened:@"Zgłoś błąd w danych"];
+
+
+    NSString *key = @([[NSDate date] timeIntervalSince1970]).stringValue;
+    JSObjectionInjector *injector = [JSObjection defaultInjector];
+    BPReportProblemViewController *reportProblemViewController = [injector getObject:[BPReportProblemViewController class] argumentList:@[key]];
+    reportProblemViewController.delegate = self;
+    [self presentViewController:reportProblemViewController animated:YES completion:nil];
+}
+
 - (void)didTapTwitter:(BPAboutRow *)row {
     [BPAnalyticsHelper aboutOpened:@"Pola na Twitterze"];
-
+    [[UIApplication sharedApplication] openURL:[[NSURL alloc] initWithString:ABOUT_TWITTER_URL]];
 }
 
 - (void)didTapFacebook:(BPAboutRow *)row {
     [BPAnalyticsHelper aboutOpened:@"Pola na Facebooku"];
+    [[UIApplication sharedApplication] openURL:[[NSURL alloc] initWithString:ABOUT_FACEBOOK_URL]];
 }
 
 - (void)didTapRateUs:(BPAboutRow *)row {
@@ -129,5 +147,16 @@ NSString *const ABOUT_MAIL = @"example@email.com";
 {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+#pragma mark - BPReportProblemViewControllerDelegate
+
+- (void)reportProblemWantsDismiss:(BPReportProblemViewController *)viewController {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)reportProblem:(BPReportProblemViewController *)controller finishedWithResult:(BOOL)result {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 
 @end
