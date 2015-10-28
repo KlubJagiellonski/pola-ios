@@ -49,7 +49,6 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     self.addingCardEnabled = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.castView.stackView.stackDelegate = self;
-    self.title = NSLocalizedString(@"Scan Code", @"");
     [self.castView.menuButton addTarget:self action:@selector(didTapMenuButton:) forControlEvents:UIControlEventTouchUpInside];
 }
 
@@ -59,7 +58,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     self.castView.videoLayer = self.cameraSessionManager.videoPreviewLayer;
     [self.cameraSessionManager start];
 
-//    [self didFindBarcode:@"5900396019813"];
+    [self didFindBarcode:@"5900396019813"];
 //    [self showReportProblem:@"3123123"];
 }
 

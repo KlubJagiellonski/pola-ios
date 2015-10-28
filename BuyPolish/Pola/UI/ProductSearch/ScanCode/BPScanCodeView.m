@@ -35,13 +35,14 @@ const int INFO_TEXT_LABEL_BOTTOM_MARGIN = 50;
         [_infoTextLabel sizeToFit];
         [self addSubview:_infoTextLabel];
 
-        _stackView = [[BPStackView alloc] initWithFrame:CGRectZero];
-        [self addSubview:_stackView];
-
         _menuButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_menuButton setImage:[UIImage imageNamed:@"BurgerIcon"] forState:UIControlStateNormal];
         [_menuButton sizeToFit];
         [self addSubview:_menuButton];
+
+        _stackView = [[BPStackView alloc] initWithFrame:CGRectZero];
+        [self addSubview:_stackView];
+
     }
 
     return self;
@@ -82,13 +83,7 @@ const int INFO_TEXT_LABEL_BOTTOM_MARGIN = 50;
     [_videoLayer removeFromSuperlayer];
     _videoLayer = videoLayer;
     [videoLayer setFrame:self.layer.bounds];
-    [self.layer addSublayer:videoLayer];
-
-    [self bringSubviewToFront:self.dimView];
-    [self bringSubviewToFront:self.rectangleView];
-    [self bringSubviewToFront:self.infoTextLabel];
-    [self bringSubviewToFront:self.stackView];
-    [self bringSubviewToFront:self.menuButton];
+    [self.layer insertSublayer:videoLayer atIndex:0];
 }
 
 - (void)setInfoTextVisible:(BOOL)visible {

@@ -2,12 +2,9 @@
 /* Localization file */
 
 
-"Scan Code" = "Scan Code";
-"Ouch!" = "Ouch!";
-"Dismiss" = "Dismiss";
-"Cannot fetch product info from server. Please try again." = "Cannot fetch product info from server. Please try again.";
-"No" = "No";
-"Unknown" = "Unknown";
+"Ouch!" = "Wystąpił błąd!";
+"Dismiss" = "Zamknij";
+"Cannot fetch product info from server. Please try again." = "Niestety nie udało się pobrać danych. Spróbuj ponownie.";
 "Not valid barcode. Please try again." = "Nie poprawny kod kreskowy. Spróbuj ponwonie.";
 "Report" = "Zgłoś";
 "photos:" = "zdjęcia:";
