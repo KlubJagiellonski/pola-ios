@@ -58,9 +58,9 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     self.castView.videoLayer = self.cameraSessionManager.videoPreviewLayer;
     [self.cameraSessionManager start];
 
-    [self didFindBarcode:@"5900396019813"];
-    [self performSelector:@selector(didFindBarcode:) withObject:@"5901234123457" afterDelay:1.5f];
-    [self performSelector:@selector(didFindBarcode:) withObject:@"5900396019813" afterDelay:3.f];
+//    [self didFindBarcode:@"5900396019813"];
+//    [self performSelector:@selector(didFindBarcode:) withObject:@"5901234123457" afterDelay:1.5f];
+//    [self performSelector:@selector(didFindBarcode:) withObject:@"5900396019813" afterDelay:3.f];
 //    [self showReportProblem:@"3123123"];
 }
 
@@ -165,6 +165,8 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 - (void)willEnterFullScreen:(UIView <BPCardViewProtocol> *)cardView withAnimationDuration:(CGFloat)animationDuration {
     self.addingCardEnabled = NO;
 
+    [self.castView setMenuButtonVisible:NO animation:YES];
+
     NSString *barcode = self.scannedBarcodes[(NSUInteger) cardView.tag];
     if(!barcode) {
         return;
@@ -177,6 +179,8 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 
 - (void)didExitFullScreen:(UIView <BPCardViewProtocol> *)cardView {
     self.addingCardEnabled = YES;
+
+    [self.castView setMenuButtonVisible:YES animation:YES];
 }
 
 #pragma mark - BPCameraSessionManagerDelegate

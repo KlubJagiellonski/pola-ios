@@ -12,4 +12,6 @@
 @property(nonatomic, readonly) UIButton *menuButton;
 
 - (void)setInfoTextVisible:(BOOL)visible;
+
+- (void)setMenuButtonVisible:(BOOL)visible animation:(BOOL)animation;
 @end
