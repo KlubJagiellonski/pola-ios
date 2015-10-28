@@ -15,6 +15,7 @@ NSInteger const CARD_SMALL_TITLE_HEIGHT = 15;
 NSInteger const STATE_STACK = 0;
 NSInteger const STATE_FULL_SIZE = 1;
 
+float const REMOVE_CARD_ANIMATION_DURATION = 0.4f;
 float const ADD_CARD_ANIMATION_DURATION = 0.8f;
 const float SHOW_FULL_CARD_ANIMATION_DURATION = 0.7f;
 const float PAN_THRESHOLD_TO_SHOW_OR_HIDE_FULL_SCREEN = 20;
@@ -132,6 +133,28 @@ const float PAN_THRESHOLD_TO_SHOW_OR_HIDE_FULL_SCREEN = 20;
     return YES;
 }
 
+- (void)removeCard:(UIView <BPCardViewProtocol> *)cardView {
+    CGRect rect = cardView.frame;
+    rect.origin.y += CARD_TITLE_HEIGHT;
+
+    [self.cardViewArray removeObject:cardView];
+
+    [UIView animateWithDuration:REMOVE_CARD_ANIMATION_DURATION
+                          delay:0
+         usingSpringWithDamping:0.5f
+          initialSpringVelocity:0.0f
+                        options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                         cardView.frame = rect;
+
+                         [self setNeedsLayout];
+                         [self layoutIfNeeded];
+                     }
+                     completion:^(BOOL finished) {
+                         [cardView removeFromSuperview];
+                     }];
+}
+
 - (void)addGestureRecognizersToCardView:(UIView <BPCardViewProtocol> *)cardView {
     [cardView setUserInteractionEnabled:YES];
 
@@ -213,6 +236,8 @@ const float PAN_THRESHOLD_TO_SHOW_OR_HIDE_FULL_SCREEN = 20;
         cardView.frame = cardRect;
 
         cardRect.origin.y -= CARD_TITLE_HEIGHT;
+
+        [cardView setSmallCardState:NO];
     }
 }
 
@@ -232,6 +257,8 @@ const float PAN_THRESHOLD_TO_SHOW_OR_HIDE_FULL_SCREEN = 20;
             i++;
             continue;
         }
+
+        [cardView setSmallCardState:YES];
 
         cardView.frame = cardRect;
 

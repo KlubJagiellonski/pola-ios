@@ -12,7 +12,6 @@
 #import "BPTheme.h"
 
 const int REPORT_PADDING = 16;
-const int REPORT_IMAGE_CONTAINER_HORIZONTAL_MARGIN = 8;
 const int VERTICAL_MARGIN = 30;
 const int SEND_BUTTON_HEIGHT = 30;
 const int REPORT_TITLE_MARGIN = 10;
@@ -107,8 +106,8 @@ const int REPORT_DESCRIPTIONSHADOW_HEIGHT = 1;
     rect.origin.y = CGRectGetMaxY(self.closeButton.frame) + VERTICAL_MARGIN;
     self.photoTitleLable.frame = rect;
 
-    rect.size = [self.imageContainerView sizeThatFits:CGSizeMake(CGRectGetWidth(self.bounds) - 2 * REPORT_IMAGE_CONTAINER_HORIZONTAL_MARGIN, 0)];
-    rect.origin.x = REPORT_IMAGE_CONTAINER_HORIZONTAL_MARGIN;
+    rect.size = [self.imageContainerView sizeThatFits:CGSizeMake(CGRectGetWidth(self.bounds) - 2 * REPORT_PADDING, 0)];
+    rect.origin.x = REPORT_PADDING;
     rect.origin.y = CGRectGetMaxY(self.photoTitleLable.frame) + REPORT_TITLE_MARGIN;
     self.imageContainerView.frame = rect;
 

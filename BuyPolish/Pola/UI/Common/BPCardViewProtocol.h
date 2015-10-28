@@ -8,5 +8,6 @@
 @protocol BPCardViewProtocol <NSObject>
 
 - (void)setTitleHeight:(int)titleHeight;
+- (void)setSmallCardState:(BOOL)smallCardEnabled;
 
 @end

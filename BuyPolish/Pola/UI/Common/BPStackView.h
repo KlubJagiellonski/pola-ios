@@ -25,5 +25,6 @@
 @property(nonatomic, readonly) NSInteger cardCount;
 
 - (BOOL)addCard:(UIView<BPCardViewProtocol> *)cardView;
+- (void)removeCard:(UIView<BPCardViewProtocol> *)cardView;
 
 @end

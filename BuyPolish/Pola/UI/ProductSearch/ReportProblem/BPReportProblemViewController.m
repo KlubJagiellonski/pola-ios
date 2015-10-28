@@ -51,6 +51,8 @@ objection_requires_sel(@selector(productImageManager), @selector(reportManager),
     [self.castView.sendButton addTarget:self action:@selector(didTapSendButton:) forControlEvents:UIControlEventTouchUpInside];
 
     [self initializeImages];
+
+    [self updateReportButtonState];
 }
 
 - (void)initializeImages {
@@ -79,6 +81,10 @@ objection_requires_sel(@selector(productImageManager), @selector(reportManager),
 }
 
 #pragma mark - actions
+
+- (void)updateReportButtonState {
+    self.castView.sendButton.enabled = self.imageCount > 0;
+}
 
 - (void)didTapCloseButton:(UIButton *)button {
     [self.delegate reportProblemWantsDismiss:self];
@@ -135,6 +141,8 @@ objection_requires_sel(@selector(productImageManager), @selector(reportManager),
 - (void)didTapRemoveImage:(BPImageContainerView *)imageContainerView atIndex:(int)index {
     [imageContainerView removeImageAtIndex:index];
     self.imageCount--;
+
+    [self updateReportButtonState];
 }
 
 #pragma mark - UIActionSheetDelegate
@@ -161,6 +169,8 @@ objection_requires_sel(@selector(productImageManager), @selector(reportManager),
     [self.castView.imageContainerView addImage:smallImage];
 
     self.imageCount++;
+
+    [self updateReportButtonState];
 
     [self dismissViewControllerAnimated:YES completion:NULL];
 }

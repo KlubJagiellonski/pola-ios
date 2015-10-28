@@ -59,6 +59,8 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     [self.cameraSessionManager start];
 
     [self didFindBarcode:@"5900396019813"];
+    [self performSelector:@selector(didFindBarcode:) withObject:@"5901234123457" afterDelay:1.5f];
+    [self performSelector:@selector(didFindBarcode:) withObject:@"5900396019813" afterDelay:3.f];
 //    [self showReportProblem:@"3123123"];
 }
 
@@ -92,6 +94,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
         } else {
             self.lastBardcodeScanned = nil;
             [UIAlertView showErrorAlert:NSLocalizedString(@"Cannot fetch product info from server. Please try again.", @"")];
+            [self.castView.stackView removeCard:cardView];
         }
     }                               completionQueue:[NSOperationQueue mainQueue]];
 

@@ -100,7 +100,7 @@ NSString *const ABOUT_MAIL = @"kontakt@pola-app.pl";
     composeViewController.delegate = self;
     [composeViewController setMailComposeDelegate:self];
     [composeViewController setToRecipients:@[ABOUT_MAIL]];
-    [composeViewController setSubject:NSLocalizedString(@"mailt_title", @"Domyślny tytuł")];
+    [composeViewController setSubject:NSLocalizedString(@"mail_title", @"")];
     [composeViewController setMessageBody:[BPDeviceHelper deviceInfo] isHTML:NO];
     [self presentViewController:composeViewController animated:YES completion:nil];
 }

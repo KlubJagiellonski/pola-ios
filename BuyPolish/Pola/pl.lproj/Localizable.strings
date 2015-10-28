@@ -36,6 +36,7 @@
 "Rate us" = "Oceń nas";
 "Pola on Facebook" = "Pola na Facebooku";
 "Pola on Twitter" = "Pola na Twitterze";
-"mailt_title" = "Domyślny tytuł";
-"Scan barcode" = "Zeskanuj\nKod Kreskowy";
+"mail_title" = "Wiadomość wysłana z aplikacji Pola";
+"Scan barcode" = "Zeskanuj\nkod kreskowy";
 "Report error in data" = "Zgłoś błąd w danych";
+"Report Info Need Data" = "Pola nie ma jeszcze wszystkich danych dotyczących tego producenta. Prześlij nam zdjęcia tego produktu";

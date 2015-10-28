@@ -14,7 +14,7 @@
 NSInteger const CARD_PADDING = 10;
 int const CARD_PROGRESS_IN_HEADER = 3;
 int const CARD_SEPARATOR_HEIGHT = 1;
-int const CARD_MAIN_PROGRESS_BOTTOM_MARGIN = 25;
+int const CARD_PROGRESS_BOTTOM_MARGIN = 25;
 int const CARD_ROW_MARGIN = 14;
 int const CARD_REPORT_BUTTON_HEIGHT = 30;
 
@@ -41,7 +41,7 @@ int const CARD_REPORT_BUTTON_HEIGHT = 30;
         self.backgroundColor = [BPTheme clearColor];
 
         self.layer.cornerRadius = 8.0f;
-        [self setClipsToBounds:YES];
+        self.layer.masksToBounds = NO;
 
         _loadingProgressView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
         [_loadingProgressView sizeToFit];
@@ -68,17 +68,12 @@ int const CARD_REPORT_BUTTON_HEIGHT = 30;
         [self addSubview:_capitalProgressView];
 
         _reportProblemButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _reportProblemButton.layer.borderColor = [[BPTheme actionColor] CGColor];
-        _reportProblemButton.layer.borderWidth = 1;
         [_reportProblemButton addTarget:self action:@selector(didTapReportProblem) forControlEvents:UIControlEventTouchUpInside];
         _reportProblemButton.titleLabel.font = [BPTheme buttonFont];
-        [_reportProblemButton setTitleColor:[BPTheme actionColor] forState:UIControlStateNormal];
-        [_reportProblemButton setTitle:[NSLocalizedString(@"Report", @"Report") uppercaseString] forState:UIControlStateNormal];
         [_reportProblemButton sizeToFit];
         [self addSubview:_reportProblemButton];
 
         _reportInfoLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _reportInfoLabel.text = NSLocalizedString(@"Report info", @"Report info");
         _reportInfoLabel.numberOfLines = 3;
         _reportInfoLabel.font = [BPTheme normalFont];
         _reportInfoLabel.textColor = [BPTheme defaultTextColor];
@@ -142,7 +137,7 @@ int const CARD_REPORT_BUTTON_HEIGHT = 30;
 
     rect = self.capitalTitleLabel.frame;
     rect.origin.x = CARD_PADDING;
-    rect.origin.y = CGRectGetMaxY(self.mainProgressView.frame) + CARD_MAIN_PROGRESS_BOTTOM_MARGIN;
+    rect.origin.y = CGRectGetMaxY(self.mainProgressView.frame) + CARD_PROGRESS_BOTTOM_MARGIN;
     self.capitalTitleLabel.frame = rect;
 
     rect = self.capitalProgressView.frame;
@@ -150,6 +145,30 @@ int const CARD_REPORT_BUTTON_HEIGHT = 30;
     rect.origin.x = CARD_PADDING;
     rect.origin.y = CGRectGetMaxY(self.capitalTitleLabel.frame) + CARD_PADDING;
     self.capitalProgressView.frame = rect;
+
+    rect = self.producesInPolandCheckRow.frame;
+    rect.size.width = widthWithPadding;
+    rect.origin.x = CARD_PADDING;
+    rect.origin.y = CGRectGetMaxY(self.capitalProgressView.frame) + CARD_PROGRESS_BOTTOM_MARGIN;
+    self.producesInPolandCheckRow.frame = rect;
+
+    rect = self.rndCheckRow.frame;
+    rect.size.width = widthWithPadding;
+    rect.origin.x = CARD_PADDING;
+    rect.origin.y = CGRectGetMaxY(self.producesInPolandCheckRow.frame) + CARD_ROW_MARGIN;
+    self.rndCheckRow.frame = rect;
+
+    rect = self.registeredInPolandCheckRow.frame;
+    rect.size.width = widthWithPadding;
+    rect.origin.x = CARD_PADDING;
+    rect.origin.y = CGRectGetMaxY(self.rndCheckRow.frame) + CARD_ROW_MARGIN;
+    self.registeredInPolandCheckRow.frame = rect;
+
+    rect = self.notGlobalCheckRow.frame;
+    rect.size.width = widthWithPadding;
+    rect.origin.x = CARD_PADDING;
+    rect.origin.y = CGRectGetMaxY(self.registeredInPolandCheckRow.frame) + CARD_ROW_MARGIN;
+    self.notGlobalCheckRow.frame = rect;
 
     rect = self.reportProblemButton.frame;
     rect.size.height = CARD_REPORT_BUTTON_HEIGHT;
@@ -168,32 +187,8 @@ int const CARD_REPORT_BUTTON_HEIGHT = 30;
     rect = self.separatorView.frame;
     rect.size.width = CGRectGetWidth(self.bounds);
     rect.origin.x = 0;
-    rect.origin.y = CGRectGetMinY(self.reportInfoLabel.frame) - 20 - CGRectGetHeight(rect);
+    rect.origin.y = CGRectGetMinY(self.reportInfoLabel.frame) - 15 - CGRectGetHeight(rect);
     self.separatorView.frame = rect;
-
-    rect = self.notGlobalCheckRow.frame;
-    rect.size.width = widthWithPadding;
-    rect.origin.x = CARD_PADDING;
-    rect.origin.y = CGRectGetMinY(self.separatorView.frame) - CARD_ROW_MARGIN - CGRectGetHeight(rect);
-    self.notGlobalCheckRow.frame = rect;
-
-    rect = self.registeredInPolandCheckRow.frame;
-    rect.size.width = widthWithPadding;
-    rect.origin.x = CARD_PADDING;
-    rect.origin.y = CGRectGetMinY(self.notGlobalCheckRow.frame) - CARD_ROW_MARGIN - CGRectGetHeight(rect);
-    self.registeredInPolandCheckRow.frame = rect;
-
-    rect = self.rndCheckRow.frame;
-    rect.size.width = widthWithPadding;
-    rect.origin.x = CARD_PADDING;
-    rect.origin.y = CGRectGetMinY(self.registeredInPolandCheckRow.frame) - CARD_ROW_MARGIN - CGRectGetHeight(rect);
-    self.rndCheckRow.frame = rect;
-
-    rect = self.producesInPolandCheckRow.frame;
-    rect.size.width = widthWithPadding;
-    rect.origin.x = CARD_PADDING;
-    rect.origin.y = CGRectGetMinY(self.rndCheckRow.frame) - CARD_ROW_MARGIN - CGRectGetHeight(rect);
-    self.producesInPolandCheckRow.frame = rect;
 }
 
 - (BOOL)inProgress {
@@ -255,6 +250,37 @@ int const CARD_REPORT_BUTTON_HEIGHT = 30;
     self.mainProgressView.backgroundColor = needsData ? [BPTheme strongBackgroundColor] : [BPTheme lightBackgroundColor];
     self.capitalProgressView.fillColor = needsData ? [BPTheme strongBackgroundColor] : [BPTheme lightBackgroundColor];
     self.capitalProgressView.percentColor = needsData ? [BPTheme clearColor] : [BPTheme defaultTextColor];
+    self.reportInfoLabel.text = needsData ? NSLocalizedString(@"Report Info Need Data", @"Report Info Need Data") : NSLocalizedString(@"Report info", @"Report info");
+    [self.reportInfoLabel sizeToFit];
+
+    if(needsData) {
+        [self.reportProblemButton setTitleColor:[BPTheme clearColor] forState:UIControlStateNormal];
+        [self.reportProblemButton setBackgroundImage:[BPUtilities imageWithColor:[BPTheme actionColor]] forState:UIControlStateNormal];
+        [self.reportProblemButton setTitle:[NSLocalizedString(@"Send", @"Send") uppercaseString] forState:UIControlStateNormal];
+
+    } else {
+        self.reportProblemButton.layer.borderColor = [[BPTheme actionColor] CGColor];
+        self.reportProblemButton.layer.borderWidth = 1;
+        [self.reportProblemButton setTitleColor:[BPTheme actionColor] forState:UIControlStateNormal];
+        [self.reportProblemButton setTitleColor:[BPTheme clearColor] forState:UIControlStateHighlighted];
+        [self.reportProblemButton setBackgroundImage:[BPUtilities imageWithColor:[UIColor clearColor]] forState:UIControlStateNormal];
+        [self.reportProblemButton setBackgroundImage:[BPUtilities imageWithColor:[BPTheme actionColor]] forState:UIControlStateHighlighted];
+        [self.reportProblemButton setTitle:[NSLocalizedString(@"Report", @"Report") uppercaseString] forState:UIControlStateNormal];
+    }
+    [self.reportProblemButton sizeToFit];
+
+    [self setNeedsLayout];
 }
+
+- (void)setSmallCardState:(BOOL)smallCardEnabled {
+    if(smallCardEnabled) {
+        self.layer.shadowRadius = 2.f;
+        self.layer.shadowOpacity = 0.3f;
+    } else {
+        self.layer.shadowRadius = 0.f;
+        self.layer.shadowOpacity = 0.f;
+    }
+}
+
 
 @end

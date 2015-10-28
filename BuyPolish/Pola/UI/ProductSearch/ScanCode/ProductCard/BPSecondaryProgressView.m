@@ -23,6 +23,8 @@ const int SECONDARY_PROGRESS_TITLE_MARGIN = 10;
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        self.progressValue = 1.f;
+
         _filledProgressView = [[UIView alloc] initWithFrame:CGRectZero];
         _filledProgressView.backgroundColor = [BPTheme lightBackgroundColor];
         [self addSubview:_filledProgressView];

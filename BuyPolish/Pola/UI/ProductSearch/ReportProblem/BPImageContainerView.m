@@ -15,6 +15,7 @@ const CGFloat ANIMATION_DURATION = 0.5f;
 
 @interface BPImageContainerView ()
 @property(nonatomic, readonly) NSMutableArray *imageViewArray;
+@property(nonatomic, readonly) NSMutableArray *dimImageViewArray;
 @property(nonatomic, readonly) NSMutableArray *deleteButtonArray;
 @property(nonatomic, readonly) UIButton *addImageButton;
 @end
@@ -28,6 +29,7 @@ const CGFloat ANIMATION_DURATION = 0.5f;
         self.backgroundColor = [UIColor whiteColor];
 
         _imageViewArray = [NSMutableArray arrayWithCapacity:MAX_IMAGE_COUNT];
+        _dimImageViewArray = [NSMutableArray arrayWithCapacity:MAX_IMAGE_COUNT];
         _deleteButtonArray = [NSMutableArray arrayWithCapacity:MAX_IMAGE_COUNT];
 
         _addImageButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -61,6 +63,11 @@ const CGFloat ANIMATION_DURATION = 0.5f;
     [self addSubview:imageView];
     [self.imageViewArray addObject:imageView];
 
+    UIView *dimImageView = [[UIView alloc] initWithFrame:CGRectZero];
+    dimImageView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.2f];
+    [self addSubview:dimImageView];
+    [self.dimImageViewArray addObject:dimImageView];
+
 
     UIButton *deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [deleteButton addTarget:self action:@selector(didTapDeleteButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -83,19 +90,23 @@ const CGFloat ANIMATION_DURATION = 0.5f;
 - (void)removeImageAtIndex:(int)index {
     NSUInteger uIndex = (NSUInteger) index;
     UIView *imageView = self.imageViewArray[uIndex];
+    UIView *dimImageView = self.dimImageViewArray[uIndex];
     UIView *deleteView = self.deleteButtonArray[uIndex];
 
     [self.deleteButtonArray removeObjectAtIndex:uIndex];
     [self.imageViewArray removeObjectAtIndex:uIndex];
+    [self.dimImageViewArray removeObjectAtIndex:uIndex];
     
 
     [UIView animateWithDuration:ANIMATION_DURATION animations:^{
         imageView.alpha = 0.f;
         deleteView.alpha = 0.f;
+        dimImageView.alpha = 0.f;
 
         [self setNeedsLayout];
         [self layoutIfNeeded];
     } completion:^(BOOL finished) {
+        [dimImageView removeFromSuperview];
         [imageView removeFromSuperview];
         [deleteView removeFromSuperview];
     }];
@@ -116,6 +127,9 @@ const CGFloat ANIMATION_DURATION = 0.5f;
     for (NSUInteger i = 0; i < [self.imageViewArray count]; i++) {
         UIView *view = self.imageViewArray[i];
         view.frame = rect;
+        
+        UIView *dimView = self.dimImageViewArray[i];
+        dimView.frame = rect;
 
         UIView *deleteView = self.deleteButtonArray[i];
         deleteView.frame = [self calculateDeleteRect:deleteView.frame ForImageRect:rect];
