@@ -11,6 +11,7 @@ const int INFO_TEXT_LABEL_BOTTOM_MARGIN = 50;
 @property(nonatomic, readonly) UIView *rectangleView;
 @property(nonatomic, readonly) UIView *dimView;
 @property(nonatomic, readonly) UILabel *infoTextLabel;
+@property(nonatomic, readonly) UIImageView *logoImageView;
 @end
 
 @implementation BPScanCodeView
@@ -34,6 +35,10 @@ const int INFO_TEXT_LABEL_BOTTOM_MARGIN = 50;
         _infoTextLabel.textAlignment = NSTextAlignmentCenter;
         [_infoTextLabel sizeToFit];
         [self addSubview:_infoTextLabel];
+
+        _logoImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LogoIcon"]];
+        [_logoImageView sizeToFit];
+        [self addSubview:_logoImageView];
 
         _stackView = [[BPStackView alloc] initWithFrame:CGRectZero];
         [self addSubview:_stackView];
@@ -65,6 +70,11 @@ const int INFO_TEXT_LABEL_BOTTOM_MARGIN = 50;
     rect.origin.x = CGRectGetWidth(self.bounds) - SCAN_CODE_MARGIN - CGRectGetWidth(rect);
     rect.origin.y = STATUS_BAR_HEIGHT + SCAN_CODE_MARGIN;
     self.menuButton.frame = rect;
+
+    rect = self.logoImageView.frame;
+    rect.origin.x = CGRectGetWidth(self.bounds) / 2 - CGRectGetWidth(rect) / 2;
+    rect.origin.y = CGRectGetMinY(self.menuButton.frame) + CGRectGetHeight(self.menuButton.bounds) / 2 - CGRectGetHeight(rect) / 2;
+    self.logoImageView.frame = rect;
 
     rect = self.infoTextLabel.frame;
     rect.size.width = CGRectGetWidth(self.bounds);
