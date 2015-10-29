@@ -3,6 +3,7 @@
 #import "BPStackView.h"
 #import "BPConst.h"
 #import "BPTheme.h"
+#import "UILabel+BPAdditions.h"
 
 const int SCAN_CODE_MARGIN = 15;
 const int INFO_TEXT_LABEL_BOTTOM_MARGIN = 50;
@@ -28,7 +29,7 @@ const int INFO_TEXT_LABEL_BOTTOM_MARGIN = 50;
         [self addSubview:_rectangleView];
 
         _infoTextLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _infoTextLabel.numberOfLines = 2;
+        _infoTextLabel.numberOfLines = 4;
         _infoTextLabel.text = NSLocalizedString(@"Scan barcode", @"Zeskanuj kod kreskowy");
         _infoTextLabel.font = [BPTheme titleFont];
         _infoTextLabel.textColor = [BPTheme clearColor];
@@ -77,8 +78,9 @@ const int INFO_TEXT_LABEL_BOTTOM_MARGIN = 50;
     self.logoImageView.frame = rect;
 
     rect = self.infoTextLabel.frame;
-    rect.size.width = CGRectGetWidth(self.bounds);
-    rect.origin.x = 0;
+    rect.size.width = CGRectGetWidth(self.bounds) - 2 * SCAN_CODE_MARGIN;
+    rect.size.height = [self.infoTextLabel heightForWidth:rect.size.width];
+    rect.origin.x = SCAN_CODE_MARGIN;
     rect.origin.y = CGRectGetHeight(self.bounds) - INFO_TEXT_LABEL_BOTTOM_MARGIN - CGRectGetHeight(rect);
     self.infoTextLabel.frame = rect;
 }

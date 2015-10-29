@@ -1,5 +1,4 @@
 #import <Objection/Objection.h>
-#import <Crashlytics/Crashlytics.h>
 #import "BPScanCodeViewController.h"
 #import "BPScanCodeView.h"
 #import "BPProductManager.h"
@@ -8,7 +7,6 @@
 #import "UIAlertView+BPUtilities.h"
 #import "NSString+BPUtilities.h"
 #import "BPCompany.h"
-#import "BPAboutNavigationController.h"
 #import "BPAnalyticsHelper.h"
 
 
@@ -168,11 +166,11 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     [self.castView setMenuButtonVisible:NO animation:YES];
 
     NSString *barcode = self.scannedBarcodes[(NSUInteger) cardView.tag];
-    if(!barcode) {
+    if (!barcode) {
         return;
     }
     BPProductResult *productResult = self.barcodeToProductResult[barcode];
-    if(productResult) {
+    if (productResult) {
         [BPAnalyticsHelper opensCard:productResult];
     }
 }
@@ -182,6 +180,22 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 
     [self.castView setMenuButtonVisible:YES animation:YES];
 }
+
+- (BOOL)didTapCard:(UIView <BPCardViewProtocol> *)cardView {
+    NSString *barcode = self.scannedBarcodes[(NSUInteger) cardView.tag];
+    if (!barcode) {
+        return NO;
+    }
+
+    BPProductResult *productResult = self.barcodeToProductResult[barcode];
+    if (productResult && !productResult.company) {
+        [self showReportProblem:barcode];
+        return YES;
+    }
+
+    return NO;
+}
+
 
 #pragma mark - BPCameraSessionManagerDelegate
 
@@ -227,6 +241,15 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 
 - (void)reportProblem:(BPReportProblemViewController *)controller finishedWithResult:(BOOL)result {
     [self dismissViewControllerAnimated:YES completion:nil];
+    if(result) {
+        BPProductResult *productResult = self.barcodeToProductResult[controller.key];
+        if (productResult && !productResult.company) {
+            UIView<BPCardViewProtocol> *cardView = (UIView<BPCardViewProtocol> *) [self.castView.stackView viewWithTag:[self.scannedBarcodes indexOfObject:controller.key]];
+            if(cardView) {
+                [self.castView.stackView removeCard:cardView];
+            }
+        }
+    }
 }
 
 #pragma mark - BPInfoNavigationControllerDelegate

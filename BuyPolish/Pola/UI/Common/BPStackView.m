@@ -166,6 +166,12 @@ const float PAN_THRESHOLD_TO_SHOW_OR_HIDE_FULL_SCREEN = 20;
 - (void)cardTapped:(UITapGestureRecognizer *)tapGestureRecognizer {
     UIView <BPCardViewProtocol> *tappedCardView = (UIView <BPCardViewProtocol> *) tapGestureRecognizer.view;
 
+    BOOL tapConsumed = [self.stackDelegate didTapCard:tappedCardView];
+
+    if(tapConsumed) {
+        return;
+    }
+
     if (self.currentState == STATE_STACK) {
         [self animateToFullScreen:tappedCardView];
     } else if (self.currentState == STATE_FULL_SIZE && [self.cardViewArray indexOfObject:tappedCardView] != self.fullScreenCardViewIndex) {

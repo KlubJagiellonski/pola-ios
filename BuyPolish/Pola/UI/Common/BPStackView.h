@@ -16,6 +16,8 @@
 - (void)willEnterFullScreen:(UIView<BPCardViewProtocol> *)cardView withAnimationDuration:(CGFloat)animationDuration;
 
 - (void)didExitFullScreen:(UIView<BPCardViewProtocol> *)cardView;
+
+- (BOOL)didTapCard:(UIView <BPCardViewProtocol> *)view;
 @end
 
 
