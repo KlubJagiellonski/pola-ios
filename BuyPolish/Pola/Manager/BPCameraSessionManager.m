@@ -10,7 +10,6 @@
 
 
 @interface BPCameraSessionManager ()
-@property(nonatomic, readonly) AVCaptureStillImageOutput *stillImageOutput;
 @property(nonatomic, readonly) BPProductImageManager *imageManager;
 @end
 
@@ -38,10 +37,6 @@ objection_requires_sel(@selector(imageManager))
         AVCaptureMetadataOutput *captureMetadataOutput = [[AVCaptureMetadataOutput alloc] init];
         [self.captureSession addOutput:captureMetadataOutput];
 
-        _stillImageOutput = [[AVCaptureStillImageOutput alloc] init];
-        [self.stillImageOutput setOutputSettings:@{AVVideoCodecKey : AVVideoCodecJPEG}];
-        [self.captureSession addOutput:self.stillImageOutput];
-
         [captureMetadataOutput setMetadataObjectsDelegate:self queue:dispatch_get_main_queue()];
         [captureMetadataOutput setMetadataObjectTypes:@[AVMetadataObjectTypeEAN13Code, AVMetadataObjectTypeEAN8Code]];
     }
@@ -59,24 +54,6 @@ objection_requires_sel(@selector(imageManager))
 
 - (void)stop {
     [self.captureSession stopRunning];
-}
-
-- (void)captureImageForBarcode:(NSString *)barcode {
-    AVCaptureConnection *videoConnection = nil;
-    for (AVCaptureConnection *connection in self.stillImageOutput.connections) {
-        for (AVCaptureInputPort *port in [connection inputPorts]) {
-            if ([[port mediaType] isEqual:AVMediaTypeVideo]) {
-                videoConnection = connection;
-                break;
-            }
-        }
-        if (videoConnection) {break;}
-    }
-
-    [self.stillImageOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler:^(CMSampleBufferRef imageSampleBuffer, NSError *error) {
-        NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
-        [self.imageManager saveImage:[UIImage imageWithData:imageData] forKey:barcode index:0];
-    }];
 }
 
 #pragma mark - AVCaptureMetadataOutputObjectsDelegate

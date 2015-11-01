@@ -27,6 +27,4 @@
 
 - (void)stop;
 
-- (void)captureImageForBarcode:(NSString *)barcode;
-
 @end

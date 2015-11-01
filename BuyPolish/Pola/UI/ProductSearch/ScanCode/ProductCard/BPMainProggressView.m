@@ -54,7 +54,7 @@ const int MAIN_PROGRESS_TITLE_MARGIN = 10;
     _progress = progress;
 
     int progressInt = (int) (progress * 100);
-    self.percentLabel.text = [NSString stringWithFormat:@"%i%%", progressInt];
+    self.percentLabel.text = [NSString stringWithFormat:@"%i pkt.", progressInt];
     [self.percentLabel sizeToFit];
 
     [self setNeedsLayout];

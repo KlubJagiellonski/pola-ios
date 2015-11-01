@@ -121,10 +121,6 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     [cardView setRnd:company.plRnD];
 }
 
-- (void)saveImageForBarcode:(NSString *)barcode {
-    [self.cameraSessionManager captureImageForBarcode:barcode];
-}
-
 - (void)showReportProblem:(NSString *)barcode {
     JSObjectionInjector *injector = [JSObjection defaultInjector];
     BPReportProblemViewController *reportProblemViewController = [injector getObject:[BPReportProblemViewController class] argumentList:@[barcode]];
@@ -219,7 +215,6 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     if ([self addCardAndDownloadDetails:barcode]) {
         [BPAnalyticsHelper barcodeScanned:barcode];
         [self.castView setInfoTextVisible:NO];
-        [self saveImageForBarcode:barcode];
         AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
         self.lastBardcodeScanned = barcode;
     }

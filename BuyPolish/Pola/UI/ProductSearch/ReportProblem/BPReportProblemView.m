@@ -10,9 +10,10 @@
 #import "UIColor+BPAdditions.h"
 #import "UIImage+KVNImageEffects.h"
 #import "BPTheme.h"
+#import "UILabel+BPAdditions.h"
 
 const int REPORT_PADDING = 16;
-const int VERTICAL_MARGIN = 30;
+const int VERTICAL_MARGIN = 25;
 const int SEND_BUTTON_HEIGHT = 30;
 const int REPORT_TITLE_MARGIN = 10;
 const int REPORT_DESCRIPTIONSHADOW_HEIGHT = 1;
@@ -23,6 +24,7 @@ const int REPORT_DESCRIPTIONSHADOW_HEIGHT = 1;
 @property(nonatomic, readonly) UILabel *descriptionTitleLabel;
 @property(nonatomic) CGFloat bottomMargin;
 @property(nonatomic, readonly) UIView *descriptionBottomShadowView;
+@property(nonatomic, readonly) UILabel *helpLabel;
 @end
 
 @implementation BPReportProblemView
@@ -44,6 +46,14 @@ const int REPORT_DESCRIPTIONSHADOW_HEIGHT = 1;
         _closeButton.tintColor = [BPTheme defaultTextColor];
         [_closeButton sizeToFit];
         [self addSubview:_closeButton];
+
+        _helpLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _helpLabel.font = [BPTheme normalFont];
+        _helpLabel.textColor = [BPTheme defaultTextColor];
+        _helpLabel.text = NSLocalizedString(@"Report help", @"Zrób zdjęcie kodu kreskowego i etykiety z danymi producenta");
+        _helpLabel.numberOfLines = 0;
+        [_helpLabel sizeToFit];
+        [self addSubview:_helpLabel];
 
         _photoTitleLable = [[UILabel alloc] initWithFrame:CGRectZero];
         _photoTitleLable.font = [BPTheme normalFont];
@@ -101,9 +111,16 @@ const int REPORT_DESCRIPTIONSHADOW_HEIGHT = 1;
     rect.origin.y = (CGRectGetMinY(self.closeButton.frame) + CGRectGetHeight(self.closeButton.frame) / 2) - CGRectGetHeight(rect) / 2;
     self.titleLabel.frame = rect;
 
-    rect = self.photoTitleLable.frame;
+    rect = self.helpLabel.frame;
+    rect.size.width = CGRectGetWidth(self.bounds) - 2 * REPORT_PADDING;
+    rect.size.height = [self.helpLabel heightForWidth:rect.size.width];
     rect.origin.x = REPORT_PADDING;
     rect.origin.y = CGRectGetMaxY(self.closeButton.frame) + VERTICAL_MARGIN;
+    self.helpLabel.frame = rect;
+
+    rect = self.photoTitleLable.frame;
+    rect.origin.x = REPORT_PADDING;
+    rect.origin.y = CGRectGetMaxY(self.helpLabel.frame) + VERTICAL_MARGIN;
     self.photoTitleLable.frame = rect;
 
     rect.size = [self.imageContainerView sizeThatFits:CGSizeMake(CGRectGetWidth(self.bounds) - 2 * REPORT_PADDING, 0)];

@@ -174,7 +174,7 @@ const float PAN_THRESHOLD_TO_SHOW_OR_HIDE_FULL_SCREEN = 20;
 
     if (self.currentState == STATE_STACK) {
         [self animateToFullScreen:tappedCardView];
-    } else if (self.currentState == STATE_FULL_SIZE && [self.cardViewArray indexOfObject:tappedCardView] != self.fullScreenCardViewIndex) {
+    } else if (self.currentState == STATE_FULL_SIZE) {
         [self animateToStack];
     }
 }

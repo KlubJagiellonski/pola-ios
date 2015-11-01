@@ -33,19 +33,19 @@ NSString *const ABOUT_MAIL = @"kontakt@pola-app.pl";
 - (NSArray *)createRowList {
     NSMutableArray *rowList = [NSMutableArray array];
     [rowList addObject:
-            [BPWebAboutRow rowWithTitle:NSLocalizedString(@"About Pola application", @"O aplikacji Pola") action:@selector(didTapWebRow:) url:@"www.pola-app.pl/m/about" analyticsName:@"O aplikacji Pola"]
+            [BPWebAboutRow rowWithTitle:NSLocalizedString(@"About Pola application", @"O aplikacji Pola") action:@selector(didTapWebRow:) url:@"https://www.pola-app.pl/m/about" analyticsName:@"O aplikacji Pola"]
     ];
     [rowList addObject:
-            [BPWebAboutRow rowWithTitle:NSLocalizedString(@"Metodology", @"Metodologia") action:@selector(didTapWebRow:) url:@"www.pola-app.pl/m/method" analyticsName:@"Metodologia"]
+            [BPWebAboutRow rowWithTitle:NSLocalizedString(@"Metodology", @"Metodologia") action:@selector(didTapWebRow:) url:@"https://www.pola-app.pl/m/method" analyticsName:@"Metodologia"]
     ];
     [rowList addObject:
-            [BPWebAboutRow rowWithTitle:NSLocalizedString(@"About KJ", @"O Klubie Jagiellońskim") action:@selector(didTapWebRow:) url:@"www.pola-app.pl/m/kj" analyticsName:@"O Klubie Jagiellońskim"]
+            [BPWebAboutRow rowWithTitle:NSLocalizedString(@"About KJ", @"O Klubie Jagiellońskim") action:@selector(didTapWebRow:) url:@"https://www.pola-app.pl/m/kj" analyticsName:@"O Klubie Jagiellońskim"]
     ];
     [rowList addObject:
-            [BPWebAboutRow rowWithTitle:NSLocalizedString(@"Team", @"Zespół") action:@selector(didTapWebRow:) url:@"www.pola-app.pl/m/team" analyticsName:@"Zespół"]
+            [BPWebAboutRow rowWithTitle:NSLocalizedString(@"Team", @"Zespół") action:@selector(didTapWebRow:) url:@"https://www.pola-app.pl/m/team" analyticsName:@"Zespół"]
     ];
     [rowList addObject:
-            [BPWebAboutRow rowWithTitle:NSLocalizedString(@"Partners", @"Partnerzy") action:@selector(didTapWebRow:) url:@"www.pola-app.pl/m/partners" analyticsName:@"Partnerzy"]
+            [BPWebAboutRow rowWithTitle:NSLocalizedString(@"Partners", @"Partnerzy") action:@selector(didTapWebRow:) url:@"https://www.pola-app.pl/m/partners" analyticsName:@"Partnerzy"]
     ];
     [rowList addObject:
         [BPAboutRow rowWithTitle:NSLocalizedString(@"Report error in data", @"Zgłoś błąd w danych") action:@selector(didTapReportError:)]
