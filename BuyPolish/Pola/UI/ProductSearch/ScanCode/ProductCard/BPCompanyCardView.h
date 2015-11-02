@@ -4,9 +4,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "BPCardViewProtocol.h"
 #import "BPScanResult.h"
 #import "BPCompanyContentView.h"
+#import "BPStackView.h"
+
 
 @class BPCompanyCardView;
 @class BPMainProggressView;
@@ -19,11 +20,11 @@
 
 @end
 
-@interface BPCompanyCardView : UIView <BPCardViewProtocol>
+@interface BPCompanyCardView : UIView <BPStackViewCardProtocol>
 
 @property(nonatomic, weak) id <BPProductCardViewDelegate> delegate;
 
-- (void)setTitleHeight:(int)titleHeight;
+- (void)setTitleHeight:(CGFloat)titleHeight;
 
 - (void)setContentType:(CompanyContentType)contentType;
 

@@ -33,6 +33,9 @@ int const CARD_REPORT_BUTTON_HEIGHT = 30;
 
         self.layer.cornerRadius = 8.0f;
         self.layer.masksToBounds = NO;
+        self.layer.shadowRadius = 2.f;
+        self.layer.shadowOpacity = 0.3f;
+
 
         _contentView = [[BPCompanyContentView alloc] initWithFrame:CGRectZero];
         _contentView.padding = CARD_PADDING;
@@ -96,8 +99,8 @@ int const CARD_REPORT_BUTTON_HEIGHT = 30;
     self.contentView.frame = rect;
 }
 
-- (void)setTitleHeight:(int)titleHeight {
-    self.contentView.titleHeight = titleHeight;
+- (void)setTitleHeight:(CGFloat)titleHeight {
+    self.contentView.titleHeight = (int)floorf(titleHeight);
 }
 
 - (void)setContentType:(CompanyContentType)contentType {
@@ -144,16 +147,6 @@ int const CARD_REPORT_BUTTON_HEIGHT = 30;
 
 - (void)setAltText:(NSString *)altText {
     [self.contentView setAltText:altText];
-}
-
-- (void)setSmallCardState:(BOOL)smallCardEnabled {
-    if (smallCardEnabled) {
-        self.layer.shadowRadius = 2.f;
-        self.layer.shadowOpacity = 0.3f;
-    } else {
-        self.layer.shadowRadius = 0.f;
-        self.layer.shadowOpacity = 0.f;
-    }
 }
 
 - (void)setCardType:(CardType)type {

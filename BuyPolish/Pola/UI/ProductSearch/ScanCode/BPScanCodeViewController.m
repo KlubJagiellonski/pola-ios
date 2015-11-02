@@ -44,7 +44,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 
     self.addingCardEnabled = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.castView.stackView.stackDelegate = self;
+    self.castView.stackView.delegate = self;
     [self.castView.menuButton addTarget:self action:@selector(didTapMenuButton:) forControlEvents:UIControlEventTouchUpInside];
 }
 
@@ -156,11 +156,15 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 
 #pragma mark - BPStackViewDelegate
 
-- (void)willAddCard:(UIView <BPCardViewProtocol> *)cardView withAnimationDuration:(CGFloat)animationDuration {
+- (void)stackView:(BPStackView *)stackView willAddCard:(UIView *)cardView {
 
 }
 
-- (void)willEnterFullScreen:(UIView <BPCardViewProtocol> *)cardView withAnimationDuration:(CGFloat)animationDuration {
+- (void)stackView:(BPStackView *)stackView didRemoveCard:(UIView *)cardView {
+
+}
+
+- (void)stackView:(BPStackView *)stackView willExpandWithCard:(UIView *)cardView {
     self.addingCardEnabled = NO;
 
     [self.castView setMenuButtonVisible:NO animation:YES];
@@ -175,16 +179,15 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     }
 }
 
-- (void)didExitFullScreen:(UIView <BPCardViewProtocol> *)cardView {
+- (void)stackViewDidCollapse:(BPStackView *)stackView {
     self.addingCardEnabled = YES;
 
     [self.castView setMenuButtonVisible:YES animation:YES];
 }
 
-- (BOOL)didTapCard:(UIView <BPCardViewProtocol> *)cardView {
+- (BOOL)stackView:(BPStackView *)stackView didTapCard:(UIView *)cardView {
     return NO;
 }
-
 
 #pragma mark - BPCameraSessionManagerDelegate
 

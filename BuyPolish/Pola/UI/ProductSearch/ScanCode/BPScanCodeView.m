@@ -1,9 +1,9 @@
 #import <AVFoundation/AVFoundation.h>
 #import "BPScanCodeView.h"
 #import "BPStackView.h"
-#import "BPConst.h"
 #import "BPTheme.h"
 #import "UILabel+BPAdditions.h"
+#import "UIApplication+BPStatusBarHeight.h"
 
 const int SCAN_CODE_MARGIN = 15;
 const int INFO_TEXT_LABEL_BOTTOM_MARGIN = 50;
@@ -69,7 +69,7 @@ const int INFO_TEXT_LABEL_BOTTOM_MARGIN = 50;
 
     rect = self.menuButton.frame;
     rect.origin.x = CGRectGetWidth(self.bounds) - SCAN_CODE_MARGIN - CGRectGetWidth(rect);
-    rect.origin.y = STATUS_BAR_HEIGHT + SCAN_CODE_MARGIN;
+    rect.origin.y = [UIApplication statusBarHeight] + SCAN_CODE_MARGIN;
     self.menuButton.frame = rect;
 
     rect = self.logoImageView.frame;
