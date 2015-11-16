@@ -6,7 +6,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface BPAboutWebViewController : UIViewController
+@interface BPAboutWebViewController : UIViewController <UIWebViewDelegate>
 
 @property (nonatomic, readonly) NSString *url;
 
