@@ -137,6 +137,11 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     [self presentViewController:aboutNavigationController animated:YES completion:nil];
 }
 
+- (void)setAddingCardEnabled:(BOOL)addingCardEnabled {
+    _addingCardEnabled = addingCardEnabled;
+    [UIApplication sharedApplication].idleTimerDisabled = _addingCardEnabled;
+}
+
 #pragma mark - UIAlertViewDelegate
 
 
