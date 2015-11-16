@@ -36,7 +36,7 @@ NSString *const ABOUT_MAIL = @"kontakt@pola-app.pl";
             [BPWebAboutRow rowWithTitle:NSLocalizedString(@"About Pola application", @"O aplikacji Pola") action:@selector(didTapWebRow:) url:@"https://www.pola-app.pl/m/about" analyticsName:@"O aplikacji Pola"]
     ];
     [rowList addObject:
-            [BPWebAboutRow rowWithTitle:NSLocalizedString(@"Metodology", @"Metodologia") action:@selector(didTapWebRow:) url:@"https://www.pola-app.pl/m/method" analyticsName:@"Metodologia"]
+            [BPWebAboutRow rowWithTitle:NSLocalizedString(@"InstructionSet", @"Metodologia") action:@selector(didTapWebRow:) url:@"https://www.pola-app.pl/m/method" analyticsName:@"Metodologia"]
     ];
     [rowList addObject:
             [BPWebAboutRow rowWithTitle:NSLocalizedString(@"About KJ", @"O Klubie Jagiellońskim") action:@selector(didTapWebRow:) url:@"https://www.pola-app.pl/m/kj" analyticsName:@"O Klubie Jagiellońskim"]

@@ -49,12 +49,12 @@ const float PAN_THRESHOLD_TO_SHOW_OR_HIDE_FULL_SCREEN = 20;
     CGPoint translation = [panGestureRecognizer translationInView:self];
     if (self.currentState == STATE_STACK) {
         if (panGestureRecognizer.state == UIGestureRecognizerStateEnded && translation.y < 0
-                && ABS(translation.y) >= PAN_THRESHOLD_TO_SHOW_OR_HIDE_FULL_SCREEN) {
+            && ABS(translation.y) >= PAN_THRESHOLD_TO_SHOW_OR_HIDE_FULL_SCREEN) {
             [self animateToFullScreen:self.cardViewArray.lastObject];
         }
     } else if (self.currentState == STATE_FULL_SIZE) {
         if (panGestureRecognizer.state == UIGestureRecognizerStateEnded && translation.y > 0
-                && ABS(translation.y) >= PAN_THRESHOLD_TO_SHOW_OR_HIDE_FULL_SCREEN) {
+            && ABS(translation.y) >= PAN_THRESHOLD_TO_SHOW_OR_HIDE_FULL_SCREEN) {
             [self animateToStack];
         } else if (panGestureRecognizer.state == UIGestureRecognizerStateChanged) {
             [self layoutShowingStackSubviews];
@@ -137,6 +137,10 @@ const float PAN_THRESHOLD_TO_SHOW_OR_HIDE_FULL_SCREEN = 20;
     CGRect rect = cardView.frame;
     rect.origin.y += CARD_TITLE_HEIGHT;
 
+    if (self.currentState == STATE_FULL_SIZE && self.fullScreenCardViewIndex == [self.cardViewArray indexOfObject:cardView]) {
+        self.currentState = STATE_STACK;
+    }
+
     [self.cardViewArray removeObject:cardView];
 
     [UIView animateWithDuration:REMOVE_CARD_ANIMATION_DURATION
@@ -168,7 +172,7 @@ const float PAN_THRESHOLD_TO_SHOW_OR_HIDE_FULL_SCREEN = 20;
 
     BOOL tapConsumed = [self.stackDelegate didTapCard:tappedCardView];
 
-    if(tapConsumed) {
+    if (tapConsumed) {
         return;
     }
 
@@ -200,7 +204,7 @@ const float PAN_THRESHOLD_TO_SHOW_OR_HIDE_FULL_SCREEN = 20;
 }
 
 - (void)animateToFullScreen:(UIView <BPCardViewProtocol> *)tappedCardView {
-    if(![self.cardViewArray containsObject:tappedCardView]) {
+    if (![self.cardViewArray containsObject:tappedCardView]) {
         return;
     }
 
