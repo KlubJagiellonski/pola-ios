@@ -2,11 +2,9 @@
 #import "BPScanCodeViewController.h"
 #import "BPScanCodeView.h"
 #import "BPProductManager.h"
-#import "BPProductResult.h"
 #import "BPTaskRunner.h"
 #import "UIAlertView+BPUtilities.h"
 #import "NSString+BPUtilities.h"
-#import "BPCompany.h"
 #import "BPAnalyticsHelper.h"
 
 
@@ -82,7 +80,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     cardView.tag = [self.scannedBarcodes count];
     [self.scannedBarcodes addObject:barcode];
 
-    [self.productManager retrieveProductWithBarcode:barcode completion:^(BPProductResult *productResult, NSError *error) {
+    [self.productManager retrieveProductWithBarcode:barcode completion:^(BPScanResult *productResult, NSError *error) {
         cardView.inProgress = NO;
         if (!error) {
             [BPAnalyticsHelper receivedProductResult:productResult];
@@ -99,26 +97,21 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     return YES;
 }
 
-- (void)fillCard:(BPProductCardView *)cardView withData:(BPProductResult *)productResult {
-    BPCompany *company = productResult.company;
-
-    [cardView setNeedsData:!productResult.verified.boolValue];
-
-    [cardView setTitleText:company ? company.name : NSLocalizedString(@"help Pola to gain data", @"help Pola to gain data")];
-
+- (void)fillCard:(BPProductCardView *)cardView withData:(BPScanResult *)productResult {
+    [cardView setCardType:productResult.cardType];
+    [cardView setReportButtonType:productResult.reportButtonType];
+    [cardView setReportButtonText:productResult.reportButtonText];
+    [cardView setReportText:productResult.reportText];
+    [cardView setTitleText:productResult.name];
     if (productResult.plScore) {
         [cardView setMainPercent:productResult.plScore.intValue / 100.f];
     }
-
-    if (!company) {
-        return;
-    }
-
-    [cardView setCapitalPercent:company.plCapital];
-    [cardView setNotGlobal:company.plNotGlobEnt];
-    [cardView setProducesInPoland:company.plWorkers];
-    [cardView setRegisteredInPoland:company.plRegistered];
-    [cardView setRnd:company.plRnD];
+    [cardView setCapitalPercent:productResult.plCapital];
+    [cardView setNotGlobal:productResult.plNotGlobEnt];
+    [cardView setProducesInPoland:productResult.plWorkers];
+    [cardView setRegisteredInPoland:productResult.plRegistered];
+    [cardView setRnd:productResult.plRnD];
+    [cardView setNeedsLayout];
 }
 
 - (void)showReportProblem:(NSString *)barcode {
@@ -170,7 +163,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     if (!barcode) {
         return;
     }
-    BPProductResult *productResult = self.barcodeToProductResult[barcode];
+    BPScanResult *productResult = self.barcodeToProductResult[barcode];
     if (productResult) {
         [BPAnalyticsHelper opensCard:productResult];
     }
@@ -188,7 +181,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
         return NO;
     }
 
-    BPProductResult *productResult = self.barcodeToProductResult[barcode];
+    BPScanResult *productResult = self.barcodeToProductResult[barcode];
     if (productResult && !productResult.company) {
         [self showReportProblem:barcode];
         return YES;
@@ -241,11 +234,11 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 
 - (void)reportProblem:(BPReportProblemViewController *)controller finishedWithResult:(BOOL)result {
     [self dismissViewControllerAnimated:YES completion:nil];
-    if(result) {
-        BPProductResult *productResult = self.barcodeToProductResult[controller.key];
+    if (result) {
+        BPScanResult *productResult = self.barcodeToProductResult[controller.key];
         if (productResult && !productResult.company) {
-            UIView<BPCardViewProtocol> *cardView = (UIView<BPCardViewProtocol> *) [self.castView.stackView viewWithTag:[self.scannedBarcodes indexOfObject:controller.key]];
-            if(cardView) {
+            UIView <BPCardViewProtocol> *cardView = (UIView <BPCardViewProtocol> *) [self.castView.stackView viewWithTag:[self.scannedBarcodes indexOfObject:controller.key]];
+            if (cardView) {
                 [self.castView.stackView removeCard:cardView];
             }
         }

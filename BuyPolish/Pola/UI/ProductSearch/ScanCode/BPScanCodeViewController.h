@@ -8,7 +8,7 @@
 
 
 @class BPScanCodeViewController;
-@class BPProductResult;
+@class BPScanResult;
 
 
 @protocol BPScanCodeViewControllerDelegate <NSObject>

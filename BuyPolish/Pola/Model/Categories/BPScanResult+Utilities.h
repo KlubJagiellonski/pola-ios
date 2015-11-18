@@ -1,7 +1,7 @@
 #import <Foundation/Foundation.h>
-#import "BPCompany.h"
+#import "BPScanResult.h"
 
-@interface BPCompany (Utilities)
+@interface BPScanResult (Utilities)
 
 - (void)parse:(NSDictionary *)dictionary;
 

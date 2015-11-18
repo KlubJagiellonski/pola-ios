@@ -5,11 +5,11 @@
 
 #import "BPProductCardView.h"
 #import "BPMainProggressView.h"
-#import "UIColor+BPAdditions.h"
 #import "BPSecondaryProgressView.h"
 #import "BPCheckRow.h"
 #import "UILabel+BPAdditions.h"
 #import "BPTheme.h"
+#import "BPScanResult.h"
 
 NSInteger const CARD_PADDING = 10;
 int const CARD_PROGRESS_IN_HEADER = 3;
@@ -245,35 +245,8 @@ int const CARD_REPORT_BUTTON_HEIGHT = 30;
     [self.notGlobalCheckRow setChecked:notGlobal];
 }
 
-- (void)setNeedsData:(BOOL)needsData {
-    self.backgroundColor = needsData ? [BPTheme mediumBackgroundColor] : [BPTheme clearColor];
-    self.mainProgressView.backgroundColor = needsData ? [BPTheme strongBackgroundColor] : [BPTheme lightBackgroundColor];
-    self.capitalProgressView.fillColor = needsData ? [BPTheme strongBackgroundColor] : [BPTheme lightBackgroundColor];
-    self.capitalProgressView.percentColor = needsData ? [BPTheme clearColor] : [BPTheme defaultTextColor];
-    self.reportInfoLabel.text = needsData ? NSLocalizedString(@"Report Info Need Data", @"Report Info Need Data") : NSLocalizedString(@"Report info", @"Report info");
-    [self.reportInfoLabel sizeToFit];
-
-    if(needsData) {
-        [self.reportProblemButton setTitleColor:[BPTheme clearColor] forState:UIControlStateNormal];
-        [self.reportProblemButton setBackgroundImage:[BPUtilities imageWithColor:[BPTheme actionColor]] forState:UIControlStateNormal];
-        [self.reportProblemButton setTitle:[NSLocalizedString(@"Send", @"Send") uppercaseString] forState:UIControlStateNormal];
-
-    } else {
-        self.reportProblemButton.layer.borderColor = [[BPTheme actionColor] CGColor];
-        self.reportProblemButton.layer.borderWidth = 1;
-        [self.reportProblemButton setTitleColor:[BPTheme actionColor] forState:UIControlStateNormal];
-        [self.reportProblemButton setTitleColor:[BPTheme clearColor] forState:UIControlStateHighlighted];
-        [self.reportProblemButton setBackgroundImage:[BPUtilities imageWithColor:[UIColor clearColor]] forState:UIControlStateNormal];
-        [self.reportProblemButton setBackgroundImage:[BPUtilities imageWithColor:[BPTheme actionColor]] forState:UIControlStateHighlighted];
-        [self.reportProblemButton setTitle:[NSLocalizedString(@"Report", @"Report") uppercaseString] forState:UIControlStateNormal];
-    }
-    [self.reportProblemButton sizeToFit];
-
-    [self setNeedsLayout];
-}
-
 - (void)setSmallCardState:(BOOL)smallCardEnabled {
-    if(smallCardEnabled) {
+    if (smallCardEnabled) {
         self.layer.shadowRadius = 2.f;
         self.layer.shadowOpacity = 0.3f;
     } else {
@@ -282,5 +255,41 @@ int const CARD_REPORT_BUTTON_HEIGHT = 30;
     }
 }
 
+- (void)setCardType:(CardType)type {
+    if (type == CardTypeGrey) {
+        self.backgroundColor = [BPTheme mediumBackgroundColor];
+        self.mainProgressView.backgroundColor = [BPTheme strongBackgroundColor];
+        self.capitalProgressView.fillColor = [BPTheme strongBackgroundColor];
+        self.capitalProgressView.percentColor = [BPTheme clearColor];
+    } else {
+        self.backgroundColor = [BPTheme clearColor];
+        self.mainProgressView.backgroundColor = [BPTheme lightBackgroundColor];
+        self.capitalProgressView.fillColor = [BPTheme lightBackgroundColor];
+        self.capitalProgressView.percentColor = [BPTheme defaultTextColor];
+    }
+}
 
+- (void)setReportButtonType:(ReportButtonType)type {
+    if (type == ReportButtonTypeRed) {
+        [self.reportProblemButton setTitleColor:[BPTheme clearColor] forState:UIControlStateNormal];
+        [self.reportProblemButton setBackgroundImage:[BPUtilities imageWithColor:[BPTheme actionColor]] forState:UIControlStateNormal];
+    } else {
+        self.reportProblemButton.layer.borderColor = [[BPTheme actionColor] CGColor];
+        self.reportProblemButton.layer.borderWidth = 1;
+        [self.reportProblemButton setTitleColor:[BPTheme actionColor] forState:UIControlStateNormal];
+        [self.reportProblemButton setTitleColor:[BPTheme clearColor] forState:UIControlStateHighlighted];
+        [self.reportProblemButton setBackgroundImage:[BPUtilities imageWithColor:[UIColor clearColor]] forState:UIControlStateNormal];
+        [self.reportProblemButton setBackgroundImage:[BPUtilities imageWithColor:[BPTheme actionColor]] forState:UIControlStateHighlighted];
+    }
+}
+
+- (void)setReportButtonText:(NSString *)text {
+    [self.reportProblemButton setTitle:[text uppercaseString] forState:UIControlStateNormal];
+    [self.reportProblemButton sizeToFit];
+}
+
+- (void)setReportText:(NSString *)text {
+    self.reportInfoLabel.text = text;
+    [self.reportInfoLabel sizeToFit];
+}
 @end

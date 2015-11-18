@@ -6,7 +6,7 @@
 #import <Crashlytics/Crashlytics.h>
 #import "BPAnalyticsHelper.h"
 #import "BPDeviceHelper.h"
-#import "BPProductResult.h"
+#import "BPScanResult.h"
 #import "BPCompany.h"
 
 
@@ -17,7 +17,7 @@
     [Answers logSearchWithQuery:barcode customAttributes:attributes];
 }
 
-+ (void)receivedProductResult:(BPProductResult *)productResult {
++ (void)receivedProductResult:(BPScanResult *)productResult {
     BPCompany *company = productResult.company;
 
     [Answers logContentViewWithName:(company ? company.name : nil)
@@ -26,7 +26,7 @@
                    customAttributes:[self attributesForProductResult:productResult]];
 }
 
-+ (void)opensCard:(BPProductResult *)productResult {
++ (void)opensCard:(BPScanResult *)productResult {
     BPCompany *company = productResult.company;
 
     [Answers logContentViewWithName:(company ? company.name : nil)
@@ -58,11 +58,11 @@
     [Answers logContentViewWithName:windowName contentType:@"About" contentId:nil customAttributes:attributes];
 }
 
-+ (NSDictionary *)attributesForProductResult:(BPProductResult *)productResult {
++ (NSDictionary *)attributesForProductResult:(BPScanResult *)productResult {
     NSMutableDictionary *attributes = [NSMutableDictionary dictionaryWithCapacity:3];
     attributes[@"DeviceId"] =[BPDeviceHelper deviceId];
-    if(productResult.barcode) {
-        attributes[@"Code"] = productResult.barcode;
+    if(productResult.code) {
+        attributes[@"Code"] = productResult.code;
     }
     if(productResult.verified) {
         attributes[@"Verified"] = productResult.verified;

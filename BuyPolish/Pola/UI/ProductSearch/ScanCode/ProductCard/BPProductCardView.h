@@ -5,6 +5,7 @@
 
 #import <Foundation/Foundation.h>
 #import "BPCardViewProtocol.h"
+#import "BPScanResult.h"
 
 @class BPProductCardView;
 @class BPMainProggressView;
@@ -39,5 +40,11 @@
 
 - (void)setNotGlobal:(NSNumber *)notGlobal;
 
-- (void)setNeedsData:(BOOL)needsData;
+- (void)setCardType:(CardType)type;
+
+- (void)setReportButtonType:(ReportButtonType)type;
+
+- (void)setReportButtonText:(NSString *)text;
+
+- (void)setReportText:(NSString *)text;
 @end
