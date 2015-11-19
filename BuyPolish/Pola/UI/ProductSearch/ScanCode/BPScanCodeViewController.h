@@ -2,7 +2,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "BPStackView.h"
 #import "BPCameraSessionManager.h"
-#import "BPProductCardView.h"
+#import "BPCompanyCardView.h"
 #import "BPReportProblemViewController.h"
 #import "BPAboutNavigationController.h"
 

@@ -5,7 +5,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class BPProductCardView;
+@class BPCompanyCardView;
 @protocol BPCardViewProtocol;
 
 

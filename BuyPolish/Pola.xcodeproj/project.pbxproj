@@ -62,6 +62,7 @@
 		37B6498E15B68A84069DD3A5 /* BPAnalyticsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B641F70BCE669CF5019BB7 /* BPAnalyticsHelper.m */; };
 		37B649B3937D6158B554F509 /* BPObjectionModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64DFDBDE3A5CEE19D6FDB /* BPObjectionModule.m */; };
 		37B649B71B7F59A1741CD9B7 /* BPScanResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6413AB46D8FAC81D1E72B /* BPScanResult.m */; };
+		37B649CC5A32714DBC4E9751 /* BPCompanyContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64D7A776137D18AFDB329 /* BPCompanyContentView.m */; };
 		37B649F994C9AC9767A6AE8B /* BPWebAboutRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B643AFD35745CD11E280DC /* BPWebAboutRow.m */; };
 		37B64A095B01FB6355E7E21E /* BPAboutWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B640107A226F2F1B7CAA9D /* BPAboutWebViewController.m */; };
 		37B64A4DC0F7F5F1DAC9D791 /* BPStackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6499FA4AA777D1E05D4C7 /* BPStackView.m */; };
@@ -74,7 +75,7 @@
 		37B64D38E60651D383A2F8F7 /* BPDeviceHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6453D6C76C627D4F7C568 /* BPDeviceHelper.m */; };
 		37B64D4617BA6760E8B4101F /* BPAPIAccessor+BPScan.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64A5E17F2E5888839150C /* BPAPIAccessor+BPScan.m */; };
 		37B64E4A4C23A423A7B102CB /* BPScanResult+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6473D93970F5113F3AAB3 /* BPScanResult+Utilities.m */; };
-		37B64E4E58C1CE8446137CD1 /* BPProductCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64CC5D0DF5C45420F13CA /* BPProductCardView.m */; };
+		37B64E4E58C1CE8446137CD1 /* BPCompanyCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64CC5D0DF5C45420F13CA /* BPCompanyCardView.m */; };
 		37B64EBEB659B5811A9540AA /* BPCheckRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B645DA6246E6D73727CE55 /* BPCheckRow.m */; };
 		37B64F7816B23819A90C0456 /* BPLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6464528820E718DBABAA5 /* BPLogger.m */; };
 		37B64FF08BF5367BF9669B33 /* BPUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64B74E1FAED6141BA2B25 /* BPUtilities.m */; };
@@ -127,6 +128,7 @@
 		37B64100135F7EACD7C8E7E3 /* BPTaskRunner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPTaskRunner.h; sourceTree = "<group>"; };
 		37B64109D5EC518C82C8EA7C /* BPActivityIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPActivityIndicatorView.m; sourceTree = "<group>"; };
 		37B6413AB46D8FAC81D1E72B /* BPScanResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPScanResult.m; sourceTree = "<group>"; };
+		37B641909EEB29EA6575A880 /* BPCompanyContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPCompanyContentView.h; sourceTree = "<group>"; };
 		37B641F70BCE669CF5019BB7 /* BPAnalyticsHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPAnalyticsHelper.m; sourceTree = "<group>"; };
 		37B6423CE2C3CFAA185F7E79 /* BPConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPConst.m; sourceTree = "<group>"; };
 		37B6424C5D970C2E8F298AAB /* BPCameraSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPCameraSessionManager.h; sourceTree = "<group>"; };
@@ -157,7 +159,7 @@
 		37B64583B2E03DD7AAB57ACC /* BPStackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPStackView.h; sourceTree = "<group>"; };
 		37B645DA6246E6D73727CE55 /* BPCheckRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPCheckRow.m; sourceTree = "<group>"; };
 		37B6464528820E718DBABAA5 /* BPLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPLogger.m; sourceTree = "<group>"; };
-		37B646858232F35A15FF2F1C /* BPProductCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPProductCardView.h; sourceTree = "<group>"; };
+		37B646858232F35A15FF2F1C /* BPCompanyCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPCompanyCardView.h; sourceTree = "<group>"; };
 		37B6468E5905EC7102613DAB /* BPAPIResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPAPIResponse.m; sourceTree = "<group>"; };
 		37B646C0316F49D1FC593647 /* BPReport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPReport.m; sourceTree = "<group>"; };
 		37B6470599C368C79D320DC9 /* BPCheckRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPCheckRow.h; sourceTree = "<group>"; };
@@ -193,10 +195,11 @@
 		37B64BE65625A6DB4C22E8F0 /* BPAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPAboutViewController.m; sourceTree = "<group>"; };
 		37B64C3D23F4E691A0CDACA0 /* BPSecondaryProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPSecondaryProgressView.m; sourceTree = "<group>"; };
 		37B64C66C738C8F15828F02D /* BPTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPTheme.h; sourceTree = "<group>"; };
-		37B64CC5D0DF5C45420F13CA /* BPProductCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPProductCardView.m; sourceTree = "<group>"; };
+		37B64CC5D0DF5C45420F13CA /* BPCompanyCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPCompanyCardView.m; sourceTree = "<group>"; };
 		37B64CD13446A6BEBA4B6A9A /* NSLayoutConstraint+BPAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+BPAdditions.m"; sourceTree = "<group>"; };
 		37B64D1B6193C0AD0D440566 /* BPScanCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPScanCodeViewController.h; sourceTree = "<group>"; };
 		37B64D62D6D7E068CB4517A9 /* BPDeviceHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPDeviceHelper.h; sourceTree = "<group>"; };
+		37B64D7A776137D18AFDB329 /* BPCompanyContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPCompanyContentView.m; sourceTree = "<group>"; };
 		37B64DFDBDE3A5CEE19D6FDB /* BPObjectionModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPObjectionModule.m; sourceTree = "<group>"; };
 		37B64E26EDB5C48277AE74AE /* UIAlertView+BPUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+BPUtilities.h"; sourceTree = "<group>"; };
 		37B64E55920A10560E17591F /* BPSecondaryProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPSecondaryProgressView.h; sourceTree = "<group>"; };
@@ -428,14 +431,16 @@
 		37B64697C3925583CD36B426 /* ProductCard */ = {
 			isa = PBXGroup;
 			children = (
-				37B64CC5D0DF5C45420F13CA /* BPProductCardView.m */,
+				37B64CC5D0DF5C45420F13CA /* BPCompanyCardView.m */,
 				37B64E55920A10560E17591F /* BPSecondaryProgressView.h */,
 				37B6475C7B46DB08C451363C /* BPMainProggressView.m */,
-				37B646858232F35A15FF2F1C /* BPProductCardView.h */,
+				37B646858232F35A15FF2F1C /* BPCompanyCardView.h */,
 				37B64C3D23F4E691A0CDACA0 /* BPSecondaryProgressView.m */,
 				37B648B37FCA824C6F065D43 /* BPMainProggressView.h */,
 				37B645DA6246E6D73727CE55 /* BPCheckRow.m */,
 				37B6470599C368C79D320DC9 /* BPCheckRow.h */,
+				37B64D7A776137D18AFDB329 /* BPCompanyContentView.m */,
+				37B641909EEB29EA6575A880 /* BPCompanyContentView.h */,
 			);
 			path = ProductCard;
 			sourceTree = "<group>";
@@ -774,7 +779,7 @@
 				37B6403420F94515369E0F06 /* BPReport.m in Sources */,
 				37B644C091A98460F4483418 /* BPReportResult.m in Sources */,
 				37B647F36DC4A91682A0566B /* BPKeyboardManager.m in Sources */,
-				37B64E4E58C1CE8446137CD1 /* BPProductCardView.m in Sources */,
+				37B64E4E58C1CE8446137CD1 /* BPCompanyCardView.m in Sources */,
 				37B641B5D6F386E7E2A67DF8 /* BPMainProggressView.m in Sources */,
 				37B648D280BBB1A95E85962E /* BPSecondaryProgressView.m in Sources */,
 				37B64EBEB659B5811A9540AA /* BPCheckRow.m in Sources */,
@@ -787,6 +792,7 @@
 				37B6498E15B68A84069DD3A5 /* BPAnalyticsHelper.m in Sources */,
 				37B64D38E60651D383A2F8F7 /* BPDeviceHelper.m in Sources */,
 				37B64A095B01FB6355E7E21E /* BPAboutWebViewController.m in Sources */,
+				37B649CC5A32714DBC4E9751 /* BPCompanyContentView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

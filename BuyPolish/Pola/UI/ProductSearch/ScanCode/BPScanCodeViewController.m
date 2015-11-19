@@ -54,7 +54,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     self.castView.videoLayer = self.cameraSessionManager.videoPreviewLayer;
     [self.cameraSessionManager start];
 
-//    [self didFindBarcode:@"5900396019813"];
+    [self didFindBarcode:@"5900396019813"];
 //    [self performSelector:@selector(didFindBarcode:) withObject:@"5901234123457" afterDelay:1.5f];
 //    [self performSelector:@selector(didFindBarcode:) withObject:@"5900396019813" afterDelay:3.f];
 //    [self showReportProblem:@"3123123"];
@@ -68,8 +68,8 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 #pragma mark - Actions
 
 - (BOOL)addCardAndDownloadDetails:(NSString *)barcode {
-    BPProductCardView *cardView = [[BPProductCardView alloc] initWithFrame:CGRectZero];
-    cardView.inProgress = YES;
+    BPCompanyCardView *cardView = [[BPCompanyCardView alloc] initWithFrame:CGRectZero];
+    [cardView setContentType:CompanyContentTypeLoading];
     [cardView setTitleText:NSLocalizedString(@"Loading...", @"Loading...")];
     BOOL cardAdded = [self.castView.stackView addCard:cardView];
     if (!cardAdded) {
@@ -81,7 +81,6 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     [self.scannedBarcodes addObject:barcode];
 
     [self.productManager retrieveProductWithBarcode:barcode completion:^(BPScanResult *productResult, NSError *error) {
-        cardView.inProgress = NO;
         if (!error) {
             [BPAnalyticsHelper receivedProductResult:productResult];
 
@@ -97,20 +96,27 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     return YES;
 }
 
-- (void)fillCard:(BPProductCardView *)cardView withData:(BPScanResult *)productResult {
+- (void)fillCard:(BPCompanyCardView *)cardView withData:(BPScanResult *)productResult {
+    if (productResult.altText.length == 0) {
+        [cardView setContentType:CompanyContentTypeDefault];
+        if (productResult.plScore) {
+            [cardView setMainPercent:productResult.plScore.intValue / 100.f];
+        }
+        [cardView setCapitalPercent:productResult.plCapital notes:productResult.plCapitalNotes];
+        [cardView setNotGlobal:productResult.plNotGlobEnt notes:productResult.plNotGlobEntNotes];
+        [cardView setWorkers:productResult.plWorkers notes:productResult.plWorkersNotes];
+        [cardView setRegistered:productResult.plRegistered notes:productResult.plRegisteredNotes];
+        [cardView setRnd:productResult.plRnD notes:productResult.plRnDNotes];
+    } else {
+        [cardView setContentType:CompanyContentTypeAlt];
+        [cardView setAltText:productResult.altText];
+    }
+
     [cardView setCardType:productResult.cardType];
     [cardView setReportButtonType:productResult.reportButtonType];
     [cardView setReportButtonText:productResult.reportButtonText];
     [cardView setReportText:productResult.reportText];
     [cardView setTitleText:productResult.name];
-    if (productResult.plScore) {
-        [cardView setMainPercent:productResult.plScore.intValue / 100.f];
-    }
-    [cardView setCapitalPercent:productResult.plCapital];
-    [cardView setNotGlobal:productResult.plNotGlobEnt];
-    [cardView setProducesInPoland:productResult.plWorkers];
-    [cardView setRegisteredInPoland:productResult.plRegistered];
-    [cardView setRnd:productResult.plRnD];
     [cardView setNeedsLayout];
 }
 
@@ -176,17 +182,6 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 }
 
 - (BOOL)didTapCard:(UIView <BPCardViewProtocol> *)cardView {
-    NSString *barcode = self.scannedBarcodes[(NSUInteger) cardView.tag];
-    if (!barcode) {
-        return NO;
-    }
-
-    BPScanResult *productResult = self.barcodeToProductResult[barcode];
-    if (productResult && !productResult.company) {
-        [self showReportProblem:barcode];
-        return YES;
-    }
-
     return NO;
 }
 
@@ -220,7 +215,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 
 #pragma mark - BPProductCardViewDelegate
 
-- (void)didTapReportProblem:(BPProductCardView *)productCardView {
+- (void)didTapReportProblem:(BPCompanyCardView *)productCardView {
     NSString *barcode = self.scannedBarcodes[(NSUInteger) productCardView.tag];
 
     [self showReportProblem:barcode];
@@ -234,15 +229,6 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 
 - (void)reportProblem:(BPReportProblemViewController *)controller finishedWithResult:(BOOL)result {
     [self dismissViewControllerAnimated:YES completion:nil];
-    if (result) {
-        BPScanResult *productResult = self.barcodeToProductResult[controller.key];
-        if (productResult && !productResult.company) {
-            UIView <BPCardViewProtocol> *cardView = (UIView <BPCardViewProtocol> *) [self.castView.stackView viewWithTag:[self.scannedBarcodes indexOfObject:controller.key]];
-            if (cardView) {
-                [self.castView.stackView removeCard:cardView];
-            }
-        }
-    }
 }
 
 #pragma mark - BPInfoNavigationControllerDelegate
