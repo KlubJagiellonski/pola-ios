@@ -20,14 +20,14 @@
 
     [Answers logContentViewWithName:productResult.name
                         contentType:@"Card Preview"
-                          contentId:productResult.id ? productResult.id.stringValue : nil
+                          contentId:productResult.productId ? productResult.productId.stringValue : nil
                    customAttributes:[self attributesForProductResult:productResult]];
 }
 
 + (void)opensCard:(BPScanResult *)productResult {
     [Answers logContentViewWithName:productResult.name
                         contentType:@"Open Card"
-                          contentId:productResult.id ? productResult.id.stringValue : nil
+                          contentId:productResult.productId ? productResult.productId.stringValue : nil
                    customAttributes:[self attributesForProductResult:productResult]];
 }
 

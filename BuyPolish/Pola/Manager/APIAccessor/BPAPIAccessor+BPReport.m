@@ -9,17 +9,23 @@
 
 @implementation BPAPIAccessor (BPReport)
 
-- (NSDictionary *)addReportWithDescription:(NSString *)description error:(NSError **)error {
-    NSDictionary *body = @{@"description" : description};
-    BPAPIResponse *response = [self post:[NSString stringWithFormat:@"create_report"] jsonBody:body error:error];
+- (NSDictionary *)addReportWithDescription:(NSString *)description productId:(NSNumber *)productId filesCount:(int)filesCount error:(NSError **)error {
+    NSMutableDictionary *jsonBody = [NSMutableDictionary dictionary];
+    jsonBody[@"description"] = description;
+    if(productId) {
+        jsonBody[@"product_id"] = productId;
+    }
+    jsonBody[@"files_count"] = @(filesCount);
+    jsonBody[@"mime_type"] = @"image/png";
+    jsonBody[@"file_ext"] = @"png";
+    BPAPIResponse *response = [self post:[NSString stringWithFormat:@"create_report"] jsonBody:jsonBody error:error];
     NSDictionary *result = response.responseObject;
     return result;
 }
 
-- (NSDictionary *)addImageAtPath:(NSString *)imageAtPath forReportId:(NSNumber *)reportId error:(NSError **)error {
+- (NSDictionary *)addImageAtPath:(NSString *)imageAtPath forUrl:(NSString*) requestUrl forReportId:(NSNumber *)reportId error:(NSError **)error {
     NSData *data = [NSData dataWithContentsOfFile:imageAtPath];
-    NSDictionary *parameters = @{@"report_id" : reportId};
-    BPAPIResponse *response = [self postMultipart:@"attach_file" parameters:parameters fileName:@"file" data:data error:error];
+    BPAPIResponse *response = [self putAmazonMultipart:requestUrl fileName:@"file" data:data error:error];
     NSDictionary *result = response.responseObject;
     return result;
 }

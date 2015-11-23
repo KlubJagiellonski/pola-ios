@@ -71,9 +71,8 @@ NSString *const ABOUT_MAIL = @"kontakt@pola-app.pl";
     [BPAnalyticsHelper aboutOpened:@"Zgłoś błąd w danych"];
 
 
-    NSString *key = @([[NSDate date] timeIntervalSince1970]).stringValue;
     JSObjectionInjector *injector = [JSObjection defaultInjector];
-    BPReportProblemViewController *reportProblemViewController = [injector getObject:[BPReportProblemViewController class] argumentList:@[key]];
+    BPReportProblemViewController *reportProblemViewController = [injector getObject:[BPReportProblemViewController class]];
     reportProblemViewController.delegate = self;
     [self presentViewController:reportProblemViewController animated:YES completion:nil];
 }

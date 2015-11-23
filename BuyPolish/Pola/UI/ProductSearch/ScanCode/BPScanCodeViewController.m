@@ -57,7 +57,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 //    [self didFindBarcode:@"5900396019813"];
 //    [self performSelector:@selector(didFindBarcode:) withObject:@"5901234123457" afterDelay:1.5f];
 //    [self performSelector:@selector(didFindBarcode:) withObject:@"5900396019813" afterDelay:3.f];
-//    [self showReportProblem:@"3123123"];
+//    [self showReportProblem:productId:@"3123123"];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -120,9 +120,11 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     [cardView setNeedsLayout];
 }
 
-- (void)showReportProblem:(NSString *)barcode {
+- (void)showReportProblem:(NSString *)barcode productId:(NSNumber *)productId {
+    [BPAnalyticsHelper reportShown:barcode];
+
     JSObjectionInjector *injector = [JSObjection defaultInjector];
-    BPReportProblemViewController *reportProblemViewController = [injector getObject:[BPReportProblemViewController class] argumentList:@[barcode]];
+    BPReportProblemViewController *reportProblemViewController = [injector getObject:[BPReportProblemViewController class] argumentList:@[productId, barcode]];
     reportProblemViewController.delegate = self;
     [self presentViewController:reportProblemViewController animated:YES completion:nil];
 }
@@ -220,8 +222,8 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 
 - (void)didTapReportProblem:(BPCompanyCardView *)productCardView {
     NSString *barcode = self.scannedBarcodes[(NSUInteger) productCardView.tag];
-
-    [self showReportProblem:barcode];
+    BPScanResult *scanResult = self.barcodeToProductResult[barcode];
+    [self showReportProblem:barcode productId:scanResult.productId];
 }
 
 #pragma mark - BPReportProblemViewControllerDelegate

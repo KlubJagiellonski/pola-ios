@@ -10,7 +10,7 @@ const float LARGE_IMAGE_WIDTH = 800;
 
 @implementation BPProductImageManager
 
-- (void)saveImage:(UIImage *)image forKey:(NSString *)key index:(int)index {
+- (void)saveImage:(UIImage *)image forKey:(NSNumber *)key index:(int)index {
     UIImage *largeImage = [self imageWithImage:image scaledToWidth:LARGE_IMAGE_WIDTH];
     [UIImagePNGRepresentation(largeImage) writeToFile:[self imagePathForKey:key index:index small:NO] atomically:NO];
 
@@ -18,23 +18,18 @@ const float LARGE_IMAGE_WIDTH = 800;
     [UIImagePNGRepresentation(smallImage) writeToFile:[self imagePathForKey:key index:index small:YES] atomically:NO];
 }
 
-- (CGSize)createSmallSizeForImage:(UIImage *)image {
-    float ratio = image.size.height / image.size.width;
-    return CGSizeMake(SMALL_IMAGE_WIDTH, image.size.width * ratio);
-}
-
-- (BOOL)isImageExistForKey:(NSString *)key index:(int)index {
+- (BOOL)isImageExistForKey:(NSNumber *)key index:(int)index {
     NSString *imagePath = [self imagePathForKey:key index:index small:YES];
     return [[NSFileManager defaultManager] fileExistsAtPath:imagePath];
 }
 
-- (UIImage *)retrieveImageForKey:(NSString *)key index:(int)index small:(BOOL)small {
+- (UIImage *)retrieveImageForKey:(NSNumber *)key index:(int)index small:(BOOL)small {
     NSString *imagePath = [self imagePathForKey:key index:index small:small];
     NSData *data = [NSData dataWithContentsOfFile:imagePath];
     return [UIImage imageWithData:data];
 }
 
-- (NSString *)imagePathForKey:(NSString *)key index:(int)index small:(BOOL)small {
+- (NSString *)imagePathForKey:(NSNumber *)key index:(int)index small:(BOOL)small {
     NSArray *paths = NSSearchPathForDirectoriesInDomains
         (NSCachesDirectory, NSUserDomainMask, YES);
     NSString *directory = paths[0];
@@ -56,7 +51,7 @@ const float LARGE_IMAGE_WIDTH = 800;
     return newImage;
 }
 
-- (NSArray *)createImagePathArrayForKey:(NSString *)key imageCount:(int)imageCount {
+- (NSArray *)createImagePathArrayForKey:(NSNumber *)key imageCount:(int)imageCount {
     NSMutableArray *pathArray = [NSMutableArray arrayWithCapacity:(NSUInteger) imageCount];
     for (int i = 0; i < imageCount; ++i) {
         NSString *imagePath = [self imagePathForKey:key index:i small:NO];

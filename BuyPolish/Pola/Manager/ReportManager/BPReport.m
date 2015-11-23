@@ -8,10 +8,10 @@
 
 @implementation BPReport
 
-- (instancetype)initWithKey:(NSString *)key description:(NSString *)desc imagePathArray:(NSArray *)imagePathArray {
+- (instancetype)initWithProductId:(NSNumber *)productId description:(NSString *)desc imagePathArray:(NSArray *)imagePathArray {
     self = [super init];
     if (self) {
-        _key = key;
+        _productId = productId;
         _desc = desc;
         _imagePathArray = imagePathArray;
     }
@@ -19,8 +19,8 @@
     return self;
 }
 
-+ (instancetype)reportWithKey:(NSString *)key description:(NSString *)desc imagePathArray:(NSArray *)imagePathArray {
-    return [[self alloc] initWithKey:key description:desc imagePathArray:imagePathArray];
++ (instancetype)reportWithProductId:(NSNumber *)productId description:(NSString *)desc imagePathArray:(NSArray *)imagePathArray {
+    return [[self alloc] initWithProductId:productId description:desc imagePathArray:imagePathArray];
 }
 
 @end

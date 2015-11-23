@@ -12,7 +12,7 @@ typedef enum {
 
 @interface BPScanResult : NSObject
 
-@property(nonatomic) NSNumber *id;
+@property(nonatomic) NSNumber *productId;
 @property(nonatomic, copy) NSString *code;
 @property(nonatomic, copy) NSString *name;
 @property(nonatomic) CardType cardType;

@@ -8,12 +8,12 @@
 
 @interface BPProductImageManager : NSObject
 
-- (void)saveImage:(UIImage *)image forKey:(NSString *)key index:(int)index;
+- (void)saveImage:(UIImage *)image forKey:(NSNumber *)key index:(int)index;
 
-- (BOOL)isImageExistForKey:(NSString *)key index:(int)index;
+- (BOOL)isImageExistForKey:(NSNumber *)key index:(int)index;
 
-- (UIImage *)retrieveImageForKey:(NSString *)key index:(int)index small:(BOOL)small;
+- (UIImage *)retrieveImageForKey:(NSNumber *)key index:(int)index small:(BOOL)small;
 
-- (NSArray *)createImagePathArrayForKey:(NSString *)key imageCount:(int)imageCount;
+- (NSArray *)createImagePathArrayForKey:(NSNumber *)key imageCount:(int)imageCount;
 
 @end

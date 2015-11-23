@@ -20,8 +20,10 @@
 
 @property(nonatomic, weak) id <BPReportProblemViewControllerDelegate> delegate;
 
-@property(nonatomic, readonly) NSString *key;
+@property(nonatomic, readonly) NSNumber *productId;
 
-- (instancetype)initWithKey:(NSString *)key;
+@property(nonatomic, readonly) NSString *barcode;
+
+- (instancetype)initWithProductId:(NSNumber *)productId barcode:(NSString *)barcode;
 
 @end

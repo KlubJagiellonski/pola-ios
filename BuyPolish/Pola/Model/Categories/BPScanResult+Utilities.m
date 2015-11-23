@@ -4,7 +4,7 @@
 @implementation BPScanResult (Utilities)
 
 - (void)parse:(NSDictionary *)dictionary {
-    self.id = [BPUtilities handleNull:dictionary[@"product_id"]];
+    self.productId = [BPUtilities handleNull:dictionary[@"product_id"]];
     self.code = [BPUtilities handleNull:dictionary[@"code"]];
     self.name = [BPUtilities handleNull:dictionary[@"name"]];
     self.cardType = [self parseCardType:[BPUtilities handleNull:dictionary[@"card_type"]]];

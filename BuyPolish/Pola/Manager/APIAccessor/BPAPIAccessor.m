@@ -75,13 +75,11 @@ NSString *const BPAPIAccessorAPIDeviceId = @"device_id";
     return [self performRequest:request error:error];
 }
 
-- (BPAPIResponse *)postMultipart:(NSString *)apiFunction parameters:(NSDictionary *)parameters fileName:(NSString *)filename data:(NSData *)data error:(NSError **)error {
-    NSString *url = [[self baseUrl] stringByAppendingPathComponent:apiFunction];
-    parameters = [self addDefaultParameters:parameters];
-    url = [url stringByAppendingFormat:@"?%@", [self stringFromParameters:parameters]];
-
+- (BPAPIResponse *)putAmazonMultipart:(NSString *)url fileName:(NSString *)filename data:(NSData *)data error:(NSError **)error {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[[NSURL alloc] initWithString:url]];
-    [request setHTTPMethod:@"POST"];
+    [request addValue:@"public-read" forHTTPHeaderField:@"x-amz-acl"];
+    [request addValue:@"image/png" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPMethod:@"PUT"];
 
     NSString *boundary = @"---------------------------14737809831466499882746641449";
     NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];

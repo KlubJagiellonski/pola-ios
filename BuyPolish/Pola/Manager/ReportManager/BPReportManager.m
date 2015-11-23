@@ -30,10 +30,10 @@ objection_requires_sel(@selector(taskRunner), @selector(apiAccessor))
     void (^block)() = ^{
         strongify()
 
-        NSDictionary *result = [strongSelf.apiAccessor addReportWithDescription:report.desc error:&error];
+        NSDictionary *result = [strongSelf.apiAccessor addReportWithDescription:report.desc productId:report.productId filesCount:report.imagePathArray.count error:&error];
 
         if (error) {
-            BPLog(@"Error while adding report : %@ %@", report.key, error.localizedDescription);
+            BPLog(@"Error while adding report : %@ %@", report.productId, error.localizedDescription);
             [completionQueue addOperationWithBlock:^{
                 completion([BPReportResult resultWithState:REPORT_STATE_ADD report:report imageDownloadedIndex:0], error);
             }];
@@ -42,19 +42,21 @@ objection_requires_sel(@selector(taskRunner), @selector(apiAccessor))
         NSNumber *reportId = result[@"id"];
         report.id = reportId;
 
+        NSArray *signedRequestArray = result[@"signed_requests"];
+
         [completionQueue addOperationWithBlock:^{
             completion([BPReportResult resultWithState:REPORT_STATE_ADD report:report imageDownloadedIndex:0], error);
         }];
 
-        if(report.imagePathArray.count == 0) {
+        if (report.imagePathArray.count == 0) {
             completion([BPReportResult resultWithState:REPORT_STATE_FINSIHED report:report imageDownloadedIndex:0], error);
             return;
         }
 
-        [strongSelf sendImagesForImagePath:report.imagePathArray reportId:reportId index:0 completion:^(NSUInteger index, NSError *sendImageError) {
+        [strongSelf sendImagesForImagePath:report.imagePathArray signedRequestArray:signedRequestArray reportId:reportId index:0 completion:^(NSUInteger index, NSError *sendImageError) {
             [completionQueue addOperationWithBlock:^{
                 if (sendImageError) {
-                    BPLog(@"Error while adding images: %@ %@", report.key, error.localizedDescription);
+                    BPLog(@"Error while adding images: %@ %@", report.productId, error.localizedDescription);
                     completion([BPReportResult resultWithState:REPORT_STATE_IMAGE_ADD report:report imageDownloadedIndex:(int) index], sendImageError);
                 } else {
                     completion([BPReportResult resultWithState:REPORT_STATE_FINSIHED report:report imageDownloadedIndex:(int) index], sendImageError);
@@ -66,13 +68,14 @@ objection_requires_sel(@selector(taskRunner), @selector(apiAccessor))
     [self.taskRunner runImmediateTask:task];
 }
 
-- (void)sendImagesForImagePath:(NSArray *)imagePathArray reportId:(NSNumber *)reportId index:(NSUInteger)index completion:(void (^)(NSUInteger, NSError *))completion {
+- (void)sendImagesForImagePath:(NSArray *)imagePathArray signedRequestArray:(NSArray *)signedRequestArray reportId:(NSNumber *)reportId index:(NSUInteger)index completion:(void (^)(NSUInteger, NSError *))completion {
     weakify()
     void (^block)() = ^{
         strongify()
 
         NSString *imagePath = imagePathArray[index];
-        [strongSelf sendImageAtPath:imagePath forReportId:reportId completion:^(NSError *error) {
+        NSString *requestUrl = signedRequestArray[index];
+        [strongSelf sendImageAtPath:imagePath forUrl:requestUrl forReportId:reportId completion:^(NSError *error) {
             if (error) {
                 completion(index, error);
             } else {
@@ -80,7 +83,7 @@ objection_requires_sel(@selector(taskRunner), @selector(apiAccessor))
                 if (imagePathArray.count == nextIndex) {
                     completion(index, nil);
                 } else {
-                    [self sendImagesForImagePath:imagePathArray reportId:reportId index:nextIndex completion:completion];
+                    [self sendImagesForImagePath:imagePathArray signedRequestArray:signedRequestArray reportId:reportId index:nextIndex completion:completion];
                 }
             }
         }];
@@ -90,14 +93,14 @@ objection_requires_sel(@selector(taskRunner), @selector(apiAccessor))
     [self.taskRunner runImmediateTask:task];
 }
 
-- (void)sendImageAtPath:(NSString *)imageAtPath forReportId:(NSNumber *)reportId completion:(void (^)(NSError *))completion {
+- (void)sendImageAtPath:(NSString *)imageAtPath forUrl:(NSString *) requestUrl forReportId:(NSNumber *)reportId completion:(void (^)(NSError *))completion {
     __block NSError *error;
 
     weakify()
     void (^block)() = ^{
         strongify()
 
-        [strongSelf.apiAccessor addImageAtPath:imageAtPath forReportId:reportId error:&error];
+        [strongSelf.apiAccessor addImageAtPath:imageAtPath forUrl:requestUrl forReportId:reportId error:&error];
 
         if (error) {
             BPLog(@"Error while adding image : %@ %@ %@", imageAtPath, reportId, error.localizedDescription);

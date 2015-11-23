@@ -23,14 +23,15 @@
 @end
 
 @implementation BPReportProblemViewController
-objection_initializer_sel(@selector(initWithKey:))
+objection_initializer_sel(@selector(initWithProductId:barcode:))
 
 objection_requires_sel(@selector(productImageManager), @selector(reportManager), @selector(keyboardManager))
 
-- (instancetype)initWithKey:(NSString *)key {
+- (instancetype)initWithProductId:(NSNumber *)productId barcode:(NSString *)barcode {
     self = [super init];
     if (self) {
-        _key = key;
+        _productId = productId;
+        _barcode = barcode;
     }
     return self;
 }
@@ -41,8 +42,6 @@ objection_requires_sel(@selector(productImageManager), @selector(reportManager),
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    [BPAnalyticsHelper reportShown:self.key];
 
     self.keyboardManager.delegate = self;
 
@@ -56,9 +55,9 @@ objection_requires_sel(@selector(productImageManager), @selector(reportManager),
 }
 
 - (void)initializeImages {
-    self.imageCount = [self.productImageManager isImageExistForKey:self.key index:0] ? 1 : 0;
+    self.imageCount = [self.productImageManager isImageExistForKey:self.productId index:0] ? 1 : 0;
     if (self.imageCount == 1) {
-        UIImage *image = [self.productImageManager retrieveImageForKey:self.key index:0 small:YES];
+        UIImage *image = [self.productImageManager retrieveImageForKey:self.productId index:0 small:YES];
         [self.castView.imageContainerView addImage:image];
     }
 }
@@ -93,8 +92,8 @@ objection_requires_sel(@selector(productImageManager), @selector(reportManager),
 - (void)didTapSendButton:(UIButton *)button {
     [self.view endEditing:YES];
 
-    NSArray *imagePathArray = [self.productImageManager createImagePathArrayForKey:self.key imageCount:self.imageCount];
-    BPReport *report = [BPReport reportWithKey:self.key description:self.castView.descriptionTextView.text imagePathArray:imagePathArray];
+    NSArray *imagePathArray = [self.productImageManager createImagePathArrayForKey:self.productId imageCount:self.imageCount];
+    BPReport *report = [BPReport reportWithProductId:self.productId description:self.castView.descriptionTextView.text imagePathArray:imagePathArray];
 
     [KVNProgress showWithStatus:NSLocalizedString(@"Sending...", @"Wysyłanie...")];
 
@@ -103,7 +102,7 @@ objection_requires_sel(@selector(productImageManager), @selector(reportManager),
         strongify()
         if (result.state == REPORT_STATE_FINSIHED && error == nil) {
             [KVNProgress showSuccessWithStatus:NSLocalizedString(@"Report sent", @"Raport wysłany")];
-            [BPAnalyticsHelper reportSent:self.key success:YES];
+            [BPAnalyticsHelper reportSent:self.barcode success:YES];
             [strongSelf.delegate reportProblem:strongSelf finishedWithResult:YES];
         } else if (error != nil) {
             [KVNProgress showErrorWithStatus:NSLocalizedString(@"Error occured", @"Wystąpił błąd")];
@@ -163,9 +162,9 @@ objection_requires_sel(@selector(productImageManager), @selector(reportManager),
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
-    [self.productImageManager saveImage:image forKey:self.key index:self.imageCount];
+    [self.productImageManager saveImage:image forKey:self.productId index:self.imageCount];
 
-    UIImage *smallImage = [self.productImageManager retrieveImageForKey:self.key index:self.imageCount small:YES];
+    UIImage *smallImage = [self.productImageManager retrieveImageForKey:self.productId index:self.imageCount small:YES];
     [self.castView.imageContainerView addImage:smallImage];
 
     self.imageCount++;
