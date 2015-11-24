@@ -6,11 +6,11 @@
 #import "BPReportProblemView.h"
 #import "BPImageContainerView.h"
 #import "UITextView+Placeholder.h"
-#import "BPConst.h"
 #import "UIColor+BPAdditions.h"
 #import "UIImage+KVNImageEffects.h"
 #import "BPTheme.h"
 #import "UILabel+BPAdditions.h"
+#import "UIApplication+BPStatusBarHeight.h"
 
 const int REPORT_PADDING = 16;
 const int VERTICAL_MARGIN = 25;
@@ -103,7 +103,7 @@ const int REPORT_DESCRIPTIONSHADOW_HEIGHT = 1;
 
     CGRect rect = self.closeButton.frame;
     rect.origin.x = CGRectGetWidth(self.bounds) - REPORT_PADDING - CGRectGetWidth(rect);
-    rect.origin.y = STATUS_BAR_HEIGHT + REPORT_PADDING - self.bottomMargin;
+    rect.origin.y = [UIApplication statusBarHeight] + REPORT_PADDING - self.bottomMargin;
     self.closeButton.frame = rect;
 
     rect = self.titleLabel.frame;
@@ -130,7 +130,7 @@ const int REPORT_DESCRIPTIONSHADOW_HEIGHT = 1;
 
     rect = self.descriptionTitleLabel.frame;
     rect.origin.x = REPORT_PADDING;
-    rect.origin.y = MAX(CGRectGetMaxY(self.imageContainerView.frame) + VERTICAL_MARGIN - self.bottomMargin, REPORT_PADDING + STATUS_BAR_HEIGHT);
+    rect.origin.y = MAX(CGRectGetMaxY(self.imageContainerView.frame) + VERTICAL_MARGIN - self.bottomMargin, REPORT_PADDING + [UIApplication statusBarHeight]);
     self.descriptionTitleLabel.frame = rect;
 
     rect.size = CGSizeMake(CGRectGetWidth(self.bounds) - 2 * REPORT_PADDING, SEND_BUTTON_HEIGHT);

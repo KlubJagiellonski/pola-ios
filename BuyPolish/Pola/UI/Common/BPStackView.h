@@ -5,28 +5,36 @@
 
 #import <Foundation/Foundation.h>
 
-@class BPCompanyCardView;
-@protocol BPCardViewProtocol;
+@class BPStackView;
 
 
 @protocol BPStackViewDelegate <NSObject>
 
-- (void)willAddCard:(UIView<BPCardViewProtocol> *)cardView withAnimationDuration:(CGFloat)animationDuration;
+- (void)stackView:(BPStackView *)stackView willAddCard:(UIView *)cardView;
 
-- (void)willEnterFullScreen:(UIView<BPCardViewProtocol> *)cardView withAnimationDuration:(CGFloat)animationDuration;
+- (void)stackView:(BPStackView *)stackView didRemoveCard:(UIView *)cardView;
 
-- (void)didExitFullScreen:(UIView<BPCardViewProtocol> *)cardView;
+- (void)stackView:(BPStackView *)stackView willExpandWithCard:(UIView *)cardView;
 
-- (BOOL)didTapCard:(UIView <BPCardViewProtocol> *)view;
+- (void)stackViewDidCollapse:(BPStackView *)stackView;
+
+- (BOOL)stackView:(BPStackView *)stackView didTapCard:(UIView *)cardView;
+
 @end
 
+@protocol BPStackViewCardProtocol <NSObject>
 
-@interface BPStackView : UIScrollView <UIGestureRecognizerDelegate>
+- (void)setTitleHeight:(CGFloat)titleHeight;
 
-@property(nonatomic, weak) id <BPStackViewDelegate> stackDelegate;
+@end
+
+@interface BPStackView : UIView
+
+@property(nonatomic, weak) id <BPStackViewDelegate> delegate;
 @property(nonatomic, readonly) NSInteger cardCount;
 
-- (BOOL)addCard:(UIView<BPCardViewProtocol> *)cardView;
-- (void)removeCard:(UIView<BPCardViewProtocol> *)cardView;
+- (BOOL)addCard:(UIView *)cardView;
+
+- (void)removeCard:(UIView *)cardView;
 
 @end
