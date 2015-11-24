@@ -4,23 +4,18 @@
 //
 
 #import "BPCompanyContentView.h"
-#import "BPMainProggressView.h"
 #import "BPSecondaryProgressView.h"
 #import "BPCheckRow.h"
 #import "BPTheme.h"
 #import "UILabel+BPAdditions.h"
 
-int const CARD_CONTENT_PROGRESS_IN_HEADER = 3;
-int const CARD_CONTENT_PROGRESS_BOTTOM_MARGIN = 14;
+int const CARD_CONTENT_VERTICAL_PADDING = 14;
 int const CARD_CONTENT_ROW_MARGIN = 14;
 int const CARD_CONTENT_NOTES_MARGIN = 4;
 
 @interface BPCompanyContentView ()
 
-@property(nonatomic, readonly) UILabel *titleLabel;
-@property(nonatomic, readonly) UIActivityIndicatorView *loadingProgressView;
 @property(nonatomic, readonly) UILabel *capitalTitleLabel;
-@property(nonatomic, readonly) BPMainProggressView *mainProgressView;
 @property(nonatomic, readonly) BPSecondaryProgressView *capitalProgressView;
 @property(nonatomic, readonly) UILabel *capitalNotesLabel;
 @property(nonatomic, readonly) BPCheckRow *notGlobalCheckRow;
@@ -36,18 +31,7 @@ int const CARD_CONTENT_NOTES_MARGIN = 4;
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        _loadingProgressView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-        [_loadingProgressView sizeToFit];
-        [self addSubview:_loadingProgressView];
-
-        _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _titleLabel.font = [BPTheme titleFont];
-        _titleLabel.textColor = [BPTheme defaultTextColor];
-        [self addSubview:_titleLabel];
-
-        _mainProgressView = [[BPMainProggressView alloc] initWithFrame:CGRectZero];
-        [_mainProgressView sizeToFit];
-        [self addSubview:_mainProgressView];
+        self.showsVerticalScrollIndicator = YES;
 
         _capitalTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _capitalTitleLabel.font = [BPTheme normalFont];
@@ -97,20 +81,12 @@ int const CARD_CONTENT_NOTES_MARGIN = 4;
 - (void)layoutSubviews {
     [super layoutSubviews];
 
-    const int verticalTitleSpace = self.titleHeight - CARD_CONTENT_PROGRESS_IN_HEADER;
     const int widthWithPadding = (const int) (CGRectGetWidth(self.bounds) - 2 * self.padding);
 
-    CGRect rect = self.titleLabel.frame;
-    rect.origin.x = self.padding;
-    rect.origin.y = verticalTitleSpace / 2 - CGRectGetHeight(rect) / 2;
-    rect.size.width = widthWithPadding;
-    self.titleLabel.frame = rect;
 
     int bottom = 0;
     if (self.contentType == CompanyContentTypeDefault) {
-        bottom = [self layoutDefaultSubviews:verticalTitleSpace width:widthWithPadding];
-    } else if (self.contentType == CompanyContentTypeLoading) {
-        bottom = [self layoutLoadingSubviews:verticalTitleSpace];
+        bottom = [self layoutDefaultSubviews:widthWithPadding];
     } else if (self.contentType == CompanyContentTypeAlt) {
         bottom = [self layoutAltSubviews:widthWithPadding];
     }
@@ -118,16 +94,10 @@ int const CARD_CONTENT_NOTES_MARGIN = 4;
     self.contentSize = CGSizeMake(CGRectGetWidth(self.bounds), bottom);
 }
 
-- (int)layoutDefaultSubviews:(const int)verticalTitleSpace width:(const int)widthWithPadding {
-    CGRect rect = self.mainProgressView.frame;
-    rect.size.width = CGRectGetWidth(self.bounds);
-    rect.origin.x = 0;
-    rect.origin.y = verticalTitleSpace;
-    self.mainProgressView.frame = rect;
-
-    rect = self.capitalTitleLabel.frame;
+- (int)layoutDefaultSubviews:(const int)widthWithPadding {
+    CGRect rect = self.capitalTitleLabel.frame;
     rect.origin.x = self.padding;
-    rect.origin.y = CGRectGetMaxY(self.mainProgressView.frame) + CARD_CONTENT_PROGRESS_BOTTOM_MARGIN;
+    rect.origin.y = CARD_CONTENT_VERTICAL_PADDING;
     self.capitalTitleLabel.frame = rect;
 
     rect = self.capitalProgressView.frame;
@@ -146,7 +116,7 @@ int const CARD_CONTENT_NOTES_MARGIN = 4;
     rect = self.workersCheckRow.frame;
     rect.size = [self.workersCheckRow sizeThatFits:CGSizeMake(widthWithPadding, 0)];
     rect.origin.x = self.padding;
-    rect.origin.y = CGRectGetMaxY(self.capitalNotesLabel.frame) + CARD_CONTENT_PROGRESS_BOTTOM_MARGIN;
+    rect.origin.y = CGRectGetMaxY(self.capitalNotesLabel.frame) + CARD_CONTENT_VERTICAL_PADDING;
     self.workersCheckRow.frame = rect;
 
     rect = self.rndCheckRow.frame;
@@ -167,16 +137,7 @@ int const CARD_CONTENT_NOTES_MARGIN = 4;
     rect.origin.y = CGRectGetMaxY(self.registeredCheckRow.frame) + CARD_CONTENT_ROW_MARGIN;
     self.notGlobalCheckRow.frame = rect;
 
-    return (int) CGRectGetMaxY(self.notGlobalCheckRow.frame);
-}
-
-- (int)layoutLoadingSubviews:(const int)verticalTitleSpace {
-    CGRect rect = self.loadingProgressView.frame;
-    rect.origin.x = CGRectGetWidth(self.bounds) - self.padding - CGRectGetWidth(self.loadingProgressView.bounds);
-    rect.origin.y = verticalTitleSpace / 2 - CGRectGetHeight(rect) / 2;
-    self.loadingProgressView.frame = rect;
-
-    return (int) CGRectGetMaxY(self.loadingProgressView.frame);
+    return (int) CGRectGetMaxY(self.notGlobalCheckRow.frame) + CARD_CONTENT_VERTICAL_PADDING;
 }
 
 - (int)layoutAltSubviews:(const int)widthWithPadding {
@@ -194,12 +155,11 @@ int const CARD_CONTENT_NOTES_MARGIN = 4;
     _contentType = type;
 
     static NSDictionary *typeToViewsDictionary = nil;
+    static NSArray *allSubviews = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         typeToViewsDictionary = @{
             @(CompanyContentTypeDefault) : @[
-                self.titleLabel,
-                self.mainProgressView,
                 self.capitalTitleLabel,
                 self.capitalProgressView,
                 self.capitalNotesLabel,
@@ -209,37 +169,27 @@ int const CARD_CONTENT_NOTES_MARGIN = 4;
                 self.notGlobalCheckRow
             ],
             @(CompanyContentTypeLoading) : @[
-                self.titleLabel,
-                self.loadingProgressView
             ],
             @(CompanyContentTypeAlt) : @[
-                self.titleLabel,
                 self.altTextLabel
             ]
         };
+        allSubviews = @[
+            self.capitalTitleLabel,
+            self.capitalProgressView,
+            self.capitalNotesLabel,
+            self.notGlobalCheckRow,
+            self.registeredCheckRow,
+            self.rndCheckRow,
+            self.workersCheckRow,
+            self.altTextLabel,
+        ];
     });
 
     NSArray *visibleViews = typeToViewsDictionary[@(type)];
-    for (UIView *subview in self.subviews) {
+    for (UIView *subview in allSubviews) { //you cannot user self.subviews because you will hide internal UIScrollView views
         subview.hidden = ![visibleViews containsObject:subview];
     }
-
-    if (type == CompanyContentTypeLoading) {
-        [self.loadingProgressView startAnimating];
-    } else {
-        [self.loadingProgressView stopAnimating];
-    }
-}
-
-- (void)setTitleText:(NSString *)titleText {
-    self.titleLabel.text = titleText;
-    [self.titleLabel sizeToFit];
-    [self setNeedsLayout];
-}
-
-- (void)setMainPercent:(CGFloat)mainPercent {
-    self.mainProgressView.progress = mainPercent;
-    [self.mainProgressView setNeedsLayout];
 }
 
 - (void)setCapitalPercent:(NSNumber *)capitalPercent notes:(NSString *)notes {
@@ -281,14 +231,14 @@ int const CARD_CONTENT_NOTES_MARGIN = 4;
 
 - (void)setCardType:(CardType)type {
     if (type == CardTypeGrey) {
-        self.mainProgressView.backgroundColor = [BPTheme strongBackgroundColor];
         self.capitalProgressView.fillColor = [BPTheme strongBackgroundColor];
         self.capitalProgressView.percentColor = [BPTheme clearColor];
     } else {
-        self.mainProgressView.backgroundColor = [BPTheme lightBackgroundColor];
         self.capitalProgressView.fillColor = [BPTheme lightBackgroundColor];
         self.capitalProgressView.percentColor = [BPTheme defaultTextColor];
     }
 }
+
+
 
 @end

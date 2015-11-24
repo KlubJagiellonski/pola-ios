@@ -26,6 +26,8 @@
 
 - (void)setTitleHeight:(CGFloat)titleHeight;
 
+- (void)setFocused:(BOOL)focused;
+
 @end
 
 @interface BPStackView : UIView

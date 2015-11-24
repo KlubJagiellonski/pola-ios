@@ -5,19 +5,19 @@
 
 #import "BPCompanyCardView.h"
 #import "BPMainProggressView.h"
-#import "BPSecondaryProgressView.h"
-#import "BPCheckRow.h"
 #import "UILabel+BPAdditions.h"
 #import "BPTheme.h"
-#import "BPScanResult.h"
-#import "BPCompanyContentView.h"
 
 NSInteger const CARD_PADDING = 10;
 int const CARD_SEPARATOR_HEIGHT = 1;
 int const CARD_REPORT_MARGIN = 14;
 int const CARD_REPORT_BUTTON_HEIGHT = 30;
+int const CARD_CONTENT_PROGRESS_IN_HEADER = 3;
 
 @interface BPCompanyCardView ()
+@property(nonatomic, readonly) UILabel *titleLabel;
+@property(nonatomic, readonly) UIActivityIndicatorView *loadingProgressView;
+@property(nonatomic, readonly) BPMainProggressView *mainProgressView;
 @property(nonatomic, readonly) BPCompanyContentView *contentView;
 @property(nonatomic, readonly) UIButton *reportProblemButton;
 @property(nonatomic, readonly) UILabel *reportInfoLabel;
@@ -36,6 +36,19 @@ int const CARD_REPORT_BUTTON_HEIGHT = 30;
         self.layer.shadowRadius = 2.f;
         self.layer.shadowOpacity = 0.3f;
 
+        _loadingProgressView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        [_loadingProgressView startAnimating];
+        [_loadingProgressView sizeToFit];
+        [self addSubview:_loadingProgressView];
+
+        _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _titleLabel.font = [BPTheme titleFont];
+        _titleLabel.textColor = [BPTheme defaultTextColor];
+        [self addSubview:_titleLabel];
+
+        _mainProgressView = [[BPMainProggressView alloc] initWithFrame:CGRectZero];
+        [_mainProgressView sizeToFit];
+        [self addSubview:_mainProgressView];
 
         _contentView = [[BPCompanyContentView alloc] initWithFrame:CGRectZero];
         _contentView.padding = CARD_PADDING;
@@ -69,9 +82,27 @@ int const CARD_REPORT_BUTTON_HEIGHT = 30;
 - (void)layoutSubviews {
     [super layoutSubviews];
 
+    const int verticalTitleSpace = self.titleHeight - CARD_CONTENT_PROGRESS_IN_HEADER;
     const int widthWithPadding = (const int) (CGRectGetWidth(self.bounds) - 2 * CARD_PADDING);
 
-    CGRect rect = self.reportProblemButton.frame;
+    CGRect rect = self.titleLabel.frame;
+    rect.origin.x = CARD_PADDING;
+    rect.origin.y = verticalTitleSpace / 2 - CGRectGetHeight(rect) / 2;
+    rect.size.width = widthWithPadding;
+    self.titleLabel.frame = rect;
+
+    rect = self.loadingProgressView.frame;
+    rect.origin.x = CGRectGetWidth(self.bounds) - CARD_PADDING - CGRectGetWidth(self.loadingProgressView.bounds);
+    rect.origin.y = verticalTitleSpace / 2 - CGRectGetHeight(rect) / 2;
+    self.loadingProgressView.frame = rect;
+
+    rect = self.mainProgressView.frame;
+    rect.size.width = CGRectGetWidth(self.bounds);
+    rect.origin.x = 0;
+    rect.origin.y = verticalTitleSpace;
+    self.mainProgressView.frame = rect;
+
+    rect = self.reportProblemButton.frame;
     rect.size.height = CARD_REPORT_BUTTON_HEIGHT;
     rect.size.width = widthWithPadding;
     rect.origin.x = CARD_PADDING;
@@ -93,36 +124,31 @@ int const CARD_REPORT_BUTTON_HEIGHT = 30;
 
     rect = self.contentView.frame;
     rect.size.width = CGRectGetWidth(self.bounds);
-    rect.size.height = CGRectGetMinY(self.separatorView.frame);
+    rect.size.height = CGRectGetMinY(self.separatorView.frame) - CGRectGetMaxY(self.mainProgressView.frame);
     rect.origin.x = 0;
-    rect.origin.y = 0;
+    rect.origin.y = CGRectGetMaxY(self.mainProgressView.frame);
     self.contentView.frame = rect;
-}
-
-- (void)setTitleHeight:(CGFloat)titleHeight {
-    self.contentView.titleHeight = (int)floorf(titleHeight);
 }
 
 - (void)setContentType:(CompanyContentType)contentType {
     [self.contentView setContentType:contentType];
 
     BOOL subviewsHidden = contentType == CompanyContentTypeLoading;
-    for (UIView *subview in self.subviews) {
-        if([subview isEqual:self.contentView]) {
-            continue;
-        }
-        self.reportProblemButton.hidden = subviewsHidden;
-        self.reportInfoLabel.hidden = subviewsHidden;
-        self.separatorView.hidden = subviewsHidden;
-    }
+    self.reportProblemButton.hidden = subviewsHidden;
+    self.reportInfoLabel.hidden = subviewsHidden;
+    self.separatorView.hidden = subviewsHidden;
+    self.loadingProgressView.hidden = !subviewsHidden;
 }
 
 - (void)setTitleText:(NSString *)titleText {
-    [self.contentView setTitleText:titleText];
+    self.titleLabel.text = titleText;
+    [self.titleLabel sizeToFit];
+    [self setNeedsLayout];
 }
 
 - (void)setMainPercent:(CGFloat)mainPercent {
-    [self.contentView setMainPercent:mainPercent];
+    self.mainProgressView.progress = mainPercent;
+    [self.mainProgressView setNeedsLayout];
 }
 
 - (void)setCapitalPercent:(NSNumber *)capitalPercent notes:(NSString *)notes {
@@ -152,9 +178,12 @@ int const CARD_REPORT_BUTTON_HEIGHT = 30;
 - (void)setCardType:(CardType)type {
     if (type == CardTypeGrey) {
         self.backgroundColor = [BPTheme mediumBackgroundColor];
+        self.mainProgressView.backgroundColor = [BPTheme strongBackgroundColor];
     } else {
         self.backgroundColor = [BPTheme clearColor];
+        self.mainProgressView.backgroundColor = [BPTheme lightBackgroundColor];
     }
+
     [self.contentView setCardType:type];
 }
 
@@ -180,6 +209,10 @@ int const CARD_REPORT_BUTTON_HEIGHT = 30;
 - (void)setReportText:(NSString *)text {
     self.reportInfoLabel.text = text;
     [self.reportInfoLabel sizeToFit];
+}
+
+- (void)setFocused:(BOOL)focused {
+    [self.contentView flashScrollIndicators];
 }
 
 @end

@@ -22,9 +22,9 @@
 
 @interface BPCompanyCardView : UIView <BPStackViewCardProtocol>
 
-@property(nonatomic, weak) id <BPProductCardViewDelegate> delegate;
+@property(nonatomic) CGFloat titleHeight;
 
-- (void)setTitleHeight:(CGFloat)titleHeight;
+@property(nonatomic, weak) id <BPProductCardViewDelegate> delegate;
 
 - (void)setContentType:(CompanyContentType)contentType;
 

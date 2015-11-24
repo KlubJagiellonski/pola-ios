@@ -14,15 +14,9 @@ typedef enum {
 
 @interface BPCompanyContentView : UIScrollView
 
-@property(nonatomic) int titleHeight;
-
 @property(nonatomic) int padding;
 
 @property(nonatomic) CompanyContentType contentType;
-
-- (void)setTitleText:(NSString *)titleText;
-
-- (void)setMainPercent:(CGFloat)mainPercent;
 
 - (void)setCapitalPercent:(NSNumber *)capitalPercent notes:(NSString *)notes;
 

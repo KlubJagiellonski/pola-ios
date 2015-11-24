@@ -28,12 +28,13 @@ NSInteger const kBPStackViewCardTitleHeight = 50;
 
 - (void)didBecomeInactive;
 
+- (void)didBecomeActive;
+
 - (void)layoutCards:(NSArray<UIView *> *)cards;
 
 - (void)didTapCardView:(UIView *)cardView recognizer:(UITapGestureRecognizer *)recognizer;
 
 - (void)didPanCardView:(UIView *)cardView recognizer:(UIPanGestureRecognizer *)recognizer;
-
 @end
 
 @interface BPStackViewLayoutLayoutCollapsed : NSObject <BPStackViewLayout>
@@ -160,7 +161,8 @@ NSInteger const kBPStackViewCardTitleHeight = 50;
 - (void)setCurrentLayout:(id <BPStackViewLayout>)currentLayout animated:(BOOL)animated completionBlock:(void (^)())completionBlock {
     id <BPStackViewLayout> oldLayout = nil;
 
-    if (_currentLayout != currentLayout) {
+    BOOL changingLayout = _currentLayout != currentLayout;
+    if (changingLayout) {
         oldLayout = _currentLayout;
         _currentLayout = currentLayout;
         _currentLayout.stackView = self;
@@ -178,6 +180,16 @@ NSInteger const kBPStackViewCardTitleHeight = 50;
         [self layoutIfNeeded];
     };
 
+    weakify();
+    void (^completionBlockWrapper)() = ^() {
+        strongify();
+        if(changingLayout) {
+            [oldLayout didBecomeInactive];
+            [strongSelf.currentLayout didBecomeActive];
+        }
+        completionBlock();
+    };
+
     if (animated) {
         [UIView animateWithDuration:0.8f
                               delay:0
@@ -186,13 +198,11 @@ NSInteger const kBPStackViewCardTitleHeight = 50;
                             options:UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionBeginFromCurrentState
                          animations:forceLayout
                          completion:^(BOOL finished) {
-                             [oldLayout didBecomeInactive];
-                             completionBlock();
+                             completionBlockWrapper();
                          }];
     } else {
         forceLayout();
-        [oldLayout didBecomeInactive];
-        completionBlock();
+        completionBlockWrapper();
     }
 }
 
@@ -200,8 +210,8 @@ NSInteger const kBPStackViewCardTitleHeight = 50;
     [super layoutSubviews];
 
     _layoutContext.cardSize = CGSizeMake(
-            self.bounds.size.width - _layoutContext.edgeInsets.left - _layoutContext.edgeInsets.right,
-            self.bounds.size.height - _layoutContext.edgeInsets.top - _layoutContext.edgeInsets.bottom - _layoutContext.lookAhead
+        self.bounds.size.width - _layoutContext.edgeInsets.left - _layoutContext.edgeInsets.right,
+        self.bounds.size.height - _layoutContext.edgeInsets.top - _layoutContext.edgeInsets.bottom - _layoutContext.lookAhead
     );
 
     [_currentLayout layoutCards:_cards];
@@ -237,6 +247,10 @@ NSInteger const kBPStackViewCardTitleHeight = 50;
 
 }
 
+- (void)didBecomeActive {
+
+}
+
 - (void)layoutCards:(NSArray<UIView *> *)cards {
     NSInteger cardFromBottom = 0;
     for (NSUInteger i = 0; i < cards.count; ++i) {
@@ -248,16 +262,16 @@ NSInteger const kBPStackViewCardTitleHeight = 50;
 
         if (isOffScreenCard) {
             frame = CGRectMake(
-                    _layoutContext.edgeInsets.left,
-                    _stackView.bounds.size.height,
-                    _layoutContext.cardSize.width,
-                    _layoutContext.cardSize.height);
+                _layoutContext.edgeInsets.left,
+                _stackView.bounds.size.height,
+                _layoutContext.cardSize.width,
+                _layoutContext.cardSize.height);
         } else {
             frame = CGRectMake(
-                    _layoutContext.edgeInsets.left,
-                    _stackView.bounds.size.height - _layoutContext.edgeInsets.bottom - _layoutContext.lookAhead * (cardFromBottom + 1),
-                    _layoutContext.cardSize.width,
-                    _layoutContext.cardSize.height);
+                _layoutContext.edgeInsets.left,
+                _stackView.bounds.size.height - _layoutContext.edgeInsets.bottom - _layoutContext.lookAhead * (cardFromBottom + 1),
+                _layoutContext.cardSize.width,
+                _layoutContext.cardSize.height);
             ++cardFromBottom;
         }
 
@@ -306,6 +320,19 @@ NSInteger const kBPStackViewCardTitleHeight = 50;
 
 - (void)didBecomeInactive {
     [_stackView.delegate stackViewDidCollapse:_stackView];
+
+    [self changeSelectedCardFocus:NO];
+}
+
+- (void)didBecomeActive {
+    [self changeSelectedCardFocus:YES];
+}
+
+- (void)changeSelectedCardFocus:(BOOL)focused {
+    if ([self.selectedCard conformsToProtocol:@protocol(BPStackViewCardProtocol)]) {
+        UIView <BPStackViewCardProtocol> *castCardView = (UIView <BPStackViewCardProtocol> *) self.selectedCard;
+        [castCardView setFocused:focused];
+    }
 }
 
 - (void)layoutCards:(NSArray<UIView *> *)cards {
@@ -325,21 +352,21 @@ NSInteger const kBPStackViewCardTitleHeight = 50;
         };
 
         CGRect frame = CGRectMake(
-                _layoutContext.edgeInsets.left,
-                isSelectedCard ? _layoutContext.edgeInsets.top + dumpingFunction(_drag / 100.0f) * 100.0f : _stackView.bounds.size.height - _layoutContext.lookAhead * (i + 1) * 0.2f,
-                _layoutContext.cardSize.width,
-                _layoutContext.cardSize.height);
+            _layoutContext.edgeInsets.left,
+            isSelectedCard ? _layoutContext.edgeInsets.top + dumpingFunction(_drag / 100.0f) * 100.0f : _stackView.bounds.size.height - _layoutContext.lookAhead * (i + 1) * 0.2f,
+            _layoutContext.cardSize.width,
+            _layoutContext.cardSize.height);
 
         card.frame = frame;
     }
 }
 
 - (void)didTapCardView:(UIView *)cardView recognizer:(UITapGestureRecognizer *)recognizer {
-    if (recognizer.state != UIGestureRecognizerStateRecognized){
+    if (recognizer.state != UIGestureRecognizerStateRecognized) {
         return;
     }
 
-    if (cardView != _selectedCard){
+    if (cardView != _selectedCard) {
         [_stackView setCurrentLayout:[BPStackViewLayoutLayoutCollapsed new]
                             animated:YES
                      completionBlock:nil];
@@ -380,6 +407,11 @@ NSInteger const kBPStackViewCardTitleHeight = 50;
 
 }
 
+- (void)didBecomeActive {
+
+}
+
+
 - (void)layoutCards:(NSArray<UIView *> *)cards {
     for (NSUInteger i = 0; i < cards.count; ++i) {
         UIView *card = cards[i];
@@ -387,10 +419,10 @@ NSInteger const kBPStackViewCardTitleHeight = 50;
         BOOL isSelectedCard = card == _selectedCard;
 
         CGRect frame = CGRectMake(
-                _layoutContext.edgeInsets.left,
-                _stackView.bounds.size.height - _layoutContext.edgeInsets.bottom - _layoutContext.lookAhead * (i + 1),
-                _layoutContext.cardSize.width,
-                _layoutContext.cardSize.height);
+            _layoutContext.edgeInsets.left,
+            _stackView.bounds.size.height - _layoutContext.edgeInsets.bottom - _layoutContext.lookAhead * (i + 1),
+            _layoutContext.cardSize.width,
+            _layoutContext.cardSize.height);
 
         if (isSelectedCard) {
             CGPoint offset = [_panGestureRecognizer translationInView:_stackView];
