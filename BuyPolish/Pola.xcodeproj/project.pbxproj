@@ -143,7 +143,6 @@
 		37B643AFD35745CD11E280DC /* BPWebAboutRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPWebAboutRow.m; sourceTree = "<group>"; };
 		37B643CE26D1B8399F9EBE5B /* BPObjectionModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPObjectionModule.h; sourceTree = "<group>"; };
 		37B643DBDB2C8991C34FBB86 /* BPWebAboutRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPWebAboutRow.h; sourceTree = "<group>"; };
-		37B643FD7011C01F1397F84E /* BPCompany.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPCompany.h; sourceTree = "<group>"; };
 		37B64436419438CB2D3553FF /* UILabel+BPAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+BPAdditions.h"; sourceTree = "<group>"; };
 		37B644631C60E8DE444885DD /* NSString+BPUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+BPUtilities.m"; sourceTree = "<group>"; };
 		37B6447A00A8F15D1A078AF7 /* BPReportProblemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPReportProblemViewController.h; sourceTree = "<group>"; };
