@@ -23,10 +23,15 @@ int const CARD_CONTENT_NOTES_MARGIN = 4;
 @property(nonatomic, readonly) BPCheckRow *rndCheckRow;
 @property(nonatomic, readonly) BPCheckRow *workersCheckRow;
 @property(nonatomic, readonly) UILabel *altTextLabel;
+@property(nonatomic, readonly) NSDictionary *typeToViewsDictionary;
+@property(nonatomic, readonly) NSArray *allSubviews;
 
 @end
 
-@implementation BPCompanyContentView
+@implementation BPCompanyContentView {
+    NSDictionary *_typeToViewsDictionary;
+    NSArray *_allSubviews;
+}
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -154,11 +159,15 @@ int const CARD_CONTENT_NOTES_MARGIN = 4;
 - (void)setContentType:(CompanyContentType)type {
     _contentType = type;
 
-    static NSDictionary *typeToViewsDictionary = nil;
-    static NSArray *allSubviews = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        typeToViewsDictionary = @{
+    NSArray *visibleViews = self.typeToViewsDictionary[@(type)];
+    for (UIView *subview in self.allSubviews) { //you cannot user self.subviews because you will hide internal UIScrollView views
+        subview.hidden = ![visibleViews containsObject:subview];
+    }
+}
+
+- (NSDictionary *)typeToViewsDictionary {
+    if (_typeToViewsDictionary == nil) {
+        _typeToViewsDictionary = @{
             @(CompanyContentTypeDefault) : @[
                 self.capitalTitleLabel,
                 self.capitalProgressView,
@@ -174,7 +183,13 @@ int const CARD_CONTENT_NOTES_MARGIN = 4;
                 self.altTextLabel
             ]
         };
-        allSubviews = @[
+    }
+    return _typeToViewsDictionary;
+}
+
+- (NSArray *)allSubviews {
+    if(_allSubviews == nil) {
+        _allSubviews = @[
             self.capitalTitleLabel,
             self.capitalProgressView,
             self.capitalNotesLabel,
@@ -184,13 +199,10 @@ int const CARD_CONTENT_NOTES_MARGIN = 4;
             self.workersCheckRow,
             self.altTextLabel,
         ];
-    });
-
-    NSArray *visibleViews = typeToViewsDictionary[@(type)];
-    for (UIView *subview in allSubviews) { //you cannot user self.subviews because you will hide internal UIScrollView views
-        subview.hidden = ![visibleViews containsObject:subview];
     }
+    return _allSubviews;
 }
+
 
 - (void)setCapitalPercent:(NSNumber *)capitalPercent notes:(NSString *)notes {
     self.capitalProgressView.progress = capitalPercent;
@@ -238,7 +250,6 @@ int const CARD_CONTENT_NOTES_MARGIN = 4;
         self.capitalProgressView.percentColor = [BPTheme defaultTextColor];
     }
 }
-
 
 
 @end

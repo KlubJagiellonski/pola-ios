@@ -14,7 +14,7 @@
 @class BPSecondaryProgressView;
 @class BPCheckRow;
 
-@protocol BPProductCardViewDelegate <NSObject>
+@protocol BPCompanyCardViewDelegate <NSObject>
 
 - (void)didTapReportProblem:(BPCompanyCardView *)productCardView;
 
@@ -24,7 +24,7 @@
 
 @property(nonatomic) CGFloat titleHeight;
 
-@property(nonatomic, weak) id <BPProductCardViewDelegate> delegate;
+@property(nonatomic, weak) id <BPCompanyCardViewDelegate> delegate;
 
 - (void)setContentType:(CompanyContentType)contentType;
 
