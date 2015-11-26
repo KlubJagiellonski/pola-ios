@@ -75,25 +75,12 @@ NSString *const BPAPIAccessorAPIDeviceId = @"device_id";
     return [self performRequest:request error:error];
 }
 
-- (BPAPIResponse *)putAmazonMultipart:(NSString *)url fileName:(NSString *)filename data:(NSData *)data error:(NSError **)error {
+- (BPAPIResponse *)putAmazonMultipart:(NSString *)url data:(NSData *)data error:(NSError **)error {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[[NSURL alloc] initWithString:url]];
     [request addValue:@"public-read" forHTTPHeaderField:@"x-amz-acl"];
     [request addValue:@"image/png" forHTTPHeaderField:@"Content-Type"];
     [request setHTTPMethod:@"PUT"];
-
-    NSString *boundary = @"---------------------------14737809831466499882746641449";
-    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
-    [request addValue:contentType forHTTPHeaderField:@"Content-Type"];
-
-    NSMutableData *body = [NSMutableData data];
-
-    [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@.png\"\r\n", filename, filename] dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[@"Content-Type: application/octet-stream\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-    [body appendData:[NSData dataWithData:data]];
-    [body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-
-    [request setHTTPBody:body];
+    [request setHTTPBody:[NSData dataWithData:data]];
 
     return [self performRequest:request defaultConfiguration:NO error:error];
 }
@@ -115,7 +102,7 @@ NSString *const BPAPIAccessorAPIDeviceId = @"device_id";
     [operation waitUntilFinished];
 
     id responseObject = nil;
-    if (operation.responseData != nil) {
+    if (operation.responseData != nil && operation.responseData.length > 0) {
         responseObject = [NSJSONSerialization JSONObjectWithData:operation.responseData options:0 error:error];
     }
     BPAPIResponse *response = [BPAPIResponse responseWithOperation:operation responseObject:responseObject];

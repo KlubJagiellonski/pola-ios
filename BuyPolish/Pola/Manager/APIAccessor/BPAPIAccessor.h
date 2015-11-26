@@ -12,6 +12,6 @@
 
 - (BPAPIResponse *)post:(NSString *)apiFunction body:(NSData *)body parameters:(NSDictionary *)parameters error:(NSError **)error;
 
-- (BPAPIResponse *)putAmazonMultipart:(NSString *)apiFunction fileName:(NSString *)filename data:(NSData *)data error:(NSError **)error;
+- (BPAPIResponse *)putAmazonMultipart:(NSString *)apiFunction data:(NSData *)data error:(NSError **)error;
 
 @end

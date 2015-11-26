@@ -74,7 +74,7 @@ objection_requires_sel(@selector(taskRunner), @selector(apiAccessor))
         strongify()
 
         NSString *imagePath = imagePathArray[index];
-        NSString *requestUrl = signedRequestArray[index];
+        NSString *requestUrl = signedRequestArray[index][0];
         [strongSelf sendImageAtPath:imagePath forUrl:requestUrl forReportId:reportId completion:^(NSError *error) {
             if (error) {
                 completion(index, error);
@@ -100,7 +100,7 @@ objection_requires_sel(@selector(taskRunner), @selector(apiAccessor))
     void (^block)() = ^{
         strongify()
 
-        [strongSelf.apiAccessor addImageAtPath:imageAtPath forUrl:requestUrl forReportId:reportId error:&error];
+        [strongSelf.apiAccessor addImageAtPath:imageAtPath forUrl:requestUrl error:&error];
 
         if (error) {
             BPLog(@"Error while adding image : %@ %@ %@", imageAtPath, reportId, error.localizedDescription);

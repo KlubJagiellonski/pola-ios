@@ -9,7 +9,7 @@
 
 @implementation BPAPIAccessor (BPReport)
 
-- (NSDictionary *)addReportWithDescription:(NSString *)description productId:(NSNumber *)productId filesCount:(int)filesCount error:(NSError **)error {
+- (NSDictionary *)addReportWithDescription:(NSString *)description productId:(NSNumber *)productId filesCount:(NSUInteger)filesCount error:(NSError **)error {
     NSMutableDictionary *jsonBody = [NSMutableDictionary dictionary];
     jsonBody[@"description"] = description;
     if(productId) {
@@ -23,9 +23,9 @@
     return result;
 }
 
-- (NSDictionary *)addImageAtPath:(NSString *)imageAtPath forUrl:(NSString*) requestUrl forReportId:(NSNumber *)reportId error:(NSError **)error {
+- (NSDictionary *)addImageAtPath:(NSString *)imageAtPath forUrl:(NSString *)requestUrl error:(NSError **)error {
     NSData *data = [NSData dataWithContentsOfFile:imageAtPath];
-    BPAPIResponse *response = [self putAmazonMultipart:requestUrl fileName:@"file" data:data error:error];
+    BPAPIResponse *response = [self putAmazonMultipart:requestUrl data:data error:error];
     NSDictionary *result = response.responseObject;
     return result;
 }
