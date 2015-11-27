@@ -129,11 +129,20 @@ objection_requires_sel(@selector(productImageManager), @selector(reportManager),
 #pragma mark - BPImageContainerViewDelegate
 
 - (void)didTapAddImage:(BPImageContainerView *)imageContainerView {
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil
-                                                       delegate:self
-                                              cancelButtonTitle:NSLocalizedString(@"Cancel", @"Cancel")
-                                         destructiveButtonTitle:nil
-                                              otherButtonTitles:NSLocalizedString(@"Take a photo", @"Take a photo"), NSLocalizedString(@"Choose from library", @"Choose from library"), nil];
+    UIActionSheet *sheet;
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        sheet = [[UIActionSheet alloc] initWithTitle:nil
+                                            delegate:self
+                                   cancelButtonTitle:NSLocalizedString(@"Cancel", @"Cancel")
+                              destructiveButtonTitle:nil
+                                   otherButtonTitles:NSLocalizedString(@"Take a photo", @"Take a photo"), NSLocalizedString(@"Choose from library", @"Choose from library"), nil];
+    } else {
+        sheet = [[UIActionSheet alloc] initWithTitle:nil
+                                            delegate:self
+                                   cancelButtonTitle:NSLocalizedString(@"Cancel", @"Cancel")
+                              destructiveButtonTitle:nil
+                                   otherButtonTitles:NSLocalizedString(@"Choose from library", @"Choose from library"), nil];
+    }
     [sheet showInView:self.view];
 }
 
@@ -151,10 +160,16 @@ objection_requires_sel(@selector(productImageManager), @selector(reportManager),
         return;
     }
 
-    if (buttonIndex == [actionSheet firstOtherButtonIndex]) {
-        [self showImagePickerForSourceType:UIImagePickerControllerSourceTypeCamera];
-    } else if (buttonIndex == [actionSheet firstOtherButtonIndex] + 1) {
-        [self showImagePickerForSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        if (buttonIndex == [actionSheet firstOtherButtonIndex]) {
+            [self showImagePickerForSourceType:UIImagePickerControllerSourceTypeCamera];
+        } else if (buttonIndex == [actionSheet firstOtherButtonIndex] + 1) {
+            [self showImagePickerForSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+        }
+    } else {
+        if (buttonIndex == [actionSheet firstOtherButtonIndex]) {
+            [self showImagePickerForSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+        }
     }
 }
 
