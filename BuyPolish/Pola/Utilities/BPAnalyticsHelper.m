@@ -43,7 +43,7 @@
 + (void)reportSent:(NSString *)barcode success:(BOOL)success {
     NSDictionary *attributes = @{
         @"DeviceId" : [BPDeviceHelper deviceId],
-        @"Code" : barcode
+        @"Code" : barcode ?: @"No Code"
     };
 
     [Answers logLevelEnd:@"Report" score:nil success:@(success) customAttributes:attributes];
