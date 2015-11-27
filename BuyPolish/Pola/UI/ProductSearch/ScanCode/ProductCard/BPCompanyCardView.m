@@ -37,7 +37,6 @@ int const CARD_CONTENT_PROGRESS_IN_HEADER = 3;
         self.layer.shadowOpacity = 0.3f;
 
         _loadingProgressView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        [_loadingProgressView startAnimating];
         [_loadingProgressView sizeToFit];
         [self addSubview:_loadingProgressView];
 
@@ -82,7 +81,7 @@ int const CARD_CONTENT_PROGRESS_IN_HEADER = 3;
 - (void)layoutSubviews {
     [super layoutSubviews];
 
-    const int verticalTitleSpace = self.titleHeight - CARD_CONTENT_PROGRESS_IN_HEADER;
+    const int verticalTitleSpace = (const int) (self.titleHeight - CARD_CONTENT_PROGRESS_IN_HEADER);
     const int widthWithPadding = (const int) (CGRectGetWidth(self.bounds) - 2 * CARD_PADDING);
 
     CGRect rect = self.titleLabel.frame;
@@ -133,11 +132,15 @@ int const CARD_CONTENT_PROGRESS_IN_HEADER = 3;
 - (void)setContentType:(CompanyContentType)contentType {
     [self.contentView setContentType:contentType];
 
-    BOOL subviewsHidden = contentType == CompanyContentTypeLoading;
-    self.reportProblemButton.hidden = subviewsHidden;
-    self.reportInfoLabel.hidden = subviewsHidden;
-    self.separatorView.hidden = subviewsHidden;
-    self.loadingProgressView.hidden = !subviewsHidden;
+    BOOL loading = contentType == CompanyContentTypeLoading;
+    self.reportProblemButton.hidden = loading;
+    self.reportInfoLabel.hidden = loading;
+    self.separatorView.hidden = loading;
+    if (loading) {
+        [self.loadingProgressView startAnimating];
+    } else {
+        [self.loadingProgressView stopAnimating];
+    }
 }
 
 - (void)setTitleText:(NSString *)titleText {
