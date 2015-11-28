@@ -78,6 +78,7 @@ int const CARD_CONTENT_NOTES_MARGIN = 4;
         _altTextLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _altTextLabel.font = [BPTheme normalFont];
         _altTextLabel.textColor = [BPTheme defaultTextColor];
+        _altTextLabel.numberOfLines = 0;
         [self addSubview:_altTextLabel];
     }
     return self;
@@ -150,7 +151,7 @@ int const CARD_CONTENT_NOTES_MARGIN = 4;
     rect.size.width = widthWithPadding;
     rect.size.height = [self.altTextLabel heightForWidth:CGRectGetWidth(rect)];
     rect.origin.x = self.padding;
-    rect.origin.y = CGRectGetHeight(self.bounds) / 2 - CGRectGetHeight(rect) / 2;
+    rect.origin.y = CARD_CONTENT_VERTICAL_PADDING;
     self.altTextLabel.frame = rect;
 
     return (int) CGRectGetMaxY(self.altTextLabel.frame);

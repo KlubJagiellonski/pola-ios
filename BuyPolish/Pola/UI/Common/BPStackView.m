@@ -183,7 +183,7 @@ NSInteger const kBPStackViewCardTitleHeight = 50;
     weakify();
     void (^completionBlockWrapper)() = ^() {
         strongify();
-        if(changingLayout) {
+        if (changingLayout) {
             [oldLayout didBecomeInactive];
             [strongSelf.currentLayout didBecomeActive];
         }
@@ -366,11 +366,9 @@ NSInteger const kBPStackViewCardTitleHeight = 50;
         return;
     }
 
-    if (cardView != _selectedCard) {
-        [_stackView setCurrentLayout:[BPStackViewLayoutLayoutCollapsed new]
-                            animated:YES
-                     completionBlock:nil];
-    }
+    [_stackView setCurrentLayout:[BPStackViewLayoutLayoutCollapsed new]
+                        animated:YES
+                 completionBlock:nil];
 }
 
 - (void)didPanCardView:(UIView *)cardView recognizer:(UIPanGestureRecognizer *)recognizer {
