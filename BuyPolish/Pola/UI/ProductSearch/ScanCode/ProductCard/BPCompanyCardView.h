@@ -32,15 +32,15 @@
 
 - (void)setMainPercent:(CGFloat)mainPercent;
 
-- (void)setCapitalPercent:(NSNumber *)capitalPercent notes:(NSString *)notes;
+- (void)setCapitalPercent:(NSNumber *)capitalPercent;
 
-- (void)setWorkers:(NSNumber *)workers notes:(NSString *)notes;
+- (void)setWorkers:(NSNumber *)workers;
 
-- (void)setRnd:(NSNumber *)rnd notes:(NSString *)notes;
+- (void)setRnd:(NSNumber *)rnd;
 
-- (void)setRegistered:(NSNumber *)registered notes:(NSString *)notes;
+- (void)setRegistered:(NSNumber *)registered;
 
-- (void)setNotGlobal:(NSNumber *)notGlobal notes:(NSString *)notes;
+- (void)setNotGlobal:(NSNumber *)notGlobal;
 
 - (void)setCardType:(CardType)type;
 
@@ -49,6 +49,8 @@
 - (void)setReportButtonText:(NSString *)text;
 
 - (void)setReportText:(NSString *)text;
+
+- (void)setDescr:(NSString *)description;
 
 - (void)setAltText:(NSString *)altText;
 

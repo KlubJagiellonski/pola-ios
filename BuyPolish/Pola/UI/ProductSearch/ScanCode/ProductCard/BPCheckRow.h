@@ -10,6 +10,6 @@
 
 - (void)setText:(NSString *)text;
 
-- (void)configure:(NSNumber *)checked notes:(NSString *)notes;
+- (void)setChecked:(NSNumber *)checked;
 
 @end

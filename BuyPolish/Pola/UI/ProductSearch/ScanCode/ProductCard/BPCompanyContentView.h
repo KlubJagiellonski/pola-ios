@@ -18,17 +18,19 @@ typedef enum {
 
 @property(nonatomic) CompanyContentType contentType;
 
-- (void)setCapitalPercent:(NSNumber *)capitalPercent notes:(NSString *)notes;
+- (void)setCapitalPercent:(NSNumber *)capitalPercent;
 
-- (void)setWorkers:(NSNumber *)workers notes:(NSString *)notes;
+- (void)setWorkers:(NSNumber *)workers;
 
-- (void)setRnd:(NSNumber *)rnd notes:(NSString *)notes;
+- (void)setRnd:(NSNumber *)rnd;
 
-- (void)setRegistered:(NSNumber *)registered notes:(NSString *)notes;
+- (void)setRegistered:(NSNumber *)registered;
 
-- (void)setNotGlobal:(NSNumber *)notGlobal notes:(NSString *)notes;
+- (void)setNotGlobal:(NSNumber *)notGlobal;
 
 - (void)setAltText:(NSString *)simpleText;
+
+- (void)setDescr:(NSString *)description;
 
 - (void)setCardType:(CardType)type;
 @end

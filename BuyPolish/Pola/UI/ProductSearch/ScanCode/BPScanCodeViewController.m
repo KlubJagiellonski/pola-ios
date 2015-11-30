@@ -102,11 +102,12 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
         if (productResult.plScore) {
             [cardView setMainPercent:productResult.plScore.intValue / 100.f];
         }
-        [cardView setCapitalPercent:productResult.plCapital notes:productResult.plCapitalNotes];
-        [cardView setNotGlobal:productResult.plNotGlobEnt notes:productResult.plNotGlobEntNotes];
-        [cardView setWorkers:productResult.plWorkers notes:productResult.plWorkersNotes];
-        [cardView setRegistered:productResult.plRegistered notes:productResult.plRegisteredNotes];
-        [cardView setRnd:productResult.plRnD notes:productResult.plRnDNotes];
+        [cardView setCapitalPercent:productResult.plCapital];
+        [cardView setNotGlobal:productResult.plNotGlobEnt];
+        [cardView setWorkers:productResult.plWorkers];
+        [cardView setRegistered:productResult.plRegistered];
+        [cardView setRnd:productResult.plRnD];
+        [cardView setDescr:productResult.descr];
     } else {
         [cardView setContentType:CompanyContentTypeAlt];
         [cardView setAltText:productResult.altText];
@@ -117,7 +118,6 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     [cardView setReportButtonText:productResult.reportButtonText];
     [cardView setReportText:productResult.reportText];
     [cardView setTitleText:productResult.name];
-    [cardView setNeedsLayout];
 }
 
 - (void)showReportProblem:(NSString *)barcode productId:(NSNumber *)productId {

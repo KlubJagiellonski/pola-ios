@@ -154,24 +154,28 @@ int const CARD_CONTENT_PROGRESS_IN_HEADER = 3;
     [self.mainProgressView setNeedsLayout];
 }
 
-- (void)setCapitalPercent:(NSNumber *)capitalPercent notes:(NSString *)notes {
-    [self.contentView setCapitalPercent:capitalPercent notes:notes];
+- (void)setCapitalPercent:(NSNumber *)capitalPercent {
+    [self.contentView setCapitalPercent:capitalPercent];
 }
 
-- (void)setWorkers:(NSNumber *)workers notes:(NSString *)notes {
-    [self.contentView setWorkers:workers notes:notes];
+- (void)setWorkers:(NSNumber *)workers {
+    [self.contentView setWorkers:workers];
 }
 
-- (void)setRnd:(NSNumber *)rnd notes:(NSString *)notes {
-    [self.contentView setRnd:rnd notes:notes];
+- (void)setRnd:(NSNumber *)rnd {
+    [self.contentView setRnd:rnd];
 }
 
-- (void)setRegistered:(NSNumber *)registered notes:(NSString *)notes {
-    [self.contentView setRegistered:registered notes:notes];
+- (void)setRegistered:(NSNumber *)registered {
+    [self.contentView setRegistered:registered];
 }
 
-- (void)setNotGlobal:(NSNumber *)notGlobal notes:(NSString *)notes {
-    [self.contentView setNotGlobal:notGlobal notes:notes];
+- (void)setNotGlobal:(NSNumber *)notGlobal {
+    [self.contentView setNotGlobal:notGlobal];
+}
+
+- (void)setDescr:(NSString *)description {
+    [self.contentView setDescr:description];
 }
 
 - (void)setAltText:(NSString *)altText {
