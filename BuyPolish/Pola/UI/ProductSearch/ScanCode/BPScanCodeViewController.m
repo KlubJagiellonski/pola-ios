@@ -88,7 +88,9 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
             [self fillCard:cardView withData:productResult];
         } else {
             self.lastBardcodeScanned = nil;
-            [UIAlertView showErrorAlert:NSLocalizedString(@"Cannot fetch product info from server. Please try again.", @"")];
+            self.addingCardEnabled = NO;
+            UIAlertView *alertView = [UIAlertView showErrorAlert:NSLocalizedString(@"Cannot fetch product info from server. Please try again.", @"")];
+            alertView.delegate = self;
             [self.castView.stackView removeCard:cardView];
         }
     }                               completionQueue:[NSOperationQueue mainQueue]];
