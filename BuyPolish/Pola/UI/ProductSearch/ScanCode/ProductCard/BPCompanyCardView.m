@@ -12,7 +12,7 @@ NSInteger const CARD_PADDING = 10;
 int const CARD_SEPARATOR_HEIGHT = 1;
 int const CARD_REPORT_MARGIN = 14;
 int const CARD_REPORT_BUTTON_HEIGHT = 30;
-int const CARD_CONTENT_PROGRESS_IN_HEADER = 3;
+int const CARD_CONTENT_PROGRESS_IN_HEADER = 6;
 
 @interface BPCompanyCardView ()
 @property(nonatomic, readonly) UILabel *titleLabel;
@@ -33,8 +33,8 @@ int const CARD_CONTENT_PROGRESS_IN_HEADER = 3;
 
         self.layer.cornerRadius = 8.0f;
         self.layer.masksToBounds = NO;
-        self.layer.shadowRadius = 2.f;
-        self.layer.shadowOpacity = 0.3f;
+        self.layer.shadowRadius = 1.f;
+        self.layer.shadowOpacity = 0.2f;
 
         _loadingProgressView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         [_loadingProgressView sizeToFit];

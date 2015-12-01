@@ -73,7 +73,7 @@ NSInteger const kBPStackViewCardTitleHeight = 50;
     if (self) {
         _cards = [NSMutableArray array];
         _layoutContext = [BPStackViewLayoutContext new];
-        _layoutContext.edgeInsets = UIEdgeInsetsMake([UIApplication statusBarHeight] + kBPStackViewCardMargin, kBPStackViewCardMargin, kBPStackViewCardMargin, kBPStackViewCardMargin);
+        _layoutContext.edgeInsets = UIEdgeInsetsMake([UIApplication statusBarHeight] + kBPStackViewCardMargin, kBPStackViewCardMargin, 0, kBPStackViewCardMargin);
         _layoutContext.lookAhead = kBPStackViewCardTitleHeight;
         _layoutContext.cardCountLimit = kBPStackViewDefaultCardCountLimit;
 
