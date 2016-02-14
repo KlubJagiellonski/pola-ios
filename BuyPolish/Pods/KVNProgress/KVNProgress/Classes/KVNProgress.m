@@ -76,6 +76,7 @@ static KVNProgressConfiguration *configuration;
 @property (nonatomic, strong) CAShapeLayer *crossLayer;
 @property (nonatomic, strong) CAShapeLayer *circleProgressLineLayer;
 @property (nonatomic, strong) CAShapeLayer *circleBackgroundLineLayer;
+@property (nonatomic, strong) CAShapeLayer *stopLayer;
 
 @property (nonatomic) UIStatusBarStyle rootControllerStatusBarStyle;
 
@@ -153,6 +154,7 @@ static KVNProgressConfiguration *configuration;
 - (void)applicationDidBecomeActive
 {
 	if (self.state == KVNProgressStateShowed
+		&& self.style == KVNProgressStyleProgress
 		&& self.progress == KVNProgressIndeterminate) {
 		// Re-starts the infinite animation
 		[self animateCircleWithInfiniteLoop];
@@ -392,6 +394,8 @@ static KVNProgressConfiguration *configuration;
 	self.style = style;
 	self.backgroundType = backgroundType;
 	self.fullScreen = fullScreen;
+	
+	self.accessibilityValue = @"displayed";
 
 	// If HUD is already added to the view we just update the UI
 	if ([self.class isVisible]) {
@@ -516,6 +520,7 @@ static KVNProgressConfiguration *configuration;
 		[progressView cancelCircleAnimation];
 		[progressView removeFromSuperview];
 		
+		progressView.accessibilityValue = @"hidden";
 		progressView.style = KVNProgressStyleHidden;
 		
 		UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, nil);
@@ -690,6 +695,8 @@ static KVNProgressConfiguration *configuration;
 {
 	[self setupFullRoundCircleWithColor:self.configuration.successColor];
 	
+    self.stopLayer.opacity = 0.0f;
+
 	UIBezierPath* checkmarkPath = [UIBezierPath bezierPath];
 	[checkmarkPath moveToPoint:CGPointMake(CGRectGetWidth(self.circleProgressView.bounds) * 0.28f, CGRectGetHeight(self.circleProgressView.bounds) * 0.53f)];
 	[checkmarkPath addLineToPoint:CGPointMake(CGRectGetWidth(self.circleProgressView.bounds) * 0.42f, CGRectGetHeight(self.circleProgressView.bounds) * 0.66f)];
@@ -715,6 +722,8 @@ static KVNProgressConfiguration *configuration;
 {
 	[self setupFullRoundCircleWithColor:self.configuration.errorColor];
 	
+    self.stopLayer.opacity = 0.0f;
+
 	UIBezierPath* crossPath = [UIBezierPath bezierPath];
 	[crossPath moveToPoint:CGPointMake(CGRectGetWidth(self.circleProgressView.bounds) * 0.72f, CGRectGetHeight(self.circleProgressView.bounds) * 0.27f)];
 	[crossPath addLineToPoint:CGPointMake(CGRectGetWidth(self.circleProgressView.bounds) * 0.27f, CGRectGetHeight(self.circleProgressView.bounds) * 0.72f)];
@@ -735,6 +744,41 @@ static KVNProgressConfiguration *configuration;
 	[self.circleProgressView.layer removeAllAnimations];
 	[self.crossLayer removeAllAnimations];
 	[self animateError];
+}
+
+- (void)setupStopUI
+{
+	if (![self.configuration doesShowStop]
+		|| !self.configuration.tapBlock
+		|| [configuration doesAllowUserInteraction])
+	{
+		return;
+	}
+	
+	self.stopLayer.opacity = 1.0f;
+	
+	CGFloat squareBegin = 0.5f - (self.configuration.stopRelativeHeight / 2.0f);
+	CGFloat squareEnd = squareBegin + self.configuration.stopRelativeHeight;
+	UIBezierPath* stopPath = [UIBezierPath bezierPath];
+	[stopPath moveToPoint:CGPointMake(CGRectGetWidth(self.circleProgressView.bounds) * squareEnd, CGRectGetHeight(self.circleProgressView.bounds) * squareEnd)];
+	
+	[stopPath addLineToPoint:CGPointMake(CGRectGetWidth(self.circleProgressView.bounds) * squareBegin, CGRectGetHeight(self.circleProgressView.bounds) * squareEnd)];
+	[stopPath addLineToPoint:CGPointMake(CGRectGetWidth(self.circleProgressView.bounds) * squareBegin, CGRectGetHeight(self.circleProgressView.bounds) * squareBegin)];
+	[stopPath addLineToPoint:CGPointMake(CGRectGetWidth(self.circleProgressView.bounds) * squareEnd, CGRectGetHeight(self.circleProgressView.bounds) * squareBegin)];
+	
+	[stopPath closePath];
+	
+	stopPath.lineCapStyle = kCGLineCapSquare;
+	
+	self.stopLayer = [CAShapeLayer layer];
+	self.stopLayer.path = stopPath.CGPath;
+	self.stopLayer.fillColor = self.configuration.stopColor.CGColor;
+	
+	[self.circleProgressView.layer addSublayer:self.circleProgressLineLayer];
+	[self.circleProgressView.layer addSublayer:self.stopLayer];
+	
+	[self.circleProgressLineLayer removeAllAnimations];
+	[self.circleProgressView.layer removeAllAnimations];
 }
 
 - (void)setupFullRoundCircleWithColor:(UIColor *)color
@@ -1026,8 +1070,9 @@ static KVNProgressConfiguration *configuration;
 				[self setupInfiniteCircle];
 			} else {
 				[self setupProgressCircle];
+                [self setupStopUI];
 			}
-			
+            
 			break;
 		}
 		case KVNProgressStyleSuccess: {
@@ -1084,6 +1129,7 @@ static KVNProgressConfiguration *configuration;
 	
 	[self.circleProgressView.layer addAnimation:rotationAnimation
 										 forKey:@"rotationAnimation"];
+
 }
 
 - (void)cancelCircleAnimation
