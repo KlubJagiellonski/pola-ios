@@ -58,4 +58,4 @@ SPEC CHECKSUMS:
   PLVisualAttributeConstraints: 9ab247e576b464335f32587ad6c20adfaf7e6d5d
   UITextView+Placeholder: 672ce543356b5b5787f354415bc3b132d47f0362
 
-COCOAPODS: 0.36.0.beta.1
+COCOAPODS: 0.39.0
