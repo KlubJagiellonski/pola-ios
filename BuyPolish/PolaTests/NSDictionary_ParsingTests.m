@@ -1,11 +1,3 @@
-//
-//  NSDictionary_ParsingTests.m
-//  Pola
-//
-//  Created by Arkadiusz Banaś on 14/02/16.
-//  Copyright © 2016 PJMS. All rights reserved.
-//
-
 #import <XCTest/XCTest.h>
 #import "NSDictionary+Parsing.h"
 

@@ -1,10 +1,3 @@
-//
-//  NSDictionary+Parsing.m
-//  Pola
-//
-//  Created by Arkadiusz Banaś on 14/02/16.
-//  Copyright © 2016 PJMS. All rights reserved.
-//
 
 #import "NSDictionary+Parsing.h"
 
