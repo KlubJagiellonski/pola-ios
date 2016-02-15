@@ -1,10 +1,3 @@
-//
-//  BuyPolishTests.m
-//  BuyPolishTests
-//
-//  Created by Pawel Janeczek on 22.08.2014.
-//  Copyright (c) 2014 PJMS. All rights reserved.
-//
 
 #import <XCTest/XCTest.h>
 

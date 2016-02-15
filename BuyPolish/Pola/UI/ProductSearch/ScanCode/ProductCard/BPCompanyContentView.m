@@ -1,8 +1,3 @@
-//
-// Created by Paweł on 19/11/15.
-// Copyright (c) 2015 PJMS. All rights reserved.
-//
-
 #import "BPCompanyContentView.h"
 #import "BPSecondaryProgressView.h"
 #import "BPCheckRow.h"
