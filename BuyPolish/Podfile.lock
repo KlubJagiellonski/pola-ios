@@ -31,10 +31,10 @@ PODS:
     - Fabric/Base (= 1.5.5)
   - Fabric/Base (1.5.5)
   - iOS-Hierarchy-Viewer (1.4.7)
-  - KVNProgress (2.2.1)
+  - KVNProgress (2.2.2)
   - Objection (1.4)
   - PLVisualAttributeConstraints (1.0.1)
-  - UITextView+Placeholder (1.1.0)
+  - UITextView+Placeholder (1.1.1)
 
 DEPENDENCIES:
   - AFNetworking (= 2.3.1)
@@ -53,9 +53,9 @@ SPEC CHECKSUMS:
   Crashlytics: 41c082440d2e14da444186fff65e79c0b4b35d4c
   Fabric: 190bf1a6eb65f7500de1347d027d2e59a7e53db1
   iOS-Hierarchy-Viewer: fb8ef72b55a8915ab0575543970754ea696e9061
-  KVNProgress: 7001d2d16a2755cee5599e8e485befe056f2197b
+  KVNProgress: 4697347e21e37fdaa5264ebc24e377c205a50328
   Objection: aa9875dbf1b121a077f7e13d504a6ed01816a7f1
   PLVisualAttributeConstraints: 9ab247e576b464335f32587ad6c20adfaf7e6d5d
-  UITextView+Placeholder: 672ce543356b5b5787f354415bc3b132d47f0362
+  UITextView+Placeholder: a6fc3e0378f3870036ec562a7537cbf6dbae4bf6
 
-COCOAPODS: 0.36.0.beta.1
+COCOAPODS: 0.39.0
