@@ -12,10 +12,6 @@
     self.sut = [NSDictionary new];
 }
 
-- (void)tearDown {
-    [super tearDown];
-}
-
 #pragma mark - nilOrStringForKey:
 
 - (void)testThatReturnedStringWillBeNilIfThereWillBeNoObject {
