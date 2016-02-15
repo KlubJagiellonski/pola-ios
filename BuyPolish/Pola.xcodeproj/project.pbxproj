@@ -21,7 +21,6 @@
 		1D08E84719A7621A00879BD2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D08E82A19A7621A00879BD2 /* UIKit.framework */; };
 		1D08E84819A7621A00879BD2 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D08E82C19A7621A00879BD2 /* CoreData.framework */; };
 		1D08E85019A7621A00879BD2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1D08E84E19A7621A00879BD2 /* InfoPlist.strings */; };
-		1D08E85219A7621A00879BD2 /* PolaTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D08E85119A7621A00879BD2 /* PolaTests.m */; };
 		1D648C131A71B483002B413D /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D648C111A71B483002B413D /* Crashlytics.framework */; };
 		1D648C141A71B483002B413D /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D648C121A71B483002B413D /* Fabric.framework */; };
 		1DEFA1BB1BD9920600938C81 /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1DEFA1B81BD9920600938C81 /* Lato-Light.ttf */; };
@@ -109,7 +108,6 @@
 		1D08E84319A7621A00879BD2 /* PolaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PolaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D08E84419A7621A00879BD2 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		1D08E84D19A7621A00879BD2 /* PolaTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PolaTests-Info.plist"; sourceTree = "<group>"; };
-		1D08E85119A7621A00879BD2 /* PolaTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PolaTests.m; sourceTree = "<group>"; };
 		1D648C111A71B483002B413D /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		1D648C121A71B483002B413D /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		1DEFA1B81BD9920600938C81 /* Lato-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Light.ttf"; sourceTree = "<group>"; };
@@ -320,7 +318,6 @@
 			isa = PBXGroup;
 			children = (
 				374B5B891C71C14100E74BBB /* NSDictionary_ParsingTests.m */,
-				1D08E85119A7621A00879BD2 /* PolaTests.m */,
 				1D08E84C19A7621A00879BD2 /* Supporting Files */,
 			);
 			path = PolaTests;
@@ -823,7 +820,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1D08E85219A7621A00879BD2 /* PolaTests.m in Sources */,
 				374B5B8A1C71C14100E74BBB /* NSDictionary_ParsingTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

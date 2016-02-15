@@ -7,7 +7,5 @@
 
 @interface BPUtilities : NSObject
 
-+ (id)handleNull:(id)object;
-
 + (UIImage *)imageWithColor:(UIColor *)color;
 @end
