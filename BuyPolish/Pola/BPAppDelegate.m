@@ -3,6 +3,7 @@
 #import "JSObjection.h"
 #import "BPObjectionModule.h"
 #import "BPRootViewController.h"
+#import "BPTheme.h"
 #import "iOSHierarchyViewer.h"
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
@@ -15,6 +16,8 @@
     [Fabric with:@[CrashlyticsKit]];
 
     [self configureObjection];
+
+    [self applyAppearance];
 
     JSObjectionInjector *injector = [JSObjection defaultInjector];
 
@@ -30,6 +33,12 @@
         [BPObjectionModule new],
     ]];
     [JSObjection setDefaultInjector:defaultInjector];
+}
+
+- (void)applyAppearance {
+    [[UINavigationBar appearance] setBarTintColor:[BPTheme mediumBackgroundColor]];
+    [[UINavigationBar appearance] setTintColor:[UIColor blackColor]];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSFontAttributeName: [BPTheme titleFont]}];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
