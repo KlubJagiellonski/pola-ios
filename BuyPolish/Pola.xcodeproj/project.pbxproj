@@ -987,7 +987,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "PolaTests/PolaTests-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.pjms.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.kj.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -1006,7 +1006,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Pola/Pola-Prefix.pch";
 				INFOPLIST_FILE = "PolaTests/PolaTests-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.pjms.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.kj.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
