@@ -22,19 +22,11 @@
 }
 
 - (CardType)parseCardType:(NSString *)cardType {
-    if([cardType isEqualToString:@"type_grey"]) {
-        return CardTypeGrey;
-    } else {
-        return CardTypeWhite;
-    }
+    return [cardType isEqualToString:@"type_grey"] ? CardTypeGrey : CardTypeWhite;
 }
 
 - (ReportButtonType)parseReportButtonType:(NSString *)reportButtonType {
-    if([reportButtonType isEqualToString:@"type_white"]) {
-        return ReportButtonTypeWhite;
-    } else {
-        return ReportButtonTypeRed;
-    }
+    return [reportButtonType isEqualToString:@"type_white"] ? ReportButtonTypeWhite : ReportButtonTypeRed;
 }
 
 @end
