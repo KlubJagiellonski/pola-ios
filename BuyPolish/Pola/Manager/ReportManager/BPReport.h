@@ -4,7 +4,7 @@
 @interface BPReport : NSObject
 
 @property(nonatomic, readonly) NSNumber *productId;
-@property(nonatomic, readonly) NSString *desc;
+@property(nonatomic, readonly, copy) NSString *desc;
 @property(nonatomic, strong, readonly) NSArray *imagePathArray;
 @property(nonatomic, strong) NSNumber *id;
 
