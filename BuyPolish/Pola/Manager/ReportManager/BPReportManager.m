@@ -35,7 +35,7 @@ objection_requires_sel(@selector(taskRunner), @selector(apiAccessor))
             return;
         }
         NSNumber *reportId = result[@"id"];
-        report.id = reportId;
+        report.reportId = reportId;
 
         NSArray *signedRequestArray = result[@"signed_requests"];
 
