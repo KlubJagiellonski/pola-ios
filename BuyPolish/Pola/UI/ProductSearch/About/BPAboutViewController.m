@@ -147,7 +147,7 @@ CGFloat const CELL_HEIGHT = 49;
     NSString *const identifier = @"identifier";
     BPAboutViewControllerCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
-        cell = [[BPAboutViewControllerCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        cell = [[BPAboutViewControllerCell alloc] initWithReuseIdentifier:identifier];
     }
 
     BPAboutRow *infoRow = self.rowList[(NSUInteger) indexPath.row];

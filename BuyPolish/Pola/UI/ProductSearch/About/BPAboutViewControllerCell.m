@@ -11,9 +11,9 @@ CGFloat const LABEL_X_OFFSET = 20.0f;
 
 @implementation BPAboutViewControllerCell
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+- (id)initWithReuseIdentifier:(NSString *)reuseIdentifier
 {
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
     if (self) {
         // Configure and insert whiteBackgroundView
         _whiteBackgroundView = [UIView new];

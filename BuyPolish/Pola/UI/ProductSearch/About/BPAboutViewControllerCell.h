@@ -2,4 +2,6 @@
 
 @interface BPAboutViewControllerCell : UITableViewCell
 
+- (id)initWithReuseIdentifier:(NSString *)reuseIdentifier;
+
 @end
