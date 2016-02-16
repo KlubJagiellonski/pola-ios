@@ -12,7 +12,7 @@
 
 @interface BPKeyboardManager : NSObject
 
-@property(nonatomic, weak) id <BPKeyboardManagerDelegate> delegate;
+@property(weak, nonatomic) id <BPKeyboardManagerDelegate> delegate;
 
 - (void)turnOn;
 

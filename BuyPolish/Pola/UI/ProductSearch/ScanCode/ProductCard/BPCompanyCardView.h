@@ -19,7 +19,7 @@
 
 @property(nonatomic) CGFloat titleHeight;
 
-@property(nonatomic, weak) id <BPCompanyCardViewDelegate> delegate;
+@property(weak, nonatomic) id <BPCompanyCardViewDelegate> delegate;
 
 - (void)setContentType:(CompanyContentType)contentType;
 

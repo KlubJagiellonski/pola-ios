@@ -7,7 +7,7 @@
 
 @property(nonatomic, readonly) BPStackView *stackView;
 
-@property(nonatomic, strong) AVCaptureVideoPreviewLayer *videoLayer;
+@property(nonatomic) AVCaptureVideoPreviewLayer *videoLayer;
 
 @property(nonatomic, readonly) UIButton *menuButton;
 

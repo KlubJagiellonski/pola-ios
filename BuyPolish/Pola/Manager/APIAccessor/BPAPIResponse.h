@@ -7,8 +7,8 @@
 @interface BPAPIResponse : NSObject
 
 @property(nonatomic, readonly) id responseObject;
-@property(nonatomic, readonly) NSDictionary *headerFields;
-@property(nonatomic, readonly, copy) NSString *responseString;
+@property(copy, nonatomic, readonly) NSDictionary *headerFields;
+@property(copy, nonatomic, readonly) NSString *responseString;
 @property(nonatomic, readonly) NSUInteger length;
 @property(nonatomic, readonly) NSInteger statusCode;
 

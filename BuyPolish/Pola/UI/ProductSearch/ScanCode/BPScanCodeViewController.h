@@ -18,6 +18,6 @@
 
 @interface BPScanCodeViewController : UIViewController <AVCaptureMetadataOutputObjectsDelegate, UIAlertViewDelegate, BPStackViewDelegate, BPCameraSessionManagerDelegate, BPCompanyCardViewDelegate, BPReportProblemViewControllerDelegate, BPInfoNavigationControllerDelegate>
 
-@property(nonatomic, weak) id <BPScanCodeViewControllerDelegate> delegate;
+@property(weak, nonatomic) id <BPScanCodeViewControllerDelegate> delegate;
 
 @end

@@ -13,11 +13,11 @@
 
 @interface BPReportProblemViewController : UIViewController <BPImageContainerViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, BPKeyboardManagerDelegate>
 
-@property(nonatomic, weak) id <BPReportProblemViewControllerDelegate> delegate;
+@property(weak, nonatomic) id <BPReportProblemViewControllerDelegate> delegate;
 
 @property(nonatomic, readonly) NSNumber *productId;
 
-@property(nonatomic, readonly, copy) NSString *barcode;
+@property(copy, nonatomic, readonly) NSString *barcode;
 
 - (instancetype)initWithProductId:(NSNumber *)productId barcode:(NSString *)barcode;
 

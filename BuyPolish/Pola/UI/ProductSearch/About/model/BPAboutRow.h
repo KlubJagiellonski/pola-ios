@@ -3,7 +3,7 @@
 
 @interface BPAboutRow : NSObject
 
-@property(nonatomic, copy) NSString *title;
+@property(copy, nonatomic) NSString *title;
 @property(nonatomic) SEL action;
 
 - (instancetype)initWithTitle:(NSString *)title action:(SEL)action;

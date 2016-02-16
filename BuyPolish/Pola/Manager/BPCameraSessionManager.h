@@ -14,9 +14,9 @@
 
 @interface BPCameraSessionManager : NSObject <AVCaptureMetadataOutputObjectsDelegate>
 
-@property(nonatomic, strong, readonly) AVCaptureSession *captureSession;
-@property(nonatomic, strong, readonly) AVCaptureVideoPreviewLayer *videoPreviewLayer;
-@property(nonatomic, weak) id <BPCameraSessionManagerDelegate> delegate;
+@property(nonatomic, readonly) AVCaptureSession *captureSession;
+@property(nonatomic, readonly) AVCaptureVideoPreviewLayer *videoPreviewLayer;
+@property(weak, nonatomic) id <BPCameraSessionManagerDelegate> delegate;
 
 - (void)start;
 

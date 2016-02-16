@@ -3,7 +3,7 @@
 
 @interface BPAboutWebViewController : UIViewController <UIWebViewDelegate>
 
-@property (nonatomic, readonly, copy) NSString *url;
+@property (copy, nonatomic, readonly) NSString *url;
 
 - (instancetype)initWithUrl:(NSString *)url title:(NSString *)title;
 

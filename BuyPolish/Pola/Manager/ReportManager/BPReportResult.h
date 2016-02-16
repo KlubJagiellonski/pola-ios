@@ -11,7 +11,7 @@ extern const int REPORT_STATE_FINSIHED;
 @interface BPReportResult : NSObject
 
 @property (nonatomic) int state;
-@property (nonatomic, strong) BPReport *report;
+@property (nonatomic) BPReport *report;
 @property (nonatomic) int imageDownloadedIndex;
 
 - (instancetype)initWithState:(int)state report:(BPReport *)report imageDownloadedIndex:(int)imageDownloadedIndex;

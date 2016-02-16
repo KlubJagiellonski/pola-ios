@@ -14,7 +14,7 @@
 @property(nonatomic) BPReportManager *reportManager;
 @property(nonatomic) BPKeyboardManager *keyboardManager;
 @property(nonatomic) int imageCount;
-@property(nonatomic, strong) UIImagePickerController *imagePickerController;
+@property(nonatomic) UIImagePickerController *imagePickerController;
 @end
 
 @implementation BPReportProblemViewController
