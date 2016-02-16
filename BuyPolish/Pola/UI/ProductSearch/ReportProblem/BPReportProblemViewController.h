@@ -17,7 +17,7 @@
 
 @property(nonatomic, readonly) NSNumber *productId;
 
-@property(nonatomic, readonly) NSString *barcode;
+@property(nonatomic, readonly, copy) NSString *barcode;
 
 - (instancetype)initWithProductId:(NSNumber *)productId barcode:(NSString *)barcode;
 
