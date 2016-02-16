@@ -1,13 +1,18 @@
 #import <Objection/JSObjection.h>
 #import "BPAboutViewController.h"
+#import "BPAboutViewControllerCell.h"
 #import "BPWebAboutRow.h"
 #import "BPAnalyticsHelper.h"
 #import "BPDeviceHelper.h"
+#import "BPTheme.h"
 
 NSString *const ABOUT_APP_STORE_APP_URL = @"itms-apps://itunes.apple.com/app/id1038401148";
 NSString *const ABOUT_FACEBOOK_URL = @"https://www.facebook.com/app.pola";
 NSString *const ABOUT_TWITTER_URL = @"https://twitter.com/pola_app";
 NSString *const ABOUT_MAIL = @"kontakt@pola-app.pl";
+
+CGFloat const TABLE_HEADER_HEIGHT = 16.0f;
+CGFloat const CELL_HEIGHT = 49;
 
 
 @interface BPAboutViewController ()
@@ -20,10 +25,14 @@ NSString *const ABOUT_MAIL = @"kontakt@pola-app.pl";
     [super viewDidLoad];
 
     self.title = NSLocalizedString(@"Info", @"Info");
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Close", @"") style:UIBarButtonItemStyleDone target:self action:@selector(didTapCloseButton:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"CloseIcon"] style:UIBarButtonItemStylePlain target:self action:@selector(didTapCloseButton:)];
 
     _rowList = [self createRowList];
+
+    [self configureTableViewUI];
 }
+
+#pragma - Private
 
 - (NSArray *)createRowList {
     NSMutableArray *rowList = [NSMutableArray array];
@@ -61,6 +70,22 @@ NSString *const ABOUT_MAIL = @"kontakt@pola-app.pl";
     ];
     return rowList;
 }
+
+- (void)configureTableViewUI {
+    // Creation of UIView with 15px height.
+    // It's added to table view as header.
+    UIView *tableViewHeader = [UIView new];
+    tableViewHeader.frame = CGRectMake(0, 0, self.tableView.frame.size.width, TABLE_HEADER_HEIGHT/2);
+    tableViewHeader.backgroundColor = [BPTheme mediumBackgroundColor];
+    self.tableView.tableHeaderView = tableViewHeader;
+
+    // Remove separators
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    // Set background color
+    self.tableView.backgroundColor = [BPTheme mediumBackgroundColor];
+}
+
+#pragma mark - table view actions
 
 - (void)didTapReportError:(BPAboutRow *)row {
     [BPAnalyticsHelper aboutOpened:@"Zgłoś błąd w danych"];
@@ -108,15 +133,21 @@ NSString *const ABOUT_MAIL = @"kontakt@pola-app.pl";
     [self.delegate infoCancelled:self];
 }
 
+#pragma mark - table view datasource
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.rowList.count;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return CELL_HEIGHT;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *const identifier = @"identifier";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    BPAboutViewControllerCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        cell = [[BPAboutViewControllerCell alloc] initWithReuseIdentifier:identifier];
     }
 
     BPAboutRow *infoRow = self.rowList[(NSUInteger) indexPath.row];

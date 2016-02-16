@@ -29,6 +29,7 @@
 		1DEFA1BE1BD9920600938C81 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1DEFA1B91BD9920600938C81 /* Lato-Regular.ttf */; };
 		1DEFA1BF1BD9920600938C81 /* Lato-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1DEFA1BA1BD9920600938C81 /* Lato-Semibold.ttf */; };
 		1DEFA1C01BD9920600938C81 /* Lato-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1DEFA1BA1BD9920600938C81 /* Lato-Semibold.ttf */; };
+		373C24211C71EF760039410C /* BPAboutViewControllerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 373C24201C71EF760039410C /* BPAboutViewControllerCell.m */; };
 		374B5B8A1C71C14100E74BBB /* NSDictionary_ParsingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 374B5B891C71C14100E74BBB /* NSDictionary_ParsingTests.m */; };
 		374B5B8D1C71C15D00E74BBB /* NSDictionary+Parsing.m in Sources */ = {isa = PBXBuildFile; fileRef = 374B5B8C1C71C15D00E74BBB /* NSDictionary+Parsing.m */; };
 		37B6402EAD901CC4D954596B /* BPReportManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B644CFCD087DBE4C190DDC /* BPReportManager.m */; };
@@ -117,6 +118,8 @@
 		1DEFA1C21BD99B8900938C81 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1DEFA1C31BD99B8900938C81 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3113702D8B8D1BEF39F1B926 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		373C241F1C71EF760039410C /* BPAboutViewControllerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPAboutViewControllerCell.h; sourceTree = "<group>"; };
+		373C24201C71EF760039410C /* BPAboutViewControllerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPAboutViewControllerCell.m; sourceTree = "<group>"; };
 		374B5B891C71C14100E74BBB /* NSDictionary_ParsingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDictionary_ParsingTests.m; sourceTree = "<group>"; };
 		374B5B8B1C71C15D00E74BBB /* NSDictionary+Parsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+Parsing.h"; path = "Pola/Utilities/Categories/NSDictionary+Parsing.h"; sourceTree = SOURCE_ROOT; };
 		374B5B8C1C71C15D00E74BBB /* NSDictionary+Parsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+Parsing.m"; path = "Pola/Utilities/Categories/NSDictionary+Parsing.m"; sourceTree = SOURCE_ROOT; };
@@ -359,6 +362,8 @@
 		37B642BE060B4E64D7FB7575 /* About */ = {
 			isa = PBXGroup;
 			children = (
+				373C241F1C71EF760039410C /* BPAboutViewControllerCell.h */,
+				373C24201C71EF760039410C /* BPAboutViewControllerCell.m */,
 				37B64979D8320ED15EE627BC /* BPAboutNavigationController.m */,
 				37B6499E713B6B0489703572 /* BPAboutNavigationController.h */,
 				37B64BE65625A6DB4C22E8F0 /* BPAboutViewController.m */,
@@ -783,6 +788,7 @@
 				37B64BC8938BC7942D533D2F /* BPScanCodeViewController.m in Sources */,
 				37B645F07C9913D25328C568 /* BPScanCodeView.m in Sources */,
 				37B6466CC6A62A7DA8229188 /* BPActivityIndicatorView.m in Sources */,
+				373C24211C71EF760039410C /* BPAboutViewControllerCell.m in Sources */,
 				37B641E616DF6D3029539275 /* NSLayoutConstraint+BPAdditions.m in Sources */,
 				37B644D57E5398A17DFA806D /* UIAlertView+BPUtilities.m in Sources */,
 				37B6480CB8E9273EAC35EDA6 /* NSString+BPUtilities.m in Sources */,
