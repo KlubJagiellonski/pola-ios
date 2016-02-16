@@ -13,7 +13,7 @@
 @property(nonatomic, readonly) BPCameraSessionManager *cameraSessionManager;
 @property(nonatomic, readonly) BPTaskRunner *taskRunner;
 @property(nonatomic, readonly) BPProductManager *productManager;
-@property(nonatomic, copy) NSString *lastBardcodeScanned;
+@property(copy, nonatomic) NSString *lastBardcodeScanned;
 @property(nonatomic, readonly) NSMutableArray *scannedBarcodes;
 @property(nonatomic, readonly) NSMutableDictionary *barcodeToProductResult;
 @property(nonatomic) BOOL addingCardEnabled;

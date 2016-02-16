@@ -7,17 +7,17 @@ NSInteger const kBPStackViewCardTitleHeight = 50;
 
 @interface BPStackViewLayoutContext : NSObject
 
-@property(nonatomic, assign, readwrite) UIEdgeInsets edgeInsets;
-@property(nonatomic, assign, readwrite) CGFloat lookAhead;
-@property(nonatomic, assign, readwrite) CGSize cardSize;
-@property(nonatomic, assign, readwrite) NSUInteger cardCountLimit;
+@property(nonatomic, readwrite) UIEdgeInsets edgeInsets;
+@property(nonatomic, readwrite) CGFloat lookAhead;
+@property(nonatomic, readwrite) CGSize cardSize;
+@property(nonatomic, readwrite) NSUInteger cardCountLimit;
 
 @end
 
 @protocol BPStackViewLayout <NSObject>
 
-@property(nonatomic, weak, readwrite) BPStackView *stackView;
-@property(nonatomic, weak, readwrite) BPStackViewLayoutContext *layoutContext;
+@property(weak, nonatomic, readwrite) BPStackView *stackView;
+@property(weak, nonatomic, readwrite) BPStackViewLayoutContext *layoutContext;
 
 - (void)willBecomeActive;
 
@@ -34,26 +34,26 @@ NSInteger const kBPStackViewCardTitleHeight = 50;
 
 @interface BPStackViewLayoutLayoutCollapsed : NSObject <BPStackViewLayout>
 
-@property(nonatomic, weak, readwrite) UIView *offScreenCard;
+@property(weak, nonatomic, readwrite) UIView *offScreenCard;
 
 @end
 
 @interface BPStackViewLayoutExpanded : NSObject <BPStackViewLayout>
 
-@property(nonatomic, weak, readwrite) UIView *selectedCard;
+@property(weak, nonatomic, readwrite) UIView *selectedCard;
 
 @end
 
 @interface BPStackViewLayoutPick : NSObject <BPStackViewLayout>
 
-@property(nonatomic, weak, readwrite) UIView *selectedCard;
-@property(nonatomic, weak, readwrite) UIPanGestureRecognizer *panGestureRecognizer;
+@property(weak, nonatomic, readwrite) UIView *selectedCard;
+@property(weak, nonatomic, readwrite) UIPanGestureRecognizer *panGestureRecognizer;
 
 @end
 
 @interface BPStackView ()
 
-@property(nonatomic, strong, readwrite) id <BPStackViewLayout> currentLayout;
+@property(nonatomic, readwrite) id <BPStackViewLayout> currentLayout;
 
 @end
 

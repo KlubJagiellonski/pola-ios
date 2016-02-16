@@ -289,15 +289,15 @@
 		1D08E82E19A7621A00879BD2 /* Pola */ = {
 			isa = PBXGroup;
 			children = (
+				37B64C9D505D36B4936A79BA /* UI */,
+				37B64DD9591909AF06832339 /* Manager */,
+				37B64AE3A38FEC08E6CDE873 /* Model */,
+				37B6461671AB44842A0700D7 /* Utilities */,
 				1D08E83719A7621A00879BD2 /* BPAppDelegate.h */,
 				1D08E83819A7621A00879BD2 /* BPAppDelegate.m */,
 				1D08E83D19A7621A00879BD2 /* Images.xcassets */,
 				1D08E83A19A7621A00879BD2 /* Pola.xcdatamodeld */,
 				1D08E82F19A7621A00879BD2 /* Supporting Files */,
-				37B64DD9591909AF06832339 /* Manager */,
-				37B64AE3A38FEC08E6CDE873 /* Model */,
-				37B6461671AB44842A0700D7 /* Utilities */,
-				37B64C9D505D36B4936A79BA /* UI */,
 			);
 			path = Pola;
 			sourceTree = "<group>";
@@ -340,10 +340,10 @@
 			children = (
 				37B64AB122CABBF4F99EEC94 /* BPReportManager.h */,
 				37B644CFCD087DBE4C190DDC /* BPReportManager.m */,
-				37B646C0316F49D1FC593647 /* BPReport.m */,
 				37B649A2D733B29A3B0D9BAC /* BPReport.h */,
-				37B649BF8BABC5843F94A0A9 /* BPReportResult.m */,
+				37B646C0316F49D1FC593647 /* BPReport.m */,
 				37B64F8179FD0A037B3E2B49 /* BPReportResult.h */,
+				37B649BF8BABC5843F94A0A9 /* BPReportResult.m */,
 			);
 			path = ReportManager;
 			sourceTree = "<group>";
@@ -378,12 +378,12 @@
 		37B644A42C57261C707CF0B4 /* ReportProblem */ = {
 			isa = PBXGroup;
 			children = (
-				37B644E893F9831BEB40A125 /* BPReportProblemViewController.m */,
 				37B6447A00A8F15D1A078AF7 /* BPReportProblemViewController.h */,
-				37B6403F99127A3C286EA24E /* BPReportProblemView.m */,
+				37B644E893F9831BEB40A125 /* BPReportProblemViewController.m */,
 				37B642D3E0C1BA54F79353A4 /* BPReportProblemView.h */,
-				37B643918AB6D1110984DE93 /* BPImageContainerView.m */,
+				37B6403F99127A3C286EA24E /* BPReportProblemView.m */,
 				37B6435C9D1C6649FDEECDB4 /* BPImageContainerView.h */,
+				37B643918AB6D1110984DE93 /* BPImageContainerView.m */,
 			);
 			path = ReportProblem;
 			sourceTree = "<group>";
@@ -393,8 +393,8 @@
 			children = (
 				374B5B8B1C71C15D00E74BBB /* NSDictionary+Parsing.h */,
 				374B5B8C1C71C15D00E74BBB /* NSDictionary+Parsing.m */,
-				37B6473D93970F5113F3AAB3 /* BPScanResult+Utilities.m */,
 				37B64096880AC9C86B2DF4B1 /* BPScanResult+Utilities.h */,
+				37B6473D93970F5113F3AAB3 /* BPScanResult+Utilities.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -423,16 +423,16 @@
 		37B6461671AB44842A0700D7 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				37B64B74E1FAED6141BA2B25 /* BPUtilities.m */,
-				37B645654D3B84690AEA4C0D /* BPUtilities.h */,
-				37B6464528820E718DBABAA5 /* BPLogger.m */,
-				37B642C8016B2BC66A308398 /* BPLogger.h */,
 				37B646DCA0870AD66E5EB92B /* Categories */,
 				37B64FBED4310D336C9CC275 /* ActivityIndicator */,
-				37B641F70BCE669CF5019BB7 /* BPAnalyticsHelper.m */,
+				37B645654D3B84690AEA4C0D /* BPUtilities.h */,
+				37B64B74E1FAED6141BA2B25 /* BPUtilities.m */,
+				37B642C8016B2BC66A308398 /* BPLogger.h */,
+				37B6464528820E718DBABAA5 /* BPLogger.m */,
 				37B6437B106C442B853F8859 /* BPAnalyticsHelper.h */,
-				37B6453D6C76C627D4F7C568 /* BPDeviceHelper.m */,
+				37B641F70BCE669CF5019BB7 /* BPAnalyticsHelper.m */,
 				37B64D62D6D7E068CB4517A9 /* BPDeviceHelper.h */,
+				37B6453D6C76C627D4F7C568 /* BPDeviceHelper.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -440,16 +440,16 @@
 		37B64697C3925583CD36B426 /* ProductCard */ = {
 			isa = PBXGroup;
 			children = (
-				37B64CC5D0DF5C45420F13CA /* BPCompanyCardView.m */,
-				37B64E55920A10560E17591F /* BPSecondaryProgressView.h */,
+				37B648B37FCA824C6F065D43 /* BPMainProggressView.h */,
 				37B6475C7B46DB08C451363C /* BPMainProggressView.m */,
 				37B646858232F35A15FF2F1C /* BPCompanyCardView.h */,
+				37B64CC5D0DF5C45420F13CA /* BPCompanyCardView.m */,
+				37B64E55920A10560E17591F /* BPSecondaryProgressView.h */,
 				37B64C3D23F4E691A0CDACA0 /* BPSecondaryProgressView.m */,
-				37B648B37FCA824C6F065D43 /* BPMainProggressView.h */,
-				37B645DA6246E6D73727CE55 /* BPCheckRow.m */,
 				37B6470599C368C79D320DC9 /* BPCheckRow.h */,
-				37B64D7A776137D18AFDB329 /* BPCompanyContentView.m */,
+				37B645DA6246E6D73727CE55 /* BPCheckRow.m */,
 				37B641909EEB29EA6575A880 /* BPCompanyContentView.h */,
+				37B64D7A776137D18AFDB329 /* BPCompanyContentView.m */,
 			);
 			path = ProductCard;
 			sourceTree = "<group>";
@@ -476,8 +476,8 @@
 		37B647422EF95F37E48D11B2 /* Objection */ = {
 			isa = PBXGroup;
 			children = (
-				37B64DFDBDE3A5CEE19D6FDB /* BPObjectionModule.m */,
 				37B643CE26D1B8399F9EBE5B /* BPObjectionModule.h */,
+				37B64DFDBDE3A5CEE19D6FDB /* BPObjectionModule.m */,
 			);
 			path = Objection;
 			sourceTree = "<group>";
@@ -485,10 +485,10 @@
 		37B64827EDC4BBBCA2FB9BAE /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				37B6499FA4AA777D1E05D4C7 /* BPStackView.m */,
 				37B64583B2E03DD7AAB57ACC /* BPStackView.h */,
-				ABCA997979B62F78CFCB7E19 /* UIApplication+BPStatusBarHeight.m */,
+				37B6499FA4AA777D1E05D4C7 /* BPStackView.m */,
 				ABCA9A3E3B8A8B7C925052B6 /* UIApplication+BPStatusBarHeight.h */,
+				ABCA997979B62F78CFCB7E19 /* UIApplication+BPStatusBarHeight.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -496,8 +496,8 @@
 		37B64977613F0A577613F7E4 /* ProductManager */ = {
 			isa = PBXGroup;
 			children = (
-				37B642B56DC862C60A6F3CE2 /* BPProductManager.m */,
 				37B64F51708E3958AF727B6F /* BPProductManager.h */,
+				37B642B56DC862C60A6F3CE2 /* BPProductManager.m */,
 			);
 			path = ProductManager;
 			sourceTree = "<group>";
@@ -505,14 +505,14 @@
 		37B64A29716085485AEAB5C1 /* APIAccessor */ = {
 			isa = PBXGroup;
 			children = (
-				37B648A1A89B376DE62E2133 /* BPAPIAccessor.m */,
 				37B644EB9663F8806E287450 /* BPAPIAccessor.h */,
-				37B64A5E17F2E5888839150C /* BPAPIAccessor+BPScan.m */,
+				37B648A1A89B376DE62E2133 /* BPAPIAccessor.m */,
 				37B640B1117CB6C80C7D6C04 /* BPAPIAccessor+BPScan.h */,
-				37B6468E5905EC7102613DAB /* BPAPIResponse.m */,
+				37B64A5E17F2E5888839150C /* BPAPIAccessor+BPScan.m */,
 				37B647A73FC5289BC18A3B86 /* BPAPIResponse.h */,
-				37B64A3A16B65AB6F70F0612 /* BPAPIAccessor+BPReport.m */,
+				37B6468E5905EC7102613DAB /* BPAPIResponse.m */,
 				37B64052976ED2E84E372027 /* BPAPIAccessor+BPReport.h */,
+				37B64A3A16B65AB6F70F0612 /* BPAPIAccessor+BPReport.m */,
 			);
 			path = APIAccessor;
 			sourceTree = "<group>";
@@ -520,10 +520,10 @@
 		37B64AE3A38FEC08E6CDE873 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				37B6413AB46D8FAC81D1E72B /* BPScanResult.m */,
-				37B649F01069BA6A92B49C15 /* BPScanResult.h */,
 				37B642B1EB936576BE21C81B /* Task */,
 				37B644C120825EFA9AF52B8A /* Categories */,
+				37B649F01069BA6A92B49C15 /* BPScanResult.h */,
+				37B6413AB46D8FAC81D1E72B /* BPScanResult.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -531,12 +531,12 @@
 		37B64C9D505D36B4936A79BA /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				37B64960EF3268FB825DD2FE /* BPRootViewController.m */,
-				37B649C1631E9ADBA6B66CC7 /* BPRootViewController.h */,
 				37B64540723CF4EABBB3AC70 /* ProductSearch */,
 				37B64827EDC4BBBCA2FB9BAE /* Common */,
-				37B649313DDC60DC19AFBFD7 /* BPTheme.m */,
+				37B649C1631E9ADBA6B66CC7 /* BPRootViewController.h */,
+				37B64960EF3268FB825DD2FE /* BPRootViewController.m */,
 				37B64C66C738C8F15828F02D /* BPTheme.h */,
+				37B649313DDC60DC19AFBFD7 /* BPTheme.m */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -544,8 +544,8 @@
 		37B64CFFB4D4FEF0B14B3566 /* KeyboardManager */ = {
 			isa = PBXGroup;
 			children = (
-				37B64EB824D550DB209CEAA8 /* BPKeyboardManager.m */,
 				37B6403303FCD733D9C39863 /* BPKeyboardManager.h */,
+				37B64EB824D550DB209CEAA8 /* BPKeyboardManager.m */,
 			);
 			path = KeyboardManager;
 			sourceTree = "<group>";
@@ -554,14 +554,14 @@
 			isa = PBXGroup;
 			children = (
 				37B64977613F0A577613F7E4 /* ProductManager */,
-				37B64A29716085485AEAB5C1 /* APIAccessor */,
-				37B647422EF95F37E48D11B2 /* Objection */,
-				37B64A6EE7790CE9A2DFFF7E /* BPCameraSessionManager.m */,
-				37B6424C5D970C2E8F298AAB /* BPCameraSessionManager.h */,
-				37B6499F703E06B35CC81F50 /* BPProductImageManager.m */,
-				37B6429D71F43AB163A1A626 /* BPProductImageManager.h */,
 				37B641361E13BB0824D5828D /* ReportManager */,
 				37B64CFFB4D4FEF0B14B3566 /* KeyboardManager */,
+				37B64A29716085485AEAB5C1 /* APIAccessor */,
+				37B647422EF95F37E48D11B2 /* Objection */,
+				37B6424C5D970C2E8F298AAB /* BPCameraSessionManager.h */,
+				37B64A6EE7790CE9A2DFFF7E /* BPCameraSessionManager.m */,
+				37B6429D71F43AB163A1A626 /* BPProductImageManager.h */,
+				37B6499F703E06B35CC81F50 /* BPProductImageManager.m */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -569,10 +569,10 @@
 		37B64F458C8BF4C8D672DAE5 /* ScanCode */ = {
 			isa = PBXGroup;
 			children = (
-				37B64728A5FC383EB464DA9F /* BPScanCodeViewController.m */,
 				37B64D1B6193C0AD0D440566 /* BPScanCodeViewController.h */,
-				37B64A1CFA3A5EA1F51ED5DE /* BPScanCodeView.m */,
+				37B64728A5FC383EB464DA9F /* BPScanCodeViewController.m */,
 				37B64FFC3FE96EFDE8398CF3 /* BPScanCodeView.h */,
+				37B64A1CFA3A5EA1F51ED5DE /* BPScanCodeView.m */,
 				37B64697C3925583CD36B426 /* ProductCard */,
 			);
 			path = ScanCode;

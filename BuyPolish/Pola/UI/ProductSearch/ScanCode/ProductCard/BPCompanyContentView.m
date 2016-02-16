@@ -17,8 +17,8 @@ int const CARD_CONTENT_ROW_MARGIN = 14;
 @property(nonatomic, readonly) BPCheckRow *workersCheckRow;
 @property(nonatomic, readonly) UILabel *descriptionLabel;
 @property(nonatomic, readonly) UILabel *altTextLabel;
-@property(nonatomic, readonly) NSDictionary *typeToViewsDictionary;
-@property(nonatomic, readonly) NSArray *allSubviews;
+@property(copy, nonatomic, readonly) NSDictionary *typeToViewsDictionary;
+@property(copy, nonatomic, readonly) NSArray *allSubviews;
 
 @end
 

@@ -27,7 +27,7 @@
 
 @interface BPStackView : UIView
 
-@property(nonatomic, weak) id <BPStackViewDelegate> delegate;
+@property(weak, nonatomic) id <BPStackViewDelegate> delegate;
 @property(nonatomic, readonly) NSInteger cardCount;
 
 - (BOOL)addCard:(UIView *)cardView;

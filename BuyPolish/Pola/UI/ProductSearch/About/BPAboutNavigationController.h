@@ -11,6 +11,6 @@
 
 @interface BPAboutNavigationController : UINavigationController <BPInfoViewControllerDelegate>
 
-@property(nonatomic, weak) id <BPInfoNavigationControllerDelegate> infoDelegate;
+@property(weak, nonatomic) id <BPInfoNavigationControllerDelegate> infoDelegate;
 
 @end

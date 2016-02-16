@@ -3,7 +3,7 @@
 
 @interface BPActivityIndicatorView : UIView
 
-@property(nonatomic, copy) NSString *text;
+@property(copy, nonatomic) NSString *text;
 
 + (BPActivityIndicatorView *)showInView:(UIView *)view withText:(NSString *)text;
 + (BOOL)existInView:(UIView *)view;

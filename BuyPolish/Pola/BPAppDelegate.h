@@ -3,6 +3,6 @@
 
 @interface BPAppDelegate : UIResponder <UIApplicationDelegate, UIAlertViewDelegate>
 
-@property (strong, nonatomic) UIWindow *window;
+@property (nonatomic) UIWindow *window;
 
 @end

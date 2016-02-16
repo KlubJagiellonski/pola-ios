@@ -16,7 +16,7 @@ CGFloat const CELL_HEIGHT = 49;
 
 
 @interface BPAboutViewController ()
-@property(nonatomic, readonly) NSArray *rowList;
+@property(copy, nonatomic, readonly) NSArray *rowList;
 @end
 
 @implementation BPAboutViewController

@@ -10,7 +10,7 @@
 
 @interface BPImageContainerView : UIView
 
-@property(nonatomic, weak) id <BPImageContainerViewDelegate> delegate;
+@property(weak, nonatomic) id <BPImageContainerViewDelegate> delegate;
 
 - (void)addImage:(UIImage *)image;
 

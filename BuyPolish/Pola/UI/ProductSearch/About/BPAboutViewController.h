@@ -13,6 +13,6 @@
 
 @interface BPAboutViewController : UITableViewController <MFMailComposeViewControllerDelegate, UINavigationControllerDelegate, BPReportProblemViewControllerDelegate>
 
-@property(nonatomic, weak) id <BPInfoViewControllerDelegate> delegate;
+@property(weak, nonatomic) id <BPInfoViewControllerDelegate> delegate;
 
 @end

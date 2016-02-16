@@ -3,8 +3,8 @@
 
 @interface BPTask : NSObject
 
-@property (nonatomic, copy) void (^block)(void);
-@property (nonatomic, copy) void (^completion)(void);
+@property (copy, nonatomic) void (^block)(void);
+@property (copy, nonatomic) void (^completion)(void);
 
 - (instancetype)initWithBlock:(void (^)())taskBlock completion:(void (^)())completion;
 + (instancetype)taskWithlock:(void (^)())taskBlock completion:(void (^)())completion;

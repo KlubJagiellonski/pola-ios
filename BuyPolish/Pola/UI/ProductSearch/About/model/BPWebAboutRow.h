@@ -4,9 +4,9 @@
 
 @interface BPWebAboutRow : BPAboutRow
 
-@property(nonatomic, copy) NSString *url;
+@property(copy, nonatomic) NSString *url;
 
-@property(nonatomic, copy) NSString *analyticsName;
+@property(copy, nonatomic) NSString *analyticsName;
 
 - (instancetype)initWithTitle:(NSString *)title action:(SEL)action url:(NSString *)url analyticsName:(NSString *)analyticsName;
 
