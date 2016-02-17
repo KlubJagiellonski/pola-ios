@@ -8,8 +8,6 @@
 
 @property(copy, nonatomic) NSString *analyticsName;
 
-- (instancetype)initWithTitle:(NSString *)title action:(SEL)action url:(NSString *)url analyticsName:(NSString *)analyticsName;
-
 + (instancetype)rowWithTitle:(NSString *)title action:(SEL)action url:(NSString *)url analyticsName:(NSString *)analyticsName;
 
 @end

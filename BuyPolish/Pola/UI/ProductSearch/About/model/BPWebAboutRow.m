@@ -1,16 +1,11 @@
 #import "BPWebAboutRow.h"
 
+@implementation BPWebAboutRow
 
-@implementation BPWebAboutRow {
-
-}
 - (instancetype)initWithTitle:(NSString *)title action:(SEL)action url:(NSString *)url analyticsName:(NSString *)analyticsName {
-    self = [super init];
+    self = [super initWithTitle:title action:action];
     if (self) {
-        self.title = title;
-        self.action = action;
         self.url = url;
-        self.analyticsName = analyticsName;
     }
     return self;
 }

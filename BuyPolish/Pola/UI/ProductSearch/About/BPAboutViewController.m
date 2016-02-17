@@ -1,7 +1,9 @@
 #import <Objection/JSObjection.h>
 #import "BPAboutViewController.h"
-#import "BPAboutViewControllerCell.h"
+#import "BPAboutViewControllerSingleCell.h"
+#import "BPAboutViewControllerDoubleCell.h"
 #import "BPWebAboutRow.h"
+#import "BPDoubleAboutRow.h"
 #import "BPAnalyticsHelper.h"
 #import "BPDeviceHelper.h"
 #import "BPTheme.h"
@@ -62,12 +64,11 @@ CGFloat const CELL_HEIGHT = 49;
     [rowList addObject:
             [BPAboutRow rowWithTitle:NSLocalizedString(@"Rate us", @"Oceń nas") action:@selector(didTapRateUs:)]
     ];
-    [rowList addObject:
-            [BPAboutRow rowWithTitle:NSLocalizedString(@"Pola on Facebook", @"Pola na Feacbooku") action:@selector(didTapFacebook:)]
-    ];
-    [rowList addObject:
-            [BPAboutRow rowWithTitle:NSLocalizedString(@"Pola on Twitter", @"Pola na Twitterze") action:@selector(didTapTwitter:)]
-    ];
+    [rowList addObject:[BPDoubleAboutRow rowWithTitle:NSLocalizedString(@"Pola on Facebook", @"Pola na Feacbooku")
+                                               action:@selector(didTapFacebook:)
+                                          secondTitle:NSLocalizedString(@"Pola on Twitter", @"Pola na Twitterze")
+                                         secondAction:@selector(didTapTwitter:)
+                                               target:self]];
     return rowList;
 }
 
@@ -144,15 +145,17 @@ CGFloat const CELL_HEIGHT = 49;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *const identifier = @"identifier";
-    BPAboutViewControllerCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    BPAboutRow *rowInfo = self.rowList[indexPath.row];
+    // Cell class depends on rowInfo style
+    Class cellClass = rowInfo.style == BPAboutRowStyleDouble ? [BPAboutViewControllerDoubleCell class] : [BPAboutViewControllerSingleCell class];
+
+    NSString *const identifier = NSStringFromClass(cellClass);
+    BPAboutViewControllerBaseCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
-        cell = [[BPAboutViewControllerCell alloc] initWithReuseIdentifier:identifier];
+        cell = [[cellClass alloc] initWithReuseIdentifier:identifier];
     }
 
-    BPAboutRow *infoRow = self.rowList[(NSUInteger) indexPath.row];
-
-    cell.textLabel.text = infoRow.title;
+    cell.aboutRowInfo = rowInfo;
 
     return cell;
 }
@@ -161,8 +164,10 @@ CGFloat const CELL_HEIGHT = 49;
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     BPAboutRow *infoRow = self.rowList[(NSUInteger) indexPath.row];
-    [self performSelector:infoRow.action withObject:infoRow];
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (infoRow.style == BPAboutRowStyleSingle) {
+        [self performSelector:infoRow.action withObject:infoRow];
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
 }
 #pragma clang diagnostic pop
 
