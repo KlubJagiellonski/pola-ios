@@ -10,10 +10,9 @@
 + (NSString *)deviceInfo {
     UIDevice *device = [UIDevice currentDevice];
 
-    NSMutableString *deviceInfo = [NSMutableString stringWithString:@"\n\n-------App & Device info--------"];
-    [deviceInfo appendFormat:@"- device: %@, %@", [device name], [device model]];
-    [deviceInfo appendFormat:@"- system: %@, %@", [device systemName], [device systemVersion]];
-    [deviceInfo appendFormat:@"- app: %@, %@", [[NSBundle mainBundle] infoDictionary][@"CFBundleVersion"], [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"]];
+    NSMutableString *deviceInfo = [NSMutableString stringWithString:@"\n\n-------App & Device info--------\n"];
+    [deviceInfo appendFormat:@"- system: %@, %@\n", [device systemName], [device systemVersion]];
+    [deviceInfo appendFormat:@"- app: %@, %@\n", [[NSBundle mainBundle] infoDictionary][@"CFBundleVersion"], [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"]];
     [deviceInfo appendString:@"-------End-------"];
     return deviceInfo;
 }
