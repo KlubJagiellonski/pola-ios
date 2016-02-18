@@ -10,14 +10,6 @@
 @class BPScanCodeViewController;
 @class BPScanResult;
 
-
-@protocol BPScanCodeViewControllerDelegate <NSObject>
-
-@end
-
-
 @interface BPScanCodeViewController : UIViewController <AVCaptureMetadataOutputObjectsDelegate, UIAlertViewDelegate, BPStackViewDelegate, BPCameraSessionManagerDelegate, BPCompanyCardViewDelegate, BPReportProblemViewControllerDelegate, BPInfoNavigationControllerDelegate>
-
-@property(weak, nonatomic) id <BPScanCodeViewControllerDelegate> delegate;
 
 @end
