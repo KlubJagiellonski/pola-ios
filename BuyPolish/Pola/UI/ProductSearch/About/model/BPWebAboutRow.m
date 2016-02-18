@@ -5,7 +5,8 @@
 - (instancetype)initWithTitle:(NSString *)title action:(SEL)action url:(NSString *)url analyticsName:(NSString *)analyticsName {
     self = [super initWithTitle:title action:action];
     if (self) {
-        self.url = url;
+        _url = url;
+        _analyticsName = analyticsName;
     }
     return self;
 }
