@@ -8,6 +8,7 @@
     if (self) {
         _title = [title copy];
         _action = action;
+        _style = BPAboutRowStyleSingle;
     }
 
     return self;

@@ -29,9 +29,12 @@
 		1DEFA1BE1BD9920600938C81 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1DEFA1B91BD9920600938C81 /* Lato-Regular.ttf */; };
 		1DEFA1BF1BD9920600938C81 /* Lato-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1DEFA1BA1BD9920600938C81 /* Lato-Semibold.ttf */; };
 		1DEFA1C01BD9920600938C81 /* Lato-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1DEFA1BA1BD9920600938C81 /* Lato-Semibold.ttf */; };
-		373C24211C71EF760039410C /* BPAboutViewControllerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 373C24201C71EF760039410C /* BPAboutViewControllerCell.m */; };
+		373C24211C71EF760039410C /* BPAboutViewControllerSingleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 373C24201C71EF760039410C /* BPAboutViewControllerSingleCell.m */; };
 		374B5B8A1C71C14100E74BBB /* NSDictionary_ParsingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 374B5B891C71C14100E74BBB /* NSDictionary_ParsingTests.m */; };
 		374B5B8D1C71C15D00E74BBB /* NSDictionary+Parsing.m in Sources */ = {isa = PBXBuildFile; fileRef = 374B5B8C1C71C15D00E74BBB /* NSDictionary+Parsing.m */; };
+		3784331A1C7378AE008E392B /* BPDoubleAboutRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 378433191C7378AE008E392B /* BPDoubleAboutRow.m */; };
+		3784331E1C739035008E392B /* BPAboutViewControllerDoubleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3784331D1C739035008E392B /* BPAboutViewControllerDoubleCell.m */; };
+		378433211C7398C0008E392B /* BPAboutViewControllerBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 378433201C7398C0008E392B /* BPAboutViewControllerBaseCell.m */; };
 		37B6402EAD901CC4D954596B /* BPReportManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B644CFCD087DBE4C190DDC /* BPReportManager.m */; };
 		37B6403420F94515369E0F06 /* BPReport.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B646C0316F49D1FC593647 /* BPReport.m */; };
 		37B6405B2B77BAAD1DC986CF /* UILabel+BPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64B4F653A9EE90A4C985E /* UILabel+BPAdditions.m */; };
@@ -118,11 +121,17 @@
 		1DEFA1C21BD99B8900938C81 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1DEFA1C31BD99B8900938C81 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3113702D8B8D1BEF39F1B926 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		373C241F1C71EF760039410C /* BPAboutViewControllerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPAboutViewControllerCell.h; sourceTree = "<group>"; };
-		373C24201C71EF760039410C /* BPAboutViewControllerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPAboutViewControllerCell.m; sourceTree = "<group>"; };
+		373C241F1C71EF760039410C /* BPAboutViewControllerSingleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPAboutViewControllerSingleCell.h; sourceTree = "<group>"; };
+		373C24201C71EF760039410C /* BPAboutViewControllerSingleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPAboutViewControllerSingleCell.m; sourceTree = "<group>"; };
 		374B5B891C71C14100E74BBB /* NSDictionary_ParsingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDictionary_ParsingTests.m; sourceTree = "<group>"; };
 		374B5B8B1C71C15D00E74BBB /* NSDictionary+Parsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+Parsing.h"; path = "Pola/Utilities/Categories/NSDictionary+Parsing.h"; sourceTree = SOURCE_ROOT; };
 		374B5B8C1C71C15D00E74BBB /* NSDictionary+Parsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+Parsing.m"; path = "Pola/Utilities/Categories/NSDictionary+Parsing.m"; sourceTree = SOURCE_ROOT; };
+		378433181C7378AE008E392B /* BPDoubleAboutRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPDoubleAboutRow.h; path = Pola/UI/ProductSearch/About/model/BPDoubleAboutRow.h; sourceTree = SOURCE_ROOT; };
+		378433191C7378AE008E392B /* BPDoubleAboutRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPDoubleAboutRow.m; path = Pola/UI/ProductSearch/About/model/BPDoubleAboutRow.m; sourceTree = SOURCE_ROOT; };
+		3784331C1C739035008E392B /* BPAboutViewControllerDoubleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPAboutViewControllerDoubleCell.h; sourceTree = "<group>"; };
+		3784331D1C739035008E392B /* BPAboutViewControllerDoubleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPAboutViewControllerDoubleCell.m; sourceTree = "<group>"; };
+		3784331F1C7398C0008E392B /* BPAboutViewControllerBaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPAboutViewControllerBaseCell.h; sourceTree = "<group>"; };
+		378433201C7398C0008E392B /* BPAboutViewControllerBaseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPAboutViewControllerBaseCell.m; sourceTree = "<group>"; };
 		37B640107A226F2F1B7CAA9D /* BPAboutWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPAboutWebViewController.m; sourceTree = "<group>"; };
 		37B6403303FCD733D9C39863 /* BPKeyboardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPKeyboardManager.h; sourceTree = "<group>"; };
 		37B6403F99127A3C286EA24E /* BPReportProblemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPReportProblemView.m; sourceTree = "<group>"; };
@@ -335,6 +344,19 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		3784331B1C739009008E392B /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				373C241F1C71EF760039410C /* BPAboutViewControllerSingleCell.h */,
+				373C24201C71EF760039410C /* BPAboutViewControllerSingleCell.m */,
+				3784331C1C739035008E392B /* BPAboutViewControllerDoubleCell.h */,
+				3784331D1C739035008E392B /* BPAboutViewControllerDoubleCell.m */,
+				3784331F1C7398C0008E392B /* BPAboutViewControllerBaseCell.h */,
+				378433201C7398C0008E392B /* BPAboutViewControllerBaseCell.m */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
 		37B641361E13BB0824D5828D /* ReportManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -362,15 +384,14 @@
 		37B642BE060B4E64D7FB7575 /* About */ = {
 			isa = PBXGroup;
 			children = (
-				373C241F1C71EF760039410C /* BPAboutViewControllerCell.h */,
-				373C24201C71EF760039410C /* BPAboutViewControllerCell.m */,
-				37B64979D8320ED15EE627BC /* BPAboutNavigationController.m */,
+				3784331B1C739009008E392B /* Cells */,
 				37B6499E713B6B0489703572 /* BPAboutNavigationController.h */,
-				37B64BE65625A6DB4C22E8F0 /* BPAboutViewController.m */,
+				37B64979D8320ED15EE627BC /* BPAboutNavigationController.m */,
 				37B6498B4895F096369486F1 /* BPAboutViewController.h */,
+				37B64BE65625A6DB4C22E8F0 /* BPAboutViewController.m */,
 				37B645A4695532F779EB6937 /* Model */,
-				37B640107A226F2F1B7CAA9D /* BPAboutWebViewController.m */,
 				37B64FA405744537DB282781 /* BPAboutWebViewController.h */,
+				37B640107A226F2F1B7CAA9D /* BPAboutWebViewController.m */,
 			);
 			path = About;
 			sourceTree = "<group>";
@@ -412,10 +433,12 @@
 		37B645A4695532F779EB6937 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				37B643AFD35745CD11E280DC /* BPWebAboutRow.m */,
-				37B643DBDB2C8991C34FBB86 /* BPWebAboutRow.h */,
-				37B64A12F1C90B0F08E6DD43 /* BPAboutRow.m */,
 				37B642D7D5DAFE42076722C5 /* BPAboutRow.h */,
+				37B64A12F1C90B0F08E6DD43 /* BPAboutRow.m */,
+				37B643DBDB2C8991C34FBB86 /* BPWebAboutRow.h */,
+				37B643AFD35745CD11E280DC /* BPWebAboutRow.m */,
+				378433181C7378AE008E392B /* BPDoubleAboutRow.h */,
+				378433191C7378AE008E392B /* BPDoubleAboutRow.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -769,12 +792,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D08E83919A7621A00879BD2 /* BPAppDelegate.m in Sources */,
+				378433211C7398C0008E392B /* BPAboutViewControllerBaseCell.m in Sources */,
 				1D08E83519A7621A00879BD2 /* main.m in Sources */,
 				1D08E83C19A7621A00879BD2 /* Pola.xcdatamodeld in Sources */,
 				37B642317C6BC629AFB0394F /* BPProductManager.m in Sources */,
 				37B649B71B7F59A1741CD9B7 /* BPScanResult.m in Sources */,
 				37B64A5D21387F5E0613B2AA /* BPTaskRunner.m in Sources */,
 				37B646BC2546890EB330F4FD /* BPTask.m in Sources */,
+				3784331E1C739035008E392B /* BPAboutViewControllerDoubleCell.m in Sources */,
 				37B647E20B1B2E3F5F0ECFA3 /* BPAPIAccessor.m in Sources */,
 				37B64D4617BA6760E8B4101F /* BPAPIAccessor+BPScan.m in Sources */,
 				374B5B8D1C71C15D00E74BBB /* NSDictionary+Parsing.m in Sources */,
@@ -788,7 +813,8 @@
 				37B64BC8938BC7942D533D2F /* BPScanCodeViewController.m in Sources */,
 				37B645F07C9913D25328C568 /* BPScanCodeView.m in Sources */,
 				37B6466CC6A62A7DA8229188 /* BPActivityIndicatorView.m in Sources */,
-				373C24211C71EF760039410C /* BPAboutViewControllerCell.m in Sources */,
+				373C24211C71EF760039410C /* BPAboutViewControllerSingleCell.m in Sources */,
+				3784331A1C7378AE008E392B /* BPDoubleAboutRow.m in Sources */,
 				37B641E616DF6D3029539275 /* NSLayoutConstraint+BPAdditions.m in Sources */,
 				37B644D57E5398A17DFA806D /* UIAlertView+BPUtilities.m in Sources */,
 				37B6480CB8E9273EAC35EDA6 /* NSString+BPUtilities.m in Sources */,
