@@ -148,6 +148,7 @@ const int REPORT_DESCRIPTIONSHADOW_HEIGHT = 1;
     self.bottomMargin = height;
 
     [UIView animateWithDuration:duration delay:0 options:curve animations:^{
+        self.imageContainerView.alpha = 0.0f;
         [self setNeedsLayout];
         [self layoutIfNeeded];
     } completion:nil];
@@ -156,6 +157,7 @@ const int REPORT_DESCRIPTIONSHADOW_HEIGHT = 1;
 - (void)keyboardWillHideWithDuration:(double)duration curve:(NSUInteger)curve {
     self.bottomMargin = 0;
     [UIView animateWithDuration:duration delay:0 options:curve animations:^{
+        self.imageContainerView.alpha = 1.0f;
         [self setNeedsLayout];
         [self layoutIfNeeded];
     } completion:nil];
