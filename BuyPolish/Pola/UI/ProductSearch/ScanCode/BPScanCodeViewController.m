@@ -6,11 +6,12 @@
 #import "UIAlertView+BPUtilities.h"
 #import "NSString+BPUtilities.h"
 #import "BPAnalyticsHelper.h"
-
+#import "BPFlashlightManager.h"
 
 @interface BPScanCodeViewController ()
 
 @property(nonatomic, readonly) BPCameraSessionManager *cameraSessionManager;
+@property(nonatomic, readonly) BPFlashlightManager *flashlightManager;
 @property(nonatomic, readonly) BPTaskRunner *taskRunner;
 @property(nonatomic, readonly) BPProductManager *productManager;
 @property(copy, nonatomic) NSString *lastBardcodeScanned;
@@ -23,7 +24,7 @@
 
 @implementation BPScanCodeViewController
 
-objection_requires_sel(@selector(taskRunner), @selector(productManager), @selector(cameraSessionManager))
+objection_requires_sel(@selector(taskRunner), @selector(productManager), @selector(cameraSessionManager), @selector(flashlightManager))
 
 - (void)loadView {
     self.view = [[BPScanCodeView alloc] initWithFrame:CGRectZero];
@@ -46,6 +47,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.castView.stackView.delegate = self;
     [self.castView.menuButton addTarget:self action:@selector(didTapMenuButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self.castView.flashButton addTarget:self action:@selector(didTapFlashlightButton:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -53,6 +55,8 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 
     self.castView.videoLayer = self.cameraSessionManager.videoPreviewLayer;
     [self.cameraSessionManager start];
+
+    [self updateFlashlightButton];
 
 //    [self didFindBarcode:@"5900396019813"];
 //    [self performSelector:@selector(didFindBarcode:) withObject:@"5901234123457" afterDelay:1.5f];
@@ -138,6 +142,18 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     BPAboutNavigationController *aboutNavigationController = [injector getObject:[BPAboutNavigationController class]];
     aboutNavigationController.infoDelegate = self;
     [self presentViewController:aboutNavigationController animated:YES completion:nil];
+}
+
+- (void)didTapFlashlightButton:(UIButton *)button {
+    [self.flashlightManager toggleWithCompletionBlock:^(BOOL success) {
+        //TODO: Add error message after consultation with UX
+    }];
+
+    [self updateFlashlightButton];
+}
+
+- (void)updateFlashlightButton {
+    [self.castView.flashButton setSelected:self.flashlightManager.isOn];
 }
 
 - (void)setAddingCardEnabled:(BOOL)addingCardEnabled {
