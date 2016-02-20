@@ -16,6 +16,7 @@ const int INFO_TEXT_LABEL_BOTTOM_MARGIN = 50;
 @end
 
 @implementation BPScanCodeView
+@synthesize flashlightButtonHidden = _flashlightButtonHidden;
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -118,6 +119,15 @@ const int INFO_TEXT_LABEL_BOTTOM_MARGIN = 50;
     [UIView animateWithDuration:animation ? 0.2f : 0.f animations:^{
         self.menuButton.alpha = visible ? 1.f : 0.f;
     }];
+}
+
+- (BOOL)isFlashlightButtonHidden {
+    return self.flashButton.hidden;
+}
+
+- (void)setFlashlightButtonHidden:(BOOL)flashlightButtonHidden {
+    _flashlightButtonHidden = flashlightButtonHidden;
+    self.flashButton.hidden = flashlightButtonHidden;
 }
 
 @end

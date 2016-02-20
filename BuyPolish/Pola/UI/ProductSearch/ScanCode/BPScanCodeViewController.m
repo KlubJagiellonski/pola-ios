@@ -47,7 +47,12 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.castView.stackView.delegate = self;
     [self.castView.menuButton addTarget:self action:@selector(didTapMenuButton:) forControlEvents:UIControlEventTouchUpInside];
-    [self.castView.flashButton addTarget:self action:@selector(didTapFlashlightButton:) forControlEvents:UIControlEventTouchUpInside];
+
+    if (self.flashlightManager.isAvailable) {
+        [self.castView.flashButton addTarget:self action:@selector(didTapFlashlightButton:) forControlEvents:UIControlEventTouchUpInside];
+    } else {
+        self.castView.flashlightButtonHidden = YES;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
