@@ -30,7 +30,7 @@ const int INFO_TEXT_LABEL_BOTTOM_MARGIN = 50;
 
         _infoTextLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _infoTextLabel.numberOfLines = 4;
-        _infoTextLabel.text = NSLocalizedString(@"Scan barcode", @"Zeskanuj kod kreskowy");
+        _infoTextLabel.text = NSLocalizedString(@"Scan barcode", nil);
         _infoTextLabel.font = [BPTheme titleFont];
         _infoTextLabel.textColor = [BPTheme clearColor];
         _infoTextLabel.textAlignment = NSTextAlignmentCenter;

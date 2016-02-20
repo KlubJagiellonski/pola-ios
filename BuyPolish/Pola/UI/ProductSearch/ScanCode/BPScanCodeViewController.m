@@ -70,7 +70,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 - (BOOL)addCardAndDownloadDetails:(NSString *)barcode {
     BPCompanyCardView *cardView = [[BPCompanyCardView alloc] initWithFrame:CGRectZero];
     [cardView setContentType:CompanyContentTypeLoading];
-    [cardView setTitleText:NSLocalizedString(@"Loading...", @"Loading...")];
+    [cardView setTitleText:NSLocalizedString(@"Loading...", nil)];
     BOOL cardAdded = [self.castView.stackView addCard:cardView];
     if (!cardAdded) {
         return NO;
@@ -89,7 +89,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
         } else {
             self.lastBardcodeScanned = nil;
             self.addingCardEnabled = NO;
-            UIAlertView *alertView = [UIAlertView showErrorAlert:NSLocalizedString(@"Cannot fetch product info from server. Please try again.", @"")];
+            UIAlertView *alertView = [UIAlertView showErrorAlert:NSLocalizedString(@"Cannot fetch product info from server. Please try again.", nil)];
             alertView.delegate = self;
             [self.castView.stackView removeCard:cardView];
         }
@@ -203,7 +203,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     if (![barcode isValidBarcode]) {
         self.addingCardEnabled = NO;
 
-        UIAlertView *alertView = [UIAlertView showErrorAlert:NSLocalizedString(@"Not valid barcode. Please try again.", @"Not valid barcode. Please try again.")];
+        UIAlertView *alertView = [UIAlertView showErrorAlert:NSLocalizedString(@"Not valid barcode. Please try again.", nil)];
         [alertView setDelegate:self];
         return;
     }
