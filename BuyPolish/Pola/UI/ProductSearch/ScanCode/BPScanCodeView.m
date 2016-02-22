@@ -16,6 +16,7 @@ const int INFO_TEXT_LABEL_BOTTOM_MARGIN = 50;
 @end
 
 @implementation BPScanCodeView
+@synthesize flashlightButtonHidden = _flashlightButtonHidden;
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -48,6 +49,12 @@ const int INFO_TEXT_LABEL_BOTTOM_MARGIN = 50;
         [_menuButton setImage:[UIImage imageNamed:@"BurgerIcon"] forState:UIControlStateNormal];
         [_menuButton sizeToFit];
         [self addSubview:_menuButton];
+
+        _flashButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_flashButton setImage:[UIImage imageNamed:@"FlashIcon"] forState:UIControlStateNormal];
+        [_flashButton setImage:[UIImage imageNamed:@"FlashSelectedIcon"] forState:UIControlStateSelected];
+        [_flashButton sizeToFit];
+        [self addSubview:_flashButton];
     }
 
     return self;
@@ -66,6 +73,11 @@ const int INFO_TEXT_LABEL_BOTTOM_MARGIN = 50;
     rect.origin.x = CGRectGetWidth(self.bounds) / 2 - CGRectGetWidth(rect) / 2;
     rect.origin.y = CGRectGetHeight(self.bounds) / 2 - CGRectGetHeight(rect);
     self.rectangleView.frame = rect;
+
+    rect = self.flashButton.frame;
+    rect.origin.x = SCAN_CODE_MARGIN;
+    rect.origin.y = [UIApplication statusBarHeight] + SCAN_CODE_MARGIN;
+    self.flashButton.frame = rect;
 
     rect = self.menuButton.frame;
     rect.origin.x = CGRectGetWidth(self.bounds) - SCAN_CODE_MARGIN - CGRectGetWidth(rect);
@@ -107,6 +119,15 @@ const int INFO_TEXT_LABEL_BOTTOM_MARGIN = 50;
     [UIView animateWithDuration:animation ? 0.2f : 0.f animations:^{
         self.menuButton.alpha = visible ? 1.f : 0.f;
     }];
+}
+
+- (BOOL)isFlashlightButtonHidden {
+    return self.flashButton.hidden;
+}
+
+- (void)setFlashlightButtonHidden:(BOOL)flashlightButtonHidden {
+    _flashlightButtonHidden = flashlightButtonHidden;
+    self.flashButton.hidden = flashlightButtonHidden;
 }
 
 @end
