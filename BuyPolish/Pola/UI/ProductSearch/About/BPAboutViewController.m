@@ -26,7 +26,7 @@ CGFloat const CELL_HEIGHT = 49;
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.title = NSLocalizedString(@"Info", @"Info");
+    self.title = NSLocalizedString(@"Info", nil);
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"CloseIcon"] style:UIBarButtonItemStylePlain target:self action:@selector(didTapCloseButton:)];
 
     _rowList = [self createRowList];
@@ -39,34 +39,34 @@ CGFloat const CELL_HEIGHT = 49;
 - (NSArray *)createRowList {
     NSMutableArray *rowList = [NSMutableArray array];
     [rowList addObject:
-            [BPWebAboutRow rowWithTitle:NSLocalizedString(@"About Pola application", @"O aplikacji Pola") action:@selector(didTapWebRow:) url:@"https://www.pola-app.pl/m/about" analyticsName:@"O aplikacji Pola"]
+            [BPWebAboutRow rowWithTitle:NSLocalizedString(@"About Pola application", nil) action:@selector(didTapWebRow:) url:@"https://www.pola-app.pl/m/about" analyticsName:@"O aplikacji Pola"]
     ];
     [rowList addObject:
-            [BPWebAboutRow rowWithTitle:NSLocalizedString(@"InstructionSet", @"Metodologia") action:@selector(didTapWebRow:) url:@"https://www.pola-app.pl/m/method" analyticsName:@"Metodologia"]
+            [BPWebAboutRow rowWithTitle:NSLocalizedString(@"InstructionSet", nil) action:@selector(didTapWebRow:) url:@"https://www.pola-app.pl/m/method" analyticsName:@"Metodologia"]
     ];
     [rowList addObject:
-            [BPWebAboutRow rowWithTitle:NSLocalizedString(@"About KJ", @"O Klubie Jagiellońskim") action:@selector(didTapWebRow:) url:@"https://www.pola-app.pl/m/kj" analyticsName:@"O Klubie Jagiellońskim"]
+            [BPWebAboutRow rowWithTitle:NSLocalizedString(@"About KJ", nil) action:@selector(didTapWebRow:) url:@"https://www.pola-app.pl/m/kj" analyticsName:@"O Klubie Jagiellońskim"]
     ];
     [rowList addObject:
-            [BPWebAboutRow rowWithTitle:NSLocalizedString(@"Team", @"Zespół") action:@selector(didTapWebRow:) url:@"https://www.pola-app.pl/m/team" analyticsName:@"Zespół"]
+            [BPWebAboutRow rowWithTitle:NSLocalizedString(@"Team", nil) action:@selector(didTapWebRow:) url:@"https://www.pola-app.pl/m/team" analyticsName:@"Zespół"]
     ];
     [rowList addObject:
-            [BPWebAboutRow rowWithTitle:NSLocalizedString(@"Partners", @"Partnerzy") action:@selector(didTapWebRow:) url:@"https://www.pola-app.pl/m/partners" analyticsName:@"Partnerzy"]
+            [BPWebAboutRow rowWithTitle:NSLocalizedString(@"Partners", nil) action:@selector(didTapWebRow:) url:@"https://www.pola-app.pl/m/partners" analyticsName:@"Partnerzy"]
     ];
     [rowList addObject:
-        [BPAboutRow rowWithTitle:NSLocalizedString(@"Report error in data", @"Zgłoś błąd w danych") action:@selector(didTapReportError:)]
+        [BPAboutRow rowWithTitle:NSLocalizedString(@"Report error in data", nil) action:@selector(didTapReportError:)]
     ];
     if ([MFMailComposeViewController canSendMail]) {
         [rowList addObject:
-                [BPAboutRow rowWithTitle:NSLocalizedString(@"Write to us", @"Napisz do nas") action:@selector(didTapWriteToUs:)]
+                [BPAboutRow rowWithTitle:NSLocalizedString(@"Write to us", nil) action:@selector(didTapWriteToUs:)]
         ];
     }
     [rowList addObject:
-            [BPAboutRow rowWithTitle:NSLocalizedString(@"Rate us", @"Oceń nas") action:@selector(didTapRateUs:)]
+            [BPAboutRow rowWithTitle:NSLocalizedString(@"Rate us", nil) action:@selector(didTapRateUs:)]
     ];
-    [rowList addObject:[BPDoubleAboutRow rowWithTitle:NSLocalizedString(@"Pola on Facebook", @"Pola na Feacbooku")
+    [rowList addObject:[BPDoubleAboutRow rowWithTitle:NSLocalizedString(@"Pola on Facebook", nil)
                                                action:@selector(didTapFacebook:)
-                                          secondTitle:NSLocalizedString(@"Pola on Twitter", @"Pola na Twitterze")
+                                          secondTitle:NSLocalizedString(@"Pola on Twitter", nil)
                                          secondAction:@selector(didTapTwitter:)
                                                target:self]];
     return rowList;
@@ -120,7 +120,7 @@ CGFloat const CELL_HEIGHT = 49;
     composeViewController.delegate = self;
     [composeViewController setMailComposeDelegate:self];
     [composeViewController setToRecipients:@[ABOUT_MAIL]];
-    [composeViewController setSubject:NSLocalizedString(@"mail_title", @"")];
+    [composeViewController setSubject:NSLocalizedString(@"mail_title", nil)];
     [composeViewController setMessageBody:[BPDeviceHelper deviceInfo] isHTML:NO];
     [self presentViewController:composeViewController animated:YES completion:nil];
 }

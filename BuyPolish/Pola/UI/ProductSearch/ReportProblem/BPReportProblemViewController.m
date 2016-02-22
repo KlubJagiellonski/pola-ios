@@ -90,17 +90,17 @@ objection_requires_sel(@selector(productImageManager), @selector(reportManager),
     NSArray *imagePathArray = [self.productImageManager createImagePathArrayForKey:self.productId imageCount:self.imageCount];
     BPReport *report = [BPReport reportWithProductId:self.productId description:self.castView.descriptionTextView.text imagePathArray:imagePathArray];
 
-    [KVNProgress showWithStatus:NSLocalizedString(@"Sending...", @"Wysyłanie...")];
+    [KVNProgress showWithStatus:NSLocalizedString(@"Sending...", nil)];
 
     weakify()
     [self.reportManager sendReport:report completion:^(BPReportResult *result, NSError *error) {
         strongify()
         if (result.state == REPORT_STATE_FINSIHED && error == nil) {
-            [KVNProgress showSuccessWithStatus:NSLocalizedString(@"Report sent", @"Raport wysłany")];
+            [KVNProgress showSuccessWithStatus:NSLocalizedString(@"Report sent", nil)];
             [BPAnalyticsHelper reportSent:self.barcode success:YES];
             [strongSelf.delegate reportProblem:strongSelf finishedWithResult:YES];
         } else if (error != nil) {
-            [KVNProgress showErrorWithStatus:NSLocalizedString(@"Error occured", @"Wystąpił błąd")];
+            [KVNProgress showErrorWithStatus:NSLocalizedString(@"Error occured", nil)];
         }
     }              completionQueue:[NSOperationQueue mainQueue]];
 }
@@ -128,15 +128,15 @@ objection_requires_sel(@selector(productImageManager), @selector(reportManager),
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
         sheet = [[UIActionSheet alloc] initWithTitle:nil
                                             delegate:self
-                                   cancelButtonTitle:NSLocalizedString(@"Cancel", @"Cancel")
+                                   cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
                               destructiveButtonTitle:nil
-                                   otherButtonTitles:NSLocalizedString(@"Take a photo", @"Take a photo"), NSLocalizedString(@"Choose from library", @"Choose from library"), nil];
+                                   otherButtonTitles:NSLocalizedString(@"Take a photo", nil), NSLocalizedString(@"Choose from library", nil), nil];
     } else {
         sheet = [[UIActionSheet alloc] initWithTitle:nil
                                             delegate:self
-                                   cancelButtonTitle:NSLocalizedString(@"Cancel", @"Cancel")
+                                   cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
                               destructiveButtonTitle:nil
-                                   otherButtonTitles:NSLocalizedString(@"Choose from library", @"Choose from library"), nil];
+                                   otherButtonTitles:NSLocalizedString(@"Choose from library", nil), nil];
     }
     [sheet showInView:self.view];
 }

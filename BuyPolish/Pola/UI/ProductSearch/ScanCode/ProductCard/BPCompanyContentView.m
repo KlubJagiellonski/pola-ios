@@ -35,7 +35,7 @@ int const CARD_CONTENT_ROW_MARGIN = 14;
         _capitalTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _capitalTitleLabel.font = [BPTheme normalFont];
         _capitalTitleLabel.textColor = [BPTheme defaultTextColor];
-        _capitalTitleLabel.text = NSLocalizedString(@"percent of polish holders", @"percent of polish holders");
+        _capitalTitleLabel.text = NSLocalizedString(@"percent of polish holders", nil);
         [_capitalTitleLabel sizeToFit];
         [self addSubview:_capitalTitleLabel];
 
@@ -44,22 +44,22 @@ int const CARD_CONTENT_ROW_MARGIN = 14;
         [self addSubview:_capitalProgressView];
 
         _notGlobalCheckRow = [[BPCheckRow alloc] initWithFrame:CGRectZero];
-        [_notGlobalCheckRow setText:NSLocalizedString(@"not part of global company", @"Not part of global company")];
+        [_notGlobalCheckRow setText:NSLocalizedString(@"not part of global company", nil)];
         [_notGlobalCheckRow sizeToFit];
         [self addSubview:_notGlobalCheckRow];
 
         _registeredCheckRow = [[BPCheckRow alloc] initWithFrame:CGRectZero];
-        [_registeredCheckRow setText:NSLocalizedString(@"is registered in Poland", @"is registered in Poland")];
+        [_registeredCheckRow setText:NSLocalizedString(@"is registered in Poland", nil)];
         [_registeredCheckRow sizeToFit];
         [self addSubview:_registeredCheckRow];
 
         _rndCheckRow = [[BPCheckRow alloc] initWithFrame:CGRectZero];
-        [_rndCheckRow setText:NSLocalizedString(@"created rich salary work places", @"created rich salary work places")];
+        [_rndCheckRow setText:NSLocalizedString(@"created rich salary work places", nil)];
         [_rndCheckRow sizeToFit];
         [self addSubview:_rndCheckRow];
 
         _workersCheckRow = [[BPCheckRow alloc] initWithFrame:CGRectZero];
-        [_workersCheckRow setText:NSLocalizedString(@"producing in PL", @"producing in PL")];
+        [_workersCheckRow setText:NSLocalizedString(@"producing in PL", nil)];
         [_workersCheckRow sizeToFit];
         [self addSubview:_workersCheckRow];
 

@@ -45,11 +45,11 @@
     [iOSHierarchyViewer start];
 
     if ([AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo] == AVAuthorizationStatusDenied) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Camera Privacy Title", @"Brak dostępu do kamery")
-                                                            message:NSLocalizedString(@"Camer Privacy Description", @"")
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Camera Privacy Title", nil)
+                                                            message:NSLocalizedString(@"Camer Privacy Description", nil)
                                                            delegate:self
-                                                  cancelButtonTitle:NSLocalizedString(@"Cancel", @"")
-                                                  otherButtonTitles:NSLocalizedString(@"Settings", @"Ustawienia"), nil];
+                                                  cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
+                                                  otherButtonTitles:NSLocalizedString(@"Settings", nil), nil];
         [alertView show];
     }
 }
