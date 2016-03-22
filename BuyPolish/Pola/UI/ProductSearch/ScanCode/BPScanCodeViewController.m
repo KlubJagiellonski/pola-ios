@@ -48,6 +48,8 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     self.castView.stackView.delegate = self;
     [self.castView.menuButton addTarget:self action:@selector(didTapMenuButton:) forControlEvents:UIControlEventTouchUpInside];
 
+    
+
     if (self.flashlightManager.isAvailable) {
         [self.castView.flashButton addTarget:self action:@selector(didTapFlashlightButton:) forControlEvents:UIControlEventTouchUpInside];
     } else {

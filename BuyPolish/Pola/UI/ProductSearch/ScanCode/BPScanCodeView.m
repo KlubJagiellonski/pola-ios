@@ -50,6 +50,12 @@ const int INFO_TEXT_LABEL_BOTTOM_MARGIN = 50;
         [_menuButton sizeToFit];
         [self addSubview:_menuButton];
 
+        _keyboardButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_keyboardButton setImage:[UIImage imageNamed:@"KeyboardIcon"] forState:UIControlStateNormal];
+        [_keyboardButton setImage:[UIImage imageNamed:@"KeyboardSelectedIcon"] forState:UIControlStateSelected];
+        [_keyboardButton sizeToFit];
+        [self addSubview:_keyboardButton];
+
         _flashButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_flashButton setImage:[UIImage imageNamed:@"FlashIcon"] forState:UIControlStateNormal];
         [_flashButton setImage:[UIImage imageNamed:@"FlashSelectedIcon"] forState:UIControlStateSelected];
@@ -74,9 +80,14 @@ const int INFO_TEXT_LABEL_BOTTOM_MARGIN = 50;
     rect.origin.y = CGRectGetHeight(self.bounds) / 2 - CGRectGetHeight(rect);
     self.rectangleView.frame = rect;
 
-    rect = self.flashButton.frame;
+    rect = self.keyboardButton.frame;
     rect.origin.x = SCAN_CODE_MARGIN;
     rect.origin.y = [UIApplication statusBarHeight] + SCAN_CODE_MARGIN;
+    self.keyboardButton.frame = rect;
+
+    rect = self.flashButton.frame;
+    rect.origin.x = SCAN_CODE_MARGIN;
+    rect.origin.y = SCAN_CODE_MARGIN + CGRectGetMaxY(self.keyboardButton.frame);
     self.flashButton.frame = rect;
 
     rect = self.menuButton.frame;

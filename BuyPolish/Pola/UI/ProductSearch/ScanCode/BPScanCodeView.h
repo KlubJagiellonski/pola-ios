@@ -11,6 +11,7 @@
 
 @property(nonatomic, readonly) UIButton *menuButton;
 @property(nonatomic, readonly) UIButton *flashButton;
+@property(nonatomic, readonly) UIButton *keyboardButton;
 
 @property(nonatomic, getter=isFlashlightButtonHidden) BOOL flashlightButtonHidden;
 
