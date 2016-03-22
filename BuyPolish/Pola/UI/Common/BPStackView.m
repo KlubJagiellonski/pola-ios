@@ -224,6 +224,10 @@ NSInteger const kBPStackViewCardTitleHeight = 50;
     [_currentLayout didPanCardView:view recognizer:recognizer];
 }
 
+- (NSInteger)cardCount {
+    return _cards.count;
+}
+
 @end
 
 @implementation BPStackViewLayoutContext
