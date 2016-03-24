@@ -2,6 +2,10 @@
 
 @class BPStackView;
 
+typedef NS_ENUM(NSInteger, BPScanCodeViewLabelMode) {
+    BPScanCodeViewLabelModeScan,
+    BPScanCodeViewLabelModeKeyboard
+};
 
 @interface BPScanCodeView : UIView
 
@@ -9,6 +13,9 @@
 
 @property(nonatomic) AVCaptureVideoPreviewLayer *videoLayer;
 
+@property(nonatomic, readonly) UILabel *infoTextLabel;
+@property(nonatomic, readonly) UIView *rectangleView;
+@property(nonatomic, readonly) UIImageView *logoImageView;
 @property(nonatomic, readonly) UIButton *menuButton;
 @property(nonatomic, readonly) UIButton *flashButton;
 @property(nonatomic, readonly) UIButton *keyboardButton;
@@ -16,6 +23,8 @@
 @property(nonatomic, getter=isFlashlightButtonHidden) BOOL flashlightButtonHidden;
 
 - (void)setInfoTextVisible:(BOOL)visible;
+- (void)configureInfoLabelForMode:(BPScanCodeViewLabelMode)mode;
 
-- (void)setMenuButtonVisible:(BOOL)visible animation:(BOOL)animation;
+- (void)setButtonsVisible:(BOOL)visible animation:(BOOL)animation;
+
 @end

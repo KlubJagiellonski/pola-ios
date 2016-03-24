@@ -7,9 +7,11 @@
 #import "NSString+BPUtilities.h"
 #import "BPAnalyticsHelper.h"
 #import "BPFlashlightManager.h"
+#import "BPKeyboardViewController.h"
 
 @interface BPScanCodeViewController ()
 
+@property(nonatomic) BPKeyboardViewController *keyboardViewController;
 @property(nonatomic, readonly) BPCameraSessionManager *cameraSessionManager;
 @property(nonatomic, readonly) BPFlashlightManager *flashlightManager;
 @property(nonatomic, readonly) BPTaskRunner *taskRunner;
@@ -47,8 +49,9 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.castView.stackView.delegate = self;
     [self.castView.menuButton addTarget:self action:@selector(didTapMenuButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self.castView.keyboardButton addTarget:self action:@selector(didTapKeyboardButton:) forControlEvents:UIControlEventTouchUpInside];
 
-    
+    self.keyboardViewController = [[BPKeyboardViewController alloc] init];
 
     if (self.flashlightManager.isAvailable) {
         [self.castView.flashButton addTarget:self action:@selector(didTapFlashlightButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -151,6 +154,15 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     [self presentViewController:aboutNavigationController animated:YES completion:nil];
 }
 
+- (void)didTapKeyboardButton:(UIButton *)button {
+
+    if (self.keyboardViewController.view.superview == nil) {
+        [self showKeyboardController];
+    } else {
+        [self hideKeyboardController];
+    }
+}
+
 - (void)didTapFlashlightButton:(UIButton *)button {
     [self.flashlightManager toggleWithCompletionBlock:^(BOOL success) {
         //TODO: Add error message after consultation with UX
@@ -166,6 +178,33 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 - (void)setAddingCardEnabled:(BOOL)addingCardEnabled {
     _addingCardEnabled = addingCardEnabled;
     [UIApplication sharedApplication].idleTimerDisabled = _addingCardEnabled;
+}
+
+#pragma mark - Keyboard Controller
+
+- (void) hideKeyboardController {
+    [self.keyboardViewController willMoveToParentViewController:nil];
+    [self.keyboardViewController.view removeFromSuperview];
+    [self.keyboardViewController removeFromParentViewController];
+
+    [self.castView.keyboardButton setSelected:NO];
+    [self.castView configureInfoLabelForMode:BPScanCodeViewLabelModeScan];
+
+    self.castView.infoTextLabel.hidden = self.castView.stackView.cardCount > 0;
+    self.castView.rectangleView.hidden = NO;
+    self.castView.stackView.hidden = NO;
+}
+
+- (void)showKeyboardController {
+    [self addChildViewController:self.keyboardViewController];
+    self.keyboardViewController.view.frame = self.view.bounds;
+    [self.view insertSubview:self.keyboardViewController.view belowSubview:self.castView.logoImageView];
+    [self.keyboardViewController didMoveToParentViewController:self];
+
+    [self.castView.keyboardButton setSelected:YES];
+    [self.castView configureInfoLabelForMode:BPScanCodeViewLabelModeKeyboard];
+    self.castView.rectangleView.hidden = YES;
+    self.castView.stackView.hidden = YES;
 }
 
 #pragma mark - UIAlertViewDelegate
@@ -194,7 +233,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 - (void)stackView:(BPStackView *)stackView willExpandWithCard:(UIView *)cardView {
     self.addingCardEnabled = NO;
 
-    [self.castView setMenuButtonVisible:NO animation:YES];
+    [self.castView setButtonsVisible:NO animation:YES];
 
     NSString *barcode = self.scannedBarcodes[(NSUInteger) cardView.tag];
     if (!barcode) {
@@ -209,7 +248,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 - (void)stackViewDidCollapse:(BPStackView *)stackView {
     self.addingCardEnabled = YES;
 
-    [self.castView setMenuButtonVisible:YES animation:YES];
+    [self.castView setButtonsVisible:YES animation:YES];
 }
 
 - (BOOL)stackView:(BPStackView *)stackView didTapCard:(UIView *)cardView {

@@ -9,10 +9,7 @@ const int SCAN_CODE_MARGIN = 15;
 const int INFO_TEXT_LABEL_BOTTOM_MARGIN = 50;
 
 @interface BPScanCodeView ()
-@property(nonatomic, readonly) UIView *rectangleView;
 @property(nonatomic, readonly) UIView *dimView;
-@property(nonatomic, readonly) UILabel *infoTextLabel;
-@property(nonatomic, readonly) UIImageView *logoImageView;
 @end
 
 @implementation BPScanCodeView
@@ -29,21 +26,27 @@ const int INFO_TEXT_LABEL_BOTTOM_MARGIN = 50;
         _rectangleView.layer.borderColor = [[UIColor whiteColor] CGColor];
         [self addSubview:_rectangleView];
 
-        _infoTextLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _infoTextLabel.numberOfLines = 4;
-        _infoTextLabel.text = NSLocalizedString(@"Scan barcode", nil);
-        _infoTextLabel.font = [BPTheme titleFont];
-        _infoTextLabel.textColor = [BPTheme clearColor];
-        _infoTextLabel.textAlignment = NSTextAlignmentCenter;
-        [_infoTextLabel sizeToFit];
-        [self addSubview:_infoTextLabel];
-
         _logoImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LogoIcon"]];
         [_logoImageView sizeToFit];
         [self addSubview:_logoImageView];
 
+        _infoTextLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _infoTextLabel.numberOfLines = 4;
+        _infoTextLabel.font = [BPTheme titleFont];
+        _infoTextLabel.textColor = [BPTheme clearColor];
+        _infoTextLabel.textAlignment = NSTextAlignmentCenter;
+        [_infoTextLabel sizeToFit];
+        [self configureInfoLabelForMode:BPScanCodeViewLabelModeScan];
+        [self addSubview:_infoTextLabel];
+
         _stackView = [[BPStackView alloc] initWithFrame:CGRectZero];
         [self addSubview:_stackView];
+
+        _flashButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_flashButton setImage:[UIImage imageNamed:@"FlashIcon"] forState:UIControlStateNormal];
+        [_flashButton setImage:[UIImage imageNamed:@"FlashSelectedIcon"] forState:UIControlStateSelected];
+        [_flashButton sizeToFit];
+        [self insertSubview:_flashButton belowSubview:_logoImageView];
 
         _menuButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_menuButton setImage:[UIImage imageNamed:@"BurgerIcon"] forState:UIControlStateNormal];
@@ -55,12 +58,6 @@ const int INFO_TEXT_LABEL_BOTTOM_MARGIN = 50;
         [_keyboardButton setImage:[UIImage imageNamed:@"KeyboardSelectedIcon"] forState:UIControlStateSelected];
         [_keyboardButton sizeToFit];
         [self addSubview:_keyboardButton];
-
-        _flashButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_flashButton setImage:[UIImage imageNamed:@"FlashIcon"] forState:UIControlStateNormal];
-        [_flashButton setImage:[UIImage imageNamed:@"FlashSelectedIcon"] forState:UIControlStateSelected];
-        [_flashButton sizeToFit];
-        [self addSubview:_flashButton];
     }
 
     return self;
@@ -126,9 +123,21 @@ const int INFO_TEXT_LABEL_BOTTOM_MARGIN = 50;
     }];
 }
 
-- (void)setMenuButtonVisible:(BOOL)visible animation:(BOOL)animation {
+- (void)configureInfoLabelForMode:(BPScanCodeViewLabelMode)mode {
+    if (mode == BPScanCodeViewLabelModeScan) {
+        self.infoTextLabel.text = NSLocalizedString(@"Scan barcode", nil);
+    } else {
+        self.infoTextLabel.text = NSLocalizedString(@"Type 13 digits", nil);
+        [self setInfoTextVisible: YES];
+    }
+}
+
+- (void)setButtonsVisible:(BOOL)visible animation:(BOOL)animation {
     [UIView animateWithDuration:animation ? 0.2f : 0.f animations:^{
-        self.menuButton.alpha = visible ? 1.f : 0.f;
+        CGFloat alpha = visible ? 1.f : 0.f;
+        self.menuButton.alpha = alpha;
+        self.flashButton.alpha = alpha;
+        self.keyboardButton.alpha = alpha;
     }];
 }
 

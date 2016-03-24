@@ -83,6 +83,8 @@
 		37B64F7816B23819A90C0456 /* BPLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6464528820E718DBABAA5 /* BPLogger.m */; };
 		37B64FF08BF5367BF9669B33 /* BPUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64B74E1FAED6141BA2B25 /* BPUtilities.m */; };
 		37C89AA41C78682200CCE940 /* BPFlashlightManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C89AA31C78682200CCE940 /* BPFlashlightManager.m */; };
+		37F16AA51CA1BCCF00A310CF /* BPKeyboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37F16AA31CA1BCCF00A310CF /* BPKeyboardViewController.m */; };
+		37F16AA61CA1BCCF00A310CF /* BPKeyboardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37F16AA41CA1BCCF00A310CF /* BPKeyboardViewController.xib */; };
 		69518FC099FB71F3DCFF46DE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DF0AB075C622D66E92D300ED /* libPods.a */; };
 		ABCA9D8499A8FF36227B6C94 /* UIApplication+BPStatusBarHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCA997979B62F78CFCB7E19 /* UIApplication+BPStatusBarHeight.m */; };
 /* End PBXBuildFile section */
@@ -226,6 +228,9 @@
 		37B64FFC3FE96EFDE8398CF3 /* BPScanCodeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPScanCodeView.h; sourceTree = "<group>"; };
 		37C89AA21C78682200CCE940 /* BPFlashlightManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPFlashlightManager.h; path = Flashlight/BPFlashlightManager.h; sourceTree = "<group>"; };
 		37C89AA31C78682200CCE940 /* BPFlashlightManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPFlashlightManager.m; path = Flashlight/BPFlashlightManager.m; sourceTree = "<group>"; };
+		37F16AA21CA1BCCF00A310CF /* BPKeyboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPKeyboardViewController.h; path = Keyboard/BPKeyboardViewController.h; sourceTree = "<group>"; };
+		37F16AA31CA1BCCF00A310CF /* BPKeyboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPKeyboardViewController.m; path = Keyboard/BPKeyboardViewController.m; sourceTree = "<group>"; };
+		37F16AA41CA1BCCF00A310CF /* BPKeyboardViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BPKeyboardViewController.xib; path = Keyboard/BPKeyboardViewController.xib; sourceTree = "<group>"; };
 		ABCA997979B62F78CFCB7E19 /* UIApplication+BPStatusBarHeight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+BPStatusBarHeight.m"; sourceTree = "<group>"; };
 		ABCA9A3E3B8A8B7C925052B6 /* UIApplication+BPStatusBarHeight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+BPStatusBarHeight.h"; sourceTree = "<group>"; };
 		DDCD565BACC4C57A8E5BD067 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -426,6 +431,7 @@
 		37B64540723CF4EABBB3AC70 /* ProductSearch */ = {
 			isa = PBXGroup;
 			children = (
+				37F16AA11CA1BCA300A310CF /* Keyboard */,
 				37B64F458C8BF4C8D672DAE5 /* ScanCode */,
 				37B644A42C57261C707CF0B4 /* ReportProblem */,
 				37B642BE060B4E64D7FB7575 /* About */,
@@ -615,6 +621,16 @@
 			path = ActivityIndicator;
 			sourceTree = "<group>";
 		};
+		37F16AA11CA1BCA300A310CF /* Keyboard */ = {
+			isa = PBXGroup;
+			children = (
+				37F16AA21CA1BCCF00A310CF /* BPKeyboardViewController.h */,
+				37F16AA31CA1BCCF00A310CF /* BPKeyboardViewController.m */,
+				37F16AA41CA1BCCF00A310CF /* BPKeyboardViewController.xib */,
+			);
+			name = Keyboard;
+			sourceTree = "<group>";
+		};
 		8905DA657634882F5C28E503 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -709,6 +725,7 @@
 			files = (
 				1D08E83319A7621A00879BD2 /* InfoPlist.strings in Resources */,
 				1D08E83E19A7621A00879BD2 /* Images.xcassets in Resources */,
+				37F16AA61CA1BCCF00A310CF /* BPKeyboardViewController.xib in Resources */,
 				1DEFA1BD1BD9920600938C81 /* Lato-Regular.ttf in Resources */,
 				37B64B7D226FBFA23FFCA1C1 /* Localizable.strings in Resources */,
 				1DEFA1BB1BD9920600938C81 /* Lato-Light.ttf in Resources */,
@@ -803,6 +820,7 @@
 				37B642317C6BC629AFB0394F /* BPProductManager.m in Sources */,
 				37B649B71B7F59A1741CD9B7 /* BPScanResult.m in Sources */,
 				37B64A5D21387F5E0613B2AA /* BPTaskRunner.m in Sources */,
+				37F16AA51CA1BCCF00A310CF /* BPKeyboardViewController.m in Sources */,
 				37B646BC2546890EB330F4FD /* BPTask.m in Sources */,
 				3784331E1C739035008E392B /* BPAboutViewControllerDoubleCell.m in Sources */,
 				37B647E20B1B2E3F5F0ECFA3 /* BPAPIAccessor.m in Sources */,

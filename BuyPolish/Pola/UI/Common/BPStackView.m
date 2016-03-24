@@ -228,6 +228,18 @@ NSInteger const kBPStackViewCardTitleHeight = 50;
     return _cards.count;
 }
 
+/* Ignore touches on transparent background */
+- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
+
+    for (UIView *view in self.subviews) {
+        if (CGRectContainsPoint(view.frame, point)) {
+            return YES;
+        }
+    }
+
+    return NO;
+}
+
 @end
 
 @implementation BPStackViewLayoutContext
