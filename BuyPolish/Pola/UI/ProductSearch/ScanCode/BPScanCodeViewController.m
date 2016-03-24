@@ -9,6 +9,8 @@
 #import "BPFlashlightManager.h"
 #import "BPKeyboardViewController.h"
 
+static NSTimeInterval const kAnimationTime = 0.15;
+
 @interface BPScanCodeViewController ()
 
 @property(nonatomic) BPKeyboardViewController *keyboardViewController;
@@ -183,28 +185,41 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 #pragma mark - Keyboard Controller
 
 - (void) hideKeyboardController {
-    [self.keyboardViewController willMoveToParentViewController:nil];
-    [self.keyboardViewController.view removeFromSuperview];
-    [self.keyboardViewController removeFromParentViewController];
-
     [self.castView.keyboardButton setSelected:NO];
-    [self.castView configureInfoLabelForMode:BPScanCodeViewLabelModeScan];
 
-    self.castView.infoTextLabel.hidden = self.castView.stackView.cardCount > 0;
-    self.castView.rectangleView.hidden = NO;
-    self.castView.stackView.hidden = NO;
+    [self.keyboardViewController willMoveToParentViewController:nil];
+
+    [UIView animateWithDuration:kAnimationTime animations:^{
+        self.castView.infoTextLabel.alpha = self.castView.stackView.cardCount > 0 ? 0.0 : 1.0;
+        self.castView.rectangleView.alpha = 1.0;
+        self.castView.stackView.alpha = 1.0;
+        self.keyboardViewController.view.alpha = 0.0;
+    } completion:^(BOOL finished) {
+        [self.keyboardViewController.view removeFromSuperview];
+        [self.keyboardViewController removeFromParentViewController];
+
+        [self.castView configureInfoLabelForMode:BPScanCodeViewLabelModeScan];
+    }];
 }
 
 - (void)showKeyboardController {
+    [self.castView.keyboardButton setSelected:YES];
+
     [self addChildViewController:self.keyboardViewController];
     self.keyboardViewController.view.frame = self.view.bounds;
+    self.keyboardViewController.view.alpha = 0.0;
     [self.view insertSubview:self.keyboardViewController.view belowSubview:self.castView.logoImageView];
-    [self.keyboardViewController didMoveToParentViewController:self];
 
-    [self.castView.keyboardButton setSelected:YES];
+    [UIView animateWithDuration:kAnimationTime animations:^{
+        self.keyboardViewController.view.alpha = 1.0;
+
+        self.castView.rectangleView.alpha = 0.0;
+        self.castView.stackView.alpha = 0.0;
+    } completion:^(BOOL finished) {
+        [self.keyboardViewController didMoveToParentViewController:self];
+    }];
+
     [self.castView configureInfoLabelForMode:BPScanCodeViewLabelModeKeyboard];
-    self.castView.rectangleView.hidden = YES;
-    self.castView.stackView.hidden = YES;
 }
 
 #pragma mark - UIAlertViewDelegate
