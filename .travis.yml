@@ -1,0 +1,31 @@
+language: objective-c
+osx_image: xcode7.3
+xcode_sdk: iphonesimulator9.3
+
+
+env:
+  global:
+  - LANG=en_US.UTF-8
+  - WORKSPACE="BuyPolish/Pola.xcworkspace"
+  - SCHEME="PolaCI"
+  - APP_NAME="Pola"
+  - EMAILS="pjanecze@gmail.com"
+  - GROUP_ALIASES="Pola-iOS"
+  - PROFILE_NAME="distribution_profile"
+  - 'DEVELOPER_NAME="iPhone Distribution: Klub Jagiellonski Sp z o. o. (9NBWKG2G3X)"'
+  matrix:
+  - DESTINATION="generic/platform=iOS" SDK="iphoneos"
+before_install:
+- chmod +x ./travis/scripts/add-key.sh
+- chmod +x ./travis/scripts/remove-key.sh
+- chmod +x ./travis/scripts/sign-and-upload.sh
+before_script:
+- "./travis/scripts/add-key.sh"
+script:
+- xctool clean build -workspace "$WORKSPACE" -scheme
+  "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" -configuration Release OBJROOT=$PWD/build
+  SYMROOT=$PWD/build ONLY_ACTIVE_ARCH=NO 'CODE_SIGN_RESOURCE_RULES_PATH=$(SDKROOT)/ResourceRules.plist'
+after_success:
+- "./travis/scripts/sign-and-upload.sh"
+after_script:
+- "./travis/scripts/remove-key.sh"
