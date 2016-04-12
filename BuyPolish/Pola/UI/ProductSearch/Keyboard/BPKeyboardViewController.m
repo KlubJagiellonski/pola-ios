@@ -1,6 +1,9 @@
 #import "BPKeyboardViewController.h"
+#import "BPKeyboardView.h"
 
 @interface BPKeyboardViewController ()
+
+@property (nonatomic) IBOutlet BPKeyboardView *keyboardView;
 
 @end
 

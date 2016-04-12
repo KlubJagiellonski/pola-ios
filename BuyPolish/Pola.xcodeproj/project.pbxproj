@@ -29,6 +29,7 @@
 		1DEFA1BE1BD9920600938C81 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1DEFA1B91BD9920600938C81 /* Lato-Regular.ttf */; };
 		1DEFA1BF1BD9920600938C81 /* Lato-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1DEFA1BA1BD9920600938C81 /* Lato-Semibold.ttf */; };
 		1DEFA1C01BD9920600938C81 /* Lato-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1DEFA1BA1BD9920600938C81 /* Lato-Semibold.ttf */; };
+		371245271CBCEC6600BD0543 /* BPKeyboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 371245261CBCEC6600BD0543 /* BPKeyboardView.m */; };
 		373C24211C71EF760039410C /* BPAboutViewControllerSingleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 373C24201C71EF760039410C /* BPAboutViewControllerSingleCell.m */; };
 		374B5B8A1C71C14100E74BBB /* NSDictionary_ParsingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 374B5B891C71C14100E74BBB /* NSDictionary_ParsingTests.m */; };
 		374B5B8D1C71C15D00E74BBB /* NSDictionary+Parsing.m in Sources */ = {isa = PBXBuildFile; fileRef = 374B5B8C1C71C15D00E74BBB /* NSDictionary+Parsing.m */; };
@@ -124,6 +125,8 @@
 		1DEFA1C21BD99B8900938C81 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1DEFA1C31BD99B8900938C81 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3113702D8B8D1BEF39F1B926 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		371245251CBCEC6600BD0543 /* BPKeyboardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPKeyboardView.h; path = Keyboard/BPKeyboardView.h; sourceTree = "<group>"; };
+		371245261CBCEC6600BD0543 /* BPKeyboardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPKeyboardView.m; path = Keyboard/BPKeyboardView.m; sourceTree = "<group>"; };
 		373C241F1C71EF760039410C /* BPAboutViewControllerSingleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPAboutViewControllerSingleCell.h; sourceTree = "<group>"; };
 		373C24201C71EF760039410C /* BPAboutViewControllerSingleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPAboutViewControllerSingleCell.m; sourceTree = "<group>"; };
 		374B5B891C71C14100E74BBB /* NSDictionary_ParsingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDictionary_ParsingTests.m; sourceTree = "<group>"; };
@@ -627,6 +630,8 @@
 				37F16AA21CA1BCCF00A310CF /* BPKeyboardViewController.h */,
 				37F16AA31CA1BCCF00A310CF /* BPKeyboardViewController.m */,
 				37F16AA41CA1BCCF00A310CF /* BPKeyboardViewController.xib */,
+				371245251CBCEC6600BD0543 /* BPKeyboardView.h */,
+				371245261CBCEC6600BD0543 /* BPKeyboardView.m */,
 			);
 			name = Keyboard;
 			sourceTree = "<group>";
@@ -693,7 +698,7 @@
 				ORGANIZATIONNAME = PJMS;
 				TargetAttributes = {
 					1D08E82219A7621A00879BD2 = {
-						DevelopmentTeam = 9NBWKG2G3X;
+						DevelopmentTeam = Y5332SFZ6X;
 					};
 					1D08E84219A7621A00879BD2 = {
 						TestTargetID = 1D08E82219A7621A00879BD2;
@@ -867,6 +872,7 @@
 				37B6498E15B68A84069DD3A5 /* BPAnalyticsHelper.m in Sources */,
 				37B64D38E60651D383A2F8F7 /* BPDeviceHelper.m in Sources */,
 				37B64A095B01FB6355E7E21E /* BPAboutWebViewController.m in Sources */,
+				371245271CBCEC6600BD0543 /* BPKeyboardView.m in Sources */,
 				37B649CC5A32714DBC4E9751 /* BPCompanyContentView.m in Sources */,
 				ABCA9D8499A8FF36227B6C94 /* UIApplication+BPStatusBarHeight.m in Sources */,
 			);
@@ -1011,7 +1017,7 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = "Pola/Pola-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kj.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = eu.ttmm.plebble.round;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1040,7 +1046,7 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = "Pola/Pola-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kj.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = eu.ttmm.plebble.round;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
