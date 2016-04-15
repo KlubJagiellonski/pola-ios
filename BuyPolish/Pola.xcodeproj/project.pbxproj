@@ -33,6 +33,7 @@
 		373C24211C71EF760039410C /* BPAboutViewControllerSingleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 373C24201C71EF760039410C /* BPAboutViewControllerSingleCell.m */; };
 		374B5B8A1C71C14100E74BBB /* NSDictionary_ParsingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 374B5B891C71C14100E74BBB /* NSDictionary_ParsingTests.m */; };
 		374B5B8D1C71C15D00E74BBB /* NSDictionary+Parsing.m in Sources */ = {isa = PBXBuildFile; fileRef = 374B5B8C1C71C15D00E74BBB /* NSDictionary+Parsing.m */; };
+		375021841CC0F0F800759140 /* BPKeyboardTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 375021831CC0F0F800759140 /* BPKeyboardTextView.m */; };
 		3784331A1C7378AE008E392B /* BPDoubleAboutRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 378433191C7378AE008E392B /* BPDoubleAboutRow.m */; };
 		3784331E1C739035008E392B /* BPAboutViewControllerDoubleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3784331D1C739035008E392B /* BPAboutViewControllerDoubleCell.m */; };
 		378433211C7398C0008E392B /* BPAboutViewControllerBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 378433201C7398C0008E392B /* BPAboutViewControllerBaseCell.m */; };
@@ -132,6 +133,8 @@
 		374B5B891C71C14100E74BBB /* NSDictionary_ParsingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDictionary_ParsingTests.m; sourceTree = "<group>"; };
 		374B5B8B1C71C15D00E74BBB /* NSDictionary+Parsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+Parsing.h"; path = "Pola/Utilities/Categories/NSDictionary+Parsing.h"; sourceTree = SOURCE_ROOT; };
 		374B5B8C1C71C15D00E74BBB /* NSDictionary+Parsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+Parsing.m"; path = "Pola/Utilities/Categories/NSDictionary+Parsing.m"; sourceTree = SOURCE_ROOT; };
+		375021821CC0F0F800759140 /* BPKeyboardTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPKeyboardTextView.h; path = Keyboard/BPKeyboardTextView.h; sourceTree = "<group>"; };
+		375021831CC0F0F800759140 /* BPKeyboardTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPKeyboardTextView.m; path = Keyboard/BPKeyboardTextView.m; sourceTree = "<group>"; };
 		378433181C7378AE008E392B /* BPDoubleAboutRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPDoubleAboutRow.h; path = Pola/UI/ProductSearch/About/model/BPDoubleAboutRow.h; sourceTree = SOURCE_ROOT; };
 		378433191C7378AE008E392B /* BPDoubleAboutRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPDoubleAboutRow.m; path = Pola/UI/ProductSearch/About/model/BPDoubleAboutRow.m; sourceTree = SOURCE_ROOT; };
 		3784331C1C739035008E392B /* BPAboutViewControllerDoubleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPAboutViewControllerDoubleCell.h; sourceTree = "<group>"; };
@@ -632,6 +635,8 @@
 				37F16AA41CA1BCCF00A310CF /* BPKeyboardViewController.xib */,
 				371245251CBCEC6600BD0543 /* BPKeyboardView.h */,
 				371245261CBCEC6600BD0543 /* BPKeyboardView.m */,
+				375021821CC0F0F800759140 /* BPKeyboardTextView.h */,
+				375021831CC0F0F800759140 /* BPKeyboardTextView.m */,
 			);
 			name = Keyboard;
 			sourceTree = "<group>";
@@ -852,6 +857,7 @@
 				37B648580AB2106E285B58C2 /* BPReportProblemViewController.m in Sources */,
 				37B6482F8EF3F11BE5ECEAAB /* BPReportProblemView.m in Sources */,
 				37B64B04E790A7948469FA50 /* BPProductImageManager.m in Sources */,
+				375021841CC0F0F800759140 /* BPKeyboardTextView.m in Sources */,
 				37B642E8F1F16F59571A854C /* BPImageContainerView.m in Sources */,
 				37B64812B722CA03E04616F8 /* UIColor+BPAdditions.m in Sources */,
 				37B6423FEFD4E46BF69E0228 /* BPAPIAccessor+BPReport.m in Sources */,

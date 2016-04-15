@@ -1,9 +1,11 @@
 #import "BPKeyboardViewController.h"
 #import "BPKeyboardView.h"
+#import "BPKeyboardTextView.h"
 
 @interface BPKeyboardViewController () <BPKeyboardViewDelegate>
 
 @property (nonatomic) IBOutlet BPKeyboardView *keyboardView;
+@property (nonatomic) IBOutlet BPKeyboardTextView *textView;
 
 @end
 
@@ -24,7 +26,7 @@
 #pragma mark - BPKeyboardViewDelegate
 
 - (void)keyboardView:(BPKeyboardView *)keyboardView tappedNumber:(NSInteger)number {
-
+    [self.textView insertValue:number];
 }
 
 - (void)confirmButtonTappedInKeyboardView:(BPKeyboardView *)keyboardView {
