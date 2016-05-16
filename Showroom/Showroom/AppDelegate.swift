@@ -1,4 +1,5 @@
 import UIKit
+import ShowroomApi
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
