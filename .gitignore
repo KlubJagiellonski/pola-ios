@@ -1,2 +1,6 @@
 Showroom/Showroom.xcodeproj/project.xcworkspace/xcuserdata
 Showroom/Showroom.xcodeproj/xcuserdata
+Showroom/Carthage/Checkouts
+Showroom/Carthage/Build/Mac
+Showroom/Carthage/Build/tvOS
+Showroom/Carthage/Build/watchOS

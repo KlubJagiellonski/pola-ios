@@ -1,0 +1,8 @@
+github "dzenbot/DZNEmptyDataSet" "v1.8"
+github "Anviking/Decodable" "v0.4.2"
+github "joeldev/JLRoutes" "1.6"
+github "matthewpalmer/Locksmith" "2.0.8"
+github "ReactiveX/RxSwift" "2.5.0"
+github "SwiftyJSON/SwiftyJSON" "2.3.1"
+github "Swinject/Swinject" "1.1.1"
+github "DaveWoodCom/XCGLogger" "Version_3.3"
