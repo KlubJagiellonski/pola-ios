@@ -28,6 +28,8 @@
 		1D2F19CD1CEB083F0099142E /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1D2F19C21CEB07D10099142E /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1D2F19D11CEB16120099142E /* Decodable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2F19961CEA14FE0099142E /* Decodable.framework */; };
 		1D2F19D21CEB16200099142E /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2F199E1CEA14FE0099142E /* SwiftyJSON.framework */; };
+		1DF796731CEB2E1F00C7A7F4 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF796711CEB2E1F00C7A7F4 /* Fabric.framework */; };
+		1DF796741CEB2E1F00C7A7F4 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF796721CEB2E1F00C7A7F4 /* Crashlytics.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +91,8 @@
 		1D2F19BF1CEAFD220099142E /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
 		1D2F19C11CEB07D10099142E /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		1D2F19C21CEB07D10099142E /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
+		1DF796711CEB2E1F00C7A7F4 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		1DF796721CEB2E1F00C7A7F4 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +102,7 @@
 			files = (
 				1D2F19A21CEA14FE0099142E /* DZNEmptyDataSet.framework in Frameworks */,
 				1D2F19A31CEA14FE0099142E /* JLRoutes.framework in Frameworks */,
+				1DF796741CEB2E1F00C7A7F4 /* Crashlytics.framework in Frameworks */,
 				1D2F19A41CEA14FE0099142E /* Locksmith.framework in Frameworks */,
 				1D2F19A51CEA14FE0099142E /* RxBlocking.framework in Frameworks */,
 				1D2F19A61CEA14FE0099142E /* RxCocoa.framework in Frameworks */,
@@ -107,6 +112,7 @@
 				1D2F19BB1CEAFC480099142E /* Rswift.framework in Frameworks */,
 				1D2F19D11CEB16120099142E /* Decodable.framework in Frameworks */,
 				1D2F19D21CEB16200099142E /* SwiftyJSON.framework in Frameworks */,
+				1DF796731CEB2E1F00C7A7F4 /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -182,6 +188,8 @@
 		1D2F19AC1CEA15060099142E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1DF796711CEB2E1F00C7A7F4 /* Fabric.framework */,
+				1DF796721CEB2E1F00C7A7F4 /* Crashlytics.framework */,
 				1D2F19C11CEB07D10099142E /* Nimble.framework */,
 				1D2F19C21CEB07D10099142E /* Quick.framework */,
 				1D2F19BA1CEAFC480099142E /* Rswift.framework */,
@@ -213,6 +221,7 @@
 				1D2F19901CE9D39C0099142E /* Embed Frameworks */,
 				1D2F19B81CEA15EC0099142E /* Carthage Run Script */,
 				1D2F19BC1CEAFC640099142E /* RSwift Run Script */,
+				1DF796701CEB2C1500C7A7F4 /* Fabric Run Script */,
 			);
 			buildRules = (
 			);
@@ -338,6 +347,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"$SRCROOT/Showroom/rswift\" \"$SRCROOT/Showroom\"";
+		};
+		1DF796701CEB2C1500C7A7F4 /* Fabric Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Fabric Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run 6703bbd1e7cbb2becfc87ab8869adeee94fb6352 bf98e48e146e7a0899234244a61e7a4e45aeb2aef02d73a009217b396ec464dd";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -473,6 +496,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Showroom/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -489,6 +513,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Showroom/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
