@@ -31,6 +31,8 @@
 		1D2F19B21CEA158F0099142E /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2F199B1CEA14FE0099142E /* RxCocoa.framework */; };
 		1D2F19B31CEA158F0099142E /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2F199C1CEA14FE0099142E /* RxSwift.framework */; };
 		1D2F19B51CEA158F0099142E /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2F199E1CEA14FE0099142E /* SwiftyJSON.framework */; };
+		1D2F19BB1CEAFC480099142E /* Rswift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2F19BA1CEAFC480099142E /* Rswift.framework */; };
+		1D2F19C01CEAFD220099142E /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2F19BF1CEAFD220099142E /* R.generated.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,6 +108,8 @@
 		1D2F199E1CEA14FE0099142E /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		1D2F199F1CEA14FE0099142E /* Swinject.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Swinject.framework; path = Carthage/Build/iOS/Swinject.framework; sourceTree = "<group>"; };
 		1D2F19A01CEA14FE0099142E /* XCGLogger.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCGLogger.framework; path = Carthage/Build/iOS/XCGLogger.framework; sourceTree = "<group>"; };
+		1D2F19BA1CEAFC480099142E /* Rswift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Rswift.framework; path = Carthage/Build/iOS/Rswift.framework; sourceTree = "<group>"; };
+		1D2F19BF1CEAFD220099142E /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +126,7 @@
 				1D2F19A71CEA14FE0099142E /* RxSwift.framework in Frameworks */,
 				1D2F19AA1CEA14FE0099142E /* Swinject.framework in Frameworks */,
 				1D2F19AB1CEA14FE0099142E /* XCGLogger.framework in Frameworks */,
+				1D2F19BB1CEAFC480099142E /* Rswift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -181,6 +186,7 @@
 		1D2F193D1CE9CE250099142E /* Showroom */ = {
 			isa = PBXGroup;
 			children = (
+				1D2F19BF1CEAFD220099142E /* R.generated.swift */,
 				1D2F195E1CE9CE7B0099142E /* Shared */,
 				1D2F193E1CE9CE250099142E /* AppDelegate.swift */,
 				1D2F19451CE9CE250099142E /* Assets.xcassets */,
@@ -237,6 +243,7 @@
 		1D2F19AC1CEA15060099142E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1D2F19BA1CEAFC480099142E /* Rswift.framework */,
 				1D2F19961CEA14FE0099142E /* Decodable.framework */,
 				1D2F19971CEA14FE0099142E /* DZNEmptyDataSet.framework */,
 				1D2F19981CEA14FE0099142E /* JLRoutes.framework */,
@@ -275,6 +282,7 @@
 				1D2F19391CE9CE250099142E /* Resources */,
 				1D2F19901CE9D39C0099142E /* Embed Frameworks */,
 				1D2F19B81CEA15EC0099142E /* Carthage Run Script */,
+				1D2F19BC1CEAFC640099142E /* RSwift Run Script */,
 			);
 			buildRules = (
 			);
@@ -464,6 +472,20 @@
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks";
 		};
+		1D2F19BC1CEAFC640099142E /* RSwift Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "RSwift Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$SRCROOT/Showroom/rswift\" \"$SRCROOT/Showroom\"";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -473,6 +495,7 @@
 			files = (
 				1D2F19611CE9CED80099142E /* RootViewController.swift in Sources */,
 				1D2F193F1CE9CE250099142E /* AppDelegate.swift in Sources */,
+				1D2F19C01CEAFD220099142E /* R.generated.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

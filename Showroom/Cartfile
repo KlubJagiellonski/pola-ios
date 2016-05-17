@@ -6,3 +6,4 @@ github "matthewpalmer/Locksmith" == 2.0.8
 github "dzenbot/DZNEmptyDataSet" == 1.8
 github "Anviking/Decodable" == 0.4.2
 github "joeldev/JLRoutes" == 1.6
+github "mac-cain13/R.swift.Library" == 2.1.0
