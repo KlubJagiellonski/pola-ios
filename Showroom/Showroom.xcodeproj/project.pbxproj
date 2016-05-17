@@ -31,6 +31,14 @@
 		1DF796731CEB2E1F00C7A7F4 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF796711CEB2E1F00C7A7F4 /* Fabric.framework */; };
 		1DF796741CEB2E1F00C7A7F4 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF796721CEB2E1F00C7A7F4 /* Crashlytics.framework */; };
 		1DF796771CEB34AD00C7A7F4 /* Haneke.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF796761CEB34AD00C7A7F4 /* Haneke.framework */; };
+		1DF796791CEB369B00C7A7F4 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF796781CEB369B00C7A7F4 /* NetworkClient.swift */; };
+		1DF7967B1CEB39A100C7A7F4 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF7967A1CEB39A100C7A7F4 /* ApiService.swift */; };
+		1DF7967E1CEB3AF600C7A7F4 /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF7967D1CEB3AF600C7A7F4 /* Logging.swift */; };
+		1DF796801CEB3C4000C7A7F4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF7967F1CEB3C4000C7A7F4 /* Constants.swift */; };
+		1DF796831CEB473300C7A7F4 /* DiAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF796821CEB473300C7A7F4 /* DiAssembler.swift */; };
+		1DF796851CEB477B00C7A7F4 /* NetworkAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF796841CEB477B00C7A7F4 /* NetworkAssembly.swift */; };
+		1DF796871CEB49E200C7A7F4 /* CoreAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF796861CEB49E200C7A7F4 /* CoreAssembly.swift */; };
+		1DF796891CEB4AC000C7A7F4 /* UIAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF796881CEB4AC000C7A7F4 /* UIAssembly.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +103,14 @@
 		1DF796711CEB2E1F00C7A7F4 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		1DF796721CEB2E1F00C7A7F4 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		1DF796761CEB34AD00C7A7F4 /* Haneke.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Haneke.framework; path = Carthage/Build/iOS/Haneke.framework; sourceTree = "<group>"; };
+		1DF796781CEB369B00C7A7F4 /* NetworkClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
+		1DF7967A1CEB39A100C7A7F4 /* ApiService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
+		1DF7967D1CEB3AF600C7A7F4 /* Logging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logging.swift; sourceTree = "<group>"; };
+		1DF7967F1CEB3C4000C7A7F4 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		1DF796821CEB473300C7A7F4 /* DiAssembler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiAssembler.swift; sourceTree = "<group>"; };
+		1DF796841CEB477B00C7A7F4 /* NetworkAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkAssembly.swift; sourceTree = "<group>"; };
+		1DF796861CEB49E200C7A7F4 /* CoreAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreAssembly.swift; sourceTree = "<group>"; };
+		1DF796881CEB4AC000C7A7F4 /* UIAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAssembly.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,8 +191,11 @@
 		1D2F195E1CE9CE7B0099142E /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				1DF796811CEB462C00C7A7F4 /* DI */,
+				1DF7967C1CEB3AC800C7A7F4 /* Logging */,
 				1DF796751CEB343E00C7A7F4 /* Network */,
 				1D2F195F1CE9CEBA0099142E /* Business */,
+				1DF7967F1CEB3C4000C7A7F4 /* Constants.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -216,9 +235,30 @@
 		1DF796751CEB343E00C7A7F4 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				1DF796781CEB369B00C7A7F4 /* NetworkClient.swift */,
+				1DF7967A1CEB39A100C7A7F4 /* ApiService.swift */,
 			);
 			name = Network;
 			path = Notwork;
+			sourceTree = "<group>";
+		};
+		1DF7967C1CEB3AC800C7A7F4 /* Logging */ = {
+			isa = PBXGroup;
+			children = (
+				1DF7967D1CEB3AF600C7A7F4 /* Logging.swift */,
+			);
+			path = Logging;
+			sourceTree = "<group>";
+		};
+		1DF796811CEB462C00C7A7F4 /* DI */ = {
+			isa = PBXGroup;
+			children = (
+				1DF796821CEB473300C7A7F4 /* DiAssembler.swift */,
+				1DF796841CEB477B00C7A7F4 /* NetworkAssembly.swift */,
+				1DF796861CEB49E200C7A7F4 /* CoreAssembly.swift */,
+				1DF796881CEB4AC000C7A7F4 /* UIAssembly.swift */,
+			);
+			path = DI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -384,8 +424,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D2F19611CE9CED80099142E /* RootViewController.swift in Sources */,
+				1DF7967E1CEB3AF600C7A7F4 /* Logging.swift in Sources */,
+				1DF796891CEB4AC000C7A7F4 /* UIAssembly.swift in Sources */,
+				1DF796851CEB477B00C7A7F4 /* NetworkAssembly.swift in Sources */,
+				1DF7967B1CEB39A100C7A7F4 /* ApiService.swift in Sources */,
 				1D2F193F1CE9CE250099142E /* AppDelegate.swift in Sources */,
+				1DF796801CEB3C4000C7A7F4 /* Constants.swift in Sources */,
 				1D2F19C01CEAFD220099142E /* R.generated.swift in Sources */,
+				1DF796791CEB369B00C7A7F4 /* NetworkClient.swift in Sources */,
+				1DF796871CEB49E200C7A7F4 /* CoreAssembly.swift in Sources */,
+				1DF796831CEB473300C7A7F4 /* DiAssembler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
