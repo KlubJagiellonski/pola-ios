@@ -1,0 +1,21 @@
+language: objective-c
+env: WORKDIR=Showroom/
+xcode_project: Showroom/Showroom.xcodeproj
+xcode_scheme: 
+ - Showroom
+xcode_sdk:
+ - iphoneos
+ - iphonesimulator
+xcode_version:
+ - '7.3'
+xcode_simulators:
+ - 'iPhone 6'
+
+script:
+- polidea-ci/script
+
+install:
+- git clone $POLIDEA_CI_REPOSITORY polidea-ci
+- polidea-ci/install
+after_success:
+- polidea-ci/upload_artifacts
