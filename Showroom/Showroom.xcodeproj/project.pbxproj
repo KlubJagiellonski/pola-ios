@@ -30,6 +30,7 @@
 		1D2F19D21CEB16200099142E /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2F199E1CEA14FE0099142E /* SwiftyJSON.framework */; };
 		1DF796731CEB2E1F00C7A7F4 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF796711CEB2E1F00C7A7F4 /* Fabric.framework */; };
 		1DF796741CEB2E1F00C7A7F4 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF796721CEB2E1F00C7A7F4 /* Crashlytics.framework */; };
+		1DF796771CEB34AD00C7A7F4 /* Haneke.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF796761CEB34AD00C7A7F4 /* Haneke.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +94,7 @@
 		1D2F19C21CEB07D10099142E /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
 		1DF796711CEB2E1F00C7A7F4 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		1DF796721CEB2E1F00C7A7F4 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		1DF796761CEB34AD00C7A7F4 /* Haneke.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Haneke.framework; path = Carthage/Build/iOS/Haneke.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +102,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1DF796771CEB34AD00C7A7F4 /* Haneke.framework in Frameworks */,
 				1D2F19A21CEA14FE0099142E /* DZNEmptyDataSet.framework in Frameworks */,
 				1D2F19A31CEA14FE0099142E /* JLRoutes.framework in Frameworks */,
 				1DF796741CEB2E1F00C7A7F4 /* Crashlytics.framework in Frameworks */,
@@ -172,6 +175,7 @@
 		1D2F195E1CE9CE7B0099142E /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				1DF796751CEB343E00C7A7F4 /* Network */,
 				1D2F195F1CE9CEBA0099142E /* Business */,
 			);
 			path = Shared;
@@ -188,6 +192,7 @@
 		1D2F19AC1CEA15060099142E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1DF796761CEB34AD00C7A7F4 /* Haneke.framework */,
 				1DF796711CEB2E1F00C7A7F4 /* Fabric.framework */,
 				1DF796721CEB2E1F00C7A7F4 /* Crashlytics.framework */,
 				1D2F19C11CEB07D10099142E /* Nimble.framework */,
@@ -206,6 +211,14 @@
 				1D2F19A01CEA14FE0099142E /* XCGLogger.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1DF796751CEB343E00C7A7F4 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Network;
+			path = Notwork;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -326,6 +339,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Rswift.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Decodable.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Haneke.framework",
 			);
 			name = "Carthage Run Script";
 			outputPaths = (

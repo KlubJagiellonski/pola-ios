@@ -1,6 +1,6 @@
 language: objective-c
 env: WORKDIR=Showroom/
-xcode_project: Showroom/Showroom.xcodeproj
+xcode_project: Showroom.xcodeproj
 xcode_scheme: 
  - Showroom
 xcode_sdk:

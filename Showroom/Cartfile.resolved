@@ -1,5 +1,6 @@
 github "dzenbot/DZNEmptyDataSet" "v1.8"
 github "Anviking/Decodable" "v0.4.2"
+github "Haneke/HanekeSwift" "v0.10.1"
 github "joeldev/JLRoutes" "1.6"
 github "matthewpalmer/Locksmith" "2.0.8"
 github "Quick/Nimble" "v4.0.1"
