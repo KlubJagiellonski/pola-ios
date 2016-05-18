@@ -8,26 +8,33 @@
 
 /* Begin PBXBuildFile section */
 		1D2F193F1CE9CE250099142E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2F193E1CE9CE250099142E /* AppDelegate.swift */; };
-		1D2F19461CE9CE250099142E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1D2F19451CE9CE250099142E /* Assets.xcassets */; };
 		1D2F19491CE9CE250099142E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1D2F19471CE9CE250099142E /* LaunchScreen.storyboard */; };
 		1D2F19541CE9CE250099142E /* ShowroomTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2F19531CE9CE250099142E /* ShowroomTests.swift */; };
 		1D2F19611CE9CED80099142E /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2F19601CE9CED80099142E /* RootViewController.swift */; };
 		1D2F19A21CEA14FE0099142E /* DZNEmptyDataSet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2F19971CEA14FE0099142E /* DZNEmptyDataSet.framework */; };
 		1D2F19A31CEA14FE0099142E /* JLRoutes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2F19981CEA14FE0099142E /* JLRoutes.framework */; };
 		1D2F19A41CEA14FE0099142E /* Locksmith.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2F19991CEA14FE0099142E /* Locksmith.framework */; };
-		1D2F19A51CEA14FE0099142E /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2F199A1CEA14FE0099142E /* RxBlocking.framework */; };
 		1D2F19A61CEA14FE0099142E /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2F199B1CEA14FE0099142E /* RxCocoa.framework */; };
 		1D2F19A71CEA14FE0099142E /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2F199C1CEA14FE0099142E /* RxSwift.framework */; };
 		1D2F19AA1CEA14FE0099142E /* Swinject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2F199F1CEA14FE0099142E /* Swinject.framework */; };
 		1D2F19AB1CEA14FE0099142E /* XCGLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2F19A01CEA14FE0099142E /* XCGLogger.framework */; };
-		1D2F19BB1CEAFC480099142E /* Rswift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2F19BA1CEAFC480099142E /* Rswift.framework */; };
-		1D2F19C01CEAFD220099142E /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2F19BF1CEAFD220099142E /* R.generated.swift */; };
 		1D2F19C31CEB07D10099142E /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2F19C11CEB07D10099142E /* Nimble.framework */; };
 		1D2F19C41CEB07D10099142E /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2F19C21CEB07D10099142E /* Quick.framework */; };
 		1D2F19CC1CEB083F0099142E /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1D2F19C11CEB07D10099142E /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1D2F19CD1CEB083F0099142E /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1D2F19C21CEB07D10099142E /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1D2F19D11CEB16120099142E /* Decodable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2F19961CEA14FE0099142E /* Decodable.framework */; };
 		1D2F19D21CEB16200099142E /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2F199E1CEA14FE0099142E /* SwiftyJSON.framework */; };
+		1D5EF1C81CEB60ED0071C097 /* RxTests.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1D2F199D1CEA14FE0099142E /* RxTests.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1D5EF1C91CEB60F20071C097 /* RxBlocking.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1D2F199A1CEA14FE0099142E /* RxBlocking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1D5EF1CA1CEB61000071C097 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2F199A1CEA14FE0099142E /* RxBlocking.framework */; };
+		1D5EF1CB1CEB61000071C097 /* RxTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2F199D1CEA14FE0099142E /* RxTests.framework */; };
+		1D5EF1D11CEB666B0071C097 /* UIImageViewUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5EF1D01CEB666B0071C097 /* UIImageViewUtilities.swift */; };
+		1DD1EA651CEC5D0000D99731 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DD1EA621CEC5D0000D99731 /* Assets.xcassets */; };
+		1DD1EA661CEC5D0000D99731 /* Colors.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1DD1EA631CEC5D0000D99731 /* Colors.txt */; };
+		1DD1EA671CEC5D0000D99731 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1DD1EA641CEC5D0000D99731 /* Localizable.strings */; };
+		1DD1EA6B1CEC5D1700D99731 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD1EA681CEC5D1700D99731 /* L10n.swift */; };
+		1DD1EA6C1CEC5D1700D99731 /* UIColorAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD1EA691CEC5D1700D99731 /* UIColorAssets.swift */; };
+		1DD1EA6D1CEC5D1700D99731 /* UIImageAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD1EA6A1CEC5D1700D99731 /* UIImageAssets.swift */; };
 		1DF796731CEB2E1F00C7A7F4 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF796711CEB2E1F00C7A7F4 /* Fabric.framework */; };
 		1DF796741CEB2E1F00C7A7F4 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF796721CEB2E1F00C7A7F4 /* Crashlytics.framework */; };
 		1DF796771CEB34AD00C7A7F4 /* Haneke.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF796761CEB34AD00C7A7F4 /* Haneke.framework */; };
@@ -70,6 +77,8 @@
 			files = (
 				1D2F19CC1CEB083F0099142E /* Nimble.framework in CopyFiles */,
 				1D2F19CD1CEB083F0099142E /* Quick.framework in CopyFiles */,
+				1D5EF1C81CEB60ED0071C097 /* RxTests.framework in CopyFiles */,
+				1D5EF1C91CEB60F20071C097 /* RxBlocking.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,7 +87,6 @@
 /* Begin PBXFileReference section */
 		1D2F193B1CE9CE250099142E /* Showroom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Showroom.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D2F193E1CE9CE250099142E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1D2F19451CE9CE250099142E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1D2F19481CE9CE250099142E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1D2F194A1CE9CE250099142E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1D2F194F1CE9CE250099142E /* ShowroomTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShowroomTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -96,10 +104,15 @@
 		1D2F199E1CEA14FE0099142E /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		1D2F199F1CEA14FE0099142E /* Swinject.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Swinject.framework; path = Carthage/Build/iOS/Swinject.framework; sourceTree = "<group>"; };
 		1D2F19A01CEA14FE0099142E /* XCGLogger.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCGLogger.framework; path = Carthage/Build/iOS/XCGLogger.framework; sourceTree = "<group>"; };
-		1D2F19BA1CEAFC480099142E /* Rswift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Rswift.framework; path = Carthage/Build/iOS/Rswift.framework; sourceTree = "<group>"; };
-		1D2F19BF1CEAFD220099142E /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
 		1D2F19C11CEB07D10099142E /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		1D2F19C21CEB07D10099142E /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
+		1D5EF1D01CEB666B0071C097 /* UIImageViewUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageViewUtilities.swift; sourceTree = "<group>"; };
+		1DD1EA621CEC5D0000D99731 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1DD1EA631CEC5D0000D99731 /* Colors.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Colors.txt; sourceTree = "<group>"; };
+		1DD1EA641CEC5D0000D99731 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		1DD1EA681CEC5D1700D99731 /* L10n.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = L10n.swift; sourceTree = "<group>"; };
+		1DD1EA691CEC5D1700D99731 /* UIColorAssets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorAssets.swift; sourceTree = "<group>"; };
+		1DD1EA6A1CEC5D1700D99731 /* UIImageAssets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageAssets.swift; sourceTree = "<group>"; };
 		1DF796711CEB2E1F00C7A7F4 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		1DF796721CEB2E1F00C7A7F4 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		1DF796761CEB34AD00C7A7F4 /* Haneke.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Haneke.framework; path = Carthage/Build/iOS/Haneke.framework; sourceTree = "<group>"; };
@@ -123,12 +136,10 @@
 				1D2F19A31CEA14FE0099142E /* JLRoutes.framework in Frameworks */,
 				1DF796741CEB2E1F00C7A7F4 /* Crashlytics.framework in Frameworks */,
 				1D2F19A41CEA14FE0099142E /* Locksmith.framework in Frameworks */,
-				1D2F19A51CEA14FE0099142E /* RxBlocking.framework in Frameworks */,
 				1D2F19A61CEA14FE0099142E /* RxCocoa.framework in Frameworks */,
 				1D2F19A71CEA14FE0099142E /* RxSwift.framework in Frameworks */,
 				1D2F19AA1CEA14FE0099142E /* Swinject.framework in Frameworks */,
 				1D2F19AB1CEA14FE0099142E /* XCGLogger.framework in Frameworks */,
-				1D2F19BB1CEAFC480099142E /* Rswift.framework in Frameworks */,
 				1D2F19D11CEB16120099142E /* Decodable.framework in Frameworks */,
 				1D2F19D21CEB16200099142E /* SwiftyJSON.framework in Frameworks */,
 				1DF796731CEB2E1F00C7A7F4 /* Fabric.framework in Frameworks */,
@@ -141,6 +152,8 @@
 			files = (
 				1D2F19C31CEB07D10099142E /* Nimble.framework in Frameworks */,
 				1D2F19C41CEB07D10099142E /* Quick.framework in Frameworks */,
+				1D5EF1CA1CEB61000071C097 /* RxBlocking.framework in Frameworks */,
+				1D5EF1CB1CEB61000071C097 /* RxTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -169,10 +182,9 @@
 		1D2F193D1CE9CE250099142E /* Showroom */ = {
 			isa = PBXGroup;
 			children = (
-				1D2F19BF1CEAFD220099142E /* R.generated.swift */,
+				1DD1EA5B1CEC5B5B00D99731 /* Resources */,
 				1D2F195E1CE9CE7B0099142E /* Shared */,
 				1D2F193E1CE9CE250099142E /* AppDelegate.swift */,
-				1D2F19451CE9CE250099142E /* Assets.xcassets */,
 				1D2F19471CE9CE250099142E /* LaunchScreen.storyboard */,
 				1D2F194A1CE9CE250099142E /* Info.plist */,
 			);
@@ -191,6 +203,7 @@
 		1D2F195E1CE9CE7B0099142E /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				1D5EF1CF1CEB663C0071C097 /* Utils */,
 				1DF796811CEB462C00C7A7F4 /* DI */,
 				1DF7967C1CEB3AC800C7A7F4 /* Logging */,
 				1DF796751CEB343E00C7A7F4 /* Network */,
@@ -216,7 +229,6 @@
 				1DF796721CEB2E1F00C7A7F4 /* Crashlytics.framework */,
 				1D2F19C11CEB07D10099142E /* Nimble.framework */,
 				1D2F19C21CEB07D10099142E /* Quick.framework */,
-				1D2F19BA1CEAFC480099142E /* Rswift.framework */,
 				1D2F19961CEA14FE0099142E /* Decodable.framework */,
 				1D2F19971CEA14FE0099142E /* DZNEmptyDataSet.framework */,
 				1D2F19981CEA14FE0099142E /* JLRoutes.framework */,
@@ -230,6 +242,27 @@
 				1D2F19A01CEA14FE0099142E /* XCGLogger.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1D5EF1CF1CEB663C0071C097 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				1D5EF1D01CEB666B0071C097 /* UIImageViewUtilities.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		1DD1EA5B1CEC5B5B00D99731 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				1DD1EA681CEC5D1700D99731 /* L10n.swift */,
+				1DD1EA691CEC5D1700D99731 /* UIColorAssets.swift */,
+				1DD1EA6A1CEC5D1700D99731 /* UIImageAssets.swift */,
+				1DD1EA621CEC5D0000D99731 /* Assets.xcassets */,
+				1DD1EA631CEC5D0000D99731 /* Colors.txt */,
+				1DD1EA641CEC5D0000D99731 /* Localizable.strings */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		1DF796751CEB343E00C7A7F4 /* Network */ = {
@@ -273,7 +306,7 @@
 				1D2F19391CE9CE250099142E /* Resources */,
 				1D2F19901CE9D39C0099142E /* Embed Frameworks */,
 				1D2F19B81CEA15EC0099142E /* Carthage Run Script */,
-				1D2F19BC1CEAFC640099142E /* RSwift Run Script */,
+				1DD1EA6E1CEC5D4B00D99731 /* SwiftGen Run Script */,
 				1DF796701CEB2C1500C7A7F4 /* Fabric Run Script */,
 			);
 			buildRules = (
@@ -347,8 +380,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1DD1EA651CEC5D0000D99731 /* Assets.xcassets in Resources */,
+				1DD1EA671CEC5D0000D99731 /* Localizable.strings in Resources */,
 				1D2F19491CE9CE250099142E /* LaunchScreen.storyboard in Resources */,
-				1D2F19461CE9CE250099142E /* Assets.xcassets in Resources */,
+				1DD1EA661CEC5D0000D99731 /* Colors.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,12 +406,10 @@
 				"$(SRCROOT)/Carthage/Build/iOS/DZNEmptyDataSet.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/JLRoutes.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Locksmith.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxBlocking.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Swinject.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/XCGLogger.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Rswift.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Decodable.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Haneke.framework",
@@ -388,19 +421,19 @@
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks";
 		};
-		1D2F19BC1CEAFC640099142E /* RSwift Run Script */ = {
+		1DD1EA6E1CEC5D4B00D99731 /* SwiftGen Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "RSwift Run Script";
+			name = "SwiftGen Run Script";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"$SRCROOT/Showroom/rswift\" \"$SRCROOT/Showroom\"";
+			shellScript = ./swiftgen.sh;
 		};
 		1DF796701CEB2C1500C7A7F4 /* Fabric Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -424,13 +457,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D2F19611CE9CED80099142E /* RootViewController.swift in Sources */,
+				1D5EF1D11CEB666B0071C097 /* UIImageViewUtilities.swift in Sources */,
+				1DD1EA6C1CEC5D1700D99731 /* UIColorAssets.swift in Sources */,
 				1DF7967E1CEB3AF600C7A7F4 /* Logging.swift in Sources */,
+				1DD1EA6D1CEC5D1700D99731 /* UIImageAssets.swift in Sources */,
 				1DF796891CEB4AC000C7A7F4 /* UIAssembly.swift in Sources */,
 				1DF796851CEB477B00C7A7F4 /* NetworkAssembly.swift in Sources */,
 				1DF7967B1CEB39A100C7A7F4 /* ApiService.swift in Sources */,
 				1D2F193F1CE9CE250099142E /* AppDelegate.swift in Sources */,
 				1DF796801CEB3C4000C7A7F4 /* Constants.swift in Sources */,
-				1D2F19C01CEAFD220099142E /* R.generated.swift in Sources */,
+				1DD1EA6B1CEC5D1700D99731 /* L10n.swift in Sources */,
 				1DF796791CEB369B00C7A7F4 /* NetworkClient.swift in Sources */,
 				1DF796871CEB49E200C7A7F4 /* CoreAssembly.swift in Sources */,
 				1DF796831CEB473300C7A7F4 /* DiAssembler.swift in Sources */,

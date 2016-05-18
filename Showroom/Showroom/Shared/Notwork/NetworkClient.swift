@@ -10,13 +10,14 @@ protocol NetworkActivityIndicatorController {
     var networkActivityIndicatorVisible: Bool { get set }
 }
 
-class HttpClient : NetworkClient {
+class HttpClient: NetworkClient {
     private var numberOfCallsToSetVisible = 0
-    private let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
+    private let session: NSURLSession
     
     private(set) var activityIndicatorController: NetworkActivityIndicatorController
     
-    init(activityIndicatorController: NetworkActivityIndicatorController) {
+    init(session: NSURLSession, activityIndicatorController: NetworkActivityIndicatorController) {
+        self.session = session
         self.activityIndicatorController = activityIndicatorController
     }
     
@@ -39,8 +40,8 @@ class HttpClient : NetworkClient {
                 .doOnNext({ _ in logDebug("Response received: \(urlRequest)") })
                 .subscribe(onNext: observer.onNext, onCompleted: observer.onCompleted, onError: observer.onError, onDisposed: {
                     self.setNetworkActivityIndicatorVisible(false)
-                })
-                    
+            })
+            
             return disposable
         }
     }
