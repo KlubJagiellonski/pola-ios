@@ -29,4 +29,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Fabric.with([Crashlytics.self])
     }
 }
-

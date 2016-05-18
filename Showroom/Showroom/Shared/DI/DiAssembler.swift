@@ -10,3 +10,17 @@ class DiAssembler: Assembler {
         ])
     }
 }
+
+protocol ResolverContainer {
+    var resolver: Resolvable? { get }
+}
+
+extension ResolverContainer {
+    var resolver: Resolvable? {
+        return SwinjectStoryboard.defaultContainer
+    }
+}
+
+extension UIViewController: ResolverContainer {
+    
+}

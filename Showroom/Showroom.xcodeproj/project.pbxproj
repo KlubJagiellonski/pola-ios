@@ -23,7 +23,6 @@
 		1D2F19CC1CEB083F0099142E /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1D2F19C11CEB07D10099142E /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1D2F19CD1CEB083F0099142E /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1D2F19C21CEB07D10099142E /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1D2F19D11CEB16120099142E /* Decodable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2F19961CEA14FE0099142E /* Decodable.framework */; };
-		1D2F19D21CEB16200099142E /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2F199E1CEA14FE0099142E /* SwiftyJSON.framework */; };
 		1D5EF1C81CEB60ED0071C097 /* RxTests.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1D2F199D1CEA14FE0099142E /* RxTests.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1D5EF1C91CEB60F20071C097 /* RxBlocking.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1D2F199A1CEA14FE0099142E /* RxBlocking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1D5EF1CA1CEB61000071C097 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2F199A1CEA14FE0099142E /* RxBlocking.framework */; };
@@ -101,7 +100,6 @@
 		1D2F199B1CEA14FE0099142E /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/iOS/RxCocoa.framework; sourceTree = "<group>"; };
 		1D2F199C1CEA14FE0099142E /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
 		1D2F199D1CEA14FE0099142E /* RxTests.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxTests.framework; path = Carthage/Build/iOS/RxTests.framework; sourceTree = "<group>"; };
-		1D2F199E1CEA14FE0099142E /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		1D2F199F1CEA14FE0099142E /* Swinject.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Swinject.framework; path = Carthage/Build/iOS/Swinject.framework; sourceTree = "<group>"; };
 		1D2F19A01CEA14FE0099142E /* XCGLogger.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCGLogger.framework; path = Carthage/Build/iOS/XCGLogger.framework; sourceTree = "<group>"; };
 		1D2F19C11CEB07D10099142E /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
@@ -141,7 +139,6 @@
 				1D2F19AA1CEA14FE0099142E /* Swinject.framework in Frameworks */,
 				1D2F19AB1CEA14FE0099142E /* XCGLogger.framework in Frameworks */,
 				1D2F19D11CEB16120099142E /* Decodable.framework in Frameworks */,
-				1D2F19D21CEB16200099142E /* SwiftyJSON.framework in Frameworks */,
 				1DF796731CEB2E1F00C7A7F4 /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -237,7 +234,6 @@
 				1D2F199B1CEA14FE0099142E /* RxCocoa.framework */,
 				1D2F199C1CEA14FE0099142E /* RxSwift.framework */,
 				1D2F199D1CEA14FE0099142E /* RxTests.framework */,
-				1D2F199E1CEA14FE0099142E /* SwiftyJSON.framework */,
 				1D2F199F1CEA14FE0099142E /* Swinject.framework */,
 				1D2F19A01CEA14FE0099142E /* XCGLogger.framework */,
 			);
@@ -412,7 +408,6 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Swinject.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/XCGLogger.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Decodable.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Haneke.framework",
 			);
 			name = "Carthage Run Script";
@@ -602,6 +597,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Showroom/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.showroom.Showroom;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -624,6 +620,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Showroom/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.showroom.Showroom;
 				PRODUCT_NAME = "$(TARGET_NAME)";
