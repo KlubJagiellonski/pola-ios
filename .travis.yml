@@ -12,6 +12,8 @@ xcode_simulators:
  - 'iPhone 6'
 
 script:
+- brew install carthage
+- brew install swiftgen
 - polidea-ci/script
 
 install:

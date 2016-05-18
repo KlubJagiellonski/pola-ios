@@ -1,5 +1,4 @@
 import UIKit
-import ShowroomApi
 import Fabric
 import Crashlytics
 import XCGLogger

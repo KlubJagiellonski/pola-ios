@@ -1,1 +1,1 @@
-White : #ffffffls Show
+White : #ffffff
