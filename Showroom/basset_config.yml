@@ -1,0 +1,5 @@
+xcassets_dir: Showroom/Resources/Assets.xcassets
+raw_assets: Showroom/Resources/RawAssets
+generated_assets_dir: Showroom/Resources/BasetGeneratedAssets
+merge_with_xcassets: True
+force_convert: False
