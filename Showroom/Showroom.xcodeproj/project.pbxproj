@@ -84,7 +84,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1D2F193B1CE9CE250099142E /* Showroom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Showroom.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D2F193B1CE9CE250099142E /* SHOWROOM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SHOWROOM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D2F193E1CE9CE250099142E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1D2F19481CE9CE250099142E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1D2F194A1CE9CE250099142E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -170,7 +170,7 @@
 		1D2F193C1CE9CE250099142E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1D2F193B1CE9CE250099142E /* Showroom.app */,
+				1D2F193B1CE9CE250099142E /* SHOWROOM.app */,
 				1D2F194F1CE9CE250099142E /* ShowroomTests.xctest */,
 			);
 			name = Products;
@@ -311,7 +311,7 @@
 			);
 			name = Showroom;
 			productName = Showroom;
-			productReference = 1D2F193B1CE9CE250099142E /* Showroom.app */;
+			productReference = 1D2F193B1CE9CE250099142E /* SHOWROOM.app */;
 			productType = "com.apple.product-type.application";
 		};
 		1D2F194E1CE9CE250099142E /* ShowroomTests */ = {
@@ -600,7 +600,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.showroom.Showroom;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = SHOWROOM;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
@@ -623,7 +623,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.showroom.Showroom;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = SHOWROOM;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
