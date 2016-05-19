@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "1D2F193A1CE9CE250099142E"
-               BuildableName = "Showroom.app"
+               BuildableName = "SHOWROOM.app"
                BlueprintName = "Showroom"
                ReferencedContainer = "container:Showroom.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1D2F193A1CE9CE250099142E"
-            BuildableName = "Showroom.app"
+            BuildableName = "SHOWROOM.app"
             BlueprintName = "Showroom"
             ReferencedContainer = "container:Showroom.xcodeproj">
          </BuildableReference>
@@ -66,7 +66,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1D2F193A1CE9CE250099142E"
-            BuildableName = "Showroom.app"
+            BuildableName = "SHOWROOM.app"
             BlueprintName = "Showroom"
             ReferencedContainer = "container:Showroom.xcodeproj">
          </BuildableReference>
@@ -85,7 +85,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1D2F193A1CE9CE250099142E"
-            BuildableName = "Showroom.app"
+            BuildableName = "SHOWROOM.app"
             BlueprintName = "Showroom"
             ReferencedContainer = "container:Showroom.xcodeproj">
          </BuildableReference>

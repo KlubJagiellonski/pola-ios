@@ -11,16 +11,10 @@ class DiAssembler: Assembler {
     }
 }
 
-protocol ResolverContainer {
-    var resolver: Resolvable? { get }
-}
-
-extension ResolverContainer {
-    var resolver: Resolvable? {
-        return SwinjectStoryboard.defaultContainer
-    }
-}
-
-extension UIViewController: ResolverContainer {
+struct DiResolver {
+    let resolvable: Resolvable
     
+    func resolve<Service>(serviceType: Service.Type) -> Service {
+        return resolvable.resolve(serviceType)!
+    }
 }

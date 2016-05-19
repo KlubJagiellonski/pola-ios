@@ -3,8 +3,16 @@
 import Foundation
 
 enum L10n {
-  /// SHOWROOM
-  case Appname
+  /// Główna
+  case MainTabDashboard
+  /// Przeglądanie
+  case MainTabSearch
+  /// Koszyk
+  case MainTabBasket
+  /// Ulubione
+  case MainTabWishlist
+  /// Ustawienia
+  case MainTabSettings
 }
 
 extension L10n: CustomStringConvertible {
@@ -12,8 +20,16 @@ extension L10n: CustomStringConvertible {
 
   var string: String {
     switch self {
-      case .Appname:
-        return L10n.tr("appname")
+      case .MainTabDashboard:
+        return L10n.tr("MainTab.Dashboard")
+      case .MainTabSearch:
+        return L10n.tr("MainTab.Search")
+      case .MainTabBasket:
+        return L10n.tr("MainTab.Basket")
+      case .MainTabWishlist:
+        return L10n.tr("MainTab.Wishlist")
+      case .MainTabSettings:
+        return L10n.tr("MainTab.Settings")
     }
   }
 

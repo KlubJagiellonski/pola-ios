@@ -1,1 +1,5 @@
-"appname" = "SHOWROOM";
+"MainTab.Dashboard" = "Główna";
+"MainTab.Search" = "Przeglądanie";
+"MainTab.Basket" = "Koszyk";
+"MainTab.Wishlist" = "Ulubione";
+"MainTab.Settings" = "Ustawienia";
