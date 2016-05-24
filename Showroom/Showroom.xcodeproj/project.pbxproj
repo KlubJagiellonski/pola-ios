@@ -28,6 +28,8 @@
 		1D5EF1CA1CEB61000071C097 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2F199A1CEA14FE0099142E /* RxBlocking.framework */; };
 		1D5EF1CB1CEB61000071C097 /* RxTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2F199D1CEA14FE0099142E /* RxTests.framework */; };
 		1D5EF1D11CEB666B0071C097 /* UIImageViewUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5EF1D01CEB666B0071C097 /* UIImageViewUtilities.swift */; };
+		1D72ECFE1CF456DA007AFD2F /* NavigationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D72ECFD1CF456DA007AFD2F /* NavigationTests.swift */; };
+		1D72ECFF1CF45B37007AFD2F /* RxSwift.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1D2F199C1CEA14FE0099142E /* RxSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1DD1EA651CEC5D0000D99731 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DD1EA621CEC5D0000D99731 /* Assets.xcassets */; };
 		1DD1EA661CEC5D0000D99731 /* Colors.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1DD1EA631CEC5D0000D99731 /* Colors.txt */; };
 		1DD1EA671CEC5D0000D99731 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1DD1EA641CEC5D0000D99731 /* Localizable.strings */; };
@@ -92,6 +94,7 @@
 				1D2F19CD1CEB083F0099142E /* Quick.framework in CopyFiles */,
 				1D5EF1C81CEB60ED0071C097 /* RxTests.framework in CopyFiles */,
 				1D5EF1C91CEB60F20071C097 /* RxBlocking.framework in CopyFiles */,
+				1D72ECFF1CF45B37007AFD2F /* RxSwift.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,6 +122,7 @@
 		1D2F19C11CEB07D10099142E /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		1D2F19C21CEB07D10099142E /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
 		1D5EF1D01CEB666B0071C097 /* UIImageViewUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageViewUtilities.swift; sourceTree = "<group>"; };
+		1D72ECFD1CF456DA007AFD2F /* NavigationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationTests.swift; sourceTree = "<group>"; };
 		1DD1EA621CEC5D0000D99731 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1DD1EA631CEC5D0000D99731 /* Colors.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Colors.txt; sourceTree = "<group>"; };
 		1DD1EA641CEC5D0000D99731 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
@@ -220,6 +224,7 @@
 		1D2F19521CE9CE250099142E /* ShowroomTests */ = {
 			isa = PBXGroup;
 			children = (
+				1D72ECFC1CF456C1007AFD2F /* Navigation */,
 				1D2F19531CE9CE250099142E /* ShowroomTests.swift */,
 				1D2F19551CE9CE250099142E /* Info.plist */,
 			);
@@ -283,6 +288,14 @@
 				1D5EF1D01CEB666B0071C097 /* UIImageViewUtilities.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		1D72ECFC1CF456C1007AFD2F /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				1D72ECFD1CF456DA007AFD2F /* NavigationTests.swift */,
+			);
+			path = Navigation;
 			sourceTree = "<group>";
 		};
 		1DD1EA5B1CEC5B5B00D99731 /* Resources */ = {
@@ -611,6 +624,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D2F19541CE9CE250099142E /* ShowroomTests.swift in Sources */,
+				1D72ECFE1CF456DA007AFD2F /* NavigationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -777,7 +791,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.showroom.ShowroomTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Showroom.app/Showroom";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SHOWROOM.app/SHOWROOM";
 			};
 			name = Debug;
 		};
@@ -793,7 +807,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.showroom.ShowroomTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Showroom.app/Showroom";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SHOWROOM.app/SHOWROOM";
 			};
 			name = Release;
 		};

@@ -1,9 +1,9 @@
 import Foundation
 
-enum SimpleNavigationEventType {
-    
-}
-
 struct SimpleNavigationEvent: NavigationEvent {
-    let type: SimpleNavigationEventType
+    let type: Type
+    
+    enum Type {
+        
+    }
 }
