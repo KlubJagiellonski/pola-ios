@@ -35,6 +35,7 @@
 		1D72ED131CFC3028007AFD2F /* ContentPromo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D72ED111CFC3028007AFD2F /* ContentPromo.swift */; };
 		1D72ED141CFC3028007AFD2F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D72ED121CFC3028007AFD2F /* User.swift */; };
 		1D72ED161CFC307D007AFD2F /* ManagerAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D72ED151CFC307D007AFD2F /* ManagerAssembly.swift */; };
+		1D72ED221CFC6102007AFD2F /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D72ED211CFC6102007AFD2F /* CacheManager.swift */; };
 		1DD1EA651CEC5D0000D99731 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DD1EA621CEC5D0000D99731 /* Assets.xcassets */; };
 		1DD1EA661CEC5D0000D99731 /* Colors.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1DD1EA631CEC5D0000D99731 /* Colors.txt */; };
 		1DD1EA671CEC5D0000D99731 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1DD1EA641CEC5D0000D99731 /* Localizable.strings */; };
@@ -133,6 +134,7 @@
 		1D72ED111CFC3028007AFD2F /* ContentPromo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentPromo.swift; sourceTree = "<group>"; };
 		1D72ED121CFC3028007AFD2F /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		1D72ED151CFC307D007AFD2F /* ManagerAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagerAssembly.swift; sourceTree = "<group>"; };
+		1D72ED211CFC6102007AFD2F /* CacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		1DD1EA621CEC5D0000D99731 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1DD1EA631CEC5D0000D99731 /* Colors.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Colors.txt; sourceTree = "<group>"; };
 		1DD1EA641CEC5D0000D99731 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
@@ -323,6 +325,7 @@
 			isa = PBXGroup;
 			children = (
 				1D72ED0E1CFC2F47007AFD2F /* UserManager.swift */,
+				1D72ED211CFC6102007AFD2F /* CacheManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -654,6 +657,7 @@
 				1D72ED161CFC307D007AFD2F /* ManagerAssembly.swift in Sources */,
 				1DD1EA8B1CF2E59E00D99731 /* BasketViewController.swift in Sources */,
 				1DF796791CEB369B00C7A7F4 /* NetworkClient.swift in Sources */,
+				1D72ED221CFC6102007AFD2F /* CacheManager.swift in Sources */,
 				1DF796871CEB49E200C7A7F4 /* CoreAssembly.swift in Sources */,
 				1DF796831CEB473300C7A7F4 /* DiAssembler.swift in Sources */,
 				1DD1EA911CF2E61800D99731 /* SettingsViewController.swift in Sources */,

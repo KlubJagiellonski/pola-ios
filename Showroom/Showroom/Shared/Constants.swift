@@ -8,4 +8,8 @@ struct Constants {
     #endif
     
     static let baseUrl = "https://api.showroom.pl/ios/v1"
+    
+    struct Cache {
+        static let contentPromoId = "ContentPromoId"
+    }
 }
