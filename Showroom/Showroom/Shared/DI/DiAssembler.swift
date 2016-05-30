@@ -6,7 +6,8 @@ class DiAssembler: Assembler {
         try super.init(assemblies: [
             CoreAssembly(),
             NetworkAssembly(),
-            UIAssembly()
+            UIAssembly(),
+            ManagerAssembly()
         ])
     }
 }

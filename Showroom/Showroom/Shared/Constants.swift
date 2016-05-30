@@ -6,4 +6,6 @@ struct Constants {
     #else
         static let isDebug = false
     #endif
+    
+    static let baseUrl = "https://api.showroom.pl/ios/v1"
 }

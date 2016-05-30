@@ -21,13 +21,6 @@ class HttpClient: NetworkClient {
         self.activityIndicatorController = activityIndicatorController
     }
     
-    var basePath: String {
-        let path = NSBundle.mainBundle().pathForResource("Info", ofType: "plist")
-        let plistContents = NSDictionary(contentsOfFile: path!)! as Dictionary
-        let url = plistContents["BackendURL"]! as! String
-        return url
-    }
-    
     func request(withRequest urlRequest: NSURLRequest) -> Observable<NSData> {
         return Observable.create {
             [unowned self] observer in
