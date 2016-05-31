@@ -26,6 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func configureDependencies() {
         Logging.configure()
-        Fabric.with([Crashlytics.self])
+        if !Constants.isDebug {
+            Fabric.with([Crashlytics.self])
+        }
     }
 }
