@@ -26,16 +26,20 @@ class DashboardViewController: UIViewController, DashboardViewDelegate {
         
         castView.delegate = self
         
-        model.fetchContentPromo()
-            .subscribe(onNext: { [weak self] contentPromoResult in
-                    self?.castView.changeContentPromos(contentPromoResult.contentPromos)
-                }, onError: { error in
-                    logError("Error while downloading content promo: \(error)")
-                }).addDisposableTo(disposeBag)
+        model.fetchContentPromo().subscribeNext { [weak self] fetchResult in
+            switch fetchResult {
+            case .Success(let contentPromoResult):
+                self?.castView.changeContentPromos(contentPromoResult.contentPromos)
+            case .CacheError(let cacheError):
+                logInfo("Error during fetching content promo, cacheError: \(cacheError)")
+            case .NetworkError(let networkError):
+                logInfo("Error during fetching content promo, networkError: \(networkError)")
+            }
+        }.addDisposableTo(disposeBag)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        castView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: bottomLayoutGuide.length, right: 0)
+        castView.contentInset = UIEdgeInsets(top: topLayoutGuide.length, left: 0, bottom: bottomLayoutGuide.length, right: 0)
     }
 }

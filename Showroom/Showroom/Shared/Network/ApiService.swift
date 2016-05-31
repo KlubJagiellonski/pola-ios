@@ -29,7 +29,7 @@ extension ApiService {
 extension NSURL {
     func URLByAppendingParams(params: [String:String]) -> NSURL {
         var url = self.absoluteString
-        url += "?"
+        url += url.containsString("?") ? "&" : "?"
         for (key, value) in params {
             url += key + "=" + value + "&"
         }

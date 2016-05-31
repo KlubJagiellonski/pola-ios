@@ -2,6 +2,12 @@ import Foundation
 import RxSwift
 import Decodable
 
+enum FetchContentPromoResult {
+    case Success(ContentPromoResult)
+    case CacheError(ErrorType)
+    case NetworkError(ErrorType)
+}
+
 class DashboardModel {
     let apiService: ApiService
     let userManager: UserManager
@@ -13,8 +19,8 @@ class DashboardModel {
         self.cacheManager = cacheManager
     }
     
-    func fetchContentPromo() -> Observable<ContentPromoResult> {
-        let diskCache: Observable<ContentPromoResult> = Observable.create { [unowned self] observer in
+    func fetchContentPromo() -> Observable<FetchContentPromoResult> {
+        let diskCache: Observable<FetchContentPromoResult> = Observable.create { [unowned self] observer in
             do {
                 guard let cachedData = try self.cacheManager.loadContentPromoResult() else {
                     logInfo("No cached content promo")
@@ -29,6 +35,8 @@ class DashboardModel {
             observer.onCompleted()
             return NopDisposable.instance
         }
+            .map { FetchContentPromoResult.Success($0) }
+            .catchError { Observable.just(FetchContentPromoResult.CacheError($0)) }
             .subscribeOn(ConcurrentDispatchQueueScheduler(globalConcurrentQueueQOS: .Background))
             .observeOn(MainScheduler.instance)
         
@@ -42,6 +50,8 @@ class DashboardModel {
                     logError("Error during saving content promos \(exception)")
                 }
             }
+            .map { FetchContentPromoResult.Success($0) }
+            .catchError { Observable.just(FetchContentPromoResult.NetworkError($0)) }
             .observeOn(MainScheduler.asyncInstance)
         
         return Observable.of(diskCache, network).merge().distinctUntilChanged(==)
@@ -56,4 +66,17 @@ extension CacheManager {
         let contentPromoResult: ContentPromoResult? = try load(fromCacheName: Constants.Cache.contentPromoId)
         return contentPromoResult
     }
+}
+
+// MARK: - Equatable
+extension FetchContentPromoResult: Equatable {}
+
+func ==(lhs: FetchContentPromoResult, rhs: FetchContentPromoResult) -> Bool
+{
+    if case let FetchContentPromoResult.Success(lhsResult) = lhs {
+        if case let FetchContentPromoResult.Success(rhsResult) = rhs {
+            return lhsResult == rhsResult
+        }
+    }
+    return false
 }

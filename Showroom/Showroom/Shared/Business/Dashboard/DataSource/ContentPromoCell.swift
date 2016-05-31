@@ -5,9 +5,9 @@ extension ContentPromoTextType {
     func gradientColors() -> [CGColor] {
         switch self {
         case .Black:
-            return [UIColor.whiteColor().colorWithAlphaComponent(0.5).CGColor, UIColor.whiteColor().CGColor]
+            return [UIColor.whiteColor().colorWithAlphaComponent(0).CGColor, UIColor.whiteColor().CGColor]
         default:
-            return [UIColor.blackColor().colorWithAlphaComponent(0.5).CGColor, UIColor.blackColor().CGColor]
+            return [UIColor.blackColor().colorWithAlphaComponent(0).CGColor, UIColor.blackColor().CGColor]
         }
     }
     
@@ -24,7 +24,9 @@ extension ContentPromoTextType {
 // MARK: - Cells
 
 class ContentPromoCell: UITableViewCell {
-    static let photoRatio = 0.75
+    static let photoRatio = 0.85
+    static let bottomMargin: CGFloat = 15
+    static let textContainerHeight: CGFloat = 161
     
     let promoImageView = UIImageView()
     let textContainerView = ContentPromoTextContainerView()
@@ -35,6 +37,7 @@ class ContentPromoCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: .Default, reuseIdentifier: reuseIdentifier)
         
+        promoImageView.layer.masksToBounds = true
         promoImageView.contentMode = .ScaleAspectFill
         contentView.addSubview(promoImageView)
         
@@ -50,12 +53,13 @@ class ContentPromoCell: UITableViewCell {
     }
     
     class func getHeight(forWidth width: CGFloat, model: ContentPromo) -> CGFloat {
-        return width / CGFloat(photoRatio)
+        return ceil(width / CGFloat(photoRatio)) + bottomMargin
     }
     
     func updateData(contentPromo: ContentPromo) {
         let image = contentPromo.image
-        promoImageView.loadImageFromUrl(image.url, size: contentView.frame.size)
+        let imageSize = CGSizeMake(CGRectGetWidth(self.contentView.bounds), CGRectGetHeight(self.contentView.bounds) - ContentPromoCell.bottomMargin)
+        promoImageView.loadImageFromUrl(image.url, size: imageSize)
         
         if let title = image.title, let subtitle = image.subtitle, let textColor = image.color {
             textContainerView.hidden = false
@@ -78,6 +82,7 @@ class ContentPromoCell: UITableViewCell {
         }
         
         textContainerView.snp_makeConstraints { make in
+            make.height.equalTo(ContentPromoCell.textContainerHeight)
             make.bottom.equalTo(promoImageView.snp_bottom)
             make.leading.equalTo(promoImageView)
             make.trailing.equalTo(promoImageView)
@@ -87,7 +92,7 @@ class ContentPromoCell: UITableViewCell {
             make.top.equalTo(promoImageView.snp_bottom)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
-            make.bottom.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-ContentPromoCell.bottomMargin)
         }
     }
 }
@@ -108,7 +113,7 @@ class ContentPromoWithCaptionCell: ContentPromoCell {
     }
     
     override class func getHeight(forWidth width: CGFloat, model: ContentPromo) -> CGFloat {
-        return width / CGFloat(photoRatio) + ContentPromoCaptionContainerView.getHeight(forWidth: width, model: model)
+        return super.getHeight(forWidth: width, model: model) + ContentPromoCaptionContainerView.getHeight(forWidth: width, model: model)
     }
     
     override func updateData(contentPromo: ContentPromo) {
@@ -129,6 +134,8 @@ class ContentPromoWithCaptionCell: ContentPromoCell {
 // MARK: - Subviews
 
 class ContentPromoTextContainerView: UIView {
+    static let bottomMargin:CGFloat = 19
+    
     let titleLabel = UILabel()
     let subtitleLabel = UILabel()
     let backgroundGradient = CAGradientLayer()
@@ -139,10 +146,12 @@ class ContentPromoTextContainerView: UIView {
         
         layer.addSublayer(backgroundGradient)
         
+        titleLabel.font = UIFont(fontType: .Bold)
         titleLabel.textAlignment = .Center
         titleLabel.numberOfLines = 2
         addSubview(titleLabel)
         
+        subtitleLabel.font = UIFont(fontType: .Italic)
         subtitleLabel.textAlignment = .Center
         subtitleLabel.numberOfLines = 2
         addSubview(subtitleLabel)
@@ -160,23 +169,24 @@ class ContentPromoTextContainerView: UIView {
     }
     
     private func configureCustomConstraints() {
-        titleLabel.snp_makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
-        }
         subtitleLabel.snp_makeConstraints { make in
-            make.top.equalTo(titleLabel.snp_bottom)
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
-            make.bottom.equalToSuperview()
+            make.leading.equalToSuperview().offset(Dimensions.defaultMargin)
+            make.trailing.equalToSuperview().offset(-Dimensions.defaultMargin)
+            make.bottom.equalToSuperview().offset(-ContentPromoTextContainerView.bottomMargin)
+        }
+        
+        titleLabel.snp_makeConstraints { make in
+            make.leading.equalTo(subtitleLabel)
+            make.trailing.equalTo(subtitleLabel)
+            make.bottom.equalTo(subtitleLabel.snp_top)
         }
     }
 }
 
 class ContentPromoCaptionContainerView: UIView {
-    static let titleFont = UIFont.boldSystemFontOfSize(16)
-    static let subtitleFont = UIFont.systemFontOfSize(14)
+    static let topMargin:CGFloat = 3
+    static let titleFont = UIFont(fontType: .Bold)
+    static let subtitleFont = UIFont(fontType: .Italic)
     
     let titleLabel = UILabel()
     let subtitleLabel = UILabel()
@@ -202,21 +212,22 @@ class ContentPromoCaptionContainerView: UIView {
     
     class func getHeight(forWidth width: CGFloat, model: ContentPromo) -> CGFloat {
         let caption = model.caption!
-        let titleHeight = caption.title.heightWithConstrainedWidth(width, font: ContentPromoCaptionContainerView.titleFont)
-        let subtitleHeight = caption.subtitle.heightWithConstrainedWidth(width, font: ContentPromoCaptionContainerView.subtitleFont)
-        return titleHeight + subtitleHeight
+        let widthWithMargin = width - 2 * Dimensions.defaultMargin
+        let titleHeight = caption.title.heightWithConstrainedWidth(widthWithMargin, font: ContentPromoCaptionContainerView.titleFont)
+        let subtitleHeight = caption.subtitle.heightWithConstrainedWidth(widthWithMargin, font: ContentPromoCaptionContainerView.subtitleFont)
+        return topMargin + titleHeight + subtitleHeight
     }
     
     private func configureCustomConstraints() {
         titleLabel.snp_makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
+            make.top.equalToSuperview().offset(ContentPromoCaptionContainerView.topMargin)
+            make.leading.equalToSuperview().offset(Dimensions.defaultMargin)
+            make.trailing.equalToSuperview().offset(-Dimensions.defaultMargin)
         }
         subtitleLabel.snp_makeConstraints { make in
             make.top.equalTo(titleLabel.snp_bottom)
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
+            make.leading.equalTo(titleLabel)
+            make.trailing.equalTo(titleLabel)
             make.bottom.equalToSuperview()
         }
     }

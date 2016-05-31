@@ -23,6 +23,15 @@ class NetworkTests: QuickSpec {
                     expect(url.absoluteString) == "http://test.com?test=param&test1=param1"
                 }
             }
+            context("when base url contains ?") {
+                var url = NSURL(string: "http://test.com/test?g=12345")!
+                beforeEach {
+                    url = url.URLByAppendingParams(["test": "param", "test1": "param1"])
+                }
+                it("correct url") {
+                    expect(url.absoluteString) == "http://test.com/test?g=12345&test=param&test1=param1"
+                }
+            }
         }
     }
 }

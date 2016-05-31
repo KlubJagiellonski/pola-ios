@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D04533E1CFDD48B001CC5A2 /* Dimensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D04533D1CFDD48B001CC5A2 /* Dimensions.swift */; };
+		1D0453401CFDD575001CC5A2 /* UIFontAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D04533F1CFDD575001CC5A2 /* UIFontAssets.swift */; };
+		1D04534A1CFDD87E001CC5A2 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1D0453461CFDD87E001CC5A2 /* Lato-Bold.ttf */; };
+		1D04534B1CFDD87E001CC5A2 /* Lato-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1D0453471CFDD87E001CC5A2 /* Lato-Heavy.ttf */; };
+		1D04534C1CFDD87E001CC5A2 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1D0453481CFDD87E001CC5A2 /* Lato-Regular.ttf */; };
+		1D04534D1CFDD87E001CC5A2 /* Lato-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1D0453491CFDD87E001CC5A2 /* Lato-Semibold.ttf */; };
 		1D2F193F1CE9CE250099142E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2F193E1CE9CE250099142E /* AppDelegate.swift */; };
 		1D2F19491CE9CE250099142E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1D2F19471CE9CE250099142E /* LaunchScreen.storyboard */; };
 		1D2F19541CE9CE250099142E /* ShowroomTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2F19531CE9CE250099142E /* ShowroomTests.swift */; };
@@ -109,6 +115,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1D04533D1CFDD48B001CC5A2 /* Dimensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dimensions.swift; sourceTree = "<group>"; };
+		1D04533F1CFDD575001CC5A2 /* UIFontAssets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIFontAssets.swift; sourceTree = "<group>"; };
+		1D0453461CFDD87E001CC5A2 /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
+		1D0453471CFDD87E001CC5A2 /* Lato-Heavy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Heavy.ttf"; sourceTree = "<group>"; };
+		1D0453481CFDD87E001CC5A2 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
+		1D0453491CFDD87E001CC5A2 /* Lato-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Semibold.ttf"; sourceTree = "<group>"; };
 		1D2F193B1CE9CE250099142E /* SHOWROOM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SHOWROOM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D2F193E1CE9CE250099142E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1D2F19481CE9CE250099142E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -206,6 +218,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1D0453411CFDD728001CC5A2 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				1D0453461CFDD87E001CC5A2 /* Lato-Bold.ttf */,
+				1D0453471CFDD87E001CC5A2 /* Lato-Heavy.ttf */,
+				1D0453481CFDD87E001CC5A2 /* Lato-Regular.ttf */,
+				1D0453491CFDD87E001CC5A2 /* Lato-Semibold.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		1D2F19321CE9CE250099142E = {
 			isa = PBXGroup;
 			children = (
@@ -347,12 +370,15 @@
 		1DD1EA5B1CEC5B5B00D99731 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1D0453411CFDD728001CC5A2 /* Fonts */,
 				1DD1EA681CEC5D1700D99731 /* L10n.swift */,
 				1DD1EA691CEC5D1700D99731 /* UIColorAssets.swift */,
 				1DD1EA6A1CEC5D1700D99731 /* UIImageAssets.swift */,
 				1DD1EA621CEC5D0000D99731 /* Assets.xcassets */,
 				1DD1EA631CEC5D0000D99731 /* Colors.txt */,
 				1DD1EA641CEC5D0000D99731 /* Localizable.strings */,
+				1D04533D1CFDD48B001CC5A2 /* Dimensions.swift */,
+				1D04533F1CFDD575001CC5A2 /* UIFontAssets.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -374,7 +400,7 @@
 				1DD1EA751CEDB2A300D99731 /* ContentPromoDataSource.swift */,
 				1D72ED231CFD7502007AFD2F /* ContentPromoCell.swift */,
 			);
-			name = DataSource;
+			path = DataSource;
 			sourceTree = "<group>";
 		};
 		1DD1EA7E1CF2E28800D99731 /* Root */ = {
@@ -560,8 +586,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D04534B1CFDD87E001CC5A2 /* Lato-Heavy.ttf in Resources */,
+				1D04534D1CFDD87E001CC5A2 /* Lato-Semibold.ttf in Resources */,
 				1DD1EA651CEC5D0000D99731 /* Assets.xcassets in Resources */,
+				1D04534A1CFDD87E001CC5A2 /* Lato-Bold.ttf in Resources */,
 				1DD1EA671CEC5D0000D99731 /* Localizable.strings in Resources */,
+				1D04534C1CFDD87E001CC5A2 /* Lato-Regular.ttf in Resources */,
 				1D2F19491CE9CE250099142E /* LaunchScreen.storyboard in Resources */,
 				1DD1EA661CEC5D0000D99731 /* Colors.txt in Resources */,
 			);
@@ -649,6 +679,7 @@
 				1D72ED261CFDA591007AFD2F /* StringUtils.swift in Sources */,
 				1DD1EA6D1CEC5D1700D99731 /* UIImageAssets.swift in Sources */,
 				1DD1EA801CF2E2C100D99731 /* RootView.swift in Sources */,
+				1D0453401CFDD575001CC5A2 /* UIFontAssets.swift in Sources */,
 				1DD1EA981CF2ECC200D99731 /* Navigation.swift in Sources */,
 				1DF796891CEB4AC000C7A7F4 /* UIAssembly.swift in Sources */,
 				1DF796851CEB477B00C7A7F4 /* NetworkAssembly.swift in Sources */,
@@ -662,6 +693,7 @@
 				1DD1EA6B1CEC5D1700D99731 /* L10n.swift in Sources */,
 				1DD1EA931CF2E93900D99731 /* RootModel.swift in Sources */,
 				1DD1EA761CEDB2A300D99731 /* ContentPromoDataSource.swift in Sources */,
+				1D04533E1CFDD48B001CC5A2 /* Dimensions.swift in Sources */,
 				1D72ED161CFC307D007AFD2F /* ManagerAssembly.swift in Sources */,
 				1DD1EA8B1CF2E59E00D99731 /* BasketViewController.swift in Sources */,
 				1DF796791CEB369B00C7A7F4 /* NetworkClient.swift in Sources */,

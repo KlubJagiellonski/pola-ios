@@ -34,6 +34,7 @@ class ContentPromoDataSource : NSObject, UITableViewDataSource {
         let contentPromo = contentPromos[indexPath.row]
         let cellIdentifier = contentPromo.caption == nil ? String(ContentPromoCell) : String(ContentPromoWithCaptionCell)
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! ContentPromoCell
+        cell.selectionStyle = .None
         cell.updateData(contentPromo)
         return cell
     }
