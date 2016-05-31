@@ -10,7 +10,7 @@ struct ApiService {
 }
 
 extension ApiService {
-    func fetchContentPromo(withGender gender: Gender) -> Observable<[ContentPromo]> {
+    func fetchContentPromo(withGender gender: Gender) -> Observable<ContentPromoResult> {
         let url = NSURL(fileURLWithPath: basePath)
             .URLByAppendingPathComponent("home")
             .URLByAppendingParams(["gender": gender.rawValue])
@@ -21,7 +21,7 @@ extension ApiService {
             .request(withRequest: urlRequest)
             .map {
                 let array = try NSJSONSerialization.JSONObjectWithData($0, options: []) as! [AnyObject]
-                return try array.map(ContentPromo.decode)
+                return try ContentPromoResult.decode(array)
             }
     }
 }

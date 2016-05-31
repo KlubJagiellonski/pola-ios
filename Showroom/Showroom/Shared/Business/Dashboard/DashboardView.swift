@@ -8,13 +8,23 @@ protocol DashboardViewDelegate: class {
 
 class DashboardView: UIView, UITableViewDelegate {
     private let tableView = UITableView(frame: CGRectZero, style: .Plain)
+    private let dataSource: ContentPromoDataSource
+    
+    var contentInset: UIEdgeInsets {
+        get { return tableView.contentInset }
+        set { tableView.contentInset = newValue }
+    }
     
     weak var delegate: DashboardViewDelegate?
     
-    init(dataSource: DashboardDataSource) {
+    init() {
+        dataSource = ContentPromoDataSource(tableView: tableView)
+        
         super.init(frame: CGRectZero)
+        
         tableView.delegate = self
         tableView.dataSource = dataSource
+        tableView.separatorStyle = .None
         addSubview(tableView)
         
         configureCustomConstraints()
@@ -24,11 +34,20 @@ class DashboardView: UIView, UITableViewDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureCustomConstraints() {
+    func changeContentPromos(contentPromos: [ContentPromo]) {
+        dataSource.changeData(contentPromos)
+    }
+    
+    private func configureCustomConstraints() {
         let superview = self
         
         tableView.snp_makeConstraints { make in
             make.edges.equalTo(superview)
         }
+    }
+    
+    // MARK: - UITableViewDelegate
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return dataSource.getHeightForRow(atIndexPath: indexPath)
     }
 }

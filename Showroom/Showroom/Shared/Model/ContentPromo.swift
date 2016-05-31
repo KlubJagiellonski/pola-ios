@@ -1,8 +1,13 @@
 import Foundation
 import Decodable
 
-struct ContentPromo: Equatable {
+struct ContentPromoResult {
+    let contentPromos: [ContentPromo]
+}
+
+struct ContentPromo {
     let image: ContentPromoImage
+    let caption: ContentPromoCaption?
 }
 
 enum ContentPromoTextType: String {
@@ -10,18 +15,31 @@ enum ContentPromoTextType: String {
     case Black = "black"
 }
 
-struct ContentPromoImage: Equatable {
+struct ContentPromoImage {
     let url: String
     let title: String?
     let subtitle: String?
     let color: ContentPromoTextType?
 }
 
+struct ContentPromoCaption {
+    let title: String
+    let subtitle: String
+}
+
 // MARK: - Decodable
+extension ContentPromoResult: Decodable {
+    static func decode(json: AnyObject) throws -> ContentPromoResult {
+        let array = json as! [AnyObject]
+        return ContentPromoResult(contentPromos: try array.map(ContentPromo.decode))
+    }
+}
+
 extension ContentPromo: Decodable {
     static func decode(j: AnyObject) throws -> ContentPromo {
         return try ContentPromo(
-            image: ContentPromoImage.decode(j => "image")
+            image: j => "image",
+            caption: j =>? "caption"
         )
     }
 }
@@ -38,12 +56,32 @@ extension ContentPromoImage: Decodable {
     }
 }
 
+extension ContentPromoCaption: Decodable {
+    static func decode(j: AnyObject) throws -> ContentPromoCaption {
+        return try ContentPromoCaption(
+            title: j => "title",
+            subtitle: j => "subtitle"
+        )
+    }
+}
+
 // MARK: - Encodable
+extension ContentPromoResult: Encodable {
+    func encode() -> AnyObject {
+        let encodedList: NSMutableArray = []
+        for contentPromo in contentPromos {
+            encodedList.addObject(contentPromo.encode())
+        }
+        return encodedList
+    }
+}
+
 extension ContentPromo: Encodable {
     func encode() -> AnyObject {
-        let dict: NSDictionary = [
+        let dict: NSMutableDictionary = [
             "image": image.encode()
         ]
+        if caption != nil { dict.setObject(caption!.encode(), forKey: "caption") }
         return dict
     }
 }
@@ -60,13 +98,38 @@ extension ContentPromoImage: Encodable {
     }
 }
 
+extension ContentPromoCaption: Encodable {
+    func encode() -> AnyObject {
+        let imageDict: NSMutableDictionary = [
+            "title": title,
+            "subtitle": subtitle
+        ]
+        return imageDict
+    }
+}
+
 // MARK: - Equatable
+extension ContentPromoResult: Equatable {}
+extension ContentPromoImage: Equatable {}
+extension ContentPromo: Equatable {}
+extension ContentPromoCaption: Equatable {}
+
+func ==(lhs: ContentPromoResult, rhs: ContentPromoResult) -> Bool
+{
+    return lhs.contentPromos == rhs.contentPromos
+}
+
 func ==(lhs: ContentPromo, rhs: ContentPromo) -> Bool
 {
-    return lhs.image == rhs.image
+    return lhs.image == rhs.image && lhs.caption == rhs.caption
 }
 
 func ==(lhs: ContentPromoImage, rhs: ContentPromoImage) -> Bool
 {
     return lhs.url == rhs.url && lhs.title == rhs.title && lhs.subtitle == rhs.subtitle && lhs.color?.rawValue == rhs.color?.rawValue
+}
+
+func ==(lhs: ContentPromoCaption, rhs: ContentPromoCaption) -> Bool
+{
+    return lhs.title == rhs.title && lhs.subtitle == rhs.subtitle
 }
