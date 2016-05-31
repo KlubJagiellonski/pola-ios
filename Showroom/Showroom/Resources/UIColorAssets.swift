@@ -15,12 +15,20 @@ extension UIColor {
 
 extension UIColor {
   enum Name {
+    /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#1e1cbf"></span>
+    /// Alpha: 100% <br/> (0x1e1cbfff)
+    case Blue
+    /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#a4aab3"></span>
+    /// Alpha: 100% <br/> (0xa4aab3ff)
+    case DarkGray
     /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#ffffff"></span>
     /// Alpha: 100% <br/> (0xffffffff)
     case White
 
     var rgbaValue: UInt32! {
       switch self {
+      case .Blue: return 0x1e1cbfff
+      case .DarkGray: return 0xa4aab3ff
       case .White: return 0xffffffff
       }
     }

@@ -36,10 +36,10 @@ class MainTabViewController: UITabBarController {
         return viewController
     }
     
-    func createBasketViewController() -> BasketViewController {
-        let viewController = resolver.resolve(BasketViewController.self)
-        viewController.tabBarItem = UITabBarItem(title: tr(.MainTabBasket), image: nil, selectedImage: nil)
-        return viewController
+    func createBasketViewController() -> BasketNavigationController {
+        let navigationController = resolver.resolve(BasketNavigationController.self)
+        navigationController.tabBarItem = UITabBarItem(title: tr(.MainTabBasket), image: nil, selectedImage: nil)
+        return navigationController
     }
     
     func createWishlistViewController() -> WishlistViewController {

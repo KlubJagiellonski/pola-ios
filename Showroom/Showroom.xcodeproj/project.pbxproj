@@ -79,6 +79,13 @@
 		1DF796851CEB477B00C7A7F4 /* NetworkAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF796841CEB477B00C7A7F4 /* NetworkAssembly.swift */; };
 		1DF796871CEB49E200C7A7F4 /* CoreAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF796861CEB49E200C7A7F4 /* CoreAssembly.swift */; };
 		1DF796891CEB4AC000C7A7F4 /* UIAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF796881CEB4AC000C7A7F4 /* UIAssembly.swift */; };
+		759CED241CFDB24100FEBE66 /* TitleValueLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759CED231CFDB24100FEBE66 /* TitleValueLabel.swift */; };
+		75D52EB41CFF1063005E34B4 /* BasketNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D52EB31CFF1063005E34B4 /* BasketNavigationController.swift */; };
+		75E269A91CFC7B7A00ED3CA2 /* BasketModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E269A81CFC7B7A00ED3CA2 /* BasketModel.swift */; };
+		75E269AB1CFC7B8700ED3CA2 /* BasketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E269AA1CFC7B8700ED3CA2 /* BasketView.swift */; };
+		75E269AE1CFC7DA200ED3CA2 /* BasketDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E269AD1CFC7DA200ED3CA2 /* BasketDataSource.swift */; };
+		75EDE8291CFDDD2200C5F96B /* UIButtonUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75EDE8281CFDDD2200C5F96B /* UIButtonUtils.swift */; };
+		75EDE82B1CFDDF6D00C5F96B /* UITextFieldUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75EDE82A1CFDDF6D00C5F96B /* UITextFieldUtils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -190,6 +197,13 @@
 		1DF796841CEB477B00C7A7F4 /* NetworkAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkAssembly.swift; sourceTree = "<group>"; };
 		1DF796861CEB49E200C7A7F4 /* CoreAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreAssembly.swift; sourceTree = "<group>"; };
 		1DF796881CEB4AC000C7A7F4 /* UIAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAssembly.swift; sourceTree = "<group>"; };
+		759CED231CFDB24100FEBE66 /* TitleValueLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleValueLabel.swift; sourceTree = "<group>"; };
+		75D52EB31CFF1063005E34B4 /* BasketNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasketNavigationController.swift; sourceTree = "<group>"; };
+		75E269A81CFC7B7A00ED3CA2 /* BasketModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasketModel.swift; sourceTree = "<group>"; };
+		75E269AA1CFC7B8700ED3CA2 /* BasketView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasketView.swift; sourceTree = "<group>"; };
+		75E269AD1CFC7DA200ED3CA2 /* BasketDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasketDataSource.swift; sourceTree = "<group>"; };
+		75EDE8281CFDDD2200C5F96B /* UIButtonUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIButtonUtils.swift; sourceTree = "<group>"; };
+		75EDE82A1CFDDF6D00C5F96B /* UITextFieldUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextFieldUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -299,6 +313,7 @@
 		1D2F195F1CE9CEBA0099142E /* Business */ = {
 			isa = PBXGroup;
 			children = (
+				759CED221CFDB22B00FEBE66 /* Common */,
 				1DD1EA8F1CF2E60400D99731 /* Settings */,
 				1DD1EA8C1CF2E5CD00D99731 /* Wishlist */,
 				1DD1EA891CF2E58B00D99731 /* Basket */,
@@ -340,6 +355,8 @@
 				1D5EF1D01CEB666B0071C097 /* UIImageViewUtils.swift */,
 				1D72ED251CFDA591007AFD2F /* StringUtils.swift */,
 				1D0453521CFEF6F6001CC5A2 /* ObservableUtils.swift */,
+				75EDE8281CFDDD2200C5F96B /* UIButtonUtils.swift */,
+				75EDE82A1CFDDF6D00C5F96B /* UITextFieldUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -444,7 +461,11 @@
 		1DD1EA891CF2E58B00D99731 /* Basket */ = {
 			isa = PBXGroup;
 			children = (
+				75E269AC1CFC7D8400ED3CA2 /* DataSource */,
 				1DD1EA8A1CF2E59E00D99731 /* BasketViewController.swift */,
+				75E269A81CFC7B7A00ED3CA2 /* BasketModel.swift */,
+				75E269AA1CFC7B8700ED3CA2 /* BasketView.swift */,
+				75D52EB31CFF1063005E34B4 /* BasketNavigationController.swift */,
 			);
 			path = Basket;
 			sourceTree = "<group>";
@@ -510,6 +531,23 @@
 				1D72ED151CFC307D007AFD2F /* ManagerAssembly.swift */,
 			);
 			path = DI;
+			sourceTree = "<group>";
+		};
+		759CED221CFDB22B00FEBE66 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				759CED231CFDB24100FEBE66 /* TitleValueLabel.swift */,
+			);
+			name = Common;
+			path = Showroom/Shared/Common;
+			sourceTree = SOURCE_ROOT;
+		};
+		75E269AC1CFC7D8400ED3CA2 /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				75E269AD1CFC7DA200ED3CA2 /* BasketDataSource.swift */,
+			);
+			name = DataSource;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -681,10 +719,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D2F19611CE9CED80099142E /* RootViewController.swift in Sources */,
+				75EDE8291CFDDD2200C5F96B /* UIButtonUtils.swift in Sources */,
 				1DD1EA731CEDAE9000D99731 /* DashboardView.swift in Sources */,
 				1D72ED241CFD7502007AFD2F /* ContentPromoCell.swift in Sources */,
 				1D5EF1D11CEB666B0071C097 /* UIImageViewUtils.swift in Sources */,
 				1DD1EA6C1CEC5D1700D99731 /* UIColorAssets.swift in Sources */,
+				75E269AB1CFC7B8700ED3CA2 /* BasketView.swift in Sources */,
 				1DF7967E1CEB3AF600C7A7F4 /* Logging.swift in Sources */,
 				1DD1EA831CF2E46C00D99731 /* MainTabViewController.swift in Sources */,
 				1DD1EA8E1CF2E5EB00D99731 /* WishlistViewController.swift in Sources */,
@@ -692,6 +732,8 @@
 				1D72ED131CFC3028007AFD2F /* ContentPromo.swift in Sources */,
 				1D72ED141CFC3028007AFD2F /* User.swift in Sources */,
 				1D72ED261CFDA591007AFD2F /* StringUtils.swift in Sources */,
+				75D52EB41CFF1063005E34B4 /* BasketNavigationController.swift in Sources */,
+				75E269A91CFC7B7A00ED3CA2 /* BasketModel.swift in Sources */,
 				1DD1EA6D1CEC5D1700D99731 /* UIImageAssets.swift in Sources */,
 				1DD1EA801CF2E2C100D99731 /* RootView.swift in Sources */,
 				1D0453401CFDD575001CC5A2 /* UIFontAssets.swift in Sources */,
@@ -707,6 +749,7 @@
 				1D72ED0F1CFC2F47007AFD2F /* UserManager.swift in Sources */,
 				1DD1EA881CF2E53500D99731 /* SearchViewController.swift in Sources */,
 				1D0453511CFEE092001CC5A2 /* ProductRecommendation.swift in Sources */,
+				759CED241CFDB24100FEBE66 /* TitleValueLabel.swift in Sources */,
 				1DD1EA6B1CEC5D1700D99731 /* L10n.swift in Sources */,
 				1DD1EA931CF2E93900D99731 /* RootModel.swift in Sources */,
 				1DD1EA761CEDB2A300D99731 /* ContentPromoDataSource.swift in Sources */,
@@ -717,8 +760,10 @@
 				1D72ED221CFC6102007AFD2F /* CacheManager.swift in Sources */,
 				1DF796871CEB49E200C7A7F4 /* CoreAssembly.swift in Sources */,
 				1DF796831CEB473300C7A7F4 /* DiAssembler.swift in Sources */,
+				75EDE82B1CFDDF6D00C5F96B /* UITextFieldUtils.swift in Sources */,
 				1DD1EA911CF2E61800D99731 /* SettingsViewController.swift in Sources */,
 				1DD1EA9B1CF2ED6400D99731 /* SimpleNavigationEvent.swift in Sources */,
+				75E269AE1CFC7DA200ED3CA2 /* BasketDataSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -845,6 +890,7 @@
 				CI_BUILD_VERSION = 1.0;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -868,6 +914,7 @@
 				CI_BUILD_VERSION = 1.0;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

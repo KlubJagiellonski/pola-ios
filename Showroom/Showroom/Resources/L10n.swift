@@ -13,6 +13,16 @@ enum L10n {
   case MainTabWishlist
   /// Ustawienia
   case MainTabSettings
+  /// KOD RABATOWY
+  case BasketDiscountCode
+  /// WYSYŁKA
+  case BasketShipping
+  /// SUMA
+  case BasketTotalPrice
+  /// ZMIEŃ
+  case BasketShippingChange
+  /// DO KASY
+  case BasketCheckoutButton
 }
 
 extension L10n: CustomStringConvertible {
@@ -30,6 +40,16 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("MainTab.Wishlist")
       case .MainTabSettings:
         return L10n.tr("MainTab.Settings")
+      case .BasketDiscountCode:
+        return L10n.tr("Basket.DiscountCode")
+      case .BasketShipping:
+        return L10n.tr("Basket.Shipping")
+      case .BasketTotalPrice:
+        return L10n.tr("Basket.TotalPrice")
+      case .BasketShippingChange:
+        return L10n.tr("Basket.ShippingChange")
+      case .BasketCheckoutButton:
+        return L10n.tr("Basket.CheckoutButton")
     }
   }
 

@@ -27,8 +27,14 @@ class UIAssembly: AssemblyType {
         container.register(WishlistViewController.self) { r in
             return WishlistViewController(resolver: r.resolve(DiResolver.self)!)
         }
+        container.register(BasketNavigationController.self) { r in
+            return BasketNavigationController(resolver: r.resolve(DiResolver.self)!)
+        }
         container.register(BasketViewController.self) { r in
             return BasketViewController(resolver: r.resolve(DiResolver.self)!)
+        }
+        container.register(BasketModel.self) { r in
+            return BasketModel()
         }
     }
 }
