@@ -8,12 +8,13 @@ class BasketView: UIView, UITableViewDelegate {
     private let dataSource: BasketDataSource;
     
     init() {
-        dataSource = BasketDataSource()
+        dataSource = BasketDataSource(tableView: tableView)
         
         super.init(frame: CGRectZero)
         
         tableView.delegate = self
         tableView.dataSource = dataSource
+        tableView.separatorStyle = .None
         
         checkoutView.layer.shadowColor = UIColor.blackColor().CGColor
         checkoutView.layer.shadowOpacity = 0.5
@@ -38,11 +39,32 @@ class BasketView: UIView, UITableViewDelegate {
         }
         
         tableView.snp_makeConstraints { make in
-            make.top.equalToSuperview()
-            make.left.equalToSuperview()
-            make.right.equalToSuperview()
-            make.bottom.equalTo(checkoutView.snp_top)
+            make.edges.equalToSuperview()
         }
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if dataSource.isFooterCell(indexPath) {
+            return BasketShippingCell.cellHeight
+        } else {
+            return BasketProductCell.cellHeight + Dimensions.defaultMargin;
+        }
+    }
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return BasketHeader.headerHeight
+    }
+    
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView: BasketHeader = tableView.dequeueReusableHeaderFooterViewWithIdentifier(String(BasketHeader)) as! BasketHeader
+        headerView.headerLabel.text = dataSource.titleForHeaderInSection(section)
+        return headerView
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        tableView.contentInset.bottom = checkoutView.frame.size.height + Dimensions.tabViewHeight
+        tableView.scrollIndicatorInsets = tableView.contentInset
     }
 }
 
@@ -71,7 +93,7 @@ class BasketCheckoutView: UIView {
         discountLabel.value = "zniżka: -60,00 zł" // TODO: Use real data
         
         shippingLabel.title = tr(.BasketShipping)
-        shippingLabel.value = "Demokratyczna Republika Konga, kurier UPS (United Parcel Service)" // TODO: Use real data
+        shippingLabel.value = "Polska, kurier UPS" // TODO: Use real data
         
         priceLabel.title = tr(.BasketTotalPrice)
         priceLabel.value = "128,00 zł" // TODO: Set the real price

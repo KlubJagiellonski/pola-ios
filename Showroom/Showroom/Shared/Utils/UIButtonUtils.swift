@@ -3,12 +3,23 @@ import UIKit
 
 extension UIButton {
     func applyBlueStyle() {
-        self.backgroundColor = UIColor(named: .Blue)
-        self.titleLabel!.font = UIFont(fontType: .Button)
+        backgroundColor = UIColor(named: .Blue)
+        titleLabel!.font = UIFont(fontType: .Button)
     }
     
     func applyPlainStyle() {
-        self.setTitleColor(UIColor(named: .Blue), forState: UIControlState.Normal)
-        self.titleLabel!.font = UIFont(fontType: .List)
+        setTitleColor(UIColor(named: .Blue), forState: .Normal)
+        titleLabel!.font = UIFont(fontType: .List)
+    }
+    
+    func applyDropDownStyle() {
+        setTitleColor(UIColor.blackColor(), forState: .Normal)
+        titleLabel!.font = UIFont(fontType: .FormNormal)
+        layer.borderColor = UIColor.blackColor().CGColor
+        layer.borderWidth = 1;
+        contentEdgeInsets = UIEdgeInsetsMake(4, 6, 5, 9)
+        setImage(UIImage(asset: Asset.Ic_dropdown_small), forState: .Normal)
+        semanticContentAttribute = .ForceRightToLeft
+        imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -8)
     }
 }
