@@ -36,6 +36,17 @@ class DashboardViewController: UIViewController, DashboardViewDelegate {
                 logInfo("Error during fetching content promo, networkError: \(networkError)")
             }
         }.addDisposableTo(disposeBag)
+        
+        model.fetchRecommendations().subscribeNext { fetchResult in
+            switch fetchResult {
+            case .Success(let productRecommendationResult):
+                logInfo("product recommendations \(productRecommendationResult)")
+            case .CacheError(let cacheError):
+                logInfo("Error during fetching product recommendations, cacheError: \(cacheError)")
+            case .NetworkError(let networkError):
+                logInfo("Error during fetching product recommendations, networkError: \(networkError)")
+            }
+            }.addDisposableTo(disposeBag)
     }
     
     override func viewDidLayoutSubviews() {

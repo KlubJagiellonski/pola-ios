@@ -13,6 +13,10 @@
 		1D04534B1CFDD87E001CC5A2 /* Lato-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1D0453471CFDD87E001CC5A2 /* Lato-Heavy.ttf */; };
 		1D04534C1CFDD87E001CC5A2 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1D0453481CFDD87E001CC5A2 /* Lato-Regular.ttf */; };
 		1D04534D1CFDD87E001CC5A2 /* Lato-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1D0453491CFDD87E001CC5A2 /* Lato-Semibold.ttf */; };
+		1D04534F1CFEDE74001CC5A2 /* EmarsysPredictSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D04534E1CFEDE74001CC5A2 /* EmarsysPredictSDK.framework */; };
+		1D0453511CFEE092001CC5A2 /* ProductRecommendation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0453501CFEE092001CC5A2 /* ProductRecommendation.swift */; };
+		1D0453531CFEF6F6001CC5A2 /* ObservableUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0453521CFEF6F6001CC5A2 /* ObservableUtils.swift */; };
+		1D0453551CFF033E001CC5A2 /* EmarsysService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0453541CFF033E001CC5A2 /* EmarsysService.swift */; };
 		1D2F193F1CE9CE250099142E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2F193E1CE9CE250099142E /* AppDelegate.swift */; };
 		1D2F19491CE9CE250099142E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1D2F19471CE9CE250099142E /* LaunchScreen.storyboard */; };
 		1D2F19541CE9CE250099142E /* ShowroomTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2F19531CE9CE250099142E /* ShowroomTests.swift */; };
@@ -121,6 +125,10 @@
 		1D0453471CFDD87E001CC5A2 /* Lato-Heavy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Heavy.ttf"; sourceTree = "<group>"; };
 		1D0453481CFDD87E001CC5A2 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
 		1D0453491CFDD87E001CC5A2 /* Lato-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Semibold.ttf"; sourceTree = "<group>"; };
+		1D04534E1CFEDE74001CC5A2 /* EmarsysPredictSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EmarsysPredictSDK.framework; path = Carthage/Build/iOS/EmarsysPredictSDK.framework; sourceTree = "<group>"; };
+		1D0453501CFEE092001CC5A2 /* ProductRecommendation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductRecommendation.swift; sourceTree = "<group>"; };
+		1D0453521CFEF6F6001CC5A2 /* ObservableUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObservableUtils.swift; sourceTree = "<group>"; };
+		1D0453541CFF033E001CC5A2 /* EmarsysService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmarsysService.swift; sourceTree = "<group>"; };
 		1D2F193B1CE9CE250099142E /* SHOWROOM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SHOWROOM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D2F193E1CE9CE250099142E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1D2F19481CE9CE250099142E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -201,6 +209,7 @@
 				1D2F19D11CEB16120099142E /* Decodable.framework in Frameworks */,
 				1DF796731CEB2E1F00C7A7F4 /* Fabric.framework in Frameworks */,
 				1DD1EA9D1CF2F58E00D99731 /* SnapKit.framework in Frameworks */,
+				1D04534F1CFEDE74001CC5A2 /* EmarsysPredictSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,6 +313,7 @@
 		1D2F19AC1CEA15060099142E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1D04534E1CFEDE74001CC5A2 /* EmarsysPredictSDK.framework */,
 				1DD1EA9C1CF2F58E00D99731 /* SnapKit.framework */,
 				1DF796761CEB34AD00C7A7F4 /* Haneke.framework */,
 				1DF796711CEB2E1F00C7A7F4 /* Fabric.framework */,
@@ -329,6 +339,7 @@
 			children = (
 				1D5EF1D01CEB666B0071C097 /* UIImageViewUtils.swift */,
 				1D72ED251CFDA591007AFD2F /* StringUtils.swift */,
+				1D0453521CFEF6F6001CC5A2 /* ObservableUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -363,6 +374,7 @@
 			children = (
 				1D72ED111CFC3028007AFD2F /* ContentPromo.swift */,
 				1D72ED121CFC3028007AFD2F /* User.swift */,
+				1D0453501CFEE092001CC5A2 /* ProductRecommendation.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -475,6 +487,7 @@
 			children = (
 				1DF796781CEB369B00C7A7F4 /* NetworkClient.swift */,
 				1DF7967A1CEB39A100C7A7F4 /* ApiService.swift */,
+				1D0453541CFF033E001CC5A2 /* EmarsysService.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -623,6 +636,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Decodable.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Haneke.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SnapKit.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/EmarsysPredictSDK.framework",
 			);
 			name = "Carthage Run Script";
 			outputPaths = (
@@ -674,6 +688,7 @@
 				1DF7967E1CEB3AF600C7A7F4 /* Logging.swift in Sources */,
 				1DD1EA831CF2E46C00D99731 /* MainTabViewController.swift in Sources */,
 				1DD1EA8E1CF2E5EB00D99731 /* WishlistViewController.swift in Sources */,
+				1D0453531CFEF6F6001CC5A2 /* ObservableUtils.swift in Sources */,
 				1D72ED131CFC3028007AFD2F /* ContentPromo.swift in Sources */,
 				1D72ED141CFC3028007AFD2F /* User.swift in Sources */,
 				1D72ED261CFDA591007AFD2F /* StringUtils.swift in Sources */,
@@ -681,6 +696,7 @@
 				1DD1EA801CF2E2C100D99731 /* RootView.swift in Sources */,
 				1D0453401CFDD575001CC5A2 /* UIFontAssets.swift in Sources */,
 				1DD1EA981CF2ECC200D99731 /* Navigation.swift in Sources */,
+				1D0453551CFF033E001CC5A2 /* EmarsysService.swift in Sources */,
 				1DF796891CEB4AC000C7A7F4 /* UIAssembly.swift in Sources */,
 				1DF796851CEB477B00C7A7F4 /* NetworkAssembly.swift in Sources */,
 				1DD1EA711CEDA00B00D99731 /* DashboardViewController.swift in Sources */,
@@ -690,6 +706,7 @@
 				1DF796801CEB3C4000C7A7F4 /* Constants.swift in Sources */,
 				1D72ED0F1CFC2F47007AFD2F /* UserManager.swift in Sources */,
 				1DD1EA881CF2E53500D99731 /* SearchViewController.swift in Sources */,
+				1D0453511CFEE092001CC5A2 /* ProductRecommendation.swift in Sources */,
 				1DD1EA6B1CEC5D1700D99731 /* L10n.swift in Sources */,
 				1DD1EA931CF2E93900D99731 /* RootModel.swift in Sources */,
 				1DD1EA761CEDB2A300D99731 /* ContentPromoDataSource.swift in Sources */,

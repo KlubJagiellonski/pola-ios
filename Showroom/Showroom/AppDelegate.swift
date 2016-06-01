@@ -2,6 +2,7 @@ import UIKit
 import Fabric
 import Crashlytics
 import XCGLogger
+import EmarsysPredictSDK
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -26,8 +27,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func configureDependencies() {
         Logging.configure()
+        
         if !Constants.isDebug {
             Fabric.with([Crashlytics.self])
         }
+        
+        let emarsysSession = EMSession.sharedSession()
+        emarsysSession.merchantID = Constants.emarsysMerchantId
+        emarsysSession.logLevel = Constants.isDebug ? .Debug : .Warning
     }
 }

@@ -16,7 +16,7 @@ class UIAssembly: AssemblyType {
             return DashboardViewController(resolver: r.resolve(DiResolver.self)!)
         }
         container.register(DashboardModel.self) { r in
-            return DashboardModel(apiService: r.resolve(ApiService.self)!, userManager: r.resolve(UserManager.self)!, cacheManager: r.resolve(CacheManager.self)!)
+            return DashboardModel(apiService: r.resolve(ApiService.self)!, userManager: r.resolve(UserManager.self)!, cacheManager: r.resolve(CacheManager.self)!, emarsysService: r.resolve(EmarsysService.self)!)
         }
         container.register(SearchViewController.self) { r in
             return SearchViewController(resolver: r.resolve(DiResolver.self)!)

@@ -1,5 +1,6 @@
 import Foundation
 import Swinject
+import EmarsysPredictSDK
 
 class NetworkAssembly: AssemblyType {
     func assemble(container: Container) {
@@ -18,6 +19,10 @@ class NetworkAssembly: AssemblyType {
         container.register(ApiService.self) { r in
             return ApiService(networkClient: r.resolve(NetworkClient.self)!)
         }
+        
+        container.register(EmarsysService.self) { r in
+            return EmarsysService(session: EMSession.sharedSession())
+        }.inObjectScope(.Container)
     }
 }
 

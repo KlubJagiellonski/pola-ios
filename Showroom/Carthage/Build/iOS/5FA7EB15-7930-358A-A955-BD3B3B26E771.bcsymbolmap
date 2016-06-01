@@ -1,0 +1,1428 @@
+BCSymbolMap Version: 1.0
+-[EMIdentifierManager init]
+-[EMIdentifierManager initInternal]
++[EMIdentifierManager sharedManager]
+__36+[EMIdentifierManager sharedManager]_block_invoke
+-[EMIdentifierManager setAdvertisingIdentifier:]
+-[EMIdentifierManager advertisingIdentifier]
+OBJC_CLASSLIST_SUP_REFS_$_
+OBJC_METH_VAR_NAME_
+OBJC_SELECTOR_REFERENCES_
+sharedManager._shared
+sharedManager.onceToken
+OBJC_CLASSLIST_REFERENCES_$_
+OBJC_METH_VAR_NAME_.1
+OBJC_SELECTOR_REFERENCES_.2
+OBJC_METH_VAR_NAME_.3
+OBJC_SELECTOR_REFERENCES_.4
+.str
+__block_descriptor_tmp
+__block_literal_global
+OBJC_CLASSLIST_REFERENCES_$_.5
+OBJC_METH_VAR_NAME_.6
+OBJC_SELECTOR_REFERENCES_.7
+.str.8
+_unnamed_cfstring_
+OBJC_METH_VAR_NAME_.9
+OBJC_SELECTOR_REFERENCES_.10
+OBJC_METH_VAR_NAME_.11
+OBJC_SELECTOR_REFERENCES_.12
+OBJC_METH_VAR_NAME_.13
+OBJC_SELECTOR_REFERENCES_.14
+OBJC_CLASS_NAME_
+OBJC_METH_VAR_NAME_.15
+OBJC_METH_VAR_TYPE_
+l_OBJC_$_CLASS_METHODS_EMIdentifierManager
+l_OBJC_METACLASS_RO_$_EMIdentifierManager
+OBJC_METH_VAR_NAME_.16
+OBJC_METH_VAR_TYPE_.17
+OBJC_METH_VAR_NAME_.18
+l_OBJC_$_INSTANCE_METHODS_EMIdentifierManager
+l_OBJC_CLASS_RO_$_EMIdentifierManager
+OBJC_LABEL_CLASS_$
+Apple LLVM version 7.3.0 (clang-703.0.29)
+_dispatch_once
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/usr/include/dispatch/once.h
+/Users/paweljaneczek/Polidea/Showroom/Showroom/Carthage/Checkouts/EmarsysPredictSDK
+-[EMIdentifierManager advertisingIdentifier]
+/Users/paweljaneczek/Polidea/Showroom/Showroom/Carthage/Checkouts/EmarsysPredictSDK/EmarsysPredictSDK/EMIdentifierManager.m
+-[EMIdentifierManager setAdvertisingIdentifier:]
++[EMIdentifierManager sharedManager]
+-[EMIdentifierManager initInternal]
+-[EMIdentifierManager init]
+-[EMRecommendationResult init]
+-[EMRecommendationResult initWithFields:featureID:topic:]
+-[EMRecommendationResult addProduct:]
+-[EMRecommendationResult products]
+-[EMRecommendationResult cohort]
+-[EMRecommendationResult topic]
+-[EMRecommendationResult featureID]
+-[EMRecommendationResult .cxx_destruct]
+OBJC_IVAR_$_EMRecommendationResult._products
+OBJC_IVAR_$_EMRecommendationResult._cohort
+OBJC_IVAR_$_EMRecommendationResult._featureID
+OBJC_IVAR_$_EMRecommendationResult._topic
+l_OBJC_METACLASS_RO_$_EMRecommendationResult
+OBJC_CLASS_NAME_.5
+OBJC_METH_VAR_TYPE_.7
+OBJC_METH_VAR_NAME_.8
+OBJC_METH_VAR_TYPE_.9
+OBJC_METH_VAR_NAME_.10
+OBJC_METH_VAR_TYPE_.11
+OBJC_METH_VAR_NAME_.12
+OBJC_METH_VAR_NAME_.14
+l_OBJC_$_INSTANCE_METHODS_EMRecommendationResult
+OBJC_METH_VAR_TYPE_.19
+OBJC_METH_VAR_NAME_.20
+OBJC_METH_VAR_NAME_.21
+l_OBJC_$_INSTANCE_VARIABLES_EMRecommendationResult
+OBJC_PROP_NAME_ATTR_
+OBJC_PROP_NAME_ATTR_.22
+OBJC_PROP_NAME_ATTR_.23
+OBJC_PROP_NAME_ATTR_.24
+OBJC_PROP_NAME_ATTR_.25
+OBJC_PROP_NAME_ATTR_.26
+OBJC_PROP_NAME_ATTR_.27
+OBJC_PROP_NAME_ATTR_.28
+l_OBJC_$_PROP_LIST_EMRecommendationResult
+l_OBJC_CLASS_RO_$_EMRecommendationResult
+-[EMRecommendationResult .cxx_destruct]
+/Users/paweljaneczek/Polidea/Showroom/Showroom/Carthage/Checkouts/EmarsysPredictSDK/EmarsysPredictSDK/EMRecommendationResult.m
+-[EMRecommendationResult featureID]
+/Users/paweljaneczek/Polidea/Showroom/Showroom/Carthage/Checkouts/EmarsysPredictSDK/EmarsysPredictSDK/EMRecommendationResult.h
+-[EMRecommendationResult topic]
+-[EMRecommendationResult cohort]
+-[EMRecommendationResult products]
+-[EMRecommendationResult addProduct:]
+-[EMRecommendationResult initWithFields:featureID:topic:]
+-[EMRecommendationResult init]
+-[EMFilter initWithValues:rule:catalogField:]
+-[EMFilter initWithValue:rule:catalogField:]
+-[EMFilter description]
+-[EMFilter catalogField]
+-[EMFilter setCatalogField:]
+-[EMFilter rule]
+-[EMFilter setRule:]
+-[EMFilter values]
+-[EMFilter setValues:]
+-[EMFilter .cxx_destruct]
+OBJC_IVAR_$_EMFilter._values
+OBJC_IVAR_$_EMFilter._rule
+OBJC_IVAR_$_EMFilter._catalogField
+OBJC_SELECTOR_REFERENCES_.9
+.str.10
+_unnamed_cfstring_.11
+.str.12
+_unnamed_cfstring_.13
+.str.14
+_unnamed_cfstring_.15
+OBJC_SELECTOR_REFERENCES_.17
+.str.18
+_unnamed_cfstring_.19
+OBJC_CLASSLIST_REFERENCES_$_.20
+OBJC_SELECTOR_REFERENCES_.22
+OBJC_METH_VAR_NAME_.23
+OBJC_SELECTOR_REFERENCES_.24
+.str.25
+_unnamed_cfstring_.26
+.str.27
+_unnamed_cfstring_.28
+.str.29
+_unnamed_cfstring_.30
+l_OBJC_METACLASS_RO_$_EMFilter
+OBJC_CLASS_NAME_.31
+OBJC_METH_VAR_NAME_.32
+OBJC_METH_VAR_NAME_.33
+OBJC_METH_VAR_TYPE_.34
+OBJC_METH_VAR_NAME_.35
+OBJC_METH_VAR_TYPE_.36
+OBJC_METH_VAR_NAME_.37
+OBJC_METH_VAR_NAME_.38
+OBJC_METH_VAR_TYPE_.39
+OBJC_METH_VAR_NAME_.40
+OBJC_METH_VAR_NAME_.41
+OBJC_METH_VAR_NAME_.42
+OBJC_METH_VAR_NAME_.43
+l_OBJC_$_INSTANCE_METHODS_EMFilter
+OBJC_METH_VAR_NAME_.44
+OBJC_METH_VAR_TYPE_.45
+OBJC_METH_VAR_NAME_.46
+OBJC_METH_VAR_NAME_.47
+OBJC_METH_VAR_TYPE_.48
+l_OBJC_$_INSTANCE_VARIABLES_EMFilter
+OBJC_PROP_NAME_ATTR_.49
+OBJC_PROP_NAME_ATTR_.50
+OBJC_PROP_NAME_ATTR_.51
+OBJC_PROP_NAME_ATTR_.52
+OBJC_PROP_NAME_ATTR_.53
+l_OBJC_$_PROP_LIST_EMFilter
+l_OBJC_CLASS_RO_$_EMFilter
+-[EMFilter .cxx_destruct]
+/Users/paweljaneczek/Polidea/Showroom/Showroom/Carthage/Checkouts/EmarsysPredictSDK/EmarsysPredictSDK/EMFilter.m
+-[EMFilter setValues:]
+/Users/paweljaneczek/Polidea/Showroom/Showroom/Carthage/Checkouts/EmarsysPredictSDK/EmarsysPredictSDK/EMFilter.h
+-[EMFilter values]
+-[EMFilter setRule:]
+-[EMFilter rule]
+-[EMFilter setCatalogField:]
+-[EMFilter catalogField]
+-[EMFilter description]
+-[EMFilter initWithValue:rule:catalogField:]
+-[EMFilter initWithValues:rule:catalogField:]
+-[EMResponseParser init]
+-[EMResponseParser initWithJSON:error:]
+newMissingFieldError
+__39-[EMResponseParser initWithJSON:error:]_block_invoke
+__39-[EMResponseParser initWithJSON:error:]_block_invoke_2
+__copy_helper_block_
+__destroy_helper_block_
+__copy_helper_block_.73
+__destroy_helper_block_.74
+-[EMResponseParser cohort]
+-[EMResponseParser setCohort:]
+-[EMResponseParser visitor]
+-[EMResponseParser setVisitor:]
+-[EMResponseParser session]
+-[EMResponseParser setSession:]
+-[EMResponseParser results]
+-[EMResponseParser .cxx_destruct]
+.str.5
+_unnamed_cfstring_.6
+.str.7
+_unnamed_cfstring_.8
+OBJC_IVAR_$_EMResponseParser._cohort
+.str.11
+_unnamed_cfstring_.12
+.str.13
+_unnamed_cfstring_.14
+OBJC_IVAR_$_EMResponseParser._visitor
+.str.15
+_unnamed_cfstring_.16
+.str.17
+_unnamed_cfstring_.18
+OBJC_IVAR_$_EMResponseParser._session
+.str.19
+_unnamed_cfstring_.20
+.str.21
+_unnamed_cfstring_.22
+.str.23
+_unnamed_cfstring_.24
+OBJC_METH_VAR_NAME_.25
+OBJC_SELECTOR_REFERENCES_.26
+OBJC_METH_VAR_NAME_.27
+OBJC_SELECTOR_REFERENCES_.28
+OBJC_CLASSLIST_REFERENCES_$_.29
+OBJC_METH_VAR_NAME_.30
+OBJC_SELECTOR_REFERENCES_.31
+OBJC_IVAR_$_EMResponseParser._results
+.str.32
+_unnamed_cfstring_.33
+.str.34
+_unnamed_cfstring_.35
+.str.36
+_unnamed_cfstring_.37
+.str.38
+_unnamed_cfstring_.39
+OBJC_CLASSLIST_REFERENCES_$_.40
+.str.41
+_unnamed_cfstring_.42
+OBJC_SELECTOR_REFERENCES_.44
+.str.45
+_unnamed_cfstring_.46
+OBJC_SELECTOR_REFERENCES_.48
+.str.49
+_unnamed_cfstring_.50
+OBJC_METH_VAR_NAME_.51
+OBJC_SELECTOR_REFERENCES_.52
+OBJC_CLASSLIST_REFERENCES_$_.53
+OBJC_METH_VAR_NAME_.54
+OBJC_SELECTOR_REFERENCES_.55
+OBJC_METH_VAR_NAME_.56
+OBJC_SELECTOR_REFERENCES_.57
+OBJC_METH_VAR_NAME_.58
+OBJC_SELECTOR_REFERENCES_.59
+.str.60
+OBJC_METH_VAR_NAME_.61
+OBJC_SELECTOR_REFERENCES_.62
+OBJC_METH_VAR_NAME_.63
+OBJC_SELECTOR_REFERENCES_.64
+.str.65
+_unnamed_cfstring_.66
+OBJC_METH_VAR_NAME_.67
+OBJC_SELECTOR_REFERENCES_.68
+OBJC_METH_VAR_NAME_.69
+OBJC_SELECTOR_REFERENCES_.70
+OBJC_METH_VAR_NAME_.71
+OBJC_SELECTOR_REFERENCES_.72
+.str.75
+__block_descriptor_tmp.76
+OBJC_METH_VAR_NAME_.77
+OBJC_SELECTOR_REFERENCES_.78
+.str.79
+_unnamed_cfstring_.80
+l_OBJC_METACLASS_RO_$_EMResponseParser
+OBJC_CLASS_NAME_.81
+OBJC_METH_VAR_NAME_.82
+OBJC_METH_VAR_TYPE_.83
+OBJC_METH_VAR_NAME_.84
+OBJC_METH_VAR_TYPE_.85
+OBJC_METH_VAR_NAME_.86
+OBJC_METH_VAR_NAME_.87
+OBJC_METH_VAR_TYPE_.88
+OBJC_METH_VAR_NAME_.89
+OBJC_METH_VAR_NAME_.90
+OBJC_METH_VAR_NAME_.91
+OBJC_METH_VAR_NAME_.92
+OBJC_METH_VAR_NAME_.93
+l_OBJC_$_INSTANCE_METHODS_EMResponseParser
+OBJC_METH_VAR_NAME_.94
+OBJC_METH_VAR_TYPE_.95
+OBJC_METH_VAR_NAME_.96
+OBJC_METH_VAR_NAME_.97
+OBJC_METH_VAR_NAME_.98
+OBJC_METH_VAR_TYPE_.99
+l_OBJC_$_INSTANCE_VARIABLES_EMResponseParser
+OBJC_PROP_NAME_ATTR_.100
+OBJC_PROP_NAME_ATTR_.101
+OBJC_PROP_NAME_ATTR_.102
+OBJC_PROP_NAME_ATTR_.103
+OBJC_PROP_NAME_ATTR_.104
+OBJC_PROP_NAME_ATTR_.105
+OBJC_PROP_NAME_ATTR_.106
+l_OBJC_$_PROP_LIST_EMResponseParser
+l_OBJC_CLASS_RO_$_EMResponseParser
+OBJC_CLASSLIST_REFERENCES_$_.107
+.str.108
+_unnamed_cfstring_.109
+OBJC_METH_VAR_NAME_.110
+OBJC_SELECTOR_REFERENCES_.111
+OBJC_CLASSLIST_REFERENCES_$_.112
+OBJC_CLASSLIST_REFERENCES_$_.113
+OBJC_METH_VAR_NAME_.114
+OBJC_SELECTOR_REFERENCES_.115
+OBJC_METH_VAR_NAME_.116
+OBJC_SELECTOR_REFERENCES_.117
+/Users/paweljaneczek/Polidea/Showroom/Showroom/Carthage/Checkouts/EmarsysPredictSDK/EmarsysPredictSDK/EMResponseParser.m
+-[EMResponseParser .cxx_destruct]
+-[EMResponseParser results]
+/Users/paweljaneczek/Polidea/Showroom/Showroom/Carthage/Checkouts/EmarsysPredictSDK/EmarsysPredictSDK/EMResponseParser.h
+-[EMResponseParser setSession:]
+-[EMResponseParser session]
+-[EMResponseParser setVisitor:]
+-[EMResponseParser visitor]
+-[EMResponseParser setCohort:]
+-[EMResponseParser cohort]
+-[EMResponseParser initWithJSON:error:]
+-[EMResponseParser init]
+-[EMQueryParams init]
+-[EMQueryParams add:stringValue:]
+-[EMQueryParams add:intValue:]
+-[EMQueryParams description]
+__28-[EMQueryParams description]_block_invoke
+-[EMQueryParams data]
+-[EMQueryParams setData:]
+-[EMQueryParams .cxx_destruct]
+OBJC_IVAR_$_EMQueryParams._data
+OBJC_CLASSLIST_REFERENCES_$_.8
+.str.9
+_unnamed_cfstring_.10
+OBJC_SELECTOR_REFERENCES_.15
+.str.16
+_unnamed_cfstring_.17
+OBJC_SELECTOR_REFERENCES_.19
+l_OBJC_METACLASS_RO_$_EMQueryParams
+OBJC_CLASS_NAME_.20
+OBJC_METH_VAR_TYPE_.22
+OBJC_METH_VAR_TYPE_.24
+OBJC_METH_VAR_NAME_.26
+OBJC_METH_VAR_TYPE_.27
+OBJC_METH_VAR_NAME_.28
+OBJC_METH_VAR_NAME_.29
+OBJC_METH_VAR_TYPE_.30
+l_OBJC_$_INSTANCE_METHODS_EMQueryParams
+OBJC_METH_VAR_NAME_.31
+OBJC_METH_VAR_TYPE_.32
+l_OBJC_$_INSTANCE_VARIABLES_EMQueryParams
+OBJC_PROP_NAME_ATTR_.33
+l_OBJC_$_PROP_LIST_EMQueryParams
+l_OBJC_CLASS_RO_$_EMQueryParams
+-[EMQueryParams .cxx_destruct]
+/Users/paweljaneczek/Polidea/Showroom/Showroom/Carthage/Checkouts/EmarsysPredictSDK/EmarsysPredictSDK/EMQueryParams.m
+-[EMQueryParams setData:]
+/Users/paweljaneczek/Polidea/Showroom/Showroom/Carthage/Checkouts/EmarsysPredictSDK/EmarsysPredictSDK/EMQueryParams.h
+-[EMQueryParams data]
+-[EMQueryParams description]
+-[EMQueryParams add:intValue:]
+-[EMQueryParams add:stringValue:]
+-[EMQueryParams init]
+-[EMExcludeCommand validate]
+__28-[EMExcludeCommand validate]_block_invoke
+OBJC_METH_VAR_NAME_.5
+OBJC_SELECTOR_REFERENCES_.6
+OBJC_METH_VAR_NAME_.7
+OBJC_SELECTOR_REFERENCES_.8
+OBJC_SELECTOR_REFERENCES_.13
+l_OBJC_METACLASS_RO_$_EMExcludeCommand
+l_OBJC_$_INSTANCE_METHODS_EMExcludeCommand
+l_OBJC_CLASS_RO_$_EMExcludeCommand
+/Users/paweljaneczek/Polidea/Showroom/Showroom/Carthage/Checkouts/EmarsysPredictSDK/EmarsysPredictSDK/EMExcludeCommand.m
+-[EMExcludeCommand validate]
+-[EMCommand validate]
+-[EMCommand emptyStringEMErr:field:]
+OBJC_CLASSLIST_REFERENCES_$_.1
+OBJC_METH_VAR_NAME_.2
+OBJC_SELECTOR_REFERENCES_.3
+OBJC_CLASSLIST_REFERENCES_$_.4
+OBJC_CLASSLIST_REFERENCES_$_.11
+l_OBJC_METACLASS_RO_$_EMCommand
+OBJC_METH_VAR_NAME_.19
+OBJC_METH_VAR_TYPE_.20
+l_OBJC_$_INSTANCE_METHODS_EMCommand
+l_OBJC_CLASS_RO_$_EMCommand
+-[EMCommand emptyStringEMErr:field:]
+/Users/paweljaneczek/Polidea/Showroom/Showroom/Carthage/Checkouts/EmarsysPredictSDK/EmarsysPredictSDK/EMCommand.m
+-[EMCommand validate]
+-[EMRecommendCommand initWithEMRecommendationRequest:]
+-[EMRecommendCommand validate]
+__30-[EMRecommendCommand validate]_block_invoke
+__30-[EMRecommendCommand validate]_block_invoke.22
+__copy_helper_block_.27
+__destroy_helper_block_.28
+-[EMRecommendCommand description]
+-[EMRecommendCommand recommendationRequest]
+-[EMRecommendCommand setRecommendationRequest:]
+-[EMRecommendCommand .cxx_destruct]
+OBJC_IVAR_$_EMRecommendCommand._recommendationRequest
+OBJC_SELECTOR_REFERENCES_.21
+__block_descriptor_tmp.30
+OBJC_CLASSLIST_REFERENCES_$_.31
+OBJC_SELECTOR_REFERENCES_.33
+OBJC_METH_VAR_NAME_.36
+OBJC_SELECTOR_REFERENCES_.37
+OBJC_METH_VAR_NAME_.45
+OBJC_SELECTOR_REFERENCES_.46
+.str.47
+_unnamed_cfstring_.48
+l_OBJC_METACLASS_RO_$_EMRecommendCommand
+OBJC_CLASS_NAME_.49
+OBJC_METH_VAR_NAME_.50
+OBJC_METH_VAR_TYPE_.51
+OBJC_METH_VAR_NAME_.52
+OBJC_METH_VAR_NAME_.53
+OBJC_METH_VAR_TYPE_.54
+OBJC_METH_VAR_NAME_.55
+OBJC_METH_VAR_TYPE_.57
+l_OBJC_$_INSTANCE_METHODS_EMRecommendCommand
+OBJC_METH_VAR_TYPE_.59
+l_OBJC_$_INSTANCE_VARIABLES_EMRecommendCommand
+OBJC_PROP_NAME_ATTR_.60
+l_OBJC_$_PROP_LIST_EMRecommendCommand
+l_OBJC_CLASS_RO_$_EMRecommendCommand
+-[EMRecommendCommand .cxx_destruct]
+/Users/paweljaneczek/Polidea/Showroom/Showroom/Carthage/Checkouts/EmarsysPredictSDK/EmarsysPredictSDK/EMRecommendCommand.m
+-[EMRecommendCommand setRecommendationRequest:]
+/Users/paweljaneczek/Polidea/Showroom/Showroom/Carthage/Checkouts/EmarsysPredictSDK/EmarsysPredictSDK/EMRecommendCommand.h
+-[EMRecommendCommand recommendationRequest]
+-[EMRecommendCommand description]
+-[EMRecommendCommand validate]
+-[EMRecommendCommand initWithEMRecommendationRequest:]
+-[EMRecommendationItem init]
+-[EMRecommendationItem initWithResult:]
+-[EMRecommendationItem addField:value:]
+-[EMRecommendationItem description]
+-[EMRecommendationItem data]
+-[EMRecommendationItem result]
+-[EMRecommendationItem .cxx_destruct]
+OBJC_IVAR_$_EMRecommendationItem._result
+OBJC_IVAR_$_EMRecommendationItem._data
+l_OBJC_METACLASS_RO_$_EMRecommendationItem
+OBJC_CLASS_NAME_.9
+OBJC_METH_VAR_TYPE_.13
+OBJC_METH_VAR_TYPE_.15
+OBJC_METH_VAR_NAME_.17
+l_OBJC_$_INSTANCE_METHODS_EMRecommendationItem
+OBJC_METH_VAR_TYPE_.21
+l_OBJC_$_INSTANCE_VARIABLES_EMRecommendationItem
+l_OBJC_$_PROP_LIST_EMRecommendationItem
+l_OBJC_CLASS_RO_$_EMRecommendationItem
+-[EMRecommendationItem .cxx_destruct]
+/Users/paweljaneczek/Polidea/Showroom/Showroom/Carthage/Checkouts/EmarsysPredictSDK/EmarsysPredictSDK/EMRecommendationItem.m
+-[EMRecommendationItem result]
+-[EMRecommendationItem data]
+/Users/paweljaneczek/Polidea/Showroom/Showroom/Carthage/Checkouts/EmarsysPredictSDK/EmarsysPredictSDK/EMRecommendationItem.h
+-[EMRecommendationItem description]
+-[EMRecommendationItem addField:value:]
+-[EMRecommendationItem initWithResult:]
+-[EMRecommendationItem init]
+-[EMKeywordCommand validate]
+l_OBJC_METACLASS_RO_$_EMKeywordCommand
+l_OBJC_$_INSTANCE_METHODS_EMKeywordCommand
+l_OBJC_CLASS_RO_$_EMKeywordCommand
+-[EMKeywordCommand validate]
+/Users/paweljaneczek/Polidea/Showroom/Showroom/Carthage/Checkouts/EmarsysPredictSDK/EmarsysPredictSDK/EMKeywordCommand.m
+-[EMCartItem init]
++[EMCartItem itemWithItemID:price:quantity:]
+-[EMCartItem initWithItemID:price:quantity:]
+-[EMCartItem itemID]
+-[EMCartItem price]
+-[EMCartItem quantity]
+-[EMCartItem .cxx_destruct]
+OBJC_IVAR_$_EMCartItem._itemID
+OBJC_IVAR_$_EMCartItem._price
+OBJC_IVAR_$_EMCartItem._quantity
+l_OBJC_$_CLASS_METHODS_EMCartItem
+l_OBJC_METACLASS_RO_$_EMCartItem
+OBJC_CLASS_NAME_.6
+OBJC_METH_VAR_TYPE_.12
+OBJC_METH_VAR_TYPE_.14
+l_OBJC_$_INSTANCE_METHODS_EMCartItem
+OBJC_METH_VAR_TYPE_.16
+OBJC_METH_VAR_TYPE_.18
+l_OBJC_$_INSTANCE_VARIABLES_EMCartItem
+OBJC_PROP_NAME_ATTR_.21
+l_OBJC_$_PROP_LIST_EMCartItem
+l_OBJC_CLASS_RO_$_EMCartItem
+-[EMCartItem .cxx_destruct]
+/Users/paweljaneczek/Polidea/Showroom/Showroom/Carthage/Checkouts/EmarsysPredictSDK/EmarsysPredictSDK/EMCartItem.m
+-[EMCartItem quantity]
+/Users/paweljaneczek/Polidea/Showroom/Showroom/Carthage/Checkouts/EmarsysPredictSDK/EmarsysPredictSDK/EMCartItem.h
+-[EMCartItem price]
+-[EMCartItem itemID]
+-[EMCartItem initWithItemID:price:quantity:]
++[EMCartItem itemWithItemID:price:quantity:]
+-[EMCartItem init]
+-[EMIncludeCommand validate]
+__28-[EMIncludeCommand validate]_block_invoke
+l_OBJC_METACLASS_RO_$_EMIncludeCommand
+l_OBJC_$_INSTANCE_METHODS_EMIncludeCommand
+l_OBJC_CLASS_RO_$_EMIncludeCommand
+/Users/paweljaneczek/Polidea/Showroom/Showroom/Carthage/Checkouts/EmarsysPredictSDK/EmarsysPredictSDK/EMIncludeCommand.m
+-[EMIncludeCommand validate]
+-[EMCategoryCommand validate]
+l_OBJC_METACLASS_RO_$_EMCategoryCommand
+l_OBJC_$_INSTANCE_METHODS_EMCategoryCommand
+l_OBJC_CLASS_RO_$_EMCategoryCommand
+-[EMCategoryCommand validate]
+/Users/paweljaneczek/Polidea/Showroom/Showroom/Carthage/Checkouts/EmarsysPredictSDK/EmarsysPredictSDK/EMCategoryCommand.m
+-[EMCartCommand initWithItems:]
+-[EMCartCommand validate]
+__25-[EMCartCommand validate]_block_invoke
+-[EMCartCommand description]
+__28-[EMCartCommand description]_block_invoke
+__copy_helper_block_.38
+__destroy_helper_block_.39
+-[EMCartCommand items]
+-[EMCartCommand setItems:]
+-[EMCartCommand .cxx_destruct]
+OBJC_IVAR_$_EMCartCommand._items
+OBJC_CLASSLIST_REFERENCES_$_.18
+OBJC_CLASSLIST_REFERENCES_$_.25
+.str.26
+_unnamed_cfstring_.27
+OBJC_SELECTOR_REFERENCES_.29
+__block_descriptor_tmp.40
+l_OBJC_METACLASS_RO_$_EMCartCommand
+OBJC_CLASS_NAME_.45
+OBJC_METH_VAR_NAME_.49
+l_OBJC_$_INSTANCE_METHODS_EMCartCommand
+OBJC_METH_VAR_TYPE_.56
+l_OBJC_$_INSTANCE_VARIABLES_EMCartCommand
+OBJC_PROP_NAME_ATTR_.57
+l_OBJC_$_PROP_LIST_EMCartCommand
+l_OBJC_CLASS_RO_$_EMCartCommand
+-[EMCartCommand .cxx_destruct]
+/Users/paweljaneczek/Polidea/Showroom/Showroom/Carthage/Checkouts/EmarsysPredictSDK/EmarsysPredictSDK/EMCartCommand.m
+-[EMCartCommand setItems:]
+/Users/paweljaneczek/Polidea/Showroom/Showroom/Carthage/Checkouts/EmarsysPredictSDK/EmarsysPredictSDK/EMCartCommand.h
+-[EMCartCommand items]
+-[EMCartCommand description]
+-[EMCartCommand validate]
+-[EMCartCommand initWithItems:]
+-[NSArray(EmarsysPredictSDKExtensions) serializeWithSeparator:]
+__63-[NSArray(EmarsysPredictSDKExtensions) serializeWithSeparator:]_block_invoke
+l_OBJC_$_CATEGORY_INSTANCE_METHODS_NSArray_$_EmarsysPredictSDKExtensions
+l_OBJC_$_CATEGORY_NSArray_$_EmarsysPredictSDKExtensions
+OBJC_LABEL_CATEGORY_$
+/Users/paweljaneczek/Polidea/Showroom/Showroom/Carthage/Checkouts/EmarsysPredictSDK/EmarsysPredictSDK/NSArray+EmarsysPredictSDKExtensions.m
+-[NSArray(EmarsysPredictSDKExtensions) serializeWithSeparator:]
+-[EMSearchTermCommand validate]
+l_OBJC_METACLASS_RO_$_EMSearchTermCommand
+l_OBJC_$_INSTANCE_METHODS_EMSearchTermCommand
+l_OBJC_CLASS_RO_$_EMSearchTermCommand
+-[EMSearchTermCommand validate]
+/Users/paweljaneczek/Polidea/Showroom/Showroom/Carthage/Checkouts/EmarsysPredictSDK/EmarsysPredictSDK/EMSearchTermCommand.m
+-[EMAvailabilityZoneCommand validate]
+l_OBJC_METACLASS_RO_$_EMAvailabilityZoneCommand
+l_OBJC_$_INSTANCE_METHODS_EMAvailabilityZoneCommand
+l_OBJC_CLASS_RO_$_EMAvailabilityZoneCommand
+-[EMAvailabilityZoneCommand validate]
+/Users/paweljaneczek/Polidea/Showroom/Showroom/Carthage/Checkouts/EmarsysPredictSDK/EmarsysPredictSDK/EMAvailabilityZoneCommand.m
+-[EMStringCommand initWithValue:]
+-[EMStringCommand description]
+-[EMStringCommand value]
+-[EMStringCommand setValue:]
+-[EMStringCommand .cxx_destruct]
+OBJC_IVAR_$_EMStringCommand._value
+l_OBJC_METACLASS_RO_$_EMStringCommand
+OBJC_CLASS_NAME_.1
+OBJC_METH_VAR_TYPE_.4
+OBJC_METH_VAR_TYPE_.6
+l_OBJC_$_INSTANCE_METHODS_EMStringCommand
+l_OBJC_$_INSTANCE_VARIABLES_EMStringCommand
+OBJC_PROP_NAME_ATTR_.12
+l_OBJC_$_PROP_LIST_EMStringCommand
+l_OBJC_CLASS_RO_$_EMStringCommand
+-[EMStringCommand .cxx_destruct]
+/Users/paweljaneczek/Polidea/Showroom/Showroom/Carthage/Checkouts/EmarsysPredictSDK/EmarsysPredictSDK/EMStringCommand.m
+-[EMStringCommand setValue:]
+/Users/paweljaneczek/Polidea/Showroom/Showroom/Carthage/Checkouts/EmarsysPredictSDK/EmarsysPredictSDK/EMStringCommand.h
+-[EMStringCommand value]
+-[EMStringCommand description]
+-[EMStringCommand initWithValue:]
+/Users/paweljaneczek/Polidea/Showroom/Showroom/Carthage/Checkouts/EmarsysPredictSDK/EmarsysPredictSDK/EMError.m
+-[NSString(EmarsysPredictSDKExtensions) sha1]
+l_OBJC_$_CATEGORY_INSTANCE_METHODS_NSString_$_EmarsysPredictSDKExtensions
+l_OBJC_$_CATEGORY_NSString_$_EmarsysPredictSDKExtensions
+-[NSString(EmarsysPredictSDKExtensions) sha1]
+/Users/paweljaneczek/Polidea/Showroom/Showroom/Carthage/Checkouts/EmarsysPredictSDK/EmarsysPredictSDK/NSString+EmarsysPredictSDKExtensions.m
+-[EMPurchaseCommand initWithOrderID:items:]
+-[EMPurchaseCommand validate]
+-[EMPurchaseCommand orderID]
+-[EMPurchaseCommand setOrderID:]
+-[EMPurchaseCommand .cxx_destruct]
+OBJC_IVAR_$_EMPurchaseCommand._orderID
+l_OBJC_METACLASS_RO_$_EMPurchaseCommand
+OBJC_CLASS_NAME_.11
+l_OBJC_$_INSTANCE_METHODS_EMPurchaseCommand
+l_OBJC_$_INSTANCE_VARIABLES_EMPurchaseCommand
+l_OBJC_$_PROP_LIST_EMPurchaseCommand
+l_OBJC_CLASS_RO_$_EMPurchaseCommand
+-[EMPurchaseCommand .cxx_destruct]
+/Users/paweljaneczek/Polidea/Showroom/Showroom/Carthage/Checkouts/EmarsysPredictSDK/EmarsysPredictSDK/EMPurchaseCommand.m
+-[EMPurchaseCommand setOrderID:]
+/Users/paweljaneczek/Polidea/Showroom/Showroom/Carthage/Checkouts/EmarsysPredictSDK/EmarsysPredictSDK/EMPurchaseCommand.h
+-[EMPurchaseCommand orderID]
+-[EMPurchaseCommand validate]
+-[EMPurchaseCommand initWithOrderID:items:]
+-[EMRecommendationRequest init]
+-[EMRecommendationRequest initWithLogic:]
+__41-[EMRecommendationRequest initWithLogic:]_block_invoke
++[EMRecommendationRequest requestWithLogic:]
+-[EMRecommendationRequest excludeItemsWhere:is:]
+-[EMRecommendationRequest excludeItemsWhere:isIn:]
+-[EMRecommendationRequest excludeItemsWhere:has:]
+-[EMRecommendationRequest excludeItemsWhere:overlaps:]
+-[EMRecommendationRequest includeItemsWhere:is:]
+-[EMRecommendationRequest includeItemsWhere:isIn:]
+-[EMRecommendationRequest includeItemsWhere:has:]
+-[EMRecommendationRequest includeItemsWhere:overlaps:]
+-[EMRecommendationRequest description]
+-[EMRecommendationRequest logic]
+-[EMRecommendationRequest limit]
+-[EMRecommendationRequest setLimit:]
+-[EMRecommendationRequest baseline]
+-[EMRecommendationRequest setBaseline:]
+-[EMRecommendationRequest completionHandler]
+-[EMRecommendationRequest setCompletionHandler:]
+-[EMRecommendationRequest filters]
+-[EMRecommendationRequest setFilters:]
+-[EMRecommendationRequest .cxx_destruct]
+OBJC_IVAR_$_EMRecommendationRequest._logic
+OBJC_IVAR_$_EMRecommendationRequest._limit
+OBJC_IVAR_$_EMRecommendationRequest._filters
+OBJC_IVAR_$_EMRecommendationRequest._completionHandler
+OBJC_CLASSLIST_REFERENCES_$_.3
+OBJC_METH_VAR_NAME_.4
+OBJC_SELECTOR_REFERENCES_.5
+OBJC_CLASSLIST_REFERENCES_$_.6
+OBJC_SELECTOR_REFERENCES_.11
+OBJC_CLASSLIST_REFERENCES_$_.21
+.str.22
+_unnamed_cfstring_.23
+OBJC_METH_VAR_NAME_.24
+OBJC_SELECTOR_REFERENCES_.25
+OBJC_CLASSLIST_REFERENCES_$_.28
+OBJC_SELECTOR_REFERENCES_.32
+.str.33
+_unnamed_cfstring_.34
+OBJC_IVAR_$_EMRecommendationRequest._baseline
+l_OBJC_$_CLASS_METHODS_EMRecommendationRequest
+l_OBJC_METACLASS_RO_$_EMRecommendationRequest
+OBJC_CLASS_NAME_.36
+OBJC_METH_VAR_TYPE_.37
+OBJC_METH_VAR_NAME_.48
+OBJC_METH_VAR_TYPE_.49
+OBJC_METH_VAR_TYPE_.52
+OBJC_METH_VAR_NAME_.60
+OBJC_METH_VAR_TYPE_.61
+OBJC_METH_VAR_NAME_.62
+l_OBJC_$_INSTANCE_METHODS_EMRecommendationRequest
+OBJC_METH_VAR_NAME_.64
+OBJC_METH_VAR_TYPE_.65
+OBJC_METH_VAR_NAME_.66
+OBJC_METH_VAR_TYPE_.67
+OBJC_METH_VAR_NAME_.68
+OBJC_METH_VAR_TYPE_.69
+OBJC_METH_VAR_NAME_.70
+OBJC_METH_VAR_TYPE_.71
+OBJC_METH_VAR_NAME_.72
+OBJC_METH_VAR_TYPE_.73
+l_OBJC_$_INSTANCE_VARIABLES_EMRecommendationRequest
+OBJC_PROP_NAME_ATTR_.74
+OBJC_PROP_NAME_ATTR_.75
+OBJC_PROP_NAME_ATTR_.76
+OBJC_PROP_NAME_ATTR_.77
+OBJC_PROP_NAME_ATTR_.78
+OBJC_PROP_NAME_ATTR_.79
+OBJC_PROP_NAME_ATTR_.80
+OBJC_PROP_NAME_ATTR_.81
+OBJC_PROP_NAME_ATTR_.82
+l_OBJC_$_PROP_LIST_EMRecommendationRequest
+l_OBJC_CLASS_RO_$_EMRecommendationRequest
+-[EMRecommendationRequest .cxx_destruct]
+/Users/paweljaneczek/Polidea/Showroom/Showroom/Carthage/Checkouts/EmarsysPredictSDK/EmarsysPredictSDK/EMRecommendationRequest.m
+-[EMRecommendationRequest setFilters:]
+-[EMRecommendationRequest filters]
+-[EMRecommendationRequest setCompletionHandler:]
+/Users/paweljaneczek/Polidea/Showroom/Showroom/Carthage/Checkouts/EmarsysPredictSDK/EmarsysPredictSDK/EMRecommendationRequest.h
+-[EMRecommendationRequest completionHandler]
+-[EMRecommendationRequest setBaseline:]
+-[EMRecommendationRequest baseline]
+-[EMRecommendationRequest setLimit:]
+-[EMRecommendationRequest limit]
+-[EMRecommendationRequest logic]
+-[EMRecommendationRequest description]
+-[EMRecommendationRequest includeItemsWhere:overlaps:]
+-[EMRecommendationRequest includeItemsWhere:has:]
+-[EMRecommendationRequest includeItemsWhere:isIn:]
+-[EMRecommendationRequest includeItemsWhere:is:]
+-[EMRecommendationRequest excludeItemsWhere:overlaps:]
+-[EMRecommendationRequest excludeItemsWhere:has:]
+-[EMRecommendationRequest excludeItemsWhere:isIn:]
+-[EMRecommendationRequest excludeItemsWhere:is:]
++[EMRecommendationRequest requestWithLogic:]
+-[EMRecommendationRequest initWithLogic:]
+-[EMRecommendationRequest init]
+-[EMErrorParameter initWithType:command:message:]
+-[EMErrorParameter description]
+-[EMErrorParameter type]
+-[EMErrorParameter command]
+-[EMErrorParameter message]
+-[EMErrorParameter .cxx_destruct]
+OBJC_IVAR_$_EMErrorParameter._type
+OBJC_IVAR_$_EMErrorParameter._command
+OBJC_IVAR_$_EMErrorParameter._message
+l_OBJC_METACLASS_RO_$_EMErrorParameter
+l_OBJC_$_INSTANCE_METHODS_EMErrorParameter
+OBJC_METH_VAR_NAME_.22
+l_OBJC_$_INSTANCE_VARIABLES_EMErrorParameter
+l_OBJC_$_PROP_LIST_EMErrorParameter
+l_OBJC_CLASS_RO_$_EMErrorParameter
+-[EMErrorParameter .cxx_destruct]
+/Users/paweljaneczek/Polidea/Showroom/Showroom/Carthage/Checkouts/EmarsysPredictSDK/EmarsysPredictSDK/EMErrorParameter.m
+-[EMErrorParameter message]
+/Users/paweljaneczek/Polidea/Showroom/Showroom/Carthage/Checkouts/EmarsysPredictSDK/EmarsysPredictSDK/EMErrorParameter.h
+-[EMErrorParameter command]
+-[EMErrorParameter type]
+-[EMErrorParameter description]
+-[EMErrorParameter initWithType:command:message:]
+-[EMSession init]
+-[EMSession initInternal]
++[EMSession sharedSession]
+__26+[EMSession sharedSession]_block_invoke
+-[EMSession sendTransaction:errorHandler:]
+__42-[EMSession sendTransaction:errorHandler:]_block_invoke
+-[EMSession generateGET:error:]
+-[EMSession advertisingID]
+-[EMSession handleCookies:]
+-[EMSession merchantID]
+-[EMSession setMerchantID:]
+-[EMSession customerEmail]
+-[EMSession setCustomerEmail:]
+-[EMSession customerID]
+-[EMSession setCustomerID:]
+-[EMSession logLevel]
+-[EMSession setLogLevel:]
+-[EMSession transactions]
+-[EMSession setTransactions:]
+-[EMSession visitor]
+-[EMSession setVisitor:]
+-[EMSession session]
+-[EMSession setSession:]
+-[EMSession .cxx_destruct]
+OBJC_IVAR_$_EMSession._logLevel
+sharedSession._shared
+sharedSession.onceToken
+OBJC_CLASSLIST_REFERENCES_$_.14
+OBJC_SELECTOR_REFERENCES_.18
+OBJC_CLASSLIST_REFERENCES_$_.19
+OBJC_CLASSLIST_REFERENCES_$_.22
+OBJC_CLASSLIST_REFERENCES_$_.32
+OBJC_SELECTOR_REFERENCES_.34
+OBJC_SELECTOR_REFERENCES_.36
+OBJC_IVAR_$_EMSession._session
+OBJC_SELECTOR_REFERENCES_.38
+OBJC_IVAR_$_EMSession._visitor
+OBJC_METH_VAR_NAME_.39
+OBJC_SELECTOR_REFERENCES_.40
+OBJC_SELECTOR_REFERENCES_.42
+.str.43
+__block_descriptor_tmp.44
+OBJC_CLASSLIST_REFERENCES_$_.45
+OBJC_SELECTOR_REFERENCES_.47
+.str.48
+_unnamed_cfstring_.49
+.str.50
+_unnamed_cfstring_.51
+OBJC_CLASSLIST_REFERENCES_$_.52
+OBJC_SELECTOR_REFERENCES_.54
+OBJC_SELECTOR_REFERENCES_.56
+OBJC_METH_VAR_NAME_.57
+OBJC_SELECTOR_REFERENCES_.58
+OBJC_CLASSLIST_REFERENCES_$_.59
+OBJC_SELECTOR_REFERENCES_.61
+OBJC_SELECTOR_REFERENCES_.63
+OBJC_SELECTOR_REFERENCES_.65
+OBJC_IVAR_$_EMSession._merchantID
+OBJC_SELECTOR_REFERENCES_.67
+.str.68
+_unnamed_cfstring_.69
+OBJC_SELECTOR_REFERENCES_.71
+OBJC_CLASSLIST_REFERENCES_$_.72
+.str.73
+_unnamed_cfstring_.74
+OBJC_METH_VAR_NAME_.75
+OBJC_SELECTOR_REFERENCES_.76
+.str.77
+_unnamed_cfstring_.78
+OBJC_METH_VAR_NAME_.79
+OBJC_SELECTOR_REFERENCES_.80
+.str.81
+_unnamed_cfstring_.82
+.str.83
+_unnamed_cfstring_.84
+.str.85
+_unnamed_cfstring_.86
+OBJC_SELECTOR_REFERENCES_.88
+OBJC_SELECTOR_REFERENCES_.90
+OBJC_SELECTOR_REFERENCES_.92
+OBJC_CLASSLIST_REFERENCES_$_.93
+OBJC_SELECTOR_REFERENCES_.95
+OBJC_SELECTOR_REFERENCES_.97
+.str.98
+_unnamed_cfstring_.99
+OBJC_CLASSLIST_REFERENCES_$_.100
+OBJC_METH_VAR_NAME_.101
+OBJC_SELECTOR_REFERENCES_.102
+OBJC_METH_VAR_NAME_.103
+OBJC_SELECTOR_REFERENCES_.104
+OBJC_METH_VAR_NAME_.105
+OBJC_SELECTOR_REFERENCES_.106
+OBJC_METH_VAR_NAME_.107
+OBJC_SELECTOR_REFERENCES_.108
+OBJC_METH_VAR_NAME_.109
+OBJC_SELECTOR_REFERENCES_.110
+.str.111
+_unnamed_cfstring_.112
+OBJC_METH_VAR_NAME_.113
+OBJC_SELECTOR_REFERENCES_.114
+.str.115
+_unnamed_cfstring_.116
+OBJC_METH_VAR_NAME_.117
+OBJC_SELECTOR_REFERENCES_.118
+.str.119
+_unnamed_cfstring_.120
+OBJC_IVAR_$_EMSession._customerEmail
+OBJC_IVAR_$_EMSession._customerID
+OBJC_IVAR_$_EMSession._transactions
+l_OBJC_$_CLASS_METHODS_EMSession
+l_OBJC_METACLASS_RO_$_EMSession
+OBJC_CLASS_NAME_.121
+OBJC_METH_VAR_NAME_.122
+OBJC_METH_VAR_TYPE_.123
+OBJC_METH_VAR_TYPE_.124
+OBJC_METH_VAR_NAME_.125
+OBJC_METH_VAR_TYPE_.126
+OBJC_METH_VAR_NAME_.127
+OBJC_METH_VAR_TYPE_.128
+OBJC_METH_VAR_NAME_.129
+OBJC_METH_VAR_NAME_.130
+OBJC_METH_VAR_TYPE_.131
+OBJC_METH_VAR_NAME_.132
+OBJC_METH_VAR_NAME_.133
+OBJC_METH_VAR_NAME_.134
+OBJC_METH_VAR_NAME_.135
+OBJC_METH_VAR_TYPE_.136
+OBJC_METH_VAR_NAME_.137
+OBJC_METH_VAR_TYPE_.138
+OBJC_METH_VAR_NAME_.139
+OBJC_METH_VAR_NAME_.140
+OBJC_METH_VAR_NAME_.141
+OBJC_METH_VAR_NAME_.142
+l_OBJC_$_INSTANCE_METHODS_EMSession
+OBJC_METH_VAR_NAME_.143
+OBJC_METH_VAR_TYPE_.144
+OBJC_METH_VAR_NAME_.145
+OBJC_METH_VAR_TYPE_.146
+OBJC_METH_VAR_NAME_.147
+OBJC_METH_VAR_NAME_.148
+OBJC_METH_VAR_NAME_.149
+OBJC_METH_VAR_TYPE_.150
+OBJC_METH_VAR_NAME_.151
+OBJC_METH_VAR_NAME_.152
+l_OBJC_$_INSTANCE_VARIABLES_EMSession
+OBJC_PROP_NAME_ATTR_.153
+OBJC_PROP_NAME_ATTR_.154
+OBJC_PROP_NAME_ATTR_.155
+OBJC_PROP_NAME_ATTR_.156
+OBJC_PROP_NAME_ATTR_.157
+OBJC_PROP_NAME_ATTR_.158
+OBJC_PROP_NAME_ATTR_.159
+OBJC_PROP_NAME_ATTR_.160
+OBJC_PROP_NAME_ATTR_.161
+OBJC_PROP_NAME_ATTR_.162
+OBJC_PROP_NAME_ATTR_.163
+OBJC_PROP_NAME_ATTR_.164
+OBJC_PROP_NAME_ATTR_.165
+OBJC_PROP_NAME_ATTR_.166
+OBJC_PROP_NAME_ATTR_.167
+l_OBJC_$_PROP_LIST_EMSession
+l_OBJC_CLASS_RO_$_EMSession
+-[EMSession .cxx_destruct]
+/Users/paweljaneczek/Polidea/Showroom/Showroom/Carthage/Checkouts/EmarsysPredictSDK/EmarsysPredictSDK/EMSession.m
+-[EMSession setSession:]
+-[EMSession session]
+-[EMSession setVisitor:]
+-[EMSession visitor]
+-[EMSession setTransactions:]
+-[EMSession transactions]
+-[EMSession setLogLevel:]
+/Users/paweljaneczek/Polidea/Showroom/Showroom/Carthage/Checkouts/EmarsysPredictSDK/EmarsysPredictSDK/EMSession.h
+-[EMSession logLevel]
+-[EMSession setCustomerID:]
+-[EMSession customerID]
+-[EMSession setCustomerEmail:]
+-[EMSession customerEmail]
+-[EMSession setMerchantID:]
+-[EMSession merchantID]
+-[EMSession handleCookies:]
+-[EMSession advertisingID]
+-[EMSession generateGET:error:]
+-[EMSession sendTransaction:errorHandler:]
++[EMSession sharedSession]
+-[EMSession initInternal]
+-[EMSession init]
+-[EMViewCommand initWithItemID:trackedItem:]
+-[EMViewCommand validate]
+-[EMViewCommand description]
+-[EMViewCommand itemID]
+-[EMViewCommand setItemID:]
+-[EMViewCommand trackedItem]
+-[EMViewCommand setTrackedItem:]
+-[EMViewCommand .cxx_destruct]
+OBJC_IVAR_$_EMViewCommand._itemID
+OBJC_IVAR_$_EMViewCommand._trackedItem
+OBJC_SELECTOR_REFERENCES_.23
+.str.24
+_unnamed_cfstring_.25
+OBJC_SELECTOR_REFERENCES_.27
+l_OBJC_METACLASS_RO_$_EMViewCommand
+OBJC_CLASS_NAME_.28
+OBJC_METH_VAR_TYPE_.31
+l_OBJC_$_INSTANCE_METHODS_EMViewCommand
+OBJC_METH_VAR_TYPE_.41
+OBJC_METH_VAR_TYPE_.43
+l_OBJC_$_INSTANCE_VARIABLES_EMViewCommand
+OBJC_PROP_NAME_ATTR_.44
+OBJC_PROP_NAME_ATTR_.45
+OBJC_PROP_NAME_ATTR_.46
+l_OBJC_$_PROP_LIST_EMViewCommand
+l_OBJC_CLASS_RO_$_EMViewCommand
+-[EMViewCommand .cxx_destruct]
+/Users/paweljaneczek/Polidea/Showroom/Showroom/Carthage/Checkouts/EmarsysPredictSDK/EmarsysPredictSDK/EMViewCommand.m
+-[EMViewCommand setTrackedItem:]
+/Users/paweljaneczek/Polidea/Showroom/Showroom/Carthage/Checkouts/EmarsysPredictSDK/EmarsysPredictSDK/EMViewCommand.h
+-[EMViewCommand trackedItem]
+-[EMViewCommand setItemID:]
+-[EMViewCommand itemID]
+-[EMViewCommand description]
+-[EMViewCommand validate]
+-[EMViewCommand initWithItemID:trackedItem:]
++[EMTransaction transactionWithItem:]
+-[EMTransaction initWithSelectedItemView:]
+-[EMTransaction init]
+-[EMTransaction setAvailabilityZone:]
+-[EMTransaction setCart:]
+-[EMTransaction setCategory:]
+-[EMTransaction setKeyword:]
+-[EMTransaction setPurchase:ofItems:]
+-[EMTransaction setSearchTerm:]
+-[EMTransaction setView:]
+-[EMTransaction recommend:]
+-[EMTransaction validateCommandArray:command:]
+__46-[EMTransaction validateCommandArray:command:]_block_invoke
+-[EMTransaction validateCommands:]
+__34-[EMTransaction validateCommands:]_block_invoke
+__copy_helper_block_.81
+__destroy_helper_block_.82
+-[EMTransaction serialize:]
+__27-[EMTransaction serialize:]_block_invoke
+__copy_helper_block_.146
+__destroy_helper_block_.147
+__27-[EMTransaction serialize:]_block_invoke.151
+__copy_helper_block_.154
+__destroy_helper_block_.155
+-[EMTransaction handleResults:]
+__31-[EMTransaction handleResults:]_block_invoke
+__copy_helper_block_.193
+__destroy_helper_block_.194
+-[EMTransaction trackedItem]
+-[EMTransaction setTrackedItem:]
+-[EMTransaction errors]
+-[EMTransaction setErrors:]
+-[EMTransaction carts]
+-[EMTransaction setCarts:]
+-[EMTransaction availabilityZones]
+-[EMTransaction setAvailabilityZones:]
+-[EMTransaction categories]
+-[EMTransaction setCategories:]
+-[EMTransaction keywords]
+-[EMTransaction setKeywords:]
+-[EMTransaction purchases]
+-[EMTransaction setPurchases:]
+-[EMTransaction searchTerms]
+-[EMTransaction setSearchTerms:]
+-[EMTransaction views]
+-[EMTransaction setViews:]
+-[EMTransaction recommends]
+-[EMTransaction setRecommends:]
+-[EMTransaction handlers]
+-[EMTransaction setHandlers:]
+-[EMTransaction .cxx_destruct]
+OBJC_IVAR_$_EMTransaction._trackedItem
+OBJC_IVAR_$_EMTransaction._errors
+OBJC_IVAR_$_EMTransaction._availabilityZones
+OBJC_IVAR_$_EMTransaction._carts
+OBJC_IVAR_$_EMTransaction._categories
+OBJC_IVAR_$_EMTransaction._keywords
+OBJC_IVAR_$_EMTransaction._purchases
+OBJC_IVAR_$_EMTransaction._searchTerms
+OBJC_IVAR_$_EMTransaction._views
+OBJC_IVAR_$_EMTransaction._recommends
+OBJC_IVAR_$_EMTransaction._handlers
+OBJC_CLASSLIST_REFERENCES_$_.7
+OBJC_CLASSLIST_REFERENCES_$_.12
+OBJC_CLASSLIST_REFERENCES_$_.15
+OBJC_CLASSLIST_REFERENCES_$_.16
+OBJC_CLASSLIST_REFERENCES_$_.17
+OBJC_CLASSLIST_REFERENCES_$_.24
+OBJC_SELECTOR_REFERENCES_.30
+OBJC_CLASSLIST_REFERENCES_$_.35
+OBJC_CLASSLIST_REFERENCES_$_.38
+_unnamed_cfstring_.44
+.str.46
+_unnamed_cfstring_.47
+OBJC_SELECTOR_REFERENCES_.49
+OBJC_SELECTOR_REFERENCES_.51
+OBJC_SELECTOR_REFERENCES_.53
+.str.54
+.str.57
+_unnamed_cfstring_.58
+OBJC_METH_VAR_NAME_.59
+OBJC_SELECTOR_REFERENCES_.60
+.str.61
+_unnamed_cfstring_.62
+.str.63
+_unnamed_cfstring_.64
+.str.67
+_unnamed_cfstring_.68
+.str.69
+_unnamed_cfstring_.70
+.str.71
+_unnamed_cfstring_.72
+OBJC_CLASSLIST_REFERENCES_$_.75
+OBJC_METH_VAR_NAME_.76
+OBJC_SELECTOR_REFERENCES_.77
+OBJC_CLASSLIST_REFERENCES_$_.78
+__block_descriptor_tmp.84
+OBJC_CLASSLIST_REFERENCES_$_.85
+OBJC_SELECTOR_REFERENCES_.87
+OBJC_METH_VAR_NAME_.88
+OBJC_SELECTOR_REFERENCES_.89
+.str.90
+_unnamed_cfstring_.91
+.str.92
+_unnamed_cfstring_.93
+.str.94
+_unnamed_cfstring_.95
+.str.96
+_unnamed_cfstring_.97
+OBJC_SELECTOR_REFERENCES_.99
+OBJC_METH_VAR_NAME_.100
+OBJC_SELECTOR_REFERENCES_.101
+.str.102
+_unnamed_cfstring_.103
+.str.104
+_unnamed_cfstring_.105
+OBJC_METH_VAR_NAME_.106
+OBJC_SELECTOR_REFERENCES_.107
+OBJC_METH_VAR_NAME_.112
+OBJC_SELECTOR_REFERENCES_.113
+.str.114
+_unnamed_cfstring_.115
+.str.118
+_unnamed_cfstring_.119
+.str.120
+_unnamed_cfstring_.121
+OBJC_SELECTOR_REFERENCES_.123
+.str.124
+_unnamed_cfstring_.125
+.str.126
+_unnamed_cfstring_.127
+.str.128
+_unnamed_cfstring_.129
+.str.130
+_unnamed_cfstring_.131
+OBJC_SELECTOR_REFERENCES_.133
+OBJC_SELECTOR_REFERENCES_.135
+OBJC_METH_VAR_NAME_.136
+OBJC_SELECTOR_REFERENCES_.137
+.str.138
+_unnamed_cfstring_.139
+.str.140
+_unnamed_cfstring_.141
+OBJC_SELECTOR_REFERENCES_.143
+OBJC_METH_VAR_NAME_.144
+OBJC_SELECTOR_REFERENCES_.145
+__block_descriptor_tmp.148
+.str.149
+_unnamed_cfstring_.150
+.str.152
+_unnamed_cfstring_.153
+.str.156
+__block_descriptor_tmp.157
+.str.158
+_unnamed_cfstring_.159
+.str.160
+_unnamed_cfstring_.161
+.str.162
+_unnamed_cfstring_.163
+.str.164
+_unnamed_cfstring_.165
+.str.166
+_unnamed_cfstring_.167
+.str.168
+_unnamed_cfstring_.169
+OBJC_CLASSLIST_REFERENCES_$_.170
+OBJC_METH_VAR_NAME_.171
+OBJC_SELECTOR_REFERENCES_.172
+OBJC_METH_VAR_NAME_.173
+OBJC_SELECTOR_REFERENCES_.174
+.str.175
+_unnamed_cfstring_.176
+OBJC_METH_VAR_NAME_.177
+OBJC_SELECTOR_REFERENCES_.178
+.str.179
+_unnamed_cfstring_.180
+.str.181
+_unnamed_cfstring_.182
+OBJC_METH_VAR_NAME_.183
+OBJC_SELECTOR_REFERENCES_.184
+OBJC_METH_VAR_NAME_.185
+OBJC_SELECTOR_REFERENCES_.186
+.str.187
+_unnamed_cfstring_.188
+.str.189
+_unnamed_cfstring_.190
+.str.191
+_unnamed_cfstring_.192
+.str.195
+__block_descriptor_tmp.196
+OBJC_METH_VAR_NAME_.197
+l_OBJC_$_CLASS_METHODS_EMTransaction
+l_OBJC_METACLASS_RO_$_EMTransaction
+OBJC_CLASS_NAME_.198
+OBJC_METH_VAR_TYPE_.199
+OBJC_METH_VAR_NAME_.200
+OBJC_METH_VAR_TYPE_.201
+OBJC_METH_VAR_NAME_.202
+OBJC_METH_VAR_NAME_.203
+OBJC_METH_VAR_NAME_.204
+OBJC_METH_VAR_NAME_.205
+OBJC_METH_VAR_TYPE_.206
+OBJC_METH_VAR_NAME_.207
+OBJC_METH_VAR_NAME_.208
+OBJC_METH_VAR_NAME_.209
+OBJC_METH_VAR_TYPE_.210
+OBJC_METH_VAR_NAME_.211
+OBJC_METH_VAR_TYPE_.212
+OBJC_METH_VAR_NAME_.213
+OBJC_METH_VAR_NAME_.214
+OBJC_METH_VAR_TYPE_.215
+OBJC_METH_VAR_NAME_.216
+OBJC_METH_VAR_NAME_.217
+OBJC_METH_VAR_NAME_.218
+OBJC_METH_VAR_NAME_.219
+OBJC_METH_VAR_NAME_.220
+OBJC_METH_VAR_NAME_.221
+OBJC_METH_VAR_NAME_.222
+OBJC_METH_VAR_NAME_.223
+OBJC_METH_VAR_NAME_.224
+OBJC_METH_VAR_NAME_.225
+OBJC_METH_VAR_NAME_.226
+OBJC_METH_VAR_NAME_.227
+OBJC_METH_VAR_NAME_.228
+OBJC_METH_VAR_NAME_.229
+OBJC_METH_VAR_NAME_.230
+OBJC_METH_VAR_NAME_.231
+OBJC_METH_VAR_NAME_.232
+OBJC_METH_VAR_NAME_.233
+OBJC_METH_VAR_NAME_.234
+OBJC_METH_VAR_NAME_.235
+OBJC_METH_VAR_NAME_.236
+OBJC_METH_VAR_NAME_.237
+l_OBJC_$_INSTANCE_METHODS_EMTransaction
+OBJC_METH_VAR_NAME_.238
+OBJC_METH_VAR_TYPE_.239
+OBJC_METH_VAR_NAME_.240
+OBJC_METH_VAR_TYPE_.241
+OBJC_METH_VAR_NAME_.242
+OBJC_METH_VAR_NAME_.243
+OBJC_METH_VAR_NAME_.244
+OBJC_METH_VAR_NAME_.245
+OBJC_METH_VAR_NAME_.246
+OBJC_METH_VAR_NAME_.247
+OBJC_METH_VAR_NAME_.248
+OBJC_METH_VAR_NAME_.249
+OBJC_METH_VAR_NAME_.250
+OBJC_METH_VAR_TYPE_.251
+l_OBJC_$_INSTANCE_VARIABLES_EMTransaction
+OBJC_PROP_NAME_ATTR_.252
+OBJC_PROP_NAME_ATTR_.253
+OBJC_PROP_NAME_ATTR_.254
+OBJC_PROP_NAME_ATTR_.255
+OBJC_PROP_NAME_ATTR_.256
+OBJC_PROP_NAME_ATTR_.257
+OBJC_PROP_NAME_ATTR_.258
+OBJC_PROP_NAME_ATTR_.259
+OBJC_PROP_NAME_ATTR_.260
+OBJC_PROP_NAME_ATTR_.261
+OBJC_PROP_NAME_ATTR_.262
+OBJC_PROP_NAME_ATTR_.263
+OBJC_PROP_NAME_ATTR_.264
+OBJC_PROP_NAME_ATTR_.265
+OBJC_PROP_NAME_ATTR_.266
+OBJC_PROP_NAME_ATTR_.267
+OBJC_PROP_NAME_ATTR_.268
+OBJC_PROP_NAME_ATTR_.269
+OBJC_PROP_NAME_ATTR_.270
+OBJC_PROP_NAME_ATTR_.271
+OBJC_PROP_NAME_ATTR_.272
+l_OBJC_$_PROP_LIST_EMTransaction
+l_OBJC_CLASS_RO_$_EMTransaction
+-[EMTransaction .cxx_destruct]
+/Users/paweljaneczek/Polidea/Showroom/Showroom/Carthage/Checkouts/EmarsysPredictSDK/EmarsysPredictSDK/EMTransaction.m
+-[EMTransaction setHandlers:]
+-[EMTransaction handlers]
+-[EMTransaction setRecommends:]
+-[EMTransaction recommends]
+-[EMTransaction setViews:]
+-[EMTransaction views]
+-[EMTransaction setSearchTerms:]
+-[EMTransaction searchTerms]
+-[EMTransaction setPurchases:]
+-[EMTransaction purchases]
+-[EMTransaction setKeywords:]
+-[EMTransaction keywords]
+-[EMTransaction setCategories:]
+-[EMTransaction categories]
+-[EMTransaction setAvailabilityZones:]
+-[EMTransaction availabilityZones]
+-[EMTransaction setCarts:]
+-[EMTransaction carts]
+-[EMTransaction setErrors:]
+-[EMTransaction errors]
+-[EMTransaction setTrackedItem:]
+-[EMTransaction trackedItem]
+-[EMTransaction handleResults:]
+-[EMTransaction serialize:]
+-[EMTransaction validateCommands:]
+-[EMTransaction validateCommandArray:command:]
+-[EMTransaction recommend:]
+-[EMTransaction setView:]
+-[EMTransaction setSearchTerm:]
+-[EMTransaction setPurchase:ofItems:]
+-[EMTransaction setKeyword:]
+-[EMTransaction setCategory:]
+-[EMTransaction setCart:]
+-[EMTransaction setAvailabilityZone:]
+-[EMTransaction init]
+-[EMTransaction initWithSelectedItemView:]
++[EMTransaction transactionWithItem:]
+/Users/paweljaneczek/Library/Developer/Xcode/DerivedData/EmarsysPredictSDK-axmigkmluuelmagmodbntnsibsrn/Build/Intermediates/EmarsysPredictSDK.build/Release-iphoneos/EmarsysPredictSDK.build/DerivedSources/EmarsysPredictSDK_vers.c
+_ZL15__ARCLite__loadv
+_ZL58__arclite_NSMutableDictionary__setObject_forKeyedSubscriptP19NSMutableDictionaryP13objc_selectorP11objc_objectS4_
+_ZL22add_image_hook_swiftV1PK11mach_headerl
+_ZL42__arclite_NSUndoManagerProxy_isKindOfClassP11objc_objectP13objc_selectorP10objc_class
+_ZL13replaceMethodP10objc_classP13objc_selectorPFP11objc_objectS4_S2_zEPS6_
+_ZL30__arclite_NSManagedObject_initP11objc_objectP13objc_selector
+_ZL41__arclite_NSManagedObject_allocWithEntityP11objc_objectP13objc_selectorS0_
+_ZL36__arclite_NSManagedObject_allocBatchP11objc_objectP13objc_selectorPS0_S0_j
+_ZL37__arclite_NSKKMS_fastIndexForKnownKeyP11objc_objectP13objc_selectorS0_
+_ZL28__arclite_NSKKMS_indexForKeyP11objc_objectP13objc_selectorS0_
+_ZL29__arclite_NSKKsD_objectForKeyP11objc_objectP13objc_selectorS0_
+_ZL35__arclite_NSKKsD_removeObjectForKeyP11objc_objectP13objc_selectorS0_
+_ZL33__arclite_NSKKsD_setObject_forKeyP11objc_objectP13objc_selectorS0_S0_
+_ZL41__arclite_NSKKsD_addEntriesFromDictionaryP11objc_objectP13objc_selectorP12NSDictionary
+_ZL28__arclite_objc_readClassPairP10objc_classPK15objc_image_info
+_ZL32__arclite_objc_allocateClassPairP10objc_classPKcm
+_ZL32__arclite_object_getIndexedIvarsP11objc_object
+_ZL23__arclite_objc_getClassPKc
+_ZL27__arclite_objc_getMetaClassPKc
+_ZL31__arclite_objc_getRequiredClassPKc
+_ZL26__arclite_objc_lookUpClassPKc
+_ZL26__arclite_objc_getProtocolPKc
+_ZL23__arclite_class_getNameP10objc_class
+_ZL26__arclite_protocol_getNameP8Protocol
+_ZL37__arclite_objc_copyClassNamesForImagePKcPj
+_ZL17transcribeMethodsP10objc_classP15glue_class_ro_t
+_ZL19transcribeProtocolsP10objc_classP15glue_class_ro_t
+_ZL20transcribePropertiesP10objc_classP15glue_class_ro_t
+_ZL14initialize_impP11objc_objectP13objc_selector
+_ZL18allocateMaybeSwiftP18glue_swift_class_tm
+_ZL22copySwiftV1MangledNamePKcb
+_ZL13demangledNamePKcb
+_ZL16scanMangledFieldRPKcS0_S1_Ri
+_ZL30arclite_uninitialized_functionv
+_ZL12cxxConstructP11objc_object
+_ZL20fixStringForCoreDataP11objc_object
+OBJC_METACLASS_$___ARCLite__
+_ZL24OBJC_CLASS_$___ARCLite__
+_ZL31OBJC_METACLASS_RO_$___ARCLite__
+_non_lazy_classes
+_ZL27OBJC_CLASS_RO_$___ARCLite__
+_ZL11_class_name
+_ZL32OBJC_$_CLASS_METHODS___ARCLite__
+_ZL17_load_method_name
+_ZL17_load_method_type
+l_OBJC_$_PROTOCOL_INSTANCE_METHODS___ARCLiteKeyedSubscripting__
+l_OBJC_$_PROTOCOL_METHOD_TYPES___ARCLiteKeyedSubscripting__
+l_OBJC_PROTOCOL_$___ARCLiteKeyedSubscripting__
+l_OBJC_LABEL_PROTOCOL_$___ARCLiteKeyedSubscripting__
+l_OBJC_PROTOCOL_REFERENCE_$___ARCLiteKeyedSubscripting__
+_ZL30NSUndoManagerProxy_targetClass
+_ZL29original_NSManagedObject_init
+OBJC_SELECTOR_REFERENCES_.16
+_ZL40original_NSManagedObject_allocWithEntity
+_ZL35original_NSManagedObject_allocBatch
+_ZL25NSMutableDictionary_class
+_ZL22NSConstantString_class
+.str.20
+_ZL14NSString_class
+_ZL36original_NSKKMS_fastIndexForKnownKey
+_ZL27original_NSKKMS_indexForKey
+_ZL28original_NSKKsD_objectForKey
+_ZL34original_NSKKsD_removeObjectForKey
+_ZL32original_NSKKsD_setObject_forKey
+_ZL40original_NSKKsD_addEntriesFromDictionary
+_ZZL22add_image_hook_swiftV1PK11mach_headerlE7patches
+_ZGVZL22add_image_hook_swiftV1PK11mach_headerlE7patches
+.str.31
+_ZL31original_objc_allocateClassPair
+_ZL31original_object_getIndexedIvars
+_ZL22original_objc_getClass
+.str.35
+_ZL26original_objc_getMetaClass
+_ZL30original_objc_getRequiredClass
+.str.37
+_ZL25original_objc_lookUpClass
+_ZL25original_objc_getProtocol
+.str.39
+_ZL22original_class_getName
+.str.40
+_ZL25original_protocol_getName
+_ZL36original_objc_copyClassNamesForImage
+OBJC_SELECTOR_REFERENCES_.43
+OBJC_SELECTOR_REFERENCES_.45
+.str.51
+.str.52
+.str.53
+_ZL12demangleLock
+_ZL9Demangled
+.str.55
+.str.56
+OBJC_SELECTOR_REFERENCES_.69
+Apple LLVM version 7.3.0 (clang-703.0.21)
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c++ -arch arm64 -fmessage-length=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit=0 -std=c++11 -Wno-trigraphs -fno-exceptions -fno-rtti -mpascal-strings -Os -Wno-missing-field-initializers -Wmissing-prototypes -Wno-implicit-atomic-properties -Wno-arc-repeated-use-of-weak -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-bool-conversion -Wno-enum-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -Wno-c++11-extensions -D NDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.Internal.sdk -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -Winvalid-offsetof -miphoneos-version-min=4.3 -g -fno-threadsafe-statics -Wno-sign-conversion -fembed-bitcode -iquote /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~248/TempContent/Objects/arclite.build/arclite_iOS.build/arclite_iphoneos-generated-files.hmap -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~248/TempContent/Objects/arclite.build/arclite_iOS.build/arclite_iphoneos-own-target-headers.hmap -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~248/TempContent/Objects/arclite.build/arclite_iOS.build/arclite_iphoneos-all-target-headers.hmap -iquote /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~248/TempContent/Objects/arclite.build/arclite_iOS.build/arclite_iphoneos-project-headers.hmap -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~248/Symbols/BuiltProducts/include -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~248/TempContent/Objects/arclite.build/arclite_iOS.build/DerivedSources/arm64 -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~248/TempContent/Objects/arclite.build/arclite_iOS.build/DerivedSources -F/Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~248/Symbols/BuiltProducts -F/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.Internal.sdk/System/Library/PrivateFrameworks -Wall -Wextra -Wno-gcc-compat -fgnu-inline-asm -MMD -MT dependencies -MF /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~248/TempContent/Objects/arclite.build/arclite_iOS.build/Objects-normal/arm64/arclite.d --serialize-diagnostics /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~248/TempContent/Objects/arclite.build/arclite_iOS.build/Objects-normal/arm64/arclite.dia -c /Library/Caches/com.apple.xbs/Sources/arclite_iOS/arclite-65/source/arclite.mm -o /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~248/TempContent/Objects/arclite.build/arclite_iOS.build/Objects-normal/arm64/arclite.o -mlinker-version=264.3
+__arclite_NSKKsD_addEntriesFromDictionary
+/Library/Caches/com.apple.xbs/Sources/arclite_iOS/arclite-65/source/arclite.mm
+/Library/Caches/com.apple.xbs/Sources/arclite_iOS/arclite-65
+__arclite_NSKKsD_setObject_forKey
+__arclite_NSKKsD_removeObjectForKey
+__arclite_NSKKsD_objectForKey
+__arclite_NSKKMS_indexForKey
+fixStringForCoreData
+__arclite_NSKKMS_fastIndexForKnownKey
+__arclite_NSManagedObject_allocBatch
+__arclite_NSManagedObject_allocWithEntity
+cxxConstruct
+__arclite_NSManagedObject_init
+arclite_uninitialized_function
+replaceMethod
+__arclite_NSUndoManagerProxy_isKindOfClass
+patch_lazy_pointers
+patch_t<const char **(const char *, unsigned int *)>
+__arclite_objc_copyClassNamesForImage
+patch_t<const char *(Protocol *)>
+__arclite_protocol_getName
+patch_t<const char *(Class)>
+__isctype
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.Internal.sdk/usr/include/ctype.h
+isdigit
+scanMangledField
+copySwiftV1DemangledName
+demangledName
+__arclite_class_getName
+patch_t<Protocol *(const char *)>
+__arclite_objc_getProtocol
+__arclite_objc_lookUpClass
+__arclite_objc_getRequiredClass
+__arclite_objc_getMetaClass
+patch_t<Class (const char *)>
+copySwiftV1MangledName
+__arclite_objc_getClass
+patch_t<void *(id)>
+word_align
+__arclite_object_getIndexedIvars
+patch_t<Class (Class, const char *, unsigned long)>
+allocateMaybeSwift
+isSwift
+metaclass
+__arclite_objc_allocateClassPair
+patch_t<Class (Class, const objc_image_info *)>
+initialize_imp
+property_list_nth
+transcribeProperties
+transcribeProtocols
+method_list_nth
+transcribeMethods
+alignment
+max
+ivar_list_nth
+transcribeIvars
+fastFlags
+data
+ro
+__arclite_objc_readClassPair
+add_image_hook_swiftV1
+install_swiftV1
+install_ARC
+objc_collectingEnabled
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.Internal.sdk/usr/include/objc/objc-auto.h
+keyedGetter
+__arclite_NSMutableDictionary__setObject_forKeyedSubscript
+addOrReplaceMethod
+install_dict_nil_value
+install_subscripting
+install_autoreleasepool
+__ARCLite__load
