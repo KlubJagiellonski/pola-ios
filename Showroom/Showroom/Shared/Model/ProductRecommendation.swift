@@ -6,7 +6,7 @@ struct ProductRecommendationResult {
 }
 
 struct ProductRecommendation {
-    let msrp: Double
+    let originalPrice: Money
     let itemId: String
     let category: String
     let brand: String
@@ -29,7 +29,7 @@ extension ProductRecommendationResult: Decodable {
 extension ProductRecommendation: Decodable {
     static func decode(j: AnyObject) throws -> ProductRecommendation {
         return try ProductRecommendation(
-            msrp: j => "msrp",
+            originalPrice: j => "msrp",
             itemId: j => "item",
             category: j => "category" ,
             brand: j => "brand",
@@ -57,7 +57,7 @@ extension ProductRecommendationResult: Encodable {
 extension ProductRecommendation: Encodable {
     func encode() -> AnyObject {
         let dict: NSMutableDictionary = [
-            "msrp": msrp,
+            "msrp": originalPrice.amount,
             "item": itemId,
             "category": category,
             "brand": brand,
