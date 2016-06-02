@@ -37,16 +37,16 @@ class DashboardViewController: UIViewController, DashboardViewDelegate {
             }
         }.addDisposableTo(disposeBag)
         
-        model.fetchRecommendations().subscribeNext { fetchResult in
+        model.fetchRecommendations().subscribeNext { [weak self] fetchResult in
             switch fetchResult {
             case .Success(let productRecommendationResult):
-                logInfo("product recommendations \(productRecommendationResult)")
+                self?.castView.changeProductRecommendations(productRecommendationResult.productRecommendations)
             case .CacheError(let cacheError):
                 logInfo("Error during fetching product recommendations, cacheError: \(cacheError)")
             case .NetworkError(let networkError):
                 logInfo("Error during fetching product recommendations, networkError: \(networkError)")
             }
-            }.addDisposableTo(disposeBag)
+        }.addDisposableTo(disposeBag)
     }
     
     override func viewDidLayoutSubviews() {

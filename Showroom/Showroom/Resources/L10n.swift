@@ -23,6 +23,12 @@ enum L10n {
   case BasketShippingChange
   /// DO KASY
   case BasketCheckoutButton
+  /// POLECANE
+  case DashboardRecommendationTitleFirstPart
+  /// dla Ciebie
+  case DashboardRecommendationTitleSecondPart
+  /// zł
+  case MoneyZl
 }
 
 extension L10n: CustomStringConvertible {
@@ -50,6 +56,12 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Basket.ShippingChange")
       case .BasketCheckoutButton:
         return L10n.tr("Basket.CheckoutButton")
+      case .DashboardRecommendationTitleFirstPart:
+        return L10n.tr("Dashboard.RecommendationTitle.FirstPart")
+      case .DashboardRecommendationTitleSecondPart:
+        return L10n.tr("Dashboard.RecommendationTitle.SecondPart")
+      case .MoneyZl:
+        return L10n.tr("Money.Zl")
     }
   }
 

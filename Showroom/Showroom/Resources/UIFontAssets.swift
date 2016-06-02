@@ -13,6 +13,8 @@ extension UIFont {
         case List
         case Button
         case FormBold
+        case RecommendedBrand
+        case Recommended
     }
     
     convenience init!(fontType: FontType) {
@@ -37,7 +39,10 @@ extension UIFont {
             self.init(name: "Lato-Bold", size: 16)
         case .FormBold:
             self.init(name: "Lato-Heavy", size: 14)
+        case .RecommendedBrand:
+            self.init(name: "Lato-Heavy", size: 11)
+        case .Recommended:
+            self.init(name: "Lato-Regular", size: 11)
         }
     }
 }
-

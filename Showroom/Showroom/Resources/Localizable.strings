@@ -3,9 +3,11 @@
 "MainTab.Basket" = "Koszyk";
 "MainTab.Wishlist" = "Ulubione";
 "MainTab.Settings" = "Ustawienia";
-
 "Basket.DiscountCode" = "KOD RABATOWY";
 "Basket.Shipping" = "WYSYŁKA";
 "Basket.TotalPrice" = "SUMA";
 "Basket.ShippingChange" = "ZMIEŃ";
 "Basket.CheckoutButton" = "DO KASY";
+"Dashboard.RecommendationTitle.FirstPart" = "POLECANE";
+"Dashboard.RecommendationTitle.SecondPart" = "dla Ciebie";
+"Money.Zl" = "zł";

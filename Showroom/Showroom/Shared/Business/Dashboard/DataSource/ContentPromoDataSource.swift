@@ -2,15 +2,22 @@ import Foundation
 import UIKit
 
 class ContentPromoDataSource : NSObject, UITableViewDataSource {
+    let numberOfSections = 2
+    let numberOfRowsInRecommendationsSection = 2
+    let recommendationsSectionIndex = 1
     
     private var contentPromos: [ContentPromo] = []
     private weak var tableView: UITableView?
+    let recommendationsDataSource = ProductRecommendationDataSource()
     
     init(tableView: UITableView) {
         super.init()
+        
         self.tableView = tableView
         tableView.registerClass(ContentPromoCell.self, forCellReuseIdentifier: String(ContentPromoCell))
         tableView.registerClass(ContentPromoWithCaptionCell.self, forCellReuseIdentifier: String(ContentPromoWithCaptionCell))
+        tableView.registerClass(ContentPromoRecommendationsHeaderCell.self, forCellReuseIdentifier: String(ContentPromoRecommendationsHeaderCell))
+        tableView.registerClass(ContentPromoRecommendationsCell.self, forCellReuseIdentifier: String(ContentPromoRecommendationsCell))
     }
     
     func changeData(contentPromos: [ContentPromo]) {
@@ -21,21 +28,48 @@ class ContentPromoDataSource : NSObject, UITableViewDataSource {
     
     func getHeightForRow(atIndexPath indexPath: NSIndexPath) -> CGFloat {
         guard let width = tableView?.frame.size.width else { return 0.0 }
-        let contentPromo = contentPromos[indexPath.row]
-        return contentPromo.caption == nil ? ContentPromoCell.getHeight(forWidth: width, model: contentPromo) : ContentPromoWithCaptionCell.getHeight(forWidth: width, model: contentPromo)
+        
+        if recommendationsSectionIndex == indexPath.section {
+            return indexPath.row == 0 ? ContentPromoRecommendationsHeaderCell.cellHeight : ContentPromoRecommendationsCell.cellHeight
+        } else {
+            let contentPromo = contentPromos[indexPath.row]
+            return contentPromo.caption == nil ? ContentPromoCell.getHeight(forWidth: width, model: contentPromo) : ContentPromoWithCaptionCell.getHeight(forWidth: width, model: contentPromo)
+        }
     }
     
     // MARK: - UITableViewDataSource
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return numberOfSections
+    }
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if recommendationsSectionIndex == section {
+            return numberOfRowsInRecommendationsSection
+        }
         return contentPromos.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let contentPromo = contentPromos[indexPath.row]
-        let cellIdentifier = contentPromo.caption == nil ? String(ContentPromoCell) : String(ContentPromoWithCaptionCell)
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! ContentPromoCell
-        cell.selectionStyle = .None
-        cell.updateData(contentPromo)
-        return cell
+        if recommendationsSectionIndex == indexPath.section {
+            return createRecommendationCell(tableView, atIndexPath: indexPath)
+        } else {
+            let contentPromo = contentPromos[indexPath.row]
+            let cellIdentifier = contentPromo.caption == nil ? String(ContentPromoCell) : String(ContentPromoWithCaptionCell)
+            let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! ContentPromoCell
+            cell.selectionStyle = .None
+            cell.updateData(contentPromo)
+            return cell
+        }
+    }
+    
+    func createRecommendationCell(tableView: UITableView, atIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        if indexPath.row == 0 {
+            return tableView.dequeueReusableCellWithIdentifier(String(ContentPromoRecommendationsHeaderCell), forIndexPath: indexPath)
+        } else {
+            let cell = tableView.dequeueReusableCellWithIdentifier(String(ContentPromoRecommendationsCell), forIndexPath: indexPath) as! ContentPromoRecommendationsCell
+            cell.collectionView.dataSource = recommendationsDataSource
+            recommendationsDataSource.collectionView = cell.collectionView
+            return cell
+        }
     }
 }

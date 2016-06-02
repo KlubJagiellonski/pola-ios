@@ -38,6 +38,10 @@ class DashboardView: UIView, UITableViewDelegate {
         dataSource.changeData(contentPromos)
     }
     
+    func changeProductRecommendations(productRecommendations: [ProductRecommendation]) {
+        dataSource.recommendationsDataSource.changeData(productRecommendations)
+    }
+    
     private func configureCustomConstraints() {
         let superview = self
         

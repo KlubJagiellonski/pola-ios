@@ -1,3 +1,4 @@
 White : #ffffff
 Blue: #1e1cbf
 DarkGray: #a4aab3
+Black : #000000

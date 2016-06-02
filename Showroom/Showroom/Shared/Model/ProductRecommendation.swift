@@ -13,6 +13,7 @@ struct ProductRecommendation {
     let imageUrl: String
     let title: String
     let description: String?
+    let price: Money
     let available: Bool
     let url: String
 }
@@ -35,6 +36,7 @@ extension ProductRecommendation: Decodable {
             imageUrl: j => "image",
             title: j => "title",
             description: j =>? "description",
+            price: j => "price",
             available: j => "available",
             url: j => "link"
         )
@@ -61,6 +63,7 @@ extension ProductRecommendation: Encodable {
             "brand": brand,
             "image": imageUrl,
             "title": title,
+            "price": price.amount,
             "available": available,
             "link": url
         ]
