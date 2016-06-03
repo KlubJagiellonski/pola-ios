@@ -15,6 +15,7 @@ extension UIFont {
         case FormBold
         case RecommendedBrand
         case Recommended
+        case Badge
     }
     
     convenience init!(fontType: FontType) {
@@ -43,6 +44,8 @@ extension UIFont {
             self.init(name: "Lato-Heavy", size: 11)
         case .Recommended:
             self.init(name: "Lato-Regular", size: 11)
+        case .Badge:
+            self.init(name: "Lato-Regular", size: 10)
         }
     }
 }

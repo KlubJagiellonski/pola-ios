@@ -64,10 +64,13 @@ class ContentPromoDataSource : NSObject, UITableViewDataSource {
     
     func createRecommendationCell(tableView: UITableView, atIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
-            return tableView.dequeueReusableCellWithIdentifier(String(ContentPromoRecommendationsHeaderCell), forIndexPath: indexPath)
+            let cell = tableView.dequeueReusableCellWithIdentifier(String(ContentPromoRecommendationsHeaderCell), forIndexPath: indexPath)
+            cell.selectionStyle = .None
+            return cell
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier(String(ContentPromoRecommendationsCell), forIndexPath: indexPath) as! ContentPromoRecommendationsCell
             cell.collectionView.dataSource = recommendationsDataSource
+            cell.selectionStyle = .None
             recommendationsDataSource.collectionView = cell.collectionView
             return cell
         }

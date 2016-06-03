@@ -20,6 +20,7 @@ struct Money: Comparable {
     let money: (NSDecimalNumber, Currency)
     
     static let decimalHandler = NSDecimalNumberHandler(roundingMode: .RoundDown, scale: 2, raiseOnExactness: true, raiseOnOverflow: true, raiseOnUnderflow: true, raiseOnDivideByZero: true)
+
     
     init(amt: Float, currency: Currency = .Zl) {
         money = (NSDecimalNumber(float: amt), currency)
@@ -33,9 +34,9 @@ struct Money: Comparable {
         money = (NSDecimalNumber(double: amt), currency)
     }
     
-    var amount: Float {
+    var amount: Double {
         get {
-            return money.0.decimalNumberByRoundingAccordingToBehavior(Money.decimalHandler).floatValue
+            return money.0.decimalNumberByRoundingAccordingToBehavior(Money.decimalHandler).doubleValue
         }
     }
     
@@ -52,6 +53,8 @@ struct Money: Comparable {
     }
 }
 
+// MARK: - Extensions
+
 enum MoneyDecodeError: ErrorType {
     case CannotDecodeType(String)
 }
@@ -67,23 +70,69 @@ extension Money: Decodable {
     }
 }
 
+extension Money {
+    func calculateDiscountPercent(fromMoney originalMoney: Money) -> Int {
+        let discount = originalMoney - self
+        return Int(round((discount * 100.0 / originalMoney).amount))
+    }
+}
+
+// MARK: - Operators handling
+
 func +(lhs: Money, rhs: Money) -> Money {
     if lhs.currency == rhs.currency {
         let money = lhs.money.0.decimalNumberByAdding(rhs.money.0)
-        return Money(amt: money.floatValue, currency: lhs.currency)
+        return Money(amt: money.decimalValue, currency: lhs.currency)
     }
     
     return Money(amt: 0.0, currency: lhs.currency)
 }
 
-func +(lhs:Money, rhs: Float) -> Money {
+func -(lhs: Money, rhs: Money) -> Money {
+    if lhs.currency == rhs.currency {
+        let money = lhs.money.0.decimalNumberBySubtracting(rhs.money.0)
+        return Money(amt: money.decimalValue, currency: lhs.currency)
+    }
+    
+    return Money(amt: 0.0, currency: lhs.currency)
+}
+
+func /(lhs: Money, rhs: Money) -> Money {
+    if lhs.currency == rhs.currency {
+        let money = lhs.money.0.decimalNumberByDividingBy(rhs.money.0)
+        return Money(amt: money.decimalValue, currency: lhs.currency)
+    }
+    
+    return Money(amt: 0.0, currency: lhs.currency)
+}
+
+func *(lhs: Money, rhs: Money) -> Money {
+    if lhs.currency == rhs.currency {
+        let money = lhs.money.0.decimalNumberByMultiplyingBy(rhs.money.0)
+        return Money(amt: money.decimalValue, currency: lhs.currency)
+    }
+    
+    return Money(amt: 0.0, currency: lhs.currency)
+}
+
+func +(lhs:Money, rhs: Double) -> Money {
     let amount = lhs.amount + rhs
     return Money(amt: amount, currency: lhs.currency)
 }
 
-func +(lhs:Float, rhs: Money) -> Money {
+func +(lhs:Double, rhs: Money) -> Money {
     let amount = lhs + rhs.amount
     return Money(amt: amount, currency: rhs.currency)
+}
+
+func *(lhs:Double, rhs: Money) -> Money {
+    let amount = lhs * rhs.amount
+    return Money(amt: amount, currency: rhs.currency)
+}
+
+func *(lhs:Money, rhs: Double) -> Money {
+    let amount = lhs.amount * rhs
+    return Money(amt: amount, currency: lhs.currency)
 }
 
 func ==(lhs: Money, rhs: Money) -> Bool {

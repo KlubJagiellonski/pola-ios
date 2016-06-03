@@ -35,6 +35,7 @@
 		1D2F19CC1CEB083F0099142E /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1D2F19C11CEB07D10099142E /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1D2F19CD1CEB083F0099142E /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1D2F19C21CEB07D10099142E /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1D2F19D11CEB16120099142E /* Decodable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2F19961CEA14FE0099142E /* Decodable.framework */; };
+		1D5B5E661D0197B700B74822 /* MoneyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5B5E651D0197B700B74822 /* MoneyTests.swift */; };
 		1D5EF1C81CEB60ED0071C097 /* RxTests.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1D2F199D1CEA14FE0099142E /* RxTests.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1D5EF1C91CEB60F20071C097 /* RxBlocking.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1D2F199A1CEA14FE0099142E /* RxBlocking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1D5EF1CA1CEB61000071C097 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2F199A1CEA14FE0099142E /* RxBlocking.framework */; };
@@ -166,6 +167,7 @@
 		1D2F19A01CEA14FE0099142E /* XCGLogger.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCGLogger.framework; path = Carthage/Build/iOS/XCGLogger.framework; sourceTree = "<group>"; };
 		1D2F19C11CEB07D10099142E /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		1D2F19C21CEB07D10099142E /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
+		1D5B5E651D0197B700B74822 /* MoneyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneyTests.swift; sourceTree = "<group>"; };
 		1D5EF1D01CEB666B0071C097 /* UIImageViewUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageViewUtils.swift; sourceTree = "<group>"; };
 		1D72ECFD1CF456DA007AFD2F /* NavigationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationTests.swift; sourceTree = "<group>"; };
 		1D72ED0B1CFC22FD007AFD2F /* NetworkTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkTests.swift; sourceTree = "<group>"; };
@@ -302,6 +304,7 @@
 		1D2F19521CE9CE250099142E /* ShowroomTests */ = {
 			isa = PBXGroup;
 			children = (
+				1D5B5E641D01979D00B74822 /* Model */,
 				1D72ED0A1CFC22DF007AFD2F /* Network */,
 				1D72ECFC1CF456C1007AFD2F /* Navigation */,
 				1D2F19531CE9CE250099142E /* ShowroomTests.swift */,
@@ -363,6 +366,14 @@
 				1D2F19A01CEA14FE0099142E /* XCGLogger.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1D5B5E641D01979D00B74822 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1D5B5E651D0197B700B74822 /* MoneyTests.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		1D5EF1CF1CEB663C0071C097 /* Utils */ = {
@@ -805,6 +816,7 @@
 			files = (
 				1D72ED0C1CFC22FD007AFD2F /* NetworkTests.swift in Sources */,
 				1D2F19541CE9CE250099142E /* ShowroomTests.swift in Sources */,
+				1D5B5E661D0197B700B74822 /* MoneyTests.swift in Sources */,
 				1D72ECFE1CF456DA007AFD2F /* NavigationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
