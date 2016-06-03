@@ -27,4 +27,11 @@ extension UIButton {
         layer.cornerRadius = Dimensions.circleButtonDiameter * 0.5
         backgroundColor = UIColor(named: .White)
     }
+    
+    func applySimpleBlueStyle() {
+        setTitleColor(UIColor(named: .Blue), forState: .Normal)
+        titleLabel?.font = UIFont(fontType: .ProductActionHeader)
+        titleLabel?.adjustsFontSizeToFitWidth = true
+        titleLabel?.lineBreakMode = .ByClipping
+    }
 }

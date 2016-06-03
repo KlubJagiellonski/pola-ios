@@ -7,3 +7,4 @@ RedViolet : #BB1270
 OldLavender : #767676
 Manatee: #979797
 ProductPageBackground: #F2F4FA
+Snow : #fafafa

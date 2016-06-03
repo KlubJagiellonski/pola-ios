@@ -38,6 +38,9 @@ enum ColorName {
   /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#dddddd"></span>
   /// Alpha: 100% <br/> (0xddddddff)
   case Separator
+  /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#fafafa"></span>
+  /// Alpha: 100% <br/> (0xfafafaff)
+  case Snow
   /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#ffffff"></span>
   /// Alpha: 100% <br/> (0xffffffff)
   case White
@@ -52,6 +55,7 @@ enum ColorName {
     case .ProductPageBackground: return 0xf2f4faff
     case .RedViolet: return 0xbb1270ff
     case .Separator: return 0xddddddff
+    case .Snow: return 0xfafafaff
     case .White: return 0xffffffff
     }
   }

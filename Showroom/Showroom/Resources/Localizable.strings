@@ -16,3 +16,7 @@
 "Dashboard.RecommendationTitle.SecondPart" = "dla Ciebie";
 "Money.Zl" = "zł";
 "ProductDetails.ToBasket" = "DO KOSZYKA";
+"ProductAction.PickSizeTitle.FirstPart" = "WYBIERZ ROZMIAR";
+"ProductAction.PickSizeTitle.SecondPart" = "TABELA ROZMIARÓW";
+"ProductAction.SizeCell.SizeUnavailable" = "brak rozmiaru w wybranym kolorze";
+"ProductAction.ColorCell.ColorUnavailable" = "tylko w innym rozmiarze";

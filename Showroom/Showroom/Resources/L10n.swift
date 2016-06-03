@@ -39,6 +39,14 @@ enum L10n {
   case MoneyZl
   /// DO KOSZYKA
   case ProductDetailsToBasket
+  /// WYBIERZ ROZMIAR
+  case ProductActionPickSizeTitleFirstPart
+  /// TABELA ROZMIARÓW
+  case ProductActionPickSizeTitleSecondPart
+  /// brak rozmiaru w wybranym kolorze
+  case ProductActionSizeCellSizeUnavailable
+  /// tylko w innym rozmiarze
+  case ProductActionColorCellColorUnavailable
 }
 
 extension L10n: CustomStringConvertible {
@@ -82,6 +90,14 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Money.Zl")
       case .ProductDetailsToBasket:
         return L10n.tr("ProductDetails.ToBasket")
+      case .ProductActionPickSizeTitleFirstPart:
+        return L10n.tr("ProductAction.PickSizeTitle.FirstPart")
+      case .ProductActionPickSizeTitleSecondPart:
+        return L10n.tr("ProductAction.PickSizeTitle.SecondPart")
+      case .ProductActionSizeCellSizeUnavailable:
+        return L10n.tr("ProductAction.SizeCell.SizeUnavailable")
+      case .ProductActionColorCellColorUnavailable:
+        return L10n.tr("ProductAction.ColorCell.ColorUnavailable")
     }
   }
 

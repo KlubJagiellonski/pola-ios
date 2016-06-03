@@ -19,6 +19,8 @@ extension UIFont {
         case Recommended
         case Badge
         case Input
+        case ProductActionHeader
+        case ProductActionOption
     }
     
     convenience init!(fontType: FontType) {
@@ -55,6 +57,11 @@ extension UIFont {
             self.init(name: "Lato-Regular", size: 10)
         case .Input:
             self.init(name: "Lato-Regular", size: 13)
+        case .ProductActionHeader:
+            self.init(name: "Lato-Semibold", size: 11)
+        case .ProductActionOption:
+            self.init(name: "Lato-Semibold", size: 12)
         }
+        
     }
 }
