@@ -3,10 +3,11 @@ import UIKit
 import SnapKit
 
 protocol DashboardViewDelegate: class {
-    
+    func dashboardView(dashboardView: DashboardView, didSelectContentPromo contentPromo: ContentPromo)
+    func dashboardView(dashboardView: DashboardView, didSelectRecommendation productRecommendation: ProductRecommendation)
 }
 
-class DashboardView: UIView, UITableViewDelegate {
+class DashboardView: UIView, UITableViewDelegate, UICollectionViewDelegate {
     private let tableView = UITableView(frame: CGRectZero, style: .Plain)
     private let dataSource: ContentPromoDataSource
     
@@ -24,6 +25,8 @@ class DashboardView: UIView, UITableViewDelegate {
         dataSource = ContentPromoDataSource(tableView: tableView)
         
         super.init(frame: CGRectZero)
+        
+        dataSource.recommendationCollectionViewDelegate = self
         
         tableView.delegate = self
         tableView.dataSource = dataSource
@@ -56,5 +59,16 @@ class DashboardView: UIView, UITableViewDelegate {
     // MARK: - UITableViewDelegate
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return dataSource.getHeightForRow(atIndexPath: indexPath)
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        guard let contentPromo = dataSource.getDataForRow(atIndexPath: indexPath) else { return }
+        delegate?.dashboardView(self, didSelectContentPromo: contentPromo)
+    }
+    
+    // MARK: - UICollectionViewDelegate
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let recommendation = dataSource.recommendationsDataSource.getDataForRow(atIndexPath: indexPath)
+        delegate?.dashboardView(self, didSelectRecommendation: recommendation)
     }
 }

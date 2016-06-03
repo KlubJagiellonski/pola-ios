@@ -12,6 +12,12 @@ class UIAssembly: AssemblyType {
         container.register(MainTabViewController.self) { r in
             return MainTabViewController(resolver: r.resolve(DiResolver.self)!)
         }
+        container.register(DashboardPresenterController.self) { r in
+            return DashboardPresenterController(resolver: r.resolve(DiResolver.self)!)
+        }
+        container.register(DashboardNavigationController.self) { r in
+            return DashboardNavigationController(resolver: r.resolve(DiResolver.self)!)
+        }
         container.register(DashboardViewController.self) { r in
             return DashboardViewController(resolver: r.resolve(DiResolver.self)!)
         }
@@ -35,6 +41,15 @@ class UIAssembly: AssemblyType {
         }
         container.register(BasketModel.self) { r in
             return BasketModel()
+        }
+        container.register(ProductDetailsViewController.self) { r in
+            return ProductDetailsViewController(resolver: r.resolve(DiResolver.self)!)
+        }
+        container.register(ProductDetailsModel.self) { r in
+            return ProductDetailsModel()
+        }
+        container.register(ProductPageViewController.self) { r, color in
+            return ProductPageViewController(color: color)
         }
     }
 }

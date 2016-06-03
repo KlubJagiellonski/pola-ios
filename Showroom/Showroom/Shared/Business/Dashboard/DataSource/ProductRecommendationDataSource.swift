@@ -17,6 +17,10 @@ class ProductRecommendationDataSource: NSObject, UICollectionViewDataSource {
         collectionView?.reloadData()
     }
     
+    func getDataForRow(atIndexPath indexPath: NSIndexPath) -> ProductRecommendation {
+        return productRecommendations[indexPath.row]
+    }
+    
     // MARK: - UICollectionViewDataSource
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return productRecommendations.count

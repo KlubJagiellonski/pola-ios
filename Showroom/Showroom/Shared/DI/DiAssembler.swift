@@ -18,4 +18,8 @@ struct DiResolver {
     func resolve<Service>(serviceType: Service.Type) -> Service {
         return resolvable.resolve(serviceType)!
     }
+    
+    func resolve<Service, Arg1>(serviceType: Service.Type, argument: Arg1) -> Service {
+        return resolvable.resolve(serviceType, argument: argument)!
+    }
 }

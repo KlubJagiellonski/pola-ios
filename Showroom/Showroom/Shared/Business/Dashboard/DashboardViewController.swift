@@ -53,4 +53,14 @@ class DashboardViewController: UIViewController, DashboardViewDelegate {
         super.viewDidLayoutSubviews()
         castView.contentInset = UIEdgeInsets(top: topLayoutGuide.length, left: 0, bottom: bottomLayoutGuide.length, right: 0)
     }
+    
+    // MARK: - DashboardViewDelegate
+    
+    func dashboardView(dashboardView: DashboardView, didSelectContentPromo contentPromo: ContentPromo) {
+        sendNavigationEvent(ShowProductDetailsEvent()) // TODO: - Change to proper event
+    }
+    
+    func dashboardView(dashboardView: DashboardView, didSelectRecommendation productRecommendation: ProductRecommendation) {
+        sendNavigationEvent(ShowProductDetailsEvent()) // TODO: - Change to proper event
+    }
 }

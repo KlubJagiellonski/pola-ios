@@ -37,8 +37,8 @@ class MainTabViewController: UITabBarController {
     }
     
     // MARK: - creating child view controllers
-    func createDashboardViewController() -> DashboardViewController {
-        let viewController = resolver.resolve(DashboardViewController.self)
+    func createDashboardViewController() -> DashboardPresenterController {
+        let viewController = resolver.resolve(DashboardPresenterController.self)
         viewController.tabBarItem = UITabBarItem(title: nil, image: UIImage(asset: .Ic_glowna), selectedImage: nil)
         viewController.tabBarItem.imageInsets = tabBarItemImageInsets
         return viewController

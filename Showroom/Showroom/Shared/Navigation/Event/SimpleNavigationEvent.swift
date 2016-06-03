@@ -4,6 +4,6 @@ struct SimpleNavigationEvent: NavigationEvent {
     let type: Type
     
     enum Type {
-        
+        case Close
     }
 }

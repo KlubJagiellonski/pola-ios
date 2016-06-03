@@ -8,6 +8,8 @@ class ContentPromoDataSource : NSObject, UITableViewDataSource {
     
     private var contentPromos: [ContentPromo] = []
     private weak var tableView: UITableView?
+    
+    weak var recommendationCollectionViewDelegate: UICollectionViewDelegate?
     let recommendationsDataSource = ProductRecommendationDataSource()
     
     init(tableView: UITableView) {
@@ -35,6 +37,11 @@ class ContentPromoDataSource : NSObject, UITableViewDataSource {
             let contentPromo = contentPromos[indexPath.row]
             return contentPromo.caption == nil ? ContentPromoCell.getHeight(forWidth: width, model: contentPromo) : ContentPromoWithCaptionCell.getHeight(forWidth: width, model: contentPromo)
         }
+    }
+    
+    func getDataForRow(atIndexPath indexPath: NSIndexPath) -> ContentPromo? {
+        guard indexPath.section != recommendationsSectionIndex else { return nil }
+        return contentPromos[indexPath.row]
     }
     
     // MARK: - UITableViewDataSource
@@ -71,6 +78,7 @@ class ContentPromoDataSource : NSObject, UITableViewDataSource {
             let cell = tableView.dequeueReusableCellWithIdentifier(String(ContentPromoRecommendationsCell), forIndexPath: indexPath) as! ContentPromoRecommendationsCell
             cell.collectionView.dataSource = recommendationsDataSource
             cell.selectionStyle = .None
+            cell.collectionView.delegate = recommendationCollectionViewDelegate
             recommendationsDataSource.collectionView = cell.collectionView
             return cell
         }
