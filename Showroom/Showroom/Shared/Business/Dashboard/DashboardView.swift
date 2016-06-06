@@ -12,7 +12,10 @@ class DashboardView: UIView, UITableViewDelegate {
     
     var contentInset: UIEdgeInsets {
         get { return tableView.contentInset }
-        set { tableView.contentInset = newValue }
+        set {
+            tableView.contentInset = newValue
+            tableView.scrollIndicatorInsets = newValue
+        }
     }
     
     weak var delegate: DashboardViewDelegate?
