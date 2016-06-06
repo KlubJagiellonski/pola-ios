@@ -45,17 +45,20 @@ class BasketProductCell: UITableViewCell {
     
     func updateData(item: BasketProduct) {
         nameLabel.text = item.name
+        photoImageView.image = nil
         photoImageView.loadImageFromUrl(item.imageUrl!)
-        if (item.size != nil && item.color != nil) {
-            propertiesLabel.text = item.size! + ", " + item.color!
-        } else if (item.size != nil) {
-            propertiesLabel.text = item.size
-        } else if (item.color != nil) {
-            propertiesLabel.text = item.color
+        if let size = item.size, let color = item.color {
+            propertiesLabel.text = size.name + ", " + color.name
+        } else if let size = item.size {
+            propertiesLabel.text = size.name
+        } else if let color = item.color {
+            propertiesLabel.text = color.name
+        } else {
+            propertiesLabel.text = nil
         }
         
-        priceLabel.basePrice = item.price
-        priceLabel.discountPrice = item.discountPrice
+        priceLabel.basePrice = item.basePrice
+        priceLabel.discountPrice = item.price
         amountButton.setTitle(String(item.amount) + " szt.", forState: .Normal)
     }
     
@@ -101,11 +104,7 @@ class BasketShippingCell: UITableViewCell {
         super.init(style: .Default, reuseIdentifier: reuseIdentifier)
         
         shippingLabel.font = UIFont(fontType: .List)
-        shippingLabel.text = "Wysyłka w 7-10 dni, kurier UPS" // TODO: Use real data
-        
         priceLabel.font = UIFont(fontType: .List)
-        priceLabel.text = "100,00 zł" // TODO: Use real data
-        
         separatorView.backgroundColor = UIColor(named: .Separator)
         
         contentView.backgroundColor = UIColor.whiteColor()

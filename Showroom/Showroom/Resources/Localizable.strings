@@ -8,6 +8,10 @@
 "Basket.TotalPrice" = "SUMA";
 "Basket.ShippingChange" = "ZMIEŃ";
 "Basket.CheckoutButton" = "DO KASY";
+"Basket.Discount" = "zniżka";
+"Basket.ShippingIn" = "Wysyłka w";
+"Basket.Day" = "dzień";
+"Basket.Days" = "dni";
 "Dashboard.RecommendationTitle.FirstPart" = "POLECANE";
 "Dashboard.RecommendationTitle.SecondPart" = "dla Ciebie";
 "Money.Zl" = "zł";

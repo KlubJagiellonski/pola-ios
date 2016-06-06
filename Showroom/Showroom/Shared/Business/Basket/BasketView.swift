@@ -31,6 +31,11 @@ class BasketView: UIView, UITableViewDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func updateData(withBasket basket: Basket) {
+        dataSource.updateData(basket.productsByBrands)
+        checkoutView.updateData(withBasket: basket)
+    }
+    
     func configureCustomConstraints() {
         checkoutView.snp_makeConstraints { make in
             make.left.equalToSuperview()
@@ -93,18 +98,15 @@ class BasketCheckoutView: UIView {
         checkoutButton.applyBlueStyle()
         
         discountLabel.title = tr(.BasketDiscountCode)
-        discountLabel.value = "zniżka: -60,00 zł" // TODO: Use real data
         
         shippingLabel.title = tr(.BasketShipping)
-        shippingLabel.value = "Polska, kurier UPS" // TODO: Use real data
+        // TODO: Set shipping info
         
         priceTitleLabel.text = tr(.BasketTotalPrice)
         priceTitleLabel.textColor = UIColor.blackColor()
         priceTitleLabel.font = UIFont(fontType: .List)
         
         priceValueLabel.normalPriceLabel.font = UIFont(fontType: .Normal)
-        priceValueLabel.basePrice = Money(amt: 2000.00)
-        priceValueLabel.discountPrice = Money(amt: 1067.00)
         
         priceView.addSubview(priceTitleLabel)
         priceView.addSubview(priceValueLabel)
@@ -121,6 +123,21 @@ class BasketCheckoutView: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    /**
+     Updates the view with new basket data.
+     */
+    func updateData(withBasket basket: Basket) {
+        discountInput.text = basket.discountCode
+        priceValueLabel.basePrice = basket.basePrice
+        priceValueLabel.discountPrice = basket.price
+        
+        if (basket.price != nil) {
+            discountLabel.value = tr(.BasketDiscount) + ": " + (basket.basePrice - basket.price!).stringValue
+        } else {
+            discountLabel.value = nil
+        }
     }
     
     func configureCustomConstraints() {

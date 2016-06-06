@@ -22,6 +22,21 @@ class BasketViewController: UIViewController {
         super.viewDidLoad()
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(BasketViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
+        
+       model.createSampleBasket()
+        
+//        do {
+//            try model.load()
+//        } catch {
+//            logInfo("Error during loading basket from file")
+//        }
+        
+        castView.updateData(withBasket: model.basket)
+//        do {
+//            try model.saveCurrentBasket()
+//        } catch {
+//            logInfo("Error during saving basket to file")
+//        }
     }
     
     func dismissKeyboard() {

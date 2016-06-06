@@ -7,8 +7,12 @@ class ManagerAssembly: AssemblyType {
             return UserManager(apiService: r.resolve(ApiService.self)!)
         }.inObjectScope(.Container)
         
-        container.register(CacheManager.self) { r in
-            return CacheManager()
+        container.register(StorageManager.self) { r in
+            return StorageManager()
+        }.inObjectScope(.Container)
+        
+        container.register(BasketManager.self) { r in
+            return BasketManager(storageManager: r.resolve(StorageManager.self)!)
         }.inObjectScope(.Container)
     }
 }

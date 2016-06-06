@@ -3,10 +3,10 @@ import RxSwift
 import Decodable
 
 extension Observable where Element: Decodable {
-    static func retrieveFromCache(cacheId: String, cacheManager: CacheManager) -> Observable<Element> {
+    static func retrieveFromCache(cacheId: String, storageManager: StorageManager) -> Observable<Element> {
         return Observable<Element>.create { observer in
             do {
-                guard let cachedData: Element = try cacheManager.load(fromCacheName: cacheId) else {
+                guard let cachedData: Element = try storageManager.loadFromCache(cacheId) else {
                     logInfo("No cache for cacheId: \(cacheId)")
                     observer.onCompleted()
                     return NopDisposable.instance
@@ -23,11 +23,11 @@ extension Observable where Element: Decodable {
 }
 
 extension ObservableType where E: Encodable {
-    func saveToCache(cacheId: String, cacheManager: CacheManager) -> Observable<E> {
+    func saveToCache(cacheId: String, storageManager: StorageManager) -> Observable<E> {
         return doOnNext { result in
             do {
                 logInfo("Saving cache \(cacheId): \(result)")
-                try cacheManager.save(withCacheName: cacheId, object: result)
+                try storageManager.saveToCache(cacheId, object: result)
             } catch {
                 logError("Error during caching \(cacheId): \(error)")
             }

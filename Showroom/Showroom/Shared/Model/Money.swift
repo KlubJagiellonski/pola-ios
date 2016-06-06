@@ -30,7 +30,7 @@ struct Money: Comparable {
         money = (NSDecimalNumber(decimal: amt), currency)
     }
     
-    init(amt: Double, currency: Currency = .Zl) {
+    init(amt: Double = 0.0, currency: Currency = .Zl) {
         money = (NSDecimalNumber(double: amt), currency)
     }
     

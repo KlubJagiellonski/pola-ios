@@ -33,7 +33,6 @@ class TitleValueLabel: UIView {
         titleLabel.textColor = UIColor.blackColor()
         titleLabel.font = UIFont(fontType: .List)
         
-        valueLabel.text = "Value"
         valueLabel.textColor = UIColor(named: .DarkGray)
         valueLabel.font = UIFont(fontType: .List)
         
