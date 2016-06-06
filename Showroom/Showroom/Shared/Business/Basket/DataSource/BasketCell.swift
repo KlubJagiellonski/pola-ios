@@ -9,7 +9,7 @@ class BasketProductCell: UITableViewCell {
     let photoImageView = UIImageView()
     let nameLabel = UILabel()
     let propertiesLabel = UILabel()
-    let priceLabel = UILabel()
+    let priceLabel = PriceLabel()
     let amountButton = UIButton()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -25,10 +25,10 @@ class BasketProductCell: UITableViewCell {
         propertiesLabel.textColor = UIColor(named: .DarkGray)
         propertiesLabel.numberOfLines = 2
         
-        priceLabel.font = UIFont(fontType: .List)
-        
         amountButton.applyDropDownStyle()
         amountButton.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Horizontal)
+        
+        priceLabel.textAlignment = NSTextAlignment.Right
         
         contentView.addSubview(photoImageView)
         contentView.addSubview(nameLabel)
@@ -54,7 +54,8 @@ class BasketProductCell: UITableViewCell {
             propertiesLabel.text = item.color
         }
         
-        priceLabel.text = item.price.stringValue
+        priceLabel.basePrice = item.price
+        priceLabel.discountPrice = item.discountPrice
         amountButton.setTitle(String(item.amount) + " szt.", forState: .Normal)
     }
     

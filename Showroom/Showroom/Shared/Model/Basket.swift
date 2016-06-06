@@ -1,12 +1,12 @@
 import Foundation
 
 struct Basket {
-    let productsBySellers: [BasketSeller]
+    let productsBySellers: [BasketBrand]
     let discountCode: String?
     let totalPrice: Money
 }
 
-struct BasketSeller {
+struct BasketBrand {
     let name: String
     let products: [BasketProduct]
 }
@@ -17,5 +17,6 @@ struct BasketProduct {
     let size: String?
     let color: String?
     let price: Money
+    let discountPrice: Money?
     let amount: Int
 }

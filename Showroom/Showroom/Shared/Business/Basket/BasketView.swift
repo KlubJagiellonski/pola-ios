@@ -75,7 +75,10 @@ class BasketCheckoutView: UIView {
     
     private let discountLabel = TitleValueLabel()
     private let shippingLabel = TitleValueLabel()
-    private let priceLabel = TitleValueLabel()
+    
+    private let priceView = UIView()
+    private let priceTitleLabel = UILabel()
+    private let priceValueLabel = PriceLabel()
     
     init() {
         super.init(frame: CGRectZero)
@@ -95,16 +98,23 @@ class BasketCheckoutView: UIView {
         shippingLabel.title = tr(.BasketShipping)
         shippingLabel.value = "Polska, kurier UPS" // TODO: Use real data
         
-        priceLabel.title = tr(.BasketTotalPrice)
-        priceLabel.value = "128,00 zł" // TODO: Set the real price
-        priceLabel.valueLabel.textColor = UIColor.blackColor()
+        priceTitleLabel.text = tr(.BasketTotalPrice)
+        priceTitleLabel.textColor = UIColor.blackColor()
+        priceTitleLabel.font = UIFont(fontType: .List)
+        
+        priceValueLabel.normalPriceLabel.font = UIFont(fontType: .Normal)
+        priceValueLabel.basePrice = Money(amt: 2000.00)
+        priceValueLabel.discountPrice = Money(amt: 1067.00)
+        
+        priceView.addSubview(priceTitleLabel)
+        priceView.addSubview(priceValueLabel)
         
         addSubview(discountInput)
         addSubview(shippingButton)
         addSubview(checkoutButton)
         addSubview(discountLabel)
         addSubview(shippingLabel)
-        addSubview(priceLabel)
+        addSubview(priceView)
         
         configureCustomConstraints()
     }
@@ -146,9 +156,23 @@ class BasketCheckoutView: UIView {
             make.right.lessThanOrEqualTo(shippingButton.snp_left)
         }
         
-        priceLabel.snp_makeConstraints { make in
+        priceTitleLabel.snp_makeConstraints { make in
+            make.left.equalToSuperview()
+            make.top.equalToSuperview()
+            make.right.equalToSuperview()
+        }
+        
+        priceValueLabel.snp_makeConstraints { make in
+            make.left.equalToSuperview()
+            make.top.equalTo(priceTitleLabel.snp_bottom).offset(-2)
+            make.right.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+        
+        priceView.snp_makeConstraints { make in
             make.centerY.equalTo(checkoutButton)
             make.left.equalToSuperview().inset(Dimensions.defaultMargin)
         }
+        
     }
 }

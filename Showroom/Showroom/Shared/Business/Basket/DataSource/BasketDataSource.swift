@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 
 class BasketDataSource: NSObject, UITableViewDataSource {
-    private var items: [BasketSeller] = BasketDataSource.createSampleData()
+    private var items: [BasketBrand] = BasketDataSource.createSampleData()
     private weak var tableView: UITableView?
     
     init(tableView: UITableView) {
@@ -50,13 +50,13 @@ class BasketDataSource: NSObject, UITableViewDataSource {
         return indexPath.section == items.count - 1 && indexPath.row == items[indexPath.section].products.count
     }
     
-    static func createSampleData() -> [BasketSeller] {
+    static func createSampleData() -> [BasketBrand] {
         return [
-            BasketSeller(name: "Małgorzata Salamon", products: [
-                BasketProduct(name: "Sweter Serce z dekoltem na plecach", imageUrl: "https://static.shwrm.net/images/w/8/w8573104cca75da_500x643.jpg", size: "XS", color: "niebieski", price: Money(amt: 299.00), amount: 1)]),
-            BasketSeller(name: "RISK made in warsaw", products: [
-                BasketProduct(name: "Spódnica maxi The Forever Skirt", imageUrl: "https://static.shwrm.net/images/g/t/gt573d85d13b9f7_500x643.jpg", size: "S", color: nil, price: Money(amt: 429.00), amount: 1),
-                BasketProduct(name: "Spódnica Inka white", imageUrl: "https://static.shwrm.net/images/w/a/wa572b3deddf05a_500x643.jpg", size: nil, color: "zielony", price: Money(amt: 16.00), amount: 1)])
+            BasketBrand(name: "Małgorzata Salamon", products: [
+                BasketProduct(name: "Sweter Serce z dekoltem na plecach", imageUrl: "https://static.shwrm.net/images/w/8/w8573104cca75da_500x643.jpg", size: "XS", color: "niebieski", price: Money(amt: 400.00), discountPrice: Money(amt: 299.00), amount: 1)]),
+            BasketBrand(name: "RISK made in warsaw", products: [
+                BasketProduct(name: "Spódnica maxi The Forever Skirt", imageUrl: "https://static.shwrm.net/images/g/t/gt573d85d13b9f7_500x643.jpg", size: "S", color: nil, price: Money(amt: 429.00), discountPrice: nil, amount: 1),
+                BasketProduct(name: "Spódnica Inka white", imageUrl: "https://static.shwrm.net/images/w/a/wa572b3deddf05a_500x643.jpg", size: nil, color: "zielony", price: Money(amt: 16.00), discountPrice: nil, amount: 1)])
         ]
     }
 }
