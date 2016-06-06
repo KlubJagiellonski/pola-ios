@@ -7,7 +7,7 @@ class ProductRecommendationCell: UICollectionViewCell {
     let productImageView = UIImageView()
     let brandLabel = UILabel()
     let nameLabel = UILabel()
-    let originalPriceLabel = UILabel()
+    let basePriceLabel = UILabel()
     let priceLabel = UILabel()
     let priceDiscountBadgeLabel = UILabel()
     
@@ -28,8 +28,8 @@ class ProductRecommendationCell: UICollectionViewCell {
         nameLabel.preferredMaxLayoutWidth = Dimensions.recommendationItemSize.width
         nameLabel.setContentHuggingPriority(UILayoutPriorityDefaultHigh, forAxis: .Vertical)
         
-        originalPriceLabel.font = UIFont(fontType: .Recommended)
-        originalPriceLabel.textColor = UIColor(named: .DarkGray)
+        basePriceLabel.font = UIFont(fontType: .Recommended)
+        basePriceLabel.textColor = UIColor(named: .DarkGray)
         
         priceLabel.font = UIFont(fontType: .Recommended)
         priceLabel.textColor = UIColor(named: .Black)
@@ -56,13 +56,13 @@ class ProductRecommendationCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        //we need to make name label smaller (by changing number of lines, when it is overlapping original price label
+        //we need to make name label smaller (by changing number of lines), when it is overlapping base price or price label
         let nameMaxY = CGRectGetMinY(nameLabel.frame) + nameLabel.text!.heightWithConstrainedWidth(nameLabel.bounds.width, font: nameLabel.font)
         let nameOverlappingPriceLabel = nameMaxY > CGRectGetMinY(priceLabel.frame)
-        let nameOverlappingOriginalPriceLabel = isOriginalPriceVisible() && nameMaxY > CGRectGetMinY(originalPriceLabel.frame)
-        if nameOverlappingPriceLabel && nameOverlappingOriginalPriceLabel {
+        let nameOverlappingBasePriceLabel = isBasePriceVisible() && nameMaxY > CGRectGetMinY(basePriceLabel.frame)
+        if nameOverlappingPriceLabel && nameOverlappingBasePriceLabel {
             nameLabel.numberOfLines = 1
-        } else if nameOverlappingPriceLabel || nameOverlappingOriginalPriceLabel {
+        } else if nameOverlappingPriceLabel || nameOverlappingBasePriceLabel {
             nameLabel.numberOfLines = 2
         } else {
             nameLabel.numberOfLines = 3
@@ -74,13 +74,13 @@ class ProductRecommendationCell: UICollectionViewCell {
         brandLabel.text = recommendation.brand
         nameLabel.text = recommendation.title
         priceLabel.text = recommendation.price.stringValue
-        originalPriceLabel.attributedText = createStrikethroughPriceString(recommendation.originalPrice.stringValue)
+        basePriceLabel.attributedText = createStrikethroughPriceString(recommendation.basePrice.stringValue)
         
-        let priceDiscount = recommendation.price.calculateDiscountPercent(fromMoney: recommendation.originalPrice)
+        let priceDiscount = recommendation.price.calculateDiscountPercent(fromMoney: recommendation.basePrice)
         priceDiscountBadgeLabel.hidden = priceDiscount == 0
         priceDiscountBadgeLabel.text = "-\(priceDiscount)%"
         
-        if changeOriginalPriceVisibilityIfNeeded(recommendation) {
+        if changeBasePriceVisibilityIfNeeded(recommendation) {
             setNeedsUpdateConstraints()
         }
     }
@@ -110,14 +110,14 @@ class ProductRecommendationCell: UICollectionViewCell {
             make.trailing.equalToSuperview()
         }
         
-        if isOriginalPriceVisible() {
+        if isBasePriceVisible() {
             nameLabel.snp_remakeConstraints { make in
                 make.top.equalTo(brandLabel.snp_bottom)
                 make.leading.equalToSuperview()
                 make.trailing.equalToSuperview()
-                make.bottom.lessThanOrEqualTo(originalPriceLabel.snp_top).priorityLow()
+                make.bottom.lessThanOrEqualTo(basePriceLabel.snp_top).priorityLow()
             }
-            originalPriceLabel.snp_remakeConstraints { make in
+            basePriceLabel.snp_remakeConstraints { make in
                 make.bottom.equalTo(priceLabel.snp_top)
                 make.leading.equalToSuperview()
                 make.trailing.equalToSuperview()
@@ -129,7 +129,7 @@ class ProductRecommendationCell: UICollectionViewCell {
                 make.trailing.equalToSuperview()
                 make.bottom.lessThanOrEqualTo(priceLabel.snp_top)
             }
-            originalPriceLabel.snp_removeConstraints()
+            basePriceLabel.snp_removeConstraints()
         }
         
         priceLabel.snp_remakeConstraints { make in
@@ -142,18 +142,18 @@ class ProductRecommendationCell: UICollectionViewCell {
     }
     
     // MARK: - Utilities
-    func isOriginalPriceVisible() -> Bool {
-        return originalPriceLabel.superview != nil
+    func isBasePriceVisible() -> Bool {
+        return basePriceLabel.superview != nil
     }
     
-    func changeOriginalPriceVisibilityIfNeeded(recommendation: ProductRecommendation) -> Bool {
-        let originalPriceVisible = recommendation.price != recommendation.originalPrice
-        let previousOriginalPriceVisible = isOriginalPriceVisible()
-        if originalPriceVisible && !previousOriginalPriceVisible {
-            contentView.addSubview(originalPriceLabel)
+    func changeBasePriceVisibilityIfNeeded(recommendation: ProductRecommendation) -> Bool {
+        let basePriceVisible = recommendation.price != recommendation.basePrice
+        let previousBasePriceVisible = isBasePriceVisible()
+        if basePriceVisible && !previousBasePriceVisible {
+            contentView.addSubview(basePriceLabel)
             return true
-        } else if !originalPriceVisible && previousOriginalPriceVisible {
-            originalPriceLabel.removeFromSuperview()
+        } else if !basePriceVisible && previousBasePriceVisible {
+            basePriceLabel.removeFromSuperview()
             return true
         }
         return false

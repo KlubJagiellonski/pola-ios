@@ -6,14 +6,14 @@ struct ProductRecommendationResult {
 }
 
 struct ProductRecommendation {
-    let originalPrice: Money
+    let basePrice: Money
+    let price: Money
     let itemId: String
     let category: String
     let brand: String
     let imageUrl: String
     let title: String
     let description: String?
-    let price: Money
     let available: Bool
     let url: String
 }
@@ -29,14 +29,14 @@ extension ProductRecommendationResult: Decodable {
 extension ProductRecommendation: Decodable {
     static func decode(j: AnyObject) throws -> ProductRecommendation {
         return try ProductRecommendation(
-            originalPrice: j => "msrp",
+            basePrice: j => "msrp",
+            price: j => "price",
             itemId: j => "item",
             category: j => "category" ,
             brand: j => "brand",
             imageUrl: j => "image",
             title: j => "title",
             description: j =>? "description",
-            price: j => "price",
             available: j => "available",
             url: j => "link"
         )
@@ -57,13 +57,13 @@ extension ProductRecommendationResult: Encodable {
 extension ProductRecommendation: Encodable {
     func encode() -> AnyObject {
         let dict: NSMutableDictionary = [
-            "msrp": originalPrice.amount,
+            "msrp": basePrice.amount,
+            "price": price.amount,
             "item": itemId,
             "category": category,
             "brand": brand,
             "image": imageUrl,
             "title": title,
-            "price": price.amount,
             "available": available,
             "link": url
         ]

@@ -32,7 +32,7 @@ class DashboardModel {
             .saveToCache(Constants.Cache.contentPromoId, cacheManager: cacheManager)
             .map { FetchCacheResult.Success($0) }
             .catchError { Observable.just(FetchCacheResult.NetworkError($0)) }
-            .observeOn(MainScheduler.asyncInstance)
+            .observeOn(MainScheduler.instance)
         
         return Observable.of(diskCache, network).merge().distinctUntilChanged(==)
     }
