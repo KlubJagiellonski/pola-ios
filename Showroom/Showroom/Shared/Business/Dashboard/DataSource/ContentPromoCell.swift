@@ -63,9 +63,8 @@ class ContentPromoCell: UITableViewCell {
     
     func updateData(contentPromo: ContentPromo) {
         let image = contentPromo.image
-        let imageSize = CGSizeMake(CGRectGetWidth(self.contentView.bounds), CGRectGetHeight(self.contentView.bounds) - ContentPromoCell.bottomMargin)
         promoImageView.image = nil
-        promoImageView.loadImageFromUrl(image.url, size: imageSize)
+        promoImageView.loadImageFromUrl(image.url, w: self.contentView.bounds.width)
         
         if let title = image.title, let subtitle = image.subtitle, let textColor = image.color {
             textContainerView.hidden = false

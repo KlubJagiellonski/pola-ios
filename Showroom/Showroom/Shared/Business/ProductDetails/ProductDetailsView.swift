@@ -22,6 +22,7 @@ class ProductDetailsView: UIView, UICollectionViewDelegateFlowLayout {
         
         super.init(frame: CGRectZero)
         
+        collectionView.backgroundColor = UIColor(named: .ProductPageBackground)
         collectionView.dataSource = dataSource
         collectionView.delegate = self
         collectionView.pagingEnabled = true
@@ -30,9 +31,8 @@ class ProductDetailsView: UIView, UICollectionViewDelegateFlowLayout {
         flowLayout.minimumLineSpacing = 0
         flowLayout.minimumInteritemSpacing = 0
     
-        closeButton.backgroundColor = UIColor(named: .White)
         closeButton.setImage(UIImage(asset: .Ic_close), forState: .Normal)
-        closeButton.layer.cornerRadius = Dimensions.circleButtonDiameter * 0.5
+        closeButton.applyCircleStyle()
         closeButton.addTarget(self, action: #selector(ProductDetailsView.onCloseButtonTapped), forControlEvents: .TouchUpInside)
         
         addSubview(collectionView)
@@ -51,7 +51,7 @@ class ProductDetailsView: UIView, UICollectionViewDelegateFlowLayout {
         }
         closeButton.snp_makeConstraints { make in
             make.leading.equalToSuperview().offset(Dimensions.defaultMargin)
-            make.top.equalToSuperview().offset(24)
+            make.top.equalToSuperview().offset(Dimensions.productDetailsTopMargin)
             make.width.equalTo(Dimensions.circleButtonDiameter)
             make.height.equalTo(closeButton.snp_width)
         }

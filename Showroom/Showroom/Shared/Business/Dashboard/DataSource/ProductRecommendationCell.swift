@@ -71,7 +71,7 @@ class ProductRecommendationCell: UICollectionViewCell {
     
     func updateData(recommendation: ProductRecommendation) {
         productImageView.image = nil
-        productImageView.loadImageFromUrl(recommendation.imageUrl, size: ProductRecommendationCell.imageSize)
+        productImageView.loadImageFromUrl(recommendation.imageUrl, w: ProductRecommendationCell.imageSize.width, h: ProductRecommendationCell.imageSize.height)
         brandLabel.text = recommendation.brand
         nameLabel.text = recommendation.title
         priceLabel.text = recommendation.price.stringValue

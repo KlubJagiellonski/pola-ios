@@ -2,12 +2,6 @@ import Foundation
 import RxSwift
 import Decodable
 
-enum FetchCacheResult<T: Equatable> {
-    case Success(T)
-    case CacheError(ErrorType)
-    case NetworkError(ErrorType)
-}
-
 class DashboardModel {
     let apiService: ApiService
     let emarsysService: EmarsysService

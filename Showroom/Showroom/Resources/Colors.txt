@@ -4,3 +4,6 @@ DarkGray: #a4aab3
 Black : #000000
 Separator: #dddddd
 RedViolet : #BB1270
+OldLavender : #767676
+Manatee: #979797
+ProductPageBackground: #F2F4FA

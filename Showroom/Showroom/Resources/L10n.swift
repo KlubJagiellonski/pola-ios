@@ -29,6 +29,8 @@ enum L10n {
   case DashboardRecommendationTitleSecondPart
   /// zł
   case MoneyZl
+  /// DO KOSZYKA
+  case ProductDetailsToBasket
 }
 
 extension L10n: CustomStringConvertible {
@@ -62,6 +64,8 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Dashboard.RecommendationTitle.SecondPart")
       case .MoneyZl:
         return L10n.tr("Money.Zl")
+      case .ProductDetailsToBasket:
+        return L10n.tr("ProductDetails.ToBasket")
     }
   }
 

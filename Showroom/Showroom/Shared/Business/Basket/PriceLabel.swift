@@ -70,8 +70,10 @@ class PriceLabel: UIView {
     }
     
     override func intrinsicContentSize() -> CGSize {
-        let keyHeight = normalPriceLabel.intrinsicContentSize().height
-        let valueHeight = strikedPriceLabel.intrinsicContentSize().height
-        return CGSizeMake(0, keyHeight + valueHeight)
+        let normalHeight = normalPriceLabel.intrinsicContentSize().height
+        let strikedHeight = strikedPriceLabel.intrinsicContentSize().height
+        let normalWidth = normalPriceLabel.intrinsicContentSize().width
+        let strikedWidth = strikedPriceLabel.intrinsicContentSize().width
+        return CGSizeMake(max(normalWidth, strikedWidth), normalHeight + strikedHeight)
     }
 }

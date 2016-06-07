@@ -43,7 +43,8 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewDelegate
 extension ProductDetailsViewController: ProductDetailsPageHandler {
     func page(forIndex index: Int, removePageIndex: Int) -> UIView {
         let currentViewController = indexedViewControllers[removePageIndex]
-        let newViewController = resolver.resolve(ProductPageViewController.self, argument: index % 2 == 0 ? UIColor.blueColor() : UIColor.blackColor())
+        let newViewController = resolver.resolve(ProductPageViewController.self)
+        newViewController.viewContentInset = UIEdgeInsets(top: topLayoutGuide.length, left: 0, bottom: bottomLayoutGuide.length, right: 0)
         
         currentViewController?.willMoveToParentViewController(nil)
         addChildViewController(newViewController)

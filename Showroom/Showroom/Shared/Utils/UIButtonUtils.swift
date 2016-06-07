@@ -22,4 +22,9 @@ extension UIButton {
         semanticContentAttribute = .ForceRightToLeft
         imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -8)
     }
+    
+    func applyCircleStyle() {
+        layer.cornerRadius = Dimensions.circleButtonDiameter * 0.5
+        backgroundColor = UIColor(named: .White)
+    }
 }

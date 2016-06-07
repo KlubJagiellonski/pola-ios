@@ -13,7 +13,7 @@ extension Observable where Element: Decodable {
                 }
                 logInfo("Received cached for \(cacheId): \(cachedData)")
                 observer.onNext(cachedData)
-            } catch let error {
+            } catch {
                 observer.onError(error)
             }
             observer.onCompleted()
@@ -28,8 +28,8 @@ extension ObservableType where E: Encodable {
             do {
                 logInfo("Saving cache \(cacheId): \(result)")
                 try cacheManager.save(withCacheName: cacheId, object: result)
-            } catch let exception {
-                logError("Error during caching \(cacheId): \(exception)")
+            } catch {
+                logError("Error during caching \(cacheId): \(error)")
             }
         }
     }

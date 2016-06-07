@@ -8,4 +8,5 @@ struct Dimensions {
     static let tabViewHeight: CGFloat = 49 // May by useful when bottomLayooutGuide is not available
     static let recommendationItemSize = CGSizeMake(118, 236)
     static let circleButtonDiameter: CGFloat = 38
+    static let productDetailsTopMargin: CGFloat = 24
 }

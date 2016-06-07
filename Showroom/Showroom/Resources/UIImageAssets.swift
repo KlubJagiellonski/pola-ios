@@ -3,6 +3,8 @@
 import UIKit.UIImage
 
 enum Asset: String {
+  case Ic_chevron_down = "ic_chevron_down"
+  case Ic_chevron_right = "ic_chevron_right"
   case Ic_close = "ic_close"
   case Ic_do_ulubionych = "ic_do_ulubionych"
   case Ic_dropdown = "ic_dropdown"
@@ -19,6 +21,7 @@ enum Asset: String {
   case Ic_share = "ic_share"
   case Ic_ulubione = "ic_ulubione"
   case Ic_ulubione_blue = "ic_ulubione_blue"
+  case Ic_w_ulubionych = "ic_w_ulubionych"
 
   var image: UIImage {
     return UIImage(asset: self)

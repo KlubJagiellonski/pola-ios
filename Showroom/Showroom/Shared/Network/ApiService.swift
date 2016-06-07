@@ -19,9 +19,13 @@ extension ApiService {
         urlRequest.HTTPMethod = "GET"
         return networkClient
             .request(withRequest: urlRequest)
-            .map {
-                let array = try NSJSONSerialization.JSONObjectWithData($0, options: []) as! [AnyObject]
-                return try ContentPromoResult.decode(array)
+            .flatMap { data -> Observable<ContentPromoResult> in
+                do {
+                    let array = try NSJSONSerialization.JSONObjectWithData(data, options: []) as! [AnyObject]
+                    return Observable.just(try ContentPromoResult.decode(array))
+                } catch {
+                    return Observable.error(error)
+                }
         }
     }
     
@@ -34,9 +38,13 @@ extension ApiService {
         urlRequest.HTTPMethod = "GET"
         return networkClient
             .request(withRequest: urlRequest)
-            .map {
-                let dict = try NSJSONSerialization.JSONObjectWithData($0, options: [])
-                return try ProductDetails.decode(dict)
+            .flatMap { data -> Observable<ProductDetails> in
+                do {
+                    let result = try NSJSONSerialization.JSONObjectWithData(data, options: [])
+                    return Observable.just(try ProductDetails.decode(result))
+                } catch {
+                    return Observable.error(error)
+                }
         }
     }
 }
