@@ -70,6 +70,7 @@ class ProductRecommendationCell: UICollectionViewCell {
     }
     
     func updateData(recommendation: ProductRecommendation) {
+        productImageView.image = nil
         productImageView.loadImageFromUrl(recommendation.imageUrl, size: ProductRecommendationCell.imageSize)
         brandLabel.text = recommendation.brand
         nameLabel.text = recommendation.title

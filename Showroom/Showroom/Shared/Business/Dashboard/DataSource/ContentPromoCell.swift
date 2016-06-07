@@ -21,10 +21,15 @@ extension ContentPromoTextType {
     }
 }
 
+extension ContentPromoImage {
+    var ratio: Double {
+        return Double(width) / Double(height)
+    }
+}
+
 // MARK: - Cells
 
 class ContentPromoCell: UITableViewCell {
-    static let photoRatio = 0.85
     static let bottomMargin: CGFloat = 15
     static let textContainerHeight: CGFloat = 161
     
@@ -53,12 +58,13 @@ class ContentPromoCell: UITableViewCell {
     }
     
     class func getHeight(forWidth width: CGFloat, model: ContentPromo) -> CGFloat {
-        return ceil(width / CGFloat(photoRatio)) + bottomMargin
+        return ceil(width / CGFloat(model.image.ratio)) + bottomMargin
     }
     
     func updateData(contentPromo: ContentPromo) {
         let image = contentPromo.image
         let imageSize = CGSizeMake(CGRectGetWidth(self.contentView.bounds), CGRectGetHeight(self.contentView.bounds) - ContentPromoCell.bottomMargin)
+        promoImageView.image = nil
         promoImageView.loadImageFromUrl(image.url, size: imageSize)
         
         if let title = image.title, let subtitle = image.subtitle, let textColor = image.color {
@@ -78,7 +84,6 @@ class ContentPromoCell: UITableViewCell {
             make.top.equalToSuperview()
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
-            make.height.equalTo(promoImageView.snp_width).dividedBy(ContentPromoCell.photoRatio)
         }
         
         textContainerView.snp_makeConstraints { make in

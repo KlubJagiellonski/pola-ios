@@ -8,6 +8,7 @@ struct ContentPromoResult {
 struct ContentPromo {
     let image: ContentPromoImage
     let caption: ContentPromoCaption?
+    let link: String
 }
 
 enum ContentPromoTextType: String {
@@ -17,6 +18,8 @@ enum ContentPromoTextType: String {
 
 struct ContentPromoImage {
     let url: String
+    let width: Int
+    let height: Int
     let title: String?
     let subtitle: String?
     let color: ContentPromoTextType?
@@ -39,7 +42,8 @@ extension ContentPromo: Decodable {
     static func decode(j: AnyObject) throws -> ContentPromo {
         return try ContentPromo(
             image: j => "image",
-            caption: j =>? "caption"
+            caption: j =>? "caption",
+            link: j => "link"
         )
     }
 }
@@ -49,6 +53,8 @@ extension ContentPromoImage: Decodable {
         let color: String? = try j =>? "color"
         return try ContentPromoImage(
             url: j => "url",
+            width: j => "width",
+            height: j => "height",
             title: j =>? "title",
             subtitle: j =>? "subtitle",
             color: color != nil ? ContentPromoTextType(rawValue: color!) : nil
@@ -79,7 +85,8 @@ extension ContentPromoResult: Encodable {
 extension ContentPromo: Encodable {
     func encode() -> AnyObject {
         let dict: NSMutableDictionary = [
-            "image": image.encode()
+            "image": image.encode(),
+            "link": link
         ]
         if caption != nil { dict.setObject(caption!.encode(), forKey: "caption") }
         return dict
@@ -89,7 +96,9 @@ extension ContentPromo: Encodable {
 extension ContentPromoImage: Encodable {
     func encode() -> AnyObject {
         let imageDict: NSMutableDictionary = [
-            "url": url
+            "url": url,
+            "width": width,
+            "height": height
         ]
         if title != nil { imageDict.setObject(title!, forKey: "title") }
         if subtitle != nil { imageDict.setObject(subtitle!, forKey: "subtitle") }
@@ -121,12 +130,12 @@ func ==(lhs: ContentPromoResult, rhs: ContentPromoResult) -> Bool
 
 func ==(lhs: ContentPromo, rhs: ContentPromo) -> Bool
 {
-    return lhs.image == rhs.image && lhs.caption == rhs.caption
+    return lhs.image == rhs.image && lhs.caption == rhs.caption && lhs.link == rhs.link
 }
 
 func ==(lhs: ContentPromoImage, rhs: ContentPromoImage) -> Bool
 {
-    return lhs.url == rhs.url && lhs.title == rhs.title && lhs.subtitle == rhs.subtitle && lhs.color?.rawValue == rhs.color?.rawValue
+    return lhs.url == rhs.url && lhs.title == rhs.title && lhs.subtitle == rhs.subtitle && lhs.color?.rawValue == rhs.color?.rawValue && lhs.width == rhs.width && lhs.height == rhs.height
 }
 
 func ==(lhs: ContentPromoCaption, rhs: ContentPromoCaption) -> Bool
