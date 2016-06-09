@@ -51,7 +51,6 @@ class ProductSizeCell: UITableViewCell {
         sizeUnavailableLabel.snp_makeConstraints { make in
             make.top.equalToSuperview()
             make.bottom.equalToSuperview()
-            make.leading.equalTo(sizeLabel.snp_trailing)
             make.trailing.equalToSuperview().inset(ProductSizeCell.horizontalInset)
         }
         

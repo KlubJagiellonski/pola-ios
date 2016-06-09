@@ -1,62 +1,146 @@
 import Foundation
 import UIKit
+import RxSwift
 
-class ProductDescriptionView: UIView {
+extension ProductDetailsColor {
+    func toDropDownValue() -> DropDownValue {
+        switch type {
+        case .Image:
+            return .Image(value)
+        case .RGB:
+            return .Color(UIColor(hex: value))
+        }
+    }
+}
+
+protocol ProductDescriptionViewDelegate: class {
+    func descriptionViewDidTapSize(view: ProductDescriptionView)
+    func descriptionViewDidTapColor(view: ProductDescriptionView)
+    func descriptionViewDidTapSizeChart(view: ProductDescriptionView)
+    func descriptionViewDidTapOtherBrandProducts(view: ProductDescriptionView)
+    func descriptionViewDidTapAddToBasket(view: ProductDescriptionView)
+}
+
+class ProductDescriptionView: UIView, UITableViewDelegate, ProductDescriptionViewInterface {
     private let defaultVerticalPadding: CGFloat = 8
     private let descriptionTableViewTopMargin: CGFloat = 10
     
-    let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight))
-    let headerView = DescriptionHeaderView()
-    let tableView = UITableView(frame: CGRectZero, style: .Plain)
+    private let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight))
+    private let headerView = DescriptionHeaderView()
+    private let tableView = UITableView(frame: CGRectZero, style: .Plain)
+    private let separatorView = UIView()
     
-    init() {
+    private let descriptionDataSource: ProductDescriptionDataSource
+    private let disposeBag = DisposeBag()
+    private let modelState: ProductPageModelState
+    
+    weak var delegate: ProductDescriptionViewDelegate?
+    
+    var contentInset: UIEdgeInsets? {
+        didSet {
+            tableView.contentInset = UIEdgeInsetsMake(0, 0, contentInset?.bottom ?? 0, 0)
+        }
+    }
+    
+    var headerHeight: CGFloat {
+        return tableView.frame.minY
+    }
+    
+    var calculatedHeaderHeight: CGFloat {
+        return defaultVerticalPadding + headerView.intrinsicContentSize().height + descriptionTableViewTopMargin
+    }
+    
+    init(modelState: ProductPageModelState) {
+        self.modelState = modelState
+        descriptionDataSource = ProductDescriptionDataSource(tableView: tableView)
+        
         super.init(frame: CGRectZero)
+        
+        modelState.currentColorObservable.subscribeNext(updateCurrentColor).addDisposableTo(disposeBag)
+        modelState.currentSizeObservable.subscribeNext(updateCurrentSize).addDisposableTo(disposeBag)
+        modelState.buyButtonObservable.subscribeNext(updateBuyButtonEnabledState).addDisposableTo(disposeBag)
+        modelState.productDetailsObservable.subscribeNext(updateProductDetails).addDisposableTo(disposeBag)
+        modelState.productObservable.subscribeNext(updateProduct).addDisposableTo(disposeBag)
+        
+        
+        tableView.showsVerticalScrollIndicator = false
+        tableView.backgroundColor = UIColor.clearColor()
+        tableView.dataSource = descriptionDataSource
+        tableView.delegate = self
+        
+        headerView.sizeButton.addTarget(self, action: #selector(ProductDescriptionView.didTapSizeButton), forControlEvents: .TouchUpInside)
+        headerView.colorButton.addTarget(self, action: #selector(ProductDescriptionView.didTapColorButton), forControlEvents: .TouchUpInside)
+        headerView.buyButton.addTarget(self, action: #selector(ProductDescriptionView.didTapAddToBasketButton), forControlEvents: .TouchUpInside)
+        
+        separatorView.backgroundColor = UIColor(named: .Separator)
         
         addSubview(blurView)
         addSubview(headerView)
+        addSubview(separatorView)
         addSubview(tableView)
         
         configureCustomConstraints()
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func updateSimpleModel(product: Product) {
-        headerView.brandNameLabel.text = product.brand.name
-        headerView.nameLabel.text = product.name
-        headerView.priceLabel.basePrice = product.basePrice
-        if product.basePrice != product.price {
-            headerView.priceLabel.discountPrice = product.price
-        }
-        
-        headerView.invalidateIntrinsicContentSize()
+    private func updateCurrentColor(currentColor: ProductDetailsColor?) {
+        headerView.colorButton.value = currentColor?.toDropDownValue() ?? .Text(nil)
     }
     
-    func updateModel(productDetails: ProductDetails, defaultSize: ProductDetailsSize?, defaultColor: ProductDetailsColor?) {
-        headerView.brandNameLabel.text = productDetails.brand.name
-        headerView.nameLabel.text = productDetails.name
-        headerView.priceLabel.basePrice = productDetails.basePrice
-        if productDetails.basePrice != productDetails.price {
-            headerView.priceLabel.discountPrice = productDetails.price
+    private func updateCurrentSize(currentSize: ProductDetailsSize?) {
+        headerView.sizeButton.value = .Text(currentSize?.name)
+    }
+    
+    private func updateBuyButtonEnabledState(enabled: Bool) {
+        headerView.buyButton.enabled = enabled
+    }
+    
+    private func updateProduct(product: Product?) {
+        guard let p = product else { return }
+        headerView.brandNameLabel.text = p.brand.name
+        headerView.nameLabel.text = p.name
+        headerView.priceLabel.basePrice = p.basePrice
+        if p.basePrice != p.price {
+            headerView.priceLabel.discountPrice = p.price
         }
+        
         headerView.priceLabel.invalidateIntrinsicContentSize()
-        if let size = defaultSize {
-            headerView.sizeButton.value = .Text(size.name)
-        }
-        if let color = defaultColor {
-            headerView.colorButton.value = color.toDropDownValue()
-        }
-        
         headerView.invalidateIntrinsicContentSize()
     }
     
-    func getHeightForHeader() -> CGFloat {
-        return defaultVerticalPadding + headerView.intrinsicContentSize().height + descriptionTableViewTopMargin
+    private func updateProductDetails(productDetails: ProductDetails?) {
+        guard let p = productDetails else { return }
+        
+        headerView.brandNameLabel.text = p.brand.name
+        headerView.nameLabel.text = p.name
+        headerView.priceLabel.basePrice = p.basePrice
+        if p.basePrice != p.price {
+            headerView.priceLabel.discountPrice = p.price
+        }
+        headerView.colorButton.enabled = true
+        headerView.sizeButton.enabled = true
+        descriptionDataSource.updateModel(p.waitTime, descriptions: p.description)
+        
+        headerView.priceLabel.invalidateIntrinsicContentSize()
+        headerView.invalidateIntrinsicContentSize()
     }
     
-    func configureCustomConstraints() {
+    func didTapSizeButton(button: UIButton) {
+        delegate?.descriptionViewDidTapSize(self)
+    }
+    
+    func didTapColorButton(button: UIButton) {
+        delegate?.descriptionViewDidTapColor(self)
+    }
+    
+    func didTapAddToBasketButton(button: UIButton) {
+        delegate?.descriptionViewDidTapAddToBasket(self)
+    }
+    
+    private func configureCustomConstraints() {
         blurView.snp_makeConstraints { make in
             make.edges.equalToSuperview()
         }
@@ -67,11 +151,36 @@ class ProductDescriptionView: UIView {
             make.trailing.equalToSuperview().inset(Dimensions.defaultMargin)
         }
         
-        tableView.snp_makeConstraints { make in
+        separatorView.snp_makeConstraints { make in
             make.leading.equalToSuperview().offset(Dimensions.defaultMargin)
             make.trailing.equalToSuperview().inset(Dimensions.defaultMargin)
             make.top.equalTo(headerView.snp_bottom).offset(descriptionTableViewTopMargin)
+            make.height.equalTo(1)
+        }
+        
+        tableView.snp_makeConstraints { make in
+            make.leading.equalToSuperview().offset(Dimensions.defaultMargin)
+            make.trailing.equalToSuperview().inset(Dimensions.defaultMargin)
+            make.top.equalTo(separatorView.snp_bottom)
             make.bottom.equalToSuperview()
+        }
+    }
+    
+    // MARK:- UITableViewDelegate
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return descriptionDataSource.heightForRow(atIndexPath: indexPath)
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let descriptionRow = ProductDescriptionRow(rawValue: indexPath.row)
+        guard let row = descriptionRow else { return }
+        switch row {
+        case .BrandProducts:
+            delegate?.descriptionViewDidTapOtherBrandProducts(self)
+        case .SizeChart:
+            delegate?.descriptionViewDidTapSizeChart(self)
+        default: break
         }
     }
 }
@@ -88,7 +197,7 @@ class DescriptionHeaderView: UIView {
     let nameInfoContainerView = UIView()
     let nameLabel = UILabel()
     let infoImageView = UIImageView(image: UIImage(asset: .Ic_info))
-    let buttonsContainerView = UIView()
+    let buttonsContainerView = TouchConsumingView()
     let sizeButton = DropDownButton()
     let colorButton = DropDownButton()
     let buyButton = UIButton()
@@ -108,8 +217,12 @@ class DescriptionHeaderView: UIView {
         nameLabel.numberOfLines = 2
         nameLabel.textColor = UIColor(named: .Black)
         
+        sizeButton.enabled = false
+        colorButton.enabled = false
+        
         buyButton.applyBlueStyle()
         buyButton.setTitle(tr(.ProductDetailsToBasket), forState: .Normal)
+        buyButton.enabled = false
         
         brandAndPriceContainerView.addSubview(brandNameLabel)
         brandAndPriceContainerView.addSubview(priceLabel)
@@ -184,16 +297,16 @@ class DescriptionHeaderView: UIView {
             make.trailing.equalToSuperview()
         }
         
-        sizeButton.snp_makeConstraints { make in
+        colorButton.snp_makeConstraints { make in
             make.top.equalToSuperview()
             make.leading.equalToSuperview()
             make.bottom.equalToSuperview()
             make.width.equalTo(dropDownButtonWidth)
         }
         
-        colorButton.snp_makeConstraints { make in
+        sizeButton.snp_makeConstraints { make in
             make.top.equalToSuperview()
-            make.leading.equalTo(sizeButton.snp_trailing).offset(horizontalItemPadding)
+            make.leading.equalTo(colorButton.snp_trailing).offset(horizontalItemPadding)
             make.bottom.equalToSuperview()
             make.width.equalTo(dropDownButtonWidth)
         }
@@ -201,13 +314,13 @@ class DescriptionHeaderView: UIView {
         buyButton.setContentHuggingPriority(UILayoutPriorityDefaultLow, forAxis: .Horizontal)
         buyButton.snp_makeConstraints { make in
             make.top.equalToSuperview()
-            make.leading.equalTo(colorButton.snp_trailing).offset(horizontalItemPadding)
+            make.leading.equalTo(sizeButton.snp_trailing).offset(horizontalItemPadding)
             make.trailing.equalToSuperview()
             make.height.equalTo(Dimensions.defaultButtonHeight)
             make.bottom.equalToSuperview()
         }
     }
-
+    
     override func intrinsicContentSize() -> CGSize {
         let priceWidth = priceLabel.intrinsicContentSize().width
         let brandNameAvailableWidth = bounds.width - priceWidth - horizontalItemPadding
@@ -222,5 +335,11 @@ class DescriptionHeaderView: UIView {
         let height = defaultVerticalPadding + brandAndPriceHeight + defaultVerticalPadding + nameAndInfoHeight + buttonsToNameInfoVerticalPadding + Dimensions.defaultButtonHeight
         
         return CGSizeMake(UIViewNoIntrinsicMetric, height)
+    }
+}
+
+class TouchConsumingView: UIView, TouchHandlingDelegate {
+    func shouldConsumeTouch(touch: UITouch) -> Bool {
+        return true
     }
 }

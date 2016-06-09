@@ -37,8 +37,6 @@ enum L10n {
   case DashboardRecommendationTitleSecondPart
   /// zł
   case MoneyZl
-  /// DO KOSZYKA
-  case ProductDetailsToBasket
   /// WYBIERZ ROZMIAR
   case ProductActionPickSizeTitleFirstPart
   /// TABELA ROZMIARÓW
@@ -47,6 +45,18 @@ enum L10n {
   case ProductActionSizeCellSizeUnavailable
   /// tylko w innym rozmiarze
   case ProductActionColorCellColorUnavailable
+  /// DO KOSZYKA
+  case ProductDetailsToBasket
+  /// Tabela rozmiarów
+  case ProductDetailsSizeChart
+  /// Inne produkty marki
+  case ProductDetailsOtherBrandProducts
+  /// Wysyłka w %@ dzień
+  case ProductDetailsDeliveryInfoSingle(String)
+  /// Wysyłka w %@ dni
+  case ProductDetailsDeliveryInfoMulti(String)
+  /// Opis produktu
+  case ProductDetailsProductDescription
 }
 
 extension L10n: CustomStringConvertible {
@@ -88,8 +98,6 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Dashboard.RecommendationTitle.SecondPart")
       case .MoneyZl:
         return L10n.tr("Money.Zl")
-      case .ProductDetailsToBasket:
-        return L10n.tr("ProductDetails.ToBasket")
       case .ProductActionPickSizeTitleFirstPart:
         return L10n.tr("ProductAction.PickSizeTitle.FirstPart")
       case .ProductActionPickSizeTitleSecondPart:
@@ -98,6 +106,18 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("ProductAction.SizeCell.SizeUnavailable")
       case .ProductActionColorCellColorUnavailable:
         return L10n.tr("ProductAction.ColorCell.ColorUnavailable")
+      case .ProductDetailsToBasket:
+        return L10n.tr("ProductDetails.ToBasket")
+      case .ProductDetailsSizeChart:
+        return L10n.tr("ProductDetails.SizeChart")
+      case .ProductDetailsOtherBrandProducts:
+        return L10n.tr("ProductDetails.OtherBrandProducts")
+      case .ProductDetailsDeliveryInfoSingle(let p0):
+        return L10n.tr("ProductDetails.DeliveryInfo.Single", p0)
+      case .ProductDetailsDeliveryInfoMulti(let p0):
+        return L10n.tr("ProductDetails.DeliveryInfo.Multi", p0)
+      case .ProductDetailsProductDescription:
+        return L10n.tr("ProductDetails.ProductDescription")
     }
   }
 

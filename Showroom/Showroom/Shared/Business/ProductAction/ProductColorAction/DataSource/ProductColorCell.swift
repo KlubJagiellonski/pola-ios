@@ -46,7 +46,7 @@ class ProductColorCell: UITableViewCell {
         colorIconView.snp_makeConstraints { make in
             make.centerY.equalToSuperview()
             make.height.equalTo(ProductColorCell.colorIconSide)
-            make.leading.equalToSuperview().inset(Dimensions.defaultMargin)
+            make.leading.equalToSuperview().offset(Dimensions.defaultMargin)
             make.width.equalTo(ProductColorCell.colorIconSide)
         }
         
@@ -54,7 +54,6 @@ class ProductColorCell: UITableViewCell {
             make.top.equalToSuperview()
             make.bottom.equalToSuperview()
             make.leading.equalTo(colorIconView.snp_trailing).offset(ProductColorCell.iconToLabelDistance)
-            make.trailing.equalToSuperview()
         }
         
         separatorView.snp_makeConstraints { make in

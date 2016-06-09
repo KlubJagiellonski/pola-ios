@@ -5,12 +5,31 @@ protocol ProductDetailsViewDelegate: class {
     func productDetailsDidTapClose(view: ProductDetailsView)
 }
 
+enum CloseButtonState {
+    case Close
+    case Dismiss
+}
+
 class ProductDetailsView: UIView, UICollectionViewDelegateFlowLayout {
     private let collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: UICollectionViewFlowLayout())
     private let closeButton = UIButton(type: .Custom)
     
     private let dataSource: ProductDetailsDataSource
     
+    var closeButtonState: CloseButtonState = .Close {
+        didSet {
+            switch closeButtonState {
+            case .Close:
+                closeButton.setImage(UIImage(asset: .Ic_close), forState: .Normal)
+            case .Dismiss:
+                closeButton.setImage(UIImage(asset: .Ic_chevron_down), forState: .Normal)
+            }
+        }
+    }
+    var currentPageIndex: Int {
+        let pageWidth = collectionView.frame.width
+        return Int(collectionView.contentOffset.x / pageWidth)
+    }
     weak var delegate: ProductDetailsViewDelegate?
     weak var pageHandler: ProductDetailsPageHandler? {
         set { dataSource.pageHandler = newValue }

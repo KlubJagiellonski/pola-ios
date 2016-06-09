@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 
 protocol ProductSizeViewDelegate: class {
-    func productSize(view: ProductSizeView, didSelectSize size: String)
+    func productSize(view: ProductSizeView, didSelectSize sizeId: ObjectId)
     func productSizeDidTapSizes(view: ProductSizeView)
 }
 
@@ -15,6 +15,10 @@ class ProductSizeView: UIView, UITableViewDelegate {
     private let dataSource: ProductSizeDataSource
     
     weak var delegate: ProductSizeViewDelegate?
+    var selectedIndex: Int? {
+        set { dataSource.selectedIndex = newValue }
+        get { return dataSource.selectedIndex }
+    }
     
     init() {
         dataSource = ProductSizeDataSource(tableView: tableView)
@@ -73,7 +77,7 @@ class ProductSizeView: UIView, UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         guard let data = dataSource.data(forIndexPath: indexPath) where data.isAvailable else { return }
         dataSource.selectedIndex = indexPath.row
-        delegate?.productSize(self, didSelectSize: data.size)
+        delegate?.productSize(self, didSelectSize: data.id)
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {

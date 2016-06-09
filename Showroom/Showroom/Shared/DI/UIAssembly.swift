@@ -54,11 +54,14 @@ class UIAssembly: AssemblyType {
         container.register(ProductPageModel.self) { r in
             return ProductPageModel(api: r.resolve(ApiService.self)!)
         }
-        container.register(ProductSizeViewController.self) { r in
-            return ProductSizeViewController(resolver: r.resolve(DiResolver.self)!)
+        container.register(ProductSizeViewController.self) { r, sizes, selectedSizeId in
+            return ProductSizeViewController(resolver: r.resolve(DiResolver.self)!, sizes: sizes, initialSelectedSizeId: selectedSizeId)
         }
-        container.register(ProductColorViewController.self) { r in
-            return ProductColorViewController(resolver: r.resolve(DiResolver.self)!)
+        container.register(ProductColorViewController.self) { r, colors, selectedColorId in
+            return ProductColorViewController(resolver: r.resolve(DiResolver.self)!, colors: colors, initialSelectedColorId: selectedColorId)
+        }
+        container.register(ProductDescriptionViewController.self) { r, modelState in
+            return ProductDescriptionViewController(modelState: modelState)
         }
     }
 }

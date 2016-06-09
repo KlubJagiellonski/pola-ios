@@ -5,11 +5,16 @@ class ProductColorDataSource: NSObject, UITableViewDataSource {
     private var colors: [ProductColor] = []
     private weak var tableView: UITableView?
     
-    var selectedIndex: Int = 0 {
+    var selectedIndex: Int? {
         didSet {
-            let oldIndexPath = NSIndexPath(forRow: oldValue, inSection: 0)
-            let newIndexPath = NSIndexPath(forRow: selectedIndex, inSection: 0)
-            tableView?.reloadRowsAtIndexPaths([oldIndexPath, newIndexPath], withRowAnimation: .None)
+            var itemsToReload: [NSIndexPath] = []
+            if let old = oldValue {
+                itemsToReload.append(NSIndexPath(forRow: old, inSection: 0))
+            }
+            if let new = selectedIndex {
+                itemsToReload.append(NSIndexPath(forRow: new, inSection: 0))
+            }
+            tableView?.reloadRowsAtIndexPaths(itemsToReload, withRowAnimation: .None)
         }
     }
     

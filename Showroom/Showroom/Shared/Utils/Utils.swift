@@ -12,9 +12,9 @@ enum FetchCacheResult<T: Equatable> {
 }
 
 extension Array {
-    func find(@noescape predicate: (Element) throws -> Bool) rethrows -> Element? {
+    func find(@noescape predicate: (Element) -> Bool) -> Element? {
         for element in self {
-            if try predicate(element) {
+            if predicate(element) {
                 return element
             }
         }

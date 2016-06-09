@@ -1,7 +1,7 @@
 import UIKit
 
 protocol ProductColorViewDelegate: class {
-    func productColor(view view: ProductColorView, didSelectColor color: ProductColor)
+    func productColor(view view: ProductColorView, didSelectColor colorId: ObjectId)
 }
 
 class ProductColorView: UIView, UITableViewDelegate {
@@ -13,6 +13,10 @@ class ProductColorView: UIView, UITableViewDelegate {
     private let dataSource: ProductColorDataSource
     
     weak var delegate: ProductColorViewDelegate?
+    var selectedIndex: Int? {
+        set { dataSource.selectedIndex = newValue }
+        get { return dataSource.selectedIndex }
+    }
     
     init() {
         dataSource = ProductColorDataSource(tableView: tableView)
@@ -65,7 +69,7 @@ class ProductColorView: UIView, UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         guard let color = dataSource.data(forIndexPath: indexPath) where color.isAvailable else { return }
         dataSource.selectedIndex = indexPath.row
-        delegate?.productColor(view: self, didSelectColor: color)
+        delegate?.productColor(view: self, didSelectColor: color.id)
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {

@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-class ProductDetailsViewController: UIViewController, ProductDetailsViewDelegate {
+class ProductDetailsViewController: UIViewController, ProductDetailsViewDelegate, ProductPageViewControllerDelegate {
     
     let resolver: DiResolver
     
@@ -36,7 +36,25 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewDelegate
     // MARK: - ProductDetailsViewDelegate
     
     func productDetailsDidTapClose(view: ProductDetailsView) {
-        sendNavigationEvent(SimpleNavigationEvent(type: .Close))
+        switch castView.closeButtonState {
+        case .Close:
+            sendNavigationEvent(SimpleNavigationEvent(type: .Close))
+        case .Dismiss:
+            let productPageViewController = indexedViewControllers[view.currentPageIndex] as! ProductPageViewController
+            productPageViewController.dismissContentView()
+        }
+    }
+    
+    // MARKL - ProductPageViewControllerDelegate
+    
+    func productPage(page: ProductPageViewController, didChangeProductPageViewState viewState: ProductPageViewState) {
+        switch viewState {
+        case .Default:
+            castView.closeButtonState = .Close
+        case .ContentVisible:
+            castView.closeButtonState = .Dismiss
+        case .ImageGallery: break // todo image gallery
+        }
     }
 }
 
@@ -45,6 +63,7 @@ extension ProductDetailsViewController: ProductDetailsPageHandler {
         let currentViewController = indexedViewControllers[removePageIndex]
         let newViewController = resolver.resolve(ProductPageViewController.self)
         newViewController.viewContentInset = UIEdgeInsets(top: topLayoutGuide.length, left: 0, bottom: bottomLayoutGuide.length, right: 0)
+        newViewController.delegate = self
         
         currentViewController?.willMoveToParentViewController(nil)
         addChildViewController(newViewController)

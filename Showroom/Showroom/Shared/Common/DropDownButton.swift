@@ -15,7 +15,7 @@ class DropDownButton : UIControl {
     private let defaultHorizontalMargin: CGFloat = 9
     private let valueArrowHorizontalMargin: CGFloat = 4
     
-    let valueImageView = UIImageView()
+    let valueImageView = ColorIconView()
     let valueLabel = UILabel()
     let arrowImageView = UIImageView(image: UIImage(asset: .Ic_dropdown))
     
@@ -32,13 +32,13 @@ class DropDownButton : UIControl {
                 valueImageView.image = nil
                 valueImageView.hidden = false
                 if let url = imageUrl {
-                    valueImageView.loadImageFromUrl(url)
+                    valueImageView.setColorRepresentation(.ImageUrl(url))
                 }
             case .Color(let color):
                 valueImageView.hidden = false
                 valueImageView.image = nil
                 if let c = color {
-                    valueImageView.image = UIImage.fromColor(c)
+                    valueImageView.setColorRepresentation(.Color(c))
                 }
             }
         }

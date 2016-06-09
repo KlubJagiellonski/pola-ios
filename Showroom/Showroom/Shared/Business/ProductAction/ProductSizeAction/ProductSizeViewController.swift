@@ -1,24 +1,27 @@
 import UIKit
 
 protocol ProductSizeViewControllerDelegate: class {
-    func productSize(viewController: ProductSizeViewController, didChangeSize size: String)
+    func productSize(viewController: ProductSizeViewController, didChangeSize sizeId: ObjectId)
     func productSizeDidTapSizes(viewController: ProductSizeViewController)
 }
 
 class ProductSizeViewController: UIViewController, ProductSizeViewDelegate {
-    let sizes: [ProductSize] = [
-        ProductSize(id: 0, size: "XXS", isAvailable: true),
-        ProductSize(id: 1, size: "XS", isAvailable: true),
-        ProductSize(id: 2, size: "S", isAvailable: false),
-        ProductSize(id: 3, size: "M", isAvailable: true),
-        ProductSize(id: 4, size: "L", isAvailable: true),
-        ProductSize(id: 5, size: "XL", isAvailable: false),
-        ProductSize(id: 6, size: "XXXL", isAvailable: true)
-    ]   //temporary data source
+    let sizes: [ProductSize]
+    let initialSelectedSizeId: ObjectId?
     
     var castView: ProductSizeView { return view as! ProductSizeView }
     
     weak var delegate: ProductSizeViewControllerDelegate?
+    
+    init(resolver: DiResolver, sizes: [ProductSize], initialSelectedSizeId: ObjectId?) {
+        self.sizes = sizes
+        self.initialSelectedSizeId = initialSelectedSizeId
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func loadView() {
         view = ProductSizeView()
@@ -29,20 +32,13 @@ class ProductSizeViewController: UIViewController, ProductSizeViewDelegate {
         
         castView.delegate = self
         castView.updateData(sizes)
-    }
-    
-    init(resolver: DiResolver) {
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        castView.selectedIndex = sizes.indexOf { $0.id == initialSelectedSizeId }
     }
 
     // MARK :- ProductSizeViewDelegate
     
-    func productSize(view: ProductSizeView, didSelectSize size: String) {
-        delegate?.productSize(self, didChangeSize: size)
+    func productSize(view: ProductSizeView, didSelectSize sizeId: ObjectId) {
+        delegate?.productSize(self, didChangeSize: sizeId)
     }
     
     func productSizeDidTapSizes(view: ProductSizeView) {

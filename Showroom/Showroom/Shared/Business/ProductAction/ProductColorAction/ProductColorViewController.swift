@@ -1,22 +1,26 @@
 import UIKit
 
 protocol ProductColorViewControllerDelegate: class {
-    func productColor(viewController viewController: ProductColorViewController, didChangeColor color: ProductColor)
+    func productColor(viewController viewController: ProductColorViewController, didChangeColor colorId: ObjectId)
 }
 
 class ProductColorViewController: UIViewController, ProductColorViewDelegate {
-    let colors: [ProductColor] = [
-        ProductColor(id: 0, name: "Czarny", color: .Color(UIColor.blackColor()), isAvailable: true),
-        ProductColor(id: 1, name: "Czerwony", color: .Color(UIColor.redColor()), isAvailable: false),
-        ProductColor(id: 2, name: "Jasnoniebieski", color: .ImageUrl("http://placehold.it/100/aaffff"), isAvailable: false),
-        ProductColor(id: 3, name: "Niebieski", color: .Color(UIColor.blueColor()), isAvailable: true),
-        ProductColor(id: 4, name: "Fioletowy", color: .Color(UIColor.purpleColor()), isAvailable: false),
-        ProductColor(id: 5, name: "Różowy", color: .ImageUrl("http://placehold.it/100/ffaaff"), isAvailable: true),
-    ]   //temporary data source
+    let colors: [ProductColor]
+    let initialSelectedColorId: ObjectId?
     
     var castView: ProductColorView { return view as! ProductColorView }
     
     weak var delegate: ProductColorViewControllerDelegate?
+    
+    init(resolver: DiResolver, colors: [ProductColor], initialSelectedColorId: ObjectId?) {
+        self.colors = colors
+        self.initialSelectedColorId = initialSelectedColorId
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func loadView() {
         view = ProductColorView()
@@ -27,19 +31,12 @@ class ProductColorViewController: UIViewController, ProductColorViewDelegate {
         
         castView.delegate = self
         castView.updateData(colors)
-    }
-    
-    init(resolver: DiResolver) {
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        castView.selectedIndex = colors.indexOf { $0.id == initialSelectedColorId }
     }
     
     // MARK :- ProductColorViewDelegate
     
-    func productColor(view view: ProductColorView, didSelectColor color: ProductColor) {
-        delegate?.productColor(viewController: self, didChangeColor: color)
+    func productColor(view view: ProductColorView, didSelectColor colorId: ObjectId) {
+        delegate?.productColor(viewController: self, didChangeColor: colorId)
     }
 }
