@@ -10,6 +10,7 @@ protocol ProductDescriptionViewInterface: class {
 
 protocol ProductPageViewDelegate: class {
     func pageView(pageView: ProductPageView, didChangePageViewState pageViewState: ProductPageViewState)
+    func pageViewDidTapShareButton(pageView: ProductPageView)
 }
 
 enum ProductPageViewState {
@@ -98,6 +99,7 @@ class ProductPageView: UIView, UICollectionViewDelegateFlowLayout {
         whishlistButton.applyCircleStyle()
         
         shareButton.setImage(UIImage(asset: .Ic_share), forState: .Normal)
+        shareButton.addTarget(self, action: #selector(ProductPageView.didTapShareButton(_:)), forControlEvents: .TouchUpInside)
         shareButton.applyCircleStyle()
         
         buttonStackView.addArrangedSubview(whishlistButton)
@@ -242,6 +244,10 @@ extension ProductPageView {
             changeViewState(.Default, animated: true)
         case .ImageGallery: break // todo go back to Default state
         }
+    }
+    
+    func didTapShareButton(sender: UIButton) {
+        delegate?.pageViewDidTapShareButton(self)
     }
 }
 

@@ -6,7 +6,11 @@ protocol ProductPageViewControllerDelegate: class {
     func productPage(page: ProductPageViewController, didChangeProductPageViewState viewState: ProductPageViewState)
 }
 
+<<<<<<< b26866bb79ba043ebcca2c363f2fb73f9c99c03b
 class ProductPageViewController: UIViewController, ProductPageViewDelegate, ProductDescriptionViewControllerDelegate, DropUpActionDelegate {
+=======
+class ProductPageViewController: UIViewController, ProductPageViewDelegate, ProductDescriptionViewControllerDelegate, UIPopoverPresentationControllerDelegate {
+>>>>>>> added sharing product (brand, name, url)
     let model: ProductPageModel
     var castView: ProductPageView { return view as! ProductPageView }
     var viewContentInset: UIEdgeInsets?
@@ -14,7 +18,7 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate, Prod
     
     private let resolver: DiResolver
     private let disposeBag = DisposeBag()
-    private let actionAnimator =  DropUpActionAnimator(height: 216)
+    private let actionAnimator = DropUpActionAnimator(height: 216)
     
     init(resolver: DiResolver) {
         self.resolver = resolver
@@ -63,6 +67,36 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate, Prod
     
     func pageView(pageView: ProductPageView, didChangePageViewState pageViewState: ProductPageViewState) {
         delegate?.productPage(self, didChangeProductPageViewState: pageViewState)
+    }
+    
+    func pageViewDidTapShareButton(pageView: ProductPageView) {
+        
+        let sharedProduct: (desc: String, url: NSURL)? = { _ in
+            let baseUrl = "https://www.showroom.pl/p/"
+            
+            if let product = model.state.product {
+                return (product.brand.name + " " + product.name, NSURL(string: baseUrl + String(product.id))!)
+            } else if let productDetails = model.state.productDetails {
+                return (productDetails.brand.name + " " + productDetails.name, NSURL(string: baseUrl + String(productDetails.id))!)
+            } else {
+                return nil
+            }
+        }()
+        
+        if let product = sharedProduct {
+            let shared: [AnyObject] = [product.desc + "\n", product.url]
+            
+            let shareViewController = UIActivityViewController(activityItems: shared, applicationActivities: nil)
+            shareViewController.modalPresentationStyle = .Popover
+            presentViewController(shareViewController, animated: true, completion: nil)
+            
+            if let popoverPresentationController = shareViewController.popoverPresentationController {
+                popoverPresentationController.permittedArrowDirections = .Any
+                popoverPresentationController.delegate = self
+            }
+        } else {
+            print("failed to get product details")
+        }
     }
     
     // MARK :- ProductDescriptionViewControllerDelegate
