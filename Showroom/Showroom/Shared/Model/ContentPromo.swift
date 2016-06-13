@@ -31,14 +31,22 @@ struct ContentPromoCaption {
 }
 
 // MARK: - Decodable
-extension ContentPromoResult: Decodable {
+extension ContentPromoResult: Decodable, Encodable {
     static func decode(json: AnyObject) throws -> ContentPromoResult {
         let array = json as! [AnyObject]
         return ContentPromoResult(contentPromos: try array.map(ContentPromo.decode))
     }
+    
+    func encode() -> AnyObject {
+        let encodedList: NSMutableArray = []
+        for contentPromo in contentPromos {
+            encodedList.addObject(contentPromo.encode())
+        }
+        return encodedList
+    }
 }
 
-extension ContentPromo: Decodable {
+extension ContentPromo: Decodable, Encodable {
     static func decode(j: AnyObject) throws -> ContentPromo {
         return try ContentPromo(
             image: j => "image",
@@ -46,9 +54,18 @@ extension ContentPromo: Decodable {
             link: j => "link"
         )
     }
+    
+    func encode() -> AnyObject {
+        let dict: NSMutableDictionary = [
+            "image": image.encode(),
+            "link": link
+        ]
+        if caption != nil { dict.setObject(caption!.encode(), forKey: "caption") }
+        return dict
+    }
 }
 
-extension ContentPromoImage: Decodable {
+extension ContentPromoImage: Decodable, Encodable {
     static func decode(j: AnyObject) throws -> ContentPromoImage {
         let color: String? = try j =>? "color"
         return try ContentPromoImage(
@@ -60,40 +77,7 @@ extension ContentPromoImage: Decodable {
             color: color != nil ? ContentPromoTextType(rawValue: color!) : nil
         )
     }
-}
-
-extension ContentPromoCaption: Decodable {
-    static func decode(j: AnyObject) throws -> ContentPromoCaption {
-        return try ContentPromoCaption(
-            title: j => "title",
-            subtitle: j => "subtitle"
-        )
-    }
-}
-
-// MARK: - Encodable
-extension ContentPromoResult: Encodable {
-    func encode() -> AnyObject {
-        let encodedList: NSMutableArray = []
-        for contentPromo in contentPromos {
-            encodedList.addObject(contentPromo.encode())
-        }
-        return encodedList
-    }
-}
-
-extension ContentPromo: Encodable {
-    func encode() -> AnyObject {
-        let dict: NSMutableDictionary = [
-            "image": image.encode(),
-            "link": link
-        ]
-        if caption != nil { dict.setObject(caption!.encode(), forKey: "caption") }
-        return dict
-    }
-}
-
-extension ContentPromoImage: Encodable {
+    
     func encode() -> AnyObject {
         let imageDict: NSMutableDictionary = [
             "url": url,
@@ -107,7 +91,14 @@ extension ContentPromoImage: Encodable {
     }
 }
 
-extension ContentPromoCaption: Encodable {
+extension ContentPromoCaption: Decodable, Encodable {
+    static func decode(j: AnyObject) throws -> ContentPromoCaption {
+        return try ContentPromoCaption(
+            title: j => "title",
+            subtitle: j => "subtitle"
+        )
+    }
+    
     func encode() -> AnyObject {
         let imageDict: NSMutableDictionary = [
             "title": title,

@@ -18,7 +18,7 @@ class DashboardViewController: UIViewController, DashboardViewDelegate {
     }
     
     override func loadView() {
-        view = DashboardView()
+        view = DashboardView(modelState: model.state)
     }
     
     override func viewDidLoad() {
@@ -26,10 +26,10 @@ class DashboardViewController: UIViewController, DashboardViewDelegate {
         
         castView.delegate = self
         
-        model.fetchContentPromo().subscribeNext { [weak self] fetchResult in
+        model.fetchContentPromo().subscribeNext { fetchResult in
             switch fetchResult {
             case .Success(let contentPromoResult):
-                self?.castView.changeContentPromos(contentPromoResult.contentPromos)
+                logInfo("Fetched content promo: \(contentPromoResult)")
             case .CacheError(let cacheError):
                 logInfo("Error during fetching content promo, cacheError: \(cacheError)")
             case .NetworkError(let networkError):
@@ -37,10 +37,10 @@ class DashboardViewController: UIViewController, DashboardViewDelegate {
             }
         }.addDisposableTo(disposeBag)
         
-        model.fetchRecommendations().subscribeNext { [weak self] fetchResult in
+        model.fetchRecommendations().subscribeNext { fetchResult in
             switch fetchResult {
             case .Success(let productRecommendationResult):
-                self?.castView.changeProductRecommendations(productRecommendationResult.productRecommendations)
+                logInfo("Fetched product recommendations: \(productRecommendationResult)")
             case .CacheError(let cacheError):
                 logInfo("Error during fetching product recommendations, cacheError: \(cacheError)")
             case .NetworkError(let networkError):
@@ -57,10 +57,11 @@ class DashboardViewController: UIViewController, DashboardViewDelegate {
     // MARK: - DashboardViewDelegate
     
     func dashboardView(dashboardView: DashboardView, didSelectContentPromo contentPromo: ContentPromo) {
-        sendNavigationEvent(ShowProductDetailsEvent()) // TODO: - Change to proper event
+//        sendNavigationEvent(ShowProductDetailsEvent()) // TODO: - Change to proper event
     }
     
     func dashboardView(dashboardView: DashboardView, didSelectRecommendation productRecommendation: ProductRecommendation) {
-        sendNavigationEvent(ShowProductDetailsEvent()) // TODO: - Change to proper event
+        let context = model.createProductDetailsContext(forRecommendation: productRecommendation)
+        sendNavigationEvent(ShowProductDetailsEvent(context: context))
     }
 }

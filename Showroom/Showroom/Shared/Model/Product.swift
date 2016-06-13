@@ -8,7 +8,7 @@ typealias TimeInDays = Int
 
 struct Product {
     let id: ObjectId
-    let brand: ProductDetailsBrand
+    let brand: String
     let name: String
     let basePrice: Money
     let price: Money
@@ -66,7 +66,7 @@ struct ProductDetailsFabric {
     let percentage: Int
 }
 
-// MARK: - Decodable
+// MARK: - Decodable, Encodable
 
 extension Product: Decodable {
     static func decode(j: AnyObject) throws -> Product {
@@ -82,7 +82,7 @@ extension Product: Decodable {
 }
 
 
-extension ProductDetails: Decodable {
+extension ProductDetails: Decodable, Encodable {
     static func decode(j: AnyObject) throws -> ProductDetails {
         return try ProductDetails(
             id: j => "id",
@@ -100,27 +100,62 @@ extension ProductDetails: Decodable {
             freeDelivery: j => "free_delivery"
         )
     }
+    
+    func encode() -> AnyObject {
+        let dict: NSMutableDictionary = [
+            "id": id,
+            "store": brand.encode(),
+            "name": name,
+            "msrp": basePrice.amount,
+            "price": price.amount,
+            "images": images.map { $0.encode() } as NSArray,
+            "colors": colors.map { $0.encode() } as NSArray,
+            "sizes": sizes.map { $0.encode() } as NSArray,
+            "fabrics": fabrics.map { $0.encode() } as NSArray,
+            "wait_time": waitTime,
+            "description": description as NSArray,
+            "emarsys_category": emarsysCategory,
+            "free_delivery": freeDelivery
+        ]
+        return dict
+    }
 }
 
-extension ProductDetailsBrand: Decodable {
+extension ProductDetailsBrand: Decodable, Encodable {
     static func decode(j: AnyObject) throws -> ProductDetailsBrand {
         return try ProductDetailsBrand(
             id: j => "id",
             name: j => "name"
         )
     }
+    
+    func encode() -> AnyObject {
+        let dict: NSDictionary = [
+            "id": id,
+            "name": name
+        ]
+        return dict
+    }
 }
 
-extension ProductDetailsImage: Decodable {
+extension ProductDetailsImage: Decodable, Encodable {
     static func decode(j: AnyObject) throws -> ProductDetailsImage {
         return try ProductDetailsImage(
             url: j => "url",
             color: j =>? "color"
         )
     }
+    
+    func encode() -> AnyObject {
+        let dict: NSMutableDictionary = [
+            "url": url
+        ]
+        if color != nil { dict.setObject(color!, forKey: "color") }
+        return dict
+    }
 }
 
-extension ProductDetailsColor: Decodable {
+extension ProductDetailsColor: Decodable, Encodable {
     static func decode(j: AnyObject) throws -> ProductDetailsColor {
         return try ProductDetailsColor(
             id: j => "id",
@@ -130,6 +165,17 @@ extension ProductDetailsColor: Decodable {
             sizes: j => "sizes"
         )
     }
+    
+    func encode() -> AnyObject {
+        let dict: NSDictionary = [
+            "id": id,
+            "name": name,
+            "type": type.rawValue,
+            "value": value,
+            "sizes": sizes as NSArray
+        ]
+        return dict
+    }
 }
 
 extension ProductDetailsColorType: Decodable {
@@ -138,7 +184,7 @@ extension ProductDetailsColorType: Decodable {
     }
 }
 
-extension ProductDetailsSize: Decodable {
+extension ProductDetailsSize: Decodable, Encodable {
     static func decode(j: AnyObject) throws -> ProductDetailsSize {
         return try ProductDetailsSize(
             id: j => "id",
@@ -147,14 +193,32 @@ extension ProductDetailsSize: Decodable {
             measurements: j => "measurements"
         )
     }
+    
+    func encode() -> AnyObject {
+        let dict: NSDictionary = [
+            "id": id,
+            "name": name,
+            "colors": colors as NSArray,
+            "measurements": measurements as NSDictionary
+        ]
+        return dict
+    }
 }
 
-extension ProductDetailsFabric: Decodable {
+extension ProductDetailsFabric: Decodable, Encodable {
     static func decode(j: AnyObject) throws -> ProductDetailsFabric {
         return try ProductDetailsFabric(
             name: j => "name",
             percentage: j => "percentage"
         )
+    }
+    
+    func encode() -> AnyObject {
+        let dict: NSDictionary = [
+            "name": name,
+            "percentage": percentage
+        ]
+        return dict
     }
 }
 

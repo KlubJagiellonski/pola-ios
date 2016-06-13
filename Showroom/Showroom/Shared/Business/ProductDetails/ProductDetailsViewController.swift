@@ -1,20 +1,23 @@
 import Foundation
 import UIKit
+import RxSwift
 
 class ProductDetailsViewController: UIViewController, ProductDetailsViewDelegate, ProductPageViewControllerDelegate {
+    private let resolver: DiResolver
+    private let disposeBag = DisposeBag()
+    private let model: ProductDetailsModel
+    private var castView: ProductDetailsView { return view as! ProductDetailsView }
+    private var indexedViewControllers: [Int: UIViewController] = [:]
     
-    let resolver: DiResolver
-    
-    let model: ProductDetailsModel
-    var castView: ProductDetailsView { return view as! ProductDetailsView }
-    
-    var indexedViewControllers: [Int: UIViewController] = [:]
-    
-    init(resolver: DiResolver) {
+    init(resolver: DiResolver, context: ProductDetailsContext) {
         self.resolver = resolver
-        self.model = resolver.resolve(ProductDetailsModel.self)
+        model = resolver.resolve(ProductDetailsModel.self, argument: context)
         
         super.init(nibName: nil, bundle: nil)
+        
+        model.productInfosObservable.subscribeNext { [weak self] products in
+            self?.castView.updatePageCount(products.count)
+        }.addDisposableTo(disposeBag)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -30,7 +33,12 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewDelegate
         
         castView.delegate = self
         castView.pageHandler = self
-        castView.updatePageCount(model.pageCount)
+        castView.updatePageCount(model.productInfos.count)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        castView.scrollToPage(atIndex: model.initialProductIndex, animated: false)
     }
     
     // MARK: - ProductDetailsViewDelegate
@@ -60,8 +68,9 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewDelegate
 
 extension ProductDetailsViewController: ProductDetailsPageHandler {
     func page(forIndex index: Int, removePageIndex: Int) -> UIView {
+        let productInfoTuple = model.productInfos[index].toTuple()
         let currentViewController = indexedViewControllers[removePageIndex]
-        let newViewController = resolver.resolve(ProductPageViewController.self)
+        let newViewController = resolver.resolve(ProductPageViewController.self, arguments: productInfoTuple)
         newViewController.viewContentInset = UIEdgeInsets(top: topLayoutGuide.length, left: 0, bottom: bottomLayoutGuide.length, right: 0)
         newViewController.delegate = self
         
@@ -79,5 +88,6 @@ extension ProductDetailsViewController: ProductDetailsPageHandler {
         
         indexedViewControllers[removePageIndex] = nil
         indexedViewControllers[index] = newViewController
+        model.didMoveToPage(atIndex: index)
     }
 }

@@ -14,6 +14,7 @@ struct Constants {
     
     struct Cache {
         static let contentPromoId = "ContentPromoId"
+        static let productDetails = "ProductDetails"
         static let productRecommendationsId = "productRecommendationsId"
     }
 }

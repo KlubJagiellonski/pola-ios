@@ -18,8 +18,8 @@ class DashboardPresenterController: PresenterViewController, NavigationHandler {
     
     func handleNavigationEvent(event: NavigationEvent) -> EventHandled {
         switch event {
-        case _ as ShowProductDetailsEvent:
-            currentModalViewController = resolver.resolve(ProductDetailsViewController.self)
+        case let showProductDetailsEvent as ShowProductDetailsEvent:
+            currentModalViewController = resolver.resolve(ProductDetailsViewController.self, argument: showProductDetailsEvent.context)
             return true
         case let simpleEvent as SimpleNavigationEvent:
             switch simpleEvent.type {

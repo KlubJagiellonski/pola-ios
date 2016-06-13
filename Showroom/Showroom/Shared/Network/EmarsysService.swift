@@ -19,8 +19,8 @@ extension EmarsysService {
                     let productRecommendations = try result.products.map { item in try ProductRecommendation.decode(item.data) }
                     let productRecommendationResult = ProductRecommendationResult(productRecommendations: productRecommendations)
                     observer.onNext(productRecommendationResult)
-                } catch let e {
-                    observer.onError(e)
+                } catch {
+                    observer.onError(error)
                 }
                 observer.onCompleted()
             }

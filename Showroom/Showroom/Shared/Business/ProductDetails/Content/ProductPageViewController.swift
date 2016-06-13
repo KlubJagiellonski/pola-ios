@@ -16,10 +16,11 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate, Prod
     private let resolver: DiResolver
     private let disposeBag = DisposeBag()
     private let actionAnimator = DropUpActionAnimator(height: 216)
+    private var firstLayoutSubviewsPassed = false
     
-    init(resolver: DiResolver) {
+    init(resolver: DiResolver, productId: ObjectId, product: Product?) {
         self.resolver = resolver
-        model = resolver.resolve(ProductPageModel.self)
+        model = resolver.resolve(ProductPageModel.self, arguments: (productId, product))
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -46,14 +47,24 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate, Prod
         castView.contentInset = viewContentInset
         castView.delegate = self
         
-        model.fetchProductDetails(1234).subscribeNext { fetchResult in
+        model.fetchProductDetails().subscribeNext { fetchResult in
             switch fetchResult {
             case .Success(let productDetails):
                 logInfo("Successfuly fetched product details: \(productDetails)")
             case .NetworkError(let errorType):
                 logInfo("Error while downloading product info: \(errorType)")
+            case .CacheError(let errorType):
+                logInfo("Error while getting product info from cache: \(errorType)")
             }
         }.addDisposableTo(disposeBag)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if !firstLayoutSubviewsPassed {
+            firstLayoutSubviewsPassed = true
+            castView.changeViewState(.Default, animated: false)
+        }
     }
     
     func dismissContentView() {

@@ -80,6 +80,11 @@ class ProductDetailsView: UIView, UICollectionViewDelegateFlowLayout {
         dataSource.pageCount = pageCount
     }
     
+    func scrollToPage(atIndex index: Int, animated: Bool) {
+        let indexPath = NSIndexPath(forItem: index, inSection: 0)
+        collectionView.scrollToItemAtIndexPath(indexPath, atScrollPosition: .Left, animated: animated)
+    }
+    
     func onCloseButtonTapped(button: UIButton) {
         delegate?.productDetailsDidTapClose(self)
     }

@@ -42,17 +42,17 @@ class UIAssembly: AssemblyType {
         container.register(BasketModel.self) { r in
             return BasketModel(apiService: r.resolve(ApiService.self)!, basketManager: r.resolve(BasketManager.self)!)
         }
-        container.register(ProductDetailsViewController.self) { r in
-            return ProductDetailsViewController(resolver: r.resolve(DiResolver.self)!)
+        container.register(ProductDetailsViewController.self) { r, context in
+            return ProductDetailsViewController(resolver: r.resolve(DiResolver.self)!, context: context)
         }
-        container.register(ProductDetailsModel.self) { r in
-            return ProductDetailsModel()
+        container.register(ProductDetailsModel.self) { r, context in
+            return ProductDetailsModel(context: context)
         }
-        container.register(ProductPageViewController.self) { r in
-            return ProductPageViewController(resolver: r.resolve(DiResolver.self)!)
+        container.register(ProductPageViewController.self) { r, productId, product in
+            return ProductPageViewController(resolver: r.resolve(DiResolver.self)!, productId: productId, product: product)
         }
-        container.register(ProductPageModel.self) { r in
-            return ProductPageModel(api: r.resolve(ApiService.self)!)
+        container.register(ProductPageModel.self) { r, productId, product in
+            return ProductPageModel(api: r.resolve(ApiService.self)!, storageManager: r.resolve(StorageManager.self)!, productId: productId, product: product)
         }
         container.register(ProductSizeViewController.self) { r, sizes, selectedSizeId in
             return ProductSizeViewController(resolver: r.resolve(DiResolver.self)!, sizes: sizes, initialSelectedSizeId: selectedSizeId)

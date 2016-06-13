@@ -3,12 +3,19 @@ import UIKit
 
 class ProductRecommendationDataSource: NSObject, UICollectionViewDataSource {
     private var productRecommendations: [ProductRecommendation] = []
+    
     weak var collectionView: UICollectionView? {
         didSet {
             guard oldValue != collectionView else { return }
             
             collectionView?.registerClass(ProductRecommendationCell.self, forCellWithReuseIdentifier: String(ProductRecommendationCell))
         }
+    }
+    
+    func moveToPosition(atIndex index: Int, animated: Bool) {
+        guard let view = collectionView else { return }
+        let indexPath = NSIndexPath(forItem: index, inSection: 0)
+        view.scrollToItemAtIndexPath(indexPath, atScrollPosition: .CenteredHorizontally, animated: animated)
     }
     
     func changeData(productRecommendations: [ProductRecommendation]) {

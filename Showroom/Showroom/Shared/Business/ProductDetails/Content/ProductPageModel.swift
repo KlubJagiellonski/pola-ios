@@ -3,8 +3,11 @@ import RxSwift
 
 class ProductPageModel {
     let api: ApiService
+    let storageManager: StorageManager
+    let productId: Int
+    let cacheId: String
     
-    var state: ProductPageModelState = ProductPageModelState()
+    var state: ProductPageModelState
     
     var pickerSizes: [ProductSize]? {
         guard let productDetails = state.productDetails else { return nil }
@@ -24,7 +27,7 @@ class ProductPageModel {
         let baseUrl = "https://www.showroom.pl/p/"
         
         if let product = state.product {
-            return (product.brand.name + " " + product.name, NSURL(string: baseUrl + String(product.id))!)
+            return (product.name + " " + product.name, NSURL(string: baseUrl + String(product.id))!)
             
         } else if let productDetails = state.productDetails {
             return (productDetails.brand.name + " " + productDetails.name, NSURL(string: baseUrl + String(productDetails.id))!)
@@ -34,22 +37,41 @@ class ProductPageModel {
         }
     }
     
-    init(api: ApiService) {
+    init(api: ApiService, storageManager: StorageManager, productId: ObjectId, product: Product? = nil) {
         self.api = api
+        self.storageManager = storageManager
+        self.productId = productId
+        cacheId = Constants.Cache.productDetails + String(productId)
+        state = ProductPageModelState(product: product)
     }
     
-    func fetchProductDetails(id: Int) -> Observable<FetchResult<ProductDetails>> {
-        return api.fetchProductDetails(withProductId: id)
-            .observeOn(MainScheduler.instance)
-            .doOnNext { [weak self] productDetails in
-                self?.state.productDetails = productDetails
-                self?.state.currentColor = self?.defaultColor(forProductDetails: productDetails)
-                self?.state.currentSize = self?.defaultSize(forProductDetails: productDetails)
-            }
+    func fetchProductDetails() -> Observable<FetchCacheResult<ProductDetails>> {
+        let existingResult = state.productDetails
+        let memoryCache: Observable<ProductDetails> = existingResult == nil ? Observable.empty() : Observable.just(existingResult!)
+        
+        let diskCache: Observable<ProductDetails> = Observable.retrieveFromCache(cacheId, storageManager: storageManager)
+            .subscribeOn(ConcurrentDispatchQueueScheduler(globalConcurrentQueueQOS: .Background))
+        
+        let cacheCompose = Observable.of(memoryCache, diskCache)
+            .concat().take(1)
+            .map { FetchCacheResult.Success($0) }
+            .catchError { Observable.just(FetchCacheResult.CacheError($0)) }
+        
+        let network = api.fetchProductDetails(withProductId: productId)
+            .saveToCache(cacheId, storageManager: storageManager)
+            .map { FetchCacheResult.Success($0) }
+            .catchError { Observable.just(FetchCacheResult.NetworkError($0)) }
+        
+        return Observable.of(cacheCompose, network)
             .observeOn(ConcurrentDispatchQueueScheduler(globalConcurrentQueueQOS: .Background))
-            .map { FetchResult.Success($0) }
-            .catchError { Observable.just(FetchResult.NetworkError($0)) }
+            .merge().distinctUntilChanged(==)
             .observeOn(MainScheduler.instance)
+            .doOnNext { [weak self] result in
+                self?.state.productDetails = result.result()
+                guard let productDetails = result.result() else { return }
+                self?.state.currentSize = self?.defaultSize(forProductDetails: productDetails)
+                self?.state.currentColor = self?.defaultColor(forProductDetails: productDetails)
+            }
     }
     
     func changeSelectedSize(forSizeId sizeId: ObjectId) {
@@ -89,11 +111,8 @@ class ProductPageModelState {
     let currentColorObservable = PublishSubject<ProductDetailsColor?>()
     let buyButtonObservable = PublishSubject<Bool>()
     let productDetailsObservable = PublishSubject<ProductDetails?>()
-    let productObservable = PublishSubject<Product?>()
     
-    var product: Product? {
-        didSet { productObservable.onNext(product) }
-    }
+    var product: Product?
     var productDetails: ProductDetails? {
         didSet { productDetailsObservable.onNext(productDetails) }
     }
@@ -105,5 +124,9 @@ class ProductPageModelState {
     }
     var buyButtonEnabled: Bool = false {
         didSet { buyButtonObservable.onNext(buyButtonEnabled) }
+    }
+
+    init(product: Product?) {
+        self.product = product
     }
 }

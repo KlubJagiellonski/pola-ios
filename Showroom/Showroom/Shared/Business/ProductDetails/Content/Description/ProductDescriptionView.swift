@@ -60,8 +60,7 @@ class ProductDescriptionView: UIView, UITableViewDelegate, ProductDescriptionVie
         modelState.currentSizeObservable.subscribeNext(updateCurrentSize).addDisposableTo(disposeBag)
         modelState.buyButtonObservable.subscribeNext(updateBuyButtonEnabledState).addDisposableTo(disposeBag)
         modelState.productDetailsObservable.subscribeNext(updateProductDetails).addDisposableTo(disposeBag)
-        modelState.productObservable.subscribeNext(updateProduct).addDisposableTo(disposeBag)
-        
+        updateProduct(modelState.product)
         
         tableView.showsVerticalScrollIndicator = false
         tableView.backgroundColor = UIColor.clearColor()
@@ -100,15 +99,12 @@ class ProductDescriptionView: UIView, UITableViewDelegate, ProductDescriptionVie
     
     private func updateProduct(product: Product?) {
         guard let p = product else { return }
-        headerView.brandNameLabel.text = p.brand.name
+        headerView.brandNameLabel.text = p.brand
         headerView.nameLabel.text = p.name
         headerView.priceLabel.basePrice = p.basePrice
         if p.basePrice != p.price {
             headerView.priceLabel.discountPrice = p.price
         }
-        
-        headerView.priceLabel.invalidateIntrinsicContentSize()
-        headerView.invalidateIntrinsicContentSize()
     }
     
     private func updateProductDetails(productDetails: ProductDetails?) {
@@ -218,7 +214,9 @@ class DescriptionHeaderView: UIView {
         nameLabel.textColor = UIColor(named: .Black)
         
         sizeButton.enabled = false
+        sizeButton.value = .Text("")
         colorButton.enabled = false
+        colorButton.value = .Text("")
         
         buyButton.applyBlueStyle()
         buyButton.setTitle(tr(.ProductDetailsToBasket), forState: .Normal)

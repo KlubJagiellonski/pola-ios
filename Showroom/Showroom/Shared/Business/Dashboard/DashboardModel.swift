@@ -1,12 +1,14 @@
 import Foundation
 import RxSwift
 import Decodable
+import Haneke
 
 class DashboardModel {
-    let apiService: ApiService
-    let emarsysService: EmarsysService
-    let userManager: UserManager
-    let storageManager: StorageManager
+    private let apiService: ApiService
+    private let emarsysService: EmarsysService
+    private let userManager: UserManager
+    private let storageManager: StorageManager
+    let state = DashboardModelState()
     
     init(apiService: ApiService, userManager: UserManager, storageManager: StorageManager, emarsysService: EmarsysService) {
         self.apiService = apiService
@@ -16,47 +18,75 @@ class DashboardModel {
     }
     
     func fetchContentPromo() -> Observable<FetchCacheResult<ContentPromoResult>> {
-        let diskCache: Observable<FetchCacheResult<ContentPromoResult>> = Observable.retrieveFromCache(Constants.Cache.contentPromoId, storageManager: storageManager)
+        let existingResult = state.contentPromoResult
+        let memoryCache: Observable<ContentPromoResult> = existingResult == nil ? Observable.empty() : Observable.just(existingResult!)
+        
+        let diskCache: Observable<ContentPromoResult> = Observable.retrieveFromCache(Constants.Cache.contentPromoId, storageManager: storageManager)
+            .subscribeOn(ConcurrentDispatchQueueScheduler(globalConcurrentQueueQOS: .Background))
+        
+        let cacheCompose = Observable.of(memoryCache, diskCache)
+            .concat().take(1)
             .map { FetchCacheResult.Success($0) }
             .catchError { Observable.just(FetchCacheResult.CacheError($0)) }
-            .subscribeOn(ConcurrentDispatchQueueScheduler(globalConcurrentQueueQOS: .Background))
-            .observeOn(MainScheduler.instance)
         
         let network = apiService.fetchContentPromo(withGender: userManager.gender)
             .saveToCache(Constants.Cache.contentPromoId, storageManager: storageManager)
             .map { FetchCacheResult.Success($0) }
             .catchError { Observable.just(FetchCacheResult.NetworkError($0)) }
-            .observeOn(MainScheduler.instance)
         
-        return Observable.of(diskCache, network).merge().distinctUntilChanged(==)
+        return Observable.of(cacheCompose, network)
+            .observeOn(ConcurrentDispatchQueueScheduler(globalConcurrentQueueQOS: .Background))
+            .merge().distinctUntilChanged(==)
+            .observeOn(MainScheduler.instance)
+            .doOnNext { [weak self] result in self?.state.contentPromoResult = result.result() }
     }
     
     func fetchRecommendations() -> Observable<FetchCacheResult<ProductRecommendationResult>> {
-        let diskCache: Observable<FetchCacheResult<ProductRecommendationResult>> = Observable.retrieveFromCache(Constants.Cache.productRecommendationsId, storageManager: storageManager)
+        let existingResult = state.recommendationsResult
+        let memoryCache: Observable<ProductRecommendationResult> = existingResult == nil ? Observable.empty() : Observable.just(existingResult!)
+        
+        let diskCache: Observable<ProductRecommendationResult> = Observable.retrieveFromCache(Constants.Cache.productRecommendationsId, storageManager: storageManager)
+            .subscribeOn(ConcurrentDispatchQueueScheduler(globalConcurrentQueueQOS: .Background))
+        
+        let cacheCompose = Observable.of(memoryCache, diskCache)
+            .concat().take(1)
             .map { FetchCacheResult.Success($0) }
             .catchError { Observable.just(FetchCacheResult.CacheError($0)) }
-            .subscribeOn(ConcurrentDispatchQueueScheduler(globalConcurrentQueueQOS: .Background))
-            .observeOn(MainScheduler.instance)
         
         let network = emarsysService.fetchProductRecommendations()
             .saveToCache(Constants.Cache.productRecommendationsId, storageManager: storageManager)
             .map { FetchCacheResult.Success($0) }
             .catchError { Observable.just(FetchCacheResult.NetworkError($0)) }
-            .observeOn(MainScheduler.asyncInstance)
         
-        return Observable.of(diskCache, network).merge().distinctUntilChanged(==)
+        return Observable.of(cacheCompose, network)
+            .observeOn(ConcurrentDispatchQueueScheduler(globalConcurrentQueueQOS: .Background))
+            .merge().distinctUntilChanged(==)
+            .observeOn(MainScheduler.instance)
+            .doOnNext { [weak self] result in self?.state.recommendationsResult = result.result() }
+    }
+    
+    func createProductDetailsContext(forRecommendation recommendation : ProductRecommendation) -> ProductDetailsContext {
+        let recommendations = state.recommendationsResult!.productRecommendations
+        let index = recommendations.indexOf(recommendation)!
+        let productInfos = recommendations.map { productRecommendation in return ProductInfo.Object(productRecommendation.toProduct()) }
+        return OnePageProductDetailsContext(productInfos: productInfos, initialProductIndex: index) { [weak self] index in
+            self?.state.recommendationsIndex = index
+        }
     }
 }
 
-// MARK: - Equatable
-extension FetchCacheResult: Equatable {}
-
-func ==<T: Equatable>(lhs: FetchCacheResult<T>, rhs: FetchCacheResult<T>) -> Bool
-{
-    if case let FetchCacheResult.Success(lhsResult) = lhs {
-        if case let FetchCacheResult.Success(rhsResult) = rhs {
-            return lhsResult == rhsResult
-        }
+class DashboardModelState {
+    let recommendationsResultObservable = PublishSubject<ProductRecommendationResult?>()
+    let contentPromoObservable = PublishSubject<ContentPromoResult?>()
+    let recommendationsIndexObservable = PublishSubject<Int>()
+    
+    var recommendationsResult: ProductRecommendationResult? {
+        didSet { recommendationsResultObservable.onNext(recommendationsResult) }
     }
-    return false
+    var contentPromoResult: ContentPromoResult? {
+        didSet { contentPromoObservable.onNext(contentPromoResult) }
+    }
+    var recommendationsIndex: Int = 0 {
+        didSet { recommendationsIndexObservable.onNext(recommendationsIndex) }
+    }
 }

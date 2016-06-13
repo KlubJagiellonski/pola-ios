@@ -43,13 +43,6 @@ class ProductPageView: UIView, UICollectionViewDelegateFlowLayout {
             imageCollectionView.scrollEnabled = viewState != ProductPageViewState.ContentVisible
         }
     }
-    private var viewsAlpha: CGFloat = 0 {
-        didSet {
-            contentView.alpha = viewsAlpha
-            buttonStackView.alpha = viewsAlpha
-            pageControl.alpha = viewsAlpha
-        }
-    }
     private weak var descriptionViewInterface: ProductDescriptionViewInterface?
     
     var currentImageIndex: Int {
@@ -68,7 +61,7 @@ class ProductPageView: UIView, UICollectionViewDelegateFlowLayout {
         super.init(frame: CGRectZero)
         
         modelState.productDetailsObservable.subscribeNext(updateProductDetails).addDisposableTo(disposeBag)
-        modelState.productObservable.subscribeNext(updateProduct).addDisposableTo(disposeBag)
+        configure(forProduct: modelState.product)
         
         imageCollectionView.backgroundColor = UIColor.clearColor()
         imageCollectionView.dataSource = imageDataSource
@@ -81,16 +74,13 @@ class ProductPageView: UIView, UICollectionViewDelegateFlowLayout {
         flowLayout.minimumLineSpacing = 0
         flowLayout.minimumInteritemSpacing = 0
         
-        pageControl.alpha = viewsAlpha
         pageControl.currentPage = 0
         
-        contentView.alpha = viewsAlpha
         contentView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(ProductPageView.didPanOnDescriptionView)))
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ProductPageView.didTapOnDescriptionView))
         tapGestureRecognizer.delegate = self
         contentView.addGestureRecognizer(tapGestureRecognizer)
         
-        buttonStackView.alpha = viewsAlpha
         buttonStackView.axis = .Horizontal
         buttonStackView.spacing = 10
         
@@ -117,8 +107,8 @@ class ProductPageView: UIView, UICollectionViewDelegateFlowLayout {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func updateProduct(product: Product?) {
-        guard let p = product else { return }
+    private func configure(forProduct product: Product?) {
+        guard let p = product else { return } //todo it should show full screen spinner when there is no product info
         imageDataSource.imageUrls = [p.imageUrl]
     }
     
@@ -129,21 +119,22 @@ class ProductPageView: UIView, UICollectionViewDelegateFlowLayout {
         pageControl.numberOfPages = imageDataSource.imageUrls.count
         pageControl.invalidateIntrinsicContentSize()
         
-        //todo it should not be here
         updateContentPosition(withAnimation: true)
     }
     
+    var currentTopContentOffset:CGFloat = 0
     private func updateContentPosition(withAnimation animation: Bool, animationDuration: Double = 0.3, completion: (() -> Void)? = nil) {
-        //TODO add ImageGallery state handling
-        let notVisibleOffset = (descriptionViewInterface?.calculatedHeaderHeight ?? 0) + (contentInset?.bottom ?? 0)
-        let newDescriptionOffset = viewState == .ContentVisible ? defaultDescriptionTopMargin - bounds.height: -notVisibleOffset
+        let topContentOffset = calculateTopContentOffset()
+        if topContentOffset == currentTopContentOffset {
+            return
+        }
+        currentTopContentOffset = topContentOffset
         
         self.layoutIfNeeded()
         
         self.setNeedsLayout()
         UIView.animateWithDuration(animation ? animationDuration : 0) { [unowned self] in
-            self.viewsAlpha = 1
-            self.contentTopConstraint?.updateOffset(newDescriptionOffset)
+            self.contentTopConstraint?.updateOffset(topContentOffset)
             self.layoutIfNeeded()
         }
     }
@@ -151,7 +142,7 @@ class ProductPageView: UIView, UICollectionViewDelegateFlowLayout {
     func changeViewState(viewState: ProductPageViewState, animated: Bool, completion: (() -> Void)? = nil) {
         self.viewState = viewState
         
-        updateContentPosition(withAnimation: true, animationDuration: defaultContentAnimationDuration, completion: completion)
+        updateContentPosition(withAnimation: animated, animationDuration: defaultContentAnimationDuration, completion: completion)
     }
     
     private func configureCustomConstraints() {
@@ -185,6 +176,12 @@ class ProductPageView: UIView, UICollectionViewDelegateFlowLayout {
             make.width.equalTo(Dimensions.circleButtonDiameter)
             make.height.equalTo(whishlistButton.snp_width)
         }
+    }
+    
+    private func calculateTopContentOffset() -> CGFloat {
+        //TODO add ImageGallery state handling
+        let notVisibleOffset = (descriptionViewInterface?.calculatedHeaderHeight ?? 0) + (contentInset?.bottom ?? 0)
+        return viewState == .ContentVisible ? defaultDescriptionTopMargin - bounds.height: -notVisibleOffset
     }
     
     // MARK: - UICollectionViewDelegateFlowLayout

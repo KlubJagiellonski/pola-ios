@@ -18,15 +18,36 @@ struct ProductRecommendation {
     let url: String
 }
 
-// MARK: - Decodable
-extension ProductRecommendationResult: Decodable {
+extension ProductRecommendation {
+    func toProduct() -> Product {
+        return Product(
+            id: Int(itemId)!,
+            brand: brand,
+            name: title,
+            basePrice: basePrice,
+            price: price,
+            imageUrl: imageUrl)
+    }
+}
+
+// MARK: - Decodable, Encodable
+
+extension ProductRecommendationResult: Decodable, Encodable {
     static func decode(json: AnyObject) throws -> ProductRecommendationResult {
         let array = json as! [AnyObject]
         return ProductRecommendationResult(productRecommendations: try array.map(ProductRecommendation.decode))
     }
+    
+    func encode() -> AnyObject {
+        let encodedList: NSMutableArray = []
+        for productRecommendation in productRecommendations {
+            encodedList.addObject(productRecommendation.encode())
+        }
+        return encodedList
+    }
 }
 
-extension ProductRecommendation: Decodable {
+extension ProductRecommendation: Decodable, Encodable {
     static func decode(j: AnyObject) throws -> ProductRecommendation {
         return try ProductRecommendation(
             basePrice: j => "msrp",
@@ -41,20 +62,7 @@ extension ProductRecommendation: Decodable {
             url: j => "link"
         )
     }
-}
-
-// MARK: - Encodable
-extension ProductRecommendationResult: Encodable {
-    func encode() -> AnyObject {
-        let encodedList: NSMutableArray = []
-        for productRecommendation in productRecommendations {
-            encodedList.addObject(productRecommendation.encode())
-        }
-        return encodedList
-    }
-}
-
-extension ProductRecommendation: Encodable {
+    
     func encode() -> AnyObject {
         let dict: NSMutableDictionary = [
             "msrp": basePrice.amount,

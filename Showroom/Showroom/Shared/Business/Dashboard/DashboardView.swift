@@ -1,6 +1,7 @@
 import Foundation
 import UIKit
 import SnapKit
+import RxSwift
 
 protocol DashboardViewDelegate: class {
     func dashboardView(dashboardView: DashboardView, didSelectContentPromo contentPromo: ContentPromo)
@@ -10,6 +11,7 @@ protocol DashboardViewDelegate: class {
 class DashboardView: UIView, UITableViewDelegate, UICollectionViewDelegate {
     private let tableView = UITableView(frame: CGRectZero, style: .Plain)
     private let dataSource: ContentPromoDataSource
+    private let disposeBag = DisposeBag()
     
     var contentInset: UIEdgeInsets {
         get { return tableView.contentInset }
@@ -21,10 +23,22 @@ class DashboardView: UIView, UITableViewDelegate, UICollectionViewDelegate {
     
     weak var delegate: DashboardViewDelegate?
     
-    init() {
+    init(modelState: DashboardModelState) {
         dataSource = ContentPromoDataSource(tableView: tableView)
         
         super.init(frame: CGRectZero)
+        
+        modelState.recommendationsResultObservable.subscribeNext { [weak self] result in
+            guard let recommendations = result?.productRecommendations else { return }
+            self?.changeProductRecommendations(recommendations)
+        }.addDisposableTo(disposeBag)
+        modelState.contentPromoObservable.subscribeNext { [weak self] result in
+            guard let promos = result?.contentPromos else { return }
+            self?.changeContentPromos(promos)
+        }.addDisposableTo(disposeBag)
+        modelState.recommendationsIndexObservable.subscribeNext { [weak self] index in
+            self?.dataSource.recommendationsDataSource.moveToPosition(atIndex: index, animated: false)
+        }.addDisposableTo(disposeBag)
         
         dataSource.recommendationCollectionViewDelegate = self
         
@@ -40,11 +54,11 @@ class DashboardView: UIView, UITableViewDelegate, UICollectionViewDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func changeContentPromos(contentPromos: [ContentPromo]) {
+    private func changeContentPromos(contentPromos: [ContentPromo]) {
         dataSource.changeData(contentPromos)
     }
     
-    func changeProductRecommendations(productRecommendations: [ProductRecommendation]) {
+    private func changeProductRecommendations(productRecommendations: [ProductRecommendation]) {
         dataSource.recommendationsDataSource.changeData(productRecommendations)
     }
     
