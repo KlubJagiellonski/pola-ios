@@ -1,9 +1,10 @@
 import Foundation
 import UIKit
 
-class BasketViewController: UIViewController {
+class BasketViewController: UIViewController, BasketViewDelegate {
     let model: BasketModel
     var castView: BasketView { return view as! BasketView }
+    let sampleBasketButton: UIButton = UIButton()
     
     init(resolver: DiResolver) {
         self.model = resolver.resolve(BasketModel.self)
@@ -20,26 +21,40 @@ class BasketViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(BasketViewController.dismissKeyboard))
-        view.addGestureRecognizer(tap)
         
-       model.createSampleBasket()
-        
-//        do {
-//            try model.load()
-//        } catch {
-//            logInfo("Error during loading basket from file")
-//        }
-        
+        castView.delegate = self
         castView.updateData(withBasket: model.basket)
-//        do {
-//            try model.saveCurrentBasket()
-//        } catch {
-//            logInfo("Error during saving basket to file")
-//        }
+        
+        // TODO: Remove when API is ready
+        initSampleBasketButton()
     }
     
-    func dismissKeyboard() {
-        view.endEditing(true)
+    // MARK: - BasketViewDelegate
+    func basketViewDidDeleteProduct(product: BasketProduct) {
+        model.removeFromBasket(product)
+        castView.updateData(withBasket: model.basket)
+        updateSampleButtonVisibility()
+    }
+    
+    // MARK: - Sample basket for testing
+    private func initSampleBasketButton() {
+        sampleBasketButton.setTitle("ADD SAMPLE PRODUCTS", forState: .Normal)
+        sampleBasketButton.applyPlainStyle()
+        sampleBasketButton.addTarget(self, action: #selector(BasketViewController.sampleButtonPressed(_:)), forControlEvents: .TouchUpInside)
+        castView.addSubview(sampleBasketButton)
+        
+        sampleBasketButton.snp_makeConstraints { make in
+            make.center.equalToSuperview()
+        }
+    }
+    
+    func sampleButtonPressed(sender: UIButton) {
+        model.createSampleBasket()
+        castView.updateData(withBasket: model.basket)
+        updateSampleButtonVisibility()
+    }
+    
+    private func updateSampleButtonVisibility() {
+        sampleBasketButton.hidden = !model.basket.isEmpty
     }
 }

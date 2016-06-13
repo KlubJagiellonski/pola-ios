@@ -4,6 +4,7 @@ import UIKit
 class BasketDataSource: NSObject, UITableViewDataSource {
     private var productsByBrands: [BasketBrand] = []
     private weak var tableView: UITableView?
+    weak var basketView: BasketView?
     
     init(tableView: UITableView) {
         super.init()
@@ -40,9 +41,19 @@ class BasketDataSource: NSObject, UITableViewDataSource {
         } else {
             let item = productsByBrands[indexPath.section].products[indexPath.row]
             let cell = tableView.dequeueReusableCellWithIdentifier(String(BasketProductCell)) as! BasketProductCell
-            cell.selectionStyle = .None
             cell.updateData(item)
             return cell
+        }
+    }
+    
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return !isFooterCell(indexPath)
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if (editingStyle == UITableViewCellEditingStyle.Delete) {
+            let product = productsByBrands[indexPath.section].products[indexPath.row]
+            basketView?.dataSourceDidDeleteProduct(product)
         }
     }
     

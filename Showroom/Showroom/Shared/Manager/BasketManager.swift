@@ -7,22 +7,12 @@ class BasketManager {
     
     var basket: Basket = Basket.createEmpty()
     
-    var isEmpty: Bool {
-        get {
-            return basket.productsByBrands.count == 0
-        }
-    }
-    
     init(storageManager: StorageManager) {
         self.storageManager = storageManager
     }
     
     func addToBasket(product: BasketProduct, brand: BasketBrand) {
         // TODO: Implement adding product to Basket
-    }
-    
-    func removeFromBasket(product: BasketProduct) {
-        // TODO: Implement removing product from basket
     }
     
     func save() throws {
@@ -60,7 +50,7 @@ class BasketManager {
                     waitTime: 3,
                     products: [
                         BasketProduct(
-                            id: 1,
+                            id: 11,
                             name: "Sweter Serce z dekoltem na plecach",
                             imageUrl: "https://static.shwrm.net/images/w/8/w8573104cca75da_500x643.jpg",
                             size: BasketProductSize(id: 1, name: "XS"),
@@ -72,13 +62,13 @@ class BasketManager {
                     ]
                 ),
                 BasketBrand(
-                    id: 1,
+                    id: 2,
                     name: "RISK made in warsaw",
                     shippingPrice: Money(amt: 10.0),
                     waitTime: 3,
                     products: [
                         BasketProduct(
-                            id: 1,
+                            id: 12,
                             name: "Spódnica maxi The Forever Skirt",
                             imageUrl: "https://static.shwrm.net/images/g/t/gt573d85d13b9f7_500x643.jpg",
                             size: BasketProductSize(id: 0, name: "S"),
@@ -88,7 +78,7 @@ class BasketManager {
                             amount: 1
                         ),
                         BasketProduct(
-                            id: 1,
+                            id: 13,
                             name: "Spódnica Inka white",
                             imageUrl: "https://static.shwrm.net/images/w/a/wa572b3deddf05a_500x643.jpg",
                             size: nil,
@@ -100,13 +90,13 @@ class BasketManager {
                     ]
                 ),
                 BasketBrand(
-                    id: 1,
+                    id: 3,
                     name: "Beata Cupriak",
                     shippingPrice: Money(amt: 10.0),
                     waitTime: 7,
                     products: [
                         BasketProduct(
-                            id: 1,
+                            id: 14,
                             name: "Sukienka Figurynka beżowo-brązowa",
                             imageUrl: "https://static.shwrm.net/images/r/6/r6570e390c3e8cc_500x643.jpg",
                             size: BasketProductSize(id: 1, name: "36"),
@@ -116,7 +106,7 @@ class BasketManager {
                             amount: 1
                         ),
                         BasketProduct(
-                            id: 1,
+                            id: 15,
                             name: "Sukienka Crema midi z dżerseju",
                             imageUrl: "https://static.shwrm.net/images/b/o/bo570f86beaebe4_500x643.jpg",
                             size: BasketProductSize(id: 1, name: "L"),

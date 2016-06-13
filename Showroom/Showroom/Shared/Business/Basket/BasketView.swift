@@ -2,15 +2,22 @@ import Foundation
 import UIKit
 import SnapKit
 
+protocol BasketViewDelegate: class {
+    func basketViewDidDeleteProduct(product: BasketProduct)
+}
+
 class BasketView: UIView, UITableViewDelegate {
-    private let tableView = UITableView(frame: CGRectZero, style: .Plain)
     private let checkoutView = BasketCheckoutView()
     private let dataSource: BasketDataSource;
+    let tableView = UITableView(frame: CGRectZero, style: .Plain)
+    
+    weak var delegate: BasketViewDelegate?
     
     init() {
         dataSource = BasketDataSource(tableView: tableView)
-        
         super.init(frame: CGRectZero)
+        
+        dataSource.basketView = self
         
         tableView.delegate = self
         tableView.dataSource = dataSource
@@ -25,10 +32,17 @@ class BasketView: UIView, UITableViewDelegate {
         addSubview(checkoutView)
         
         configureCustomConstraints()
+        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(BasketView.dismissKeyboard))
+        addGestureRecognizer(tap)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func dismissKeyboard() {
+        endEditing(true)
     }
     
     func updateData(withBasket basket: Basket) {
@@ -70,6 +84,10 @@ class BasketView: UIView, UITableViewDelegate {
         super.layoutSubviews()
         tableView.contentInset.bottom = checkoutView.frame.size.height + Dimensions.tabViewHeight
         tableView.scrollIndicatorInsets = tableView.contentInset
+    }
+    
+    func dataSourceDidDeleteProduct(product: BasketProduct) {
+        delegate?.basketViewDidDeleteProduct(product)
     }
 }
 

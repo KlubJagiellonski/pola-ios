@@ -5,15 +5,11 @@ class BasketModel {
     private let basketManager: BasketManager
     
     var basket: Basket {
-        get {
-            return basketManager.basket
-        }
+        return basketManager.basket
     }
     
     var isEmpty: Bool {
-        get {
-            return basketManager.isEmpty
-        }
+        return basket.isEmpty
     }
     
     init(apiService: ApiService, basketManager: BasketManager) {
@@ -27,6 +23,10 @@ class BasketModel {
     
     func saveCurrentBasket() throws {
         try basketManager.save()
+    }
+    
+    func removeFromBasket(product: BasketProduct) {
+        basketManager.basket.removeProduct(product)
     }
     
     func createSampleBasket() {

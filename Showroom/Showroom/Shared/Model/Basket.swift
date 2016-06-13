@@ -2,13 +2,27 @@ import Foundation
 import Decodable
 
 struct Basket {
-    let productsByBrands: [BasketBrand]
+    var productsByBrands: [BasketBrand]
     let discountCode: String?
     let basePrice: Money
     let price: Money?
     
+    var isEmpty: Bool {
+        return productsByBrands.count == 0
+    }
+    
     static func createEmpty() -> Basket {
         return Basket(productsByBrands: [], discountCode: nil, basePrice: Money(), price: nil)
+    }
+    
+    mutating func removeProduct(product: BasketProduct) {
+        guard let brandIndex = productsByBrands.indexOf({ $0.products.contains(product) }) else {
+            return
+        }
+        productsByBrands[brandIndex].removeProduct(product)
+        if productsByBrands[brandIndex].products.count == 0 {
+            productsByBrands.removeAtIndex(brandIndex)
+        }
     }
 }
 
@@ -17,7 +31,14 @@ struct BasketBrand {
     let name: String
     let shippingPrice: Money
     let waitTime: Int
-    let products: [BasketProduct]
+    var products: [BasketProduct]
+    
+    mutating func removeProduct(product: BasketProduct) {
+        guard let productIndex = products.indexOf(product) else {
+            return
+        }
+        products.removeAtIndex(productIndex)
+    }
 }
 
 struct BasketProduct: Equatable {

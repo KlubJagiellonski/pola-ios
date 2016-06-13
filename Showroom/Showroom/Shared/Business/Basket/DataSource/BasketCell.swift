@@ -14,6 +14,7 @@ class BasketProductCell: UITableViewCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: .Default, reuseIdentifier: reuseIdentifier)
+        selectionStyle = .None
         
         photoImageView.layer.masksToBounds = true
         photoImageView.contentMode = .ScaleAspectFill
@@ -102,6 +103,7 @@ class BasketShippingCell: UITableViewCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: .Default, reuseIdentifier: reuseIdentifier)
+        selectionStyle = .None
         
         shippingLabel.font = UIFont(fontType: .List)
         priceLabel.font = UIFont(fontType: .List)
