@@ -62,7 +62,7 @@ class CrashlyticsLogDestination: XCGLogDestinationProtocol {
         if logDetails.logLevel >= .Error {
             Crashlytics.sharedInstance().recordError(NSError.fromXCGLogDetails(logDetails))
         } else {
-            CLSLogv(logDetails.toMessage(), getVaList([]))
+            CLSLogv("%@", getVaList([logDetails.toMessage()]))
         }
     }
 
