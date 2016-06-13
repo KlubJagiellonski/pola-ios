@@ -43,6 +43,8 @@ enum L10n {
   case ProductActionPickSizeTitleSecondPart
   /// brak rozmiaru w wybranym kolorze
   case ProductActionSizeCellSizeUnavailable
+  /// WYBIERZ KOLOR
+  case ProductActionPickColorTitle
   /// tylko w innym rozmiarze
   case ProductActionColorCellColorUnavailable
   /// DO KOSZYKA
@@ -104,6 +106,8 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("ProductAction.PickSizeTitle.SecondPart")
       case .ProductActionSizeCellSizeUnavailable:
         return L10n.tr("ProductAction.SizeCell.SizeUnavailable")
+      case .ProductActionPickColorTitle:
+        return L10n.tr("ProductAction.PickColorTitle")
       case .ProductActionColorCellColorUnavailable:
         return L10n.tr("ProductAction.ColorCell.ColorUnavailable")
       case .ProductDetailsToBasket:

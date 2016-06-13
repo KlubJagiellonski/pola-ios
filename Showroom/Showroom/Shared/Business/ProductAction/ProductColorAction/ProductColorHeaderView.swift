@@ -13,7 +13,7 @@ class ProductColorHeaderView: UIView {
         
         backgroundColor = UIColor(named: .Snow)
         
-        label.text = tr(.ProductActionPickSizeTitleFirstPart)
+        label.text = tr(.ProductActionPickColorTitle)
         label.font = UIFont(fontType: .ProductActionHeader)
         label.adjustsFontSizeToFitWidth = true
         addSubview(label)

@@ -32,7 +32,6 @@ class SettingsViewController: UIViewController {
     }
     
     func iconsButtonPressed(sender: UIButton!) {
-        print("icons button pressed")
         let currentBarIconsVersion = (tabBarController as! MainTabViewController).iconsVersion
         (tabBarController as! MainTabViewController).iconsVersion = (currentBarIconsVersion == .Full ? .Line : .Full)
     }

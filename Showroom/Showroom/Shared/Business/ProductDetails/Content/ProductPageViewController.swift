@@ -6,7 +6,7 @@ protocol ProductPageViewControllerDelegate: class {
     func productPage(page: ProductPageViewController, didChangeProductPageViewState viewState: ProductPageViewState)
 }
 
-class ProductPageViewController: UIViewController, ProductPageViewDelegate, ProductDescriptionViewControllerDelegate {
+class ProductPageViewController: UIViewController, ProductPageViewDelegate, ProductDescriptionViewControllerDelegate, DropUpActionDelegate {
     let model: ProductPageModel
     var castView: ProductPageView { return view as! ProductPageView }
     var viewContentInset: UIEdgeInsets?
@@ -36,6 +36,7 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate, Prod
         addChildViewController(navigationController)
         view = ProductPageView(contentView: navigationController.view, descriptionViewInterface: descriptionViewController.view as! ProductDescriptionViewInterface, modelState: model.state)
         navigationController.didMoveToParentViewController(self)
+        actionAnimator.delegate = self
     }
     
     override func viewDidLoad() {
@@ -93,6 +94,11 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate, Prod
     func descriptionViewDidTapAddToBasket(view: ProductDescriptionView) {
         
     }
+    
+    func dropUpActionDidTapDimView(animator: DropUpActionAnimator) {
+        actionAnimator.dismissViewController(presentingViewController: self)
+    }
+    
 }
 
 extension ProductPageViewController: ProductSizeViewControllerDelegate {

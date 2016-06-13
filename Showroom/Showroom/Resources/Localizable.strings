@@ -18,6 +18,7 @@
 "ProductAction.PickSizeTitle.FirstPart" = "WYBIERZ ROZMIAR";
 "ProductAction.PickSizeTitle.SecondPart" = "TABELA ROZMIARÓW";
 "ProductAction.SizeCell.SizeUnavailable" = "brak rozmiaru w wybranym kolorze";
+"ProductAction.PickColorTitle" = "WYBIERZ KOLOR";
 "ProductAction.ColorCell.ColorUnavailable" = "tylko w innym rozmiarze";
 "ProductDetails.ToBasket" = "DO KOSZYKA";
 "ProductDetails.SizeChart" = "Tabela rozmiarów";
