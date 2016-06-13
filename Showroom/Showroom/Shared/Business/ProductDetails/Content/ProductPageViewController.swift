@@ -6,13 +6,15 @@ protocol ProductPageViewControllerDelegate: class {
     func productPage(page: ProductPageViewController, didChangeProductPageViewState viewState: ProductPageViewState)
 }
 
-class ProductPageViewController: UIViewController, ProductPageViewDelegate, ProductDescriptionViewControllerDelegate, DropUpActionDelegate, UIPopoverPresentationControllerDelegate {
+class ProductPageViewController: UIViewController, ProductPageViewDelegate, ProductDescriptionViewControllerDelegate, SizeChartViewControllerDelegate {
     
-    let model: ProductPageModel
-    var castView: ProductPageView { return view as! ProductPageView }
     var viewContentInset: UIEdgeInsets?
     weak var delegate: ProductPageViewControllerDelegate?
     
+    private let model: ProductPageModel
+    private var castView: ProductPageView { return view as! ProductPageView }
+    private weak var contentNavigationController: UINavigationController?
+    private weak var descriptionViewController: ProductDescriptionViewController?
     private let resolver: DiResolver
     private let disposeBag = DisposeBag()
     private let actionAnimator = DropUpActionAnimator(height: 216)
@@ -35,14 +37,19 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate, Prod
         descriptionViewController.delegate = self
         let navigationController = UINavigationController(rootViewController: descriptionViewController)
         navigationController.navigationBarHidden = true
+        navigationController.delegate = self
         addChildViewController(navigationController)
         view = ProductPageView(contentView: navigationController.view, descriptionViewInterface: descriptionViewController.view as! ProductDescriptionViewInterface, modelState: model.state)
         navigationController.didMoveToParentViewController(self)
-        actionAnimator.delegate = self
+        
+        self.contentNavigationController = navigationController
+        self.descriptionViewController = descriptionViewController
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        actionAnimator.delegate = self
         
         castView.contentInset = viewContentInset
         castView.delegate = self
@@ -69,12 +76,18 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate, Prod
     
     func dismissContentView() {
         castView.changeViewState(.Default, animated: true)
+        if contentNavigationController?.viewControllers.count > 1 {
+            contentNavigationController?.popToRootViewControllerAnimated(true)
+        }
     }
     
     // MARK:- ProductPageViewDelegate
     
     func pageView(pageView: ProductPageView, didChangePageViewState pageViewState: ProductPageViewState) {
         delegate?.productPage(self, didChangeProductPageViewState: pageViewState)
+        if pageViewState == .Default && contentNavigationController?.viewControllers.count > 1 {
+            contentNavigationController?.popToRootViewControllerAnimated(true)
+        }
     }
     
     func pageViewDidTapShareButton(pageView: ProductPageView) {
@@ -88,7 +101,6 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate, Prod
         
         if let popoverPresentationController = shareViewController.popoverPresentationController {
             popoverPresentationController.permittedArrowDirections = .Any
-            popoverPresentationController.delegate = self
         }
     }
     
@@ -111,7 +123,11 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate, Prod
     }
     
     func descriptionViewDidTapSizeChart(view: ProductDescriptionView) {
-        
+        guard let productDetails = model.state.productDetails else { return }
+        let viewController = resolver.resolve(SizeChartViewController.self, argument: productDetails.sizes)
+        viewController.delegate = self
+        viewController.viewContentInset = viewContentInset
+        contentNavigationController?.pushViewController(viewController, animated: true)
     }
     
     func descriptionViewDidTapOtherBrandProducts(view: ProductDescriptionView) {
@@ -122,10 +138,11 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate, Prod
         model.addToBasket()
     }
     
-    func dropUpActionDidTapDimView(animator: DropUpActionAnimator) {
-        actionAnimator.dismissViewController(presentingViewController: self)
-    }
+    // MARK :- SizeChartViewControllerDelegate
     
+    func sizeChartDidTapBack(viewController: SizeChartViewController) {
+        contentNavigationController?.popViewControllerAnimated(true)
+    }
 }
 
 extension ProductPageViewController: ProductSizeViewControllerDelegate {
@@ -143,5 +160,25 @@ extension ProductPageViewController: ProductColorViewControllerDelegate {
     func productColor(viewController viewController: ProductColorViewController, didChangeColor colorId: ObjectId) {
         actionAnimator.dismissViewController(presentingViewController: self)
         model.changeSelectedColor(forColorId: colorId)
+    }
+}
+
+extension ProductPageViewController: DropUpActionDelegate {
+    func dropUpActionDidTapDimView(animator: DropUpActionAnimator) {
+        actionAnimator.dismissViewController(presentingViewController: self)
+    }
+}
+
+extension ProductPageViewController: UINavigationControllerDelegate {
+    func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
+        if !(viewController is ProductDescriptionViewController) {
+            castView.contentGestureRecognizerEnabled = false
+        }
+    }
+    
+    func navigationController(navigationController: UINavigationController, didShowViewController viewController: UIViewController, animated: Bool) {
+        if viewController is ProductDescriptionViewController {
+            castView.contentGestureRecognizerEnabled = true
+        }
     }
 }

@@ -25,7 +25,6 @@ class ProductDescriptionView: UIView, UITableViewDelegate, ProductDescriptionVie
     private let defaultVerticalPadding: CGFloat = 8
     private let descriptionTableViewTopMargin: CGFloat = 10
     
-    private let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight))
     private let headerView = DescriptionHeaderView()
     private let tableView = UITableView(frame: CGRectZero, style: .Plain)
     private let separatorView = UIView()
@@ -48,6 +47,10 @@ class ProductDescriptionView: UIView, UITableViewDelegate, ProductDescriptionVie
     
     var calculatedHeaderHeight: CGFloat {
         return defaultVerticalPadding + headerView.intrinsicContentSize().height + descriptionTableViewTopMargin
+    }
+    
+    var touchRequiredView: UIView {
+        return tableView
     }
     
     init(modelState: ProductPageModelState) {
@@ -73,7 +76,6 @@ class ProductDescriptionView: UIView, UITableViewDelegate, ProductDescriptionVie
         
         separatorView.backgroundColor = UIColor(named: .Separator)
         
-        addSubview(blurView)
         addSubview(headerView)
         addSubview(separatorView)
         addSubview(tableView)
@@ -138,10 +140,6 @@ class ProductDescriptionView: UIView, UITableViewDelegate, ProductDescriptionVie
     }
     
     private func configureCustomConstraints() {
-        blurView.snp_makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        
         headerView.snp_makeConstraints { make in
             make.top.equalToSuperview().offset(defaultVerticalPadding)
             make.leading.equalToSuperview().offset(Dimensions.defaultMargin)

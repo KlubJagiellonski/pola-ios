@@ -30,6 +30,11 @@ class ProductDetailsView: UIView, UICollectionViewDelegateFlowLayout {
         let pageWidth = collectionView.frame.width
         return Int(collectionView.contentOffset.x / pageWidth)
     }
+    var scrollingEnabled = true {
+        didSet {
+            collectionView.scrollEnabled = scrollingEnabled
+        }
+    }
     weak var delegate: ProductDetailsViewDelegate?
     weak var pageHandler: ProductDetailsPageHandler? {
         set { dataSource.pageHandler = newValue }

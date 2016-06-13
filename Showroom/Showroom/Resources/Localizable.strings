@@ -26,3 +26,5 @@
 "ProductDetails.DeliveryInfo.Single" = "Wysyłka w %@ dzień";
 "ProductDetails.DeliveryInfo.Multi" = "Wysyłka w %@ dni";
 "ProductDetails.ProductDescription" = "Opis produktu";
+"ProductDetails.SizeChart.Uppercase" = "TABELA ROZMIARÓW";
+"ProductDetails.SizeChart.Size" = "rozmiar";

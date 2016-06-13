@@ -69,6 +69,8 @@
 		1DAA7C711D09BBA900545BB9 /* ProductDescriptionLineCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAA7C701D09BBA900545BB9 /* ProductDescriptionLineCell.swift */; };
 		1DAA7C731D0E9E8E00545BB9 /* TouchHandlingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAA7C721D0E9E8E00545BB9 /* TouchHandlingDelegate.swift */; };
 		1DAA7C751D0EC17F00545BB9 /* ProductDetailsContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAA7C741D0EC17F00545BB9 /* ProductDetailsContext.swift */; };
+		1DB166BD1D1006A8004F42DC /* SizeChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB166BC1D1006A8004F42DC /* SizeChartViewController.swift */; };
+		1DB166BF1D1006DC004F42DC /* SizeChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB166BE1D1006DC004F42DC /* SizeChartView.swift */; };
 		1DD161971D01A7310022B5C9 /* ProductDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD161961D01A7310022B5C9 /* ProductDetailsViewController.swift */; };
 		1DD161A21D01C06F0022B5C9 /* PresenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD161A11D01C06F0022B5C9 /* PresenterViewController.swift */; };
 		1DD161A41D01C0850022B5C9 /* PresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD161A31D01C0850022B5C9 /* PresenterView.swift */; };
@@ -239,6 +241,8 @@
 		1DAA7C701D09BBA900545BB9 /* ProductDescriptionLineCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDescriptionLineCell.swift; sourceTree = "<group>"; };
 		1DAA7C721D0E9E8E00545BB9 /* TouchHandlingDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchHandlingDelegate.swift; sourceTree = "<group>"; };
 		1DAA7C741D0EC17F00545BB9 /* ProductDetailsContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDetailsContext.swift; sourceTree = "<group>"; };
+		1DB166BC1D1006A8004F42DC /* SizeChartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SizeChartViewController.swift; sourceTree = "<group>"; };
+		1DB166BE1D1006DC004F42DC /* SizeChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SizeChartView.swift; sourceTree = "<group>"; };
 		1DD161961D01A7310022B5C9 /* ProductDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewController.swift; sourceTree = "<group>"; };
 		1DD161A11D01C06F0022B5C9 /* PresenterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresenterViewController.swift; sourceTree = "<group>"; };
 		1DD161A31D01C0850022B5C9 /* PresenterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresenterView.swift; sourceTree = "<group>"; };
@@ -542,6 +546,15 @@
 			path = Description;
 			sourceTree = "<group>";
 		};
+		1DB166BB1D10068F004F42DC /* SizeChart */ = {
+			isa = PBXGroup;
+			children = (
+				1DB166BC1D1006A8004F42DC /* SizeChartViewController.swift */,
+				1DB166BE1D1006DC004F42DC /* SizeChartView.swift */,
+			);
+			path = SizeChart;
+			sourceTree = "<group>";
+		};
 		1DD161951D01A6C40022B5C9 /* ProductDetails */ = {
 			isa = PBXGroup;
 			children = (
@@ -576,6 +589,7 @@
 		1DD161B41D01D0990022B5C9 /* Content */ = {
 			isa = PBXGroup;
 			children = (
+				1DB166BB1D10068F004F42DC /* SizeChart */,
 				1DAA7C651D099A6400545BB9 /* Description */,
 				1D7824A61D06E9B300E60392 /* DataSource */,
 				1DD161B71D01D0C10022B5C9 /* ProductPageViewController.swift */,
@@ -1046,10 +1060,12 @@
 				1DD1EA6B1CEC5D1700D99731 /* L10n.swift in Sources */,
 				1DD161971D01A7310022B5C9 /* ProductDetailsViewController.swift in Sources */,
 				1DD161AC1D01C8680022B5C9 /* ProductDetailsView.swift in Sources */,
+				1DB166BD1D1006A8004F42DC /* SizeChartViewController.swift in Sources */,
 				1D7824B71D0709D200E60392 /* Utils.swift in Sources */,
 				1DD1EA931CF2E93900D99731 /* RootModel.swift in Sources */,
 				C09367181D09AB79004C7748 /* UIFontAssets.swift in Sources */,
 				1DAA7C6F1D09AEF700545BB9 /* ProductDescriptionSimpleCell.swift in Sources */,
+				1DB166BF1D1006DC004F42DC /* SizeChartView.swift in Sources */,
 				1DD1EA761CEDB2A300D99731 /* ContentPromoDataSource.swift in Sources */,
 				1DA6FA2F1CFF265E004BF10B /* ContentPromoRecommendationsHeaderCell.swift in Sources */,
 				75C8545E1D05660400E5F08F /* BasketHeader.swift in Sources */,

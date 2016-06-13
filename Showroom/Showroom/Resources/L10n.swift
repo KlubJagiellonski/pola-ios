@@ -59,6 +59,10 @@ enum L10n {
   case ProductDetailsDeliveryInfoMulti(String)
   /// Opis produktu
   case ProductDetailsProductDescription
+  /// TABELA ROZMIARÓW
+  case ProductDetailsSizeChartUppercase
+  /// rozmiar
+  case ProductDetailsSizeChartSize
 }
 
 extension L10n: CustomStringConvertible {
@@ -122,6 +126,10 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("ProductDetails.DeliveryInfo.Multi", p0)
       case .ProductDetailsProductDescription:
         return L10n.tr("ProductDetails.ProductDescription")
+      case .ProductDetailsSizeChartUppercase:
+        return L10n.tr("ProductDetails.SizeChart.Uppercase")
+      case .ProductDetailsSizeChartSize:
+        return L10n.tr("ProductDetails.SizeChart.Size")
     }
   }
 

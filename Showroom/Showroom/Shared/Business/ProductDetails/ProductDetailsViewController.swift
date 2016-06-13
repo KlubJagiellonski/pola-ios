@@ -59,8 +59,10 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewDelegate
         switch viewState {
         case .Default:
             castView.closeButtonState = .Close
+            castView.scrollingEnabled = true
         case .ContentVisible:
             castView.closeButtonState = .Dismiss
+            castView.scrollingEnabled = false
         case .ImageGallery: break // todo image gallery
         }
     }

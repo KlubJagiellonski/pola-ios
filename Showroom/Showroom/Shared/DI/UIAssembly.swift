@@ -60,5 +60,8 @@ class UIAssembly: AssemblyType {
         container.register(ProductDescriptionViewController.self) { r, modelState in
             return ProductDescriptionViewController(modelState: modelState)
         }
+        container.register(SizeChartViewController.self) { r, sizes in
+            return SizeChartViewController(sizes: sizes)
+        }
     }
 }

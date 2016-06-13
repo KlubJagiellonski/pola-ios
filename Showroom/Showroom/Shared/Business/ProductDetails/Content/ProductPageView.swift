@@ -6,6 +6,7 @@ import RxSwift
 protocol ProductDescriptionViewInterface: class {
     var headerHeight: CGFloat { get }
     var calculatedHeaderHeight: CGFloat { get }
+    var touchRequiredView: UIView { get } // view for which we want to disable uitapgesturerecognizer
 }
 
 protocol ProductPageViewDelegate: class {
@@ -26,7 +27,7 @@ class ProductPageView: UIView, UICollectionViewDelegateFlowLayout {
     
     private let imageCollectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: UICollectionViewFlowLayout())
     private let pageControl = VerticalPageControl()
-    private let contentView: UIView
+    private let contentContainerView = UIView()
     private let buttonStackView = UIStackView()
     private let whishlistButton = UIButton()
     private let shareButton = UIButton()
@@ -50,10 +51,14 @@ class ProductPageView: UIView, UICollectionViewDelegateFlowLayout {
         return Int(imageCollectionView.contentOffset.y / pageHeight)
     }
     var contentInset: UIEdgeInsets?
+    var contentGestureRecognizerEnabled = true {
+        didSet {
+            contentContainerView.gestureRecognizers?.forEach { $0.enabled = contentGestureRecognizerEnabled }
+        }
+    }
     weak var delegate: ProductPageViewDelegate?
     
     init(contentView: UIView, descriptionViewInterface: ProductDescriptionViewInterface, modelState: ProductPageModelState) {
-        self.contentView = contentView
         self.descriptionViewInterface = descriptionViewInterface
         self.modelState = modelState
         imageDataSource = ProductImageDataSource(collectionView: imageCollectionView)
@@ -76,10 +81,10 @@ class ProductPageView: UIView, UICollectionViewDelegateFlowLayout {
         
         pageControl.currentPage = 0
         
-        contentView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(ProductPageView.didPanOnDescriptionView)))
+        contentContainerView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(ProductPageView.didPanOnDescriptionView)))
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ProductPageView.didTapOnDescriptionView))
         tapGestureRecognizer.delegate = self
-        contentView.addGestureRecognizer(tapGestureRecognizer)
+        contentContainerView.addGestureRecognizer(tapGestureRecognizer)
         
         buttonStackView.axis = .Horizontal
         buttonStackView.spacing = 10
@@ -95,9 +100,12 @@ class ProductPageView: UIView, UICollectionViewDelegateFlowLayout {
         buttonStackView.addArrangedSubview(whishlistButton)
         buttonStackView.addArrangedSubview(shareButton)
         
+        contentContainerView.addSubview(UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)))
+        contentContainerView.addSubview(contentView)
+        
         addSubview(imageCollectionView)
         addSubview(pageControl)
-        addSubview(contentView)
+        addSubview(contentContainerView)
         addSubview(buttonStackView)
         
         configureCustomConstraints()
@@ -123,9 +131,9 @@ class ProductPageView: UIView, UICollectionViewDelegateFlowLayout {
     }
     
     var currentTopContentOffset:CGFloat = 0
-    private func updateContentPosition(withAnimation animation: Bool, animationDuration: Double = 0.3, completion: (() -> Void)? = nil) {
+    private func updateContentPosition(withAnimation animation: Bool, animationDuration: Double = 0.3, forceOffsetUpdate: Bool = false, completion: (() -> Void)? = nil) {
         let topContentOffset = calculateTopContentOffset()
-        if topContentOffset == currentTopContentOffset {
+        if topContentOffset == currentTopContentOffset && !forceOffsetUpdate {
             return
         }
         currentTopContentOffset = topContentOffset
@@ -150,11 +158,15 @@ class ProductPageView: UIView, UICollectionViewDelegateFlowLayout {
             make.edges.equalToSuperview()
         }
         
-        contentView.snp_makeConstraints { make in
-            contentTopConstraint = make.top.equalTo(contentView.superview!.snp_bottom).constraint
+        contentContainerView.snp_makeConstraints { make in
+            contentTopConstraint = make.top.equalTo(contentContainerView.superview!.snp_bottom).constraint
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
             make.height.equalToSuperview().offset(-defaultDescriptionTopMargin)
+        }
+        
+        contentContainerView.subviews.forEach { view in
+            view.snp_makeConstraints { make in make.edges.equalToSuperview() }
         }
         
         pageControl.snp_makeConstraints { make in
@@ -164,7 +176,7 @@ class ProductPageView: UIView, UICollectionViewDelegateFlowLayout {
         
         buttonStackView.snp_makeConstraints { make in
             make.trailing.equalToSuperview().inset(Dimensions.defaultMargin)
-            make.bottom.equalTo(contentView.snp_top).offset(-8)
+            make.bottom.equalTo(contentContainerView.snp_top).offset(-8)
         }
         
         shareButton.snp_makeConstraints { make in
@@ -199,7 +211,7 @@ extension ProductPageView {
     func didPanOnDescriptionView(panGestureRecognizer: UIPanGestureRecognizer) {
         let bottomOffset = (descriptionViewInterface?.headerHeight ?? 0) + (contentInset?.bottom ?? 0)
         let movableY = bounds.height - defaultDescriptionTopMargin - bottomOffset
-        var moveY = panGestureRecognizer.translationInView(contentView).y
+        var moveY = panGestureRecognizer.translationInView(contentContainerView).y
         
         let contentVisible = viewState == .ContentVisible
         
@@ -215,7 +227,7 @@ extension ProductPageView {
         case .Ended:
             let movedMoreThanHalf = contentVisible && moveY > movableY * 0.5 || !contentVisible && moveY < -movableY * 0.5
             
-            let yVelocity = panGestureRecognizer.velocityInView(contentView).y
+            let yVelocity = panGestureRecognizer.velocityInView(contentContainerView).y
             let movedFasterForward = contentVisible && yVelocity > descriptionDragVelocityThreshold || !contentVisible && yVelocity < -descriptionDragVelocityThreshold
             let movedFasterBackward = contentVisible && yVelocity < -descriptionDragVelocityThreshold || !contentVisible && yVelocity > descriptionDragVelocityThreshold
             
@@ -223,7 +235,7 @@ extension ProductPageView {
                 viewState = contentVisible ? .Default : .ContentVisible
             }
             
-            updateContentPosition(withAnimation: true, animationDuration: 0.2)
+            updateContentPosition(withAnimation: true, animationDuration: 0.2, forceOffsetUpdate: true)
         default: break
         }
     }
@@ -252,6 +264,9 @@ extension ProductPageView: UIGestureRecognizerDelegate {
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
         if let touchHandlingDelegate = touch.view as? TouchHandlingDelegate {
             return !touchHandlingDelegate.shouldConsumeTouch(touch)
+        }
+        if let touchRequiredView = descriptionViewInterface?.touchRequiredView, let touchView = touch.view {
+            return !touchView.isDescendantOfView(touchRequiredView)
         }
         return true
     }
