@@ -20,6 +20,20 @@ class ProductPageModel {
         return productDetails.colors.map { color in ProductColor(productDetailsColor: color, isAvailable: true) }
     }
     
+    var productSharingInfo: (desc: String, url: NSURL)? {
+        let baseUrl = "https://www.showroom.pl/p/"
+        
+        if let product = state.product {
+            return (product.brand.name + " " + product.name, NSURL(string: baseUrl + String(product.id))!)
+            
+        } else if let productDetails = state.productDetails {
+            return (productDetails.brand.name + " " + productDetails.name, NSURL(string: baseUrl + String(productDetails.id))!)
+            
+        } else {
+            return nil
+        }
+    }
+    
     init(api: ApiService) {
         self.api = api
     }
