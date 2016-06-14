@@ -1,14 +1,20 @@
 import Foundation
 import UIKit
+import RxSwift
 
 class BasketViewController: UIViewController, BasketViewDelegate {
-    let model: BasketModel
-    var castView: BasketView { return view as! BasketView }
-    let sampleBasketButton: UIButton = UIButton()
+    private let disposeBag = DisposeBag()
+    private let manager: BasketManager
+    private var castView: BasketView { return view as! BasketView }
+    
+    // For testing purposes only
+    private let sampleBasketButton: UIButton = UIButton()
     
     init(resolver: DiResolver) {
-        self.model = resolver.resolve(BasketModel.self)
+        self.manager = resolver.resolve(BasketManager.self)
         super.init(nibName: nil, bundle: nil)
+        
+        self.manager.basketObservable.subscribeNext(updateView).addDisposableTo(disposeBag)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -23,17 +29,19 @@ class BasketViewController: UIViewController, BasketViewDelegate {
         super.viewDidLoad()
         
         castView.delegate = self
-        castView.updateData(withBasket: model.basket)
         
         // TODO: Remove when API is ready
         initSampleBasketButton()
     }
     
+    private func updateView(with newBasket: Basket) {
+        castView.updateData(with: newBasket)
+        updateSampleButtonVisibility()
+    }
+    
     // MARK: - BasketViewDelegate
     func basketViewDidDeleteProduct(product: BasketProduct) {
-        model.removeFromBasket(product)
-        castView.updateData(withBasket: model.basket)
-        updateSampleButtonVisibility()
+        manager.removeFromBasket(product)
     }
     
     // MARK: - Sample basket for testing
@@ -49,12 +57,11 @@ class BasketViewController: UIViewController, BasketViewDelegate {
     }
     
     func sampleButtonPressed(sender: UIButton) {
-        model.createSampleBasket()
-        castView.updateData(withBasket: model.basket)
+        manager.createSampleBasket()
         updateSampleButtonVisibility()
     }
     
     private func updateSampleButtonVisibility() {
-        sampleBasketButton.hidden = !model.basket.isEmpty
+        sampleBasketButton.hidden = !manager.currentBasket.isEmpty
     }
 }

@@ -3,6 +3,7 @@ import RxSwift
 
 class ProductPageModel {
     let api: ApiService
+    let basketManager: BasketManager
     let storageManager: StorageManager
     let productId: Int
     let cacheId: String
@@ -37,9 +38,10 @@ class ProductPageModel {
         }
     }
     
-    init(api: ApiService, storageManager: StorageManager, productId: ObjectId, product: Product? = nil) {
+    init(api: ApiService, basketManager: BasketManager, storageManager: StorageManager, productId: ObjectId, product: Product? = nil) {
         self.api = api
         self.storageManager = storageManager
+        self.basketManager = basketManager
         self.productId = productId
         cacheId = Constants.Cache.productDetails + String(productId)
         state = ProductPageModelState(product: product)
@@ -89,6 +91,36 @@ class ProductPageModel {
             state.currentSize = nil
             self.updateBuyButtonState()
         }
+    }
+    
+    func addToBasket() {
+        guard let product = state.productDetails else {
+            fatalError("Could not init BasketProduct because product details are not initialized.")
+        }
+        guard let size = state.currentSize else {
+            fatalError("Could not init BasketProduct because size is not specified.")
+        }
+        guard let color = state.currentColor else {
+            fatalError("Could not init BasketProduct because color is not specified.")
+        }
+        
+        var imageUrl: String?
+        if let image = product.images.find({ $0.color == color.id }) {
+            imageUrl = image.url
+        } else {
+            imageUrl = product.images.first?.url
+        }
+        
+        let basketProduct = BasketProduct(
+            id: product.id,
+            name: product.name,
+            imageUrl: imageUrl,
+            size: BasketProductSize(from: size),
+            color: BasketProductColor(from: color),
+            basePrice: product.basePrice,
+            price: product.price)
+        let brand = BasketBrand(from: product)
+        basketManager.addToBasket(basketProduct, of: brand)
     }
     
     private func defaultSize(forProductDetails productDetails: ProductDetails) -> ProductDetailsSize? {

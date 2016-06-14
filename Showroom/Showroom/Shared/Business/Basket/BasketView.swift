@@ -45,8 +45,8 @@ class BasketView: UIView, UITableViewDelegate {
         endEditing(true)
     }
     
-    func updateData(withBasket basket: Basket) {
-        dataSource.updateData(basket.productsByBrands)
+    func updateData(with basket: Basket) {
+        dataSource.updateData(with: basket.productsByBrands)
         checkoutView.updateData(withBasket: basket)
     }
     

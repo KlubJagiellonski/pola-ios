@@ -11,33 +11,86 @@ struct Basket {
         return productsByBrands.count == 0
     }
     
+    var productsCount: Int {
+        var count = 0
+        for brand in productsByBrands {
+            count += brand.products.count
+        }
+        return count
+    }
+    
     static func createEmpty() -> Basket {
         return Basket(productsByBrands: [], discountCode: nil, basePrice: Money(), price: nil)
     }
     
-    mutating func removeProduct(product: BasketProduct) {
+    mutating func remove(product: BasketProduct) {
         guard let brandIndex = productsByBrands.indexOf({ $0.products.contains(product) }) else {
             return
         }
-        productsByBrands[brandIndex].removeProduct(product)
+        productsByBrands[brandIndex].remove(product)
         if productsByBrands[brandIndex].products.count == 0 {
             productsByBrands.removeAtIndex(brandIndex)
         }
     }
+    
+    mutating func add(product: BasketProduct, of brand: BasketBrand) {
+        if let brandIndex = productsByBrands.indexOf(brand) {
+            productsByBrands[brandIndex].add(product)
+        } else {
+            var newBrand = brand
+            newBrand.removeAllProducts()
+            newBrand.add(product)
+            productsByBrands.append(newBrand)
+        }
+    }
 }
 
-struct BasketBrand {
+struct BasketBrand: Equatable {
     let id: Int
     let name: String
     let shippingPrice: Money
     let waitTime: Int
-    var products: [BasketProduct]
+    var products: [BasketProduct] = []
     
-    mutating func removeProduct(product: BasketProduct) {
+    init(id: Int, name: String, shippingPrice: Money, waitTime: Int, products: [BasketProduct]) {
+        self.id = id
+        self.name = name
+        self.shippingPrice = shippingPrice
+        self.waitTime = waitTime
+        self.products = products
+    }
+    
+    init(id: Int, name: String, waitTime: Int) {
+        self.id = id
+        self.name = name
+        self.shippingPrice = Money()
+        self.waitTime = waitTime
+    }
+    
+    init(from product: ProductDetails) {
+        self.id = product.brand.id
+        self.name = product.brand.name
+        self.shippingPrice = Money()
+        self.waitTime = product.waitTime
+    }
+    
+    mutating func remove(product: BasketProduct) {
         guard let productIndex = products.indexOf(product) else {
             return
         }
         products.removeAtIndex(productIndex)
+    }
+    
+    mutating func add(product: BasketProduct) {
+        if let productIndex = products.indexOf(product) {
+            products[productIndex].amount += 1
+        } else {
+            products.append(product)
+        }
+    }
+    
+    mutating func removeAllProducts() {
+        products.removeAll()
     }
 }
 
@@ -49,20 +102,59 @@ struct BasketProduct: Equatable {
     let color: BasketProductColor?
     let basePrice: Money
     let price: Money?
-    let amount: Int
+    var amount: Int = 1
+    
+    init (id: Int, name: String, imageUrl: String?, size: BasketProductSize?, color: BasketProductColor?, basePrice: Money, price: Money?, amount: Int) {
+        self.id = id
+        self.name = name
+        self.imageUrl = imageUrl
+        self.size = size
+        self.color = color
+        self.basePrice = basePrice
+        self.price = price
+        self.amount = amount
+    }
+    
+    init (id: Int, name: String, imageUrl: String?, size: BasketProductSize?, color: BasketProductColor?, basePrice: Money, price: Money?) {
+        self.init(id: id, name: name, imageUrl: imageUrl, size: size, color: color, basePrice: basePrice, price: price, amount: 1)
+    }
 }
 
 struct BasketProductColor: Equatable {
     let id: Int
     let name: String
+    
+    init(id: Int, name: String){
+        self.id = id
+        self.name = name
+    }
+    
+    init(from color: ProductDetailsColor) {
+        self.id = color.id
+        self.name = color.name
+    }
 }
 
 struct BasketProductSize: Equatable {
     let id: Int
     let name: String
+    
+    init(id: Int, name: String) {
+        self.id = id
+        self.name = name
+    }
+    
+    init(from size: ProductDetailsSize) {
+        self.id = size.id
+        self.name = size.name
+    }
 }
 
 // MARK: - Operators handling
+func == (lhs: BasketBrand, rhs: BasketBrand) -> Bool {
+    return lhs.id == rhs.id
+}
+
 func == (lhs: BasketProduct, rhs: BasketProduct) -> Bool {
     return lhs.id == rhs.id && lhs.color == rhs.color && lhs.size == rhs.size
 }
@@ -97,7 +189,7 @@ extension BasketBrand: Decodable {
             name: j => "name",
             shippingPrice: j => "shipping_price",
             waitTime: j => "wait_time",
-            products:productsArray.map(BasketProduct.decode))
+            products: productsArray.map(BasketProduct.decode))
     }
 }
 

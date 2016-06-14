@@ -12,7 +12,7 @@ class ManagerAssembly: AssemblyType {
         }.inObjectScope(.Container)
         
         container.register(BasketManager.self) { r in
-            return BasketManager(storageManager: r.resolve(StorageManager.self)!)
+            return BasketManager(apiService: r.resolve(ApiService.self)!, storageManager: r.resolve(StorageManager.self)!)
         }.inObjectScope(.Container)
     }
 }

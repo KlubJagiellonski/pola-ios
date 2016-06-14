@@ -118,6 +118,7 @@ class ProductDescriptionView: UIView, UITableViewDelegate, ProductDescriptionVie
         }
         headerView.colorButton.enabled = true
         headerView.sizeButton.enabled = true
+        headerView.buyButton.enabled = true
         descriptionDataSource.updateModel(p.waitTime, descriptions: p.description)
         
         headerView.priceLabel.invalidateIntrinsicContentSize()

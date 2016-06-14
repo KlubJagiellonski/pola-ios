@@ -1,22 +1,41 @@
 import Foundation
+import RxSwift
 
 class BasketManager {
     private static let fileName = "basket.json"
     
+    private let apiService: ApiService
     private let storageManager: StorageManager
+    let basketObservable = PublishSubject<Basket>()
     
-    var basket: Basket = Basket.createEmpty()
+    private(set) var currentBasket: Basket = Basket.createEmpty() {
+        didSet {
+            basketObservable.onNext(currentBasket)
+        }
+    }
     
-    init(storageManager: StorageManager) {
+    init(apiService: ApiService, storageManager: StorageManager) {
+        self.apiService = apiService
         self.storageManager = storageManager
     }
     
-    func addToBasket(product: BasketProduct, brand: BasketBrand) {
-        // TODO: Implement adding product to Basket
+    func verify(basket: Basket) -> Basket {
+        // TODO: Make API request
+        return basket
+    }
+    
+    func addToBasket(product: BasketProduct, of brand: BasketBrand) {
+        currentBasket.add(product, of: brand)
+        currentBasket = verify(currentBasket)
+    }
+    
+    func removeFromBasket(product: BasketProduct) {
+        currentBasket.remove(product)
+        currentBasket = verify(currentBasket)
     }
     
     func save() throws {
-        try storageManager.save(BasketManager.fileName, object: basket)
+        try storageManager.save(BasketManager.fileName, object: currentBasket)
     }
     
     func load() throws -> Basket? {
@@ -24,15 +43,15 @@ class BasketManager {
     }
     
     func isInBasket(brand: BasketBrand) -> Bool {
-        return basket.productsByBrands.contains { brand.id == $0.id }
+        return currentBasket.productsByBrands.contains { brand.id == $0.id }
     }
     
     func isInBasket(product: BasketProduct) -> Bool {
-        return basket.productsByBrands.contains { $0.products.contains(product) }
+        return currentBasket.productsByBrands.contains { $0.products.contains(product) }
     }
     
     func isInBasket(product: ProductDetails) -> Bool {
-        return basket.productsByBrands.contains { $0.products.contains { $0.id == product.id } }
+        return currentBasket.productsByBrands.contains { $0.products.contains { $0.id == product.id } }
     }
     
     /**
@@ -41,7 +60,7 @@ class BasketManager {
      - returns: Basket model with 5 products of 3 brands.
      */
     func createSampleBasket() -> Basket {
-        basket = Basket(
+        currentBasket = Basket(
             productsByBrands: [
                 BasketBrand(
                     id: 1,
@@ -122,6 +141,6 @@ class BasketManager {
             basePrice: Money(amt: 1067.00),
             price: Money(amt: 2000.00)
         )
-        return basket
+        return currentBasket
     }
 }

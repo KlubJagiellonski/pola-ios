@@ -39,9 +39,6 @@ class UIAssembly: AssemblyType {
         container.register(BasketViewController.self) { r in
             return BasketViewController(resolver: r.resolve(DiResolver.self)!)
         }
-        container.register(BasketModel.self) { r in
-            return BasketModel(apiService: r.resolve(ApiService.self)!, basketManager: r.resolve(BasketManager.self)!)
-        }
         container.register(ProductDetailsViewController.self) { r, context in
             return ProductDetailsViewController(resolver: r.resolve(DiResolver.self)!, context: context)
         }
@@ -52,7 +49,7 @@ class UIAssembly: AssemblyType {
             return ProductPageViewController(resolver: r.resolve(DiResolver.self)!, productId: productId, product: product)
         }
         container.register(ProductPageModel.self) { r, productId, product in
-            return ProductPageModel(api: r.resolve(ApiService.self)!, storageManager: r.resolve(StorageManager.self)!, productId: productId, product: product)
+            return ProductPageModel(api: r.resolve(ApiService.self)!, basketManager: r.resolve(BasketManager.self)!, storageManager: r.resolve(StorageManager.self)!, productId: productId, product: product)
         }
         container.register(ProductSizeViewController.self) { r, sizes, selectedSizeId in
             return ProductSizeViewController(resolver: r.resolve(DiResolver.self)!, sizes: sizes, initialSelectedSizeId: selectedSizeId)

@@ -119,7 +119,7 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate, Prod
     }
     
     func descriptionViewDidTapAddToBasket(view: ProductDescriptionView) {
-        
+        model.addToBasket()
     }
     
     func dropUpActionDidTapDimView(animator: DropUpActionAnimator) {

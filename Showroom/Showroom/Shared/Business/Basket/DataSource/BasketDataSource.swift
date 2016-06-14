@@ -14,7 +14,7 @@ class BasketDataSource: NSObject, UITableViewDataSource {
         tableView.registerClass(BasketHeader.self, forHeaderFooterViewReuseIdentifier: String(BasketHeader))
     }
     
-    func updateData(productsByBrands: [BasketBrand]) {
+    func updateData(with productsByBrands: [BasketBrand]) {
         self.productsByBrands = productsByBrands
         tableView?.reloadData()
     }
