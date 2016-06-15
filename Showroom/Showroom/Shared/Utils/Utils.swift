@@ -47,3 +47,19 @@ extension Array {
         return nil
     }
 }
+
+class MoneyFormatter: NSNumberFormatter {
+    override init() {
+        super.init()
+        
+        locale = NSLocale.currentLocale()
+        numberStyle = NSNumberFormatterStyle.DecimalStyle
+        alwaysShowsDecimalSeparator = true
+        maximumFractionDigits = 2
+        minimumFractionDigits = 2
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}

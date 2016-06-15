@@ -17,6 +17,8 @@ enum Currency {
 }
 
 struct Money: Comparable {
+    static private let moneyFormatter = MoneyFormatter()
+    
     let money: (NSDecimalNumber, Currency)
     
     static let decimalHandler = NSDecimalNumberHandler(roundingMode: .RoundDown, scale: 2, raiseOnExactness: true, raiseOnOverflow: true, raiseOnUnderflow: true, raiseOnDivideByZero: true)
@@ -48,7 +50,8 @@ struct Money: Comparable {
     
     var stringValue: String {
         get {
-            return String(format: "%.2f \(currency.stringValue)", amount)
+            guard let moneyFormat = Money.moneyFormatter.stringForObjectValue(amount) else { return "" }
+            return String(format: "%@ \(currency.stringValue)", moneyFormat)
         }
     }
 }
