@@ -9,7 +9,6 @@ protocol BasketDeliveryViewDelegate: class {
 }
 
 class BasketDeliveryView: UIView {
-    private let titleLabel = UILabel()
     private let countryTitleLabel = UILabel()
     private let countryDeliveryView = BasketCountryDeliveryView()
     private let deliveryOptionsTitle = UILabel()
@@ -24,10 +23,6 @@ class BasketDeliveryView: UIView {
         super.init(frame: CGRectZero)
         
         backgroundColor = UIColor(named: .White)
-        
-        titleLabel.font = UIFont(fontType: .Bold)
-        titleLabel.textColor = UIColor(named: .Black)
-        titleLabel.text = tr(.BasketDeliveryTitle)
         
         countryTitleLabel.font = UIFont(fontType: .FormBold)
         countryTitleLabel.textColor = UIColor(named: .Black)
@@ -53,7 +48,6 @@ class BasketDeliveryView: UIView {
         okButton.setTitle(tr(.BasketDeliveryOk), forState: .Normal)
         okButton.addTarget(self, action: #selector(BasketDeliveryView.didTapOkButton(_:)), forControlEvents: .TouchUpInside)
         
-        addSubview(titleLabel)
         addSubview(countryTitleLabel)
         addSubview(countryDeliveryView)
         addSubview(deliveryOptionsTitle)
@@ -74,13 +68,8 @@ class BasketDeliveryView: UIView {
     }
     
     private func configureCustomConstraints() {
-        titleLabel.snp_makeConstraints { make in
-            make.top.equalToSuperview().offset(10)
-            make.centerX.equalToSuperview()
-        }
-        
         countryTitleLabel.snp_makeConstraints { make in
-            make.top.equalTo(titleLabel.snp_bottom).offset(18)
+            make.top.equalToSuperview().offset(8)
             make.leading.equalToSuperview().offset(Dimensions.defaultMargin)
         }
         

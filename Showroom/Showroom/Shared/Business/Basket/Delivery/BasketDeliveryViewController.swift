@@ -8,6 +8,7 @@ class BasketDeliveryViewController: UIViewController, BasketDeliveryViewDelegate
     init(basketManager: BasketManager) {
         self.basketManager = basketManager
         super.init(nibName: nil, bundle: nil)
+        title = tr(.BasketDeliveryTitle)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -31,7 +32,7 @@ class BasketDeliveryViewController: UIViewController, BasketDeliveryViewDelegate
     }
     
     func deliveryViewDidTapCountry(view: BasketDeliveryView) {
-        
+        sendNavigationEvent(SimpleNavigationEvent(type: .ShowCountrySelectionList))
     }
     
     func deliveryViewDidTapUpsOption(view: BasketDeliveryView) {

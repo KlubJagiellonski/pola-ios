@@ -47,6 +47,8 @@ enum L10n {
   case BasketDeliveryInfo
   /// OK
   case BasketDeliveryOk
+  /// KRAJ DOSTAWY
+  case BasketDeliveryDeliveryCountryTitle
   /// POLECANE
   case DashboardRecommendationTitleFirstPart
   /// dla Ciebie
@@ -132,6 +134,8 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Basket.Delivery.Info")
       case .BasketDeliveryOk:
         return L10n.tr("Basket.Delivery.Ok")
+      case .BasketDeliveryDeliveryCountryTitle:
+        return L10n.tr("Basket.Delivery.DeliveryCountryTitle")
       case .DashboardRecommendationTitleFirstPart:
         return L10n.tr("Dashboard.RecommendationTitle.FirstPart")
       case .DashboardRecommendationTitleSecondPart:

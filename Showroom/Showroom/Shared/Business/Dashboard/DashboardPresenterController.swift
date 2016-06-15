@@ -26,9 +26,9 @@ class DashboardPresenterController: PresenterViewController, NavigationHandler {
             case .Close:
                 currentModalViewController = nil
                 return true
+            default: return false
             }
-        default:
-            return false
+        default: return false
         }
     }
 }
