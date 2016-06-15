@@ -1,26 +1,22 @@
 import UIKit
 
-protocol DropUpActionDelegate: class {
-    func dropUpActionDidTapDimView(animator: DropUpActionAnimator)
-}
-
-class DropUpActionAnimator: NSObject, UIViewControllerTransitioningDelegate {
+class DropUpActionAnimator: NSObject, UIViewControllerTransitioningDelegate, Animator {
     
     let height: CGFloat
     
-    weak var delegate: DropUpActionDelegate?
+    weak var delegate: DimAnimatorDelegate?
     
     init(height: CGFloat) {
         self.height = height
         super.init()
     }
     
-    func presentViewController(presentedVC: UIViewController, presentingVC: UIViewController) {
-        presentedVC.modalPresentationStyle = .Custom
-        presentedVC.modalTransitionStyle = .CoverVertical
-        presentedVC.transitioningDelegate = self
+    func presentViewController(presentedViewController: UIViewController, presentingViewController: UIViewController) {
+        presentedViewController.modalPresentationStyle = .Custom
+        presentedViewController.modalTransitionStyle = .CoverVertical
+        presentedViewController.transitioningDelegate = self
         
-        presentingVC.presentViewController(presentedVC, animated: true, completion: nil)
+        presentingViewController.presentViewController(presentedViewController, animated: true, completion: nil)
     }
     
     func dismissViewController(presentingViewController presentingViewController: UIViewController) {
@@ -28,7 +24,7 @@ class DropUpActionAnimator: NSObject, UIViewControllerTransitioningDelegate {
     }
     
     func didTapDimView(sender: UITapGestureRecognizer) {
-        delegate?.dropUpActionDidTapDimView(self)
+        delegate?.animatorDidTapOnDimView(self)
     }
     
     // MARK: - UIViewControllerTransitioningDelegate
@@ -110,7 +106,8 @@ class DropUpAnimatedTransitioning : NSObject, UIViewControllerAnimatedTransition
             })
             
         } else {
-            let dimView = (containerView?.viewWithTag(dimViewTag))!            
+            let dimView = (containerView?.viewWithTag(dimViewTag))!
+            dimView.removeGestureRecognizer(dimView.gestureRecognizers![0])
             dismissView(fromView, presentingView: toView, dimView: dimView, animationDuration: duration, completion: { completed in
                 dimView.removeFromSuperview()
                 fromView.removeFromSuperview()

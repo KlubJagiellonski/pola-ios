@@ -111,7 +111,7 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate, Prod
         
         let sizeViewController = resolver.resolve(ProductSizeViewController.self, arguments: (sizes, model.state.currentSize?.id))
         sizeViewController.delegate = self
-        actionAnimator.presentViewController(sizeViewController, presentingVC: self)
+        actionAnimator.presentViewController(sizeViewController, presentingViewController: self)
     }
     
     func descriptionViewDidTapColor(view: ProductDescriptionView) {
@@ -119,7 +119,7 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate, Prod
         
         let colorViewController = resolver.resolve(ProductColorViewController.self, arguments: (colors, model.state.currentColor?.id))
         colorViewController.delegate = self
-        actionAnimator.presentViewController(colorViewController, presentingVC: self)
+        actionAnimator.presentViewController(colorViewController, presentingViewController: self)
     }
     
     func descriptionViewDidTapSizeChart(view: ProductDescriptionView) {
@@ -137,8 +137,6 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate, Prod
     func descriptionViewDidTapAddToBasket(view: ProductDescriptionView) {
         model.addToBasket()
     }
-    
-    // MARK :- SizeChartViewControllerDelegate
     
     func sizeChartDidTapBack(viewController: SizeChartViewController) {
         contentNavigationController?.popViewControllerAnimated(true)
@@ -163,8 +161,8 @@ extension ProductPageViewController: ProductColorViewControllerDelegate {
     }
 }
 
-extension ProductPageViewController: DropUpActionDelegate {
-    func dropUpActionDidTapDimView(animator: DropUpActionAnimator) {
+extension ProductPageViewController: DimAnimatorDelegate {
+    func animatorDidTapOnDimView(animator: Animator) {
         actionAnimator.dismissViewController(presentingViewController: self)
     }
 }

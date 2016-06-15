@@ -8,6 +8,7 @@ class BasketViewController: UIViewController, BasketViewDelegate {
     private var castView: BasketView { return view as! BasketView }
     private let resolver: DiResolver
     private let actionAnimator = DropUpActionAnimator(height: 216)
+    private let deliveryAnimator =  FormSheetAnimator()
     
     // TODO: Remove sample basket when API is ready
     private let sampleBasketButton: UIButton = UIButton()
@@ -53,11 +54,20 @@ class BasketViewController: UIViewController, BasketViewDelegate {
     func basketViewDidTapAmount(of product: BasketProduct) {
         let amountViewController = resolver.resolve(ProductAmountViewController.self, argument: product)
         amountViewController.delegate = self
-        actionAnimator.presentViewController(amountViewController, presentingVC: self)
+        actionAnimator.presentViewController(amountViewController, presentingViewController: self)
+    }
+    
+    func basketViewDidTapShipping(view: BasketView) {
+        deliveryAnimator.delegate = self
+        
+        let viewController = resolver.resolve(BasketDeliveryNavigationController.self)
+        viewController.deliveryDelegate = self
+        viewController.modalPresentationStyle = .FormSheet
+        viewController.preferredContentSize = CGSize(width: 292, height: 450)
+        deliveryAnimator.presentViewController(viewController, presentingViewController: self)
     }
 }
 
-// MARK: - ProductAmountViewControllerDelegate
 extension BasketViewController: ProductAmountViewControllerDelegate {
     func productAmount(viewController: ProductAmountViewController, didChangeAmountOf product: BasketProduct) {
         actionAnimator.dismissViewController(presentingViewController: self)
@@ -65,10 +75,15 @@ extension BasketViewController: ProductAmountViewControllerDelegate {
     }
 }
 
-// MARK: - DropUpActionDelegate
-extension BasketViewController: DropUpActionDelegate {
-    func dropUpActionDidTapDimView(animator: DropUpActionAnimator) {
-        actionAnimator.dismissViewController(presentingViewController: self)
+extension BasketViewController: DimAnimatorDelegate {
+    func animatorDidTapOnDimView(animator: Animator) {
+        animator.dismissViewController(presentingViewController: self)
+    }
+}
+
+extension BasketViewController: BasketDeliveryNavigationControllerDelegate {
+    func basketDeliveryWantsDismiss(viewController: BasketDeliveryNavigationController) {
+        deliveryAnimator.dismissViewController(presentingViewController: self)
     }
 }
 

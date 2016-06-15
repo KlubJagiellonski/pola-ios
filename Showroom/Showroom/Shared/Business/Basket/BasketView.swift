@@ -5,6 +5,7 @@ import SnapKit
 protocol BasketViewDelegate: class {
     func basketViewDidDeleteProduct(product: BasketProduct)
     func basketViewDidTapAmount(of product: BasketProduct)
+    func basketViewDidTapShipping(view: BasketView)
 }
 
 class BasketView: UIView, UITableViewDelegate {
@@ -24,6 +25,7 @@ class BasketView: UIView, UITableViewDelegate {
         tableView.dataSource = dataSource
         tableView.separatorStyle = .None
         
+        checkoutView.shippingButton.addTarget(self, action: #selector(BasketView.didTapShippingButton), forControlEvents: .TouchUpInside)
         checkoutView.layer.shadowColor = UIColor.blackColor().CGColor
         checkoutView.layer.shadowOpacity = 0.5
         checkoutView.layer.shadowRadius = 3;
@@ -51,7 +53,11 @@ class BasketView: UIView, UITableViewDelegate {
         checkoutView.updateData(withBasket: basket)
     }
     
-    func configureCustomConstraints() {
+    func didTapShippingButton(button: UIButton) {
+        delegate?.basketViewDidTapShipping(self)
+    }
+    
+    private func configureCustomConstraints() {
         checkoutView.snp_makeConstraints { make in
             make.left.equalToSuperview()
             make.right.equalToSuperview()
@@ -62,6 +68,8 @@ class BasketView: UIView, UITableViewDelegate {
             make.edges.equalToSuperview()
         }
     }
+    
+    // MARK:- UITableViewDelegate
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if dataSource.isFooterCell(indexPath) {

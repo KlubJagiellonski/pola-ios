@@ -33,6 +33,20 @@ enum L10n {
   case BasketDays
   /// 0 (usuń z koszyka)
   case BasketAmount0
+  /// SPOSÓB DOSTAWY
+  case BasketDeliveryTitle
+  /// Kraj dostawy
+  case BasketDeliveryDeliveryCountry
+  /// Sposób dostawy
+  case BasketDeliveryDeliveryOption
+  /// kurier UPS
+  case BasketDeliveryUPS
+  /// paczka w RUCH-u
+  case BasketDeliveryRUCH
+  /// W SHOWROOM każdy projektant wysyła produkty oddzielnie, dlatego ponosisz koszty wysyłki kilkukrotnie. Możesz wybrać tylko jeden sposób wysyłki dla całego zamówienia.
+  case BasketDeliveryInfo
+  /// OK
+  case BasketDeliveryOk
   /// POLECANE
   case DashboardRecommendationTitleFirstPart
   /// dla Ciebie
@@ -104,6 +118,20 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Basket.Days")
       case .BasketAmount0:
         return L10n.tr("Basket.Amount0")
+      case .BasketDeliveryTitle:
+        return L10n.tr("Basket.Delivery.Title")
+      case .BasketDeliveryDeliveryCountry:
+        return L10n.tr("Basket.Delivery.DeliveryCountry")
+      case .BasketDeliveryDeliveryOption:
+        return L10n.tr("Basket.Delivery.DeliveryOption")
+      case .BasketDeliveryUPS:
+        return L10n.tr("Basket.Delivery.UPS")
+      case .BasketDeliveryRUCH:
+        return L10n.tr("Basket.Delivery.RUCH")
+      case .BasketDeliveryInfo:
+        return L10n.tr("Basket.Delivery.Info")
+      case .BasketDeliveryOk:
+        return L10n.tr("Basket.Delivery.Ok")
       case .DashboardRecommendationTitleFirstPart:
         return L10n.tr("Dashboard.RecommendationTitle.FirstPart")
       case .DashboardRecommendationTitleSecondPart:

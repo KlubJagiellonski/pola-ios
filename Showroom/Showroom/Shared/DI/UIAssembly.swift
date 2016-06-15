@@ -66,5 +66,11 @@ class UIAssembly: AssemblyType {
         container.register(SizeChartViewController.self) { r, sizes in
             return SizeChartViewController(sizes: sizes)
         }
+        container.register(BasketDeliveryNavigationController.self) { r in
+            return BasketDeliveryNavigationController(resolver: r.resolve(DiResolver.self)!)
+        }
+        container.register(BasketDeliveryViewController.self) { r in
+            return BasketDeliveryViewController(basketManager: r.resolve(BasketManager.self)!)
+        }
     }
 }

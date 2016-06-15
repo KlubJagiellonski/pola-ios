@@ -8,6 +8,8 @@ enum Asset: String {
   case Ic_bag_full_blue = "ic_bag_full_blue"
   case Ic_cart_line_black = "ic_cart_line_black"
   case Ic_cart_line_blue = "ic_cart_line_blue"
+  case Ic_checkbox_off = "ic_checkbox_off"
+  case Ic_checkbox_on = "ic_checkbox_on"
   case Ic_chevron_down = "ic_chevron_down"
   case Ic_chevron_right = "ic_chevron_right"
   case Ic_close = "ic_close"

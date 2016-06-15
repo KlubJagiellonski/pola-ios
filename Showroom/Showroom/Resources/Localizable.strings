@@ -13,6 +13,13 @@
 "Basket.Day" = "dzień";
 "Basket.Days" = "dni";
 "Basket.Amount0" = "0 (usuń z koszyka)";
+"Basket.Delivery.Title" = "SPOSÓB DOSTAWY";
+"Basket.Delivery.DeliveryCountry" = "Kraj dostawy";
+"Basket.Delivery.DeliveryOption" = "Sposób dostawy";
+"Basket.Delivery.UPS" = "kurier UPS";
+"Basket.Delivery.RUCH" = "paczka w RUCH-u";
+"Basket.Delivery.Info" = "W SHOWROOM każdy projektant wysyła produkty oddzielnie, dlatego ponosisz koszty wysyłki kilkukrotnie. Możesz wybrać tylko jeden sposób wysyłki dla całego zamówienia.";
+"Basket.Delivery.Ok" = "OK";
 "Dashboard.RecommendationTitle.FirstPart" = "POLECANE";
 "Dashboard.RecommendationTitle.SecondPart" = "dla Ciebie";
 "Money.Zl" = "zł";
