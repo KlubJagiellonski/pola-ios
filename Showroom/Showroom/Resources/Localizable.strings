@@ -12,6 +12,7 @@
 "Basket.ShippingIn" = "Wysyłka w";
 "Basket.Day" = "dzień";
 "Basket.Days" = "dni";
+"Basket.Amount0" = "0 (usuń z koszyka)";
 "Dashboard.RecommendationTitle.FirstPart" = "POLECANE";
 "Dashboard.RecommendationTitle.SecondPart" = "dla Ciebie";
 "Money.Zl" = "zł";
@@ -20,6 +21,7 @@
 "ProductAction.SizeCell.SizeUnavailable" = "brak rozmiaru w wybranym kolorze";
 "ProductAction.PickColorTitle" = "WYBIERZ KOLOR";
 "ProductAction.ColorCell.ColorUnavailable" = "tylko w innym rozmiarze";
+"ProductAction.PickAmountTitle" = "WYBIERZ ILOŚĆ";
 "ProductDetails.ToBasket" = "DO KOSZYKA";
 "ProductDetails.SizeChart" = "Tabela rozmiarów";
 "ProductDetails.OtherBrandProducts" = "Inne produkty marki";

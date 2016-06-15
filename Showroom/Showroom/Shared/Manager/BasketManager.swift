@@ -34,6 +34,15 @@ class BasketManager {
         currentBasket = verify(currentBasket)
     }
     
+    func updateInBasket(product: BasketProduct) {
+        if (product.amount == 0) {
+            currentBasket.remove(product)
+        } else {
+            currentBasket.update(product)
+        }
+        currentBasket = verify(currentBasket)
+    }
+    
     func save() throws {
         try storageManager.save(BasketManager.fileName, object: currentBasket)
     }

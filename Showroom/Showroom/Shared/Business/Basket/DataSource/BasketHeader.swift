@@ -9,7 +9,7 @@ class BasketHeader: UITableViewHeaderFooterView {
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         
-        headerLabel.font = UIFont(fontType: .Normal)
+        headerLabel.font = UIFont(fontType: .FormBold)
         contentView.backgroundColor = UIColor.whiteColor()
         contentView.addSubview(headerLabel)
         

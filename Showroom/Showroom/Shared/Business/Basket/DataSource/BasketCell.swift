@@ -1,9 +1,13 @@
 import Foundation
 import UIKit
 
+protocol BasketProductCellDelegate: class {
+    func basketProductCellDidTapAmount(cell: BasketProductCell)
+}
+
 class BasketProductCell: UITableViewCell {
     static let cellHeight: CGFloat = 72
-    static let photoSize: CGFloat = 72
+    static let photoSize: CGSize = CGSizeMake(59, 72)
     static let internalSpacing: CGFloat = 10
     
     let photoImageView = UIImageView()
@@ -11,6 +15,8 @@ class BasketProductCell: UITableViewCell {
     let propertiesLabel = UILabel()
     let priceLabel = PriceLabel()
     let amountButton = UIButton()
+    
+    weak var delegate: BasketProductCellDelegate?
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: .Default, reuseIdentifier: reuseIdentifier)
@@ -28,6 +34,7 @@ class BasketProductCell: UITableViewCell {
         
         amountButton.applyDropDownStyle()
         amountButton.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Horizontal)
+        amountButton.addTarget(self, action: #selector(BasketProductCell.didTapAmount), forControlEvents: .TouchUpInside)
         
         priceLabel.textAlignment = NSTextAlignment.Right
         
@@ -44,31 +51,34 @@ class BasketProductCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func updateData(item: BasketProduct) {
-        nameLabel.text = item.name
+    func updateData(with product: BasketProduct) {
+        nameLabel.text = product.name
         photoImageView.image = nil
-        photoImageView.loadImageFromUrl(item.imageUrl!)
-        if let size = item.size, let color = item.color {
+        photoImageView.loadImageFromUrl(product.imageUrl!)
+        if let size = product.size, let color = product.color {
             propertiesLabel.text = size.name + ", " + color.name
-        } else if let size = item.size {
+        } else if let size = product.size {
             propertiesLabel.text = size.name
-        } else if let color = item.color {
+        } else if let color = product.color {
             propertiesLabel.text = color.name
         } else {
             propertiesLabel.text = nil
         }
         
-        priceLabel.basePrice = item.basePrice
-        priceLabel.discountPrice = item.price
-        amountButton.setTitle(String(item.amount) + " szt.", forState: .Normal)
+        priceLabel.basePrice = product.basePrice
+        priceLabel.discountPrice = product.price
+        amountButton.setTitle(String(product.amount) + " szt.", forState: .Normal)
+    }
+    
+    func didTapAmount() {
+        delegate?.basketProductCellDidTapAmount(self)
     }
     
     private func configureCustomConstraints() {
         photoImageView.snp_makeConstraints { make in
             make.top.equalToSuperview()
             make.left.equalToSuperview().inset(Dimensions.defaultMargin)
-            make.width.equalTo(BasketProductCell.photoSize)
-            make.height.equalTo(BasketProductCell.photoSize)
+            make.size.equalTo(BasketProductCell.photoSize)
         }
         
         nameLabel.snp_makeConstraints { make in
@@ -135,9 +145,9 @@ class BasketShippingCell: UITableViewCell {
         
         separatorView.snp_makeConstraints { make in
             make.bottom.equalToSuperview()
-            make.height.equalTo(1)
-            make.width.equalToSuperview().dividedBy(3)
-            make.centerX.equalToSuperview()
+            make.height.equalTo(Dimensions.defaultSeparatorThickness)
+            make.left.equalToSuperview().inset(Dimensions.defaultMargin)
+            make.right.equalToSuperview().inset(Dimensions.defaultMargin)
         }
     }
 }

@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-class BasketDataSource: NSObject, UITableViewDataSource {
+class BasketDataSource: NSObject, UITableViewDataSource, BasketProductCellDelegate {
     private var productsByBrands: [BasketBrand] = []
     private weak var tableView: UITableView?
     weak var basketView: BasketView?
@@ -29,19 +29,20 @@ class BasketDataSource: NSObject, UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if isFooterCell(indexPath) {
-            let item = productsByBrands[indexPath.section]
+            let product = productsByBrands[indexPath.section]
             let cell = tableView.dequeueReusableCellWithIdentifier(String(BasketShippingCell)) as! BasketShippingCell
-            cell.priceLabel.text = item.shippingPrice.stringValue
-            cell.shippingLabel.text = tr(.BasketShippingIn) + " " + String(item.waitTime) + " " + (item.waitTime == 1 ? tr(.BasketDay) : tr(.BasketDays)) // TODO: Add shipping method
+            cell.priceLabel.text = product.shippingPrice.stringValue
+            cell.shippingLabel.text = tr(.BasketShippingIn) + " " + String(product.waitTime) + " " + (product.waitTime == 1 ? tr(.BasketDay) : tr(.BasketDays)) // TODO: Add shipping method
             if isLastCell(indexPath) {
                 // Hide separator for the last cell
                 cell.separatorView.hidden = true
             }
             return cell;
         } else {
-            let item = productsByBrands[indexPath.section].products[indexPath.row]
+            let product = productsByBrands[indexPath.section].products[indexPath.row]
             let cell = tableView.dequeueReusableCellWithIdentifier(String(BasketProductCell)) as! BasketProductCell
-            cell.updateData(item)
+            cell.updateData(with: product)
+            cell.delegate = self
             return cell
         }
     }
@@ -67,5 +68,14 @@ class BasketDataSource: NSObject, UITableViewDataSource {
     
     func isLastCell(indexPath: NSIndexPath) -> Bool {
         return indexPath.section == productsByBrands.count - 1 && indexPath.row == productsByBrands[indexPath.section].products.count
+    }
+    
+    // MARK: - BasketProductCellDelegate
+    func basketProductCellDidTapAmount(cell: BasketProductCell) {
+        guard let indexPath = tableView?.indexPathForCell(cell) else {
+            return
+        }
+        let product = productsByBrands[indexPath.section].products[indexPath.row]
+        basketView?.dataSourceDidTapAmount(of: product)
     }
 }

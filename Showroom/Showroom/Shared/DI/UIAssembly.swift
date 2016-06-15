@@ -57,6 +57,9 @@ class UIAssembly: AssemblyType {
         container.register(ProductColorViewController.self) { r, colors, selectedColorId in
             return ProductColorViewController(resolver: r.resolve(DiResolver.self)!, colors: colors, initialSelectedColorId: selectedColorId)
         }
+        container.register(ProductAmountViewController.self) { r, product in
+            return ProductAmountViewController(resolver: r.resolve(DiResolver.self)!, product: product)
+        }
         container.register(ProductDescriptionViewController.self) { r, modelState in
             return ProductDescriptionViewController(modelState: modelState)
         }

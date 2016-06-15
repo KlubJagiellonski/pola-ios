@@ -6,12 +6,15 @@ class BasketViewController: UIViewController, BasketViewDelegate {
     private let disposeBag = DisposeBag()
     private let manager: BasketManager
     private var castView: BasketView { return view as! BasketView }
+    private let resolver: DiResolver
+    private let actionAnimator = DropUpActionAnimator(height: 216)
     
-    // For testing purposes only
+    // TODO: Remove sample basket when API is ready
     private let sampleBasketButton: UIButton = UIButton()
     
     init(resolver: DiResolver) {
         self.manager = resolver.resolve(BasketManager.self)
+        self.resolver = resolver
         super.init(nibName: nil, bundle: nil)
         
         self.manager.basketObservable.subscribeNext(updateView).addDisposableTo(disposeBag)
@@ -23,6 +26,7 @@ class BasketViewController: UIViewController, BasketViewDelegate {
     
     override func loadView() {
         view = BasketView()
+        actionAnimator.delegate = self
     }
     
     override func viewDidLoad() {
@@ -30,12 +34,14 @@ class BasketViewController: UIViewController, BasketViewDelegate {
         
         castView.delegate = self
         
-        // TODO: Remove when API is ready
+        // TODO: Remove sample basket when API is ready
         initSampleBasketButton()
     }
     
     private func updateView(with newBasket: Basket) {
         castView.updateData(with: newBasket)
+        
+        // TODO: Remove sample basket when API is ready
         updateSampleButtonVisibility()
     }
     
@@ -44,7 +50,30 @@ class BasketViewController: UIViewController, BasketViewDelegate {
         manager.removeFromBasket(product)
     }
     
-    // MARK: - Sample basket for testing
+    func basketViewDidTapAmount(of product: BasketProduct) {
+        let amountViewController = resolver.resolve(ProductAmountViewController.self, argument: product)
+        amountViewController.delegate = self
+        actionAnimator.presentViewController(amountViewController, presentingVC: self)
+    }
+}
+
+// MARK: - ProductAmountViewControllerDelegate
+extension BasketViewController: ProductAmountViewControllerDelegate {
+    func productAmount(viewController: ProductAmountViewController, didChangeAmountOf product: BasketProduct) {
+        actionAnimator.dismissViewController(presentingViewController: self)
+        manager.updateInBasket(product)
+    }
+}
+
+// MARK: - DropUpActionDelegate
+extension BasketViewController: DropUpActionDelegate {
+    func dropUpActionDidTapDimView(animator: DropUpActionAnimator) {
+        actionAnimator.dismissViewController(presentingViewController: self)
+    }
+}
+
+// MARK: - Sample basket for testing
+extension BasketViewController {
     private func initSampleBasketButton() {
         sampleBasketButton.setTitle("ADD SAMPLE PRODUCTS", forState: .Normal)
         sampleBasketButton.applyPlainStyle()

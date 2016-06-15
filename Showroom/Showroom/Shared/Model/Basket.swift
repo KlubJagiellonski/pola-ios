@@ -43,6 +43,13 @@ struct Basket {
             productsByBrands.append(newBrand)
         }
     }
+    
+    mutating func update(product: BasketProduct) {
+        guard let brandIndex = productsByBrands.indexOf({ $0.products.contains(product) }) else {
+            return
+        }
+        productsByBrands[brandIndex].update(product)
+    }
 }
 
 struct BasketBrand: Equatable {
@@ -87,6 +94,13 @@ struct BasketBrand: Equatable {
         } else {
             products.append(product)
         }
+    }
+    
+    mutating func update(product: BasketProduct) {
+        guard let productIndex = products.indexOf(product) else {
+            return
+        }
+        products[productIndex] = product
     }
     
     mutating func removeAllProducts() {

@@ -110,6 +110,11 @@
 		1DF796851CEB477B00C7A7F4 /* NetworkAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF796841CEB477B00C7A7F4 /* NetworkAssembly.swift */; };
 		1DF796871CEB49E200C7A7F4 /* CoreAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF796861CEB49E200C7A7F4 /* CoreAssembly.swift */; };
 		1DF796891CEB4AC000C7A7F4 /* UIAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF796881CEB4AC000C7A7F4 /* UIAssembly.swift */; };
+		751A50101D1156AE00DF7D2B /* ProductAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751A500F1D1156AE00DF7D2B /* ProductAmountViewController.swift */; };
+		751A50121D1156CB00DF7D2B /* ProductAmountHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751A50111D1156CB00DF7D2B /* ProductAmountHeaderView.swift */; };
+		751A50141D1156D800DF7D2B /* ProductAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751A50131D1156D800DF7D2B /* ProductAmountView.swift */; };
+		751A50161D11575000DF7D2B /* ProductAmountDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751A50151D11575000DF7D2B /* ProductAmountDataSource.swift */; };
+		751A50181D11577700DF7D2B /* ProductAmountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751A50171D11577700DF7D2B /* ProductAmountCell.swift */; };
 		759CED241CFDB24100FEBE66 /* TitleValueLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759CED231CFDB24100FEBE66 /* TitleValueLabel.swift */; };
 		75C8545E1D05660400E5F08F /* BasketHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C8545D1D05660400E5F08F /* BasketHeader.swift */; };
 		75C854601D05816300E5F08F /* PriceLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C8545F1D05816300E5F08F /* PriceLabel.swift */; };
@@ -282,6 +287,11 @@
 		1DF796841CEB477B00C7A7F4 /* NetworkAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkAssembly.swift; sourceTree = "<group>"; };
 		1DF796861CEB49E200C7A7F4 /* CoreAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreAssembly.swift; sourceTree = "<group>"; };
 		1DF796881CEB4AC000C7A7F4 /* UIAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAssembly.swift; sourceTree = "<group>"; };
+		751A500F1D1156AE00DF7D2B /* ProductAmountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductAmountViewController.swift; sourceTree = "<group>"; };
+		751A50111D1156CB00DF7D2B /* ProductAmountHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductAmountHeaderView.swift; sourceTree = "<group>"; };
+		751A50131D1156D800DF7D2B /* ProductAmountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductAmountView.swift; sourceTree = "<group>"; };
+		751A50151D11575000DF7D2B /* ProductAmountDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductAmountDataSource.swift; sourceTree = "<group>"; };
+		751A50171D11577700DF7D2B /* ProductAmountCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductAmountCell.swift; sourceTree = "<group>"; };
 		759CED231CFDB24100FEBE66 /* TitleValueLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleValueLabel.swift; sourceTree = "<group>"; };
 		75C8545D1D05660400E5F08F /* BasketHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasketHeader.swift; sourceTree = "<group>"; };
 		75C8545F1D05816300E5F08F /* PriceLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PriceLabel.swift; path = ../Business/Basket/PriceLabel.swift; sourceTree = "<group>"; };
@@ -742,6 +752,26 @@
 			path = DI;
 			sourceTree = "<group>";
 		};
+		751A500D1D11569200DF7D2B /* ProductAmountAction */ = {
+			isa = PBXGroup;
+			children = (
+				751A500E1D11569200DF7D2B /* DataSource */,
+				751A500F1D1156AE00DF7D2B /* ProductAmountViewController.swift */,
+				751A50111D1156CB00DF7D2B /* ProductAmountHeaderView.swift */,
+				751A50131D1156D800DF7D2B /* ProductAmountView.swift */,
+			);
+			path = ProductAmountAction;
+			sourceTree = "<group>";
+		};
+		751A500E1D11569200DF7D2B /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				751A50151D11575000DF7D2B /* ProductAmountDataSource.swift */,
+				751A50171D11577700DF7D2B /* ProductAmountCell.swift */,
+			);
+			path = DataSource;
+			sourceTree = "<group>";
+		};
 		759CED221CFDB22B00FEBE66 /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -818,6 +848,7 @@
 		C0E26DAE1D00840C005CB6C4 /* ProductAction */ = {
 			isa = PBXGroup;
 			children = (
+				751A500D1D11569200DF7D2B /* ProductAmountAction */,
 				C09280651D080A2D00350B82 /* ProductColorAction */,
 				C09280641D0808FF00350B82 /* ProductSizeAction */,
 			);
@@ -1020,6 +1051,7 @@
 				1DAA7C731D0E9E8E00545BB9 /* TouchHandlingDelegate.swift in Sources */,
 				C09367161D09AB46004C7748 /* UIImageAssets.swift in Sources */,
 				75C854601D05816300E5F08F /* PriceLabel.swift in Sources */,
+				751A50101D1156AE00DF7D2B /* ProductAmountViewController.swift in Sources */,
 				1D72ED141CFC3028007AFD2F /* User.swift in Sources */,
 				1D72ED261CFDA591007AFD2F /* StringUtils.swift in Sources */,
 				1DD161A21D01C06F0022B5C9 /* PresenterViewController.swift in Sources */,
@@ -1030,6 +1062,7 @@
 				1D7824A01D06E52D00E60392 /* VerticalPageControl.swift in Sources */,
 				1DAA7C6B1D099B0100545BB9 /* ProductDescriptionView.swift in Sources */,
 				1DA6FA311CFF29B7004BF10B /* ContentPromoRecommendationsCell.swift in Sources */,
+				751A50181D11577700DF7D2B /* ProductAmountCell.swift in Sources */,
 				1D7824B91D0874E700E60392 /* ProductImageCell.swift in Sources */,
 				1D78249C1D058F0600E60392 /* Product.swift in Sources */,
 				1D7824B01D06FD6800E60392 /* ProductImageDataSource.swift in Sources */,
@@ -1037,7 +1070,9 @@
 				C09280541D01DBA300350B82 /* ProductSizeHeaderView.swift in Sources */,
 				1DD1EA981CF2ECC200D99731 /* Navigation.swift in Sources */,
 				1D0453551CFF033E001CC5A2 /* EmarsysService.swift in Sources */,
+				751A50141D1156D800DF7D2B /* ProductAmountView.swift in Sources */,
 				1DF796891CEB4AC000C7A7F4 /* UIAssembly.swift in Sources */,
+				751A50161D11575000DF7D2B /* ProductAmountDataSource.swift in Sources */,
 				1DAA7C711D09BBA900545BB9 /* ProductDescriptionLineCell.swift in Sources */,
 				1DF796851CEB477B00C7A7F4 /* NetworkAssembly.swift in Sources */,
 				1DD1EA711CEDA00B00D99731 /* DashboardViewController.swift in Sources */,
@@ -1049,6 +1084,7 @@
 				1D7824B51D0708E900E60392 /* ProductPageModel.swift in Sources */,
 				1DD161AA1D01C46C0022B5C9 /* DashboardPresenterController.swift in Sources */,
 				1DF796801CEB3C4000C7A7F4 /* Constants.swift in Sources */,
+				751A50121D1156CB00DF7D2B /* ProductAmountHeaderView.swift in Sources */,
 				1D72ED0F1CFC2F47007AFD2F /* UserManager.swift in Sources */,
 				1D0453571CFF1568001CC5A2 /* ProductRecommendationDataSource.swift in Sources */,
 				C0C5D28E1D099679004C1B13 /* ColorIconView.swift in Sources */,

@@ -3,10 +3,10 @@ import UIKit
 
 extension UIButton {
     func applyBlueStyle() {
-        backgroundColor = UIColor(named: .Blue)
         titleLabel!.font = UIFont(fontType: .Button)
         setTitleColor(UIColor(named: .White), forState: .Normal)
-        setTitleColor(UIColor(named: .DarkGray), forState: .Disabled)
+        setBackgroundImage(UIImage.fromColor(UIColor(named: .Blue)), forState: .Normal)
+        setBackgroundImage(UIImage.fromColor(UIColor(named: .DarkGray)), forState: .Disabled)
     }
     
     func applyPlainStyle() {

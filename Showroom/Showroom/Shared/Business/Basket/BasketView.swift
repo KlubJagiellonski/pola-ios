@@ -4,6 +4,7 @@ import SnapKit
 
 protocol BasketViewDelegate: class {
     func basketViewDidDeleteProduct(product: BasketProduct)
+    func basketViewDidTapAmount(of product: BasketProduct)
 }
 
 class BasketView: UIView, UITableViewDelegate {
@@ -88,6 +89,10 @@ class BasketView: UIView, UITableViewDelegate {
     
     func dataSourceDidDeleteProduct(product: BasketProduct) {
         delegate?.basketViewDidDeleteProduct(product)
+    }
+    
+    func dataSourceDidTapAmount(of product: BasketProduct) {
+        delegate?.basketViewDidTapAmount(of: product)
     }
 }
 

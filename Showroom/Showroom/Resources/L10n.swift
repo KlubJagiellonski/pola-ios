@@ -31,6 +31,8 @@ enum L10n {
   case BasketDay
   /// dni
   case BasketDays
+  /// 0 (usuń z koszyka)
+  case BasketAmount0
   /// POLECANE
   case DashboardRecommendationTitleFirstPart
   /// dla Ciebie
@@ -47,6 +49,8 @@ enum L10n {
   case ProductActionPickColorTitle
   /// tylko w innym rozmiarze
   case ProductActionColorCellColorUnavailable
+  /// WYBIERZ ILOŚĆ
+  case ProductActionPickAmountTitle
   /// DO KOSZYKA
   case ProductDetailsToBasket
   /// Tabela rozmiarów
@@ -98,6 +102,8 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Basket.Day")
       case .BasketDays:
         return L10n.tr("Basket.Days")
+      case .BasketAmount0:
+        return L10n.tr("Basket.Amount0")
       case .DashboardRecommendationTitleFirstPart:
         return L10n.tr("Dashboard.RecommendationTitle.FirstPart")
       case .DashboardRecommendationTitleSecondPart:
@@ -114,6 +120,8 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("ProductAction.PickColorTitle")
       case .ProductActionColorCellColorUnavailable:
         return L10n.tr("ProductAction.ColorCell.ColorUnavailable")
+      case .ProductActionPickAmountTitle:
+        return L10n.tr("ProductAction.PickAmountTitle")
       case .ProductDetailsToBasket:
         return L10n.tr("ProductDetails.ToBasket")
       case .ProductDetailsSizeChart:
