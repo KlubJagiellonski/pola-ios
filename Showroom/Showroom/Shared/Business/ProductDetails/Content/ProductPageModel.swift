@@ -28,7 +28,7 @@ class ProductPageModel {
         let baseUrl = "https://www.showroom.pl/p/"
         
         if let product = state.product {
-            return (product.name + " " + product.name, NSURL(string: baseUrl + String(product.id))!)
+            return (product.brand + " " + product.name, NSURL(string: baseUrl + String(product.id))!)
             
         } else if let productDetails = state.productDetails {
             return (productDetails.brand.name + " " + productDetails.name, NSURL(string: baseUrl + String(productDetails.id))!)
