@@ -18,6 +18,7 @@ extension UIFont {
         case RecommendedBrand
         case Recommended
         case Badge
+        case TabBarBadge
         case Input
         case ProductActionHeader
         case ProductActionOption
@@ -55,6 +56,8 @@ extension UIFont {
             self.init(name: "Lato-Regular", size: 11)
         case .Badge:
             self.init(name: "Lato-Regular", size: 10)
+        case .TabBarBadge:
+            self.init(name: "Lato-Regular", size: 11)
         case .Input:
             self.init(name: "Lato-Regular", size: 13)
         case .ProductActionHeader:

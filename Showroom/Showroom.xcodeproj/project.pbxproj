@@ -138,6 +138,7 @@
 		75E269AE1CFC7DA200ED3CA2 /* BasketDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E269AD1CFC7DA200ED3CA2 /* BasketDataSource.swift */; };
 		75EDE8291CFDDD2200C5F96B /* UIButtonUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75EDE8281CFDDD2200C5F96B /* UIButtonUtils.swift */; };
 		75EDE82B1CFDDF6D00C5F96B /* UITextFieldUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75EDE82A1CFDDF6D00C5F96B /* UITextFieldUtils.swift */; };
+		C02220851D12D4AD004411A7 /* TabBarItemBadgeContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02220841D12D4AD004411A7 /* TabBarItemBadgeContainerView.swift */; };
 		C092804C1D01DA8D00350B82 /* ProductSizeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C092804B1D01DA8D00350B82 /* ProductSizeViewController.swift */; };
 		C09280541D01DBA300350B82 /* ProductSizeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09280531D01DBA300350B82 /* ProductSizeHeaderView.swift */; };
 		C09280561D0584A900350B82 /* DropUpActionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09280551D0584A900350B82 /* DropUpActionAnimator.swift */; };
@@ -327,6 +328,7 @@
 		75E269AD1CFC7DA200ED3CA2 /* BasketDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasketDataSource.swift; sourceTree = "<group>"; };
 		75EDE8281CFDDD2200C5F96B /* UIButtonUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIButtonUtils.swift; sourceTree = "<group>"; };
 		75EDE82A1CFDDF6D00C5F96B /* UITextFieldUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextFieldUtils.swift; sourceTree = "<group>"; };
+		C02220841D12D4AD004411A7 /* TabBarItemBadgeContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarItemBadgeContainerView.swift; sourceTree = "<group>"; };
 		C092804B1D01DA8D00350B82 /* ProductSizeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductSizeViewController.swift; sourceTree = "<group>"; };
 		C09280531D01DBA300350B82 /* ProductSizeHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductSizeHeaderView.swift; sourceTree = "<group>"; };
 		C09280551D0584A900350B82 /* DropUpActionAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropUpActionAnimator.swift; sourceTree = "<group>"; };
@@ -719,6 +721,7 @@
 			isa = PBXGroup;
 			children = (
 				1DD1EA821CF2E46C00D99731 /* MainTabViewController.swift */,
+				C02220841D12D4AD004411A7 /* TabBarItemBadgeContainerView.swift */,
 				C093671B1D0ABD2C004C7748 /* TabBarIcon.swift */,
 			);
 			path = Main;
@@ -1193,6 +1196,7 @@
 				1D0F3B4E1D12819B0052CFF6 /* BasketDeliveryNavigationController.swift in Sources */,
 				1DD1EA911CF2E61800D99731 /* SettingsViewController.swift in Sources */,
 				1DD1EA9B1CF2ED6400D99731 /* SimpleNavigationEvent.swift in Sources */,
+				C02220851D12D4AD004411A7 /* TabBarItemBadgeContainerView.swift in Sources */,
 				C093671C1D0ABD2D004C7748 /* TabBarIcon.swift in Sources */,
 				1D7824A81D06E9CB00E60392 /* ProductDescriptionDataSource.swift in Sources */,
 				75E269AE1CFC7DA200ED3CA2 /* BasketDataSource.swift in Sources */,

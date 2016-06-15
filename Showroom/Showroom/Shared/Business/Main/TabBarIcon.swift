@@ -7,7 +7,7 @@ enum TabBarIcon {
     case Wishlist(version: TabBarIconVersion)
     case Settings(version: TabBarIconVersion)
     
-    var image: UIImage {
+    private var image: UIImage {
         switch self {
         case Dashboard(.Full): return UIImage(asset: .Ic_home_full_black)
         case Search(.Full): return UIImage(asset: .Ic_przegladaj)
@@ -26,10 +26,11 @@ enum TabBarIcon {
 
 enum TabBarIconVersion {
     case Full, Line
+    mutating func toggle() { self = (self == Full) ? Line : Full }
 }
 
 extension UITabBarItem {
-    convenience init(tabBarIcon: TabBarIcon) {
+    convenience init(tabBarIcon: TabBarIcon, badgeValue: Int? = nil) {
         self.init(title: nil, image: tabBarIcon.image, selectedImage: nil)
     }
 }
