@@ -22,7 +22,9 @@ class BasketHeader: UITableViewHeaderFooterView {
     
     private func configureCustomConstraints() {
         headerLabel.snp_makeConstraints { make in
-            make.edges.equalToSuperview().inset(UIEdgeInsetsMake(0, Dimensions.defaultMargin, 0, 0))
+            make.top.equalToSuperview()
+            make.left.equalToSuperview().inset(Dimensions.defaultMargin)
+            make.bottom.equalToSuperview()
         }
     }
 }

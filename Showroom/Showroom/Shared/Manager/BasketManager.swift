@@ -56,7 +56,7 @@ class BasketManager {
     }
     
     func isInBasket(product: BasketProduct) -> Bool {
-        return currentBasket.productsByBrands.contains { $0.products.contains(product) }
+        return currentBasket.productsByBrands.contains { $0.products.contains({ $0.isEqualInBasket(to: product) }) }
     }
     
     func isInBasket(product: ProductDetails) -> Bool {
@@ -100,7 +100,7 @@ class BasketManager {
                             name: "Spódnica maxi The Forever Skirt",
                             imageUrl: "https://static.shwrm.net/images/g/t/gt573d85d13b9f7_500x643.jpg",
                             size: BasketProductSize(id: 0, name: "S"),
-                            color: nil,
+                            color: BasketProductColor(id: 12, name: "biały"),
                             basePrice: Money(amt: 429.00),
                             price: nil,
                             amount: 1
@@ -109,7 +109,7 @@ class BasketManager {
                             id: 13,
                             name: "Spódnica Inka white",
                             imageUrl: "https://static.shwrm.net/images/w/a/wa572b3deddf05a_500x643.jpg",
-                            size: nil,
+                            size: BasketProductSize(id: 0, name: "S"),
                             color: BasketProductColor(id: 1, name: "zielony"),
                             basePrice: Money(amt: 16.00),
                             price: nil,

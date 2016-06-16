@@ -24,7 +24,7 @@ struct Basket {
     }
     
     mutating func remove(product: BasketProduct) {
-        guard let brandIndex = productsByBrands.indexOf({ $0.products.contains(product) }) else {
+        guard let brandIndex = indexOfBrand(containing: product) else {
             return
         }
         productsByBrands[brandIndex].remove(product)
@@ -34,7 +34,7 @@ struct Basket {
     }
     
     mutating func add(product: BasketProduct, of brand: BasketBrand) {
-        if let brandIndex = productsByBrands.indexOf(brand) {
+        if let brandIndex = index(of: brand) {
             productsByBrands[brandIndex].add(product)
         } else {
             var newBrand = brand
@@ -45,10 +45,18 @@ struct Basket {
     }
     
     mutating func update(product: BasketProduct) {
-        guard let brandIndex = productsByBrands.indexOf({ $0.products.contains(product) }) else {
+        guard let brandIndex = indexOfBrand(containing: product) else {
             return
         }
         productsByBrands[brandIndex].update(product)
+    }
+    
+    private func index(of brand: BasketBrand) -> Int? {
+        return productsByBrands.indexOf({ $0.isEqualInBasket(to: brand) })
+    }
+    
+    private func indexOfBrand(containing product: BasketProduct) -> Int? {
+        return productsByBrands.indexOf({ $0.products.contains({ $0.isEqualInBasket(to: product) }) })
     }
 }
 
@@ -82,14 +90,14 @@ struct BasketBrand: Equatable {
     }
     
     mutating func remove(product: BasketProduct) {
-        guard let productIndex = products.indexOf(product) else {
+        guard let productIndex = index(of: product) else {
             return
         }
         products.removeAtIndex(productIndex)
     }
     
     mutating func add(product: BasketProduct) {
-        if let productIndex = products.indexOf(product) {
+        if let productIndex = index(of: product) {
             products[productIndex].amount += 1
         } else {
             products.append(product)
@@ -97,7 +105,7 @@ struct BasketBrand: Equatable {
     }
     
     mutating func update(product: BasketProduct) {
-        guard let productIndex = products.indexOf(product) else {
+        guard let productIndex = index(of: product) else {
             return
         }
         products[productIndex] = product
@@ -106,19 +114,34 @@ struct BasketBrand: Equatable {
     mutating func removeAllProducts() {
         products.removeAll()
     }
+    
+    func isEqualInBasket(to brand: BasketBrand) -> Bool {
+        return self.id == brand.id
+    }
+    
+    func isEqualExceptProducts(to brand: BasketBrand) -> Bool {
+        return self.id == brand.id
+            && self.name == brand.name
+            && self.shippingPrice == brand.shippingPrice
+            && self.waitTime == brand.waitTime
+    }
+    
+    private func index(of product: BasketProduct) -> Int? {
+        return products.indexOf { $0.isEqualInBasket(to: product) }
+    }
 }
 
 struct BasketProduct: Equatable {
     let id: Int
     let name: String
     let imageUrl: String?
-    let size: BasketProductSize?
-    let color: BasketProductColor?
+    let size: BasketProductSize
+    let color: BasketProductColor
     let basePrice: Money
     let price: Money?
     var amount: Int = 1
     
-    init (id: Int, name: String, imageUrl: String?, size: BasketProductSize?, color: BasketProductColor?, basePrice: Money, price: Money?, amount: Int) {
+    init (id: Int, name: String, imageUrl: String?, size: BasketProductSize, color: BasketProductColor, basePrice: Money, price: Money?, amount: Int) {
         self.id = id
         self.name = name
         self.imageUrl = imageUrl
@@ -129,8 +152,12 @@ struct BasketProduct: Equatable {
         self.amount = amount
     }
     
-    init (id: Int, name: String, imageUrl: String?, size: BasketProductSize?, color: BasketProductColor?, basePrice: Money, price: Money?) {
+    init (id: Int, name: String, imageUrl: String?, size: BasketProductSize, color: BasketProductColor, basePrice: Money, price: Money?) {
         self.init(id: id, name: name, imageUrl: imageUrl, size: size, color: color, basePrice: basePrice, price: price, amount: 1)
+    }
+    
+    func isEqualInBasket(to product: BasketProduct) -> Bool {
+        return self.id == product.id && self.color.id == product.color.id && self.size.id == product.size.id
     }
 }
 
@@ -167,18 +194,28 @@ struct BasketProductSize: Equatable {
 // MARK: - Operators handling
 func == (lhs: BasketBrand, rhs: BasketBrand) -> Bool {
     return lhs.id == rhs.id
+        && lhs.name == rhs.name
+        && lhs.shippingPrice == rhs.shippingPrice
+        && lhs.waitTime == rhs.waitTime
+        && lhs.products == rhs.products
 }
 
 func == (lhs: BasketProduct, rhs: BasketProduct) -> Bool {
-    return lhs.id == rhs.id && lhs.color == rhs.color && lhs.size == rhs.size
+    return lhs.id == rhs.id
+        && lhs.name == rhs.name
+        && lhs.imageUrl == rhs.imageUrl
+        && lhs.size == rhs.size
+        && lhs.color == rhs.color
+        && lhs.basePrice == rhs.basePrice
+        && lhs.amount == rhs.amount
 }
 
 func == (lhs: BasketProductColor, rhs: BasketProductColor) -> Bool {
-    return lhs.id == rhs.id
+    return lhs.id == rhs.id && lhs.name == rhs.name
 }
 
 func == (lhs: BasketProductSize, rhs: BasketProductSize) -> Bool {
-    return lhs.id == rhs.id
+    return lhs.id == rhs.id && lhs.name == rhs.name
 }
 
 // MARK: - Decodable
@@ -213,8 +250,8 @@ extension BasketProduct: Decodable {
             id: j => "id",
             name: j => "name",
             imageUrl: j =>? "image_url",
-            size: j =>? "size",
-            color: j =>? "color",
+            size: j => "size",
+            color: j => "color",
             basePrice: j => "msrp",
             price: j =>? "price",
             amount: j => "amount"
@@ -284,17 +321,14 @@ extension BasketProduct: Encodable {
             "id": id,
             "name": name,
             "msrp": basePrice.amount,
-            "amount": amount
+            "amount": amount,
+            "size": size.encode(),
+            "color": color.encode()
         ]
         if imageUrl != nil {
             dict.setObject(imageUrl!, forKey: "image_url")
         }
-        if size != nil {
-            dict.setObject(size!.encode(), forKey: "size")
-        }
-        if color != nil {
-            dict.setObject(color!.encode(), forKey: "color")
-        }
+        
         return dict
     }
 }

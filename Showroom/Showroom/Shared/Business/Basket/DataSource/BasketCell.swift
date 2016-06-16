@@ -55,16 +55,7 @@ class BasketProductCell: UITableViewCell {
         nameLabel.text = product.name
         photoImageView.image = nil
         photoImageView.loadImageFromUrl(product.imageUrl!)
-        if let size = product.size, let color = product.color {
-            propertiesLabel.text = size.name + ", " + color.name
-        } else if let size = product.size {
-            propertiesLabel.text = size.name
-        } else if let color = product.color {
-            propertiesLabel.text = color.name
-        } else {
-            propertiesLabel.text = nil
-        }
-        
+        propertiesLabel.text = product.size.name + ", " + product.color.name
         priceLabel.basePrice = product.basePrice
         priceLabel.discountPrice = product.price
         amountButton.setTitle(String(product.amount) + " szt.", forState: .Normal)

@@ -14,9 +14,114 @@ class BasketDataSource: NSObject, UITableViewDataSource, BasketProductCellDelega
         tableView.registerClass(BasketHeader.self, forHeaderFooterViewReuseIdentifier: String(BasketHeader))
     }
     
-    func updateData(with productsByBrands: [BasketBrand]) {
-        self.productsByBrands = productsByBrands
-        tableView?.reloadData()
+    func updateData(with newProductsByBrands: [BasketBrand]) {
+        var addedBrands: [Int] = []
+        var removedBrands: [Int] = []
+        var updatedBrands: [Int] = []
+        
+        var addedProducts: [NSIndexPath] = []
+        var removedProducts: [NSIndexPath] = []
+        var updatedProducts: [NSIndexPath] = []
+        
+        // Find removed and updated
+        for (brandIndex, oldBrand) in self.productsByBrands.enumerate() {
+            if let newBrand = newProductsByBrands.find({ $0.isEqualInBasket(to: oldBrand) }) {
+                // Brand has not been removed
+                if !newBrand.isEqualExceptProducts(to: oldBrand) {
+                    // Brand has been changed
+                    updatedBrands.append(brandIndex)
+                }
+                // Find removed or changed products
+                for (productIndex, oldProduct) in oldBrand.products.enumerate() {
+                    if let newProduct = newBrand.products.find({ $0.isEqualInBasket(to: oldProduct) }) {
+                        // Product has not been removed
+                        if newProduct != oldProduct {
+                            // Product has been changed
+                            updatedProducts.append(NSIndexPath(forRow: productIndex, inSection: brandIndex))
+                        }
+                    } else {
+                        // Product has been removed
+                        removedProducts.append(NSIndexPath(forRow: productIndex, inSection: brandIndex))
+                    }
+                }
+            } else {
+                // Brand has been removed
+                removedBrands.append(brandIndex)
+            }
+        }
+        
+        // Find added
+        for (brandIndex, newBrand) in newProductsByBrands.enumerate() {
+            if let oldBrand = self.productsByBrands.find({ $0.isEqualInBasket(to: newBrand) }) {
+                // This brand is not new, but we have to check for new products
+                for (productIndex, newProduct) in newBrand.products.enumerate() {
+                    if !oldBrand.products.contains({ $0.isEqualInBasket(to: newProduct) }) {
+                        // This product is new in this brand
+                        addedProducts.append(NSIndexPath(forRow: productIndex, inSection: brandIndex))
+                    }
+                }
+            } else {
+                // This brand is new, we will add it with its products
+                addedBrands.append(brandIndex)
+                for (productIndex, _) in newBrand.products.enumerate() {
+                    addedProducts.append(NSIndexPath(forRow: productIndex, inSection: brandIndex))
+                }
+            }
+        }
+        
+        // Update separator visibility for the last cell
+        if !removedBrands.isEmpty &&
+            removedBrands.contains(self.productsByBrands.count - 1) &&
+            !newProductsByBrands.isEmpty {
+            // Last section has been removed, so the one before the removed last is the new last
+            updatedProducts.append(NSIndexPath(forRow: newProductsByBrands.last!.products.count, inSection: newProductsByBrands.count - 1))
+        }
+        
+        if !addedBrands.isEmpty &&
+            addedBrands.contains(newProductsByBrands.count - 1) &&
+            !self.productsByBrands.isEmpty {
+            // There is a new section at the end, so the previous last section is no longer the last one
+            updatedProducts.append(NSIndexPath(forRow: self.productsByBrands.last!.products.count, inSection: self.productsByBrands.count - 1))
+        }
+        
+        self.productsByBrands = newProductsByBrands
+        
+        if removedBrands.isEmpty &&
+            removedProducts.isEmpty &&
+            updatedBrands.isEmpty &&
+            updatedProducts.isEmpty &&
+            addedBrands.isEmpty &&
+            addedProducts.isEmpty {
+            logInfo("Basket has been updated but nothing changed.")
+            return
+        }
+        
+        logInfo("Basket has been updated." +
+            String(format: "\nBrands: %d added, %d removed, %d updated", addedBrands.count, removedBrands.count, updatedBrands.count) +
+            String(format: "\nProducts: %d added, %d removed, %d updated", addedProducts.count, removedProducts.count, updatedProducts.count))
+        
+        tableView?.beginUpdates()
+        
+        for brandToRemove in removedBrands {
+            tableView?.deleteSections(NSIndexSet(index: brandToRemove), withRowAnimation: .Automatic)
+        }
+        if !removedProducts.isEmpty {
+            tableView?.deleteRowsAtIndexPaths(removedProducts, withRowAnimation: .Automatic)
+        }
+        for brandToUpdate in updatedBrands {
+            tableView?.reloadSections(NSIndexSet(index: brandToUpdate), withRowAnimation: .Automatic)
+        }
+        if !updatedProducts.isEmpty {
+            tableView?.reloadRowsAtIndexPaths(updatedProducts, withRowAnimation: .Automatic)
+        }
+        for brandToAdd in addedBrands {
+            tableView?.insertSections(NSIndexSet(index: brandToAdd), withRowAnimation: .Automatic)
+        }
+        if !addedProducts.isEmpty {
+            tableView?.insertRowsAtIndexPaths(addedProducts, withRowAnimation: .Automatic)
+        }
+        
+        tableView?.endUpdates()
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -33,10 +138,9 @@ class BasketDataSource: NSObject, UITableViewDataSource, BasketProductCellDelega
             let cell = tableView.dequeueReusableCellWithIdentifier(String(BasketShippingCell)) as! BasketShippingCell
             cell.priceLabel.text = product.shippingPrice.stringValue
             cell.shippingLabel.text = tr(.BasketShippingIn) + " " + String(product.waitTime) + " " + (product.waitTime == 1 ? tr(.BasketDay) : tr(.BasketDays)) // TODO: Add shipping method
-            if isLastCell(indexPath) {
-                // Hide separator for the last cell
-                cell.separatorView.hidden = true
-            }
+            
+            // Hide separator for the last cell
+            cell.separatorView.hidden = isLastCell(indexPath)
             return cell;
         } else {
             let product = productsByBrands[indexPath.section].products[indexPath.row]
