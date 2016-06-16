@@ -1,0 +1,59 @@
+{
+	"variables": [],
+	"info": {
+		"name": "SHWRM",
+		"_postman_id": "d1bafb54-2fca-09f1-38b4-9814e031e4e4",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "HOME",
+			"request": {
+				"url": "{{HOST}}/home?gender=female",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "PRODUCT DETAILS",
+			"request": {
+				"url": "{{HOST}}/products/123",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "CART VALIDATE",
+			"request": {
+				"url": "{{HOST}}/cart/validate",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"items\": [\n        {\n            \"id\": 1,\n            \"amount\": 2,\n            \"color\": 1,\n            \"size\": 1\n        }, {\n            \"id\": 2,\n            \"amount\": 10,\n            \"color\": 2,\n            \"size\": 1\n        }, {\n            \"id\": 3,\n            \"amount\": 2,\n            \"color\": 1,\n            \"size\": 2\n        }\n    ],\n    \"country_code\": \"PL\",\n    \"delivery_type\": \"UPS\",\n    \"discount_code\": \"12345\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
