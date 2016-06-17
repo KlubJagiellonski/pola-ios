@@ -11,16 +11,16 @@ class DropUpActionAnimator: NSObject, UIViewControllerTransitioningDelegate, Ani
         super.init()
     }
     
-    func presentViewController(presentedViewController: UIViewController, presentingViewController: UIViewController) {
+    func presentViewController(presentedViewController: UIViewController, presentingViewController: UIViewController, completion: (() -> Void)? = nil) {
         presentedViewController.modalPresentationStyle = .Custom
         presentedViewController.modalTransitionStyle = .CoverVertical
         presentedViewController.transitioningDelegate = self
         
-        presentingViewController.presentViewController(presentedViewController, animated: true, completion: nil)
+        presentingViewController.presentViewController(presentedViewController, animated: true, completion: completion)
     }
     
-    func dismissViewController(presentingViewController presentingViewController: UIViewController) {
-        presentingViewController.dismissViewControllerAnimated(true, completion: nil)
+    func dismissViewController(presentingViewController presentingViewController: UIViewController, completion: (() -> Void)? = nil) {
+        presentingViewController.dismissViewControllerAnimated(true, completion: completion)
     }
     
     func didTapDimView(sender: UITapGestureRecognizer) {

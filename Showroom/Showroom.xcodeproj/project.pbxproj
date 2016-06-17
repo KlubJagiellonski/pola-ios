@@ -29,6 +29,7 @@
 		1D0F3B5F1D12DC200052CFF6 /* BasketCountryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0F3B5E1D12DC200052CFF6 /* BasketCountryCell.swift */; };
 		1D0F3B611D13D2DC0052CFF6 /* BasketCountryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0F3B601D13D2DC0052CFF6 /* BasketCountryView.swift */; };
 		1D0F3B641D13D3710052CFF6 /* BasketCountryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0F3B631D13D3710052CFF6 /* BasketCountryDataSource.swift */; };
+		1D0F3B661D13DDF20052CFF6 /* NSURLUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0F3B651D13DDF20052CFF6 /* NSURLUtils.swift */; };
 		1D2F193F1CE9CE250099142E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2F193E1CE9CE250099142E /* AppDelegate.swift */; };
 		1D2F19491CE9CE250099142E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1D2F19471CE9CE250099142E /* LaunchScreen.storyboard */; };
 		1D2F19541CE9CE250099142E /* ShowroomTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2F19531CE9CE250099142E /* ShowroomTests.swift */; };
@@ -218,6 +219,7 @@
 		1D0F3B5E1D12DC200052CFF6 /* BasketCountryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BasketCountryCell.swift; path = ../BasketCountryCell.swift; sourceTree = "<group>"; };
 		1D0F3B601D13D2DC0052CFF6 /* BasketCountryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasketCountryView.swift; sourceTree = "<group>"; };
 		1D0F3B631D13D3710052CFF6 /* BasketCountryDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasketCountryDataSource.swift; sourceTree = "<group>"; };
+		1D0F3B651D13DDF20052CFF6 /* NSURLUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURLUtils.swift; sourceTree = "<group>"; };
 		1D2F193B1CE9CE250099142E /* SHOWROOM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SHOWROOM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D2F193E1CE9CE250099142E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1D2F19481CE9CE250099142E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -542,6 +544,7 @@
 				1D7824B61D0709D200E60392 /* Utils.swift */,
 				1D0F3B551D12D28D0052CFF6 /* UINavigationBarUtils.swift */,
 				1D0F3B571D12D2C70052CFF6 /* UIViewControllerUtils.swift */,
+				1D0F3B651D13DDF20052CFF6 /* NSURLUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1100,6 +1103,7 @@
 				C09280561D0584A900350B82 /* DropUpActionAnimator.swift in Sources */,
 				1DF7967E1CEB3AF600C7A7F4 /* Logging.swift in Sources */,
 				1D0F3B5F1D12DC200052CFF6 /* BasketCountryCell.swift in Sources */,
+				1D0F3B661D13DDF20052CFF6 /* NSURLUtils.swift in Sources */,
 				1DD1EA831CF2E46C00D99731 /* MainTabViewController.swift in Sources */,
 				1D0F3B511D1282CC0052CFF6 /* BasketDeliveryView.swift in Sources */,
 				1DD1EA8E1CF2E5EB00D99731 /* WishlistViewController.swift in Sources */,

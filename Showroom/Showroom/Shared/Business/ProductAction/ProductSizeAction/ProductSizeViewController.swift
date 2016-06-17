@@ -6,10 +6,10 @@ protocol ProductSizeViewControllerDelegate: class {
 }
 
 class ProductSizeViewController: UIViewController, ProductSizeViewDelegate {
-    let sizes: [ProductSize]
-    let initialSelectedSizeId: ObjectId?
-    
-    var castView: ProductSizeView { return view as! ProductSizeView }
+    private let sizes: [ProductSize]
+    private let initialSelectedSizeId: ObjectId?
+    private var castView: ProductSizeView { return view as! ProductSizeView }
+    var buyMode: Bool = false //it indicated that this vc was initiatied by buy action
     
     weak var delegate: ProductSizeViewControllerDelegate?
     

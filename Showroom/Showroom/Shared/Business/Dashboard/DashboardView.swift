@@ -21,6 +21,10 @@ class DashboardView: UIView, UITableViewDelegate, UICollectionViewDelegate {
         }
     }
     
+    var recommendationImageWidth: CGFloat {
+        return dataSource.recommendationsDataSource.imageWidth
+    }
+    
     weak var delegate: DashboardViewDelegate?
     
     init(modelState: DashboardModelState) {

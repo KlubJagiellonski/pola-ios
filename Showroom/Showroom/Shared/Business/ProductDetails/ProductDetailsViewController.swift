@@ -36,8 +36,8 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewDelegate
         castView.updatePageCount(model.productInfos.count)
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         castView.scrollToPage(atIndex: model.initialProductIndex, animated: false)
     }
     

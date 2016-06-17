@@ -65,10 +65,13 @@ class DashboardModel {
             .doOnNext { [weak self] result in self?.state.recommendationsResult = result.result() }
     }
     
-    func createProductDetailsContext(forRecommendation recommendation : ProductRecommendation) -> ProductDetailsContext {
+    func createProductDetailsContext(forRecommendation recommendation: ProductRecommendation, withImageWidth imageWidth: CGFloat) -> ProductDetailsContext {
         let recommendations = state.recommendationsResult!.productRecommendations
         let index = recommendations.indexOf(recommendation)!
-        let productInfos = recommendations.map { productRecommendation in return ProductInfo.Object(productRecommendation.toProduct()) }
+        let productInfos: [ProductInfo] = recommendations.map { productRecommendation in
+            let lowResImageUrl = NSURL.createImageUrl(productRecommendation.imageUrl, w: imageWidth, h: nil)
+            return ProductInfo.Object(productRecommendation.toProduct(withLowResImageUrl: lowResImageUrl.absoluteString))
+        }
         return OnePageProductDetailsContext(productInfos: productInfos, initialProductIndex: index) { [weak self] index in
             self?.state.recommendationsIndex = index
         }

@@ -54,7 +54,7 @@ class BasketViewController: UIViewController, BasketViewDelegate {
     func basketViewDidTapAmount(of product: BasketProduct) {
         let amountViewController = resolver.resolve(ProductAmountViewController.self, argument: product)
         amountViewController.delegate = self
-        actionAnimator.presentViewController(amountViewController, presentingViewController: self)
+        actionAnimator.presentViewController(amountViewController, presentingViewController: self, completion: nil)
     }
     
     func basketViewDidTapShipping(view: BasketView) {
@@ -64,26 +64,26 @@ class BasketViewController: UIViewController, BasketViewDelegate {
         viewController.deliveryDelegate = self
         viewController.modalPresentationStyle = .FormSheet
         viewController.preferredContentSize = CGSize(width: 292, height: 450)
-        deliveryAnimator.presentViewController(viewController, presentingViewController: self)
+        deliveryAnimator.presentViewController(viewController, presentingViewController: self, completion: nil)
     }
 }
 
 extension BasketViewController: ProductAmountViewControllerDelegate {
     func productAmount(viewController: ProductAmountViewController, didChangeAmountOf product: BasketProduct) {
-        actionAnimator.dismissViewController(presentingViewController: self)
+        actionAnimator.dismissViewController(presentingViewController: self, completion: nil)
         manager.updateInBasket(product)
     }
 }
 
 extension BasketViewController: DimAnimatorDelegate {
     func animatorDidTapOnDimView(animator: Animator) {
-        animator.dismissViewController(presentingViewController: self)
+        animator.dismissViewController(presentingViewController: self, completion: nil)
     }
 }
 
 extension BasketViewController: BasketDeliveryNavigationControllerDelegate {
     func basketDeliveryWantsDismiss(viewController: BasketDeliveryNavigationController) {
-        deliveryAnimator.dismissViewController(presentingViewController: self)
+        deliveryAnimator.dismissViewController(presentingViewController: self, completion: nil)
     }
 }
 

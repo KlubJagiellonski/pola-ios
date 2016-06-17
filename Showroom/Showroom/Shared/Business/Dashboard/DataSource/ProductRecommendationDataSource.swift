@@ -4,6 +4,10 @@ import UIKit
 class ProductRecommendationDataSource: NSObject, UICollectionViewDataSource {
     private var productRecommendations: [ProductRecommendation] = []
     
+    var imageWidth: CGFloat {
+        return ProductRecommendationCell.imageSize.width
+    }
+    
     weak var collectionView: UICollectionView? {
         didSet {
             guard oldValue != collectionView else { return }

@@ -13,6 +13,7 @@ struct Product {
     let basePrice: Money
     let price: Money
     let imageUrl: String
+    let lowResImageUrl: String?
 }
 
 struct ProductDetails {
@@ -68,20 +69,6 @@ struct ProductDetailsFabric {
 
 // MARK: - Decodable, Encodable
 
-extension Product: Decodable {
-    static func decode(j: AnyObject) throws -> Product {
-        return try Product(
-            id: j => "id",
-            brand: j => "store",
-            name: j => "name",
-            basePrice: j => "msrp",
-            price: j => "price",
-            imageUrl: j => "imageUrl"
-        )
-    }
-}
-
-
 extension ProductDetails: Decodable, Encodable {
     static func decode(j: AnyObject) throws -> ProductDetails {
         return try ProductDetails(
@@ -90,7 +77,7 @@ extension ProductDetails: Decodable, Encodable {
             name: j => "name",
             basePrice: j => "msrp",
             price: j => "price",
-            images: j => "images",
+            images: j => "images" => "available",
             colors: j => "colors",
             sizes: j => "sizes",
             fabrics: j => "fabrics",
@@ -108,7 +95,7 @@ extension ProductDetails: Decodable, Encodable {
             "name": name,
             "msrp": basePrice.amount,
             "price": price.amount,
-            "images": images.map { $0.encode() } as NSArray,
+            "images": ["available": images.map { $0.encode() } as NSArray] as NSDictionary,
             "colors": colors.map { $0.encode() } as NSArray,
             "sizes": sizes.map { $0.encode() } as NSArray,
             "fabrics": fabrics.map { $0.encode() } as NSArray,

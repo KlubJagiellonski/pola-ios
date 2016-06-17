@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 
 class ProductRecommendationCell: UICollectionViewCell {
-    static let imageSize: CGSize = CGSizeMake(Dimensions.recommendationItemSize.width, 154)
+    static let imageSize: CGSize = CGSizeMake(Dimensions.recommendationItemSize.width, Dimensions.recommendationItemSize.width / CGFloat(Dimensions.defaultImageRatio))
     
     let productImageView = UIImageView()
     let brandLabel = UILabel()
@@ -71,7 +71,7 @@ class ProductRecommendationCell: UICollectionViewCell {
     
     func updateData(recommendation: ProductRecommendation) {
         productImageView.image = nil
-        productImageView.loadImageFromUrl(recommendation.imageUrl, w: ProductRecommendationCell.imageSize.width, h: ProductRecommendationCell.imageSize.height)
+        productImageView.loadImageFromUrl(recommendation.imageUrl, w: ProductRecommendationCell.imageSize.width)
         brandLabel.text = recommendation.brand
         nameLabel.text = recommendation.title
         priceLabel.text = recommendation.price.stringValue

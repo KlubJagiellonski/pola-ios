@@ -61,7 +61,8 @@ class DashboardViewController: UIViewController, DashboardViewDelegate {
     }
     
     func dashboardView(dashboardView: DashboardView, didSelectRecommendation productRecommendation: ProductRecommendation) {
-        let context = model.createProductDetailsContext(forRecommendation: productRecommendation)
+        let imageWidth = dashboardView.recommendationImageWidth
+        let context = model.createProductDetailsContext(forRecommendation: productRecommendation, withImageWidth: imageWidth)
         sendNavigationEvent(ShowProductDetailsEvent(context: context))
     }
 }

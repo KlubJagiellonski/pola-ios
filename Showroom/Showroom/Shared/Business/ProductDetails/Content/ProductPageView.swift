@@ -37,7 +37,7 @@ class ProductPageView: UIView, UICollectionViewDelegateFlowLayout {
     private let disposeBag = DisposeBag()
     
     private var contentTopConstraint: Constraint?
-    private var viewState: ProductPageViewState = .Default {
+    private(set) var viewState: ProductPageViewState = .Default {
         didSet {
             guard oldValue != viewState else { return }
             delegate?.pageView(self, didChangePageViewState: viewState)
@@ -117,6 +117,7 @@ class ProductPageView: UIView, UICollectionViewDelegateFlowLayout {
     
     private func configure(forProduct product: Product?) {
         guard let p = product else { return } //todo it should show full screen spinner when there is no product info
+        imageDataSource.lowResImageUrl = p.lowResImageUrl
         imageDataSource.imageUrls = [p.imageUrl]
     }
     

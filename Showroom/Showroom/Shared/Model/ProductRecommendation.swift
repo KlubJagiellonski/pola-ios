@@ -19,14 +19,15 @@ struct ProductRecommendation {
 }
 
 extension ProductRecommendation {
-    func toProduct() -> Product {
+    func toProduct(withLowResImageUrl lowResImageUrl: String?) -> Product {
         return Product(
             id: Int(itemId)!,
             brand: brand,
             name: title,
             basePrice: basePrice,
             price: price,
-            imageUrl: imageUrl)
+            imageUrl: imageUrl,
+            lowResImageUrl: lowResImageUrl)
     }
 }
 

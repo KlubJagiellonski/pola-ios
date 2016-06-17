@@ -38,6 +38,8 @@ class ProductPageModel {
         }
     }
     
+    var isSizeSet: Bool { return state.currentSize != nil }
+    
     init(api: ApiService, basketManager: BasketManager, storageManager: StorageManager, productId: ObjectId, product: Product? = nil) {
         self.api = api
         self.storageManager = storageManager
@@ -69,8 +71,10 @@ class ProductPageModel {
             .merge().distinctUntilChanged(==)
             .observeOn(MainScheduler.instance)
             .doOnNext { [weak self] result in
-                self?.state.productDetails = result.result()
                 guard let productDetails = result.result() else { return }
+                
+                self?.state.productDetails = result.result()
+                self?.updateBuyButtonState()
                 self?.state.currentSize = self?.defaultSize(forProductDetails: productDetails)
                 self?.state.currentColor = self?.defaultColor(forProductDetails: productDetails)
             }
@@ -79,7 +83,6 @@ class ProductPageModel {
     func changeSelectedSize(forSizeId sizeId: ObjectId) {
         guard let productDetails = state.productDetails else { return }
         state.currentSize = productDetails.sizes.find { $0.id == sizeId }
-        self.updateBuyButtonState()
     }
     
     func changeSelectedColor(forColorId colorId: ObjectId) {
@@ -89,7 +92,6 @@ class ProductPageModel {
         let sizeExistForColor = selectedSize.colors.contains { $0 == state.currentColor?.id }
         if !sizeExistForColor {
             state.currentSize = nil
-            self.updateBuyButtonState()
         }
     }
     
@@ -134,7 +136,7 @@ class ProductPageModel {
     }
     
     private func updateBuyButtonState() {
-        state.buyButtonEnabled = state.currentColor != nil && state.currentSize != nil
+        state.buyButtonEnabled = state.productDetails != nil
     }
 }
 

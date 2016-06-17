@@ -6,7 +6,7 @@ protocol ProductPageViewControllerDelegate: class {
     func productPage(page: ProductPageViewController, didChangeProductPageViewState viewState: ProductPageViewState)
 }
 
-class ProductPageViewController: UIViewController, ProductPageViewDelegate, ProductDescriptionViewControllerDelegate, SizeChartViewControllerDelegate {
+class ProductPageViewController: UIViewController, ProductPageViewDelegate, ProductDescriptionViewControllerDelegate {
     
     var viewContentInset: UIEdgeInsets?
     weak var delegate: ProductPageViewControllerDelegate?
@@ -81,6 +81,31 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate, Prod
         }
     }
     
+    private func showSizePicker(withBuyMode buyMode: Bool = false) {
+        guard let sizes = model.pickerSizes else { return }
+        let sizeViewController = resolver.resolve(ProductSizeViewController.self, arguments: (sizes, model.state.currentSize?.id))
+        sizeViewController.delegate = self
+        sizeViewController.buyMode = buyMode
+        actionAnimator.presentViewController(sizeViewController, presentingViewController: self)
+    }
+    
+    private func addToBasket() {
+        model.addToBasket()
+    }
+    
+    private func showSizeChart() {
+        guard let productDetails = model.state.productDetails else { return }
+        
+        if castView.viewState == .Default {
+            castView.changeViewState(.ContentVisible, animated: true)
+        }
+        
+        let viewController = resolver.resolve(SizeChartViewController.self, argument: productDetails.sizes)
+        viewController.delegate = self
+        viewController.viewContentInset = viewContentInset
+        contentNavigationController?.pushViewController(viewController, animated: true)
+    }
+    
     // MARK:- ProductPageViewDelegate
     
     func pageView(pageView: ProductPageView, didChangePageViewState pageViewState: ProductPageViewState) {
@@ -107,11 +132,7 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate, Prod
     // MARK :- ProductDescriptionViewControllerDelegate
     
     func descriptionViewDidTapSize(view: ProductDescriptionView) {
-        guard let sizes = model.pickerSizes else { return }
-        
-        let sizeViewController = resolver.resolve(ProductSizeViewController.self, arguments: (sizes, model.state.currentSize?.id))
-        sizeViewController.delegate = self
-        actionAnimator.presentViewController(sizeViewController, presentingViewController: self)
+        showSizePicker()
     }
     
     func descriptionViewDidTapColor(view: ProductDescriptionView) {
@@ -123,11 +144,7 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate, Prod
     }
     
     func descriptionViewDidTapSizeChart(view: ProductDescriptionView) {
-        guard let productDetails = model.state.productDetails else { return }
-        let viewController = resolver.resolve(SizeChartViewController.self, argument: productDetails.sizes)
-        viewController.delegate = self
-        viewController.viewContentInset = viewContentInset
-        contentNavigationController?.pushViewController(viewController, animated: true)
+        showSizeChart()
     }
     
     func descriptionViewDidTapOtherBrandProducts(view: ProductDescriptionView) {
@@ -135,22 +152,27 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate, Prod
     }
     
     func descriptionViewDidTapAddToBasket(view: ProductDescriptionView) {
-        model.addToBasket()
-    }
-    
-    func sizeChartDidTapBack(viewController: SizeChartViewController) {
-        contentNavigationController?.popViewControllerAnimated(true)
+        guard !model.isSizeSet else {
+            addToBasket()
+            return
+        }
+        
+        showSizePicker(withBuyMode: true)
     }
 }
 
 extension ProductPageViewController: ProductSizeViewControllerDelegate {
     func productSize(viewController: ProductSizeViewController, didChangeSize sizeId: ObjectId) {
-        actionAnimator.dismissViewController(presentingViewController: self)
+        actionAnimator.dismissViewController(presentingViewController: self) { [weak self] in
+            if viewController.buyMode { self?.addToBasket() }
+        }
         model.changeSelectedSize(forSizeId: sizeId)
     }
     
     func productSizeDidTapSizes(viewController: ProductSizeViewController) {
-        //todo show size chart
+        actionAnimator.dismissViewController(presentingViewController: self) { [weak self] in
+            self?.showSizeChart()
+        }
     }
 }
 
@@ -178,5 +200,11 @@ extension ProductPageViewController: UINavigationControllerDelegate {
         if viewController is ProductDescriptionViewController {
             castView.contentGestureRecognizerEnabled = true
         }
+    }
+}
+
+extension ProductPageViewController: SizeChartViewControllerDelegate {
+    func sizeChartDidTapBack(viewController: SizeChartViewController) {
+        contentNavigationController?.popViewControllerAnimated(true)
     }
 }

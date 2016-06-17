@@ -10,6 +10,8 @@ class ProductImageCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: CGRectZero)
         
+        imageView.contentMode = .ScaleAspectFill
+        
         contentView.addSubview(imageView)
         
         createCustomConstraints()
@@ -28,6 +30,7 @@ class ProductImageCell: UICollectionViewCell {
             topConstraint = make.top.equalToSuperview().constraint
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
+            make.height.equalTo(imageView.snp_width).dividedBy(Dimensions.defaultImageRatio)
         }
     }
 }
