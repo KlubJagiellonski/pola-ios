@@ -1,15 +1,20 @@
 import Foundation
 import UIKit
+import RxSwift
 
 class BasketCountryViewController: UIViewController, BasketCountryViewDelegate {
     private let basketManager: BasketManager
     private var castView: BasketCountryView { return view as! BasketCountryView }
+    private let disposeBag = DisposeBag()
+    private var firstLayoutSubviewsPassed = false
     
     init(basketManager: BasketManager) {
         self.basketManager = basketManager
         super.init(nibName: nil, bundle: nil)
         
         title = tr(.BasketDeliveryDeliveryCountryTitle)
+        
+        basketManager.state.basketObservable.subscribeNext(castView.updateData).addDisposableTo(disposeBag)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -23,34 +28,23 @@ class BasketCountryViewController: UIViewController, BasketCountryViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         castView.delegate = self
-        castView.updateData(with: createSampleData())
+        castView.updateData(with: basketManager.state.basket)
+        castView.selectedIndex = basketManager.state.basket?.deliveryInfo.availableCountries.indexOf { $0.id == basketManager.state.deliveryCountry?.id }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if !firstLayoutSubviewsPassed {
+            firstLayoutSubviewsPassed = true
+            castView.moveToSelectedIndex()
+        }
     }
     
     // MARK:- BasketCountryViewDelegate
     
     func countryView(view: BasketCountryView, didSelectCountryAtIndex index: Int) {
-        // TODO: change model
+        basketManager.state.deliveryCountry = basketManager.state.basket?.deliveryInfo.availableCountries[index]
+        basketManager.validate()
         sendNavigationEvent(SimpleNavigationEvent(type: .Back))
-    }
-}
-
-// TODO: remove when we will have api
-
-extension BasketCountryViewController {
-    func createSampleData() -> [String] {
-        return [
-            "ARABIA SAUDYJSKA",
-            "ARGENTYNA",
-            "AUSTRALIA",
-            "AUSTRA",
-            "BAHRAIN",
-            "BELGIA",
-            "BIAŁORUŚ",
-            "BRAZYLIA",
-            "NIEMCY",
-            "POLSA",
-            "STANY ZJEDNOCZONE",
-            "WYBRZEŻE KOŚCI SŁONIOWEJ"
-        ]
     }
 }

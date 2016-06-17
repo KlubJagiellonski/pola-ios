@@ -47,6 +47,31 @@ extension ApiService {
                 }
         }
     }
+    
+    func validateBasket(with basketRequest: BasketRequest) -> Observable<Basket> {
+        let url = NSURL(fileURLWithPath: basePath)
+            .URLByAppendingPathComponent("cart/validate")
+        
+        do {
+            let jsonData = try NSJSONSerialization.dataWithJSONObject(basketRequest.encode(), options: [])
+            
+            let urlRequest = NSMutableURLRequest(URL: url)
+            urlRequest.HTTPMethod = "POST"
+            urlRequest.HTTPBody = jsonData
+            return networkClient
+                .request(withRequest: urlRequest)
+                .flatMap { data -> Observable<Basket> in
+                    do {
+                        let result = try NSJSONSerialization.JSONObjectWithData(data, options: [])
+                        return Observable.just(try Basket.decode(result))
+                    } catch {
+                        return Observable.error(error)
+                    }
+            }
+        } catch {
+            return Observable.error(error)
+        }
+    }
 }
 
 extension NSURL {

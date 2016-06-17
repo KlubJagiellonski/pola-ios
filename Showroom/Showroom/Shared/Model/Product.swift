@@ -1,7 +1,6 @@
 import Foundation
 import Decodable
 
-typealias ObjectId = Int
 typealias MeasurementName = String
 typealias FabricPercent = Int
 typealias TimeInDays = Int

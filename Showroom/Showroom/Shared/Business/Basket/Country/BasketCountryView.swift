@@ -10,6 +10,10 @@ class BasketCountryView: UIView, UITableViewDelegate {
     private let topSeparator = UIView()
     private let dataSource: BasketCountryDataSource
     weak var delegate: BasketCountryViewDelegate?
+    var selectedIndex: Int? {
+        set { dataSource.selectedIndex = newValue }
+        get { return dataSource.selectedIndex }
+    }
     
     init() {
         dataSource = BasketCountryDataSource(tableView: tableView)
@@ -18,6 +22,7 @@ class BasketCountryView: UIView, UITableViewDelegate {
         
         topSeparator.backgroundColor = UIColor(named: .Separator)
         
+        tableView.separatorInset = UIEdgeInsetsZero
         tableView.separatorColor = UIColor(named: .Separator)
         tableView.dataSource = dataSource
         tableView.delegate = self
@@ -32,8 +37,13 @@ class BasketCountryView: UIView, UITableViewDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func updateData(with countries: [String]) {
-        dataSource.countries = countries
+    func updateData(with basket: Basket?) {
+        dataSource.countries = basket?.deliveryInfo.availableCountries.map { $0.name } ?? []
+    }
+    
+    func moveToSelectedIndex() {
+        guard let selectedIndex = selectedIndex else { return }
+        tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: selectedIndex, inSection: 0), atScrollPosition: .Middle, animated: false)
     }
     
     private func configureCustomConstraints() {

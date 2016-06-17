@@ -54,7 +54,7 @@ class BasketProductCell: UITableViewCell {
     func updateData(with product: BasketProduct) {
         nameLabel.text = product.name
         photoImageView.image = nil
-        photoImageView.loadImageFromUrl(product.imageUrl!)
+        photoImageView.loadImageFromUrl(product.imageUrl)
         propertiesLabel.text = product.size.name + ", " + product.color.name
         priceLabel.basePrice = product.basePrice
         priceLabel.discountPrice = product.price

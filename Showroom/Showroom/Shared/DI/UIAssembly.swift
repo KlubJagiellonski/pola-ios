@@ -10,7 +10,7 @@ class UIAssembly: AssemblyType {
             return RootModel()
         }
         container.register(MainTabViewController.self) { r in
-            return MainTabViewController(resolver: r.resolve(DiResolver.self)!)
+            return MainTabViewController(resolver: r.resolve(DiResolver.self)!, basketManager: r.resolve(BasketManager.self)!)
         }
         container.register(DashboardPresenterController.self) { r in
             return DashboardPresenterController(resolver: r.resolve(DiResolver.self)!)

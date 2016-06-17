@@ -63,8 +63,29 @@ class BasketDeliveryView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func updateData(with basket: Basket) {
-        // TODO: add updating data
+    func updateData(with basket: Basket?) {
+        guard let basket = basket else {
+            upsDeliveryOptionView.enabled = false
+            ruchDeliveryOptionView.enabled = false
+            return
+        }
+        
+        let upsCarrier = basket.deliveryInfo.carriers.find { $0.id == DeliveryType.UPS }
+        upsDeliveryOptionView.enabled = upsCarrier?.available ?? false
+        upsDeliveryOptionView.priceLabel.text = upsCarrier?.deliveryCost?.stringValue
+        
+        let ruchCarrier = basket.deliveryInfo.carriers.find { $0.id == DeliveryType.RUCH }
+        ruchDeliveryOptionView.enabled = ruchCarrier?.available ?? false
+        ruchDeliveryOptionView.priceLabel.text = ruchCarrier?.deliveryCost?.stringValue
+    }
+    
+    func updateData(with selectedCountry: DeliveryCountry?) {
+        countryDeliveryView.countryLabel.text = selectedCountry?.name
+    }
+    
+    func updateData(with selectedCarrier: DeliveryCarrier?) {
+        upsDeliveryOptionView.selected = selectedCarrier?.id == DeliveryType.UPS
+        ruchDeliveryOptionView.selected = selectedCarrier?.id == DeliveryType.RUCH
     }
     
     private func configureCustomConstraints() {
@@ -157,7 +178,6 @@ class BasketCountryDeliveryView: UIControl {
         
         countryLabel.font = UIFont(fontType: .FormNormal)
         countryLabel.textColor = UIColor(named: .Black)
-        countryLabel.text = "POLSKA" // TODO: remove mock when we will receive data from api
         
         bottomSeparator.backgroundColor = UIColor(named: .Separator)
         
@@ -239,7 +259,6 @@ class BasketDeliveryOptionView: UIControl {
         titleLabel.text = title
         
         priceLabel.font = UIFont(fontType: .FormNormal)
-        priceLabel.text = "45,00 zł"
         
         updateViewsState()
         

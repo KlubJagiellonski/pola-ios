@@ -1,155 +1,147 @@
 import Foundation
 import RxSwift
+import Decodable
 
 class BasketManager {
-    private static let fileName = "basket.json"
-    
     private let apiService: ApiService
     private let storageManager: StorageManager
-    let basketObservable = PublishSubject<Basket>()
+    private let disposeBag = DisposeBag()
     
-    private(set) var currentBasket: Basket = Basket.createEmpty() {
-        didSet {
-            basketObservable.onNext(currentBasket)
-        }
-    }
+    let state: BasketState
     
     init(apiService: ApiService, storageManager: StorageManager) {
         self.apiService = apiService
         self.storageManager = storageManager
+        
+        //if it will be a problem we will need to think about loading it in background
+        var basketState: BasketState? = nil
+        do {
+            basketState = try storageManager.load(Constants.Persistent.basketStateId)
+        } catch {
+            logError("Error while loading basket state from cache \(error)")
+        }
+        self.state = basketState ?? BasketState()
     }
     
-    func verify(basket: Basket) -> Basket {
-        // TODO: Make API request
-        return basket
+    func validate() {
+        guard let request = state.createRequest() else { return}
+        
+        state.validating = true
+        state.validated = false
+        apiService.validateBasket(with: request)
+            .observeOn(MainScheduler.instance)
+            .map { [weak self] (basket: Basket) -> BasketState in
+                guard let strongSelf = self else { return BasketState() }
+                guard basket != strongSelf.state.basket else { return strongSelf.state }
+                strongSelf.state.basket = basket
+                if strongSelf.state.deliveryCountry == nil || !basket.deliveryInfo.availableCountries.contains({ $0.id == strongSelf.state.deliveryCountry!.id }){
+                    strongSelf.state.deliveryCountry = basket.deliveryInfo.defaultCountry
+                }
+                if strongSelf.state.deliveryCarrier == nil || !basket.deliveryInfo.carriers.contains({ $0.id == strongSelf.state.deliveryCarrier!.id && $0.available }) {
+                    strongSelf.state.deliveryCarrier = basket.deliveryInfo.carriers.find { $0.available }
+                }
+                return strongSelf.state
+            }
+            .observeOn(ConcurrentDispatchQueueScheduler(globalConcurrentQueueQOS: .Background))
+            .save(Constants.Persistent.basketStateId, storageManager: storageManager)
+            .observeOn(MainScheduler.instance)
+            .subscribe { [weak self](event: Event<BasketState>) in
+                guard let strongSelf = self else { return }
+                
+                strongSelf.state.validating = false
+                
+                switch event {
+                case .Next(let state):
+                    logInfo("Validated basket: \(state.basket)")
+                    strongSelf.state.validated = true
+                case .Error(let error):
+                    logError("Error during basket validation: \(error)")
+                default: break
+                }
+        }.addDisposableTo(disposeBag)
     }
     
     func addToBasket(product: BasketProduct, of brand: BasketBrand) {
-        currentBasket.add(product, of: brand)
-        currentBasket = verify(currentBasket)
+        state.basket?.add(product, of: brand)
+        validate()
     }
     
     func removeFromBasket(product: BasketProduct) {
-        currentBasket.remove(product)
-        currentBasket = verify(currentBasket)
+        state.basket?.remove(product)
+        validate()
     }
     
     func updateInBasket(product: BasketProduct) {
         if (product.amount == 0) {
-            currentBasket.remove(product)
+            state.basket?.remove(product)
         } else {
-            currentBasket.update(product)
+            state.basket?.update(product)
         }
-        currentBasket = verify(currentBasket)
-    }
-    
-    func save() throws {
-        try storageManager.save(BasketManager.fileName, object: currentBasket)
-    }
-    
-    func load() throws -> Basket? {
-        return try storageManager.load(BasketManager.fileName)
+        validate()
     }
     
     func isInBasket(brand: BasketBrand) -> Bool {
-        return currentBasket.productsByBrands.contains { brand.id == $0.id }
+        return state.basket?.productsByBrands.contains { brand.id == $0.id } ?? false
     }
     
     func isInBasket(product: BasketProduct) -> Bool {
-        return currentBasket.productsByBrands.contains { $0.products.contains({ $0.isEqualInBasket(to: product) }) }
+        return state.basket?.productsByBrands.contains { $0.products.contains({ $0.isEqualInBasket(to: product) }) } ?? false
     }
     
     func isInBasket(product: ProductDetails) -> Bool {
-        return currentBasket.productsByBrands.contains { $0.products.contains { $0.id == product.id } }
+        return state.basket?.productsByBrands.contains { $0.products.contains { $0.id == product.id } } ?? false
+    }
+}
+
+final class BasketState {
+    let basketObservable = PublishSubject<Basket?>()
+    let deliveryCountryObservable = PublishSubject<DeliveryCountry?>()
+    let deliveryCarrierObservable = PublishSubject<DeliveryCarrier?>()
+    let validatedObservable = PublishSubject<Bool>()
+    let validatingObservable = PublishSubject<Bool>()
+    
+    private(set) var basket: Basket? {
+        didSet { basketObservable.onNext(basket) }
+    }
+    var discountCode: String?
+    var deliveryCountry: DeliveryCountry? {
+        didSet { deliveryCountryObservable.onNext(deliveryCountry) }
+    }
+    var deliveryCarrier: DeliveryCarrier? {
+        didSet { deliveryCarrierObservable.onNext(deliveryCarrier) }
+    }
+    var validated = false {
+        didSet { validatedObservable.onNext(validated) }
+    }
+    var validating = false {
+        didSet { validatingObservable.onNext(validating) }
+    }
+}
+
+extension BasketState {
+    private func createRequest() -> BasketRequest? {
+        return BasketRequest.create(from: basket, countryCode: deliveryCountry?.id, deliveryType: deliveryCarrier?.id, discountCode: discountCode)
+    }
+}
+
+// MARK:- Encodable, Decodable
+
+extension BasketState: Encodable, Decodable {
+    static func decode(json: AnyObject) throws -> BasketState {
+        let state = BasketState()
+        state.basket = try json => "basket"
+        state.discountCode = try json =>? "discount_code"
+        state.deliveryCountry = try json =>? "delivery_country"
+        state.deliveryCarrier = try json =>? "delivery_carrier"
+        return state
     }
     
-    /**
-     Creates a sample basket model for testing purposes.
-
-     - returns: Basket model with 5 products of 3 brands.
-     */
-    func createSampleBasket() -> Basket {
-        currentBasket = Basket(
-            productsByBrands: [
-                BasketBrand(
-                    id: 1,
-                    name: "Małgorzata Salamon",
-                    shippingPrice: Money(amt: 10.0),
-                    waitTime: 3,
-                    products: [
-                        BasketProduct(
-                            id: 11,
-                            name: "Sweter Serce z dekoltem na plecach",
-                            imageUrl: "https://static.shwrm.net/images/w/8/w8573104cca75da_500x643.jpg",
-                            size: BasketProductSize(id: 1, name: "XS"),
-                            color: BasketProductColor(id: 1, name: "niebieski"),
-                            basePrice: Money(amt: 400.00),
-                            price: Money(amt: 299.00),
-                            amount: 1
-                        )
-                    ]
-                ),
-                BasketBrand(
-                    id: 2,
-                    name: "RISK made in warsaw",
-                    shippingPrice: Money(amt: 10.0),
-                    waitTime: 3,
-                    products: [
-                        BasketProduct(
-                            id: 12,
-                            name: "Spódnica maxi The Forever Skirt",
-                            imageUrl: "https://static.shwrm.net/images/g/t/gt573d85d13b9f7_500x643.jpg",
-                            size: BasketProductSize(id: 0, name: "S"),
-                            color: BasketProductColor(id: 12, name: "biały"),
-                            basePrice: Money(amt: 429.00),
-                            price: nil,
-                            amount: 1
-                        ),
-                        BasketProduct(
-                            id: 13,
-                            name: "Spódnica Inka white",
-                            imageUrl: "https://static.shwrm.net/images/w/a/wa572b3deddf05a_500x643.jpg",
-                            size: BasketProductSize(id: 0, name: "S"),
-                            color: BasketProductColor(id: 1, name: "zielony"),
-                            basePrice: Money(amt: 16.00),
-                            price: nil,
-                            amount: 1
-                        )
-                    ]
-                ),
-                BasketBrand(
-                    id: 3,
-                    name: "Beata Cupriak",
-                    shippingPrice: Money(amt: 10.0),
-                    waitTime: 7,
-                    products: [
-                        BasketProduct(
-                            id: 14,
-                            name: "Sukienka Figurynka beżowo-brązowa",
-                            imageUrl: "https://static.shwrm.net/images/r/6/r6570e390c3e8cc_500x643.jpg",
-                            size: BasketProductSize(id: 1, name: "36"),
-                            color: BasketProductColor(id: 1, name: "brązowy"),
-                            basePrice: Money(amt: 439.00),
-                            price: nil,
-                            amount: 1
-                        ),
-                        BasketProduct(
-                            id: 15,
-                            name: "Sukienka Crema midi z dżerseju",
-                            imageUrl: "https://static.shwrm.net/images/b/o/bo570f86beaebe4_500x643.jpg",
-                            size: BasketProductSize(id: 1, name: "L"),
-                            color: BasketProductColor(id: 1, name: "écru"),
-                            basePrice: Money(amt: 379.00),
-                            price: nil,
-                            amount: 1
-                        )
-                    ]
-                ),
-            ],
-            discountCode: "springsale20",
-            basePrice: Money(amt: 1067.00),
-            price: Money(amt: 2000.00)
-        )
-        return currentBasket
+    func encode() -> AnyObject {
+        let dict: NSMutableDictionary = [:]
+        if basket != nil { dict.setObject(basket!.encode(), forKey: "basket") }
+        if discountCode != nil { dict.setObject(discountCode!, forKey: "discount_code") }
+        if deliveryCountry != nil { dict.setObject(deliveryCountry!.encode(), forKey: "delivery_country") }
+        if deliveryCarrier != nil { dict.setObject(deliveryCarrier!.encode(), forKey: "delivery_carrier") }
+        return dict
     }
 }

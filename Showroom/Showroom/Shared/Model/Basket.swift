@@ -1,26 +1,31 @@
 import Foundation
 import Decodable
 
-struct Basket {
+enum DeliveryType: Int {
+    case UPS = 2
+    case RUCH = 7
+}
+
+struct Basket: Equatable {
     var productsByBrands: [BasketBrand]
-    let discountCode: String?
+    var deliveryInfo: DeliveryInfo
+    let discount: Money?
+    let discountErrors: [String]?
     let basePrice: Money
-    let price: Money?
+    let price: Money
     
     var isEmpty: Bool {
         return productsByBrands.count == 0
     }
     
-    var productsCount: Int {
-        var count = 0
+    var productsAmount: UInt {
+        var count: UInt = 0
         for brand in productsByBrands {
-            count += brand.products.count
+            for product in brand.products {
+                count += UInt(product.amount)
+            }
         }
         return count
-    }
-    
-    static func createEmpty() -> Basket {
-        return Basket(productsByBrands: [], discountCode: nil, basePrice: Money(), price: nil)
     }
     
     mutating func remove(product: BasketProduct) {
@@ -134,14 +139,14 @@ struct BasketBrand: Equatable {
 struct BasketProduct: Equatable {
     let id: Int
     let name: String
-    let imageUrl: String?
+    let imageUrl: String
     let size: BasketProductSize
     let color: BasketProductColor
     let basePrice: Money
-    let price: Money?
+    let price: Money
     var amount: Int = 1
     
-    init (id: Int, name: String, imageUrl: String?, size: BasketProductSize, color: BasketProductColor, basePrice: Money, price: Money?, amount: Int) {
+    init (id: Int, name: String, imageUrl: String, size: BasketProductSize, color: BasketProductColor, basePrice: Money, price: Money, amount: Int) {
         self.id = id
         self.name = name
         self.imageUrl = imageUrl
@@ -152,7 +157,7 @@ struct BasketProduct: Equatable {
         self.amount = amount
     }
     
-    init (id: Int, name: String, imageUrl: String?, size: BasketProductSize, color: BasketProductColor, basePrice: Money, price: Money?) {
+    init (id: Int, name: String, imageUrl: String, size: BasketProductSize, color: BasketProductColor, basePrice: Money, price: Money) {
         self.init(id: id, name: name, imageUrl: imageUrl, size: size, color: color, basePrice: basePrice, price: price, amount: 1)
     }
     
@@ -191,7 +196,47 @@ struct BasketProductSize: Equatable {
     }
 }
 
+struct DeliveryInfo: Equatable {
+    let defaultCountry: DeliveryCountry
+    let availableCountries: [DeliveryCountry]
+    let carriers: [DeliveryCarrier]
+}
+
+struct DeliveryCountry: Equatable {
+    let id: String
+    let name: String
+}
+
+struct DeliveryCarrier: Equatable {
+    let id: DeliveryType
+    let name: String
+    let deliveryCost: Money?
+    let available: Bool
+    let isDefault: Bool
+}
+
 // MARK: - Operators handling
+func == (lhs: Basket, rhs: Basket) -> Bool {
+    return lhs.productsByBrands == rhs.productsByBrands
+        && lhs.deliveryInfo == rhs.deliveryInfo
+        && lhs.discount == rhs.discount
+        && lhs.basePrice == rhs.basePrice
+        && lhs.price == rhs.price
+        && lhs.discountErrors == rhs.discountErrors
+}
+
+func == (lhs: DeliveryInfo, rhs: DeliveryInfo) -> Bool {
+    return lhs.defaultCountry == rhs.defaultCountry && lhs.availableCountries == rhs.availableCountries && lhs.carriers == rhs.carriers
+}
+
+func == (lhs: DeliveryCountry, rhs: DeliveryCountry) -> Bool {
+    return lhs.id == rhs.id && lhs.name == rhs.name
+}
+
+func == (lhs: DeliveryCarrier, rhs: DeliveryCarrier) -> Bool {
+    return lhs.id == rhs.id && lhs.name == rhs.name && lhs.deliveryCost == rhs.deliveryCost && lhs.available == rhs.available && lhs.isDefault == rhs.isDefault
+}
+
 func == (lhs: BasketBrand, rhs: BasketBrand) -> Bool {
     return lhs.id == rhs.id
         && lhs.name == rhs.name
@@ -218,137 +263,208 @@ func == (lhs: BasketProductSize, rhs: BasketProductSize) -> Bool {
     return lhs.id == rhs.id && lhs.name == rhs.name
 }
 
-// MARK: - Decodable
-extension Basket: Decodable {
+// MARK: - Decodable, Encodable
+extension Basket: Decodable, Encodable {
     static func decode(j: AnyObject) throws -> Basket {
-        let brandsArray: [AnyObject] = try j => "brands" as! [AnyObject]
-        
+        let discount: Money = try j => "coupon" => "discount"
+        let errors: [String] = try j => "coupon" => "errors"
         return try Basket(
-            productsByBrands: brandsArray.map(BasketBrand.decode),
-            discountCode: j =>? "discount_code",
-            basePrice: j => "msrp",
-            price: j =>? "price"
+            productsByBrands: j => "bags",
+            deliveryInfo: j => "delivery",
+            discount: discount == Money(amt: 0.0) ? nil : discount,
+            discountErrors: errors.count == 0 ? nil : errors,
+            basePrice: j => "total" => "msrp",
+            price: j => "total" => "price"
         )
+    }
+    
+    func encode() -> AnyObject {
+        let brandsArray: NSMutableArray = []
+        for brand in productsByBrands {
+            brandsArray.addObject(brand.encode())
+        }
+        
+        let totalDict: NSMutableDictionary = [
+            "msrp": basePrice.amount,
+            "price": price.amount
+        ]
+        
+        let dict: NSMutableDictionary = [
+            "bags": brandsArray,
+            "delivery": deliveryInfo.encode(),
+            "total": totalDict,
+            "coupon": [
+                "discount": discount?.amount ?? 0,
+                "errors": (discountErrors ?? []) as NSArray
+            ] as NSDictionary
+        ]
+        return dict
     }
 }
 
-extension BasketBrand: Decodable {
+extension BasketBrand: Decodable, Encodable {
     static func decode(j: AnyObject) throws -> BasketBrand {
-        let productsArray: [AnyObject] = try j => "products" as! [AnyObject]
+        let productsArray: [AnyObject] = try j => "items" as! [AnyObject]
         return try BasketBrand(
-            id: j => "id",
-            name: j => "name",
-            shippingPrice: j => "shipping_price",
+            id: j => "store" => "id",
+            name: j => "store" => "name",
+            shippingPrice: j => "delivery_cost",
             waitTime: j => "wait_time",
             products: productsArray.map(BasketProduct.decode))
     }
-}
-
-extension BasketProduct: Decodable {
-    static func decode(j: AnyObject) throws -> BasketProduct {
-        return try BasketProduct(
-            id: j => "id",
-            name: j => "name",
-            imageUrl: j =>? "image_url",
-            size: j => "size",
-            color: j => "color",
-            basePrice: j => "msrp",
-            price: j =>? "price",
-            amount: j => "amount"
-        )
+    
+    func encode() -> AnyObject {
+        let brandDict: NSDictionary = [
+            "id": id,
+            "name": name
+        ]
+        
+        let productsArray: NSMutableArray = []
+        for product in products {
+            productsArray.addObject(product.encode())
+        }
+        let dict: NSDictionary = [
+            "store": brandDict,
+            "delivery_cost": shippingPrice.amount,
+            "wait_time": waitTime,
+            "items": productsArray
+        ]
+        return dict
     }
 }
 
-extension BasketProductSize: Decodable {
+extension BasketProduct: Decodable, Encodable {
+    static func decode(j: AnyObject) throws -> BasketProduct {
+        return try BasketProduct(
+            id: j => "product" => "id",
+            name: j => "product" => "name",
+            imageUrl: j => "product" => "images" => "default" => "url",
+            size: j => "size",
+            color: j => "color",
+            basePrice: j => "product" => "msrp",
+            price: j => "product" => "price",
+            amount: j => "amount"
+        )
+    }
+    
+    func encode() -> AnyObject {
+        let productDict: NSDictionary = [
+            "id": id,
+            "name": name,
+            "price": price.amount,
+            "msrp": basePrice.amount,
+            "images": ["default": ["url" : imageUrl] as NSDictionary] as NSDictionary
+        ]
+        
+        let dict: NSMutableDictionary = [
+            "product": productDict,
+            "amount": amount,
+            "size": size.encode(),
+            "color": color.encode()
+        ]
+        return dict
+    }
+}
+
+extension BasketProductSize: Decodable, Encodable {
     static func decode(j: AnyObject) throws -> BasketProductSize {
         return try BasketProductSize(
             id: j => "id",
             name: j => "name"
         )
     }
+    
+    func encode() -> AnyObject {
+        let dict: NSDictionary = [
+            "id": id,
+            "name": name
+        ]
+        return dict
+    }
 }
 
-extension BasketProductColor: Decodable {
+extension BasketProductColor: Decodable, Encodable {
     static func decode(j: AnyObject) throws -> BasketProductColor {
         return try BasketProductColor(
             id: j => "id",
             name: j => "name"
         )
     }
-}
-
-// MARK: - Encodable
-extension Basket: Encodable {
+    
     func encode() -> AnyObject {
-        let brandsArray: NSMutableArray = []
-        for brand in productsByBrands {
-            brandsArray.addObject(brand.encode())
-        }
-        let dict: NSMutableDictionary = [
-            "brands": brandsArray,
-            "msrp": basePrice.amount
-        ]
-        if discountCode != nil {
-            dict.setObject(discountCode!, forKey: "discount_code")
-        }
-        if price != nil {
-            dict.setObject(price!.amount, forKey: "price")
-        }
-        return dict
-    }
-}
-
-extension BasketBrand: Encodable {
-    func encode() -> AnyObject {
-        let productsArray: NSMutableArray = []
-        for product in products {
-            productsArray.addObject(product.encode())
-        }
         let dict: NSDictionary = [
             "id": id,
-            "name": name,
-            "shipping_price": shippingPrice.amount,
-            "wait_time": waitTime,
-            "products": productsArray
+            "name": name
         ]
         return dict
     }
 }
 
-extension BasketProduct: Encodable {
+extension DeliveryInfo: Decodable, Encodable {
+    static func decode(json: AnyObject) throws -> DeliveryInfo {
+        return try DeliveryInfo(
+            defaultCountry: json => "countries" => "default",
+            availableCountries: json => "countries" => "available",
+            carriers: json => "carriers"
+        )
+    }
+    
     func encode() -> AnyObject {
-        let dict: NSMutableDictionary = [
-            "id": id,
-            "name": name,
-            "msrp": basePrice.amount,
-            "amount": amount,
-            "size": size.encode(),
-            "color": color.encode()
-        ]
-        if imageUrl != nil {
-            dict.setObject(imageUrl!, forKey: "image_url")
+        let countries: NSMutableArray = []
+        for country in availableCountries {
+            countries.addObject(country.encode())
         }
         
-        return dict
+        let carriers: NSMutableArray = []
+        for carrier in self.carriers {
+            carriers.addObject(carrier.encode())
+        }
+        
+        return [
+            "countries": [
+                "default": defaultCountry.encode(),
+                "available": countries
+            ] as NSDictionary,
+            "carriers": carriers
+        ] as NSDictionary
     }
 }
 
-extension BasketProductSize: Encodable {
+extension DeliveryCountry: Decodable, Encodable {
+    static func decode(json: AnyObject) throws -> DeliveryCountry {
+        return try DeliveryCountry(
+            id: json => "id",
+            name: json => "name"
+        )
+    }
+    
     func encode() -> AnyObject {
-        let dict: NSDictionary = [
+        return [
             "id": id,
             "name": name
-        ]
-        return dict
+        ] as NSDictionary
     }
 }
 
-extension BasketProductColor: Encodable {
+extension DeliveryCarrier: Decodable, Encodable {
+    static func decode(json: AnyObject) throws -> DeliveryCarrier {
+        return try DeliveryCarrier(
+            id: DeliveryType(rawValue: json => "id")!,
+            name: json => "name",
+            deliveryCost: json =>? "delivery_cost",
+            available: json => "available",
+            isDefault: json => "default"
+        )
+    }
+    
     func encode() -> AnyObject {
-        let dict: NSDictionary = [
-            "id": id,
-            "name": name
-        ]
+        let dict = [
+            "id": id.rawValue,
+            "name": name,
+            "available": available,
+            "default": isDefault
+            ] as NSMutableDictionary
+        if deliveryCost != nil { dict.setObject(deliveryCost!.amount, forKey: "delivery_cost") }
         return dict
     }
 }

@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import RxSwift
 
 enum TabBarAppearance { case Visible, Hidden }
 
@@ -39,10 +40,13 @@ class MainTabViewController: UITabBarController {
         }
     }
     
-    let resolver: DiResolver
+    private let resolver: DiResolver
+    private let basketManager: BasketManager
+    private let disposeBag = DisposeBag()
     
-    init(resolver: DiResolver) {
+    init(resolver: DiResolver, basketManager: BasketManager) {
         self.resolver = resolver
+        self.basketManager = basketManager
         appearance = .Visible
         super.init(nibName: nil, bundle: nil)
         
@@ -57,6 +61,8 @@ class MainTabViewController: UITabBarController {
             createSettingsViewController(),
         ]
         selectedIndex = 0
+        
+        basketManager.state.basketObservable.subscribeNext(onBasketChanged).addDisposableTo(disposeBag)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -65,11 +71,17 @@ class MainTabViewController: UITabBarController {
     
     override func viewDidLoad() {
         view.addSubview(basketBadgeContainerView)
+        
+        basketBadgeValue = basketManager.state.basket?.productsAmount ?? 0
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         basketBadgeContainerView.frame = tabBar.frame
+    }
+    
+    func onBasketChanged(basket: Basket?) {
+        basketBadgeValue = basket?.productsAmount ?? 0
     }
     
     func updateTabBarAppearance(appearance: TabBarAppearance, animationDuration: Double = hidingDuration) {

@@ -1,14 +1,20 @@
 import Foundation
 import UIKit
+import RxSwift
 
 class BasketDeliveryViewController: UIViewController, BasketDeliveryViewDelegate {
     private let basketManager: BasketManager
     private var castView: BasketDeliveryView { return view as! BasketDeliveryView }
+    private let disposeBag = DisposeBag()
     
     init(basketManager: BasketManager) {
         self.basketManager = basketManager
         super.init(nibName: nil, bundle: nil)
         title = tr(.BasketDeliveryTitle)
+        
+        basketManager.state.basketObservable.subscribeNext(castView.updateData).addDisposableTo(disposeBag)
+        basketManager.state.deliveryCountryObservable.subscribeNext(castView.updateData).addDisposableTo(disposeBag)
+        basketManager.state.deliveryCarrierObservable.subscribeNext(castView.updateData).addDisposableTo(disposeBag)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -23,6 +29,9 @@ class BasketDeliveryViewController: UIViewController, BasketDeliveryViewDelegate
         super.viewDidLoad()
         
         castView.delegate = self
+        castView.updateData(with: basketManager.state.basket)
+        castView.updateData(with: basketManager.state.deliveryCountry)
+        castView.updateData(with: basketManager.state.deliveryCarrier)
     }
     
     // MARK:- BasketDeliveryViewDelegate
@@ -36,10 +45,12 @@ class BasketDeliveryViewController: UIViewController, BasketDeliveryViewDelegate
     }
     
     func deliveryViewDidTapUpsOption(view: BasketDeliveryView) {
-        
+        basketManager.state.deliveryCarrier = basketManager.state.basket?.deliveryInfo.carriers.find { $0.id == DeliveryType.UPS }
+        basketManager.validate()
     }
     
     func deliveryViewDidTapRuchOption(view: BasketDeliveryView) {
-        
+        basketManager.state.deliveryCarrier = basketManager.state.basket?.deliveryInfo.carriers.find { $0.id == DeliveryType.RUCH }
+        basketManager.validate()
     }
 }

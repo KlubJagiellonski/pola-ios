@@ -1,5 +1,7 @@
 import Foundation
 
+typealias ObjectId = Int
+
 enum FetchResult<T: Equatable> {
     case Success(T)
     case NetworkError(ErrorType)
@@ -45,6 +47,17 @@ extension Array {
             }
         }
         return nil
+    }
+}
+
+func ==<T: Equatable>(lhs: [T]?, rhs: [T]?) -> Bool {
+    switch (lhs, rhs) {
+    case let (l?, r?) :
+        return l == r
+    case (.None, .None):
+        return true
+    default:
+        return false
     }
 }
 

@@ -18,7 +18,11 @@ class BasketViewController: UIViewController, BasketViewDelegate {
         self.resolver = resolver
         super.init(nibName: nil, bundle: nil)
         
-        self.manager.basketObservable.subscribeNext(updateView).addDisposableTo(disposeBag)
+        manager.validate()
+        manager.state.basketObservable.subscribeNext(castView.updateData).addDisposableTo(disposeBag)
+        manager.state.deliveryCarrierObservable.subscribeNext(updateCarrier).addDisposableTo(disposeBag)
+        manager.state.deliveryCountryObservable.subscribeNext(updateCountry).addDisposableTo(disposeBag)
+        manager.state.validatedObservable.subscribeNext(castView.updateData).addDisposableTo(disposeBag)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -35,15 +39,27 @@ class BasketViewController: UIViewController, BasketViewDelegate {
         
         castView.delegate = self
         
-        // TODO: Remove sample basket when API is ready
-        initSampleBasketButton()
+        castView.updateData(with: manager.state.basket)
+        castView.updateData(with: manager.state.deliveryCountry, and: manager.state.deliveryCarrier)
+        castView.discountCode = manager.state.discountCode
     }
     
-    private func updateView(with newBasket: Basket) {
-        castView.updateData(with: newBasket)
-        
-        // TODO: Remove sample basket when API is ready
-        updateSampleButtonVisibility()
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        castView.registerOnKeyboardEvent()
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        castView.unregisterOnKeyboardEvent()
+    }
+    
+    func updateCarrier(with carrier: DeliveryCarrier?) {
+        castView.updateData(with: manager.state.deliveryCountry, and: carrier)
+    }
+    
+    func updateCountry(with country: DeliveryCountry?) {
+        castView.updateData(with: country, and: manager.state.deliveryCarrier)
     }
     
     // MARK: - BasketViewDelegate
@@ -71,6 +87,12 @@ class BasketViewController: UIViewController, BasketViewDelegate {
         let viewController = resolver.resolve(CheckoutNavigationController.self)
         presentViewController(viewController, animated: true, completion: nil)
     }
+    
+    func basketView(view: BasketView, didChangeDiscountCode discountCode: String?) {
+        guard discountCode != manager.state.discountCode else { return }
+        manager.state.discountCode = discountCode
+        manager.validate()
+    }
 }
 
 extension BasketViewController: ProductAmountViewControllerDelegate {
@@ -89,28 +111,5 @@ extension BasketViewController: DimAnimatorDelegate {
 extension BasketViewController: BasketDeliveryNavigationControllerDelegate {
     func basketDeliveryWantsDismiss(viewController: BasketDeliveryNavigationController) {
         deliveryAnimator.dismissViewController(presentingViewController: self, completion: nil)
-    }
-}
-
-// MARK: - Sample basket for testing
-extension BasketViewController {
-    private func initSampleBasketButton() {
-        sampleBasketButton.setTitle("ADD SAMPLE PRODUCTS", forState: .Normal)
-        sampleBasketButton.applyPlainStyle()
-        sampleBasketButton.addTarget(self, action: #selector(BasketViewController.sampleButtonPressed(_:)), forControlEvents: .TouchUpInside)
-        castView.addSubview(sampleBasketButton)
-        
-        sampleBasketButton.snp_makeConstraints { make in
-            make.center.equalToSuperview()
-        }
-    }
-    
-    func sampleButtonPressed(sender: UIButton) {
-        manager.createSampleBasket()
-        updateSampleButtonVisibility()
-    }
-    
-    private func updateSampleButtonVisibility() {
-        sampleBasketButton.hidden = !manager.currentBasket.isEmpty
     }
 }

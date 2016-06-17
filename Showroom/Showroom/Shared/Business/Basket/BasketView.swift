@@ -7,18 +7,29 @@ protocol BasketViewDelegate: class {
     func basketViewDidTapAmount(of product: BasketProduct)
     func basketViewDidTapShipping(view: BasketView)
     func basketViewDidTapCheckoutButton(view: BasketView)
+    func basketView(view: BasketView, didChangeDiscountCode discountCode: String?)
 }
 
 class BasketView: UIView, UITableViewDelegate {
     private let checkoutView = BasketCheckoutView()
+    private let checkoutBottomBackgroundView = UIView()
     private let dataSource: BasketDataSource;
-    let tableView = UITableView(frame: CGRectZero, style: .Plain)
+    private let keyboardHelper = KeyboardHelper()
+    private var checkoutBottomConstraint: Constraint?
+    private let tableView = UITableView(frame: CGRectZero, style: .Plain)
+    
+    var discountCode: String? {
+        set { checkoutView.discountInput.text = newValue }
+        get { return checkoutView.discountInput.text }
+    }
     
     weak var delegate: BasketViewDelegate?
     
     init() {
         dataSource = BasketDataSource(tableView: tableView)
         super.init(frame: CGRectZero)
+        
+        keyboardHelper.delegate = self
         
         dataSource.basketView = self
         
@@ -28,13 +39,17 @@ class BasketView: UIView, UITableViewDelegate {
         
         checkoutView.shippingButton.addTarget(self, action: #selector(BasketView.didTapShippingButton), forControlEvents: .TouchUpInside)
         checkoutView.checkoutButton.addTarget(self, action: #selector(BasketView.didTapCheckoutButton), forControlEvents: .TouchUpInside)
+        checkoutView.discountInput.delegate = self
         checkoutView.layer.shadowColor = UIColor.blackColor().CGColor
         checkoutView.layer.shadowOpacity = 0.5
         checkoutView.layer.shadowRadius = 3;
         checkoutView.layer.shadowOffset = CGSizeMake(0, 2)
         
+        checkoutBottomBackgroundView.backgroundColor = UIColor(named: .White)
+        
         addSubview(tableView)
         addSubview(checkoutView)
+        addSubview(checkoutBottomBackgroundView)
         
         configureCustomConstraints()
         
@@ -47,12 +62,33 @@ class BasketView: UIView, UITableViewDelegate {
     }
     
     func dismissKeyboard() {
+        if checkoutView.discountInput.isFirstResponder() {
+            delegate?.basketView(self, didChangeDiscountCode: discountCode)
+        }
         endEditing(true)
     }
     
-    func updateData(with basket: Basket) {
+    func updateData(with basket: Basket?) {
+        guard let basket = basket else { return } //todo handle no basket state
+        
         dataSource.updateData(with: basket.productsByBrands)
         checkoutView.updateData(withBasket: basket)
+    }
+    
+    func updateData(with country: DeliveryCountry?, and carrier: DeliveryCarrier?) {
+        checkoutView.updateData(with: country, and: carrier)
+    }
+    
+    func updateData(withValidated validated: Bool) {
+        checkoutView.checkoutButton.enabled = validated
+    }
+    
+    func registerOnKeyboardEvent() {
+        keyboardHelper.register()
+    }
+    
+    func unregisterOnKeyboardEvent() {
+        keyboardHelper.unregister()
     }
     
     func didTapShippingButton(button: UIButton) {
@@ -67,7 +103,14 @@ class BasketView: UIView, UITableViewDelegate {
         checkoutView.snp_makeConstraints { make in
             make.left.equalToSuperview()
             make.right.equalToSuperview()
-            make.bottom.equalToSuperview().inset(Dimensions.tabViewHeight)
+            checkoutBottomConstraint = make.bottom.equalToSuperview().inset(Dimensions.tabViewHeight).constraint
+        }
+        
+        checkoutBottomBackgroundView.snp_makeConstraints { make in
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+            make.height.equalTo(Dimensions.tabViewHeight)
+            make.top.equalTo(checkoutView.snp_bottom)
         }
         
         tableView.snp_makeConstraints { make in
@@ -97,7 +140,7 @@ class BasketView: UIView, UITableViewDelegate {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        tableView.contentInset.bottom = checkoutView.frame.size.height + Dimensions.tabViewHeight
+        tableView.contentInset.bottom = bounds.height - checkoutView.frame.minY
         tableView.scrollIndicatorInsets = tableView.contentInset
     }
     
@@ -114,8 +157,33 @@ class BasketView: UIView, UITableViewDelegate {
     }
 }
 
+extension BasketView: KeyboardHelperDelegate {
+    func keyboardHelperChangedKeyboardState(fromFrame: CGRect, toFrame: CGRect, duration: Double, animationOptions: UIViewAnimationOptions) {
+        let bottomOffset = bounds.height - toFrame.minY
+        
+        checkoutBottomConstraint?.updateOffset(-max(bottomOffset, Dimensions.tabViewHeight))
+        
+        self.setNeedsLayout()
+        let animations = {
+            self.layoutIfNeeded()
+        }
+        UIView.animateWithDuration(duration, delay: 0, options: animationOptions, animations: animations, completion: nil)
+    }
+}
+
+extension BasketView: UITextFieldDelegate {
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        delegate?.basketView(self, didChangeDiscountCode: textField.text)
+        return true
+    }
+}
+
 class BasketCheckoutView: UIView {
-    private let discountInput = UITextField()
+    private let rightViewSize = CGSizeMake(13, 11)
+    private let rightViewRightMargin: CGFloat = 11
+    
+    private let discountInput = StateTextField()
     private let shippingButton = UIButton()
     private let checkoutButton = UIButton()
     
@@ -131,6 +199,8 @@ class BasketCheckoutView: UIView {
         self.backgroundColor = UIColor.whiteColor()
         
         discountInput.applyPlainStyle()
+        discountInput.rightViewMode = .Always
+        discountInput.returnKeyType = .Send
         
         shippingButton.setTitle(tr(.BasketShippingChange), forState: .Normal)
         shippingButton.applyPlainStyle()
@@ -141,7 +211,6 @@ class BasketCheckoutView: UIView {
         discountLabel.title = tr(.BasketDiscountCode)
         
         shippingLabel.title = tr(.BasketShipping)
-        // TODO: Set shipping info
         
         priceTitleLabel.text = tr(.BasketTotalPrice)
         priceTitleLabel.textColor = UIColor.blackColor()
@@ -170,14 +239,25 @@ class BasketCheckoutView: UIView {
      Updates the view with new basket data.
      */
     func updateData(withBasket basket: Basket) {
-        discountInput.text = basket.discountCode
         priceValueLabel.basePrice = basket.basePrice
         priceValueLabel.discountPrice = basket.price
         
-        if (basket.price != nil) {
-            discountLabel.value = tr(.BasketDiscount) + ": " + (basket.basePrice - basket.price!).stringValue
+        discountLabel.value = basket.discount?.stringValue
+        
+        if basket.discount != nil {
+            discountInput.imageState = .Correct
+        } else if basket.discountErrors != nil {
+            discountInput.imageState = .Invalid
         } else {
-            discountLabel.value = nil
+            discountInput.imageState = .Default
+        }
+    }
+    
+    func updateData(with country: DeliveryCountry?, and carrier: DeliveryCarrier?) {
+        if let country = country, let carrier = carrier {
+            shippingLabel.value = country.name + ", " + carrier.name
+        } else {
+            shippingLabel.value = nil
         }
     }
     
@@ -185,7 +265,7 @@ class BasketCheckoutView: UIView {
         discountInput.snp_makeConstraints { make in
             make.top.equalToSuperview().inset(Dimensions.defaultMargin)
             make.right.equalToSuperview().inset(Dimensions.defaultMargin)
-            make.width.equalTo(159)
+            make.width.equalTo(168)
             make.height.equalTo(Dimensions.defaultInputHeight)
         }
         

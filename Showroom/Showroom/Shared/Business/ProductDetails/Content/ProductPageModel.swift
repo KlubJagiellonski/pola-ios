@@ -106,7 +106,7 @@ class ProductPageModel {
             fatalError("Could not init BasketProduct because color is not specified.")
         }
         
-        var imageUrl: String?
+        var imageUrl: String!
         if let image = product.images.find({ $0.color == color.id }) {
             imageUrl = image.url
         } else {

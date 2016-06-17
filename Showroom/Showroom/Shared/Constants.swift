@@ -18,4 +18,8 @@ struct Constants {
         static let productDetails = "ProductDetails"
         static let productRecommendationsId = "productRecommendationsId"
     }
+    
+    struct Persistent {
+        static let basketStateId = "basketStateId"
+    }
 }

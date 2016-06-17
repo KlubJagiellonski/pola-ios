@@ -23,6 +23,17 @@ extension Observable where Element: Decodable {
 }
 
 extension ObservableType where E: Encodable {
+    func save(cacheId: String, storageManager: StorageManager) -> Observable<E> {
+        return doOnNext { result in
+            do {
+                logInfo("Saving persistent data \(cacheId): \(result)")
+                try storageManager.save(cacheId, object: result)
+            } catch {
+                logError("Error during saving persistent data \(cacheId): \(error)")
+            }
+        }
+    }
+    
     func saveToCache(cacheId: String, storageManager: StorageManager) -> Observable<E> {
         return doOnNext { result in
             do {
