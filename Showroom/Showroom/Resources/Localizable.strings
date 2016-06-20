@@ -13,6 +13,7 @@
 "Basket.Day" = "dzień";
 "Basket.Days" = "dni";
 "Basket.Amount0" = "0 (usuń z koszyka)";
+"Basket.Delete" = "Usuń";
 "Basket.Delivery.Title" = "SPOSÓB DOSTAWY";
 "Basket.Delivery.DeliveryCountry" = "Kraj dostawy";
 "Basket.Delivery.DeliveryOption" = "Sposób dostawy";

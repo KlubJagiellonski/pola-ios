@@ -102,6 +102,10 @@ class BasketView: UIView, UITableViewDelegate {
     func dataSourceDidTapAmount(of product: BasketProduct) {
         delegate?.basketViewDidTapAmount(of: product)
     }
+    
+    func tableView(tableView: UITableView, titleForDeleteConfirmationButtonForRowAtIndexPath indexPath: NSIndexPath) -> String? {
+        return tr(.BasketDelete);
+    }
 }
 
 class BasketCheckoutView: UIView {
