@@ -139,6 +139,11 @@
 		75EDE8291CFDDD2200C5F96B /* UIButtonUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75EDE8281CFDDD2200C5F96B /* UIButtonUtils.swift */; };
 		75EDE82B1CFDDF6D00C5F96B /* UITextFieldUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75EDE82A1CFDDF6D00C5F96B /* UITextFieldUtils.swift */; };
 		C02220851D12D4AD004411A7 /* TabBarItemBadgeContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02220841D12D4AD004411A7 /* TabBarItemBadgeContainerView.swift */; };
+		C022208A1D183223004411A7 /* CheckoutNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02220891D183223004411A7 /* CheckoutNavigationController.swift */; };
+		C022208D1D1834B9004411A7 /* CheckoutDeliveryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C022208C1D1834B9004411A7 /* CheckoutDeliveryViewController.swift */; };
+		C022208F1D183C0C004411A7 /* CheckoutDeliveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C022208E1D183C0C004411A7 /* CheckoutDeliveryView.swift */; };
+		C052F8911D185504008085E0 /* CheckoutDeliveryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C052F8901D185504008085E0 /* CheckoutDeliveryDataSource.swift */; };
+		C052F8961D192736008085E0 /* CheckoutDeliveryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C052F8951D192736008085E0 /* CheckoutDeliveryCell.swift */; };
 		C092804C1D01DA8D00350B82 /* ProductSizeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C092804B1D01DA8D00350B82 /* ProductSizeViewController.swift */; };
 		C09280541D01DBA300350B82 /* ProductSizeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09280531D01DBA300350B82 /* ProductSizeHeaderView.swift */; };
 		C09280561D0584A900350B82 /* DropUpActionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09280551D0584A900350B82 /* DropUpActionAnimator.swift */; };
@@ -329,6 +334,11 @@
 		75EDE8281CFDDD2200C5F96B /* UIButtonUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIButtonUtils.swift; sourceTree = "<group>"; };
 		75EDE82A1CFDDF6D00C5F96B /* UITextFieldUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextFieldUtils.swift; sourceTree = "<group>"; };
 		C02220841D12D4AD004411A7 /* TabBarItemBadgeContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarItemBadgeContainerView.swift; sourceTree = "<group>"; };
+		C02220891D183223004411A7 /* CheckoutNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutNavigationController.swift; sourceTree = "<group>"; };
+		C022208C1D1834B9004411A7 /* CheckoutDeliveryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutDeliveryViewController.swift; sourceTree = "<group>"; };
+		C022208E1D183C0C004411A7 /* CheckoutDeliveryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutDeliveryView.swift; sourceTree = "<group>"; };
+		C052F8901D185504008085E0 /* CheckoutDeliveryDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutDeliveryDataSource.swift; sourceTree = "<group>"; };
+		C052F8951D192736008085E0 /* CheckoutDeliveryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutDeliveryCell.swift; sourceTree = "<group>"; };
 		C092804B1D01DA8D00350B82 /* ProductSizeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductSizeViewController.swift; sourceTree = "<group>"; };
 		C09280531D01DBA300350B82 /* ProductSizeHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductSizeHeaderView.swift; sourceTree = "<group>"; };
 		C09280551D0584A900350B82 /* DropUpActionAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropUpActionAnimator.swift; sourceTree = "<group>"; };
@@ -487,6 +497,7 @@
 		1D2F195F1CE9CEBA0099142E /* Business */ = {
 			isa = PBXGroup;
 			children = (
+				C02220881D1831C8004411A7 /* Checkout */,
 				1DD161951D01A6C40022B5C9 /* ProductDetails */,
 				C0E26DAE1D00840C005CB6C4 /* ProductAction */,
 				759CED221CFDB22B00FEBE66 /* Common */,
@@ -857,6 +868,34 @@
 			path = DataSource;
 			sourceTree = "<group>";
 		};
+		C02220881D1831C8004411A7 /* Checkout */ = {
+			isa = PBXGroup;
+			children = (
+				C022208B1D183453004411A7 /* Delivery */,
+				C02220891D183223004411A7 /* CheckoutNavigationController.swift */,
+			);
+			path = Checkout;
+			sourceTree = "<group>";
+		};
+		C022208B1D183453004411A7 /* Delivery */ = {
+			isa = PBXGroup;
+			children = (
+				C052F8921D18550B008085E0 /* DataSource */,
+				C022208C1D1834B9004411A7 /* CheckoutDeliveryViewController.swift */,
+				C022208E1D183C0C004411A7 /* CheckoutDeliveryView.swift */,
+			);
+			path = Delivery;
+			sourceTree = "<group>";
+		};
+		C052F8921D18550B008085E0 /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				C052F8901D185504008085E0 /* CheckoutDeliveryDataSource.swift */,
+				C052F8951D192736008085E0 /* CheckoutDeliveryCell.swift */,
+			);
+			path = DataSource;
+			sourceTree = "<group>";
+		};
 		C092804A1D01DA1900350B82 /* Animation */ = {
 			isa = PBXGroup;
 			children = (
@@ -1093,6 +1132,7 @@
 				1DAA7C671D099A9200545BB9 /* ProductDescriptionViewController.swift in Sources */,
 				75EDE8291CFDDD2200C5F96B /* UIButtonUtils.swift in Sources */,
 				1DD1EA731CEDAE9000D99731 /* DashboardView.swift in Sources */,
+				C052F8961D192736008085E0 /* CheckoutDeliveryCell.swift in Sources */,
 				1DD161A41D01C0850022B5C9 /* PresenterView.swift in Sources */,
 				1D7824AA1D06EEA200E60392 /* DropDownButton.swift in Sources */,
 				1D72ED241CFD7502007AFD2F /* ContentPromoCell.swift in Sources */,
@@ -1102,6 +1142,7 @@
 				1DD1EA6C1CEC5D1700D99731 /* UIColorAssets.swift in Sources */,
 				75E269AB1CFC7B8700ED3CA2 /* BasketView.swift in Sources */,
 				C09280741D08468500350B82 /* ProductColorHeaderView.swift in Sources */,
+				C052F8911D185504008085E0 /* CheckoutDeliveryDataSource.swift in Sources */,
 				1DD161B11D01CCB20022B5C9 /* ProductDetailsCell.swift in Sources */,
 				C09280561D0584A900350B82 /* DropUpActionAnimator.swift in Sources */,
 				1DF7967E1CEB3AF600C7A7F4 /* Logging.swift in Sources */,
@@ -1136,6 +1177,7 @@
 				C09280541D01DBA300350B82 /* ProductSizeHeaderView.swift in Sources */,
 				1DD1EA981CF2ECC200D99731 /* Navigation.swift in Sources */,
 				1D0453551CFF033E001CC5A2 /* EmarsysService.swift in Sources */,
+				C022208D1D1834B9004411A7 /* CheckoutDeliveryViewController.swift in Sources */,
 				751A50141D1156D800DF7D2B /* ProductAmountView.swift in Sources */,
 				1DF796891CEB4AC000C7A7F4 /* UIAssembly.swift in Sources */,
 				1D0F3B561D12D28D0052CFF6 /* UINavigationBarUtils.swift in Sources */,
@@ -1192,6 +1234,7 @@
 				1D0F3B581D12D2C70052CFF6 /* UIViewControllerUtils.swift in Sources */,
 				75D52EB61CFF20BA005E34B4 /* BasketCell.swift in Sources */,
 				1D0F3B4C1D1173250052CFF6 /* Animator.swift in Sources */,
+				C022208F1D183C0C004411A7 /* CheckoutDeliveryView.swift in Sources */,
 				1D0F3B641D13D3710052CFF6 /* BasketCountryDataSource.swift in Sources */,
 				1D0F3B4E1D12819B0052CFF6 /* BasketDeliveryNavigationController.swift in Sources */,
 				1DD1EA911CF2E61800D99731 /* SettingsViewController.swift in Sources */,
@@ -1201,6 +1244,7 @@
 				1D7824A81D06E9CB00E60392 /* ProductDescriptionDataSource.swift in Sources */,
 				75E269AE1CFC7DA200ED3CA2 /* BasketDataSource.swift in Sources */,
 				C092805F1D06EC0C00350B82 /* ProductSizeCell.swift in Sources */,
+				C022208A1D183223004411A7 /* CheckoutNavigationController.swift in Sources */,
 				1D0453591CFF15FD001CC5A2 /* ProductRecommendationCell.swift in Sources */,
 				C093671A1D09AB9D004C7748 /* StorageManager.swift in Sources */,
 			);

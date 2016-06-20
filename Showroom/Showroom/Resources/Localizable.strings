@@ -39,3 +39,15 @@
 "ProductDetails.ProductDescription" = "Opis produktu";
 "ProductDetails.SizeChart.Uppercase" = "TABELA ROZMIARÓW";
 "ProductDetails.SizeChart.Size" = "rozmiar";
+"Checkout.Delivery.NavigationHeader" = "Kasa";
+"Checkout.Delivery.Courier.Header" = "Adres dostawy";
+"Checkout.Delivery.RUCH.Header" = "Twój adres";
+"Checkout.Delivery.FirstName" = "Imię";
+"Checkout.Delivery.LastName" = "Nazwisko";
+"Checkout.Delivery.Adress.Header" = "Adres";
+"Checkout.Delivery.Adress.Edit" = "EDYTUJ ADRES";
+"Checkout.Delivery.Adress.Add" = "DODAJ INNY ADRES";
+"Checkout.Delivery.Delivery.Header" = "Dostawa";
+"Checkout.Delivery.Delivery.RUCH.PickKiosk" = "WYBIERZ KIOSK";
+"Checkout.Delivery.Delivery.RUCH.ChangeKiosk" = "ZMIEŃ KIOSK";
+"Checkout.Delivery.Next" = "DALEJ";

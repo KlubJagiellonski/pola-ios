@@ -6,6 +6,7 @@ protocol BasketViewDelegate: class {
     func basketViewDidDeleteProduct(product: BasketProduct)
     func basketViewDidTapAmount(of product: BasketProduct)
     func basketViewDidTapShipping(view: BasketView)
+    func basketViewDidTapCheckoutButton(view: BasketView)
 }
 
 class BasketView: UIView, UITableViewDelegate {
@@ -26,6 +27,7 @@ class BasketView: UIView, UITableViewDelegate {
         tableView.separatorStyle = .None
         
         checkoutView.shippingButton.addTarget(self, action: #selector(BasketView.didTapShippingButton), forControlEvents: .TouchUpInside)
+        checkoutView.checkoutButton.addTarget(self, action: #selector(BasketView.didTapCheckoutButton), forControlEvents: .TouchUpInside)
         checkoutView.layer.shadowColor = UIColor.blackColor().CGColor
         checkoutView.layer.shadowOpacity = 0.5
         checkoutView.layer.shadowRadius = 3;
@@ -55,6 +57,10 @@ class BasketView: UIView, UITableViewDelegate {
     
     func didTapShippingButton(button: UIButton) {
         delegate?.basketViewDidTapShipping(self)
+    }
+    
+    func didTapCheckoutButton(button: UIButton) {
+        delegate?.basketViewDidTapCheckoutButton(self)
     }
     
     private func configureCustomConstraints() {

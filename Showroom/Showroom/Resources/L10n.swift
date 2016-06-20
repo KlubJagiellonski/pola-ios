@@ -85,6 +85,30 @@ enum L10n {
   case ProductDetailsSizeChartUppercase
   /// rozmiar
   case ProductDetailsSizeChartSize
+  /// Kasa
+  case CheckoutDeliveryNavigationHeader
+  /// Adres dostawy
+  case CheckoutDeliveryCourierHeader
+  /// Twój adres
+  case CheckoutDeliveryRUCHHeader
+  /// Imię
+  case CheckoutDeliveryFirstName
+  /// Nazwisko
+  case CheckoutDeliveryLastName
+  /// Adres
+  case CheckoutDeliveryAdressHeader
+  /// EDYTUJ ADRES
+  case CheckoutDeliveryAdressEdit
+  /// DODAJ INNY ADRES
+  case CheckoutDeliveryAdressAdd
+  /// Dostawa
+  case CheckoutDeliveryDeliveryHeader
+  /// WYBIERZ KIOSK
+  case CheckoutDeliveryDeliveryRUCHPickKiosk
+  /// ZMIEŃ KIOSK
+  case CheckoutDeliveryDeliveryRUCHChangeKiosk
+  /// DALEJ
+  case CheckoutDeliveryNext
 }
 
 extension L10n: CustomStringConvertible {
@@ -174,6 +198,30 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("ProductDetails.SizeChart.Uppercase")
       case .ProductDetailsSizeChartSize:
         return L10n.tr("ProductDetails.SizeChart.Size")
+      case .CheckoutDeliveryNavigationHeader:
+        return L10n.tr("Checkout.Delivery.NavigationHeader")
+      case .CheckoutDeliveryCourierHeader:
+        return L10n.tr("Checkout.Delivery.Courier.Header")
+      case .CheckoutDeliveryRUCHHeader:
+        return L10n.tr("Checkout.Delivery.RUCH.Header")
+      case .CheckoutDeliveryFirstName:
+        return L10n.tr("Checkout.Delivery.FirstName")
+      case .CheckoutDeliveryLastName:
+        return L10n.tr("Checkout.Delivery.LastName")
+      case .CheckoutDeliveryAdressHeader:
+        return L10n.tr("Checkout.Delivery.Adress.Header")
+      case .CheckoutDeliveryAdressEdit:
+        return L10n.tr("Checkout.Delivery.Adress.Edit")
+      case .CheckoutDeliveryAdressAdd:
+        return L10n.tr("Checkout.Delivery.Adress.Add")
+      case .CheckoutDeliveryDeliveryHeader:
+        return L10n.tr("Checkout.Delivery.Delivery.Header")
+      case .CheckoutDeliveryDeliveryRUCHPickKiosk:
+        return L10n.tr("Checkout.Delivery.Delivery.RUCH.PickKiosk")
+      case .CheckoutDeliveryDeliveryRUCHChangeKiosk:
+        return L10n.tr("Checkout.Delivery.Delivery.RUCH.ChangeKiosk")
+      case .CheckoutDeliveryNext:
+        return L10n.tr("Checkout.Delivery.Next")
     }
   }
 

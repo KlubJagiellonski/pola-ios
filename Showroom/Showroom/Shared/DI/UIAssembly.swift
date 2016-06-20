@@ -75,5 +75,13 @@ class UIAssembly: AssemblyType {
         container.register(BasketCountryViewController.self) { r in
             return BasketCountryViewController(basketManager: r.resolve(BasketManager.self)!)
         }
+        container.register(CheckoutNavigationController.self) { r in
+            return CheckoutNavigationController(resolver: r.resolve(DiResolver.self)!)
+        }
+        container.register(CheckoutDeliveryViewController.self) { r in
+            return CheckoutDeliveryViewController(resolver: r.resolve(DiResolver.self)!)
+        }
+
+        
     }
 }

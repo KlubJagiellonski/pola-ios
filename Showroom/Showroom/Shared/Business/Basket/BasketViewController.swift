@@ -66,6 +66,11 @@ class BasketViewController: UIViewController, BasketViewDelegate {
         viewController.preferredContentSize = CGSize(width: 292, height: 450)
         deliveryAnimator.presentViewController(viewController, presentingViewController: self, completion: nil)
     }
+    
+    func basketViewDidTapCheckoutButton(view: BasketView) {
+        let viewController = resolver.resolve(CheckoutNavigationController.self)
+        presentViewController(viewController, animated: true, completion: nil)
+    }
 }
 
 extension BasketViewController: ProductAmountViewControllerDelegate {
