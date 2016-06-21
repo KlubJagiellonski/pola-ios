@@ -10,5 +10,6 @@ struct Dimensions {
     static let recommendationItemSize = CGSizeMake(118, 236)
     static let defaultImageRatio = 0.7776
     static let circleButtonDiameter: CGFloat = 38
+    static let bigCircleButtonDiameter: CGFloat = 52
     static let productDetailsTopMargin: CGFloat = 24
 }

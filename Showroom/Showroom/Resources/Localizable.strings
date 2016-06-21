@@ -51,3 +51,4 @@
 "Checkout.Delivery.Delivery.RUCH.PickKiosk" = "WYBIERZ KIOSK";
 "Checkout.Delivery.Delivery.RUCH.ChangeKiosk" = "ZMIEŃ KIOSK";
 "Checkout.Delivery.Next" = "DALEJ";
+"CommonError" = "Coś poszło nie tak. Nie udało się załadować danych.";

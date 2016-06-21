@@ -7,12 +7,29 @@ class ProductRecommendationDataSource: NSObject, UICollectionViewDataSource {
     var imageWidth: CGFloat {
         return ProductRecommendationCell.imageSize.width
     }
-    
     weak var collectionView: UICollectionView? {
         didSet {
             guard oldValue != collectionView else { return }
             
             collectionView?.registerClass(ProductRecommendationCell.self, forCellWithReuseIdentifier: String(ProductRecommendationCell))
+        }
+    }
+    var viewSwitcherState: ViewSwitcherState = .Loading {
+        didSet {
+            if let viewSwitcher = viewSwitcher {
+                viewSwitcher.switcherState = viewSwitcherState
+            }
+        }
+    }
+    weak var viewSwitcherDelegate: ViewSwitcherDelegate?
+    weak var viewSwitcherDataSource: ViewSwitcherDataSource?
+    weak var viewSwitcher: ViewSwitcher? {
+        didSet {
+            if let viewSwitcher = viewSwitcher {
+                viewSwitcher.switcherDelegate = viewSwitcherDelegate
+                viewSwitcher.switcherDataSource = viewSwitcherDataSource
+                viewSwitcher.switcherState = viewSwitcherState
+            }
         }
     }
     

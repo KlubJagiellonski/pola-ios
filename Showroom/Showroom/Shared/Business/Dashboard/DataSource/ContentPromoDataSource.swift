@@ -80,6 +80,7 @@ class ContentPromoDataSource : NSObject, UITableViewDataSource {
             cell.selectionStyle = .None
             cell.collectionView.delegate = recommendationCollectionViewDelegate
             recommendationsDataSource.collectionView = cell.collectionView
+            recommendationsDataSource.viewSwitcher = cell.viewSwitcher
             return cell
         }
     }

@@ -109,6 +109,8 @@ enum L10n {
   case CheckoutDeliveryDeliveryRUCHChangeKiosk
   /// DALEJ
   case CheckoutDeliveryNext
+  /// Coś poszło nie tak. Nie udało się załadować danych.
+  case CommonError
 }
 
 extension L10n: CustomStringConvertible {
@@ -222,6 +224,8 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Checkout.Delivery.Delivery.RUCH.ChangeKiosk")
       case .CheckoutDeliveryNext:
         return L10n.tr("Checkout.Delivery.Next")
+      case .CommonError:
+        return L10n.tr("CommonError")
     }
   }
 

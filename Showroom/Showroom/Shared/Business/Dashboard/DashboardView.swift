@@ -3,12 +3,13 @@ import UIKit
 import SnapKit
 import RxSwift
 
-protocol DashboardViewDelegate: class {
+protocol DashboardViewDelegate: ViewSwitcherDelegate {
     func dashboardView(dashboardView: DashboardView, didSelectContentPromo contentPromo: ContentPromo)
     func dashboardView(dashboardView: DashboardView, didSelectRecommendation productRecommendation: ProductRecommendation)
+    func dashboardViewDidTapRetryRecommendation(dashboardView: DashboardView)
 }
 
-class DashboardView: UIView, UITableViewDelegate, UICollectionViewDelegate {
+class DashboardView: ViewSwitcher, UITableViewDelegate, UICollectionViewDelegate {
     private let tableView = UITableView(frame: CGRectZero, style: .Plain)
     private let dataSource: ContentPromoDataSource
     private let disposeBag = DisposeBag()
@@ -25,12 +26,25 @@ class DashboardView: UIView, UITableViewDelegate, UICollectionViewDelegate {
         return dataSource.recommendationsDataSource.imageWidth
     }
     
-    weak var delegate: DashboardViewDelegate?
+    var recommendationViewSwitcherState: ViewSwitcherState {
+        get { return dataSource.recommendationsDataSource.viewSwitcherState }
+        set { dataSource.recommendationsDataSource.viewSwitcherState = newValue }
+    }
+    
+    weak var delegate: DashboardViewDelegate? {
+        didSet {
+            switcherDelegate = delegate
+        }
+    }
     
     init(modelState: DashboardModelState) {
         dataSource = ContentPromoDataSource(tableView: tableView)
         
-        super.init(frame: CGRectZero)
+        super.init(successView: tableView)
+        
+        switcherDataSource = self
+        dataSource.recommendationsDataSource.viewSwitcherDataSource = self
+        dataSource.recommendationsDataSource.viewSwitcherDelegate = self
         
         modelState.recommendationsResultObservable.subscribeNext { [weak self] result in
             guard let recommendations = result?.productRecommendations else { return }
@@ -49,9 +63,6 @@ class DashboardView: UIView, UITableViewDelegate, UICollectionViewDelegate {
         tableView.delegate = self
         tableView.dataSource = dataSource
         tableView.separatorStyle = .None
-        addSubview(tableView)
-        
-        configureCustomConstraints()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -64,14 +75,6 @@ class DashboardView: UIView, UITableViewDelegate, UICollectionViewDelegate {
     
     private func changeProductRecommendations(productRecommendations: [ProductRecommendation]) {
         dataSource.recommendationsDataSource.changeData(productRecommendations)
-    }
-    
-    private func configureCustomConstraints() {
-        let superview = self
-        
-        tableView.snp_makeConstraints { make in
-            make.edges.equalTo(superview)
-        }
     }
     
     // MARK: - UITableViewDelegate
@@ -88,5 +91,22 @@ class DashboardView: UIView, UITableViewDelegate, UICollectionViewDelegate {
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let recommendation = dataSource.recommendationsDataSource.getDataForRow(atIndexPath: indexPath)
         delegate?.dashboardView(self, didSelectRecommendation: recommendation)
+    }
+}
+
+extension DashboardView: ViewSwitcherDataSource {
+    func viewSwitcherWantsErrorInfo(view: ViewSwitcher) -> (ErrorText, ErrorImage?) {
+        if view == self {
+            return (tr(.CommonError), UIImage(asset: .Error))
+        } else {
+            return (tr(.CommonError), nil)
+        }
+    }
+}
+
+// handling view switcher delegate for recommendations
+extension DashboardView: ViewSwitcherDelegate {
+    func viewSwitcherDidTapRetry(view: ViewSwitcher) {
+        delegate?.dashboardViewDidTapRetryRecommendation(self)
     }
 }

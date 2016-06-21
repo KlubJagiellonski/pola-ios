@@ -36,9 +36,13 @@ class DashboardModel {
         
         return Observable.of(cacheCompose, network)
             .observeOn(ConcurrentDispatchQueueScheduler(globalConcurrentQueueQOS: .Background))
-            .merge().distinctUntilChanged(==)
+            .concat().distinctUntilChanged(==)
             .observeOn(MainScheduler.instance)
-            .doOnNext { [weak self] result in self?.state.contentPromoResult = result.result() }
+            .doOnNext { [weak self] result in
+                if let result = result.result() {
+                    self?.state.contentPromoResult = result
+                }
+        }
     }
     
     func fetchRecommendations() -> Observable<FetchCacheResult<ProductRecommendationResult>> {
@@ -62,7 +66,11 @@ class DashboardModel {
             .observeOn(ConcurrentDispatchQueueScheduler(globalConcurrentQueueQOS: .Background))
             .merge().distinctUntilChanged(==)
             .observeOn(MainScheduler.instance)
-            .doOnNext { [weak self] result in self?.state.recommendationsResult = result.result() }
+            .doOnNext { [weak self] result in
+                if let result = result.result() {
+                    self?.state.recommendationsResult = result
+                }
+        }
     }
     
     func createProductDetailsContext(forRecommendation recommendation: ProductRecommendation, withImageWidth imageWidth: CGFloat) -> ProductDetailsContext {

@@ -30,6 +30,11 @@ extension UIButton {
         backgroundColor = UIColor(named: .White)
     }
     
+    func applyBigCircleStyle() {
+        layer.cornerRadius = Dimensions.bigCircleButtonDiameter * 0.5
+        backgroundColor = UIColor(named: .White)
+    }
+    
     func applySimpleBlueStyle() {
         setTitleColor(UIColor(named: .Blue), forState: .Normal)
         titleLabel?.font = UIFont(fontType: .ProductActionHeader)

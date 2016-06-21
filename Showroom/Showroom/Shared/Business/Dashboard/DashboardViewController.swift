@@ -26,32 +26,52 @@ class DashboardViewController: UIViewController, DashboardViewDelegate {
         
         castView.delegate = self
         
-        model.fetchContentPromo().subscribeNext { fetchResult in
-            switch fetchResult {
-            case .Success(let contentPromoResult):
-                logInfo("Fetched content promo: \(contentPromoResult)")
-            case .CacheError(let cacheError):
-                logInfo("Error during fetching content promo, cacheError: \(cacheError)")
-            case .NetworkError(let networkError):
-                logInfo("Error during fetching content promo, networkError: \(networkError)")
-            }
-        }.addDisposableTo(disposeBag)
+        castView.switcherState = .Loading
+        castView.recommendationViewSwitcherState = .Loading
         
-        model.fetchRecommendations().subscribeNext { fetchResult in
-            switch fetchResult {
-            case .Success(let productRecommendationResult):
-                logInfo("Fetched product recommendations: \(productRecommendationResult)")
-            case .CacheError(let cacheError):
-                logInfo("Error during fetching product recommendations, cacheError: \(cacheError)")
-            case .NetworkError(let networkError):
-                logInfo("Error during fetching product recommendations, networkError: \(networkError)")
-            }
-        }.addDisposableTo(disposeBag)
+        fetchContentPromo()
+        fetchRecommendations()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         castView.contentInset = UIEdgeInsets(top: topLayoutGuide.length, left: 0, bottom: bottomLayoutGuide.length, right: 0)
+    }
+    
+    private func fetchContentPromo() {
+        model.fetchContentPromo().subscribeNext { [weak self] fetchResult in
+            guard let strongSelf = self else { return }
+            switch fetchResult {
+            case .Success(let contentPromoResult):
+                logInfo("Fetched content promo: \(contentPromoResult)")
+                strongSelf.castView.switcherState = .Success
+            case .CacheError(let cacheError):
+                logError("Error during fetching content promo, cacheError: \(cacheError)")
+            case .NetworkError(let networkError):
+                logInfo("Error during fetching content promo, networkError: \(networkError)")
+                if strongSelf.model.state.contentPromoResult == nil {
+                    strongSelf.castView.switcherState = .Error
+                }
+            }
+            }.addDisposableTo(disposeBag)
+    }
+    
+    private func fetchRecommendations() {
+        model.fetchRecommendations().subscribeNext { [weak self] fetchResult in
+            guard let strongSelf = self else { return }
+            switch fetchResult {
+            case .Success(let productRecommendationResult):
+                logInfo("Fetched product recommendations: \(productRecommendationResult)")
+                strongSelf.castView.recommendationViewSwitcherState = .Success
+            case .CacheError(let cacheError):
+                logError("Error during fetching product recommendations, cacheError: \(cacheError)")
+            case .NetworkError(let networkError):
+                logInfo("Error during fetching product recommendations, networkError: \(networkError)")
+                if strongSelf.model.state.recommendationsResult == nil {
+                    strongSelf.castView.recommendationViewSwitcherState = .Error
+                }
+            }
+            }.addDisposableTo(disposeBag)
     }
     
     // MARK: - DashboardViewDelegate
@@ -64,5 +84,17 @@ class DashboardViewController: UIViewController, DashboardViewDelegate {
         let imageWidth = dashboardView.recommendationImageWidth
         let context = model.createProductDetailsContext(forRecommendation: productRecommendation, withImageWidth: imageWidth)
         sendNavigationEvent(ShowProductDetailsEvent(context: context))
+    }
+    
+    func dashboardViewDidTapRetryRecommendation(dashboardView: DashboardView) {
+        castView.recommendationViewSwitcherState = .Loading
+        fetchRecommendations()
+    }
+    
+    // MARK: - ViewSwitchedDelegate
+    
+    func viewSwitcherDidTapRetry(view: ViewSwitcher) {
+        castView.switcherState = .Loading
+        fetchContentPromo()
     }
 }

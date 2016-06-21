@@ -9,3 +9,4 @@ Manatee: #979797
 ProductPageBackground: #F2F4FA
 Snow : #fafafa
 Dim: #A3AAB2
+Gray: #EDEEF0
