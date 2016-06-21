@@ -4,14 +4,6 @@ import Nimble
 
 class MoneyTests: QuickSpec {
     override func spec() {
-        describe("converting to string") {
-            it("for different values") {
-                expect(Money(amt: 0.0).stringValue) == "0.00 zł"
-                expect(Money(amt: 10.53).stringValue) == "10.53 zł"
-                expect(Money(amt: 10.53912302193123).stringValue) == "10.53 zł"
-                expect(Money(amt: 10.53212302193123).stringValue) == "10.53 zł"
-            }
-        }
         describe("calculating discount price") {
             context("without decimal points") {
                 let original = Money(amt: 100.0)
