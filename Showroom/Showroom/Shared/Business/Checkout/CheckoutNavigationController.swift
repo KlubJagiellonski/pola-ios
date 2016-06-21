@@ -20,10 +20,20 @@ class CheckoutNavigationController: UINavigationController {
         // TODO: add separator
         
         viewControllers = [checkoutAddressViewController]
+        
+        // TODO: Remove when delivery view is ready
+        let summaryViewController = resolver.resolve(CheckoutSummaryViewController.self)
+        summaryViewController.navigationItem.title = tr(.CheckoutSummaryNavigationHeader)
+        summaryViewController.applyBlackBackButton(target: self, action: #selector(CheckoutNavigationController.didTapBackButton))
+        pushViewController(summaryViewController, animated: true)
     }
     
     func didTapCloseButton(sender: UIBarButtonItem) {
         dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func didTapBackButton(sender: UIBarButtonItem) {
+        popViewControllerAnimated(true)
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -9,6 +9,8 @@ class BasketNavigationController: UINavigationController {
         
         super.init(nibName: nil, bundle: nil)
         
+        navigationBar.applyTranslucentStyle()
+        
         let viewController = resolver.resolve(BasketViewController.self)
         viewController.navigationItem.title = tr(.MainTabBasket)
         viewControllers = [viewController]

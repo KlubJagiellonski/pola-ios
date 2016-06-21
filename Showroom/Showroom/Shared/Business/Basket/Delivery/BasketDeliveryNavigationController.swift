@@ -16,7 +16,7 @@ class BasketDeliveryNavigationController: UINavigationController, NavigationHand
         super.init(nibName: nil, bundle: nil)
         
 //        navigationBarHidden = true
-        navigationBar.applyWhiteStyle()
+        navigationBar.applyWhitePopupStyle()
         
         let viewController = resolver.resolve(BasketDeliveryViewController.self)
         viewControllers = [viewController]

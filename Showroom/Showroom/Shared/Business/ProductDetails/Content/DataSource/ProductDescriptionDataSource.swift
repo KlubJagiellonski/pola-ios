@@ -67,7 +67,7 @@ class ProductDescriptionDataSource: NSObject, UITableViewDataSource {
             let cell = tableView.dequeueReusableCellWithIdentifier(String(ProductDescriptionSimpleCell), forIndexPath: indexPath) as! ProductDescriptionSimpleCell
             cell.bottomSeparator.hidden = false
             cell.topSeparator.hidden = true
-            cell.titleLabel.text = deliveryWaitTime! == 0 ? tr(.ProductDetailsDeliveryInfoSingle(String(deliveryWaitTime!))) : tr(.ProductDetailsDeliveryInfoMulti(String(deliveryWaitTime!)))
+            cell.titleLabel.text = deliveryWaitTime! == 0 ? tr(.CommonDeliveryInfoSingle(String(deliveryWaitTime!))) : tr(.CommonDeliveryInfoMulti(String(deliveryWaitTime!)))
             cell.goImageView.hidden = true
             return cell
         case ProductDescriptionRow.Description.rawValue:

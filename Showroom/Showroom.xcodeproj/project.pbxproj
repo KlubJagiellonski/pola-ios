@@ -131,6 +131,11 @@
 		751A50141D1156D800DF7D2B /* ProductAmountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751A50131D1156D800DF7D2B /* ProductAmountView.swift */; };
 		751A50161D11575000DF7D2B /* ProductAmountDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751A50151D11575000DF7D2B /* ProductAmountDataSource.swift */; };
 		751A50181D11577700DF7D2B /* ProductAmountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751A50171D11577700DF7D2B /* ProductAmountCell.swift */; };
+		751A501B1D194DF200DF7D2B /* CheckoutSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751A501A1D194DF200DF7D2B /* CheckoutSummaryViewController.swift */; };
+		751A501D1D194E0000DF7D2B /* CheckoutSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751A501C1D194E0000DF7D2B /* CheckoutSummaryView.swift */; };
+		751A50201D19717200DF7D2B /* CheckoutSummaryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751A501F1D19717200DF7D2B /* CheckoutSummaryDataSource.swift */; };
+		751A50231D19718400DF7D2B /* CheckoutSummaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751A50221D19718400DF7D2B /* CheckoutSummaryCell.swift */; };
+		751A50271D1AAFD700DF7D2B /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751A50261D1AAFD700DF7D2B /* RadioButton.swift */; };
 		759CED241CFDB24100FEBE66 /* TitleValueLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759CED231CFDB24100FEBE66 /* TitleValueLabel.swift */; };
 		75C8545E1D05660400E5F08F /* BasketHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C8545D1D05660400E5F08F /* BasketHeader.swift */; };
 		75C854601D05816300E5F08F /* PriceLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C8545F1D05816300E5F08F /* PriceLabel.swift */; };
@@ -330,6 +335,11 @@
 		751A50131D1156D800DF7D2B /* ProductAmountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductAmountView.swift; sourceTree = "<group>"; };
 		751A50151D11575000DF7D2B /* ProductAmountDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductAmountDataSource.swift; sourceTree = "<group>"; };
 		751A50171D11577700DF7D2B /* ProductAmountCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductAmountCell.swift; sourceTree = "<group>"; };
+		751A501A1D194DF200DF7D2B /* CheckoutSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutSummaryViewController.swift; sourceTree = "<group>"; };
+		751A501C1D194E0000DF7D2B /* CheckoutSummaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutSummaryView.swift; sourceTree = "<group>"; };
+		751A501F1D19717200DF7D2B /* CheckoutSummaryDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutSummaryDataSource.swift; sourceTree = "<group>"; };
+		751A50221D19718400DF7D2B /* CheckoutSummaryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutSummaryCell.swift; sourceTree = "<group>"; };
+		751A50261D1AAFD700DF7D2B /* RadioButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
 		759CED231CFDB24100FEBE66 /* TitleValueLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleValueLabel.swift; sourceTree = "<group>"; };
 		75C8545D1D05660400E5F08F /* BasketHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasketHeader.swift; sourceTree = "<group>"; };
 		75C8545F1D05816300E5F08F /* PriceLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PriceLabel.swift; path = ../Business/Basket/PriceLabel.swift; sourceTree = "<group>"; };
@@ -851,6 +861,25 @@
 			path = DataSource;
 			sourceTree = "<group>";
 		};
+		751A50191D194C1400DF7D2B /* Summary */ = {
+			isa = PBXGroup;
+			children = (
+				751A501E1D19715800DF7D2B /* DataSource */,
+				751A501A1D194DF200DF7D2B /* CheckoutSummaryViewController.swift */,
+				751A501C1D194E0000DF7D2B /* CheckoutSummaryView.swift */,
+			);
+			path = Summary;
+			sourceTree = "<group>";
+		};
+		751A501E1D19715800DF7D2B /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				751A501F1D19717200DF7D2B /* CheckoutSummaryDataSource.swift */,
+				751A50221D19718400DF7D2B /* CheckoutSummaryCell.swift */,
+			);
+			path = DataSource;
+			sourceTree = "<group>";
+		};
 		759CED221CFDB22B00FEBE66 /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -864,6 +893,7 @@
 				1DA846F61D19474B00BA090A /* StateTextField.swift */,
 				1D3792711D196931001A7C47 /* ViewSwitcher.swift */,
 				1DA823171D1A8F510054288D /* LoadingIndicator.swift */,
+				751A50261D1AAFD700DF7D2B /* RadioButton.swift */,
 			);
 			name = Common;
 			path = Showroom/Shared/Common;
@@ -882,6 +912,7 @@
 		C02220881D1831C8004411A7 /* Checkout */ = {
 			isa = PBXGroup;
 			children = (
+				751A50191D194C1400DF7D2B /* Summary */,
 				C022208B1D183453004411A7 /* Delivery */,
 				C02220891D183223004411A7 /* CheckoutNavigationController.swift */,
 			);
@@ -1143,8 +1174,10 @@
 				1DAA7C671D099A9200545BB9 /* ProductDescriptionViewController.swift in Sources */,
 				75EDE8291CFDDD2200C5F96B /* UIButtonUtils.swift in Sources */,
 				1DD1EA731CEDAE9000D99731 /* DashboardView.swift in Sources */,
+				751A50271D1AAFD700DF7D2B /* RadioButton.swift in Sources */,
 				C052F8961D192736008085E0 /* CheckoutDeliveryCell.swift in Sources */,
 				1DD161A41D01C0850022B5C9 /* PresenterView.swift in Sources */,
+				751A50201D19717200DF7D2B /* CheckoutSummaryDataSource.swift in Sources */,
 				1D7824AA1D06EEA200E60392 /* DropDownButton.swift in Sources */,
 				1D72ED241CFD7502007AFD2F /* ContentPromoCell.swift in Sources */,
 				C092805D1D05CAD600350B82 /* ProductSizeDataSource.swift in Sources */,
@@ -1193,6 +1226,7 @@
 				C022208D1D1834B9004411A7 /* CheckoutDeliveryViewController.swift in Sources */,
 				751A50141D1156D800DF7D2B /* ProductAmountView.swift in Sources */,
 				1DF796891CEB4AC000C7A7F4 /* UIAssembly.swift in Sources */,
+				751A501D1D194E0000DF7D2B /* CheckoutSummaryView.swift in Sources */,
 				1D0F3B561D12D28D0052CFF6 /* UINavigationBarUtils.swift in Sources */,
 				751A50161D11575000DF7D2B /* ProductAmountDataSource.swift in Sources */,
 				1DAA7C711D09BBA900545BB9 /* ProductDescriptionLineCell.swift in Sources */,
@@ -1233,6 +1267,8 @@
 				1DA6FA2F1CFF265E004BF10B /* ContentPromoRecommendationsHeaderCell.swift in Sources */,
 				75C8545E1D05660400E5F08F /* BasketHeader.swift in Sources */,
 				C09280611D06FC7600350B82 /* ProductSize.swift in Sources */,
+				751A501B1D194DF200DF7D2B /* CheckoutSummaryViewController.swift in Sources */,
+				751A50231D19718400DF7D2B /* CheckoutSummaryCell.swift in Sources */,
 				1D04533E1CFDD48B001CC5A2 /* Dimensions.swift in Sources */,
 				1DA6FA331D00120C004BF10B /* Money.swift in Sources */,
 				1D72ED161CFC307D007AFD2F /* ManagerAssembly.swift in Sources */,

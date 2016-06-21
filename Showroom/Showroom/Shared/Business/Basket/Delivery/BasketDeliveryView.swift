@@ -12,8 +12,8 @@ class BasketDeliveryView: UIView {
     private let countryTitleLabel = UILabel()
     private let countryDeliveryView = BasketCountryDeliveryView()
     private let deliveryOptionsTitle = UILabel()
-    private let upsDeliveryOptionView = BasketDeliveryOptionView(title: tr(.BasketDeliveryUPS))
-    private let ruchDeliveryOptionView = BasketDeliveryOptionView(title: tr(.BasketDeliveryRUCH))
+    private let upsDeliveryOptionView = BasketDeliveryOptionView(title: tr(.CommonDeliveryUPS))
+    private let ruchDeliveryOptionView = BasketDeliveryOptionView(title: tr(.CommonDeliveryRUCH))
     private let infoLabel = UILabel()
     private let okButton = UIButton()
     

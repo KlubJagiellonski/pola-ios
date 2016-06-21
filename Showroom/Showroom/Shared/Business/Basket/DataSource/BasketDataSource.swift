@@ -134,10 +134,11 @@ class BasketDataSource: NSObject, UITableViewDataSource, BasketProductCellDelega
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if isFooterCell(indexPath) {
-            let product = productsByBrands[indexPath.section]
+            let brand = productsByBrands[indexPath.section]
             let cell = tableView.dequeueReusableCellWithIdentifier(String(BasketShippingCell)) as! BasketShippingCell
-            cell.priceLabel.text = product.shippingPrice.stringValue
-            cell.shippingLabel.text = tr(.BasketShippingIn) + " " + String(product.waitTime) + " " + (product.waitTime == 1 ? tr(.BasketDay) : tr(.BasketDays)) // TODO: Add shipping method
+            cell.priceLabel.text = brand.shippingPrice.stringValue
+            let deliveryWaitTime = brand.waitTime
+            cell.shippingLabel.text = deliveryWaitTime == 0 ? tr(.CommonDeliveryInfoSingle(String(deliveryWaitTime))) : tr(.CommonDeliveryInfoMulti(String(deliveryWaitTime)))
             
             // Hide separator for the last cell
             cell.separatorView.hidden = isLastCell(indexPath)

@@ -27,6 +27,17 @@ class TitleValueLabel: UIView {
         }
     }
     
+    var font: UIFont {
+        get {
+            return titleLabel.font
+        }
+        
+        set {
+            titleLabel.font = newValue
+            valueLabel.font = newValue
+        }
+    }
+    
     init() {
         super.init(frame: CGRectZero)
         titleLabel.text = "Title"

@@ -81,7 +81,8 @@ class UIAssembly: AssemblyType {
         container.register(CheckoutDeliveryViewController.self) { r in
             return CheckoutDeliveryViewController(resolver: r.resolve(DiResolver.self)!)
         }
-
-        
+        container.register(CheckoutSummaryViewController.self) { r in
+            return CheckoutSummaryViewController(resolver: r.resolve(DiResolver.self)!)
+        }
     }
 }

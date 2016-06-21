@@ -3,6 +3,14 @@
 import Foundation
 
 enum L10n {
+  /// kurier UPS
+  case CommonDeliveryUPS
+  /// paczka w RUCH-u
+  case CommonDeliveryRUCH
+  /// Wysyłka w %@ dzień
+  case CommonDeliveryInfoSingle(String)
+  /// Wysyłka w %@ dni
+  case CommonDeliveryInfoMulti(String)
   /// Główna
   case MainTabDashboard
   /// Przeglądanie
@@ -25,12 +33,6 @@ enum L10n {
   case BasketCheckoutButton
   /// zniżka
   case BasketDiscount
-  /// Wysyłka w
-  case BasketShippingIn
-  /// dzień
-  case BasketDay
-  /// dni
-  case BasketDays
   /// 0 (usuń z koszyka)
   case BasketAmount0
   /// Usuń
@@ -41,10 +43,6 @@ enum L10n {
   case BasketDeliveryDeliveryCountry
   /// Sposób dostawy
   case BasketDeliveryDeliveryOption
-  /// kurier UPS
-  case BasketDeliveryUPS
-  /// paczka w RUCH-u
-  case BasketDeliveryRUCH
   /// W SHOWROOM każdy projektant wysyła produkty oddzielnie, dlatego ponosisz koszty wysyłki kilkukrotnie. Możesz wybrać tylko jeden sposób wysyłki dla całego zamówienia.
   case BasketDeliveryInfo
   /// OK
@@ -75,10 +73,6 @@ enum L10n {
   case ProductDetailsSizeChart
   /// Inne produkty marki
   case ProductDetailsOtherBrandProducts
-  /// Wysyłka w %@ dzień
-  case ProductDetailsDeliveryInfoSingle(String)
-  /// Wysyłka w %@ dni
-  case ProductDetailsDeliveryInfoMulti(String)
   /// Opis produktu
   case ProductDetailsProductDescription
   /// TABELA ROZMIARÓW
@@ -111,6 +105,28 @@ enum L10n {
   case CheckoutDeliveryNext
   /// Coś poszło nie tak. Nie udało się załadować danych.
   case CommonError
+  /// Podsumowanie
+  case CheckoutSummaryNavigationHeader
+  /// %@ szt. Rozmiar: %@ Kolor: %@
+  case CheckoutSummaryProductDescription(String, String, String)
+  /// DODAJ UWAGĘ
+  case CheckoutSummaryAddComment
+  /// EDYTUJ
+  case CheckoutSummaryEditComment
+  /// USUŃ
+  case CheckoutSummaryRemoveComment
+  /// Przecena
+  case CheckoutSummaryDiscount
+  /// Kwota do zapłaty
+  case CheckoutSummaryTotalPrice
+  /// Sposób płatności
+  case CheckoutSummaryPaymentMethod
+  /// płatność PayU
+  case CheckoutSummaryPayU
+  /// opłata za pobraniem
+  case CheckoutSummaryCash
+  /// KUP I ZAPŁAĆ
+  case CheckoutSummaryBuy
 }
 
 extension L10n: CustomStringConvertible {
@@ -118,6 +134,14 @@ extension L10n: CustomStringConvertible {
 
   var string: String {
     switch self {
+      case .CommonDeliveryUPS:
+        return L10n.tr("Common.Delivery.UPS")
+      case .CommonDeliveryRUCH:
+        return L10n.tr("Common.Delivery.RUCH")
+      case .CommonDeliveryInfoSingle(let p0):
+        return L10n.tr("Common.DeliveryInfo.Single", p0)
+      case .CommonDeliveryInfoMulti(let p0):
+        return L10n.tr("Common.DeliveryInfo.Multi", p0)
       case .MainTabDashboard:
         return L10n.tr("MainTab.Dashboard")
       case .MainTabSearch:
@@ -140,12 +164,6 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Basket.CheckoutButton")
       case .BasketDiscount:
         return L10n.tr("Basket.Discount")
-      case .BasketShippingIn:
-        return L10n.tr("Basket.ShippingIn")
-      case .BasketDay:
-        return L10n.tr("Basket.Day")
-      case .BasketDays:
-        return L10n.tr("Basket.Days")
       case .BasketAmount0:
         return L10n.tr("Basket.Amount0")
       case .BasketDelete:
@@ -156,10 +174,6 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Basket.Delivery.DeliveryCountry")
       case .BasketDeliveryDeliveryOption:
         return L10n.tr("Basket.Delivery.DeliveryOption")
-      case .BasketDeliveryUPS:
-        return L10n.tr("Basket.Delivery.UPS")
-      case .BasketDeliveryRUCH:
-        return L10n.tr("Basket.Delivery.RUCH")
       case .BasketDeliveryInfo:
         return L10n.tr("Basket.Delivery.Info")
       case .BasketDeliveryOk:
@@ -190,10 +204,6 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("ProductDetails.SizeChart")
       case .ProductDetailsOtherBrandProducts:
         return L10n.tr("ProductDetails.OtherBrandProducts")
-      case .ProductDetailsDeliveryInfoSingle(let p0):
-        return L10n.tr("ProductDetails.DeliveryInfo.Single", p0)
-      case .ProductDetailsDeliveryInfoMulti(let p0):
-        return L10n.tr("ProductDetails.DeliveryInfo.Multi", p0)
       case .ProductDetailsProductDescription:
         return L10n.tr("ProductDetails.ProductDescription")
       case .ProductDetailsSizeChartUppercase:
@@ -226,6 +236,28 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Checkout.Delivery.Next")
       case .CommonError:
         return L10n.tr("CommonError")
+      case .CheckoutSummaryNavigationHeader:
+        return L10n.tr("Checkout.Summary.NavigationHeader")
+      case .CheckoutSummaryProductDescription(let p0, let p1, let p2):
+        return L10n.tr("Checkout.Summary.ProductDescription", p0, p1, p2)
+      case .CheckoutSummaryAddComment:
+        return L10n.tr("Checkout.Summary.AddComment")
+      case .CheckoutSummaryEditComment:
+        return L10n.tr("Checkout.Summary.EditComment")
+      case .CheckoutSummaryRemoveComment:
+        return L10n.tr("Checkout.Summary.RemoveComment")
+      case .CheckoutSummaryDiscount:
+        return L10n.tr("Checkout.Summary.Discount")
+      case .CheckoutSummaryTotalPrice:
+        return L10n.tr("Checkout.Summary.TotalPrice")
+      case .CheckoutSummaryPaymentMethod:
+        return L10n.tr("Checkout.Summary.PaymentMethod")
+      case .CheckoutSummaryPayU:
+        return L10n.tr("Checkout.Summary.PayU")
+      case .CheckoutSummaryCash:
+        return L10n.tr("Checkout.Summary.Cash")
+      case .CheckoutSummaryBuy:
+        return L10n.tr("Checkout.Summary.Buy")
     }
   }
 
