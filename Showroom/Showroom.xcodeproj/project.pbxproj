@@ -151,8 +151,10 @@
 		C022208A1D183223004411A7 /* CheckoutNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02220891D183223004411A7 /* CheckoutNavigationController.swift */; };
 		C022208D1D1834B9004411A7 /* CheckoutDeliveryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C022208C1D1834B9004411A7 /* CheckoutDeliveryViewController.swift */; };
 		C022208F1D183C0C004411A7 /* CheckoutDeliveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C022208E1D183C0C004411A7 /* CheckoutDeliveryView.swift */; };
-		C052F8911D185504008085E0 /* CheckoutDeliveryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C052F8901D185504008085E0 /* CheckoutDeliveryDataSource.swift */; };
-		C052F8961D192736008085E0 /* CheckoutDeliveryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C052F8951D192736008085E0 /* CheckoutDeliveryCell.swift */; };
+		C0237D0A1D2131C80009F2FC /* FormInputTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0237D091D2131C80009F2FC /* FormInputTextField.swift */; };
+		C0237D0C1D215EB40009F2FC /* FormFieldValidationLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0237D0B1D215EB40009F2FC /* FormFieldValidationLabel.swift */; };
+		C0237D0E1D216ADC0009F2FC /* CheckoutDeliveryStackedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0237D0D1D216ADC0009F2FC /* CheckoutDeliveryStackedView.swift */; };
+		C052F8981D1989A6008085E0 /* CheckoutAddressOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C052F8971D1989A6008085E0 /* CheckoutAddressOptionView.swift */; };
 		C092804C1D01DA8D00350B82 /* ProductSizeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C092804B1D01DA8D00350B82 /* ProductSizeViewController.swift */; };
 		C09280541D01DBA300350B82 /* ProductSizeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09280531D01DBA300350B82 /* ProductSizeHeaderView.swift */; };
 		C09280561D0584A900350B82 /* DropUpActionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09280551D0584A900350B82 /* DropUpActionAnimator.swift */; };
@@ -355,8 +357,10 @@
 		C02220891D183223004411A7 /* CheckoutNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutNavigationController.swift; sourceTree = "<group>"; };
 		C022208C1D1834B9004411A7 /* CheckoutDeliveryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutDeliveryViewController.swift; sourceTree = "<group>"; };
 		C022208E1D183C0C004411A7 /* CheckoutDeliveryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutDeliveryView.swift; sourceTree = "<group>"; };
-		C052F8901D185504008085E0 /* CheckoutDeliveryDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutDeliveryDataSource.swift; sourceTree = "<group>"; };
-		C052F8951D192736008085E0 /* CheckoutDeliveryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutDeliveryCell.swift; sourceTree = "<group>"; };
+		C0237D091D2131C80009F2FC /* FormInputTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormInputTextField.swift; sourceTree = "<group>"; };
+		C0237D0B1D215EB40009F2FC /* FormFieldValidationLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormFieldValidationLabel.swift; sourceTree = "<group>"; };
+		C0237D0D1D216ADC0009F2FC /* CheckoutDeliveryStackedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutDeliveryStackedView.swift; sourceTree = "<group>"; };
+		C052F8971D1989A6008085E0 /* CheckoutAddressOptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutAddressOptionView.swift; sourceTree = "<group>"; };
 		C092804B1D01DA8D00350B82 /* ProductSizeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductSizeViewController.swift; sourceTree = "<group>"; };
 		C09280531D01DBA300350B82 /* ProductSizeHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductSizeHeaderView.swift; sourceTree = "<group>"; };
 		C09280551D0584A900350B82 /* DropUpActionAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropUpActionAnimator.swift; sourceTree = "<group>"; };
@@ -894,6 +898,8 @@
 				1D3792711D196931001A7C47 /* ViewSwitcher.swift */,
 				1DA823171D1A8F510054288D /* LoadingIndicator.swift */,
 				751A50261D1AAFD700DF7D2B /* RadioButton.swift */,
+				C0237D091D2131C80009F2FC /* FormInputTextField.swift */,
+				C0237D0B1D215EB40009F2FC /* FormFieldValidationLabel.swift */,
 			);
 			name = Common;
 			path = Showroom/Shared/Common;
@@ -922,20 +928,12 @@
 		C022208B1D183453004411A7 /* Delivery */ = {
 			isa = PBXGroup;
 			children = (
-				C052F8921D18550B008085E0 /* DataSource */,
+				C0237D0D1D216ADC0009F2FC /* CheckoutDeliveryStackedView.swift */,
 				C022208C1D1834B9004411A7 /* CheckoutDeliveryViewController.swift */,
 				C022208E1D183C0C004411A7 /* CheckoutDeliveryView.swift */,
+				C052F8971D1989A6008085E0 /* CheckoutAddressOptionView.swift */,
 			);
 			path = Delivery;
-			sourceTree = "<group>";
-		};
-		C052F8921D18550B008085E0 /* DataSource */ = {
-			isa = PBXGroup;
-			children = (
-				C052F8901D185504008085E0 /* CheckoutDeliveryDataSource.swift */,
-				C052F8951D192736008085E0 /* CheckoutDeliveryCell.swift */,
-			);
-			path = DataSource;
 			sourceTree = "<group>";
 		};
 		C092804A1D01DA1900350B82 /* Animation */ = {
@@ -1170,12 +1168,12 @@
 				C09280761D08514F00350B82 /* ProductColorDataSource.swift in Sources */,
 				1D2F19611CE9CED80099142E /* RootViewController.swift in Sources */,
 				1D3792721D196931001A7C47 /* ViewSwitcher.swift in Sources */,
+				C052F8981D1989A6008085E0 /* CheckoutAddressOptionView.swift in Sources */,
 				C092804C1D01DA8D00350B82 /* ProductSizeViewController.swift in Sources */,
 				1DAA7C671D099A9200545BB9 /* ProductDescriptionViewController.swift in Sources */,
 				75EDE8291CFDDD2200C5F96B /* UIButtonUtils.swift in Sources */,
 				1DD1EA731CEDAE9000D99731 /* DashboardView.swift in Sources */,
 				751A50271D1AAFD700DF7D2B /* RadioButton.swift in Sources */,
-				C052F8961D192736008085E0 /* CheckoutDeliveryCell.swift in Sources */,
 				1DD161A41D01C0850022B5C9 /* PresenterView.swift in Sources */,
 				751A50201D19717200DF7D2B /* CheckoutSummaryDataSource.swift in Sources */,
 				1D7824AA1D06EEA200E60392 /* DropDownButton.swift in Sources */,
@@ -1186,7 +1184,6 @@
 				1DD1EA6C1CEC5D1700D99731 /* UIColorAssets.swift in Sources */,
 				75E269AB1CFC7B8700ED3CA2 /* BasketView.swift in Sources */,
 				C09280741D08468500350B82 /* ProductColorHeaderView.swift in Sources */,
-				C052F8911D185504008085E0 /* CheckoutDeliveryDataSource.swift in Sources */,
 				1DD161B11D01CCB20022B5C9 /* ProductDetailsCell.swift in Sources */,
 				C09280561D0584A900350B82 /* DropUpActionAnimator.swift in Sources */,
 				1DF7967E1CEB3AF600C7A7F4 /* Logging.swift in Sources */,
@@ -1233,6 +1230,7 @@
 				1DF796851CEB477B00C7A7F4 /* NetworkAssembly.swift in Sources */,
 				1DD1EA711CEDA00B00D99731 /* DashboardViewController.swift in Sources */,
 				1DF7967B1CEB39A100C7A7F4 /* ApiService.swift in Sources */,
+				C0237D0A1D2131C80009F2FC /* FormInputTextField.swift in Sources */,
 				1D7824AE1D06F67500E60392 /* UIColorUtils.swift in Sources */,
 				C092806A1D080ECD00350B82 /* ProductColorViewController.swift in Sources */,
 				1DD1EA781CEDB47B00D99731 /* DashboardModel.swift in Sources */,
@@ -1255,10 +1253,12 @@
 				1DD1EA6B1CEC5D1700D99731 /* L10n.swift in Sources */,
 				1DD161971D01A7310022B5C9 /* ProductDetailsViewController.swift in Sources */,
 				1DD161AC1D01C8680022B5C9 /* ProductDetailsView.swift in Sources */,
+				C0237D0C1D215EB40009F2FC /* FormFieldValidationLabel.swift in Sources */,
 				1DB166BD1D1006A8004F42DC /* SizeChartViewController.swift in Sources */,
 				1D0F3B4A1D1172E10052CFF6 /* FormSheetAnimator.swift in Sources */,
 				1D7824B71D0709D200E60392 /* Utils.swift in Sources */,
 				1D3EEA1A1D143C1100F67B69 /* BasketRequest.swift in Sources */,
+				C0237D0E1D216ADC0009F2FC /* CheckoutDeliveryStackedView.swift in Sources */,
 				1DD1EA931CF2E93900D99731 /* RootModel.swift in Sources */,
 				C09367181D09AB79004C7748 /* UIFontAssets.swift in Sources */,
 				1DAA7C6F1D09AEF700545BB9 /* ProductDescriptionSimpleCell.swift in Sources */,

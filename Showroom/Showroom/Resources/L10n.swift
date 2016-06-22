@@ -86,9 +86,17 @@ enum L10n {
   /// Twój adres
   case CheckoutDeliveryRUCHHeader
   /// Imię
-  case CheckoutDeliveryFirstName
+  case CheckoutDeliveryAddressFormFirstName
   /// Nazwisko
-  case CheckoutDeliveryLastName
+  case CheckoutDeliveryAddressFormLastName
+  /// Ulica, numer domu i mieszkania
+  case CheckoutDeliveryAddressFormStreetAndApartmentNumbers
+  /// Kod pocztowy
+  case CheckoutDeliveryAddressFormPostalCode
+  /// Miejscowość
+  case CheckoutDeliveryAddressFormCity
+  /// Numer telefonu
+  case CheckoutDeliveryAddressFormPhone
   /// Adres
   case CheckoutDeliveryAdressHeader
   /// EDYTUJ ADRES
@@ -97,6 +105,10 @@ enum L10n {
   case CheckoutDeliveryAdressAdd
   /// Dostawa
   case CheckoutDeliveryDeliveryHeader
+  /// Paczka w Ruchu
+  case CheckoutDeliveryDeliveryRUCH
+  /// Polska, kurier UPS
+  case CheckoutDeliveryDeliveryCourier
   /// WYBIERZ KIOSK
   case CheckoutDeliveryDeliveryRUCHPickKiosk
   /// ZMIEŃ KIOSK
@@ -216,10 +228,18 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Checkout.Delivery.Courier.Header")
       case .CheckoutDeliveryRUCHHeader:
         return L10n.tr("Checkout.Delivery.RUCH.Header")
-      case .CheckoutDeliveryFirstName:
-        return L10n.tr("Checkout.Delivery.FirstName")
-      case .CheckoutDeliveryLastName:
-        return L10n.tr("Checkout.Delivery.LastName")
+      case .CheckoutDeliveryAddressFormFirstName:
+        return L10n.tr("Checkout.Delivery.AddressForm.FirstName")
+      case .CheckoutDeliveryAddressFormLastName:
+        return L10n.tr("Checkout.Delivery.AddressForm.LastName")
+      case .CheckoutDeliveryAddressFormStreetAndApartmentNumbers:
+        return L10n.tr("Checkout.Delivery.AddressForm.StreetAndApartmentNumbers")
+      case .CheckoutDeliveryAddressFormPostalCode:
+        return L10n.tr("Checkout.Delivery.AddressForm.PostalCode")
+      case .CheckoutDeliveryAddressFormCity:
+        return L10n.tr("Checkout.Delivery.AddressForm.City")
+      case .CheckoutDeliveryAddressFormPhone:
+        return L10n.tr("Checkout.Delivery.AddressForm.Phone")
       case .CheckoutDeliveryAdressHeader:
         return L10n.tr("Checkout.Delivery.Adress.Header")
       case .CheckoutDeliveryAdressEdit:
@@ -228,6 +248,10 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Checkout.Delivery.Adress.Add")
       case .CheckoutDeliveryDeliveryHeader:
         return L10n.tr("Checkout.Delivery.Delivery.Header")
+      case .CheckoutDeliveryDeliveryRUCH:
+        return L10n.tr("Checkout.Delivery.Delivery.RUCH")
+      case .CheckoutDeliveryDeliveryCourier:
+        return L10n.tr("Checkout.Delivery.Delivery.Courier")
       case .CheckoutDeliveryDeliveryRUCHPickKiosk:
         return L10n.tr("Checkout.Delivery.Delivery.RUCH.PickKiosk")
       case .CheckoutDeliveryDeliveryRUCHChangeKiosk:

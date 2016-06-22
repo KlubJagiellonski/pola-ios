@@ -45,6 +45,7 @@ class BasketDeliveryNavigationController: UINavigationController, NavigationHand
             viewController.applyBlackBackButton(target: self, action: #selector(BasketDeliveryNavigationController.didTapBackButton))
             pushViewController(viewController, animated: true)
             return true
+        default: return false
         }
     }
 }
