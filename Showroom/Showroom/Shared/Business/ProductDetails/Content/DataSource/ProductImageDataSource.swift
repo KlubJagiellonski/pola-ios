@@ -17,11 +17,39 @@ class ProductImageDataSource: NSObject, UICollectionViewDataSource {
             
             guard imageUrls.count > 1 else { return }
             
-            var indexPaths: [NSIndexPath] = []
-            for index in 1...(imageUrls.count - 1) {
-                indexPaths.append(NSIndexPath(forItem: index, inSection: 0))
+            var reloadIndexPaths: [NSIndexPath] = []
+            var deleteIndexPaths: [NSIndexPath] = []
+            var insertIndexPaths: [NSIndexPath] = []
+            
+            let maxCommonCount = min(oldValue.count, imageUrls.count)
+            if maxCommonCount > 1 {
+                for index in 1...(maxCommonCount - 1) {
+                    if oldValue[index] != imageUrls[index] {
+                        reloadIndexPaths.append(NSIndexPath(forItem: index, inSection: 0))
+                    }
+                }
             }
-            collectionView?.insertItemsAtIndexPaths(indexPaths)
+            
+            if imageUrls.count > oldValue.count {
+                for index in oldValue.count...(imageUrls.count - 1) {
+                    insertIndexPaths.append(NSIndexPath(forItem: index, inSection: 0))
+                }
+            } else if imageUrls.count < oldValue.count {
+                for index in imageUrls.count...(oldValue.count - 1) {
+                    deleteIndexPaths.append(NSIndexPath(forItem: index, inSection: 0))
+                }
+            }
+            
+            if reloadIndexPaths.isEmpty && deleteIndexPaths.isEmpty && insertIndexPaths.isEmpty {
+                return
+            }
+            
+            collectionView?.performBatchUpdates({
+                self.collectionView?.insertItemsAtIndexPaths(insertIndexPaths)
+                self.collectionView?.reloadItemsAtIndexPaths(reloadIndexPaths)
+                self.collectionView?.deleteItemsAtIndexPaths(deleteIndexPaths)
+                }, completion: nil)
+            
         }
     }
     
