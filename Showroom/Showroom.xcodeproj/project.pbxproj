@@ -76,6 +76,7 @@
 		1DA6FA2F1CFF265E004BF10B /* ContentPromoRecommendationsHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA6FA2E1CFF265E004BF10B /* ContentPromoRecommendationsHeaderCell.swift */; };
 		1DA6FA311CFF29B7004BF10B /* ContentPromoRecommendationsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA6FA301CFF29B7004BF10B /* ContentPromoRecommendationsCell.swift */; };
 		1DA6FA331D00120C004BF10B /* Money.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA6FA321D00120C004BF10B /* Money.swift */; };
+		1DA823181D1A8F510054288D /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA823171D1A8F510054288D /* LoadingIndicator.swift */; };
 		1DA846F51D191D5E00BA090A /* KeyboardHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA846F41D191D5E00BA090A /* KeyboardHelper.swift */; };
 		1DA846F71D19474B00BA090A /* StateTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA846F61D19474B00BA090A /* StateTextField.swift */; };
 		1DAA7C671D099A9200545BB9 /* ProductDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAA7C661D099A9200545BB9 /* ProductDescriptionViewController.swift */; };
@@ -274,6 +275,7 @@
 		1DA6FA2E1CFF265E004BF10B /* ContentPromoRecommendationsHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentPromoRecommendationsHeaderCell.swift; sourceTree = "<group>"; };
 		1DA6FA301CFF29B7004BF10B /* ContentPromoRecommendationsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentPromoRecommendationsCell.swift; sourceTree = "<group>"; };
 		1DA6FA321D00120C004BF10B /* Money.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Money.swift; sourceTree = "<group>"; };
+		1DA823171D1A8F510054288D /* LoadingIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
 		1DA846F41D191D5E00BA090A /* KeyboardHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardHelper.swift; sourceTree = "<group>"; };
 		1DA846F61D19474B00BA090A /* StateTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateTextField.swift; sourceTree = "<group>"; };
 		1DAA7C661D099A9200545BB9 /* ProductDescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDescriptionViewController.swift; sourceTree = "<group>"; };
@@ -861,6 +863,7 @@
 				1DA846F41D191D5E00BA090A /* KeyboardHelper.swift */,
 				1DA846F61D19474B00BA090A /* StateTextField.swift */,
 				1D3792711D196931001A7C47 /* ViewSwitcher.swift */,
+				1DA823171D1A8F510054288D /* LoadingIndicator.swift */,
 			);
 			name = Common;
 			path = Showroom/Shared/Common;
@@ -1241,6 +1244,7 @@
 				75D52EB81CFF22D4005E34B4 /* Basket.swift in Sources */,
 				1DF796831CEB473300C7A7F4 /* DiAssembler.swift in Sources */,
 				C09280781D08522300350B82 /* ProductColorCell.swift in Sources */,
+				1DA823181D1A8F510054288D /* LoadingIndicator.swift in Sources */,
 				75EDE82B1CFDDF6D00C5F96B /* UITextFieldUtils.swift in Sources */,
 				1D0F3B581D12D2C70052CFF6 /* UIViewControllerUtils.swift in Sources */,
 				75D52EB61CFF20BA005E34B4 /* BasketCell.swift in Sources */,

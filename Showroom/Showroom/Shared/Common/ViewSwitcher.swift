@@ -185,7 +185,7 @@ class ErrorView: UIView {
 }
 
 class LoadingView: UIView {
-    private let indicatorView = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+    private let indicatorView = LoadingIndicator()
     
     init() {
         super.init(frame: CGRectZero)
@@ -203,7 +203,7 @@ class LoadingView: UIView {
     
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
-        superview != nil ? indicatorView.startAnimating() : indicatorView.stopAnimating()
+        superview != nil ? indicatorView.startAnimation() : indicatorView.stopAnimation()
     }
 }
 
