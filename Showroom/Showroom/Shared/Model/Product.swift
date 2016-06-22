@@ -24,7 +24,6 @@ struct ProductDetails {
     let images: [ProductDetailsImage]
     let colors: [ProductDetailsColor]
     let sizes: [ProductDetailsSize]
-    let fabrics: [ProductDetailsFabric]
     let waitTime: TimeInDays
     let description: [String]
     let emarsysCategory: String
@@ -61,11 +60,6 @@ struct ProductDetailsSize {
     let measurements: [MeasurementName: String]
 }
 
-struct ProductDetailsFabric {
-    let name: String
-    let percentage: Int
-}
-
 // MARK: - Decodable, Encodable
 
 extension ProductDetails: Decodable, Encodable {
@@ -79,7 +73,6 @@ extension ProductDetails: Decodable, Encodable {
             images: j => "images" => "available",
             colors: j => "colors",
             sizes: j => "sizes",
-            fabrics: j => "fabrics",
             waitTime: j => "wait_time",
             description: j => "description",
             emarsysCategory: j => "emarsys_category",
@@ -97,7 +90,6 @@ extension ProductDetails: Decodable, Encodable {
             "images": ["available": images.map { $0.encode() } as NSArray] as NSDictionary,
             "colors": colors.map { $0.encode() } as NSArray,
             "sizes": sizes.map { $0.encode() } as NSArray,
-            "fabrics": fabrics.map { $0.encode() } as NSArray,
             "wait_time": waitTime,
             "description": description as NSArray,
             "emarsys_category": emarsysCategory,
@@ -191,23 +183,6 @@ extension ProductDetailsSize: Decodable, Encodable {
     }
 }
 
-extension ProductDetailsFabric: Decodable, Encodable {
-    static func decode(j: AnyObject) throws -> ProductDetailsFabric {
-        return try ProductDetailsFabric(
-            name: j => "name",
-            percentage: j => "percentage"
-        )
-    }
-    
-    func encode() -> AnyObject {
-        let dict: NSDictionary = [
-            "name": name,
-            "percentage": percentage
-        ]
-        return dict
-    }
-}
-
 // MARK: - Equatable
 
 extension ProductDetails: Equatable {}
@@ -216,10 +191,9 @@ extension ProductDetailsImage: Equatable {}
 extension ProductDetailsColor: Equatable {}
 extension ProductDetailsColorType: Equatable {}
 extension ProductDetailsSize: Equatable {}
-extension ProductDetailsFabric: Equatable {}
 
 func ==(lhs: ProductDetails, rhs: ProductDetails) -> Bool {
-    return lhs.id == rhs.id && lhs.brand == rhs.brand && lhs.name == rhs.name && lhs.basePrice == rhs.basePrice && lhs.price == rhs.price && lhs.images == rhs.images && lhs.colors == rhs.colors && lhs.sizes == rhs.sizes && lhs.fabrics == rhs.fabrics && lhs.waitTime == rhs.waitTime && lhs.description == rhs.description && lhs.freeDelivery == rhs.freeDelivery
+    return lhs.id == rhs.id && lhs.brand == rhs.brand && lhs.name == rhs.name && lhs.basePrice == rhs.basePrice && lhs.price == rhs.price && lhs.images == rhs.images && lhs.colors == rhs.colors && lhs.sizes == rhs.sizes && lhs.waitTime == rhs.waitTime && lhs.description == rhs.description && lhs.freeDelivery == rhs.freeDelivery
 }
 
 func ==(lhs: ProductDetailsBrand, rhs: ProductDetailsBrand) -> Bool {
@@ -236,8 +210,4 @@ func ==(lhs: ProductDetailsColor, rhs: ProductDetailsColor) -> Bool {
 
 func ==(lhs: ProductDetailsSize, rhs: ProductDetailsSize) -> Bool {
     return lhs.id == rhs.id && lhs.name == rhs.name && lhs.colors == rhs.colors && lhs.measurements == rhs.measurements
-}
-
-func ==(lhs: ProductDetailsFabric, rhs: ProductDetailsFabric) -> Bool {
-    return lhs.name == rhs.name && lhs.percentage == rhs.percentage
 }
