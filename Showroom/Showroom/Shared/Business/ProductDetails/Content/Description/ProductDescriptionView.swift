@@ -37,7 +37,8 @@ class ProductDescriptionView: UIView, UITableViewDelegate, ProductDescriptionVie
     
     var contentInset: UIEdgeInsets? {
         didSet {
-            tableView.contentInset = UIEdgeInsetsMake(0, 0, contentInset?.bottom ?? 0, 0)
+            let bottomInset = contentInset?.bottom ?? 0
+            tableView.contentInset = UIEdgeInsetsMake(0, 0, bottomInset + 12, 0)
         }
     }
     

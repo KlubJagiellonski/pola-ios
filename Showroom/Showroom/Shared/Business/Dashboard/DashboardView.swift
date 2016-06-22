@@ -17,8 +17,8 @@ class DashboardView: ViewSwitcher, UITableViewDelegate, UICollectionViewDelegate
     var contentInset: UIEdgeInsets {
         get { return tableView.contentInset }
         set {
-            tableView.contentInset = newValue
-            tableView.scrollIndicatorInsets = newValue
+            tableView.contentInset = UIEdgeInsetsMake(0, newValue.left, newValue.bottom, newValue.right)
+            tableView.scrollIndicatorInsets = tableView.contentInset
         }
     }
     

@@ -3,7 +3,7 @@ import UIKit
 
 class ProductDescriptionLineCell: UITableViewCell {
     static let titleFont = UIFont(fontType: .Description)
-    static let leftMargin: CGFloat = 31
+    static let leftMargin: CGFloat = 3
     static let textCircleMargin: CGFloat = 20
     static let circleDiameter: CGFloat = 4
     static let verticalMargin: CGFloat = 2
@@ -52,7 +52,6 @@ class ProductDescriptionLineCell: UITableViewCell {
             make.leading.equalTo(circleView.snp_trailing).offset(ProductDescriptionLineCell.textCircleMargin)
             make.trailing.equalToSuperview()
             make.top.equalToSuperview().offset(ProductDescriptionLineCell.verticalMargin)
-            make.bottom.equalToSuperview().inset(ProductDescriptionLineCell.verticalMargin)
         }
     }
 }

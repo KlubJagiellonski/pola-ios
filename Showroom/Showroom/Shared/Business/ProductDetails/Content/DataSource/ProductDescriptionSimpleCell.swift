@@ -4,6 +4,7 @@ import UIKit
 class ProductDescriptionSimpleCell: UITableViewCell {
     let titleLabel = UILabel()
     let goImageView = UIImageView(image: UIImage(asset: .Ic_chevron_right))
+    let bottomSeparator = UIView()
     let topSeparator = UIView()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -11,6 +12,7 @@ class ProductDescriptionSimpleCell: UITableViewCell {
         selectionStyle = .None
         backgroundColor = UIColor.clearColor()
         
+        bottomSeparator.backgroundColor = UIColor(named: .Separator)
         topSeparator.backgroundColor = UIColor(named: .Separator)
         
         titleLabel.font = UIFont(fontType: .FormNormal)
@@ -19,6 +21,7 @@ class ProductDescriptionSimpleCell: UITableViewCell {
         contentView.addSubview(titleLabel)
         contentView.addSubview(goImageView)
         
+        addSubview(bottomSeparator)
         addSubview(topSeparator)
         
         configureCustomConstraints()
@@ -40,7 +43,13 @@ class ProductDescriptionSimpleCell: UITableViewCell {
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
             make.top.equalToSuperview()
-            make.height.equalTo(1)
+            make.height.equalTo(Dimensions.defaultSeparatorThickness)
+        }
+        bottomSeparator.snp_makeConstraints { make in
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.height.equalTo(Dimensions.defaultSeparatorThickness)
         }
     }
 }
