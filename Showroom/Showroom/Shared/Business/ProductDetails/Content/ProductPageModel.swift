@@ -68,7 +68,7 @@ class ProductPageModel {
         
         return Observable.of(cacheCompose, network)
             .observeOn(ConcurrentDispatchQueueScheduler(globalConcurrentQueueQOS: .Background))
-            .merge().distinctUntilChanged(==)
+            .concat().distinctUntilChanged(==)
             .observeOn(MainScheduler.instance)
             .doOnNext { [weak self] result in
                 guard let productDetails = result.result() else { return }

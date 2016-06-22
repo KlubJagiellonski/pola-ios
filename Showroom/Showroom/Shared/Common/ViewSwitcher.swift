@@ -7,6 +7,7 @@ typealias ErrorImage = UIImage
 enum ViewSwitcherState {
     case Success
     case Error
+    case ModalError
     case Loading
     case Empty
 }
@@ -20,15 +21,25 @@ protocol ViewSwitcherDelegate: class {
 }
 
 class ViewSwitcher: UIView {
-    private let animationDuration = 0.2
+    private let dimViewAlpha: CGFloat = 0.7
+    private let animationDuration = 0.3
     private var animationEndBlock: (() -> ())?
-    private var animationInProgress = false
+    private var animatingToState: ViewSwitcherState?
     
     let successView: UIView
     lazy var errorView: ErrorView = { [unowned self] in
         guard let dataSource = self.switcherDataSource else { fatalError("You must set data source if you want to show error view") }
         let errorInfo = dataSource.viewSwitcherWantsErrorInfo(self)
         let errorView = ErrorView(errorText: errorInfo.0, errorImage: errorInfo.1)
+        errorView.backgroundView.backgroundColor = UIColor(named: .Gray)
+        errorView.viewSwitcher = self
+        return errorView
+    }()
+    lazy var modalErrorView: ErrorView = { [unowned self] in
+        guard let dataSource = self.switcherDataSource else { fatalError("You must set data source if you want to show error view") }
+        let errorInfo = dataSource.viewSwitcherWantsErrorInfo(self)
+        let errorView = ErrorView(errorText: errorInfo.0, errorImage: errorInfo.1)
+        errorView.backgroundView.backgroundColor = UIColor(named: .Dim).colorWithAlphaComponent(self.dimViewAlpha)
         errorView.viewSwitcher = self
         return errorView
     }()
@@ -42,13 +53,13 @@ class ViewSwitcher: UIView {
         didSet {
             guard oldValue != switcherState else { return }
             
-            if animationInProgress {
+            if let animatingToState = animatingToState {
                 animationEndBlock = { [weak self] in
-                    self?.animateToNewState()
+                    self?.animateToNewState(fromState: animatingToState)
                 }
                 return
             }
-            animateToNewState()
+            animateToNewState(fromState: oldValue)
         }
     }
     
@@ -56,9 +67,9 @@ class ViewSwitcher: UIView {
         return view(forState: switcherState)
     }
     
-    init(successView: UIView, defaultState: ViewSwitcherState = .Loading) {
+    init(successView: UIView, initialState: ViewSwitcherState = .Loading) {
         self.successView = successView
-        switcherState = defaultState
+        switcherState = initialState
         super.init(frame: CGRectZero)
         
         addSubview(currentView)
@@ -69,23 +80,37 @@ class ViewSwitcher: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func animateToNewState() {
-        let newView = view(forState: switcherState)
-        addSubview(newView)
-        configureConstraints(forSubview: newView)
-        
-        let oldView = subviews[0]
-        if oldView == newView {
+    private func animateToNewState(fromState fromState: ViewSwitcherState) {
+        if fromState == switcherState {
             return
         }
         
-        animationInProgress = true
-        UIView.transitionFromView(oldView, toView: newView, duration: animationDuration, options: [.TransitionCrossDissolve, .ShowHideTransitionViews]) { [weak self] _ in
-            oldView.snp_removeConstraints()
-            oldView.removeFromSuperview()
-            self?.animationInProgress = false
+        let newView = view(forState: switcherState)
+        if newView.superview == nil {
+            addSubview(newView)
+            configureConstraints(forSubview: newView)
+        }
+        
+        animatingToState = switcherState
+        
+        let commonCompletion = { [weak self] (success: Bool) in
+            self?.animatingToState = nil
             self?.animationEndBlock?()
             self?.animationEndBlock = nil
+        }
+        
+        if switcherState == .ModalError || fromState == .ModalError {
+            modalErrorView.alpha = switcherState == .ModalError ? 0 : 1
+            UIView.animateWithDuration(animationDuration, animations: {
+                self.modalErrorView.alpha = self.switcherState == .ModalError ? 1 : 0
+            }, completion: commonCompletion)
+        } else {
+            let oldView = view(forState: fromState)
+            UIView.transitionFromView(oldView, toView: newView, duration: animationDuration, options: [.TransitionCrossDissolve, .ShowHideTransitionViews]) { success in
+                oldView.snp_removeConstraints()
+                oldView.removeFromSuperview()
+                commonCompletion(success)
+            }
         }
     }
     
@@ -101,6 +126,8 @@ class ViewSwitcher: UIView {
             return successView
         case .Error:
             return errorView
+        case .ModalError:
+            return modalErrorView
         case .Loading:
             return loadingView
         case .Empty:
@@ -110,6 +137,7 @@ class ViewSwitcher: UIView {
 }
 
 class ErrorView: UIView {
+    private let backgroundView =  UIView()
     private let imageView: UIImageView?
     private let textLabel = UILabel()
     private let retryButton = UIButton()
@@ -121,8 +149,6 @@ class ErrorView: UIView {
         imageView = errorImage == nil ? nil : UIImageView(image: errorImage!)
         super.init(frame: CGRectZero)
         
-        backgroundColor = UIColor(named: .Gray)
-        
         textLabel.text = errorText
         textLabel.font = UIFont(fontType: .Normal)
         textLabel.textColor = UIColor(named: .Black)
@@ -132,6 +158,7 @@ class ErrorView: UIView {
         retryButton.setImage(UIImage(asset: .Refresh), forState: .Normal)
         retryButton.addTarget(self, action: #selector(ErrorView.didTapRetry), forControlEvents: .TouchUpInside)
         
+        addSubview(backgroundView)
         if let imageView = imageView {
             contentView.addSubview(imageView)
         }
@@ -152,6 +179,10 @@ class ErrorView: UIView {
     }
     
     private func configureCustomConstraints() {
+        backgroundView.snp_makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
         contentView.snp_makeConstraints { make in
             make.center.equalToSuperview()
         }
@@ -191,7 +222,7 @@ class LoadingView: UIView {
         super.init(frame: CGRectZero)
         
         addSubview(indicatorView)
-     
+        
         indicatorView.snp_makeConstraints { make in
             make.center.equalToSuperview()
         }

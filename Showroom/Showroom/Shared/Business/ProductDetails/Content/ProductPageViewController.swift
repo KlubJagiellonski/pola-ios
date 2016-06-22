@@ -54,16 +54,7 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate, Prod
         castView.contentInset = viewContentInset
         castView.delegate = self
         
-        model.fetchProductDetails().subscribeNext { fetchResult in
-            switch fetchResult {
-            case .Success(let productDetails):
-                logInfo("Successfuly fetched product details: \(productDetails)")
-            case .NetworkError(let errorType):
-                logInfo("Error while downloading product info: \(errorType)")
-            case .CacheError(let errorType):
-                logInfo("Error while getting product info from cache: \(errorType)")
-            }
-        }.addDisposableTo(disposeBag)
+        fetchProductDetails()
     }
     
     override func viewDidLayoutSubviews() {
@@ -79,6 +70,24 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate, Prod
         if contentNavigationController?.viewControllers.count > 1 {
             contentNavigationController?.popToRootViewControllerAnimated(true)
         }
+    }
+    
+    private func fetchProductDetails() {
+        model.fetchProductDetails().subscribeNext { [weak self] fetchResult in
+            guard let strongSelf = self else { return }
+            switch fetchResult {
+            case .Success(let productDetails):
+                logInfo("Successfuly fetched product details: \(productDetails)")
+                strongSelf.castView.switcherState = .Success
+            case .CacheError(let errorType):
+                logInfo("Error while getting product info from cache: \(errorType)")
+            case .NetworkError(let errorType):
+                logInfo("Error while downloading product info: \(errorType)")
+                if strongSelf.model.state.productDetails == nil {
+                    strongSelf.castView.switcherState = strongSelf.model.state.product == nil ? .Error : .ModalError
+                }
+            }
+            }.addDisposableTo(disposeBag)
     }
     
     private func showSizePicker(withBuyMode buyMode: Bool = false) {
@@ -127,6 +136,13 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate, Prod
         if let popoverPresentationController = shareViewController.popoverPresentationController {
             popoverPresentationController.permittedArrowDirections = .Any
         }
+    }
+    
+    // MARK:- ViewSwitcherDelegate
+    
+    func viewSwitcherDidTapRetry(view: ViewSwitcher) {
+        castView.switcherState = model.state.product == nil ? .Loading : .Success
+        fetchProductDetails()
     }
     
     // MARK :- ProductDescriptionViewControllerDelegate

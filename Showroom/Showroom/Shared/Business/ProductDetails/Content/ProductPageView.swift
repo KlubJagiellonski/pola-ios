@@ -9,7 +9,7 @@ protocol ProductDescriptionViewInterface: class {
     var touchRequiredView: UIView { get } // view for which we want to disable uitapgesturerecognizer
 }
 
-protocol ProductPageViewDelegate: class {
+protocol ProductPageViewDelegate: ViewSwitcherDelegate {
     func pageView(pageView: ProductPageView, didChangePageViewState pageViewState: ProductPageViewState)
     func pageViewDidTapShareButton(pageView: ProductPageView)
 }
@@ -20,11 +20,12 @@ enum ProductPageViewState {
     case ImageGallery
 }
 
-class ProductPageView: UIView, UICollectionViewDelegateFlowLayout {
+class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
     private let defaultDescriptionTopMargin: CGFloat = 70
     private let descriptionDragVelocityThreshold: CGFloat = 200
     private let defaultContentAnimationDuration = 0.4
     
+    private let containerView = UIView()
     private let imageCollectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: UICollectionViewFlowLayout())
     private let pageControl = VerticalPageControl()
     private let contentContainerView = UIView()
@@ -56,14 +57,18 @@ class ProductPageView: UIView, UICollectionViewDelegateFlowLayout {
             contentContainerView.gestureRecognizers?.forEach { $0.enabled = contentGestureRecognizerEnabled }
         }
     }
-    weak var delegate: ProductPageViewDelegate?
+    weak var delegate: ProductPageViewDelegate? {
+        didSet { switcherDelegate = delegate }
+    }
     
     init(contentView: UIView, descriptionViewInterface: ProductDescriptionViewInterface, modelState: ProductPageModelState) {
         self.descriptionViewInterface = descriptionViewInterface
         self.modelState = modelState
         imageDataSource = ProductImageDataSource(collectionView: imageCollectionView)
         
-        super.init(frame: CGRectZero)
+        super.init(successView: containerView, initialState: modelState.product == nil ? .Loading : .Success)
+        
+        switcherDataSource = self
         
         modelState.productDetailsObservable.subscribeNext(updateProductDetails).addDisposableTo(disposeBag)
         configure(forProduct: modelState.product)
@@ -103,10 +108,10 @@ class ProductPageView: UIView, UICollectionViewDelegateFlowLayout {
         contentContainerView.addSubview(UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)))
         contentContainerView.addSubview(contentView)
         
-        addSubview(imageCollectionView)
-        addSubview(pageControl)
-        addSubview(contentContainerView)
-        addSubview(buttonStackView)
+        containerView.addSubview(imageCollectionView)
+        containerView.addSubview(pageControl)
+        containerView.addSubview(contentContainerView)
+        containerView.addSubview(buttonStackView)
         
         configureCustomConstraints()
     }
@@ -116,7 +121,7 @@ class ProductPageView: UIView, UICollectionViewDelegateFlowLayout {
     }
     
     private func configure(forProduct product: Product?) {
-        guard let p = product else { return } //todo it should show full screen spinner when there is no product info
+        guard let p = product else { return }
         imageDataSource.lowResImageUrl = p.lowResImageUrl
         imageDataSource.imageUrls = [p.imageUrl]
     }
@@ -270,5 +275,11 @@ extension ProductPageView: UIGestureRecognizerDelegate {
             return !touchView.isDescendantOfView(touchRequiredView)
         }
         return true
+    }
+}
+
+extension ProductPageView: ViewSwitcherDataSource {
+    func viewSwitcherWantsErrorInfo(view: ViewSwitcher) -> (ErrorText, ErrorImage?) {
+        return (tr(.CommonError), nil)
     }
 }

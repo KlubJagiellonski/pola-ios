@@ -13,6 +13,7 @@ class VerticalPageControl: UIView {
             for shapeLayer in circleShapeLayers {
                 shapeLayer.removeFromSuperlayer()
             }
+            circleShapeLayers.removeAll()
             for _ in 0...(newValue - 1) {
                 let shapeLayer = CAShapeLayer()
                 shapeLayer.shouldRasterize = false
