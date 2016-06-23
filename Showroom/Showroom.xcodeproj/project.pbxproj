@@ -34,7 +34,6 @@
 		1D2F19491CE9CE250099142E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1D2F19471CE9CE250099142E /* LaunchScreen.storyboard */; };
 		1D2F19541CE9CE250099142E /* ShowroomTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2F19531CE9CE250099142E /* ShowroomTests.swift */; };
 		1D2F19611CE9CED80099142E /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2F19601CE9CED80099142E /* RootViewController.swift */; };
-		1D2F19A21CEA14FE0099142E /* DZNEmptyDataSet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2F19971CEA14FE0099142E /* DZNEmptyDataSet.framework */; };
 		1D2F19A31CEA14FE0099142E /* JLRoutes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2F19981CEA14FE0099142E /* JLRoutes.framework */; };
 		1D2F19A41CEA14FE0099142E /* Locksmith.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2F19991CEA14FE0099142E /* Locksmith.framework */; };
 		1D2F19A61CEA14FE0099142E /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2F199B1CEA14FE0099142E /* RxCocoa.framework */; };
@@ -239,7 +238,6 @@
 		1D2F19551CE9CE250099142E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1D2F19601CE9CED80099142E /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		1D2F19961CEA14FE0099142E /* Decodable.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Decodable.framework; path = Carthage/Build/iOS/Decodable.framework; sourceTree = "<group>"; };
-		1D2F19971CEA14FE0099142E /* DZNEmptyDataSet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DZNEmptyDataSet.framework; path = Carthage/Build/iOS/DZNEmptyDataSet.framework; sourceTree = "<group>"; };
 		1D2F19981CEA14FE0099142E /* JLRoutes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JLRoutes.framework; path = Carthage/Build/iOS/JLRoutes.framework; sourceTree = "<group>"; };
 		1D2F19991CEA14FE0099142E /* Locksmith.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Locksmith.framework; path = Carthage/Build/iOS/Locksmith.framework; sourceTree = "<group>"; };
 		1D2F199A1CEA14FE0099142E /* RxBlocking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxBlocking.framework; path = Carthage/Build/iOS/RxBlocking.framework; sourceTree = "<group>"; };
@@ -374,7 +372,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1DF796771CEB34AD00C7A7F4 /* Haneke.framework in Frameworks */,
-				1D2F19A21CEA14FE0099142E /* DZNEmptyDataSet.framework in Frameworks */,
 				1D2F19A31CEA14FE0099142E /* JLRoutes.framework in Frameworks */,
 				1DF796741CEB2E1F00C7A7F4 /* Crashlytics.framework in Frameworks */,
 				1D2F19A41CEA14FE0099142E /* Locksmith.framework in Frameworks */,
@@ -531,7 +528,6 @@
 				1D2F19C11CEB07D10099142E /* Nimble.framework */,
 				1D2F19C21CEB07D10099142E /* Quick.framework */,
 				1D2F19961CEA14FE0099142E /* Decodable.framework */,
-				1D2F19971CEA14FE0099142E /* DZNEmptyDataSet.framework */,
 				1D2F19981CEA14FE0099142E /* JLRoutes.framework */,
 				1D2F19991CEA14FE0099142E /* Locksmith.framework */,
 				1D2F199A1CEA14FE0099142E /* RxBlocking.framework */,
@@ -1083,7 +1079,6 @@
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/DZNEmptyDataSet.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/JLRoutes.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Locksmith.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
