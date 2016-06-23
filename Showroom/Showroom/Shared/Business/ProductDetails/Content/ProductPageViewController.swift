@@ -3,7 +3,7 @@ import UIKit
 import RxSwift
 
 protocol ProductPageViewControllerDelegate: class {
-    func productPage(page: ProductPageViewController, didChangeProductPageViewState viewState: ProductPageViewState)
+    func productPage(page: ProductPageViewController, willChangeProductPageViewState newViewState: ProductPageViewState, animationDuration: Double?)
 }
 
 class ProductPageViewController: UIViewController, ProductPageViewDelegate, ProductDescriptionViewControllerDelegate {
@@ -61,12 +61,12 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate, Prod
         super.viewDidLayoutSubviews()
         if !firstLayoutSubviewsPassed {
             firstLayoutSubviewsPassed = true
-            castView.changeViewState(.Default, animated: false)
+            castView.changeViewState(.Default, animationDuration: nil, forceUpdate: true)
         }
     }
     
     func dismissContentView() {
-        castView.changeViewState(.Default, animated: true)
+        castView.changeViewState(.Default)
         if contentNavigationController?.viewControllers.count > 1 {
             contentNavigationController?.popToRootViewControllerAnimated(true)
         }
@@ -106,7 +106,7 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate, Prod
         guard let productDetails = model.state.productDetails else { return }
         
         if castView.viewState == .Default {
-            castView.changeViewState(.ContentVisible, animated: true)
+            castView.changeViewState(.ContentVisible)
         }
         
         let viewController = resolver.resolve(SizeChartViewController.self, argument: productDetails.sizes)
@@ -117,11 +117,15 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate, Prod
     
     // MARK:- ProductPageViewDelegate
     
-    func pageView(pageView: ProductPageView, didChangePageViewState pageViewState: ProductPageViewState) {
-        delegate?.productPage(self, didChangeProductPageViewState: pageViewState)
-        if pageViewState == .Default && contentNavigationController?.viewControllers.count > 1 {
+    func pageView(pageView: ProductPageView, willChangePageViewState newPageViewState: ProductPageViewState, animationDuration: Double?) {
+        delegate?.productPage(self, willChangeProductPageViewState: newPageViewState, animationDuration: animationDuration)
+        if newPageViewState == .Default && contentNavigationController?.viewControllers.count > 1 {
             contentNavigationController?.popToRootViewControllerAnimated(true)
         }
+    }
+    
+    func pageView(pageView: ProductPageView, didChangePageViewState newPageViewState: ProductPageViewState, animationDuration: Double?) {
+        
     }
     
     func pageViewDidTapShareButton(pageView: ProductPageView) {

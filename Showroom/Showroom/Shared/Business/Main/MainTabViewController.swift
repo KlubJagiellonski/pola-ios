@@ -7,7 +7,6 @@ enum TabBarAppearance { case Visible, Hidden }
 class MainTabViewController: UITabBarController {
     static let tabBarItemImageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)  // Center vertically item without title
     static let basketItemImageInsets = UIEdgeInsets(top: 4, left: 0, bottom: -4, right: 0)
-    static let hidingDuration = 0.3
     
     private let basketBadgeContainerView = TabBarItemBadgeContainerView()
     var basketBadgeValue: UInt {
@@ -84,8 +83,8 @@ class MainTabViewController: UITabBarController {
         basketBadgeValue = basket?.productsAmount ?? 0
     }
     
-    func updateTabBarAppearance(appearance: TabBarAppearance, animationDuration: Double = hidingDuration) {
-        UIView.animateWithDuration(animationDuration, delay: 0.0, options: [.BeginFromCurrentState, .CurveEaseInOut], animations: {
+    func updateTabBarAppearance(appearance: TabBarAppearance, animationDuration: Double?) {
+        UIView.animateWithDuration(animationDuration ?? 0, delay: 0.0, options: [.BeginFromCurrentState, .CurveEaseInOut], animations: {
             self.appearance = appearance
             }, completion: nil)
     }

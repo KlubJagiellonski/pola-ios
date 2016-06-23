@@ -10,7 +10,8 @@ protocol ProductDescriptionViewInterface: class {
 }
 
 protocol ProductPageViewDelegate: ViewSwitcherDelegate {
-    func pageView(pageView: ProductPageView, didChangePageViewState pageViewState: ProductPageViewState)
+    func pageView(pageView: ProductPageView, willChangePageViewState newPageViewState: ProductPageViewState, animationDuration: Double?)
+    func pageView(pageView: ProductPageView, didChangePageViewState newPageViewState: ProductPageViewState, animationDuration: Double?)
     func pageViewDidTapShareButton(pageView: ProductPageView)
 }
 
@@ -23,7 +24,8 @@ enum ProductPageViewState {
 class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
     private let defaultDescriptionTopMargin: CGFloat = 70
     private let descriptionDragVelocityThreshold: CGFloat = 200
-    private let defaultContentAnimationDuration = 0.4
+    private static let defaultContentAnimationDuration = 0.4
+    private let verticalButtonsContentMargin: CGFloat = 8
     
     private let containerView = UIView()
     private let imageCollectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -38,11 +40,13 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
     private let disposeBag = DisposeBag()
     
     private var contentTopConstraint: Constraint?
+    private var currentTopContentOffset:CGFloat = 0
     private(set) var viewState: ProductPageViewState = .Default {
         didSet {
-            guard oldValue != viewState else { return }
-            delegate?.pageView(self, didChangePageViewState: viewState)
-            imageCollectionView.scrollEnabled = viewState != ProductPageViewState.ContentVisible
+            imageCollectionView.scrollEnabled = viewState != .ContentVisible
+            contentTopConstraint?.updateOffset(currentTopContentOffset)
+            pageControl.alpha = viewState == .ImageGallery ? 0 : 1
+            imageDataSource.state = viewState == .ImageGallery ? .FullScreen : .Default
         }
     }
     private weak var descriptionViewInterface: ProductDescriptionViewInterface?
@@ -73,12 +77,18 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
         modelState.productDetailsObservable.subscribeNext(updateProductDetails).addDisposableTo(disposeBag)
         configure(forProduct: modelState.product)
         
+        let imageCollectionTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ProductPageView.didTapOnImageCollectionView))
+        imageCollectionTapGestureRecognizer.delegate = self
+        
+        let contentContainerTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ProductPageView.didTapOnDescriptionView))
+        contentContainerTapGestureRecognizer.delegate = self
+        
         imageCollectionView.backgroundColor = UIColor.clearColor()
         imageCollectionView.dataSource = imageDataSource
         imageCollectionView.delegate = self
         imageCollectionView.pagingEnabled = true
         imageCollectionView.showsVerticalScrollIndicator = false
-        imageCollectionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(ProductPageView.didTapOnImageCollectionView)))
+        imageCollectionView.addGestureRecognizer(imageCollectionTapGestureRecognizer)
         let flowLayout = imageCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
         flowLayout.scrollDirection = .Vertical
         flowLayout.minimumLineSpacing = 0
@@ -87,9 +97,7 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
         pageControl.currentPage = 0
         
         contentContainerView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(ProductPageView.didPanOnDescriptionView)))
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ProductPageView.didTapOnDescriptionView))
-        tapGestureRecognizer.delegate = self
-        contentContainerView.addGestureRecognizer(tapGestureRecognizer)
+        contentContainerView.addGestureRecognizer(contentContainerTapGestureRecognizer)
         
         buttonStackView.axis = .Horizontal
         buttonStackView.spacing = 10
@@ -133,30 +141,27 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
         pageControl.numberOfPages = imageDataSource.imageUrls.count
         pageControl.invalidateIntrinsicContentSize()
         
-        updateContentPosition(withAnimation: true)
+        let forceUpdate = calculateTopContentOffset(forViewState: viewState) != currentTopContentOffset
+        changeViewState(viewState, animationDuration: 0.3, forceUpdate: forceUpdate)
     }
     
-    var currentTopContentOffset:CGFloat = 0
-    private func updateContentPosition(withAnimation animation: Bool, animationDuration: Double = 0.3, forceOffsetUpdate: Bool = false, completion: (() -> Void)? = nil) {
-        let topContentOffset = calculateTopContentOffset()
-        if topContentOffset == currentTopContentOffset && !forceOffsetUpdate {
-            return
-        }
-        currentTopContentOffset = topContentOffset
+    func changeViewState(viewState: ProductPageViewState, animationDuration: Double? = defaultContentAnimationDuration, forceUpdate: Bool = false, completion: (() -> Void)? = nil) {
+        if self.viewState == viewState && !forceUpdate { return }
         
-        self.layoutIfNeeded()
+        delegate?.pageView(self, willChangePageViewState: viewState, animationDuration: animationDuration)
         
-        self.setNeedsLayout()
-        UIView.animateWithDuration(animation ? animationDuration : 0) { [unowned self] in
-            self.contentTopConstraint?.updateOffset(topContentOffset)
+        currentTopContentOffset = calculateTopContentOffset(forViewState: viewState)
+        
+        layoutIfNeeded()
+        setNeedsLayout()
+        UIView.animateWithDuration(animationDuration ?? 0, delay: 0, options: [.CurveEaseInOut], animations: {
+            self.viewState = viewState
             self.layoutIfNeeded()
+        }) { [weak self] _ in
+            guard let strongSelf = self else { return }
+            strongSelf.delegate?.pageView(strongSelf, didChangePageViewState: strongSelf.viewState, animationDuration: animationDuration)
+            completion?()
         }
-    }
-    
-    func changeViewState(viewState: ProductPageViewState, animated: Bool, completion: (() -> Void)? = nil) {
-        self.viewState = viewState
-        
-        updateContentPosition(withAnimation: animated, animationDuration: defaultContentAnimationDuration, completion: completion)
     }
     
     private func configureCustomConstraints() {
@@ -182,7 +187,7 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
         
         buttonStackView.snp_makeConstraints { make in
             make.trailing.equalToSuperview().inset(Dimensions.defaultMargin)
-            make.bottom.equalTo(contentContainerView.snp_top).offset(-8)
+            make.bottom.equalTo(contentContainerView.snp_top).offset(-verticalButtonsContentMargin)
         }
         
         shareButton.snp_makeConstraints { make in
@@ -196,10 +201,15 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
         }
     }
     
-    private func calculateTopContentOffset() -> CGFloat {
-        //TODO add ImageGallery state handling
-        let notVisibleOffset = (descriptionViewInterface?.calculatedHeaderHeight ?? 0) + (contentInset?.bottom ?? 0)
-        return viewState == .ContentVisible ? defaultDescriptionTopMargin - bounds.height: -notVisibleOffset
+    private func calculateTopContentOffset(forViewState viewState: ProductPageViewState) -> CGFloat {
+        switch viewState {
+        case .Default:
+            return -((descriptionViewInterface?.calculatedHeaderHeight ?? 0) + (contentInset?.bottom ?? 0))
+        case .ContentVisible:
+            return defaultDescriptionTopMargin - bounds.height
+        case .ImageGallery:
+            return verticalButtonsContentMargin + Dimensions.circleButtonDiameter
+        }
     }
     
     // MARK: - UICollectionViewDelegateFlowLayout
@@ -237,27 +247,30 @@ extension ProductPageView {
             let movedFasterForward = contentVisible && yVelocity > descriptionDragVelocityThreshold || !contentVisible && yVelocity < -descriptionDragVelocityThreshold
             let movedFasterBackward = contentVisible && yVelocity < -descriptionDragVelocityThreshold || !contentVisible && yVelocity > descriptionDragVelocityThreshold
             
+            var newViewState = viewState
             if movedFasterForward || (movedMoreThanHalf && !movedFasterBackward) {
-                viewState = contentVisible ? .Default : .ContentVisible
+                newViewState = contentVisible ? .Default : .ContentVisible
             }
             
-            updateContentPosition(withAnimation: true, animationDuration: 0.2, forceOffsetUpdate: true)
+            changeViewState(newViewState, animationDuration: 0.2, forceUpdate: true)
         default: break
         }
     }
     
     func didTapOnDescriptionView(tapGestureRecognizer: UITapGestureRecognizer) {
         let contentVisible = viewState == .ContentVisible
-        viewState = contentVisible ? .Default : .ContentVisible
-        updateContentPosition(withAnimation: true, animationDuration: defaultContentAnimationDuration)
+        let newViewState: ProductPageViewState = contentVisible ? .Default : .ContentVisible
+        changeViewState(newViewState)
     }
     
     func didTapOnImageCollectionView(tapGestureRecognizer: UITapGestureRecognizer) {
         switch viewState {
-        case .Default: break //todo go to ImageGallery state
+        case .Default:
+            changeViewState(.ImageGallery)
         case .ContentVisible:
-            changeViewState(.Default, animated: true)
-        case .ImageGallery: break // todo go back to Default state
+            changeViewState(.Default)
+        case .ImageGallery:
+            changeViewState(.Default)
         }
     }
     
@@ -268,13 +281,22 @@ extension ProductPageView {
 
 extension ProductPageView: UIGestureRecognizerDelegate {
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
-        if let touchHandlingDelegate = touch.view as? TouchHandlingDelegate {
-            return !touchHandlingDelegate.shouldConsumeTouch(touch)
-        }
-        if let touchRequiredView = descriptionViewInterface?.touchRequiredView, let touchView = touch.view {
-            return !touchView.isDescendantOfView(touchRequiredView)
+        if gestureRecognizer.view == contentContainerView {
+            if let touchHandlingDelegate = touch.view as? TouchHandlingDelegate {
+                return !touchHandlingDelegate.shouldConsumeTouch(touch)
+            }
+            if let touchRequiredView = descriptionViewInterface?.touchRequiredView, let touchView = touch.view {
+                return !touchView.isDescendantOfView(touchRequiredView)
+            }
         }
         return true
+    }
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOfGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        if let tapGestureRecognizer = otherGestureRecognizer as? UITapGestureRecognizer where gestureRecognizer.view == imageCollectionView {
+            return tapGestureRecognizer.numberOfTapsRequired == 2 && viewState == .ImageGallery
+        }
+        return false
     }
 }
 

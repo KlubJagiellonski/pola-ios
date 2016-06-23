@@ -1,8 +1,15 @@
 import Foundation
 import UIKit
+import SnapKit
 
 protocol ProductDetailsViewDelegate: class {
     func productDetailsDidTapClose(view: ProductDetailsView)
+}
+
+enum ProductDetailsViewState {
+    case Close
+    case Dismiss
+    case FullScreen
 }
 
 enum CloseButtonState {
@@ -35,6 +42,16 @@ class ProductDetailsView: UIView, UICollectionViewDelegateFlowLayout {
             collectionView.scrollEnabled = scrollingEnabled
         }
     }
+    var viewState: ProductDetailsViewState = .Close {
+        didSet {
+            if viewState == .Close || viewState == .Dismiss {
+                closeButtonState = viewState == .Close ? .Close : .Dismiss
+            }
+            
+            closeButton.alpha = viewState == .FullScreen ? 0 : 1
+            scrollingEnabled = viewState == .Close
+        }
+    }
     weak var delegate: ProductDetailsViewDelegate?
     weak var pageHandler: ProductDetailsPageHandler? {
         set { dataSource.pageHandler = newValue }
@@ -54,7 +71,7 @@ class ProductDetailsView: UIView, UICollectionViewDelegateFlowLayout {
         flowLayout.scrollDirection = .Horizontal
         flowLayout.minimumLineSpacing = 0
         flowLayout.minimumInteritemSpacing = 0
-    
+        
         closeButton.setImage(UIImage(asset: .Ic_close), forState: .Normal)
         closeButton.applyCircleStyle()
         closeButton.addTarget(self, action: #selector(ProductDetailsView.onCloseButtonTapped), forControlEvents: .TouchUpInside)
@@ -92,6 +109,16 @@ class ProductDetailsView: UIView, UICollectionViewDelegateFlowLayout {
     
     func onCloseButtonTapped(button: UIButton) {
         delegate?.productDetailsDidTapClose(self)
+    }
+    
+    func changeState(newState: ProductDetailsViewState, animationDuration: Double?, completion: ((Bool) -> ())? = nil) {
+        guard viewState != newState else { return }
+        
+        layoutIfNeeded()
+        UIView.animateWithDuration(animationDuration ?? 0, delay: 0, options: [.CurveEaseInOut], animations: {
+            self.viewState = newState
+            self.layoutIfNeeded()
+            }, completion: completion)
     }
     
     // MARK: - UICollectionViewDelegateFlowLayout

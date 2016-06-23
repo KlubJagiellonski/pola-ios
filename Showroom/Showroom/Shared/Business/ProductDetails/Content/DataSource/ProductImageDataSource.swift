@@ -2,6 +2,11 @@ import Foundation
 import UIKit
 import Haneke
 
+enum ProductImageDataSourceState {
+    case Default
+    case FullScreen
+}
+
 class ProductImageDataSource: NSObject, UICollectionViewDataSource {
     private weak var collectionView: UICollectionView?
     var lowResImageUrl: String?
@@ -52,6 +57,15 @@ class ProductImageDataSource: NSObject, UICollectionViewDataSource {
             
         }
     }
+    var state: ProductImageDataSourceState = .Default {
+        didSet {
+            guard let collectionView = collectionView else { return }
+            let visibleCells = collectionView.visibleCells() as! [ProductImageCell]
+            for cell in visibleCells {
+                cell.fullScreenMode = state == .FullScreen
+            }
+        }
+    }
     
     init(collectionView: UICollectionView) {
         super.init()
@@ -74,6 +88,7 @@ class ProductImageDataSource: NSObject, UICollectionViewDataSource {
         let imageUrl = imageUrls[indexPath.row]
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(String(ProductImageCell), forIndexPath: indexPath) as! ProductImageCell
+        cell.fullScreenMode = state == .FullScreen
         cell.imageView.image = nil
         if indexPath.row == 0 {
             loadImageForFirstItem(imageUrl, forCell: cell)

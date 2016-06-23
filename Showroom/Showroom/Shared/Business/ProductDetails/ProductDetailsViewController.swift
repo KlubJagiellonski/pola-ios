@@ -55,23 +55,16 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewDelegate
     
     // MARKL - ProductPageViewControllerDelegate
     
-    func productPage(page: ProductPageViewController, didChangeProductPageViewState viewState: ProductPageViewState) {
-        switch viewState {
-        case .Default:
-            castView.closeButtonState = .Close
-            castView.scrollingEnabled = true
-        case .ContentVisible:
-            castView.closeButtonState = .Dismiss
-            castView.scrollingEnabled = false
-        case .ImageGallery: break // todo image gallery
-        }
+    func productPage(page: ProductPageViewController, willChangeProductPageViewState newViewState: ProductPageViewState, animationDuration: Double?) {
+        castView.changeState(ProductDetailsViewState.fromPageState(newViewState), animationDuration: animationDuration)
+        changeTabBarAppearanceIfPossible(newViewState == .ImageGallery ? .Hidden : .Visible, animationDuration: animationDuration)
     }
 }
 
 extension ProductDetailsViewController: ProductDetailsPageHandler {
-    func page(forIndex index: Int, removePageIndex: Int) -> UIView {
+    func page(forIndex index: Int, removePageIndex: Int?) -> UIView {
         let productInfoTuple = model.productInfos[index].toTuple()
-        let currentViewController = indexedViewControllers[removePageIndex]
+        let currentViewController = removePageIndex == nil ? nil : indexedViewControllers[removePageIndex!]
         let newViewController = resolver.resolve(ProductPageViewController.self, arguments: productInfoTuple)
         newViewController.viewContentInset = UIEdgeInsets(top: topLayoutGuide.length, left: 0, bottom: bottomLayoutGuide.length, right: 0)
         newViewController.delegate = self
@@ -81,15 +74,30 @@ extension ProductDetailsViewController: ProductDetailsPageHandler {
         return newViewController.view
     }
     
-    func pageAdded(forIndex index: Int, removePageIndex: Int) {
-        let currentViewController = indexedViewControllers[removePageIndex]
+    func pageAdded(forIndex index: Int, removePageIndex: Int?) {
+        let currentViewController = removePageIndex == nil ? nil : indexedViewControllers[removePageIndex!]
         let newViewController = childViewControllers.last!
         
         currentViewController?.removeFromParentViewController()
         newViewController.didMoveToParentViewController(self)
         
-        indexedViewControllers[removePageIndex] = nil
+        if removePageIndex != nil {
+            indexedViewControllers[removePageIndex!] = nil
+        }
         indexedViewControllers[index] = newViewController
         model.didMoveToPage(atIndex: index)
+    }
+}
+
+extension ProductDetailsViewState {
+    static func fromPageState(pageState: ProductPageViewState) -> ProductDetailsViewState{
+        switch pageState {
+        case .Default:
+            return .Close
+        case .ContentVisible:
+            return .Dismiss
+        case .ImageGallery:
+            return .FullScreen
+        }
     }
 }

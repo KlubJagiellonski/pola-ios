@@ -8,6 +8,10 @@ class LoadingIndicator: UIView {
     
     private var dots: [UIView] = []
     
+    private var animating: Bool {
+        return layer.animationForKey("rotationAnimation") != nil
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -38,6 +42,7 @@ class LoadingIndicator: UIView {
     }
     
     func startAnimation(animationTime: NSTimeInterval = 2) {
+        guard !animating else { return }
         
         // Rotation animation of circles
         let animationGroup = CAAnimationGroup()
@@ -74,8 +79,14 @@ class LoadingIndicator: UIView {
     }
     
     func stopAnimation() {
+        guard animating else { return }
+        
         layer.removeAnimationForKey("rotationAnimation")
         dots.forEach { $0.layer.removeAllAnimations() }
+    }
+    
+    override func sizeThatFits(size: CGSize) -> CGSize {
+        return intrinsicContentSize()
     }
     
     override func intrinsicContentSize() -> CGSize {

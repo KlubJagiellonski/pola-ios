@@ -2,35 +2,103 @@ import Foundation
 import UIKit
 import SnapKit
 
-class ProductImageCell: UICollectionViewCell {
+class ProductImageCell: UICollectionViewCell, UIScrollViewDelegate {
+    private let minImageZoom: CGFloat = 1.0
+    private let maxImageZoom: CGFloat = 3.0
+    private let doubleTapZoom: CGFloat = 2.0
+    
+    private let contentScrollView = UIScrollView()
     let imageView = UIImageView()
     
-    var topConstraint: Constraint?
+    private weak var doubleTapGestureRecognizer: UITapGestureRecognizer?
+    private var topOffset: CGFloat = 0
+    var fullScreenMode: Bool = false {
+        didSet {
+            let imageHeight = ceil(bounds.width / CGFloat(Dimensions.defaultImageRatio))
+            
+            doubleTapGestureRecognizer?.enabled = fullScreenMode
+            contentScrollView.scrollEnabled = fullScreenMode
+            contentScrollView.maximumZoomScale = fullScreenMode ? maxImageZoom : minImageZoom
+            contentScrollView.zoomScale = 1.0
+            
+            let offset = fullScreenMode ? bounds.height * 0.5 - imageHeight * 0.5: 0
+            topOffset = offset
+            setNeedsLayout()
+            layoutIfNeeded()
+        }
+    }
     
     override init(frame: CGRect) {
-        super.init(frame: CGRectZero)
+        super.init(frame: frame)
         
-        imageView.contentMode = .ScaleAspectFill
+        imageView.contentMode = .ScaleAspectFit
         
-        contentView.addSubview(imageView)
+        let doubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ProductImageCell.didDoubleTapView))
+        doubleTapGestureRecognizer.enabled = fullScreenMode
+        doubleTapGestureRecognizer.numberOfTapsRequired = 2
         
-        createCustomConstraints()
+        contentScrollView.addGestureRecognizer(doubleTapGestureRecognizer)
+        contentScrollView.contentSize = bounds.size
+        contentScrollView.delegate = self
+        contentScrollView.minimumZoomScale = minImageZoom
+        contentScrollView.maximumZoomScale = fullScreenMode ? maxImageZoom : minImageZoom
+        contentScrollView.scrollEnabled = fullScreenMode
+        
+        contentScrollView.addSubview(imageView)
+        contentView.addSubview(contentScrollView)
+        
+        self.doubleTapGestureRecognizer = doubleTapGestureRecognizer
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func createCustomConstraints() {
-        contentView.snp_makeConstraints { make in
-            make.edges.equalToSuperview()
+    func didDoubleTapView(tapGestureRecognizer: UITapGestureRecognizer) {
+        let zoom = contentScrollView.zoomScale == 1.0 ? doubleTapZoom : 1.0
+        let zoomRect = zoomRectForScale(zoom, withCenter: tapGestureRecognizer.locationInView(tapGestureRecognizer.view))
+        contentScrollView.zoomToRect(zoomRect, animated: true)
+    }
+    
+    // doing it on frame because there were 1000 of problems with autolayout here
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        contentView.frame = self.bounds
+        contentScrollView.frame = self.bounds
+        imageView.frame = CGRectMake(0, topOffset, bounds.width, ceil(bounds.width / CGFloat(Dimensions.defaultImageRatio)))
+    }
+    
+    // MARK:- UIScrollViewDelegate
+    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+        return imageView
+    }
+    
+    func scrollViewDidZoom(scrollView: UIScrollView) {
+        var frame = imageView.frame;
+        if frame.size.width < scrollView.bounds.size.width
+        {
+            frame.origin.x = (scrollView.bounds.size.width - frame.size.width) / 2.0;
+        } else {
+            frame.origin.x = 0.0;
         }
+        if frame.size.height < scrollView.bounds.size.height {
+            frame.origin.y = (scrollView.bounds.size.height - frame.size.height) / 2.0;
+        } else {
+            frame.origin.y = 0.0;
+        }
+        imageView.frame = frame;
+    }
+    
+    // MARK:- Utilities
+    func zoomRectForScale(scale: CGFloat, withCenter center: CGPoint) -> CGRect {
+        var zoomRect = CGRectZero
         
-        imageView.snp_makeConstraints { make in
-            topConstraint = make.top.equalToSuperview().constraint
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
-            make.height.equalTo(imageView.snp_width).dividedBy(Dimensions.defaultImageRatio)
-        }
+        zoomRect.size.height = contentScrollView.frame.size.height / scale;
+        zoomRect.size.width = contentScrollView.frame.size.width / scale;
+        
+        zoomRect.origin.x = center.x - (zoomRect.size.width / 2.0);
+        zoomRect.origin.y = center.y - (zoomRect.size.height / 2.0);
+        
+        return zoomRect;
     }
 }

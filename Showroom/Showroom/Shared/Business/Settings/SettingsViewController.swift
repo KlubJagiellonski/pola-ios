@@ -54,9 +54,9 @@ class SettingsViewController: UIViewController {
     
     func toggleTabBar(sender: UIButton!) {
         if (tabBarController as! MainTabViewController).appearance == .Visible {
-            (tabBarController as! MainTabViewController).updateTabBarAppearance(.Hidden)
+            (tabBarController as! MainTabViewController).updateTabBarAppearance(.Hidden, animationDuration: 0.3)
         } else {
-            (tabBarController as! MainTabViewController).updateTabBarAppearance(.Visible)
+            (tabBarController as! MainTabViewController).updateTabBarAppearance(.Visible, animationDuration: 0.3)
         }
     }
     
