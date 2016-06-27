@@ -167,9 +167,7 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate, Prod
         showSizeChart()
     }
     
-    func descriptionViewDidTapOtherBrandProducts(view: ProductDescriptionView) {
-        
-    }
+    func descriptionViewDidTapOtherBrandProducts(view: ProductDescriptionView) {}
     
     func descriptionViewDidTapAddToBasket(view: ProductDescriptionView) {
         guard !model.isSizeSet else {

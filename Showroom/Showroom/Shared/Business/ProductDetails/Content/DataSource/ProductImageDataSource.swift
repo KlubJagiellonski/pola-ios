@@ -75,7 +75,10 @@ class ProductImageDataSource: NSObject, UICollectionViewDataSource {
     }
     
     private func loadImageForFirstItem(imageUrl: String, forCell cell: ProductImageCell) {
-        cell.imageView.loadImageWithLowResImage(imageUrl, lowResUrl: lowResImageUrl, w: cell.bounds.width)
+        cell.imageView.loadImageWithLowResImage(imageUrl, lowResUrl: lowResImageUrl, w: cell.bounds.width) { (image: UIImage) in
+            cell.contentViewSwitcher.switcherState = .Success
+            cell.imageView.image = image
+        }
     }
     
     // MARK:- UICollectionViewDataSource
@@ -90,10 +93,14 @@ class ProductImageDataSource: NSObject, UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(String(ProductImageCell), forIndexPath: indexPath) as! ProductImageCell
         cell.fullScreenMode = state == .FullScreen
         cell.imageView.image = nil
+        cell.contentViewSwitcher.switcherState = .Loading
         if indexPath.row == 0 {
             loadImageForFirstItem(imageUrl, forCell: cell)
         } else {
-            cell.imageView.loadImageFromUrl(imageUrl, w: cell.bounds.width)
+            cell.imageView.loadImageFromUrl(imageUrl, w: cell.bounds.width) { (image: UIImage) in
+                cell.contentViewSwitcher.switcherState = .Success
+                cell.imageView.image = image
+            }
         }
         
         return cell

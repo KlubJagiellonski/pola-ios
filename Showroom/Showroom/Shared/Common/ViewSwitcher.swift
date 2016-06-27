@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import SnapKit
 
 typealias ErrorText = String
 typealias ErrorImage = UIImage
@@ -22,7 +23,7 @@ protocol ViewSwitcherDelegate: class {
 
 class ViewSwitcher: UIView {
     private let dimViewAlpha: CGFloat = 0.7
-    private let animationDuration = 0.3
+    var animationDuration = 0.3
     private var animationEndBlock: (() -> ())?
     private var animatingToState: ViewSwitcherState?
     
@@ -217,6 +218,12 @@ class ErrorView: UIView {
 
 class LoadingView: UIView {
     private let indicatorView = LoadingIndicator()
+    private var contentEdgeConstraint: Constraint?
+    var contentOffset: UIEdgeInsets = UIEdgeInsetsZero {
+        didSet {
+            contentEdgeConstraint?.updateOffset(contentOffset)
+        }
+    }
     
     init() {
         super.init(frame: CGRectZero)
@@ -224,7 +231,7 @@ class LoadingView: UIView {
         addSubview(indicatorView)
         
         indicatorView.snp_makeConstraints { make in
-            make.center.equalToSuperview()
+            contentEdgeConstraint = make.center.equalToSuperview().constraint
         }
     }
     

@@ -7,6 +7,7 @@ class ProductImageCell: UICollectionViewCell, UIScrollViewDelegate {
     private let maxImageZoom: CGFloat = 3.0
     private let doubleTapZoom: CGFloat = 2.0
     
+    let contentViewSwitcher: ViewSwitcher
     private let contentScrollView = UIScrollView()
     let imageView = UIImageView()
     
@@ -14,6 +15,8 @@ class ProductImageCell: UICollectionViewCell, UIScrollViewDelegate {
     private var topOffset: CGFloat = 0
     var fullScreenMode: Bool = false {
         didSet {
+            guard fullScreenMode != oldValue else { return }
+            
             let imageHeight = ceil(bounds.width / CGFloat(Dimensions.defaultImageRatio))
             
             doubleTapGestureRecognizer?.enabled = fullScreenMode
@@ -21,15 +24,22 @@ class ProductImageCell: UICollectionViewCell, UIScrollViewDelegate {
             contentScrollView.maximumZoomScale = fullScreenMode ? maxImageZoom : minImageZoom
             contentScrollView.zoomScale = 1.0
             
-            let offset = fullScreenMode ? bounds.height * 0.5 - imageHeight * 0.5: 0
-            topOffset = offset
+            topOffset = fullScreenMode ? bounds.height * 0.5 - imageHeight * 0.5: 0
+            
+            updateLoadingTopContentOffset()
+            
             setNeedsLayout()
             layoutIfNeeded()
         }
     }
     
     override init(frame: CGRect) {
+        contentViewSwitcher = ViewSwitcher(successView: contentScrollView)
+        
         super.init(frame: frame)
+        
+        contentViewSwitcher.animationDuration = 0.1
+        updateLoadingTopContentOffset()
         
         imageView.contentMode = .ScaleAspectFit
         
@@ -45,7 +55,7 @@ class ProductImageCell: UICollectionViewCell, UIScrollViewDelegate {
         contentScrollView.scrollEnabled = fullScreenMode
         
         contentScrollView.addSubview(imageView)
-        contentView.addSubview(contentScrollView)
+        contentView.addSubview(contentViewSwitcher)
         
         self.doubleTapGestureRecognizer = doubleTapGestureRecognizer
     }
@@ -64,7 +74,7 @@ class ProductImageCell: UICollectionViewCell, UIScrollViewDelegate {
     override func layoutSubviews() {
         super.layoutSubviews()
         contentView.frame = self.bounds
-        contentScrollView.frame = self.bounds
+        contentViewSwitcher.frame = self.bounds
         imageView.frame = CGRectMake(0, topOffset, bounds.width, ceil(bounds.width / CGFloat(Dimensions.defaultImageRatio)))
     }
     
@@ -90,7 +100,7 @@ class ProductImageCell: UICollectionViewCell, UIScrollViewDelegate {
     }
     
     // MARK:- Utilities
-    func zoomRectForScale(scale: CGFloat, withCenter center: CGPoint) -> CGRect {
+    private func zoomRectForScale(scale: CGFloat, withCenter center: CGPoint) -> CGRect {
         var zoomRect = CGRectZero
         
         zoomRect.size.height = contentScrollView.frame.size.height / scale;
@@ -100,5 +110,11 @@ class ProductImageCell: UICollectionViewCell, UIScrollViewDelegate {
         zoomRect.origin.y = center.y - (zoomRect.size.height / 2.0);
         
         return zoomRect;
+    }
+    
+    private func updateLoadingTopContentOffset() {
+        let imageHeight = ceil(bounds.width / CGFloat(Dimensions.defaultImageRatio))
+        let topContentOffset: CGFloat = fullScreenMode ? 0 : -(bounds.height * 0.5 - imageHeight * 0.5)
+        contentViewSwitcher.loadingView.contentOffset = UIEdgeInsets(top: topContentOffset, left: 0, bottom: 0, right: 0)
     }
 }
