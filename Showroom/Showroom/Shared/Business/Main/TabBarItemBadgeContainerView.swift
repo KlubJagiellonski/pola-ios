@@ -91,7 +91,7 @@ class TabBarItemBadge: UIView {
         clipsToBounds = false
         
         roundedBackgroundView.clipsToBounds = true
-        roundedBackgroundView.backgroundColor = UIColor(named: .Black)
+        roundedBackgroundView.backgroundColor = UIColor(named: .Badge)
         addSubview(roundedBackgroundView)
         
         label.text = value

@@ -1,36 +1,34 @@
 import UIKit
 
 enum TabBarIcon {
-    case Dashboard(version: TabBarIconVersion)
-    case Search(version: TabBarIconVersion)
-    case Basket(version: TabBarIconVersion)
-    case Wishlist(version: TabBarIconVersion)
-    case Settings(version: TabBarIconVersion)
+    case Dashboard
+    case Search
+    case Basket
+    case Wishlist
+    case Settings
     
-    private var image: UIImage {
-        switch self {
-        case Dashboard(.Full): return UIImage(asset: .Ic_home_full_black)
-        case Search(.Full): return UIImage(asset: .Ic_przegladaj)
-        case Basket(.Full): return UIImage(asset: .Ic_bag_full_black)
-        case Wishlist(.Full): return UIImage(asset: .Ic_heart_full_black)
-        case Settings(.Full): return UIImage(asset: .Ic_profile_full_black)
+    private func image(selected selected: Bool) -> UIImage {
+        switch (self, selected) {
+        case (Dashboard, true): return UIImage(asset: .Ic_home_selected)
+        case (Dashboard, false): return UIImage(asset: .Ic_home)
             
-        case Dashboard(.Line): return UIImage(asset: .Ic_hanger_line_black)
-        case Search(.Line): return UIImage(asset: .Ic_glass_line_black)
-        case Basket(.Line): return UIImage(asset: .Ic_cart_line_black)
-        case Wishlist(.Line): return UIImage(asset: .Ic_heart_line_black)
-        case Settings(.Line): return UIImage(asset: .Ic_profile_line_black)
+        case (Search, true): return UIImage(asset: .Ic_browse_selected)
+        case (Search, false): return UIImage(asset: .Ic_browse)
+            
+        case (Basket, true): return UIImage(asset: .Ic_bag_selected)
+        case (Basket, false): return UIImage(asset: .Ic_bag)
+            
+        case (Wishlist, true): return UIImage(asset: .Ic_favorites_selected)
+        case (Wishlist, false): return UIImage(asset: .Ic_favorites)
+            
+        case (Settings, true): return UIImage(asset: .Ic_settings_selected)
+        case (Settings, false): return UIImage(asset: .Ic_settings)
         }
     }
 }
 
-enum TabBarIconVersion {
-    case Full, Line
-    mutating func toggle() { self = (self == Full) ? Line : Full }
-}
-
 extension UITabBarItem {
     convenience init(tabBarIcon: TabBarIcon, badgeValue: Int? = nil) {
-        self.init(title: nil, image: tabBarIcon.image, selectedImage: nil)
+        self.init(title: nil, image: tabBarIcon.image(selected: false), selectedImage: tabBarIcon.image(selected: true))
     }
 }

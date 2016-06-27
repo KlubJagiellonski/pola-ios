@@ -14,6 +14,9 @@ extension UIColor {
 }
 
 enum ColorName {
+  /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#bb1270"></span>
+  /// Alpha: 100% <br/> (0xbb1270ff)
+  case Badge
   /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#000000"></span>
   /// Alpha: 100% <br/> (0x000000ff)
   case Black
@@ -53,6 +56,7 @@ enum ColorName {
 
   var rgbaValue: UInt32! {
     switch self {
+    case .Badge: return 0xbb1270ff
     case .Black: return 0x000000ff
     case .Blue: return 0x1e1cbfff
     case .DarkGray: return 0xa4aab3ff
