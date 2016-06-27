@@ -8,5 +8,6 @@ struct SimpleNavigationEvent: NavigationEvent {
         case Close
         case ShowCountrySelectionList
         case ShowCheckoutSummary
+        case ShowSearch
     }
 }

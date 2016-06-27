@@ -2,15 +2,17 @@ import Foundation
 import UIKit
 import SnapKit
 
-protocol BasketViewDelegate: class {
+protocol BasketViewDelegate: ViewSwitcherDelegate {
     func basketViewDidDeleteProduct(product: BasketProduct)
     func basketViewDidTapAmount(of product: BasketProduct)
     func basketViewDidTapShipping(view: BasketView)
     func basketViewDidTapCheckoutButton(view: BasketView)
+    func basketViewDidTapStartShoppingButton(view: BasketView)
     func basketView(view: BasketView, didChangeDiscountCode discountCode: String?)
 }
 
-class BasketView: UIView, UITableViewDelegate {
+final class BasketView: ViewSwitcher, UITableViewDelegate {
+    private let contentView = UIView()
     private let checkoutView = BasketCheckoutView()
     private let checkoutBottomBackgroundView = UIView()
     private let dataSource: BasketDataSource;
@@ -23,11 +25,15 @@ class BasketView: UIView, UITableViewDelegate {
         get { return checkoutView.discountInput.text }
     }
     
-    weak var delegate: BasketViewDelegate?
+    weak var delegate: BasketViewDelegate? {
+        didSet { switcherDelegate = delegate }
+    }
     
     init() {
         dataSource = BasketDataSource(tableView: tableView)
-        super.init(frame: CGRectZero)
+        super.init(successView: contentView)
+        
+        switcherDataSource = self
         
         keyboardHelper.delegate = self
         
@@ -47,9 +53,9 @@ class BasketView: UIView, UITableViewDelegate {
         
         checkoutBottomBackgroundView.backgroundColor = UIColor(named: .White)
         
-        addSubview(tableView)
-        addSubview(checkoutView)
-        addSubview(checkoutBottomBackgroundView)
+        contentView.addSubview(tableView)
+        contentView.addSubview(checkoutView)
+        contentView.addSubview(checkoutBottomBackgroundView)
         
         configureCustomConstraints()
         
@@ -68,9 +74,7 @@ class BasketView: UIView, UITableViewDelegate {
         endEditing(true)
     }
     
-    func updateData(with basket: Basket?) {
-        guard let basket = basket else { return } //todo handle no basket state
-        
+    func updateData(with basket: Basket) {
         dataSource.updateData(with: basket.productsByBrands)
         checkoutView.updateData(withBasket: basket)
     }
@@ -97,6 +101,10 @@ class BasketView: UIView, UITableViewDelegate {
     
     func didTapCheckoutButton(button: UIButton) {
         delegate?.basketViewDidTapCheckoutButton(self)
+    }
+    
+    func didTapStartShoppingButton(button: UIButton) {
+        delegate?.basketViewDidTapStartShoppingButton(self)
     }
     
     private func configureCustomConstraints() {
@@ -153,7 +161,7 @@ class BasketView: UIView, UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, titleForDeleteConfirmationButtonForRowAtIndexPath indexPath: NSIndexPath) -> String? {
-        return tr(.BasketDelete);
+        return tr(.BasketDelete)
     }
 }
 
@@ -179,7 +187,18 @@ extension BasketView: UITextFieldDelegate {
     }
 }
 
-class BasketCheckoutView: UIView {
+extension BasketView: ViewSwitcherDataSource {
+    func viewSwitcherWantsErrorInfo(view: ViewSwitcher) -> (ErrorText, ErrorImage?) {
+        return (tr(.CommonError), nil)
+    }
+    func viewSwitcherWantsEmptyView(view: ViewSwitcher) -> UIView? {
+        let emptyView = BasketEmptyView(contentInset: tableView.contentInset)
+        emptyView.startShoppingButton.addTarget(self, action: #selector(BasketView.didTapStartShoppingButton(_:)), forControlEvents: .TouchUpInside)
+        return emptyView
+    }
+}
+
+final class BasketCheckoutView: UIView {
     private let rightViewSize = CGSizeMake(13, 11)
     private let rightViewRightMargin: CGFloat = 11
     
@@ -312,5 +331,57 @@ class BasketCheckoutView: UIView {
             make.left.equalToSuperview().inset(Dimensions.defaultMargin)
         }
         
+    }
+}
+
+final class BasketEmptyView: UIView {
+    private let titleLabel = UILabel()
+    private let imageView = UIImageView(image: UIImage(asset: .Empty_bag))
+    private let startShoppingButton = UIButton()
+    
+    init(contentInset: UIEdgeInsets) {
+        super.init(frame: CGRectZero)
+        
+        titleLabel.font = UIFont(fontType: .Bold)
+        titleLabel.text = tr(.BasketEmpty)
+        titleLabel.textAlignment = .Center
+        
+        startShoppingButton.setTitle(tr(.BasketStartShopping), forState: .Normal)
+        startShoppingButton.applyBlueStyle()
+        
+        addSubview(titleLabel)
+        addSubview(imageView)
+        addSubview(startShoppingButton)
+        
+        configureCustomConstraints()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func configureCustomConstraints() {
+        imageView.setContentHuggingPriority(UILayoutPriorityDefaultHigh, forAxis: .Horizontal)
+        imageView.setContentHuggingPriority(UILayoutPriorityDefaultHigh, forAxis: .Vertical)
+        imageView.snp_makeConstraints { make in
+            make.center.equalToSuperview()
+            make.leading.greaterThanOrEqualToSuperview()
+            make.trailing.lessThanOrEqualToSuperview()
+            make.bottom.lessThanOrEqualTo(startShoppingButton.snp_top).offset(-4) // to make it fit on iphone 4s screen
+        }
+        
+        titleLabel.snp_makeConstraints { make in
+            make.top.equalToSuperview().offset(Dimensions.statusBarHeight + Dimensions.navigationBarHeight)
+            make.bottom.equalTo(imageView.snp_top)
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+        }
+        
+        startShoppingButton.snp_makeConstraints { make in
+            make.bottom.equalToSuperview().inset(Dimensions.tabViewHeight + Dimensions.defaultMargin)
+            make.leading.equalToSuperview().offset(Dimensions.defaultMargin)
+            make.trailing.equalToSuperview().inset(Dimensions.defaultMargin)
+            make.height.equalTo(Dimensions.bigButtonHeight)
+        }
     }
 }

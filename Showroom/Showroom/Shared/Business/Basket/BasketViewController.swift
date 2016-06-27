@@ -10,19 +10,16 @@ class BasketViewController: UIViewController, BasketViewDelegate {
     private let actionAnimator = DropUpActionAnimator(height: 216)
     private let deliveryAnimator =  FormSheetAnimator()
     
-    // TODO: Remove sample basket when API is ready
-    private let sampleBasketButton: UIButton = UIButton()
-    
     init(resolver: DiResolver) {
         self.manager = resolver.resolve(BasketManager.self)
         self.resolver = resolver
         super.init(nibName: nil, bundle: nil)
         
         manager.validate()
-        manager.state.basketObservable.subscribeNext(castView.updateData).addDisposableTo(disposeBag)
+        manager.state.basketObservable.subscribeNext(updateBasket).addDisposableTo(disposeBag)
         manager.state.deliveryCarrierObservable.subscribeNext(updateCarrier).addDisposableTo(disposeBag)
         manager.state.deliveryCountryObservable.subscribeNext(updateCountry).addDisposableTo(disposeBag)
-        manager.state.validatedObservable.subscribeNext(castView.updateData).addDisposableTo(disposeBag)
+        manager.state.validationStateObservable.subscribeNext(updateValidating).addDisposableTo(disposeBag)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -39,9 +36,14 @@ class BasketViewController: UIViewController, BasketViewDelegate {
         
         castView.delegate = self
         
-        castView.updateData(with: manager.state.basket)
+        updateBasket(with: manager.state.basket)
         castView.updateData(with: manager.state.deliveryCountry, and: manager.state.deliveryCarrier)
         castView.discountCode = manager.state.discountCode
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        manager.validate()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -54,12 +56,32 @@ class BasketViewController: UIViewController, BasketViewDelegate {
         castView.unregisterOnKeyboardEvent()
     }
     
+    func updateBasket(with basket: Basket?) {
+        guard !isEmptyBasket(basket) else {
+            castView.switcherState = .Empty
+            return
+        }
+        
+        castView.updateData(with: basket!)
+    }
+    
     func updateCarrier(with carrier: DeliveryCarrier?) {
         castView.updateData(with: manager.state.deliveryCountry, and: carrier)
     }
     
     func updateCountry(with country: DeliveryCountry?) {
         castView.updateData(with: country, and: manager.state.deliveryCarrier)
+    }
+    
+    func updateValidating(with validationState: BasketValidationState) {
+        castView.updateData(withValidated: validationState.validated)
+        if isEmptyBasket(manager.state.basket) {
+            castView.switcherState = .Empty
+        } else if validationState.validating {
+            castView.switcherState = castView.switcherState == .Error ? .Loading : .ModalLoading
+        } else {
+            castView.switcherState = validationState.validated ? .Success : .Error
+        }
     }
     
     // MARK: - BasketViewDelegate
@@ -92,6 +114,20 @@ class BasketViewController: UIViewController, BasketViewDelegate {
         guard discountCode != manager.state.discountCode else { return }
         manager.state.discountCode = discountCode
         manager.validate()
+    }
+    
+    func basketViewDidTapStartShoppingButton(view: BasketView) {
+        sendNavigationEvent(SimpleNavigationEvent(type: .ShowSearch))
+    }
+    
+    func viewSwitcherDidTapRetry(view: ViewSwitcher) {
+        manager.validate()
+    }
+    
+    // MARK: - Utilities
+    
+    func isEmptyBasket(basket: Basket?) -> Bool {
+        return basket == nil || basket!.productsByBrands.isEmpty
     }
 }
 

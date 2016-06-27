@@ -37,6 +37,10 @@ enum L10n {
   case BasketAmount0
   /// Usuń
   case BasketDelete
+  /// TWÓJ KOSZYK JEST PUSTY
+  case BasketEmpty
+  /// ZACZNIJ ZAKUPY
+  case BasketStartShopping
   /// SPOSÓB DOSTAWY
   case BasketDeliveryTitle
   /// Kraj dostawy
@@ -180,6 +184,10 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Basket.Amount0")
       case .BasketDelete:
         return L10n.tr("Basket.Delete")
+      case .BasketEmpty:
+        return L10n.tr("Basket.Empty")
+      case .BasketStartShopping:
+        return L10n.tr("Basket.StartShopping")
       case .BasketDeliveryTitle:
         return L10n.tr("Basket.Delivery.Title")
       case .BasketDeliveryDeliveryCountry:

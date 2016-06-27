@@ -1,14 +1,15 @@
 import Foundation
 import UIKit
 
-protocol BasketDeliveryViewDelegate: class {
+protocol BasketDeliveryViewDelegate: ViewSwitcherDelegate {
     func deliveryViewDidTapOk(view: BasketDeliveryView)
     func deliveryViewDidTapCountry(view: BasketDeliveryView)
     func deliveryViewDidTapUpsOption(view: BasketDeliveryView)
     func deliveryViewDidTapRuchOption(view: BasketDeliveryView)
 }
 
-class BasketDeliveryView: UIView {
+class BasketDeliveryView: ViewSwitcher {
+    private let contentView = UIView()
     private let countryTitleLabel = UILabel()
     private let countryDeliveryView = BasketCountryDeliveryView()
     private let deliveryOptionsTitle = UILabel()
@@ -17,12 +18,16 @@ class BasketDeliveryView: UIView {
     private let infoLabel = UILabel()
     private let okButton = UIButton()
     
-    weak var delegate: BasketDeliveryViewDelegate?
+    weak var delegate: BasketDeliveryViewDelegate? {
+        didSet { switcherDelegate = delegate }
+    }
     
     init() {
-        super.init(frame: CGRectZero)
+        super.init(successView: contentView, initialState: .Success)
         
         backgroundColor = UIColor(named: .White)
+        
+        switcherDataSource = self
         
         countryTitleLabel.font = UIFont(fontType: .FormBold)
         countryTitleLabel.textColor = UIColor(named: .Black)
@@ -48,13 +53,13 @@ class BasketDeliveryView: UIView {
         okButton.setTitle(tr(.BasketDeliveryOk), forState: .Normal)
         okButton.addTarget(self, action: #selector(BasketDeliveryView.didTapOkButton(_:)), forControlEvents: .TouchUpInside)
         
-        addSubview(countryTitleLabel)
-        addSubview(countryDeliveryView)
-        addSubview(deliveryOptionsTitle)
-        addSubview(upsDeliveryOptionView)
-        addSubview(ruchDeliveryOptionView)
-        addSubview(infoLabel)
-        addSubview(okButton)
+        contentView.addSubview(countryTitleLabel)
+        contentView.addSubview(countryDeliveryView)
+        contentView.addSubview(deliveryOptionsTitle)
+        contentView.addSubview(upsDeliveryOptionView)
+        contentView.addSubview(ruchDeliveryOptionView)
+        contentView.addSubview(infoLabel)
+        contentView.addSubview(okButton)
         
         configureCustomConstraints()
     }
@@ -150,6 +155,13 @@ class BasketDeliveryView: UIView {
     func didChangeRuchValue(optionView: BasketDeliveryOptionView) {
         delegate?.deliveryViewDidTapRuchOption(self)
     }
+}
+
+extension BasketDeliveryView: ViewSwitcherDataSource {
+    func viewSwitcherWantsErrorInfo(view: ViewSwitcher) -> (ErrorText, ErrorImage?) {
+        return (tr(.CommonError), nil)
+    }
+    func viewSwitcherWantsEmptyView(view: ViewSwitcher) -> UIView? { return nil }
 }
 
 class BasketCountryDeliveryView: UIControl {

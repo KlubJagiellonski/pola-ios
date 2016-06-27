@@ -304,4 +304,5 @@ extension ProductPageView: ViewSwitcherDataSource {
     func viewSwitcherWantsErrorInfo(view: ViewSwitcher) -> (ErrorText, ErrorImage?) {
         return (tr(.CommonError), nil)
     }
+    func viewSwitcherWantsEmptyView(view: ViewSwitcher) -> UIView? { return nil }
 }

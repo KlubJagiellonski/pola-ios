@@ -4,7 +4,7 @@ import RxSwift
 
 enum TabBarAppearance { case Visible, Hidden }
 
-class MainTabViewController: UITabBarController {
+class MainTabViewController: UITabBarController, NavigationHandler {
     static let tabBarItemImageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)  // Center vertically item without title
     static let basketItemImageInsets = UIEdgeInsets(top: 4, left: 0, bottom: -4, right: 0)
     static let dashboardItemImageIsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
@@ -74,7 +74,6 @@ class MainTabViewController: UITabBarController {
             self.appearance = appearance
             }, completion: nil)
     }
-
     
     // MARK: - creating child view controllers
     func createDashboardViewController() -> DashboardPresenterController {
@@ -110,5 +109,18 @@ class MainTabViewController: UITabBarController {
         viewController.tabBarItem = UITabBarItem(tabBarIcon: .Settings)
         viewController.tabBarItem.imageInsets = MainTabViewController.tabBarItemImageInsets
         return viewController
+    }
+    
+    // MARK:- NavigationHandler
+    
+    func handleNavigationEvent(event: NavigationEvent) -> EventHandled {
+        if let simpleEvent = event as? SimpleNavigationEvent {
+            if simpleEvent.type == .ShowSearch {
+                guard let newIndex = index(forViewControllerType: SearchViewController.self) else { return false }
+                selectedIndex = newIndex
+                return true
+            }
+        }
+        return false
     }
 }

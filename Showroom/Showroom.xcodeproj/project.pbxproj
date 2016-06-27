@@ -45,6 +45,7 @@
 		1D2F19CC1CEB083F0099142E /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1D2F19C11CEB07D10099142E /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1D2F19CD1CEB083F0099142E /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1D2F19C21CEB07D10099142E /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1D2F19D11CEB16120099142E /* Decodable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2F19961CEA14FE0099142E /* Decodable.framework */; };
+		1D30808E1D225E2F00674D11 /* UITabBarControllerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D30808D1D225E2F00674D11 /* UITabBarControllerUtils.swift */; };
 		1D3792721D196931001A7C47 /* ViewSwitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3792711D196931001A7C47 /* ViewSwitcher.swift */; };
 		1D3EEA1A1D143C1100F67B69 /* BasketRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3EEA191D143C1100F67B69 /* BasketRequest.swift */; };
 		1D5B5E661D0197B700B74822 /* MoneyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5B5E651D0197B700B74822 /* MoneyTests.swift */; };
@@ -256,6 +257,7 @@
 		1D2F19A01CEA14FE0099142E /* XCGLogger.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCGLogger.framework; path = Carthage/Build/iOS/XCGLogger.framework; sourceTree = "<group>"; };
 		1D2F19C11CEB07D10099142E /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		1D2F19C21CEB07D10099142E /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
+		1D30808D1D225E2F00674D11 /* UITabBarControllerUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITabBarControllerUtils.swift; sourceTree = "<group>"; };
 		1D3792711D196931001A7C47 /* ViewSwitcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewSwitcher.swift; sourceTree = "<group>"; };
 		1D3EEA191D143C1100F67B69 /* BasketRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasketRequest.swift; sourceTree = "<group>"; };
 		1D5B5E651D0197B700B74822 /* MoneyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneyTests.swift; sourceTree = "<group>"; };
@@ -578,6 +580,7 @@
 				1D0F3B551D12D28D0052CFF6 /* UINavigationBarUtils.swift */,
 				1D0F3B571D12D2C70052CFF6 /* UIViewControllerUtils.swift */,
 				1D0F3B651D13DDF20052CFF6 /* NSURLUtils.swift */,
+				1D30808D1D225E2F00674D11 /* UITabBarControllerUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1255,6 +1258,7 @@
 				1DD161AC1D01C8680022B5C9 /* ProductDetailsView.swift in Sources */,
 				C0237D0C1D215EB40009F2FC /* FormFieldValidationLabel.swift in Sources */,
 				1DB166BD1D1006A8004F42DC /* SizeChartViewController.swift in Sources */,
+				1D30808E1D225E2F00674D11 /* UITabBarControllerUtils.swift in Sources */,
 				1D0F3B4A1D1172E10052CFF6 /* FormSheetAnimator.swift in Sources */,
 				1D7824B71D0709D200E60392 /* Utils.swift in Sources */,
 				1D3EEA1A1D143C1100F67B69 /* BasketRequest.swift in Sources */,

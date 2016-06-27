@@ -102,6 +102,7 @@ extension DashboardView: ViewSwitcherDataSource {
             return (tr(.CommonError), nil)
         }
     }
+    func viewSwitcherWantsEmptyView(view: ViewSwitcher) -> UIView? { return nil }
 }
 
 // handling view switcher delegate for recommendations

@@ -2,7 +2,7 @@ import Foundation
 import RxSwift
 import Decodable
 
-class BasketManager {
+final class BasketManager {
     private let apiService: ApiService
     private let storageManager: StorageManager
     private let disposeBag = DisposeBag()
@@ -24,10 +24,9 @@ class BasketManager {
     }
     
     func validate() {
-        guard let request = state.createRequest() else { return}
+        let request = state.createRequest()
         
-        state.validating = true
-        state.validated = false
+        state.validationState = BasketValidationState(validating: true, validated: state.validationState.validated)
         apiService.validateBasket(with: request)
             .observeOn(MainScheduler.instance)
             .map { [weak self] (basket: Basket) -> BasketState in
@@ -48,14 +47,13 @@ class BasketManager {
             .subscribe { [weak self](event: Event<BasketState>) in
                 guard let strongSelf = self else { return }
                 
-                strongSelf.state.validating = false
-                
                 switch event {
                 case .Next(let state):
                     logInfo("Validated basket: \(state.basket)")
-                    strongSelf.state.validated = true
+                    strongSelf.state.validationState = BasketValidationState(validating: false, validated: true)
                 case .Error(let error):
                     logError("Error during basket validation: \(error)")
+                    strongSelf.state.validationState = BasketValidationState(validating: false, validated: false)
                 default: break
                 }
         }.addDisposableTo(disposeBag)
@@ -93,12 +91,16 @@ class BasketManager {
     }
 }
 
+struct BasketValidationState {
+    let validating: Bool
+    let validated: Bool
+}
+
 final class BasketState {
     let basketObservable = PublishSubject<Basket?>()
     let deliveryCountryObservable = PublishSubject<DeliveryCountry?>()
     let deliveryCarrierObservable = PublishSubject<DeliveryCarrier?>()
-    let validatedObservable = PublishSubject<Bool>()
-    let validatingObservable = PublishSubject<Bool>()
+    let validationStateObservable = PublishSubject<BasketValidationState>()
     
     private(set) var basket: Basket? {
         didSet { basketObservable.onNext(basket) }
@@ -110,16 +112,13 @@ final class BasketState {
     var deliveryCarrier: DeliveryCarrier? {
         didSet { deliveryCarrierObservable.onNext(deliveryCarrier) }
     }
-    var validated = false {
-        didSet { validatedObservable.onNext(validated) }
-    }
-    var validating = false {
-        didSet { validatingObservable.onNext(validating) }
+    var validationState = BasketValidationState(validating: false, validated: false) {
+        didSet { validationStateObservable.onNext(validationState) }
     }
 }
 
 extension BasketState {
-    private func createRequest() -> BasketRequest? {
+    private func createRequest() -> BasketRequest {
         return BasketRequest.create(from: basket, countryCode: deliveryCountry?.id, deliveryType: deliveryCarrier?.id, discountCode: discountCode)
     }
 }

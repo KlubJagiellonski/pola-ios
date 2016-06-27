@@ -15,6 +15,7 @@ class BasketDeliveryViewController: UIViewController, BasketDeliveryViewDelegate
         basketManager.state.basketObservable.subscribeNext(castView.updateData).addDisposableTo(disposeBag)
         basketManager.state.deliveryCountryObservable.subscribeNext(castView.updateData).addDisposableTo(disposeBag)
         basketManager.state.deliveryCarrierObservable.subscribeNext(castView.updateData).addDisposableTo(disposeBag)
+        basketManager.state.validationStateObservable.subscribeNext(updateValidating).addDisposableTo(disposeBag)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -34,6 +35,14 @@ class BasketDeliveryViewController: UIViewController, BasketDeliveryViewDelegate
         castView.updateData(with: basketManager.state.deliveryCarrier)
     }
     
+    func updateValidating(with validationState: BasketValidationState) {
+        if validationState.validating {
+            castView.switcherState = .Loading
+        } else {
+            castView.switcherState = validationState.validated ? .Success : .Error
+        }
+    }
+    
     // MARK:- BasketDeliveryViewDelegate
     
     func deliveryViewDidTapOk(view: BasketDeliveryView) {
@@ -51,6 +60,10 @@ class BasketDeliveryViewController: UIViewController, BasketDeliveryViewDelegate
     
     func deliveryViewDidTapRuchOption(view: BasketDeliveryView) {
         basketManager.state.deliveryCarrier = basketManager.state.basket?.deliveryInfo.carriers.find { $0.id == DeliveryType.RUCH }
+        basketManager.validate()
+    }
+    
+    func viewSwitcherDidTapRetry(view: ViewSwitcher) {
         basketManager.validate()
     }
 }

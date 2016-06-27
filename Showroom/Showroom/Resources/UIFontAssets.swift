@@ -15,6 +15,7 @@ extension UIFont {
         case List
         case Button
         case FormBold
+        case ErrorBold
         case RecommendedBrand
         case Recommended
         case Badge
@@ -52,6 +53,8 @@ extension UIFont {
             self.init(name: "Lato-Bold", size: 16)
         case .FormBold:
             self.init(name: "Lato-Heavy", size: 14)
+        case .ErrorBold:
+            self.init(name: "Lato-Heavy", size: 13)
         case .RecommendedBrand:
             self.init(name: "Lato-Heavy", size: 11)
         case .Recommended:
