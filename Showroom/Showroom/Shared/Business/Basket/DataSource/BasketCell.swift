@@ -66,14 +66,16 @@ class BasketProductCell: UITableViewCell {
     }
     
     private func configureCustomConstraints() {
+        let margin = Dimensions.defaultMargin * 0.5
+        
         photoImageView.snp_makeConstraints { make in
-            make.top.equalToSuperview()
+            make.top.equalToSuperview().offset(margin)
             make.left.equalToSuperview().inset(Dimensions.defaultMargin)
             make.size.equalTo(BasketProductCell.photoSize)
         }
         
         nameLabel.snp_makeConstraints { make in
-            make.top.equalToSuperview()
+            make.top.equalToSuperview().offset(margin)
             make.left.equalTo(photoImageView.snp_right).offset(BasketProductCell.internalSpacing)
             make.right.lessThanOrEqualTo(amountButton.snp_left).offset(-BasketProductCell.internalSpacing)
         }
@@ -85,12 +87,12 @@ class BasketProductCell: UITableViewCell {
         }
         
         priceLabel.snp_makeConstraints { make in
-            make.bottom.equalToSuperview().inset(Dimensions.defaultMargin)
+            make.bottom.equalToSuperview().inset(margin)
             make.right.equalToSuperview().inset(Dimensions.defaultMargin)
         }
         
         amountButton.snp_makeConstraints { make in
-            make.top.equalToSuperview()
+            make.top.equalToSuperview().offset(margin)
             make.right.equalToSuperview().inset(Dimensions.defaultMargin)
         }
     }
@@ -123,13 +125,15 @@ class BasketShippingCell: UITableViewCell {
     }
     
     private func configureCustomConstraints() {
+        let margin = Dimensions.defaultMargin * 0.5
+        
         shippingLabel.snp_makeConstraints { make in
-            make.top.equalToSuperview()
+            make.top.equalToSuperview().offset(margin)
             make.left.equalToSuperview().inset(Dimensions.defaultMargin)
         }
         
         priceLabel.snp_makeConstraints { make in
-            make.top.equalToSuperview()
+            make.top.equalToSuperview().offset(margin)
             make.right.equalToSuperview().inset(Dimensions.defaultMargin)
             make.left.greaterThanOrEqualTo(shippingLabel.snp_right)
         }
