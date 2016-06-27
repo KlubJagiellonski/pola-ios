@@ -7,6 +7,7 @@ class DashboardViewController: UIViewController, DashboardViewDelegate {
     private var castView: DashboardView { return view as! DashboardView }
     
     private let disposeBag = DisposeBag()
+    private var firstLayoutSubviewsPassed = false
     
     init(resolver: DiResolver) {
         self.model = resolver.resolve(DashboardModel.self)
@@ -24,6 +25,8 @@ class DashboardViewController: UIViewController, DashboardViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        automaticallyAdjustsScrollViewInsets = false
+        
         castView.delegate = self
         
         castView.switcherState = .Loading
@@ -35,7 +38,10 @@ class DashboardViewController: UIViewController, DashboardViewDelegate {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        castView.contentInset = UIEdgeInsets(top: topLayoutGuide.length, left: 0, bottom: bottomLayoutGuide.length, right: 0)
+        if !firstLayoutSubviewsPassed {
+            firstLayoutSubviewsPassed = true
+            castView.contentInset = UIEdgeInsets(top: topLayoutGuide.length, left: 0, bottom: bottomLayoutGuide.length, right: 0)
+        }
     }
     
     private func fetchContentPromo() {
