@@ -59,9 +59,10 @@
 "CommonError" = "Coś poszło nie tak. Nie udało się załadować danych.";
 "Checkout.Summary.NavigationHeader" = "Podsumowanie";
 "Checkout.Summary.ProductDescription" = "%@ szt. Rozmiar: %@ Kolor: %@";
+"Checkout.Summary.CommentTitle" = "Uwagi do projektanta";
 "Checkout.Summary.AddComment" = "DODAJ UWAGĘ";
 "Checkout.Summary.EditComment" = "EDYTUJ";
-"Checkout.Summary.RemoveComment" = "USUŃ";
+"Checkout.Summary.DeleteComment" = "USUŃ";
 "Checkout.Summary.Discount" = "Przecena";
 "Checkout.Summary.TotalPrice" = "Kwota do zapłaty";
 "Checkout.Summary.PaymentMethod" = "Sposób płatności";

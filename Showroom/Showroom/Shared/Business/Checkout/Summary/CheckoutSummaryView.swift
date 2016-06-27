@@ -1,14 +1,24 @@
 import Foundation
 import UIKit
 
+protocol CheckoutSummaryViewDelegate: class {
+    func checkoutSummaryViewDidTapAddComment(brand: BasketBrand)
+    func checkoutSummaryViewDidTapEditComment(brand: BasketBrand)
+    func checkoutSummaryViewDidTapDeleteComment(brand: BasketBrand)
+}
+
 class CheckoutSummaryView: UIView, UITableViewDelegate {
     private let dataSource: CheckoutSummaryDataSource;
     private let tableView = UITableView(frame: CGRectZero, style: .Plain)
     private let topSeparator = UIView()
     
+    weak var delegate: CheckoutSummaryViewDelegate?
+    
     init() {
         dataSource = CheckoutSummaryDataSource(tableView: tableView)
         super.init(frame: CGRectZero)
+        
+        dataSource.summaryView = self;
         
         tableView.delegate = self
         tableView.dataSource = dataSource
@@ -47,12 +57,32 @@ class CheckoutSummaryView: UIView, UITableViewDelegate {
     func updateData(with basket: Basket?) {
         guard let basket = basket else { return }
         
-        dataSource.updateData(with: basket)
+        // Temporary data for testing
+        // TODO: Use real model
+        let comments: [String?] = [
+            "Proszę o skrócenie nogawek spodni o 3 cm oraz zwężenie ich w pasie o 1 cm.",
+            nil
+        ]
+        dataSource.updateData(with: basket, comments: comments)
     }
     
-    // MARK:- UITableViewDelegate
+    // MARK: - UITableViewDelegate
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return dataSource.heightForRow(at: indexPath)
+    }
+    
+    // MARK: - Brand comments actions
+    
+    func checkoutSummaryCommentCellDidTapAddComment(to brand: BasketBrand) {
+        delegate?.checkoutSummaryViewDidTapAddComment(brand)
+    }
+    
+    func checkoutSummaryCommentCellDidTapEditComment(for brand: BasketBrand) {
+        delegate?.checkoutSummaryViewDidTapEditComment(brand)
+    }
+    
+    func checkoutSummaryCommentCellDidTapDeleteComment(from brand: BasketBrand)  {
+        delegate?.checkoutSummaryViewDidTapDeleteComment(brand)
     }
 }

@@ -125,12 +125,14 @@ enum L10n {
   case CheckoutSummaryNavigationHeader
   /// %@ szt. Rozmiar: %@ Kolor: %@
   case CheckoutSummaryProductDescription(String, String, String)
+  /// Uwagi do projektanta
+  case CheckoutSummaryCommentTitle
   /// DODAJ UWAGĘ
   case CheckoutSummaryAddComment
   /// EDYTUJ
   case CheckoutSummaryEditComment
   /// USUŃ
-  case CheckoutSummaryRemoveComment
+  case CheckoutSummaryDeleteComment
   /// Przecena
   case CheckoutSummaryDiscount
   /// Kwota do zapłaty
@@ -272,12 +274,14 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Checkout.Summary.NavigationHeader")
       case .CheckoutSummaryProductDescription(let p0, let p1, let p2):
         return L10n.tr("Checkout.Summary.ProductDescription", p0, p1, p2)
+      case .CheckoutSummaryCommentTitle:
+        return L10n.tr("Checkout.Summary.CommentTitle")
       case .CheckoutSummaryAddComment:
         return L10n.tr("Checkout.Summary.AddComment")
       case .CheckoutSummaryEditComment:
         return L10n.tr("Checkout.Summary.EditComment")
-      case .CheckoutSummaryRemoveComment:
-        return L10n.tr("Checkout.Summary.RemoveComment")
+      case .CheckoutSummaryDeleteComment:
+        return L10n.tr("Checkout.Summary.DeleteComment")
       case .CheckoutSummaryDiscount:
         return L10n.tr("Checkout.Summary.Discount")
       case .CheckoutSummaryTotalPrice:

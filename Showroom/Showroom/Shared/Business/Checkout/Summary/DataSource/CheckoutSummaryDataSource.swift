@@ -7,13 +7,14 @@ enum CheckoutSummaryPaymentRow: Int {
     static var count: Int { return CheckoutSummaryPaymentRow.BuyButton.rawValue + 1 }
 }
 
-class CheckoutSummaryDataSource: NSObject, UITableViewDataSource {
+class CheckoutSummaryDataSource: NSObject, UITableViewDataSource, CheckoutSummaryCommentCellDelegate {
     private var productsByBrands: [BasketBrand] = []
     private var totalPrice: Money = Money()
     private var totalBasePrice: Money = Money()
-    private var comments: [String]?
+    private var comments: [String?]?
     private var delivery: DeliveryType = .UPS
     private weak var tableView: UITableView?
+    weak var summaryView: CheckoutSummaryView?
     
     init(tableView: UITableView) {
         super.init()
@@ -25,7 +26,7 @@ class CheckoutSummaryDataSource: NSObject, UITableViewDataSource {
         tableView.registerClass(CheckoutSummaryBuyCell.self, forCellReuseIdentifier: String(CheckoutSummaryBuyCell))
     }
     
-    func updateData(with basket: Basket, comments: [String]? = nil, delivery: DeliveryType = .UPS) {
+    func updateData(with basket: Basket, comments: [String?]? = nil, delivery: DeliveryType = .UPS) {
         self.productsByBrands = basket.productsByBrands
         self.totalPrice = basket.price
         self.totalBasePrice = basket.basePrice
@@ -76,8 +77,9 @@ class CheckoutSummaryDataSource: NSObject, UITableViewDataSource {
                 return cell
             } else if isCommentCell(at: indexPath) {
                 let cell = tableView.dequeueReusableCellWithIdentifier(String(CheckoutSummaryCommentCell)) as! CheckoutSummaryCommentCell
+                cell.delegate = self
+                cell.updateData(withComment: comment(forSection: indexPath.section))
                 return cell
-                // TODO: Setup user comment cell
             } else {
                 let cell = tableView.dequeueReusableCellWithIdentifier(String(CheckoutSummaryCell)) as! CheckoutSummaryCell
                 let product = productsByBrands[indexPath.section].products[indexPath.row - 1]
@@ -106,7 +108,10 @@ class CheckoutSummaryDataSource: NSObject, UITableViewDataSource {
             } else if isDeliveryCell(at: indexPath) {
                 return CheckoutSummaryCell.deliveryCellHeight
             } else if isCommentCell(at: indexPath) {
-                return CheckoutSummaryCommentCell.cellHeight
+                guard let width = tableView?.frame.size.width else {
+                    return 0.0
+                }
+                return CheckoutSummaryCommentCell.getHeight(forWidth: width, comment: comment(forSection: indexPath.section))
             } else { // it's a product cell
                 return CheckoutSummaryCell.productCellHeight
             }
@@ -127,5 +132,44 @@ class CheckoutSummaryDataSource: NSObject, UITableViewDataSource {
     
     func isCommentCell(at indexPath: NSIndexPath) -> Bool {
         return indexPath.row == productsByBrands[indexPath.section].products.count + 2
+    }
+    
+    func comment(forSection section: Int) -> String? {
+        return comments != nil && comments!.count > section ? comments![section] : nil
+    }
+
+    // MARK: - CheckoutSummaryCommentCellDelegate
+    
+    func checkoutSummaryCommentCellDidTapAdd(cell: CheckoutSummaryCommentCell) {
+        guard let indexPath = tableView?.indexPathForCell(cell) else {
+            return
+        }
+        if isPaymentSection(indexPath.section) {
+            fatalError("Could not find brand, because given index path points at payment section")
+        }
+        let brand = productsByBrands[indexPath.section]
+        summaryView?.checkoutSummaryCommentCellDidTapAddComment(to: brand)
+    }
+    
+    func checkoutSummaryCommentCellDidTapEdit(cell: CheckoutSummaryCommentCell) {
+        guard let indexPath = tableView?.indexPathForCell(cell) else {
+            return
+        }
+        if isPaymentSection(indexPath.section) {
+            fatalError("Could not find brand, because given index path points at payment section")
+        }
+        let brand = productsByBrands[indexPath.section]
+        summaryView?.checkoutSummaryCommentCellDidTapEditComment(for: brand)
+    }
+    
+    func checkoutSummaryCommentCellDidTapDelete(cell: CheckoutSummaryCommentCell) {
+        guard let indexPath = tableView?.indexPathForCell(cell) else {
+            return
+        }
+        if isPaymentSection(indexPath.section) {
+            fatalError("Could not find brand, because given index path points at payment section")
+        }
+        let brand = productsByBrands[indexPath.section]
+        summaryView?.checkoutSummaryCommentCellDidTapDeleteComment(from: brand)
     }
 }

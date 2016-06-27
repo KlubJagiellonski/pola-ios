@@ -11,6 +11,7 @@ extension UIButton {
     
     func applyPlainStyle() {
         setTitleColor(UIColor(named: .Blue), forState: .Normal)
+        setTitleColor(UIColor(named: .Black), forState: .Highlighted)
         titleLabel!.font = UIFont(fontType: .List)
     }
     
