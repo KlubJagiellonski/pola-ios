@@ -20,6 +20,7 @@ class KeyboardHelper {
             NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(KeyboardHelper.keyboardWillHide), name: UIKeyboardWillHideNotification, object: nil)
             NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(KeyboardHelper.keyboardDidShow), name: UIKeyboardDidShowNotification, object: nil)
             NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(KeyboardHelper.keyboardDidHide), name: UIKeyboardDidHideNotification, object: nil)
+            animationInProgress = false
             registered = true
         }
     }
@@ -27,6 +28,7 @@ class KeyboardHelper {
     func unregister() {
         if registered {
             NSNotificationCenter.defaultCenter().removeObserver(self)
+            animationInProgress = false
             registered = false
         }
     }
