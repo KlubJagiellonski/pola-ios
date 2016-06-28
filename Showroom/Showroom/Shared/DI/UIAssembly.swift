@@ -78,11 +78,15 @@ class UIAssembly: AssemblyType {
         container.register(CheckoutNavigationController.self) { r in
             return CheckoutNavigationController(resolver: r.resolve(DiResolver.self)!)
         }
-        container.register(CheckoutDeliveryViewController.self) { r in
-            return CheckoutDeliveryViewController(resolver: r.resolve(DiResolver.self)!)
+        container.register(CheckoutDeliveryViewController.self) { r, basketManager in
+            return CheckoutDeliveryViewController(resolver: r.resolve(DiResolver.self)!, basketManager: basketManager)
         }
         container.register(CheckoutSummaryViewController.self) { r in
             return CheckoutSummaryViewController(resolver: r.resolve(DiResolver.self)!)
         }
+        container.register(EditAddressViewController.self) { r, formFields, editingState in
+            return EditAddressViewController(resolver: r.resolve(DiResolver.self)!, formFields: formFields, editingState: editingState)
+        }
+
     }
 }

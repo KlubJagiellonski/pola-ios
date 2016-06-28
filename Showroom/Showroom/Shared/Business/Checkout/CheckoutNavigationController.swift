@@ -2,7 +2,7 @@ import UIKit
 
 //TODO: delegate
 
-class CheckoutNavigationController: UINavigationController, NavigationHandler {
+class CheckoutNavigationController: UINavigationController, NavigationHandler, EditAddressViewControllerDelegate {
     
     let resolver: DiResolver
     
@@ -12,12 +12,12 @@ class CheckoutNavigationController: UINavigationController, NavigationHandler {
         
         navigationBar.applyWhiteStyle()
         
-        let checkoutAddressViewController = resolver.resolve(CheckoutDeliveryViewController.self)
-        checkoutAddressViewController.navigationItem.title = tr(.CheckoutDeliveryNavigationHeader)
+        let checkoutDeliveryViewController = resolver.resolve(CheckoutDeliveryViewController.self, argument: resolver.resolve(BasketManager.self))
+        checkoutDeliveryViewController.navigationItem.title = tr(.CheckoutDeliveryNavigationHeader)
         
-        checkoutAddressViewController.applyBlackCloseButton(target: self, action: #selector(CheckoutNavigationController.didTapCloseButton))
+        checkoutDeliveryViewController.applyBlackCloseButton(target: self, action: #selector(CheckoutNavigationController.didTapCloseButton))
         
-        viewControllers = [checkoutAddressViewController]
+        viewControllers = [checkoutDeliveryViewController]
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -31,6 +31,14 @@ class CheckoutNavigationController: UINavigationController, NavigationHandler {
         pushViewController(summaryViewController, animated: true)
     }
     
+    func showEditAddressView(formFields formFields: [AddressFormField], editingState: CheckoutDeliveryEditingState) {
+        let editAddressViewController = resolver.resolve(EditAddressViewController.self, arguments: (formFields, editingState))
+        editAddressViewController.delegate = self
+        editAddressViewController.navigationItem.title = tr(.CheckoutDeliveryEditAddressNavigationHeader)
+        editAddressViewController.applyBlackBackButton(target: self, action: #selector(CheckoutNavigationController.didTapBackButton))
+        pushViewController(editAddressViewController, animated: true)
+    }
+    
     func didTapCloseButton(sender: UIBarButtonItem) {
         dismissViewControllerAnimated(true, completion: nil)
     }
@@ -40,13 +48,33 @@ class CheckoutNavigationController: UINavigationController, NavigationHandler {
     }
     
     func handleNavigationEvent(event: NavigationEvent) -> EventHandled {
-        if let simpleEvent = event as? SimpleNavigationEvent {
-            if simpleEvent.type == .ShowCheckoutSummary {
+        switch event {
+        case let simpleEvent as SimpleNavigationEvent:
+            switch simpleEvent.type {
+            case .ShowCheckoutSummary:
                 showSummaryView()
                 return true
+            default:
+                return false
             }
+            
+        case let editAddressEvent as ShowEditAddressEvent:
+            showEditAddressView(formFields: editAddressEvent.formFields, editingState: editAddressEvent.editingState)
+            return true
+        default:
+            return false
         }
-        return false
     }
     
+    func editAddressViewControllerDidAddAddress(viewController: EditAddressViewController, savedAddressFields: [AddressFormField]) {
+        guard let deliveryViewController = viewControllers.find({ $0 is CheckoutDeliveryViewController }) as? CheckoutDeliveryViewController else { return }
+        deliveryViewController.addAddress(savedAddressFields)
+        popViewControllerAnimated(true)
+    }
+    
+    func editAddressViewControllerDidUpdateAddress(viewController: EditAddressViewController, savedAddressFields: [AddressFormField]) {
+        guard let deliveryViewController = viewControllers.find({ $0 is CheckoutDeliveryViewController }) as? CheckoutDeliveryViewController else { return }
+        deliveryViewController.updateLastAddress(savedAddressFields)
+        popViewControllerAnimated(true)
+    }
 }

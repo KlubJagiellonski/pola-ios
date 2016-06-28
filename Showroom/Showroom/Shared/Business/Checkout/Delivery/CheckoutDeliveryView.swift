@@ -20,8 +20,8 @@ class CheckoutDeliveryView: UIView {
     private let keyboardHelper = KeyboardHelper()
     
     private(set) var addressInput: AddressInput
-    private var didAddAddress: Bool
-    var addressOptionViews: [CheckoutDeliveryAddressOptionView]? // TODO: weak?
+
+    var addressOptionViews: [CheckoutDeliveryAddressOptionView]?
     var selectedAddressIndex: Int! {
         didSet {
             guard case .Options = addressInput else { return }
@@ -31,33 +31,29 @@ class CheckoutDeliveryView: UIView {
     
     weak var delegate: CheckoutDeliveryViewDelegate?
     
-    init(addressInput: AddressInput, delivery: Delivery) {
+    init(addressInput: AddressInput, delivery: Delivery, didAddAddress: Bool) {
         self.addressInput = addressInput
-        self.didAddAddress = false
         super.init(frame: CGRectZero)
         
         keyboardHelper.delegate = self
+        
+        if case .Options = addressInput {
+            addressOptionViews = [CheckoutDeliveryAddressOptionView]()
+            selectedAddressIndex = 0
+        }
         
         backgroundColor = UIColor(named: .White)
         
         topSeparator.backgroundColor = UIColor(named: .Manatee)
         addSubview(topSeparator)
-        
-        if case .Options = addressInput {
-            addressOptionViews = [CheckoutDeliveryAddressOptionView]()
-        }
-        
+    
         scrollView.bounces = true
         scrollView.showsVerticalScrollIndicator = false
         addSubview(scrollView)
         
         stackView.axis = .Vertical
-        updateStackView(addressInput, delivery: delivery)
+        updateStackView(addressInput, delivery: delivery, didAddAddress: didAddAddress)
         scrollView.addSubview(stackView)
-
-        if case .Options = addressInput {
-            updateAddressOptions(selectedIndex: 0)
-        }
         
         nextButton.setTitle(tr(.CheckoutDeliveryNext), forState: .Normal)
         nextButton.addTarget(self, action: #selector(CheckoutDeliveryView.didTapNextButton), forControlEvents: .TouchUpInside)
@@ -100,8 +96,6 @@ class CheckoutDeliveryView: UIView {
             make.bottom.equalToSuperview()
             make.height.equalTo(CheckoutDeliveryView.buttonHeight)
         }
-        
-        
     }
     
     func registerOnKeyboardEvent() {
@@ -112,20 +106,26 @@ class CheckoutDeliveryView: UIView {
         keyboardHelper.unregister()
     }
     
-    func updateStackView(addressInput: AddressInput, delivery: Delivery) {
+    func updateStackView(addressInput: AddressInput, delivery: Delivery, didAddAddress: Bool) {
+        addressOptionViews?.removeAll()
+        for view in stackView.arrangedSubviews {
+            stackView.removeArrangedSubview(view)
+            view.removeFromSuperview()
+        }
+        
         stackView.addArrangedSubview(CheckoutDeliveryInfoHeaderView(delivery: .Courier))
         
         switch addressInput {
         case .Form(let fields):
             for field in fields {
-                stackView.addArrangedSubview(CheckoutDeliveryInputView(inputType: field))
+                stackView.addArrangedSubview(CheckoutDeliveryInputView(addressField: field))
             }
             
         case .Options(let addresses):
             stackView.addArrangedSubview(CheckoutDeliveryLabelView(text: tr(.CheckoutDeliveryAdressHeader)))
             
             for address in addresses {
-                let addressOptionView = CheckoutDeliveryAddressOptionView(address: address, selected: false)
+                let addressOptionView = CheckoutDeliveryAddressOptionView(address: stringFromAddressFormFields(address), selected: false)
                 addressOptionView.deliveryView = self
                 stackView.addArrangedSubview(addressOptionView)
                 addressOptionViews?.append(addressOptionView)
@@ -134,6 +134,8 @@ class CheckoutDeliveryView: UIView {
             let editButtonView = CheckoutDeliveryEditButtonView(editingType: (didAddAddress ? .Edit : .Add))
             editButtonView.deliveryView = self
             stackView.addArrangedSubview(editButtonView)
+            
+            updateAddressOptions(selectedIndex: selectedAddressIndex)
         }
         
         stackView.addArrangedSubview(CheckoutDeliveryLabelView(text: tr(.CheckoutDeliveryDeliveryHeader)))
@@ -177,6 +179,22 @@ class CheckoutDeliveryView: UIView {
     
     func dismissKeyboard() {
         endEditing(true)
+    }
+    
+    func stringFromAddressFormFields(formFields: [AddressFormField]) -> String {
+        var string = ""
+        for addressField in formFields {
+            switch addressField {
+            case .FirstName(let value?): string += value + " "
+            case .LastName(let value?): string += value + "\n"
+            case .StreetAndApartmentNumbers(let value?): string += tr(.CheckoutDeliveryAdressStreet) + " " + value + "\n"
+            case .PostalCode(let value?): string += value + " "
+            case .City(let value?): string += value + "\n"
+            case .Phone(let value?): string += tr(.CheckoutDeliveryAdressPhoneNumber) + " " + value
+            default: break
+            }
+        }
+        return string
     }
 }
 

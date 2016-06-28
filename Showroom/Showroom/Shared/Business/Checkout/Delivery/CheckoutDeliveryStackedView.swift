@@ -3,12 +3,30 @@ import UIKit
 typealias Address = String
 
 enum AddressInput {
-    case Options(addresses: [Address])
+    case Options(addresses: [[AddressFormField]])
     case Form(fields: [AddressFormField])
 }
 
 enum AddressFormField: CustomStringConvertible {
-    case FirstName, LastName, StreetAndApartmentNumbers, PostalCode, City, Phone
+    case FirstName(value: String?)
+    case LastName(value: String?)
+    case StreetAndApartmentNumbers(value: String?)
+    case PostalCode(value: String?)
+    case City(value: String?)
+    case Country(defaultValue: String)
+    case Phone(value: String?)
+    
+    var value: String? {
+        switch self {
+            case FirstName(let value): return value
+            case LastName(let value): return value
+            case StreetAndApartmentNumbers(let value): return value
+            case PostalCode(let value): return value
+            case City(let value): return value
+            case Country(let value): return value
+            case Phone(let value): return value
+        }
+    }
     
     var description: String {
         switch self {
@@ -17,6 +35,7 @@ enum AddressFormField: CustomStringConvertible {
         case StreetAndApartmentNumbers: return tr(.CheckoutDeliveryAddressFormStreetAndApartmentNumbers)
         case PostalCode: return tr(.CheckoutDeliveryAddressFormPostalCode)
         case City: return tr(.CheckoutDeliveryAddressFormCity)
+        case Country: return tr(.CheckoutDeliveryAddressFormCountry)
         case Phone: return tr(.CheckoutDeliveryAddressFormPhone)
         }
     }
@@ -69,15 +88,22 @@ class CheckoutDeliveryInputView: UIView {
     static let validationLabelHeight: CGFloat = 25.0
     static let validationLabelToBottomInset: CGFloat = 2.0
     
-    let inputLabel = UILabel()
-    let inputTextField = FormInputTextField(frame: CGRectZero)
-    let validationLabel = FormFieldValidationLabel(frame: CGRectZero)
+    private let inputLabel = UILabel()
+    private let inputTextField = FormInputTextField(frame: CGRectZero)
+    private let validationLabel = FormFieldValidationLabel(frame: CGRectZero)
     
-    init(inputType: AddressFormField) {
+    private let inputType: AddressFormField
+    private(set) var addressField: AddressFormField {
+        get { return getAddressField() }
+        set { updateTextField(addressFormField: newValue) }
+    }
+    
+    init(addressField: AddressFormField) {
+        self.inputType = addressField
         super.init(frame: CGRectZero)
+        updateTextField(addressFormField: addressField)
         inputLabel.font = UIFont(fontType: .FormBold)
-        inputLabel.text = String(inputType)
-        updateInputType(inputType)
+        updateInputType(self.inputType)
         addSubview(inputLabel)
         addSubview(inputTextField)
         addSubview(validationLabel)
@@ -87,6 +113,45 @@ class CheckoutDeliveryInputView: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func getAddressField() -> AddressFormField {
+        switch inputType {
+        case .FirstName: return .FirstName(value: inputTextField.text)
+        case .LastName: return .LastName(value: inputTextField.text)
+        case .StreetAndApartmentNumbers: return .StreetAndApartmentNumbers(value: inputTextField.text)
+        case .PostalCode: return .PostalCode(value: inputTextField.text)
+        case .City: return .City(value: inputTextField.text)
+        case .Country: return .Country(defaultValue: inputTextField.placeholder!)
+        case .Phone: return .Phone(value: inputTextField.text)
+        }
+    }
+    
+    private func updateTextField(addressFormField addressFormField: AddressFormField) {
+        switch addressFormField {
+        case .FirstName(let value): inputTextField.text = value
+        case .LastName(let value): inputTextField.text = value
+        case .StreetAndApartmentNumbers(let value): inputTextField.text = value
+        case .PostalCode(let value): inputTextField.text = value
+        case .City(let value): inputTextField.text = value
+        case .Country(let defaultValue):
+            inputTextField.userInteractionEnabled = false
+            inputTextField.placeholder = defaultValue
+        case .Phone(let value): inputTextField.text = value
+        }
+    }
+    
+    func updateInputType(toInputType: AddressFormField) {
+        inputLabel.text = String(toInputType)
+        
+        // validation mockup
+        switch toInputType {
+        case .LastName:
+            validationLabel.text = "To pole może zawierać tylko litery i myślnik"
+            validationLabel.hidden = false
+        default:
+            validationLabel.hidden = true
+        }
     }
     
     func configureCustomConstraints() {
@@ -110,19 +175,6 @@ class CheckoutDeliveryInputView: UIView {
             make.top.equalTo(inputTextField.snp_bottom)
             make.height.equalTo(CheckoutDeliveryInputView.validationLabelHeight)
             make.bottom.equalToSuperview().inset(CheckoutDeliveryInputView.validationLabelToBottomInset)
-        }
-    }
-    
-    func updateInputType(toInputType: AddressFormField) {
-        inputLabel.text = String(toInputType)
-        
-        // validation mockup
-        switch toInputType {
-        case .LastName:
-            validationLabel.text = "To pole może zawierać tylko litery i myślnik"
-            validationLabel.hidden = false
-        default:
-            validationLabel.hidden = true
         }
     }
 }
@@ -198,10 +250,8 @@ class CheckoutDeliveryAddressOptionView: UIView {
     }
 }
 
-enum CheckoutDeliveryEditingState {
-    case Edit, Add
-    
-    var buttonTitle: String {
+extension CheckoutDeliveryEditingState {
+    private var buttonTitle: String {
         switch self {
         case Edit: return tr(.CheckoutDeliveryAdressEdit)
         case Add: return tr(.CheckoutDeliveryAdressAdd)

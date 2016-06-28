@@ -99,6 +99,8 @@ enum L10n {
   case CheckoutDeliveryAddressFormPostalCode
   /// Miejscowość
   case CheckoutDeliveryAddressFormCity
+  /// Kraj
+  case CheckoutDeliveryAddressFormCountry
   /// Numer telefonu
   case CheckoutDeliveryAddressFormPhone
   /// Adres
@@ -107,6 +109,10 @@ enum L10n {
   case CheckoutDeliveryAdressEdit
   /// DODAJ INNY ADRES
   case CheckoutDeliveryAdressAdd
+  /// ul.
+  case CheckoutDeliveryAdressStreet
+  /// tel.
+  case CheckoutDeliveryAdressPhoneNumber
   /// Dostawa
   case CheckoutDeliveryDeliveryHeader
   /// Paczka w Ruchu
@@ -119,6 +125,10 @@ enum L10n {
   case CheckoutDeliveryDeliveryRUCHChangeKiosk
   /// DALEJ
   case CheckoutDeliveryNext
+  /// Dodaj inny adres
+  case CheckoutDeliveryEditAddressNavigationHeader
+  /// ZAPISZ
+  case CheckoutDeliveryEditAddressSave
   /// Coś poszło nie tak. Nie udało się załadować danych.
   case CommonError
   /// Podsumowanie
@@ -248,6 +258,8 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Checkout.Delivery.AddressForm.PostalCode")
       case .CheckoutDeliveryAddressFormCity:
         return L10n.tr("Checkout.Delivery.AddressForm.City")
+      case .CheckoutDeliveryAddressFormCountry:
+        return L10n.tr("Checkout.Delivery.AddressForm.Country")
       case .CheckoutDeliveryAddressFormPhone:
         return L10n.tr("Checkout.Delivery.AddressForm.Phone")
       case .CheckoutDeliveryAdressHeader:
@@ -256,6 +268,10 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Checkout.Delivery.Adress.Edit")
       case .CheckoutDeliveryAdressAdd:
         return L10n.tr("Checkout.Delivery.Adress.Add")
+      case .CheckoutDeliveryAdressStreet:
+        return L10n.tr("Checkout.Delivery.Adress.Street")
+      case .CheckoutDeliveryAdressPhoneNumber:
+        return L10n.tr("Checkout.Delivery.Adress.PhoneNumber")
       case .CheckoutDeliveryDeliveryHeader:
         return L10n.tr("Checkout.Delivery.Delivery.Header")
       case .CheckoutDeliveryDeliveryRUCH:
@@ -268,6 +284,10 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Checkout.Delivery.Delivery.RUCH.ChangeKiosk")
       case .CheckoutDeliveryNext:
         return L10n.tr("Checkout.Delivery.Next")
+      case .CheckoutDeliveryEditAddressNavigationHeader:
+        return L10n.tr("Checkout.Delivery.EditAddress.NavigationHeader")
+      case .CheckoutDeliveryEditAddressSave:
+        return L10n.tr("Checkout.Delivery.EditAddress.Save")
       case .CommonError:
         return L10n.tr("CommonError")
       case .CheckoutSummaryNavigationHeader:
