@@ -143,6 +143,10 @@ enum L10n {
   case CheckoutSummaryEditComment
   /// USUŃ
   case CheckoutSummaryDeleteComment
+  /// ZAPISZ
+  case CheckoutSummarySaveComment
+  /// Tutaj wpisz wiadomość do projektanta.
+  case CheckoutSummaryCommentPlaceholder
   /// Przecena
   case CheckoutSummaryDiscount
   /// Kwota do zapłaty
@@ -302,6 +306,10 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Checkout.Summary.EditComment")
       case .CheckoutSummaryDeleteComment:
         return L10n.tr("Checkout.Summary.DeleteComment")
+      case .CheckoutSummarySaveComment:
+        return L10n.tr("Checkout.Summary.SaveComment")
+      case .CheckoutSummaryCommentPlaceholder:
+        return L10n.tr("Checkout.Summary.CommentPlaceholder")
       case .CheckoutSummaryDiscount:
         return L10n.tr("Checkout.Summary.Discount")
       case .CheckoutSummaryTotalPrice:

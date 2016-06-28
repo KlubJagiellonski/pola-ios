@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 
 typealias ObjectId = Int
 
@@ -75,4 +76,14 @@ class MoneyFormatter: NSNumberFormatter {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
+
+// MARK: - UIEdgeInsets operators
+
+func +(left: UIEdgeInsets, right: UIEdgeInsets) -> UIEdgeInsets {
+    return UIEdgeInsetsMake(left.top + right.top, left.left + right.left, left.bottom + right.bottom, left.right + right.right)
+}
+
+func -(left: UIEdgeInsets, right: UIEdgeInsets) -> UIEdgeInsets {
+    return UIEdgeInsetsMake(left.top - right.top, left.left - right.left, left.bottom - right.bottom, left.right - right.right)
 }

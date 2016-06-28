@@ -87,6 +87,8 @@ class UIAssembly: AssemblyType {
         container.register(EditAddressViewController.self) { r, formFields, editingState in
             return EditAddressViewController(resolver: r.resolve(DiResolver.self)!, formFields: formFields, editingState: editingState)
         }
-
+        container.register(CheckoutSummaryCommentViewController.self) { r in
+            return CheckoutSummaryCommentViewController(resolver: r.resolve(DiResolver.self)!)
+        }
     }
 }
