@@ -15,6 +15,7 @@ enum Asset: String {
   case Ic_chevron_down = "ic_chevron_down"
   case Ic_chevron_right = "ic_chevron_right"
   case Ic_close = "ic_close"
+  case Ic_close_toast = "ic_close_toast"
   case Ic_cross_red = "ic_cross_red"
   case Ic_do_ulubionych = "ic_do_ulubionych"
   case Ic_dropdown = "ic_dropdown"

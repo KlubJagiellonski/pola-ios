@@ -14,5 +14,9 @@ class ManagerAssembly: AssemblyType {
         container.register(BasketManager.self) { r in
             return BasketManager(apiService: r.resolve(ApiService.self)!, storageManager: r.resolve(StorageManager.self)!)
         }.inObjectScope(.Container)
+        
+        container.register(ToastManager.self) { r in
+            return ToastManager()
+        }.inObjectScope(.Container)
     }
 }

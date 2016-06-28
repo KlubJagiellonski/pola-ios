@@ -30,6 +30,8 @@
 		1D0F3B611D13D2DC0052CFF6 /* BasketCountryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0F3B601D13D2DC0052CFF6 /* BasketCountryView.swift */; };
 		1D0F3B641D13D3710052CFF6 /* BasketCountryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0F3B631D13D3710052CFF6 /* BasketCountryDataSource.swift */; };
 		1D0F3B661D13DDF20052CFF6 /* NSURLUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0F3B651D13DDF20052CFF6 /* NSURLUtils.swift */; };
+		1D2423DD1D228A9A0026D46B /* ToastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2423DC1D228A9A0026D46B /* ToastManager.swift */; };
+		1D2423DF1D228BA80026D46B /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2423DE1D228BA80026D46B /* ToastView.swift */; };
 		1D2F193F1CE9CE250099142E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2F193E1CE9CE250099142E /* AppDelegate.swift */; };
 		1D2F19491CE9CE250099142E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1D2F19471CE9CE250099142E /* LaunchScreen.storyboard */; };
 		1D2F19541CE9CE250099142E /* ShowroomTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2F19531CE9CE250099142E /* ShowroomTests.swift */; };
@@ -238,6 +240,8 @@
 		1D0F3B601D13D2DC0052CFF6 /* BasketCountryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasketCountryView.swift; sourceTree = "<group>"; };
 		1D0F3B631D13D3710052CFF6 /* BasketCountryDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasketCountryDataSource.swift; sourceTree = "<group>"; };
 		1D0F3B651D13DDF20052CFF6 /* NSURLUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURLUtils.swift; sourceTree = "<group>"; };
+		1D2423DC1D228A9A0026D46B /* ToastManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToastManager.swift; sourceTree = "<group>"; };
+		1D2423DE1D228BA80026D46B /* ToastView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		1D2F193B1CE9CE250099142E /* SHOWROOM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SHOWROOM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D2F193E1CE9CE250099142E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1D2F19481CE9CE250099142E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -607,6 +611,7 @@
 				1D72ED0E1CFC2F47007AFD2F /* UserManager.swift */,
 				75C854611D05B7BF00E5F08F /* BasketManager.swift */,
 				C09367191D09AB9D004C7748 /* StorageManager.swift */,
+				1D2423DC1D228A9A0026D46B /* ToastManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -903,6 +908,7 @@
 				751A50261D1AAFD700DF7D2B /* RadioButton.swift */,
 				C0237D091D2131C80009F2FC /* FormInputTextField.swift */,
 				C0237D0B1D215EB40009F2FC /* FormFieldValidationLabel.swift */,
+				1D2423DE1D228BA80026D46B /* ToastView.swift */,
 			);
 			name = Common;
 			path = Showroom/Shared/Common;
@@ -1167,6 +1173,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D2423DF1D228BA80026D46B /* ToastView.swift in Sources */,
 				C09280721D08453000350B82 /* ProductColorView.swift in Sources */,
 				C09280761D08514F00350B82 /* ProductColorDataSource.swift in Sources */,
 				1D2F19611CE9CED80099142E /* RootViewController.swift in Sources */,
@@ -1197,6 +1204,7 @@
 				1DD1EA8E1CF2E5EB00D99731 /* WishlistViewController.swift in Sources */,
 				1DA846F51D191D5E00BA090A /* KeyboardHelper.swift in Sources */,
 				1DD161B31D01CF790022B5C9 /* ProductDetailsModel.swift in Sources */,
+				1D2423DD1D228A9A0026D46B /* ToastManager.swift in Sources */,
 				1D78249E1D06E50400E60392 /* ProductPageView.swift in Sources */,
 				1D0453531CFEF6F6001CC5A2 /* ObservableUtils.swift in Sources */,
 				1D72ED131CFC3028007AFD2F /* ContentPromo.swift in Sources */,
