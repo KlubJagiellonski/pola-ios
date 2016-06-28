@@ -204,7 +204,7 @@ class CheckoutSummaryPaymentCell: UITableViewCell {
     private let methodLabel = CheckoutSummaryPriceView(title: tr(.CheckoutSummaryPaymentMethod))
     private let payuRadio = RadioButton(title: tr(.CheckoutSummaryPayU))
     private let payuButton = PayUButton()
-    private let cashradio = RadioButton(title: tr(.CheckoutSummaryCash))
+    private let cashRadio = RadioButton(title: tr(.CheckoutSummaryCash))
     
     private let stackView = UIStackView()
     
@@ -218,12 +218,16 @@ class CheckoutSummaryPaymentCell: UITableViewCell {
         
         totalPriceLabel.priceLabel.font = UIFont(fontType: .PriceNormal)
         
+        payuRadio.addTarget(self, action: #selector(CheckoutSummaryPaymentCell.didChangePayuValue), forControlEvents: .ValueChanged)
+        payuRadio.selected = true
+        cashRadio.addTarget(self, action: #selector(CheckoutSummaryPaymentCell.didChangeCashValue), forControlEvents: .ValueChanged)
+        
         stackView.addArrangedSubview(discountLabel)
         stackView.addArrangedSubview(totalPriceLabel)
         stackView.addArrangedSubview(methodLabel)
         stackView.addArrangedSubview(payuRadio)
         stackView.addArrangedSubview(payuButton)
-        stackView.addArrangedSubview(cashradio)
+        stackView.addArrangedSubview(cashRadio)
         
         contentView.addSubview(stackView)
         
@@ -260,6 +264,18 @@ class CheckoutSummaryPaymentCell: UITableViewCell {
         } else {
             return CheckoutSummaryPaymentCell.cellHeightMax
         }
+    }
+    
+    // TODO: Move to delegate
+    func didChangePayuValue() {
+        payuRadio.selected = true
+        cashRadio.selected = false
+    }
+    
+    // TODO: Move to delegate
+    func didChangeCashValue() {
+        payuRadio.selected = false
+        cashRadio.selected = true
     }
 }
 
