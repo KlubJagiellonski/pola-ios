@@ -30,8 +30,7 @@ enum FetchCacheResult<T: Equatable> {
 
 extension FetchCacheResult: Equatable {}
 
-func ==<T: Equatable>(lhs: FetchCacheResult<T>, rhs: FetchCacheResult<T>) -> Bool
-{
+func ==<T: Equatable>(lhs: FetchCacheResult<T>, rhs: FetchCacheResult<T>) -> Bool {
     if case let FetchCacheResult.Success(lhsResult) = lhs {
         if case let FetchCacheResult.Success(rhsResult) = rhs {
             return lhsResult == rhsResult
@@ -68,6 +67,7 @@ class MoneyFormatter: NSNumberFormatter {
         
         locale = NSLocale.currentLocale()
         numberStyle = NSNumberFormatterStyle.DecimalStyle
+        usesGroupingSeparator = true
         alwaysShowsDecimalSeparator = true
         maximumFractionDigits = 2
         minimumFractionDigits = 2

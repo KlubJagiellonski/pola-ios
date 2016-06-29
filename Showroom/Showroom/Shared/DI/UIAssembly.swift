@@ -90,5 +90,12 @@ class UIAssembly: AssemblyType {
         container.register(CheckoutSummaryCommentViewController.self) { r in
             return CheckoutSummaryCommentViewController(resolver: r.resolve(DiResolver.self)!)
         }
+        container.register(CategoryProductListViewController.self) { r, category in
+            return CategoryProductListViewController(withResolver: r.resolve(DiResolver.self)!, category: category)
+        }
+        container.register(CategoryProductListModel.self) { r, category in
+            return CategoryProductListModel(category: category)
+        }
+        
     }
 }

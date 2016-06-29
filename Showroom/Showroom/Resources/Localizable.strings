@@ -81,3 +81,6 @@
 "Checkout.Summary.PayU" = "płatność PayU";
 "Checkout.Summary.Cash" = "opłata za pobraniem";
 "Checkout.Summary.Buy" = "KUP I ZAPŁAĆ";
+"ProductList.Badge.New" = "NEW";
+"ProductList.Badge.FreeDelivery" = "DARMOWA DOSTAWA";
+"ProductList.Badge.Premium" = "PREMIUM";

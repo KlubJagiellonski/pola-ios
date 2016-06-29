@@ -22,6 +22,7 @@ enum Asset: String {
   case Ic_dropdown_small = "ic_dropdown_small"
   case Ic_favorites = "ic_favorites"
   case Ic_favorites_selected = "ic_favorites_selected"
+  case Ic_filter = "ic_filter"
   case Ic_home = "ic_home"
   case Ic_home_selected = "ic_home_selected"
   case Ic_info = "ic_info"

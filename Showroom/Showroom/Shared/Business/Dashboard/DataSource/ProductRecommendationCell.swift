@@ -9,7 +9,7 @@ class ProductRecommendationCell: UICollectionViewCell {
     let nameLabel = UILabel()
     let basePriceLabel = UILabel()
     let priceLabel = UILabel()
-    let priceDiscountBadgeLabel = UILabel()
+    let priceDiscountBadgeLabel = BadgeLabel(withType: .Discount)
     
     override init(frame: CGRect) {
         super.init(frame: CGRectZero)
@@ -17,27 +17,23 @@ class ProductRecommendationCell: UICollectionViewCell {
         productImageView.layer.masksToBounds = true
         productImageView.contentMode = .ScaleAspectFill
         
-        brandLabel.font = UIFont(fontType: .RecommendedBrand)
+        brandLabel.font = UIFont(fontType: .ProductListBoldText)
         brandLabel.textColor = UIColor(named: .Black)
         brandLabel.numberOfLines = 2
         brandLabel.preferredMaxLayoutWidth = Dimensions.recommendationItemSize.width
         
-        nameLabel.font = UIFont(fontType: .Recommended)
+        nameLabel.font = UIFont(fontType: .ProductListText)
         nameLabel.textColor = UIColor(named: .Black)
         nameLabel.numberOfLines = 3
         nameLabel.preferredMaxLayoutWidth = Dimensions.recommendationItemSize.width
         nameLabel.setContentHuggingPriority(UILayoutPriorityDefaultHigh, forAxis: .Vertical)
         
-        basePriceLabel.font = UIFont(fontType: .Recommended)
+        basePriceLabel.font = UIFont(fontType: .ProductListText)
         basePriceLabel.textColor = UIColor(named: .DarkGray)
         
-        priceLabel.font = UIFont(fontType: .Recommended)
+        priceLabel.font = UIFont(fontType: .ProductListText)
         priceLabel.textColor = UIColor(named: .Black)
         
-        priceDiscountBadgeLabel.backgroundColor = UIColor(named: .RedViolet)
-        priceDiscountBadgeLabel.font = UIFont(fontType: .Badge)
-        priceDiscountBadgeLabel.textColor = UIColor(named: .White)
-        priceDiscountBadgeLabel.textAlignment = .Center
         priceDiscountBadgeLabel.hidden = true
         
         contentView.addSubview(productImageView)
@@ -75,7 +71,7 @@ class ProductRecommendationCell: UICollectionViewCell {
         brandLabel.text = recommendation.brand
         nameLabel.text = recommendation.title
         priceLabel.text = recommendation.price.stringValue
-        basePriceLabel.attributedText = createStrikethroughPriceString(recommendation.basePrice.stringValue)
+        basePriceLabel.attributedText = recommendation.basePrice.stringValue.createStrikethroughString(UIColor(named: .DarkGray))
         
         let priceDiscount = recommendation.price.calculateDiscountPercent(fromMoney: recommendation.basePrice)
         priceDiscountBadgeLabel.hidden = priceDiscount == 0
@@ -101,8 +97,6 @@ class ProductRecommendationCell: UICollectionViewCell {
         priceDiscountBadgeLabel.snp_remakeConstraints { make in
             make.top.equalToSuperview().offset(4)
             make.trailing.equalToSuperview()
-            make.width.equalTo(31)
-            make.height.equalTo(15)
         }
         
         brandLabel.snp_remakeConstraints { make in
@@ -158,13 +152,5 @@ class ProductRecommendationCell: UICollectionViewCell {
             return true
         }
         return false
-    }
-    
-    func createStrikethroughPriceString(text: String) -> NSAttributedString {
-        let attributes: [String: AnyObject] = [
-            NSStrikethroughStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue,
-            NSStrikethroughColorAttributeName: UIColor(named: .DarkGray)
-        ]
-        return NSAttributedString(string: text, attributes: attributes)
     }
 }

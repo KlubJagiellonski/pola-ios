@@ -169,6 +169,12 @@ enum L10n {
   case CheckoutSummaryCash
   /// KUP I ZAPŁAĆ
   case CheckoutSummaryBuy
+  /// NEW
+  case ProductListBadgeNew
+  /// DARMOWA DOSTAWA
+  case ProductListBadgeFreeDelivery
+  /// PREMIUM
+  case ProductListBadgePremium
 }
 
 extension L10n: CustomStringConvertible {
@@ -342,6 +348,12 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Checkout.Summary.Cash")
       case .CheckoutSummaryBuy:
         return L10n.tr("Checkout.Summary.Buy")
+      case .ProductListBadgeNew:
+        return L10n.tr("ProductList.Badge.New")
+      case .ProductListBadgeFreeDelivery:
+        return L10n.tr("ProductList.Badge.FreeDelivery")
+      case .ProductListBadgePremium:
+        return L10n.tr("ProductList.Badge.Premium")
     }
   }
 

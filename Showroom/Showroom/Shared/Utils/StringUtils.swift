@@ -10,12 +10,12 @@ extension String {
         return boundingBox.height
     }
     
-    func createStrikethroughString(color: UIColor) -> NSAttributedString {
+    func createStrikethroughString(color: UIColor) -> NSMutableAttributedString {
         let attributes: [String: AnyObject] = [
             NSStrikethroughStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue,
             NSStrikethroughColorAttributeName: color
         ]
-        return NSAttributedString(string: self, attributes: attributes)
+        return NSMutableAttributedString(string: self, attributes: attributes)
     }
     
 }

@@ -16,4 +16,6 @@ struct Dimensions {
     static let bigCircleButtonDiameter: CGFloat = 52
     static let productDetailsTopMargin: CGFloat = 24
     static let bigButtonHeight: CGFloat = 52
+    static let topBadgeSize = CGSizeMake(31, 15)
+    static let bottomBadgeHeight: CGFloat = 15
 }
