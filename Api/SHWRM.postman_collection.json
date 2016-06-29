@@ -2,7 +2,7 @@
 	"variables": [],
 	"info": {
 		"name": "SHWRM",
-		"_postman_id": "d1bafb54-2fca-09f1-38b4-9814e031e4e4",
+		"_postman_id": "50153753-8db2-9db4-2253-9d0d13074237",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -50,6 +50,26 @@
 				"body": {
 					"mode": "raw",
 					"raw": "{\n    \"items\": [\n        {\n            \"id\": 1,\n            \"amount\": 2,\n            \"color\": 1,\n            \"size\": 1\n        }, {\n            \"id\": 2,\n            \"amount\": 10,\n            \"color\": 2,\n            \"size\": 1\n        }, {\n            \"id\": 3,\n            \"amount\": 2,\n            \"color\": 1,\n            \"size\": 2\n        }\n    ],\n    \"country_code\": \"PL\",\n    \"delivery_type\": \"2\",\n    \"discount_code\": \"12345\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET KIOSKS",
+			"request": {
+				"url": "{{HOST}}/delivery/pwr/pops?limit=10",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"lat\":52.069167,\n    \"lng\":19.480556\n}"
 				},
 				"description": ""
 			},
