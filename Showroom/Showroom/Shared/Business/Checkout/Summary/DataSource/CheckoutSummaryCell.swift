@@ -199,7 +199,7 @@ class CheckoutSummaryCommentCell: UITableViewCell {
             return Dimensions.defaultCellHeight
         }
         
-        let commentHeight = comment.heightWithConstrainedWidth(width - Dimensions.defaultMargin * 2, font: UIFont(fontType: .CheckoutSummary))
+        let commentHeight = comment.heightWithConstrainedWidth(width - Dimensions.defaultMargin * 2, font: UIFont(fontType: .CheckoutSummary), numberOfLines: 3)
         return commentHeight + 70 // +70 for buttons height and margins
     }
 }

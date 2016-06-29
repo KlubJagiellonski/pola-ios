@@ -10,10 +10,15 @@ class CheckoutSummaryCommentViewController: UIViewController, CheckoutSummaryCom
     private let resolver: DiResolver
     private var castView: CheckoutSummaryCommentView { return view as! CheckoutSummaryCommentView }
     
+    let index: Int
+    var comment: String?
+    
     weak var delegate: CheckoutSummaryCommentViewControllerDelegate?
     
-    init(resolver: DiResolver) {
+    init(resolver: DiResolver, comment: String?, index: Int) {
         self.resolver = resolver
+        self.index = index
+        self.comment = comment
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -22,7 +27,7 @@ class CheckoutSummaryCommentViewController: UIViewController, CheckoutSummaryCom
     }
     
     override func loadView() {
-        view = CheckoutSummaryCommentView()
+        view = CheckoutSummaryCommentView(comment: comment)
         castView.delegate = self
     }
     
@@ -42,11 +47,12 @@ class CheckoutSummaryCommentViewController: UIViewController, CheckoutSummaryCom
     
     // MARK: - CheckoutSummaryCommentViewDelegate
     
-    func checkoutSummaryCommentViewDidTapClose() {
+    func checkoutSummaryCommentViewDidTapClose(view: CheckoutSummaryCommentView) {
         delegate?.checkoutSummaryCommentWantsDismiss(self)
     }
     
-    func checkoutSummaryCommentViewDidTapSave() {
+    func checkoutSummaryCommentViewDidTapSave(view: CheckoutSummaryCommentView) {
+        comment = view.comment
         delegate?.checkoutSummaryCommentWantsSaveAndDimsiss(self)
     }
 }

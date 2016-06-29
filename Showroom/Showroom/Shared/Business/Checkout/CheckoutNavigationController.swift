@@ -3,11 +3,12 @@ import UIKit
 //TODO: delegate
 
 class CheckoutNavigationController: UINavigationController, NavigationHandler, EditAddressViewControllerDelegate {
-    
-    let resolver: DiResolver
+    private let resolver: DiResolver
+    private let model: CheckoutModel
     
     init(resolver: DiResolver) {
         self.resolver = resolver
+        self.model = resolver.resolve(CheckoutModel.self)
         super.init(nibName: nil, bundle: nil)
         
         navigationBar.applyWhiteStyle()
@@ -25,7 +26,7 @@ class CheckoutNavigationController: UINavigationController, NavigationHandler, E
     }
     
     func showSummaryView() {
-        let summaryViewController = resolver.resolve(CheckoutSummaryViewController.self)
+        let summaryViewController = resolver.resolve(CheckoutSummaryViewController.self, argument: model)
         summaryViewController.navigationItem.title = tr(.CheckoutSummaryNavigationHeader)
         summaryViewController.applyBlackBackButton(target: self, action: #selector(CheckoutNavigationController.didTapBackButton))
         pushViewController(summaryViewController, animated: true)
@@ -65,6 +66,8 @@ class CheckoutNavigationController: UINavigationController, NavigationHandler, E
             return false
         }
     }
+    
+    // MARK: - EditAddressViewControllerDelegate
     
     func editAddressViewControllerDidAddAddress(viewController: EditAddressViewController, savedAddressFields: [AddressFormField]) {
         guard let deliveryViewController = viewControllers.find({ $0 is CheckoutDeliveryViewController }) as? CheckoutDeliveryViewController else { return }

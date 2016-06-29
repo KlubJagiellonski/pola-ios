@@ -3,8 +3,8 @@ import UIKit
 import SnapKit
 
 protocol CheckoutSummaryCommentViewDelegate: class {
-    func checkoutSummaryCommentViewDidTapClose()
-    func checkoutSummaryCommentViewDidTapSave()
+    func checkoutSummaryCommentViewDidTapClose(view: CheckoutSummaryCommentView)
+    func checkoutSummaryCommentViewDidTapSave(view: CheckoutSummaryCommentView)
 }
 
 class CheckoutSummaryCommentView: UIView {
@@ -14,9 +14,15 @@ class CheckoutSummaryCommentView: UIView {
     private let closeButton = UIButton()
     private let keyboardHelper = KeyboardHelper()
     
+    var comment: String {
+        get {
+            return commentView.text
+        }
+    }
+    
     weak var delegate: CheckoutSummaryCommentViewDelegate?
     
-    init() {
+    init(comment: String?) {
         super.init(frame: CGRectZero)
         
         keyboardHelper.delegate = self
@@ -32,6 +38,7 @@ class CheckoutSummaryCommentView: UIView {
         
         commentView.applyPlainStyle()
         commentView.placeholder = tr(.CheckoutSummaryCommentPlaceholder)
+        commentView.text = comment
         
         saveButton.applyBlueStyle()
         saveButton.setTitle(tr(.CheckoutSummarySaveComment), forState: .Normal)
@@ -97,12 +104,12 @@ class CheckoutSummaryCommentView: UIView {
     
     func didTapClose() {
         logInfo("Close comment modal")
-        delegate?.checkoutSummaryCommentViewDidTapClose()
+        delegate?.checkoutSummaryCommentViewDidTapClose(self)
     }
     
     func didTapSave() {
         logInfo("Save comment: " + commentView.text! + " and close modal")
-        delegate?.checkoutSummaryCommentViewDidTapSave()
+        delegate?.checkoutSummaryCommentViewDidTapSave(self)
     }
 }
 

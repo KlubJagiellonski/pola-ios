@@ -36,6 +36,11 @@ class CheckoutSummaryDataSource: NSObject, UITableViewDataSource, CheckoutSummar
         tableView?.reloadData()
     }
     
+    func updateData(withComments comments: [String?]?) {
+        self.comments = comments
+        tableView?.reloadData()
+    }
+    
     // MARK: - UITableViewDataSource
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -147,8 +152,7 @@ class CheckoutSummaryDataSource: NSObject, UITableViewDataSource, CheckoutSummar
         if isPaymentSection(indexPath.section) {
             fatalError("Could not find brand, because given index path points at payment section")
         }
-        let brand = productsByBrands[indexPath.section]
-        summaryView?.checkoutSummaryCommentCellDidTapAddComment(to: brand)
+        summaryView?.checkoutSummaryCommentCellDidTapAddComment(at: indexPath.section)
     }
     
     func checkoutSummaryCommentCellDidTapEdit(cell: CheckoutSummaryCommentCell) {
@@ -158,8 +162,7 @@ class CheckoutSummaryDataSource: NSObject, UITableViewDataSource, CheckoutSummar
         if isPaymentSection(indexPath.section) {
             fatalError("Could not find brand, because given index path points at payment section")
         }
-        let brand = productsByBrands[indexPath.section]
-        summaryView?.checkoutSummaryCommentCellDidTapEditComment(for: brand)
+        summaryView?.checkoutSummaryCommentCellDidTapEditComment(at: indexPath.section)
     }
     
     func checkoutSummaryCommentCellDidTapDelete(cell: CheckoutSummaryCommentCell) {
@@ -169,7 +172,6 @@ class CheckoutSummaryDataSource: NSObject, UITableViewDataSource, CheckoutSummar
         if isPaymentSection(indexPath.section) {
             fatalError("Could not find brand, because given index path points at payment section")
         }
-        let brand = productsByBrands[indexPath.section]
-        summaryView?.checkoutSummaryCommentCellDidTapDeleteComment(from: brand)
+        summaryView?.checkoutSummaryCommentCellDidTapDeleteComment(at: indexPath.section)
     }
 }

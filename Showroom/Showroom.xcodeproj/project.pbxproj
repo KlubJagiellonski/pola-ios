@@ -166,6 +166,7 @@
 		75EDE8291CFDDD2200C5F96B /* UIButtonUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75EDE8281CFDDD2200C5F96B /* UIButtonUtils.swift */; };
 		75EDE82B1CFDDF6D00C5F96B /* UITextFieldUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75EDE82A1CFDDF6D00C5F96B /* UITextFieldUtils.swift */; };
 		75FE56A51D23C32800DF5356 /* ExtendedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FE56A41D23C32800DF5356 /* ExtendedTextView.swift */; };
+		75FE56A91D250C9200DF5356 /* CheckoutModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FE56A81D250C9200DF5356 /* CheckoutModel.swift */; };
 		C02220851D12D4AD004411A7 /* TabBarItemBadgeContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02220841D12D4AD004411A7 /* TabBarItemBadgeContainerView.swift */; };
 		C022208A1D183223004411A7 /* CheckoutNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02220891D183223004411A7 /* CheckoutNavigationController.swift */; };
 		C022208D1D1834B9004411A7 /* CheckoutDeliveryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C022208C1D1834B9004411A7 /* CheckoutDeliveryViewController.swift */; };
@@ -394,6 +395,7 @@
 		75EDE8281CFDDD2200C5F96B /* UIButtonUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIButtonUtils.swift; sourceTree = "<group>"; };
 		75EDE82A1CFDDF6D00C5F96B /* UITextFieldUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextFieldUtils.swift; sourceTree = "<group>"; };
 		75FE56A41D23C32800DF5356 /* ExtendedTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtendedTextView.swift; sourceTree = "<group>"; };
+		75FE56A81D250C9200DF5356 /* CheckoutModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutModel.swift; sourceTree = "<group>"; };
 		C02220841D12D4AD004411A7 /* TabBarItemBadgeContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarItemBadgeContainerView.swift; sourceTree = "<group>"; };
 		C02220891D183223004411A7 /* CheckoutNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutNavigationController.swift; sourceTree = "<group>"; };
 		C022208C1D1834B9004411A7 /* CheckoutDeliveryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutDeliveryViewController.swift; sourceTree = "<group>"; };
@@ -1009,6 +1011,7 @@
 				751A50191D194C1400DF7D2B /* Summary */,
 				C022208B1D183453004411A7 /* Delivery */,
 				C02220891D183223004411A7 /* CheckoutNavigationController.swift */,
+				75FE56A81D250C9200DF5356 /* CheckoutModel.swift */,
 			);
 			path = Checkout;
 			sourceTree = "<group>";
@@ -1402,6 +1405,7 @@
 				75EDE82B1CFDDF6D00C5F96B /* UITextFieldUtils.swift in Sources */,
 				1D0F3B581D12D2C70052CFF6 /* UIViewControllerUtils.swift in Sources */,
 				75D52EB61CFF20BA005E34B4 /* BasketCell.swift in Sources */,
+				75FE56A91D250C9200DF5356 /* CheckoutModel.swift in Sources */,
 				1D0F3B4C1D1173250052CFF6 /* Animator.swift in Sources */,
 				C022208F1D183C0C004411A7 /* CheckoutDeliveryView.swift in Sources */,
 				1D0F3B641D13D3710052CFF6 /* BasketCountryDataSource.swift in Sources */,

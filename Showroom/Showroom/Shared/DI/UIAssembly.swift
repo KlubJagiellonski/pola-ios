@@ -81,14 +81,17 @@ class UIAssembly: AssemblyType {
         container.register(CheckoutDeliveryViewController.self) { r, basketManager in
             return CheckoutDeliveryViewController(resolver: r.resolve(DiResolver.self)!, basketManager: basketManager)
         }
-        container.register(CheckoutSummaryViewController.self) { r in
-            return CheckoutSummaryViewController(resolver: r.resolve(DiResolver.self)!)
+        container.register(CheckoutSummaryViewController.self) { r, model in
+            return CheckoutSummaryViewController(resolver: r.resolve(DiResolver.self)!, model: model)
         }
         container.register(EditAddressViewController.self) { r, formFields, editingState in
             return EditAddressViewController(resolver: r.resolve(DiResolver.self)!, formFields: formFields, editingState: editingState)
         }
-        container.register(CheckoutSummaryCommentViewController.self) { r in
-            return CheckoutSummaryCommentViewController(resolver: r.resolve(DiResolver.self)!)
+        container.register(CheckoutSummaryCommentViewController.self) { r, comment, index in
+            return CheckoutSummaryCommentViewController(resolver: r.resolve(DiResolver.self)!, comment: comment, index: index)
+        }
+        container.register(CheckoutModel.self) { r in
+            return CheckoutModel(basketManager: r.resolve(BasketManager.self)!)
         }
         container.register(CategoryProductListViewController.self) { r, category in
             return CategoryProductListViewController(withResolver: r.resolve(DiResolver.self)!, category: category)

@@ -2,13 +2,15 @@ import UIKit
 
 class CheckoutSummaryViewController: UIViewController, CheckoutSummaryViewDelegate {
     private let manager: BasketManager
+    private let model: CheckoutModel
     private var castView: CheckoutSummaryView { return view as! CheckoutSummaryView }
     private let resolver: DiResolver
     private let commentAnimator = FormSheetAnimator()
     
-    init(resolver: DiResolver) {
-        self.manager = resolver.resolve(BasketManager.self)
+    init(resolver: DiResolver, model: CheckoutModel) {
         self.resolver = resolver
+        self.manager = resolver.resolve(BasketManager.self)
+        self.model = model
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -24,13 +26,12 @@ class CheckoutSummaryViewController: UIViewController, CheckoutSummaryViewDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        castView.updateData(with: manager.state.basket)
+        castView.updateData(with: manager.state.basket, comments: model.comments)
     }
     
-    private func showCommentModal()
+    private func showCommentModal(forComment comment: String?, at index: Int)
     {
-        let viewController = resolver.resolve(CheckoutSummaryCommentViewController.self)
+        let viewController = resolver.resolve(CheckoutSummaryCommentViewController.self, arguments: (comment, index))
         viewController.delegate = self
         viewController.modalPresentationStyle = .FormSheet
         viewController.preferredContentSize = CGSize(width: 292, height: 264)
@@ -39,18 +40,21 @@ class CheckoutSummaryViewController: UIViewController, CheckoutSummaryViewDelega
     
     // MARK: - CheckoutSummaryViewDelegate
     
-    func checkoutSummaryViewDidTapAddComment(brand: BasketBrand) {
-        logInfo("Add comment to " + brand.name)
-        showCommentModal()
+    func checkoutSummaryView(view: CheckoutSummaryView, didTapAddCommentAt index: Int) {
+        logInfo("Add comment")
+        showCommentModal(forComment: nil, at: index)
     }
     
-    func checkoutSummaryViewDidTapEditComment(brand: BasketBrand) {
-        logInfo("Edit comment to " + brand.name)
-        showCommentModal()
+    func checkoutSummaryView(view: CheckoutSummaryView, didTapEditCommentAt index: Int) {
+        logInfo("Edit comment")
+        let editedComment = model.comment(at: index)
+        showCommentModal(forComment: editedComment, at: index)
     }
     
-    func checkoutSummaryViewDidTapDeleteComment(brand: BasketBrand) {
-        logInfo("Delete comment to " + brand.name)
+    func checkoutSummaryView(view: CheckoutSummaryView, didTapDeleteCommentAt index: Int) {
+        logInfo("Delete comment")
+        model.update(comment: nil, at: index)
+        castView.updateData(withComments: model.comments)
     }
 }
 
@@ -67,6 +71,7 @@ extension CheckoutSummaryViewController: CheckoutSummaryCommentViewControllerDel
     
     func checkoutSummaryCommentWantsSaveAndDimsiss(viewController: CheckoutSummaryCommentViewController) {
         commentAnimator.dismissViewController(presentingViewController: self, completion: nil)
-        // TODO: Save the new comment in CheckoutNavigationController
+        model.update(comment: viewController.comment, at: viewController.index)
+        castView.updateData(withComments: model.comments)
     }
 }

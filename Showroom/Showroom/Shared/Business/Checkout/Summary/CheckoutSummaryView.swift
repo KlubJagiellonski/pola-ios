@@ -2,9 +2,9 @@ import Foundation
 import UIKit
 
 protocol CheckoutSummaryViewDelegate: class {
-    func checkoutSummaryViewDidTapAddComment(brand: BasketBrand)
-    func checkoutSummaryViewDidTapEditComment(brand: BasketBrand)
-    func checkoutSummaryViewDidTapDeleteComment(brand: BasketBrand)
+    func checkoutSummaryView(view: CheckoutSummaryView, didTapAddCommentAt index: Int)
+    func checkoutSummaryView(view: CheckoutSummaryView, didTapEditCommentAt index: Int)
+    func checkoutSummaryView(view: CheckoutSummaryView, didTapDeleteCommentAt index: Int)
 }
 
 class CheckoutSummaryView: UIView, UITableViewDelegate {
@@ -54,16 +54,13 @@ class CheckoutSummaryView: UIView, UITableViewDelegate {
         }
     }
     
-    func updateData(with basket: Basket?) {
+    func updateData(with basket: Basket?, comments: [String?]?) {
         guard let basket = basket else { return }
-        
-        // Temporary data for testing
-        // TODO: Use real model
-        let comments: [String?] = [
-            "Proszę o skrócenie nogawek spodni o 3 cm oraz zwężenie ich w pasie o 1 cm.",
-            nil
-        ]
         dataSource.updateData(with: basket, comments: comments)
+    }
+    
+    func updateData(withComments comments: [String?]) {
+        dataSource.updateData(withComments: comments)
     }
     
     // MARK: - UITableViewDelegate
@@ -74,15 +71,15 @@ class CheckoutSummaryView: UIView, UITableViewDelegate {
     
     // MARK: - Brand comments actions
     
-    func checkoutSummaryCommentCellDidTapAddComment(to brand: BasketBrand) {
-        delegate?.checkoutSummaryViewDidTapAddComment(brand)
+    func checkoutSummaryCommentCellDidTapAddComment(at index: Int) {
+        delegate?.checkoutSummaryView(self, didTapAddCommentAt: index)
     }
     
-    func checkoutSummaryCommentCellDidTapEditComment(for brand: BasketBrand) {
-        delegate?.checkoutSummaryViewDidTapEditComment(brand)
+    func checkoutSummaryCommentCellDidTapEditComment(at index: Int) {
+        delegate?.checkoutSummaryView(self, didTapEditCommentAt: index)
     }
     
-    func checkoutSummaryCommentCellDidTapDeleteComment(from brand: BasketBrand)  {
-        delegate?.checkoutSummaryViewDidTapDeleteComment(brand)
+    func checkoutSummaryCommentCellDidTapDeleteComment(at index: Int) {
+        delegate?.checkoutSummaryView(self, didTapDeleteCommentAt: index)
     }
 }

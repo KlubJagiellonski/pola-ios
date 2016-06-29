@@ -10,6 +10,12 @@ class ExtendedTextView: UITextView {
         }
     }
     
+    override var text: String! {
+        didSet {
+            updatePlaceholderVisibility()
+        }
+    }
+    
     var placeholder: String? {
         get {
             return placeholderLabel.text
@@ -46,11 +52,15 @@ class ExtendedTextView: UITextView {
         placeholderLabel.snp_makeConstraints { make in
             make.left.equalTo(textInputView).inset(textContainerInset.left + 5)
             make.top.equalTo(textInputView).inset(textContainerInset.top)
-            make.right.equalTo(textInputView).inset(textContainerInset.right + 5)
+            make.right.equalTo(textInputView).inset(textContainerInset.right + 5).priorityHigh()
         }
     }
     
     @objc private func textDidChange(notification: NSNotification) {
+        updatePlaceholderVisibility()
+    }
+    
+    private func updatePlaceholderVisibility() {
         placeholderLabel.hidden = text?.characters.count > 0
     }
 }
