@@ -137,13 +137,13 @@ class CheckoutDeliveryInputView: FormInputView {
     
     private func getAddressField() -> AddressFormField {
         switch inputType {
-        case .FirstName: return .FirstName(value: inputTextField.text)
-        case .LastName: return .LastName(value: inputTextField.text)
-        case .StreetAndApartmentNumbers: return .StreetAndApartmentNumbers(value: inputTextField.text)
-        case .PostalCode: return .PostalCode(value: inputTextField.text)
-        case .City: return .City(value: inputTextField.text)
+        case .FirstName: return .FirstName(value: inputTextField.text!.isEmpty ? nil : inputTextField.text!)
+        case .LastName: return .LastName(value: inputTextField.text!.isEmpty ? nil : inputTextField.text!)
+        case .StreetAndApartmentNumbers: return .StreetAndApartmentNumbers(value: inputTextField.text!.isEmpty ? nil : inputTextField.text!)
+        case .PostalCode: return .PostalCode(value: inputTextField.text!.isEmpty ? nil : inputTextField.text!)
+        case .City: return .City(value: inputTextField.text!.isEmpty ? nil : inputTextField.text!)
         case .Country: return .Country(defaultValue: inputTextField.placeholder!)
-        case .Phone: return .Phone(value: inputTextField.text)
+        case .Phone: return .Phone(value: inputTextField.text!.isEmpty ? nil : inputTextField.text!)
         }
     }
     
@@ -311,10 +311,12 @@ class CheckoutDeliveryDetailsView: UIView {
         label.font = UIFont(fontType: .FormNormal)
         label.numberOfLines = 3
         label.lineBreakMode = .ByWordWrapping
-        addSubview(label)
-       
+        
         button.applyPlainStyle()
+        
+        addSubview(label)
         addSubview(button)
+        
         configureCustomConstraints()
     }
     
@@ -351,17 +353,19 @@ class CheckoutDeliveryDetailsView: UIView {
     }
     
     func configureCustomConstraints() {
-        button.snp_makeConstraints { make in
-            make.trailing.equalToSuperview()
-            make.bottom.equalToSuperview().inset(CheckoutDeliveryDetailsView.inset)
+        label.setContentCompressionResistancePriority(UILayoutPriorityDefaultLow, forAxis: .Horizontal)
+        label.snp_makeConstraints { make in
+            make.leading.equalToSuperview().inset(Dimensions.defaultMargin)
+            make.trailing.lessThanOrEqualTo(button.snp_leading)
+            make.top.equalToSuperview()
+            make.bottom.equalToSuperview()
         }
         
-        label.snp_makeConstraints { make in
-            make.leading.equalToSuperview()
-            make.width.equalTo(CheckoutDeliveryDetailsView.labelWidth)
+        button.setContentCompressionResistancePriority(UILayoutPriorityDefaultHigh, forAxis: .Horizontal)
+        button.snp_makeConstraints { make in
+            make.trailing.equalToSuperview().inset(Dimensions.defaultMargin)
             make.top.equalToSuperview()
-            make.height.equalTo(CheckoutDeliveryDetailsView.labelHeight)
-            make.bottom.equalToSuperview().inset(CheckoutDeliveryDetailsView.inset)
+            make.bottom.equalToSuperview()
         }
     }
 }

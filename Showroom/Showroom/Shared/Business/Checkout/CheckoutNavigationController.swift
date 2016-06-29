@@ -1,7 +1,5 @@
 import UIKit
 
-//TODO: delegate
-
 class CheckoutNavigationController: UINavigationController, NavigationHandler, EditAddressViewControllerDelegate {
     private let resolver: DiResolver
     private let model: CheckoutModel
@@ -40,6 +38,14 @@ class CheckoutNavigationController: UINavigationController, NavigationHandler, E
         pushViewController(editAddressViewController, animated: true)
     }
     
+    func showEditKioskView(clientAddress clientAddress: [AddressFormField]) {
+        let editKioskViewController = resolver.resolve(EditKioskViewController.self, argument: clientAddress)
+        editKioskViewController.delegate = self
+        editKioskViewController.navigationItem.title = tr(.CheckoutDeliveryNavigationHeader)
+        editKioskViewController.applyBlackBackButton(target: self, action: #selector(CheckoutNavigationController.didTapBackButton))
+        pushViewController(editKioskViewController, animated: true)
+    }
+    
     func didTapCloseButton(sender: UIBarButtonItem) {
         dismissViewControllerAnimated(true, completion: nil)
     }
@@ -62,6 +68,11 @@ class CheckoutNavigationController: UINavigationController, NavigationHandler, E
         case let editAddressEvent as ShowEditAddressEvent:
             showEditAddressView(formFields: editAddressEvent.formFields, editingState: editAddressEvent.editingState)
             return true
+            
+        case let editKioskEvent as ShowEditKioskEvent:
+            showEditKioskView(clientAddress: editKioskEvent.clientAddress)
+            return true
+            
         default:
             return false
         }
@@ -78,6 +89,17 @@ class CheckoutNavigationController: UINavigationController, NavigationHandler, E
     func editAddressViewControllerDidUpdateAddress(viewController: EditAddressViewController, savedAddressFields: [AddressFormField]) {
         guard let deliveryViewController = viewControllers.find({ $0 is CheckoutDeliveryViewController }) as? CheckoutDeliveryViewController else { return }
         deliveryViewController.updateLastAddress(savedAddressFields)
+        popViewControllerAnimated(true)
+    }
+}
+
+extension CheckoutNavigationController: EditKioskViewControllerDelegate {
+    
+    func editKioskViewControllerDidChooseKiosk(viewController: EditKioskViewController, kiosk: Kiosk) {
+        
+        guard let deliveryViewController = viewControllers.find({ $0 is CheckoutDeliveryViewController }) as? CheckoutDeliveryViewController else { return }
+        deliveryViewController.delivery = .Kiosk(address: "\(kiosk.city), \(kiosk.street)")
+        deliveryViewController.castView.updateStackView(deliveryViewController.addressInput, delivery: deliveryViewController.delivery, didAddAddress: deliveryViewController.didAddAddress)
         popViewControllerAnimated(true)
     }
 }

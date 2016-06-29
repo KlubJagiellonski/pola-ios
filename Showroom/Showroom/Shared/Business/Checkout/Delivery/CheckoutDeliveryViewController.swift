@@ -9,12 +9,27 @@ class CheckoutDeliveryViewController: UIViewController, CheckoutDeliveryViewDele
 
     var castView: CheckoutDeliveryView { return view as! CheckoutDeliveryView }
     
-    var clientAddresses: [[AddressFormField]]
-    private var didAddAddress = false
-    
-    let pickedKioskAddress = "Białystok, ul. Stroma 28"
-    let delivery: Delivery
+    var clientAddresses: [[AddressFormField]] { didSet { addressInput = .Options(addresses: clientAddresses) } }
+    var delivery: Delivery
+    let pickedKioskAddress: String? = nil
     let defaultCountry: String
+    
+    var addressInput: AddressInput {
+        get { return castView.addressInput }
+        set { castView.addressInput = newValue }
+    }
+    var selectedAddressIndex: Int {
+        get { return castView.selectedAddressIndex }
+        set { castView.selectedAddressIndex = newValue }
+    }
+    private(set) var didAddAddress = false
+    
+    var currentAddress: [AddressFormField] {
+        switch addressInput {
+        case .Options(let addresses): return addresses[selectedAddressIndex]
+        case .Form: return castView.formFieldsViews!.map { $0.addressField }
+        }
+    }
     
     let resolver: DiResolver
     
@@ -24,9 +39,9 @@ class CheckoutDeliveryViewController: UIViewController, CheckoutDeliveryViewDele
         defaultCountry = basketManager.state.deliveryCountry!.name
         clientAddresses = [
             [.FirstName(value: "Jan"), .LastName(value: "Kowalski"), .StreetAndApartmentNumbers(value: "Sikorskiego 12/30"), .PostalCode(value: "15-888"), .City(value: "Białystok"), .Country(defaultValue: defaultCountry), .Phone(value: "+48 501 123 456")],
-            [.FirstName(value: "Anna"), .LastName(value: "Kowalska"), .StreetAndApartmentNumbers(value: "Wyszyńskiego 18/64"), .PostalCode(value: "02-758"), .City(value: "Warszawa"), .Country(defaultValue: defaultCountry), .Phone(value: "+48 788 888 999")]
+            [.FirstName(value: "Anna"), .LastName(value: "Kowalska"), .StreetAndApartmentNumbers(value: "Piękna 5/10"), .PostalCode(value: "02-758"), .City(value: "Warszawa"), .Country(defaultValue: defaultCountry), .Phone(value: "+48 788 888 999")]
         ]
-
+       
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -57,7 +72,8 @@ class CheckoutDeliveryViewController: UIViewController, CheckoutDeliveryViewDele
     }
     
     func checkoutDeliveryViewDidSelectAddress(view: CheckoutDeliveryView, atIndex addressIndex: Int) {
-        print("did select address at index: \(addressIndex), address: \(clientAddresses[addressIndex])")
+        guard case .Options(let addresses) = addressInput else { return }
+        logInfo("did select address at index: \(addressIndex), address: \(addresses[addressIndex].map { $0.value })")
     }
     
     func checkoutDeliveryViewDidTapAddAddressButton(view: CheckoutDeliveryView) {
@@ -66,16 +82,17 @@ class CheckoutDeliveryViewController: UIViewController, CheckoutDeliveryViewDele
     }
     
     func checkoutDeliveryViewDidTapEditAddressButton(view: CheckoutDeliveryView) {
-        let lastAddress: [AddressFormField] = clientAddresses.last!
+        guard case .Options(let addresses) = addressInput else { return }
+        let lastAddress: [AddressFormField] = addresses.last!
         sendNavigationEvent(ShowEditAddressEvent(formFields: lastAddress, editingState: .Edit))
     }
     
     func checkoutDeliveryViewDidTapChooseKioskButton(view: CheckoutDeliveryView) {
-        print("did tap choose kiosk button")
+        sendNavigationEvent(ShowEditKioskEvent(clientAddress: currentAddress))
     }
     
     func checkoutDeliveryViewDidTapChangeKioskButton(view: CheckoutDeliveryView) {
-        print("did tap change kiosk button")
+        sendNavigationEvent(ShowEditKioskEvent(clientAddress: currentAddress))
     }
     
     func checkoutDeliveryViewDidTapNextButton(view: CheckoutDeliveryView) {
@@ -89,14 +106,14 @@ class CheckoutDeliveryViewController: UIViewController, CheckoutDeliveryViewDele
         clientAddresses.append(addressFields)
         didAddAddress = true
         castView.updateStackView(.Options(addresses: clientAddresses), delivery: delivery, didAddAddress: didAddAddress)
-        castView.selectedAddressIndex = clientAddresses.count - 1
+        selectedAddressIndex = clientAddresses.count - 1
     }
     
     func updateLastAddress(addressFields: [AddressFormField]) {
         clientAddresses[clientAddresses.count-1] = addressFields
         castView.updateStackView(.Options(addresses: clientAddresses), delivery: delivery, didAddAddress: didAddAddress)
-        castView.selectedAddressIndex = clientAddresses.count - 1
+        selectedAddressIndex = clientAddresses.count - 1
     }
-    
-
 }
+
+

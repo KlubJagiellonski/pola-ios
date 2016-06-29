@@ -105,5 +105,8 @@ class UIAssembly: AssemblyType {
         container.register(LoginViewController.self) { r in
             return LoginViewController(resolver: r.resolve(DiResolver.self)!)
         }
+        container.register(EditKioskViewController.self) { r, clientAddress in
+            return EditKioskViewController(resolver: r.resolve(DiResolver.self)!, clientAddress: clientAddress)
+        }
     }
 }

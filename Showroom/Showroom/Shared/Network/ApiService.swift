@@ -91,6 +91,33 @@ extension ApiService {
                 }
         }
     }
+
+    func fetchKiosks(withLatitude latitude: Double, longitude: Double, limit: Int = 10) -> Observable<KioskResult> {
+        let url = NSURL(fileURLWithPath: basePath)
+            .URLByAppendingPathComponent("delivery/pwr/pops")
+            .URLByAppendingParams(["limit": String(limit)])
+        
+        do {
+            let paramsDict = ["lat": latitude, "lng": longitude] as NSDictionary
+            let jsonData = try NSJSONSerialization.dataWithJSONObject(paramsDict, options: [])
+            
+            let urlRequest = NSMutableURLRequest(URL: url)
+            urlRequest.HTTPMethod = "POST"
+            urlRequest.HTTPBody = jsonData
+            return networkClient
+                .request(withRequest: urlRequest)
+                .flatMap { data -> Observable<KioskResult> in
+                    do {
+                        let array = try NSJSONSerialization.JSONObjectWithData(data, options: []) as! [AnyObject]
+                        return Observable.just(try KioskResult.decode(array))
+                    } catch {
+                        return Observable.error(error)
+                    }
+            }
+        } catch {
+            return Observable.error(error)
+        }
+    }
 }
 
 extension NSURL {

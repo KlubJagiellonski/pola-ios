@@ -135,6 +135,14 @@ enum L10n {
   case CheckoutDeliveryEditAddressNavigationHeader
   /// ZAPISZ
   case CheckoutDeliveryEditAddressSave
+  /// Znajdź kiosk w pobliżu
+  case CheckoutDeliveryEditKioskSearchInputLabel
+  /// Piękna 5, Warszawa
+  case CheckoutDeliveryEditKioskSearchInputPlaceholder
+  /// Nie znaleziono adresu
+  case CheckoutDeliveryEditKioskGeocodingError
+  /// WYBIERZ
+  case CheckoutDeliveryEditKioskSave
   /// Coś poszło nie tak. Nie udało się załadować danych.
   case CommonError
   /// Podsumowanie
@@ -332,6 +340,14 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Checkout.Delivery.EditAddress.NavigationHeader")
       case .CheckoutDeliveryEditAddressSave:
         return L10n.tr("Checkout.Delivery.EditAddress.Save")
+      case .CheckoutDeliveryEditKioskSearchInputLabel:
+        return L10n.tr("Checkout.Delivery.EditKiosk.SearchInputLabel")
+      case .CheckoutDeliveryEditKioskSearchInputPlaceholder:
+        return L10n.tr("Checkout.Delivery.EditKiosk.SearchInputPlaceholder")
+      case .CheckoutDeliveryEditKioskGeocodingError:
+        return L10n.tr("Checkout.Delivery.EditKiosk.GeocodingError")
+      case .CheckoutDeliveryEditKioskSave:
+        return L10n.tr("Checkout.Delivery.EditKiosk.Save")
       case .CommonError:
         return L10n.tr("CommonError")
       case .CheckoutSummaryNavigationHeader:

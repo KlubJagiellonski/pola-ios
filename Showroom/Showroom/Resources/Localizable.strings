@@ -64,6 +64,10 @@
 "Checkout.Delivery.Next" = "DALEJ";
 "Checkout.Delivery.EditAddress.NavigationHeader" = "Dodaj inny adres";
 "Checkout.Delivery.EditAddress.Save" = "ZAPISZ";
+"Checkout.Delivery.EditKiosk.SearchInputLabel" = "Znajdź kiosk w pobliżu";
+"Checkout.Delivery.EditKiosk.SearchInputPlaceholder" = "Piękna 5, Warszawa";
+"Checkout.Delivery.EditKiosk.GeocodingError" = "Nie znaleziono adresu";
+"Checkout.Delivery.EditKiosk.Save" = "WYBIERZ";
 "CommonError" = "Coś poszło nie tak. Nie udało się załadować danych.";
 "Checkout.Summary.NavigationHeader" = "Podsumowanie";
 "Checkout.Summary.ProductDescription" = "%@ szt. Rozmiar: %@ Kolor: %@";

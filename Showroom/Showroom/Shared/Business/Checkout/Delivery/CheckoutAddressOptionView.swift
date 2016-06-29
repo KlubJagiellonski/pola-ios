@@ -40,8 +40,7 @@ class CheckoutAddressOptionView: UIView {
         checkBoxImageView.setContentHuggingPriority(UILayoutPriorityDefaultHigh, forAxis: .Horizontal)
         checkBoxImageView.snp_makeConstraints { make in
             make.leading.equalToSuperview().offset(horizontalMargin)
-            make.centerY.equalToSuperview()
-            make.top.greaterThanOrEqualToSuperview()
+            make.top.equalToSuperview()
             make.bottom.lessThanOrEqualToSuperview()
         }
         

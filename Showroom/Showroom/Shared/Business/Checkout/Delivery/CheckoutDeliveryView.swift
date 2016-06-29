@@ -35,8 +35,9 @@ class CheckoutDeliveryView: UIView {
     var contentValidators: [ContentValidator] = []
     let keyboardHelper = KeyboardHelper()
     
-    private(set) var addressInput: AddressInput
-    
+    var addressInput: AddressInput
+
+    var formFieldsViews: [CheckoutDeliveryInputView]?
     var addressOptionViews: [CheckoutDeliveryAddressOptionView]?
     var selectedAddressIndex: Int! {
         didSet {
@@ -55,7 +56,10 @@ class CheckoutDeliveryView: UIView {
         
         keyboardHelper.delegate = self
         
-        if case .Options = addressInput {
+        switch addressInput {
+        case .Form:
+            formFieldsViews = [CheckoutDeliveryInputView]()
+        case .Options:
             addressOptionViews = [CheckoutDeliveryAddressOptionView]()
             selectedAddressIndex = 0
         }
@@ -115,6 +119,7 @@ class CheckoutDeliveryView: UIView {
     }
     
     func updateStackView(addressInput: AddressInput, delivery: Delivery, didAddAddress: Bool) {
+        formFieldsViews?.removeAll()
         addressOptionViews?.removeAll()
         contentValidators.removeAll()
         contentValidators.append(self)
@@ -136,6 +141,7 @@ class CheckoutDeliveryView: UIView {
                 inputView.inputTextField.delegate = self
                 contentValidators.append(inputView)
                 stackView.addArrangedSubview(inputView)
+                formFieldsViews?.append(inputView)
             }
             
         case .Options(let addresses):
