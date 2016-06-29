@@ -19,7 +19,6 @@ class FormInputView: UIView {
     static let inputLabelHeight: CGFloat = 17.0
     static let inputLabelToTextFieldOffset: CGFloat = 10.0
     static let validationLabelHeight: CGFloat = 25.0
-    static let validationLabelToBottomInset: CGFloat = 2.0
     
     private let inputLabel = UILabel()
     let inputTextField = FormInputTextField(frame: CGRectZero)
@@ -67,7 +66,6 @@ class FormInputView: UIView {
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
             make.top.equalToSuperview()
-            make.height.equalTo(FormInputView.inputLabelHeight)
         }
         
         inputTextField.snp_makeConstraints { make in
@@ -81,7 +79,7 @@ class FormInputView: UIView {
             make.trailing.equalToSuperview()
             make.top.equalTo(inputTextField.snp_bottom)
             make.height.equalTo(FormInputView.validationLabelHeight)
-            make.bottom.equalToSuperview().inset(FormInputView.validationLabelToBottomInset)
+            make.bottom.equalToSuperview()//.inset(FormInputView.validationLabelToBottomInset)
         }
     }
 }

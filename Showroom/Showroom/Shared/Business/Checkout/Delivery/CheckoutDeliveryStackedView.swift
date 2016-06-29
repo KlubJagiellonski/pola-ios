@@ -137,13 +137,13 @@ class CheckoutDeliveryInputView: FormInputView {
     
     private func getAddressField() -> AddressFormField {
         switch inputType {
-        case .FirstName: return .FirstName(value: inputTextField.text!.isEmpty ? nil : inputTextField.text!)
-        case .LastName: return .LastName(value: inputTextField.text!.isEmpty ? nil : inputTextField.text!)
-        case .StreetAndApartmentNumbers: return .StreetAndApartmentNumbers(value: inputTextField.text!.isEmpty ? nil : inputTextField.text!)
-        case .PostalCode: return .PostalCode(value: inputTextField.text!.isEmpty ? nil : inputTextField.text!)
-        case .City: return .City(value: inputTextField.text!.isEmpty ? nil : inputTextField.text!)
+        case .FirstName: return .FirstName(value: inputTextField.notEmptyText)
+        case .LastName: return .LastName(value: inputTextField.notEmptyText)
+        case .StreetAndApartmentNumbers: return .StreetAndApartmentNumbers(value: inputTextField.notEmptyText)
+        case .PostalCode: return .PostalCode(value: inputTextField.notEmptyText)
+        case .City: return .City(value: inputTextField.notEmptyText)
         case .Country: return .Country(defaultValue: inputTextField.placeholder!)
-        case .Phone: return .Phone(value: inputTextField.text!.isEmpty ? nil : inputTextField.text!)
+        case .Phone: return .Phone(value: inputTextField.notEmptyText)
         }
     }
     
@@ -355,7 +355,7 @@ class CheckoutDeliveryDetailsView: UIView {
     func configureCustomConstraints() {
         label.setContentCompressionResistancePriority(UILayoutPriorityDefaultLow, forAxis: .Horizontal)
         label.snp_makeConstraints { make in
-            make.leading.equalToSuperview().inset(Dimensions.defaultMargin)
+            make.leading.equalToSuperview()
             make.trailing.lessThanOrEqualTo(button.snp_leading)
             make.top.equalToSuperview()
             make.bottom.equalToSuperview()
@@ -363,7 +363,7 @@ class CheckoutDeliveryDetailsView: UIView {
         
         button.setContentCompressionResistancePriority(UILayoutPriorityDefaultHigh, forAxis: .Horizontal)
         button.snp_makeConstraints { make in
-            make.trailing.equalToSuperview().inset(Dimensions.defaultMargin)
+            make.trailing.equalToSuperview()
             make.top.equalToSuperview()
             make.bottom.equalToSuperview()
         }

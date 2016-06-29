@@ -1,19 +1,22 @@
 import UIKit
+import MapKit
 
 protocol EditKioskViewDelegate: ViewSwitcherDelegate {
-    func editKioskViewDidReturnSearchString(view: EditKioskView, searchString: String)
-    func editKioskViewDidChooseKioskAtIndex(view: EditKioskView, kioskIndex: Int)
+    func editKioskView(view: EditKioskView, didReturnSearchString searchString: String)
+    func editKioskView(view: EditKioskView, didChooseKioskAtIndex kioskIndex: Int)
 }
 
-class EditKioskView: UIView, KioskSearchInputFieldDelegate, KioskOptionViewDelegate {
+class EditKioskView: UIView, UITableViewDelegate {
     
-    private let topSeparator = UIView()
-    private let searchInputView = KioskSearchInputField()
+    static let tableViewTopInset: CGFloat = 26.0
+    
+    private let searchInputView = FormInputView()
     private let viewSwitcher: ViewSwitcher
-    private let scrollView = UIScrollView()
-    private let stackView = UIStackView()
-    var kiosksViews = [KioskOptionView]()
+    private let tableView: UITableView
+    private let dataSource: EditKioskDataSource
     private let saveButton = UIButton()
+    
+    let keyboardHelper = KeyboardHelper()
     
     var switcherState: ViewSwitcherState {
         get { return viewSwitcher.switcherState }
@@ -21,20 +24,21 @@ class EditKioskView: UIView, KioskSearchInputFieldDelegate, KioskOptionViewDeleg
     }
     
     var searchString: String {
-        get { return searchInputView.searchString }
-        set { searchInputView.searchString = newValue }
+        get { return searchInputView.inputTextField.text! }
+        set { searchInputView.inputTextField.text = newValue }
     }
     
-    var selectedKioskIndex: Int? {
-        didSet {
-            guard let _ = selectedKioskIndex else { return }
-            updateKiosksSelection()
+    var selectedIndex: Int? {
+        set {
+            dataSource.selectedIndex = newValue
+            saveButton.enabled = (newValue != nil)
         }
+        get { return dataSource.selectedIndex }
     }
     
     var geocodingErrorVisible: Bool {
         didSet {
-            searchInputView.errorString = geocodingErrorVisible ? tr(.CheckoutDeliveryEditKioskGeocodingError) : nil
+            searchInputView.validation = geocodingErrorVisible ? tr(.CheckoutDeliveryEditKioskGeocodingError) : nil
         }
     }
     
@@ -43,43 +47,41 @@ class EditKioskView: UIView, KioskSearchInputFieldDelegate, KioskOptionViewDeleg
         get { return saveButton.enabled }
     }
   
-    weak var delegate: EditKioskViewDelegate? {
-        didSet {
-            viewSwitcher.switcherDelegate = delegate
-        }
-    }
+    weak var delegate: EditKioskViewDelegate? { didSet { viewSwitcher.switcherDelegate = delegate } }
     
     init(kioskSearchString: String) {
-        viewSwitcher = ViewSwitcher(successView: scrollView, initialState: .Success)
+        tableView = UITableView(frame: CGRectZero, style: .Plain)
+        viewSwitcher = ViewSwitcher(successView: tableView, initialState: .Success)
+        dataSource = EditKioskDataSource(tableView: tableView)
         geocodingErrorVisible = false
         super.init(frame: CGRectZero)
         
+        tableView.delegate = self
+        tableView.dataSource = dataSource
+        tableView.showsVerticalScrollIndicator = false
+        tableView.separatorStyle = .None
+        tableView.contentInset = UIEdgeInsets(top: EditKioskView.tableViewTopInset, left: 0, bottom: 0, right: 0)
+        
         viewSwitcher.switcherDataSource = self
+        
+        keyboardHelper.delegate = self
         
         backgroundColor = UIColor(named: .White)
         
-        topSeparator.backgroundColor = UIColor(named: .Manatee)
-        
+        searchInputView.title = tr(.CheckoutDeliveryEditKioskSearchInputLabel)
+        searchInputView.inputTextField.placeholder = tr(.CheckoutDeliveryEditKioskSearchInputPlaceholder)
+        searchInputView.inputTextField.returnKeyType = .Search
         searchString = kioskSearchString
-        searchInputView.delegate = self
+        searchInputView.backgroundColor = nil
+        searchInputView.inputTextField.delegate = self
 
-        scrollView.bounces = true
-        scrollView.showsVerticalScrollIndicator = false
-
-        stackView.axis = .Vertical
-        scrollView.addSubview(stackView)
-
-        saveButton.setTitle(tr(.CheckoutDeliveryEditKioskSave), forState: .Normal)
+        saveButton.title = tr(.CheckoutDeliveryEditKioskSave)
         saveButton.addTarget(self, action: #selector(EditKioskView.didTapSaveButton), forControlEvents: .TouchUpInside)
         saveButton.applyBlueStyle()
         
-        addSubview(topSeparator)
         addSubview(searchInputView)
         addSubview(viewSwitcher)
         addSubview(saveButton)
-        
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(EditKioskView.dismissKeyboard))
-        addGestureRecognizer(tap)
         
         configureCustomCostraints()
     }
@@ -89,56 +91,23 @@ class EditKioskView: UIView, KioskSearchInputFieldDelegate, KioskOptionViewDeleg
     }
     
     func updateKiosks(kiosks: [Kiosk]) {
-        kiosksViews.removeAll()
-        for view in stackView.arrangedSubviews {
-            stackView.removeArrangedSubview(view)
-            view.removeFromSuperview()
-        }
-
-        for kiosk in kiosks {
-            let kioskView = KioskOptionView(kiosk: kiosk, selected: false)
-            kioskView.delegate = self
-            stackView.addArrangedSubview(kioskView)
-            kiosksViews.append(kioskView)
-        }
-        
-        selectedKioskIndex = 0
-    }
-    
-    func updateKiosksSelection() {
-        for (index, kioskView) in kiosksViews.enumerate() {
-            kioskView.selected = (index == selectedKioskIndex)
-        }
-    }
-    
-    func kioskOptionViewDidTap(view: KioskOptionView) {
-        selectedKioskIndex = kiosksViews.indexOf(view)
+        dataSource.updateData(kiosks)
+        selectedIndex = nil
+        tableView.contentOffset = CGPoint(x: 0.0, y: -FormInputView.validationLabelHeight)
     }
     
     func configureCustomCostraints() {
-        topSeparator.snp_makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
-            make.height.equalTo(Dimensions.defaultSeparatorThickness)
-        }
-        
         searchInputView.snp_makeConstraints { make in
-            make.top.equalTo(topSeparator.snp_bottom)
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
+            make.top.equalToSuperview().inset(Dimensions.defaultMargin)
+            make.leading.equalToSuperview().inset(Dimensions.defaultMargin)
+            make.trailing.equalToSuperview().inset(Dimensions.defaultMargin)
         }
         
         viewSwitcher.snp_makeConstraints { make in
-            make.top.equalTo(searchInputView.snp_bottom)
+            make.top.equalTo(searchInputView.snp_bottom).offset(-FormInputView.validationLabelHeight)
             make.bottom.equalTo(saveButton.snp_top)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
-            make.width.equalToSuperview()
-        }
-        
-        stackView.snp_makeConstraints { make in
-            make.edges.equalToSuperview()
             make.width.equalToSuperview()
         }
         
@@ -155,12 +124,26 @@ class EditKioskView: UIView, KioskSearchInputFieldDelegate, KioskOptionViewDeleg
     }
 
     func didTapSaveButton() {
-        guard let selectedKioskIndex = selectedKioskIndex else { return }
-        delegate?.editKioskViewDidChooseKioskAtIndex(self, kioskIndex: selectedKioskIndex)
+        guard let selectedIndex = selectedIndex else { return }
+        delegate?.editKioskView(self, didChooseKioskAtIndex: selectedIndex)
     }
     
-    func kioskSearchInputDidReturn(view: KioskSearchInputField, searchString: String) {
-        delegate?.editKioskViewDidReturnSearchString(self, searchString: searchString)
+    // MARK: - UITableViewDelegate
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        selectedIndex = indexPath.row
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return dataSource.getHeightForRow(atIndexPath: indexPath, cellWidth: tableView.bounds.width)
+    }
+}
+
+extension EditKioskView: UITextFieldDelegate {
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        delegate?.editKioskView(self, didReturnSearchString: textField.text!)
+        textField.resignFirstResponder()
+        return true
     }
 }
 
@@ -171,5 +154,13 @@ extension EditKioskView: ViewSwitcherDataSource {
     
     func viewSwitcherWantsEmptyView(view: ViewSwitcher) -> UIView? {
         return UIView()
+    }
+}
+
+extension EditKioskView: KeyboardHelperDelegate, KeyboardHandler {
+    func keyboardHelperChangedKeyboardState(fromFrame: CGRect, toFrame: CGRect, duration: Double, animationOptions: UIViewAnimationOptions) {
+        let bottomOffset = (UIScreen.mainScreen().bounds.height - toFrame.minY) - saveButton.bounds.height
+        tableView.contentInset = UIEdgeInsetsMake(EditKioskView.tableViewTopInset, 0, max(bottomOffset, 0), 0)
+        tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, max(bottomOffset, 0), 0)
     }
 }

@@ -14,17 +14,16 @@ class CheckoutDeliveryViewController: UIViewController, CheckoutDeliveryViewDele
     let pickedKioskAddress: String? = nil
     let defaultCountry: String
     
-    var addressInput: AddressInput {
+    private(set) var addressInput: AddressInput {
         get { return castView.addressInput }
         set { castView.addressInput = newValue }
     }
-    var selectedAddressIndex: Int {
+    private var selectedAddressIndex: Int {
         get { return castView.selectedAddressIndex }
         set { castView.selectedAddressIndex = newValue }
     }
     private(set) var didAddAddress = false
-    
-    var currentAddress: [AddressFormField] {
+    private var currentAddress: [AddressFormField] {
         switch addressInput {
         case .Options(let addresses): return addresses[selectedAddressIndex]
         case .Form: return castView.formFieldsViews!.map { $0.addressField }

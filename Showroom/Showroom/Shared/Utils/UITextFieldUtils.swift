@@ -7,4 +7,9 @@ extension UITextField {
         self.layer.borderColor = UIColor.blackColor().CGColor
         self.layer.borderWidth = 1;
     }
+    
+    
+    var notEmptyText: String? {
+        return text!.isEmpty ? nil : text
+    }
 }

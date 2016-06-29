@@ -7,6 +7,8 @@ class EditKioskModel {
     let geocoder = CLGeocoder()
     let disposeBag = DisposeBag()
     
+    var kiosks: [Kiosk]?
+    
     init(api: ApiService) {
         self.api = api
     }

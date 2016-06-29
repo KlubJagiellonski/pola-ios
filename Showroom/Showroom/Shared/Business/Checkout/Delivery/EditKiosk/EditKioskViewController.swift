@@ -14,19 +14,19 @@ class EditKioskViewController: UIViewController, EditKioskViewDelegate {
     
     private let clientAddress: [AddressFormField]
     
-    var kiosks: [Kiosk]?
+    private var kiosks: [Kiosk]? {
+        get { return model.kiosks }
+        set { model.kiosks = newValue }
+    }
     
-    var selectedKioskIndex: Int? {
-        get { return castView.selectedKioskIndex }
-        set { castView.selectedKioskIndex = newValue }
+    private(set) var selectedKioskIndex: Int? {
+        get { return castView.selectedIndex }
+        set { castView.selectedIndex = newValue }
     }
     
     weak var delegate: EditKioskViewControllerDelegate?
     
-    private let resolver: DiResolver
-    
     init(resolver: DiResolver, clientAddress: [AddressFormField]) {
-        self.resolver = resolver
         self.model = EditKioskModel(api: resolver.resolve(ApiService.self))
         self.clientAddress = clientAddress
         super.init(nibName: nil, bundle: nil)
@@ -38,40 +38,27 @@ class EditKioskViewController: UIViewController, EditKioskViewDelegate {
     
     override func loadView() {
         view = EditKioskView(kioskSearchString: kioskSearchString(fromClientAddress: clientAddress))
-        castView.delegate = self
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        castView.delegate = self
         fetchKiosks(withAddressString: castView.searchString)
     }
     
-    func kioskSearchString(fromClientAddress clientAddress: [AddressFormField]) -> String {
-        var strings = [String]()
-        for addressField in clientAddress {
-            switch addressField {
-            case .StreetAndApartmentNumbers(let value?): strings.append(value)
-            case .City(let value?): strings.append(value)
-            default: break
-            }
-        }
-        return strings.joinWithSeparator(", ")
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        castView.registerOnKeyboardEvent()
     }
     
-    func editKioskViewDidReturnSearchString(view: EditKioskView, searchString: String) {
-        fetchKiosks(withAddressString: searchString)
-    }
-    
-    func editKioskViewDidChooseKioskAtIndex(view: EditKioskView, kioskIndex: Int) {
-        guard let kiosks = kiosks else { return }
-        delegate?.editKioskViewControllerDidChooseKiosk(self, kiosk: kiosks[kioskIndex])
-    }
-    
-    func viewSwitcherDidTapRetry(view: ViewSwitcher) {
-        fetchKiosks(withAddressString: castView.searchString)
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        castView.unregisterOnKeyboardEvent()
     }
     
     func fetchKiosks(withAddressString addressString: String) {
         castView.switcherState = .Loading
+        selectedKioskIndex = nil
         
         model.fetchKiosks(withAddressString: addressString)
             .subscribeNext { [weak self] (kiosksResult: FetchResult<KioskResult>) in
@@ -84,17 +71,14 @@ class EditKioskViewController: UIViewController, EditKioskViewDelegate {
                         case .GeocodeFoundNoResult:
                             self.castView.switcherState = .Empty
                             self.castView.geocodingErrorVisible = true
-                            self.castView.saveButtonEnabled = false
                         case .Network:
                             self.castView.switcherState = .Error
                             self.castView.geocodingErrorVisible = false
-                            self.castView.saveButtonEnabled = false
                         case .GeocodeCanceled:
                             break
                         default:
                             self.castView.switcherState = .Success
                             self.castView.geocodingErrorVisible = true
-                            self.castView.saveButtonEnabled = false
                         }
                     } else {
                         self.castView.switcherState = .Error
@@ -105,10 +89,40 @@ class EditKioskViewController: UIViewController, EditKioskViewDelegate {
                     self.castView.updateKiosks(result.kiosks)
                     self.castView.switcherState = .Success
                     self.castView.geocodingErrorVisible = false
-                    self.castView.saveButtonEnabled = true
                 }
             }
             .addDisposableTo(disposeBag)
+    }
+    
+    // MARK: EditKioskViewDelegate
+    
+    func editKioskView(view: EditKioskView, didReturnSearchString searchString: String) {
+        fetchKiosks(withAddressString: searchString)
+    }
+    
+    func editKioskView(view: EditKioskView, didChooseKioskAtIndex kioskIndex: Int) {
+        guard let kiosks = kiosks else { return }
+        delegate?.editKioskViewControllerDidChooseKiosk(self, kiosk: kiosks[kioskIndex])
+    }
+    
+    // MARK: ViewSwitcherDelegate
+    
+    func viewSwitcherDidTapRetry(view: ViewSwitcher) {
+        fetchKiosks(withAddressString: castView.searchString)
+    }
+
+    // MARK: Utilities
+    
+    func kioskSearchString(fromClientAddress clientAddress: [AddressFormField]) -> String {
+        var strings = [String]()
+        for addressField in clientAddress {
+            switch addressField {
+            case .StreetAndApartmentNumbers(let value?): strings.append(value)
+            case .City(let value?): strings.append(value)
+            default: break
+            }
+        }
+        return strings.joinWithSeparator(", ")
     }
 }
 

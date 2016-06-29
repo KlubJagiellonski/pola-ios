@@ -1,6 +1,9 @@
 import UIKit
 
 class CheckoutAddressOptionView: UIView {
+    static let checkBoxToLeftOffset: CGFloat = 12.0
+    static let checkBoxToLabelOffset: CGFloat = 21.0
+    
     private static let disabledColor = UIColor(named: .DarkGray)
     private static let enabledColor = UIColor(named: .Black)
     
@@ -35,19 +38,19 @@ class CheckoutAddressOptionView: UIView {
     }
     
     private func configureCustomConstraints() {
-        let horizontalMargin = 3
-        
+        checkBoxImageView.setContentCompressionResistancePriority(UILayoutPriorityDefaultHigh, forAxis: .Horizontal)
         checkBoxImageView.setContentHuggingPriority(UILayoutPriorityDefaultHigh, forAxis: .Horizontal)
         checkBoxImageView.snp_makeConstraints { make in
-            make.leading.equalToSuperview().offset(horizontalMargin)
+            make.leading.equalToSuperview().offset(CheckoutAddressOptionView.checkBoxToLeftOffset)
             make.top.equalToSuperview()
             make.bottom.lessThanOrEqualToSuperview()
         }
         
+        addressLabel.setContentCompressionResistancePriority(UILayoutPriorityDefaultLow, forAxis: .Horizontal)
         addressLabel.setContentHuggingPriority(UILayoutPriorityDefaultLow, forAxis: .Horizontal)
         addressLabel.snp_makeConstraints { make in
-            make.leading.equalTo(checkBoxImageView.snp_trailing).offset(10)
-            make.trailing.equalToSuperview().inset(horizontalMargin)
+            make.leading.equalTo(checkBoxImageView.snp_trailing).offset(CheckoutAddressOptionView.checkBoxToLabelOffset)
+            make.trailing.equalToSuperview().inset(Dimensions.defaultMargin)
             make.top.greaterThanOrEqualToSuperview()
             make.bottom.lessThanOrEqualToSuperview()
         }

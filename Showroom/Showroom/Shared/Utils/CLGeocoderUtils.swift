@@ -1,32 +1,15 @@
+//  Created by Daniel Tartaglia on 5/7/16.
+//  Copyright © 2016 Daniel Tartaglia. MIT License.
+//  https://gist.github.com/dtartaglia/64bda2a32c18b8c28e1e22085a05df5a
+
 import CoreLocation
 import RxSwift
 
 public extension CLGeocoder {
-    
-    func rx_reverseGeocode(location: CLLocation) -> Observable<[CLPlacemark]> {
-        return Observable<[CLPlacemark]>.create { observer in
-            geocodeHandler(observer, geocode: curry2(self.reverseGeocodeLocation, location))
-            return AnonymousDisposable { self.cancelGeocode() }
-        }
-    }
-    
-    func rx_geocodeAddressDictionary(addressDictionary: [NSObject : AnyObject]) -> Observable<[CLPlacemark]> {
-        return Observable<[CLPlacemark]>.create { observer in
-            geocodeHandler(observer, geocode: curry2(self.geocodeAddressDictionary, addressDictionary))
-            return AnonymousDisposable { self.cancelGeocode() }
-        }
-    }
-    
+
     func rx_geocodeAddressString(addressString: String) -> Observable<[CLPlacemark]> {
         return Observable<[CLPlacemark]>.create { observer in
             geocodeHandler(observer, geocode: curry2(self.geocodeAddressString, addressString))
-            return AnonymousDisposable { self.cancelGeocode() }
-        }
-    }
-    
-    func rx_geocodeAddressString(addressString: String, inRegion region: CLRegion?) -> Observable<[CLPlacemark]> {
-        return Observable<[CLPlacemark]>.create { observer in
-            geocodeHandler(observer, geocode: curry3(self.geocodeAddressString, addressString, region))
             return AnonymousDisposable { self.cancelGeocode() }
         }
     }
@@ -34,10 +17,6 @@ public extension CLGeocoder {
 
 private func curry2<A, B, C>(f: (A, B) -> C, _ a: A) -> B -> C {
     return { b in f(a, b) }
-}
-
-private func curry3<A, B, C, D>(f: (A, B, C) -> D, _ a: A, _ b: B) -> C -> D {
-    return { c in f(a, b, c) }
 }
 
 private func geocodeHandler(observer: AnyObserver<[CLPlacemark]>, geocode: (CLGeocodeCompletionHandler) -> Void) {
