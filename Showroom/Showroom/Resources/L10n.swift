@@ -53,6 +53,16 @@ enum L10n {
   case BasketDeliveryOk
   /// KRAJ DOSTAWY
   case BasketDeliveryDeliveryCountryTitle
+  /// Poniższe produkty zostały usunięte z listy, ponieważ już nie są dostępne:
+  case BasketErrorProductsRemoved
+  /// Ceny poniższych produktów uległy zmianie:
+  case BasketErrorPriceChanged
+  /// Cena lub termin wysyłki poniższych marek uległy zmianie:
+  case BasketErrorDeilveryInfoChanged
+  /// Ilość poniższych produktów została zmniejszona:
+  case BasketErrorProductsAmountChanged
+  /// Błąd kodu rabatowego:
+  case BasketErrorInvalidDiscountCode
   /// POLECANE
   case DashboardRecommendationTitleFirstPart
   /// dla Ciebie
@@ -216,6 +226,16 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Basket.Delivery.Ok")
       case .BasketDeliveryDeliveryCountryTitle:
         return L10n.tr("Basket.Delivery.DeliveryCountryTitle")
+      case .BasketErrorProductsRemoved:
+        return L10n.tr("Basket.Error.ProductsRemoved")
+      case .BasketErrorPriceChanged:
+        return L10n.tr("Basket.Error.PriceChanged")
+      case .BasketErrorDeilveryInfoChanged:
+        return L10n.tr("Basket.Error.DeilveryInfoChanged")
+      case .BasketErrorProductsAmountChanged:
+        return L10n.tr("Basket.Error.ProductsAmountChanged")
+      case .BasketErrorInvalidDiscountCode:
+        return L10n.tr("Basket.Error.InvalidDiscountCode")
       case .DashboardRecommendationTitleFirstPart:
         return L10n.tr("Dashboard.RecommendationTitle.FirstPart")
       case .DashboardRecommendationTitleSecondPart:

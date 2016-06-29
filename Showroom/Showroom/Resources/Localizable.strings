@@ -23,6 +23,11 @@
 "Basket.Delivery.Info" = "W SHOWROOM każdy projektant wysyła produkty oddzielnie, dlatego ponosisz koszty wysyłki kilkukrotnie. Możesz wybrać tylko jeden sposób wysyłki dla całego zamówienia.";
 "Basket.Delivery.Ok" = "OK";
 "Basket.Delivery.DeliveryCountryTitle" = "KRAJ DOSTAWY";
+"Basket.Error.ProductsRemoved" = "Poniższe produkty zostały usunięte z listy, ponieważ już nie są dostępne:";
+"Basket.Error.PriceChanged" = "Ceny poniższych produktów uległy zmianie:";
+"Basket.Error.DeilveryInfoChanged" = "Cena lub termin wysyłki poniższych marek uległy zmianie:";
+"Basket.Error.ProductsAmountChanged" = "Ilość poniższych produktów została zmniejszona:";
+"Basket.Error.InvalidDiscountCode" = "Błąd kodu rabatowego:";
 "Dashboard.RecommendationTitle.FirstPart" = "POLECANE";
 "Dashboard.RecommendationTitle.SecondPart" = "dla Ciebie";
 "Money.Zl" = "zł";

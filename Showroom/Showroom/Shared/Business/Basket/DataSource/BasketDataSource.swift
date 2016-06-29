@@ -1,9 +1,17 @@
 import Foundation
 import UIKit
 
+struct BasketUpdateInfo {
+    let removedProductInfo: [String]
+    let changedProductAmountInfo: [String]
+    let changedProductPriceInfo: [String]
+    let changedBrandDeliveryInfo: [String]
+}
+
 class BasketDataSource: NSObject, UITableViewDataSource, BasketProductCellDelegate {
     private var productsByBrands: [BasketBrand] = []
     private weak var tableView: UITableView?
+    private(set) var lastBasketUpdateInfo: BasketUpdateInfo?
     weak var basketView: BasketView?
     
     init(tableView: UITableView) {
@@ -15,6 +23,11 @@ class BasketDataSource: NSObject, UITableViewDataSource, BasketProductCellDelega
     }
     
     func updateData(with newProductsByBrands: [BasketBrand]) {
+        var removedProductInfo: [String] = []
+        var changedProductAmountInfo: [String] = []
+        var changedProductPriceInfo: [String] = []
+        var changedBrandDeliveryInfo: [String] = []
+        
         var addedBrands: [Int] = []
         var removedBrands: [Int] = []
         var updatedBrands: [Int] = []
@@ -28,6 +41,9 @@ class BasketDataSource: NSObject, UITableViewDataSource, BasketProductCellDelega
             if let newBrand = newProductsByBrands.find({ $0.isEqualInBasket(to: oldBrand) }) {
                 // Brand has not been removed
                 if !newBrand.isEqualExceptProducts(to: oldBrand) {
+                    if newBrand.shippingPrice != oldBrand.shippingPrice || newBrand.waitTime != oldBrand.waitTime {
+                        changedBrandDeliveryInfo.append(newBrand.name)
+                    }
                     // Brand has been changed
                     updatedBrands.append(brandIndex)
                 }
@@ -37,18 +53,31 @@ class BasketDataSource: NSObject, UITableViewDataSource, BasketProductCellDelega
                         // Product has not been removed
                         if newProduct != oldProduct {
                             // Product has been changed
+                            if newProduct.amount != oldProduct.amount {
+                                changedProductAmountInfo.append(newProduct.name)
+                            }
+                            if newProduct.price != oldProduct.price {
+                                changedProductPriceInfo.append(newProduct.name)
+                            }
+                            
                             updatedProducts.append(NSIndexPath(forRow: productIndex, inSection: brandIndex))
                         }
                     } else {
                         // Product has been removed
+                        removedProductInfo.append(oldProduct.name)
                         removedProducts.append(NSIndexPath(forRow: productIndex, inSection: brandIndex))
                     }
                 }
             } else {
                 // Brand has been removed
+                for oldProduct in oldBrand.products {
+                    removedProductInfo.append(oldProduct.name)
+                }
                 removedBrands.append(brandIndex)
             }
         }
+        
+        lastBasketUpdateInfo = BasketUpdateInfo(removedProductInfo: removedProductInfo, changedProductAmountInfo: changedProductAmountInfo, changedProductPriceInfo: changedProductPriceInfo, changedBrandDeliveryInfo: changedBrandDeliveryInfo)
         
         // Find added
         for (brandIndex, newBrand) in newProductsByBrands.enumerate() {

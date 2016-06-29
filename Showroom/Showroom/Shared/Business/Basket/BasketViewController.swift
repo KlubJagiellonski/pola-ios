@@ -5,13 +5,15 @@ import RxSwift
 class BasketViewController: UIViewController, BasketViewDelegate {
     private let disposeBag = DisposeBag()
     private let manager: BasketManager
+    private let toastManager: ToastManager
     private var castView: BasketView { return view as! BasketView }
     private let resolver: DiResolver
     private let actionAnimator = DropUpActionAnimator(height: 216)
-    private let deliveryAnimator =  FormSheetAnimator()
+    private let deliveryAnimator = FormSheetAnimator()
     
     init(resolver: DiResolver) {
         self.manager = resolver.resolve(BasketManager.self)
+        self.toastManager = resolver.resolve(ToastManager.self)
         self.resolver = resolver
         super.init(nibName: nil, bundle: nil)
         
@@ -40,7 +42,7 @@ class BasketViewController: UIViewController, BasketViewDelegate {
         castView.updateData(with: manager.state.deliveryCountry, and: manager.state.deliveryCarrier)
         castView.discountCode = manager.state.discountCode
     }
-
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         manager.validate()
@@ -63,6 +65,14 @@ class BasketViewController: UIViewController, BasketViewDelegate {
         }
         
         castView.updateData(with: basket!)
+        
+        if let updateInfo = castView.lastUpdateInfo where manager.state.validationState.validating {
+            let messages = updateInfo.toMessages(withDiscountErrors: manager.state.basket?.discountErrors)
+            if messages.count > 0 {
+                logInfo("will show update info messages \(messages)")
+                toastManager.showMessages(messages)
+            }
+        }
     }
     
     func updateCarrier(with carrier: DeliveryCarrier?) {
@@ -147,5 +157,39 @@ extension BasketViewController: DimAnimatorDelegate {
 extension BasketViewController: BasketDeliveryNavigationControllerDelegate {
     func basketDeliveryWantsDismiss(viewController: BasketDeliveryNavigationController) {
         deliveryAnimator.dismissViewController(presentingViewController: self, completion: nil)
+    }
+}
+
+extension BasketUpdateInfo {
+    private func toMessages(withDiscountErrors discountErrors: [String]?) -> [String] {
+        var messages: [String] = []
+        if let message = createMessage(tr(.BasketErrorProductsRemoved), items: removedProductInfo) {
+            messages.append(message)
+        }
+        if let message = createMessage(tr(.BasketErrorProductsAmountChanged), items: changedProductAmountInfo) {
+            messages.append(message)
+        }
+        if let message = createMessage(tr(.BasketErrorPriceChanged), items: changedProductPriceInfo) {
+            messages.append(message)
+        }
+        if let message = createMessage(tr(.BasketErrorDeilveryInfoChanged), items: changedBrandDeliveryInfo) {
+            messages.append(message)
+        }
+        if let discountErrors = discountErrors, let message = createMessage(tr(.BasketErrorInvalidDiscountCode), items: discountErrors) {
+            messages.append(message)
+        }
+        return messages
+    }
+    
+    private func createMessage(title: String, items: [String]) -> String? {
+        guard !items.isEmpty else { return nil }
+        
+        let lineSeparator = "\n"
+        var message = title + lineSeparator
+        for info in items {
+            message += "- " + info + lineSeparator
+        }
+        message = message.substringToIndex(message.endIndex.advancedBy(-lineSeparator.characters.count))
+        return message
     }
 }

@@ -19,6 +19,9 @@ final class BasketView: ViewSwitcher, UITableViewDelegate {
     private let keyboardHelper = KeyboardHelper()
     private var checkoutBottomConstraint: Constraint?
     private let tableView = UITableView(frame: CGRectZero, style: .Plain)
+    var lastUpdateInfo: BasketUpdateInfo? {
+        return dataSource.lastBasketUpdateInfo
+    }
     
     var discountCode: String? {
         set { checkoutView.discountInput.text = newValue }
