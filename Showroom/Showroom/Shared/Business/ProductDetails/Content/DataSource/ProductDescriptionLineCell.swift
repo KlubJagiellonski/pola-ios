@@ -4,7 +4,7 @@ import UIKit
 class ProductDescriptionLineCell: UITableViewCell {
     static let titleFont = UIFont(fontType: .Description)
     static let leftMargin: CGFloat = 3
-    static let textCircleMargin: CGFloat = 20
+    static let textCircleMargin: CGFloat = 11
     static let circleDiameter: CGFloat = 4
     static let verticalMargin: CGFloat = 2
     

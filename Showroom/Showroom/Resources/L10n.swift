@@ -85,8 +85,8 @@ enum L10n {
   case ProductDetailsToBasket
   /// Tabela rozmiarów
   case ProductDetailsSizeChart
-  /// Inne produkty marki
-  case ProductDetailsOtherBrandProducts
+  /// Inne produkty %@
+  case ProductDetailsOtherBrandProducts(String)
   /// Opis produktu
   case ProductDetailsProductDescription
   /// TABELA ROZMIARÓW
@@ -264,8 +264,8 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("ProductDetails.ToBasket")
       case .ProductDetailsSizeChart:
         return L10n.tr("ProductDetails.SizeChart")
-      case .ProductDetailsOtherBrandProducts:
-        return L10n.tr("ProductDetails.OtherBrandProducts")
+      case .ProductDetailsOtherBrandProducts(let p0):
+        return L10n.tr("ProductDetails.OtherBrandProducts", p0)
       case .ProductDetailsProductDescription:
         return L10n.tr("ProductDetails.ProductDescription")
       case .ProductDetailsSizeChartUppercase:

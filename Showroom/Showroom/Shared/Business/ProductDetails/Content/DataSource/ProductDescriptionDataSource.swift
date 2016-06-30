@@ -12,6 +12,7 @@ class ProductDescriptionDataSource: NSObject, UITableViewDataSource {
     
     private var deliveryWaitTime: Int?
     private var descriptions: [String]?
+    private var brandName: String?
     
     private weak var tableView: UITableView?
     
@@ -28,9 +29,10 @@ class ProductDescriptionDataSource: NSObject, UITableViewDataSource {
         tableView.registerClass(ProductDescriptionLineCell.self, forCellReuseIdentifier: String(ProductDescriptionLineCell))
     }
     
-    func updateModel(deliveryWaitTime: Int, descriptions: [String]) {
+    func updateModel(deliveryWaitTime: Int, descriptions: [String], brandName: String) {
         self.deliveryWaitTime = deliveryWaitTime
         self.descriptions = descriptions
+        self.brandName = brandName
         tableView?.reloadData()
     }
     
@@ -86,7 +88,7 @@ class ProductDescriptionDataSource: NSObject, UITableViewDataSource {
             let cell = tableView.dequeueReusableCellWithIdentifier(String(ProductDescriptionSimpleCell), forIndexPath: indexPath) as! ProductDescriptionSimpleCell
             cell.topSeparator.hidden = false
             cell.bottomSeparator.hidden = false
-            cell.titleLabel.text = tr(.ProductDetailsOtherBrandProducts)
+            cell.titleLabel.text = tr(.ProductDetailsOtherBrandProducts(brandName ?? ""))
             cell.goImageView.hidden = false
             return cell
         default:

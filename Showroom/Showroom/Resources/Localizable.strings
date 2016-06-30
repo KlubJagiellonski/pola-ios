@@ -39,7 +39,7 @@
 "ProductAction.PickAmountTitle" = "WYBIERZ ILOŚĆ";
 "ProductDetails.ToBasket" = "DO KOSZYKA";
 "ProductDetails.SizeChart" = "Tabela rozmiarów";
-"ProductDetails.OtherBrandProducts" = "Inne produkty marki";
+"ProductDetails.OtherBrandProducts" = "Inne produkty %@";
 "ProductDetails.ProductDescription" = "Opis produktu";
 "ProductDetails.SizeChart.Uppercase" = "TABELA ROZMIARÓW";
 "ProductDetails.SizeChart.Size" = "rozmiar";

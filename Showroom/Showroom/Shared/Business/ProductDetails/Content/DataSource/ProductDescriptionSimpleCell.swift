@@ -33,7 +33,7 @@ class ProductDescriptionSimpleCell: UITableViewCell {
     
     private func configureCustomConstraints() {
         titleLabel.snp_makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.edges.equalToSuperview().inset(UIEdgeInsetsMake(0, 0, 0, 8))
         }
         goImageView.snp_makeConstraints { make in
             make.centerY.equalToSuperview()
