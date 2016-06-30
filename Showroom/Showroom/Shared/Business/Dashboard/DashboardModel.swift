@@ -77,7 +77,7 @@ class DashboardModel {
         let recommendations = state.recommendationsResult!.productRecommendations
         let index = recommendations.indexOf(recommendation)!
         let productInfos: [ProductInfo] = recommendations.map { productRecommendation in
-            let lowResImageUrl = NSURL.createImageUrl(productRecommendation.imageUrl, w: imageWidth, h: nil)
+            let lowResImageUrl = NSURL.createImageUrl(productRecommendation.imageUrl, width: imageWidth, height: nil)
             return ProductInfo.Object(productRecommendation.toProduct(withLowResImageUrl: lowResImageUrl.absoluteString))
         }
         return OnePageProductDetailsContext(productInfos: productInfos, initialProductIndex: index) { [weak self] index in

@@ -22,6 +22,7 @@ class BasketProductCell: UITableViewCell {
         super.init(style: .Default, reuseIdentifier: reuseIdentifier)
         selectionStyle = .None
         
+        photoImageView.backgroundColor = UIColor(named: .Gray)
         photoImageView.layer.masksToBounds = true
         photoImageView.contentMode = .ScaleAspectFill
         
@@ -54,7 +55,7 @@ class BasketProductCell: UITableViewCell {
     func updateData(with product: BasketProduct) {
         nameLabel.text = product.name
         photoImageView.image = nil
-        photoImageView.loadImageFromUrl(product.imageUrl)
+        photoImageView.loadImageFromUrl(product.imageUrl, width: BasketProductCell.photoSize.width)
         propertiesLabel.text = product.size.name + ", " + product.color.name
         priceLabel.basePrice = product.basePrice
         priceLabel.discountPrice = product.price

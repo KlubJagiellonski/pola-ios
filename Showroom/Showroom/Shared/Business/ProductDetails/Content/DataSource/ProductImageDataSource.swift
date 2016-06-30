@@ -75,7 +75,7 @@ class ProductImageDataSource: NSObject, UICollectionViewDataSource {
     }
     
     private func loadImageForFirstItem(imageUrl: String, forCell cell: ProductImageCell) {
-        cell.imageView.loadImageWithLowResImage(imageUrl, lowResUrl: lowResImageUrl, w: cell.bounds.width) { (image: UIImage) in
+        cell.imageView.loadImageWithLowResImage(imageUrl, lowResUrl: lowResImageUrl, width: cell.bounds.width) { (image: UIImage) in
             cell.contentViewSwitcher.switcherState = .Success
             cell.imageView.image = image
         }
@@ -97,7 +97,7 @@ class ProductImageDataSource: NSObject, UICollectionViewDataSource {
         if indexPath.row == 0 {
             loadImageForFirstItem(imageUrl, forCell: cell)
         } else {
-            cell.imageView.loadImageFromUrl(imageUrl, w: cell.bounds.width) { (image: UIImage) in
+            cell.imageView.loadImageFromUrl(imageUrl, width: cell.bounds.width) { (image: UIImage) in
                 cell.contentViewSwitcher.switcherState = .Success
                 cell.imageView.image = image
             }

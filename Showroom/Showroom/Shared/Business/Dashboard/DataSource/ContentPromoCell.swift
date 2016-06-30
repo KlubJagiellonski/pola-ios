@@ -30,7 +30,6 @@ extension ContentPromoImage {
 // MARK: - Cells
 
 class ContentPromoCell: UITableViewCell {
-    static let bottomMargin: CGFloat = 15
     static let textContainerHeight: CGFloat = 161
     
     let promoImageView = UIImageView()
@@ -58,13 +57,13 @@ class ContentPromoCell: UITableViewCell {
     }
     
     class func getHeight(forWidth width: CGFloat, model: ContentPromo) -> CGFloat {
-        return ceil(width / CGFloat(model.image.ratio)) + bottomMargin
+        return ceil(width / CGFloat(model.image.ratio)) + Dimensions.defaultMargin
     }
     
     func updateData(contentPromo: ContentPromo) {
         let image = contentPromo.image
         promoImageView.image = nil
-        promoImageView.loadImageFromUrl(image.url, w: self.contentView.bounds.width)
+        promoImageView.loadImageFromUrl(image.url, width: self.contentView.bounds.width)
         
         if let title = image.title, let subtitle = image.subtitle, let textColor = image.color {
             textContainerView.hidden = false
@@ -96,7 +95,7 @@ class ContentPromoCell: UITableViewCell {
             make.top.equalTo(promoImageView.snp_bottom)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-ContentPromoCell.bottomMargin)
+            make.bottom.equalToSuperview().offset(-Dimensions.defaultMargin)
         }
     }
 }

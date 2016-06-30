@@ -22,6 +22,7 @@ class StateTextField: UITextField {
     private let stateImageView = UIImageView()
     private let imageSize = CGSizeMake(15, 15)
     private let rightMargin: CGFloat = 11
+    private let leftMargin: CGFloat = 4
     
     var imageState: StateTextFieldState = .Default {
         didSet {
@@ -60,6 +61,6 @@ class StateTextField: UITextField {
     }
     
     private func calculateRect(bounds: CGRect) -> CGRect {
-        return CGRectMake(bounds.minX, bounds.minY, bounds.width - imageSize.width - rightMargin, bounds.height)
+        return CGRectMake(bounds.minX + leftMargin, bounds.minY, bounds.width - imageSize.width - rightMargin, bounds.height)
     }
 }

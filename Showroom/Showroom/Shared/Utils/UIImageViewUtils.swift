@@ -4,13 +4,13 @@ import Haneke
 
 extension UIImageView {
     
-    func loadImageFromUrl(url: String, w: CGFloat? = nil, h: CGFloat? = nil, failure fail: ((NSError?) -> ())? = nil, success succeed: ((UIImage) -> ())? = nil) {
-        let url = NSURL.createImageUrl(url, w: w, h: h)
+    func loadImageFromUrl(url: String, width: CGFloat? = nil, height: CGFloat? = nil, failure fail: ((NSError?) -> ())? = nil, success succeed: ((UIImage) -> ())? = nil) {
+        let url = NSURL.createImageUrl(url, width: width, height: height)
         hnk_setImageFromURL(url, format: UIImageView.defaultImageFormat, failure: fail, success: succeed)
     }
     
-    func loadImageWithLowResImage(url: String, lowResUrl: String?, w: CGFloat? = nil, h: CGFloat? = nil, failure fail: ((NSError?) -> ())? = nil, success succeed: ((UIImage) -> ())? = nil) {
-        let url = NSURL.createImageUrl(url, w: w, h: h)
+    func loadImageWithLowResImage(url: String, lowResUrl: String?, width: CGFloat? = nil, height: CGFloat? = nil, failure fail: ((NSError?) -> ())? = nil, success succeed: ((UIImage) -> ())? = nil) {
+        let url = NSURL.createImageUrl(url, width: width, height: height)
         let fetcher = ImageWithLowResFetcher(url: url, lowResUrl: lowResUrl == nil ? nil : NSURL(string: lowResUrl!))
         
         let cache = Shared.imageCache
@@ -34,7 +34,7 @@ extension UIImageView {
             if strongSelf.hnk_shouldCancelForKey(fetcher.key) { return }
             
             // we don't want to stop fetcher when this is not final image
-            if image.size.width == w {
+            if image.size.width == width {
                 strongSelf.hnk_fetcher = nil
             }
             

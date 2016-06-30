@@ -82,7 +82,7 @@ final class ProductItemCell: UICollectionViewCell {
     
     func updateData(with product: Product) {
         productImageView.image = nil
-        productImageView.loadImageFromUrl(product.imageUrl, w: bounds.width)
+        productImageView.loadImageFromUrl(product.imageUrl, width: bounds.width)
         brandLabel.text = product.brand
         nameLabel.text = product.name
         priceRow.basePriceLabel.hidden = product.basePrice == product.price

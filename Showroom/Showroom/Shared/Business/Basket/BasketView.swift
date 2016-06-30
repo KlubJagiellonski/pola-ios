@@ -221,7 +221,6 @@ final class BasketCheckoutView: UIView {
         self.backgroundColor = UIColor.whiteColor()
         
         discountInput.applyPlainStyle()
-        discountInput.rightViewMode = .Always
         discountInput.returnKeyType = .Send
         
         shippingButton.setTitle(tr(.BasketShippingChange), forState: .Normal)
