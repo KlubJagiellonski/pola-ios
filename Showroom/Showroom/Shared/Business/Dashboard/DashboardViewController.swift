@@ -102,5 +102,9 @@ class DashboardViewController: UIViewController, DashboardViewDelegate {
     func viewSwitcherDidTapRetry(view: ViewSwitcher) {
         castView.switcherState = .Loading
         fetchContentPromo()
+        if castView.recommendationViewSwitcherState == .Error {
+            castView.recommendationViewSwitcherState = .Loading
+            fetchRecommendations()
+        }
     }
 }

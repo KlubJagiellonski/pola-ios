@@ -26,7 +26,8 @@ class CheckoutSummaryViewController: UIViewController, CheckoutSummaryViewDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        castView.updateData(with: manager.state.basket, comments: model.comments)
+        
+        castView.updateData(with: manager.state.basket, carrier: manager.state.deliveryCarrier, comments: model.comments)
     }
     
     private func showCommentModal(forComment comment: String?, at index: Int)

@@ -1,5 +1,3 @@
-"Common.Delivery.UPS" = "kurier UPS";
-"Common.Delivery.RUCH" = "paczka w RUCH-u";
 "Common.DeliveryInfo.Single" = "Wysyłka w %@ dzień";
 "Common.DeliveryInfo.Multi" = "Wysyłka w %@ dni";
 "MainTab.Dashboard" = "Główna";

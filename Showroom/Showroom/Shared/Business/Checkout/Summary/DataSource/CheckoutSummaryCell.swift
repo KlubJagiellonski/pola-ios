@@ -47,19 +47,11 @@ class CheckoutSummaryCell: UITableViewCell {
         priceLabel.basePrice = product.price
     }
     
-    func updateData(with brand: BasketBrand, delivery: DeliveryType) {
+    func updateData(with brand: BasketBrand, carrier deliveryCarrier: DeliveryCarrier) {
         let deliveryWaitTime = brand.waitTime
         let deliveryTimeDescription = (deliveryWaitTime == 0 ? tr(.CommonDeliveryInfoSingle(String(deliveryWaitTime))) : tr(.CommonDeliveryInfoMulti(String(deliveryWaitTime))))
         
-        var deliveryName: String
-        switch delivery {
-        case .RUCH:
-            deliveryName = tr(.CommonDeliveryRUCH)
-        case .UPS:
-            deliveryName = tr(.CommonDeliveryUPS)
-        }
-        
-        descriptionLabel.title =  String(format: "%@, %@", deliveryTimeDescription, deliveryName)
+        descriptionLabel.title =  String(format: "%@, %@", deliveryTimeDescription, deliveryCarrier.name)
         descriptionLabel.value = nil
         priceLabel.basePrice = brand.shippingPrice
     }

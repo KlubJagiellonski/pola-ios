@@ -13,8 +13,8 @@ class BasketDeliveryView: ViewSwitcher {
     private let countryTitleLabel = UILabel()
     private let countryDeliveryView = BasketCountryDeliveryView()
     private let deliveryOptionsTitle = UILabel()
-    private let upsDeliveryOptionView = BasketDeliveryOptionView(title: tr(.CommonDeliveryUPS))
-    private let ruchDeliveryOptionView = BasketDeliveryOptionView(title: tr(.CommonDeliveryRUCH))
+    private let upsDeliveryOptionView = BasketDeliveryOptionView()
+    private let ruchDeliveryOptionView = BasketDeliveryOptionView()
     private let infoLabel = UILabel()
     private let okButton = UIButton()
     
@@ -78,10 +78,12 @@ class BasketDeliveryView: ViewSwitcher {
         let upsCarrier = basket.deliveryInfo.carriers.find { $0.id == DeliveryType.UPS }
         upsDeliveryOptionView.enabled = upsCarrier?.available ?? false
         upsDeliveryOptionView.priceLabel.text = upsCarrier?.deliveryCost?.stringValue
+        upsDeliveryOptionView.titleLabel.text = upsCarrier?.name
         
         let ruchCarrier = basket.deliveryInfo.carriers.find { $0.id == DeliveryType.RUCH }
         ruchDeliveryOptionView.enabled = ruchCarrier?.available ?? false
         ruchDeliveryOptionView.priceLabel.text = ruchCarrier?.deliveryCost?.stringValue
+        ruchDeliveryOptionView.titleLabel.text = ruchCarrier?.name
     }
     
     func updateData(with selectedCountry: DeliveryCountry?) {
@@ -260,7 +262,7 @@ class BasketDeliveryOptionView: UIControl {
         }
     }
     
-    init(title: String) {
+    init() {
         super.init(frame: CGRectZero)
         
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(BasketDeliveryOptionView.didTapView)))
@@ -268,7 +270,6 @@ class BasketDeliveryOptionView: UIControl {
         checkBoxImageView.tintColor = BasketDeliveryOptionView.disabledColor
         
         titleLabel.font = UIFont(fontType: .FormNormal)
-        titleLabel.text = title
         
         priceLabel.font = UIFont(fontType: .FormNormal)
         

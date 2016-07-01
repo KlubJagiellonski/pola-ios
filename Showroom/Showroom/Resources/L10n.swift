@@ -3,10 +3,6 @@
 import Foundation
 
 enum L10n {
-  /// kurier UPS
-  case CommonDeliveryUPS
-  /// paczka w RUCH-u
-  case CommonDeliveryRUCH
   /// Wysyłka w %@ dzień
   case CommonDeliveryInfoSingle(String)
   /// Wysyłka w %@ dni
@@ -182,10 +178,6 @@ extension L10n: CustomStringConvertible {
 
   var string: String {
     switch self {
-      case .CommonDeliveryUPS:
-        return L10n.tr("Common.Delivery.UPS")
-      case .CommonDeliveryRUCH:
-        return L10n.tr("Common.Delivery.RUCH")
       case .CommonDeliveryInfoSingle(let p0):
         return L10n.tr("Common.DeliveryInfo.Single", p0)
       case .CommonDeliveryInfoMulti(let p0):

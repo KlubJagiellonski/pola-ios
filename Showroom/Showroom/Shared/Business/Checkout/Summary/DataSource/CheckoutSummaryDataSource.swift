@@ -12,7 +12,7 @@ class CheckoutSummaryDataSource: NSObject, UITableViewDataSource, CheckoutSummar
     private var totalPrice: Money = Money()
     private var totalBasePrice: Money = Money()
     private var comments: [String?]?
-    private var delivery: DeliveryType = .UPS
+    private var deliveryCarrier: DeliveryCarrier?
     private weak var tableView: UITableView?
     weak var summaryView: CheckoutSummaryView?
     
@@ -26,12 +26,12 @@ class CheckoutSummaryDataSource: NSObject, UITableViewDataSource, CheckoutSummar
         tableView.registerClass(CheckoutSummaryBuyCell.self, forCellReuseIdentifier: String(CheckoutSummaryBuyCell))
     }
     
-    func updateData(with basket: Basket, comments: [String?]? = nil, delivery: DeliveryType = .UPS) {
+    func updateData(with basket: Basket, carrier deliveryCarrier: DeliveryCarrier, comments: [String?]? = nil) {
         self.productsByBrands = basket.productsByBrands
         self.totalPrice = basket.price
         self.totalBasePrice = basket.basePrice
         self.comments = comments
-        self.delivery = delivery
+        self.deliveryCarrier = deliveryCarrier
         
         tableView?.reloadData()
     }
@@ -78,7 +78,7 @@ class CheckoutSummaryDataSource: NSObject, UITableViewDataSource, CheckoutSummar
             } else if isDeliveryCell(at: indexPath) {
                 let cell = tableView.dequeueReusableCellWithIdentifier(String(CheckoutSummaryCell)) as! CheckoutSummaryCell
                 let brand = productsByBrands[indexPath.section]
-                cell.updateData(with: brand, delivery: delivery)
+                cell.updateData(with: brand, carrier: deliveryCarrier!)
                 return cell
             } else if isCommentCell(at: indexPath) {
                 let cell = tableView.dequeueReusableCellWithIdentifier(String(CheckoutSummaryCommentCell)) as! CheckoutSummaryCommentCell
