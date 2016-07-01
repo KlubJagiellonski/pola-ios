@@ -82,3 +82,11 @@
 "ProductList.Badge.New" = "NEW";
 "ProductList.Badge.FreeDelivery" = "DARMOWA DOSTAWA";
 "ProductList.Badge.Premium" = "PREMIUM";
+"Login.NavigationHeader" = "Logowanie";
+"Login.LoginWithFacebook" = "ZALOGUJ SIĘ Z FACEBOOKIEM";
+"Login.Or" = "lub";
+"Login.Email" = "E-mail";
+"Login.Password" = "Hasło";
+"Login.LoginButton" = "ZALOGUJ SIĘ";
+"Login.PassReminder" = "Przypomnienie hasła";
+"Login.NewAccount" = "Załóż nowe konto";

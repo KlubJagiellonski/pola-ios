@@ -81,17 +81,7 @@ class CheckoutDeliveryInfoHeaderView: UIView {
     }
 }
 
-class CheckoutDeliveryInputView: UIView {
-    static let inputLabelHeight: CGFloat = 17.0
-    static let inputLabelToTextFieldOffset: CGFloat = 10.0
-    static let textFieldHeight: CGFloat = 41.0
-    static let validationLabelHeight: CGFloat = 25.0
-    static let validationLabelToBottomInset: CGFloat = 2.0
-    
-    private let inputLabel = UILabel()
-    private let inputTextField = FormInputTextField(frame: CGRectZero)
-    private let validationLabel = FormFieldValidationLabel(frame: CGRectZero)
-    
+class CheckoutDeliveryInputView: FormInputView {
     private let inputType: AddressFormField
     private(set) var addressField: AddressFormField {
         get { return getAddressField() }
@@ -100,15 +90,9 @@ class CheckoutDeliveryInputView: UIView {
     
     init(addressField: AddressFormField) {
         self.inputType = addressField
-        super.init(frame: CGRectZero)
+        super.init()
         updateTextField(addressFormField: addressField)
-        inputLabel.font = UIFont(fontType: .FormBold)
         updateInputType(self.inputType)
-        addSubview(inputLabel)
-        addSubview(inputTextField)
-        addSubview(validationLabel)
-
-        configureCustomConstraints()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -117,64 +101,39 @@ class CheckoutDeliveryInputView: UIView {
     
     private func getAddressField() -> AddressFormField {
         switch inputType {
-        case .FirstName: return .FirstName(value: inputTextField.text)
-        case .LastName: return .LastName(value: inputTextField.text)
-        case .StreetAndApartmentNumbers: return .StreetAndApartmentNumbers(value: inputTextField.text)
-        case .PostalCode: return .PostalCode(value: inputTextField.text)
-        case .City: return .City(value: inputTextField.text)
-        case .Country: return .Country(defaultValue: inputTextField.placeholder!)
-        case .Phone: return .Phone(value: inputTextField.text)
+        case .FirstName: return .FirstName(value: text)
+        case .LastName: return .LastName(value: text)
+        case .StreetAndApartmentNumbers: return .StreetAndApartmentNumbers(value: text)
+        case .PostalCode: return .PostalCode(value: text)
+        case .City: return .City(value: text)
+        case .Country: return .Country(defaultValue: placeholder!)
+        case .Phone: return .Phone(value: text)
         }
     }
     
     private func updateTextField(addressFormField addressFormField: AddressFormField) {
         switch addressFormField {
-        case .FirstName(let value): inputTextField.text = value
-        case .LastName(let value): inputTextField.text = value
-        case .StreetAndApartmentNumbers(let value): inputTextField.text = value
-        case .PostalCode(let value): inputTextField.text = value
-        case .City(let value): inputTextField.text = value
+        case .FirstName(let value): text = value
+        case .LastName(let value): text = value
+        case .StreetAndApartmentNumbers(let value): text = value
+        case .PostalCode(let value): text = value
+        case .City(let value): text = value
         case .Country(let defaultValue):
-            inputTextField.userInteractionEnabled = false
-            inputTextField.placeholder = defaultValue
-        case .Phone(let value): inputTextField.text = value
+            userInteractionEnabled = false
+            placeholder = defaultValue
+        case .Phone(let value): text = value
         }
     }
     
     func updateInputType(toInputType: AddressFormField) {
-        inputLabel.text = String(toInputType)
+        title = String(toInputType)
         
         // validation mockup
         switch toInputType {
         case .LastName:
-            validationLabel.text = "To pole może zawierać tylko litery i myślnik"
-            validationLabel.hidden = false
+            validation = "To pole może zawierać tylko litery i myślnik"
         default:
-            validationLabel.hidden = true
-        }
-    }
-    
-    func configureCustomConstraints() {
-        inputLabel.snp_makeConstraints { make in
-            make.leading.equalToSuperview().inset(Dimensions.defaultMargin)
-            make.trailing.equalToSuperview().inset(Dimensions.defaultMargin)
-            make.top.equalToSuperview()
-            make.height.equalTo(CheckoutDeliveryInputView.inputLabelHeight)
-        }
-        
-        inputTextField.snp_makeConstraints { make in
-            make.leading.equalToSuperview().inset(Dimensions.defaultMargin)
-            make.trailing.equalToSuperview().inset(Dimensions.defaultMargin)
-            make.top.equalTo(inputLabel.snp_bottom).offset(CheckoutDeliveryInputView.inputLabelToTextFieldOffset)
-            make.height.equalTo(CheckoutDeliveryInputView.textFieldHeight)
-        }
-        
-        validationLabel.snp_makeConstraints { make in
-            make.leading.equalToSuperview().inset(Dimensions.defaultMargin)
-            make.trailing.equalToSuperview().inset(Dimensions.defaultMargin)
-            make.top.equalTo(inputTextField.snp_bottom)
-            make.height.equalTo(CheckoutDeliveryInputView.validationLabelHeight)
-            make.bottom.equalToSuperview().inset(CheckoutDeliveryInputView.validationLabelToBottomInset)
+            validation = nil
         }
     }
 }

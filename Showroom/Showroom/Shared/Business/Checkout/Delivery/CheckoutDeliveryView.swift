@@ -15,7 +15,6 @@ class CheckoutDeliveryView: UIView {
     private let scrollView = UIScrollView()
     private let stackView = UIStackView()
     private let nextButton = UIButton()
-    private let topSeparator = UIView()
     
     private let keyboardHelper = KeyboardHelper()
     
@@ -43,9 +42,6 @@ class CheckoutDeliveryView: UIView {
         }
         
         backgroundColor = UIColor(named: .White)
-        
-        topSeparator.backgroundColor = UIColor(named: .Manatee)
-        addSubview(topSeparator)
     
         scrollView.bounces = true
         scrollView.showsVerticalScrollIndicator = false
@@ -71,17 +67,10 @@ class CheckoutDeliveryView: UIView {
     }
     
     func configureCustomCostraints() {
-        topSeparator.snp_makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
-            make.height.equalTo(Dimensions.defaultSeparatorThickness)
-        }
-        
         scrollView.snp_makeConstraints { make in
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
-            make.top.equalTo(topSeparator.snp_bottom)
+            make.top.equalToSuperview()
         }
         
         stackView.snp_makeConstraints { make in

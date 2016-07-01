@@ -171,6 +171,22 @@ enum L10n {
   case ProductListBadgeFreeDelivery
   /// PREMIUM
   case ProductListBadgePremium
+  /// Logowanie
+  case LoginNavigationHeader
+  /// ZALOGUJ SIĘ Z FACEBOOKIEM
+  case LoginLoginWithFacebook
+  /// lub
+  case LoginOr
+  /// E-mail
+  case LoginEmail
+  /// Hasło
+  case LoginPassword
+  /// ZALOGUJ SIĘ
+  case LoginLoginButton
+  /// Przypomnienie hasła
+  case LoginPassReminder
+  /// Załóż nowe konto
+  case LoginNewAccount
 }
 
 extension L10n: CustomStringConvertible {
@@ -346,6 +362,22 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("ProductList.Badge.FreeDelivery")
       case .ProductListBadgePremium:
         return L10n.tr("ProductList.Badge.Premium")
+      case .LoginNavigationHeader:
+        return L10n.tr("Login.NavigationHeader")
+      case .LoginLoginWithFacebook:
+        return L10n.tr("Login.LoginWithFacebook")
+      case .LoginOr:
+        return L10n.tr("Login.Or")
+      case .LoginEmail:
+        return L10n.tr("Login.Email")
+      case .LoginPassword:
+        return L10n.tr("Login.Password")
+      case .LoginLoginButton:
+        return L10n.tr("Login.LoginButton")
+      case .LoginPassReminder:
+        return L10n.tr("Login.PassReminder")
+      case .LoginNewAccount:
+        return L10n.tr("Login.NewAccount")
     }
   }
 

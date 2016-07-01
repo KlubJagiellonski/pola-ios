@@ -1,6 +1,7 @@
 import UIKit
 
 final class FormInputTextField: UITextField {
+    static let textFieldHeight: CGFloat = 41
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -20,5 +21,9 @@ final class FormInputTextField: UITextField {
     
     override func editingRectForBounds(bounds: CGRect) -> CGRect {
         return CGRectInset(bounds, 13, 0)
+    }
+    
+    override func intrinsicContentSize() -> CGSize {
+        return CGSizeMake(UIViewNoIntrinsicMetric, FormInputTextField.textFieldHeight)
     }
 }

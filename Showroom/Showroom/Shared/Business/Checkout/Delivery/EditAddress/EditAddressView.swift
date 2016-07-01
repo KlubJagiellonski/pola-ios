@@ -10,7 +10,6 @@ class EditAddressView: UIView {
     private let scrollView = UIScrollView()
     private let stackView = UIStackView()
     private let saveButton = UIButton()
-    private let topSeparator = UIView()
     
     private var formFields: [AddressFormField] {
         set { updateStackView(formFields: newValue) }
@@ -27,9 +26,6 @@ class EditAddressView: UIView {
         keyboardHelper.delegate = self
         
         backgroundColor = UIColor(named: .White)
-        
-        topSeparator.backgroundColor = UIColor(named: .Manatee)
-        addSubview(topSeparator)
         
         scrollView.bounces = true
         scrollView.showsVerticalScrollIndicator = false
@@ -55,22 +51,15 @@ class EditAddressView: UIView {
     }
     
     func configureCustomCostraints() {
-        topSeparator.snp_makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
-            make.height.equalTo(Dimensions.defaultSeparatorThickness)
-        }
-        
         scrollView.snp_makeConstraints { make in
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
-            make.top.equalTo(topSeparator.snp_bottom)
+            make.top.equalToSuperview()
         }
         
         stackView.snp_makeConstraints { make in
-            make.edges.equalTo(scrollView.snp_edges)
-            make.width.equalTo(self)
+            make.edges.equalTo(scrollView.snp_edges).inset(Dimensions.defaultMargin)
+            make.width.equalToSuperview().offset(-2 * Dimensions.defaultMargin)
         }
         
         saveButton.snp_makeConstraints { make in

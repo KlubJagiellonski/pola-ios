@@ -7,6 +7,7 @@ class SettingsViewController: UIViewController {
     let incrementBadgeButton = UIButton()
     let decrementBadgeButton = UIButton()
     let showToastsButton = UIButton()
+    let showLoginButton = UIButton()
     
     let dropUpAnimator: DropUpActionAnimator
     
@@ -43,6 +44,11 @@ class SettingsViewController: UIViewController {
         showToastsButton.addTarget(self, action: #selector(SettingsViewController.showToastsButtonPressed(_:)), forControlEvents: .TouchUpInside)
         view.addSubview(showToastsButton)
         
+        showLoginButton.setTitle("SHOW LOGIN", forState: .Normal)
+        showLoginButton.applySimpleBlueStyle()
+        showLoginButton.addTarget(self, action: #selector(SettingsViewController.showLoginButtonPressed(_:)), forControlEvents: .TouchUpInside)
+        view.addSubview(showLoginButton)
+        
         configureCustomConstraints()
     }
     
@@ -70,6 +76,11 @@ class SettingsViewController: UIViewController {
         toastManager.showMessages(["Lorem ipsum dolor sit amet, consectetur adipiscing elit", ", sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris ", "nisi ut aliquip ex ea commodo consequat"])
     }
     
+    func showLoginButtonPressed(sender: UIButton) {
+        let viewController = resolver.resolve(LoginNavigationController.self)
+        presentViewController(viewController, animated: true, completion: nil)
+    }
+    
     func configureCustomConstraints() {
         incrementBadgeButton.snp_makeConstraints { make in
             make.center.equalToSuperview()
@@ -82,6 +93,11 @@ class SettingsViewController: UIViewController {
         
         showToastsButton.snp_makeConstraints { make in
             make.top.equalTo(decrementBadgeButton.snp_bottom)
+            make.centerX.equalToSuperview()
+        }
+        
+        showLoginButton.snp_makeConstraints { make in
+            make.top.equalTo(showToastsButton.snp_bottom)
             make.centerX.equalToSuperview()
         }
     }

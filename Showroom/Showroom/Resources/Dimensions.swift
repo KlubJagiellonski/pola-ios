@@ -5,7 +5,8 @@ struct Dimensions {
     static let defaultMargin: CGFloat = 15
     static let defaultButtonHeight: CGFloat = 37
     static let defaultInputHeight: CGFloat = 26
-    static let defaultSeparatorThickness: CGFloat = 1
+    static let defaultSeparatorThickness: CGFloat = 0.5 // should be 1 for non-retina devices only
+    static let boldSeparatorThickness: CGFloat = 1.0
     static let defaultCellHeight: CGFloat = 44
     static let tabViewHeight: CGFloat = 49 // May by useful when bottomLayooutGuide is not available
     static let navigationBarHeight: CGFloat = 44 // May by useful when topLayoutGuide is not available

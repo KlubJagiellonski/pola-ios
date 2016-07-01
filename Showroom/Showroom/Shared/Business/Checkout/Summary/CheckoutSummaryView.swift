@@ -10,7 +10,6 @@ protocol CheckoutSummaryViewDelegate: class {
 class CheckoutSummaryView: UIView, UITableViewDelegate {
     private let dataSource: CheckoutSummaryDataSource;
     private let tableView = UITableView(frame: CGRectZero, style: .Plain)
-    private let topSeparator = UIView()
     
     weak var delegate: CheckoutSummaryViewDelegate?
     
@@ -24,11 +23,8 @@ class CheckoutSummaryView: UIView, UITableViewDelegate {
         tableView.dataSource = dataSource
         tableView.separatorStyle = .None
         
-        topSeparator.backgroundColor = UIColor(named: .Manatee)
-        
         backgroundColor = UIColor(named: .White)
         
-        addSubview(topSeparator)
         addSubview(tableView)
         
         configureCustomConstraints()
@@ -39,18 +35,8 @@ class CheckoutSummaryView: UIView, UITableViewDelegate {
     }
     
     private func configureCustomConstraints() {
-        topSeparator.snp_makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
-            make.height.equalTo(Dimensions.defaultSeparatorThickness)
-        }
-        
         tableView.snp_makeConstraints { make in
-            make.left.equalToSuperview()
-            make.top.equalTo(topSeparator.snp_bottom)
-            make.right.equalToSuperview()
-            make.bottom.equalToSuperview()
+            make.edges.equalToSuperview()
         }
     }
     

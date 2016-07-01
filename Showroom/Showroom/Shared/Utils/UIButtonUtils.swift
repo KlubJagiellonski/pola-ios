@@ -2,6 +2,16 @@ import Foundation
 import UIKit
 
 extension UIButton {
+    var title: String? {
+        set {
+            setTitle(newValue, forState: .Normal)
+        }
+        
+        get {
+            return titleLabel?.text
+        }
+    }
+    
     func applyBlueStyle() {
         titleLabel!.font = UIFont(fontType: .Button)
         setTitleColor(UIColor(named: .White), forState: .Normal)
@@ -12,6 +22,7 @@ extension UIButton {
     func applyPlainStyle() {
         setTitleColor(UIColor(named: .Blue), forState: .Normal)
         setTitleColor(UIColor(named: .Black), forState: .Highlighted)
+        setTitleColor(UIColor(named: .DarkGray), forState: .Disabled)
         titleLabel!.font = UIFont(fontType: .List)
     }
     
@@ -41,5 +52,14 @@ extension UIButton {
         titleLabel?.font = UIFont(fontType: .ProductActionHeader)
         titleLabel?.adjustsFontSizeToFitWidth = true
         titleLabel?.lineBreakMode = .ByClipping
+    }
+    
+    func applyFacebookStyle() {
+        titleLabel!.font = UIFont(fontType: .Button)
+        setTitleColor(UIColor(named: .White), forState: .Normal)
+        setBackgroundImage(UIImage.fromColor(UIColor(named: .Facebook)), forState: .Normal)
+        setBackgroundImage(UIImage.fromColor(UIColor(named: .DarkGray)), forState: .Disabled)
+        setImage(UIImage(named: "ic_fb"), forState: .Normal)
+        imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, Dimensions.defaultMargin)
     }
 }

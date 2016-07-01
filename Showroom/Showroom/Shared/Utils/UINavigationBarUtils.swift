@@ -10,7 +10,7 @@ extension UINavigationBar {
             NSFontAttributeName: UIFont(fontType: .NavigationBar)
         ]
         tintColor = UIColor(named: .Black)
-        shadowImage = UIImage()
+        shadowImage = UIImage.fromColor(UIColor(named: .Manatee), size: CGSizeMake(1, Dimensions.defaultSeparatorThickness))
         setBackgroundImage(UIImage(), forBarPosition: .Any, barMetrics: .Default)
     }
     
@@ -21,7 +21,6 @@ extension UINavigationBar {
             NSFontAttributeName: UIFont(fontType: .NavigationBar)
         ]
         tintColor = UIColor(named: .Black)
-        shadowImage = UIImage()
     }
     
     func applyWhitePopupStyle() {
