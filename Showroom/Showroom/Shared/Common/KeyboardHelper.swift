@@ -1,6 +1,23 @@
 import Foundation
 import UIKit
 
+protocol KeyboardHandler: class {
+    var keyboardHelper: KeyboardHelper { get }
+    
+    func registerOnKeyboardEvent()
+    func unregisterOnKeyboardEvent()
+}
+
+extension KeyboardHandler {
+    func registerOnKeyboardEvent() {
+        keyboardHelper.register()
+    }
+    
+    func unregisterOnKeyboardEvent() {
+        keyboardHelper.unregister()
+    }
+}
+
 protocol KeyboardHelperDelegate: class {
     func keyboardHelperChangedKeyboardState(fromFrame: CGRect, toFrame: CGRect, duration: Double, animationOptions: UIViewAnimationOptions)
 }
@@ -31,6 +48,12 @@ class KeyboardHelper {
             animationInProgress = false
             registered = false
         }
+    }
+    
+    func retrieveBottomMargin(view: UIView, keyboardToFrame: CGRect) -> CGFloat {
+        let viewInWindowFrame = view.convertRect(view.bounds, toView: nil)
+        let bottomMargin = viewInWindowFrame.maxY - keyboardToFrame.minY
+        return bottomMargin
     }
     
     @objc private func keyboardWillShow(notification: NSNotification) {

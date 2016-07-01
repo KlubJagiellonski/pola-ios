@@ -32,7 +32,7 @@ class LoginView: UIView {
         emailField.title = tr(.LoginEmail)
         
         passwordField.title = tr(.LoginPassword)
-        passwordField.secureTextEntry = true
+        passwordField.inputTextField.secureTextEntry = true
         
         loginButton.applyBlueStyle()
         loginButton.title = tr(.LoginLoginButton)

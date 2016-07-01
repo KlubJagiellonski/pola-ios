@@ -90,3 +90,5 @@
 "Login.LoginButton" = "ZALOGUJ SIĘ";
 "Login.PassReminder" = "Przypomnienie hasła";
 "Login.NewAccount" = "Załóż nowe konto";
+"Validator.NotEmpty" = "To pole nie może być puste";
+"Validator.PhoneNumber" = "Brakuje międzynarodowego numeru kierunkowego (np. +48)";

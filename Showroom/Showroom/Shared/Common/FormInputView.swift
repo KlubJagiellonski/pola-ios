@@ -1,5 +1,20 @@
 import UIKit
 
+extension FormInputView: ContentValidator {
+    func getValue() -> AnyObject? {
+        return inputTextField.text
+    }
+    
+    func showError(error: String) {
+        validationLabel.text = error
+        validationLabel.hidden = false
+    }
+    
+    func hideError() {
+        validationLabel.hidden = true
+    }
+}
+
 class FormInputView: UIView {
     static let inputLabelHeight: CGFloat = 17.0
     static let inputLabelToTextFieldOffset: CGFloat = 10.0
@@ -7,7 +22,7 @@ class FormInputView: UIView {
     static let validationLabelToBottomInset: CGFloat = 2.0
     
     private let inputLabel = UILabel()
-    private let inputTextField = FormInputTextField(frame: CGRectZero)
+    let inputTextField = FormInputTextField(frame: CGRectZero)
     private let validationLabel = FormFieldValidationLabel(frame: CGRectZero)
     
     var title: String? {
@@ -16,24 +31,6 @@ class FormInputView: UIView {
         }
         set {
             inputLabel.text = newValue
-        }
-    }
-    
-    var text: String? {
-        get {
-            return inputTextField.text
-        }
-        set {
-            inputTextField.text = newValue
-        }
-    }
-    
-    var placeholder: String? {
-        get {
-            return inputTextField.placeholder
-        }
-        set {
-            inputTextField.placeholder = newValue
         }
     }
     
@@ -46,17 +43,6 @@ class FormInputView: UIView {
             validationLabel.hidden = newValue == nil
         }
     }
-    
-    var secureTextEntry: Bool {
-        get {
-            return inputTextField.secureTextEntry
-        }
-        set {
-            inputTextField.secureTextEntry = newValue
-        }
-    }
-    
-    
     
     init() {
         super.init(frame: CGRectZero)

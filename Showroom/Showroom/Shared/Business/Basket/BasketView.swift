@@ -16,7 +16,7 @@ final class BasketView: ViewSwitcher, UITableViewDelegate {
     private let checkoutView = BasketCheckoutView()
     private let checkoutBottomBackgroundView = UIView()
     private let dataSource: BasketDataSource;
-    private let keyboardHelper = KeyboardHelper()
+    let keyboardHelper = KeyboardHelper()
     private var checkoutBottomConstraint: Constraint?
     private let tableView = UITableView(frame: CGRectZero, style: .Plain)
     var lastUpdateInfo: BasketUpdateInfo? {
@@ -90,14 +90,6 @@ final class BasketView: ViewSwitcher, UITableViewDelegate {
         checkoutView.checkoutButton.enabled = validated
     }
     
-    func registerOnKeyboardEvent() {
-        keyboardHelper.register()
-    }
-    
-    func unregisterOnKeyboardEvent() {
-        keyboardHelper.unregister()
-    }
-    
     func didTapShippingButton(button: UIButton) {
         delegate?.basketViewDidTapShipping(self)
     }
@@ -168,11 +160,11 @@ final class BasketView: ViewSwitcher, UITableViewDelegate {
     }
 }
 
-extension BasketView: KeyboardHelperDelegate {
+extension BasketView: KeyboardHandler, KeyboardHelperDelegate {
     func keyboardHelperChangedKeyboardState(fromFrame: CGRect, toFrame: CGRect, duration: Double, animationOptions: UIViewAnimationOptions) {
-        let bottomOffset = bounds.height - toFrame.minY
+        let bottomMargin = keyboardHelper.retrieveBottomMargin(self, keyboardToFrame: toFrame)
         
-        checkoutBottomConstraint?.updateOffset(-max(bottomOffset, Dimensions.tabViewHeight))
+        checkoutBottomConstraint?.updateOffset(-max(bottomMargin, Dimensions.tabViewHeight))
         
         self.setNeedsLayout()
         let animations = {

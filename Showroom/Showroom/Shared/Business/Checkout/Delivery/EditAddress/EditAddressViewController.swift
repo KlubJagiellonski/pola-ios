@@ -42,6 +42,9 @@ class EditAddressViewController: UIViewController, EditAddressViewDelegate {
     }
     
     func editAddressViewDidTapSaveButton(view: EditAddressView, savedAddressFields: [AddressFormField]) {
+        guard castView.validate(showResult: true) else {
+            return
+        }
         switch editingState {
         case .Add:
             delegate?.editAddressViewControllerDidAddAddress(self, savedAddressFields: savedAddressFields)

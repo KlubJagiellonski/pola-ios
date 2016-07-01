@@ -16,7 +16,8 @@ class EditAddressView: UIView {
         get { return getAddressFields() }
     }
     
-    private let keyboardHelper = KeyboardHelper()
+    let keyboardHelper = KeyboardHelper()
+    var contentValidators: [ContentValidator] = []
     
     weak var delegate: EditAddressViewDelegate?
     
@@ -71,17 +72,14 @@ class EditAddressView: UIView {
         }
     }
     
-    func registerOnKeyboardEvent() {
-        keyboardHelper.register()
-    }
-    
-    func unregisterOnKeyboardEvent() {
-        keyboardHelper.unregister()
-    }
-    
     func updateStackView(formFields formFields: [AddressFormField]) {
-        for formField in formFields {
+        for (index, formField) in formFields.enumerate() {
             let inputView = CheckoutDeliveryInputView(addressField: formField)
+            inputView.inputTextField.tag = index
+            inputView.inputTextField.returnKeyType = index == (formFields.count - 1) ? .Send : .Next
+            inputView.inputTextField.keyboardType = formField.keyboardType
+            inputView.inputTextField.delegate = self
+            contentValidators.append(inputView)
             stackView.addArrangedSubview(inputView)
         }        
     }
@@ -104,9 +102,21 @@ class EditAddressView: UIView {
     }
 }
 
-extension EditAddressView: KeyboardHelperDelegate {
+extension EditAddressView: UITextFieldDelegate {
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        return handleTextFieldReturn(textField)
+    }
+}
+
+extension EditAddressView: FormView {
+    func onFormReachedEnd() {
+        delegate?.editAddressViewDidTapSaveButton(self, savedAddressFields: formFields)
+    }
+}
+
+extension EditAddressView: KeyboardHelperDelegate, KeyboardHandler {
     func keyboardHelperChangedKeyboardState(fromFrame: CGRect, toFrame: CGRect, duration: Double, animationOptions: UIViewAnimationOptions) {
         let bottomOffset = (UIScreen.mainScreen().bounds.height - toFrame.minY) - saveButton.bounds.height
-        scrollView.contentInset = UIEdgeInsetsMake(0, 0, max(bottomOffset, 0), 0)
+        scrollView.contentInset = UIEdgeInsetsMake(Dimensions.defaultMargin, 0, max(bottomOffset, 0), 0)
     }
 }

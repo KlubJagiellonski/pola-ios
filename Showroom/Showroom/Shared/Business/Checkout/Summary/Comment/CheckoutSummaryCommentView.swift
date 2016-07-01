@@ -12,7 +12,7 @@ class CheckoutSummaryCommentView: UIView {
     private let commentView = ExtendedTextView()
     private let saveButton = UIButton()
     private let closeButton = UIButton()
-    private let keyboardHelper = KeyboardHelper()
+    let keyboardHelper = KeyboardHelper()
     
     var comment: String {
         get {
@@ -94,14 +94,6 @@ class CheckoutSummaryCommentView: UIView {
         endEditing(true)
     }
     
-    func registerOnKeyboardEvent() {
-        keyboardHelper.register()
-    }
-    
-    func unregisterOnKeyboardEvent() {
-        keyboardHelper.unregister()
-    }
-    
     func didTapClose() {
         logInfo("Close comment modal")
         delegate?.checkoutSummaryCommentViewDidTapClose(self)
@@ -113,7 +105,7 @@ class CheckoutSummaryCommentView: UIView {
     }
 }
 
-extension CheckoutSummaryCommentView: KeyboardHelperDelegate {
+extension CheckoutSummaryCommentView: KeyboardHandler, KeyboardHelperDelegate {
     func keyboardHelperChangedKeyboardState(fromFrame: CGRect, toFrame: CGRect, duration: Double, animationOptions: UIViewAnimationOptions) {
         frame.origin.y = (toFrame.minY - frame.height) * 0.5
         

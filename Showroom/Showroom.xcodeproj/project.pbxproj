@@ -62,6 +62,9 @@
 		1D30808E1D225E2F00674D11 /* UITabBarControllerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D30808D1D225E2F00674D11 /* UITabBarControllerUtils.swift */; };
 		1D3792721D196931001A7C47 /* ViewSwitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3792711D196931001A7C47 /* ViewSwitcher.swift */; };
 		1D3EEA1A1D143C1100F67B69 /* BasketRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3EEA191D143C1100F67B69 /* BasketRequest.swift */; };
+		1D470E341D265CB500677122 /* FormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D470E331D265CB500677122 /* FormView.swift */; };
+		1D470E361D26736E00677122 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D470E351D26736E00677122 /* Validator.swift */; };
+		1D470E3B1D26AA7400677122 /* ValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D470E3A1D26AA7400677122 /* ValidatorTests.swift */; };
 		1D5B5E661D0197B700B74822 /* MoneyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5B5E651D0197B700B74822 /* MoneyTests.swift */; };
 		1D5EF1C81CEB60ED0071C097 /* RxTests.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1D2F199D1CEA14FE0099142E /* RxTests.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1D5EF1C91CEB60F20071C097 /* RxBlocking.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1D2F199A1CEA14FE0099142E /* RxBlocking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -300,6 +303,9 @@
 		1D30808D1D225E2F00674D11 /* UITabBarControllerUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITabBarControllerUtils.swift; sourceTree = "<group>"; };
 		1D3792711D196931001A7C47 /* ViewSwitcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewSwitcher.swift; sourceTree = "<group>"; };
 		1D3EEA191D143C1100F67B69 /* BasketRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasketRequest.swift; sourceTree = "<group>"; };
+		1D470E331D265CB500677122 /* FormView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormView.swift; sourceTree = "<group>"; };
+		1D470E351D26736E00677122 /* Validator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
+		1D470E3A1D26AA7400677122 /* ValidatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidatorTests.swift; sourceTree = "<group>"; };
 		1D5B5E651D0197B700B74822 /* MoneyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneyTests.swift; sourceTree = "<group>"; };
 		1D5EF1D01CEB666B0071C097 /* UIImageViewUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageViewUtils.swift; sourceTree = "<group>"; };
 		1D72ECFD1CF456DA007AFD2F /* NavigationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationTests.swift; sourceTree = "<group>"; };
@@ -566,6 +572,7 @@
 		1D2F19521CE9CE250099142E /* ShowroomTests */ = {
 			isa = PBXGroup;
 			children = (
+				1D470E391D26AA5700677122 /* Common */,
 				1D5B5E641D01979D00B74822 /* Model */,
 				1D72ED0A1CFC22DF007AFD2F /* Network */,
 				1D72ECFC1CF456C1007AFD2F /* Navigation */,
@@ -633,6 +640,14 @@
 				1D2F19A01CEA14FE0099142E /* XCGLogger.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1D470E391D26AA5700677122 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				1D470E3A1D26AA7400677122 /* ValidatorTests.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		1D5B5E641D01979D00B74822 /* Model */ = {
@@ -1000,6 +1015,8 @@
 				75FE56A41D23C32800DF5356 /* ExtendedTextView.swift */,
 				1D1A7E171D25054D009CCCE7 /* BadgeLabel.swift */,
 				75FE56B61D26A3C200DF5356 /* FormInputView.swift */,
+				1D470E331D265CB500677122 /* FormView.swift */,
+				1D470E351D26736E00677122 /* Validator.swift */,
 			);
 			name = Common;
 			path = Showroom/Shared/Common;
@@ -1307,6 +1324,7 @@
 				1D1A7DFB1D240065009CCCE7 /* CategoryProductListViewController.swift in Sources */,
 				75E269AB1CFC7B8700ED3CA2 /* BasketView.swift in Sources */,
 				C09280741D08468500350B82 /* ProductColorHeaderView.swift in Sources */,
+				1D470E341D265CB500677122 /* FormView.swift in Sources */,
 				1DD161B11D01CCB20022B5C9 /* ProductDetailsCell.swift in Sources */,
 				C09280561D0584A900350B82 /* DropUpActionAnimator.swift in Sources */,
 				1D1A7E0C1D242178009CCCE7 /* ProductListView.swift in Sources */,
@@ -1356,6 +1374,7 @@
 				751A501D1D194E0000DF7D2B /* CheckoutSummaryView.swift in Sources */,
 				1D0F3B561D12D28D0052CFF6 /* UINavigationBarUtils.swift in Sources */,
 				751A50161D11575000DF7D2B /* ProductAmountDataSource.swift in Sources */,
+				1D470E361D26736E00677122 /* Validator.swift in Sources */,
 				7586E27F1D22BB5F0086DE94 /* UITextViewUtils.swift in Sources */,
 				1DAA7C711D09BBA900545BB9 /* ProductDescriptionLineCell.swift in Sources */,
 				1DF796851CEB477B00C7A7F4 /* NetworkAssembly.swift in Sources */,
@@ -1454,6 +1473,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D72ED0C1CFC22FD007AFD2F /* NetworkTests.swift in Sources */,
+				1D470E3B1D26AA7400677122 /* ValidatorTests.swift in Sources */,
 				1D2F19541CE9CE250099142E /* ShowroomTests.swift in Sources */,
 				1D5B5E661D0197B700B74822 /* MoneyTests.swift in Sources */,
 				1D72ECFE1CF456DA007AFD2F /* NavigationTests.swift in Sources */,

@@ -39,6 +39,38 @@ enum AddressFormField: CustomStringConvertible {
         case Phone: return tr(.CheckoutDeliveryAddressFormPhone)
         }
     }
+    
+    var validators: [Validator] {
+        var validators: [Validator] = []
+        if case Phone = self {
+            validators.append(PhoneNumberValidator())
+            validators.append(NotEmptyValidator())
+        } else if case Country = self {
+        } else {
+            validators.append(NotEmptyValidator())
+        }
+        return validators
+    }
+    
+    var placeholder: String? {
+        switch self {
+        case Phone:
+            return "+48"
+        default:
+            return nil
+        }
+    }
+    
+    var keyboardType: UIKeyboardType {
+        switch self {
+        case PostalCode:
+            return .NumbersAndPunctuation
+        case Phone:
+            return .PhonePad
+        default:
+            return .Default
+        }
+    }
 }
 
 enum Delivery {
@@ -73,11 +105,15 @@ class CheckoutDeliveryInfoHeaderView: UIView {
     
     func configureCustomConstraints() {
         label.snp_makeConstraints { make in
-            make.leading.equalToSuperview().inset(Dimensions.defaultMargin)
-            make.trailing.equalToSuperview().inset(Dimensions.defaultMargin)
-            make.top.equalToSuperview().inset(Dimensions.defaultMargin)
-            make.bottom.equalToSuperview().inset(Dimensions.defaultMargin)
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.top.equalToSuperview()
+            make.bottom.equalToSuperview()
         }
+    }
+    
+    override func intrinsicContentSize() -> CGSize {
+        return CGSizeMake(UIViewNoIntrinsicMetric, label.intrinsicContentSize().height + 2 * Dimensions.defaultMargin)
     }
 }
 
@@ -101,40 +137,34 @@ class CheckoutDeliveryInputView: FormInputView {
     
     private func getAddressField() -> AddressFormField {
         switch inputType {
-        case .FirstName: return .FirstName(value: text)
-        case .LastName: return .LastName(value: text)
-        case .StreetAndApartmentNumbers: return .StreetAndApartmentNumbers(value: text)
-        case .PostalCode: return .PostalCode(value: text)
-        case .City: return .City(value: text)
-        case .Country: return .Country(defaultValue: placeholder!)
-        case .Phone: return .Phone(value: text)
+        case .FirstName: return .FirstName(value: inputTextField.text)
+        case .LastName: return .LastName(value: inputTextField.text)
+        case .StreetAndApartmentNumbers: return .StreetAndApartmentNumbers(value: inputTextField.text)
+        case .PostalCode: return .PostalCode(value: inputTextField.text)
+        case .City: return .City(value: inputTextField.text)
+        case .Country: return .Country(defaultValue: inputTextField.placeholder!)
+        case .Phone: return .Phone(value: inputTextField.text)
         }
     }
     
     private func updateTextField(addressFormField addressFormField: AddressFormField) {
+        addValidators(addressFormField.validators)
+        inputTextField.placeholder = addressFormField.placeholder
         switch addressFormField {
-        case .FirstName(let value): text = value
-        case .LastName(let value): text = value
-        case .StreetAndApartmentNumbers(let value): text = value
-        case .PostalCode(let value): text = value
-        case .City(let value): text = value
+        case .FirstName(let value): inputTextField.text = value
+        case .LastName(let value): inputTextField.text = value
+        case .StreetAndApartmentNumbers(let value): inputTextField.text = value
+        case .PostalCode(let value): inputTextField.text = value
+        case .City(let value): inputTextField.text = value
         case .Country(let defaultValue):
-            userInteractionEnabled = false
-            placeholder = defaultValue
-        case .Phone(let value): text = value
+            inputTextField.enabled = false
+            inputTextField.placeholder = defaultValue
+        case .Phone(let value): inputTextField.text = value
         }
     }
     
     func updateInputType(toInputType: AddressFormField) {
         title = String(toInputType)
-        
-        // validation mockup
-        switch toInputType {
-        case .LastName:
-            validation = "To pole może zawierać tylko litery i myślnik"
-        default:
-            validation = nil
-        }
     }
 }
 
@@ -158,8 +188,8 @@ class CheckoutDeliveryLabelView: UIView {
     
     func configureCustomConstraints() {
         label.snp_makeConstraints { make in
-            make.leading.equalToSuperview().inset(Dimensions.defaultMargin)
-            make.trailing.equalToSuperview().inset(Dimensions.defaultMargin)
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
             make.top.equalToSuperview()
             make.height.equalTo(CheckoutDeliveryLabelView.labelHeight)
             make.bottom.equalToSuperview().inset(CheckoutDeliveryLabelView.inset)
@@ -197,8 +227,8 @@ class CheckoutDeliveryAddressOptionView: UIView {
     
     func configureCustomConstraints() {
         addressOption.snp_makeConstraints { make in
-            make.leading.equalToSuperview().inset(Dimensions.defaultMargin)
-            make.trailing.equalToSuperview().inset(Dimensions.defaultMargin)
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
             make.top.equalToSuperview()
             make.bottom.equalToSuperview().inset(CheckoutDeliveryAddressOptionView.inset)
         }
@@ -255,7 +285,7 @@ class CheckoutDeliveryEditButtonView: UIView {
 
     func configureCustomConstraints() {
         button.snp_makeConstraints { make in
-            make.trailing.equalToSuperview().inset(Dimensions.defaultMargin)
+            make.trailing.equalToSuperview()
             make.top.equalToSuperview()
             make.height.equalTo(CheckoutDeliveryEditButtonView.labelHeight)
             make.bottom.equalToSuperview().inset(CheckoutDeliveryEditButtonView.inset)
@@ -322,12 +352,12 @@ class CheckoutDeliveryDetailsView: UIView {
     
     func configureCustomConstraints() {
         button.snp_makeConstraints { make in
-            make.trailing.equalToSuperview().inset(Dimensions.defaultMargin)
+            make.trailing.equalToSuperview()
             make.bottom.equalToSuperview().inset(CheckoutDeliveryDetailsView.inset)
         }
         
         label.snp_makeConstraints { make in
-            make.leading.equalToSuperview().inset(Dimensions.defaultMargin)
+            make.leading.equalToSuperview()
             make.width.equalTo(CheckoutDeliveryDetailsView.labelWidth)
             make.top.equalToSuperview()
             make.height.equalTo(CheckoutDeliveryDetailsView.labelHeight)

@@ -9,6 +9,24 @@ protocol CheckoutDeliveryViewDelegate: class {
     func checkoutDeliveryViewDidTapNextButton(view: CheckoutDeliveryView)
 }
 
+class CheckoutValidator: Validator {
+    @objc var failedMessage: String? = nil
+    
+    @objc func validate(currentValue: AnyObject?) -> Bool {
+        guard let deliveryView = currentValue as? CheckoutDeliveryView else { return false }
+        guard let optionViews = deliveryView.addressOptionViews else { return true }
+        
+        var selected = false
+        for optionView in optionViews {
+            if optionView.selected {
+                selected = true
+                break
+            }
+        }
+        return selected
+    }
+}
+
 class CheckoutDeliveryView: UIView {
     static let buttonHeight: CGFloat = 52.0
     
@@ -16,10 +34,11 @@ class CheckoutDeliveryView: UIView {
     private let stackView = UIStackView()
     private let nextButton = UIButton()
     
-    private let keyboardHelper = KeyboardHelper()
+    var contentValidators: [ContentValidator] = []
+    let keyboardHelper = KeyboardHelper()
     
     private(set) var addressInput: AddressInput
-
+    
     var addressOptionViews: [CheckoutDeliveryAddressOptionView]?
     var selectedAddressIndex: Int! {
         didSet {
@@ -34,6 +53,8 @@ class CheckoutDeliveryView: UIView {
         self.addressInput = addressInput
         super.init(frame: CGRectZero)
         
+        addValidator(CheckoutValidator())
+        
         keyboardHelper.delegate = self
         
         if case .Options = addressInput {
@@ -42,7 +63,7 @@ class CheckoutDeliveryView: UIView {
         }
         
         backgroundColor = UIColor(named: .White)
-    
+        
         scrollView.bounces = true
         scrollView.showsVerticalScrollIndicator = false
         addSubview(scrollView)
@@ -74,8 +95,8 @@ class CheckoutDeliveryView: UIView {
         }
         
         stackView.snp_makeConstraints { make in
-            make.edges.equalTo(scrollView.snp_edges)
-            make.width.equalTo(self)
+            make.edges.equalTo(scrollView.snp_edges).inset(UIEdgeInsetsMake(0, Dimensions.defaultMargin, 0, Dimensions.defaultMargin))
+            make.width.equalTo(self).offset(-2 * Dimensions.defaultMargin)
         }
         
         nextButton.snp_makeConstraints { make in
@@ -97,6 +118,9 @@ class CheckoutDeliveryView: UIView {
     
     func updateStackView(addressInput: AddressInput, delivery: Delivery, didAddAddress: Bool) {
         addressOptionViews?.removeAll()
+        contentValidators.removeAll()
+        contentValidators.append(self)
+        
         for view in stackView.arrangedSubviews {
             stackView.removeArrangedSubview(view)
             view.removeFromSuperview()
@@ -106,8 +130,14 @@ class CheckoutDeliveryView: UIView {
         
         switch addressInput {
         case .Form(let fields):
-            for field in fields {
-                stackView.addArrangedSubview(CheckoutDeliveryInputView(addressField: field))
+            for (index, field) in fields.enumerate() {
+                let inputView = CheckoutDeliveryInputView(addressField: field)
+                inputView.inputTextField.tag = index
+                inputView.inputTextField.returnKeyType = index == (fields.count - 1) ? .Done : .Next
+                inputView.inputTextField.keyboardType = field.keyboardType
+                inputView.inputTextField.delegate = self
+                contentValidators.append(inputView)
+                stackView.addArrangedSubview(inputView)
             }
             
         case .Options(let addresses):
@@ -187,9 +217,29 @@ class CheckoutDeliveryView: UIView {
     }
 }
 
-extension CheckoutDeliveryView: KeyboardHelperDelegate {
+extension CheckoutDeliveryView: ContentValidator {
+    func getValue() -> AnyObject? {
+        return self
+    }
+    func showError(error: String) { }
+    func hideError() { }
+}
+
+extension CheckoutDeliveryView: UITextFieldDelegate {
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        return handleTextFieldReturn(textField)
+    }
+}
+
+extension CheckoutDeliveryView: FormView {
+    func onFormReachedEnd() {
+        dismissKeyboard()
+    }
+}
+
+extension CheckoutDeliveryView: KeyboardHelperDelegate, KeyboardHandler {
     func keyboardHelperChangedKeyboardState(fromFrame: CGRect, toFrame: CGRect, duration: Double, animationOptions: UIViewAnimationOptions) {
-        let bottomOffset = (UIScreen.mainScreen().bounds.height - toFrame.minY) - nextButton.bounds.height
+        let bottomOffset = keyboardHelper.retrieveBottomMargin(self, keyboardToFrame: toFrame) - nextButton.bounds.height
         scrollView.contentInset = UIEdgeInsetsMake(0, 0, max(bottomOffset, 0), 0)
     }
 }

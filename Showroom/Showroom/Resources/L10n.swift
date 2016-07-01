@@ -187,6 +187,10 @@ enum L10n {
   case LoginPassReminder
   /// Załóż nowe konto
   case LoginNewAccount
+  /// To pole nie może być puste
+  case ValidatorNotEmpty
+  /// Brakuje międzynarodowego numeru kierunkowego (np. +48)
+  case ValidatorPhoneNumber
 }
 
 extension L10n: CustomStringConvertible {
@@ -378,6 +382,10 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Login.PassReminder")
       case .LoginNewAccount:
         return L10n.tr("Login.NewAccount")
+      case .ValidatorNotEmpty:
+        return L10n.tr("Validator.NotEmpty")
+      case .ValidatorPhoneNumber:
+        return L10n.tr("Validator.PhoneNumber")
     }
   }
 

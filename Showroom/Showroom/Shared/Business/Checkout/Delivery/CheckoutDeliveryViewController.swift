@@ -79,6 +79,9 @@ class CheckoutDeliveryViewController: UIViewController, CheckoutDeliveryViewDele
     }
     
     func checkoutDeliveryViewDidTapNextButton(view: CheckoutDeliveryView) {
+        guard view.validate(showResult: true) else {
+            return
+        }
         sendNavigationEvent(SimpleNavigationEvent(type: .ShowCheckoutSummary))
     }
     
