@@ -80,10 +80,10 @@ final class ProductItemCell: UICollectionViewCell {
         delegate?.productItemCellDidDoubleTap(self)
     }
     
-    func updateData(with product: Product) {
+    func updateData(with product: ListProduct) {
         productImageView.image = nil
         productImageView.loadImageFromUrl(product.imageUrl, width: bounds.width)
-        brandLabel.text = product.brand
+        brandLabel.text = product.brand.name
         nameLabel.text = product.name
         priceRow.basePriceLabel.hidden = product.basePrice == product.price
         
@@ -98,7 +98,9 @@ final class ProductItemCell: UICollectionViewCell {
         priceRow.priceLabel.text = priceValue
         priceRow.basePriceLabel.attributedText = basePriceStrikethrough
         
-        
+        newBadgeLabel.hidden = !product.new
+        freeDeliveryBadgeLabel.hidden = !product.freeDelivery
+        premiumBadgeLabel.hidden = !product.premium
         let priceDiscount = product.price.calculateDiscountPercent(fromMoney: product.basePrice)
         priceDiscountBadgeLabel.hidden = priceDiscount == 0
         priceDiscountBadgeLabel.text = "-\(priceDiscount)%"

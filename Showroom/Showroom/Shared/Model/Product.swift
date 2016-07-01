@@ -15,9 +15,26 @@ struct Product {
     let lowResImageUrl: String?
 }
 
+struct ProductListResult {
+    let products: [ListProduct]
+    let isLastPage: Bool
+}
+
+struct ListProduct {
+    let id: ObjectId
+    let brand: ProductBrand
+    let name: String
+    let basePrice: Money
+    let price: Money
+    let imageUrl: String
+    let freeDelivery: Bool
+    let premium: Bool
+    let new: Bool
+}
+
 struct ProductDetails {
     let id: ObjectId
-    let brand: ProductDetailsBrand
+    let brand: ProductBrand
     let name: String
     let basePrice: Money
     let price: Money
@@ -30,7 +47,7 @@ struct ProductDetails {
     let freeDelivery: Bool
 }
 
-struct ProductDetailsBrand {
+struct ProductBrand {
     let id: ObjectId
     let name: String
 }
@@ -61,6 +78,32 @@ struct ProductDetailsSize {
 }
 
 // MARK: - Decodable, Encodable
+
+extension ProductListResult: Decodable {
+    static func decode(json: AnyObject) throws -> ProductListResult {
+        let array = json as! [AnyObject]
+        return ProductListResult(
+            products: try array.map(ListProduct.decode),
+            isLastPage: false //todo change when api will give it
+        )
+    }
+}
+
+extension ListProduct: Decodable {
+    static func decode(j: AnyObject) throws -> ListProduct {
+        return try ListProduct(
+            id: j => "id",
+            brand: j => "store",
+            name: j => "name",
+            basePrice: j => "msrp",
+            price: j => "price",
+            imageUrl: j => "images" => "default" => "url",
+            freeDelivery: j => "free_delivery",
+            premium: j => "premium",
+            new: j => "new"
+        )
+    }
+}
 
 extension ProductDetails: Decodable, Encodable {
     static func decode(j: AnyObject) throws -> ProductDetails {
@@ -99,9 +142,9 @@ extension ProductDetails: Decodable, Encodable {
     }
 }
 
-extension ProductDetailsBrand: Decodable, Encodable {
-    static func decode(j: AnyObject) throws -> ProductDetailsBrand {
-        return try ProductDetailsBrand(
+extension ProductBrand: Decodable, Encodable {
+    static func decode(j: AnyObject) throws -> ProductBrand {
+        return try ProductBrand(
             id: j => "id",
             name: j => "name"
         )
@@ -185,18 +228,28 @@ extension ProductDetailsSize: Decodable, Encodable {
 
 // MARK: - Equatable
 
+extension ProductListResult: Equatable {}
+extension ListProduct: Equatable {}
 extension ProductDetails: Equatable {}
-extension ProductDetailsBrand: Equatable {}
+extension ProductBrand: Equatable {}
 extension ProductDetailsImage: Equatable {}
 extension ProductDetailsColor: Equatable {}
 extension ProductDetailsColorType: Equatable {}
 extension ProductDetailsSize: Equatable {}
 
+func ==(lhs: ProductListResult, rhs: ProductListResult) -> Bool {
+    return lhs.products == rhs.products && lhs.isLastPage == rhs.isLastPage
+}
+
+func ==(lhs: ListProduct, rhs: ListProduct) -> Bool {
+    return lhs.id == rhs.id && lhs.brand == rhs.brand && lhs.basePrice == rhs.basePrice && lhs.price == rhs.price && lhs.imageUrl == rhs.imageUrl && lhs.freeDelivery == rhs.freeDelivery && lhs.new == rhs.new && lhs.premium == rhs.premium
+}
+
 func ==(lhs: ProductDetails, rhs: ProductDetails) -> Bool {
     return lhs.id == rhs.id && lhs.brand == rhs.brand && lhs.name == rhs.name && lhs.basePrice == rhs.basePrice && lhs.price == rhs.price && lhs.images == rhs.images && lhs.colors == rhs.colors && lhs.sizes == rhs.sizes && lhs.waitTime == rhs.waitTime && lhs.description == rhs.description && lhs.freeDelivery == rhs.freeDelivery
 }
 
-func ==(lhs: ProductDetailsBrand, rhs: ProductDetailsBrand) -> Bool {
+func ==(lhs: ProductBrand, rhs: ProductBrand) -> Bool {
     return lhs.id == rhs.id && lhs.name == rhs.name
 }
 

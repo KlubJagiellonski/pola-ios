@@ -72,6 +72,24 @@ extension ApiService {
             return Observable.error(error)
         }
     }
+    
+    func fetchProducts() -> Observable<ProductListResult> {
+        let url = NSURL(fileURLWithPath: basePath)
+            .URLByAppendingPathComponent("products")
+        
+        let urlRequest = NSMutableURLRequest(URL: url)
+        urlRequest.HTTPMethod = "GET"
+        return networkClient
+            .request(withRequest: urlRequest)
+            .flatMap { data -> Observable<ProductListResult> in
+                do {
+                    let result = try NSJSONSerialization.JSONObjectWithData(data, options: [])
+                    return Observable.just(try ProductListResult.decode(result))
+                } catch {
+                    return Observable.error(error)
+                }
+        }
+    }
 }
 
 extension NSURL {

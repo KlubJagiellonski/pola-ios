@@ -97,7 +97,7 @@ class UIAssembly: AssemblyType {
             return CategoryProductListViewController(withResolver: r.resolve(DiResolver.self)!, category: category)
         }
         container.register(CategoryProductListModel.self) { r, category in
-            return CategoryProductListModel(category: category)
+            return CategoryProductListModel(with: category, and: r.resolve(ApiService.self)!)
         }
         
     }

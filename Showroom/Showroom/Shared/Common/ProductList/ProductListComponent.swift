@@ -25,8 +25,8 @@ enum ProductListSection: Int {
 
 protocol ProductListComponentDelegate: class {
     func productListComponentWillDisplayNextPage(component: ProductListComponent)
-    func productListComponent(component: ProductListComponent, didTapProduct product: Product)
-    func productListComponent(component: ProductListComponent, didDoubleTapProduct product: Product)
+    func productListComponent(component: ProductListComponent, didTapProduct product: ListProduct)
+    func productListComponent(component: ProductListComponent, didDoubleTapProduct product: ListProduct)
 }
 
 class ProductListComponent: NSObject, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, ProductItemCellDelegate {
@@ -35,7 +35,7 @@ class ProductListComponent: NSObject, UICollectionViewDataSource, UICollectionVi
     private let itemTitleHeight: CGFloat = 62
     
     private var informedAboutNextPage = false
-    private var products: [Product] = []
+    private var products: [ListProduct] = []
     private weak var collectionView: UICollectionView?
     weak var delegate: ProductListComponentDelegate?
     
@@ -67,7 +67,7 @@ class ProductListComponent: NSObject, UICollectionViewDataSource, UICollectionVi
         collectionView.registerClass(ProductNextPageCell.self, forCellWithReuseIdentifier: String(ProductNextPageCell))
     }
     
-    func appendData(products: [Product], nextPageState: NextPageState) {
+    func appendData(products: [ListProduct], nextPageState: NextPageState) {
         guard let collectionView = collectionView else { return }
         
         informedAboutNextPage = false
@@ -87,7 +87,7 @@ class ProductListComponent: NSObject, UICollectionViewDataSource, UICollectionVi
             }, completion: nil)
     }
     
-    func updateData(products: [Product], nextPageState: NextPageState) {
+    func updateData(products: [ListProduct], nextPageState: NextPageState) {
         informedAboutNextPage = false
         self.products = products
         self.nextPageState = nextPageState
@@ -210,7 +210,7 @@ class ProductListComponent: NSObject, UICollectionViewDataSource, UICollectionVi
         }
     }
     
-    func product(forCell cell: ProductItemCell) -> Product? {
+    func product(forCell cell: ProductItemCell) -> ListProduct? {
         guard let collectionView = collectionView else { return nil }
         guard let indexPath = collectionView.indexPathForCell(cell) else { return nil }
         return products[indexPath.item]

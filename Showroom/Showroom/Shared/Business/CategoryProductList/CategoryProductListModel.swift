@@ -3,8 +3,8 @@ import Foundation
 final class CategoryProductListModel: ProductListModel {
     let category: Category
     
-    init(category: Category) {
+    init(with category: Category, and apiService: ApiService) {
         self.category = category
-        super.init()
+        super.init(with: apiService)
     }
 }
