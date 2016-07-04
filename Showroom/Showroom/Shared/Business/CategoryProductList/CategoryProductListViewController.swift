@@ -48,4 +48,8 @@ class CategoryProductListViewController: UIViewController, ProductListViewContro
     func productListView(listView: ProductListViewInterface, didDoubleTapProduct product: ListProduct) {
         logInfo("double tapped product: \(product)")
     }
+    
+    func viewSwitcherDidTapRetry(view: ViewSwitcher) {
+        fetchFirstPage()
+    }
 }

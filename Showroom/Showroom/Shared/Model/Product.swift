@@ -81,10 +81,9 @@ struct ProductDetailsSize {
 
 extension ProductListResult: Decodable {
     static func decode(json: AnyObject) throws -> ProductListResult {
-        let array = json as! [AnyObject]
-        return ProductListResult(
-            products: try array.map(ListProduct.decode),
-            isLastPage: false //todo change when api will give it
+        return try ProductListResult(
+            products: json => "products",
+            isLastPage: json => "isLastPage"
         )
     }
 }

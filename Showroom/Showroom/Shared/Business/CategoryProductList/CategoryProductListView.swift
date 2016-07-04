@@ -1,14 +1,18 @@
 import Foundation
 import UIKit
 
-protocol CategoryProductListViewDelegate: ProductListViewDelegate {
+protocol CategoryProductListViewDelegate: ProductListViewDelegate, ViewSwitcherDelegate {
     
 }
 
 class CategoryProductListView: ViewSwitcher, ProductListViewInterface, ProductListComponentDelegate {
     let productListComponent: ProductListComponent
     let collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: UICollectionViewFlowLayout())
-    weak var delegate: ProductListViewDelegate?
+    weak var delegate: ProductListViewDelegate? {
+        didSet {
+            switcherDelegate = categoryListDelegate
+        }
+    }
     weak var categoryListDelegate: CategoryProductListViewDelegate? {
         return delegate as? CategoryProductListViewDelegate
     }
@@ -19,6 +23,7 @@ class CategoryProductListView: ViewSwitcher, ProductListViewInterface, ProductLi
         
         backgroundColor = UIColor(named: .White)
         
+        switcherDataSource = self
         productListComponent.delegate = self
         
         collectionView.applyProductListConfiguration()
@@ -33,4 +38,13 @@ class CategoryProductListView: ViewSwitcher, ProductListViewInterface, ProductLi
     }
 }
 
+extension CategoryProductListView: ViewSwitcherDataSource {
+    func viewSwitcherWantsErrorInfo(view: ViewSwitcher) -> (ErrorText, ErrorImage?) {
+        return (tr(.CommonError), UIImage(asset: .Error))
+    }
+    
+    func viewSwitcherWantsEmptyView(view: ViewSwitcher) -> UIView? {
+        return nil
+    }
+}
 

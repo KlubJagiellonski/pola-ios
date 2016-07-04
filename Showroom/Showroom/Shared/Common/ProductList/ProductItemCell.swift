@@ -86,7 +86,7 @@ final class ProductItemCell: UICollectionViewCell {
         brandLabel.text = product.brand.name
         nameLabel.text = product.name
         priceRow.basePriceLabel.hidden = product.basePrice == product.price
-        
+
         let priceValue = product.price.stringValue
         let basePriceValue = product.basePrice.stringValue
         let basePriceStrikethrough = basePriceValue.createStrikethroughString(UIColor(named: .DarkGray))
@@ -144,6 +144,10 @@ final class ProductItemCell: UICollectionViewCell {
             make.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
         }
+    }
+    
+    override func preferredLayoutAttributesFittingAttributes(layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
+        return layoutAttributes
     }
 }
 

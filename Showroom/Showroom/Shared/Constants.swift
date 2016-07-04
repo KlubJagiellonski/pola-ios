@@ -12,6 +12,7 @@ struct Constants {
     static let emarsysMerchantId = "13CE3A05D54F66DD"
     static let emarsysRecommendationItemsLimit: Int32 = 10
     static let basketProductAmountLimit: Int = 10
+    static let productListPageSize: Int = 40
     
     struct Cache {
         static let contentPromoId = "ContentPromoId"

@@ -49,11 +49,11 @@ class ProductListComponent: NSObject, UICollectionViewDataSource, UICollectionVi
             return CGSizeMake(0, 0)
         }
         
-        let columnWidthFor3Columns = (collectionView.bounds.width - Dimensions.defaultMargin * 2 - self.interItemSpacing * 2) / 3
-        let columnWidthFor2Columns = (collectionView.bounds.width - Dimensions.defaultMargin * 2 - self.interItemSpacing) / 2
+        let columnWidthFor3Columns = floor((collectionView.bounds.width - Dimensions.defaultMargin * 2 - self.interItemSpacing * 2) / 3)
+        let columnWidthFor2Columns = floor((collectionView.bounds.width - Dimensions.defaultMargin * 2 - self.interItemSpacing) / 2)
         let itemWidth = columnWidthFor3Columns > self.minItemWidth ? columnWidthFor3Columns : columnWidthFor2Columns
         let imageHeight = itemWidth / CGFloat(Dimensions.defaultImageRatio)
-        let itemHeight = imageHeight + self.itemTitleHeight
+        let itemHeight = ceil(imageHeight + self.itemTitleHeight)
         return CGSizeMake(itemWidth, itemHeight)
     }()
     

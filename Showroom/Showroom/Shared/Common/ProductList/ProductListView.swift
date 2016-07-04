@@ -59,5 +59,6 @@ extension ProductListComponentDelegate where Self: ProductListViewInterface {
 extension UICollectionView {
     func applyProductListConfiguration() {
         backgroundColor = UIColor(named: .White)
+        showsVerticalScrollIndicator = false
     }
 }

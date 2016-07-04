@@ -73,9 +73,10 @@ extension ApiService {
         }
     }
     
-    func fetchProducts() -> Observable<ProductListResult> {
+    func fetchProducts(forPage: Int, pageSize: Int = Constants.productListPageSize) -> Observable<ProductListResult> {
         let url = NSURL(fileURLWithPath: basePath)
             .URLByAppendingPathComponent("products")
+            .URLByAppendingParams(["page": String(forPage), "pageSize": String(pageSize)])
         
         let urlRequest = NSMutableURLRequest(URL: url)
         urlRequest.HTTPMethod = "GET"
