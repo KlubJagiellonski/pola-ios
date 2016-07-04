@@ -1,6 +1,6 @@
 import UIKit
 
-final class ProductNextPageCell: UICollectionViewCell {
+final class ProductLoadingPageCell: UICollectionViewCell {
     let loadingIndicator = LoadingIndicator()
     
     override init(frame: CGRect) {
@@ -9,7 +9,7 @@ final class ProductNextPageCell: UICollectionViewCell {
         addSubview(loadingIndicator)
         
         loadingIndicator.snp_makeConstraints { make in
-            make.center.equalToSuperview()
+            make.center.equalToSuperview().inset(UIEdgeInsetsMake(0, 0, Dimensions.defaultMargin, 0))
         }
     }
     

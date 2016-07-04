@@ -7,6 +7,10 @@ enum L10n {
   case CommonDeliveryInfoSingle(String)
   /// Wysyłka w %@ dni
   case CommonDeliveryInfoMulti(String)
+  /// Coś poszło nie tak. Nie udało się załadować danych.
+  case CommonError
+  /// UUUPS!
+  case CommonEmptyResultTitle
   /// Główna
   case MainTabDashboard
   /// Przeglądanie
@@ -143,8 +147,6 @@ enum L10n {
   case CheckoutDeliveryEditKioskGeocodingError
   /// WYBIERZ
   case CheckoutDeliveryEditKioskSave
-  /// Coś poszło nie tak. Nie udało się załadować danych.
-  case CommonError
   /// Podsumowanie
   case CheckoutSummaryNavigationHeader
   /// %@ szt. Rozmiar: %@ Kolor: %@
@@ -179,6 +181,8 @@ enum L10n {
   case ProductListBadgeFreeDelivery
   /// PREMIUM
   case ProductListBadgePremium
+  /// Niestety nie znaleziono żadnych produktów.
+  case ProductListEmptyDescription
   /// Logowanie
   case LoginNavigationHeader
   /// ZALOGUJ SIĘ Z FACEBOOKIEM
@@ -212,6 +216,10 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Common.DeliveryInfo.Single", p0)
       case .CommonDeliveryInfoMulti(let p0):
         return L10n.tr("Common.DeliveryInfo.Multi", p0)
+      case .CommonError:
+        return L10n.tr("Common.Error")
+      case .CommonEmptyResultTitle:
+        return L10n.tr("Common.EmptyResultTitle")
       case .MainTabDashboard:
         return L10n.tr("MainTab.Dashboard")
       case .MainTabSearch:
@@ -348,8 +356,6 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Checkout.Delivery.EditKiosk.GeocodingError")
       case .CheckoutDeliveryEditKioskSave:
         return L10n.tr("Checkout.Delivery.EditKiosk.Save")
-      case .CommonError:
-        return L10n.tr("CommonError")
       case .CheckoutSummaryNavigationHeader:
         return L10n.tr("Checkout.Summary.NavigationHeader")
       case .CheckoutSummaryProductDescription(let p0, let p1, let p2):
@@ -384,6 +390,8 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("ProductList.Badge.FreeDelivery")
       case .ProductListBadgePremium:
         return L10n.tr("ProductList.Badge.Premium")
+      case .ProductListEmptyDescription:
+        return L10n.tr("ProductList.Empty.Description")
       case .LoginNavigationHeader:
         return L10n.tr("Login.NavigationHeader")
       case .LoginLoginWithFacebook:

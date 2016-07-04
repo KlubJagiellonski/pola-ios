@@ -44,7 +44,9 @@ extension CategoryProductListView: ViewSwitcherDataSource {
     }
     
     func viewSwitcherWantsEmptyView(view: ViewSwitcher) -> UIView? {
-        return nil
+        let emptyView = ProductListEmptyView()
+        emptyView.descriptionText = tr(.ProductListEmptyDescription)
+        return emptyView
     }
 }
 

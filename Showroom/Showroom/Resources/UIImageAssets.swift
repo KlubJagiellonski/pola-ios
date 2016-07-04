@@ -32,6 +32,7 @@ enum Asset: String {
   case Ic_share = "ic_share"
   case Ic_tick = "ic_tick"
   case Ic_w_ulubionych = "ic_w_ulubionych"
+  case Img_wieszak = "img_wieszak"
   case Refresh = "refresh"
 
   var image: UIImage {

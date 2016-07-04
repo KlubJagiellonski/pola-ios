@@ -25,6 +25,7 @@ enum ProductListSection: Int {
 
 protocol ProductListComponentDelegate: class {
     func productListComponentWillDisplayNextPage(component: ProductListComponent)
+    func productListComponentDidTapRetryPage(component: ProductListComponent)
     func productListComponent(component: ProductListComponent, didTapProduct product: ListProduct)
     func productListComponent(component: ProductListComponent, didDoubleTapProduct product: ListProduct)
 }
@@ -64,7 +65,8 @@ class ProductListComponent: NSObject, UICollectionViewDataSource, UICollectionVi
         super.init()
         
         collectionView.registerClass(ProductItemCell.self, forCellWithReuseIdentifier: String(ProductItemCell))
-        collectionView.registerClass(ProductNextPageCell.self, forCellWithReuseIdentifier: String(ProductNextPageCell))
+        collectionView.registerClass(ProductLoadingPageCell.self, forCellWithReuseIdentifier: String(ProductLoadingPageCell))
+        collectionView.registerClass(ProductErrorPageCell.self, forCellWithReuseIdentifier: String(ProductErrorPageCell))
     }
     
     func appendData(products: [ListProduct], nextPageState: NextPageState) {
@@ -94,6 +96,12 @@ class ProductListComponent: NSObject, UICollectionViewDataSource, UICollectionVi
         collectionView?.reloadData()
     }
     
+    func updateNextPageState(nextPageState: NextPageState) {
+        collectionView?.performBatchUpdates({
+            self.mergeNextPageStateUpdate(nextPageState)
+            }, completion: nil)
+    }
+    
     private func mergeNextPageStateUpdate(nextPageState: NextPageState) {
         guard self.nextPageState != nextPageState else { return }
         let oldValue = self.nextPageState
@@ -116,7 +124,7 @@ class ProductListComponent: NSObject, UICollectionViewDataSource, UICollectionVi
         }
     }
     
-    // MARK:- ProductItemCellDelegate 
+    // MARK:- ProductItemCellDelegate
     
     func productItemCellDidTap(cell: ProductItemCell) {
         guard let product = product(forCell: cell) else { return }
@@ -154,7 +162,15 @@ class ProductListComponent: NSObject, UICollectionViewDataSource, UICollectionVi
             cell.updateData(with: product)
             return cell
         case .NextPage:
-            return collectionView.dequeueReusableCellWithReuseIdentifier(String(ProductNextPageCell), forIndexPath: indexPath)
+            switch nextPageState {
+            case .Error:
+                let cell = collectionView.dequeueReusableCellWithReuseIdentifier(String(ProductErrorPageCell), forIndexPath: indexPath) as! ProductErrorPageCell
+                cell.delegate = self
+                return cell
+            case .Fetching:
+                return collectionView.dequeueReusableCellWithReuseIdentifier(String(ProductLoadingPageCell), forIndexPath: indexPath)
+            default: fatalError("Invalid state. It should be .Error or .Fetching state")
+            }
         }
     }
     
@@ -182,7 +198,8 @@ class ProductListComponent: NSObject, UICollectionViewDataSource, UICollectionVi
         case .Products:
             return itemSize
         case .NextPage:
-            return CGSizeMake(collectionView.bounds.width - Dimensions.defaultMargin * 2, 60)
+            return CGSizeMake(collectionView.bounds.width, 60 + Dimensions.defaultMargin)
+            
         }
         
     }
@@ -196,13 +213,16 @@ class ProductListComponent: NSObject, UICollectionViewDataSource, UICollectionVi
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+        if ProductListSection.isNextPageSection(section) {
+            return UIEdgeInsetsMake(Dimensions.defaultMargin, 0, 0, 0)
+        }
         return UIEdgeInsetsMake(Dimensions.defaultMargin, Dimensions.defaultMargin, Dimensions.defaultMargin, Dimensions.defaultMargin)
     }
     
-    // MARK:- Utilities
+// MARK:- Utilities
     
     private func changeLoadingIndicatorAnimationStateIfPossible(forCell cell: UICollectionViewCell, animationEnabled: Bool) {
-        let cell = cell as! ProductNextPageCell
+        guard let cell = cell as? ProductLoadingPageCell else { return }
         if animationEnabled {
             cell.loadingIndicator.startAnimation()
         } else {
@@ -214,5 +234,11 @@ class ProductListComponent: NSObject, UICollectionViewDataSource, UICollectionVi
         guard let collectionView = collectionView else { return nil }
         guard let indexPath = collectionView.indexPathForCell(cell) else { return nil }
         return products[indexPath.item]
+    }
+}
+
+extension ProductListComponent: ProductErrorPageCellDelegate {
+    func productErrorCellDidTapRetry(cell: ProductErrorPageCell) {
+        delegate?.productListComponentDidTapRetryPage(self)
     }
 }

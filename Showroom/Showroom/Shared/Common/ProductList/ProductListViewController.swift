@@ -26,7 +26,7 @@ extension ProductListViewControllerInterface {
             case .Success(let productListResult):
                 logInfo("Received first product list page \(productListResult)")
                 self.productListView.updateData(productListResult.products, nextPageState: productListResult.isLastPage ? .LastPage : .Fetching)
-                self.productListView.switcherState = .Success
+                self.productListView.switcherState = productListResult.products.isEmpty ? .Empty : .Success
             case .NetworkError(let error):
                 logInfo("Failed to receive first product list page \(error)")
                 self.productListView.switcherState = .Error
@@ -45,7 +45,7 @@ extension ProductListViewControllerInterface {
                 strongSelf.productListView.appendData(productListResult.products, nextPageState: productListResult.isLastPage ? .LastPage : .Fetching)
             case .NetworkError(let error):
                 logInfo("Failed to receive next product list page \(error)")
-                strongSelf.productListView.nextPageState = .Error
+                strongSelf.productListView.updateNextPageState(.Error)
             }
         }
         
@@ -55,6 +55,11 @@ extension ProductListViewControllerInterface {
 
 extension ProductListViewDelegate where Self : ProductListViewControllerInterface {
     func productListViewDidReachPageEnd(listView: ProductListViewInterface) {
+        fetchNextPage()
+    }
+    
+    func productListViewDidTapRetryPage(listView: ProductListViewInterface) {
+        productListView.updateNextPageState(.Fetching)
         fetchNextPage()
     }
 }

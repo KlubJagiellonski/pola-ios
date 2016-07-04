@@ -184,7 +184,7 @@ class ViewSwitcher: UIView {
     }
 }
 
-class ErrorView: UIView {
+final class ErrorView: UIView {
     private let backgroundView = UIView()
     private let imageView: UIImageView?
     private let textLabel = UILabel()
@@ -272,7 +272,7 @@ class ErrorView: UIView {
     }
 }
 
-class LoadingView: UIView {
+final class LoadingView: UIView {
     private let indicatorView = LoadingIndicator()
     private var contentEdgeConstraint: Constraint?
     var contentOffset: UIEdgeInsets = UIEdgeInsetsZero {

@@ -1,5 +1,7 @@
 "Common.DeliveryInfo.Single" = "Wysyłka w %@ dzień";
 "Common.DeliveryInfo.Multi" = "Wysyłka w %@ dni";
+"Common.Error" = "Coś poszło nie tak. Nie udało się załadować danych.";
+"Common.EmptyResultTitle" = "UUUPS!";
 "MainTab.Dashboard" = "Główna";
 "MainTab.Search" = "Przeglądanie";
 "MainTab.Basket" = "Koszyk";
@@ -68,7 +70,6 @@
 "Checkout.Delivery.EditKiosk.SearchInputPlaceholder" = "Piękna 5, Warszawa";
 "Checkout.Delivery.EditKiosk.GeocodingError" = "Nie znaleziono adresu";
 "Checkout.Delivery.EditKiosk.Save" = "WYBIERZ";
-"CommonError" = "Coś poszło nie tak. Nie udało się załadować danych.";
 "Checkout.Summary.NavigationHeader" = "Podsumowanie";
 "Checkout.Summary.ProductDescription" = "%@ szt. Rozmiar: %@ Kolor: %@";
 "Checkout.Summary.CommentTitle" = "Uwagi do projektanta";
@@ -86,6 +87,7 @@
 "ProductList.Badge.New" = "NEW";
 "ProductList.Badge.FreeDelivery" = "DARMOWA DOSTAWA";
 "ProductList.Badge.Premium" = "PREMIUM";
+"ProductList.Empty.Description" = "Niestety nie znaleziono żadnych produktów.";
 "Login.NavigationHeader" = "Logowanie";
 "Login.LoginWithFacebook" = "ZALOGUJ SIĘ Z FACEBOOKIEM";
 "Login.Or" = "lub";

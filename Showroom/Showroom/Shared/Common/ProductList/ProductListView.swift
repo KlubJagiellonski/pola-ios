@@ -3,6 +3,7 @@ import UIKit
 
 protocol ProductListViewDelegate: class {
     func productListViewDidReachPageEnd(listView: ProductListViewInterface)
+    func productListViewDidTapRetryPage(listView: ProductListViewInterface)
     func productListView(listView: ProductListViewInterface, didTapProduct product: ListProduct)
     func productListView(listView: ProductListViewInterface, didDoubleTapProduct product: ListProduct)
 }
@@ -10,13 +11,14 @@ protocol ProductListViewDelegate: class {
 protocol ProductListViewInterface: class {
     var productListComponent: ProductListComponent { get }
     var switcherState: ViewSwitcherState { get set }
-    var nextPageState: NextPageState { get set }
+    var nextPageState: NextPageState { get }
     var contentInset: UIEdgeInsets { get set }
     var collectionView: UICollectionView { get }
     weak var delegate: ProductListViewDelegate? { get set }
     
     func appendData(products: [ListProduct], nextPageState: NextPageState)
     func updateData(products: [ListProduct], nextPageState: NextPageState)
+    func updateNextPageState(nextPageState: NextPageState)
 }
 
 extension ProductListViewInterface {
@@ -29,7 +31,6 @@ extension ProductListViewInterface {
     }
     
     var nextPageState: NextPageState {
-        set { productListComponent.nextPageState = newValue }
         get { return productListComponent.nextPageState }
     }
     
@@ -40,11 +41,19 @@ extension ProductListViewInterface {
     func updateData(products: [ListProduct], nextPageState: NextPageState) {
         productListComponent.updateData(products, nextPageState: nextPageState)
     }
+    
+    func updateNextPageState(nextPageState: NextPageState) {
+        productListComponent.updateNextPageState(nextPageState)
+    }
 }
 
 extension ProductListComponentDelegate where Self: ProductListViewInterface {
     func productListComponentWillDisplayNextPage(component: ProductListComponent) {
         delegate?.productListViewDidReachPageEnd(self)
+    }
+    
+    func productListComponentDidTapRetryPage(component: ProductListComponent) {
+        delegate?.productListViewDidTapRetryPage(self)
     }
     
     func productListComponent(component: ProductListComponent, didTapProduct product: ListProduct) {
