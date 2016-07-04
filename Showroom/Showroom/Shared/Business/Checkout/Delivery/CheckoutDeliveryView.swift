@@ -28,8 +28,6 @@ class CheckoutValidator: Validator {
 }
 
 class CheckoutDeliveryView: UIView {
-    static let buttonHeight: CGFloat = 52.0
-    
     private let scrollView = UIScrollView()
     private let stackView = UIStackView()
     private let nextButton = UIButton()
@@ -104,7 +102,7 @@ class CheckoutDeliveryView: UIView {
             make.trailing.equalToSuperview()
             make.top.equalTo(scrollView.snp_bottom)
             make.bottom.equalToSuperview()
-            make.height.equalTo(CheckoutDeliveryView.buttonHeight)
+            make.height.equalTo(Dimensions.bigButtonHeight)
         }
     }
     

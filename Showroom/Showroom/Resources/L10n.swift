@@ -191,6 +191,8 @@ enum L10n {
   case ValidatorNotEmpty
   /// Brakuje międzynarodowego numeru kierunkowego (np. +48)
   case ValidatorPhoneNumber
+  /// Niepoprawny format adresu
+  case ValidatorEmail
 }
 
 extension L10n: CustomStringConvertible {
@@ -386,6 +388,8 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Validator.NotEmpty")
       case .ValidatorPhoneNumber:
         return L10n.tr("Validator.PhoneNumber")
+      case .ValidatorEmail:
+        return L10n.tr("Validator.Email")
     }
   }
 

@@ -10,19 +10,25 @@ import ObjectiveC
 }
 
 class NotEmptyValidator: Validator {
-    
     @objc var failedMessage: String?
+    
+    var messageForEmpty: String?
     
     @objc func validate(currentValue: AnyObject?) -> Bool {
         failedMessage = nil
         guard let text: String? = currentValue as? String else { fatalError("NotEmptyValidator cannot handle different type than String") }
         
         if text == nil || text!.characters.count == 0 {
-            failedMessage = tr(.ValidatorNotEmpty)
+            failedMessage = messageForEmpty ?? tr(.ValidatorNotEmpty)
             return false
         }
         
         return true
+    }
+    
+    convenience init(messageForEmpty: String?) {
+        self.init()
+        self.messageForEmpty = messageForEmpty
     }
 }
 
@@ -73,6 +79,8 @@ extension ContentValidator where Self: UIView { // contains text field
         addValidators([validator])
     }
     func addValidators(validators: [Validator]) {
+        var currentValidators = self.validators
+        currentValidators.appendContentsOf(validators)
         objc_setAssociatedObject(self, &ContentValidatorAssociatedKeys.Validators, validators as NSArray?, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
     }
     

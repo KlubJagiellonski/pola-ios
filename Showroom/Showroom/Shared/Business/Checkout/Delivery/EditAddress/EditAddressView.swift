@@ -5,8 +5,6 @@ protocol EditAddressViewDelegate: class {
 }
 
 class EditAddressView: UIView {
-    static let buttonHeight: CGFloat = 52.0
-    
     private let scrollView = UIScrollView()
     private let stackView = UIStackView()
     private let saveButton = UIButton()
@@ -68,7 +66,7 @@ class EditAddressView: UIView {
             make.trailing.equalToSuperview()
             make.top.equalTo(scrollView.snp_bottom)
             make.bottom.equalToSuperview()
-            make.height.equalTo(CheckoutDeliveryView.buttonHeight)
+            make.height.equalTo(Dimensions.bigButtonHeight)
         }
     }
     

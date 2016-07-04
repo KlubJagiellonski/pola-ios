@@ -1,6 +1,6 @@
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, LoginViewDelegate {
     private let resolver: DiResolver
     private var castView: LoginView { return view as! LoginView }
     
@@ -20,6 +20,35 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        castView.delegate = self
+        castView.delegate = self
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        castView.registerOnKeyboardEvent()
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        castView.unregisterOnKeyboardEvent()
+    }
+    
+    // MARK: - LoginViewDelegate
+    
+    func loginViewDidTapFacebook() {
+        
+    }
+    
+    func loginViewDidTapLogin() {
+        castView.validate(showResult: true)
+        // TODO: Do something when it's valid
+    }
+    
+    func loginViewDidTapRemindPassword() {
+        
+    }
+    
+    func loginViewDidTapRegister() {
+        
     }
 }
