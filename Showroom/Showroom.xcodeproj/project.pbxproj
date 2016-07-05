@@ -65,6 +65,13 @@
 		1D470E341D265CB500677122 /* FormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D470E331D265CB500677122 /* FormView.swift */; };
 		1D470E361D26736E00677122 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D470E351D26736E00677122 /* Validator.swift */; };
 		1D470E3B1D26AA7400677122 /* ValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D470E3A1D26AA7400677122 /* ValidatorTests.swift */; };
+		1D5886E01D2BBE26007D0CB1 /* TrendProductListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5886DF1D2BBE26007D0CB1 /* TrendProductListViewController.swift */; };
+		1D5886E21D2BBE66007D0CB1 /* TrendProductListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5886E11D2BBE66007D0CB1 /* TrendProductListView.swift */; };
+		1D5886E41D2BDB31007D0CB1 /* TrendProductListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5886E31D2BDB31007D0CB1 /* TrendProductListModel.swift */; };
+		1D5886E61D2BE06A007D0CB1 /* TrendHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5886E51D2BE06A007D0CB1 /* TrendHeaderCell.swift */; };
+		1D5886E81D2BE440007D0CB1 /* ExtendedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5886E71D2BE440007D0CB1 /* ExtendedLabel.swift */; };
+		1D5886EA1D2BE4D0007D0CB1 /* UILabelUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5886E91D2BE4D0007D0CB1 /* UILabelUtils.swift */; };
+		1D5886EC1D2BF274007D0CB1 /* ProductHeaderContainerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5886EB1D2BF274007D0CB1 /* ProductHeaderContainerCell.swift */; };
 		1D5B5E661D0197B700B74822 /* MoneyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5B5E651D0197B700B74822 /* MoneyTests.swift */; };
 		1D5EF1C81CEB60ED0071C097 /* RxTests.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1D2F199D1CEA14FE0099142E /* RxTests.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1D5EF1C91CEB60F20071C097 /* RxBlocking.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1D2F199A1CEA14FE0099142E /* RxBlocking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -184,7 +191,6 @@
 		C022208D1D1834B9004411A7 /* CheckoutDeliveryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C022208C1D1834B9004411A7 /* CheckoutDeliveryViewController.swift */; };
 		C022208F1D183C0C004411A7 /* CheckoutDeliveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C022208E1D183C0C004411A7 /* CheckoutDeliveryView.swift */; };
 		C0237D0A1D2131C80009F2FC /* FormInputTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0237D091D2131C80009F2FC /* FormInputTextField.swift */; };
-		C0237D0C1D215EB40009F2FC /* FormFieldValidationLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0237D0B1D215EB40009F2FC /* FormFieldValidationLabel.swift */; };
 		C0237D0E1D216ADC0009F2FC /* CheckoutDeliveryStackedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0237D0D1D216ADC0009F2FC /* CheckoutDeliveryStackedView.swift */; };
 		C0237D111D2263D20009F2FC /* EditAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0237D101D2263D20009F2FC /* EditAddressViewController.swift */; };
 		C0237D131D22652F0009F2FC /* EditAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0237D121D22652F0009F2FC /* EditAddressView.swift */; };
@@ -319,6 +325,13 @@
 		1D470E331D265CB500677122 /* FormView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormView.swift; sourceTree = "<group>"; };
 		1D470E351D26736E00677122 /* Validator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
 		1D470E3A1D26AA7400677122 /* ValidatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidatorTests.swift; sourceTree = "<group>"; };
+		1D5886DF1D2BBE26007D0CB1 /* TrendProductListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendProductListViewController.swift; sourceTree = "<group>"; };
+		1D5886E11D2BBE66007D0CB1 /* TrendProductListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendProductListView.swift; sourceTree = "<group>"; };
+		1D5886E31D2BDB31007D0CB1 /* TrendProductListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendProductListModel.swift; sourceTree = "<group>"; };
+		1D5886E51D2BE06A007D0CB1 /* TrendHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendHeaderCell.swift; sourceTree = "<group>"; };
+		1D5886E71D2BE440007D0CB1 /* ExtendedLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtendedLabel.swift; sourceTree = "<group>"; };
+		1D5886E91D2BE4D0007D0CB1 /* UILabelUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UILabelUtils.swift; sourceTree = "<group>"; };
+		1D5886EB1D2BF274007D0CB1 /* ProductHeaderContainerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductHeaderContainerCell.swift; sourceTree = "<group>"; };
 		1D5B5E651D0197B700B74822 /* MoneyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneyTests.swift; sourceTree = "<group>"; };
 		1D5EF1D01CEB666B0071C097 /* UIImageViewUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageViewUtils.swift; sourceTree = "<group>"; };
 		1D72ECFD1CF456DA007AFD2F /* NavigationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationTests.swift; sourceTree = "<group>"; };
@@ -433,7 +446,6 @@
 		C022208C1D1834B9004411A7 /* CheckoutDeliveryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutDeliveryViewController.swift; sourceTree = "<group>"; };
 		C022208E1D183C0C004411A7 /* CheckoutDeliveryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutDeliveryView.swift; sourceTree = "<group>"; };
 		C0237D091D2131C80009F2FC /* FormInputTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormInputTextField.swift; sourceTree = "<group>"; };
-		C0237D0B1D215EB40009F2FC /* FormFieldValidationLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormFieldValidationLabel.swift; sourceTree = "<group>"; };
 		C0237D0D1D216ADC0009F2FC /* CheckoutDeliveryStackedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutDeliveryStackedView.swift; sourceTree = "<group>"; };
 		C0237D101D2263D20009F2FC /* EditAddressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAddressViewController.swift; sourceTree = "<group>"; };
 		C0237D121D22652F0009F2FC /* EditAddressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAddressView.swift; sourceTree = "<group>"; };
@@ -558,6 +570,7 @@
 				1D1A7E011D2405AC009CCCE7 /* ProductItemCell.swift */,
 				1D1A7E1B1D253418009CCCE7 /* ProductLoadingPageCell.swift */,
 				1DF14F291D2A72AB004A6A3A /* ProductErrorPageCell.swift */,
+				1D5886EB1D2BF274007D0CB1 /* ProductHeaderContainerCell.swift */,
 				1D1A7E0B1D242178009CCCE7 /* ProductListView.swift */,
 				1D1A7E0F1D2424F2009CCCE7 /* ProductListViewController.swift */,
 				1D1A7E111D242517009CCCE7 /* ProductListModel.swift */,
@@ -631,6 +644,7 @@
 		1D2F195F1CE9CEBA0099142E /* Business */ = {
 			isa = PBXGroup;
 			children = (
+				1D5886DE1D2BBDED007D0CB1 /* TrendProductList */,
 				75FE56AF1D266BA200DF5356 /* Login */,
 				1D1A7DF91D24003A009CCCE7 /* CategoryProductList */,
 				C02220881D1831C8004411A7 /* Checkout */,
@@ -678,6 +692,17 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		1D5886DE1D2BBDED007D0CB1 /* TrendProductList */ = {
+			isa = PBXGroup;
+			children = (
+				1D5886DF1D2BBE26007D0CB1 /* TrendProductListViewController.swift */,
+				1D5886E11D2BBE66007D0CB1 /* TrendProductListView.swift */,
+				1D5886E31D2BDB31007D0CB1 /* TrendProductListModel.swift */,
+				1D5886E51D2BE06A007D0CB1 /* TrendHeaderCell.swift */,
+			);
+			path = TrendProductList;
+			sourceTree = "<group>";
+		};
 		1D5B5E641D01979D00B74822 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -703,6 +728,7 @@
 				1D30808D1D225E2F00674D11 /* UITabBarControllerUtils.swift */,
 				7586E27E1D22BB5F0086DE94 /* UITextViewUtils.swift */,
 				C0B094AC1D2675A100C57D06 /* CLGeocoderUtils.swift */,
+				1D5886E91D2BE4D0007D0CB1 /* UILabelUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1041,7 +1067,6 @@
 				1DA823171D1A8F510054288D /* LoadingIndicator.swift */,
 				751A50261D1AAFD700DF7D2B /* RadioButton.swift */,
 				C0237D091D2131C80009F2FC /* FormInputTextField.swift */,
-				C0237D0B1D215EB40009F2FC /* FormFieldValidationLabel.swift */,
 				1D2423DE1D228BA80026D46B /* ToastView.swift */,
 				75FE56A41D23C32800DF5356 /* ExtendedTextView.swift */,
 				1D1A7E171D25054D009CCCE7 /* BadgeLabel.swift */,
@@ -1049,6 +1074,7 @@
 				1D470E331D265CB500677122 /* FormView.swift */,
 				1D470E351D26736E00677122 /* Validator.swift */,
 				75FE56C21D2BFDE900DF5356 /* CheckButton.swift */,
+				1D5886E71D2BE440007D0CB1 /* ExtendedLabel.swift */,
 			);
 			name = Common;
 			path = Showroom/Shared/Common;
@@ -1373,6 +1399,7 @@
 				1D3792721D196931001A7C47 /* ViewSwitcher.swift in Sources */,
 				C052F8981D1989A6008085E0 /* CheckoutAddressOptionView.swift in Sources */,
 				C092804C1D01DA8D00350B82 /* ProductSizeViewController.swift in Sources */,
+				1D5886E01D2BBE26007D0CB1 /* TrendProductListViewController.swift in Sources */,
 				1DAA7C671D099A9200545BB9 /* ProductDescriptionViewController.swift in Sources */,
 				75EDE8291CFDDD2200C5F96B /* UIButtonUtils.swift in Sources */,
 				1DD1EA731CEDAE9000D99731 /* DashboardView.swift in Sources */,
@@ -1418,6 +1445,7 @@
 				751A50101D1156AE00DF7D2B /* ProductAmountViewController.swift in Sources */,
 				1D72ED141CFC3028007AFD2F /* User.swift in Sources */,
 				1DF14F2A1D2A72AB004A6A3A /* ProductErrorPageCell.swift in Sources */,
+				1D5886EC1D2BF274007D0CB1 /* ProductHeaderContainerCell.swift in Sources */,
 				1D72ED261CFDA591007AFD2F /* StringUtils.swift in Sources */,
 				1DD161A21D01C06F0022B5C9 /* PresenterViewController.swift in Sources */,
 				1DD161AF1D01CB490022B5C9 /* ProductDetailsDataSource.swift in Sources */,
@@ -1446,6 +1474,7 @@
 				1DF796891CEB4AC000C7A7F4 /* UIAssembly.swift in Sources */,
 				751A501D1D194E0000DF7D2B /* CheckoutSummaryView.swift in Sources */,
 				1D0F3B561D12D28D0052CFF6 /* UINavigationBarUtils.swift in Sources */,
+				1D5886E21D2BBE66007D0CB1 /* TrendProductListView.swift in Sources */,
 				751A50161D11575000DF7D2B /* ProductAmountDataSource.swift in Sources */,
 				1D470E361D26736E00677122 /* Validator.swift in Sources */,
 				7586E27F1D22BB5F0086DE94 /* UITextViewUtils.swift in Sources */,
@@ -1454,6 +1483,7 @@
 				1DF796851CEB477B00C7A7F4 /* NetworkAssembly.swift in Sources */,
 				1DD1EA711CEDA00B00D99731 /* DashboardViewController.swift in Sources */,
 				75FE56C31D2BFDE900DF5356 /* CheckButton.swift in Sources */,
+				1D5886EA1D2BE4D0007D0CB1 /* UILabelUtils.swift in Sources */,
 				1DF7967B1CEB39A100C7A7F4 /* ApiService.swift in Sources */,
 				C0237D0A1D2131C80009F2FC /* FormInputTextField.swift in Sources */,
 				1D7824AE1D06F67500E60392 /* UIColorUtils.swift in Sources */,
@@ -1463,6 +1493,7 @@
 				1D2F193F1CE9CE250099142E /* AppDelegate.swift in Sources */,
 				C0237D131D22652F0009F2FC /* EditAddressView.swift in Sources */,
 				1D0F3B541D12CE3D0052CFF6 /* BasketCountryViewController.swift in Sources */,
+				1D5886E61D2BE06A007D0CB1 /* TrendHeaderCell.swift in Sources */,
 				1D7824B51D0708E900E60392 /* ProductPageModel.swift in Sources */,
 				1DD161AA1D01C46C0022B5C9 /* DashboardPresenterController.swift in Sources */,
 				1DF796801CEB3C4000C7A7F4 /* Constants.swift in Sources */,
@@ -1476,6 +1507,7 @@
 				1DD1EA881CF2E53500D99731 /* SearchViewController.swift in Sources */,
 				1DAA7C751D0EC17F00545BB9 /* ProductDetailsContext.swift in Sources */,
 				1D0453511CFEE092001CC5A2 /* ProductRecommendation.swift in Sources */,
+				1D5886E81D2BE440007D0CB1 /* ExtendedLabel.swift in Sources */,
 				759CED241CFDB24100FEBE66 /* TitleValueLabel.swift in Sources */,
 				1D1A7E001D2400F1009CCCE7 /* ProductListComponent.swift in Sources */,
 				1DD161B81D01D0C10022B5C9 /* ProductPageViewController.swift in Sources */,
@@ -1485,7 +1517,6 @@
 				1DD1EA6B1CEC5D1700D99731 /* L10n.swift in Sources */,
 				1DD161971D01A7310022B5C9 /* ProductDetailsViewController.swift in Sources */,
 				1DD161AC1D01C8680022B5C9 /* ProductDetailsView.swift in Sources */,
-				C0237D0C1D215EB40009F2FC /* FormFieldValidationLabel.swift in Sources */,
 				1DB166BD1D1006A8004F42DC /* SizeChartViewController.swift in Sources */,
 				1D30808E1D225E2F00674D11 /* UITabBarControllerUtils.swift in Sources */,
 				1D0F3B4A1D1172E10052CFF6 /* FormSheetAnimator.swift in Sources */,
@@ -1509,6 +1540,7 @@
 				751A50231D19718400DF7D2B /* CheckoutSummaryCell.swift in Sources */,
 				1D04533E1CFDD48B001CC5A2 /* Dimensions.swift in Sources */,
 				1DA6FA331D00120C004BF10B /* Money.swift in Sources */,
+				1D5886E41D2BDB31007D0CB1 /* TrendProductListModel.swift in Sources */,
 				1D72ED161CFC307D007AFD2F /* ManagerAssembly.swift in Sources */,
 				75C854621D05B7BF00E5F08F /* BasketManager.swift in Sources */,
 				1DD1EA8B1CF2E59E00D99731 /* BasketViewController.swift in Sources */,

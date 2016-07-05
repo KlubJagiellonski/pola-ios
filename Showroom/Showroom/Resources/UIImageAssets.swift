@@ -34,6 +34,7 @@ enum Asset: String {
   case Ic_w_ulubionych = "ic_w_ulubionych"
   case Img_wieszak = "img_wieszak"
   case Refresh = "refresh"
+  case Temp_trend = "temp_trend"
 
   var image: UIImage {
     return UIImage(asset: self)

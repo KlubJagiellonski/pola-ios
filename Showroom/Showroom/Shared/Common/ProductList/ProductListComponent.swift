@@ -8,19 +8,41 @@ enum NextPageState {
 }
 
 enum ProductListSection: Int {
-    case Products = 0, NextPage
+    case HeaderSection = 0, Products, NextPage
     
-    static func isNextPageSection(section: Int) -> Bool {
-        return section == ProductListSection.NextPage.rawValue
-    }
-    static func sectionCount(forNextPageState state: NextPageState) -> Int {
-        switch state {
-        case .Fetching, .Error:
-            return ProductListSection.NextPage.rawValue + 1
-        default:
-            return ProductListSection.Products.rawValue + 1
+    static func fromSectionIndex(section: Int, headerSectionExist: Bool) -> ProductListSection {
+        if headerSectionExist {
+            return ProductListSection(rawValue: section)!
+        } else {
+            return ProductListSection(rawValue: section + 1)!
         }
     }
+    
+    static func isNextPageSection(section: Int, headerSectionExist: Bool) -> Bool {
+        return fromSectionIndex(section, headerSectionExist: headerSectionExist) == .NextPage
+    }
+    
+    static func isHeaderSection(section: Int, headerSectionExist: Bool) -> Bool {
+        return fromSectionIndex(section, headerSectionExist: headerSectionExist) == .HeaderSection
+    }
+    
+    static func sectionCount(forNextPageState state: NextPageState, headerSectionExist: Bool) -> Int {
+        switch state {
+        case .Fetching, .Error:
+            return ProductListSection.NextPage.rawValue + (headerSectionExist ? 1 : 0)
+        default:
+            return ProductListSection.Products.rawValue + (headerSectionExist ? 1 : 0)
+        }
+    }
+    func toSectionIndex(headerSectionExist: Bool) -> Int {
+        return self.rawValue + (headerSectionExist ? 0 : -1)
+    }
+}
+
+struct HeaderSectionInfo {
+    let view: UIView
+    let wantsToReceiveScrollEvents: Bool
+    let calculateHeight: () -> CGFloat
 }
 
 protocol ProductListComponentDelegate: class {
@@ -28,6 +50,7 @@ protocol ProductListComponentDelegate: class {
     func productListComponentDidTapRetryPage(component: ProductListComponent)
     func productListComponent(component: ProductListComponent, didTapProductAtIndex index: Int)
     func productListComponent(component: ProductListComponent, didDoubleTapProductAtIndex index: Int)
+    func productListComponent(component: ProductListComponent, didReceiveScrollEventWithContentOffset contentOffset: CGPoint, contentSize: CGSize)
 }
 
 class ProductListComponent: NSObject, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, ProductItemCellDelegate {
@@ -65,6 +88,7 @@ class ProductListComponent: NSObject, UICollectionViewDataSource, UICollectionVi
         return itemSize.width
     }
     var nextPageState: NextPageState = .LastPage
+    var headerSectionInfo: HeaderSectionInfo?
     
     init(withCollectionView collectionView: UICollectionView) {
         self.collectionView = collectionView
@@ -73,6 +97,7 @@ class ProductListComponent: NSObject, UICollectionViewDataSource, UICollectionVi
         collectionView.registerClass(ProductItemCell.self, forCellWithReuseIdentifier: String(ProductItemCell))
         collectionView.registerClass(ProductLoadingPageCell.self, forCellWithReuseIdentifier: String(ProductLoadingPageCell))
         collectionView.registerClass(ProductErrorPageCell.self, forCellWithReuseIdentifier: String(ProductErrorPageCell))
+        collectionView.registerClass(ProductHeaderContainerCell.self, forCellWithReuseIdentifier: String(ProductHeaderContainerCell))
     }
     
     func appendData(products: [ListProduct], nextPageState: NextPageState) {
@@ -83,8 +108,9 @@ class ProductListComponent: NSObject, UICollectionViewDataSource, UICollectionVi
         var addedProductIndexPaths: [NSIndexPath] = []
         
         let currentCount = self.products.count
+        let productsSectionIndex = ProductListSection.Products.toSectionIndex(headerSectionInfo != nil)
         for (index, _) in products.enumerate() {
-            addedProductIndexPaths.append(NSIndexPath(forItem: index + currentCount, inSection: 0))
+            addedProductIndexPaths.append(NSIndexPath(forItem: index + currentCount, inSection: productsSectionIndex))
         }
         
         self.products.appendContentsOf(products)
@@ -119,7 +145,8 @@ class ProductListComponent: NSObject, UICollectionViewDataSource, UICollectionVi
         let oldValue = self.nextPageState
         self.nextPageState = nextPageState
         
-        let nextPageIndexPath = [NSIndexPath(forItem: 0, inSection: 1)]
+        let nextPageSectionIndex = ProductListSection.NextPage.toSectionIndex(headerSectionInfo != nil)
+        let nextPageIndexPath = [NSIndexPath(forItem: 0, inSection: nextPageSectionIndex)]
         let nextPageSection = NSIndexSet(index: 1)
         
         switch nextPageState {
@@ -153,21 +180,21 @@ class ProductListComponent: NSObject, UICollectionViewDataSource, UICollectionVi
     // MARK:- UICollectionViewDataSource
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return ProductListSection.sectionCount(forNextPageState: nextPageState)
+        return ProductListSection.sectionCount(forNextPageState: nextPageState, headerSectionExist: headerSectionInfo != nil)
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let listSection = ProductListSection(rawValue: section)!
+        let listSection = ProductListSection.fromSectionIndex(section, headerSectionExist: headerSectionInfo != nil)
         switch listSection {
         case .Products:
             return products.count
-        case .NextPage:
+        case .NextPage, .HeaderSection:
             return 1
         }
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let listSection = ProductListSection(rawValue: indexPath.section)!
+        let listSection = ProductListSection.fromSectionIndex(indexPath.section, headerSectionExist: headerSectionInfo != nil)
         switch listSection {
         case .Products:
             let product = products[indexPath.row]
@@ -185,11 +212,16 @@ class ProductListComponent: NSObject, UICollectionViewDataSource, UICollectionVi
                 return collectionView.dequeueReusableCellWithReuseIdentifier(String(ProductLoadingPageCell), forIndexPath: indexPath)
             default: fatalError("Invalid state. It should be .Error or .Fetching state")
             }
+        case .HeaderSection:
+            guard let headerSectionInfo = headerSectionInfo else { fatalError("Something is wrong. It is not possible to have HeaderSection when headerSectionInfo is nil") }
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(String(ProductHeaderContainerCell), forIndexPath: indexPath) as! ProductHeaderContainerCell
+            cell.headerContentView = headerSectionInfo.view
+            return cell
         }
     }
     
     func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
-        if ProductListSection.isNextPageSection(indexPath.section) {
+        if ProductListSection.isNextPageSection(indexPath.section, headerSectionExist: headerSectionInfo != nil) {
             changeLoadingIndicatorAnimationStateIfPossible(forCell: cell, animationEnabled: true)
             if !informedAboutNextPage {
                 informedAboutNextPage = true
@@ -199,7 +231,7 @@ class ProductListComponent: NSObject, UICollectionViewDataSource, UICollectionVi
     }
     
     func collectionView(collectionView: UICollectionView, didEndDisplayingCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
-        if ProductListSection.isNextPageSection(indexPath.section) {
+        if ProductListSection.isNextPageSection(indexPath.section, headerSectionExist: headerSectionInfo != nil) {
             changeLoadingIndicatorAnimationStateIfPossible(forCell: cell, animationEnabled: false)
         }
     }
@@ -207,13 +239,15 @@ class ProductListComponent: NSObject, UICollectionViewDataSource, UICollectionVi
     // MARK:- UICollectionViewDelegateFlowLayout
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        let listSection = ProductListSection(rawValue: indexPath.section)!
+        let listSection = ProductListSection.fromSectionIndex(indexPath.section, headerSectionExist: headerSectionInfo != nil)
         switch listSection {
         case .Products:
             return itemSize
         case .NextPage:
             return CGSizeMake(collectionView.bounds.width, 60 + Dimensions.defaultMargin)
-            
+        case .HeaderSection:
+            guard let headerSectionInfo = headerSectionInfo else { fatalError("Something is wrong. It is not possible to have HeaderSection when headerSectionInfo is nil") }
+            return CGSizeMake(collectionView.bounds.width, headerSectionInfo.calculateHeight())
         }
         
     }
@@ -227,10 +261,18 @@ class ProductListComponent: NSObject, UICollectionViewDataSource, UICollectionVi
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
-        if ProductListSection.isNextPageSection(section) {
+        if ProductListSection.isNextPageSection(section, headerSectionExist: headerSectionInfo != nil) {
             return UIEdgeInsetsMake(Dimensions.defaultMargin, 0, 0, 0)
+        } else if ProductListSection.isHeaderSection(section, headerSectionExist: headerSectionInfo != nil) {
+            return UIEdgeInsetsZero
         }
         return UIEdgeInsetsMake(Dimensions.defaultMargin, Dimensions.defaultMargin, Dimensions.defaultMargin, Dimensions.defaultMargin)
+    }
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        if headerSectionInfo?.wantsToReceiveScrollEvents ?? false {
+            delegate?.productListComponent(self, didReceiveScrollEventWithContentOffset: scrollView.contentOffset, contentSize: scrollView.contentSize)
+        }
     }
     
 // MARK:- Utilities

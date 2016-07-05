@@ -38,6 +38,10 @@ class CategoryProductListView: ViewSwitcher, ProductListViewInterface, ProductLi
     }
 }
 
+extension CategoryProductListView {
+    func productListComponent(component: ProductListComponent, didReceiveScrollEventWithContentOffset contentOffset: CGPoint, contentSize: CGSize) {}
+}
+
 extension CategoryProductListView: ViewSwitcherDataSource {
     func viewSwitcherWantsErrorInfo(view: ViewSwitcher) -> (ErrorText, ErrorImage?) {
         return (tr(.CommonError), UIImage(asset: .Error))

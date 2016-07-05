@@ -111,5 +111,11 @@ class UIAssembly: AssemblyType {
         container.register(EditKioskViewController.self) { r, clientAddress in
             return EditKioskViewController(resolver: r.resolve(DiResolver.self)!, clientAddress: clientAddress)
         }
+        container.register(TrendProductListViewController.self) { r in
+            return TrendProductListViewController(with: r.resolve(DiResolver.self)!)
+        }
+        container.register(TrendProductListModel.self) { r in
+            return TrendProductListModel(with: r.resolve(ApiService.self)!)
+        }
     }
 }

@@ -14,7 +14,7 @@ class KioskSearchInputField: UIView {
     
     private let inputLabel = UILabel()
     private let inputTextField = FormInputTextField(frame: CGRectZero)
-    private let errorLabel = FormFieldValidationLabel(frame: CGRectZero)
+    private let errorLabel = ExtendedLabel(frame: CGRectZero)
     
     weak var delegate: KioskSearchInputFieldDelegate?
     
@@ -45,6 +45,7 @@ class KioskSearchInputField: UIView {
         inputTextField.addTarget(self, action: #selector(KioskSearchInputField.onTextFieldReturn), forControlEvents: .EditingDidEndOnExit)
         inputTextField.returnKeyType = .Search
         
+        errorLabel.applyFormValidationStyle()
         errorLabel.hidden = true
         
         addSubview(inputLabel)

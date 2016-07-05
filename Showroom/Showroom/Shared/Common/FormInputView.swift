@@ -22,7 +22,7 @@ class FormInputView: UIView {
     
     private let inputLabel = UILabel()
     let inputTextField = FormInputTextField(frame: CGRectZero)
-    private let validationLabel = FormFieldValidationLabel(frame: CGRectZero)
+    private let validationLabel = ExtendedLabel(frame: CGRectZero)
     
     var title: String? {
         get {
@@ -47,6 +47,7 @@ class FormInputView: UIView {
         super.init(frame: CGRectZero)
         inputLabel.font = UIFont(fontType: .FormBold)
         
+        validationLabel.applyFormValidationStyle()
         validationLabel.hidden = true
         
         addSubview(inputLabel)
