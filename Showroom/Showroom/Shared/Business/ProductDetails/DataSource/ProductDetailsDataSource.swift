@@ -12,7 +12,15 @@ class ProductDetailsDataSource: NSObject, UICollectionViewDataSource {
     
     var pageCount = 0 {
         didSet {
-            collectionView?.reloadData()
+            if oldValue > pageCount || oldValue == 0 {
+                collectionView?.reloadData()
+            } else {
+                var insertIndexPaths: [NSIndexPath] = []
+                for index in oldValue...(pageCount - 1) {
+                    insertIndexPaths.append(NSIndexPath(forItem: index, inSection: 0))
+                }
+                collectionView?.insertItemsAtIndexPaths(insertIndexPaths)
+            }
         }
     }
     

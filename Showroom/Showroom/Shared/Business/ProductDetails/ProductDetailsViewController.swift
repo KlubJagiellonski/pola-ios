@@ -15,8 +15,8 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewDelegate
         
         super.init(nibName: nil, bundle: nil)
         
-        model.productInfosObservable.subscribeNext { [weak self] products in
-            self?.castView.updatePageCount(products.count)
+        model.newProductsAmountObservable.subscribeNext { [weak self] newProductsAmount in
+            self?.castView.updatePageCount(withNewProductsAmount: newProductsAmount)
         }.addDisposableTo(disposeBag)
     }
     
@@ -33,7 +33,7 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewDelegate
         
         castView.delegate = self
         castView.pageHandler = self
-        castView.updatePageCount(model.productInfos.count)
+        castView.updatePageCount(withNewProductsAmount: model.productsCount)
     }
     
     override func viewDidLayoutSubviews() {
@@ -63,7 +63,7 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewDelegate
 
 extension ProductDetailsViewController: ProductDetailsPageHandler {
     func page(forIndex index: Int, removePageIndex: Int?) -> UIView {
-        let productInfoTuple = model.productInfos[index].toTuple()
+        let productInfoTuple = model.productInfo(forIndex: index).toTuple()
         let currentViewController = removePageIndex == nil ? nil : indexedViewControllers[removePageIndex!]
         let newViewController = resolver.resolve(ProductPageViewController.self, arguments: productInfoTuple)
         newViewController.viewContentInset = UIEdgeInsets(top: topLayoutGuide.length, left: 0, bottom: bottomLayoutGuide.length, right: 0)

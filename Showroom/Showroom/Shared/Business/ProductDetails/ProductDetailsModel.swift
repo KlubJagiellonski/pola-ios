@@ -4,21 +4,25 @@ import RxSwift
 class ProductDetailsModel {
     private let context: ProductDetailsContext
     private let disposeBag = DisposeBag()
-    let productInfosObservable = PublishSubject<[ProductInfo]>()
-
-    var productInfos: [ProductInfo] {
-        return context.productInfos
-    }
+    let newProductsAmountObservable = PublishSubject<NewProductsAmount>()
     
     var initialProductIndex: Int {
         return context.initialProductIndex
     }
     
+    var productsCount: Int {
+        return context.productsCount
+    }
+    
     init(context: ProductDetailsContext) {
         self.context = context
-        context.productInfosObservable.subscribeNext { [weak self] products in
-            self?.productInfosObservable.onNext(products)
+        context.newProductsObservable.subscribeNext { [weak self] newProductsAmount in
+            self?.newProductsAmountObservable.onNext(newProductsAmount)
         }.addDisposableTo(disposeBag)
+    }
+    
+    func productInfo(forIndex index: Int) -> ProductInfo {
+        return context.productInfo(forIndex: index)
     }
     
     func didMoveToPage(atIndex index: Int) {

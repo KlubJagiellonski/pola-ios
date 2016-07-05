@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 import RxSwift
 
-protocol ProductListViewControllerInterface: class {
+protocol ProductListViewControllerInterface: class, NavigationSender {
     var disposeBag: DisposeBag { get }
     var productListModel: ProductListModel { get }
     var productListView: ProductListViewInterface { get }
@@ -51,6 +51,14 @@ extension ProductListViewControllerInterface {
         
         productListModel.fetchNextProductPage().subscribeNext(onNext).addDisposableTo(disposeBag)
     }
+    
+    //call it in viewDidLoad
+    func configureProductList() {
+        productListModel.isBigScreen = UIScreen.mainScreen().bounds.width >= ProductListComponent.threeColumnsRequiredWidth
+        productListModel.productIndexObservable.subscribeNext { [weak self] (index: Int) in
+            self?.productListView.moveToPosition(forProductIndex: index, animated: false)
+            }.addDisposableTo(disposeBag)
+    }
 }
 
 extension ProductListViewDelegate where Self : ProductListViewControllerInterface {
@@ -61,5 +69,15 @@ extension ProductListViewDelegate where Self : ProductListViewControllerInterfac
     func productListViewDidTapRetryPage(listView: ProductListViewInterface) {
         productListView.updateNextPageState(.Fetching)
         fetchNextPage()
+    }
+    
+    func productListView(listView: ProductListViewInterface, didTapProductAtIndex index: Int) {
+        let imageWidth = productListView.productImageWidth
+        let context = productListModel.createProductDetailsContext(withProductIndex: index, withImageWidth: imageWidth)
+        sendNavigationEvent(ShowProductDetailsEvent(context: context))
+    }
+    
+    func productListView(listView: ProductListViewInterface, didDoubleTapProductAtIndex index: Int) {
+        //todo
     }
 }

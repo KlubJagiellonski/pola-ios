@@ -76,13 +76,21 @@ class DashboardModel {
     func createProductDetailsContext(forRecommendation recommendation: ProductRecommendation, withImageWidth imageWidth: CGFloat) -> ProductDetailsContext {
         let recommendations = state.recommendationsResult!.productRecommendations
         let index = recommendations.indexOf(recommendation)!
-        let productInfos: [ProductInfo] = recommendations.map { productRecommendation in
+        
+        let onChanged = { [unowned self] (index: Int) -> () in
+            self.state.recommendationsIndex = index
+        }
+        
+        let onRetrieveProductInfo = { [unowned self] (index: Int) -> ProductInfo in
+            guard let recommendations = self.state.recommendationsResult?.productRecommendations else {
+                fatalError("Cannot create product info when there is no product recommendations")
+            }
+            let productRecommendation = recommendations[index]
             let lowResImageUrl = NSURL.createImageUrl(productRecommendation.imageUrl, width: imageWidth, height: nil)
             return ProductInfo.Object(productRecommendation.toProduct(withLowResImageUrl: lowResImageUrl.absoluteString))
         }
-        return OnePageProductDetailsContext(productInfos: productInfos, initialProductIndex: index) { [weak self] index in
-            self?.state.recommendationsIndex = index
-        }
+        
+        return OnePageProductDetailsContext(productsCount: recommendations.count, initialProductIndex: index, onChanged: onChanged, onRetrieveProductInfo: onRetrieveProductInfo)
     }
 }
 

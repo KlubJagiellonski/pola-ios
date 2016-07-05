@@ -26,14 +26,14 @@ enum ProductListSection: Int {
 protocol ProductListComponentDelegate: class {
     func productListComponentWillDisplayNextPage(component: ProductListComponent)
     func productListComponentDidTapRetryPage(component: ProductListComponent)
-    func productListComponent(component: ProductListComponent, didTapProduct product: ListProduct)
-    func productListComponent(component: ProductListComponent, didDoubleTapProduct product: ListProduct)
+    func productListComponent(component: ProductListComponent, didTapProductAtIndex index: Int)
+    func productListComponent(component: ProductListComponent, didDoubleTapProductAtIndex index: Int)
 }
 
 class ProductListComponent: NSObject, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, ProductItemCellDelegate {
-    private let minItemWidth: CGFloat = 120
-    private let interItemSpacing: CGFloat = 10
-    private let itemTitleHeight: CGFloat = 62
+    private static let minItemWidth: CGFloat = 120
+    private static let interItemSpacing: CGFloat = 10
+    private static let itemTitleHeight: CGFloat = 62
     
     private var informedAboutNextPage = false
     private var products: [ListProduct] = []
@@ -50,14 +50,20 @@ class ProductListComponent: NSObject, UICollectionViewDataSource, UICollectionVi
             return CGSizeMake(0, 0)
         }
         
-        let columnWidthFor3Columns = floor((collectionView.bounds.width - Dimensions.defaultMargin * 2 - self.interItemSpacing * 2) / 3)
-        let columnWidthFor2Columns = floor((collectionView.bounds.width - Dimensions.defaultMargin * 2 - self.interItemSpacing) / 2)
-        let itemWidth = columnWidthFor3Columns > self.minItemWidth ? columnWidthFor3Columns : columnWidthFor2Columns
+        let columnWidthFor3Columns = floor((collectionView.bounds.width - Dimensions.defaultMargin * 2 - ProductListComponent.interItemSpacing * 2) / 3)
+        let columnWidthFor2Columns = floor((collectionView.bounds.width - Dimensions.defaultMargin * 2 - ProductListComponent.interItemSpacing) / 2)
+        let itemWidth = columnWidthFor3Columns > ProductListComponent.minItemWidth ? columnWidthFor3Columns : columnWidthFor2Columns
         let imageHeight = itemWidth / CGFloat(Dimensions.defaultImageRatio)
-        let itemHeight = ceil(imageHeight + self.itemTitleHeight)
+        let itemHeight = ceil(imageHeight + ProductListComponent.itemTitleHeight)
         return CGSizeMake(itemWidth, itemHeight)
     }()
     
+    static var threeColumnsRequiredWidth: CGFloat {
+        return minItemWidth * 3 + Dimensions.defaultMargin * 2 + ProductListComponent.interItemSpacing * 2
+    }
+    var imageWidth: CGFloat {
+        return itemSize.width
+    }
     var nextPageState: NextPageState = .LastPage
     
     init(withCollectionView collectionView: UICollectionView) {
@@ -102,6 +108,12 @@ class ProductListComponent: NSObject, UICollectionViewDataSource, UICollectionVi
             }, completion: nil)
     }
     
+    func moveToPosition(forProductIndex index: Int, animated: Bool) {
+        guard let view = collectionView else { return }
+        let indexPath = NSIndexPath(forItem: index, inSection: 0)
+        view.scrollToItemAtIndexPath(indexPath, atScrollPosition: .CenteredVertically, animated: animated)
+    }
+    
     private func mergeNextPageStateUpdate(nextPageState: NextPageState) {
         guard self.nextPageState != nextPageState else { return }
         let oldValue = self.nextPageState
@@ -127,13 +139,15 @@ class ProductListComponent: NSObject, UICollectionViewDataSource, UICollectionVi
     // MARK:- ProductItemCellDelegate
     
     func productItemCellDidTap(cell: ProductItemCell) {
-        guard let product = product(forCell: cell) else { return }
-        delegate?.productListComponent(self, didTapProduct: product)
+        guard let collectionView = collectionView else { return }
+        guard let indexPath = collectionView.indexPathForCell(cell) else { return }
+        delegate?.productListComponent(self, didTapProductAtIndex: indexPath.item)
     }
     
     func productItemCellDidDoubleTap(cell: ProductItemCell) {
-        guard let product = product(forCell: cell) else { return }
-        delegate?.productListComponent(self, didDoubleTapProduct: product)
+        guard let collectionView = collectionView else { return }
+        guard let indexPath = collectionView.indexPathForCell(cell) else { return }
+        delegate?.productListComponent(self, didDoubleTapProductAtIndex: indexPath.item)
     }
     
     // MARK:- UICollectionViewDataSource
@@ -209,7 +223,7 @@ class ProductListComponent: NSObject, UICollectionViewDataSource, UICollectionVi
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
-        return interItemSpacing
+        return ProductListComponent.interItemSpacing
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {

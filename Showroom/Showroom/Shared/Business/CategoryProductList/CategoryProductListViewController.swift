@@ -32,6 +32,7 @@ class CategoryProductListViewController: UIViewController, ProductListViewContro
         
         castView.delegate = self
         
+        configureProductList()
         fetchFirstPage()
     }
     
@@ -40,14 +41,6 @@ class CategoryProductListViewController: UIViewController, ProductListViewContro
     }
     
     // MARK:- ProductListViewDelegate
-    
-    func productListView(listView: ProductListViewInterface, didTapProduct product: ListProduct) {
-        logInfo("tapped product: \(product)")
-    }
-    
-    func productListView(listView: ProductListViewInterface, didDoubleTapProduct product: ListProduct) {
-        logInfo("double tapped product: \(product)")
-    }
     
     func viewSwitcherDidTapRetry(view: ViewSwitcher) {
         fetchFirstPage()

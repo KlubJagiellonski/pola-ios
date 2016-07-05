@@ -77,6 +77,21 @@ struct ProductDetailsSize {
     let measurements: [MeasurementName: String]
 }
 
+// MARK: - Utilities
+
+extension ListProduct {
+    func toProduct(withLowResImageUrl lowResImageUrl: String?) -> Product {
+        return Product(
+            id: id,
+            brand: brand.name,
+            name: name,
+            basePrice: basePrice,
+            price: price,
+            imageUrl: imageUrl,
+            lowResImageUrl: lowResImageUrl)
+    }
+}
+
 // MARK: - Decodable, Encodable
 
 extension ProductListResult: Decodable {

@@ -98,8 +98,8 @@ class ProductDetailsView: UIView, UICollectionViewDelegateFlowLayout {
         }
     }
     
-    func updatePageCount(pageCount: Int) {
-        dataSource.pageCount = pageCount
+    func updatePageCount(withNewProductsAmount newProductsAmount: Int) {
+        dataSource.pageCount += newProductsAmount
     }
     
     func scrollToPage(atIndex index: Int, animated: Bool) {

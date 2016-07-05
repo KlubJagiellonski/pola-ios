@@ -4,8 +4,8 @@ import UIKit
 protocol ProductListViewDelegate: class {
     func productListViewDidReachPageEnd(listView: ProductListViewInterface)
     func productListViewDidTapRetryPage(listView: ProductListViewInterface)
-    func productListView(listView: ProductListViewInterface, didTapProduct product: ListProduct)
-    func productListView(listView: ProductListViewInterface, didDoubleTapProduct product: ListProduct)
+    func productListView(listView: ProductListViewInterface, didTapProductAtIndex index: Int)
+    func productListView(listView: ProductListViewInterface, didDoubleTapProductAtIndex index: Int)
 }
 
 protocol ProductListViewInterface: class {
@@ -14,11 +14,13 @@ protocol ProductListViewInterface: class {
     var nextPageState: NextPageState { get }
     var contentInset: UIEdgeInsets { get set }
     var collectionView: UICollectionView { get }
+    var productImageWidth: CGFloat { get }
     weak var delegate: ProductListViewDelegate? { get set }
     
     func appendData(products: [ListProduct], nextPageState: NextPageState)
     func updateData(products: [ListProduct], nextPageState: NextPageState)
     func updateNextPageState(nextPageState: NextPageState)
+    func moveToPosition(forProductIndex index: Int, animated: Bool)
 }
 
 extension ProductListViewInterface {
@@ -34,6 +36,10 @@ extension ProductListViewInterface {
         get { return productListComponent.nextPageState }
     }
     
+    var productImageWidth: CGFloat {
+        get { return productListComponent.imageWidth }
+    }
+    
     func appendData(products: [ListProduct], nextPageState: NextPageState) {
         productListComponent.appendData(products, nextPageState: nextPageState)
     }
@@ -44,6 +50,10 @@ extension ProductListViewInterface {
     
     func updateNextPageState(nextPageState: NextPageState) {
         productListComponent.updateNextPageState(nextPageState)
+    }
+    
+    func moveToPosition(forProductIndex index: Int, animated: Bool) {
+        productListComponent.moveToPosition(forProductIndex: index, animated: animated)
     }
 }
 
@@ -56,12 +66,12 @@ extension ProductListComponentDelegate where Self: ProductListViewInterface {
         delegate?.productListViewDidTapRetryPage(self)
     }
     
-    func productListComponent(component: ProductListComponent, didTapProduct product: ListProduct) {
-        delegate?.productListView(self, didTapProduct: product)
+    func productListComponent(component: ProductListComponent, didTapProductAtIndex index: Int) {
+        delegate?.productListView(self, didTapProductAtIndex: index)
     }
     
-    func productListComponent(component: ProductListComponent, didDoubleTapProduct product: ListProduct) {
-        delegate?.productListView(self, didDoubleTapProduct: product)
+    func productListComponent(component: ProductListComponent, didDoubleTapProductAtIndex index: Int) {
+        delegate?.productListView(self, didDoubleTapProductAtIndex: index)
     }
 }
 

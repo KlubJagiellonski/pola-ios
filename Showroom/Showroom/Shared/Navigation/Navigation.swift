@@ -11,7 +11,11 @@ protocol NavigationHandler {
     func handleNavigationEvent(event: NavigationEvent) -> EventHandled
 }
 
-extension UIViewController {
+protocol NavigationSender {
+    func sendNavigationEvent(event: NavigationEvent) -> EventHandled
+}
+
+extension NavigationSender where Self: UIViewController {
     func sendNavigationEvent(event: NavigationEvent) -> EventHandled {
         if let navigatationHandler = self as? NavigationHandler {
             guard !navigatationHandler.handleNavigationEvent(event) else { return true }
@@ -25,3 +29,5 @@ extension UIViewController {
         return false
     }
 }
+
+extension UIViewController: NavigationSender {}
