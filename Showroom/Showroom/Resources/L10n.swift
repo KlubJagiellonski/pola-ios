@@ -11,6 +11,10 @@ enum L10n {
   case CommonError
   /// UUUPS!
   case CommonEmptyResultTitle
+  /// E-mail
+  case CommonEmail
+  /// Hasło
+  case CommonPassword
   /// Główna
   case MainTabDashboard
   /// Przeglądanie
@@ -189,16 +193,38 @@ enum L10n {
   case LoginLoginWithFacebook
   /// lub
   case LoginOr
-  /// E-mail
-  case LoginEmail
-  /// Hasło
-  case LoginPassword
   /// ZALOGUJ SIĘ
   case LoginLoginButton
   /// Przypomnienie hasła
   case LoginPassReminder
   /// Załóż nowe konto
   case LoginNewAccount
+  /// Rejestracja
+  case RegistrationNavigationHeader
+  /// REJESTRACJA Z FACEBOOKIEM
+  case RegistrationRegisterWithFacebook
+  /// lub
+  case RegistrationOr
+  /// Imię
+  case RegistrationName
+  /// Powtórz hasło
+  case RegistrationRepeatPassword
+  /// Płeć
+  case RegistrationGender
+  /// Kobieta
+  case RegistrationFemale
+  /// Mężczyzna
+  case RegistrationMale
+  /// Chcę zapisać się do newslettera
+  case RegistrationNewsletterCheck
+  /// Akceptuję regulamin SHOWROOM
+  case RegistrationRulesCheck
+  /// regulamin
+  case RegistrationRulesCheckHighlighted
+  /// UTWÓRZ KONTO
+  case RegistrationCraeteAccount
+  /// Masz już konto?
+  case RegistrationHaveAccount
   /// To pole nie może być puste
   case ValidatorNotEmpty
   /// Brakuje międzynarodowego numeru kierunkowego (np. +48)
@@ -220,6 +246,10 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Common.Error")
       case .CommonEmptyResultTitle:
         return L10n.tr("Common.EmptyResultTitle")
+      case .CommonEmail:
+        return L10n.tr("Common.Email")
+      case .CommonPassword:
+        return L10n.tr("Common.Password")
       case .MainTabDashboard:
         return L10n.tr("MainTab.Dashboard")
       case .MainTabSearch:
@@ -398,16 +428,38 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Login.LoginWithFacebook")
       case .LoginOr:
         return L10n.tr("Login.Or")
-      case .LoginEmail:
-        return L10n.tr("Login.Email")
-      case .LoginPassword:
-        return L10n.tr("Login.Password")
       case .LoginLoginButton:
         return L10n.tr("Login.LoginButton")
       case .LoginPassReminder:
         return L10n.tr("Login.PassReminder")
       case .LoginNewAccount:
         return L10n.tr("Login.NewAccount")
+      case .RegistrationNavigationHeader:
+        return L10n.tr("Registration.NavigationHeader")
+      case .RegistrationRegisterWithFacebook:
+        return L10n.tr("Registration.RegisterWithFacebook")
+      case .RegistrationOr:
+        return L10n.tr("Registration.Or")
+      case .RegistrationName:
+        return L10n.tr("Registration.Name")
+      case .RegistrationRepeatPassword:
+        return L10n.tr("Registration.RepeatPassword")
+      case .RegistrationGender:
+        return L10n.tr("Registration.Gender")
+      case .RegistrationFemale:
+        return L10n.tr("Registration.Female")
+      case .RegistrationMale:
+        return L10n.tr("Registration.Male")
+      case .RegistrationNewsletterCheck:
+        return L10n.tr("Registration.NewsletterCheck")
+      case .RegistrationRulesCheck:
+        return L10n.tr("Registration.RulesCheck")
+      case .RegistrationRulesCheckHighlighted:
+        return L10n.tr("Registration.RulesCheck.Highlighted")
+      case .RegistrationCraeteAccount:
+        return L10n.tr("Registration.CraeteAccount")
+      case .RegistrationHaveAccount:
+        return L10n.tr("Registration.HaveAccount")
       case .ValidatorNotEmpty:
         return L10n.tr("Validator.NotEmpty")
       case .ValidatorPhoneNumber:

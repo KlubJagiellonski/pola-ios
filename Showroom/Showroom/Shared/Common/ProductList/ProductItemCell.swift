@@ -89,7 +89,7 @@ final class ProductItemCell: UICollectionViewCell {
 
         let priceValue = product.price.stringValue
         let basePriceValue = product.basePrice.stringValue
-        let basePriceStrikethrough = basePriceValue.createStrikethroughString(UIColor(named: .DarkGray))
+        let basePriceStrikethrough = basePriceValue.strikethroughString
         let priceCharactersCount = priceValue.characters.count + basePriceValue.characters.count
         let shouldChangeBasePriceKern = bounds.width < changingKernForBasePriceViewWidthThreshold && !priceRow.basePriceLabel.hidden && priceCharactersCount >= 24
         if shouldChangeBasePriceKern {

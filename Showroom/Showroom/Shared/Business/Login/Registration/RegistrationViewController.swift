@@ -1,8 +1,8 @@
 import UIKit
 
-class LoginViewController: UIViewController, LoginViewDelegate {
+class RegistrationViewController: UIViewController, RegistrationViewDelegate {
     private let resolver: DiResolver
-    private var castView: LoginView { return view as! LoginView }
+    private var castView: RegistrationView { return view as! RegistrationView }
     
     init(resolver: DiResolver) {
         self.resolver = resolver
@@ -14,7 +14,7 @@ class LoginViewController: UIViewController, LoginViewDelegate {
     }
     
     override func loadView() {
-        view = LoginView()
+        view = RegistrationView()
     }
     
     override func viewDidLoad() {
@@ -33,22 +33,21 @@ class LoginViewController: UIViewController, LoginViewDelegate {
         castView.unregisterOnKeyboardEvent()
     }
     
-    // MARK: - LoginViewDelegate
+    // MARK: - RegistrationViewDelegate
     
-    func loginViewDidTapFacebook() {
+    func registrationViewDidTapFacebook() {
         
     }
     
-    func loginViewDidTapLogin() {
+    func registrationViewDidTapRules() {
+        
+    }
+    
+    func registrationViewDidTapCreate() {
         castView.validate(showResult: true)
-        // TODO: Do something when it's valid
     }
     
-    func loginViewDidTapRemindPassword() {
+    func registrationViewDidTapHaveAccount() {
         
-    }
-    
-    func loginViewDidTapRegister() {
-        sendNavigationEvent(SimpleNavigationEvent(type: .ShowRegistration))
     }
 }

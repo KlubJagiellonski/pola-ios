@@ -23,7 +23,7 @@ class RadioButton: UIControl {
     init(title: String) {
         super.init(frame: CGRectZero)
         
-        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(BasketDeliveryOptionView.didTapView)))
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(RadioButton.didTapView)))
         
         checkBoxImageView.tintColor = RadioButton.disabledColor
         
@@ -82,6 +82,6 @@ class RadioButton: UIControl {
     }
     
     override func intrinsicContentSize() -> CGSize {
-        return CGSizeMake(UIViewNoIntrinsicMetric, max(checkBoxImageView.intrinsicContentSize().height, titleLabel.intrinsicContentSize().height, 44))
+        return CGSizeMake(UIViewNoIntrinsicMetric, max(checkBoxImageView.intrinsicContentSize().height, titleLabel.intrinsicContentSize().height, Dimensions.defaultCellHeight))
     }
 }

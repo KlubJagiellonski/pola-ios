@@ -1,6 +1,6 @@
 import UIKit
 
-class LoginNavigationController: UINavigationController {
+class LoginNavigationController: UINavigationController, NavigationHandler {
     let resolver: DiResolver
 
     init(resolver: DiResolver) {
@@ -22,5 +22,26 @@ class LoginNavigationController: UINavigationController {
     
     func didTapCloseButton(sender: UIBarButtonItem) {
         dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func didTapBackButton(sender: UIBarButtonItem) {
+        popViewControllerAnimated(true)
+    }
+    
+    func handleNavigationEvent(event: NavigationEvent) -> EventHandled {
+        guard let simpleEvent = event as? SimpleNavigationEvent else { return false }
+        
+        switch simpleEvent.type {
+        case .Back:
+            popViewControllerAnimated(true)
+            return true
+        case .ShowRegistration:
+            let registrationViewController = resolver.resolve(RegistrationViewController.self)
+            registrationViewController.navigationItem.title = tr(.RegistrationNavigationHeader)
+            registrationViewController.applyBlackBackButton(target: self, action: #selector(LoginNavigationController.didTapBackButton))
+            pushViewController(registrationViewController, animated: true)
+            return true
+        default: return false
+        }
     }
 }

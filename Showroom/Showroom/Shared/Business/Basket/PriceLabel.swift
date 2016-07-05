@@ -18,7 +18,7 @@ class PriceLabel: UIView {
             if discountPrice == nil {
                 strikedPriceLabel.text = nil
             } else {
-                strikedPriceLabel.attributedText = basePrice.stringValue.createStrikethroughString(UIColor(named: .DarkGray))
+                strikedPriceLabel.attributedText = basePrice.stringValue.strikethroughString
                 normalPriceLabel.text = discountPrice?.stringValue
             }
         }

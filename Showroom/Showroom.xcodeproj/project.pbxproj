@@ -176,6 +176,9 @@
 		75FE56B31D266BD200DF5356 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FE56B21D266BD200DF5356 /* LoginViewController.swift */; };
 		75FE56B51D266BE500DF5356 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FE56B41D266BE500DF5356 /* LoginView.swift */; };
 		75FE56B71D26A3C200DF5356 /* FormInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FE56B61D26A3C200DF5356 /* FormInputView.swift */; };
+		75FE56C01D2BDE4600DF5356 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FE56BE1D2BDE4600DF5356 /* RegistrationView.swift */; };
+		75FE56C11D2BDE4600DF5356 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FE56BF1D2BDE4600DF5356 /* RegistrationViewController.swift */; };
+		75FE56C31D2BFDE900DF5356 /* CheckButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FE56C21D2BFDE900DF5356 /* CheckButton.swift */; };
 		C02220851D12D4AD004411A7 /* TabBarItemBadgeContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02220841D12D4AD004411A7 /* TabBarItemBadgeContainerView.swift */; };
 		C022208A1D183223004411A7 /* CheckoutNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02220891D183223004411A7 /* CheckoutNavigationController.swift */; };
 		C022208D1D1834B9004411A7 /* CheckoutDeliveryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C022208C1D1834B9004411A7 /* CheckoutDeliveryViewController.swift */; };
@@ -422,6 +425,9 @@
 		75FE56B21D266BD200DF5356 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		75FE56B41D266BE500DF5356 /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		75FE56B61D26A3C200DF5356 /* FormInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormInputView.swift; sourceTree = "<group>"; };
+		75FE56BE1D2BDE4600DF5356 /* RegistrationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
+		75FE56BF1D2BDE4600DF5356 /* RegistrationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
+		75FE56C21D2BFDE900DF5356 /* CheckButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckButton.swift; sourceTree = "<group>"; };
 		C02220841D12D4AD004411A7 /* TabBarItemBadgeContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarItemBadgeContainerView.swift; sourceTree = "<group>"; };
 		C02220891D183223004411A7 /* CheckoutNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutNavigationController.swift; sourceTree = "<group>"; };
 		C022208C1D1834B9004411A7 /* CheckoutDeliveryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutDeliveryViewController.swift; sourceTree = "<group>"; };
@@ -1042,6 +1048,7 @@
 				75FE56B61D26A3C200DF5356 /* FormInputView.swift */,
 				1D470E331D265CB500677122 /* FormView.swift */,
 				1D470E351D26736E00677122 /* Validator.swift */,
+				75FE56C21D2BFDE900DF5356 /* CheckButton.swift */,
 			);
 			name = Common;
 			path = Showroom/Shared/Common;
@@ -1060,11 +1067,21 @@
 		75FE56AF1D266BA200DF5356 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				75FE56BD1D2BDE4600DF5356 /* Registration */,
 				75FE56B01D266BA200DF5356 /* LoginNavigationController.swift */,
 				75FE56B21D266BD200DF5356 /* LoginViewController.swift */,
 				75FE56B41D266BE500DF5356 /* LoginView.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		75FE56BD1D2BDE4600DF5356 /* Registration */ = {
+			isa = PBXGroup;
+			children = (
+				75FE56BF1D2BDE4600DF5356 /* RegistrationViewController.swift */,
+				75FE56BE1D2BDE4600DF5356 /* RegistrationView.swift */,
+			);
+			path = Registration;
 			sourceTree = "<group>";
 		};
 		C02220881D1831C8004411A7 /* Checkout */ = {
@@ -1387,12 +1404,14 @@
 				1D1A7E201D254904009CCCE7 /* CategoryProductListModel.swift in Sources */,
 				1D2423DD1D228A9A0026D46B /* ToastManager.swift in Sources */,
 				1D78249E1D06E50400E60392 /* ProductPageView.swift in Sources */,
+				75FE56C11D2BDE4600DF5356 /* RegistrationViewController.swift in Sources */,
 				1DF14F2C1D2AA21A004A6A3A /* ProductListEmptyView.swift in Sources */,
 				1D0453531CFEF6F6001CC5A2 /* ObservableUtils.swift in Sources */,
 				1D72ED131CFC3028007AFD2F /* ContentPromo.swift in Sources */,
 				1DAA7C731D0E9E8E00545BB9 /* TouchHandlingDelegate.swift in Sources */,
 				C09367161D09AB46004C7748 /* UIImageAssets.swift in Sources */,
 				1DA846F71D19474B00BA090A /* StateTextField.swift in Sources */,
+				75FE56C01D2BDE4600DF5356 /* RegistrationView.swift in Sources */,
 				C0B094AD1D2675A100C57D06 /* CLGeocoderUtils.swift in Sources */,
 				C0B094B31D2BA23200C57D06 /* KioskCell.swift in Sources */,
 				75C854601D05816300E5F08F /* PriceLabel.swift in Sources */,
@@ -1434,6 +1453,7 @@
 				C07530C51D251D3500224508 /* ShowEditKioskEvent.swift in Sources */,
 				1DF796851CEB477B00C7A7F4 /* NetworkAssembly.swift in Sources */,
 				1DD1EA711CEDA00B00D99731 /* DashboardViewController.swift in Sources */,
+				75FE56C31D2BFDE900DF5356 /* CheckButton.swift in Sources */,
 				1DF7967B1CEB39A100C7A7F4 /* ApiService.swift in Sources */,
 				C0237D0A1D2131C80009F2FC /* FormInputTextField.swift in Sources */,
 				1D7824AE1D06F67500E60392 /* UIColorUtils.swift in Sources */,

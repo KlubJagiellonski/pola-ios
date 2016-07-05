@@ -71,7 +71,7 @@ class ProductRecommendationCell: UICollectionViewCell {
         brandLabel.text = recommendation.brand
         nameLabel.text = recommendation.title
         priceLabel.text = recommendation.price.stringValue
-        basePriceLabel.attributedText = recommendation.basePrice.stringValue.createStrikethroughString(UIColor(named: .DarkGray))
+        basePriceLabel.attributedText = recommendation.basePrice.stringValue.strikethroughString
         
         let priceDiscount = recommendation.price.calculateDiscountPercent(fromMoney: recommendation.basePrice)
         priceDiscountBadgeLabel.hidden = priceDiscount == 0

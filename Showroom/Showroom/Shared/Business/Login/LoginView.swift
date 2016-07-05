@@ -38,14 +38,14 @@ class LoginView: UIView {
         orLabel.text = tr(.LoginOr)
         orLabel.font = UIFont(fontType: .Normal)
         
-        emailField.title = tr(.LoginEmail)
+        emailField.title = tr(.CommonEmail)
         emailField.inputTextField.tag = 0
         emailField.inputTextField.returnKeyType = .Next
         emailField.inputTextField.keyboardType = .EmailAddress
         emailField.inputTextField.delegate = self
         emailField.addValidator(NotEmptyValidator(messageForEmpty: tr(.ValidatorEmail)))
         
-        passwordField.title = tr(.LoginPassword)
+        passwordField.title = tr(.CommonPassword)
         passwordField.inputTextField.secureTextEntry = true
         passwordField.inputTextField.tag = 1
         passwordField.inputTextField.returnKeyType = .Send
@@ -195,7 +195,9 @@ extension LoginView: FormView {
 
 extension LoginView: KeyboardHelperDelegate, KeyboardHandler {
     func keyboardHelperChangedKeyboardState(fromFrame: CGRect, toFrame: CGRect, duration: Double, animationOptions: UIViewAnimationOptions) {
-        let bottomOffset = (UIScreen.mainScreen().bounds.height - toFrame.minY) + Dimensions.defaultMargin
-        scrollView.contentInset = UIEdgeInsetsMake(0, 0, max(bottomOffset, 0), 0)
+        let bottomOffset = (UIScreen.mainScreen().bounds.height - toFrame.minY)
+        let contentInset = UIEdgeInsetsMake(0, 0, max(bottomOffset, 0), 0)
+        scrollView.contentInset = contentInset
+        scrollView.scrollIndicatorInsets = contentInset
     }
 }

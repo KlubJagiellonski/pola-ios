@@ -13,12 +13,16 @@ extension String {
         return min(boundingBox.height, CGFloat(numberOfLines) * font.lineHeight)
     }
     
-    func createStrikethroughString(color: UIColor) -> NSMutableAttributedString {
-        let attributes: [String: AnyObject] = [
-            NSStrikethroughStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue,
-            NSStrikethroughColorAttributeName: color
-        ]
-        return NSMutableAttributedString(string: self, attributes: attributes)
+    var strikethroughString: NSMutableAttributedString {
+        return NSMutableAttributedString(string: self, attributes: [NSStrikethroughStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue])
+    }
+    
+    func stringWithHighlightedSubsttring(substring: String) -> NSMutableAttributedString {
+        let string = self as NSString
+        let range = string.rangeOfString(substring)
+        let attributedString = NSMutableAttributedString(string: self)
+        attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor(named: .Blue), range: range)
+        return attributedString
     }
     
 }
