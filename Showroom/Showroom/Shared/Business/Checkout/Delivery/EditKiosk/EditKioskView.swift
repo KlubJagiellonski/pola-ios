@@ -146,7 +146,7 @@ class EditKioskView: UIView, KioskSearchInputFieldDelegate, KioskOptionViewDeleg
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
-            make.height.equalTo(CheckoutDeliveryView.buttonHeight)
+            make.height.equalTo(Dimensions.bigButtonHeight)
         }
     }
     
