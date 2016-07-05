@@ -11,6 +11,7 @@ class CheckoutSummaryDataSource: NSObject, UITableViewDataSource, CheckoutSummar
     private var productsByBrands: [BasketBrand] = []
     private var totalPrice: Money = Money()
     private var totalBasePrice: Money = Money()
+    private var discountCode: String?
     private var comments: [String?]?
     private var deliveryCarrier: DeliveryCarrier?
     private weak var tableView: UITableView?
@@ -26,10 +27,11 @@ class CheckoutSummaryDataSource: NSObject, UITableViewDataSource, CheckoutSummar
         tableView.registerClass(CheckoutSummaryBuyCell.self, forCellReuseIdentifier: String(CheckoutSummaryBuyCell))
     }
     
-    func updateData(with basket: Basket, carrier deliveryCarrier: DeliveryCarrier, comments: [String?]? = nil) {
+    func updateData(with basket: Basket, carrier deliveryCarrier: DeliveryCarrier, discountCode: String? = nil, comments: [String?]? = nil) {
         self.productsByBrands = basket.productsByBrands
         self.totalPrice = basket.price
         self.totalBasePrice = basket.basePrice
+        self.discountCode = discountCode
         self.comments = comments
         self.deliveryCarrier = deliveryCarrier
         
@@ -63,7 +65,7 @@ class CheckoutSummaryDataSource: NSObject, UITableViewDataSource, CheckoutSummar
             switch paymentRow {
             case CheckoutSummaryPaymentRow.Payment:
                 let cell = tableView.dequeueReusableCellWithIdentifier(String(CheckoutSummaryPaymentCell)) as! CheckoutSummaryPaymentCell
-                cell.updateData(withTotalPrice: totalPrice, totalBasePrice: totalBasePrice)
+                cell.updateData(withTotalPrice: totalPrice, totalBasePrice: totalBasePrice, discountCode: discountCode)
                 return cell
             case CheckoutSummaryPaymentRow.BuyButton:
                 let cell = tableView.dequeueReusableCellWithIdentifier(String(CheckoutSummaryBuyCell)) as! CheckoutSummaryBuyCell
@@ -83,6 +85,7 @@ class CheckoutSummaryDataSource: NSObject, UITableViewDataSource, CheckoutSummar
             } else if isCommentCell(at: indexPath) {
                 let cell = tableView.dequeueReusableCellWithIdentifier(String(CheckoutSummaryCommentCell)) as! CheckoutSummaryCommentCell
                 cell.delegate = self
+                cell.separatorView.hidden = discountCode == nil && isLastBrandSection(indexPath.section)
                 cell.updateData(withComment: comment(forSection: indexPath.section))
                 return cell
             } else {
@@ -125,6 +128,10 @@ class CheckoutSummaryDataSource: NSObject, UITableViewDataSource, CheckoutSummar
     
     func isPaymentSection(section: Int) -> Bool {
         return section == productsByBrands.count
+    }
+    
+    func isLastBrandSection(section: Int) -> Bool {
+        return section == productsByBrands.count - 1
     }
     
     func isBrandCell(at indexPath: NSIndexPath) -> Bool {

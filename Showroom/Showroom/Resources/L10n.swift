@@ -163,8 +163,8 @@ enum L10n {
   case CheckoutSummarySaveComment
   /// Tutaj wpisz wiadomość do projektanta.
   case CheckoutSummaryCommentPlaceholder
-  /// Przecena
-  case CheckoutSummaryDiscount
+  /// Kod rabatowy %@
+  case CheckoutSummaryDiscountCode(String)
   /// Kwota do zapłaty
   case CheckoutSummaryTotalPrice
   /// Sposób płatności
@@ -372,8 +372,8 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Checkout.Summary.SaveComment")
       case .CheckoutSummaryCommentPlaceholder:
         return L10n.tr("Checkout.Summary.CommentPlaceholder")
-      case .CheckoutSummaryDiscount:
-        return L10n.tr("Checkout.Summary.Discount")
+      case .CheckoutSummaryDiscountCode(let p0):
+        return L10n.tr("Checkout.Summary.DiscountCode", p0)
       case .CheckoutSummaryTotalPrice:
         return L10n.tr("Checkout.Summary.TotalPrice")
       case .CheckoutSummaryPaymentMethod:

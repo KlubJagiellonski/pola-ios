@@ -1,10 +1,14 @@
 import UIKit
+import SnapKit
 
 /// Represetns cell view for two types of cells: product item and delivery info.
 /// Both have a fixed height.
 class CheckoutSummaryCell: UITableViewCell {
-    static let productCellHeight: CGFloat = 48
-    static let deliveryCellHeight: CGFloat = 26
+    /// Product cell consists of two lines of text: title and properties.
+    static let productCellHeight: CGFloat = 36
+    
+    /// Delivery info and discount cell are only one line of text with price.
+    static let deliveryCellHeight: CGFloat = 20
     
     private let descriptionLabel = TitleValueLabel()
     private let priceLabel = PriceLabel()
@@ -13,7 +17,6 @@ class CheckoutSummaryCell: UITableViewCell {
         super.init(style: .Default, reuseIdentifier: reuseIdentifier)
         selectionStyle = .None
         
-        descriptionLabel.titleLabel.numberOfLines = 2
         descriptionLabel.font = UIFont(fontType: .CheckoutSummary)
         descriptionLabel.valueLabel.textColor = UIColor(named: .OldLavender)
         priceLabel.normalPriceLabel.font = descriptionLabel.font
@@ -37,7 +40,7 @@ class CheckoutSummaryCell: UITableViewCell {
         priceLabel.snp_makeConstraints { make in
             make.right.equalToSuperview().inset(Dimensions.defaultMargin)
             make.left.equalTo(descriptionLabel.snp_right)
-            make.top.equalToSuperview()
+            make.top.equalToSuperview().offset(1)
         }
     }
     
@@ -67,7 +70,7 @@ class CheckoutSummaryBrandCell: UITableViewCell {
         super.init(style: .Default, reuseIdentifier: reuseIdentifier)
         selectionStyle = .None
         
-        headerLabel.font = UIFont(fontType: .FormNormal)
+        headerLabel.font = UIFont(fontType: .FormBold)
         
         contentView.addSubview(headerLabel)
         
@@ -100,6 +103,7 @@ class CheckoutSummaryCommentCell: UITableViewCell {
     private let editButton = UIButton()
     private let deleteButton = UIButton()
     private let buttonsStackView = UIStackView()
+    let separatorView = UIView()
     
     weak var delegate: CheckoutSummaryCommentCellDelegate?
     
@@ -135,8 +139,11 @@ class CheckoutSummaryCommentCell: UITableViewCell {
         buttonsStackView.addArrangedSubview(deleteButton)
         buttonsStackView.addArrangedSubview(editButton)
         
+        separatorView.backgroundColor = UIColor(named: .Separator)
+        
         contentView.addSubview(commentLabel)
         contentView.addSubview(buttonsStackView)
+        contentView.addSubview(separatorView)
         
         configureCustomConstraints()
     }
@@ -147,14 +154,21 @@ class CheckoutSummaryCommentCell: UITableViewCell {
     
     private func configureCustomConstraints() {
         commentLabel.snp_makeConstraints { make in
-            make.top.equalToSuperview().inset(Dimensions.defaultMargin)
+            make.top.equalToSuperview()
             make.left.equalToSuperview().inset(Dimensions.defaultMargin)
             make.right.equalToSuperview().inset(Dimensions.defaultMargin)
         }
         
         buttonsStackView.snp_makeConstraints { make in
             make.right.equalToSuperview().inset(Dimensions.defaultMargin)
-            make.bottom.equalToSuperview().inset(Dimensions.defaultMargin)
+            make.bottom.equalToSuperview().inset(4)
+        }
+        
+        separatorView.snp_makeConstraints { make in
+            make.bottom.equalToSuperview()
+            make.left.equalToSuperview().inset(Dimensions.defaultMargin)
+            make.right.equalToSuperview().inset(Dimensions.defaultMargin)
+            make.height.equalTo(Dimensions.defaultSeparatorThickness)
         }
     }
     
@@ -188,30 +202,37 @@ class CheckoutSummaryCommentCell: UITableViewCell {
     
     class func getHeight(forWidth width: CGFloat, comment: String?) -> CGFloat {
         guard let comment = comment else {
-            return Dimensions.defaultCellHeight
+            return 24
         }
         
         let commentHeight = comment.heightWithConstrainedWidth(width - Dimensions.defaultMargin * 2, font: UIFont(fontType: .CheckoutSummary), numberOfLines: 3)
-        return commentHeight + 70 // +70 for buttons height and margins
+        return commentHeight + 44 // + 44 for buttons height and margins
     }
 }
 
-/// Helper view for showing prices with titles. Can be used without price as 
-/// a simple label with proper size.
+/// Helper view for showing prices with titles.
 class CheckoutSummaryPriceView: UIView {
     static let cellHeight: CGFloat = Dimensions.defaultCellHeight
     
     let titleLabel = UILabel()
     let priceLabel = UILabel()
     
+    var font: UIFont {
+        get {
+            return titleLabel.font
+        }
+        
+        set {
+            titleLabel.font = newValue
+            priceLabel.font = newValue
+        }
+    }
+    
     init(title: String = "", price: Money? = nil) {
         super.init(frame: CGRectZero)
         
-        titleLabel.font = UIFont(fontType: .FormBold)
         titleLabel.text = title
-        titleLabel.numberOfLines = 2
         
-        priceLabel.font = UIFont(fontType: .FormNormal)
         priceLabel.textAlignment = .Right
         if price != nil {
             priceLabel.text = price?.stringValue
@@ -230,19 +251,14 @@ class CheckoutSummaryPriceView: UIView {
     private func configureCustomConstraints() {
         titleLabel.snp_makeConstraints { make in
             make.left.equalToSuperview()
-            make.right.equalTo(priceLabel.snp_left)
-            make.bottom.equalToSuperview().inset(Dimensions.defaultMargin)
+            make.centerY.equalToSuperview()
         }
         
         priceLabel.snp_makeConstraints { make in
             make.right.equalToSuperview()
-            make.bottom.equalToSuperview().inset(Dimensions.defaultMargin)
-            make.width.equalTo(133) // From design, enough for five-digit price, like 10000,00 zł. No need to complicate it with other calculation.
+            make.left.equalTo(titleLabel.snp_right)
+            make.centerY.equalToSuperview()
         }
-    }
-    
-    override func intrinsicContentSize() -> CGSize {
-        return CGSize(width: UIViewNoIntrinsicMetric, height: Dimensions.defaultCellHeight)
     }
 }
 
@@ -266,39 +282,46 @@ class PayUButton: UIView {
 /// Shows pricing and delivery info on the bottom. It has two possible heights
 /// depending on discount presence.
 class CheckoutSummaryPaymentCell: UITableViewCell {
-    private static let cellHeightMax: CGFloat = 288
+    private static let cellHeightMax: CGFloat = 240
+    private static let discountCellHeight: CGFloat = 28
     
-    private let discountLabel = CheckoutSummaryPriceView(title: tr(.CheckoutSummaryDiscount))
+    private var discountHeightConstraint: Constraint?
+    
+    private let discountLabel = CheckoutSummaryPriceView(title: tr(.CheckoutSummaryDiscountCode("")))
     private let totalPriceLabel = CheckoutSummaryPriceView(title: tr(.CheckoutSummaryTotalPrice))
-    private let methodLabel = CheckoutSummaryPriceView(title: tr(.CheckoutSummaryPaymentMethod))
+    private let methodLabel = UILabel()
     private let payuRadio = RadioButton(title: tr(.CheckoutSummaryPayU))
     private let payuButton = PayUButton()
     private let cashRadio = RadioButton(title: tr(.CheckoutSummaryCash))
-    
-    private let stackView = UIStackView()
+    private let separatorView1 = UIView()
+    private let separatorView2 = UIView()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: .Default, reuseIdentifier: reuseIdentifier)
         selectionStyle = .None
         
-        stackView.axis = .Vertical
-        stackView.alignment = .Fill
-        stackView.distribution = .Fill
+        separatorView1.backgroundColor = UIColor(named: .Blue)
+        separatorView2.backgroundColor = UIColor(named: .Blue)
         
-        totalPriceLabel.priceLabel.font = UIFont(fontType: .PriceNormal)
+        discountLabel.font = UIFont(fontType: .CheckoutSummary)
+        
+        totalPriceLabel.font = UIFont(fontType: .PriceBold)
+        
+        methodLabel.text = tr(.CheckoutSummaryPaymentMethod)
+        methodLabel.font = UIFont(fontType: .FormBold)
         
         payuRadio.addTarget(self, action: #selector(CheckoutSummaryPaymentCell.didChangePayuValue), forControlEvents: .ValueChanged)
         payuRadio.selected = true
         cashRadio.addTarget(self, action: #selector(CheckoutSummaryPaymentCell.didChangeCashValue), forControlEvents: .ValueChanged)
         
-        stackView.addArrangedSubview(discountLabel)
-        stackView.addArrangedSubview(totalPriceLabel)
-        stackView.addArrangedSubview(methodLabel)
-        stackView.addArrangedSubview(payuRadio)
-        stackView.addArrangedSubview(payuButton)
-        stackView.addArrangedSubview(cashRadio)
-        
-        contentView.addSubview(stackView)
+        contentView.addSubview(discountLabel)
+        contentView.addSubview(separatorView1)
+        contentView.addSubview(totalPriceLabel)
+        contentView.addSubview(separatorView2)
+        contentView.addSubview(methodLabel)
+        contentView.addSubview(payuRadio)
+        contentView.addSubview(payuButton)
+        contentView.addSubview(cashRadio)
         
         configureCustomConstraints()
     }
@@ -308,28 +331,72 @@ class CheckoutSummaryPaymentCell: UITableViewCell {
     }
     
     private func configureCustomConstraints() {
-        payuButton.snp_makeConstraints { make in
-            make.height.equalTo(payuButton.intrinsicContentSize().height) // For some reason intrinsic size is not enough
+        discountLabel.snp_makeConstraints { make in
+            make.top.equalToSuperview()
+            make.left.equalToSuperview().inset(Dimensions.defaultMargin)
+            make.right.equalToSuperview().inset(Dimensions.defaultMargin)
+            discountHeightConstraint = make.height.equalTo(CheckoutSummaryPaymentCell.discountCellHeight).constraint
         }
         
-        stackView.snp_makeConstraints { make in
-            make.edges.equalToSuperview().inset(UIEdgeInsets(top: 0, left: Dimensions.defaultMargin, bottom: Dimensions.defaultMargin, right: Dimensions.defaultMargin))
+        separatorView1.snp_makeConstraints { make in
+            make.top.equalTo(discountLabel.snp_bottom)
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+            make.height.equalTo(Dimensions.boldSeparatorThickness)
+        }
+        
+        totalPriceLabel.snp_makeConstraints { make in
+            make.top.equalTo(separatorView1.snp_bottom)
+            make.left.equalToSuperview().inset(Dimensions.defaultMargin)
+            make.right.equalToSuperview().inset(Dimensions.defaultMargin)
+            make.height.equalTo(Dimensions.defaultCellHeight)
+        }
+        
+        separatorView2.snp_makeConstraints { make in
+            make.top.equalTo(totalPriceLabel.snp_bottom)
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+            make.height.equalTo(Dimensions.boldSeparatorThickness)
+        }
+        
+        methodLabel.snp_makeConstraints { make in
+            make.top.equalTo(separatorView2.snp_bottom).offset(20)
+            make.left.equalToSuperview().inset(Dimensions.defaultMargin)
+        }
+        
+        payuRadio.snp_makeConstraints { make in
+            make.top.equalTo(methodLabel.snp_bottom)
+            make.left.equalToSuperview().inset(Dimensions.defaultMargin)
+        }
+        
+        payuButton.snp_makeConstraints { make in
+            make.top.equalTo(payuRadio.snp_bottom)
+            make.left.equalToSuperview().inset(Dimensions.defaultMargin)
+            make.right.equalToSuperview().inset(Dimensions.defaultMargin)
+        }
+        
+        cashRadio.snp_makeConstraints { make in
+            make.top.equalTo(payuButton.snp_bottom)
+            make.left.equalToSuperview().inset(Dimensions.defaultMargin)
         }
     }
     
-    func updateData(withTotalPrice totalPrice: Money, totalBasePrice: Money) {
+    func updateData(withTotalPrice totalPrice: Money, totalBasePrice: Money, discountCode: String?) {
         totalPriceLabel.priceLabel.text = totalPrice.stringValue
-        if totalPrice == totalBasePrice {
+        if discountCode == nil {
             discountLabel.hidden = true
+            discountHeightConstraint?.updateOffset(0)
         } else {
+            discountLabel.titleLabel.text = tr(.CheckoutSummaryDiscountCode(discountCode ?? ""))
             discountLabel.priceLabel.text = (totalPrice - totalBasePrice).stringValue
             discountLabel.hidden = false
+            discountHeightConstraint?.updateOffset(CheckoutSummaryPaymentCell.discountCellHeight)
         }
     }
     
     class func getHeight(forBasePrice basePrice: Money, discountedPrice price: Money) -> CGFloat {
         if basePrice == price {
-            return CheckoutSummaryPaymentCell.cellHeightMax - Dimensions.defaultCellHeight
+            return CheckoutSummaryPaymentCell.cellHeightMax - CheckoutSummaryPaymentCell.discountCellHeight
         } else {
             return CheckoutSummaryPaymentCell.cellHeightMax
         }
@@ -349,7 +416,7 @@ class CheckoutSummaryPaymentCell: UITableViewCell {
 }
 
 class CheckoutSummaryBuyCell: UITableViewCell {
-    static let cellHeight: CGFloat = 52
+    static let cellHeight: CGFloat = Dimensions.bigButtonHeight
     
     let buyButton = UIButton()
     

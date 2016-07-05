@@ -122,7 +122,11 @@ class BasketViewController: UIViewController, BasketViewDelegate {
     
     func basketView(view: BasketView, didChangeDiscountCode discountCode: String?) {
         guard discountCode != manager.state.discountCode else { return }
-        manager.state.discountCode = discountCode
+        if let discountCode = discountCode?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()) {
+            manager.state.discountCode = discountCode.characters.count > 0 ? discountCode : nil
+        } else {
+            manager.state.discountCode = nil
+        }
         manager.validate()
     }
     

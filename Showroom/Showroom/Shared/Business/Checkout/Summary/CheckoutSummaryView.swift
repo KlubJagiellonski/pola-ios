@@ -40,11 +40,11 @@ class CheckoutSummaryView: UIView, UITableViewDelegate {
         }
     }
     
-    func updateData(with basket: Basket?, carrier deliveryCarrier: DeliveryCarrier?, comments: [String?]?) {
+    func updateData(with basket: Basket?, carrier deliveryCarrier: DeliveryCarrier?, discountCode: String?, comments: [String?]?) {
         guard let basket = basket else { return }
         guard let deliveryCarrier = deliveryCarrier else { return }
     
-        dataSource.updateData(with: basket, carrier: deliveryCarrier, comments: comments)
+        dataSource.updateData(with: basket, carrier: deliveryCarrier, discountCode: discountCode, comments: comments)
     }
     
     func updateData(withComments comments: [String?]) {

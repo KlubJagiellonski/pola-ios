@@ -8,6 +8,7 @@ extension UIFont {
         case Normal
         case FormNormal
         case PriceNormal
+        case PriceBold
         case PriceList
         case PriceSmall
         case TabBar
@@ -41,6 +42,8 @@ extension UIFont {
             self.init(name: "Lato-Semibold", size: 14)
         case .PriceNormal:
             self.init(name: "Lato-Regular", size: 20)
+        case .PriceBold:
+            self.init(name: "Lato-Heavy", size: 18)
         case .PriceList:
             self.init(name: "Lato-Regular", size: 13)
         case .PriceSmall:

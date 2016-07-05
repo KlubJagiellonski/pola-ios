@@ -78,7 +78,7 @@
 "Checkout.Summary.DeleteComment" = "USUŃ";
 "Checkout.Summary.SaveComment" = "ZAPISZ";
 "Checkout.Summary.CommentPlaceholder" = "Tutaj wpisz wiadomość do projektanta.";
-"Checkout.Summary.Discount" = "Przecena";
+"Checkout.Summary.DiscountCode" = "Kod rabatowy %@";
 "Checkout.Summary.TotalPrice" = "Kwota do zapłaty";
 "Checkout.Summary.PaymentMethod" = "Sposób płatności";
 "Checkout.Summary.PayU" = "płatność PayU";
