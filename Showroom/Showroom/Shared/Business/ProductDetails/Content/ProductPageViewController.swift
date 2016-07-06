@@ -39,7 +39,7 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate, Prod
         navigationController.navigationBarHidden = true
         navigationController.delegate = self
         addChildViewController(navigationController)
-        view = ProductPageView(contentView: navigationController.view, descriptionViewInterface: descriptionViewController.view as! ProductDescriptionViewInterface, modelState: model.state)
+        view = ProductPageView(contentView: navigationController.view, descriptionViewInterface: descriptionViewController.view as! ProductDescriptionViewInterface, modelState: model.state, contentInset: viewContentInset)
         navigationController.didMoveToParentViewController(self)
         
         self.contentNavigationController = navigationController
@@ -51,7 +51,6 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate, Prod
         
         actionAnimator.delegate = self
         
-        castView.contentInset = viewContentInset
         castView.delegate = self
         
         fetchProductDetails()

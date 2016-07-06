@@ -24,6 +24,7 @@ protocol ProductDescriptionViewDelegate: class {
 class ProductDescriptionView: UIView, UITableViewDelegate, ProductDescriptionViewInterface {
     private let defaultVerticalPadding: CGFloat = 8
     private let descriptionTableViewTopMargin: CGFloat = 10
+    let headerHeight: CGFloat = 158
     
     private let headerView = DescriptionHeaderView()
     private let tableView = UITableView(frame: CGRectZero, style: .Plain)
@@ -40,14 +41,6 @@ class ProductDescriptionView: UIView, UITableViewDelegate, ProductDescriptionVie
             let bottomInset = contentInset?.bottom ?? 0
             tableView.contentInset = UIEdgeInsetsMake(0, 0, bottomInset + 12, 0)
         }
-    }
-    
-    var headerHeight: CGFloat {
-        return tableView.frame.minY
-    }
-    
-    var calculatedHeaderHeight: CGFloat {
-        return defaultVerticalPadding + headerView.intrinsicContentSize().height + descriptionTableViewTopMargin
     }
     
     var touchRequiredView: UIView {
@@ -113,8 +106,8 @@ class ProductDescriptionView: UIView, UITableViewDelegate, ProductDescriptionVie
     private func updateProductDetails(productDetails: ProductDetails?) {
         guard let p = productDetails else { return }
         
-        headerView.brandNameLabel.text = p.brand.name
-        headerView.nameLabel.text = p.name
+        headerView.brandNameLabel.text = productDetails?.brand.name
+        headerView.nameLabel.text = productDetails?.name
         headerView.priceLabel.basePrice = p.basePrice
         if p.basePrice != p.price {
             headerView.priceLabel.discountPrice = p.price
@@ -143,15 +136,16 @@ class ProductDescriptionView: UIView, UITableViewDelegate, ProductDescriptionVie
     
     private func configureCustomConstraints() {
         headerView.snp_makeConstraints { make in
-            make.top.equalToSuperview().offset(defaultVerticalPadding)
+            make.top.equalToSuperview()
             make.leading.equalToSuperview().offset(Dimensions.defaultMargin)
             make.trailing.equalToSuperview().inset(Dimensions.defaultMargin)
+            make.height.equalTo(headerHeight)
         }
         
         separatorView.snp_makeConstraints { make in
             make.leading.equalToSuperview().offset(Dimensions.defaultMargin)
             make.trailing.equalToSuperview().inset(Dimensions.defaultMargin)
-            make.top.equalTo(headerView.snp_bottom).offset(descriptionTableViewTopMargin)
+            make.top.equalTo(headerView.snp_bottom)
             make.height.equalTo(1)
         }
         
@@ -250,90 +244,74 @@ class DescriptionHeaderView: UIView {
             make.top.equalToSuperview()
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
+            make.height.equalTo(55)
         }
         
         brandNameLabel.snp_makeConstraints { make in
-            make.top.equalToSuperview()
+            make.centerY.equalToSuperview()
             make.leading.equalToSuperview()
             make.bottom.lessThanOrEqualToSuperview()
         }
         
         priceLabel.setContentCompressionResistancePriority(UILayoutPriorityDefaultHigh, forAxis: .Horizontal)
         priceLabel.snp_makeConstraints { make in
-            make.top.greaterThanOrEqualToSuperview()
+            make.centerY.equalToSuperview()
             make.leading.equalTo(brandNameLabel.snp_trailing).offset(horizontalItemPadding)
             make.trailing.equalToSuperview()
-            make.bottom.equalToSuperview()
         }
         
         //name and info container
         
         nameInfoContainerView.snp_makeConstraints { make in
-            make.top.equalTo(brandAndPriceContainerView.snp_bottom).offset(defaultVerticalPadding)
+            make.top.equalTo(brandAndPriceContainerView.snp_bottom)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
+            make.height.equalTo(40)
         }
         
         nameLabel.snp_makeConstraints { make in
-            make.top.equalToSuperview()
+            make.centerY.equalToSuperview()
             make.leading.equalToSuperview()
             make.bottom.lessThanOrEqualToSuperview()
         }
         
         infoImageView.snp_makeConstraints { make in
-            make.top.equalToSuperview()
+            make.centerY.equalToSuperview()
             make.trailing.equalToSuperview()
             make.leading.equalTo(nameLabel.snp_trailing).offset(horizontalItemPadding)
             make.width.equalTo(infoImageView.image!.size.width)
-            make.bottom.lessThanOrEqualToSuperview()
         }
         
         //buttons container
         
         buttonsContainerView.snp_makeConstraints { make in
-            make.top.equalTo(nameInfoContainerView.snp_bottom).offset(buttonsToNameInfoVerticalPadding)
+            make.top.equalTo(nameInfoContainerView.snp_bottom)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
+            make.bottom.equalToSuperview()
         }
         
         colorButton.snp_makeConstraints { make in
-            make.top.equalToSuperview()
+            make.centerY.equalToSuperview()
             make.leading.equalToSuperview()
-            make.bottom.equalToSuperview()
             make.width.equalTo(dropDownButtonWidth)
+            make.height.equalTo(Dimensions.defaultButtonHeight)
         }
         
         sizeButton.snp_makeConstraints { make in
-            make.top.equalToSuperview()
+            make.centerY.equalToSuperview()
             make.leading.equalTo(colorButton.snp_trailing).offset(horizontalItemPadding)
-            make.bottom.equalToSuperview()
             make.width.equalTo(dropDownButtonWidth)
+            make.height.equalTo(Dimensions.defaultButtonHeight)
         }
         
         buyButton.setContentHuggingPriority(UILayoutPriorityDefaultLow, forAxis: .Horizontal)
         buyButton.snp_makeConstraints { make in
-            make.top.equalToSuperview()
+            make.centerY.equalToSuperview()
             make.leading.equalTo(sizeButton.snp_trailing).offset(horizontalItemPadding)
             make.trailing.equalToSuperview()
             make.height.equalTo(Dimensions.defaultButtonHeight)
-            make.bottom.equalToSuperview()
         }
-    }
-    
-    override func intrinsicContentSize() -> CGSize {
-        let priceWidth = priceLabel.intrinsicContentSize().width
-        let brandNameAvailableWidth = bounds.width - priceWidth - horizontalItemPadding
-        let brandNameHeight = brandNameLabel.text?.heightWithConstrainedWidth(brandNameAvailableWidth, font: brandNameLabel.font) ?? 0
-        let brandAndPriceHeight = max(brandNameHeight, priceLabel.intrinsicContentSize().height)
-        
-        let infoWidth = infoImageView.intrinsicContentSize().width
-        let nameAvailableWidth = bounds.width - infoWidth - horizontalItemPadding
-        let nameHeight = nameLabel.text?.heightWithConstrainedWidth(nameAvailableWidth, font: nameLabel.font) ?? 0
-        let nameAndInfoHeight = max(nameHeight, infoImageView.intrinsicContentSize().height)
-        
-        let height = defaultVerticalPadding + brandAndPriceHeight + defaultVerticalPadding + nameAndInfoHeight + buttonsToNameInfoVerticalPadding + Dimensions.defaultButtonHeight
-        
-        return CGSizeMake(UIViewNoIntrinsicMetric, height)
     }
 }
 

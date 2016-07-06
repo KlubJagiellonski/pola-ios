@@ -5,7 +5,6 @@ import RxSwift
 
 protocol ProductDescriptionViewInterface: class {
     var headerHeight: CGFloat { get }
-    var calculatedHeaderHeight: CGFloat { get }
     var touchRequiredView: UIView { get } // view for which we want to disable uitapgesturerecognizer
 }
 
@@ -39,6 +38,7 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
     private let imageDataSource: ProductImageDataSource
     private let disposeBag = DisposeBag()
     
+    private var contentInset: UIEdgeInsets?
     private var contentTopConstraint: Constraint?
     private var currentTopContentOffset:CGFloat = 0
     private(set) var viewState: ProductPageViewState = .Default {
@@ -55,7 +55,6 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
         let pageHeight = imageCollectionView.frame.height
         return Int(imageCollectionView.contentOffset.y / pageHeight)
     }
-    var contentInset: UIEdgeInsets?
     var contentGestureRecognizerEnabled = true {
         didSet {
             contentContainerView.gestureRecognizers?.forEach { $0.enabled = contentGestureRecognizerEnabled }
@@ -65,12 +64,14 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
         didSet { switcherDelegate = delegate }
     }
     
-    init(contentView: UIView, descriptionViewInterface: ProductDescriptionViewInterface, modelState: ProductPageModelState) {
+    init(contentView: UIView, descriptionViewInterface: ProductDescriptionViewInterface, modelState: ProductPageModelState, contentInset: UIEdgeInsets?) {
         self.descriptionViewInterface = descriptionViewInterface
         self.modelState = modelState
         imageDataSource = ProductImageDataSource(collectionView: imageCollectionView)
         
         super.init(successView: containerView, initialState: modelState.product == nil ? .Loading : .Success)
+        
+        self.contentInset = contentInset
         
         switcherDataSource = self
         
@@ -140,9 +141,6 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
         imageDataSource.imageUrls = p.images.map { $0.url }
         pageControl.numberOfPages = imageDataSource.imageUrls.count
         pageControl.invalidateIntrinsicContentSize()
-        
-        let forceUpdate = calculateTopContentOffset(forViewState: viewState) != currentTopContentOffset
-        changeViewState(viewState, animationDuration: 0.3, forceUpdate: forceUpdate)
     }
     
     func changeViewState(viewState: ProductPageViewState, animationDuration: Double? = defaultContentAnimationDuration, forceUpdate: Bool = false, completion: (() -> Void)? = nil) {
@@ -169,8 +167,9 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
             make.edges.equalToSuperview()
         }
         
+        currentTopContentOffset = calculateTopContentOffset(forViewState: .Default)
         contentContainerView.snp_makeConstraints { make in
-            contentTopConstraint = make.top.equalTo(contentContainerView.superview!.snp_bottom).constraint
+            contentTopConstraint = make.top.equalTo(contentContainerView.superview!.snp_bottom).offset(currentTopContentOffset).constraint
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
             make.height.equalToSuperview().offset(-defaultDescriptionTopMargin)
@@ -204,7 +203,7 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
     private func calculateTopContentOffset(forViewState viewState: ProductPageViewState) -> CGFloat {
         switch viewState {
         case .Default:
-            return -((descriptionViewInterface?.calculatedHeaderHeight ?? 0) + (contentInset?.bottom ?? 0))
+            return -(descriptionViewInterface!.headerHeight + (contentInset?.bottom ?? 0))
         case .ContentVisible:
             return defaultDescriptionTopMargin - bounds.height
         case .ImageGallery:
