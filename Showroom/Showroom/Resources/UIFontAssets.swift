@@ -6,6 +6,7 @@ extension UIFont {
         case Bold
         case Italic
         case Normal
+        case NormalBold
         case FormNormal
         case PriceNormal
         case PriceBold
@@ -38,6 +39,8 @@ extension UIFont {
             self.init(name: "Georgia-Italic", size: 16)
         case .Normal:
             self.init(name: "Lato-Regular", size: 14)
+        case .NormalBold:
+            self.init(name: "Lato-Bold", size: 14)
         case .FormNormal:
             self.init(name: "Lato-Semibold", size: 14)
         case .PriceNormal:

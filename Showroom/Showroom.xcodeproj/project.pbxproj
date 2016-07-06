@@ -78,6 +78,7 @@
 		1D5EF1CA1CEB61000071C097 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2F199A1CEA14FE0099142E /* RxBlocking.framework */; };
 		1D5EF1CB1CEB61000071C097 /* RxTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2F199D1CEA14FE0099142E /* RxTests.framework */; };
 		1D5EF1D11CEB666B0071C097 /* UIImageViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5EF1D01CEB666B0071C097 /* UIImageViewUtils.swift */; };
+		1D6933461D2D176200609BB9 /* CocoaMarkdown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D6933451D2D176200609BB9 /* CocoaMarkdown.framework */; };
 		1D72ECFE1CF456DA007AFD2F /* NavigationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D72ECFD1CF456DA007AFD2F /* NavigationTests.swift */; };
 		1D72ECFF1CF45B37007AFD2F /* RxSwift.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1D2F199C1CEA14FE0099142E /* RxSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1D72ED0C1CFC22FD007AFD2F /* NetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D72ED0B1CFC22FD007AFD2F /* NetworkTests.swift */; };
@@ -334,6 +335,7 @@
 		1D5886EB1D2BF274007D0CB1 /* ProductHeaderContainerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductHeaderContainerCell.swift; sourceTree = "<group>"; };
 		1D5B5E651D0197B700B74822 /* MoneyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneyTests.swift; sourceTree = "<group>"; };
 		1D5EF1D01CEB666B0071C097 /* UIImageViewUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageViewUtils.swift; sourceTree = "<group>"; };
+		1D6933451D2D176200609BB9 /* CocoaMarkdown.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaMarkdown.framework; path = Carthage/Build/iOS/CocoaMarkdown.framework; sourceTree = "<group>"; };
 		1D72ECFD1CF456DA007AFD2F /* NavigationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationTests.swift; sourceTree = "<group>"; };
 		1D72ED0B1CFC22FD007AFD2F /* NetworkTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkTests.swift; sourceTree = "<group>"; };
 		1D72ED0E1CFC2F47007AFD2F /* UserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
@@ -494,6 +496,7 @@
 				1D2F19AA1CEA14FE0099142E /* Swinject.framework in Frameworks */,
 				1D2F19AB1CEA14FE0099142E /* XCGLogger.framework in Frameworks */,
 				1D2F19D11CEB16120099142E /* Decodable.framework in Frameworks */,
+				1D6933461D2D176200609BB9 /* CocoaMarkdown.framework in Frameworks */,
 				1DF796731CEB2E1F00C7A7F4 /* Fabric.framework in Frameworks */,
 				1DD1EA9D1CF2F58E00D99731 /* SnapKit.framework in Frameworks */,
 				1D04534F1CFEDE74001CC5A2 /* EmarsysPredictSDK.framework in Frameworks */,
@@ -664,6 +667,7 @@
 		1D2F19AC1CEA15060099142E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1D6933451D2D176200609BB9 /* CocoaMarkdown.framework */,
 				1D04534E1CFEDE74001CC5A2 /* EmarsysPredictSDK.framework */,
 				1DD1EA9C1CF2F58E00D99731 /* SnapKit.framework */,
 				1DF796761CEB34AD00C7A7F4 /* Haneke.framework */,
@@ -1236,7 +1240,6 @@
 				1D2F19391CE9CE250099142E /* Resources */,
 				1D2F19901CE9D39C0099142E /* Embed Frameworks */,
 				1D2F19B81CEA15EC0099142E /* Carthage Run Script */,
-				1DD1EA6E1CEC5D4B00D99731 /* SwiftGen Run Script */,
 				1DF796701CEB2C1500C7A7F4 /* Fabric Run Script */,
 			);
 			buildRules = (
@@ -1348,6 +1351,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Haneke.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SnapKit.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/EmarsysPredictSDK.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/CocoaMarkdown.framework",
 			);
 			name = "Carthage Run Script";
 			outputPaths = (
@@ -1355,20 +1359,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks";
-		};
-		1DD1EA6E1CEC5D4B00D99731 /* SwiftGen Run Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "SwiftGen Run Script";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = ./swiftgen.sh;
 		};
 		1DF796701CEB2C1500C7A7F4 /* Fabric Run Script */ = {
 			isa = PBXShellScriptBuildPhase;

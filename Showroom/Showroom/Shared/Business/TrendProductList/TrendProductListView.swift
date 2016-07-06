@@ -16,6 +16,7 @@ class TrendProductListView: ViewSwitcher, ProductListViewInterface, ProductListC
         return delegate as? TrendProductListViewDelegate
     }
     private let headerCell = TrendHeaderCell()
+    private var currentHeaderDescription: NSAttributedString?
     
     init() {
         productListComponent = ProductListComponent(withCollectionView: collectionView)
@@ -25,11 +26,10 @@ class TrendProductListView: ViewSwitcher, ProductListViewInterface, ProductListC
         
         switcherDataSource = self
         
-        headerCell.updateData(withImageUrl: "", description: headerDescription)
-        
         productListComponent.delegate = self
         productListComponent.headerSectionInfo = HeaderSectionInfo(view: headerCell, wantsToReceiveScrollEvents: true) { [unowned self] in
-            return TrendHeaderCell.height(forWidth: self.collectionView.bounds.width, andDescription: self.headerDescription)
+            guard let headerDescription = self.currentHeaderDescription else { return 0 }
+            return TrendHeaderCell.height(forWidth: self.collectionView.bounds.width, andDescription: headerDescription)
         }
         
         collectionView.applyProductListConfiguration()
@@ -41,6 +41,11 @@ class TrendProductListView: ViewSwitcher, ProductListViewInterface, ProductListC
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func updateTrendInfo(imageUrl: String, description: NSAttributedString) {
+        currentHeaderDescription = description
+        headerCell.updateData(withImageUrl: imageUrl, description: description)
     }
 }
 
@@ -63,12 +68,3 @@ extension TrendProductListView: ViewSwitcherDataSource {
         return emptyView
     }
 }
-
-// MARK:- Mockup methods
-
-extension TrendProductListView {
-    var headerDescription: String {
-        return "Latem 2016 najmodniejsze kolory pochodzą ze świata natury. New Neutrals to piaskowy, ochra, kość słoniowa, khaki, orzechowy i zgniła zieleń. Naśladują barwy suchych traw, kolory pustyni, skał, gliny, a nawet skóry. Kolory natury pasują każdemu - blondynki poczują się naturalnie w odcieniach khaki, natomiast ciemne włosy brunetek będą świetnie kontrastować z jasnymi beżami. Jak nosić barwy ziemi? Zielenie nawiązują do wciąż modnego stylu militarnego, wyblakłe brązy wpisują się w trendy eko, a beżowy total look to nowa, zmysłowa tendencja, którą zapoczątkowała Kim Kardashian. Jesteś uwodzicielska, wojownicza czy ekologiczna? Latem 2016 postaw na naturalne kolory i znajdź wśród nich ten, który podkreśla Twoją osobowość!"
-    }
-}
-

@@ -1,8 +1,10 @@
 import UIKit
 import SnapKit
+import CocoaMarkdown
 
 final class TrendHeaderCell: UIView {
-    private static let descriptionFont = UIFont(fontType: .Normal)
+    static let descriptionFont = UIFont(fontType: .Normal)
+    static let descriptionBoldFont = UIFont(fontType: .NormalBold)
     private static let textTopOffset: CGFloat = 143
     
     private let backgroundImageView = UIImageView()
@@ -35,17 +37,17 @@ final class TrendHeaderCell: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    static func height(forWidth width: CGFloat, andDescription description: String) -> CGFloat {
+    static func height(forWidth width: CGFloat, andDescription description: NSAttributedString) -> CGFloat {
         let textWidth = width - 4 * Dimensions.defaultMargin
-        let textHeight = description.heightWithConstrainedWidth(textWidth, font: TrendHeaderCell.descriptionFont)
+        let textHeight = description.boundingRectWithSize(CGSizeMake(textWidth, CGFloat.max), options: [.UsesLineFragmentOrigin, .UsesFontLeading], context: nil).height
         let textContainerHeight = ceil(TrendHeaderCell.textTopOffset + 2 * Dimensions.defaultMargin + textHeight)
         let imageHeight = ceil(width / CGFloat(Dimensions.defaultImageRatio))
         return max(textContainerHeight, imageHeight)
     }
     
-    func updateData(withImageUrl imageUrl: String, description: String) {
+    func updateData(withImageUrl imageUrl: String, description: NSAttributedString) {
         backgroundImageView.image = UIImage(asset: .Temp_trend) //todo remember to remove .Temp_trend image when we will get imageUrl
-        descriptionLabel.text = description
+        descriptionLabel.attributedText = description
     }
     
     func updateImagePosition(forYOffset yOffset: CGFloat, contentHeight: CGFloat) {

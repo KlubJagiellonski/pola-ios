@@ -6,6 +6,9 @@ class ProductListModel {
     private let apiService: ApiService
     private var page = 1
     private var products: [ListProduct] = []
+    var currentPageIndex: Int {
+        return page - 1
+    }
     let productIndexObservable: Observable<Int> = PublishSubject()
     var productIndex = 0 {
         didSet {

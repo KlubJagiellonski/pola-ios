@@ -4,7 +4,7 @@ import RxSwift
 class TrendProductListViewController: UIViewController, ProductListViewControllerInterface, TrendProductListViewDelegate {
     let disposeBag = DisposeBag()
     let productListModel: ProductListModel
-    var categoryListModel: TrendProductListModel { return productListModel as! TrendProductListModel }
+    var trendListModel: TrendProductListModel { return productListModel as! TrendProductListModel }
     var productListView: ProductListViewInterface { return castView }
     var castView: TrendProductListView { return view as! TrendProductListView }
     
@@ -33,6 +33,12 @@ class TrendProductListViewController: UIViewController, ProductListViewControlle
         fetchFirstPage()
         
         //todo add configureProductList()
+    }
+    
+    func pageWasFetched(result productListResult: ProductListResult, page: Int) {
+        if page == 0 {
+            castView.updateTrendInfo("", description: trendListModel.description)
+        }
     }
     
     // MARK:- ProductListViewDelegate

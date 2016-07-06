@@ -40,6 +40,8 @@ class CategoryProductListViewController: UIViewController, ProductListViewContro
         //todo
     }
     
+    func pageWasFetched(result productListResult: ProductListResult, page: Int) {}
+    
     // MARK:- ProductListViewDelegate
     
     func viewSwitcherDidTapRetry(view: ViewSwitcher) {

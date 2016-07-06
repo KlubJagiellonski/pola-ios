@@ -10,6 +10,7 @@ protocol ProductListViewControllerInterface: class, NavigationSender {
     
     func fetchFirstPage()
     func fetchNextPage()
+    func pageWasFetched(result productListResult: ProductListResult, page: Int) //it is used to inform viewcontroller that first page has been fetched. You can do some additional stuff here
 }
 
 extension ProductListViewControllerInterface {
@@ -25,6 +26,7 @@ extension ProductListViewControllerInterface {
             switch result {
             case .Success(let productListResult):
                 logInfo("Received first product list page \(productListResult)")
+                self.pageWasFetched(result: productListResult, page: self.productListModel.currentPageIndex)
                 self.productListView.updateData(productListResult.products, nextPageState: productListResult.isLastPage ? .LastPage : .Fetching)
                 self.productListView.switcherState = productListResult.products.isEmpty ? .Empty : .Success
             case .NetworkError(let error):
@@ -38,14 +40,15 @@ extension ProductListViewControllerInterface {
     
     func fetchNextPage() {
         let onNext = { [weak self] (result: FetchResult<ProductListResult>) in
-            guard let strongSelf = self else { return }
+            guard let `self` = self else { return }
             switch result {
             case .Success(let productListResult):
                 logInfo("Received next product list page \(productListResult)")
-                strongSelf.productListView.appendData(productListResult.products, nextPageState: productListResult.isLastPage ? .LastPage : .Fetching)
+                self.pageWasFetched(result: productListResult, page: self.productListModel.currentPageIndex)
+                self.productListView.appendData(productListResult.products, nextPageState: productListResult.isLastPage ? .LastPage : .Fetching)
             case .NetworkError(let error):
                 logInfo("Failed to receive next product list page \(error)")
-                strongSelf.productListView.updateNextPageState(.Error)
+                self.productListView.updateNextPageState(.Error)
             }
         }
         
