@@ -28,6 +28,13 @@ struct Basket: Equatable {
         return count
     }
     
+    func isPossibleToAddProduct(product: BasketProduct, of brand: BasketBrand, maxProductAmount: Int) -> Bool{
+        if let brandIndex = index(of: brand) {
+            return productsByBrands[brandIndex].isPossibleToAddProduct(product, maxProductAmount: maxProductAmount)
+        }
+        return true
+    }
+    
     mutating func remove(product: BasketProduct) {
         guard let brandIndex = indexOfBrand(containing: product) else {
             return
@@ -68,11 +75,11 @@ struct Basket: Equatable {
 struct BasketBrand: Equatable {
     let id: Int
     let name: String
-    let shippingPrice: Money
-    let waitTime: Int
+    let shippingPrice: Money?
+    let waitTime: Int?
     var products: [BasketProduct] = []
     
-    init(id: Int, name: String, shippingPrice: Money, waitTime: Int, products: [BasketProduct]) {
+    init(id: Int, name: String, shippingPrice: Money?, waitTime: Int?, products: [BasketProduct]) {
         self.id = id
         self.name = name
         self.shippingPrice = shippingPrice
@@ -80,18 +87,18 @@ struct BasketBrand: Equatable {
         self.products = products
     }
     
-    init(id: Int, name: String, waitTime: Int) {
-        self.id = id
-        self.name = name
-        self.shippingPrice = Money()
-        self.waitTime = waitTime
-    }
-    
     init(from product: ProductDetails) {
         self.id = product.brand.id
         self.name = product.brand.name
-        self.shippingPrice = Money()
-        self.waitTime = product.waitTime
+        self.shippingPrice = nil
+        self.waitTime = nil
+    }
+    
+    func isPossibleToAddProduct(product: BasketProduct, maxProductAmount: Int) -> Bool{
+        if let productIndex = index(of: product) {
+            return products[productIndex].amount < maxProductAmount
+        }
+        return true
     }
     
     mutating func remove(product: BasketProduct) {
@@ -107,6 +114,7 @@ struct BasketBrand: Equatable {
         } else {
             products.append(product)
         }
+        
     }
     
     mutating func update(product: BasketProduct) {
@@ -144,9 +152,11 @@ struct BasketProduct: Equatable {
     let color: BasketProductColor
     let basePrice: Money
     let price: Money
+    let sumBasePrice: Money?
+    let sumPrice: Money?
     var amount: Int = 1
     
-    init (id: Int, name: String, imageUrl: String, size: BasketProductSize, color: BasketProductColor, basePrice: Money, price: Money, amount: Int) {
+    init (id: Int, name: String, imageUrl: String, size: BasketProductSize, color: BasketProductColor, basePrice: Money, price: Money, sumBasePrice: Money?, sumPrice: Money?, amount: Int) {
         self.id = id
         self.name = name
         self.imageUrl = imageUrl
@@ -154,11 +164,13 @@ struct BasketProduct: Equatable {
         self.color = color
         self.basePrice = basePrice
         self.price = price
+        self.sumBasePrice = sumBasePrice
+        self.sumPrice = sumPrice
         self.amount = amount
     }
     
     init (id: Int, name: String, imageUrl: String, size: BasketProductSize, color: BasketProductColor, basePrice: Money, price: Money) {
-        self.init(id: id, name: name, imageUrl: imageUrl, size: size, color: color, basePrice: basePrice, price: price, amount: 1)
+        self.init(id: id, name: name, imageUrl: imageUrl, size: size, color: color, basePrice: basePrice, price: price, sumBasePrice: nil, sumPrice: nil, amount: 1)
     }
     
     func isEqualInBasket(to product: BasketProduct) -> Bool {
@@ -252,6 +264,8 @@ func == (lhs: BasketProduct, rhs: BasketProduct) -> Bool {
         && lhs.size == rhs.size
         && lhs.color == rhs.color
         && lhs.basePrice == rhs.basePrice
+        && lhs.sumBasePrice == rhs.sumBasePrice
+        && lhs.sumPrice == rhs.sumPrice
         && lhs.amount == rhs.amount
 }
 
@@ -308,8 +322,8 @@ extension BasketBrand: Decodable, Encodable {
         return try BasketBrand(
             id: j => "store" => "id",
             name: j => "store" => "name",
-            shippingPrice: j => "delivery_cost",
-            waitTime: j => "wait_time",
+            shippingPrice: j =>? "delivery_cost",
+            waitTime: j =>? "wait_time",
             products: productsArray.map(BasketProduct.decode))
     }
     
@@ -323,12 +337,12 @@ extension BasketBrand: Decodable, Encodable {
         for product in products {
             productsArray.addObject(product.encode())
         }
-        let dict: NSDictionary = [
+        let dict: NSMutableDictionary = [
             "store": brandDict,
-            "delivery_cost": shippingPrice.amount,
-            "wait_time": waitTime,
             "items": productsArray
         ]
+        if shippingPrice != nil { dict.setObject(shippingPrice!.amount, forKey: "delivery_cost") }
+        if waitTime != nil { dict.setObject(waitTime!, forKey: "wait_time") }
         return dict
     }
 }
@@ -343,6 +357,8 @@ extension BasketProduct: Decodable, Encodable {
             color: j => "color",
             basePrice: j => "product" => "msrp",
             price: j => "product" => "price",
+            sumBasePrice: j => "msrp",
+            sumPrice: j => "price",
             amount: j => "amount"
         )
     }
@@ -362,6 +378,8 @@ extension BasketProduct: Decodable, Encodable {
             "size": size.encode(),
             "color": color.encode()
         ]
+        if sumBasePrice != nil { dict.setObject(sumBasePrice!.amount, forKey: "msrp") }
+        if sumPrice != nil { dict.setObject(sumPrice!.amount, forKey: "price") }
         return dict
     }
 }

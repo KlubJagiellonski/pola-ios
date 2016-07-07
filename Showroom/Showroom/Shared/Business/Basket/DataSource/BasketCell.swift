@@ -57,8 +57,8 @@ class BasketProductCell: UITableViewCell {
         photoImageView.image = nil
         photoImageView.loadImageFromUrl(product.imageUrl, width: BasketProductCell.photoSize.width)
         propertiesLabel.text = product.size.name + ", " + product.color.name
-        priceLabel.basePrice = product.basePrice
-        priceLabel.discountPrice = product.price
+        priceLabel.basePrice = product.sumBasePrice ?? product.basePrice
+        priceLabel.discountPrice = product.sumPrice ?? product.price
         amountButton.setTitle(String(product.amount) + " szt.", forState: .Normal)
     }
     

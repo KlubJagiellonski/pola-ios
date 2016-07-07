@@ -41,7 +41,7 @@ class BasketDataSource: NSObject, UITableViewDataSource, BasketProductCellDelega
             if let newBrand = newProductsByBrands.find({ $0.isEqualInBasket(to: oldBrand) }) {
                 // Brand has not been removed
                 if !newBrand.isEqualExceptProducts(to: oldBrand) {
-                    if newBrand.shippingPrice != oldBrand.shippingPrice || newBrand.waitTime != oldBrand.waitTime {
+                    if (newBrand.shippingPrice != oldBrand.shippingPrice && oldBrand.shippingPrice != nil) || (newBrand.waitTime != oldBrand.waitTime && oldBrand.waitTime != nil) {
                         changedBrandDeliveryInfo.append(newBrand.name)
                     }
                     // Brand has been changed
@@ -165,9 +165,12 @@ class BasketDataSource: NSObject, UITableViewDataSource, BasketProductCellDelega
         if isFooterCell(indexPath) {
             let brand = productsByBrands[indexPath.section]
             let cell = tableView.dequeueReusableCellWithIdentifier(String(BasketShippingCell)) as! BasketShippingCell
-            cell.priceLabel.text = brand.shippingPrice.stringValue
-            let deliveryWaitTime = brand.waitTime
-            cell.shippingLabel.text = deliveryWaitTime == 0 ? tr(.CommonDeliveryInfoSingle(String(deliveryWaitTime))) : tr(.CommonDeliveryInfoMulti(String(deliveryWaitTime)))
+            cell.priceLabel.text = brand.shippingPrice?.stringValue ?? ""
+            if let waitTime = brand.waitTime {
+                cell.shippingLabel.text = waitTime == 1 ? tr(.CommonDeliveryInfoSingle(String(waitTime))) : tr(.CommonDeliveryInfoMulti(String(waitTime)))
+            } else {
+                cell.shippingLabel.text = nil
+            }
             
             // Hide separator for the last cell
             cell.separatorView.hidden = isLastCell(indexPath)

@@ -56,7 +56,7 @@ class CheckoutSummaryCell: UITableViewCell {
         
         descriptionLabel.title =  String(format: "%@, %@", deliveryTimeDescription, deliveryCarrier.name)
         descriptionLabel.value = nil
-        priceLabel.basePrice = brand.shippingPrice
+        priceLabel.basePrice = brand.shippingPrice!
     }
 }
 

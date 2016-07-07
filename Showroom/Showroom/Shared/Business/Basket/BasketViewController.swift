@@ -59,12 +59,14 @@ class BasketViewController: UIViewController, BasketViewDelegate {
     }
     
     func updateBasket(with basket: Basket?) {
+        if let basket = basket {
+            castView.updateData(with: basket)
+        }
+        
         guard !isEmptyBasket(basket) else {
             castView.switcherState = .Empty
             return
         }
-        
-        castView.updateData(with: basket!)
         
         if let updateInfo = castView.lastUpdateInfo where manager.state.validationState.validating {
             let messages = updateInfo.toMessages(withDiscountErrors: manager.state.basket?.discountErrors)

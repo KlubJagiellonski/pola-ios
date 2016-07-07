@@ -60,6 +60,7 @@ final class BasketManager {
     }
     
     func addToBasket(product: BasketProduct, of brand: BasketBrand) {
+        guard state.basket?.isPossibleToAddProduct(product, of: brand, maxProductAmount: Constants.basketProductAmountLimit) ?? false else { return }
         state.basket?.add(product, of: brand)
         validate()
     }
