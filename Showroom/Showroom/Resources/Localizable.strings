@@ -109,7 +109,9 @@
 "Registration.RulesCheck.Highlighted" = "regulamin";
 "Registration.CraeteAccount" = "UTWÓRZ KONTO";
 "Registration.HaveAccount" = "Masz już konto?";
+"Registration.RequiringRulesMessage" = "Akceptacja regulaminu jest wymagana do utworzenia konta w serwisie SHOWROOM.";
 "Validator.NotEmpty" = "To pole nie może być puste";
 "Validator.PhoneNumber" = "Brakuje międzynarodowego numeru kierunkowego (np. +48)";
 "Validator.Email" = "Niepoprawny format adresu";
 "Brand.AboutTitle" = "O projektancie";
+"Validator.RepeatPassword" = "Powtórzone hasło jest inne";

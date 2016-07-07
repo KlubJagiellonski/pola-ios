@@ -11,8 +11,7 @@ import ObjectiveC
 
 class NotEmptyValidator: Validator {
     @objc var failedMessage: String?
-    
-    var messageForEmpty: String?
+    private var messageForEmpty: String?
     
     @objc func validate(currentValue: AnyObject?) -> Bool {
         failedMessage = nil
@@ -45,6 +44,27 @@ class PhoneNumberValidator: Validator {
         
         if !text!.hasPrefix("+") {
             failedMessage = tr(.ValidatorPhoneNumber)
+            return false
+        }
+        
+        return true
+    }
+}
+
+class SelectionRequiredValidator: Validator {
+    @objc var failedMessage: String?
+    private var messageForNotSelected: String
+    
+    init(messageForNotSelected: String) {
+        self.messageForNotSelected = messageForNotSelected
+    }
+    
+    @objc func validate(currentValue: AnyObject?) -> Bool {
+        failedMessage = nil
+        guard let selected: Bool = currentValue as? Bool else { fatalError("SelectionRequiredValidator cannot handle different type than Bool") }
+        
+        if !selected {
+            failedMessage = messageForNotSelected
             return false
         }
         

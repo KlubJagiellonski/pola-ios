@@ -225,6 +225,8 @@ enum L10n {
   case RegistrationCraeteAccount
   /// Masz już konto?
   case RegistrationHaveAccount
+  /// Akceptacja regulaminu jest wymagana do utworzenia konta w serwisie SHOWROOM.
+  case RegistrationRequiringRulesMessage
   /// To pole nie może być puste
   case ValidatorNotEmpty
   /// Brakuje międzynarodowego numeru kierunkowego (np. +48)
@@ -233,6 +235,8 @@ enum L10n {
   case ValidatorEmail
   /// O projektancie
   case BrandAboutTitle
+  /// Powtórzone hasło jest inne
+  case ValidatorRepeatPassword
 }
 
 extension L10n: CustomStringConvertible {
@@ -462,6 +466,8 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Registration.CraeteAccount")
       case .RegistrationHaveAccount:
         return L10n.tr("Registration.HaveAccount")
+      case .RegistrationRequiringRulesMessage:
+        return L10n.tr("Registration.RequiringRulesMessage")
       case .ValidatorNotEmpty:
         return L10n.tr("Validator.NotEmpty")
       case .ValidatorPhoneNumber:
@@ -470,6 +476,8 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Validator.Email")
       case .BrandAboutTitle:
         return L10n.tr("Brand.AboutTitle")
+      case .ValidatorRepeatPassword:
+        return L10n.tr("Validator.RepeatPassword")
     }
   }
 

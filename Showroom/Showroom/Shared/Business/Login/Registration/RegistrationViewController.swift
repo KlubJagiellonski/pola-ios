@@ -2,10 +2,12 @@ import UIKit
 
 class RegistrationViewController: UIViewController, RegistrationViewDelegate {
     private let resolver: DiResolver
+    private let toastManager: ToastManager
     private var castView: RegistrationView { return view as! RegistrationView }
     
     init(resolver: DiResolver) {
         self.resolver = resolver
+        self.toastManager = resolver.resolve(ToastManager.self)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -49,5 +51,9 @@ class RegistrationViewController: UIViewController, RegistrationViewDelegate {
     
     func registrationViewDidTapHaveAccount() {
         
+    }
+    
+    func registrationView(view: RegistrationView, wantShowMessage message: String) {
+        toastManager.showMessage(message)
     }
 }

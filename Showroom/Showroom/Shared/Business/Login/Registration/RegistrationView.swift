@@ -5,6 +5,29 @@ protocol RegistrationViewDelegate: class {
     func registrationViewDidTapRules()
     func registrationViewDidTapCreate()
     func registrationViewDidTapHaveAccount()
+    func registrationView(view: RegistrationView, wantShowMessage message: String)
+}
+
+class RepeatPasswordValidator: Validator {
+    @objc var failedMessage: String?
+    
+    private var passwordField: FormInputView
+    
+    @objc func validate(currentValue: AnyObject?) -> Bool {
+        failedMessage = nil
+        guard let text: String? = currentValue as? String else { fatalError("RepeatPasswordValidator cannot handle different type than String") }
+        
+        if text != passwordField.inputTextField.text {
+            failedMessage = tr(.ValidatorRepeatPassword)
+            return false
+        }
+        
+        return true
+    }
+    
+    init(passwordFieldToCompare: FormInputView) {
+        self.passwordField = passwordFieldToCompare
+    }
 }
 
 class RegistrationView: UIView {
@@ -70,11 +93,13 @@ class RegistrationView: UIView {
         repeatPasswordField.inputTextField.tag = 3
         repeatPasswordField.inputTextField.returnKeyType = .Next
         repeatPasswordField.inputTextField.delegate = self
-        repeatPasswordField.addValidator(NotEmptyValidator())
+        repeatPasswordField.addValidators([RepeatPasswordValidator(passwordFieldToCompare: passwordField), NotEmptyValidator()])
         
         rulesCheck.selected = true
         rulesCheck.titleLabel.attributedText = tr(L10n.RegistrationRulesCheck).stringWithHighlightedSubsttring(tr(L10n.RegistrationRulesCheckHighlighted))
         rulesCheck.addTarget(self, action: #selector(RegistrationView.didTapRules), forControlEvents: .TouchUpInside)
+        rulesCheck.addValidator(SelectionRequiredValidator(messageForNotSelected: tr(.RegistrationRequiringRulesMessage)))
+        rulesCheck.delegate = self
         
         createButton.applyBlueStyle()
         createButton.title = tr(L10n.RegistrationCraeteAccount)
@@ -109,6 +134,7 @@ class RegistrationView: UIView {
         contentValidators.append(emailField)
         contentValidators.append(passwordField)
         contentValidators.append(repeatPasswordField)
+        contentValidators.append(rulesCheck)
         
         configureCustomConstraints()
         
@@ -204,6 +230,12 @@ extension RegistrationView: KeyboardHelperDelegate, KeyboardHandler {
         let contentInset = UIEdgeInsetsMake(0, 0, max(bottomOffset, 0), 0)
         scrollView.contentInset = contentInset
         scrollView.scrollIndicatorInsets = contentInset
+    }
+}
+
+extension RegistrationView: CheckButtonDelegate {
+    func checkButton(checkButton: CheckButton, wantsShowMessage message: String) {
+        delegate?.registrationView(self, wantShowMessage: message)
     }
 }
 

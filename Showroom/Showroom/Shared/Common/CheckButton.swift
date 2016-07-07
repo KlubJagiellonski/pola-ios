@@ -1,5 +1,9 @@
 import UIKit
 
+protocol CheckButtonDelegate: class {
+    func checkButton(checkButton: CheckButton, wantsShowMessage message: String)
+}
+
 class CheckButton: UIControl {
     private static let checkBoxSize: CGFloat = 20
     private static let checkBoxTouchRange: CGFloat = 30
@@ -12,6 +16,8 @@ class CheckButton: UIControl {
     private let boxView = UIView()
     let titleLabel = UILabel()
     let contentView = UIView()
+    
+    weak var delegate: CheckButtonDelegate?
     
     override var selected: Bool {
         didSet {
@@ -63,7 +69,6 @@ class CheckButton: UIControl {
     
     private func configureCustomConstraints() {
         
-        
         checkBoxImageView.snp_makeConstraints { make in
             make.center.equalToSuperview()
         }
@@ -97,4 +102,16 @@ class CheckButton: UIControl {
     override func intrinsicContentSize() -> CGSize {
         return CGSizeMake(UIViewNoIntrinsicMetric, max(checkBoxImageView.intrinsicContentSize().height, titleLabel.intrinsicContentSize().height, Dimensions.defaultCellHeight))
     }
+}
+
+extension CheckButton: ContentValidator {
+    func getValue() -> AnyObject? {
+        return self.selected
+    }
+    
+    func showError(error: String) {
+        delegate?.checkButton(self, wantsShowMessage: error)
+    }
+    
+    func hideError() {}
 }
