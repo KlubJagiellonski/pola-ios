@@ -31,7 +31,10 @@ class DashboardViewController: UIViewController, DashboardViewDelegate {
         
         castView.switcherState = .Loading
         castView.recommendationViewSwitcherState = .Loading
-        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         fetchContentPromo()
         fetchRecommendations()
     }
