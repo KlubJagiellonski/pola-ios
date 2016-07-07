@@ -10,7 +10,7 @@ final class TrendHeaderCell: UIView {
     private let backgroundImageView = UIImageView()
     private let imageGradient = CAGradientLayer()
     private let descriptionContainerView = UIView()
-    private let descriptionLabel = UILabel()
+    private let descriptionTextView = UITextView()
     
     private var topBackgroundImageViewConstraint: Constraint?
     
@@ -21,10 +21,9 @@ final class TrendHeaderCell: UIView {
         
         descriptionContainerView.backgroundColor = UIColor(named: .White).colorWithAlphaComponent(0.9)
         
-        descriptionLabel.font = TrendHeaderCell.descriptionFont
-        descriptionLabel.numberOfLines = 0
+        descriptionTextView.applyMarkdownStyle()
         
-        descriptionContainerView.addSubview(descriptionLabel)
+        descriptionContainerView.addSubview(descriptionTextView)
         
         addSubview(backgroundImageView)
         backgroundImageView.layer.addSublayer(imageGradient)
@@ -47,7 +46,7 @@ final class TrendHeaderCell: UIView {
     
     func updateData(withImageUrl imageUrl: String, description: NSAttributedString) {
         backgroundImageView.image = UIImage(asset: .Temp_trend) //todo remember to remove .Temp_trend image when we will get imageUrl
-        descriptionLabel.attributedText = description
+        descriptionTextView.attributedText = description
     }
     
     func updateImagePosition(forYOffset yOffset: CGFloat, contentHeight: CGFloat) {
@@ -78,7 +77,7 @@ final class TrendHeaderCell: UIView {
             make.trailing.equalToSuperview().offset(-Dimensions.defaultMargin)
         }
         
-        descriptionLabel.snp_makeConstraints { make in
+        descriptionTextView.snp_makeConstraints { make in
             make.top.equalToSuperview().offset(Dimensions.defaultMargin)
             make.leading.equalToSuperview().offset(Dimensions.defaultMargin)
             make.trailing.equalToSuperview().offset(-Dimensions.defaultMargin)

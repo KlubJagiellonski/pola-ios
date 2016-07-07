@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import CocoaMarkdown
 
 extension String {
     func heightWithConstrainedWidth(width: CGFloat, font: UIFont, numberOfLines: Int = 0) -> CGFloat {
@@ -25,4 +26,19 @@ extension String {
         return attributedString
     }
     
+    func markdownToAttributedString(treatBoldAsNormalText treatBoldAsNormalText: Bool = false) -> NSAttributedString {
+        let normalFont = UIFont(fontType: .Normal)
+        let boldFont = UIFont(fontType: .NormalBold)
+        
+        let textAttributes = CMTextAttributes()
+        textAttributes.textAttributes = [NSFontAttributeName: normalFont]
+        textAttributes.strongAttributes = [NSFontAttributeName: treatBoldAsNormalText ? normalFont : boldFont]
+        textAttributes.linkAttributes = [
+            NSFontAttributeName: normalFont
+        ]
+        
+        let document = CMDocument(data: dataUsingEncoding(NSUTF8StringEncoding), options: CMDocumentOptions())
+        let renderer = CMAttributedStringRenderer(document: document, attributes: textAttributes)
+        return renderer.render()
+    }
 }

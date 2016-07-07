@@ -5,13 +5,7 @@ final class TrendProductListModel: ProductListModel {
     
     //todo it should be created in background on rx network chain
     var description: NSAttributedString {
-        let textAttributes = CMTextAttributes()
-        textAttributes.textAttributes = [NSFontAttributeName: TrendHeaderCell.descriptionFont]
-        textAttributes.strongAttributes = [NSFontAttributeName: TrendHeaderCell.descriptionBoldFont]
-        
-        let document = CMDocument(data: headerDescription.dataUsingEncoding(NSUTF8StringEncoding), options: CMDocumentOptions())
-        let renderer = CMAttributedStringRenderer(document: document, attributes: textAttributes)
-        return renderer.render()
+        return headerDescription.markdownToAttributedString()
     }
     
     override init(with apiService: ApiService) {

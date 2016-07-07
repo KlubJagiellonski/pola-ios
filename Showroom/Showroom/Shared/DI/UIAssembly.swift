@@ -117,5 +117,14 @@ class UIAssembly: AssemblyType {
         container.register(TrendProductListModel.self) { r in
             return TrendProductListModel(with: r.resolve(ApiService.self)!)
         }
+        container.register(BrandProductListViewController.self) { r, brand in
+            return BrandProductListViewController(with: r.resolve(DiResolver.self)!, and: brand)
+        }
+        container.register(BrandProductListModel.self) { r, brand in
+            return BrandProductListModel(with: r.resolve(ApiService.self)!, and: brand)
+        }
+        container.register(BrandDescriptionViewController.self) { r, brand in
+            return BrandDescriptionViewController(with: brand)
+        }
     }
 }

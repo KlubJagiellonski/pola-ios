@@ -231,6 +231,8 @@ enum L10n {
   case ValidatorPhoneNumber
   /// Niepoprawny format adresu
   case ValidatorEmail
+  /// O projektancie
+  case BrandAboutTitle
 }
 
 extension L10n: CustomStringConvertible {
@@ -466,6 +468,8 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Validator.PhoneNumber")
       case .ValidatorEmail:
         return L10n.tr("Validator.Email")
+      case .BrandAboutTitle:
+        return L10n.tr("Brand.AboutTitle")
     }
   }
 

@@ -32,7 +32,7 @@ class TrendProductListViewController: UIViewController, ProductListViewControlle
         
         fetchFirstPage()
         
-        //todo add configureProductList()
+        configureProductList()
     }
     
     func pageWasFetched(result productListResult: ProductListResult, page: Int) {

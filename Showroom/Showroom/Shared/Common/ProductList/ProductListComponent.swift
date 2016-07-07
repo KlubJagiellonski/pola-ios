@@ -136,7 +136,7 @@ class ProductListComponent: NSObject, UICollectionViewDataSource, UICollectionVi
     
     func moveToPosition(forProductIndex index: Int, animated: Bool) {
         guard let view = collectionView else { return }
-        let indexPath = NSIndexPath(forItem: index, inSection: 0)
+        let indexPath = NSIndexPath(forItem: index, inSection: ProductListSection.Products.toSectionIndex(headerSectionInfo != nil))
         view.scrollToItemAtIndexPath(indexPath, atScrollPosition: .CenteredVertically, animated: animated)
     }
     
