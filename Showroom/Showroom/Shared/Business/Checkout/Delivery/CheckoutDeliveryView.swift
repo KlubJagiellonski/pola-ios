@@ -121,7 +121,7 @@ class CheckoutDeliveryView: UIView {
             view.removeFromSuperview()
         }
         
-        stackView.addArrangedSubview(CheckoutDeliveryInfoHeaderView(delivery: .Courier))
+        stackView.addArrangedSubview(CheckoutDeliveryInfoHeaderView(delivery: delivery))
         
         switch addressInput {
         case .Form(let fields):

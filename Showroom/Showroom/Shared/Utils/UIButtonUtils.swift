@@ -62,4 +62,9 @@ extension UIButton {
         setImage(UIImage(named: "ic_fb"), forState: .Normal)
         imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, Dimensions.defaultMargin)
     }
+    
+    func applyLoginStyle() {
+        titleLabel!.font = UIFont(fontType: .NormalBold)
+        setTitleColor(UIColor(named: .Blue), forState: .Normal)
+    }
 }

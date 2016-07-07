@@ -66,6 +66,7 @@
 "Checkout.Delivery.Next" = "DALEJ";
 "Checkout.Delivery.EditAddress.NavigationHeader" = "Dodaj inny adres";
 "Checkout.Delivery.EditAddress.Save" = "ZAPISZ";
+"Checkout.Delivery.EditKiosk.NavigationHeader" = "Wybór kiosku";
 "Checkout.Delivery.EditKiosk.SearchInputLabel" = "Znajdź kiosk w pobliżu";
 "Checkout.Delivery.EditKiosk.SearchInputPlaceholder" = "Piękna 5, Warszawa";
 "Checkout.Delivery.EditKiosk.GeocodingError" = "Nie znaleziono adresu";
@@ -113,3 +114,17 @@
 "Validator.Email" = "Niepoprawny format adresu";
 "Brand.AboutTitle" = "O projektancie";
 "Validator.RepeatPassword" = "Powtórzone hasło jest inne";
+"Settings.Login" = "Zaloguj się";
+"Settings.Logout" = "Wyloguj";
+"Settings.CreateAccount" = "Załóż konto";
+"Settings.Greeting" = "Cześć";
+"Settings.DefaultOffer" = "Domyślna oferta";
+"Settings.Male" = "ON";
+"Settings.Female" = "ONA";
+"Settings.UserData" = "Twoje dane";
+"Settings.History" = "Historia zamówień";
+"Settings.HowToMeasure" = "Jak się mierzyć";
+"Settings.PrivacyPolicy" = "Polityka prywatności";
+"Settings.FrequentQuestions" = "Częste pytania";
+"Settings.Rules" = "Regulamin";
+"Settings.Contact" = "Kontakt";

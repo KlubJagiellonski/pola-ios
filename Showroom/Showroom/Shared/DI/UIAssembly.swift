@@ -129,5 +129,11 @@ class UIAssembly: AssemblyType {
         container.register(BrandDescriptionViewController.self) { r, brand in
             return BrandDescriptionViewController(with: brand)
         }
+        container.register(SettingsNavigationController.self) { r in
+            return SettingsNavigationController(resolver: r.resolve(DiResolver.self)!)
+        }
+        container.register(SettingsViewController.self) { r in
+            return SettingsViewController(resolver: r.resolve(DiResolver.self)!)
+        }
     }
 }

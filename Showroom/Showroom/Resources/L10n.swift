@@ -139,6 +139,8 @@ enum L10n {
   case CheckoutDeliveryEditAddressNavigationHeader
   /// ZAPISZ
   case CheckoutDeliveryEditAddressSave
+  /// Wybór kiosku
+  case CheckoutDeliveryEditKioskNavigationHeader
   /// Znajdź kiosk w pobliżu
   case CheckoutDeliveryEditKioskSearchInputLabel
   /// Piękna 5, Warszawa
@@ -233,6 +235,34 @@ enum L10n {
   case BrandAboutTitle
   /// Powtórzone hasło jest inne
   case ValidatorRepeatPassword
+  /// Zaloguj się
+  case SettingsLogin
+  /// Wyloguj
+  case SettingsLogout
+  /// Załóż konto
+  case SettingsCreateAccount
+  /// Cześć
+  case SettingsGreeting
+  /// Domyślna oferta
+  case SettingsDefaultOffer
+  /// ON
+  case SettingsMale
+  /// ONA
+  case SettingsFemale
+  /// Twoje dane
+  case SettingsUserData
+  /// Historia zamówień
+  case SettingsHistory
+  /// Jak się mierzyć
+  case SettingsHowToMeasure
+  /// Polityka prywatności
+  case SettingsPrivacyPolicy
+  /// Częste pytania
+  case SettingsFrequentQuestions
+  /// Regulamin
+  case SettingsRules
+  /// Kontakt
+  case SettingsContact
 }
 
 extension L10n: CustomStringConvertible {
@@ -376,6 +406,8 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Checkout.Delivery.EditAddress.NavigationHeader")
       case .CheckoutDeliveryEditAddressSave:
         return L10n.tr("Checkout.Delivery.EditAddress.Save")
+      case .CheckoutDeliveryEditKioskNavigationHeader:
+        return L10n.tr("Checkout.Delivery.EditKiosk.NavigationHeader")
       case .CheckoutDeliveryEditKioskSearchInputLabel:
         return L10n.tr("Checkout.Delivery.EditKiosk.SearchInputLabel")
       case .CheckoutDeliveryEditKioskSearchInputPlaceholder:
@@ -470,6 +502,34 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Brand.AboutTitle")
       case .ValidatorRepeatPassword:
         return L10n.tr("Validator.RepeatPassword")
+      case .SettingsLogin:
+        return L10n.tr("Settings.Login")
+      case .SettingsLogout:
+        return L10n.tr("Settings.Logout")
+      case .SettingsCreateAccount:
+        return L10n.tr("Settings.CreateAccount")
+      case .SettingsGreeting:
+        return L10n.tr("Settings.Greeting")
+      case .SettingsDefaultOffer:
+        return L10n.tr("Settings.DefaultOffer")
+      case .SettingsMale:
+        return L10n.tr("Settings.Male")
+      case .SettingsFemale:
+        return L10n.tr("Settings.Female")
+      case .SettingsUserData:
+        return L10n.tr("Settings.UserData")
+      case .SettingsHistory:
+        return L10n.tr("Settings.History")
+      case .SettingsHowToMeasure:
+        return L10n.tr("Settings.HowToMeasure")
+      case .SettingsPrivacyPolicy:
+        return L10n.tr("Settings.PrivacyPolicy")
+      case .SettingsFrequentQuestions:
+        return L10n.tr("Settings.FrequentQuestions")
+      case .SettingsRules:
+        return L10n.tr("Settings.Rules")
+      case .SettingsContact:
+        return L10n.tr("Settings.Contact")
     }
   }
 

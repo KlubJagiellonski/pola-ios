@@ -197,6 +197,8 @@
 		75FE56C01D2BDE4600DF5356 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FE56BE1D2BDE4600DF5356 /* RegistrationView.swift */; };
 		75FE56C11D2BDE4600DF5356 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FE56BF1D2BDE4600DF5356 /* RegistrationViewController.swift */; };
 		75FE56C31D2BFDE900DF5356 /* CheckButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FE56C21D2BFDE900DF5356 /* CheckButton.swift */; };
+		C007CD921D2E7F6E00700EBB /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C007CD911D2E7F6E00700EBB /* SettingsCell.swift */; };
+		C007CD951D2E92FC00700EBB /* SettingsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C007CD941D2E92FC00700EBB /* SettingsDataSource.swift */; };
 		C02220851D12D4AD004411A7 /* TabBarItemBadgeContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02220841D12D4AD004411A7 /* TabBarItemBadgeContainerView.swift */; };
 		C022208A1D183223004411A7 /* CheckoutNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02220891D183223004411A7 /* CheckoutNavigationController.swift */; };
 		C022208D1D1834B9004411A7 /* CheckoutDeliveryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C022208C1D1834B9004411A7 /* CheckoutDeliveryViewController.swift */; };
@@ -233,6 +235,9 @@
 		C0B094AD1D2675A100C57D06 /* CLGeocoderUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B094AC1D2675A100C57D06 /* CLGeocoderUtils.swift */; };
 		C0B094B31D2BA23200C57D06 /* KioskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B094B21D2BA23200C57D06 /* KioskCell.swift */; };
 		C0C5D28E1D099679004C1B13 /* ColorIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C5D28D1D099679004C1B13 /* ColorIconView.swift */; };
+		C0CBE2AA1D2D4270008B861D /* SettingsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CBE2A91D2D4270008B861D /* SettingsNavigationController.swift */; };
+		C0CBE2AC1D2D46B7008B861D /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CBE2AB1D2D46B7008B861D /* SettingsView.swift */; };
+		C0CBE2B21D2E50F7008B861D /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CBE2B11D2E50F7008B861D /* Setting.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -462,6 +467,8 @@
 		75FE56BE1D2BDE4600DF5356 /* RegistrationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
 		75FE56BF1D2BDE4600DF5356 /* RegistrationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		75FE56C21D2BFDE900DF5356 /* CheckButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckButton.swift; sourceTree = "<group>"; };
+		C007CD911D2E7F6E00700EBB /* SettingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
+		C007CD941D2E92FC00700EBB /* SettingsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsDataSource.swift; sourceTree = "<group>"; };
 		C02220841D12D4AD004411A7 /* TabBarItemBadgeContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarItemBadgeContainerView.swift; sourceTree = "<group>"; };
 		C02220891D183223004411A7 /* CheckoutNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutNavigationController.swift; sourceTree = "<group>"; };
 		C022208C1D1834B9004411A7 /* CheckoutDeliveryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutDeliveryViewController.swift; sourceTree = "<group>"; };
@@ -498,6 +505,9 @@
 		C0B094AC1D2675A100C57D06 /* CLGeocoderUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLGeocoderUtils.swift; sourceTree = "<group>"; };
 		C0B094B21D2BA23200C57D06 /* KioskCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KioskCell.swift; path = Showroom/Shared/Business/Checkout/Delivery/EditKiosk/DataSource/KioskCell.swift; sourceTree = SOURCE_ROOT; };
 		C0C5D28D1D099679004C1B13 /* ColorIconView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorIconView.swift; sourceTree = "<group>"; };
+		C0CBE2A91D2D4270008B861D /* SettingsNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsNavigationController.swift; sourceTree = "<group>"; };
+		C0CBE2AB1D2D46B7008B861D /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		C0CBE2B11D2E50F7008B861D /* Setting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -992,7 +1002,11 @@
 		1DD1EA8F1CF2E60400D99731 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				C007CD961D2E939800700EBB /* DataSource */,
+				C0CBE2A91D2D4270008B861D /* SettingsNavigationController.swift */,
 				1DD1EA901CF2E61800D99731 /* SettingsViewController.swift */,
+				C0CBE2AB1D2D46B7008B861D /* SettingsView.swift */,
+				C0CBE2B11D2E50F7008B861D /* Setting.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1155,6 +1169,15 @@
 				75FE56BE1D2BDE4600DF5356 /* RegistrationView.swift */,
 			);
 			path = Registration;
+			sourceTree = "<group>";
+		};
+		C007CD961D2E939800700EBB /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				C007CD941D2E92FC00700EBB /* SettingsDataSource.swift */,
+				C007CD911D2E7F6E00700EBB /* SettingsCell.swift */,
+			);
+			path = DataSource;
 			sourceTree = "<group>";
 		};
 		C02220881D1831C8004411A7 /* Checkout */ = {
@@ -1434,6 +1457,7 @@
 				C052F8981D1989A6008085E0 /* CheckoutAddressOptionView.swift in Sources */,
 				C092804C1D01DA8D00350B82 /* ProductSizeViewController.swift in Sources */,
 				1D5886E01D2BBE26007D0CB1 /* TrendProductListViewController.swift in Sources */,
+				C007CD921D2E7F6E00700EBB /* SettingsCell.swift in Sources */,
 				1DAA7C671D099A9200545BB9 /* ProductDescriptionViewController.swift in Sources */,
 				75EDE8291CFDDD2200C5F96B /* UIButtonUtils.swift in Sources */,
 				1DD1EA731CEDAE9000D99731 /* DashboardView.swift in Sources */,
@@ -1444,6 +1468,7 @@
 				1D72ED241CFD7502007AFD2F /* ContentPromoCell.swift in Sources */,
 				C092805D1D05CAD600350B82 /* ProductSizeDataSource.swift in Sources */,
 				1D5EF1D11CEB666B0071C097 /* UIImageViewUtils.swift in Sources */,
+				C0CBE2AC1D2D46B7008B861D /* SettingsView.swift in Sources */,
 				1DD161A61D01C3B90022B5C9 /* ShowProductDetailsEvent.swift in Sources */,
 				1DD1EA6C1CEC5D1700D99731 /* UIColorAssets.swift in Sources */,
 				1D1A7DFB1D240065009CCCE7 /* CategoryProductListViewController.swift in Sources */,
@@ -1453,6 +1478,7 @@
 				C07530C71D2532F700224508 /* EditKioskView.swift in Sources */,
 				1DD161B11D01CCB20022B5C9 /* ProductDetailsCell.swift in Sources */,
 				C09280561D0584A900350B82 /* DropUpActionAnimator.swift in Sources */,
+				C0CBE2AA1D2D4270008B861D /* SettingsNavigationController.swift in Sources */,
 				1D1A7E0C1D242178009CCCE7 /* ProductListView.swift in Sources */,
 				1DF7967E1CEB3AF600C7A7F4 /* Logging.swift in Sources */,
 				1D0F3B5F1D12DC200052CFF6 /* BasketCountryCell.swift in Sources */,
@@ -1586,6 +1612,7 @@
 				1DF796871CEB49E200C7A7F4 /* CoreAssembly.swift in Sources */,
 				75D52EB81CFF22D4005E34B4 /* Basket.swift in Sources */,
 				1D1A7E181D25054D009CCCE7 /* BadgeLabel.swift in Sources */,
+				C0CBE2B21D2E50F7008B861D /* Setting.swift in Sources */,
 				1DF796831CEB473300C7A7F4 /* DiAssembler.swift in Sources */,
 				C09280781D08522300350B82 /* ProductColorCell.swift in Sources */,
 				1DA823181D1A8F510054288D /* LoadingIndicator.swift in Sources */,
@@ -1605,6 +1632,7 @@
 				1DD1EA911CF2E61800D99731 /* SettingsViewController.swift in Sources */,
 				1DD1EA9B1CF2ED6400D99731 /* SimpleNavigationEvent.swift in Sources */,
 				C02220851D12D4AD004411A7 /* TabBarItemBadgeContainerView.swift in Sources */,
+				C007CD951D2E92FC00700EBB /* SettingsDataSource.swift in Sources */,
 				C093671C1D0ABD2D004C7748 /* TabBarIcon.swift in Sources */,
 				1D7824A81D06E9CB00E60392 /* ProductDescriptionDataSource.swift in Sources */,
 				75E269AE1CFC7DA200ED3CA2 /* BasketDataSource.swift in Sources */,

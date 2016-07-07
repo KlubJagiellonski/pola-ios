@@ -41,7 +41,7 @@ class CheckoutNavigationController: UINavigationController, NavigationHandler {
     func showEditKioskView() {
         let editKioskViewController = resolver.resolve(EditKioskViewController.self, argument: model)
         editKioskViewController.delegate = self
-        editKioskViewController.navigationItem.title = tr(.CheckoutDeliveryNavigationHeader)
+        editKioskViewController.navigationItem.title = tr(.CheckoutDeliveryEditKioskNavigationHeader)
         editKioskViewController.applyBlackBackButton(target: self, action: #selector(CheckoutNavigationController.didTapBackButton))
         pushViewController(editKioskViewController, animated: true)
     }
