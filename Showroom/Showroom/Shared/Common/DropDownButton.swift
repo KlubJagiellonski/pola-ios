@@ -11,8 +11,7 @@ enum DropDownValue {
 
 class DropDownButton : UIControl {
     private let borderWidth: CGFloat = 1
-    private let imageMargin: CGFloat = 6
-    private let defaultHorizontalMargin: CGFloat = 9
+    private let defaultMargin: CGFloat = 5
     private let valueArrowHorizontalMargin: CGFloat = 4
     
     let valueImageView = ColorIconView()
@@ -54,6 +53,7 @@ class DropDownButton : UIControl {
         
         valueLabel.font = UIFont(fontType: .FormNormal)
         valueLabel.textColor = UIColor(named: .Black)
+        valueLabel.textAlignment = .Center
         
         valueImageView.layer.borderWidth = 1
         valueImageView.layer.borderColor = UIColor(named: .Manatee).CGColor
@@ -77,19 +77,20 @@ class DropDownButton : UIControl {
     
     private func configureCustomConstraints() {
         valueImageView.snp_makeConstraints { make in
-            make.leading.equalToSuperview().offset(imageMargin)
-            make.top.equalToSuperview().offset(imageMargin)
-            make.bottom.equalToSuperview().inset(imageMargin)
+            make.leading.equalToSuperview().offset(defaultMargin)
+            make.top.equalToSuperview().offset(defaultMargin)
+            make.bottom.equalToSuperview().inset(defaultMargin)
             make.width.equalTo(valueImageView.snp_height)
         }
         
         valueLabel.snp_makeConstraints { make in
-            make.leading.equalToSuperview().offset(defaultHorizontalMargin)
+            make.leading.equalToSuperview().offset(defaultMargin)
             make.centerY.equalToSuperview()
+            make.trailing.equalToSuperview().offset(-23)
         }
         
         arrowImageView.snp_makeConstraints { make in
-            make.trailing.equalToSuperview().inset(defaultHorizontalMargin)
+            make.trailing.equalToSuperview().inset(defaultMargin)
             make.centerY.equalToSuperview().offset(2)
         }
     }

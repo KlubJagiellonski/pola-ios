@@ -184,7 +184,8 @@ class DescriptionHeaderView: UIView {
     private let defaultVerticalPadding: CGFloat = 8
     private let horizontalItemPadding: CGFloat = 5
     private let buttonsToNameInfoVerticalPadding: CGFloat = 13
-    private let dropDownButtonWidth: CGFloat = 60
+    private let smallDropDownButtonWidth: CGFloat = 54
+    private let largeDropDownButtonWidth: CGFloat = 81
     
     let brandAndPriceContainerView = UIView()
     let brandNameLabel = UILabel()
@@ -298,14 +299,14 @@ class DescriptionHeaderView: UIView {
         colorButton.snp_makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.equalToSuperview()
-            make.width.equalTo(dropDownButtonWidth)
+            make.width.equalTo(smallDropDownButtonWidth)
             make.height.equalTo(Dimensions.defaultButtonHeight)
         }
         
         sizeButton.snp_makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.equalTo(colorButton.snp_trailing).offset(horizontalItemPadding)
-            make.width.equalTo(dropDownButtonWidth)
+            make.width.equalTo(largeDropDownButtonWidth)
             make.height.equalTo(Dimensions.defaultButtonHeight)
         }
         
