@@ -179,6 +179,8 @@
 		7586E27D1D22B3D30086DE94 /* CheckoutSummaryCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7586E27C1D22B3D30086DE94 /* CheckoutSummaryCommentView.swift */; };
 		7586E27F1D22BB5F0086DE94 /* UITextViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7586E27E1D22BB5F0086DE94 /* UITextViewUtils.swift */; };
 		759CED241CFDB24100FEBE66 /* TitleValueLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759CED231CFDB24100FEBE66 /* TitleValueLabel.swift */; };
+		75BB89701D300A8A00F9138D /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75BB896F1D300A8A00F9138D /* StartViewController.swift */; };
+		75BB89721D300A9A00F9138D /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75BB89711D300A9A00F9138D /* StartView.swift */; };
 		75C8545E1D05660400E5F08F /* BasketHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C8545D1D05660400E5F08F /* BasketHeader.swift */; };
 		75C854601D05816300E5F08F /* PriceLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C8545F1D05816300E5F08F /* PriceLabel.swift */; };
 		75C854621D05B7BF00E5F08F /* BasketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C854611D05B7BF00E5F08F /* BasketManager.swift */; };
@@ -450,6 +452,8 @@
 		7586E27C1D22B3D30086DE94 /* CheckoutSummaryCommentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutSummaryCommentView.swift; sourceTree = "<group>"; };
 		7586E27E1D22BB5F0086DE94 /* UITextViewUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextViewUtils.swift; sourceTree = "<group>"; };
 		759CED231CFDB24100FEBE66 /* TitleValueLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleValueLabel.swift; sourceTree = "<group>"; };
+		75BB896F1D300A8A00F9138D /* StartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
+		75BB89711D300A9A00F9138D /* StartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		75C8545D1D05660400E5F08F /* BasketHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasketHeader.swift; sourceTree = "<group>"; };
 		75C8545F1D05816300E5F08F /* PriceLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PriceLabel.swift; path = ../Business/Basket/PriceLabel.swift; sourceTree = "<group>"; };
 		75C854611D05B7BF00E5F08F /* BasketManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasketManager.swift; sourceTree = "<group>"; };
@@ -677,6 +681,7 @@
 		1D2F195F1CE9CEBA0099142E /* Business */ = {
 			isa = PBXGroup;
 			children = (
+				75BB896E1D300A7400F9138D /* Start */,
 				1D6933471D2E40A500609BB9 /* BrandProductList */,
 				1D5886DE1D2BBDED007D0CB1 /* TrendProductList */,
 				75FE56AF1D266BA200DF5356 /* Login */,
@@ -1143,6 +1148,15 @@
 			path = Showroom/Shared/Common;
 			sourceTree = SOURCE_ROOT;
 		};
+		75BB896E1D300A7400F9138D /* Start */ = {
+			isa = PBXGroup;
+			children = (
+				75BB896F1D300A8A00F9138D /* StartViewController.swift */,
+				75BB89711D300A9A00F9138D /* StartView.swift */,
+			);
+			path = Start;
+			sourceTree = "<group>";
+		};
 		75E269AC1CFC7D8400ED3CA2 /* DataSource */ = {
 			isa = PBXGroup;
 			children = (
@@ -1496,6 +1510,7 @@
 				1D78249E1D06E50400E60392 /* ProductPageView.swift in Sources */,
 				1D6933491D2E40C700609BB9 /* BrandProductListViewController.swift in Sources */,
 				75FE56C11D2BDE4600DF5356 /* RegistrationViewController.swift in Sources */,
+				75BB89721D300A9A00F9138D /* StartView.swift in Sources */,
 				1DF14F2C1D2AA21A004A6A3A /* ProductListEmptyView.swift in Sources */,
 				1D0453531CFEF6F6001CC5A2 /* ObservableUtils.swift in Sources */,
 				1D72ED131CFC3028007AFD2F /* ContentPromo.swift in Sources */,
@@ -1570,6 +1585,7 @@
 				C0C5D28E1D099679004C1B13 /* ColorIconView.swift in Sources */,
 				1D0F3B481D1172410052CFF6 /* BasketDeliveryViewController.swift in Sources */,
 				1DD1EA881CF2E53500D99731 /* SearchViewController.swift in Sources */,
+				75BB89701D300A8A00F9138D /* StartViewController.swift in Sources */,
 				1DAA7C751D0EC17F00545BB9 /* ProductDetailsContext.swift in Sources */,
 				1D0453511CFEE092001CC5A2 /* ProductRecommendation.swift in Sources */,
 				1D5886E81D2BE440007D0CB1 /* ExtendedLabel.swift in Sources */,

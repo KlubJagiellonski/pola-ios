@@ -263,6 +263,16 @@ enum L10n {
   case SettingsRules
   /// Kontakt
   case SettingsContact
+  /// przeglądaj produkty
+  case StartBrowse
+  /// DLA NIEJ
+  case StartForHer
+  /// DLA NIEGO
+  case StartForHim
+  /// ZALOGUJ SIĘ
+  case StartLogin
+  /// ZAREJESTRUJ SIĘ
+  case StartRegister
 }
 
 extension L10n: CustomStringConvertible {
@@ -530,6 +540,16 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Settings.Rules")
       case .SettingsContact:
         return L10n.tr("Settings.Contact")
+      case .StartBrowse:
+        return L10n.tr("Start.Browse")
+      case .StartForHer:
+        return L10n.tr("Start.ForHer")
+      case .StartForHim:
+        return L10n.tr("Start.ForHim")
+      case .StartLogin:
+        return L10n.tr("Start.Login")
+      case .StartRegister:
+        return L10n.tr("Start.Register")
     }
   }
 

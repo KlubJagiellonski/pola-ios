@@ -16,6 +16,7 @@ extension UIFont {
         case Description
         case List
         case Button
+        case GhostButton
         case FormBold
         case ErrorBold
         case ProductListBoldText
@@ -59,6 +60,8 @@ extension UIFont {
             self.init(name: "Lato-Regular", size: 13)
         case .Button:
             self.init(name: "Lato-Bold", size: 16)
+        case .GhostButton:
+            self.init(name: "Lato-Bold", size: 12)
         case .FormBold:
             self.init(name: "Lato-Heavy", size: 14)
         case .ErrorBold:
@@ -86,6 +89,25 @@ extension UIFont {
         case .NavigationBar:
             self.init(name: "Lato-Semibold", size: 17)
         }
-        
+    }
+    
+    class func latoRegular(ofSize size: CGFloat) -> UIFont {
+        return UIFont(name: "Lato-Regular", size: size)!
+    }
+    
+    class func latoSemibold(ofSize size: CGFloat) -> UIFont {
+        return UIFont(name: "Lato-Semibold", size: size)!
+    }
+    
+    class func latoBold(ofSize size: CGFloat) -> UIFont {
+        return UIFont(name: "Lato-Bold", size: size)!
+    }
+    
+    class func latoHeavy(ofSize size: CGFloat) -> UIFont {
+        return UIFont(name: "Lato-Heavy", size: size)!
+    }
+    
+    class func georgiaItalic(ofSize size: CGFloat) -> UIFont {
+        return UIFont(name: "Georgia-Italic", size: size)!
     }
 }

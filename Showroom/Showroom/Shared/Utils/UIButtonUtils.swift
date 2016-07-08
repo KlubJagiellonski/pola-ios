@@ -59,12 +59,22 @@ extension UIButton {
         setTitleColor(UIColor(named: .White), forState: .Normal)
         setBackgroundImage(UIImage.fromColor(UIColor(named: .Facebook)), forState: .Normal)
         setBackgroundImage(UIImage.fromColor(UIColor(named: .DarkGray)), forState: .Disabled)
-        setImage(UIImage(named: "ic_fb"), forState: .Normal)
+        setImage(UIImage(asset: Asset.Ic_fb), forState: .Normal)
         imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, Dimensions.defaultMargin)
     }
     
     func applyLoginStyle() {
         titleLabel!.font = UIFont(fontType: .NormalBold)
         setTitleColor(UIColor(named: .Blue), forState: .Normal)
+    }
+    
+    func applyGhostStyle() {
+        layer.borderColor = UIColor(named: .Black).CGColor
+        layer.borderWidth = 2;
+        setTitleColor(UIColor(named: .Black), forState: .Normal)
+        setTitleColor(UIColor(named: .White), forState: .Highlighted)
+        setBackgroundImage(UIImage.fromColor(UIColor(named: .White)), forState: .Normal)
+        setBackgroundImage(UIImage.fromColor(UIColor(named: .Blue)), forState: .Highlighted)
+        titleLabel!.font = UIFont(fontType: .GhostButton)
     }
 }

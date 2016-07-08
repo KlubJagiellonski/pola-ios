@@ -1,13 +1,7 @@
 import Foundation
 
 struct User {
-    let gender: Gender
     let userAddresses: [UserAddress]
-}
-
-enum Gender: String {
-    case Male = "male"
-    case Female = "female"
 }
 
 struct UserAddress {
