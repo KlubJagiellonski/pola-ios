@@ -79,6 +79,8 @@
 		1D5EF1CB1CEB61000071C097 /* RxTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2F199D1CEA14FE0099142E /* RxTests.framework */; };
 		1D5EF1D11CEB666B0071C097 /* UIImageViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5EF1D01CEB666B0071C097 /* UIImageViewUtils.swift */; };
 		1D5F91141D2FA19B00AE66E6 /* CheckoutDeliveryViewHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F91131D2FA19B00AE66E6 /* CheckoutDeliveryViewHelpers.swift */; };
+		1D5F91161D3388DA00AE66E6 /* CommonNavigationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F91151D3388DA00AE66E6 /* CommonNavigationHandler.swift */; };
+		1D5F911A1D339A8F00AE66E6 /* CommonPresenterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F91191D339A8F00AE66E6 /* CommonPresenterController.swift */; };
 		1D6933461D2D176200609BB9 /* CocoaMarkdown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D6933451D2D176200609BB9 /* CocoaMarkdown.framework */; };
 		1D6933491D2E40C700609BB9 /* BrandProductListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6933481D2E40C700609BB9 /* BrandProductListViewController.swift */; };
 		1D69334B1D2E40D200609BB9 /* BrandProductListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D69334A1D2E40D200609BB9 /* BrandProductListView.swift */; };
@@ -128,7 +130,6 @@
 		1DD161A41D01C0850022B5C9 /* PresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD161A31D01C0850022B5C9 /* PresenterView.swift */; };
 		1DD161A61D01C3B90022B5C9 /* ShowProductDetailsEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD161A51D01C3B90022B5C9 /* ShowProductDetailsEvent.swift */; };
 		1DD161A81D01C43B0022B5C9 /* DashboardNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD161A71D01C43B0022B5C9 /* DashboardNavigationController.swift */; };
-		1DD161AA1D01C46C0022B5C9 /* DashboardPresenterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD161A91D01C46C0022B5C9 /* DashboardPresenterController.swift */; };
 		1DD161AC1D01C8680022B5C9 /* ProductDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD161AB1D01C8680022B5C9 /* ProductDetailsView.swift */; };
 		1DD161AF1D01CB490022B5C9 /* ProductDetailsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD161AE1D01CB490022B5C9 /* ProductDetailsDataSource.swift */; };
 		1DD161B11D01CCB20022B5C9 /* ProductDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD161B01D01CCB20022B5C9 /* ProductDetailsCell.swift */; };
@@ -350,6 +351,8 @@
 		1D5B5E651D0197B700B74822 /* MoneyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneyTests.swift; sourceTree = "<group>"; };
 		1D5EF1D01CEB666B0071C097 /* UIImageViewUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageViewUtils.swift; sourceTree = "<group>"; };
 		1D5F91131D2FA19B00AE66E6 /* CheckoutDeliveryViewHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutDeliveryViewHelpers.swift; sourceTree = "<group>"; };
+		1D5F91151D3388DA00AE66E6 /* CommonNavigationHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonNavigationHandler.swift; sourceTree = "<group>"; };
+		1D5F91191D339A8F00AE66E6 /* CommonPresenterController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonPresenterController.swift; sourceTree = "<group>"; };
 		1D6933451D2D176200609BB9 /* CocoaMarkdown.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaMarkdown.framework; path = Carthage/Build/iOS/CocoaMarkdown.framework; sourceTree = "<group>"; };
 		1D6933481D2E40C700609BB9 /* BrandProductListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrandProductListViewController.swift; sourceTree = "<group>"; };
 		1D69334A1D2E40D200609BB9 /* BrandProductListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrandProductListView.swift; sourceTree = "<group>"; };
@@ -398,7 +401,6 @@
 		1DD161A31D01C0850022B5C9 /* PresenterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresenterView.swift; sourceTree = "<group>"; };
 		1DD161A51D01C3B90022B5C9 /* ShowProductDetailsEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowProductDetailsEvent.swift; sourceTree = "<group>"; };
 		1DD161A71D01C43B0022B5C9 /* DashboardNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardNavigationController.swift; sourceTree = "<group>"; };
-		1DD161A91D01C46C0022B5C9 /* DashboardPresenterController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardPresenterController.swift; sourceTree = "<group>"; };
 		1DD161AB1D01C8680022B5C9 /* ProductDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDetailsView.swift; sourceTree = "<group>"; };
 		1DD161AE1D01CB490022B5C9 /* ProductDetailsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDetailsDataSource.swift; sourceTree = "<group>"; };
 		1DD161B01D01CCB20022B5C9 /* ProductDetailsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDetailsCell.swift; sourceTree = "<group>"; };
@@ -932,7 +934,6 @@
 				1DD1EA721CEDAE9000D99731 /* DashboardView.swift */,
 				1DD1EA771CEDB47B00D99731 /* DashboardModel.swift */,
 				1DD161A71D01C43B0022B5C9 /* DashboardNavigationController.swift */,
-				1DD161A91D01C46C0022B5C9 /* DashboardPresenterController.swift */,
 			);
 			path = Dashboard;
 			sourceTree = "<group>";
@@ -1027,7 +1028,6 @@
 				1DD161A51D01C3B90022B5C9 /* ShowProductDetailsEvent.swift */,
 				C0237D161D229B8C0009F2FC /* ShowEditAddressEvent.swift */,
 				1D1A7E131D24F669009CCCE7 /* ShowItemForLinkEvent.swift */,
-				C07530C41D251D3500224508 /* ShowEditKioskEvent.swift */,
 				1DA5CB421D2E867000A45E93 /* ShowBrandDescriptionEvent.swift */,
 			);
 			path = Event;
@@ -1136,6 +1136,8 @@
 				1D470E351D26736E00677122 /* Validator.swift */,
 				75FE56C21D2BFDE900DF5356 /* CheckButton.swift */,
 				1D5886E71D2BE440007D0CB1 /* ExtendedLabel.swift */,
+				1D5F91151D3388DA00AE66E6 /* CommonNavigationHandler.swift */,
+				1D5F91191D339A8F00AE66E6 /* CommonPresenterController.swift */,
 			);
 			name = Common;
 			path = Showroom/Shared/Common;
@@ -1476,6 +1478,7 @@
 				C09280741D08468500350B82 /* ProductColorHeaderView.swift in Sources */,
 				1D470E341D265CB500677122 /* FormView.swift in Sources */,
 				C07530C71D2532F700224508 /* EditKioskView.swift in Sources */,
+				1D5F911A1D339A8F00AE66E6 /* CommonPresenterController.swift in Sources */,
 				1DD161B11D01CCB20022B5C9 /* ProductDetailsCell.swift in Sources */,
 				C09280561D0584A900350B82 /* DropUpActionAnimator.swift in Sources */,
 				C0CBE2AA1D2D4270008B861D /* SettingsNavigationController.swift in Sources */,
@@ -1498,6 +1501,7 @@
 				1D72ED131CFC3028007AFD2F /* ContentPromo.swift in Sources */,
 				1DAA7C731D0E9E8E00545BB9 /* TouchHandlingDelegate.swift in Sources */,
 				C09367161D09AB46004C7748 /* UIImageAssets.swift in Sources */,
+				1D5F91161D3388DA00AE66E6 /* CommonNavigationHandler.swift in Sources */,
 				1DA846F71D19474B00BA090A /* StateTextField.swift in Sources */,
 				75FE56C01D2BDE4600DF5356 /* RegistrationView.swift in Sources */,
 				C0B094AD1D2675A100C57D06 /* CLGeocoderUtils.swift in Sources */,
@@ -1558,7 +1562,6 @@
 				1D5886E61D2BE06A007D0CB1 /* TrendHeaderCell.swift in Sources */,
 				1D69334F1D2E40E500609BB9 /* BrandHeaderCell.swift in Sources */,
 				1D7824B51D0708E900E60392 /* ProductPageModel.swift in Sources */,
-				1DD161AA1D01C46C0022B5C9 /* DashboardPresenterController.swift in Sources */,
 				1DF796801CEB3C4000C7A7F4 /* Constants.swift in Sources */,
 				751A50121D1156CB00DF7D2B /* ProductAmountHeaderView.swift in Sources */,
 				1D72ED0F1CFC2F47007AFD2F /* UserManager.swift in Sources */,

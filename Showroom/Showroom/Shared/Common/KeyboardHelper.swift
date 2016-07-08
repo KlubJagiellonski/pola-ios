@@ -19,7 +19,7 @@ extension KeyboardHandler {
 }
 
 protocol KeyboardHelperDelegate: class {
-    func keyboardHelperChangedKeyboardState(fromFrame: CGRect, toFrame: CGRect, duration: Double, animationOptions: UIViewAnimationOptions)
+    func keyboardHelperChangedKeyboardState(fromFrame: CGRect, toFrame: CGRect, duration: Double, animationOptions: UIViewAnimationOptions, visible: Bool)
 }
 
 class KeyboardHelper {
@@ -58,14 +58,14 @@ class KeyboardHelper {
     
     @objc private func keyboardWillShow(notification: NSNotification) {
         if !animationInProgress {
-            delegate?.keyboardHelperChangedKeyboardState(notification.beginFrame, toFrame: notification.endFrame, duration: notification.animationDuration, animationOptions: notification.animationOptions)
+            delegate?.keyboardHelperChangedKeyboardState(notification.beginFrame, toFrame: notification.endFrame, duration: notification.animationDuration, animationOptions: notification.animationOptions, visible: true)
             animationInProgress = true
         }
     }
     
     @objc private func keyboardWillHide(notification: NSNotification) {
         if !animationInProgress {
-            delegate?.keyboardHelperChangedKeyboardState(notification.beginFrame, toFrame: notification.endFrame, duration: notification.animationDuration, animationOptions: notification.animationOptions)
+            delegate?.keyboardHelperChangedKeyboardState(notification.beginFrame, toFrame: notification.endFrame, duration: notification.animationDuration, animationOptions: notification.animationOptions, visible: false)
             animationInProgress = true
         }
     }

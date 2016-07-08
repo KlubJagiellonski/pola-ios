@@ -20,7 +20,6 @@ class BasketProductCell: UITableViewCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: .Default, reuseIdentifier: reuseIdentifier)
-        selectionStyle = .None
         
         photoImageView.backgroundColor = UIColor(named: .Gray)
         photoImageView.layer.masksToBounds = true

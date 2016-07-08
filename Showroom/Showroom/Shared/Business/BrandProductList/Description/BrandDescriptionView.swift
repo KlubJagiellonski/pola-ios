@@ -2,7 +2,7 @@ import UIKit
 import CocoaMarkdown
 import SnapKit
 
-class BrandDescriptionView: UIView {
+class BrandDescriptionView: UIView, ExtendedView {
     private let additionalScrollBottomInset: CGFloat = 60
     
     private let backgroundImageView = UIImageView()
@@ -14,9 +14,9 @@ class BrandDescriptionView: UIView {
     
     private var backgroundImageViewTopConstraint: Constraint?
     
-    var contentInset: UIEdgeInsets? {
+    var extendedContentInset: UIEdgeInsets? {
         didSet {
-            let inset = contentInset ?? UIEdgeInsetsZero
+            let inset = extendedContentInset ?? UIEdgeInsetsZero
             
             backgroundImageViewTopConstraint?.updateOffset(inset.top)
             scrollView.contentInset = UIEdgeInsetsMake(inset.top, inset.left, inset.bottom + additionalScrollBottomInset, inset.right)

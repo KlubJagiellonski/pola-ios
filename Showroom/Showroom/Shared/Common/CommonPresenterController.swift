@@ -1,21 +1,23 @@
 import Foundation
 import UIKit
 
-class DashboardPresenterController: PresenterViewController, NavigationHandler {
+class CommonPresenterController: PresenterViewController, NavigationHandler {
     
     let resolver: DiResolver
     
-    init(resolver: DiResolver) {
+    init(with resolver: DiResolver, contentViewController: UIViewController) {
         self.resolver = resolver
         super.init(nibName: nil, bundle: nil)
         
-        contentViewController = resolver.resolve(DashboardNavigationController.self)
+        self.contentViewController = contentViewController
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK:- NavigationHandler
+
     func handleNavigationEvent(event: NavigationEvent) -> EventHandled {
         switch event {
         case let showProductDetailsEvent as ShowProductDetailsEvent:

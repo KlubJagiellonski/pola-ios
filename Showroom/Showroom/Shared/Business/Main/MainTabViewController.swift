@@ -76,8 +76,9 @@ class MainTabViewController: UITabBarController, NavigationHandler {
     }
     
     // MARK: - creating child view controllers
-    func createDashboardViewController() -> DashboardPresenterController {
-        let viewController = resolver.resolve(DashboardPresenterController.self)
+    func createDashboardViewController() -> CommonPresenterController {
+        let navigationController = resolver.resolve(DashboardNavigationController.self)
+        let viewController = resolver.resolve(CommonPresenterController.self, argument: navigationController as UIViewController)
         viewController.tabBarItem = UITabBarItem(tabBarIcon: .Dashboard)
         viewController.tabBarItem.imageInsets = MainTabViewController.dashboardItemImageIsets
         return viewController
@@ -90,11 +91,12 @@ class MainTabViewController: UITabBarController, NavigationHandler {
         return viewController
     }
     
-    func createBasketViewController() -> BasketNavigationController {
+    func createBasketViewController() -> CommonPresenterController {
         let navigationController = resolver.resolve(BasketNavigationController.self)
-        navigationController.tabBarItem = UITabBarItem(tabBarIcon: .Basket)
-        navigationController.tabBarItem.imageInsets = MainTabViewController.basketItemImageInsets
-        return navigationController
+        let viewController = resolver.resolve(CommonPresenterController.self, argument: navigationController as UIViewController)
+        viewController.tabBarItem = UITabBarItem(tabBarIcon: .Basket)
+        viewController.tabBarItem.imageInsets = MainTabViewController.basketItemImageInsets
+        return viewController
     }
     
     func createWishlistViewController() -> WishlistViewController {

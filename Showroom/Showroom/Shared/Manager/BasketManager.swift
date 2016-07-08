@@ -94,6 +94,40 @@ final class BasketManager {
     func createCheckout() -> Checkout? {
         return Checkout.from(basketState: state)
     }
+    
+    func createBasketProductListContext(initialIndexPath: NSIndexPath, onChangedForIndexPath: NSIndexPath -> ()) -> ProductDetailsContext? {
+        guard let basket = state.basket else { return nil }
+        
+        let initialProduct = basket.productsByBrands[initialIndexPath.section].products[initialIndexPath.row]
+        
+        var productTuples: [(product: BasketProduct, brand: BasketBrand)] = [] // basketBrand is needed for parsing to Product
+        for basketBrand in basket.productsByBrands {
+            for basketProduct in basketBrand.products {
+                productTuples.append((basketProduct, basketBrand))
+            }
+        }
+        
+        let initialIndex = productTuples.indexOf { $0.product.isEqualInBasket(to: initialProduct) }
+        guard let index = initialIndex else { return nil }
+        
+        let onRetrieveProductInfo: Int -> ProductInfo = { index in
+            let productTuple = productTuples[index]
+            return ProductInfo.Object(productTuple.product.toProduct(productTuple.brand))
+        }
+        
+        let onChanged: Int -> () = { index in
+            let productTuple = productTuples[index]
+            let section = basket.productsByBrands.indexOf(productTuple.brand)
+            let row = productTuple.brand.products.indexOf(productTuple.product)
+            guard let s = section, let r = row else {
+                logInfo("Cannot create indexPath from \(section) \(row) \(index)")
+                return
+            }
+            onChangedForIndexPath(NSIndexPath(forRow: r, inSection: s))
+        }
+        
+        return OnePageProductDetailsContext(productsCount: productTuples.count, initialProductIndex: index, onChanged: onChanged, onRetrieveProductInfo: onRetrieveProductInfo)
+    }
 }
 
 struct BasketValidationState {

@@ -227,6 +227,14 @@ struct DeliveryCarrier: Equatable {
     let isDefault: Bool
 }
 
+// MARK: - Utilities
+
+extension BasketProduct {
+    func toProduct(basketBrand: BasketBrand) -> Product {
+        return Product(id: id, brand: basketBrand.name, name: name, basePrice: basePrice, price: price, imageUrl: imageUrl, lowResImageUrl: nil)
+    }
+}
+
 // MARK: - Operators handling
 func == (lhs: Basket, rhs: Basket) -> Bool {
     return lhs.productsByBrands == rhs.productsByBrands

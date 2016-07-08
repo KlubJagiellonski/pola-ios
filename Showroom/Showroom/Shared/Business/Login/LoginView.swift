@@ -194,7 +194,7 @@ extension LoginView: FormView {
 }
 
 extension LoginView: KeyboardHelperDelegate, KeyboardHandler {
-    func keyboardHelperChangedKeyboardState(fromFrame: CGRect, toFrame: CGRect, duration: Double, animationOptions: UIViewAnimationOptions) {
+    func keyboardHelperChangedKeyboardState(fromFrame: CGRect, toFrame: CGRect, duration: Double, animationOptions: UIViewAnimationOptions, visible: Bool) {
         let bottomOffset = (UIScreen.mainScreen().bounds.height - toFrame.minY)
         let contentInset = UIEdgeInsetsMake(0, 0, max(bottomOffset, 0), 0)
         scrollView.contentInset = contentInset

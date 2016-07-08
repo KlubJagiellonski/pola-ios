@@ -12,9 +12,9 @@ class UIAssembly: AssemblyType {
         container.register(MainTabViewController.self) { r in
             return MainTabViewController(resolver: r.resolve(DiResolver.self)!, basketManager: r.resolve(BasketManager.self)!)
         }
-        container.register(DashboardPresenterController.self) { r in
-            return DashboardPresenterController(resolver: r.resolve(DiResolver.self)!)
-        }
+        container.register(CommonPresenterController.self) { r, contentViewController in
+            return CommonPresenterController(with: r.resolve(DiResolver.self)!, contentViewController: contentViewController)
+        }.inObjectScope(.None)
         container.register(DashboardNavigationController.self) { r in
             return DashboardNavigationController(resolver: r.resolve(DiResolver.self)!)
         }

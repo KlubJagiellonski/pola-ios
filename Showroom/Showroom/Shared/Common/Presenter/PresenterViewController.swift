@@ -3,25 +3,27 @@ import UIKit
 
 class PresenterViewController: UIViewController {
     var castView: PresenterView { return view as! PresenterView }
+    private var cachedContentViewController: UIViewController?
     
     var contentViewController: UIViewController? {
         didSet {
-            guard let newViewController = contentViewController else {
-                fatalError("Cannot set nil contentViewController")
-            }
-            
             oldValue?.willMoveToParentViewController(nil)
-            addChildViewController(newViewController)
-            
-            castView.contentView = newViewController.view
-            
+            if let newViewController = contentViewController {
+                addChildViewController(newViewController)
+            }
+            castView.contentView = contentViewController?.view
             oldValue?.removeFromParentViewController()
-            newViewController.didMoveToParentViewController(self)
+            contentViewController?.didMoveToParentViewController(self)
         }
     }
     
     var currentModalViewController: UIViewController? {
         didSet {
+            if let cachedContentViewController = cachedContentViewController {
+                contentViewController = cachedContentViewController
+                self.cachedContentViewController = nil
+            }
+            
             oldValue?.willMoveToParentViewController(nil)
             if let newViewController = currentModalViewController {
                 addChildViewController(newViewController)
@@ -29,6 +31,11 @@ class PresenterViewController: UIViewController {
             castView.modalView = currentModalViewController?.view
             oldValue?.removeFromParentViewController()
             currentModalViewController?.didMoveToParentViewController(self)
+            
+            if currentModalViewController != nil {
+                cachedContentViewController = contentViewController
+                contentViewController = nil
+            }
         }
     }
     

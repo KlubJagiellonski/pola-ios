@@ -158,7 +158,7 @@ extension EditKioskView: ViewSwitcherDataSource {
 }
 
 extension EditKioskView: KeyboardHelperDelegate, KeyboardHandler {
-    func keyboardHelperChangedKeyboardState(fromFrame: CGRect, toFrame: CGRect, duration: Double, animationOptions: UIViewAnimationOptions) {
+    func keyboardHelperChangedKeyboardState(fromFrame: CGRect, toFrame: CGRect, duration: Double, animationOptions: UIViewAnimationOptions, visible: Bool) {
         let bottomOffset = (UIScreen.mainScreen().bounds.height - toFrame.minY) - saveButton.bounds.height
         tableView.contentInset = UIEdgeInsetsMake(EditKioskView.tableViewTopInset, 0, max(bottomOffset, 0), 0)
         tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, max(bottomOffset, 0), 0)

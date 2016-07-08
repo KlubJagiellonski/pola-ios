@@ -106,7 +106,7 @@ class CheckoutSummaryCommentView: UIView {
 }
 
 extension CheckoutSummaryCommentView: KeyboardHandler, KeyboardHelperDelegate {
-    func keyboardHelperChangedKeyboardState(fromFrame: CGRect, toFrame: CGRect, duration: Double, animationOptions: UIViewAnimationOptions) {
+    func keyboardHelperChangedKeyboardState(fromFrame: CGRect, toFrame: CGRect, duration: Double, animationOptions: UIViewAnimationOptions, visible: Bool) {
         frame.origin.y = (toFrame.minY - frame.height) * 0.5
         
         self.setNeedsLayout()

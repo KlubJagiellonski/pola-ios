@@ -9,13 +9,14 @@ protocol BasketViewDelegate: ViewSwitcherDelegate {
     func basketViewDidTapCheckoutButton(view: BasketView)
     func basketViewDidTapStartShoppingButton(view: BasketView)
     func basketView(view: BasketView, didChangeDiscountCode discountCode: String?)
+    func basketView(view: BasketView, didSelectProductAtIndexPath indexPath: NSIndexPath)
 }
 
 final class BasketView: ViewSwitcher, UITableViewDelegate {
     private let contentView = UIView()
     private let checkoutView = BasketCheckoutView()
     private let checkoutBottomBackgroundView = UIView()
-    private let dataSource: BasketDataSource;
+    private let dataSource: BasketDataSource
     let keyboardHelper = KeyboardHelper()
     private var checkoutBottomConstraint: Constraint?
     private let tableView = UITableView(frame: CGRectZero, style: .Plain)
@@ -63,11 +64,26 @@ final class BasketView: ViewSwitcher, UITableViewDelegate {
         configureCustomConstraints()
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(BasketView.dismissKeyboard))
+        //it should be disabled when keyboard is hidden. Enabling it would cause cell selecting not work
+        tap.enabled = false
         addGestureRecognizer(tap)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func willMoveToWindow(newWindow: UIWindow?) {
+        super.willMoveToWindow(newWindow)
+        if let selectedRow = tableView.indexPathForSelectedRow where newWindow != nil {
+            tableView.deselectRowAtIndexPath(selectedRow, animated: true)
+        }
+     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        tableView.contentInset.bottom = bounds.height - checkoutView.frame.minY
+        tableView.scrollIndicatorInsets = tableView.contentInset
     }
     
     func dismissKeyboard() {
@@ -88,6 +104,10 @@ final class BasketView: ViewSwitcher, UITableViewDelegate {
     
     func updateData(withValidated validated: Bool) {
         checkoutView.checkoutButton.enabled = validated
+    }
+    
+    func moveToPosition(at indexPath: NSIndexPath, animated: Bool) {
+        dataSource.moveToPosition(at: indexPath, animated: animated)
     }
     
     func didTapShippingButton(button: UIButton) {
@@ -141,10 +161,8 @@ final class BasketView: ViewSwitcher, UITableViewDelegate {
         return headerView
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        tableView.contentInset.bottom = bounds.height - checkoutView.frame.minY
-        tableView.scrollIndicatorInsets = tableView.contentInset
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        delegate?.basketView(self, didSelectProductAtIndexPath: indexPath)
     }
     
     func dataSourceDidDeleteProduct(product: BasketProduct) {
@@ -161,7 +179,10 @@ final class BasketView: ViewSwitcher, UITableViewDelegate {
 }
 
 extension BasketView: KeyboardHandler, KeyboardHelperDelegate {
-    func keyboardHelperChangedKeyboardState(fromFrame: CGRect, toFrame: CGRect, duration: Double, animationOptions: UIViewAnimationOptions) {
+    func keyboardHelperChangedKeyboardState(fromFrame: CGRect, toFrame: CGRect, duration: Double, animationOptions: UIViewAnimationOptions, visible: Bool) {
+        //we want to only enable tap gesture recognizer when keyboard is visible.
+        gestureRecognizers?.find { $0 is UITapGestureRecognizer }?.enabled = visible
+        
         let bottomMargin = keyboardHelper.retrieveBottomMargin(self, keyboardToFrame: toFrame)
         
         checkoutBottomConstraint?.updateOffset(-max(bottomMargin, Dimensions.tabViewHeight))

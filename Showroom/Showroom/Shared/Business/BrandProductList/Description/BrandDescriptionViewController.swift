@@ -1,15 +1,10 @@
 import Foundation
 import UIKit
 
-class BrandDescriptionViewController: UIViewController {
+class BrandDescriptionViewController: UIViewController, ExtendedViewController {
     private let brand: Brand
     
     private var castView: BrandDescriptionView { return view as! BrandDescriptionView }
-    
-    var contentInset: UIEdgeInsets? {
-        set { castView.contentInset = newValue }
-        get { return castView.contentInset }
-    }
     
     init(with brand: Brand) {
         self.brand = brand

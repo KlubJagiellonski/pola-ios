@@ -234,7 +234,7 @@ extension CheckoutDeliveryView: FormView {
 }
 
 extension CheckoutDeliveryView: KeyboardHelperDelegate, KeyboardHandler {
-    func keyboardHelperChangedKeyboardState(fromFrame: CGRect, toFrame: CGRect, duration: Double, animationOptions: UIViewAnimationOptions) {
+    func keyboardHelperChangedKeyboardState(fromFrame: CGRect, toFrame: CGRect, duration: Double, animationOptions: UIViewAnimationOptions, visible: Bool) {
         let bottomOffset = keyboardHelper.retrieveBottomMargin(self, keyboardToFrame: toFrame) - nextButton.bounds.height
         scrollView.contentInset = UIEdgeInsetsMake(0, 0, max(bottomOffset, 0), 0)
     }

@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 
 class BasketNavigationController: UINavigationController {
-    let resolver: DiResolver
+    private let resolver: DiResolver
     
     init(resolver: DiResolver) {
         self.resolver = resolver

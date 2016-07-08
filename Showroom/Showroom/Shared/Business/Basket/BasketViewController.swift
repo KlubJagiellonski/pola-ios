@@ -138,6 +138,14 @@ class BasketViewController: UIViewController, BasketViewDelegate {
         sendNavigationEvent(SimpleNavigationEvent(type: .ShowSearch))
     }
     
+    func basketView(view: BasketView, didSelectProductAtIndexPath indexPath: NSIndexPath) {
+        let context = manager.createBasketProductListContext(indexPath) { [unowned self] indexPath in
+            self.castView.moveToPosition(at: indexPath, animated: false)
+        }
+        guard let c = context else { return }
+        sendNavigationEvent(ShowProductDetailsEvent(context: c))
+    }
+    
     func viewSwitcherDidTapRetry(view: ViewSwitcher) {
         manager.validate()
     }

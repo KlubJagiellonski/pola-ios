@@ -118,7 +118,7 @@ extension EditAddressView: FormView {
 }
 
 extension EditAddressView: KeyboardHelperDelegate, KeyboardHandler {
-    func keyboardHelperChangedKeyboardState(fromFrame: CGRect, toFrame: CGRect, duration: Double, animationOptions: UIViewAnimationOptions) {
+    func keyboardHelperChangedKeyboardState(fromFrame: CGRect, toFrame: CGRect, duration: Double, animationOptions: UIViewAnimationOptions, visible: Bool) {
         let bottomOffset = (UIScreen.mainScreen().bounds.height - toFrame.minY) - saveButton.bounds.height
         scrollView.contentInset = UIEdgeInsetsMake(Dimensions.defaultMargin, 0, max(bottomOffset, 0), 0)
     }

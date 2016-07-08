@@ -2,11 +2,10 @@ import Foundation
 import UIKit
 import RxSwift
 
-protocol ProductListViewControllerInterface: class, NavigationSender {
+protocol ProductListViewControllerInterface: class, NavigationSender, ExtendedViewController {
     var disposeBag: DisposeBag { get }
     var productListModel: ProductListModel { get }
     var productListView: ProductListViewInterface { get }
-    var contentInset: UIEdgeInsets { get set }
     
     func fetchFirstPage()
     func fetchNextPage()
@@ -14,11 +13,6 @@ protocol ProductListViewControllerInterface: class, NavigationSender {
 }
 
 extension ProductListViewControllerInterface {
-    var contentInset: UIEdgeInsets {
-        set { productListView.contentInset = newValue }
-        get { return productListView.contentInset }
-    }
-    
     func fetchFirstPage() {
         productListView.switcherState = .Loading
         let onNext = { [weak self] (result: FetchResult<ProductListResult>) in

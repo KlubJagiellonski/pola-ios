@@ -22,6 +22,18 @@ class BasketDataSource: NSObject, UITableViewDataSource, BasketProductCellDelega
         tableView.registerClass(BasketHeader.self, forHeaderFooterViewReuseIdentifier: String(BasketHeader))
     }
     
+    func moveToPosition(at indexPath: NSIndexPath, animated: Bool) {
+        guard indexPath.section < productsByBrands.count else {
+            logInfo("Cannot scroll to \(indexPath)")
+            return
+        }
+        guard indexPath.row < productsByBrands[indexPath.section].products.count else {
+            logInfo("Cannot scroll to \(indexPath)")
+            return
+        }
+        tableView?.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: false)
+    }
+    
     func updateData(with newProductsByBrands: [BasketBrand]) {
         var removedProductInfo: [String] = []
         var changedProductAmountInfo: [String] = []
@@ -152,6 +164,8 @@ class BasketDataSource: NSObject, UITableViewDataSource, BasketProductCellDelega
         
         tableView?.endUpdates()
     }
+    
+    // MARK:- UITableViewDataSource
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return productsByBrands.count
