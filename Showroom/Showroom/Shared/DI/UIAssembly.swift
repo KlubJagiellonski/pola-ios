@@ -75,23 +75,23 @@ class UIAssembly: AssemblyType {
         container.register(BasketCountryViewController.self) { r in
             return BasketCountryViewController(basketManager: r.resolve(BasketManager.self)!)
         }
-        container.register(CheckoutNavigationController.self) { r in
-            return CheckoutNavigationController(resolver: r.resolve(DiResolver.self)!)
+        container.register(CheckoutNavigationController.self) { r, checkout in
+            return CheckoutNavigationController(with: r.resolve(DiResolver.self)!, and: checkout)
         }
-        container.register(CheckoutDeliveryViewController.self) { r, basketManager in
-            return CheckoutDeliveryViewController(resolver: r.resolve(DiResolver.self)!, basketManager: basketManager)
+        container.register(CheckoutDeliveryViewController.self) { r, checkoutModel in
+            return CheckoutDeliveryViewController(with: checkoutModel)
         }
         container.register(CheckoutSummaryViewController.self) { r, model in
             return CheckoutSummaryViewController(resolver: r.resolve(DiResolver.self)!, model: model)
         }
-        container.register(EditAddressViewController.self) { r, formFields, editingState in
-            return EditAddressViewController(resolver: r.resolve(DiResolver.self)!, formFields: formFields, editingState: editingState)
+        container.register(EditAddressViewController.self) { r, userAddress, defaultCountry in
+            return EditAddressViewController(with: userAddress, defaultCountry: defaultCountry)
         }
         container.register(CheckoutSummaryCommentViewController.self) { r, comment, index in
             return CheckoutSummaryCommentViewController(resolver: r.resolve(DiResolver.self)!, comment: comment, index: index)
         }
-        container.register(CheckoutModel.self) { r in
-            return CheckoutModel(basketManager: r.resolve(BasketManager.self)!)
+        container.register(CheckoutModel.self) { r, checkout in
+            return CheckoutModel(with: checkout, and: r.resolve(UserManager.self)!)
         }
         container.register(CategoryProductListViewController.self) { r, category in
             return CategoryProductListViewController(withResolver: r.resolve(DiResolver.self)!, category: category)
@@ -108,8 +108,11 @@ class UIAssembly: AssemblyType {
         container.register(RegistrationViewController.self) { r in
             return RegistrationViewController(resolver: r.resolve(DiResolver.self)!)
         }
-        container.register(EditKioskViewController.self) { r, clientAddress in
-            return EditKioskViewController(resolver: r.resolve(DiResolver.self)!, clientAddress: clientAddress)
+        container.register(EditKioskViewController.self) { r, checkoutModel in
+            return EditKioskViewController(with: r.resolve(DiResolver.self)!, and: checkoutModel)
+        }
+        container.register(EditKioskModel.self) { r, checkoutModel in
+            return EditKioskModel(with: r.resolve(ApiService.self)!, and: checkoutModel)
         }
         container.register(TrendProductListViewController.self) { r in
             return TrendProductListViewController(with: r.resolve(DiResolver.self)!)

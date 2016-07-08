@@ -23,8 +23,8 @@ class EditKioskView: UIView, UITableViewDelegate {
         set { viewSwitcher.switcherState = newValue }
     }
     
-    var searchString: String {
-        get { return searchInputView.inputTextField.text! }
+    var searchString: String? {
+        get { return searchInputView.inputTextField.text }
         set { searchInputView.inputTextField.text = newValue }
     }
     
@@ -49,7 +49,7 @@ class EditKioskView: UIView, UITableViewDelegate {
   
     weak var delegate: EditKioskViewDelegate? { didSet { viewSwitcher.switcherDelegate = delegate } }
     
-    init(kioskSearchString: String) {
+    init(kioskSearchString: String?) {
         tableView = UITableView(frame: CGRectZero, style: .Plain)
         viewSwitcher = ViewSwitcher(successView: tableView, initialState: .Success)
         dataSource = EditKioskDataSource(tableView: tableView)

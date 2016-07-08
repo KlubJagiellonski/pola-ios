@@ -1,22 +1,10 @@
 import UIKit
+import RxSwift
 
 typealias Address = String
 
-enum AddressInput {
-    case Options(addresses: [[AddressFormField]])
-    case Form(fields: [AddressFormField])
-}
-
-enum AddressFormField: CustomStringConvertible {
-    case FirstName(value: String?)
-    case LastName(value: String?)
-    case StreetAndApartmentNumbers(value: String?)
-    case PostalCode(value: String?)
-    case City(value: String?)
-    case Country(defaultValue: String)
-    case Phone(value: String?)
-    
-    var value: String? {
+extension AddressFormField: CustomStringConvertible {
+    private var value: String? {
         switch self {
             case FirstName(let value): return value
             case LastName(let value): return value
@@ -40,7 +28,7 @@ enum AddressFormField: CustomStringConvertible {
         }
     }
     
-    var validators: [Validator] {
+    private var validators: [Validator] {
         var validators: [Validator] = []
         if case Phone = self {
             validators.append(PhoneNumberValidator())
@@ -52,23 +40,12 @@ enum AddressFormField: CustomStringConvertible {
         return validators
     }
     
-    var placeholder: String? {
+    private var placeholder: String? {
         switch self {
         case Phone:
             return "+48"
         default:
             return nil
-        }
-    }
-    
-    var keyboardType: UIKeyboardType {
-        switch self {
-        case PostalCode:
-            return .NumbersAndPunctuation
-        case Phone:
-            return .PhonePad
-        default:
-            return .Default
         }
     }
 }
@@ -239,7 +216,10 @@ class CheckoutDeliveryAddressOptionView: UIView {
     }
 }
 
-extension CheckoutDeliveryEditingState {
+enum CheckoutDeliveryEditingState {
+    case Edit
+    case Add
+    
     private var buttonTitle: String {
         switch self {
         case Edit: return tr(.CheckoutDeliveryAdressEdit)
@@ -303,10 +283,15 @@ class CheckoutDeliveryDetailsView: UIView {
     let label = UILabel()
     let button = UIButton()
     
-    init(delivery: Delivery) {
+    private let disposeBag = DisposeBag()
+    private let initialText: String
+    
+    init(checkoutState: CheckoutState) {
+        initialText = checkoutState.checkout.deliveryCarrier.name
         super.init(frame: CGRectZero)
         
-        updateDeliveryTo(delivery)
+        updateData(with: checkoutState.checkout)
+        checkoutState.selectedKioskObservable.subscribeNext(updateData).addDisposableTo(disposeBag)
         
         label.font = UIFont(fontType: .FormNormal)
         label.numberOfLines = 3
@@ -324,23 +309,31 @@ class CheckoutDeliveryDetailsView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func updateDeliveryTo(toDelivery: Delivery) {
-        switch toDelivery {
-        case .Courier:
-            label.text = tr(.CheckoutDeliveryDeliveryCourier)
+    private func updateData(with checkout: Checkout) {
+        switch checkout.deliveryCarrier.id {
+        case .UPS:
+            label.text = "\(checkout.deliveryCountry.name), \(checkout.deliveryCarrier.name)"
             button.hidden = true
-        case .Kiosk(let address):
-            if let address = address {
-                label.text = tr(.CheckoutDeliveryDeliveryRUCH) + "\n" + address
-                button.setTitle(tr(.CheckoutDeliveryDeliveryRUCHChangeKiosk), forState: .Normal)
-                button.addTarget(self, action: #selector(CheckoutDeliveryDetailsView.didTapChangeButton(_:)), forControlEvents: .TouchUpInside)
-                button.hidden = false
-            } else {
-                label.text = tr(.CheckoutDeliveryDeliveryRUCH)
-                button.setTitle(tr(.CheckoutDeliveryDeliveryRUCHPickKiosk), forState: .Normal)
-                button.addTarget(self, action: #selector(CheckoutDeliveryDetailsView.didTapChooseButton(_:)), forControlEvents: .TouchUpInside)
-                button.hidden = false
-            }
+        case .RUCH:
+            label.text = initialText
+            button.setTitle(tr(.CheckoutDeliveryDeliveryRUCHPickKiosk), forState: .Normal)
+            button.addTarget(self, action: #selector(CheckoutDeliveryDetailsView.didTapChooseButton(_:)), forControlEvents: .TouchUpInside)
+            button.hidden = false
+        }
+    }
+    
+    private func updateData(kiosk: Kiosk?) {
+        if let kiosk = kiosk {
+            let address = "\(kiosk.city), \(kiosk.street)"
+            label.text = "\(initialText)\n\(address)"
+            button.setTitle(tr(.CheckoutDeliveryDeliveryRUCHChangeKiosk), forState: .Normal)
+            button.addTarget(self, action: #selector(CheckoutDeliveryDetailsView.didTapChangeButton(_:)), forControlEvents: .TouchUpInside)
+            button.hidden = false
+        } else {
+            label.text = initialText
+            button.setTitle(tr(.CheckoutDeliveryDeliveryRUCHPickKiosk), forState: .Normal)
+            button.addTarget(self, action: #selector(CheckoutDeliveryDetailsView.didTapChooseButton(_:)), forControlEvents: .TouchUpInside)
+            button.hidden = false
         }
     }
     
@@ -352,7 +345,7 @@ class CheckoutDeliveryDetailsView: UIView {
         deliveryView?.dataSourceDidTapChangeKioskButton()
     }
     
-    func configureCustomConstraints() {
+    private func configureCustomConstraints() {
         label.setContentCompressionResistancePriority(UILayoutPriorityDefaultLow, forAxis: .Horizontal)
         label.snp_makeConstraints { make in
             make.leading.equalToSuperview()

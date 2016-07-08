@@ -1,7 +1,7 @@
 import UIKit
 
 protocol EditAddressViewDelegate: class {
-    func editAddressViewDidTapSaveButton(view: EditAddressView, savedAddressFields: [AddressFormField])
+    func editAddressViewDidTapSaveButton(view: EditAddressView)
 }
 
 class EditAddressView: UIView {
@@ -18,9 +18,14 @@ class EditAddressView: UIView {
     var contentValidators: [ContentValidator] = []
     
     weak var delegate: EditAddressViewDelegate?
+    var userAddress: UserAddress? {
+        return AddressFormField.formFieldsToUserAddress(formFields)
+    }
     
-    init(formFields: [AddressFormField]) {
+    init(userAddress: UserAddress?, defaultCountry: String) {
         super.init(frame: CGRectZero)
+        
+        let initialFormFields = userAddress != nil ? AddressFormField.createFormFields(with: userAddress!) : AddressFormField.createEmptyFormFields(withDefaultCountry: defaultCountry)
         
         keyboardHelper.delegate = self
         
@@ -31,7 +36,7 @@ class EditAddressView: UIView {
         addSubview(scrollView)
         
         stackView.axis = .Vertical
-        updateStackView(formFields: formFields)
+        updateStackView(formFields: initialFormFields)
         scrollView.addSubview(stackView)
         
         saveButton.setTitle(tr(.CheckoutDeliveryEditAddressSave), forState: .Normal)
@@ -49,7 +54,7 @@ class EditAddressView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureCustomCostraints() {
+    private func configureCustomCostraints() {
         scrollView.snp_makeConstraints { make in
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
@@ -70,7 +75,7 @@ class EditAddressView: UIView {
         }
     }
     
-    func updateStackView(formFields formFields: [AddressFormField]) {
+    private func updateStackView(formFields formFields: [AddressFormField]) {
         for (index, formField) in formFields.enumerate() {
             let inputView = CheckoutDeliveryInputView(addressField: formField)
             inputView.inputTextField.tag = index
@@ -82,7 +87,7 @@ class EditAddressView: UIView {
         }        
     }
         
-    func getAddressFields() -> [AddressFormField] {
+    private func getAddressFields() -> [AddressFormField] {
         var addressFields = [AddressFormField]()
         for view in stackView.arrangedSubviews {
             guard let inputView = view as? CheckoutDeliveryInputView else { break }
@@ -92,7 +97,7 @@ class EditAddressView: UIView {
     }
     
     func didTapSaveButton() {
-        delegate?.editAddressViewDidTapSaveButton(self, savedAddressFields: formFields)
+        delegate?.editAddressViewDidTapSaveButton(self)
     }
     
     func dismissKeyboard() {
@@ -108,7 +113,7 @@ extension EditAddressView: UITextFieldDelegate {
 
 extension EditAddressView: FormView {
     func onFormReachedEnd() {
-        delegate?.editAddressViewDidTapSaveButton(self, savedAddressFields: formFields)
+        delegate?.editAddressViewDidTapSaveButton(self)
     }
 }
 

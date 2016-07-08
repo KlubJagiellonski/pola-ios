@@ -100,6 +100,8 @@ class ProductDescriptionView: UIView, UITableViewDelegate, ProductDescriptionVie
         headerView.priceLabel.basePrice = p.basePrice
         if p.basePrice != p.price {
             headerView.priceLabel.discountPrice = p.price
+        } else {
+            headerView.priceLabel.discountPrice = nil
         }
     }
     
@@ -111,6 +113,8 @@ class ProductDescriptionView: UIView, UITableViewDelegate, ProductDescriptionVie
         headerView.priceLabel.basePrice = p.basePrice
         if p.basePrice != p.price {
             headerView.priceLabel.discountPrice = p.price
+        } else {
+            headerView.priceLabel.discountPrice = nil
         }
         headerView.colorButton.enabled = true
         headerView.sizeButton.enabled = true

@@ -27,7 +27,7 @@ class CheckoutSummaryViewController: UIViewController, CheckoutSummaryViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         let discountCode = manager.state.basket?.discountErrors == nil ? manager.state.discountCode : nil
-        castView.updateData(with: manager.state.basket, carrier: manager.state.deliveryCarrier, discountCode: discountCode, comments: model.comments)
+        castView.updateData(with: manager.state.basket, carrier: manager.state.deliveryCarrier, discountCode: discountCode, comments: model.state.comments)
     }
     
     private func showCommentModal(forComment comment: String?, at index: Int)
@@ -55,7 +55,7 @@ class CheckoutSummaryViewController: UIViewController, CheckoutSummaryViewDelega
     func checkoutSummaryView(view: CheckoutSummaryView, didTapDeleteCommentAt index: Int) {
         logInfo("Delete comment")
         model.update(comment: nil, at: index)
-        castView.updateData(withComments: model.comments)
+        castView.updateData(withComments: model.state.comments)
     }
 }
 
@@ -73,6 +73,6 @@ extension CheckoutSummaryViewController: CheckoutSummaryCommentViewControllerDel
     func checkoutSummaryCommentWantsSaveAndDimsiss(viewController: CheckoutSummaryCommentViewController) {
         commentAnimator.dismissViewController(presentingViewController: self, completion: nil)
         model.update(comment: viewController.comment, at: viewController.index)
-        castView.updateData(withComments: model.comments)
+        castView.updateData(withComments: model.state.comments)
     }
 }

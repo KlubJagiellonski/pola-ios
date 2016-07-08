@@ -1,17 +1,17 @@
 import UIKit
 
-class CheckoutNavigationController: UINavigationController, NavigationHandler, EditAddressViewControllerDelegate {
+class CheckoutNavigationController: UINavigationController, NavigationHandler {
     private let resolver: DiResolver
     private let model: CheckoutModel
     
-    init(resolver: DiResolver) {
+    init(with resolver: DiResolver, and checkout: Checkout) {
         self.resolver = resolver
-        self.model = resolver.resolve(CheckoutModel.self)
+        self.model = resolver.resolve(CheckoutModel.self, argument: checkout)
         super.init(nibName: nil, bundle: nil)
         
         navigationBar.applyWhiteStyle()
         
-        let checkoutDeliveryViewController = resolver.resolve(CheckoutDeliveryViewController.self, argument: resolver.resolve(BasketManager.self))
+        let checkoutDeliveryViewController = resolver.resolve(CheckoutDeliveryViewController.self, argument: model)
         checkoutDeliveryViewController.navigationItem.title = tr(.CheckoutDeliveryNavigationHeader)
         
         checkoutDeliveryViewController.applyBlackCloseButton(target: self, action: #selector(CheckoutNavigationController.didTapCloseButton))
@@ -30,16 +30,16 @@ class CheckoutNavigationController: UINavigationController, NavigationHandler, E
         pushViewController(summaryViewController, animated: true)
     }
     
-    func showEditAddressView(formFields formFields: [AddressFormField], editingState: CheckoutDeliveryEditingState) {
-        let editAddressViewController = resolver.resolve(EditAddressViewController.self, arguments: (formFields, editingState))
+    func showEditAddressView(userAddress userAddress: UserAddress?) {
+        let editAddressViewController = resolver.resolve(EditAddressViewController.self, arguments: (userAddress, model.state.checkout.deliveryCountry.name))
         editAddressViewController.delegate = self
         editAddressViewController.navigationItem.title = tr(.CheckoutDeliveryEditAddressNavigationHeader)
         editAddressViewController.applyBlackBackButton(target: self, action: #selector(CheckoutNavigationController.didTapBackButton))
         pushViewController(editAddressViewController, animated: true)
     }
     
-    func showEditKioskView(clientAddress clientAddress: [AddressFormField]) {
-        let editKioskViewController = resolver.resolve(EditKioskViewController.self, argument: clientAddress)
+    func showEditKioskView() {
+        let editKioskViewController = resolver.resolve(EditKioskViewController.self, argument: model)
         editKioskViewController.delegate = self
         editKioskViewController.navigationItem.title = tr(.CheckoutDeliveryNavigationHeader)
         editKioskViewController.applyBlackBackButton(target: self, action: #selector(CheckoutNavigationController.didTapBackButton))
@@ -61,45 +61,42 @@ class CheckoutNavigationController: UINavigationController, NavigationHandler, E
             case .ShowCheckoutSummary:
                 showSummaryView()
                 return true
+            case .ShowEditKiosk:
+                showEditKioskView()
+                return true
             default:
                 return false
             }
             
         case let editAddressEvent as ShowEditAddressEvent:
-            showEditAddressView(formFields: editAddressEvent.formFields, editingState: editAddressEvent.editingState)
-            return true
-            
-        case let editKioskEvent as ShowEditKioskEvent:
-            showEditKioskView(clientAddress: editKioskEvent.clientAddress)
+            showEditAddressView(userAddress: editAddressEvent.userAddress)
             return true
             
         default:
             return false
         }
     }
-    
-    // MARK: - EditAddressViewControllerDelegate
-    
-    func editAddressViewControllerDidAddAddress(viewController: EditAddressViewController, savedAddressFields: [AddressFormField]) {
-        guard let deliveryViewController = viewControllers.find({ $0 is CheckoutDeliveryViewController }) as? CheckoutDeliveryViewController else { return }
-        deliveryViewController.addAddress(savedAddressFields)
-        popViewControllerAnimated(true)
-    }
-    
-    func editAddressViewControllerDidUpdateAddress(viewController: EditAddressViewController, savedAddressFields: [AddressFormField]) {
-        guard let deliveryViewController = viewControllers.find({ $0 is CheckoutDeliveryViewController }) as? CheckoutDeliveryViewController else { return }
-        deliveryViewController.updateLastAddress(savedAddressFields)
+}
+
+extension CheckoutNavigationController: EditKioskViewControllerDelegate {
+    func editKioskViewControllerDidChooseKiosk(viewController: EditKioskViewController, kiosk: Kiosk) {
+        model.state.selectedKiosk = kiosk
         popViewControllerAnimated(true)
     }
 }
 
-extension CheckoutNavigationController: EditKioskViewControllerDelegate {
-    
-    func editKioskViewControllerDidChooseKiosk(viewController: EditKioskViewController, kiosk: Kiosk) {
-        
-        guard let deliveryViewController = viewControllers.find({ $0 is CheckoutDeliveryViewController }) as? CheckoutDeliveryViewController else { return }
-        deliveryViewController.delivery = .Kiosk(address: "\(kiosk.city), \(kiosk.street)")
-        deliveryViewController.castView.updateStackView(deliveryViewController.addressInput, delivery: deliveryViewController.delivery, didAddAddress: deliveryViewController.didAddAddress)
+// MARK: - EditAddressViewControllerDelegate
+
+extension CheckoutNavigationController: EditAddressViewControllerDelegate {
+    func editAddressViewController(viewController: EditAddressViewController, didAddNewUserAddress userAddress: UserAddress) {
+        model.state.addressAdded = true
+        model.state.userAddresses.append(userAddress)
         popViewControllerAnimated(true)
     }
+    
+    func editAddressViewController(viewController: EditAddressViewController, didEditUserAddress userAddress: UserAddress) {
+        model.state.userAddresses[model.state.userAddresses.count - 1] = userAddress
+        popViewControllerAnimated(true)
+    }
+
 }

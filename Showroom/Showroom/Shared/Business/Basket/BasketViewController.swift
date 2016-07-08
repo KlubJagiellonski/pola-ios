@@ -118,7 +118,9 @@ class BasketViewController: UIViewController, BasketViewDelegate {
     }
     
     func basketViewDidTapCheckoutButton(view: BasketView) {
-        let viewController = resolver.resolve(CheckoutNavigationController.self)
+        guard let checkout = manager.createCheckout() else { return }
+        
+        let viewController = resolver.resolve(CheckoutNavigationController.self, argument: checkout)
         presentViewController(viewController, animated: true, completion: nil)
     }
     

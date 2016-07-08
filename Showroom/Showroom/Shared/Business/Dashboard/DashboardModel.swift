@@ -29,7 +29,7 @@ class DashboardModel {
             .map { FetchCacheResult.Success($0) }
             .catchError { Observable.just(FetchCacheResult.CacheError($0)) }
         
-        let network = apiService.fetchContentPromo(withGender: userManager.gender)
+        let network = apiService.fetchContentPromo(withGender: userManager.user.gender)
             .saveToCache(Constants.Cache.contentPromoId, storageManager: storageManager)
             .map { FetchCacheResult.Success($0) }
             .catchError { Observable.just(FetchCacheResult.NetworkError($0)) }

@@ -9,7 +9,7 @@ final class BasketManager {
     
     let state: BasketState
     
-    init(apiService: ApiService, storageManager: StorageManager) {
+    init(with apiService: ApiService, and storageManager: StorageManager) {
         self.apiService = apiService
         self.storageManager = storageManager
         
@@ -89,6 +89,10 @@ final class BasketManager {
     
     func isInBasket(product: ProductDetails) -> Bool {
         return state.basket?.productsByBrands.contains { $0.products.contains { $0.id == product.id } } ?? false
+    }
+    
+    func createCheckout() -> Checkout? {
+        return Checkout.from(basketState: state)
     }
 }
 

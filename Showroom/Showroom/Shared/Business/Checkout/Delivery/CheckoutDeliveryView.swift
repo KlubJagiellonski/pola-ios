@@ -1,4 +1,5 @@
 import UIKit
+import RxSwift
 
 protocol CheckoutDeliveryViewDelegate: class {
     func checkoutDeliveryViewDidSelectAddress(view: CheckoutDeliveryView, atIndex addressIndex: Int)
@@ -9,24 +10,6 @@ protocol CheckoutDeliveryViewDelegate: class {
     func checkoutDeliveryViewDidTapNextButton(view: CheckoutDeliveryView)
 }
 
-class CheckoutValidator: Validator {
-    @objc var failedMessage: String? = nil
-    
-    @objc func validate(currentValue: AnyObject?) -> Bool {
-        guard let deliveryView = currentValue as? CheckoutDeliveryView else { return false }
-        guard let optionViews = deliveryView.addressOptionViews else { return true }
-        
-        var selected = false
-        for optionView in optionViews {
-            if optionView.selected {
-                selected = true
-                break
-            }
-        }
-        return selected
-    }
-}
-
 class CheckoutDeliveryView: UIView {
     private let scrollView = UIScrollView()
     private let stackView = UIStackView()
@@ -35,7 +18,9 @@ class CheckoutDeliveryView: UIView {
     var contentValidators: [ContentValidator] = []
     let keyboardHelper = KeyboardHelper()
     
-    var addressInput: AddressInput
+    private let disposeBag = DisposeBag()
+    private var addressInput: AddressInput
+    weak var delegate: CheckoutDeliveryViewDelegate?
 
     var formFieldsViews: [CheckoutDeliveryInputView]?
     var addressOptionViews: [CheckoutDeliveryAddressOptionView]?
@@ -46,10 +31,8 @@ class CheckoutDeliveryView: UIView {
         }
     }
     
-    weak var delegate: CheckoutDeliveryViewDelegate?
-    
-    init(addressInput: AddressInput, delivery: Delivery, didAddAddress: Bool) {
-        self.addressInput = addressInput
+    init(checkoutState: CheckoutState) {
+        self.addressInput = AddressInput.fromUserAddresses(checkoutState.userAddresses, defaultCountry: checkoutState.checkout.deliveryCountry.name)
         super.init(frame: CGRectZero)
         
         addValidator(CheckoutValidator())
@@ -64,6 +47,10 @@ class CheckoutDeliveryView: UIView {
             selectedAddressIndex = 0
         }
         
+        checkoutState.userAddressesObservable.subscribeNext { [unowned self] in
+            self.updateData($0, checkoutState: checkoutState)
+        }.addDisposableTo(disposeBag)
+        
         backgroundColor = UIColor(named: .White)
         
         scrollView.bounces = true
@@ -71,7 +58,7 @@ class CheckoutDeliveryView: UIView {
         addSubview(scrollView)
         
         stackView.axis = .Vertical
-        updateStackView(addressInput, delivery: delivery, didAddAddress: didAddAddress)
+        updateStackView(checkoutState)
         scrollView.addSubview(stackView)
         
         nextButton.setTitle(tr(.CheckoutDeliveryNext), forState: .Normal)
@@ -118,7 +105,12 @@ class CheckoutDeliveryView: UIView {
         keyboardHelper.unregister()
     }
     
-    func updateStackView(addressInput: AddressInput, delivery: Delivery, didAddAddress: Bool) {
+    private func updateData(userAddresses: [UserAddress], checkoutState: CheckoutState) {
+        addressInput = AddressInput.fromUserAddresses(userAddresses, defaultCountry: checkoutState.checkout.deliveryCountry.name)
+        updateStackView(checkoutState)
+    }
+    
+    func updateStackView(checkoutState: CheckoutState) {
         formFieldsViews?.removeAll()
         addressOptionViews?.removeAll()
         contentValidators.removeAll()
@@ -154,7 +146,7 @@ class CheckoutDeliveryView: UIView {
                 addressOptionViews?.append(addressOptionView)
             }
             
-            let editButtonView = CheckoutDeliveryEditButtonView(editingType: (didAddAddress ? .Edit : .Add))
+            let editButtonView = CheckoutDeliveryEditButtonView(editingType: (checkoutState.addressAdded ? .Edit : .Add))
             editButtonView.deliveryView = self
             stackView.addArrangedSubview(editButtonView)
             
@@ -163,7 +155,7 @@ class CheckoutDeliveryView: UIView {
         
         stackView.addArrangedSubview(CheckoutDeliveryLabelView(text: tr(.CheckoutDeliveryDeliveryHeader)))
         
-        let deliveryDetailsView = CheckoutDeliveryDetailsView(delivery: delivery)
+        let deliveryDetailsView = CheckoutDeliveryDetailsView(checkoutState: checkoutState)
         deliveryDetailsView.deliveryView = self
         stackView.addArrangedSubview(deliveryDetailsView)
     }
@@ -245,5 +237,23 @@ extension CheckoutDeliveryView: KeyboardHelperDelegate, KeyboardHandler {
     func keyboardHelperChangedKeyboardState(fromFrame: CGRect, toFrame: CGRect, duration: Double, animationOptions: UIViewAnimationOptions) {
         let bottomOffset = keyboardHelper.retrieveBottomMargin(self, keyboardToFrame: toFrame) - nextButton.bounds.height
         scrollView.contentInset = UIEdgeInsetsMake(0, 0, max(bottomOffset, 0), 0)
+    }
+}
+
+class CheckoutValidator: Validator {
+    @objc var failedMessage: String? = nil
+    
+    @objc func validate(currentValue: AnyObject?) -> Bool {
+        guard let deliveryView = currentValue as? CheckoutDeliveryView else { return false }
+        guard let optionViews = deliveryView.addressOptionViews else { return true }
+        
+        var selected = false
+        for optionView in optionViews {
+            if optionView.selected {
+                selected = true
+                break
+            }
+        }
+        return selected
     }
 }

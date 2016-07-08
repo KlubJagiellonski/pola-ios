@@ -3,18 +3,21 @@ import CoreLocation
 import RxSwift
 
 class EditKioskModel {
-    let api: ApiService
-    let geocoder = CLGeocoder()
-    let disposeBag = DisposeBag()
+    private let api: ApiService
+    private let geocoder = CLGeocoder()
+    private let disposeBag = DisposeBag()
+    let checkoutModel: CheckoutModel
     
-    var kiosks: [Kiosk]?
+    private(set) var kiosks: [Kiosk]?
     
-    init(api: ApiService) {
+    init(with api: ApiService, and checkoutModel: CheckoutModel) {
         self.api = api
+        self.checkoutModel = checkoutModel
     }
     
     func fetchKiosks(withLatitude latitude: Double, longitude: Double, limit: Int = 10) -> Observable<FetchResult<KioskResult>> {
         return api.fetchKiosks(withLatitude: latitude, longitude: longitude, limit: limit)
+            .doOnNext { [weak self] in self?.kiosks = $0.kiosks }
             .map { FetchResult.Success($0) }
             .catchError { Observable.just(FetchResult.NetworkError($0)) }
             .observeOn(MainScheduler.instance)
@@ -30,7 +33,8 @@ class EditKioskModel {
                 } else {
                     return Observable.just(FetchResult.Success(KioskResult(kiosks: [])))
                 }
-        }.catchError { error in
+        }
+        .catchError { error in
             return Observable.just(FetchResult.NetworkError(error))
         }
     }

@@ -1,29 +1,30 @@
 import UIKit
 
 protocol EditAddressViewControllerDelegate: class {
-    func editAddressViewControllerDidAddAddress(viewController: EditAddressViewController, savedAddressFields: [AddressFormField])
-    func editAddressViewControllerDidUpdateAddress(viewController: EditAddressViewController, savedAddressFields: [AddressFormField])
+    func editAddressViewController(viewController: EditAddressViewController, didAddNewUserAddress userAddress: UserAddress)
+    func editAddressViewController(viewController: EditAddressViewController, didEditUserAddress userAddress: UserAddress)
 }
 
 class EditAddressViewController: UIViewController, EditAddressViewDelegate {
-    
-    let resolver: DiResolver
     var castView: EditAddressView { return view as! EditAddressView }
     
-    let editingState: CheckoutDeliveryEditingState
-    let initialFormFields: [AddressFormField]
+    private let userAddress: UserAddress?
+    private let defaultCountry: String
     
     weak var delegate: EditAddressViewControllerDelegate?
     
-    init(resolver: DiResolver, formFields: [AddressFormField], editingState: CheckoutDeliveryEditingState) {
-        self.resolver = resolver
-        self.initialFormFields = formFields
-        self.editingState = editingState
+    init(with userAddress: UserAddress?, defaultCountry: String) {
+        self.userAddress = userAddress
+        self.defaultCountry = defaultCountry
         super.init(nibName: nil, bundle: nil)
     }
     
     override func loadView() {
-        view = EditAddressView(formFields: initialFormFields)
+        view = EditAddressView(userAddress: userAddress, defaultCountry: defaultCountry)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         castView.delegate = self
     }
     
@@ -41,15 +42,14 @@ class EditAddressViewController: UIViewController, EditAddressViewDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func editAddressViewDidTapSaveButton(view: EditAddressView, savedAddressFields: [AddressFormField]) {
-        guard castView.validate(showResult: true) else {
-            return
-        }
-        switch editingState {
-        case .Add:
-            delegate?.editAddressViewControllerDidAddAddress(self, savedAddressFields: savedAddressFields)
-        case .Edit:
-            delegate?.editAddressViewControllerDidUpdateAddress(self, savedAddressFields: savedAddressFields)
+    func editAddressViewDidTapSaveButton(view: EditAddressView) {
+        guard castView.validate(showResult: true) else { return }
+        guard let newUserAddress = castView.userAddress else { return }
+        
+        if userAddress != nil {
+            delegate?.editAddressViewController(self, didEditUserAddress: newUserAddress)
+        } else {
+            delegate?.editAddressViewController(self, didAddNewUserAddress: newUserAddress)
         }
     }
 }

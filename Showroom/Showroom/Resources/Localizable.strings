@@ -61,8 +61,6 @@
 "Checkout.Delivery.Adress.Street" = "ul.";
 "Checkout.Delivery.Adress.PhoneNumber" = "tel.";
 "Checkout.Delivery.Delivery.Header" = "Dostawa";
-"Checkout.Delivery.Delivery.RUCH" = "Paczka w Ruchu";
-"Checkout.Delivery.Delivery.Courier" = "Polska, kurier UPS";
 "Checkout.Delivery.Delivery.RUCH.PickKiosk" = "WYBIERZ KIOSK";
 "Checkout.Delivery.Delivery.RUCH.ChangeKiosk" = "ZMIEŃ KIOSK";
 "Checkout.Delivery.Next" = "DALEJ";

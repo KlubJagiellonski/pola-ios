@@ -253,7 +253,11 @@ final class BasketCheckoutView: UIView {
      */
     func updateData(withBasket basket: Basket) {
         priceValueLabel.basePrice = basket.basePrice
-        priceValueLabel.discountPrice = basket.price
+        if basket.basePrice != basket.price {
+            priceValueLabel.discountPrice = basket.price
+        } else {
+            priceValueLabel.discountPrice = nil
+        }
         
         discountLabel.value = basket.discount?.stringValue
         
