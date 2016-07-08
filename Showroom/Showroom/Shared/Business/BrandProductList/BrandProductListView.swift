@@ -30,9 +30,7 @@ class BrandProductListView: ViewSwitcher, ProductListViewInterface, ProductListC
         switcherDataSource = self
         
         productListComponent.delegate = self
-        productListComponent.headerSectionInfo = HeaderSectionInfo(view: headerCell, wantsToReceiveScrollEvents: false) { () -> CGFloat in
-            return 86
-        }
+        productListComponent.headerSectionInfo = HeaderSectionInfo(view: headerCell, wantsToReceiveScrollEvents: false) { 86 }
         
         headerCell.addTarget(self, action: #selector(BrandProductListView.didTapHeaderCell), forControlEvents: .TouchUpInside)
         

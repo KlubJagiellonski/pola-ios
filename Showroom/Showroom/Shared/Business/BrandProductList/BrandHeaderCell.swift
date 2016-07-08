@@ -14,9 +14,10 @@ final class BrandHeaderCell: UIControl {
     var imageWidth: CGFloat? {
         return imageView.image?.size.width
     }
+    private var imageUrlToLoadOnLayoutPass: String?
     
-    init() {
-        super.init(frame: CGRectZero)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
         alpha = 1
         backgroundColor = UIColor.clearColor()
@@ -48,8 +49,30 @@ final class BrandHeaderCell: UIControl {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if imageUrlToLoadOnLayoutPass != nil && bounds.size.width > 0 && bounds.size.height > 0 {
+            loadImage(forUrl: imageUrlToLoadOnLayoutPass!)
+            imageUrlToLoadOnLayoutPass = nil
+        }
+    }
+    
     func updateData(withImageUrl imageUrl: String, description: NSAttributedString) {
-        imageView.loadImageFromUrl(imageUrl, width: imageView.bounds.width) { [weak self] (image: UIImage) in
+        if bounds.size.width > 0 && bounds.size.height > 0 {
+            loadImage(forUrl: imageUrl)
+        } else {
+            imageUrlToLoadOnLayoutPass = imageUrl
+        }
+        
+        descriptionTextView.attributedText = description
+    }
+    
+    func didTapView() {
+        sendActionsForControlEvents(.TouchUpInside)
+    }
+    
+    private func loadImage(forUrl url: String) {
+        imageView.loadImageFromUrl(url, width: imageView.bounds.width) { [weak self] (image: UIImage) in
             guard let `self` = self else { return }
             
             UIView.transitionWithView(self.blurredImageView, duration: 0.2, options: .TransitionCrossDissolve, animations: {
@@ -59,14 +82,8 @@ final class BrandHeaderCell: UIControl {
             
             UIView.transitionWithView(self.imageView, duration: 0.1, options: .TransitionCrossDissolve, animations: {
                 self.imageView.image = image
-            }, completion: nil)
+                }, completion: nil)
         }
-        
-        descriptionTextView.attributedText = description
-    }
-    
-    func didTapView() {
-        sendActionsForControlEvents(.TouchUpInside)
     }
     
     private func configureCustomConstraints() {
