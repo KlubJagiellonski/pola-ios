@@ -47,7 +47,7 @@ class CheckoutSummaryCell: UITableViewCell {
     func updateData(with product: BasketProduct) {
         descriptionLabel.title = product.name
         descriptionLabel.value = tr(.CheckoutSummaryProductDescription(String(product.amount), product.size.name, product.color.name))
-        priceLabel.basePrice = product.sumBasePrice!
+        priceLabel.basePrice = product.sumPrice!
     }
     
     func updateData(with brand: BasketBrand, carrier deliveryCarrier: DeliveryCarrier) {

@@ -21,8 +21,7 @@ class SizeChartViewController: UIViewController, SizeChartViewDelegate {
     }
     
     override func loadView() {
-        //todo when api will get real data, change it to view = SizeChartView(sizes: sizes)
-        view = SizeChartView(sizes: createTestSizes())
+        view = SizeChartView(sizes: sizes)
     }
     
     override func viewDidLoad() {
