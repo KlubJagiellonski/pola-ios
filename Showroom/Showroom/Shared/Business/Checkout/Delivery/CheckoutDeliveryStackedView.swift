@@ -50,14 +50,13 @@ extension AddressFormField: CustomStringConvertible {
     }
 }
 
-enum Delivery {
-    case Courier
-    case Kiosk(address: String?)
-    
-    var headerText: String {
-        switch self {
-        case .Courier: return tr(.CheckoutDeliveryCourierHeader)
-        case .Kiosk: return tr(.CheckoutDeliveryRUCHHeader)
+extension DeliveryCarrier {
+    private var checkoutHeaderText: String {
+        switch id {
+        case .RUCH:
+            return tr(.CheckoutDeliveryRUCHHeader)
+        case .UPS:
+            return tr(.CheckoutDeliveryCourierHeader)
         }
     }
 }
@@ -65,12 +64,12 @@ enum Delivery {
 class CheckoutDeliveryInfoHeaderView: UIView {
     let label = UILabel()
 
-    init(delivery: Delivery) {
+    init(carrier: DeliveryCarrier) {
         super.init(frame: CGRectZero)
         label.font = UIFont(fontType: .Description)
         label.numberOfLines = 2
         label.lineBreakMode = .ByWordWrapping
-        label.text = delivery.headerText
+        label.text = carrier.checkoutHeaderText
 
         addSubview(label)
         configureCustomConstraints()
