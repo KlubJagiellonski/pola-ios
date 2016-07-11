@@ -11,4 +11,4 @@ Snow : #fafafa
 Dim: #A3AAB2
 Gray: #EDEEF0
 Badge: #BB1270
-Facebook: #4b6eaa
+Facebook: #4267B2
