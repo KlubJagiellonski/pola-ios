@@ -239,17 +239,12 @@ extension RegistrationView: CheckButtonDelegate {
     }
 }
 
-enum GenderType {
-    case Female
-    case Male
-}
-
 class GenderSelectorView: UIControl {
     private let titleLabel = UILabel()
     private let femaleButton = RadioButton(title: tr(L10n.RegistrationFemale))
     private let maleButton = RadioButton(title: tr(L10n.RegistrationMale))
     
-    var gender: GenderType {
+    var gender: Gender {
         get {
             return femaleButton.selected ? .Female : .Male
         }

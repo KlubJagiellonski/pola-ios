@@ -225,7 +225,6 @@ class SettingsGenderCell: UITableViewCell {
     private let maleButton = UIButton()
     private let horizontalSeparator = UIView()
     
-    enum Gender { case Male, Female }
     var selectedGender: Gender { didSet { updateGender(selectedGender) } }
     
     var femaleAction: (() -> ())?

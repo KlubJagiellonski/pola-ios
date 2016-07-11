@@ -6,7 +6,7 @@ class SettingsDataSource: NSObject, UITableViewDataSource {
     
     private(set) var settings = [Setting]()
 
-    private let clientGender: SettingsGenderCell.Gender = .Female
+    private let clientGender: Gender = .Female
     
     init(tableView: UITableView) {
         
