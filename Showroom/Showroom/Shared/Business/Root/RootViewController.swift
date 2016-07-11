@@ -9,7 +9,6 @@ class RootViewController: PresenterViewController, NavigationHandler {
     init?(resolver: DiResolver) {
         self.resolver = resolver
         self.model = resolver.resolve(RootModel.self)
-        
         super.init(nibName: nil, bundle: nil)
         
         showModal(resolver.resolve(SplashViewController.self), hideContentView: false, animation: nil, completion: nil)
@@ -19,6 +18,8 @@ class RootViewController: PresenterViewController, NavigationHandler {
             self.contentViewController = resolver.resolve(StartViewController)
         case .Main:
             self.contentViewController = resolver.resolve(MainTabViewController)
+        case .Onboarding:
+            self.contentViewController = resolver.resolve(OnboardingViewController)
         default:
             let error = "Cannot create view controller for type \(model.startChildType)"
             logError(error)

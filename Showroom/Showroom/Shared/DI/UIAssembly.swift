@@ -141,5 +141,8 @@ class UIAssembly: AssemblyType {
         container.register(SplashViewController.self) { r in
             return SplashViewController()
         }
+        container.register(OnboardingViewController.self) { r in
+            return OnboardingViewController(resolver: r.resolve(DiResolver.self)!)
+        }
     }
 }

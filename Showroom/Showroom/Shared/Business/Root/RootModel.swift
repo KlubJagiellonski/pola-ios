@@ -13,7 +13,7 @@ class RootModel {
     
     var startChildType: RootChildType {
         if (!userManager.shouldSkipStartScreen) {
-            return .Start
+            return .Onboarding
         } else {
             return .Main
         }

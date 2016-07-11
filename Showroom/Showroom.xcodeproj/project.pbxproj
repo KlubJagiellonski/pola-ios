@@ -214,6 +214,11 @@
 		C0237D131D22652F0009F2FC /* EditAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0237D121D22652F0009F2FC /* EditAddressView.swift */; };
 		C0237D171D229B8C0009F2FC /* ShowEditAddressEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0237D161D229B8C0009F2FC /* ShowEditAddressEvent.swift */; };
 		C0237D191D23EA4C0009F2FC /* Kiosk.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0237D181D23EA4C0009F2FC /* Kiosk.swift */; };
+		C049D8CD1D33E7800043F60F /* HorizontalPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C049D8CC1D33E7800043F60F /* HorizontalPageControl.swift */; };
+		C049D8CF1D33F0930043F60F /* OnboardingInfiniteScrollingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C049D8CE1D33F0930043F60F /* OnboardingInfiniteScrollingCell.swift */; };
+		C049D8D11D33F0C50043F60F /* OnboardingDoubleTapAnimationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C049D8D01D33F0C50043F60F /* OnboardingDoubleTapAnimationCell.swift */; };
+		C049D8D31D33F0E40043F60F /* OnboardingProductPagingAnimationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C049D8D21D33F0E40043F60F /* OnboardingProductPagingAnimationCell.swift */; };
+		C049D8D51D33F1010043F60F /* OnboardingNotificationsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C049D8D41D33F1010043F60F /* OnboardingNotificationsCell.swift */; };
 		C0518D801D2BBA9D0032F1B4 /* EditKioskDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0518D7F1D2BBA9D0032F1B4 /* EditKioskDataSource.swift */; };
 		C052F8981D1989A6008085E0 /* CheckoutAddressOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C052F8971D1989A6008085E0 /* CheckoutAddressOptionView.swift */; };
 		C07530C71D2532F700224508 /* EditKioskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07530C61D2532F700224508 /* EditKioskView.swift */; };
@@ -240,6 +245,9 @@
 		C0B094AD1D2675A100C57D06 /* CLGeocoderUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B094AC1D2675A100C57D06 /* CLGeocoderUtils.swift */; };
 		C0B094B31D2BA23200C57D06 /* KioskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B094B21D2BA23200C57D06 /* KioskCell.swift */; };
 		C0C5D28E1D099679004C1B13 /* ColorIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C5D28D1D099679004C1B13 /* ColorIconView.swift */; };
+		C0C635001D33969900715A77 /* OnboardingDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C634FF1D33969900715A77 /* OnboardingDataSource.swift */; };
+		C0C635021D3396DA00715A77 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C635011D3396DA00715A77 /* OnboardingView.swift */; };
+		C0C635041D339B5100715A77 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C635031D339B5100715A77 /* OnboardingViewController.swift */; };
 		C0CBE2AA1D2D4270008B861D /* SettingsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CBE2A91D2D4270008B861D /* SettingsNavigationController.swift */; };
 		C0CBE2AC1D2D46B7008B861D /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CBE2AB1D2D46B7008B861D /* SettingsView.swift */; };
 		C0CBE2B21D2E50F7008B861D /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CBE2B11D2E50F7008B861D /* Setting.swift */; };
@@ -489,6 +497,11 @@
 		C0237D121D22652F0009F2FC /* EditAddressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAddressView.swift; sourceTree = "<group>"; };
 		C0237D161D229B8C0009F2FC /* ShowEditAddressEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowEditAddressEvent.swift; sourceTree = "<group>"; };
 		C0237D181D23EA4C0009F2FC /* Kiosk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Kiosk.swift; sourceTree = "<group>"; };
+		C049D8CC1D33E7800043F60F /* HorizontalPageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalPageControl.swift; sourceTree = "<group>"; };
+		C049D8CE1D33F0930043F60F /* OnboardingInfiniteScrollingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingInfiniteScrollingCell.swift; sourceTree = "<group>"; };
+		C049D8D01D33F0C50043F60F /* OnboardingDoubleTapAnimationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingDoubleTapAnimationCell.swift; sourceTree = "<group>"; };
+		C049D8D21D33F0E40043F60F /* OnboardingProductPagingAnimationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingProductPagingAnimationCell.swift; sourceTree = "<group>"; };
+		C049D8D41D33F1010043F60F /* OnboardingNotificationsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingNotificationsCell.swift; sourceTree = "<group>"; };
 		C0518D7F1D2BBA9D0032F1B4 /* EditKioskDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditKioskDataSource.swift; path = Showroom/Shared/Business/Checkout/Delivery/EditKiosk/DataSource/EditKioskDataSource.swift; sourceTree = SOURCE_ROOT; };
 		C052F8971D1989A6008085E0 /* CheckoutAddressOptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutAddressOptionView.swift; sourceTree = "<group>"; };
 		C07530C61D2532F700224508 /* EditKioskView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditKioskView.swift; path = EditKiosk/EditKioskView.swift; sourceTree = "<group>"; };
@@ -515,6 +528,9 @@
 		C0B094AC1D2675A100C57D06 /* CLGeocoderUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLGeocoderUtils.swift; sourceTree = "<group>"; };
 		C0B094B21D2BA23200C57D06 /* KioskCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KioskCell.swift; path = Showroom/Shared/Business/Checkout/Delivery/EditKiosk/DataSource/KioskCell.swift; sourceTree = SOURCE_ROOT; };
 		C0C5D28D1D099679004C1B13 /* ColorIconView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorIconView.swift; sourceTree = "<group>"; };
+		C0C634FF1D33969900715A77 /* OnboardingDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingDataSource.swift; sourceTree = "<group>"; };
+		C0C635011D3396DA00715A77 /* OnboardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		C0C635031D339B5100715A77 /* OnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		C0CBE2A91D2D4270008B861D /* SettingsNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsNavigationController.swift; sourceTree = "<group>"; };
 		C0CBE2AB1D2D46B7008B861D /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		C0CBE2B11D2E50F7008B861D /* Setting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
@@ -687,6 +703,7 @@
 				7520AD841D34DE37003FC38B /* Signing */,
 				75BB896E1D300A7400F9138D /* Start */,
 				1D5F911B1D33D68E00AE66E6 /* Splash */,
+				C0C634FA1D3394D200715A77 /* Onboarding */,
 				1D6933471D2E40A500609BB9 /* BrandProductList */,
 				1D5886DE1D2BBDED007D0CB1 /* TrendProductList */,
 				1D1A7DF91D24003A009CCCE7 /* CategoryProductList */,
@@ -1323,6 +1340,29 @@
 			path = DataSource;
 			sourceTree = "<group>";
 		};
+		C0C634FA1D3394D200715A77 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				C0C635071D33A1E200715A77 /* DataSource */,
+				C0C635031D339B5100715A77 /* OnboardingViewController.swift */,
+				C0C635011D3396DA00715A77 /* OnboardingView.swift */,
+				C049D8CC1D33E7800043F60F /* HorizontalPageControl.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		C0C635071D33A1E200715A77 /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				C0C634FF1D33969900715A77 /* OnboardingDataSource.swift */,
+				C049D8CE1D33F0930043F60F /* OnboardingInfiniteScrollingCell.swift */,
+				C049D8D01D33F0C50043F60F /* OnboardingDoubleTapAnimationCell.swift */,
+				C049D8D21D33F0E40043F60F /* OnboardingProductPagingAnimationCell.swift */,
+				C049D8D41D33F1010043F60F /* OnboardingNotificationsCell.swift */,
+			);
+			path = DataSource;
+			sourceTree = "<group>";
+		};
 		C0E26DAE1D00840C005CB6C4 /* ProductAction */ = {
 			isa = PBXGroup;
 			children = (
@@ -1510,6 +1550,7 @@
 				1DD161A61D01C3B90022B5C9 /* ShowProductDetailsEvent.swift in Sources */,
 				1DD1EA6C1CEC5D1700D99731 /* UIColorAssets.swift in Sources */,
 				1D1A7DFB1D240065009CCCE7 /* CategoryProductListViewController.swift in Sources */,
+				C049D8D51D33F1010043F60F /* OnboardingNotificationsCell.swift in Sources */,
 				75E269AB1CFC7B8700ED3CA2 /* BasketView.swift in Sources */,
 				C09280741D08468500350B82 /* ProductColorHeaderView.swift in Sources */,
 				1D470E341D265CB500677122 /* FormView.swift in Sources */,
@@ -1517,6 +1558,7 @@
 				1D5F911A1D339A8F00AE66E6 /* CommonPresenterController.swift in Sources */,
 				1DD161B11D01CCB20022B5C9 /* ProductDetailsCell.swift in Sources */,
 				C09280561D0584A900350B82 /* DropUpActionAnimator.swift in Sources */,
+				C049D8D31D33F0E40043F60F /* OnboardingProductPagingAnimationCell.swift in Sources */,
 				C0CBE2AA1D2D4270008B861D /* SettingsNavigationController.swift in Sources */,
 				1D1A7E0C1D242178009CCCE7 /* ProductListView.swift in Sources */,
 				1DF7967E1CEB3AF600C7A7F4 /* Logging.swift in Sources */,
@@ -1540,6 +1582,8 @@
 				C09367161D09AB46004C7748 /* UIImageAssets.swift in Sources */,
 				1D5F91161D3388DA00AE66E6 /* CommonNavigationHandler.swift in Sources */,
 				1DA846F71D19474B00BA090A /* StateTextField.swift in Sources */,
+				C0C635021D3396DA00715A77 /* OnboardingView.swift in Sources */,
+				75FE56C01D2BDE4600DF5356 /* RegistrationView.swift in Sources */,
 				C0B094AD1D2675A100C57D06 /* CLGeocoderUtils.swift in Sources */,
 				C0B094B31D2BA23200C57D06 /* KioskCell.swift in Sources */,
 				75C854601D05816300E5F08F /* PriceLabel.swift in Sources */,
@@ -1562,6 +1606,7 @@
 				1DA6FA311CFF29B7004BF10B /* ContentPromoRecommendationsCell.swift in Sources */,
 				751A50181D11577700DF7D2B /* ProductAmountCell.swift in Sources */,
 				7586E27D1D22B3D30086DE94 /* CheckoutSummaryCommentView.swift in Sources */,
+				C0C635001D33969900715A77 /* OnboardingDataSource.swift in Sources */,
 				1D7824B91D0874E700E60392 /* ProductImageCell.swift in Sources */,
 				1D78249C1D058F0600E60392 /* Product.swift in Sources */,
 				1D7824B01D06FD6800E60392 /* ProductImageDataSource.swift in Sources */,
@@ -1593,10 +1638,12 @@
 				C092806A1D080ECD00350B82 /* ProductColorViewController.swift in Sources */,
 				1DD1EA781CEDB47B00D99731 /* DashboardModel.swift in Sources */,
 				1D2F193F1CE9CE250099142E /* AppDelegate.swift in Sources */,
+				C049D8CF1D33F0930043F60F /* OnboardingInfiniteScrollingCell.swift in Sources */,
 				C0237D131D22652F0009F2FC /* EditAddressView.swift in Sources */,
 				1D0F3B541D12CE3D0052CFF6 /* BasketCountryViewController.swift in Sources */,
 				1D5886E61D2BE06A007D0CB1 /* TrendHeaderCell.swift in Sources */,
 				1D69334F1D2E40E500609BB9 /* BrandHeaderCell.swift in Sources */,
+				C049D8D11D33F0C50043F60F /* OnboardingDoubleTapAnimationCell.swift in Sources */,
 				1D7824B51D0708E900E60392 /* ProductPageModel.swift in Sources */,
 				1DF796801CEB3C4000C7A7F4 /* Constants.swift in Sources */,
 				751A50121D1156CB00DF7D2B /* ProductAmountHeaderView.swift in Sources */,
@@ -1629,6 +1676,7 @@
 				C0237D0E1D216ADC0009F2FC /* CheckoutDeliveryStackedView.swift in Sources */,
 				1DD1EA931CF2E93900D99731 /* RootModel.swift in Sources */,
 				1D1A7E141D24F669009CCCE7 /* ShowItemForLinkEvent.swift in Sources */,
+				C049D8CD1D33E7800043F60F /* HorizontalPageControl.swift in Sources */,
 				C09367181D09AB79004C7748 /* UIFontAssets.swift in Sources */,
 				1DAA7C6F1D09AEF700545BB9 /* ProductDescriptionSimpleCell.swift in Sources */,
 				C0237D191D23EA4C0009F2FC /* Kiosk.swift in Sources */,
@@ -1669,6 +1717,7 @@
 				1D0F3B4C1D1173250052CFF6 /* Animator.swift in Sources */,
 				1D6933521D2E410B00609BB9 /* BrandDescriptionViewController.swift in Sources */,
 				C022208F1D183C0C004411A7 /* CheckoutDeliveryView.swift in Sources */,
+				C0C635041D339B5100715A77 /* OnboardingViewController.swift in Sources */,
 				1D0F3B641D13D3710052CFF6 /* BasketCountryDataSource.swift in Sources */,
 				1D0F3B4E1D12819B0052CFF6 /* BasketDeliveryNavigationController.swift in Sources */,
 				1DA5CB491D2F7B2E00A45E93 /* Checkout.swift in Sources */,
