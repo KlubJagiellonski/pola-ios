@@ -11,6 +11,7 @@ class CheckoutSummaryDataSource: NSObject, UITableViewDataSource, CheckoutSummar
     private var productsByBrands: [BasketBrand] = []
     private var totalPrice: Money = Money()
     private var totalBasePrice: Money = Money()
+    private var discount: Money? = nil
     private var discountCode: String?
     private var comments: [String?]?
     private var deliveryCarrier: DeliveryCarrier?
@@ -31,6 +32,7 @@ class CheckoutSummaryDataSource: NSObject, UITableViewDataSource, CheckoutSummar
         self.productsByBrands = basket.productsByBrands
         self.totalPrice = basket.price
         self.totalBasePrice = basket.basePrice
+        self.discount = basket.discount
         self.discountCode = discountCode
         self.comments = comments
         self.deliveryCarrier = deliveryCarrier
@@ -65,7 +67,7 @@ class CheckoutSummaryDataSource: NSObject, UITableViewDataSource, CheckoutSummar
             switch paymentRow {
             case CheckoutSummaryPaymentRow.Payment:
                 let cell = tableView.dequeueReusableCellWithIdentifier(String(CheckoutSummaryPaymentCell)) as! CheckoutSummaryPaymentCell
-                cell.updateData(withTotalPrice: totalPrice, totalBasePrice: totalBasePrice, discountCode: discountCode)
+                cell.updateData(withTotalPrice: totalPrice, discount: discount, discountCode: discountCode)
                 return cell
             case CheckoutSummaryPaymentRow.BuyButton:
                 let cell = tableView.dequeueReusableCellWithIdentifier(String(CheckoutSummaryBuyCell)) as! CheckoutSummaryBuyCell
@@ -106,7 +108,7 @@ class CheckoutSummaryDataSource: NSObject, UITableViewDataSource, CheckoutSummar
             }
             switch paymentRow {
             case CheckoutSummaryPaymentRow.Payment:
-                return CheckoutSummaryPaymentCell.getHeight(forBasePrice: totalBasePrice, discountedPrice: totalPrice)
+                return CheckoutSummaryPaymentCell.getHeight(withDiscount: discountCode != nil && discount != nil)
             case CheckoutSummaryPaymentRow.BuyButton:
                 return CheckoutSummaryBuyCell.cellHeight
             }

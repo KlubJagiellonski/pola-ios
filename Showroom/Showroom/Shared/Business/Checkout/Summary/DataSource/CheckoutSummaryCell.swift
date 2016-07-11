@@ -381,24 +381,24 @@ class CheckoutSummaryPaymentCell: UITableViewCell {
         }
     }
     
-    func updateData(withTotalPrice totalPrice: Money, totalBasePrice: Money, discountCode: String?) {
+    func updateData(withTotalPrice totalPrice: Money, discount: Money?, discountCode: String?) {
         totalPriceLabel.priceLabel.text = totalPrice.stringValue
-        if discountCode == nil {
+        if discountCode == nil || discount == nil {
             discountLabel.hidden = true
             discountHeightConstraint?.updateOffset(0)
         } else {
             discountLabel.titleLabel.text = tr(.CheckoutSummaryDiscountCode(discountCode ?? ""))
-            discountLabel.priceLabel.text = (totalPrice - totalBasePrice).stringValue
+            discountLabel.priceLabel.text = discount!.stringValue
             discountLabel.hidden = false
             discountHeightConstraint?.updateOffset(CheckoutSummaryPaymentCell.discountCellHeight)
         }
     }
     
-    class func getHeight(forBasePrice basePrice: Money, discountedPrice price: Money) -> CGFloat {
-        if basePrice == price {
-            return CheckoutSummaryPaymentCell.cellHeightMax - CheckoutSummaryPaymentCell.discountCellHeight
-        } else {
+    class func getHeight(withDiscount hasDiscount: Bool) -> CGFloat {
+        if hasDiscount {
             return CheckoutSummaryPaymentCell.cellHeightMax
+        } else {
+            return CheckoutSummaryPaymentCell.cellHeightMax - CheckoutSummaryPaymentCell.discountCellHeight
         }
     }
     
