@@ -12,6 +12,8 @@ class RootViewController: PresenterViewController, NavigationHandler {
         
         super.init(nibName: nil, bundle: nil)
         
+        showModal(resolver.resolve(SplashViewController.self), hideContentView: false, animation: nil, completion: nil)
+        
         switch model.startChildType {
         case .Start:
             self.contentViewController = resolver.resolve(StartViewController)
@@ -36,6 +38,9 @@ class RootViewController: PresenterViewController, NavigationHandler {
         switch simpleEvent.type {
         case .ShowDashboard:
             self.contentViewController = resolver.resolve(MainTabViewController)
+            return true
+        case .SplashEnd:
+            hideModal(animation: nil, completion: nil)
             return true
         default: return false
         }

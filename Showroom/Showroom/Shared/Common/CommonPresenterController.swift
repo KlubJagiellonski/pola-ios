@@ -21,12 +21,13 @@ class CommonPresenterController: PresenterViewController, NavigationHandler {
     func handleNavigationEvent(event: NavigationEvent) -> EventHandled {
         switch event {
         case let showProductDetailsEvent as ShowProductDetailsEvent:
-            currentModalViewController = resolver.resolve(ProductDetailsViewController.self, argument: showProductDetailsEvent.context)
+            let viewController = resolver.resolve(ProductDetailsViewController.self, argument: showProductDetailsEvent.context)
+            showModal(viewController, hideContentView: true, animation: DimModalAnimation(animationDuration: 0.3), completion: nil)
             return true
         case let simpleEvent as SimpleNavigationEvent:
             switch simpleEvent.type {
             case .Close:
-                currentModalViewController = nil
+                hideModal(animation: DimModalAnimation(animationDuration: 0.3), completion: nil)
                 return true
             default: return false
             }

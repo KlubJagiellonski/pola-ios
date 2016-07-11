@@ -45,7 +45,6 @@
 		1D2423DD1D228A9A0026D46B /* ToastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2423DC1D228A9A0026D46B /* ToastManager.swift */; };
 		1D2423DF1D228BA80026D46B /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2423DE1D228BA80026D46B /* ToastView.swift */; };
 		1D2F193F1CE9CE250099142E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2F193E1CE9CE250099142E /* AppDelegate.swift */; };
-		1D2F19491CE9CE250099142E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1D2F19471CE9CE250099142E /* LaunchScreen.storyboard */; };
 		1D2F19541CE9CE250099142E /* ShowroomTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2F19531CE9CE250099142E /* ShowroomTests.swift */; };
 		1D2F19611CE9CED80099142E /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2F19601CE9CED80099142E /* RootViewController.swift */; };
 		1D2F19A31CEA14FE0099142E /* JLRoutes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2F19981CEA14FE0099142E /* JLRoutes.framework */; };
@@ -81,6 +80,9 @@
 		1D5F91141D2FA19B00AE66E6 /* CheckoutDeliveryViewHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F91131D2FA19B00AE66E6 /* CheckoutDeliveryViewHelpers.swift */; };
 		1D5F91161D3388DA00AE66E6 /* CommonNavigationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F91151D3388DA00AE66E6 /* CommonNavigationHandler.swift */; };
 		1D5F911A1D339A8F00AE66E6 /* CommonPresenterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F91191D339A8F00AE66E6 /* CommonPresenterController.swift */; };
+		1D5F911D1D33D69C00AE66E6 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F911C1D33D69C00AE66E6 /* SplashViewController.swift */; };
+		1D5F911F1D33D6B700AE66E6 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F911E1D33D6B700AE66E6 /* SplashView.swift */; };
+		1D5F91411D34E33100AE66E6 /* UIDeviceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F91401D34E33100AE66E6 /* UIDeviceUtils.swift */; };
 		1D6933461D2D176200609BB9 /* CocoaMarkdown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D6933451D2D176200609BB9 /* CocoaMarkdown.framework */; };
 		1D6933491D2E40C700609BB9 /* BrandProductListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6933481D2E40C700609BB9 /* BrandProductListViewController.swift */; };
 		1D69334B1D2E40D200609BB9 /* BrandProductListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D69334A1D2E40D200609BB9 /* BrandProductListView.swift */; };
@@ -320,7 +322,6 @@
 		1D2423DE1D228BA80026D46B /* ToastView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		1D2F193B1CE9CE250099142E /* SHOWROOM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SHOWROOM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D2F193E1CE9CE250099142E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1D2F19481CE9CE250099142E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1D2F194A1CE9CE250099142E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1D2F194F1CE9CE250099142E /* ShowroomTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShowroomTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D2F19531CE9CE250099142E /* ShowroomTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowroomTests.swift; sourceTree = "<group>"; };
@@ -355,6 +356,9 @@
 		1D5F91131D2FA19B00AE66E6 /* CheckoutDeliveryViewHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutDeliveryViewHelpers.swift; sourceTree = "<group>"; };
 		1D5F91151D3388DA00AE66E6 /* CommonNavigationHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonNavigationHandler.swift; sourceTree = "<group>"; };
 		1D5F91191D339A8F00AE66E6 /* CommonPresenterController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonPresenterController.swift; sourceTree = "<group>"; };
+		1D5F911C1D33D69C00AE66E6 /* SplashViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
+		1D5F911E1D33D6B700AE66E6 /* SplashView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		1D5F91401D34E33100AE66E6 /* UIDeviceUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIDeviceUtils.swift; sourceTree = "<group>"; };
 		1D6933451D2D176200609BB9 /* CocoaMarkdown.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaMarkdown.framework; path = Carthage/Build/iOS/CocoaMarkdown.framework; sourceTree = "<group>"; };
 		1D6933481D2E40C700609BB9 /* BrandProductListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrandProductListViewController.swift; sourceTree = "<group>"; };
 		1D69334A1D2E40D200609BB9 /* BrandProductListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrandProductListView.swift; sourceTree = "<group>"; };
@@ -641,7 +645,6 @@
 				1DD1EA5B1CEC5B5B00D99731 /* Resources */,
 				1D2F195E1CE9CE7B0099142E /* Shared */,
 				1D2F193E1CE9CE250099142E /* AppDelegate.swift */,
-				1D2F19471CE9CE250099142E /* LaunchScreen.storyboard */,
 				1D2F194A1CE9CE250099142E /* Info.plist */,
 			);
 			path = Showroom;
@@ -682,6 +685,7 @@
 			isa = PBXGroup;
 			children = (
 				75BB896E1D300A7400F9138D /* Start */,
+				1D5F911B1D33D68E00AE66E6 /* Splash */,
 				1D6933471D2E40A500609BB9 /* BrandProductList */,
 				1D5886DE1D2BBDED007D0CB1 /* TrendProductList */,
 				75FE56AF1D266BA200DF5356 /* Login */,
@@ -769,8 +773,18 @@
 				7586E27E1D22BB5F0086DE94 /* UITextViewUtils.swift */,
 				C0B094AC1D2675A100C57D06 /* CLGeocoderUtils.swift */,
 				1D5886E91D2BE4D0007D0CB1 /* UILabelUtils.swift */,
+				1D5F91401D34E33100AE66E6 /* UIDeviceUtils.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		1D5F911B1D33D68E00AE66E6 /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				1D5F911C1D33D69C00AE66E6 /* SplashViewController.swift */,
+				1D5F911E1D33D6B700AE66E6 /* SplashView.swift */,
+			);
+			name = Splash;
 			sourceTree = "<group>";
 		};
 		1D6933471D2E40A500609BB9 /* BrandProductList */ = {
@@ -1402,7 +1416,6 @@
 				1D04534A1CFDD87E001CC5A2 /* Lato-Bold.ttf in Resources */,
 				1DD1EA671CEC5D0000D99731 /* Localizable.strings in Resources */,
 				1D04534C1CFDD87E001CC5A2 /* Lato-Regular.ttf in Resources */,
-				1D2F19491CE9CE250099142E /* LaunchScreen.storyboard in Resources */,
 				C093671E1D0ACAE8004C7748 /* Assets.xcassets in Resources */,
 				1DD1EA661CEC5D0000D99731 /* Colors.txt in Resources */,
 			);
@@ -1485,6 +1498,7 @@
 				C092805D1D05CAD600350B82 /* ProductSizeDataSource.swift in Sources */,
 				1D5EF1D11CEB666B0071C097 /* UIImageViewUtils.swift in Sources */,
 				C0CBE2AC1D2D46B7008B861D /* SettingsView.swift in Sources */,
+				1D5F911D1D33D69C00AE66E6 /* SplashViewController.swift in Sources */,
 				1DD161A61D01C3B90022B5C9 /* ShowProductDetailsEvent.swift in Sources */,
 				1DD1EA6C1CEC5D1700D99731 /* UIColorAssets.swift in Sources */,
 				1D1A7DFB1D240065009CCCE7 /* CategoryProductListViewController.swift in Sources */,
@@ -1530,6 +1544,7 @@
 				1D72ED261CFDA591007AFD2F /* StringUtils.swift in Sources */,
 				1DD161A21D01C06F0022B5C9 /* PresenterViewController.swift in Sources */,
 				1DD161AF1D01CB490022B5C9 /* ProductDetailsDataSource.swift in Sources */,
+				1D5F911F1D33D6B700AE66E6 /* SplashView.swift in Sources */,
 				1D69334D1D2E40DB00609BB9 /* BrandProductListModel.swift in Sources */,
 				1D7824AC1D06F4F900E60392 /* UIImageUtils.swift in Sources */,
 				1DD161A81D01C43B0022B5C9 /* DashboardNavigationController.swift in Sources */,
@@ -1611,6 +1626,7 @@
 				1DAA7C6F1D09AEF700545BB9 /* ProductDescriptionSimpleCell.swift in Sources */,
 				C0237D191D23EA4C0009F2FC /* Kiosk.swift in Sources */,
 				1DB166BF1D1006DC004F42DC /* SizeChartView.swift in Sources */,
+				1D5F91411D34E33100AE66E6 /* UIDeviceUtils.swift in Sources */,
 				1DD1EA761CEDB2A300D99731 /* ContentPromoDataSource.swift in Sources */,
 				1DA6FA2F1CFF265E004BF10B /* ContentPromoRecommendationsHeaderCell.swift in Sources */,
 				1DA5CB451D2E86C200A45E93 /* Brand.swift in Sources */,
@@ -1687,17 +1703,6 @@
 			targetProxy = 1D2F19501CE9CE250099142E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		1D2F19471CE9CE250099142E /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				1D2F19481CE9CE250099142E /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		1D2F19561CE9CE250099142E /* Debug */ = {
@@ -1787,6 +1792,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CI_BUILD_NUMBER = 1;
 				CI_BUILD_VERSION = 1.0;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1811,6 +1817,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CI_BUILD_NUMBER = 1;
 				CI_BUILD_VERSION = 1.0;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";

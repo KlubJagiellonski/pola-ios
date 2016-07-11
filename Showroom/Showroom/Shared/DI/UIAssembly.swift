@@ -138,5 +138,8 @@ class UIAssembly: AssemblyType {
         container.register(SettingsViewController.self) { r in
             return SettingsViewController(resolver: r.resolve(DiResolver.self)!)
         }
+        container.register(SplashViewController.self) { r in
+            return SplashViewController()
+        }
     }
 }

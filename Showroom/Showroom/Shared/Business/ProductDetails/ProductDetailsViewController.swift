@@ -8,6 +8,7 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewDelegate
     private let model: ProductDetailsModel
     private var castView: ProductDetailsView { return view as! ProductDetailsView }
     private var indexedViewControllers: [Int: UIViewController] = [:]
+    private var firstLayoutSubviewsPassed = false
     
     init(resolver: DiResolver, context: ProductDetailsContext) {
         self.resolver = resolver
@@ -38,7 +39,10 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewDelegate
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        castView.scrollToPage(atIndex: model.initialProductIndex, animated: false)
+        if !firstLayoutSubviewsPassed {
+            firstLayoutSubviewsPassed = true
+            castView.scrollToPage(atIndex: model.initialProductIndex, animated: false)
+        }
     }
     
     // MARK: - ProductDetailsViewDelegate

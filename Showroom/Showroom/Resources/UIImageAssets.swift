@@ -37,9 +37,14 @@ enum Asset: String {
   case Ic_tick = "ic_tick"
   case Ic_w_ulubionych = "ic_w_ulubionych"
   case Img_wieszak = "img_wieszak"
+  case Logo = "logo"
   case Profile_header = "profile_header"
   case Profile_logo = "profile_logo"
   case Refresh = "refresh"
+  case SplashImage4s = "SplashImage4s"
+  case SplashImage5s = "SplashImage5s"
+  case SplashImage6 = "SplashImage6"
+  case SplashImage6p = "SplashImage6p"
   case Temp_trend = "temp_trend"
 
   var image: UIImage {

@@ -4,6 +4,7 @@ import RxSwift
 class ProductDetailsModel {
     private let context: ProductDetailsContext
     private let disposeBag = DisposeBag()
+    private var informAboutMovedToProduct = false
     let newProductsAmountObservable = PublishSubject<NewProductsAmount>()
     
     var initialProductIndex: Int {
@@ -26,6 +27,9 @@ class ProductDetailsModel {
     }
     
     func didMoveToPage(atIndex index: Int) {
-        context.productDetailsDidMoveToProduct(atIndex: index)
+        if informAboutMovedToProduct {
+            context.productDetailsDidMoveToProduct(atIndex: index)
+        }
+        informAboutMovedToProduct = true
     }
 }
