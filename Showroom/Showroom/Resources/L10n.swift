@@ -221,6 +221,10 @@ enum L10n {
   case LoginPassReminder
   /// Załóż nowe konto
   case LoginNewAccount
+  /// Błędne dane logowania. Spróbuj jeszcze raz.
+  case LoginErrorInvalidCredentials
+  /// Wystąpił błąd podczas logowania. Spróbuj jeszcze raz.
+  case LoginErrorUnknown
   /// Rejestracja
   case RegistrationNavigationHeader
   /// REJESTRACJA Z FACEBOOKIEM
@@ -524,6 +528,10 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Login.PassReminder")
       case .LoginNewAccount:
         return L10n.tr("Login.NewAccount")
+      case .LoginErrorInvalidCredentials:
+        return L10n.tr("Login.Error.InvalidCredentials")
+      case .LoginErrorUnknown:
+        return L10n.tr("Login.Error.Unknown")
       case .RegistrationNavigationHeader:
         return L10n.tr("Registration.NavigationHeader")
       case .RegistrationRegisterWithFacebook:

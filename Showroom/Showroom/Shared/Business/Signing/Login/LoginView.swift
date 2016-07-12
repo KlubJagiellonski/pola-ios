@@ -7,25 +7,38 @@ protocol LoginViewDelegate: class {
     func loginViewDidTapRegister()
 }
 
-class LoginView: UIView {
+class LoginView: ViewSwitcher {
     private let scrollView = UIScrollView()
     private let contentView = UIView()
     
     private let facebookButton = UIButton()
     private let orLabel = UILabel()
-    private let emailField = FormInputView()
-    private let passwordField = FormInputView()
     private let loginButton = UIButton()
     private let remindButton = UIButton()
     private let registerButton = UIButton()
     
+    let emailField = FormInputView()
+    let passwordField = FormInputView()
+    
     let keyboardHelper = KeyboardHelper()
     var contentValidators: [ContentValidator] = []
+    
+    var email: String? {
+        get {
+            return emailField.inputTextField.text
+        }
+    }
+    
+    var password: String? {
+        get {
+            return passwordField.inputTextField.text
+        }
+    }
     
     weak var delegate: LoginViewDelegate?
     
     init() {
-        super.init(frame: CGRectZero)
+        super.init(successView: scrollView, initialState: .Success)
         
         keyboardHelper.delegate = self
         
@@ -42,6 +55,7 @@ class LoginView: UIView {
         emailField.inputTextField.tag = 0
         emailField.inputTextField.returnKeyType = .Next
         emailField.inputTextField.keyboardType = .EmailAddress
+        emailField.inputTextField.autocapitalizationType = .None
         emailField.inputTextField.delegate = self
         emailField.addValidator(NotEmptyValidator(messageForEmpty: tr(.ValidatorEmail)))
         

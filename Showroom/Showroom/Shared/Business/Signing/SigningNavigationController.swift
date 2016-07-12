@@ -50,6 +50,9 @@ class SigningNavigationController: UINavigationController, NavigationHandler {
         case .Back:
             popViewControllerAnimated(true)
             return true
+        case .Close:
+            dismissViewControllerAnimated(true, completion: nil)
+            return true
         case .ShowLogin:
             if viewControllers.count > 1 {
                 // There can be only 2 ViewControllers: Login and Register. If we already have both, 

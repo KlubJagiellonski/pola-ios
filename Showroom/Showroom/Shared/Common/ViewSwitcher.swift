@@ -144,7 +144,7 @@ class ViewSwitcher: UIView {
             if isNewStateModal { toView.alpha = 1 }
             if isOldStateModal { fromView.alpha = 0 }
         }) { success in
-            if isOldStateModal {
+            if isOldStateModal && fromView.superview != nil {
                 fromView.snp_removeConstraints()
                 fromView.removeFromSuperview()
             }

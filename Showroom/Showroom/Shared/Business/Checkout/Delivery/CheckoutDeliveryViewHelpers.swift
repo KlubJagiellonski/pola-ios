@@ -93,6 +93,6 @@ extension AddressFormField {
             return nil
         }
         
-        return UserAddress(firstName: fn, lastName: ln, streetAndAppartmentNumbers: saan, postalCode: pc, city: ci, country: co, phone: p)
+        return UserAddress(firstName: fn, lastName: ln, streetAndAppartmentNumbers: saan, postalCode: pc, city: ci, country: co, phone: p, description: nil)
     }
 }

@@ -5,13 +5,15 @@ import Decodable
 final class BasketManager {
     private let apiService: ApiService
     private let storageManager: StorageManager
+    private let userManager: UserManager
     private let disposeBag = DisposeBag()
     
     let state: BasketState
     
-    init(with apiService: ApiService, and storageManager: StorageManager) {
+    init(with apiService: ApiService, storageManager: StorageManager, userManager: UserManager) {
         self.apiService = apiService
         self.storageManager = storageManager
+        self.userManager = userManager
         
         //if it will be a problem we will need to think about loading it in background
         var basketState: BasketState? = nil
@@ -92,7 +94,10 @@ final class BasketManager {
     }
     
     func createCheckout() -> Checkout? {
-        return Checkout.from(basketState: state)
+        guard let user = userManager.user else {
+            return nil
+        }
+        return Checkout.from(basketState: state, user: user)
     }
     
     func createBasketProductListContext(initialIndexPath: NSIndexPath, onChangedForIndexPath: NSIndexPath -> ()) -> ProductDetailsContext? {

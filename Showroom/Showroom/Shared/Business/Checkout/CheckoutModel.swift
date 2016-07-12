@@ -9,7 +9,7 @@ class CheckoutModel {
         self.userManager = userManager
         
         let comments = [String?](count: checkout.basket.productsByBrands.count, repeatedValue: nil)
-        let userAddresses = userManager.user.userAddresses
+        let userAddresses = checkout.user.userAddresses
         state = CheckoutState(checkout: checkout, comments: comments, selectedAddress: userAddresses.first, userAddresses: userAddresses)
     }
     

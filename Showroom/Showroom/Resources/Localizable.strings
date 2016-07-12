@@ -107,6 +107,8 @@
 "Login.LoginButton" = "ZALOGUJ SIĘ";
 "Login.PassReminder" = "Przypomnienie hasła";
 "Login.NewAccount" = "Załóż nowe konto";
+"Login.Error.InvalidCredentials" = "Błędne dane logowania. Spróbuj jeszcze raz.";
+"Login.Error.Unknown" = "Wystąpił błąd podczas logowania. Spróbuj jeszcze raz.";
 "Registration.NavigationHeader" = "Rejestracja";
 "Registration.RegisterWithFacebook" = "REJESTRACJA Z FACEBOOKIEM";
 "Registration.Or" = "lub";

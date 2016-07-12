@@ -118,6 +118,31 @@ extension ApiService {
             return Observable.error(error)
         }
     }
+    
+    func login(withEmail email: String, password: String) -> Observable<LoginResult> {
+        let url = NSURL(fileURLWithPath: basePath)
+            .URLByAppendingPathComponent("login")
+        
+        do {
+            let credentails = Credentials(username: email, password: password)
+            let jsonData = try NSJSONSerialization.dataWithJSONObject(credentails.encode(), options: [])
+            let urlRequest = NSMutableURLRequest(URL: url)
+            urlRequest.HTTPMethod = "POST"
+            urlRequest.HTTPBody = jsonData
+            return networkClient.request(withRequest: urlRequest).flatMap { data -> Observable<LoginResult> in
+                do {
+                    let result = try NSJSONSerialization.JSONObjectWithData(data, options: [])
+                    let loginResult = try LoginResult.decode(result)
+                    logInfo("Login token: \(loginResult.token)")
+                    return Observable.just(loginResult)
+                } catch {
+                    return Observable.error(error)
+                }
+            }
+        } catch {
+            return Observable.error(error)
+        }
+    }
 }
 
 extension NSURL {
