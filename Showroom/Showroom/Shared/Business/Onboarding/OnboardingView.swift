@@ -21,6 +21,7 @@ class OnboardingView: UIView, UICollectionViewDelegateFlowLayout {
         collectionView.dataSource = dataSource
         collectionView.delegate = self
         collectionView.pagingEnabled = true
+        collectionView.showsHorizontalScrollIndicator = false
 
         let flowLayout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
         flowLayout.scrollDirection = .Horizontal
@@ -47,7 +48,7 @@ class OnboardingView: UIView, UICollectionViewDelegateFlowLayout {
         
         pageControl.snp_makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalToSuperview().offset(40.0)
+            make.top.equalToSuperview().offset(37.0)
         }
     }
     

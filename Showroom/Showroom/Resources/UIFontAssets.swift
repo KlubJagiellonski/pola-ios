@@ -30,6 +30,7 @@ extension UIFont {
         case ProductActionOption
         case CheckoutSummary
         case NavigationBar
+        case Onboarding
     }
     
     convenience init!(fontType: FontType) {
@@ -88,6 +89,8 @@ extension UIFont {
             self.init(name: "Lato-Regular", size: 11)
         case .NavigationBar:
             self.init(name: "Lato-Semibold", size: 17)
+        case .Onboarding:
+            self.init(name: "Lato-Regular", size: 16)
         }
     }
     
