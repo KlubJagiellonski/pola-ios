@@ -84,6 +84,26 @@
 				"description": ""
 			},
 			"response": []
+		},
+		{
+			"name": "LOGIN",
+			"request": {
+				"url": "{{HOST}}/login",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"sebastian@grodzicki.pl\",\n    \"password\": \"SHOWROOM\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
 		}
 	]
 }
