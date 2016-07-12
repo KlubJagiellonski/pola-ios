@@ -144,5 +144,14 @@ class UIAssembly: AssemblyType {
         container.register(OnboardingViewController.self) { r in
             return OnboardingViewController(resolver: r.resolve(DiResolver.self)!)
         }
+        container.register(ProductFilterNavigationController.self) { r, filter in
+            return ProductFilterNavigationController(with: r.resolve(DiResolver.self)!, and: filter)
+        }
+        container.register(ProductFilterViewController.self) { r, model in
+            return ProductFilterViewController(with: model)
+        }
+        container.register(ProductFilterModel.self) { r, filter in
+            return ProductFilterModel(with: filter, and: r.resolve(ApiService.self)!)
+        }
     }
 }

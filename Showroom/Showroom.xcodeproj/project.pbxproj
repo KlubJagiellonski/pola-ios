@@ -83,6 +83,19 @@
 		1D5F911D1D33D69C00AE66E6 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F911C1D33D69C00AE66E6 /* SplashViewController.swift */; };
 		1D5F911F1D33D6B700AE66E6 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F911E1D33D6B700AE66E6 /* SplashView.swift */; };
 		1D5F91411D34E33100AE66E6 /* UIDeviceUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F91401D34E33100AE66E6 /* UIDeviceUtils.swift */; };
+		1D5F91461D34E95100AE66E6 /* ProductFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F91451D34E95100AE66E6 /* ProductFilterViewController.swift */; };
+		1D5F91481D34E97900AE66E6 /* ProductFilterNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F91471D34E97900AE66E6 /* ProductFilterNavigationController.swift */; };
+		1D5F914A1D34E9AC00AE66E6 /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F91491D34E9AC00AE66E6 /* Filter.swift */; };
+		1D5F914C1D34EF9B00AE66E6 /* ProductFilterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F914B1D34EF9B00AE66E6 /* ProductFilterModel.swift */; };
+		1D5F914F1D35009700AE66E6 /* ProductFilterDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F914E1D35009700AE66E6 /* ProductFilterDataSource.swift */; };
+		1D5F91511D3500A200AE66E6 /* ProductFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F91501D3500A200AE66E6 /* ProductFilterView.swift */; };
+		1D5F91551D35035300AE66E6 /* ValueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F91541D35035300AE66E6 /* ValueTableViewCell.swift */; };
+		1D5F91571D3509A300AE66E6 /* ProductFilterPriceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F91561D3509A300AE66E6 /* ProductFilterPriceCell.swift */; };
+		1D5F91591D350C7800AE66E6 /* SwitchValueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F91581D350C7800AE66E6 /* SwitchValueTableViewCell.swift */; };
+		1D5F915B1D35120F00AE66E6 /* ProductFilterBrandCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F915A1D35120F00AE66E6 /* ProductFilterBrandCell.swift */; };
+		1D5F915F1D35221D00AE66E6 /* ShowFilterOptionEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F915E1D35221D00AE66E6 /* ShowFilterOptionEvent.swift */; };
+		1D5F91611D3537BA00AE66E6 /* UITableViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F91601D3537BA00AE66E6 /* UITableViewUtils.swift */; };
+		1D5F91631D36217F00AE66E6 /* TTRangeSlider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D5F91621D36217F00AE66E6 /* TTRangeSlider.framework */; };
 		1D6933461D2D176200609BB9 /* CocoaMarkdown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D6933451D2D176200609BB9 /* CocoaMarkdown.framework */; };
 		1D6933491D2E40C700609BB9 /* BrandProductListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6933481D2E40C700609BB9 /* BrandProductListViewController.swift */; };
 		1D69334B1D2E40D200609BB9 /* BrandProductListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D69334A1D2E40D200609BB9 /* BrandProductListView.swift */; };
@@ -367,6 +380,19 @@
 		1D5F911C1D33D69C00AE66E6 /* SplashViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		1D5F911E1D33D6B700AE66E6 /* SplashView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		1D5F91401D34E33100AE66E6 /* UIDeviceUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIDeviceUtils.swift; sourceTree = "<group>"; };
+		1D5F91451D34E95100AE66E6 /* ProductFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductFilterViewController.swift; sourceTree = "<group>"; };
+		1D5F91471D34E97900AE66E6 /* ProductFilterNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductFilterNavigationController.swift; sourceTree = "<group>"; };
+		1D5F91491D34E9AC00AE66E6 /* Filter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
+		1D5F914B1D34EF9B00AE66E6 /* ProductFilterModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductFilterModel.swift; sourceTree = "<group>"; };
+		1D5F914E1D35009700AE66E6 /* ProductFilterDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductFilterDataSource.swift; sourceTree = "<group>"; };
+		1D5F91501D3500A200AE66E6 /* ProductFilterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductFilterView.swift; sourceTree = "<group>"; };
+		1D5F91541D35035300AE66E6 /* ValueTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValueTableViewCell.swift; sourceTree = "<group>"; };
+		1D5F91561D3509A300AE66E6 /* ProductFilterPriceCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductFilterPriceCell.swift; sourceTree = "<group>"; };
+		1D5F91581D350C7800AE66E6 /* SwitchValueTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchValueTableViewCell.swift; sourceTree = "<group>"; };
+		1D5F915A1D35120F00AE66E6 /* ProductFilterBrandCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductFilterBrandCell.swift; sourceTree = "<group>"; };
+		1D5F915E1D35221D00AE66E6 /* ShowFilterOptionEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowFilterOptionEvent.swift; sourceTree = "<group>"; };
+		1D5F91601D3537BA00AE66E6 /* UITableViewUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableViewUtils.swift; sourceTree = "<group>"; };
+		1D5F91621D36217F00AE66E6 /* TTRangeSlider.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TTRangeSlider.framework; path = Carthage/Build/iOS/TTRangeSlider.framework; sourceTree = "<group>"; };
 		1D6933451D2D176200609BB9 /* CocoaMarkdown.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaMarkdown.framework; path = Carthage/Build/iOS/CocoaMarkdown.framework; sourceTree = "<group>"; };
 		1D6933481D2E40C700609BB9 /* BrandProductListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrandProductListViewController.swift; sourceTree = "<group>"; };
 		1D69334A1D2E40D200609BB9 /* BrandProductListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrandProductListView.swift; sourceTree = "<group>"; };
@@ -552,6 +578,7 @@
 				1D2F19D11CEB16120099142E /* Decodable.framework in Frameworks */,
 				1D6933461D2D176200609BB9 /* CocoaMarkdown.framework in Frameworks */,
 				1DF796731CEB2E1F00C7A7F4 /* Fabric.framework in Frameworks */,
+				1D5F91631D36217F00AE66E6 /* TTRangeSlider.framework in Frameworks */,
 				1DD1EA9D1CF2F58E00D99731 /* SnapKit.framework in Frameworks */,
 				1D04534F1CFEDE74001CC5A2 /* EmarsysPredictSDK.framework in Frameworks */,
 			);
@@ -701,6 +728,7 @@
 			isa = PBXGroup;
 			children = (
 				7520AD841D34DE37003FC38B /* Signing */,
+				1D5F91441D34E93500AE66E6 /* ProductFilter */,
 				75BB896E1D300A7400F9138D /* Start */,
 				1D5F911B1D33D68E00AE66E6 /* Splash */,
 				C0C634FA1D3394D200715A77 /* Onboarding */,
@@ -724,6 +752,7 @@
 		1D2F19AC1CEA15060099142E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1D5F91621D36217F00AE66E6 /* TTRangeSlider.framework */,
 				1D6933451D2D176200609BB9 /* CocoaMarkdown.framework */,
 				1D04534E1CFEDE74001CC5A2 /* EmarsysPredictSDK.framework */,
 				1DD1EA9C1CF2F58E00D99731 /* SnapKit.framework */,
@@ -791,6 +820,7 @@
 				C0B094AC1D2675A100C57D06 /* CLGeocoderUtils.swift */,
 				1D5886E91D2BE4D0007D0CB1 /* UILabelUtils.swift */,
 				1D5F91401D34E33100AE66E6 /* UIDeviceUtils.swift */,
+				1D5F91601D3537BA00AE66E6 /* UITableViewUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -802,6 +832,28 @@
 				1D5F911E1D33D6B700AE66E6 /* SplashView.swift */,
 			);
 			name = Splash;
+            sourceTree = "<group>";
+        };
+		1D5F91441D34E93500AE66E6 /* ProductFilter */ = {
+			isa = PBXGroup;
+			children = (
+				1D5F914D1D35006F00AE66E6 /* DataSource */,
+				1D5F91451D34E95100AE66E6 /* ProductFilterViewController.swift */,
+				1D5F91471D34E97900AE66E6 /* ProductFilterNavigationController.swift */,
+				1D5F914B1D34EF9B00AE66E6 /* ProductFilterModel.swift */,
+				1D5F91501D3500A200AE66E6 /* ProductFilterView.swift */,
+			);
+			path = ProductFilter;
+			sourceTree = "<group>";
+		};
+		1D5F914D1D35006F00AE66E6 /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				1D5F914E1D35009700AE66E6 /* ProductFilterDataSource.swift */,
+				1D5F91561D3509A300AE66E6 /* ProductFilterPriceCell.swift */,
+				1D5F915A1D35120F00AE66E6 /* ProductFilterBrandCell.swift */,
+			);
+			path = DataSource;
 			sourceTree = "<group>";
 		};
 		1D6933471D2E40A500609BB9 /* BrandProductList */ = {
@@ -868,6 +920,7 @@
 				C0237D181D23EA4C0009F2FC /* Kiosk.swift */,
 				1DA5CB441D2E86C200A45E93 /* Brand.swift */,
 				1DA5CB481D2F7B2E00A45E93 /* Checkout.swift */,
+				1D5F91491D34E9AC00AE66E6 /* Filter.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1065,6 +1118,7 @@
 				C0237D161D229B8C0009F2FC /* ShowEditAddressEvent.swift */,
 				1D1A7E131D24F669009CCCE7 /* ShowItemForLinkEvent.swift */,
 				1DA5CB421D2E867000A45E93 /* ShowBrandDescriptionEvent.swift */,
+				1D5F915E1D35221D00AE66E6 /* ShowFilterOptionEvent.swift */,
 			);
 			path = Event;
 			sourceTree = "<group>";
@@ -1202,6 +1256,8 @@
 				1D5886E71D2BE440007D0CB1 /* ExtendedLabel.swift */,
 				1D5F91151D3388DA00AE66E6 /* CommonNavigationHandler.swift */,
 				1D5F91191D339A8F00AE66E6 /* CommonPresenterController.swift */,
+				1D5F91541D35035300AE66E6 /* ValueTableViewCell.swift */,
+				1D5F91581D350C7800AE66E6 /* SwitchValueTableViewCell.swift */,
 			);
 			name = Common;
 			path = Showroom/Shared/Common;
@@ -1496,6 +1552,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/SnapKit.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/EmarsysPredictSDK.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/CocoaMarkdown.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/TTRangeSlider.framework",
 			);
 			name = "Carthage Run Script";
 			outputPaths = (
@@ -1526,8 +1583,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D2423DF1D228BA80026D46B /* ToastView.swift in Sources */,
+				1D5F91571D3509A300AE66E6 /* ProductFilterPriceCell.swift in Sources */,
 				C09280721D08453000350B82 /* ProductColorView.swift in Sources */,
 				C09280761D08514F00350B82 /* ProductColorDataSource.swift in Sources */,
+				1D5F914A1D34E9AC00AE66E6 /* Filter.swift in Sources */,
 				1D2F19611CE9CED80099142E /* RootViewController.swift in Sources */,
 				1D3792721D196931001A7C47 /* ViewSwitcher.swift in Sources */,
 				1D5F91141D2FA19B00AE66E6 /* CheckoutDeliveryViewHelpers.swift in Sources */,
@@ -1616,6 +1675,8 @@
 				C09280541D01DBA300350B82 /* ProductSizeHeaderView.swift in Sources */,
 				1DD1EA981CF2ECC200D99731 /* Navigation.swift in Sources */,
 				1D0453551CFF033E001CC5A2 /* EmarsysService.swift in Sources */,
+				75FE56B11D266BA200DF5356 /* LoginNavigationController.swift in Sources */,
+				1D5F915B1D35120F00AE66E6 /* ProductFilterBrandCell.swift in Sources */,
 				C07CF39D1D2409D8004578FD /* EditKioskModel.swift in Sources */,
 				C0518D801D2BBA9D0032F1B4 /* EditKioskDataSource.swift in Sources */,
 				C022208D1D1834B9004411A7 /* CheckoutDeliveryViewController.swift in Sources */,
@@ -1633,13 +1694,16 @@
 				75FE56C31D2BFDE900DF5356 /* CheckButton.swift in Sources */,
 				1D5886EA1D2BE4D0007D0CB1 /* UILabelUtils.swift in Sources */,
 				1DF7967B1CEB39A100C7A7F4 /* ApiService.swift in Sources */,
+				1D5F91461D34E95100AE66E6 /* ProductFilterViewController.swift in Sources */,
 				C0237D0A1D2131C80009F2FC /* FormInputTextField.swift in Sources */,
 				1D7824AE1D06F67500E60392 /* UIColorUtils.swift in Sources */,
 				C092806A1D080ECD00350B82 /* ProductColorViewController.swift in Sources */,
 				1DD1EA781CEDB47B00D99731 /* DashboardModel.swift in Sources */,
+				1D5F914C1D34EF9B00AE66E6 /* ProductFilterModel.swift in Sources */,
 				1D2F193F1CE9CE250099142E /* AppDelegate.swift in Sources */,
 				C049D8CF1D33F0930043F60F /* OnboardingInfiniteScrollingCell.swift in Sources */,
 				C0237D131D22652F0009F2FC /* EditAddressView.swift in Sources */,
+				1D5F91591D350C7800AE66E6 /* SwitchValueTableViewCell.swift in Sources */,
 				1D0F3B541D12CE3D0052CFF6 /* BasketCountryViewController.swift in Sources */,
 				1D5886E61D2BE06A007D0CB1 /* TrendHeaderCell.swift in Sources */,
 				1D69334F1D2E40E500609BB9 /* BrandHeaderCell.swift in Sources */,
@@ -1662,6 +1726,7 @@
 				1D1A7E001D2400F1009CCCE7 /* ProductListComponent.swift in Sources */,
 				1DD161B81D01D0C10022B5C9 /* ProductPageViewController.swift in Sources */,
 				1D1A7E1E1D25487A009CCCE7 /* Category.swift in Sources */,
+				1D5F91511D3500A200AE66E6 /* ProductFilterView.swift in Sources */,
 				1D0F3B611D13D2DC0052CFF6 /* BasketCountryView.swift in Sources */,
 				1D1A7E1C1D253418009CCCE7 /* ProductLoadingPageCell.swift in Sources */,
 				1DD1EA6B1CEC5D1700D99731 /* L10n.swift in Sources */,
@@ -1682,6 +1747,7 @@
 				C0237D191D23EA4C0009F2FC /* Kiosk.swift in Sources */,
 				1DB166BF1D1006DC004F42DC /* SizeChartView.swift in Sources */,
 				1D5F91411D34E33100AE66E6 /* UIDeviceUtils.swift in Sources */,
+				1D5F914F1D35009700AE66E6 /* ProductFilterDataSource.swift in Sources */,
 				1DD1EA761CEDB2A300D99731 /* ContentPromoDataSource.swift in Sources */,
 				1DA6FA2F1CFF265E004BF10B /* ContentPromoRecommendationsHeaderCell.swift in Sources */,
 				1DA5CB451D2E86C200A45E93 /* Brand.swift in Sources */,
@@ -1692,10 +1758,12 @@
 				1D1A7E101D2424F2009CCCE7 /* ProductListViewController.swift in Sources */,
 				751A50231D19718400DF7D2B /* CheckoutSummaryCell.swift in Sources */,
 				1D04533E1CFDD48B001CC5A2 /* Dimensions.swift in Sources */,
+				1D5F91481D34E97900AE66E6 /* ProductFilterNavigationController.swift in Sources */,
 				1DA6FA331D00120C004BF10B /* Money.swift in Sources */,
 				1D5886E41D2BDB31007D0CB1 /* TrendProductListModel.swift in Sources */,
 				1D72ED161CFC307D007AFD2F /* ManagerAssembly.swift in Sources */,
 				75C854621D05B7BF00E5F08F /* BasketManager.swift in Sources */,
+				1D5F91611D3537BA00AE66E6 /* UITableViewUtils.swift in Sources */,
 				1DD1EA8B1CF2E59E00D99731 /* BasketViewController.swift in Sources */,
 				1DF796791CEB369B00C7A7F4 /* NetworkClient.swift in Sources */,
 				C092805A1D05CA4400350B82 /* ProductSizeView.swift in Sources */,
@@ -1726,9 +1794,11 @@
 				1DD1EA9B1CF2ED6400D99731 /* SimpleNavigationEvent.swift in Sources */,
 				C02220851D12D4AD004411A7 /* TabBarItemBadgeContainerView.swift in Sources */,
 				C007CD951D2E92FC00700EBB /* SettingsDataSource.swift in Sources */,
+				1D5F915F1D35221D00AE66E6 /* ShowFilterOptionEvent.swift in Sources */,
 				C093671C1D0ABD2D004C7748 /* TabBarIcon.swift in Sources */,
 				1D7824A81D06E9CB00E60392 /* ProductDescriptionDataSource.swift in Sources */,
 				75E269AE1CFC7DA200ED3CA2 /* BasketDataSource.swift in Sources */,
+				1D5F91551D35035300AE66E6 /* ValueTableViewCell.swift in Sources */,
 				7586E27B1D22B0E70086DE94 /* CheckoutSummaryCommentViewController.swift in Sources */,
 				C092805F1D06EC0C00350B82 /* ProductSizeCell.swift in Sources */,
 				C022208A1D183223004411A7 /* CheckoutNavigationController.swift in Sources */,

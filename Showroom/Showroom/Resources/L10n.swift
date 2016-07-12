@@ -185,6 +185,30 @@ enum L10n {
   case ProductListBadgePremium
   /// Niestety nie znaleziono żadnych produktów.
   case ProductListEmptyDescription
+  /// Filtry
+  case ProductListFilterTitle
+  /// Anuluj
+  case ProductListFilterCancel
+  /// Wyczyść
+  case ProductListFilterClear
+  /// Sortowanie
+  case ProductListFilterRowSort
+  /// Kategoria
+  case ProductListFilterRowCategory
+  /// Rozmiar
+  case ProductListFilterRowSize
+  /// Kolor
+  case ProductListFilterRowColor
+  /// Cena
+  case ProductListFilterRowPrice
+  /// Tylko przeceny
+  case ProductListFilterRowOnlyDiscounts
+  /// Marka
+  case ProductListFilterRowBrand
+  /// %@zł - %@zł
+  case ProductListFilterPriceRange(String, String)
+  /// POKAŻ PRODUKTY
+  case ProductListFilterShowProducts
   /// Logowanie
   case LoginNavigationHeader
   /// ZALOGUJ SIĘ Z FACEBOOKIEM
@@ -464,6 +488,30 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("ProductList.Badge.Premium")
       case .ProductListEmptyDescription:
         return L10n.tr("ProductList.Empty.Description")
+      case .ProductListFilterTitle:
+        return L10n.tr("ProductListFilter.Title")
+      case .ProductListFilterCancel:
+        return L10n.tr("ProductListFilter.Cancel")
+      case .ProductListFilterClear:
+        return L10n.tr("ProductListFilter.Clear")
+      case .ProductListFilterRowSort:
+        return L10n.tr("ProductListFilter.Row.Sort")
+      case .ProductListFilterRowCategory:
+        return L10n.tr("ProductListFilter.Row.Category")
+      case .ProductListFilterRowSize:
+        return L10n.tr("ProductListFilter.Row.Size")
+      case .ProductListFilterRowColor:
+        return L10n.tr("ProductListFilter.Row.Color")
+      case .ProductListFilterRowPrice:
+        return L10n.tr("ProductListFilter.Row.Price")
+      case .ProductListFilterRowOnlyDiscounts:
+        return L10n.tr("ProductListFilter.Row.OnlyDiscounts")
+      case .ProductListFilterRowBrand:
+        return L10n.tr("ProductListFilter.Row.Brand")
+      case .ProductListFilterPriceRange(let p0, let p1):
+        return L10n.tr("ProductListFilter.PriceRange", p0, p1)
+      case .ProductListFilterShowProducts:
+        return L10n.tr("ProductListFilter.ShowProducts")
       case .LoginNavigationHeader:
         return L10n.tr("Login.NavigationHeader")
       case .LoginLoginWithFacebook:

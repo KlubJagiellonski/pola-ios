@@ -50,6 +50,7 @@ enum Asset: String {
   case Profile_header = "profile_header"
   case Profile_logo = "profile_logo"
   case Refresh = "refresh"
+  case Slider = "slider"
   case SplashImage4s = "SplashImage4s"
   case SplashImage5s = "SplashImage5s"
   case SplashImage6 = "SplashImage6"

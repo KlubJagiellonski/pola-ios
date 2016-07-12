@@ -12,3 +12,4 @@ Dim: #A3AAB2
 Gray: #EDEEF0
 Badge: #BB1270
 Facebook: #4267B2
+Manatee: #9B9B9B

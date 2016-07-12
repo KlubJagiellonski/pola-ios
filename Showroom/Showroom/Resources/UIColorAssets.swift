@@ -35,8 +35,8 @@ enum ColorName {
   /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#edeef0"></span>
   /// Alpha: 100% <br/> (0xedeef0ff)
   case Gray
-  /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#979797"></span>
-  /// Alpha: 100% <br/> (0x979797ff)
+  /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#9b9b9b"></span>
+  /// Alpha: 100% <br/> (0x9b9b9bff)
   case Manatee
   /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#767676"></span>
   /// Alpha: 100% <br/> (0x767676ff)
@@ -66,7 +66,7 @@ enum ColorName {
     case .Dim: return 0xa3aab2ff
     case .Facebook: return 0x4267b2ff
     case .Gray: return 0xedeef0ff
-    case .Manatee: return 0x979797ff
+    case .Manatee: return 0x9b9b9bff
     case .OldLavender: return 0x767676ff
     case .ProductPageBackground: return 0xf2f4faff
     case .RedViolet: return 0xbb1270ff

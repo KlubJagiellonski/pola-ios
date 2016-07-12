@@ -3,13 +3,15 @@ import UIKit
 import RxSwift
 
 class BrandProductListViewController: UIViewController, ProductListViewControllerInterface, BrandProductListViewDelegate {
+    private let resolver: DiResolver
     let disposeBag = DisposeBag()
     let productListModel: ProductListModel
-    var brandListModel: BrandProductListModel { return productListModel as! BrandProductListModel }
+    private var brandListModel: BrandProductListModel { return productListModel as! BrandProductListModel }
     var productListView: ProductListViewInterface { return castView }
-    var castView: BrandProductListView { return view as! BrandProductListView }
+    private var castView: BrandProductListView { return view as! BrandProductListView }
     
     init(with resolver: DiResolver, and brand: ProductBrand) {
+        self.resolver = resolver
         productListModel = resolver.resolve(BrandProductListModel.self, argument: brand)
         super.init(nibName: nil, bundle: nil)
         
@@ -38,7 +40,9 @@ class BrandProductListViewController: UIViewController, ProductListViewControlle
     }
     
     func didTapFilterButton() {
-        //todo
+        let viewController = resolver.resolve(ProductFilterNavigationController.self, argument: mockedFilter)
+        viewController.filterDelegate = self
+        presentViewController(viewController, animated: true, completion: nil)
     }
     
     func pageWasFetched(result productListResult: ProductListResult, page: Int) {
@@ -62,3 +66,10 @@ class BrandProductListViewController: UIViewController, ProductListViewControlle
         fetchFirstPage()
     }
 }
+
+extension BrandProductListViewController: ProductFilterNavigationControllerDelegate {
+    func productFilterDidCancel(viewController: ProductFilterNavigationController) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+}
+

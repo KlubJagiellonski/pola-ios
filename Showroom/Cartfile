@@ -10,3 +10,4 @@ github "Haneke/HanekeSwift" == 0.10.1
 github "SnapKit/SnapKit" == 0.21.0
 github "scarabresearch/EmarsysPredictSDK" == 1.0.26
 github "indragiek/CocoaMarkdown" "0d8541a796101e0a6c55a04cd9a3279fc5997bbe"
+github "TomThorpe/TTRangeSlider" "f7a45aecad33c29047f140c5c4850d8de9e4468a"
