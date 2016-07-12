@@ -50,7 +50,7 @@ class RegistrationViewController: UIViewController, RegistrationViewDelegate {
     }
     
     func registrationViewDidTapHaveAccount() {
-        
+        sendNavigationEvent(SimpleNavigationEvent(type: .ShowLogin))
     }
     
     func registrationView(view: RegistrationView, wantShowMessage message: String) {

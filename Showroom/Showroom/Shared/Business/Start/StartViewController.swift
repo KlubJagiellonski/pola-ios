@@ -30,12 +30,14 @@ class StartViewController: UIViewController, StartViewDelegate {
     
     func startViewDidTapLogin() {
         logInfo("Tap login")
-        // TODO: - Show modal login
+        let viewController = resolver.resolve(SigningNavigationController.self, argument: SigningMode.Login)
+        presentViewController(viewController, animated: true, completion: nil)
     }
     
     func startViewDidTapRegister() {
         logInfo("Tap register")
-        // TODO: - Show modal register
+        let viewController = resolver.resolve(SigningNavigationController.self, argument: SigningMode.Register)
+        presentViewController(viewController, animated: true, completion: nil)
     }
     
     func startViewDidTapForHer() {

@@ -87,10 +87,14 @@ class SettingsViewController: UIViewController {
     
     func loginButtonPressed() {
         logInfo("loginButtonPressed")
-        userLogged = true
+        let viewController = resolver.resolve(SigningNavigationController.self, argument: SigningMode.Login)
+        presentViewController(viewController, animated: true, completion: nil)
+//        userLogged = true
     }
     
     func createAccountButtonPressed() {
+        let viewController = resolver.resolve(SigningNavigationController.self, argument: SigningMode.Register)
+        presentViewController(viewController, animated: true, completion: nil)
         logInfo("createAccountButtonPressed")
     }
     

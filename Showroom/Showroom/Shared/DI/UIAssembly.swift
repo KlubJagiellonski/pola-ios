@@ -102,8 +102,8 @@ class UIAssembly: AssemblyType {
         container.register(CategoryProductListModel.self) { r, category in
             return CategoryProductListModel(with: category, and: r.resolve(ApiService.self)!)
         }
-        container.register(LoginNavigationController.self) { r in
-            return LoginNavigationController(resolver: r.resolve(DiResolver.self)!)
+        container.register(SigningNavigationController.self) { r, mode in
+            return SigningNavigationController(resolver: r.resolve(DiResolver.self)!, mode: mode)
         }
         container.register(LoginViewController.self) { r in
             return LoginViewController(resolver: r.resolve(DiResolver.self)!)
