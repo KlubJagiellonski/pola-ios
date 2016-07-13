@@ -104,6 +104,26 @@
 				"description": ""
 			},
 			"response": []
+		},
+		{
+			"name": "REGISTER",
+			"request": {
+				"url": "{{HOST}}/register",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Jan\",\n    \"password\": \"SHOWROOM\",\n    \"email\": \"jan.kowalski@gmail.com\",\n    \"newsletter\": \"true\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
 		}
 	]
 }
