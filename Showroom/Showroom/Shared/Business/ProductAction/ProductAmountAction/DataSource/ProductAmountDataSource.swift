@@ -21,7 +21,7 @@ class ProductAmountDataSource: NSObject, UITableViewDataSource {
         super.init()
         
         self.tableView = tableView
-        tableView.registerClass(ProductAmountCell.self, forCellReuseIdentifier: String(ProductAmountCell))
+        tableView.registerClass(SmallSelectValueTableViewCell.self, forCellReuseIdentifier: String(SmallSelectValueTableViewCell))
     }
     
     func updateData(withMaxAmount maxAmount: Int) {
@@ -34,16 +34,10 @@ class ProductAmountDataSource: NSObject, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(String(ProductAmountCell), forIndexPath: indexPath) as! ProductAmountCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(String(SmallSelectValueTableViewCell), forIndexPath: indexPath) as! SmallSelectValueTableViewCell
         cell.selectionStyle = .None
-        cell.updateData(withAmount: indexPath.row)
-        
-        if indexPath.row == selectedIndex {
-            cell.accessoryView = UIImageView(image: UIImage(named: "ic_tick"))
-        } else {
-            cell.accessoryView = nil
-        }
-        
+        cell.title = indexPath.row == 0 ? tr(.BasketAmount0) : String(indexPath.row)
+        cell.selectAccessoryType = indexPath.row == selectedIndex ? .Checkmark : .None
         return cell
     }
 }

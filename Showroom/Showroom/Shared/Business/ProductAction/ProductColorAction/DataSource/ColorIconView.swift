@@ -20,7 +20,7 @@ class ColorIconView: UIImageView {
             case .Unknown: break
             case .SetColor(let color):
                 self.image = nil
-                self.backgroundColor = color
+                self.image = UIImage.fromColor(color)
                 self.hidden = false
                 spinner.stopAnimating()
                 

@@ -6,6 +6,7 @@ protocol SwitchValueTableViewCellDelegate: class {
 }
 
 final class SwitchValueTableViewCell: UITableViewCell {
+    private let colorIconView = ColorIconView()
     private let titleLabel = UILabel()
     private let valueSwitch = UISwitch()
     weak var delegate: SwitchValueTableViewCellDelegate?

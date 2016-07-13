@@ -2,18 +2,18 @@ import Foundation
 
 struct Filter {
     let sortOptions: [FilterSortOption]
-    var selectedSortOption: FilterSortOption
+    var selectedSortOptionId: ObjectId
     let categories: [FilterCategory]
-    var selectedCategory: FilterCategory?
+    var selectedCategoryId: ObjectId?
     let sizes: [FilterSize]
-    var selectedSizes: [FilterSize]?
+    var selectedSizeIds: [ObjectId]
     let colors: [FilterColor]
-    var selectedColors: [FilterColor]?
+    var selectedColorIds: [ObjectId]
     let priceRange: PriceRange
     var selectedPriceRange: PriceRange?
     var onlyDiscountsSelected: Bool
     let brands: [FilterBrand]?
-    var selectedBrands: [FilterBrand]?
+    var selectedBrandIds: [ObjectId]
 }
 
 struct FilterSortOption {

@@ -89,7 +89,7 @@ extension ProductListViewControllerInterface {
             FilterSortOption(id: 3, name: "Cena od najniższej"),
             FilterSortOption(id: 4, name: "Cena od najwyższej")
         ]
-        let selectedSortOption = FilterSortOption(id: 1, name: "Wybór projektanta")
+        let selectedSortOption = 1
         let filterCategories = [
             FilterCategory(id: 1, name: "Wszystkie buty", hasChildCategories: false),
             FilterCategory(id: 2, name: "Balerinki", hasChildCategories: true),
@@ -99,7 +99,7 @@ extension ProductListViewControllerInterface {
             FilterCategory(id: 6, name: "Sandały i klapki", hasChildCategories: true),
             FilterCategory(id: 7, name: "Szpilki", hasChildCategories: false)
         ]
-        let selectedFilterCategory = FilterCategory(id: 1, name: "Wszystkie buty", hasChildCategories: false)
+        let selectedFilterCategory = 1
         
         let sizes = [
             FilterSize(id: 1, name: "onesize"),
@@ -113,10 +113,10 @@ extension ProductListViewControllerInterface {
             FilterColor(id: 1, name: "Beżowy", type: .RGB, value: "FAFAFA"),
             FilterColor(id: 2, name: "Biały", type: .RGB, value: "FFFFFF"),
             FilterColor(id: 3, name: "Czarny", type: .RGB, value: "000000"),
-            FilterColor(id: 4, name: "Pstrokaty", type: .Image, value: "000000"),
+            FilterColor(id: 4, name: "Pstrokaty", type: .Image, value: "https://placehold.it/50x50/888888/ffffff"),
             ]
         let selectedColors = [
-            FilterColor(id: 1, name: "Beżowy", type: .RGB, value: "FAFAFA")
+            1
         ]
         
         let brands = [
@@ -127,16 +127,9 @@ extension ProductListViewControllerInterface {
             FilterBrand(id: 5, name: "Afriq Password"),
             FilterBrand(id: 6, name: "Afunguard"),
             ]
-        let selectedBrands = [
-            FilterBrand(id: 1, name: "10 DECOART"),
-            FilterBrand(id: 2, name: "4LCK"),
-            FilterBrand(id: 3, name: "9fashion Woman"),
-            FilterBrand(id: 4, name: "A2"),
-            FilterBrand(id: 5, name: "Afriq Password"),
-            FilterBrand(id: 6, name: "Afunguard"),
-            ]
+        let selectedBrands = [1, 2, 3, 4, 5, 6]
         
-        let mockedFilter = Filter(sortOptions: sortOptions, selectedSortOption: selectedSortOption, categories: filterCategories, selectedCategory:selectedFilterCategory, sizes: sizes, selectedSizes: nil, colors: colors, selectedColors: selectedColors, priceRange: PriceRange(min: Money(amt: 0.0), max: Money(amt:1000.0)), selectedPriceRange: nil, onlyDiscountsSelected: true, brands: brands, selectedBrands: selectedBrands)
+        let mockedFilter = Filter(sortOptions: sortOptions, selectedSortOptionId: selectedSortOption, categories: filterCategories, selectedCategoryId:selectedFilterCategory, sizes: sizes, selectedSizeIds: [], colors: colors, selectedColorIds: selectedColors, priceRange: PriceRange(min: Money(amt: 0.0), max: Money(amt:1000.0)), selectedPriceRange: nil, onlyDiscountsSelected: true, brands: brands, selectedBrandIds: selectedBrands)
         return mockedFilter
     }
 }

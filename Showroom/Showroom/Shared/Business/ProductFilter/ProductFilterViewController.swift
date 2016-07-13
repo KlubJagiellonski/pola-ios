@@ -27,6 +27,12 @@ class ProductFilterViewController: UIViewController, ProductFilterViewDelegate {
         castView.delegate = self
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        castView.deselectRowsIfNeeded()
+    }
+    
     func didTapClear() {
         model.clearChanges()
     }

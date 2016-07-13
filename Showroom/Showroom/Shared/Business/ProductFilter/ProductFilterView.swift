@@ -74,6 +74,12 @@ class ProductFilterView: UIView, UITableViewDelegate {
         dataSource.filter = filter
     }
     
+    func deselectRowsIfNeeded() {
+        if let selectedRow = tableView.indexPathForSelectedRow {
+            tableView.deselectRowAtIndexPath(selectedRow, animated: true)
+        }
+    }
+    
     func didChangePriceRange(value: PriceRange) {
         delegate?.productFilter(self, didChangePriceRange: value)
     }

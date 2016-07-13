@@ -14,22 +14,43 @@ enum FilterRowType: Int {
 }
 
 extension Filter {
+    private var selectedSortOptionName: String? {
+        let sortOption = sortOptions.find { $0.id == selectedSortOptionId }
+        return sortOption?.name
+    }
+    
+    private var selectedCategoryName: String? {
+        guard let selectedCategoryId = selectedCategoryId else { return nil }
+        let category = categories.find { $0.id == selectedCategoryId }
+        return category?.name
+    }
+    
     private var selectedSizesName: String? {
-        guard let selectedSizes = selectedSizes else { return nil }
+        let selectedSizes = selectedSizeIds.map { id in
+            return sizes.find { $0.id == id }!
+        }
         return createText(fromArray: selectedSizes) { $0.name }
     }
     
     private var selectedColorsName: String? {
-        guard let selectedColors = selectedColors else { return nil }
+        let selectedColors = selectedColorIds.map { id in
+            return colors.find { $0.id == id }!
+        }
         return createText(fromArray: selectedColors) { $0.name }
     }
     
     private var selectedBrandsName: String? {
-        guard let selectedBrands = selectedBrands else { return nil }
+        guard let brands = brands else { return nil }
+        let selectedBrands = selectedBrandIds.map { id in
+            return brands.find { $0.id == id }!
+        }
         return createText(fromArray: selectedBrands) { $0.name }
     }
     
-    private func createText<T>(fromArray array: [T], toStringValue: T -> String) -> String {
+    private func createText<T>(fromArray array: [T], toStringValue: T -> String) -> String? {
+        if array.isEmpty {
+            return nil
+        }
         let separator = ", "
         let result: String = array.reduce("", combine: {$0 + toStringValue($1) + separator})
         return result.substringToIndex(result.endIndex.advancedBy(-separator.characters.count))
@@ -81,13 +102,13 @@ class ProductFilterDataSource: NSObject, UITableViewDataSource {
             let cell = tableView.dequeueReusableCellWithIdentifier(String(ValueTableViewCell)) as! ValueTableViewCell
             cell.removeSeparatorInset()
             cell.title = tr(.ProductListFilterRowSort)
-            cell.value = filter.selectedSortOption.name
+            cell.value = filter.selectedSortOptionName
             return cell
         case .Category:
             let cell = tableView.dequeueReusableCellWithIdentifier(String(ValueTableViewCell)) as! ValueTableViewCell
             cell.removeSeparatorInset()
             cell.title = tr(.ProductListFilterRowCategory)
-            cell.value = filter.selectedCategory?.name ?? nil
+            cell.value = filter.selectedCategoryName
             return cell
         case .Size:
             let cell = tableView.dequeueReusableCellWithIdentifier(String(ValueTableViewCell)) as! ValueTableViewCell

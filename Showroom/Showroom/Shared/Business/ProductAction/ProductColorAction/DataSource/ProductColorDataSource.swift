@@ -22,7 +22,7 @@ class ProductColorDataSource: NSObject, UITableViewDataSource {
         super.init()
         
         self.tableView = tableView
-        tableView.registerClass(ProductColorCell.self, forCellReuseIdentifier: String(ProductColorCell))
+        tableView.registerClass(ImageSmallSelectValuTableViewCell.self, forCellReuseIdentifier: String(ImageSmallSelectValuTableViewCell))
     }
     
     func updateData(colors: [ProductColor]) {
@@ -39,18 +39,14 @@ class ProductColorDataSource: NSObject, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(String(ProductColorCell), forIndexPath: indexPath) as! ProductColorCell
+        let productColor = colors[indexPath.row]
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier(String(ImageSmallSelectValuTableViewCell), forIndexPath: indexPath) as! ImageSmallSelectValuTableViewCell
         cell.selectionStyle = .None
-        
-        let data = colors[indexPath.row]
-        cell.updateData(data)
-        
-        if indexPath.row == selectedIndex {
-            cell.accessoryView = UIImageView(image: UIImage(named: "ic_tick"))
-        } else {
-            cell.accessoryView = nil
-        }
-        
+        cell.setColorRepresentation(productColor.color)
+        cell.setColorAvailability(productColor.isAvailable)
+        cell.title = productColor.isAvailable ? String(productColor) : String(productColor) + "\n" + tr(.ProductActionColorCellColorUnavailable)
+        cell.selectAccessoryType = indexPath.row == selectedIndex ? .Checkmark : .None
         return cell
     }
 }

@@ -209,6 +209,8 @@ enum L10n {
   case ProductListFilterPriceRange(String, String)
   /// POKAŻ PRODUKTY
   case ProductListFilterShowProducts
+  /// ZASTOSUJ
+  case ProductListFilterApply
   /// Logowanie
   case LoginNavigationHeader
   /// ZALOGUJ SIĘ Z FACEBOOKIEM
@@ -516,6 +518,8 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("ProductListFilter.PriceRange", p0, p1)
       case .ProductListFilterShowProducts:
         return L10n.tr("ProductListFilter.ShowProducts")
+      case .ProductListFilterApply:
+        return L10n.tr("ProductListFilter.Apply")
       case .LoginNavigationHeader:
         return L10n.tr("Login.NavigationHeader")
       case .LoginLoginWithFacebook:

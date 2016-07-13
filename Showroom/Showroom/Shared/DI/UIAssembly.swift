@@ -153,5 +153,8 @@ class UIAssembly: AssemblyType {
         container.register(ProductFilterModel.self) { r, filter in
             return ProductFilterModel(with: filter, and: r.resolve(ApiService.self)!)
         }
+        container.register(FilterDetailsViewController.self) { r, model, option in
+            return FilterDetailsViewController(with: model, and: option)
+        }
     }
 }

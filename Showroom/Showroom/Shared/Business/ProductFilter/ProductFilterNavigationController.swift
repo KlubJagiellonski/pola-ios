@@ -5,7 +5,7 @@ protocol ProductFilterNavigationControllerDelegate: class {
     func productFilterDidCancel(viewController: ProductFilterNavigationController)
 }
 
-class ProductFilterNavigationController: UINavigationController {
+class ProductFilterNavigationController: UINavigationController, NavigationHandler {
     private let resolver: DiResolver
     private let model: ProductFilterModel
     weak var filterDelegate: ProductFilterNavigationControllerDelegate?
@@ -28,5 +28,29 @@ class ProductFilterNavigationController: UINavigationController {
     
     func didTapCancel() {
         filterDelegate?.productFilterDidCancel(self)
+    }
+    
+    func didTapBack() {
+        popViewControllerAnimated(true)
+    }
+    
+    // MARK:- NavigationHandler
+    
+    func handleNavigationEvent(event: NavigationEvent) -> EventHandled {
+        if let showFilterOptionEvent = event as? ShowFilterOptionEvent {
+            let viewController = resolver.resolve(FilterDetailsViewController.self, arguments:(model, showFilterOptionEvent.filterOption))
+            viewController.applyBlackBackButton(target: self, action: #selector(ProductFilterNavigationController.didTapBack))
+            pushViewController(viewController, animated: true)
+            return true
+        } else if let simpleEvent = event as? SimpleNavigationEvent {
+            if simpleEvent.type == .ShowFilteredProducts {
+                //todo show filtered products
+                return true
+            } else if simpleEvent.type == .Back {
+                popViewControllerAnimated(true)
+                return true
+            }
+        }
+        return false
     }
 }
