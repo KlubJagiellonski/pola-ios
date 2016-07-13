@@ -154,3 +154,4 @@
 "Onboarding.Notifications.Label" = "Za chwilę zostaniesz poproszony o zgodę na notyfikacje, które pozwolą na informowanie Ciebie o promocjach.";
 "Onboarding.Notifications.AskMe" = "SPYTAJ MNIE";
 "Onboarding.Notifications.Skip" = "POMIŃ";
+"Onboarding.DoubleTap.Label" = "Stuknij dwukrotnie w zdjęcie, aby dodać produkt do ulubionych";

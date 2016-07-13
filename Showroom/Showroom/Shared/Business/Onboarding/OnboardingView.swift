@@ -5,7 +5,8 @@ protocol OnboardingViewDelegate: class {
     func onboardingDidTapSkip(view: OnboardingView)
 }
 
-final class OnboardingView: UIView, UICollectionViewDelegateFlowLayout {
+final class OnboardingView: UIView, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+
     private let collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: UICollectionViewFlowLayout())
     private let pageControl = HorizontalPageControl()
     
@@ -66,7 +67,23 @@ final class OnboardingView: UIView, UICollectionViewDelegateFlowLayout {
         }
     }
     
-    // MARK: - UICollectionViewDelegateFlowLayout
+    // MARK: UICollectionViewDelegate
+    
+    func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
+        
+        if cell is OnboardingDoubleTapAnimationCell {
+            (cell as! OnboardingDoubleTapAnimationCell).animating = true
+        }
+    }
+
+    func collectionView(collectionView: UICollectionView, didEndDisplayingCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
+        
+        if cell is OnboardingDoubleTapAnimationCell {
+            (cell as! OnboardingDoubleTapAnimationCell).animating = false
+        }
+    }
+    
+    // MARK: UICollectionViewDelegateFlowLayout
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         return self.bounds.size

@@ -315,6 +315,8 @@ enum L10n {
   case OnboardingNotificationsAskMe
   /// POMIŃ
   case OnboardingNotificationsSkip
+  /// Stuknij dwukrotnie w zdjęcie, aby dodać produkt do ulubionych
+  case OnboardingDoubleTapLabel
 }
 
 extension L10n: CustomStringConvertible {
@@ -634,6 +636,8 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Onboarding.Notifications.AskMe")
       case .OnboardingNotificationsSkip:
         return L10n.tr("Onboarding.Notifications.Skip")
+      case .OnboardingDoubleTapLabel:
+        return L10n.tr("Onboarding.DoubleTap.Label")
     }
   }
 
