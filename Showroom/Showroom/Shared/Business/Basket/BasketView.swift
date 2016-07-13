@@ -250,7 +250,7 @@ final class BasketCheckoutView: UIView {
         priceTitleLabel.textColor = UIColor.blackColor()
         priceTitleLabel.font = UIFont(fontType: .List)
         
-        priceValueLabel.normalPriceLabel.font = UIFont(fontType: .Normal)
+        priceValueLabel.normalPriceLabel.font = UIFont(fontType: .NormalBold)
         
         priceView.addSubview(priceTitleLabel)
         priceView.addSubview(priceValueLabel)
