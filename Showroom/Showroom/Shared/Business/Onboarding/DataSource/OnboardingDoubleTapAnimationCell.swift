@@ -36,7 +36,7 @@ class OnboardingDoubleTapAnimationCell: UICollectionViewCell {
             heartMaskView = HeartMaskView(frame: CGRect(x: 10, y: 50, width: 87, height: 114))
             
         case .iPhone5:
-            phoneImageView = UIImageView(image: UIImage(asset: .Onb_iphone_big_5))
+            phoneImageView = UIImageView(image: UIImage(asset: .Onb_iphone_big))
             screenImageView = UIImageView(image: UIImage(asset: .Onb_img2_5))
             phoneToTopOffset = 157.2
             screenToTopOffset = 225.0
@@ -142,7 +142,7 @@ class OnboardingDoubleTapAnimationCell: UICollectionViewCell {
     
     func stopAnimation() {
         touchIndicator.layer.removeAllAnimations()
-        touchIndicator.hidden = true
+        touchIndicator.touchUp()
         heartMaskView.removeTransformAnimation()
     }
 }

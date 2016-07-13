@@ -321,6 +321,8 @@ enum L10n {
   case OnboardingDoubleTapLabel
   /// szukaj
   case SearchPlaceholder
+  /// Przesuń palcem w bok, aby przejść do kolejnego produktu z listy
+  case OnboardingProductPagingLabel
 }
 
 extension L10n: CustomStringConvertible {
@@ -646,6 +648,8 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Onboarding.DoubleTap.Label")
       case .SearchPlaceholder:
         return L10n.tr("Search.Placeholder")
+      case .OnboardingProductPagingLabel:
+        return L10n.tr("Onboarding.ProductPaging.Label")
     }
   }
 

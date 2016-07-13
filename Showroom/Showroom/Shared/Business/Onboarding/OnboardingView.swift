@@ -71,16 +71,27 @@ final class OnboardingView: UIView, UICollectionViewDelegate, UICollectionViewDe
     
     func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
         
-        if cell is OnboardingDoubleTapAnimationCell {
+        switch cell {
+        case is OnboardingDoubleTapAnimationCell:
             (cell as! OnboardingDoubleTapAnimationCell).animating = true
+        case is OnboardingProductPagingAnimationCell:
+            (cell as! OnboardingProductPagingAnimationCell).animating = true
+        default:
+            break
         }
     }
 
     func collectionView(collectionView: UICollectionView, didEndDisplayingCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
         
-        if cell is OnboardingDoubleTapAnimationCell {
+        switch cell {
+        case is OnboardingDoubleTapAnimationCell:
             (cell as! OnboardingDoubleTapAnimationCell).animating = false
+        case is OnboardingProductPagingAnimationCell:
+            (cell as! OnboardingProductPagingAnimationCell).animating = false
+        default:
+            break
         }
+
     }
     
     // MARK: UICollectionViewDelegateFlowLayout

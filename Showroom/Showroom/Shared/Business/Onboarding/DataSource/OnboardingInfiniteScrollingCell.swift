@@ -2,7 +2,7 @@ import UIKit
 import SnapKit
 
 class OnboardingInfiniteScrollingCell: UICollectionViewCell {
-    private let scrollAnimationInterval = 6.0
+    private let scrollAnimationInterval = 10.0
     
     private let logoToPhoneImageOffset: CGFloat
     private let labelToPhoneImageOffset: CGFloat
