@@ -227,6 +227,8 @@ enum L10n {
   case LoginErrorInvalidCredentials
   /// Wystąpił błąd podczas logowania. Spróbuj jeszcze raz.
   case LoginErrorUnknown
+  /// Cześć, %@!
+  case LoginHello(String)
   /// Rejestracja
   case RegistrationNavigationHeader
   /// REJESTRACJA Z FACEBOOKIEM
@@ -255,6 +257,8 @@ enum L10n {
   case RegistrationHaveAccount
   /// Akceptacja regulaminu jest wymagana do utworzenia konta w serwisie SHOWROOM.
   case RegistrationRequiringRulesMessage
+  /// Wystąpił błąd podczas rejestracji. Spróbuj jeszcze raz.
+  case RegistrationErrorUnknown
   /// To pole nie może być puste
   case ValidatorNotEmpty
   /// Brakuje międzynarodowego numeru kierunkowego (np. +48)
@@ -536,6 +540,8 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Login.Error.InvalidCredentials")
       case .LoginErrorUnknown:
         return L10n.tr("Login.Error.Unknown")
+      case .LoginHello(let p0):
+        return L10n.tr("Login.Hello", p0)
       case .RegistrationNavigationHeader:
         return L10n.tr("Registration.NavigationHeader")
       case .RegistrationRegisterWithFacebook:
@@ -564,6 +570,8 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Registration.HaveAccount")
       case .RegistrationRequiringRulesMessage:
         return L10n.tr("Registration.RequiringRulesMessage")
+      case .RegistrationErrorUnknown:
+        return L10n.tr("Registration.Error.Unknown")
       case .ValidatorNotEmpty:
         return L10n.tr("Validator.NotEmpty")
       case .ValidatorPhoneNumber:

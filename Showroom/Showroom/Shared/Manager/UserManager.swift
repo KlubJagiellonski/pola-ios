@@ -37,7 +37,7 @@ class UserManager {
         self.user = User(id: 123456789, name: "Jan", email: "jan.kowalski@gmail.com", userAddresses: mockedUserAddresses)
     }
     
-    func login(wiethEmail email: String, password: String) -> Observable<LoginResult> {
+    func login(withEmail email: String, password: String) -> Observable<SigningResult> {
         return apiService.login(withEmail: email, password: password)
             .observeOn(MainScheduler.instance)
             .doOnNext { [weak self] result in
@@ -51,7 +51,7 @@ class UserManager {
                 }
                 
                 guard let urlError = error as? RxCocoaURLError else {
-                    return Observable.error(LoginError.Unknown)
+                    return Observable.error(SigningError.Unknown)
                 }
                 
                 switch urlError {
@@ -60,17 +60,53 @@ class UserManager {
                     case 400:
                         // Validation Failed
                         let errorData = try NSJSONSerialization.JSONObjectWithData(data!, options: [])
-                        let validtionError: LoginValidationError = try LoginValidationError.decode(errorData)
+                        let validtionError: SigningValidationError = try SigningValidationError.decode(errorData)
                         logInfo(validtionError.message)
-                        return Observable.error(LoginError.ValidationFailed(validtionError.errors))
+                        return Observable.error(SigningError.ValidationFailed(validtionError.errors))
                     case 401:
                         // Invalid credentials
-                        return Observable.error(LoginError.InvalidCredentials)
+                        return Observable.error(SigningError.InvalidCredentials)
                     default:
-                        return Observable.error(LoginError.Unknown)
+                        return Observable.error(SigningError.Unknown)
                     }
                 default:
-                    return Observable.error(LoginError.Unknown)
+                    return Observable.error(SigningError.Unknown)
+                }
+        }
+    }
+    
+    
+    func register(withName name: String, email: String, password: String, receiveNewsletter: Bool) -> Observable<SigningResult> {
+        return apiService.register(withName: name, email: email, password: password, receiveNewsletter: receiveNewsletter)
+        .observeOn(MainScheduler.instance)
+            .doOnNext { [weak self] result in
+                if let strongSelf = self {
+                    strongSelf.user = result.user
+                }
+        }
+            .catchError { [weak self] error in
+                if let strongSelf = self {
+                    strongSelf.user = nil
+                }
+                
+                guard let urlError = error as? RxCocoaURLError else {
+                    return Observable.error(SigningError.Unknown)
+                }
+                
+                switch urlError {
+                case .HTTPRequestFailed(let response, let data):
+                    switch response.statusCode {
+                    case 400:
+                        // Validation Failed
+                        let errorData = try NSJSONSerialization.JSONObjectWithData(data!, options: [])
+                        let validtionError: SigningValidationError = try SigningValidationError.decode(errorData)
+                        logInfo(validtionError.message)
+                        return Observable.error(SigningError.ValidationFailed(validtionError.errors))
+                    default:
+                        return Observable.error(SigningError.Unknown)
+                    }
+                default:
+                    return Observable.error(SigningError.Unknown)
                 }
         }
     }

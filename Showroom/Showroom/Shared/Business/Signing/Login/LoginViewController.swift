@@ -52,8 +52,8 @@ class LoginViewController: UIViewController, LoginViewDelegate {
         
         castView.switcherState = .ModalLoading
         
-        userManager.login(wiethEmail: email, password: password)
-            .subscribe { [weak self](event: Event<LoginResult>) in
+        userManager.login(withEmail: email, password: password)
+            .subscribe { [weak self](event: Event<SigningResult>) in
                 guard let strongSelf = self else { return }
                 
                 strongSelf.castView.switcherState = .Success
@@ -61,10 +61,11 @@ class LoginViewController: UIViewController, LoginViewDelegate {
                 case .Next(let result):
                     logInfo("Logged in as \(result.user.name) (\(result.user.email))")
                     strongSelf.sendNavigationEvent(SimpleNavigationEvent(type: .Close))
+                    strongSelf.toastManager.showMessage(tr(L10n.LoginHello(result.user.name)))
                 case .Error(let error):
                     logError("Error during login: \(error)")
                     switch error {
-                    case LoginError.ValidationFailed(let fieldsErrors):
+                    case SigningError.ValidationFailed(let fieldsErrors):
                         if let usernameError = fieldsErrors.username {
                             strongSelf.castView.emailField.validation = usernameError
                         }
@@ -72,10 +73,10 @@ class LoginViewController: UIViewController, LoginViewDelegate {
                             strongSelf.castView.passwordField.validation = passwordError
                         }
                         break
-                    case LoginError.InvalidCredentials:
+                    case SigningError.InvalidCredentials:
                         strongSelf.toastManager.showMessage(tr(L10n.LoginErrorInvalidCredentials))
                         break
-                    case LoginError.Unknown:
+                    case SigningError.Unknown:
                         fallthrough
                     default:
                         strongSelf.toastManager.showMessage(tr(L10n.LoginErrorUnknown))

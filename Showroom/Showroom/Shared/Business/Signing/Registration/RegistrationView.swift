@@ -30,30 +30,48 @@ class RepeatPasswordValidator: Validator {
     }
 }
 
-class RegistrationView: UIView {
+class RegistrationView: ViewSwitcher {
     private let scrollView = UIScrollView()
     private let contentView = UIStackView()
     
     private let facebookButton = UIButton()
     private let orLabel = UILabel()
-    private let nameField = FormInputView()
-    private let emailField = FormInputView()
-    private let passwordField = FormInputView()
+    
     private let repeatPasswordField = FormInputView()
     private let genderSelector = GenderSelectorView()
     private let checksView = UIView()
-    private let newsletterCheck = CheckButton(title: tr(L10n.RegistrationNewsletterCheck))
     private let rulesCheck = CheckButton()
     private let createButton = UIButton()
     private let haveAccountButton = UIButton()
     
+    let nameField = FormInputView()
+    let emailField = FormInputView()
+    let passwordField = FormInputView()
+    let newsletterCheck = CheckButton(title: tr(L10n.RegistrationNewsletterCheck))
+    
     let keyboardHelper = KeyboardHelper()
     var contentValidators: [ContentValidator] = []
+    
+    var name: String? {
+        return nameField.inputTextField.text
+    }
+    
+    var email: String? {
+        return emailField.inputTextField.text
+    }
+    
+    var password: String? {
+        return passwordField.inputTextField.text
+    }
+    
+    var receiveNewsletter: Bool {
+        return newsletterCheck.selected
+    }
     
     weak var delegate: RegistrationViewDelegate?
     
     init() {
-        super.init(frame: CGRectZero)
+        super.init(successView: scrollView, initialState: .Success)
         
         keyboardHelper.delegate = self
         
@@ -78,6 +96,7 @@ class RegistrationView: UIView {
         emailField.inputTextField.tag = 1
         emailField.inputTextField.returnKeyType = .Next
         emailField.inputTextField.keyboardType = .EmailAddress
+        emailField.inputTextField.autocapitalizationType = .None
         emailField.inputTextField.delegate = self
         emailField.addValidator(NotEmptyValidator(messageForEmpty: tr(.ValidatorEmail)))
         
