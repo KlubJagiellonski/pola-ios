@@ -9,6 +9,8 @@ enum L10n {
   case CommonDeliveryInfoMulti(String)
   /// Coś poszło nie tak. Nie udało się załadować danych.
   case CommonError
+  /// Nie udało się załadować danych.
+  case CommonErrorShort
   /// UUUPS!
   case CommonEmptyResultTitle
   /// E-mail
@@ -320,6 +322,8 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Common.DeliveryInfo.Multi", p0)
       case .CommonError:
         return L10n.tr("Common.Error")
+      case .CommonErrorShort:
+        return L10n.tr("Common.ErrorShort")
       case .CommonEmptyResultTitle:
         return L10n.tr("Common.EmptyResultTitle")
       case .CommonEmail:

@@ -244,7 +244,7 @@ class ProductListComponent: NSObject, UICollectionViewDataSource, UICollectionVi
         case .Products:
             return itemSize
         case .NextPage:
-            return CGSizeMake(collectionView.bounds.width, 60 + Dimensions.defaultMargin)
+            return CGSizeMake(collectionView.bounds.width, 145)
         case .HeaderSection:
             guard let headerSectionInfo = headerSectionInfo else { fatalError("Something is wrong. It is not possible to have HeaderSection when headerSectionInfo is nil") }
             return CGSizeMake(collectionView.bounds.width, headerSectionInfo.calculateHeight())

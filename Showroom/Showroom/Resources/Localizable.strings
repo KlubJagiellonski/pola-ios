@@ -1,6 +1,7 @@
 "Common.DeliveryInfo.Single" = "Wysyłka w %@ dzień";
 "Common.DeliveryInfo.Multi" = "Wysyłka w %@ dni";
 "Common.Error" = "Coś poszło nie tak. Nie udało się załadować danych.";
+"Common.ErrorShort" = "Nie udało się załadować danych.";
 "Common.EmptyResultTitle" = "UUUPS!";
 "Common.Email" = "E-mail";
 "Common.Password" = "Hasło";
