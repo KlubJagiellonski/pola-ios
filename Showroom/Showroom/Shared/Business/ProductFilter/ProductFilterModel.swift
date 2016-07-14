@@ -47,6 +47,7 @@ final class ProductFilterModel {
     func createFilterInfo(forOption filterOption: FilterOption) -> FilterInfo {
         var filterItems: [FilterItem] = []
         var selectedFilterItemsIds: [Int] = []
+        var defaultItemId: Int?
         var mode: FilterDetailsMode!
         var title: String!
         
@@ -59,6 +60,7 @@ final class ProductFilterModel {
             selectedFilterItemsIds.append(filter.selectedSortOptionId)
             mode = .SingleChoice
             title = tr(.ProductListFilterRowSort)
+            defaultItemId = filter.defaultSortOptionId
         case .Color:
             filterItems = filter.colors.map { option in
                 let imageInfo = FilterImageInfo(type: option.type, value: option.value)
@@ -93,7 +95,7 @@ final class ProductFilterModel {
             title = tr(.ProductListFilterRowBrand)
         }
         
-        return FilterInfo(filterItems: filterItems, selectedFilterItemIds: selectedFilterItemsIds, mode: mode, title: title)
+        return FilterInfo(filterItems: filterItems, selectedFilterItemIds: selectedFilterItemsIds, defaultFilterId: defaultItemId, mode: mode, title: title)
     }
     
     private func refreshFilter() {
@@ -112,6 +114,7 @@ final class ProductFilterModelState {
 struct FilterInfo {
     let filterItems: [FilterItem]
     let selectedFilterItemIds: [Int]
+    let defaultFilterId: Int?
     let mode: FilterDetailsMode
     let title: String
 }

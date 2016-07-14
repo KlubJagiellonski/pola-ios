@@ -3,6 +3,7 @@ import Foundation
 struct Filter {
     let sortOptions: [FilterSortOption]
     var selectedSortOptionId: ObjectId
+    let defaultSortOptionId: ObjectId
     let categories: [FilterCategory]
     var selectedCategoryId: ObjectId?
     let sizes: [FilterSize]

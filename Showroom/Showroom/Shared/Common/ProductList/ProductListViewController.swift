@@ -129,7 +129,7 @@ extension ProductListViewControllerInterface {
             ]
         let selectedBrands = [1, 2, 3, 4, 5, 6]
         
-        let mockedFilter = Filter(sortOptions: sortOptions, selectedSortOptionId: selectedSortOption, categories: filterCategories, selectedCategoryId:selectedFilterCategory, sizes: sizes, selectedSizeIds: [], colors: colors, selectedColorIds: selectedColors, priceRange: PriceRange(min: Money(amt: 0.0), max: Money(amt:1000.0)), selectedPriceRange: nil, onlyDiscountsSelected: true, brands: brands, selectedBrandIds: selectedBrands)
+        let mockedFilter = Filter(sortOptions: sortOptions, selectedSortOptionId: selectedSortOption, defaultSortOptionId:3, categories: filterCategories, selectedCategoryId:selectedFilterCategory, sizes: sizes, selectedSizeIds: [], colors: colors, selectedColorIds: selectedColors, priceRange: PriceRange(min: Money(amt: 0.0), max: Money(amt:1000.0)), selectedPriceRange: nil, onlyDiscountsSelected: true, brands: brands, selectedBrandIds: selectedBrands)
         return mockedFilter
     }
 }

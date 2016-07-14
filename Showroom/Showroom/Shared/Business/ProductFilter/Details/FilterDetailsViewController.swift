@@ -42,7 +42,11 @@ class FilterDetailsViewController: UIViewController, FilterDetailsViewDelegate {
     }
     
     func didTapClear() {
-        currentSelectedIds = filterInfo.selectedFilterItemIds
+        if let defaultId = filterInfo.defaultFilterId {
+            currentSelectedIds = [defaultId]
+        } else {
+            currentSelectedIds = []
+        }
     }
     
     //MARK:- FilterDetailsViewDelegate
