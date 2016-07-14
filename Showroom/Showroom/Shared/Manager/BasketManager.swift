@@ -103,7 +103,7 @@ final class BasketManager {
     func createBasketProductListContext(initialIndexPath: NSIndexPath, onChangedForIndexPath: NSIndexPath -> ()) -> ProductDetailsContext? {
         guard let basket = state.basket else { return nil }
         
-        let initialProduct = basket.productsByBrands[initialIndexPath.section].products[initialIndexPath.row]
+        guard let initialProduct = basket.productsByBrands[safe: initialIndexPath.section]?.products[safe: initialIndexPath.row] else { return nil }
         
         var productTuples: [(product: BasketProduct, brand: BasketBrand)] = [] // basketBrand is needed for parsing to Product
         for basketBrand in basket.productsByBrands {
