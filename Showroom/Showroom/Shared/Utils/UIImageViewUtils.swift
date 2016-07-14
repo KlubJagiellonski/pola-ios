@@ -5,12 +5,15 @@ import Haneke
 extension UIImageView {
     
     func loadImageFromUrl(url: String, width: CGFloat? = nil, height: CGFloat? = nil, failure fail: ((NSError?) -> ())? = nil, success succeed: ((UIImage) -> ())? = nil) {
-        let url = NSURL.createImageUrl(url, width: width, height: height)
+        let scale = UIScreen.mainScreen().scale
+        let url = NSURL.createImageUrl(url, width: width, height: height, scale: scale)
         hnk_setImageFromURL(url, format: UIImageView.defaultImageFormat, failure: fail, success: succeed)
     }
     
     func loadImageWithLowResImage(url: String, lowResUrl: String?, width: CGFloat? = nil, height: CGFloat? = nil, failure fail: ((NSError?) -> ())? = nil, success succeed: ((UIImage) -> ())? = nil) {
-        let url = NSURL.createImageUrl(url, width: width, height: height)
+        let scale = UIScreen.mainScreen().scale
+        
+        let url = NSURL.createImageUrl(url, width: width, height: height, scale: scale)
         let fetcher = ImageWithLowResFetcher(url: url, lowResUrl: lowResUrl == nil ? nil : NSURL(string: lowResUrl!))
         
         let cache = Shared.imageCache
@@ -56,7 +59,7 @@ extension UIImageView {
     }
 }
 
-class ImageWithLowResFetcher: Fetcher<UIImage> {
+final class ImageWithLowResFetcher: Fetcher<UIImage> {
     let lowResUrl: NSURL?
     let url: NSURL
     var cancelled = false

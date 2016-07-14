@@ -17,7 +17,7 @@ final class BrandProductListModel: ProductListModel {
         self.productBrand = productBrand
         super.init(with: apiService)
         
-        self.brand = Brand(id: productBrand.id, name: productBrand.name, imageUrl: "https://static.shwrm.net/images/s/j/sj573dad96220a8.png?1463659926", description: headerDescription, lowResImageUrl: nil)
+        self.brand = Brand(id: productBrand.id, name: productBrand.name, imageUrl: "https://assets.shwrm.net/images/s/j/sj573dad96220a8.png?1463659926", description: headerDescription, lowResImageUrl: nil)
     }
 }
 

@@ -13,7 +13,7 @@ class BrandDescriptionView: UIView, ExtendedView {
     private let descriptionTextView = UITextView()
     
     private var backgroundImageViewTopConstraint: Constraint?
-    
+    private var imageUrlToLoadOnLayoutPass: (imageUrl: String, lowResImageUrl: String?)?
     var extendedContentInset: UIEdgeInsets? {
         didSet {
             let inset = extendedContentInset ?? UIEdgeInsetsZero
@@ -28,9 +28,10 @@ class BrandDescriptionView: UIView, ExtendedView {
         
         backgroundColor = UIColor(named: .White)
         
-        backgroundImageView.layer.masksToBounds = true
         backgroundImageView.contentMode = .ScaleAspectFill
+        backgroundImageView.layer.masksToBounds = true
         
+        imageGradient.opacity = 0
         imageGradient.colors = [UIColor(named: .White).colorWithAlphaComponent(0).CGColor, UIColor(named: .White).CGColor]
         
         scrollView.showsVerticalScrollIndicator = false
@@ -63,16 +64,43 @@ class BrandDescriptionView: UIView, ExtendedView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let gradientHeight = backgroundImageView.bounds.width
-        imageGradient.frame = CGRectMake(0, backgroundImageView.frame.maxY - gradientHeight, backgroundImageView.bounds.width, gradientHeight)
+        layoutGradient()
+        
+        if let loadImageUrls = imageUrlToLoadOnLayoutPass where bounds.width > 0 && bounds.height > 0 {
+            loadImage(loadImageUrls.imageUrl, lowResImageUrl: loadImageUrls.lowResImageUrl)
+            imageUrlToLoadOnLayoutPass = nil
+        }
     }
     
     private func updateData(with brand: Brand) {
-        backgroundImageView.loadImageWithLowResImage(brand.imageUrl, lowResUrl: brand.lowResImageUrl)
+        if bounds.width > 0 && bounds.height > 0 {
+            loadImage(brand.imageUrl, lowResImageUrl: brand.lowResImageUrl)
+        } else {
+            imageUrlToLoadOnLayoutPass = (brand.imageUrl, brand.lowResImageUrl)
+        }
         
         titleLabel.text = brand.name
         let description = brand.description.markdownToAttributedString()
         descriptionTextView.attributedText = description
+    }
+    
+    private func loadImage(mainUrl: String, lowResImageUrl: String?) {
+        backgroundImageView.loadImageWithLowResImage(mainUrl, lowResUrl: lowResImageUrl, width: bounds.width) { [weak self] image in
+            guard let `self` = self else { return }
+            UIView.animateWithDuration(0.1, delay: 0, options: .TransitionCrossDissolve, animations: {
+                self.backgroundImageView.image = image
+            }) { _ in
+                guard self.imageGradient.opacity != 1.0 else { return }
+                self.layoutGradient()
+                self.imageGradient.opacity = 1.0
+            }
+        }
+    }
+    
+    private func layoutGradient() {
+        let gradientHeight = bounds.width
+        let gradientY = self.backgroundImageView.frame.height == 0 ? self.frame.height - gradientHeight : backgroundImageView.frame.maxY - gradientHeight
+        imageGradient.frame = CGRectMake(0, gradientY, backgroundImageView.bounds.width, gradientHeight)
     }
     
     private func configureCustomConstraints() {
@@ -80,7 +108,6 @@ class BrandDescriptionView: UIView, ExtendedView {
             backgroundImageViewTopConstraint = make.top.equalToSuperview().constraint
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
-            make.height.equalTo(backgroundImageView.snp_width).dividedBy(Dimensions.defaultBrandImageRatio)
         }
         
         scrollView.snp_makeConstraints { make in

@@ -11,15 +11,14 @@ final class BrandHeaderCell: UIControl {
     private let arrowImageView = UIImageView(image: UIImage(asset: .Ic_chevron_right))
     private let bottomSeparator = UIView()
     
+    private var imageUrlToLoadOnLayoutPass: String?
     var imageWidth: CGFloat? {
         return imageView.image?.size.width
     }
-    private var imageUrlToLoadOnLayoutPass: String?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        alpha = 1
         backgroundColor = UIColor.clearColor()
         
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(BrandHeaderCell.didTapView)))
@@ -30,7 +29,7 @@ final class BrandHeaderCell: UIControl {
         
         blurredImageView.contentMode = .ScaleAspectFill
         blurredImageView.layer.masksToBounds = true
-        
+
         descriptionTextView.applyMarkdownStyle(maxNumberOfLines: 3)
         
         bottomSeparator.backgroundColor = UIColor(named: .Separator)
@@ -51,14 +50,14 @@ final class BrandHeaderCell: UIControl {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        if imageUrlToLoadOnLayoutPass != nil && bounds.size.width > 0 && bounds.size.height > 0 {
-            loadImage(forUrl: imageUrlToLoadOnLayoutPass!)
+        if let imageUrl = imageUrlToLoadOnLayoutPass where bounds.width > 0 && bounds.height > 0 {
+            loadImage(forUrl: imageUrl)
             imageUrlToLoadOnLayoutPass = nil
         }
     }
     
     func updateData(withImageUrl imageUrl: String, description: NSAttributedString) {
-        if bounds.size.width > 0 && bounds.size.height > 0 {
+        if bounds.width > 0 && bounds.height > 0 {
             loadImage(forUrl: imageUrl)
         } else {
             imageUrlToLoadOnLayoutPass = imageUrl
@@ -72,11 +71,11 @@ final class BrandHeaderCell: UIControl {
     }
     
     private func loadImage(forUrl url: String) {
-        imageView.loadImageFromUrl(url, width: imageView.bounds.width) { [weak self] (image: UIImage) in
+        imageView.loadImageFromUrl(url, width: imageView.bounds.width) { [weak self](image: UIImage) in
             guard let `self` = self else { return }
             
             UIView.transitionWithView(self.blurredImageView, duration: 0.2, options: .TransitionCrossDissolve, animations: {
-                self.blurredImageView.image = image.resizeAndCrop(toSize: self.bounds.size)
+                self.blurredImageView.image = image
                 }, completion: { success in
             })
             
@@ -91,7 +90,7 @@ final class BrandHeaderCell: UIControl {
             make.top.equalToSuperview()
             make.leading.equalToSuperview()
             make.bottom.equalToSuperview()
-            make.width.equalTo(imageView.snp_height).multipliedBy(Dimensions.defaultBrandImageRatio)
+            make.width.equalTo(imageView.snp_height).multipliedBy(0.7433)
         }
         
         blurredImageView.snp_makeConstraints { make in
