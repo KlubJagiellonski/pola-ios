@@ -1,12 +1,16 @@
 import UIKit
 
-class OnboardingView: UIView, UICollectionViewDelegateFlowLayout {
-    
+protocol OnboardingViewDelegate: class {
+    func onboardingDidTapAskForNotification(view: OnboardingView)
+    func onboardingDidTapSkip(view: OnboardingView)
+}
+
+final class OnboardingView: UIView, UICollectionViewDelegateFlowLayout {
     private let collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: UICollectionViewFlowLayout())
+    private let pageControl = HorizontalPageControl()
     
     private let dataSource: OnboardingDataSource
-    
-    private let pageControl = HorizontalPageControl()
+    weak var delegate: OnboardingViewDelegate?
     
     var currentPageIndex: Int {
         let pageWidth = collectionView.frame.width
@@ -16,6 +20,8 @@ class OnboardingView: UIView, UICollectionViewDelegateFlowLayout {
     init() {
         dataSource = OnboardingDataSource(collectionView: collectionView)
         super.init(frame: CGRectZero)
+        
+        dataSource.onboardingView = self
         
         collectionView.backgroundColor = UIColor(named: .White)
         collectionView.dataSource = dataSource
@@ -41,7 +47,15 @@ class OnboardingView: UIView, UICollectionViewDelegateFlowLayout {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureCustomConstraits() {
+    func didTapAskForNotification() {
+        delegate?.onboardingDidTapAskForNotification(self)
+    }
+    
+    func didTapSkip() {
+        delegate?.onboardingDidTapSkip(self)
+    }
+    
+    private func configureCustomConstraits() {
         collectionView.snp_makeConstraints { make in
             make.edges.equalToSuperview()
         }

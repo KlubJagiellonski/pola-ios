@@ -1,6 +1,6 @@
 import UIKit
 
-class OnboardingViewController: UIViewController {
+class OnboardingViewController: UIViewController, OnboardingViewDelegate {
     private let userManager: UserManager
     private let resolver: DiResolver
     
@@ -21,7 +21,20 @@ class OnboardingViewController: UIViewController {
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        castView.delegate = self
         // TODO: remove after testing
         userManager.shouldSkipStartScreen = true
+    }
+    
+    // MARK:- OnboardingViewDelegate
+    
+    func onboardingDidTapSkip(view: OnboardingView) {
+        sendNavigationEvent(SimpleNavigationEvent(type: .OnboardingEnd))
+    }
+    
+    func onboardingDidTapAskForNotification(view: OnboardingView) {
+        //todo ask for notification
     }
 }

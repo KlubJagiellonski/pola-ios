@@ -309,6 +309,12 @@ enum L10n {
   case StartRegister
   /// Przeglądaj tysiące produktów bezpośrednio od polskich projektantów
   case OnboardingInfiniteScrollingLabel
+  /// Za chwilę zostaniesz poproszony o zgodę na notyfikacje, które pozwolą na informowanie Ciebie o promocjach.
+  case OnboardingNotificationsLabel
+  /// SPYTAJ MNIE
+  case OnboardingNotificationsAskMe
+  /// POMIŃ
+  case OnboardingNotificationsSkip
 }
 
 extension L10n: CustomStringConvertible {
@@ -622,6 +628,12 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Start.Register")
       case .OnboardingInfiniteScrollingLabel:
         return L10n.tr("Onboarding.InfiniteScrolling.Label")
+      case .OnboardingNotificationsLabel:
+        return L10n.tr("Onboarding.Notifications.Label")
+      case .OnboardingNotificationsAskMe:
+        return L10n.tr("Onboarding.Notifications.AskMe")
+      case .OnboardingNotificationsSkip:
+        return L10n.tr("Onboarding.Notifications.Skip")
     }
   }
 

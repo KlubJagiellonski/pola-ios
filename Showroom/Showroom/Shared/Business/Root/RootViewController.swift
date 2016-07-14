@@ -43,6 +43,9 @@ class RootViewController: PresenterViewController, NavigationHandler {
         case .SplashEnd:
             hideModal(animation: nil, completion: nil)
             return true
+        case .OnboardingEnd:
+            self.contentViewController = resolver.resolve(StartViewController)
+            return true
             // TODO: Remove when tested
         case .ShowStart:
             self.contentViewController = resolver.resolve(StartViewController)

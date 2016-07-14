@@ -2,7 +2,6 @@ import UIKit
 import SnapKit
 
 class OnboardingInfiniteScrollingCell: UICollectionViewCell {
-    private let labelHorizontalInset: CGFloat = 22.0
     private let scrollAnimationInterval = 6.0
     
     private let logoToPhoneImageOffset: CGFloat
@@ -108,9 +107,9 @@ class OnboardingInfiniteScrollingCell: UICollectionViewCell {
         }
         
         label.snp_makeConstraints { make in
-            make.top.equalToSuperview().offset(62.0)
-            make.leading.equalToSuperview().offset(labelHorizontalInset)
-            make.trailing.equalToSuperview().offset(-labelHorizontalInset)
+            make.top.equalToSuperview().offset(Dimensions.onboardingTopOffset)
+            make.leading.equalToSuperview().offset(Dimensions.onboardingTextHorizontalOffset)
+            make.trailing.equalToSuperview().offset(-Dimensions.onboardingTextHorizontalOffset)
             make.bottom.lessThanOrEqualTo(phoneImageView.snp_top)
         }
         

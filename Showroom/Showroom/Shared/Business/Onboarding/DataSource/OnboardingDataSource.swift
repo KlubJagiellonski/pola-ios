@@ -4,9 +4,9 @@ enum OnboardingPage: Int {
     case Infinite = 0, DoubleTap, ProductPaging, Notification
 }
 
-class OnboardingDataSource: NSObject, UICollectionViewDataSource {
-    
+final class OnboardingDataSource: NSObject, UICollectionViewDataSource {
     private weak var collectionView: UICollectionView?
+    weak var onboardingView: OnboardingView?
     
     let pagesCount = 4
     
@@ -41,7 +41,18 @@ class OnboardingDataSource: NSObject, UICollectionViewDataSource {
             
         case .Notification:
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier(String(OnboardingNotificationsCell), forIndexPath: indexPath) as! OnboardingNotificationsCell
+            cell.delegate = self
             return cell
         }
+    }
+}
+
+extension OnboardingDataSource: OnboardingNotificationsCellDelegate {
+    func onboardingNotificationDidTapAskMe(cell: OnboardingNotificationsCell) {
+        onboardingView?.didTapAskForNotification()
+    }
+    
+    func onboardingNotificationDidTapSkip(cell: OnboardingNotificationsCell) {
+        onboardingView?.didTapSkip()
     }
 }

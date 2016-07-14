@@ -151,3 +151,6 @@
 "Start.Login" = "ZALOGUJ SIĘ";
 "Start.Register" = "ZAREJESTRUJ SIĘ";
 "Onboarding.InfiniteScrolling.Label" = "Przeglądaj tysiące produktów bezpośrednio od polskich projektantów";
+"Onboarding.Notifications.Label" = "Za chwilę zostaniesz poproszony o zgodę na notyfikacje, które pozwolą na informowanie Ciebie o promocjach.";
+"Onboarding.Notifications.AskMe" = "SPYTAJ MNIE";
+"Onboarding.Notifications.Skip" = "POMIŃ";
