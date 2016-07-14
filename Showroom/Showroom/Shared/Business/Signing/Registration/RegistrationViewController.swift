@@ -68,7 +68,7 @@ class RegistrationViewController: UIViewController, RegistrationViewDelegate {
                 case .Next(let result):
                     logInfo("Registered as \(result.user.name) (\(result.user.email))")
                     strongSelf.sendNavigationEvent(SimpleNavigationEvent(type: .Close))
-                    strongSelf.toastManager.showMessage(tr(L10n.LoginHello(result.user.name)))
+                    strongSelf.toastManager.showMessage(tr(L10n.CommonGreeting(result.user.name)))
                 case .Error(let error):
                     logError("Error during registration: \(error)")
                     switch error {

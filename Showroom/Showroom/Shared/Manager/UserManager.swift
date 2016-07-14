@@ -110,6 +110,11 @@ class UserManager {
                 }
         }
     }
+    
+    func logout() {
+        self.user = nil
+        // TODO: Remove login token from storage
+    }
 }
 
 enum Gender: String {

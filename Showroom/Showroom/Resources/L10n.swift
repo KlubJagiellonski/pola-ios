@@ -15,6 +15,8 @@ enum L10n {
   case CommonEmail
   /// Hasło
   case CommonPassword
+  /// Cześć, %@!
+  case CommonGreeting(String)
   /// Główna
   case MainTabDashboard
   /// Przeglądanie
@@ -227,8 +229,6 @@ enum L10n {
   case LoginErrorInvalidCredentials
   /// Wystąpił błąd podczas logowania. Spróbuj jeszcze raz.
   case LoginErrorUnknown
-  /// Cześć, %@!
-  case LoginHello(String)
   /// Rejestracja
   case RegistrationNavigationHeader
   /// REJESTRACJA Z FACEBOOKIEM
@@ -275,8 +275,6 @@ enum L10n {
   case SettingsLogout
   /// Załóż konto
   case SettingsCreateAccount
-  /// Cześć
-  case SettingsGreeting
   /// Domyślna oferta
   case SettingsDefaultOffer
   /// ON
@@ -328,6 +326,8 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Common.Email")
       case .CommonPassword:
         return L10n.tr("Common.Password")
+      case .CommonGreeting(let p0):
+        return L10n.tr("Common.Greeting", p0)
       case .MainTabDashboard:
         return L10n.tr("MainTab.Dashboard")
       case .MainTabSearch:
@@ -540,8 +540,6 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Login.Error.InvalidCredentials")
       case .LoginErrorUnknown:
         return L10n.tr("Login.Error.Unknown")
-      case .LoginHello(let p0):
-        return L10n.tr("Login.Hello", p0)
       case .RegistrationNavigationHeader:
         return L10n.tr("Registration.NavigationHeader")
       case .RegistrationRegisterWithFacebook:
@@ -588,8 +586,6 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Settings.Logout")
       case .SettingsCreateAccount:
         return L10n.tr("Settings.CreateAccount")
-      case .SettingsGreeting:
-        return L10n.tr("Settings.Greeting")
       case .SettingsDefaultOffer:
         return L10n.tr("Settings.DefaultOffer")
       case .SettingsMale:

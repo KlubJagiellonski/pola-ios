@@ -4,6 +4,7 @@
 "Common.EmptyResultTitle" = "UUUPS!";
 "Common.Email" = "E-mail";
 "Common.Password" = "Hasło";
+"Common.Greeting" = "Cześć, %@!";
 "MainTab.Dashboard" = "Główna";
 "MainTab.Search" = "Przeglądanie";
 "MainTab.Basket" = "Koszyk";
@@ -110,7 +111,6 @@
 "Login.NewAccount" = "Załóż nowe konto";
 "Login.Error.InvalidCredentials" = "Błędne dane logowania. Spróbuj jeszcze raz.";
 "Login.Error.Unknown" = "Wystąpił błąd podczas logowania. Spróbuj jeszcze raz.";
-"Login.Hello" = "Cześć, %@!";
 "Registration.NavigationHeader" = "Rejestracja";
 "Registration.RegisterWithFacebook" = "REJESTRACJA Z FACEBOOKIEM";
 "Registration.Or" = "lub";
@@ -134,7 +134,6 @@
 "Settings.Login" = "Zaloguj się";
 "Settings.Logout" = "Wyloguj";
 "Settings.CreateAccount" = "Załóż konto";
-"Settings.Greeting" = "Cześć";
 "Settings.DefaultOffer" = "Domyślna oferta";
 "Settings.Male" = "ON";
 "Settings.Female" = "ONA";
