@@ -14,6 +14,7 @@ class DashboardNavigationController: UINavigationController, NavigationHandler {
         navigationBar.applyTranslucentStyle()
         setNavigationBarHidden(true, animated: false)
         let viewController = resolver.resolve(DashboardViewController.self)
+        viewController.resetBackTitle()
         viewControllers = [viewController]
     }
     

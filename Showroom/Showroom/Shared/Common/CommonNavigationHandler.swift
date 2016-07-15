@@ -4,10 +4,13 @@ import UIKit
 class CommonNavigationHandler: NavigationHandler {
     private weak var navigationController: UINavigationController?
     private let resolver: DiResolver
+    private let navigationDelegateHandler = CommonNavigationControllerDelegateHandler()
     
     init(with navigationController: UINavigationController, and resolver: DiResolver) {
         self.navigationController = navigationController
         self.resolver = resolver
+        
+        navigationController.delegate = navigationDelegateHandler
     }
     
     func handleNavigationEvent(event: NavigationEvent) -> EventHandled {
@@ -24,9 +27,6 @@ class CommonNavigationHandler: NavigationHandler {
     }
 
     private func showView(forLink link: String) {
-        // todo deeplink handling
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        
         logInfo("Opening link in dashboard \(link)")
         
         //todo remove when we will have deep linking
@@ -59,7 +59,7 @@ class CommonNavigationHandler: NavigationHandler {
             let navigationBarHeight = navigationController?.navigationBar.bounds.height ?? 0
             extendedViewController.extendedContentInset = UIEdgeInsetsMake(topLayoutGuide + navigationBarHeight, 0, bottomLayoutGuide, 0)
         }
-        viewController.applyBlackBackButton(target: self, action: #selector(CommonNavigationHandler.didTapBackButton))
+        viewController.resetBackTitle()
     }
     
     @objc func didTapBackButton() {
@@ -69,5 +69,15 @@ class CommonNavigationHandler: NavigationHandler {
             navigationController.setNavigationBarHidden(true, animated: true)
         }
         navigationController.popViewControllerAnimated(true)
+    }
+}
+
+class CommonNavigationControllerDelegateHandler: NSObject, UINavigationControllerDelegate {
+    func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
+        if viewController == navigationController.viewControllers.first && !navigationController.navigationBarHidden {
+            navigationController.setNavigationBarHidden(true, animated: true)
+        } else if viewController != navigationController.viewControllers.first && navigationController.navigationBarHidden {
+            navigationController.setNavigationBarHidden(false, animated: true)
+        }
     }
 }

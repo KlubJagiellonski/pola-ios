@@ -20,12 +20,14 @@ class SigningNavigationController: UINavigationController, NavigationHandler {
             let loginViewController = resolver.resolve(LoginViewController.self)
             loginViewController.navigationItem.title = tr(.LoginNavigationHeader)
             loginViewController.applyBlackCloseButton(target: self, action: #selector(SigningNavigationController.didTapCloseButton))
+            loginViewController.resetBackTitle()
             viewControllers = [loginViewController]
             return
         case .Register:
             let registrationViewController = resolver.resolve(RegistrationViewController.self)
             registrationViewController.navigationItem.title = tr(L10n.RegistrationNavigationHeader)
             registrationViewController.applyBlackCloseButton(target: self, action: #selector(SigningNavigationController.didTapCloseButton))
+            registrationViewController.resetBackTitle()
             viewControllers = [registrationViewController]
             return
         }
@@ -37,10 +39,6 @@ class SigningNavigationController: UINavigationController, NavigationHandler {
     
     func didTapCloseButton(sender: UIBarButtonItem) {
         dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    func didTapBackButton(sender: UIBarButtonItem) {
-        popViewControllerAnimated(true)
     }
     
     func handleNavigationEvent(event: NavigationEvent) -> EventHandled {
@@ -64,7 +62,7 @@ class SigningNavigationController: UINavigationController, NavigationHandler {
             
             let loginViewController = resolver.resolve(LoginViewController.self)
             loginViewController.navigationItem.title = tr(.LoginNavigationHeader)
-            loginViewController.applyBlackBackButton(target: self, action: #selector(SigningNavigationController.didTapBackButton))
+            loginViewController.resetBackTitle()
             pushViewController(loginViewController, animated: true)
             return true
         case .ShowRegistration:
@@ -78,7 +76,7 @@ class SigningNavigationController: UINavigationController, NavigationHandler {
             
             let registrationViewController = resolver.resolve(RegistrationViewController.self)
             registrationViewController.navigationItem.title = tr(.RegistrationNavigationHeader)
-            registrationViewController.applyBlackBackButton(target: self, action: #selector(SigningNavigationController.didTapBackButton))
+            registrationViewController.resetBackTitle()
             pushViewController(registrationViewController, animated: true)
             return true
         default: return false

@@ -8,8 +8,6 @@ class SettingsNavigationController: UINavigationController {
         super.init(nibName: nil, bundle: nil)
         
         let settingsViewController = resolver.resolve(SettingsViewController.self)
-        settingsViewController.applyBlackBackButton(target: self, action: #selector(SettingsNavigationController.didTapBackButton))
-        
         viewControllers = [settingsViewController]
     }
     

@@ -31,6 +31,7 @@ enum Asset: String {
   case Ic_home_selected = "ic_home_selected"
   case Ic_info = "ic_info"
   case Ic_instagram = "ic_instagram"
+  case Ic_navigation_back = "ic_navigation_back"
   case Ic_settings = "ic_settings"
   case Ic_settings_selected = "ic_settings_selected"
   case Ic_share = "ic_share"

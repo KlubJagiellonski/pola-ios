@@ -15,19 +15,15 @@ class BasketDeliveryNavigationController: UINavigationController, NavigationHand
         
         super.init(nibName: nil, bundle: nil)
         
-//        navigationBarHidden = true
         navigationBar.applyWhitePopupStyle()
         
         let viewController = resolver.resolve(BasketDeliveryViewController.self)
+        viewController.resetBackTitle()
         viewControllers = [viewController]
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    func didTapBackButton() {
-        popViewControllerAnimated(true)
     }
     
     func handleNavigationEvent(event: NavigationEvent) -> EventHandled {
@@ -42,7 +38,7 @@ class BasketDeliveryNavigationController: UINavigationController, NavigationHand
             return true
         case .ShowCountrySelectionList:
             let viewController = resolver.resolve(BasketCountryViewController.self)
-            viewController.applyBlackBackButton(target: self, action: #selector(BasketDeliveryNavigationController.didTapBackButton))
+            viewController.resetBackTitle()
             pushViewController(viewController, animated: true)
             return true
         default: return false

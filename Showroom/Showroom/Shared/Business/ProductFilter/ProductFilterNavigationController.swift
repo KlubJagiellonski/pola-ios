@@ -19,6 +19,7 @@ class ProductFilterNavigationController: UINavigationController, NavigationHandl
      
         let viewController = resolver.resolve(ProductFilterViewController.self, argument: model)
         viewController.navigationItem.leftBarButtonItem = createBlueTextBarButtonItem(title: tr(.ProductListFilterCancel), target: self, action: #selector(ProductFilterNavigationController.didTapCancel))
+        viewController.resetBackTitle()
         viewControllers = [viewController]
     }
     
@@ -30,16 +31,12 @@ class ProductFilterNavigationController: UINavigationController, NavigationHandl
         filterDelegate?.productFilterDidCancel(self)
     }
     
-    func didTapBack() {
-        popViewControllerAnimated(true)
-    }
-    
     // MARK:- NavigationHandler
     
     func handleNavigationEvent(event: NavigationEvent) -> EventHandled {
         if let showFilterOptionEvent = event as? ShowFilterOptionEvent {
             let viewController = resolver.resolve(FilterDetailsViewController.self, arguments:(model, showFilterOptionEvent.filterOption))
-            viewController.applyBlackBackButton(target: self, action: #selector(ProductFilterNavigationController.didTapBack))
+            viewController.resetBackTitle()
             pushViewController(viewController, animated: true)
             return true
         } else if let simpleEvent = event as? SimpleNavigationEvent {
