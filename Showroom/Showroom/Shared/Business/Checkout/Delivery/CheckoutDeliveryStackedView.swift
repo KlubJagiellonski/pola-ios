@@ -280,7 +280,8 @@ class CheckoutDeliveryDetailsView: UIView {
     weak var deliveryView: CheckoutDeliveryView?
     
     let label = UILabel()
-    let button = UIButton()
+    let chooseKioskButton = UIButton()
+    let changeKioskButton = UIButton()
     
     private let disposeBag = DisposeBag()
     private let initialText: String
@@ -296,10 +297,17 @@ class CheckoutDeliveryDetailsView: UIView {
         label.numberOfLines = 3
         label.lineBreakMode = .ByWordWrapping
         
-        button.applyPlainStyle()
+        chooseKioskButton.applyPlainStyle()
+        chooseKioskButton.title = tr(.CheckoutDeliveryDeliveryRUCHPickKiosk)
+        chooseKioskButton.addTarget(self, action: #selector(CheckoutDeliveryDetailsView.didTapChooseButton(_:)), forControlEvents: .TouchUpInside)
+        
+        changeKioskButton.applyPlainStyle()
+        changeKioskButton.title = tr(.CheckoutDeliveryDeliveryRUCHChangeKiosk)
+        changeKioskButton.addTarget(self, action: #selector(CheckoutDeliveryDetailsView.didTapChangeButton(_:)), forControlEvents: .TouchUpInside)
         
         addSubview(label)
-        addSubview(button)
+        addSubview(chooseKioskButton)
+        addSubview(changeKioskButton)
         
         configureCustomConstraints()
     }
@@ -312,12 +320,12 @@ class CheckoutDeliveryDetailsView: UIView {
         switch checkout.deliveryCarrier.id {
         case .UPS:
             label.text = "\(checkout.deliveryCountry.name), \(checkout.deliveryCarrier.name)"
-            button.hidden = true
+            chooseKioskButton.hidden = true
+            changeKioskButton.hidden = true
         case .RUCH:
             label.text = initialText
-            button.setTitle(tr(.CheckoutDeliveryDeliveryRUCHPickKiosk), forState: .Normal)
-            button.addTarget(self, action: #selector(CheckoutDeliveryDetailsView.didTapChooseButton(_:)), forControlEvents: .TouchUpInside)
-            button.hidden = false
+            chooseKioskButton.hidden = false
+            changeKioskButton.hidden = true
         }
     }
     
@@ -325,14 +333,12 @@ class CheckoutDeliveryDetailsView: UIView {
         if let kiosk = kiosk {
             let address = "\(kiosk.city), \(kiosk.street)"
             label.text = "\(initialText)\n\(address)"
-            button.setTitle(tr(.CheckoutDeliveryDeliveryRUCHChangeKiosk), forState: .Normal)
-            button.addTarget(self, action: #selector(CheckoutDeliveryDetailsView.didTapChangeButton(_:)), forControlEvents: .TouchUpInside)
-            button.hidden = false
+            chooseKioskButton.hidden = true
+            changeKioskButton.hidden = false
         } else {
             label.text = initialText
-            button.setTitle(tr(.CheckoutDeliveryDeliveryRUCHPickKiosk), forState: .Normal)
-            button.addTarget(self, action: #selector(CheckoutDeliveryDetailsView.didTapChooseButton(_:)), forControlEvents: .TouchUpInside)
-            button.hidden = false
+            chooseKioskButton.hidden = false
+            changeKioskButton.hidden = true
         }
     }
     
@@ -348,13 +354,20 @@ class CheckoutDeliveryDetailsView: UIView {
         label.setContentCompressionResistancePriority(UILayoutPriorityDefaultLow, forAxis: .Horizontal)
         label.snp_makeConstraints { make in
             make.leading.equalToSuperview()
-            make.trailing.lessThanOrEqualTo(button.snp_leading)
+            make.trailing.lessThanOrEqualTo(chooseKioskButton.snp_leading)
             make.top.equalToSuperview()
             make.bottom.equalToSuperview()
         }
         
-        button.setContentCompressionResistancePriority(UILayoutPriorityDefaultHigh, forAxis: .Horizontal)
-        button.snp_makeConstraints { make in
+        chooseKioskButton.setContentCompressionResistancePriority(UILayoutPriorityDefaultHigh, forAxis: .Horizontal)
+        chooseKioskButton.snp_makeConstraints { make in
+            make.trailing.equalToSuperview()
+            make.top.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+        
+        changeKioskButton.setContentCompressionResistancePriority(UILayoutPriorityDefaultHigh, forAxis: .Horizontal)
+        changeKioskButton.snp_makeConstraints { make in
             make.trailing.equalToSuperview()
             make.top.equalToSuperview()
             make.bottom.equalToSuperview()
