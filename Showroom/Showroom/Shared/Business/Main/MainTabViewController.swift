@@ -84,8 +84,8 @@ class MainTabViewController: UITabBarController, NavigationHandler {
         return viewController
     }
     
-    func createSearchViewController() -> SearchViewController {
-        let viewController = resolver.resolve(SearchViewController.self)
+    func createSearchViewController() -> SearchNavigationController {
+        let viewController = resolver.resolve(SearchNavigationController.self)
         viewController.tabBarItem = UITabBarItem(tabBarIcon: .Search)
         viewController.tabBarItem.imageInsets = MainTabViewController.tabBarItemImageInsets
         return viewController

@@ -156,5 +156,8 @@ class UIAssembly: AssemblyType {
         container.register(FilterDetailsViewController.self) { r, model, option in
             return FilterDetailsViewController(with: model, and: option)
         }
+        container.register(SearchNavigationController.self) { r in
+            return SearchNavigationController(with: r.resolve(DiResolver.self)!)
+        }
     }
 }

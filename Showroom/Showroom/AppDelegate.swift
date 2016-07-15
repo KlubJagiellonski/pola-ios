@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    func configureDependencies() {
+    private func configureDependencies() {
         Logging.configure()
         
         if !Constants.isDebug {

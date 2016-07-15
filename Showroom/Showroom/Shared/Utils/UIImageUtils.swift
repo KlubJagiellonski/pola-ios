@@ -11,5 +11,18 @@ extension UIImage {
         UIGraphicsEndImageContext()
         return image
     }
+    
+    func round(withCornerRadius cornerRadius: Int) -> UIImage {
+        let rect = CGRect(origin:CGPoint(x: 0, y: 0), size: size)
+        UIGraphicsBeginImageContextWithOptions(size, false, 1)
+        UIBezierPath(
+            roundedRect: rect,
+            cornerRadius: CGFloat(cornerRadius)
+            ).addClip()
+        drawInRect(rect)
+        let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
 }
 
