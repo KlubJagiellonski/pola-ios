@@ -39,8 +39,12 @@ class SettingsView: UIView, UITableViewDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func updateData(data: [Setting]) {
-        dataSource.updateData(data)
+    func updateData(with settings: [Setting]) {
+        dataSource.updateData(with: settings)
+    }
+    
+    func updateData(with gender: Gender) {
+        dataSource.updateData(with: gender)
     }
         
     private func configureCustomConstraints() {

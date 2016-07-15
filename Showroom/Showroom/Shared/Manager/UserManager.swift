@@ -5,6 +5,8 @@ import Decodable
 
 class UserManager {
     private static let skipStartScreenKey = "SkipStartScreen"
+    private static let genderKey = "Gender"
+    private static let defaultGender: Gender = .Female
     
     private let apiService: ApiService
     private let disposeBag = DisposeBag()
@@ -15,8 +17,20 @@ class UserManager {
     private(set) var user: User? {
         didSet { userObservable.onNext(user) }
     }
-    var gender: Gender = .Female {
-        didSet { genderObservable.onNext(gender) }
+    var gender: Gender {
+        get {
+            guard let genderString = NSUserDefaults.standardUserDefaults().stringForKey(UserManager.genderKey),
+                let loadedGender = Gender(rawValue: genderString) else {
+                self.gender = UserManager.defaultGender
+                return UserManager.defaultGender
+            }
+            return loadedGender
+        }
+        set {
+            NSUserDefaults.standardUserDefaults().setValue(newValue.rawValue, forKey: UserManager.genderKey)
+            genderObservable.onNext(newValue)
+            logInfo("Changed gender to \(newValue.rawValue)")
+        }
     }
     
     var shouldSkipStartScreen: Bool {

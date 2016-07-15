@@ -64,6 +64,10 @@ class RegistrationView: ViewSwitcher {
         return passwordField.inputTextField.text
     }
     
+    var gender: Gender {
+        return genderSelector.gender
+    }
+    
     var receiveNewsletter: Bool {
         return newsletterCheck.selected
     }

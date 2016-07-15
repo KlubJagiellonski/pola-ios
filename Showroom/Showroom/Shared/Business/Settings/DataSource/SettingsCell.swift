@@ -225,16 +225,20 @@ class SettingsGenderCell: UITableViewCell {
     private let maleButton = UIButton()
     private let horizontalSeparator = UIView()
     
-    var selectedGender: Gender { didSet { updateGender(selectedGender) } }
+    var selectedGender: Gender? {
+        didSet {
+            if let gender = selectedGender {
+                updateGender(gender)
+            }
+        }
+    }
     
     var femaleAction: (() -> ())?
     var maleAction: (() -> ())?
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        selectedGender = .Female
         super.init(style: .Default, reuseIdentifier: reuseIdentifier)
         selectionStyle = .None
-        updateGender(selectedGender)
         
         label.text = tr(.SettingsDefaultOffer)
         label.font = UIFont(fontType: .Normal)

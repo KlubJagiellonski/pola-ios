@@ -5,8 +5,6 @@ class SettingsDataSource: NSObject, UITableViewDataSource {
     private weak var tableView: UITableView?
     
     private(set) var settings = [Setting]()
-
-    private let clientGender: Gender = .Female
     
     init(tableView: UITableView) {
         
@@ -20,9 +18,20 @@ class SettingsDataSource: NSObject, UITableViewDataSource {
         self.tableView!.registerClass(SettingsNormalCell.self, forCellReuseIdentifier: String(SettingsNormalCell))
     }
     
-    func updateData(data: [Setting]) {
-        settings = data
+    func updateData(with settings: [Setting]) {
+        self.settings = settings
         tableView?.reloadData()
+    }
+    
+    func updateData(with gender: Gender) {
+        guard let index = settings.indexOf({ $0.type == CellType.Gender }) else {
+            return
+        }
+        if settings[index].value as? Gender == gender {
+            return
+        }
+        settings[index].value = gender
+        tableView?.reloadRowsAtIndexPaths([NSIndexPath(forRow: index, inSection: 0)], withRowAnimation: .Automatic)    
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -54,7 +63,7 @@ class SettingsDataSource: NSObject, UITableViewDataSource {
             
         case .Gender:
             let cell = tableView.dequeueReusableCellWithIdentifier(String(SettingsGenderCell), forIndexPath: indexPath) as! SettingsGenderCell
-            cell.selectedGender = clientGender
+            cell.selectedGender = setting.value as? Gender
             cell.femaleAction = setting.action
             cell.maleAction = setting.secondaryAction
             return cell
