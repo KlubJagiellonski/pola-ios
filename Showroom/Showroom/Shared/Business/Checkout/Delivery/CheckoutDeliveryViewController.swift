@@ -52,17 +52,19 @@ class CheckoutDeliveryViewController: UIViewController, CheckoutDeliveryViewDele
     }
     
     func checkoutDeliveryViewDidTapChooseKioskButton(view: CheckoutDeliveryView) {
-        logInfo("Tap choose kiosk")
         sendNavigationEvent(SimpleNavigationEvent(type: .ShowEditKiosk))
     }
     
     func checkoutDeliveryViewDidTapChangeKioskButton(view: CheckoutDeliveryView) {
         sendNavigationEvent(SimpleNavigationEvent(type: .ShowEditKiosk))
-        logInfo("Tap change kiosk")
     }
     
     func checkoutDeliveryViewDidTapNextButton(view: CheckoutDeliveryView) {
         guard view.validate(showResult: true) else {
+            return
+        }
+        if checkoutModel.state.selectedKiosk == nil {
+            sendNavigationEvent(SimpleNavigationEvent(type: .ShowEditKiosk))
             return
         }
         sendNavigationEvent(SimpleNavigationEvent(type: .ShowCheckoutSummary))
