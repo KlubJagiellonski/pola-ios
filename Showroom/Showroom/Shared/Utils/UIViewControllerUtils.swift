@@ -47,4 +47,15 @@ extension UIViewController {
         mainTabBarController.updateTabBarAppearance(appearance, animationDuration: animationDuration)
         return true
     }
+    
+    func tryOpenURL(urlOptions urls: [String]) {
+        let application = UIApplication.sharedApplication()
+        for urlString in urls {
+            let url: NSURL = NSURL(string: urlString)!
+            if application.canOpenURL(url) {
+                application.openURL(url)
+                return
+            }
+        }
+    }
 }

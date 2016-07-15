@@ -78,10 +78,12 @@ class SettingsViewController: UIViewController {
 
     func facebookButtonPressed() {
         logInfo("facebooButtonPressed")
+        tryOpenURL(urlOptions: ["fb://profile/159930354087746", "https://www.facebook.com/shwrm"])
     }
     
     func instagramButtonPressed() {
         logInfo("instagramButtonPressed")
+        tryOpenURL(urlOptions: ["instagram://user?username=shwrm", "https://www.instagram.com/shwrm"])
     }
     
     func loginButtonPressed() {
