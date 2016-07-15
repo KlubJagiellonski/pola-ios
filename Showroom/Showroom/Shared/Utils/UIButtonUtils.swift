@@ -39,12 +39,14 @@ extension UIButton {
     
     func applyCircleStyle() {
         layer.cornerRadius = Dimensions.circleButtonDiameter * 0.5
-        backgroundColor = UIColor(named: .White)
+        self.clipsToBounds = true
+        setBackgroundImage(UIImage.fromColor(UIColor(named: .White)), forState: .Normal)
     }
     
     func applyBigCircleStyle() {
         layer.cornerRadius = Dimensions.bigCircleButtonDiameter * 0.5
-        backgroundColor = UIColor(named: .White)
+        self.clipsToBounds = true
+        setBackgroundImage(UIImage.fromColor(UIColor(named: .White)), forState: .Normal)
     }
     
     func applySimpleBlueStyle() {
