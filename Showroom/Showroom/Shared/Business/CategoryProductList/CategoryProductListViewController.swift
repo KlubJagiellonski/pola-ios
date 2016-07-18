@@ -5,15 +5,17 @@ import RxSwift
 class CategoryProductListViewController: UIViewController, ProductListViewControllerInterface, CategoryProductListViewDelegate {
     let disposeBag = DisposeBag()
     let productListModel: ProductListModel
-    var categoryListModel: CategoryProductListModel { return productListModel as! CategoryProductListModel }
+    private var model: CategoryProductListModel { return productListModel as! CategoryProductListModel }
     var productListView: ProductListViewInterface { return castView }
-    var castView: CategoryProductListView { return view as! CategoryProductListView }
+    private var castView: CategoryProductListView { return view as! CategoryProductListView }
+    private let resolver: DiResolver
     
     init(withResolver resolver: DiResolver, category: Category) {
+        self.resolver = resolver
         productListModel = resolver.resolve(CategoryProductListModel.self, argument: category)
         super.init(nibName: nil, bundle: nil)
         
-        title = categoryListModel.category.name
+        title = model.category.name
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -28,7 +30,6 @@ class CategoryProductListViewController: UIViewController, ProductListViewContro
         super.viewDidLoad()
         
         automaticallyAdjustsScrollViewInsets = false
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(asset: .Ic_filter), style: .Plain, target: self, action: #selector(didTapFilterButton))
         
         castView.delegate = self
         
@@ -36,11 +37,19 @@ class CategoryProductListViewController: UIViewController, ProductListViewContro
         fetchFirstPage()
     }
     
+    func createFilterButton() -> UIBarButtonItem? {
+        return UIBarButtonItem(image: UIImage(asset: .Ic_filter), style: .Plain, target: self, action: #selector(didTapFilterButton))
+    }
+    
     func didTapFilterButton() {
-        //todo
+        let viewController = resolver.resolve(ProductFilterNavigationController.self, argument: mockedFilter)
+        viewController.filterDelegate = self
+        presentViewController(viewController, animated: true, completion: nil)
     }
     
     func pageWasFetched(result productListResult: ProductListResult, page: Int) {}
+    
+    func filterButtonEnableStateChanged(toState enabled: Bool) { }
     
     // MARK:- ProductListViewDelegate
     
@@ -48,3 +57,5 @@ class CategoryProductListViewController: UIViewController, ProductListViewContro
         fetchFirstPage()
     }
 }
+
+extension CategoryProductListViewController: ProductFilterNavigationControllerDelegate {}

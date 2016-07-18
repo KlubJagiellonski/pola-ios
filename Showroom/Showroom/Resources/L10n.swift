@@ -189,6 +189,8 @@ enum L10n {
   case ProductListBadgePremium
   /// Niestety nie znaleziono żadnych produktów.
   case ProductListEmptyDescription
+  /// Niestety nie znaleziono żadnych produktów.\nSpróbuj ponownie z innym hasłem.
+  case ProductListEmptySearchDescription
   /// Filtry
   case ProductListFilterTitle
   /// Anuluj
@@ -512,6 +514,8 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("ProductList.Badge.Premium")
       case .ProductListEmptyDescription:
         return L10n.tr("ProductList.Empty.Description")
+      case .ProductListEmptySearchDescription:
+        return L10n.tr("ProductList.Empty.SearchDescription")
       case .ProductListFilterTitle:
         return L10n.tr("ProductListFilter.Title")
       case .ProductListFilterCancel:

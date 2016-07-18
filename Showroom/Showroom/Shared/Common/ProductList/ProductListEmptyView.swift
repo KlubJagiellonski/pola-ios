@@ -21,6 +21,7 @@ class ProductListEmptyView: UIView {
         descriptionLabel.font = UIFont(fontType: .Description)
         descriptionLabel.textColor = UIColor(named: .Black)
         descriptionLabel.textAlignment = .Center
+        descriptionLabel.numberOfLines = 0
         
         contentView.addSubview(titleLabel)
         contentView.addSubview(imageView)

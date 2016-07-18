@@ -35,8 +35,6 @@ class TrendProductListView: ViewSwitcher, ProductListViewInterface, ProductListC
         collectionView.applyProductListConfiguration()
         collectionView.delegate = productListComponent
         collectionView.dataSource = productListComponent
-        let flowLayout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
-        flowLayout.scrollDirection = .Vertical
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -30,9 +30,12 @@ class TrendProductListViewController: UIViewController, ProductListViewControlle
         
         castView.delegate = self
         
-        fetchFirstPage()
-        
         configureProductList()
+        fetchFirstPage()
+    }
+    
+    func createFilterButton() -> UIBarButtonItem? {
+        return nil // not needed in trend
     }
     
     func pageWasFetched(result productListResult: ProductListResult, page: Int) {
@@ -40,6 +43,8 @@ class TrendProductListViewController: UIViewController, ProductListViewControlle
             castView.updateTrendInfo("", description: trendListModel.description)
         }
     }
+    
+    func filterButtonEnableStateChanged(toState enabled: Bool) { }
     
     // MARK:- ProductListViewDelegate
     

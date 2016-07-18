@@ -3,7 +3,7 @@ import UIKit
 import SnapKit
 
 protocol SearchViewDelegate: class {
-    func search(view: SearchView, didTapSearchWithQuery query: String?)
+    func search(view: SearchView, didTapSearchWithQuery query: String)
 }
 
 final class SearchView: UIView, ExtendedView, UICollectionViewDelegateFlowLayout {
@@ -38,10 +38,7 @@ final class SearchView: UIView, ExtendedView, UICollectionViewDelegateFlowLayout
         searchBar.showsCancelButton = false
         searchBar.placeholder = tr(.SearchPlaceholder)
         searchBar.delegate = self
-        searchBar.backgroundImage = UIImage.fromColor(UIColor(named: .White))
-        searchBar.setSearchFieldBackgroundImage(UIImage.fromColor(UIColor(named: .Mercury), size: CGSizeMake(28, 28)).round(withCornerRadius: 5), forState: .Normal)
-        searchBar.searchTextPositionAdjustment = UIOffsetMake(8, 0)
-        searchBar.setPositionAdjustment(UIOffsetMake(4, 0), forSearchBarIcon: .Search)
+        searchBar.applyDefaultStyle()
         
         tabView.selectedIndex = 0
         tabView.searchView = self
@@ -159,7 +156,9 @@ extension SearchView: UISearchBarDelegate {
         return true
     }
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        delegate?.search(self, didTapSearchWithQuery: searchBar.text)
+        guard let query = searchBar.text else { return }
+        searchBar.resignFirstResponder()
+        delegate?.search(self, didTapSearchWithQuery: query)
     }
 }
 
@@ -219,7 +218,7 @@ final class SearchTabView: UIView {
         tabButtons.forEach { $0.removeFromSuperview() }
         tabButtons.removeAll()
         
-        tabButtons.appendContentsOf(tabs.map(createTabLabel))
+        tabButtons.appendContentsOf(tabs.map(createTabButton))
         tabButtons.forEach { addSubview($0) }
         
         configureTabButtonsConstraints()
@@ -254,7 +253,7 @@ final class SearchTabView: UIView {
         }
     }
     
-    private func createTabLabel(text: String) -> UIButton {
+    private func createTabButton(text: String) -> UIButton {
         let button = UIButton()
         button.title = text
         button.titleLabel?.font = UIFont(fontType: .Bold)

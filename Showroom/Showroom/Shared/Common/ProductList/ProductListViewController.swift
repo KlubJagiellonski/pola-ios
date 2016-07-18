@@ -6,16 +6,19 @@ protocol ProductListViewControllerInterface: class, NavigationSender, ExtendedVi
     var disposeBag: DisposeBag { get }
     var productListModel: ProductListModel { get }
     var productListView: ProductListViewInterface { get }
+    var filterButtonVisible: Bool { get set }
+    var filterButtonEnabled: Bool { get set }
     
-    func fetchFirstPage()
-    func fetchNextPage()
-    func pageWasFetched(result productListResult: ProductListResult, page: Int) //it is used to inform viewcontroller that first page has been fetched. You can do some additional stuff here
+    func createFilterButton() -> UIBarButtonItem?
+    func pageWasFetched(result productListResult: ProductListResult, page: Int) // it is used to inform viewcontroller that first page has been fetched. You can do some additional stuff here
+    func filterButtonEnableStateChanged(toState enabled: Bool)
 }
 
 extension ProductListViewControllerInterface {
     func fetchFirstPage() {
         productListView.switcherState = .Loading
-        let onNext = { [weak self] (result: FetchResult<ProductListResult>) in
+        filterButtonEnabled = false
+        let onNext = { [weak self](result: FetchResult<ProductListResult>) in
             guard let `self` = self else { return }
             switch result {
             case .Success(let productListResult):
@@ -23,6 +26,8 @@ extension ProductListViewControllerInterface {
                 self.pageWasFetched(result: productListResult, page: self.productListModel.currentPageIndex)
                 self.productListView.updateData(productListResult.products, nextPageState: productListResult.isLastPage ? .LastPage : .Fetching)
                 self.productListView.switcherState = productListResult.products.isEmpty ? .Empty : .Success
+                self.filterButtonVisible = true // todo it should be get from result
+                self.filterButtonEnabled = true
             case .NetworkError(let error):
                 logInfo("Failed to receive first product list page \(error)")
                 self.productListView.switcherState = .Error
@@ -33,7 +38,7 @@ extension ProductListViewControllerInterface {
     }
     
     func fetchNextPage() {
-        let onNext = { [weak self] (result: FetchResult<ProductListResult>) in
+        let onNext = { [weak self](result: FetchResult<ProductListResult>) in
             guard let `self` = self else { return }
             switch result {
             case .Success(let productListResult):
@@ -49,16 +54,40 @@ extension ProductListViewControllerInterface {
         productListModel.fetchNextProductPage().subscribeNext(onNext).addDisposableTo(disposeBag)
     }
     
-    //call it in viewDidLoad
+    // call it in viewDidLoad
     func configureProductList() {
+        filterButtonVisible = true
         productListModel.isBigScreen = UIScreen.mainScreen().bounds.width >= ProductListComponent.threeColumnsRequiredWidth
-        productListModel.productIndexObservable.subscribeNext { [weak self] (index: Int) in
+        productListModel.productIndexObservable.subscribeNext { [weak self](index: Int) in
             self?.productListView.moveToPosition(forProductIndex: index, animated: false)
-            }.addDisposableTo(disposeBag)
+        }.addDisposableTo(disposeBag)
     }
 }
 
-extension ProductListViewDelegate where Self : ProductListViewControllerInterface {
+extension ProductListViewControllerInterface where Self: UIViewController {
+    var filterButtonVisible: Bool {
+        set {
+            guard newValue != filterButtonVisible else { return }
+            
+            let button: UIBarButtonItem? = newValue ? createFilterButton() : nil
+            navigationItem.rightBarButtonItem = button
+        }
+        get {
+            return navigationItem.rightBarButtonItem != nil
+        }
+    }
+    var filterButtonEnabled: Bool {
+        set {
+            navigationItem.rightBarButtonItem?.enabled = newValue
+            filterButtonEnableStateChanged(toState: newValue)
+        }
+        get {
+            return navigationItem.rightBarButtonItem?.enabled ?? false
+        }
+    }
+}
+
+extension ProductListViewDelegate where Self: ProductListViewControllerInterface {
     func productListViewDidReachPageEnd(listView: ProductListViewInterface) {
         fetchNextPage()
     }
@@ -75,7 +104,13 @@ extension ProductListViewDelegate where Self : ProductListViewControllerInterfac
     }
     
     func productListView(listView: ProductListViewInterface, didDoubleTapProductAtIndex index: Int) {
-        //todo
+        // todo
+    }
+}
+
+extension ProductFilterNavigationControllerDelegate where Self: UIViewController {
+    func productFilterDidCancel(viewController: ProductFilterNavigationController) {
+        dismissViewControllerAnimated(true, completion: nil)
     }
 }
 
@@ -108,13 +143,13 @@ extension ProductListViewControllerInterface {
             FilterSize(id: 4, name: "38"),
             FilterSize(id: 5, name: "40"),
             FilterSize(id: 6, name: "XXS"),
-            ]
+        ]
         let colors = [
             FilterColor(id: 1, name: "Beżowy", type: .RGB, value: "FAFAFA"),
             FilterColor(id: 2, name: "Biały", type: .RGB, value: "FFFFFF"),
             FilterColor(id: 3, name: "Czarny", type: .RGB, value: "000000"),
             FilterColor(id: 4, name: "Pstrokaty", type: .Image, value: "https://placehold.it/50x50/888888/ffffff"),
-            ]
+        ]
         let selectedColors = [
             1
         ]
@@ -126,10 +161,10 @@ extension ProductListViewControllerInterface {
             FilterBrand(id: 4, name: "A2"),
             FilterBrand(id: 5, name: "Afriq Password"),
             FilterBrand(id: 6, name: "Afunguard"),
-            ]
+        ]
         let selectedBrands = [1, 2, 3, 4, 5, 6]
         
-        let mockedFilter = Filter(sortOptions: sortOptions, selectedSortOptionId: selectedSortOption, defaultSortOptionId:3, categories: filterCategories, selectedCategoryId:selectedFilterCategory, sizes: sizes, selectedSizeIds: [], colors: colors, selectedColorIds: selectedColors, priceRange: PriceRange(min: Money(amt: 0.0), max: Money(amt:1000.0)), selectedPriceRange: nil, onlyDiscountsSelected: true, brands: brands, selectedBrandIds: selectedBrands)
+        let mockedFilter = Filter(sortOptions: sortOptions, selectedSortOptionId: selectedSortOption, defaultSortOptionId: 3, categories: filterCategories, selectedCategoryId: selectedFilterCategory, sizes: sizes, selectedSizeIds: [], colors: colors, selectedColorIds: selectedColors, priceRange: PriceRange(min: Money(amt: 0.0), max: Money(amt: 1000.0)), selectedPriceRange: nil, onlyDiscountsSelected: true, brands: brands, selectedBrandIds: selectedBrands)
         return mockedFilter
     }
 }

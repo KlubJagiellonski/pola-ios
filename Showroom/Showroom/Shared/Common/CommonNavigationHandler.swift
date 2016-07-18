@@ -21,6 +21,9 @@ class CommonNavigationHandler: NavigationHandler {
         case let brandDescriptionEvent as ShowBrandDescriptionEvent:
             showBrandDescription(brandDescriptionEvent.brand)
             return true
+        case let searchEvent as ShowProductSearchEvent:
+            showSearchProductList(query: searchEvent.query)
+            return true
         default:
             return false
         }
@@ -52,6 +55,12 @@ class CommonNavigationHandler: NavigationHandler {
         navigationController?.pushViewController(viewController, animated: true)
     }
     
+    private func showSearchProductList(query query: String) {
+        let viewController = resolver.resolve(SearchProductListViewController.self, argument: query)
+        configureChildViewController(viewController)
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+    
     private func configureChildViewController(viewController: UIViewController) {
         if let extendedViewController = viewController as? ExtendedViewController {
             let topLayoutGuide = navigationController?.topLayoutGuide.length ?? 0
@@ -60,15 +69,6 @@ class CommonNavigationHandler: NavigationHandler {
             extendedViewController.extendedContentInset = UIEdgeInsetsMake(topLayoutGuide + navigationBarHeight, 0, bottomLayoutGuide, 0)
         }
         viewController.resetBackTitle()
-    }
-    
-    @objc func didTapBackButton() {
-        guard let navigationController = navigationController else { return }
-        // this is correct only when first vc have navigationbar and all next vcs doesn't have. If this will change we should make some nicer approach
-        if navigationController.viewControllers.count == 2 {
-            navigationController.setNavigationBarHidden(true, animated: true)
-        }
-        navigationController.popViewControllerAnimated(true)
     }
 }
 

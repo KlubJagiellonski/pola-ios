@@ -91,6 +91,7 @@
 "ProductList.Badge.FreeDelivery" = "DARMOWA DOSTAWA";
 "ProductList.Badge.Premium" = "PREMIUM";
 "ProductList.Empty.Description" = "Niestety nie znaleziono żadnych produktów.";
+"ProductList.Empty.SearchDescription" = "Niestety nie znaleziono żadnych produktów.\nSpróbuj ponownie z innym hasłem.";
 "ProductListFilter.Title" = "Filtry";
 "ProductListFilter.Cancel" = "Anuluj";
 "ProductListFilter.Clear" = "Wyczyść";

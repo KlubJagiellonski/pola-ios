@@ -30,13 +30,15 @@ class BrandProductListViewController: UIViewController, ProductListViewControlle
         super.viewDidLoad()
         
         automaticallyAdjustsScrollViewInsets = false
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(asset: .Ic_filter), style: .Plain, target: self, action: #selector(didTapFilterButton))
         
         castView.delegate = self
         
-        fetchFirstPage()
-        
         configureProductList()
+        fetchFirstPage()
+    }
+    
+    func createFilterButton() -> UIBarButtonItem? {
+        return UIBarButtonItem(image: UIImage(asset: .Ic_filter), style: .Plain, target: self, action: #selector(didTapFilterButton))
     }
     
     func didTapFilterButton() {
@@ -50,6 +52,7 @@ class BrandProductListViewController: UIViewController, ProductListViewControlle
             castView.updateBrandInfo(brand.imageUrl, description: description)
         }
     }
+    func filterButtonEnableStateChanged(toState enabled: Bool) { }
     
     // MARK:- BrandProductListViewDelegate
     
@@ -67,9 +70,5 @@ class BrandProductListViewController: UIViewController, ProductListViewControlle
     }
 }
 
-extension BrandProductListViewController: ProductFilterNavigationControllerDelegate {
-    func productFilterDidCancel(viewController: ProductFilterNavigationController) {
-        dismissViewControllerAnimated(true, completion: nil)
-    }
-}
+extension BrandProductListViewController: ProductFilterNavigationControllerDelegate {}
 

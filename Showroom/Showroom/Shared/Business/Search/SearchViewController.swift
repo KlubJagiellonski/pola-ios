@@ -36,8 +36,8 @@ final class SearchViewController: UIViewController, SearchViewDelegate {
     
     //MARK:- SearchViewDelegate
     
-    func search(view: SearchView, didTapSearchWithQuery query: String?) {
-        //todo search
+    func search(view: SearchView, didTapSearchWithQuery query: String) {
+        sendNavigationEvent(ShowProductSearchEvent(query: query))
     }
 }
 

@@ -3,6 +3,9 @@ import UIKit
 
 final class SearchNavigationController: UINavigationController, NavigationHandler {
     private let resolver: DiResolver
+    private lazy var commonNavigationHandler: CommonNavigationHandler = { [unowned self] in
+        return CommonNavigationHandler(with: self, and: self.resolver)
+        }()
     
     init(with resolver: DiResolver) {
         self.resolver = resolver
@@ -12,6 +15,7 @@ final class SearchNavigationController: UINavigationController, NavigationHandle
         setNavigationBarHidden(true, animated: false)
         
         let viewController = resolver.resolve(SearchViewController.self)
+        viewController.resetBackTitle()
         viewControllers = [viewController]
         
     }
@@ -23,6 +27,6 @@ final class SearchNavigationController: UINavigationController, NavigationHandle
     // MARK:- NavigationHandler
     
     func handleNavigationEvent(event: NavigationEvent) -> EventHandled {
-        return false
+        return commonNavigationHandler.handleNavigationEvent(event)
     }
 }

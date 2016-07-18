@@ -79,5 +79,7 @@ extension UICollectionView {
     func applyProductListConfiguration() {
         backgroundColor = UIColor(named: .White)
         showsVerticalScrollIndicator = false
+        let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
+        flowLayout.scrollDirection = .Vertical
     }
 }

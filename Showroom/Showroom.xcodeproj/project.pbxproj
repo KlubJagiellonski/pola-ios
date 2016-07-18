@@ -76,6 +76,11 @@
 		1D5E91831D3CC98800A6BD55 /* SearchDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5E91821D3CC98800A6BD55 /* SearchDataSource.swift */; };
 		1D5E91851D3CCA3F00A6BD55 /* SearchPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5E91841D3CCA3F00A6BD55 /* SearchPageCell.swift */; };
 		1D5E91881D3CD0C600A6BD55 /* SearchContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5E91871D3CD0C600A6BD55 /* SearchContentViewController.swift */; };
+		1D5E918A1D3CDDB600A6BD55 /* UISearchBarUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5E91891D3CDDB600A6BD55 /* UISearchBarUtils.swift */; };
+		1D5E918D1D3CDE1A00A6BD55 /* SearchProductListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5E918C1D3CDE1A00A6BD55 /* SearchProductListViewController.swift */; };
+		1D5E918F1D3CDE6A00A6BD55 /* SearchProductListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5E918E1D3CDE6A00A6BD55 /* SearchProductListModel.swift */; };
+		1D5E91911D3CDE9A00A6BD55 /* SearchProductListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5E91901D3CDE9A00A6BD55 /* SearchProductListView.swift */; };
+		1D5E91931D3CE25000A6BD55 /* ShowProductSearchEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5E91921D3CE25000A6BD55 /* ShowProductSearchEvent.swift */; };
 		1D5EF1C81CEB60ED0071C097 /* RxTests.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1D2F199D1CEA14FE0099142E /* RxTests.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1D5EF1C91CEB60F20071C097 /* RxBlocking.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1D2F199A1CEA14FE0099142E /* RxBlocking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1D5EF1CA1CEB61000071C097 /* RxBlocking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2F199A1CEA14FE0099142E /* RxBlocking.framework */; };
@@ -387,6 +392,11 @@
 		1D5E91821D3CC98800A6BD55 /* SearchDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchDataSource.swift; sourceTree = "<group>"; };
 		1D5E91841D3CCA3F00A6BD55 /* SearchPageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPageCell.swift; sourceTree = "<group>"; };
 		1D5E91871D3CD0C600A6BD55 /* SearchContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchContentViewController.swift; sourceTree = "<group>"; };
+		1D5E91891D3CDDB600A6BD55 /* UISearchBarUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UISearchBarUtils.swift; sourceTree = "<group>"; };
+		1D5E918C1D3CDE1A00A6BD55 /* SearchProductListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchProductListViewController.swift; sourceTree = "<group>"; };
+		1D5E918E1D3CDE6A00A6BD55 /* SearchProductListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchProductListModel.swift; sourceTree = "<group>"; };
+		1D5E91901D3CDE9A00A6BD55 /* SearchProductListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchProductListView.swift; sourceTree = "<group>"; };
+		1D5E91921D3CE25000A6BD55 /* ShowProductSearchEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowProductSearchEvent.swift; sourceTree = "<group>"; };
 		1D5EF1D01CEB666B0071C097 /* UIImageViewUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageViewUtils.swift; sourceTree = "<group>"; };
 		1D5F91131D2FA19B00AE66E6 /* CheckoutDeliveryViewHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutDeliveryViewHelpers.swift; sourceTree = "<group>"; };
 		1D5F91151D3388DA00AE66E6 /* CommonNavigationHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonNavigationHandler.swift; sourceTree = "<group>"; };
@@ -755,6 +765,7 @@
 				1D6933471D2E40A500609BB9 /* BrandProductList */,
 				1D5886DE1D2BBDED007D0CB1 /* TrendProductList */,
 				1D1A7DF91D24003A009CCCE7 /* CategoryProductList */,
+				1D5E918B1D3CDDF000A6BD55 /* SearchProductList */,
 				C02220881D1831C8004411A7 /* Checkout */,
 				1DD161951D01A6C40022B5C9 /* ProductDetails */,
 				C0E26DAE1D00840C005CB6C4 /* ProductAction */,
@@ -838,6 +849,16 @@
 			name = Content;
 			sourceTree = "<group>";
 		};
+		1D5E918B1D3CDDF000A6BD55 /* SearchProductList */ = {
+			isa = PBXGroup;
+			children = (
+				1D5E918C1D3CDE1A00A6BD55 /* SearchProductListViewController.swift */,
+				1D5E918E1D3CDE6A00A6BD55 /* SearchProductListModel.swift */,
+				1D5E91901D3CDE9A00A6BD55 /* SearchProductListView.swift */,
+			);
+			path = SearchProductList;
+			sourceTree = "<group>";
+		};
 		1D5EF1CF1CEB663C0071C097 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -858,6 +879,7 @@
 				1D5886E91D2BE4D0007D0CB1 /* UILabelUtils.swift */,
 				1D5F91401D34E33100AE66E6 /* UIDeviceUtils.swift */,
 				1D5F91601D3537BA00AE66E6 /* UITableViewUtils.swift */,
+				1D5E91891D3CDDB600A6BD55 /* UISearchBarUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1172,6 +1194,7 @@
 				1D1A7E131D24F669009CCCE7 /* ShowItemForLinkEvent.swift */,
 				1DA5CB421D2E867000A45E93 /* ShowBrandDescriptionEvent.swift */,
 				1D5F915E1D35221D00AE66E6 /* ShowFilterOptionEvent.swift */,
+				1D5E91921D3CE25000A6BD55 /* ShowProductSearchEvent.swift */,
 			);
 			path = Event;
 			sourceTree = "<group>";
@@ -1642,6 +1665,7 @@
 				C09280761D08514F00350B82 /* ProductColorDataSource.swift in Sources */,
 				1D5F914A1D34E9AC00AE66E6 /* Filter.swift in Sources */,
 				1D2F19611CE9CED80099142E /* RootViewController.swift in Sources */,
+				1D5E918F1D3CDE6A00A6BD55 /* SearchProductListModel.swift in Sources */,
 				1D3792721D196931001A7C47 /* ViewSwitcher.swift in Sources */,
 				1D5F91141D2FA19B00AE66E6 /* CheckoutDeliveryViewHelpers.swift in Sources */,
 				C052F8981D1989A6008085E0 /* CheckoutAddressOptionView.swift in Sources */,
@@ -1661,6 +1685,7 @@
 				C0CBE2AC1D2D46B7008B861D /* SettingsView.swift in Sources */,
 				1D5F911D1D33D69C00AE66E6 /* SplashViewController.swift in Sources */,
 				1DD161A61D01C3B90022B5C9 /* ShowProductDetailsEvent.swift in Sources */,
+				1D5E918A1D3CDDB600A6BD55 /* UISearchBarUtils.swift in Sources */,
 				1DD1EA6C1CEC5D1700D99731 /* UIColorAssets.swift in Sources */,
 				1D1A7DFB1D240065009CCCE7 /* CategoryProductListViewController.swift in Sources */,
 				C049D8D51D33F1010043F60F /* OnboardingNotificationsCell.swift in Sources */,
@@ -1735,6 +1760,7 @@
 				1D66E4421D38D8190041D74D /* SearchNavigationController.swift in Sources */,
 				1D5F915B1D35120F00AE66E6 /* ProductFilterBrandCell.swift in Sources */,
 				C07CF39D1D2409D8004578FD /* EditKioskModel.swift in Sources */,
+				1D5E91931D3CE25000A6BD55 /* ShowProductSearchEvent.swift in Sources */,
 				C0518D801D2BBA9D0032F1B4 /* EditKioskDataSource.swift in Sources */,
 				C022208D1D1834B9004411A7 /* CheckoutDeliveryViewController.swift in Sources */,
 				751A50141D1156D800DF7D2B /* ProductAmountView.swift in Sources */,
@@ -1765,6 +1791,7 @@
 				1D0F3B541D12CE3D0052CFF6 /* BasketCountryViewController.swift in Sources */,
 				1D5886E61D2BE06A007D0CB1 /* TrendHeaderCell.swift in Sources */,
 				1D69334F1D2E40E500609BB9 /* BrandHeaderCell.swift in Sources */,
+				1D5E918D1D3CDE1A00A6BD55 /* SearchProductListViewController.swift in Sources */,
 				C049D8D11D33F0C50043F60F /* OnboardingDoubleTapAnimationCell.swift in Sources */,
 				1D7824B51D0708E900E60392 /* ProductPageModel.swift in Sources */,
 				1DF796801CEB3C4000C7A7F4 /* Constants.swift in Sources */,
@@ -1797,6 +1824,7 @@
 				1D7824B71D0709D200E60392 /* Utils.swift in Sources */,
 				1D3EEA1A1D143C1100F67B69 /* BasketRequest.swift in Sources */,
 				1D1A7E021D2405AC009CCCE7 /* ProductItemCell.swift in Sources */,
+				1D5E91911D3CDE9A00A6BD55 /* SearchProductListView.swift in Sources */,
 				C0237D0E1D216ADC0009F2FC /* CheckoutDeliveryStackedView.swift in Sources */,
 				1D5F916A1D36508000AE66E6 /* FilterDetailsViewController.swift in Sources */,
 				1DD1EA931CF2E93900D99731 /* RootModel.swift in Sources */,
