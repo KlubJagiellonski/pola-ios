@@ -14,9 +14,6 @@ extension UIColor {
 }
 
 enum ColorName {
-  /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#bb1270"></span>
-  /// Alpha: 100% <br/> (0xbb1270ff)
-  case Badge
   /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#000000"></span>
   /// Alpha: 100% <br/> (0x000000ff)
   case Black
@@ -44,8 +41,8 @@ enum ColorName {
   /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#f2f4fa"></span>
   /// Alpha: 100% <br/> (0xf2f4faff)
   case ProductPageBackground
-  /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#bb1270"></span>
-  /// Alpha: 100% <br/> (0xbb1270ff)
+  /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#fe3824"></span>
+  /// Alpha: 100% <br/> (0xfe3824ff)
   case RedViolet
   /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#dddddd"></span>
   /// Alpha: 100% <br/> (0xddddddff)
@@ -59,7 +56,6 @@ enum ColorName {
 
   var rgbaValue: UInt32! {
     switch self {
-    case .Badge: return 0xbb1270ff
     case .Black: return 0x000000ff
     case .Blue: return 0x1e1cbfff
     case .DarkGray: return 0xa4aab3ff
@@ -69,7 +65,7 @@ enum ColorName {
     case .Manatee: return 0x9b9b9bff
     case .OldLavender: return 0x767676ff
     case .ProductPageBackground: return 0xf2f4faff
-    case .RedViolet: return 0xbb1270ff
+    case .RedViolet: return 0xfe3824ff
     case .Separator: return 0xddddddff
     case .Snow: return 0xfafafaff
     case .White: return 0xffffffff

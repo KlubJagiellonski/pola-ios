@@ -3,13 +3,12 @@ Blue: #1e1cbf
 DarkGray: #a4aab3
 Black : #000000
 Separator: #dddddd
-RedViolet : #BB1270
+RedViolet : #FE3824
 OldLavender : #767676
 Manatee: #979797
 ProductPageBackground: #F2F4FA
 Snow : #fafafa
 Dim: #A3AAB2
 Gray: #EDEEF0
-Badge: #BB1270
 Facebook: #4267B2
 Manatee: #9B9B9B
