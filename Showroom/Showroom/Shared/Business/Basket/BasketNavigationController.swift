@@ -20,3 +20,9 @@ class BasketNavigationController: UINavigationController {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+extension BasketNavigationController: MainTabChild {
+    func popToFirstView() {
+        popToRootViewControllerAnimated(true)
+    }
+}

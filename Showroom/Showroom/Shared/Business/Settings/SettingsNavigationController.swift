@@ -19,3 +19,9 @@ class SettingsNavigationController: UINavigationController {
         popViewControllerAnimated(true)
     }
 }
+
+extension SettingsNavigationController: MainTabChild {
+    func popToFirstView() {
+        popToRootViewControllerAnimated(true)
+    }
+}

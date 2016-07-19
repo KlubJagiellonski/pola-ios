@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-class DashboardNavigationController: UINavigationController, NavigationHandler {
+final class DashboardNavigationController: UINavigationController, NavigationHandler {
     private let resolver: DiResolver
     private lazy var commonNavigationHandler: CommonNavigationHandler = { [unowned self] in
         return CommonNavigationHandler(with: self, and: self.resolver)
@@ -26,5 +26,11 @@ class DashboardNavigationController: UINavigationController, NavigationHandler {
     
     func handleNavigationEvent(event: NavigationEvent) -> EventHandled {
         return commonNavigationHandler.handleNavigationEvent(event)
+    }
+}
+
+extension DashboardNavigationController: MainTabChild {
+    func popToFirstView() {
+        popToRootViewControllerAnimated(true)
     }
 }

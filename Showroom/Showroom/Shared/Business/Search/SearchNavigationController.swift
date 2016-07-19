@@ -30,3 +30,9 @@ final class SearchNavigationController: UINavigationController, NavigationHandle
         return commonNavigationHandler.handleNavigationEvent(event)
     }
 }
+
+extension SearchNavigationController: MainTabChild {
+    func popToFirstView() {
+        popToRootViewControllerAnimated(true)
+    }
+}

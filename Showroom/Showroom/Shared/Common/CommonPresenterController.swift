@@ -16,6 +16,7 @@ class CommonPresenterController: PresenterViewController, NavigationHandler {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
     // MARK:- NavigationHandler
 
     func handleNavigationEvent(event: NavigationEvent) -> EventHandled {
@@ -32,6 +33,16 @@ class CommonPresenterController: PresenterViewController, NavigationHandler {
             default: return false
             }
         default: return false
+        }
+    }
+}
+
+extension CommonPresenterController: MainTabChild {
+    func popToFirstView() {
+        hideModal(animation: DimModalAnimation(animationDuration: 0.2)) { [weak self] _ in
+            if let childContent = self?.contentViewController as? MainTabChild {
+                childContent.popToFirstView()
+            }
         }
     }
 }

@@ -4,6 +4,10 @@ import RxSwift
 
 enum TabBarAppearance { case Visible, Hidden }
 
+protocol MainTabChild {
+    func popToFirstView()
+}
+
 class MainTabViewController: UITabBarController, NavigationHandler {
     static let tabBarItemImageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)  // Center vertically item without title
     static let basketItemImageInsets = UIEdgeInsets(top: 4, left: 0, bottom: -4, right: 0)
@@ -37,6 +41,8 @@ class MainTabViewController: UITabBarController, NavigationHandler {
         
         tabBar.translucent = true
         tabBar.tintColor = UIColor(named: .Blue)
+        
+        delegate = self
         
         viewControllers = [
             createDashboardViewController(),
@@ -124,5 +130,14 @@ class MainTabViewController: UITabBarController, NavigationHandler {
             }
         }
         return false
+    }
+}
+
+extension MainTabViewController: UITabBarControllerDelegate {
+    func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
+        if let child = viewController as? MainTabChild where viewController == selectedViewController {
+            child.popToFirstView()
+        }
+        return true
     }
 }
