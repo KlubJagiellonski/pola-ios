@@ -31,6 +31,9 @@ class SettingsNavigationController: UINavigationController, NavigationHandler {
     
     func showHistoryOfOrderView() {
         logInfo("showHistoryOfOrderView")
+        let viewController = resolver.resolve(HistoryOfOrderViewController.self)
+        viewController.navigationItem.title = tr(.SettingsHistory)
+        pushViewController(viewController, animated: true)
     }
     
     func showWebView(title title: String, url: String) {

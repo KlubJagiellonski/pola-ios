@@ -269,6 +269,8 @@
 		C049D8D51D33F1010043F60F /* OnboardingNotificationsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C049D8D41D33F1010043F60F /* OnboardingNotificationsCell.swift */; };
 		C0518D801D2BBA9D0032F1B4 /* EditKioskDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0518D7F1D2BBA9D0032F1B4 /* EditKioskDataSource.swift */; };
 		C052F8981D1989A6008085E0 /* CheckoutAddressOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C052F8971D1989A6008085E0 /* CheckoutAddressOptionView.swift */; };
+		C0576D811D3E74F20084C30F /* HistoryOfOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0576D801D3E74F20084C30F /* HistoryOfOrderViewController.swift */; };
+		C0576D831D3E76B70084C30F /* HistoryOfOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0576D821D3E76B70084C30F /* HistoryOfOrderView.swift */; };
 		C07530C71D2532F700224508 /* EditKioskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07530C61D2532F700224508 /* EditKioskView.swift */; };
 		C07CF39B1D2407DD004578FD /* EditKioskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07CF39A1D2407DD004578FD /* EditKioskViewController.swift */; };
 		C07CF39D1D2409D8004578FD /* EditKioskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07CF39C1D2409D8004578FD /* EditKioskModel.swift */; };
@@ -599,6 +601,8 @@
 		C049D8D41D33F1010043F60F /* OnboardingNotificationsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingNotificationsCell.swift; sourceTree = "<group>"; };
 		C0518D7F1D2BBA9D0032F1B4 /* EditKioskDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditKioskDataSource.swift; path = Showroom/Shared/Business/Checkout/Delivery/EditKiosk/DataSource/EditKioskDataSource.swift; sourceTree = SOURCE_ROOT; };
 		C052F8971D1989A6008085E0 /* CheckoutAddressOptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutAddressOptionView.swift; sourceTree = "<group>"; };
+		C0576D801D3E74F20084C30F /* HistoryOfOrderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryOfOrderViewController.swift; sourceTree = "<group>"; };
+		C0576D821D3E76B70084C30F /* HistoryOfOrderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryOfOrderView.swift; sourceTree = "<group>"; };
 		C07530C61D2532F700224508 /* EditKioskView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditKioskView.swift; path = EditKiosk/EditKioskView.swift; sourceTree = "<group>"; };
 		C07CF39A1D2407DD004578FD /* EditKioskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditKioskViewController.swift; path = EditKiosk/EditKioskViewController.swift; sourceTree = "<group>"; };
 		C07CF39C1D2409D8004578FD /* EditKioskModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditKioskModel.swift; path = EditKiosk/EditKioskModel.swift; sourceTree = "<group>"; };
@@ -1451,6 +1455,8 @@
 		C006F4DC1D3E4AEB00573316 /* HistoryOfOrder */ = {
 			isa = PBXGroup;
 			children = (
+				C0576D801D3E74F20084C30F /* HistoryOfOrderViewController.swift */,
+				C0576D821D3E76B70084C30F /* HistoryOfOrderView.swift */,
 			);
 			path = HistoryOfOrder;
 			sourceTree = "<group>";
@@ -1870,6 +1876,7 @@
 				C0518D801D2BBA9D0032F1B4 /* EditKioskDataSource.swift in Sources */,
 				75A92AB41D3E271D00EDC89D /* WishlistNavigationController.swift in Sources */,
 				C022208D1D1834B9004411A7 /* CheckoutDeliveryViewController.swift in Sources */,
+				C0576D811D3E74F20084C30F /* HistoryOfOrderViewController.swift in Sources */,
 				751A50141D1156D800DF7D2B /* ProductAmountView.swift in Sources */,
 				1DF796891CEB4AC000C7A7F4 /* UIAssembly.swift in Sources */,
 				751A501D1D194E0000DF7D2B /* CheckoutSummaryView.swift in Sources */,
@@ -1879,6 +1886,7 @@
 				751A50161D11575000DF7D2B /* ProductAmountDataSource.swift in Sources */,
 				1D470E361D26736E00677122 /* Validator.swift in Sources */,
 				7586E27F1D22BB5F0086DE94 /* UITextViewUtils.swift in Sources */,
+				C0576D831D3E76B70084C30F /* HistoryOfOrderView.swift in Sources */,
 				1DAA7C711D09BBA900545BB9 /* ProductDescriptionLineCell.swift in Sources */,
 				1DF796851CEB477B00C7A7F4 /* NetworkAssembly.swift in Sources */,
 				1DD1EA711CEDA00B00D99731 /* DashboardViewController.swift in Sources */,

@@ -142,6 +142,8 @@
 "Settings.Female" = "ONA";
 "Settings.UserData" = "Twoje dane";
 "Settings.History" = "Historia zamówień";
+"Settings.History.ToCheckHistory" = "Aby sprawdzić historię swoich zamówień, %@.";
+"Settings.History.GoToWebsite" = "przejdź do serwisu WWW";
 "Settings.HowToMeasure" = "Jak się mierzyć?";
 "Settings.PrivacyPolicy" = "Polityka prywatności";
 "Settings.FrequentQuestions" = "Częste pytania";
