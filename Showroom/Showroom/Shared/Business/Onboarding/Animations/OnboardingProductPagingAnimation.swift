@@ -1,3 +1,4 @@
+import Foundation
 import UIKit
 import SnapKit
 
@@ -28,15 +29,11 @@ enum ScreenContentPage {
     }
 }
 
-class OnboardingProductPagingAnimationCell: UICollectionViewCell {
-        
-    private let phoneToTopOffset: CGFloat
+class OnboardingProductPagingAnimation: UIView {
     private let firstPageContentToPhoneHorizontalOffset: CGFloat
     private let contentToPhoneVerticalOffset: CGFloat
     private let touchIndicatorToPhoneOffsetX: CGFloat = 50.0
     private let touchIndicatorToPhoneOffsetY: CGFloat = 200.0
-    
-    private let label = UILabel()
     
     private let phoneImageView: UIImageView
     private let screenContentImageView: UIImageView
@@ -68,42 +65,37 @@ class OnboardingProductPagingAnimationCell: UICollectionViewCell {
             }
         }
     }
-
+    
     override init(frame: CGRect) {
-     
+        
         switch UIDevice.currentDevice().screenType {
         case .iPhone4:
             phoneImageView = UIImageView(image: UIImage(asset: .Onb_iphone_big_4))
             screenContentImageView = UIImageView(image: UIImage(asset: .Onb_img_3_4))
-            phoneToTopOffset = 157.0
             firstPageContentToPhoneHorizontalOffset = 14.0
             contentToPhoneVerticalOffset = 57.0
-
+            
         case .iPhone5:
             phoneImageView = UIImageView(image: UIImage(asset: .Onb_iphone_big))
             screenContentImageView = UIImageView(image: UIImage(asset: .Onb_img_3))
-            phoneToTopOffset = 157.0
             firstPageContentToPhoneHorizontalOffset = 15.0
             contentToPhoneVerticalOffset = 66.0
-
+            
         case .iPhone6:
             phoneImageView = UIImageView(image: UIImage(asset: .Onb_iphone_big_6))
             screenContentImageView = UIImageView(image: UIImage(asset: .Onb_img_3_6))
-            phoneToTopOffset = 157.0
             firstPageContentToPhoneHorizontalOffset = 19.0
             contentToPhoneVerticalOffset = 77.0
-
+            
         case .iPhone6Plus:
             phoneImageView = UIImageView(image: UIImage(asset: .Onb_iphone_big_6p))
             screenContentImageView = UIImageView(image: UIImage(asset: .Onb_img_3_6p))
-            phoneToTopOffset = 157.0
             firstPageContentToPhoneHorizontalOffset = 22.0
             contentToPhoneVerticalOffset = 89.0
-
+            
         default:
             phoneImageView = UIImageView(image: UIImage(asset: .Onb_iphone_big_6))
             screenContentImageView = UIImageView(image: UIImage(asset: .Onb_img_3_6))
-            phoneToTopOffset = 157.0
             firstPageContentToPhoneHorizontalOffset = 19.0
             contentToPhoneVerticalOffset = 77.0
         }
@@ -114,18 +106,8 @@ class OnboardingProductPagingAnimationCell: UICollectionViewCell {
         
         moveTouchIndicator(toSide: visibleScreenContentPage.nextDirection)
         
-        contentView.backgroundColor = UIColor(named: .White)
-        contentView.clipsToBounds = true
-        
-        label.text = tr(.OnboardingProductPagingLabel)
-        label.font = UIFont(fontType: .Onboarding)
-        label.numberOfLines = 0
-        label.textAlignment = .Center
-        label.lineBreakMode = .ByWordWrapping
-        
-        contentView.addSubview(label)
-        contentView.addSubview(screenContentImageView)
-        contentView.addSubview(phoneImageView)
+        addSubview(screenContentImageView)
+        addSubview(phoneImageView)
         phoneImageView.addSubview(touchIndicator)
         
         configureCustomConstraints()
@@ -137,10 +119,10 @@ class OnboardingProductPagingAnimationCell: UICollectionViewCell {
     
     func startAnimation() {
         guard animating else { return }
-
+        
         screenContentImageView.layoutIfNeeded()
         touchIndicator.layoutIfNeeded()
-
+        
         // touch indicator initial position
         let touchIndicatorInitialSide = visibleScreenContentPage.nextDirection
         self.moveTouchIndicator(toSide: touchIndicatorInitialSide)
@@ -172,9 +154,9 @@ class OnboardingProductPagingAnimationCell: UICollectionViewCell {
             })
             
             }, completion: { [weak self] _ in
-                guard let `self` = self else { return }
-                self.startAnimation()
-            })
+            guard let `self` = self else { return }
+            self.startAnimation()
+        })
     }
     
     func stopAnimation() {
@@ -193,16 +175,6 @@ class OnboardingProductPagingAnimationCell: UICollectionViewCell {
     }
     
     func configureCustomConstraints() {
-        contentView.snp_makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        
-        label.snp_makeConstraints { make in
-            make.top.equalToSuperview().offset(Dimensions.onboardingTopOffset)
-            make.leading.equalToSuperview().offset(Dimensions.onboardingTextHorizontalOffset)
-            make.trailing.equalToSuperview().offset(-Dimensions.onboardingTextHorizontalOffset)
-        }
-        
         screenContentImageView.snp_makeConstraints { make in
             screenContentLeadingConstraint = make.leading.equalTo(phoneImageView).offset(firstPageContentToPhoneHorizontalOffset).constraint
             make.top.equalTo(phoneImageView).offset(contentToPhoneVerticalOffset)
@@ -210,7 +182,7 @@ class OnboardingProductPagingAnimationCell: UICollectionViewCell {
         
         phoneImageView.snp_makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalToSuperview().offset(phoneToTopOffset)
+            make.top.equalToSuperview()
         }
     }
 }

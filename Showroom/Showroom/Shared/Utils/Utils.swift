@@ -73,6 +73,15 @@ extension CollectionType {
     }
 }
 
+extension Array {
+    mutating func remove(predicate: (Element) -> Bool) {
+        guard let index = self.indexOf(predicate) else {
+            return
+        }
+        self.removeAtIndex(index)
+    }
+}
+
 // MARK: - UIEdgeInsets operators
 
 func +(left: UIEdgeInsets, right: UIEdgeInsets) -> UIEdgeInsets {

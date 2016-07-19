@@ -327,6 +327,10 @@ enum L10n {
   case SearchAllSearchItems(String)
   /// Cofnij
   case SearchBack
+  /// Możesz łatwo dodawać produkty z\U00A0listy dwukrotnie stukając palcem w\U00A0ich zdjęcia.
+  case WishlistEmptyDescription
+  /// Usuń
+  case WishlistDelete
 }
 
 extension L10n: CustomStringConvertible {
@@ -658,6 +662,10 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Search.AllSearchItems", p0)
       case .SearchBack:
         return L10n.tr("Search.Back")
+      case .WishlistEmptyDescription:
+        return L10n.tr("Wishlist.Empty.Description")
+      case .WishlistDelete:
+        return L10n.tr("Wishlist.Delete")
     }
   }
 

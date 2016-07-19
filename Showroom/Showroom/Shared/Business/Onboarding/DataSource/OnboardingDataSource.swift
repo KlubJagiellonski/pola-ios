@@ -13,8 +13,8 @@ final class OnboardingDataSource: NSObject, UICollectionViewDataSource {
     init(collectionView: UICollectionView) {
         self.collectionView = collectionView
         collectionView.registerClass(OnboardingInfiniteScrollingCell.self, forCellWithReuseIdentifier: String(OnboardingInfiniteScrollingCell))
-        collectionView.registerClass(OnboardingDoubleTapAnimationCell.self, forCellWithReuseIdentifier: String(OnboardingDoubleTapAnimationCell))
-        collectionView.registerClass(OnboardingProductPagingAnimationCell.self, forCellWithReuseIdentifier: String(OnboardingProductPagingAnimationCell))
+        collectionView.registerClass(OnboardingDoubleTapCell.self, forCellWithReuseIdentifier: String(OnboardingDoubleTapCell))
+        collectionView.registerClass(OnboardingProductPagingCell.self, forCellWithReuseIdentifier: String(OnboardingProductPagingCell))
         collectionView.registerClass(OnboardingNotificationsCell.self, forCellWithReuseIdentifier: String(OnboardingNotificationsCell))
     }
     
@@ -32,11 +32,11 @@ final class OnboardingDataSource: NSObject, UICollectionViewDataSource {
             return cell
 
         case .DoubleTap:
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(String(OnboardingDoubleTapAnimationCell), forIndexPath: indexPath) as! OnboardingDoubleTapAnimationCell
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(String(OnboardingDoubleTapCell), forIndexPath: indexPath) as! OnboardingDoubleTapCell
             return cell
             
         case .ProductPaging:
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(String(OnboardingProductPagingAnimationCell), forIndexPath: indexPath) as! OnboardingProductPagingAnimationCell
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(String(OnboardingProductPagingCell), forIndexPath: indexPath) as! OnboardingProductPagingCell
             return cell
             
         case .Notification:

@@ -18,5 +18,9 @@ class ManagerAssembly: AssemblyType {
         container.register(ToastManager.self) { r in
             return ToastManager()
         }.inObjectScope(.Container)
+        
+        container.register(WishlistManager.self) { r in
+            return WishlistManager(with: r.resolve(StorageManager.self)!)
+        }.inObjectScope(.Container)
     }
 }

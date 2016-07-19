@@ -36,6 +36,9 @@ class UIAssembly: AssemblyType {
         container.register(SettingsViewController.self) { r in
             return SettingsViewController(resolver: r.resolve(DiResolver.self)!)
         }
+        container.register(WishlistNavigationController.self) { r in
+            return WishlistNavigationController(resolver: r.resolve(DiResolver.self)!)
+        }
         container.register(WishlistViewController.self) { r in
             return WishlistViewController(resolver: r.resolve(DiResolver.self)!)
         }

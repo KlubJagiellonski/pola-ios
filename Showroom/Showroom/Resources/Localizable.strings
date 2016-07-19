@@ -160,3 +160,5 @@
 "Search.Placeholder" = "szukaj";
 "Search.AllSearchItems" = "WSZYSTKO: %@";
 "Search.Back" = "Cofnij";
+"Wishlist.Empty.Description" = "Możesz łatwo dodawać produkty z\U00A0listy dwukrotnie stukając palcem w\U00A0ich zdjęcia.";
+"Wishlist.Delete" = "Usuń";

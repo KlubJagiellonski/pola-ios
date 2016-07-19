@@ -105,8 +105,8 @@ class MainTabViewController: UITabBarController, NavigationHandler {
         return viewController
     }
     
-    func createWishlistViewController() -> WishlistViewController {
-        let viewController = resolver.resolve(WishlistViewController.self)
+    func createWishlistViewController() -> WishlistNavigationController {
+        let viewController = resolver.resolve(WishlistNavigationController.self)
         viewController.tabBarItem = UITabBarItem(tabBarIcon: .Wishlist)
         viewController.tabBarItem.imageInsets = MainTabViewController.tabBarItemImageInsets
         return viewController

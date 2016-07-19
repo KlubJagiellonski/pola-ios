@@ -1,61 +1,76 @@
 import Foundation
 import UIKit
 import SnapKit
+import RxSwift
 
 class WishlistViewController: UIViewController {
+    private let resolver: DiResolver
+    private let manager: WishlistManager
+    private let disposeBag = DisposeBag()
+    private var castView: WishlistView { return view as! WishlistView }
+    
     init(resolver: DiResolver) {
+        self.resolver = resolver
+        self.manager = resolver.resolve(WishlistManager.self)
         super.init(nibName: nil, bundle: nil)
+        
+        automaticallyAdjustsScrollViewInsets = false
+        
+        manager.synchronize()
+        manager.state.wishlistObservable.subscribeNext(updateData).addDisposableTo(disposeBag)
+        manager.state.synchronizationStateObservable.subscribeNext(updateSynchronizing).addDisposableTo(disposeBag)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func loadView() {
+        view = WishlistView()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        castView.delegate = self
+        updateData(with: manager.state.wishlist)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        manager.synchronize()
+    }
+    
+    func updateData(with products: [ListProduct]) {
+        castView.updateData(with: products)
         
-        //todo testcode remove it in future
-        let indicator = LoadingIndicator()
-        view.addSubview(indicator)
-        indicator.snp_makeConstraints { make in
-            make.center.equalToSuperview().offset(CGPointMake(0, -100))
-        }
-        
-        let showOnboardingButton = UIButton()
-        showOnboardingButton.title = "SHOW ONBOARDING"
-        showOnboardingButton.applyPlainStyle()
-        showOnboardingButton.addTarget(self, action: #selector(WishlistViewController.didTapShowOnboarding(_:)), forControlEvents: .TouchUpInside)
-        view.addSubview(showOnboardingButton)
-        showOnboardingButton.snp_makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview().offset(100)
-        }
-        
-        let showStartButton = UIButton()
-        showStartButton.title = "SHOW START"
-        showStartButton.applyPlainStyle()
-        showStartButton.addTarget(self, action: #selector(WishlistViewController.didTapShowStart(_:)), forControlEvents: .TouchUpInside)
-        view.addSubview(showStartButton)
-        showStartButton.snp_makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(showOnboardingButton.snp_bottom)
+        if products.count == 0 {
+            castView.switcherState = .Empty
+            return
         }
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        //todo testcode remove it in future
-        let indicator = view.subviews[0] as! LoadingIndicator
-        indicator.startAnimation()
+    func updateSynchronizing(with synchronizationState: WishlistSynchronizationState) {
+        if manager.state.wishlist.count == 0 {
+            castView.switcherState = .Empty
+        } else if synchronizationState.synchronizing {
+            castView.switcherState = castView.switcherState == .Error ? .Loading : .Success
+        } else {
+            castView.switcherState = synchronizationState.synchronized ? .Success : .Error
+        }
+    }
+}
+
+extension WishlistViewController: WishlistViewDelegate {
+    func wishlistView(view: WishlistView, wantsDelete product: ListProduct) {
+        manager.removeFromWishlist(product)
     }
     
-    // TODO: Remove when tested
-    @objc private func didTapShowOnboarding(sender: UIButton) {
+    func wishlistView(view: WishlistView, didSelectProductAt indexPath: NSIndexPath) {
+        // TODO: Create context and show the product
         sendNavigationEvent(SimpleNavigationEvent(type: .ShowOnboarding))
     }
     
-    @objc private func didTapShowStart(sender: UIButton) {
-        sendNavigationEvent(SimpleNavigationEvent(type: .ShowStart))
+    func viewSwitcherDidTapRetry(view: ViewSwitcher) {
+        manager.synchronize()
     }
 }

@@ -1,33 +1,22 @@
 import UIKit
-import SnapKit
 
-class OnboardingInfiniteScrollingCell: UICollectionViewCell {
-    private let animationTopOffset: CGFloat
+class OnboardingDoubleTapCell: UICollectionViewCell {
+    private let animationTopOffset: CGFloat = 157.2
     private let label = UILabel()
-    private let animation = OnboardingInfiniteScrollingAnimation()
+    private let animation = OnboardingDoubleTapAnimation()
     
-    private var animating: Bool {
+    var animating: Bool {
         get { return animation.animating }
         set { animation.animating = newValue }
     }
     
     override init(frame: CGRect) {
-        
-        switch UIDevice.currentDevice().screenType {
-        case .iPhone4:
-            animationTopOffset = 160.0
-            
-        case .iPhone5, .iPhone6, .iPhone6Plus:
-            fallthrough
-        default:
-            animationTopOffset = 193.0
-        }
-        
         super.init(frame: CGRectZero)
         
         contentView.backgroundColor = UIColor(named: .White)
+        contentView.clipsToBounds = true
         
-        label.text = tr(.OnboardingInfiniteScrollingLabel)
+        label.text = tr(.OnboardingDoubleTapLabel)
         label.font = UIFont(fontType: .Onboarding)
         label.numberOfLines = 0
         label.textAlignment = .Center
@@ -47,8 +36,6 @@ class OnboardingInfiniteScrollingCell: UICollectionViewCell {
         super.willMoveToWindow(newWindow)
         if newWindow == nil {
             animating = false
-        } else {
-            animating = true
         }
     }
     
@@ -61,12 +48,11 @@ class OnboardingInfiniteScrollingCell: UICollectionViewCell {
             make.top.equalToSuperview().offset(Dimensions.onboardingTopOffset)
             make.leading.equalToSuperview().offset(Dimensions.onboardingTextHorizontalOffset)
             make.trailing.equalToSuperview().offset(-Dimensions.onboardingTextHorizontalOffset)
-            make.bottom.lessThanOrEqualTo(animation.snp_top)
         }
         
         animation.snp_makeConstraints { make in
-            make.top.equalToSuperview().offset(animationTopOffset)
             make.centerX.equalToSuperview()
+            make.top.equalToSuperview().offset(animationTopOffset)
         }
     }
 }
