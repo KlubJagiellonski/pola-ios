@@ -22,7 +22,7 @@ public extension UIDevice {
             return .iPhone5
         case 1334:
             return .iPhone6
-        case 2208:
+        case 1920, 2208:
             return .iPhone6Plus
         default:
             return .Unknown
