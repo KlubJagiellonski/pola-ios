@@ -3,26 +3,55 @@ import RxSwift
 import RxCocoa
 import Decodable
 
+extension KeychainManager {
+    private var userIdIdentifier: String { return "showroom_token_user_id" }
+    private var userSecret: String { return "showroom_token_user_secret" }
+    
+    private func saveSession(session: Session?) {
+        setPasscode(userIdIdentifier, passcode: session?.userKey)
+        setPasscode(userSecret, passcode: session?.userSecret)
+    }
+    
+    private func loadSession() -> Session? {
+        if let userId = getPasscode(userIdIdentifier), let userSecret = getPasscode(userSecret) {
+            return Session(userKey: userId, userSecret: userSecret)
+        }
+        return nil
+    }
+}
+
 class UserManager {
     private static let skipStartScreenKey = "SkipStartScreen"
     private static let genderKey = "Gender"
     private static let defaultGender: Gender = .Female
     
     private let apiService: ApiService
+    private let keychainManager: KeychainManager
+    private let storageManager: StorageManager
     private let disposeBag = DisposeBag()
     
     let userObservable = PublishSubject<User?>()
     let genderObservable = PublishSubject<Gender>()
     
-    private(set) var user: User? {
-        didSet { userObservable.onNext(user) }
+    private var userSession: UserSession? {
+        didSet {
+            keychainManager.saveSession(userSession?.session)
+            do {
+                try storageManager.save(Constants.Persistent.currentUser, object: userSession?.user)
+            } catch {
+                logError("Could not save user \(userSession?.user) with error \(error)")
+            }
+            userObservable.onNext(userSession?.user)
+        }
     }
+    var user: User? { return userSession?.user }
+    var session: Session? { return userSession?.session }
     var gender: Gender {
         get {
             guard let genderString = NSUserDefaults.standardUserDefaults().stringForKey(UserManager.genderKey),
                 let loadedGender = Gender(rawValue: genderString) else {
-                self.gender = UserManager.defaultGender
-                return UserManager.defaultGender
+                    self.gender = UserManager.defaultGender
+                    return UserManager.defaultGender
             }
             return loadedGender
         }
@@ -42,26 +71,34 @@ class UserManager {
         }
     }
     
-    init(apiService: ApiService) {
+    init(apiService: ApiService, keychainManager: KeychainManager, storageManager: StorageManager) {
         self.apiService = apiService
-        let mockedUserAddresses = [
-            UserAddress(firstName: "Jan", lastName: "Kowalski", streetAndAppartmentNumbers: "Sikorskiego 12/30", postalCode: "15-888", city: "Białystok", country: "POLSKA", phone: "+48 501 123 456", description: "opis 1"),
-            UserAddress(firstName: "Anna", lastName: "Kowalska", streetAndAppartmentNumbers: "Piękna 5/10", postalCode: "02-758", city: "Warszawa", country: "POLSKA", phone: "+48 788 123 456", description: "opis 2")
-        ]
-        self.user = User(id: 123456789, name: "Jan", email: "jan.kowalski@gmail.com", userAddresses: mockedUserAddresses)
+        self.keychainManager = keychainManager
+        self.storageManager = storageManager
+        
+        
+        let session = keychainManager.loadSession()
+        var user: User?
+        do {
+            user = try storageManager.load(Constants.Persistent.currentUser)
+        } catch {
+            logError("Error while loading current user from cache \(error)")
+        }
+        userSession = UserSession(user: user, session: session)
     }
     
     func login(withEmail email: String, password: String) -> Observable<SigningResult> {
         return apiService.login(withEmail: email, password: password)
             .observeOn(MainScheduler.instance)
             .doOnNext { [weak self] result in
-                if let strongSelf = self {
-                    strongSelf.user = result.user
+                if let `self` = self {
+                    self.userSession = UserSession(user: result.user, session: result.session)
                 }
         }
             .catchError { [weak self] error in
-                if let strongSelf = self {
-                    strongSelf.user = nil
+                logInfo(" test \(error)")
+                if let `self` = self {
+                    self.userSession = nil
                 }
                 
                 guard let urlError = error as? RxCocoaURLError else {
@@ -89,18 +126,17 @@ class UserManager {
         }
     }
     
-    
-    func register(withName name: String, email: String, password: String, receiveNewsletter: Bool) -> Observable<SigningResult> {
-        return apiService.register(withName: name, email: email, password: password, receiveNewsletter: receiveNewsletter)
-        .observeOn(MainScheduler.instance)
+    func register(with registration: Registration) -> Observable<SigningResult> {
+        return apiService.register(with: registration)
+            .observeOn(MainScheduler.instance)
             .doOnNext { [weak self] result in
-                if let strongSelf = self {
-                    strongSelf.user = result.user
+                if let `self` = self {
+                    self.userSession = UserSession(user: result.user, session: result.session)
                 }
         }
             .catchError { [weak self] error in
-                if let strongSelf = self {
-                    strongSelf.user = nil
+                if let `self` = self {
+                    self.userSession = nil
                 }
                 
                 guard let urlError = error as? RxCocoaURLError else {
@@ -113,6 +149,7 @@ class UserManager {
                     case 400:
                         // Validation Failed
                         let errorData = try NSJSONSerialization.JSONObjectWithData(data!, options: [])
+                        logInfo("\(errorData)")
                         let validtionError: SigningValidationError = try SigningValidationError.decode(errorData)
                         logInfo(validtionError.message)
                         return Observable.error(SigningError.ValidationFailed(validtionError.errors))
@@ -126,12 +163,12 @@ class UserManager {
     }
     
     func logout() {
-        self.user = nil
-        // TODO: Remove login token from storage
+        self.userSession = nil
+        // TODO: Api call
     }
 }
 
 enum Gender: String {
-    case Male = "male"
-    case Female = "female"
+    case Male = "Male"
+    case Female = "Female"
 }

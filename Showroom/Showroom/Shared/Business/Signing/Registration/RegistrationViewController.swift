@@ -59,7 +59,8 @@ class RegistrationViewController: UIViewController, RegistrationViewDelegate {
         
         castView.switcherState = .ModalLoading
         
-        userManager.register(withName: name, email: email, password: password, receiveNewsletter: castView.receiveNewsletter)
+        let registration = Registration(name: name, username: email, password: password, newsletter: castView.receiveNewsletter, gender: castView.gender.rawValue)
+        userManager.register(with: registration)
             .subscribe { [weak self](event: Event<SigningResult>) in
                 guard let strongSelf = self else { return }
                 

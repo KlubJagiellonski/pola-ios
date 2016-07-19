@@ -96,6 +96,19 @@ class BasketViewController: UIViewController, BasketViewDelegate {
         }
     }
     
+    private func goToCheckout() {
+        guard manager.isUserLogged else {
+            let viewController = resolver.resolve(SigningNavigationController.self, argument: SigningMode.Login)
+            viewController.signingDelegate = self
+            presentViewController(viewController, animated: true, completion: nil)
+            return
+        }
+        guard let checkout = manager.createCheckout() else { return }
+        
+        let viewController = resolver.resolve(CheckoutNavigationController.self, argument: checkout)
+        presentViewController(viewController, animated: true, completion: nil)
+    }
+    
     // MARK: - BasketViewDelegate
     func basketViewDidDeleteProduct(product: BasketProduct) {
         manager.removeFromBasket(product)
@@ -118,10 +131,7 @@ class BasketViewController: UIViewController, BasketViewDelegate {
     }
     
     func basketViewDidTapCheckoutButton(view: BasketView) {
-        guard let checkout = manager.createCheckout() else { return }
-        
-        let viewController = resolver.resolve(CheckoutNavigationController.self, argument: checkout)
-        presentViewController(viewController, animated: true, completion: nil)
+        goToCheckout()
     }
     
     func basketView(view: BasketView, didChangeDiscountCode discountCode: String?) {
@@ -173,6 +183,18 @@ extension BasketViewController: DimAnimatorDelegate {
 extension BasketViewController: BasketDeliveryNavigationControllerDelegate {
     func basketDeliveryWantsDismiss(viewController: BasketDeliveryNavigationController) {
         deliveryAnimator.dismissViewController(presentingViewController: self, completion: nil)
+    }
+}
+
+extension BasketViewController: SigningNavigationControllerDelegate {
+    func signingWantsDismiss(navigationController: SigningNavigationController) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func signingDidLogIn(navigationController: SigningNavigationController) {
+        dismissViewControllerAnimated(true) { [weak self] in
+            self?.goToCheckout()
+        }
     }
 }
 

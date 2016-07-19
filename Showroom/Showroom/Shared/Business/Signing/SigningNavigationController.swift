@@ -5,9 +5,16 @@ enum SigningMode {
     case Register
 }
 
-class SigningNavigationController: UINavigationController, NavigationHandler {
-    let resolver: DiResolver
+protocol SigningNavigationControllerDelegate: class {
+    func signingWantsDismiss(navigationController: SigningNavigationController)
+    func signingDidLogIn(navigationController: SigningNavigationController)
+}
 
+final class SigningNavigationController: UINavigationController, NavigationHandler {
+    private let resolver: DiResolver
+
+    weak var signingDelegate: SigningNavigationControllerDelegate?
+    
     init(resolver: DiResolver, mode: SigningMode) {
         self.resolver = resolver
         
@@ -38,7 +45,7 @@ class SigningNavigationController: UINavigationController, NavigationHandler {
     }
     
     func didTapCloseButton(sender: UIBarButtonItem) {
-        dismissViewControllerAnimated(true, completion: nil)
+        signingDelegate?.signingWantsDismiss(self)
     }
     
     func handleNavigationEvent(event: NavigationEvent) -> EventHandled {
@@ -49,7 +56,7 @@ class SigningNavigationController: UINavigationController, NavigationHandler {
             popViewControllerAnimated(true)
             return true
         case .Close:
-            dismissViewControllerAnimated(true, completion: nil)
+            signingDelegate?.signingDidLogIn(self)
             return true
         case .ShowLogin:
             if viewControllers.count > 1 {

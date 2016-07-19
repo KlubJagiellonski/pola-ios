@@ -6,11 +6,11 @@ protocol Encodable {
 }
 
 class StorageManager {
-    func save<T: Encodable>(name: String, object: T) throws {
+    func save<T: Encodable>(name: String, object: T?) throws {
         try saveData(getPersistentPath(forFilename: name), object: object)
     }
     
-    func saveToCache<T: Encodable>(cacheName: String, object: T) throws {
+    func saveToCache<T: Encodable>(cacheName: String, object: T?) throws {
         try saveData(getCachePath(forFilename: cacheName), object: object)
     }
     
@@ -22,7 +22,14 @@ class StorageManager {
         return try loadData(getCachePath(forFilename: cacheName))
     }
     
-    private func saveData<T: Encodable>(path: String, object: T) throws {
+    private func saveData<T: Encodable>(path: String, object: T?) throws {
+        guard let object = object else {
+            let fileManager = NSFileManager.defaultManager()
+            if fileManager.fileExistsAtPath(path) {
+                try fileManager.removeItemAtPath(path)
+            }
+            return
+        }
         let data = object.encode()
         let jsonData = try NSJSONSerialization.dataWithJSONObject(data, options: NSJSONWritingOptions(rawValue: 0))
         try jsonData.writeToFile(path, options: [])

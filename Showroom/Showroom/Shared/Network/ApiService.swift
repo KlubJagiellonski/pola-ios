@@ -133,7 +133,6 @@ extension ApiService {
                 do {
                     let result = try NSJSONSerialization.JSONObjectWithData(data, options: [])
                     let loginResult = try SigningResult.decode(result)
-                    logInfo("Login token: \(loginResult.token)")
                     return Observable.just(loginResult)
                 } catch {
                     return Observable.error(error)
@@ -144,11 +143,10 @@ extension ApiService {
         }
     }
     
-    func register(withName name: String, email: String, password: String, receiveNewsletter: Bool) -> Observable<SigningResult> {
+    func register(with registration: Registration) -> Observable<SigningResult> {
         let url = NSURL(fileURLWithPath: basePath)
             .URLByAppendingPathComponent("register")
         do {
-            let registration = Registration(name: name, username: email, password: password, newsletter: receiveNewsletter)
             let jsonData = try NSJSONSerialization.dataWithJSONObject(registration.encode(), options: [])
             let urlRequest = NSMutableURLRequest(URL: url)
             urlRequest.HTTPMethod = "POST"
@@ -157,7 +155,6 @@ extension ApiService {
                 do {
                     let result = try NSJSONSerialization.JSONObjectWithData(data, options: [])
                     let registrationResult = try SigningResult.decode(result)
-                    logInfo("Login token: \(registrationResult.token)")
                     return Observable.just(registrationResult)
                 } catch {
                     return Observable.error(error)

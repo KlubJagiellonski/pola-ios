@@ -12,11 +12,28 @@ struct Registration {
     let username: String
     let password: String
     let newsletter: Bool
+    let gender: String
 }
 
 struct SigningResult {
-    let token: String
+    let session: Session
     let user: User
+}
+
+struct UserSession {
+    let user: User
+    let session: Session
+    
+    init?(user: User?, session: Session?) {
+        guard let user = user, let session = session else { return nil }
+        self.user = user
+        self.session = session
+    }
+ }
+
+struct Session {
+    let userKey: String
+    let userSecret: String
 }
 
 // MARK: - Errors
@@ -58,7 +75,8 @@ extension Registration: Encodable {
             "name": name,
             "email": username,
             "password": password,
-            "newsletter": newsletter.description
+            "newsletter": newsletter.description,
+            "gender": gender
         ] as NSDictionary
     }
 }
@@ -66,8 +84,16 @@ extension Registration: Encodable {
 extension SigningResult: Decodable {
     static func decode(json: AnyObject) throws -> SigningResult {
         return try SigningResult(
-            token: json => "token",
+            session: json => "session",
             user: json => "user")
+    }
+}
+
+extension Session: Decodable {
+    static func decode(json: AnyObject) throws -> Session {
+        return try Session(
+            userKey: json => "userKey",
+            userSecret: json => "userSecret")
     }
 }
 

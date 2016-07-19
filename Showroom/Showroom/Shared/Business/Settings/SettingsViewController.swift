@@ -95,12 +95,14 @@ class SettingsViewController: UIViewController {
     func loginButtonPressed() {
         logInfo("loginButtonPressed")
         let viewController = resolver.resolve(SigningNavigationController.self, argument: SigningMode.Login)
+        viewController.signingDelegate = self
         presentViewController(viewController, animated: true, completion: nil)
     }
     
     func createAccountButtonPressed() {
         logInfo("createAccountButtonPressed")
         let viewController = resolver.resolve(SigningNavigationController.self, argument: SigningMode.Register)
+        viewController.signingDelegate = self
         presentViewController(viewController, animated: true, completion: nil)
     }
     
@@ -152,5 +154,15 @@ class SettingsViewController: UIViewController {
     func contactRowPressed() {
         logInfo("contactRowPressed")
         sendNavigationEvent(ShowSettingsWebViewEvent(title: tr(.SettingsContact), url: "https://www.showroom.pl/kontakt"))
+    }
+}
+
+extension SettingsViewController: SigningNavigationControllerDelegate {
+    func signingWantsDismiss(navigationController: SigningNavigationController) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func signingDidLogIn(navigationController: SigningNavigationController) {
+        dismissViewControllerAnimated(true, completion: nil)
     }
 }

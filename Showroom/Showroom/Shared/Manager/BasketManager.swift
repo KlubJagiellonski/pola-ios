@@ -10,6 +10,10 @@ final class BasketManager {
     
     let state: BasketState
     
+    var isUserLogged: Bool {
+        return userManager.user != nil
+    }
+    
     init(with apiService: ApiService, storageManager: StorageManager, userManager: UserManager) {
         self.apiService = apiService
         self.storageManager = storageManager

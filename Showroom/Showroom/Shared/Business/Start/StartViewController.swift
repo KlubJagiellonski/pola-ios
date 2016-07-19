@@ -31,12 +31,14 @@ class StartViewController: UIViewController, StartViewDelegate {
     func startViewDidTapLogin() {
         logInfo("Tap login")
         let viewController = resolver.resolve(SigningNavigationController.self, argument: SigningMode.Login)
+        viewController.signingDelegate = self
         presentViewController(viewController, animated: true, completion: nil)
     }
     
     func startViewDidTapRegister() {
         logInfo("Tap register")
         let viewController = resolver.resolve(SigningNavigationController.self, argument: SigningMode.Register)
+        viewController.signingDelegate = self
         presentViewController(viewController, animated: true, completion: nil)
     }
     
@@ -51,5 +53,14 @@ class StartViewController: UIViewController, StartViewDelegate {
         userManager.gender = .Male
         sendNavigationEvent(SimpleNavigationEvent(type: .ShowDashboard))
     }
+}
+
+extension StartViewController: SigningNavigationControllerDelegate {
+    func signingWantsDismiss(navigationController: SigningNavigationController) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
     
+    func signingDidLogIn(navigationController: SigningNavigationController) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
 }
