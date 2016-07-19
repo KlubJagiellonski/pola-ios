@@ -141,6 +141,9 @@ class UIAssembly: AssemblyType {
         container.register(SettingsViewController.self) { r in
             return SettingsViewController(resolver: r.resolve(DiResolver.self)!)
         }
+        container.register(SettingsWebViewController.self) { r, url in
+            return SettingsWebViewController(resolver: r.resolve(DiResolver.self)!, url: url)
+        }
         container.register(SplashViewController.self) { r in
             return SplashViewController()
         }

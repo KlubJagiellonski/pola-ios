@@ -289,7 +289,7 @@ enum L10n {
   case SettingsUserData
   /// Historia zamówień
   case SettingsHistory
-  /// Jak się mierzyć
+  /// Jak się mierzyć?
   case SettingsHowToMeasure
   /// Polityka prywatności
   case SettingsPrivacyPolicy

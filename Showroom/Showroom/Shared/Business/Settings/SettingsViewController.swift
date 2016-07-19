@@ -75,9 +75,15 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
         updateSettings(with: userManager.user)
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        castView.deselectRowsIfNeeded()
+    }
 
     func facebookButtonPressed() {
-        logInfo("facebooButtonPressed")
+        logInfo("facebookButtonPressed")
         tryOpenURL(urlOptions: ["fb://profile/159930354087746", "https://www.facebook.com/shwrm"])
     }
     
@@ -93,9 +99,9 @@ class SettingsViewController: UIViewController {
     }
     
     func createAccountButtonPressed() {
+        logInfo("createAccountButtonPressed")
         let viewController = resolver.resolve(SigningNavigationController.self, argument: SigningMode.Register)
         presentViewController(viewController, animated: true, completion: nil)
-        logInfo("createAccountButtonPressed")
     }
     
     func logoutButtonPressed() {
@@ -115,29 +121,36 @@ class SettingsViewController: UIViewController {
     
     func userDataRowPressed() {
         logInfo("userDataRowPressed")
+        sendNavigationEvent(SimpleNavigationEvent(type: .ShowUserInfo))
     }
 
     func historyRowPressed() {
         logInfo("historyRowPressed")
+        sendNavigationEvent(SimpleNavigationEvent(type: .ShowHistoryOfOrder))
     }
     
     func howToMeasureRowPressed() {
         logInfo("howToMeasureRowPressed")
+        sendNavigationEvent(ShowSettingsWebViewEvent(title: tr(.SettingsHowToMeasure), url: "https://www.showroom.pl"))
     }
     
     func privacyPolicyRowPressed() {
         logInfo("privacyPolicyRowPressed")
+        sendNavigationEvent(ShowSettingsWebViewEvent(title: tr(.SettingsPrivacyPolicy), url: "https://www.showroom.pl"))
     }
     
     func frequentQuestionsRowPressed() {
         logInfo("frequentQuestionsRowPressed")
+        sendNavigationEvent(ShowSettingsWebViewEvent(title: tr(.SettingsFrequentQuestions), url: "https://www.showroom.pl"))
     }
     
     func rulesRowPressed() {
         logInfo("rulesRowPressed")
+        sendNavigationEvent(ShowSettingsWebViewEvent(title: tr(.SettingsRules), url: "https://www.showroom.pl"))
     }
     
     func contactRowPressed() {
         logInfo("contactRowPressed")
+        sendNavigationEvent(ShowSettingsWebViewEvent(title: tr(.SettingsContact), url: "https://www.showroom.pl"))
     }
 }

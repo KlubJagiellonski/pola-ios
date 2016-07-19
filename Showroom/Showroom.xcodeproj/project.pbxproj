@@ -235,6 +235,8 @@
 		75FE56A91D250C9200DF5356 /* CheckoutModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FE56A81D250C9200DF5356 /* CheckoutModel.swift */; };
 		75FE56B71D26A3C200DF5356 /* FormInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FE56B61D26A3C200DF5356 /* FormInputView.swift */; };
 		75FE56C31D2BFDE900DF5356 /* CheckButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FE56C21D2BFDE900DF5356 /* CheckButton.swift */; };
+		C006F4D41D3E40CF00573316 /* ShowSettingsWebViewEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C006F4D31D3E40CF00573316 /* ShowSettingsWebViewEvent.swift */; };
+		C006F4D61D3E4A5900573316 /* SettingsWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C006F4D51D3E4A5900573316 /* SettingsWebViewController.swift */; };
 		C007CD921D2E7F6E00700EBB /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C007CD911D2E7F6E00700EBB /* SettingsCell.swift */; };
 		C007CD951D2E92FC00700EBB /* SettingsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C007CD941D2E92FC00700EBB /* SettingsDataSource.swift */; };
 		C01FF2E21D366D3B00D025AE /* HeartMaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01FF2E11D366D3B00D025AE /* HeartMaskView.swift */; };
@@ -552,6 +554,8 @@
 		75FE56A81D250C9200DF5356 /* CheckoutModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutModel.swift; sourceTree = "<group>"; };
 		75FE56B61D26A3C200DF5356 /* FormInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormInputView.swift; sourceTree = "<group>"; };
 		75FE56C21D2BFDE900DF5356 /* CheckButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckButton.swift; sourceTree = "<group>"; };
+		C006F4D31D3E40CF00573316 /* ShowSettingsWebViewEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowSettingsWebViewEvent.swift; sourceTree = "<group>"; };
+		C006F4D51D3E4A5900573316 /* SettingsWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsWebViewController.swift; sourceTree = "<group>"; };
 		C007CD911D2E7F6E00700EBB /* SettingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		C007CD941D2E92FC00700EBB /* SettingsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsDataSource.swift; sourceTree = "<group>"; };
 		C01FF2E11D366D3B00D025AE /* HeartMaskView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeartMaskView.swift; sourceTree = "<group>"; };
@@ -1184,6 +1188,9 @@
 		1DD1EA8F1CF2E60400D99731 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				C006F4DA1D3E4AC400573316 /* WebView */,
+				C006F4DC1D3E4AEB00573316 /* HistoryOfOrder */,
+				C006F4DB1D3E4ADD00573316 /* UserInfo */,
 				C007CD961D2E939800700EBB /* DataSource */,
 				C0CBE2A91D2D4270008B861D /* SettingsNavigationController.swift */,
 				1DD1EA901CF2E61800D99731 /* SettingsViewController.swift */,
@@ -1213,6 +1220,7 @@
 				1D5F915E1D35221D00AE66E6 /* ShowFilterOptionEvent.swift */,
 				1D5E91921D3CE25000A6BD55 /* ShowProductSearchEvent.swift */,
 				1D5E919E1D3E46D000A6BD55 /* ShowSearchItemEvent.swift */,
+				C006F4D31D3E40CF00573316 /* ShowSettingsWebViewEvent.swift */,
 			);
 			path = Event;
 			sourceTree = "<group>";
@@ -1376,6 +1384,28 @@
 				75C8545D1D05660400E5F08F /* BasketHeader.swift */,
 			);
 			path = DataSource;
+			sourceTree = "<group>";
+		};
+		C006F4DA1D3E4AC400573316 /* WebView */ = {
+			isa = PBXGroup;
+			children = (
+				C006F4D51D3E4A5900573316 /* SettingsWebViewController.swift */,
+			);
+			path = WebView;
+			sourceTree = "<group>";
+		};
+		C006F4DB1D3E4ADD00573316 /* UserInfo */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UserInfo;
+			sourceTree = "<group>";
+		};
+		C006F4DC1D3E4AEB00573316 /* HistoryOfOrder */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = HistoryOfOrder;
 			sourceTree = "<group>";
 		};
 		C007CD961D2E939800700EBB /* DataSource */ = {
@@ -1678,6 +1708,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D2423DF1D228BA80026D46B /* ToastView.swift in Sources */,
+				C006F4D61D3E4A5900573316 /* SettingsWebViewController.swift in Sources */,
 				1D5F91571D3509A300AE66E6 /* ProductFilterPriceCell.swift in Sources */,
 				C09280721D08453000350B82 /* ProductColorView.swift in Sources */,
 				C09280761D08514F00350B82 /* ProductColorDataSource.swift in Sources */,
@@ -1903,6 +1934,7 @@
 				1D0F3B641D13D3710052CFF6 /* BasketCountryDataSource.swift in Sources */,
 				1D0F3B4E1D12819B0052CFF6 /* BasketDeliveryNavigationController.swift in Sources */,
 				1DA5CB491D2F7B2E00A45E93 /* Checkout.swift in Sources */,
+				C006F4D41D3E40CF00573316 /* ShowSettingsWebViewEvent.swift in Sources */,
 				C07CF39B1D2407DD004578FD /* EditKioskViewController.swift in Sources */,
 				1DD1EA911CF2E61800D99731 /* SettingsViewController.swift in Sources */,
 				1DD1EA9B1CF2ED6400D99731 /* SimpleNavigationEvent.swift in Sources */,

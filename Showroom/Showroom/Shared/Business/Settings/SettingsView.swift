@@ -46,6 +46,13 @@ class SettingsView: UIView, UITableViewDelegate {
     func updateData(with gender: Gender) {
         dataSource.updateData(with: gender)
     }
+    
+    func deselectRowsIfNeeded() {
+        if let selectedRow = tableView.indexPathForSelectedRow {
+            tableView.deselectRowAtIndexPath(selectedRow, animated: true)
+            tableView.reloadRowsAtIndexPaths([selectedRow], withRowAnimation: .Automatic)
+        }
+    }
         
     private func configureCustomConstraints() {
         tableView.snp_makeConstraints { make in

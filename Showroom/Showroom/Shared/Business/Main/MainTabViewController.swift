@@ -112,8 +112,8 @@ class MainTabViewController: UITabBarController, NavigationHandler {
         return viewController
     }
     
-    func createSettingsViewController() -> SettingsViewController {
-        let viewController = resolver.resolve(SettingsViewController.self)
+    func createSettingsViewController() -> SettingsNavigationController {
+        let viewController = resolver.resolve(SettingsNavigationController.self)
         viewController.tabBarItem = UITabBarItem(tabBarIcon: .Settings)
         viewController.tabBarItem.imageInsets = MainTabViewController.tabBarItemImageInsets
         return viewController

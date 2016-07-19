@@ -23,7 +23,7 @@ class CommonNavigationHandler: NavigationHandler {
             return true
         case let searchEvent as ShowProductSearchEvent:
             showSearchProductList(query: searchEvent.query)
-            return true
+            return true            
         default:
             return false
         }
