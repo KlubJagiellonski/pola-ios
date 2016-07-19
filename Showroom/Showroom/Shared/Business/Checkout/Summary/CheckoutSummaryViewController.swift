@@ -1,6 +1,6 @@
 import UIKit
 
-class CheckoutSummaryViewController: UIViewController, CheckoutSummaryViewDelegate {
+final class CheckoutSummaryViewController: UIViewController, CheckoutSummaryViewDelegate {
     private let manager: BasketManager
     private let model: CheckoutModel
     private var castView: CheckoutSummaryView { return view as! CheckoutSummaryView }
@@ -56,6 +56,11 @@ class CheckoutSummaryViewController: UIViewController, CheckoutSummaryViewDelega
         logInfo("Delete comment")
         model.update(comment: nil, at: index)
         castView.updateData(withComments: model.state.comments)
+    }
+    
+    func checkoutSummaryViewDidTapBuy(view: CheckoutSummaryView) {
+        logInfo("Did tap buy")
+        //todo buy
     }
 }
 

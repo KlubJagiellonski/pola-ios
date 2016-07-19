@@ -63,7 +63,7 @@ class CheckoutDeliveryViewController: UIViewController, CheckoutDeliveryViewDele
         guard view.validate(showResult: true) else {
             return
         }
-        if checkoutModel.state.selectedKiosk == nil {
+        if checkoutModel.state.checkout.deliveryCarrier.id == .RUCH && checkoutModel.state.selectedKiosk == nil {
             sendNavigationEvent(SimpleNavigationEvent(type: .ShowEditKiosk))
             return
         }

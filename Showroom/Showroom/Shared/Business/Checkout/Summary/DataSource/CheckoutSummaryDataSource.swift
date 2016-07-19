@@ -2,9 +2,9 @@ import Foundation
 import UIKit
 
 enum CheckoutSummaryPaymentRow: Int {
-    case Payment = 0, BuyButton
+    case Payment = 0
     
-    static var count: Int { return CheckoutSummaryPaymentRow.BuyButton.rawValue + 1 }
+    static var count: Int { return CheckoutSummaryPaymentRow.Payment.rawValue + 1 }
 }
 
 class CheckoutSummaryDataSource: NSObject, UITableViewDataSource, CheckoutSummaryCommentCellDelegate {
@@ -25,7 +25,6 @@ class CheckoutSummaryDataSource: NSObject, UITableViewDataSource, CheckoutSummar
         tableView.registerClass(CheckoutSummaryBrandCell.self, forCellReuseIdentifier: String(CheckoutSummaryBrandCell))
         tableView.registerClass(CheckoutSummaryCommentCell.self, forCellReuseIdentifier: String(CheckoutSummaryCommentCell))
         tableView.registerClass(CheckoutSummaryPaymentCell.self, forCellReuseIdentifier: String(CheckoutSummaryPaymentCell))
-        tableView.registerClass(CheckoutSummaryBuyCell.self, forCellReuseIdentifier: String(CheckoutSummaryBuyCell))
     }
     
     func updateData(with basket: Basket, carrier deliveryCarrier: DeliveryCarrier, discountCode: String? = nil, comments: [String?]? = nil) {
@@ -53,7 +52,7 @@ class CheckoutSummaryDataSource: NSObject, UITableViewDataSource, CheckoutSummar
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isPaymentSection(section) {
-            return 2 // 1 for payment view + 1 for buy button
+            return CheckoutSummaryPaymentRow.count
         } else {
             return productsByBrands[section].products.count + 3 // 3 additional cells: brand, delivery, user comment
         }
@@ -68,9 +67,6 @@ class CheckoutSummaryDataSource: NSObject, UITableViewDataSource, CheckoutSummar
             case CheckoutSummaryPaymentRow.Payment:
                 let cell = tableView.dequeueReusableCellWithIdentifier(String(CheckoutSummaryPaymentCell)) as! CheckoutSummaryPaymentCell
                 cell.updateData(withTotalPrice: totalPrice, discount: discount, discountCode: discountCode)
-                return cell
-            case CheckoutSummaryPaymentRow.BuyButton:
-                let cell = tableView.dequeueReusableCellWithIdentifier(String(CheckoutSummaryBuyCell)) as! CheckoutSummaryBuyCell
                 return cell
             }
         } else {
@@ -109,8 +105,6 @@ class CheckoutSummaryDataSource: NSObject, UITableViewDataSource, CheckoutSummar
             switch paymentRow {
             case CheckoutSummaryPaymentRow.Payment:
                 return CheckoutSummaryPaymentCell.getHeight(withDiscount: discountCode != nil && discount != nil)
-            case CheckoutSummaryPaymentRow.BuyButton:
-                return CheckoutSummaryBuyCell.cellHeight
             }
         } else {
             if isBrandCell(at: indexPath) {

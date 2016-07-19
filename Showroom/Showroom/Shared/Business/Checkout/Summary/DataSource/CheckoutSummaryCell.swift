@@ -414,30 +414,3 @@ class CheckoutSummaryPaymentCell: UITableViewCell {
         cashRadio.selected = true
     }
 }
-
-class CheckoutSummaryBuyCell: UITableViewCell {
-    static let cellHeight: CGFloat = Dimensions.bigButtonHeight
-    
-    let buyButton = UIButton()
-    
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: .Default, reuseIdentifier: reuseIdentifier)
-        selectionStyle = .None
-        
-        buyButton.setTitle(tr(.CheckoutSummaryBuy), forState: .Normal)
-        buyButton.applyBlueStyle()
-        contentView.addSubview(buyButton)
-        
-        configureCustomConstraints()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func configureCustomConstraints() {
-        buyButton.snp_makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-    }
-}
