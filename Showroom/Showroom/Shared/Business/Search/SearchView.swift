@@ -2,13 +2,15 @@ import Foundation
 import UIKit
 import SnapKit
 
-protocol SearchViewDelegate: class {
+protocol SearchViewDelegate: ViewSwitcherDelegate {
     func search(view: SearchView, didTapSearchWithQuery query: String)
 }
 
-final class SearchView: UIView, ExtendedView, UICollectionViewDelegateFlowLayout {
+final class SearchView: ViewSwitcher, ExtendedView, UICollectionViewDelegateFlowLayout {
+    private let contentView = UIView()
     private let headerView = UIView()
     private let searchBar = UISearchBar()
+    private let headerBottomSeparatorView = UIView()
     private let tabView = SearchTabView()
     private let collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: UICollectionViewFlowLayout())
     private let dimView = UIView()
@@ -26,12 +28,18 @@ final class SearchView: UIView, ExtendedView, UICollectionViewDelegateFlowLayout
         set { dataSource.pageHandler = newValue }
         get { return dataSource.pageHandler }
     }
-    weak var delegate: SearchViewDelegate?
+    weak var delegate: SearchViewDelegate? {
+        didSet {
+            switcherDelegate = delegate
+        }
+    }
     
     init() {
         self.dataSource = SearchDataSource(with: collectionView)
         
-        super.init(frame: CGRectZero)
+        super.init(successView: contentView)
+        
+        switcherDataSource = self
         
         backgroundColor = UIColor(named: .White)
         
@@ -39,6 +47,8 @@ final class SearchView: UIView, ExtendedView, UICollectionViewDelegateFlowLayout
         searchBar.placeholder = tr(.SearchPlaceholder)
         searchBar.delegate = self
         searchBar.applyDefaultStyle()
+        
+        headerBottomSeparatorView.backgroundColor = UIColor(named: .Separator)
         
         tabView.selectedIndex = 0
         tabView.searchView = self
@@ -57,10 +67,11 @@ final class SearchView: UIView, ExtendedView, UICollectionViewDelegateFlowLayout
         dimView.hidden = true
         
         headerView.addSubview(searchBar)
+        headerView.addSubview(headerBottomSeparatorView)
         headerView.addSubview(tabView)
-        addSubview(headerView)
-        addSubview(collectionView)
-        addSubview(dimView)
+        contentView.addSubview(headerView)
+        contentView.addSubview(collectionView)
+        contentView.addSubview(dimView)
         
         configureCustomConstraints()
     }
@@ -77,9 +88,9 @@ final class SearchView: UIView, ExtendedView, UICollectionViewDelegateFlowLayout
         dataSource.scrollToPage(atIndex: index, animated: true)
     }
     
-    func updateData(with tabs: [String]) {
-        dataSource.pageCount = tabs.count
-        tabView.updateTabs(tabs)
+    func updateData(with searchItems: [SearchItem]) {
+        dataSource.pageCount = searchItems.count
+        tabView.updateTabs(searchItems.map { $0.name })
     }
     
     private func configureCustomConstraints() {
@@ -93,6 +104,13 @@ final class SearchView: UIView, ExtendedView, UICollectionViewDelegateFlowLayout
             make.top.equalToSuperview()
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
+        }
+        
+        headerBottomSeparatorView.snp_makeConstraints { make in
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.height.equalTo(Dimensions.defaultSeparatorThickness)
         }
         
         tabView.snp_makeConstraints { make in
@@ -120,7 +138,8 @@ final class SearchView: UIView, ExtendedView, UICollectionViewDelegateFlowLayout
     // MARK: - UICollectionViewDelegateFlowLayout
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return collectionView.bounds.size
+        let size = collectionView.bounds.size
+        return CGSize(width: size.width, height: size.height - collectionView.contentInset.top - collectionView.contentInset.bottom)
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -133,6 +152,13 @@ final class SearchView: UIView, ExtendedView, UICollectionViewDelegateFlowLayout
             tabView.indicatorOffsetPercentage = selectedIndex == scrollPage ? scrollPageOffset : (scrollPageOffset - CGFloat(selectedIndex - scrollPage))
         }
     }
+}
+
+extension SearchView: ViewSwitcherDataSource {
+    func viewSwitcherWantsErrorInfo(view: ViewSwitcher) -> (ErrorText, ErrorImage?) {
+        return (tr(.CommonError), UIImage(asset: .Error))
+    }
+    func viewSwitcherWantsEmptyView(view: ViewSwitcher) -> UIView? { return nil }
 }
 
 extension SearchView: UISearchBarDelegate {
@@ -222,6 +248,9 @@ final class SearchTabView: UIView {
         tabButtons.forEach { addSubview($0) }
         
         configureTabButtonsConstraints()
+        if selectedIndex >= tabs.count {
+            selectedIndex = 0 // reset selected index when that index doesn't exist in new data
+        }
         updateIndicator()
     }
     

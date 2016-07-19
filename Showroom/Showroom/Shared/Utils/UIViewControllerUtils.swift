@@ -22,8 +22,10 @@ extension ExtendedViewController where Self: UIViewController {
 }
 
 extension UIViewController {
-    func resetBackTitle() {
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
+    func resetBackTitle(title: String = "") {
+        let button = UIBarButtonItem(title: title, style: .Plain, target: nil, action: nil)
+        button.setBackButtonTitlePositionAdjustment(UIOffset(horizontal: 10, vertical: 0), forBarMetrics: .Default)
+        navigationItem.backBarButtonItem = button
     }
     
     func applyBlackCloseButton(target target: AnyObject?, action: Selector) {

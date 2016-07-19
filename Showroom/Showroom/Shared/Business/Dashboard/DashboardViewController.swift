@@ -86,7 +86,7 @@ class DashboardViewController: UIViewController, DashboardViewDelegate {
     // MARK: - DashboardViewDelegate
     
     func dashboardView(dashboardView: DashboardView, didSelectContentPromo contentPromo: ContentPromo) {
-        sendNavigationEvent(ShowItemForLinkEvent(link: contentPromo.link))
+        sendNavigationEvent(ShowItemForLinkEvent(link: contentPromo.link, title: nil))
     }
     
     func dashboardView(dashboardView: DashboardView, didSelectRecommendation productRecommendation: ProductRecommendation) {

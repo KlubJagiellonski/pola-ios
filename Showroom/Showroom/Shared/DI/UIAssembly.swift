@@ -28,7 +28,10 @@ class UIAssembly: AssemblyType {
             return DashboardModel(apiService: r.resolve(ApiService.self)!, userManager: r.resolve(UserManager.self)!, storageManager: r.resolve(StorageManager.self)!, emarsysService: r.resolve(EmarsysService.self)!)
         }
         container.register(SearchViewController.self) { r in
-            return SearchViewController(resolver: r.resolve(DiResolver.self)!)
+            return SearchViewController(with: r.resolve(DiResolver.self)!)
+        }
+        container.register(SearchModel.self) { r in
+            return SearchModel(with: r.resolve(ApiService.self)!)
         }
         container.register(SettingsViewController.self) { r in
             return SettingsViewController(resolver: r.resolve(DiResolver.self)!)
@@ -164,6 +167,12 @@ class UIAssembly: AssemblyType {
         }
         container.register(SearchProductListModel.self) { r, query in
             return SearchProductListModel(withQuery: query, and: r.resolve(ApiService.self)!)
+        }
+        container.register(SearchContentViewController.self) { r, searchItem, contentType in
+            return SearchContentViewController(mainSearchItem: searchItem, type: contentType)
+        }
+        container.register(SearchContentNavigationController.self) { r, searchItem in
+            return SearchContentNavigationController(with: r.resolve(DiResolver.self)!, mainSearchItem: searchItem)
         }
     }
 }

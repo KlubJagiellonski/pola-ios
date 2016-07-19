@@ -15,27 +15,22 @@ class EditKioskModel {
         self.checkoutModel = checkoutModel
     }
     
-    func fetchKiosks(withLatitude latitude: Double, longitude: Double, limit: Int = 10) -> Observable<FetchResult<KioskResult>> {
+    func fetchKiosks(withLatitude latitude: Double, longitude: Double, limit: Int = 10) -> Observable<KioskResult> {
         return api.fetchKiosks(withLatitude: latitude, longitude: longitude, limit: limit)
             .doOnNext { [weak self] in self?.kiosks = $0.kiosks }
-            .map { FetchResult.Success($0) }
-            .catchError { Observable.just(FetchResult.NetworkError($0)) }
             .observeOn(MainScheduler.instance)
     }
     
-    func fetchKiosks(withAddressString addressString: String) -> Observable<FetchResult<KioskResult>> {
+    func fetchKiosks(withAddressString addressString: String) -> Observable<KioskResult> {
         
         return geocoder.rx_geocodeAddressString(addressString)
-            .flatMap { [weak self](placemarks: [CLPlacemark]) -> Observable<FetchResult<KioskResult>> in
+            .flatMap { [weak self](placemarks: [CLPlacemark]) -> Observable<KioskResult> in
                 guard let `self` = self else { return Observable.empty() }
                 if let coordinates = placemarks.first?.location?.coordinate {
                     return self.fetchKiosks(withLatitude: coordinates.latitude, longitude: coordinates.longitude)
                 } else {
-                    return Observable.just(FetchResult.Success(KioskResult(kiosks: [])))
+                    return Observable.just(KioskResult(kiosks: []))
                 }
-        }
-        .catchError { error in
-            return Observable.just(FetchResult.NetworkError(error))
         }
     }
 }

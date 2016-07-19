@@ -43,14 +43,3 @@ extension Kiosk: Decodable {
         )
     }
 }
-
-// MARK: - Equatable
-
-extension KioskResult: Equatable {}
-func ==(lhs: KioskResult, rhs: KioskResult) -> Bool {
-    return lhs.kiosks == rhs.kiosks
-}
-extension Kiosk: Equatable {}
-func ==(lhs: Kiosk, rhs: Kiosk) -> Bool {
-    return lhs.id == rhs.id && lhs.city == rhs.city && lhs.street == rhs.street && lhs.displayName == rhs.displayName && lhs.distance == rhs.distance && lhs.workingHours == rhs.workingHours
-}

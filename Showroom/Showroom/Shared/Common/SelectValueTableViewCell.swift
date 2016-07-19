@@ -103,6 +103,12 @@ final class ImageSelectValueTableViewCell: SelectValueTableViewCell {
     }
 }
 
+final class BoldSelectValueTableViewCell: SelectValueTableViewCell {
+    private override var amountLabelFont: UIFont {
+        return UIFont(fontType: .Bold)
+    }
+}
+
 class SmallSelectValueTableViewCell: SelectValueTableViewCell {
     private override var amountLabelFont: UIFont {
         return UIFont(fontType: .ProductActionOption)

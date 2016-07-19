@@ -319,10 +319,14 @@ enum L10n {
   case OnboardingNotificationsSkip
   /// Stuknij dwukrotnie w zdjęcie, aby dodać produkt do ulubionych
   case OnboardingDoubleTapLabel
-  /// szukaj
-  case SearchPlaceholder
   /// Przesuń palcem w bok, aby przejść do kolejnego produktu z listy
   case OnboardingProductPagingLabel
+  /// szukaj
+  case SearchPlaceholder
+  /// WSZYSTKO: %@
+  case SearchAllSearchItems(String)
+  /// Cofnij
+  case SearchBack
 }
 
 extension L10n: CustomStringConvertible {
@@ -646,10 +650,14 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Onboarding.Notifications.Skip")
       case .OnboardingDoubleTapLabel:
         return L10n.tr("Onboarding.DoubleTap.Label")
-      case .SearchPlaceholder:
-        return L10n.tr("Search.Placeholder")
       case .OnboardingProductPagingLabel:
         return L10n.tr("Onboarding.ProductPaging.Label")
+      case .SearchPlaceholder:
+        return L10n.tr("Search.Placeholder")
+      case .SearchAllSearchItems(let p0):
+        return L10n.tr("Search.AllSearchItems", p0)
+      case .SearchBack:
+        return L10n.tr("Search.Back")
     }
   }
 

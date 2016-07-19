@@ -18,40 +18,42 @@ extension ProductListViewControllerInterface {
     func fetchFirstPage() {
         productListView.switcherState = .Loading
         filterButtonEnabled = false
-        let onNext = { [weak self](result: FetchResult<ProductListResult>) in
+        let onEvent = { [weak self](event: Event<ProductListResult>) in
             guard let `self` = self else { return }
-            switch result {
-            case .Success(let productListResult):
+            switch event {
+            case .Next(let productListResult):
                 logInfo("Received first product list page \(productListResult)")
                 self.pageWasFetched(result: productListResult, page: self.productListModel.currentPageIndex)
                 self.productListView.updateData(productListResult.products, nextPageState: productListResult.isLastPage ? .LastPage : .Fetching)
                 self.productListView.switcherState = productListResult.products.isEmpty ? .Empty : .Success
                 self.filterButtonVisible = true // todo it should be get from result
                 self.filterButtonEnabled = true
-            case .NetworkError(let error):
+            case .Error(let error):
                 logInfo("Failed to receive first product list page \(error)")
                 self.productListView.switcherState = .Error
+            default: break
             }
         }
         
-        productListModel.fetchFirstPage().subscribeNext(onNext).addDisposableTo(disposeBag)
+        productListModel.fetchFirstPage().subscribe(onEvent).addDisposableTo(disposeBag)
     }
     
     func fetchNextPage() {
-        let onNext = { [weak self](result: FetchResult<ProductListResult>) in
+        let onEvent = { [weak self](event: Event<ProductListResult>) in
             guard let `self` = self else { return }
-            switch result {
-            case .Success(let productListResult):
+            switch event {
+            case .Next(let productListResult):
                 logInfo("Received next product list page \(productListResult)")
                 self.pageWasFetched(result: productListResult, page: self.productListModel.currentPageIndex)
                 self.productListView.appendData(productListResult.products, nextPageState: productListResult.isLastPage ? .LastPage : .Fetching)
-            case .NetworkError(let error):
+            case .Error(let error):
                 logInfo("Failed to receive next product list page \(error)")
                 self.productListView.updateNextPageState(.Error)
+            default: break
             }
         }
         
-        productListModel.fetchNextProductPage().subscribeNext(onNext).addDisposableTo(disposeBag)
+        productListModel.fetchNextProductPage().subscribe(onEvent).addDisposableTo(disposeBag)
     }
     
     // call it in viewDidLoad

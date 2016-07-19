@@ -16,7 +16,7 @@ class CommonNavigationHandler: NavigationHandler {
     func handleNavigationEvent(event: NavigationEvent) -> EventHandled {
         switch event {
         case let linkEvent as ShowItemForLinkEvent:
-            showView(forLink: linkEvent.link)
+            showView(forLink: linkEvent.link, title: linkEvent.title)
             return true
         case let brandDescriptionEvent as ShowBrandDescriptionEvent:
             showBrandDescription(brandDescriptionEvent.brand)
@@ -29,7 +29,7 @@ class CommonNavigationHandler: NavigationHandler {
         }
     }
 
-    private func showView(forLink link: String) {
+    private func showView(forLink link: String, title: String?) {
         logInfo("Opening link in dashboard \(link)")
         
         //todo remove when we will have deep linking

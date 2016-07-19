@@ -23,19 +23,17 @@ class ProductListModel {
         self.apiService = apiService
     }
     
-    func fetchFirstPage() -> Observable<FetchResult<ProductListResult>> {
+    func fetchFirstPage() -> Observable<ProductListResult> {
         page = 1
         products = []
         return apiService.fetchProducts(page, pageSize: isBigScreen ? Constants.productListPageSizeForLargeScreen : Constants.productListPageSize)
             .doOnNext { [weak self] (result: ProductListResult) in
                 self?.products.appendContentsOf(result.products)
             }
-            .map { FetchResult.Success($0) }
-            .catchError { Observable.just(FetchResult.NetworkError($0)) }
             .observeOn(MainScheduler.instance)
     }
     
-    func fetchNextProductPage() -> Observable<FetchResult<ProductListResult>> {
+    func fetchNextProductPage() -> Observable<ProductListResult> {
         return apiService.fetchProducts(page + 1, pageSize: isBigScreen ? Constants.productListPageSizeForLargeScreen : Constants.productListPageSize)
             .doOnNext { [weak self] (result: ProductListResult) in
                 self?.products.appendContentsOf(result.products)
@@ -46,8 +44,6 @@ class ProductListModel {
             }
             .observeOn(ConcurrentDispatchQueueScheduler(globalConcurrentQueueQOS: .Background))
             .doOnNext { [weak self] _ in self?.page += 1 }
-            .map { FetchResult.Success($0) }
-            .catchError { Observable.just(FetchResult.NetworkError($0)) }
             .observeOn(MainScheduler.instance)
     }
     

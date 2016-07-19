@@ -3,18 +3,6 @@ import UIKit
 
 typealias ObjectId = Int
 
-enum FetchResult<T: Equatable> {
-    case Success(T)
-    case NetworkError(ErrorType)
-    
-    func result() -> T? {
-        switch self {
-        case .Success(let result): return result
-        default: return nil
-        }
-    }
-}
-
 enum FetchCacheResult<T: Equatable> {
     case Success(T)
     case CacheError(ErrorType)

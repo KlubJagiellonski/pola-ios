@@ -51,10 +51,10 @@ class EditKioskViewController: UIViewController, EditKioskViewDelegate {
         castView.selectedIndex = nil
         
         model.fetchKiosks(withAddressString: addressString)
-            .subscribeNext { [weak self] (kiosksResult: FetchResult<KioskResult>) in
+            .subscribe {[weak self] (kiosksResult: Event<KioskResult>) in
                 guard let `self` = self else { return }
                 switch kiosksResult {
-                case .NetworkError(let error):
+                case .Error(let error):
                     logInfo("fetched kiosks error: \(error)")
                     if let error = error as? CLError {
                         switch error {
@@ -73,11 +73,12 @@ class EditKioskViewController: UIViewController, EditKioskViewDelegate {
                     } else {
                         self.castView.switcherState = .Error
                     }
-                case .Success(let result):
+                case .Next(let result):
                     logInfo("fetched kiosks: \(result.kiosks)")
                     self.castView.updateKiosks(result.kiosks)
                     self.castView.switcherState = .Success
                     self.castView.geocodingErrorVisible = false
+                default: break
                 }
             }
             .addDisposableTo(disposeBag)
