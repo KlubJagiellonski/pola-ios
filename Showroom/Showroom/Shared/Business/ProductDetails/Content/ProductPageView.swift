@@ -99,6 +99,7 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
         
         contentContainerView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(ProductPageView.didPanOnDescriptionView)))
         contentContainerView.addGestureRecognizer(contentContainerTapGestureRecognizer)
+        contentContainerView.layer.masksToBounds = true
         
         buttonStackView.axis = .Horizontal
         buttonStackView.spacing = 10
@@ -275,6 +276,32 @@ extension ProductPageView {
     
     func didTapShareButton(sender: UIButton) {
         delegate?.pageViewDidTapShareButton(self)
+    }
+}
+
+extension ProductPageView: ImageAnimationTargetViewInterface {
+    var viewsAboveImageVisibility: Bool {
+        set {
+            pageControl.alpha = newValue ? 1 : 0
+            
+            currentTopContentOffset = calculateTopContentOffset(forViewState: newValue ? .Default : .ImageGallery)
+            contentTopConstraint?.updateOffset(currentTopContentOffset)
+            layoutIfNeeded()
+        }
+        get {
+            return pageControl.alpha == 1
+        }
+    }
+    
+    var highResImage: UIImage? {
+        //we don't want to animated different animation from that on product list
+        guard currentImageIndex == 0 else { return nil }
+        return imageDataSource.highResImage(forIndex: currentImageIndex)
+    }
+    
+    var highResImageVisible: Bool {
+        set { imageDataSource.highResImageVisible = newValue }
+        get { return imageDataSource.highResImageVisible }
     }
 }
 

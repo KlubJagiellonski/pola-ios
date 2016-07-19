@@ -6,34 +6,13 @@ protocol PresenterModalAnimation {
     func hideModal(containerView: ContainerView, contentView: ContentView?, modalView: ModalView, completion: ((Bool) -> ())?)
 }
 
-struct DimModalAnimation: PresenterModalAnimation {
-    let animationDuration: NSTimeInterval
-    
-    func showModal(containerView: ContainerView, contentView: ContentView?, modalView: ModalView, completion: ((Bool) -> ())?) {
-        modalView.alpha = 0.0
-        containerView.addSubview(modalView)
-        modalView.snp_makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        UIView.animateWithDuration(animationDuration, animations: {
-            modalView.alpha = 1.0
-        }, completion: completion)
-    }
-    
-    func hideModal(containerView: ContainerView, contentView: ContentView?, modalView: ModalView, completion: ((Bool) -> ())?) {
-        modalView.alpha = 1.0
-        UIView.animateWithDuration(animationDuration, animations: {
-            modalView.alpha = 0.0
-        }) { success in
-            modalView.removeFromSuperview()
-            completion?(success)
-        }
-    }
+protocol PresenterContentChildProtocol {
+    func presenterWillApear()
 }
 
 class PresenterViewController: UIViewController {
     var castView: PresenterView { return view as! PresenterView }
-    private var cachedContentViewController: UIViewController?
+    private(set) var hiddenContentViewController: UIViewController?
     
     var contentViewController: UIViewController? {
         didSet {
@@ -53,6 +32,13 @@ class PresenterViewController: UIViewController {
         self.view = PresenterView()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        if let contentViewController = self.contentViewController as? PresenterContentChildProtocol {
+            contentViewController.presenterWillApear()
+        }
+    }
+    
     func showModal(viewController: UIViewController, hideContentView: Bool, animation: PresenterModalAnimation?, completion: ((Bool) -> ())?) {
         guard currentModalViewController == nil else {
             completion?(false)
@@ -62,7 +48,7 @@ class PresenterViewController: UIViewController {
         let innerCompletion: (Bool) -> () = { [weak self] _ in
             viewController.didMoveToParentViewController(self)
             if hideContentView {
-                self?.cachedContentViewController = self?.contentViewController
+                self?.hiddenContentViewController = self?.contentViewController
                 self?.contentViewController = nil
             }
             completion?(true)
@@ -79,9 +65,9 @@ class PresenterViewController: UIViewController {
             return
         }
         
-        if let cachedContentViewController = cachedContentViewController {
+        if let cachedContentViewController = hiddenContentViewController {
             contentViewController = cachedContentViewController
-            self.cachedContentViewController = nil
+            self.hiddenContentViewController = nil
         }
         
         let innerCompletion: (Bool) -> () = { [weak self] _ in

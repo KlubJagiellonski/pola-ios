@@ -34,3 +34,11 @@ extension DashboardNavigationController: MainTabChild {
         popToRootViewControllerAnimated(true)
     }
 }
+
+extension DashboardNavigationController: PresenterContentChildProtocol {
+    func presenterWillApear() {
+        if let dashboardViewController = viewControllers.first as? DashboardViewController where viewControllers.count == 1 {
+            dashboardViewController.updateData()
+        }
+    }
+}

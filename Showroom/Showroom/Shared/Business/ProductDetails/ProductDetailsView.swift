@@ -127,3 +127,24 @@ class ProductDetailsView: UIView, UICollectionViewDelegateFlowLayout {
         return self.bounds.size
     }
 }
+
+extension ProductDetailsView: ImageAnimationTargetViewInterface {
+    var viewsAboveImageVisibility: Bool {
+        set {
+            closeButton.alpha = newValue ? 1 : 0
+            dataSource.viewsAboveImageVisibility = newValue
+        }
+        get {
+            return closeButton.alpha == 1
+        }
+    }
+    
+    var highResImage: UIImage? {
+        return dataSource.highResImage(forIndex: currentPageIndex)
+    }
+    
+    var highResImageVisible: Bool {
+        set { dataSource.highResImageVisible = newValue }
+        get { return dataSource.highResImageVisible }
+    }
+}

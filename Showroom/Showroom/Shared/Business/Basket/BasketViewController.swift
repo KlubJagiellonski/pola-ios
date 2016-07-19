@@ -143,7 +143,7 @@ class BasketViewController: UIViewController, BasketViewDelegate {
             self.castView.moveToPosition(at: indexPath, animated: false)
         }
         guard let c = context else { return }
-        sendNavigationEvent(ShowProductDetailsEvent(context: c))
+        sendNavigationEvent(ShowProductDetailsEvent(context: c, retrieveCurrentImageViewTag: nil))
     }
     
     func viewSwitcherDidTapRetry(view: ViewSwitcher) {

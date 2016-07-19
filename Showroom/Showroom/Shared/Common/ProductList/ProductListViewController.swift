@@ -60,7 +60,8 @@ extension ProductListViewControllerInterface {
     func configureProductList() {
         filterButtonVisible = true
         productListModel.isBigScreen = UIScreen.mainScreen().bounds.width >= ProductListComponent.threeColumnsRequiredWidth
-        productListModel.productIndexObservable.subscribeNext { [weak self](index: Int) in
+        productListModel.productIndexObservable.subscribeNext { [weak self] (index: Int?) in
+            guard let index = index else { return }
             self?.productListView.moveToPosition(forProductIndex: index, animated: false)
         }.addDisposableTo(disposeBag)
     }
@@ -102,7 +103,12 @@ extension ProductListViewDelegate where Self: ProductListViewControllerInterface
     func productListView(listView: ProductListViewInterface, didTapProductAtIndex index: Int) {
         let imageWidth = productListView.productImageWidth
         let context = productListModel.createProductDetailsContext(withProductIndex: index, withImageWidth: imageWidth)
-        sendNavigationEvent(ShowProductDetailsEvent(context: context))
+        let retrieveCurrentImageViewTag: () -> Int? = { [weak self] in
+            guard let `self` = self else { return nil }
+            guard let index = self.productListModel.productIndex else { return nil }
+            return self.productListView.imageTag(forIndex: index)
+        }
+        sendNavigationEvent(ShowProductDetailsEvent(context: context, retrieveCurrentImageViewTag: retrieveCurrentImageViewTag))
     }
     
     func productListView(listView: ProductListViewInterface, didDoubleTapProductAtIndex index: Int) {

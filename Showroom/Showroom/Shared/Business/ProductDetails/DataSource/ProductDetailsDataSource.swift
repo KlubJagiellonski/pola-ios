@@ -6,10 +6,32 @@ protocol ProductDetailsPageHandler: class {
     func pageAdded(forIndex index: Int, removePageIndex: Int?)
 }
 
-class ProductDetailsDataSource: NSObject, UICollectionViewDataSource {
+final class ProductDetailsDataSource: NSObject, UICollectionViewDataSource {
     
     private weak var collectionView: UICollectionView?
     
+    var viewsAboveImageVisibility = true {
+        didSet {
+            guard let collectionView = collectionView else { return }
+            for cell in collectionView.visibleCells() {
+                if let cell = cell as? ProductDetailsCell, let pageView = cell.pageView as? ImageAnimationTargetViewInterface {
+                    pageView.viewsAboveImageVisibility = viewsAboveImageVisibility
+                }
+            }
+        }
+    }
+    
+    var highResImageVisible: Bool = true {
+        didSet {
+            guard let collectionView = collectionView else { return }
+            for cell in collectionView.visibleCells() {
+                if let cell = cell as? ProductDetailsCell, let pageView = cell.pageView as? ImageAnimationTargetViewInterface {
+                    pageView.highResImageVisible = highResImageVisible
+                }
+            }
+        }
+    }
+
     var pageCount = 0 {
         didSet {
             if oldValue > pageCount || oldValue == 0 {
@@ -34,10 +56,14 @@ class ProductDetailsDataSource: NSObject, UICollectionViewDataSource {
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return pageCount
     }
-
+    
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(String(ProductDetailsCell), forIndexPath: indexPath) as! ProductDetailsCell
         cell.pageView = pageHandler?.page(forIndex: indexPath.row, removePageIndex: pageIndex(fromTag: cell.tag))
+        if let pageView = cell.pageView as? ImageAnimationTargetViewInterface {
+            pageView.viewsAboveImageVisibility = viewsAboveImageVisibility
+            pageView.highResImageVisible = highResImageVisible
+        }
         pageHandler?.pageAdded(forIndex: indexPath.row, removePageIndex: pageIndex(fromTag: cell.tag))
         cell.tag = tag(fromIndexPath: indexPath)
         return cell
@@ -52,5 +78,13 @@ class ProductDetailsDataSource: NSObject, UICollectionViewDataSource {
             return nil
         }
         return tag - 1
+    }
+    
+    func highResImage(forIndex index: Int) -> UIImage? {
+        if let cell = collectionView?.cellForItemAtIndexPath(NSIndexPath(forItem: index, inSection: 0)) as? ProductDetailsCell,
+            let pageView = cell.pageView as? ImageAnimationTargetViewInterface {
+                return pageView.highResImage
+        }
+        return nil
     }
 }

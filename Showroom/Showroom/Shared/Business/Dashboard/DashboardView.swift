@@ -55,6 +55,7 @@ class DashboardView: ViewSwitcher, UITableViewDelegate, UICollectionViewDelegate
             self?.changeContentPromos(promos)
         }.addDisposableTo(disposeBag)
         modelState.recommendationsIndexObservable.subscribeNext { [weak self] index in
+            guard let index = index else { return }
             self?.dataSource.recommendationsDataSource.moveToPosition(atIndex: index, animated: false)
         }.addDisposableTo(disposeBag)
         
@@ -67,6 +68,10 @@ class DashboardView: ViewSwitcher, UITableViewDelegate, UICollectionViewDelegate
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func imageTag(forIndex index: Int) -> Int {
+        return dataSource.recommendationsDataSource.imageTag(forIndex: index)
     }
     
     private func changeContentPromos(contentPromos: [ContentPromo]) {

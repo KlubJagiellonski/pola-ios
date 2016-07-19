@@ -66,12 +66,29 @@ class ProductImageDataSource: NSObject, UICollectionViewDataSource {
             }
         }
     }
+    var highResImageVisible: Bool = true {
+        didSet {
+            guard let collectionView = collectionView else { return }
+            for cell in collectionView.visibleCells() {
+                if let cell = cell as? ProductImageCell {
+                    cell.imageView.alpha = highResImageVisible ? 1 : 0
+                }
+            }
+        }
+    }
     
     init(collectionView: UICollectionView) {
         super.init()
         
         self.collectionView = collectionView
         collectionView.registerClass(ProductImageCell.self, forCellWithReuseIdentifier: String(ProductImageCell))
+    }
+    
+    func highResImage(forIndex index: Int) -> UIImage? {
+        if let cell = collectionView?.cellForItemAtIndexPath(NSIndexPath(forItem: index, inSection: 0)) as? ProductImageCell {
+            return cell.imageView.image
+        }
+        return nil
     }
     
     private func loadImageForFirstItem(imageUrl: String, forCell cell: ProductImageCell) {
@@ -93,6 +110,7 @@ class ProductImageDataSource: NSObject, UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(String(ProductImageCell), forIndexPath: indexPath) as! ProductImageCell
         cell.fullScreenMode = state == .FullScreen
         cell.imageView.image = nil
+        cell.imageView.alpha = highResImageVisible ? 1 : 0
         cell.contentViewSwitcher.switcherState = .Loading
         if indexPath.row == 0 {
             loadImageForFirstItem(imageUrl, forCell: cell)

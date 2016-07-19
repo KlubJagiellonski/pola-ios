@@ -3,7 +3,8 @@ import UIKit
 
 class CommonPresenterController: PresenterViewController, NavigationHandler {
     
-    let resolver: DiResolver
+    private let resolver: DiResolver
+    private var retrieveCurrentImageViewTag: (() -> Int?)?
     
     init(with resolver: DiResolver, contentViewController: UIViewController) {
         self.resolver = resolver
@@ -16,19 +17,33 @@ class CommonPresenterController: PresenterViewController, NavigationHandler {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     // MARK:- NavigationHandler
 
     func handleNavigationEvent(event: NavigationEvent) -> EventHandled {
         switch event {
         case let showProductDetailsEvent as ShowProductDetailsEvent:
             let viewController = resolver.resolve(ProductDetailsViewController.self, argument: showProductDetailsEvent.context)
-            showModal(viewController, hideContentView: true, animation: DimModalAnimation(animationDuration: 0.3), completion: nil)
+            let alternativeAnimation = DimModalAnimation(animationDuration: 0.3)
+            if let imageViewTag = showProductDetailsEvent.retrieveCurrentImageViewTag?(), let imageView = view.viewWithTag(imageViewTag) as? UIImageView where imageView.image != nil {
+                retrieveCurrentImageViewTag = showProductDetailsEvent.retrieveCurrentImageViewTag
+                let animation = ImageAnimation(animationDuration: 0.4, imageView: imageView, alternativeAnimation: alternativeAnimation)
+                showModal(viewController, hideContentView: false, animation: animation, completion: nil)
+            } else {
+                showModal(viewController, hideContentView: true, animation: alternativeAnimation, completion: nil)
+            }
             return true
         case let simpleEvent as SimpleNavigationEvent:
             switch simpleEvent.type {
             case .Close:
-                hideModal(animation: DimModalAnimation(animationDuration: 0.3), completion: nil)
+                let alternativeAnimation = DimModalAnimation(animationDuration: 0.3)
+                let contentView = contentViewController?.view ?? hiddenContentViewController?.view
+                if let tag = retrieveCurrentImageViewTag?(), let imageView = contentView?.viewWithTag(tag) as? UIImageView where imageView.image != nil {
+                    let animation = ImageAnimation(animationDuration: 0.4, imageView: imageView, alternativeAnimation: alternativeAnimation)
+                    hideModal(animation: animation, completion: nil)
+                } else {
+                    hideModal(animation: alternativeAnimation, completion: nil)
+                }
+                retrieveCurrentImageViewTag = nil
                 return true
             default: return false
             }

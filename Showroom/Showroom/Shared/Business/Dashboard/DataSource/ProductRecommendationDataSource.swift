@@ -49,6 +49,10 @@ class ProductRecommendationDataSource: NSObject, UICollectionViewDataSource {
         return productRecommendations[indexPath.row]
     }
     
+    func imageTag(forIndex index: Int) -> Int {
+        return "\(productRecommendations[index].itemId) \(index)".hashValue
+    }
+    
     // MARK: - UICollectionViewDataSource
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return productRecommendations.count
@@ -58,6 +62,7 @@ class ProductRecommendationDataSource: NSObject, UICollectionViewDataSource {
         let recommendation = productRecommendations[indexPath.row]
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(String(ProductRecommendationCell), forIndexPath: indexPath) as! ProductRecommendationCell
+        cell.imageTag = imageTag(forIndex: indexPath.row)
         cell.updateData(recommendation)
         return cell
     }

@@ -140,6 +140,10 @@ class ProductListComponent: NSObject, UICollectionViewDataSource, UICollectionVi
         view.scrollToItemAtIndexPath(indexPath, atScrollPosition: .CenteredVertically, animated: animated)
     }
     
+    func imageTag(forIndex index: Int) -> Int {
+        return "\(products[index].id) \(index)".hashValue
+    }
+    
     private func mergeNextPageStateUpdate(nextPageState: NextPageState) {
         guard self.nextPageState != nextPageState else { return }
         let oldValue = self.nextPageState
@@ -199,6 +203,7 @@ class ProductListComponent: NSObject, UICollectionViewDataSource, UICollectionVi
         case .Products:
             let product = products[indexPath.row]
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier(String(ProductItemCell), forIndexPath: indexPath) as! ProductItemCell
+            cell.imageTag = imageTag(forIndex: indexPath.item)
             cell.delegate = self
             cell.updateData(with: product)
             return cell

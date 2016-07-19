@@ -33,18 +33,17 @@ class DashboardViewController: UIViewController, DashboardViewDelegate {
         castView.recommendationViewSwitcherState = .Loading
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        fetchContentPromo()
-        fetchRecommendations()
-    }
-    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         if !firstLayoutSubviewsPassed {
             firstLayoutSubviewsPassed = true
             castView.contentInset = UIEdgeInsets(top: topLayoutGuide.length, left: 0, bottom: bottomLayoutGuide.length, right: 0)
         }
+    }
+    
+    func updateData() {
+        fetchContentPromo()
+        fetchRecommendations()
     }
     
     private func fetchContentPromo() {
@@ -92,7 +91,12 @@ class DashboardViewController: UIViewController, DashboardViewDelegate {
     func dashboardView(dashboardView: DashboardView, didSelectRecommendation productRecommendation: ProductRecommendation) {
         let imageWidth = dashboardView.recommendationImageWidth
         let context = model.createProductDetailsContext(forRecommendation: productRecommendation, withImageWidth: imageWidth)
-        sendNavigationEvent(ShowProductDetailsEvent(context: context))
+        let retrieveCurrentImageViewTag: () -> Int? = { [weak self] in
+            guard let `self` = self else { return nil }
+            guard let index = self.model.state.recommendationsIndex else { return nil }
+            return self.castView.imageTag(forIndex: index)
+        }
+        sendNavigationEvent(ShowProductDetailsEvent(context: context, retrieveCurrentImageViewTag: retrieveCurrentImageViewTag))
     }
     
     func dashboardViewDidTapRetryRecommendation(dashboardView: DashboardView) {

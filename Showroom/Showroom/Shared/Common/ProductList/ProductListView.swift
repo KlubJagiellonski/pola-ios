@@ -55,6 +55,10 @@ extension ProductListViewInterface {
     func moveToPosition(forProductIndex index: Int, animated: Bool) {
         productListComponent.moveToPosition(forProductIndex: index, animated: animated)
     }
+    
+    func imageTag(forIndex index: Int) -> Int {
+        return productListComponent.imageTag(forIndex: index)
+    }
 }
 
 extension ProductListComponentDelegate where Self: ProductListViewInterface {

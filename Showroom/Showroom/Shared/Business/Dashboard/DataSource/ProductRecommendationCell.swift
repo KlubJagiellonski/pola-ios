@@ -4,12 +4,17 @@ import UIKit
 class ProductRecommendationCell: UICollectionViewCell {
     static let imageSize: CGSize = CGSizeMake(Dimensions.recommendationItemSize.width, Dimensions.recommendationItemSize.width / CGFloat(Dimensions.defaultImageRatio))
     
-    let productImageView = UIImageView()
-    let brandLabel = UILabel()
-    let nameLabel = UILabel()
-    let basePriceLabel = UILabel()
-    let priceLabel = UILabel()
-    let priceDiscountBadgeLabel = BadgeLabel(withType: .Discount)
+    private let productImageView = UIImageView()
+    private let brandLabel = UILabel()
+    private let nameLabel = UILabel()
+    private let basePriceLabel = UILabel()
+    private let priceLabel = UILabel()
+    private let priceDiscountBadgeLabel = BadgeLabel(withType: .Discount)
+    
+    var imageTag: Int {
+        set { productImageView.tag = newValue }
+        get { return productImageView.tag }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: CGRectZero)

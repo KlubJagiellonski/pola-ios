@@ -77,8 +77,9 @@ class DashboardModel {
         let recommendations = state.recommendationsResult!.productRecommendations
         let index = recommendations.indexOf(recommendation)!
         
+        self.state.recommendationsIndex = index
         let onChanged = { [unowned self] (index: Int) -> () in
-            self.state.recommendationsIndex = index
+            self.state.updateRecommendationsIndexWithNotyfingObserver(with: index)
         }
         
         let onRetrieveProductInfo = { [unowned self] (index: Int) -> ProductInfo in
@@ -97,7 +98,7 @@ class DashboardModel {
 class DashboardModelState {
     let recommendationsResultObservable = PublishSubject<ProductRecommendationResult?>()
     let contentPromoObservable = PublishSubject<ContentPromoResult?>()
-    let recommendationsIndexObservable = PublishSubject<Int>()
+    let recommendationsIndexObservable = PublishSubject<Int?>()
     
     var recommendationsResult: ProductRecommendationResult? {
         didSet { recommendationsResultObservable.onNext(recommendationsResult) }
@@ -105,7 +106,9 @@ class DashboardModelState {
     var contentPromoResult: ContentPromoResult? {
         didSet { contentPromoObservable.onNext(contentPromoResult) }
     }
-    var recommendationsIndex: Int = 0 {
-        didSet { recommendationsIndexObservable.onNext(recommendationsIndex) }
+    private(set) var recommendationsIndex: Int?
+    func updateRecommendationsIndexWithNotyfingObserver(with index: Int?) {
+        recommendationsIndex = index
+        recommendationsIndexObservable.onNext(recommendationsIndex)
     }
 }

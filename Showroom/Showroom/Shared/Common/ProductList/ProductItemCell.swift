@@ -11,6 +11,10 @@ final class ProductItemCell: UICollectionViewCell {
     private let changingKernForBasePriceViewWidthThreshold: CGFloat = 124
     
     weak var delegate: ProductItemCellDelegate?
+    var imageTag: Int {
+        set { productImageView.tag = newValue }
+        get { return productImageView.tag }
+    }
     
     private let productImageView = UIImageView()
     private let brandLabel = UILabel()

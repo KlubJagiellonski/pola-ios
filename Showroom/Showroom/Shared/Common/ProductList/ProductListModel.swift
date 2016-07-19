@@ -9,13 +9,8 @@ class ProductListModel {
     var currentPageIndex: Int {
         return page - 1
     }
-    let productIndexObservable: Observable<Int> = PublishSubject()
-    var productIndex = 0 {
-        didSet {
-            let productIndexSubject = productIndexObservable as! PublishSubject
-            productIndexSubject.onNext(productIndex)
-        }
-    }
+    let productIndexObservable: Observable<Int?> = PublishSubject()
+    private(set) var productIndex: Int?
     weak var currentProductDetailsContext: MultiPageProductDetailsContext?
     var isBigScreen = false
     
@@ -27,32 +22,33 @@ class ProductListModel {
         page = 1
         products = []
         return apiService.fetchProducts(page, pageSize: isBigScreen ? Constants.productListPageSizeForLargeScreen : Constants.productListPageSize)
-            .doOnNext { [weak self] (result: ProductListResult) in
+            .doOnNext { [weak self](result: ProductListResult) in
                 self?.products.appendContentsOf(result.products)
-            }
+        }
             .observeOn(MainScheduler.instance)
     }
     
     func fetchNextProductPage() -> Observable<ProductListResult> {
         return apiService.fetchProducts(page + 1, pageSize: isBigScreen ? Constants.productListPageSizeForLargeScreen : Constants.productListPageSize)
-            .doOnNext { [weak self] (result: ProductListResult) in
+            .doOnNext { [weak self](result: ProductListResult) in
                 self?.products.appendContentsOf(result.products)
-            }
+        }
             .observeOn(MainScheduler.instance)
-            .doOnNext { [weak self] (result: ProductListResult) in
+            .doOnNext { [weak self](result: ProductListResult) in
                 self?.currentProductDetailsContext?.productsCount += result.products.count
-            }
+        }
             .observeOn(ConcurrentDispatchQueueScheduler(globalConcurrentQueueQOS: .Background))
             .doOnNext { [weak self] _ in self?.page += 1 }
             .observeOn(MainScheduler.instance)
     }
     
     func createProductDetailsContext(withProductIndex index: Int, withImageWidth imageWidth: CGFloat) -> ProductDetailsContext {
-        let onChanged = { [unowned self] (index: Int) -> () in
-            self.productIndex = index
+        productIndex = index
+        let onChanged = { [unowned self](index: Int) -> () in
+            self.updateProductIndexWithNotyfingObserver(with: index)
         }
         
-        let onRetrieveProductInfo = { [unowned self] (index: Int) -> ProductInfo in
+        let onRetrieveProductInfo = { [unowned self](index: Int) -> ProductInfo in
             let product = self.products[index]
             let lowResImageUrl = NSURL.createImageUrl(product.imageUrl, width: imageWidth, height: nil)
             return ProductInfo.Object(product.toProduct(withLowResImageUrl: lowResImageUrl.absoluteString))
@@ -61,5 +57,11 @@ class ProductListModel {
         let productDetailsContext = MultiPageProductDetailsContext(productsCount: products.count, initialProductIndex: index, onChanged: onChanged, onRetrieveProductInfo: onRetrieveProductInfo)
         currentProductDetailsContext = productDetailsContext
         return productDetailsContext
+    }
+    
+    private func updateProductIndexWithNotyfingObserver(with index: Int?) {
+        self.productIndex = index
+        let productIndexSubject = productIndexObservable as! PublishSubject
+        productIndexSubject.onNext(productIndex)
     }
 }
