@@ -2,7 +2,7 @@
 	"variables": [],
 	"info": {
 		"name": "SHWRM",
-		"_postman_id": "4130290d-4385-6c71-9121-8003fb371ed9",
+		"_postman_id": "6959ce8b-deb5-6898-be95-beccf816d1f1",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -80,8 +80,7 @@
 				"body": {
 					"mode": "formdata",
 					"formdata": []
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -100,8 +99,7 @@
 				"body": {
 					"mode": "raw",
 					"raw": "{\n    \"username\": \"sebastian@grodzicki.pl\",\n    \"password\": \"SHOWROOM\"\n}"
-				},
-				"description": ""
+				}
 			},
 			"response": []
 		},
@@ -120,6 +118,19 @@
 				"body": {
 					"mode": "raw",
 					"raw": "{\n    \"name\": \"Jan\",\n    \"password\": \"SHOWROOM\",\n    \"email\": \"jan.kowalski@gmail.com\",\n    \"newsletter\": \"true\"\n}"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TRENDS",
+			"request": {
+				"url": "{{HOST}}/trend/stylowekreacjenawesele",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
 				},
 				"description": ""
 			},
