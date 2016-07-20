@@ -25,6 +25,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
+    func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
+        guard let deepLinkingHandler = window?.rootViewController as? DeepLinkingHandler else { return false }
+        return deepLinkingHandler.handleOpen(withURL: url)
+    }
+    
     private func configureDependencies() {
         Logging.configure()
         

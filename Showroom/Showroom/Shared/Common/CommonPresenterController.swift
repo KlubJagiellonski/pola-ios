@@ -23,6 +23,7 @@ class CommonPresenterController: PresenterViewController, NavigationHandler {
         switch event {
         case let showProductDetailsEvent as ShowProductDetailsEvent:
             let viewController = resolver.resolve(ProductDetailsViewController.self, argument: showProductDetailsEvent.context)
+            
             let alternativeAnimation = DimModalAnimation(animationDuration: 0.3)
             if let imageViewTag = showProductDetailsEvent.retrieveCurrentImageViewTag?(), let imageView = view.viewWithTag(imageViewTag) as? UIImageView where imageView.image != nil {
                 retrieveCurrentImageViewTag = showProductDetailsEvent.retrieveCurrentImageViewTag
@@ -49,6 +50,15 @@ class CommonPresenterController: PresenterViewController, NavigationHandler {
             }
         default: return false
         }
+    }
+}
+
+extension CommonPresenterController: DeepLinkingHandler {
+    func handleOpen(withURL url: NSURL) -> Bool {
+        guard let deepLinkingHandler = (contentViewController ?? hiddenContentViewController) as? DeepLinkingHandler else {
+            return false
+        }
+        return deepLinkingHandler.handleOpen(withURL: url)
     }
 }
 

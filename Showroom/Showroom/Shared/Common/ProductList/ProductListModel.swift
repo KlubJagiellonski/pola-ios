@@ -3,7 +3,7 @@ import RxSwift
 import UIKit
 
 class ProductListModel {
-    private let apiService: ApiService
+    let apiService: ApiService
     private var page = 1
     private var products: [ListProduct] = []
     var currentPageIndex: Int {
@@ -18,17 +18,21 @@ class ProductListModel {
         self.apiService = apiService
     }
     
-    func fetchFirstPage() -> Observable<ProductListResult> {
+    func createObservable() -> Observable<ProductListResult> {
+        return apiService.fetchProducts(page, pageSize: isBigScreen ? Constants.productListPageSizeForLargeScreen : Constants.productListPageSize)
+    }
+    
+    final func fetchFirstPage() -> Observable<ProductListResult> {
         page = 1
         products = []
-        return apiService.fetchProducts(page, pageSize: isBigScreen ? Constants.productListPageSizeForLargeScreen : Constants.productListPageSize)
+        return createObservable()
             .doOnNext { [weak self](result: ProductListResult) in
                 self?.products.appendContentsOf(result.products)
         }
             .observeOn(MainScheduler.instance)
     }
     
-    func fetchNextProductPage() -> Observable<ProductListResult> {
+    final func fetchNextProductPage() -> Observable<ProductListResult> {
         return apiService.fetchProducts(page + 1, pageSize: isBigScreen ? Constants.productListPageSizeForLargeScreen : Constants.productListPageSize)
             .doOnNext { [weak self](result: ProductListResult) in
                 self?.products.appendContentsOf(result.products)
@@ -42,7 +46,7 @@ class ProductListModel {
             .observeOn(MainScheduler.instance)
     }
     
-    func createProductDetailsContext(withProductIndex index: Int, withImageWidth imageWidth: CGFloat) -> ProductDetailsContext {
+    final func createProductDetailsContext(withProductIndex index: Int, withImageWidth imageWidth: CGFloat) -> ProductDetailsContext {
         productIndex = index
         let onChanged = { [unowned self](index: Int) -> () in
             self.updateProductIndexWithNotyfingObserver(with: index)

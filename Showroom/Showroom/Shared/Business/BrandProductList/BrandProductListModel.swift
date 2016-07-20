@@ -3,7 +3,7 @@ import CocoaMarkdown
 
 final class BrandProductListModel: ProductListModel {
     
-    let productBrand: ProductBrand
+    let productBrand: EntryProductBrand
     var brand: Brand?
     
     //todo it should be created in background on rx network chain
@@ -13,11 +13,11 @@ final class BrandProductListModel: ProductListModel {
         return brand.description.markdownToAttributedString(treatBoldAsNormalText: true)
     }
     
-    init(with apiService: ApiService, and productBrand: ProductBrand) {
+    init(with apiService: ApiService, and productBrand: EntryProductBrand) {
         self.productBrand = productBrand
         super.init(with: apiService)
         
-        self.brand = Brand(id: productBrand.id, name: productBrand.name, imageUrl: "https://assets.shwrm.net/images/s/j/sj573dad96220a8.png?1463659926", description: headerDescription, lowResImageUrl: nil)
+        self.brand = Brand(id: productBrand.id, name: productBrand.name ?? "Test", imageUrl: "https://assets.shwrm.net/images/s/j/sj573dad96220a8.png?1463659926", description: headerDescription, lowResImageUrl: nil)
     }
 }
 

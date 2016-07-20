@@ -1,22 +1,30 @@
 import Foundation
 import UIKit
+import JLRoutes
 
 class CommonNavigationHandler: NavigationHandler {
     private weak var navigationController: UINavigationController?
     private let resolver: DiResolver
     private let navigationDelegateHandler = CommonNavigationControllerDelegateHandler()
+    private let urlRouter = JLRoutes()
     
     init(with navigationController: UINavigationController, and resolver: DiResolver) {
         self.navigationController = navigationController
         self.resolver = resolver
         
         navigationController.delegate = navigationDelegateHandler
+        
+        configureRouter()
     }
     
     func handleNavigationEvent(event: NavigationEvent) -> EventHandled {
         switch event {
         case let linkEvent as ShowItemForLinkEvent:
-            showView(forLink: linkEvent.link, title: linkEvent.title)
+            if let url = NSURL(string: linkEvent.link) {
+                showView(forURL: url, title: linkEvent.title)
+            } else {
+                logError("Cannot create NSURL from \(linkEvent.link)")
+            }
             return true
         case let brandDescriptionEvent as ShowBrandDescriptionEvent:
             showBrandDescription(brandDescriptionEvent.brand)
@@ -29,24 +37,14 @@ class CommonNavigationHandler: NavigationHandler {
         }
     }
 
-    private func showView(forLink link: String, title: String?) {
-        logInfo("Opening link in dashboard \(link)")
-        
-        //todo remove when we will have deep linking
-        if link == "https://www.showroom.pl/marki/1027" {
-            let viewController = resolver.resolve(TrendProductListViewController.self)
-            configureChildViewController(viewController)
-            navigationController?.pushViewController(viewController, animated: true)
-        } else if link == "https://www.showroom.pl/marki/3141" {
-            let viewController = resolver.resolve(BrandProductListViewController.self, argument: ProductBrand(id: 1, name: "RISK Made in Warsaw"))
-            configureChildViewController(viewController)
-            navigationController?.pushViewController(viewController, animated: true)
+    private func showView(forURL url: NSURL, title: String?) -> Bool {
+        let parameters: [NSObject: AnyObject] = title == nil ? [:] : ["title": title!]
+        //todo remove it when we will have trend in content promo
+        if url.absoluteString == "https://www.showroom.pl/marki/1027" {
+            return urlRouter.routeURL(NSURL(string: "https://www.showroom.pl/trend/stylowekreacjenawesele"), withParameters: parameters)
         } else {
-            let viewController = resolver.resolve(CategoryProductListViewController.self, argument: Category(id: 1, name: "Sukienki i tuniki"))
-            configureChildViewController(viewController)
-            navigationController?.pushViewController(viewController, animated: true)
+            return urlRouter.routeURL(url, withParameters: parameters)
         }
-        
     }
     
     private func showBrandDescription(brand: Brand) {
@@ -69,6 +67,82 @@ class CommonNavigationHandler: NavigationHandler {
             extendedViewController.extendedContentInset = UIEdgeInsetsMake(topLayoutGuide + navigationBarHeight, 0, bottomLayoutGuide, 0)
         }
         viewController.resetBackTitle()
+    }
+    
+    private func configureRouter() {
+        urlRouter.addRoute("/:host/tag/*") { [weak self] (parameters: [NSObject: AnyObject]) in
+            guard let `self` = self else { return false }
+            guard let url = parameters[kJLRouteURLKey] as? NSURL else {
+                logError("Cannot retrieve routeURLKey for \(parameters)")
+                return false
+            }
+            let title = parameters["title"] as? String
+            
+            let viewController = self.resolver.resolve(CategoryProductListViewController.self, argument: EntryCategory(link: url.absoluteString, name: title))
+            self.configureChildViewController(viewController)
+            self.navigationController?.pushViewController(viewController, animated: true)
+            
+            return true
+        }
+        urlRouter.addRoute("/:host/marki/:brandComponent") { [weak self] (parameters: [NSObject: AnyObject]!) in
+            guard let `self` = self else { return false }
+            guard let brandComponent = parameters["brandComponent"] as? String else {
+                logError("There is no brandComponent in path: \(parameters)")
+                return false
+            }
+            let brandComponents = brandComponent.componentsSeparatedByString(",")
+            guard let brandId = Int(brandComponents[0]) else {
+                logError("Cannot retrieve brandId for path: \(parameters)")
+                return false
+            }
+            let title = parameters["title"] as? String
+            
+            let viewController = self.resolver.resolve(BrandProductListViewController.self, argument: EntryProductBrand(id: brandId, name: title))
+            self.configureChildViewController(viewController)
+            self.navigationController?.pushViewController(viewController, animated: true)
+            
+            return true
+        }
+        urlRouter.addRoute("/:host/trend/:trendSlug") { [weak self] (parameters: [NSObject: AnyObject]!) in
+            guard let `self` = self else { return false }
+            guard let trendSlug = parameters["trendSlug"] as? String else {
+                logError("There is no trendSlug in path: \(parameters)")
+                return false
+            }
+            let title = parameters["title"] as? String
+            
+            let viewController = self.resolver.resolve(TrendProductListViewController.self, argument: EntryTrendInfo(slug: trendSlug, name: title))
+            self.configureChildViewController(viewController)
+            self.navigationController?.pushViewController(viewController, animated: true)
+        
+            return true
+        }
+        urlRouter.addRoute("/:host/p/:productComponent") { [weak self] (parameters: [NSObject: AnyObject]!) in
+            guard let `self` = self else { return false }
+            guard let productComponent = parameters["productComponent"] as? String else {
+                logError("There is no productComponent in path: \(parameters)")
+                return false
+            }
+            let productComponents = productComponent.componentsSeparatedByString(",")
+            guard let productId = Int(productComponents[0]) else {
+                logError("Cannot retrieve productId for path: \(parameters)")
+                return false
+            }
+            
+            let context = OneProductDetailsContext(productInfo: ProductInfo.Id(productId))
+            self.navigationController?.sendNavigationEvent(ShowProductDetailsEvent(context: context, retrieveCurrentImageViewTag: nil))
+            
+            return true
+        }
+        urlRouter.unmatchedURLHandler = { (routes: JLRoutes, url: NSURL?, parameters: [NSObject: AnyObject]?) in
+            logError("Cannot match url: \(url), parameters \(parameters)")
+        }
+    }
+}
+
+extension CommonNavigationHandler: DeepLinkingHandler {
+    func handleOpen(withURL url: NSURL) -> Bool {
+        return showView(forURL: url, title: nil)
     }
 }
 

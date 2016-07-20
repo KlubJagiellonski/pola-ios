@@ -123,11 +123,11 @@ class UIAssembly: AssemblyType {
         container.register(EditKioskModel.self) { r, checkoutModel in
             return EditKioskModel(with: r.resolve(ApiService.self)!, and: checkoutModel)
         }
-        container.register(TrendProductListViewController.self) { r in
-            return TrendProductListViewController(with: r.resolve(DiResolver.self)!)
+        container.register(TrendProductListViewController.self) { r, trendInfo in
+            return TrendProductListViewController(with: r.resolve(DiResolver.self)!, and: trendInfo)
         }
-        container.register(TrendProductListModel.self) { r in
-            return TrendProductListModel(with: r.resolve(ApiService.self)!)
+        container.register(TrendProductListModel.self) { r, trendInfo in
+            return TrendProductListModel(with: r.resolve(ApiService.self)!, and: trendInfo)
         }
         container.register(BrandProductListViewController.self) { r, brand in
             return BrandProductListViewController(with: r.resolve(DiResolver.self)!, and: brand)

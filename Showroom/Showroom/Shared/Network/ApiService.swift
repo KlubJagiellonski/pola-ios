@@ -91,6 +91,25 @@ extension ApiService {
                 }
         }
     }
+    
+    func fetchTrend(slug: String) -> Observable<ProductListResult> {
+        let url = NSURL(fileURLWithPath: basePath)
+            .URLByAppendingPathComponent("trend")
+            .URLByAppendingPathComponent(slug)
+        
+        let urlRequest = NSMutableURLRequest(URL: url)
+        urlRequest.HTTPMethod = "GET"
+        return networkClient
+            .request(withRequest: urlRequest)
+            .flatMap { data -> Observable<ProductListResult> in
+                do {
+                    let result = try NSJSONSerialization.JSONObjectWithData(data, options: [])
+                    return Observable.just(try ProductListResult.decodeForTrend(result))
+                } catch {
+                    return Observable.error(error)
+                }
+        }
+    }
 
     func fetchKiosks(withLatitude latitude: Double, longitude: Double, limit: Int = 10) -> Observable<KioskResult> {
         let url = NSURL(fileURLWithPath: basePath)

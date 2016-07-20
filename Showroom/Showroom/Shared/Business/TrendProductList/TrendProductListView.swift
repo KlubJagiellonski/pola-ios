@@ -41,7 +41,7 @@ class TrendProductListView: ViewSwitcher, ProductListViewInterface, ProductListC
         fatalError("init(coder:) has not been implemented")
     }
     
-    func updateTrendInfo(imageUrl: String, description: NSAttributedString) {
+    func updateTrendInfo(imageUrl: String, description: NSAttributedString?) {
         currentHeaderDescription = description
         headerCell.updateData(withImageUrl: imageUrl, description: description)
     }

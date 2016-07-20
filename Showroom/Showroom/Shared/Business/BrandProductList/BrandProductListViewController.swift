@@ -10,7 +10,7 @@ class BrandProductListViewController: UIViewController, ProductListViewControlle
     var productListView: ProductListViewInterface { return castView }
     private var castView: BrandProductListView { return view as! BrandProductListView }
     
-    init(with resolver: DiResolver, and brand: ProductBrand) {
+    init(with resolver: DiResolver, and brand: EntryProductBrand) {
         self.resolver = resolver
         productListModel = resolver.resolve(BrandProductListModel.self, argument: brand)
         super.init(nibName: nil, bundle: nil)
@@ -48,6 +48,9 @@ class BrandProductListViewController: UIViewController, ProductListViewControlle
     }
     
     func pageWasFetched(result productListResult: ProductListResult, page: Int) {
+        if let brand = brandListModel.brand {
+            title = brand.name
+        }
         if let description = brandListModel.description, let brand = brandListModel.brand where page == 0 {
             castView.updateBrandInfo(brand.imageUrl, description: description)
         }

@@ -8,11 +8,11 @@ class TrendProductListViewController: UIViewController, ProductListViewControlle
     var productListView: ProductListViewInterface { return castView }
     var castView: TrendProductListView { return view as! TrendProductListView }
     
-    init(with resolver: DiResolver) {
-        productListModel = resolver.resolve(TrendProductListModel.self)
+    init(with resolver: DiResolver, and info: EntryTrendInfo) {
+        productListModel = resolver.resolve(TrendProductListModel.self, argument: info)
         super.init(nibName: nil, bundle: nil)
         
-        title = "New Neutrals"
+        title = info.name
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -39,9 +39,12 @@ class TrendProductListViewController: UIViewController, ProductListViewControlle
     }
     
     func pageWasFetched(result productListResult: ProductListResult, page: Int) {
-        if page == 0 {
-            castView.updateTrendInfo("", description: trendListModel.description)
+        guard let trendInfo = productListResult.trendInfo else {
+            logError("Didn't received trend info in result: \(productListResult)")
+            return
         }
+        title = trendInfo.name
+        castView.updateTrendInfo(trendInfo.imageUrl, description: trendListModel.attributedDescription!)
     }
     
     func filterButtonEnableStateChanged(toState enabled: Bool) { }

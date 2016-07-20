@@ -70,7 +70,7 @@ extension ProductDetailsViewController: ProductDetailsPageHandler {
         let productInfoTuple = model.productInfo(forIndex: index).toTuple()
         let currentViewController = removePageIndex == nil ? nil : indexedViewControllers[removePageIndex!]
         let newViewController = resolver.resolve(ProductPageViewController.self, arguments: productInfoTuple)
-        newViewController.viewContentInset = UIEdgeInsets(top: topLayoutGuide.length, left: 0, bottom: bottomLayoutGuide.length, right: 0)
+        newViewController.viewContentInset = createChildViewContentInset()
         newViewController.delegate = self
         
         currentViewController?.willMoveToParentViewController(nil)
@@ -91,14 +91,20 @@ extension ProductDetailsViewController: ProductDetailsPageHandler {
         indexedViewControllers[index] = newViewController
         model.didMoveToPage(atIndex: index)
     }
+    
+    //todo perfectly parent should set content inset, but it would be too much work and too much complications
+    func createChildViewContentInset() -> UIEdgeInsets {
+        let bottomInset = bottomLayoutGuide.length == 0 ? Dimensions.tabViewHeight : bottomLayoutGuide.length
+        return UIEdgeInsets(top: topLayoutGuide.length, left: 0, bottom: bottomInset, right: 0)
+    }
 }
 
 extension ProductDetailsViewState {
-    static func fromPageState(pageState: ProductPageViewState) -> ProductDetailsViewState{
+    static func fromPageState(pageState: ProductPageViewState) -> ProductDetailsViewState {
         switch pageState {
-        case .Default:
+        case .Default, .ContentHidden:
             return .Close
-        case .ContentVisible:
+        case .ContentExpanded:
             return .Dismiss
         case .ImageGallery:
             return .FullScreen

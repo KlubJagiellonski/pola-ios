@@ -1,6 +1,6 @@
 import Foundation
 
-struct Category {
-    let id: ObjectId
-    let name: String
+struct EntryCategory {
+    let link: String
+    let name: String?
 }

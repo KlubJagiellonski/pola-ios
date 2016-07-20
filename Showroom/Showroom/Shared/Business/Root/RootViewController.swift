@@ -57,3 +57,15 @@ class RootViewController: PresenterViewController, NavigationHandler {
         }
     }
 }
+
+extension RootViewController: DeepLinkingHandler {
+    func handleOpen(withURL url: NSURL) -> Bool {
+        if let mainTabViewController = self.contentViewController as? MainTabViewController {
+            return mainTabViewController.handleOpen(withURL: url)
+        } else {
+            let mainTabViewController = resolver.resolve(MainTabViewController.self)
+            self.contentViewController = resolver.resolve(MainTabViewController.self)
+            return mainTabViewController.handleOpen(withURL: url)
+        }
+    }
+}

@@ -16,8 +16,9 @@ protocol ProductPageViewDelegate: ViewSwitcherDelegate {
 
 enum ProductPageViewState {
     case Default
-    case ContentVisible
+    case ContentExpanded
     case ImageGallery
+    case ContentHidden
 }
 
 class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
@@ -43,7 +44,7 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
     private var currentTopContentOffset:CGFloat = 0
     private(set) var viewState: ProductPageViewState = .Default {
         didSet {
-            imageCollectionView.scrollEnabled = viewState != .ContentVisible
+            imageCollectionView.scrollEnabled = viewState != .ContentExpanded
             contentTopConstraint?.updateOffset(currentTopContentOffset)
             pageControl.alpha = viewState == .ImageGallery ? 0 : 1
             imageDataSource.state = viewState == .ImageGallery ? .FullScreen : .Default
@@ -76,7 +77,6 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
         switcherDataSource = self
         
         modelState.productDetailsObservable.subscribeNext(updateProductDetails).addDisposableTo(disposeBag)
-        configure(forProduct: modelState.product)
         
         let imageCollectionTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ProductPageView.didTapOnImageCollectionView))
         imageCollectionTapGestureRecognizer.delegate = self
@@ -124,6 +124,7 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
         containerView.addSubview(buttonStackView)
         
         configureCustomConstraints()
+        configure(forProduct: modelState.product)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -138,6 +139,8 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
     
     private func updateProductDetails(productDetails: ProductDetails?) {
         guard let p = productDetails else { return }
+        
+        
         
         imageDataSource.imageUrls = p.images.map { $0.url }
         pageControl.numberOfPages = imageDataSource.imageUrls.count
@@ -205,9 +208,9 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
         switch viewState {
         case .Default:
             return -(descriptionViewInterface!.headerHeight + (contentInset?.bottom ?? 0))
-        case .ContentVisible:
+        case .ContentExpanded:
             return defaultDescriptionTopMargin - bounds.height
-        case .ImageGallery:
+        case .ImageGallery, .ContentHidden:
             return verticalButtonsContentMargin + Dimensions.circleButtonDiameter
         }
     }
@@ -229,7 +232,7 @@ extension ProductPageView {
         let movableY = bounds.height - defaultDescriptionTopMargin - bottomOffset
         var moveY = panGestureRecognizer.translationInView(contentContainerView).y
         
-        let contentVisible = viewState == .ContentVisible
+        let contentVisible = viewState == .ContentExpanded
         
         switch panGestureRecognizer.state {
         case .Changed:
@@ -249,7 +252,7 @@ extension ProductPageView {
             
             var newViewState = viewState
             if movedFasterForward || (movedMoreThanHalf && !movedFasterBackward) {
-                newViewState = contentVisible ? .Default : .ContentVisible
+                newViewState = contentVisible ? .Default : .ContentExpanded
             }
             
             changeViewState(newViewState, animationDuration: 0.2, forceUpdate: true)
@@ -258,8 +261,8 @@ extension ProductPageView {
     }
     
     func didTapOnDescriptionView(tapGestureRecognizer: UITapGestureRecognizer) {
-        let contentVisible = viewState == .ContentVisible
-        let newViewState: ProductPageViewState = contentVisible ? .Default : .ContentVisible
+        let contentVisible = viewState == .ContentExpanded
+        let newViewState: ProductPageViewState = contentVisible ? .Default : .ContentExpanded
         changeViewState(newViewState)
     }
     
@@ -267,9 +270,11 @@ extension ProductPageView {
         switch viewState {
         case .Default:
             changeViewState(.ImageGallery)
-        case .ContentVisible:
+        case .ContentExpanded:
             changeViewState(.Default)
         case .ImageGallery:
+            changeViewState(.Default)
+        case .ContentHidden:
             changeViewState(.Default)
         }
     }

@@ -145,6 +145,6 @@ extension ProductDetailsView: ImageAnimationTargetViewInterface {
     
     var highResImageVisible: Bool {
         set { dataSource.highResImageVisible = newValue }
-        get { return dataSource.highResImageVisible }
+        get { return dataSource.highResImageVisible ?? true }
     }
 }

@@ -10,9 +10,10 @@ final class ProductDetailsDataSource: NSObject, UICollectionViewDataSource {
     
     private weak var collectionView: UICollectionView?
     
-    var viewsAboveImageVisibility = true {
+    var viewsAboveImageVisibility: Bool? {
         didSet {
             guard let collectionView = collectionView else { return }
+            guard let viewsAboveImageVisibility = viewsAboveImageVisibility else { return }
             for cell in collectionView.visibleCells() {
                 if let cell = cell as? ProductDetailsCell, let pageView = cell.pageView as? ImageAnimationTargetViewInterface {
                     pageView.viewsAboveImageVisibility = viewsAboveImageVisibility
@@ -21,9 +22,10 @@ final class ProductDetailsDataSource: NSObject, UICollectionViewDataSource {
         }
     }
     
-    var highResImageVisible: Bool = true {
+    var highResImageVisible: Bool? {
         didSet {
             guard let collectionView = collectionView else { return }
+            guard let highResImageVisible = highResImageVisible else { return }
             for cell in collectionView.visibleCells() {
                 if let cell = cell as? ProductDetailsCell, let pageView = cell.pageView as? ImageAnimationTargetViewInterface {
                     pageView.highResImageVisible = highResImageVisible
@@ -61,8 +63,12 @@ final class ProductDetailsDataSource: NSObject, UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(String(ProductDetailsCell), forIndexPath: indexPath) as! ProductDetailsCell
         cell.pageView = pageHandler?.page(forIndex: indexPath.row, removePageIndex: pageIndex(fromTag: cell.tag))
         if let pageView = cell.pageView as? ImageAnimationTargetViewInterface {
-            pageView.viewsAboveImageVisibility = viewsAboveImageVisibility
-            pageView.highResImageVisible = highResImageVisible
+            if let viewsAboveImageVisibility = viewsAboveImageVisibility {
+                pageView.viewsAboveImageVisibility = viewsAboveImageVisibility
+            }
+            if let highResImageVisible = highResImageVisible {
+                pageView.highResImageVisible = highResImageVisible
+            }
         }
         pageHandler?.pageAdded(forIndex: indexPath.row, removePageIndex: pageIndex(fromTag: cell.tag))
         cell.tag = tag(fromIndexPath: indexPath)

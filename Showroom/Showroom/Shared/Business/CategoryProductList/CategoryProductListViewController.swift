@@ -10,7 +10,7 @@ class CategoryProductListViewController: UIViewController, ProductListViewContro
     private var castView: CategoryProductListView { return view as! CategoryProductListView }
     private let resolver: DiResolver
     
-    init(withResolver resolver: DiResolver, category: Category) {
+    init(withResolver resolver: DiResolver, category: EntryCategory) {
         self.resolver = resolver
         productListModel = resolver.resolve(CategoryProductListModel.self, argument: category)
         super.init(nibName: nil, bundle: nil)
@@ -47,7 +47,9 @@ class CategoryProductListViewController: UIViewController, ProductListViewContro
         presentViewController(viewController, animated: true, completion: nil)
     }
     
-    func pageWasFetched(result productListResult: ProductListResult, page: Int) {}
+    func pageWasFetched(result productListResult: ProductListResult, page: Int) {
+        //todo set title
+    }
     
     func filterButtonEnableStateChanged(toState enabled: Bool) { }
     

@@ -13,6 +13,7 @@ final class TrendHeaderCell: UIView {
     private let descriptionTextView = UITextView()
     
     private var topBackgroundImageViewConstraint: Constraint?
+    private var imageUrlToLoadOnLayoutPass: String?
     
     init() {
         super.init(frame: CGRectZero)
@@ -44,8 +45,24 @@ final class TrendHeaderCell: UIView {
         return max(textContainerHeight, imageHeight)
     }
     
-    func updateData(withImageUrl imageUrl: String, description: NSAttributedString) {
-        backgroundImageView.image = UIImage(asset: .Temp_trend) //todo remember to remove .Temp_trend image when we will get imageUrl
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        let gradientHeight = backgroundImageView.bounds.width
+        imageGradient.frame = CGRectMake(0, backgroundImageView.bounds.height - gradientHeight, backgroundImageView.bounds.width, gradientHeight)
+        
+        if let loadImageUrl = imageUrlToLoadOnLayoutPass where backgroundImageView.bounds.width > 0 {
+            loadImage(forUrl: loadImageUrl)
+            imageUrlToLoadOnLayoutPass = nil
+        }
+    }
+    
+    func updateData(withImageUrl imageUrl: String, description: NSAttributedString?) {
+        if backgroundImageView.bounds.width > 0 {
+            loadImage(forUrl: imageUrl)
+        } else {
+            imageUrlToLoadOnLayoutPass = imageUrl
+        }
         descriptionTextView.attributedText = description
     }
     
@@ -56,11 +73,8 @@ final class TrendHeaderCell: UIView {
         }
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        let gradientHeight = backgroundImageView.bounds.width
-        imageGradient.frame = CGRectMake(0, backgroundImageView.bounds.height - gradientHeight, backgroundImageView.bounds.width, gradientHeight)
+    private func loadImage(forUrl url: String) {
+        backgroundImageView.loadImageFromUrl(url, width: backgroundImageView.bounds.width)
     }
     
     private func configureCustomConstraints() {

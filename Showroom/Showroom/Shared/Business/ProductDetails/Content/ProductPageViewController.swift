@@ -60,7 +60,9 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate, Prod
         super.viewDidLayoutSubviews()
         if !firstLayoutSubviewsPassed {
             firstLayoutSubviewsPassed = true
-            castView.changeViewState(.Default, animationDuration: nil, forceUpdate: true)
+            let containsInfo = (model.state.product == nil && model.state.productDetails == nil) ?? false
+            let initialState: ProductPageViewState = containsInfo ? .ContentHidden : .Default
+            castView.changeViewState(initialState, animationDuration: nil, forceUpdate: true)
         }
     }
     
@@ -73,20 +75,26 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate, Prod
     
     private func fetchProductDetails() {
         model.fetchProductDetails().subscribeNext { [weak self] fetchResult in
-            guard let strongSelf = self else { return }
+            guard let `self` = self else { return }
             switch fetchResult {
             case .Success(let productDetails):
                 logInfo("Successfuly fetched product details: \(productDetails)")
-                strongSelf.castView.switcherState = .Success
+                self.castView.switcherState = .Success
+                if self.castView.viewState == .ContentHidden {
+                    //hate this approach, but there is no other way to fix blur artefacts
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(0.2 * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), {
+                        self.castView.changeViewState(.Default, animationDuration: 0.3)
+                    })
+                }
             case .CacheError(let errorType):
                 logInfo("Error while getting product info from cache: \(errorType)")
             case .NetworkError(let errorType):
                 logInfo("Error while downloading product info: \(errorType)")
-                if strongSelf.model.state.productDetails == nil {
-                    strongSelf.castView.switcherState = strongSelf.model.state.product == nil ? .Error : .ModalError
+                if self.model.state.productDetails == nil {
+                    self.castView.switcherState = self.model.state.product == nil ? .Error : .ModalError
                 }
             }
-            }.addDisposableTo(disposeBag)
+        }.addDisposableTo(disposeBag)
     }
     
     private func showSizePicker(withBuyMode buyMode: Bool = false) {
@@ -105,7 +113,7 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate, Prod
         guard let productDetails = model.state.productDetails else { return }
         
         if castView.viewState == .Default {
-            castView.changeViewState(.ContentVisible)
+            castView.changeViewState(.ContentExpanded)
         }
         
         let viewController = resolver.resolve(SizeChartViewController.self, argument: productDetails.sizes)
@@ -166,7 +174,7 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate, Prod
         showSizeChart()
     }
     
-    func descriptionViewDidTapOtherBrandProducts(view: ProductDescriptionView) {}
+    func descriptionViewDidTapOtherBrandProducts(view: ProductDescriptionView) { }
     
     func descriptionViewDidTapAddToBasket(view: ProductDescriptionView) {
         guard !model.isSizeSet else {

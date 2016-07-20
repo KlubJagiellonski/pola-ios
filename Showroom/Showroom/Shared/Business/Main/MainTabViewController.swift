@@ -8,11 +8,56 @@ protocol MainTabChild {
     func popToFirstView()
 }
 
-class MainTabViewController: UITabBarController, NavigationHandler {
-    static let tabBarItemImageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)  // Center vertically item without title
-    static let basketItemImageInsets = UIEdgeInsets(top: 4, left: 0, bottom: -4, right: 0)
-    static let dashboardItemImageIsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
+enum MainTabChildControllerType: Int {
+    case Dashboard = 0, Search, Basket, Wishlist, Settings
     
+    private func tabBarImage(selected selected: Bool) -> UIImage {
+        switch (self, selected) {
+        case (Dashboard, true): return UIImage(asset: .Ic_home_selected)
+        case (Dashboard, false): return UIImage(asset: .Ic_home)
+            
+        case (Search, true): return UIImage(asset: .Ic_browse_selected)
+        case (Search, false): return UIImage(asset: .Ic_browse)
+            
+        case (Basket, true): return UIImage(asset: .Ic_bag_selected)
+        case (Basket, false): return UIImage(asset: .Ic_bag)
+            
+        case (Wishlist, true): return UIImage(asset: .Ic_favorites_selected)
+        case (Wishlist, false): return UIImage(asset: .Ic_favorites)
+            
+        case (Settings, true): return UIImage(asset: .Ic_settings_selected)
+        case (Settings, false): return UIImage(asset: .Ic_settings)
+        }
+    }
+    
+    private func tabBarInsets() -> UIEdgeInsets {
+        switch self {
+        case .Dashboard:
+            return UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
+        case .Basket:
+            return UIEdgeInsets(top: 4, left: 0, bottom: -4, right: 0)
+        default:
+            return UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
+        }
+    }
+    
+    private func createViewController(resolver: DiResolver) -> UIViewController {
+        switch self {
+        case .Dashboard:
+            return resolver.resolve(DashboardNavigationController.self)
+        case .Search:
+            return resolver.resolve(SearchNavigationController.self)
+        case .Basket:
+            return resolver.resolve(BasketNavigationController.self)
+        case .Wishlist:
+            return resolver.resolve(WishlistNavigationController.self)
+        case .Settings:
+            return resolver.resolve(SettingsNavigationController.self)
+        }
+    }
+}
+
+class MainTabViewController: UITabBarController, NavigationHandler {
     private let basketBadgeContainerView = TabBarItemBadgeContainerView()
     var basketBadgeValue: UInt {
         set { basketBadgeContainerView.badgeValue = newValue }
@@ -45,11 +90,11 @@ class MainTabViewController: UITabBarController, NavigationHandler {
         delegate = self
         
         viewControllers = [
-            createDashboardViewController(),
-            createSearchViewController(),
-            createBasketViewController(),
-            createWishlistViewController(),
-            createSettingsViewController(),
+            createChildViewController(forType: .Dashboard),
+            createChildViewController(forType: .Search),
+            createChildViewController(forType: .Basket),
+            createChildViewController(forType: .Wishlist),
+            createChildViewController(forType: .Settings),
         ]
         selectedIndex = 0
         
@@ -71,52 +116,21 @@ class MainTabViewController: UITabBarController, NavigationHandler {
         basketBadgeContainerView.frame = tabBar.frame
     }
     
-    func onBasketChanged(basket: Basket?) {
-        basketBadgeValue = basket?.productsAmount ?? 0
-    }
-    
     func updateTabBarAppearance(appearance: TabBarAppearance, animationDuration: Double?) {
         UIView.animateWithDuration(animationDuration ?? 0, delay: 0.0, options: [.BeginFromCurrentState, .CurveEaseInOut], animations: {
             self.appearance = appearance
             }, completion: nil)
     }
     
-    // MARK: - creating child view controllers
-    func createDashboardViewController() -> CommonPresenterController {
-        let navigationController = resolver.resolve(DashboardNavigationController.self)
-        let viewController = resolver.resolve(CommonPresenterController.self, argument: navigationController as UIViewController)
-        viewController.tabBarItem = UITabBarItem(tabBarIcon: .Dashboard)
-        viewController.tabBarItem.imageInsets = MainTabViewController.dashboardItemImageIsets
-        return viewController
+    private func onBasketChanged(basket: Basket?) {
+        basketBadgeValue = basket?.productsAmount ?? 0
     }
     
-    func createSearchViewController() -> SearchNavigationController {
-        let viewController = resolver.resolve(SearchNavigationController.self)
-        viewController.tabBarItem = UITabBarItem(tabBarIcon: .Search)
-        viewController.tabBarItem.imageInsets = MainTabViewController.tabBarItemImageInsets
-        return viewController
-    }
-    
-    func createBasketViewController() -> CommonPresenterController {
-        let navigationController = resolver.resolve(BasketNavigationController.self)
-        let viewController = resolver.resolve(CommonPresenterController.self, argument: navigationController as UIViewController)
-        viewController.tabBarItem = UITabBarItem(tabBarIcon: .Basket)
-        viewController.tabBarItem.imageInsets = MainTabViewController.basketItemImageInsets
-        return viewController
-    }
-    
-    func createWishlistViewController() -> CommonPresenterController {
-        let navigationController = resolver.resolve(WishlistNavigationController.self)
-        let viewController = resolver.resolve(CommonPresenterController.self, argument: navigationController as UIViewController)
-        viewController.tabBarItem = UITabBarItem(tabBarIcon: .Wishlist)
-        viewController.tabBarItem.imageInsets = MainTabViewController.tabBarItemImageInsets
-        return viewController
-    }
-    
-    func createSettingsViewController() -> SettingsNavigationController {
-        let viewController = resolver.resolve(SettingsNavigationController.self)
-        viewController.tabBarItem = UITabBarItem(tabBarIcon: .Settings)
-        viewController.tabBarItem.imageInsets = MainTabViewController.tabBarItemImageInsets
+    func createChildViewController(forType type: MainTabChildControllerType) -> UIViewController {
+        let contentViewController = type.createViewController(resolver)
+        let viewController = resolver.resolve(CommonPresenterController.self, argument: contentViewController)
+        viewController.tabBarItem = UITabBarItem(type: type)
+        viewController.tabBarItem.imageInsets = type.tabBarInsets()
         return viewController
     }
     
@@ -125,12 +139,21 @@ class MainTabViewController: UITabBarController, NavigationHandler {
     func handleNavigationEvent(event: NavigationEvent) -> EventHandled {
         if let simpleEvent = event as? SimpleNavigationEvent {
             if simpleEvent.type == .ShowSearch {
-                guard let newIndex = index(forViewControllerType: SearchViewController.self) else { return false }
-                selectedIndex = newIndex
+                selectedIndex = MainTabChildControllerType.Search.rawValue
                 return true
             }
         }
         return false
+    }
+}
+
+extension MainTabViewController: DeepLinkingHandler {
+    func handleOpen(withURL url: NSURL) -> Bool {
+        selectedIndex = MainTabChildControllerType.Search.rawValue
+        guard let deepLinkingHandler = selectedViewController as? DeepLinkingHandler else {
+            return false
+        }
+        return deepLinkingHandler.handleOpen(withURL: url)
     }
 }
 
@@ -140,5 +163,11 @@ extension MainTabViewController: UITabBarControllerDelegate {
             child.popToFirstView()
         }
         return true
+    }
+}
+
+extension UITabBarItem {
+    convenience init(type: MainTabChildControllerType, badgeValue: Int? = nil) {
+        self.init(title: nil, image: type.tabBarImage(selected: false), selectedImage: type.tabBarImage(selected: true))
     }
 }

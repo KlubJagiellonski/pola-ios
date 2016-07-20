@@ -61,5 +61,16 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>shwrmpl</string>
+			</array>
+			<key>CFBundleURLName</key>
+			<string>pl.showroom.Showroom</string>
+		</dict>
+	</array>
 </dict>
 </plist>

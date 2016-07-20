@@ -77,7 +77,6 @@ enum Asset: String {
   case SplashImage5s = "SplashImage5s"
   case SplashImage6 = "SplashImage6"
   case SplashImage6p = "SplashImage6p"
-  case Temp_trend = "temp_trend"
 
   var image: UIImage {
     return UIImage(asset: self)

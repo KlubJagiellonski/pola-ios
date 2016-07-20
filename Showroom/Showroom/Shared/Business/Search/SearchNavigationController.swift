@@ -31,6 +31,12 @@ final class SearchNavigationController: UINavigationController, NavigationHandle
     }
 }
 
+extension SearchNavigationController: DeepLinkingHandler {
+    func handleOpen(withURL url: NSURL) -> Bool {
+        return commonNavigationHandler.handleOpen(withURL: url)
+    }
+}
+
 extension SearchNavigationController: MainTabChild {
     func popToFirstView() {
         popToRootViewControllerAnimated(true)
