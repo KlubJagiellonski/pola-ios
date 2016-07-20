@@ -20,9 +20,24 @@ extension Filter {
     }
     
     private var selectedCategoryName: String? {
-        guard let selectedCategoryId = selectedCategoryId else { return nil }
-        let category = categories.find { $0.id == selectedCategoryId }
+        guard let selectedCategoryId = selectedCategoryIds.last else { return nil }
+        let category = findSelectedCategory(forId: selectedCategoryId, categories: categories)
         return category?.name
+    }
+    
+    private func findSelectedCategory(forId id: ObjectId, categories: [FilterCategory]) -> FilterCategory? {
+        for category in categories {
+            if category.id == id {
+                 return category
+            }
+            if category.branches != nil {
+                let foundCategory = findSelectedCategory(forId: id, categories: category.branches!)
+                if foundCategory != nil {
+                    return foundCategory
+                }
+            }
+        }
+        return nil
     }
     
     private var selectedSizesName: String? {

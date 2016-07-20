@@ -133,14 +133,17 @@ extension ProductListViewControllerInterface {
             FilterSortOption(id: 4, name: "Cena od najwyższej")
         ]
         let selectedSortOption = 1
+        
+        let shoesCategories = [
+            FilterCategory(id: 2, name: "Balerinki", branches: nil),
+            FilterCategory(id: 3, name: "Botki", branches: nil),
+            FilterCategory(id: 4, name: "Kozaki", branches: nil),
+            FilterCategory(id: 5, name: "Oksfordki", branches: nil),
+            FilterCategory(id: 6, name: "Sandały i klapki", branches: nil),
+            FilterCategory(id: 7, name: "Szpilki", branches: nil)
+        ]
         let filterCategories = [
-            FilterCategory(id: 1, name: "Wszystkie buty", hasChildCategories: false),
-            FilterCategory(id: 2, name: "Balerinki", hasChildCategories: true),
-            FilterCategory(id: 3, name: "Botki", hasChildCategories: true),
-            FilterCategory(id: 4, name: "Kozaki", hasChildCategories: true),
-            FilterCategory(id: 5, name: "Oksfordki", hasChildCategories: true),
-            FilterCategory(id: 6, name: "Sandały i klapki", hasChildCategories: true),
-            FilterCategory(id: 7, name: "Szpilki", hasChildCategories: false)
+            FilterCategory(id: 1, name: "Buty", branches: shoesCategories),
         ]
         let selectedFilterCategory = 1
         
@@ -172,7 +175,7 @@ extension ProductListViewControllerInterface {
         ]
         let selectedBrands = [1, 2, 3, 4, 5, 6]
         
-        let mockedFilter = Filter(sortOptions: sortOptions, selectedSortOptionId: selectedSortOption, defaultSortOptionId: 3, categories: filterCategories, selectedCategoryId: selectedFilterCategory, sizes: sizes, selectedSizeIds: [], colors: colors, selectedColorIds: selectedColors, priceRange: PriceRange(min: Money(amt: 0.0), max: Money(amt: 1000.0)), selectedPriceRange: nil, onlyDiscountsSelected: true, brands: brands, selectedBrandIds: selectedBrands)
+        let mockedFilter = Filter(sortOptions: sortOptions, selectedSortOptionId: selectedSortOption, defaultSortOptionId: 3, categories: filterCategories, selectedCategoryIds: [selectedFilterCategory], sizes: sizes, selectedSizeIds: [], colors: colors, selectedColorIds: selectedColors, priceRange: PriceRange(min: Money(amt: 0.0), max: Money(amt: 1000.0)), selectedPriceRange: nil, onlyDiscountsSelected: true, brands: brands, selectedBrandIds: selectedBrands)
         return mockedFilter
     }
 }

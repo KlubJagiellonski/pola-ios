@@ -12,14 +12,6 @@ class FilterDetailsView: UIView, UITableViewDelegate {
     
     private let dataSource: FilterDetailsDataSource
     weak var delegate: FilterDetailsViewDelegate?
-    var filterItems: [FilterItem] {
-        set { dataSource.filterItems = newValue }
-        get { return dataSource.filterItems }
-    }
-    var currentSelectedIds: [ObjectId] {
-        set { dataSource.selectedIds = newValue }
-        get { return dataSource.selectedIds }
-    }
     var acceptButtonEnabled: Bool {
         set { acceptButton.enabled = newValue }
         get { return acceptButton.enabled }
@@ -45,6 +37,18 @@ class FilterDetailsView: UIView, UITableViewDelegate {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func updateData(with filterItems: [FilterItem], selectedIds: [ObjectId], loadingItemIndex: Int?) {
+        dataSource.updateData(with: filterItems, selectedIds: selectedIds, loadingItemIndex: loadingItemIndex)
+    }
+    
+    func updateData(withLoadingItemIndex loadingItemIndex: Int?) {
+        dataSource.updateData(withLoadingItemIndex: loadingItemIndex)
+    }
+    
+    func updateData(withSelectedIds selectedIds: [Int]) {
+        dataSource.updateData(withSelectedIds: selectedIds)
     }
     
     func didTapAcceptButton() {

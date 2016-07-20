@@ -5,7 +5,7 @@ struct Filter {
     var selectedSortOptionId: ObjectId
     let defaultSortOptionId: ObjectId
     let categories: [FilterCategory]
-    var selectedCategoryId: ObjectId?
+    var selectedCategoryIds: [ObjectId]
     let sizes: [FilterSize]
     var selectedSizeIds: [ObjectId]
     let colors: [FilterColor]
@@ -25,7 +25,7 @@ struct FilterSortOption {
 struct FilterCategory {
     let id: ObjectId
     let name: String
-    let hasChildCategories: Bool
+    let branches: [FilterCategory]?
 }
 
 struct FilterSize {

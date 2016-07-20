@@ -217,6 +217,8 @@ enum L10n {
   case ProductListFilterShowProducts
   /// ZASTOSUJ
   case ProductListFilterApply
+  /// Wszystkie kategorie
+  case ProductListFilterAllCategories
   /// Logowanie
   case LoginNavigationHeader
   /// ZALOGUJ SIĘ Z FACEBOOKIEM
@@ -552,6 +554,8 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("ProductListFilter.ShowProducts")
       case .ProductListFilterApply:
         return L10n.tr("ProductListFilter.Apply")
+      case .ProductListFilterAllCategories:
+        return L10n.tr("ProductListFilter.AllCategories")
       case .LoginNavigationHeader:
         return L10n.tr("Login.NavigationHeader")
       case .LoginLoginWithFacebook:

@@ -1,7 +1,8 @@
 import UIKit
+import SnapKit
 
 enum SelectAccessoryType {
-    case None, Checkmark, GoTo
+    case None, Checkmark, GoTo, Loading
 }
 
 class SelectValueTableViewCell: UITableViewCell {
@@ -9,12 +10,13 @@ class SelectValueTableViewCell: UITableViewCell {
     private let titleLabel = UILabel()
     private let separatorView = UIView()
     
-    private var amountLabelFont: UIFont {
+    private var titleLabelFont: UIFont {
         return UIFont(fontType: .Normal)
     }
     private var imageEnabled: Bool {
         return false
     }
+    private var leftOffsetConstraint: Constraint!
     var selectAccessoryType: SelectAccessoryType = .None {
         didSet {
             switch selectAccessoryType {
@@ -24,6 +26,10 @@ class SelectValueTableViewCell: UITableViewCell {
                 accessoryView = UIImageView(image: UIImage(asset: .Ic_tick))
             case .GoTo:
                 accessoryView = UIImageView(image: UIImage(asset: .Ic_chevron_right))
+            case .Loading:
+                let indicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+                indicator.startAnimating()
+                accessoryView = indicator
             }
         }
     }
@@ -31,11 +37,21 @@ class SelectValueTableViewCell: UITableViewCell {
         set { titleLabel.text = newValue }
         get { return titleLabel.text }
     }
+    var titleFont: UIFont {
+        set { titleLabel.font = newValue }
+        get { return titleLabel.font }
+    }
+    var leftOffset: CGFloat = Dimensions.defaultMargin {
+        didSet {
+            guard leftOffset != oldValue else { return }
+            leftOffsetConstraint.updateOffset(leftOffset)
+        }
+    }
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: .Default, reuseIdentifier: reuseIdentifier)
         
-        titleLabel.font = amountLabelFont
+        titleLabel.font = titleLabelFont
         
         separatorView.backgroundColor = UIColor(named: .Separator)
         
@@ -65,12 +81,13 @@ class SelectValueTableViewCell: UITableViewCell {
     }
         
     private func configureCustomConstraints() {
+        titleLabel.setContentCompressionResistancePriority(UILayoutPriorityDefaultLow, forAxis: .Horizontal)
         if imageEnabled {
             let colorIconSide: CGFloat = 25
             colorIconView.snp_makeConstraints { make in
                 make.centerY.equalToSuperview()
                 make.height.equalTo(colorIconSide)
-                make.leading.equalToSuperview().offset(Dimensions.defaultMargin)
+                leftOffsetConstraint = make.leading.equalToSuperview().offset(leftOffset).constraint
                 make.width.equalTo(colorIconSide)
             }
             titleLabel.snp_makeConstraints { make in
@@ -83,7 +100,7 @@ class SelectValueTableViewCell: UITableViewCell {
             titleLabel.snp_makeConstraints { make in
                 make.top.equalToSuperview()
                 make.bottom.equalToSuperview()
-                make.leading.equalToSuperview().inset(Dimensions.defaultMargin)
+                leftOffsetConstraint = make.leading.equalToSuperview().inset(leftOffset).constraint
                 make.trailing.equalToSuperview().inset(Dimensions.defaultMargin)
             }
         }
@@ -104,13 +121,13 @@ final class ImageSelectValueTableViewCell: SelectValueTableViewCell {
 }
 
 final class BoldSelectValueTableViewCell: SelectValueTableViewCell {
-    private override var amountLabelFont: UIFont {
+    private override var titleLabelFont: UIFont {
         return UIFont(fontType: .Bold)
     }
 }
 
 class SmallSelectValueTableViewCell: SelectValueTableViewCell {
-    private override var amountLabelFont: UIFont {
+    private override var titleLabelFont: UIFont {
         return UIFont(fontType: .ProductActionOption)
     }
 }

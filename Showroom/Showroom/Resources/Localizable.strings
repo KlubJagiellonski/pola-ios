@@ -105,6 +105,7 @@
 "ProductListFilter.PriceRange" = "%@zł - %@zł";
 "ProductListFilter.ShowProducts" = "POKAŻ PRODUKTY";
 "ProductListFilter.Apply" = "ZASTOSUJ";
+"ProductListFilter.AllCategories" = "Wszystkie kategorie";
 "Login.NavigationHeader" = "Logowanie";
 "Login.LoginWithFacebook" = "ZALOGUJ SIĘ Z FACEBOOKIEM";
 "Login.Or" = "lub";

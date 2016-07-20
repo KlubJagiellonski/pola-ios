@@ -15,6 +15,8 @@ struct Constants {
     static let productListPageSize: Int = 20
     static let productListPageSizeForLargeScreen: Int = 27
     
+    static let rootCategoryId: ObjectId = -1
+    
     struct Cache {
         static let contentPromoId = "ContentPromoId"
         static let productDetails = "ProductDetails"
