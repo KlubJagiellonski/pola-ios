@@ -251,6 +251,7 @@
 		C0237D131D22652F0009F2FC /* EditAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0237D121D22652F0009F2FC /* EditAddressView.swift */; };
 		C0237D171D229B8C0009F2FC /* ShowEditAddressEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0237D161D229B8C0009F2FC /* ShowEditAddressEvent.swift */; };
 		C0237D191D23EA4C0009F2FC /* Kiosk.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0237D181D23EA4C0009F2FC /* Kiosk.swift */; };
+		C026E5701D3F95E20003DA8B /* SettingsWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C026E56F1D3F95E20003DA8B /* SettingsWebView.swift */; };
 		C049D8CD1D33E7800043F60F /* HorizontalPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C049D8CC1D33E7800043F60F /* HorizontalPageControl.swift */; };
 		C049D8CF1D33F0930043F60F /* OnboardingInfiniteScrollingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C049D8CE1D33F0930043F60F /* OnboardingInfiniteScrollingCell.swift */; };
 		C049D8D11D33F0C50043F60F /* OnboardingDoubleTapAnimationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C049D8D01D33F0C50043F60F /* OnboardingDoubleTapAnimationCell.swift */; };
@@ -570,6 +571,7 @@
 		C0237D121D22652F0009F2FC /* EditAddressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAddressView.swift; sourceTree = "<group>"; };
 		C0237D161D229B8C0009F2FC /* ShowEditAddressEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowEditAddressEvent.swift; sourceTree = "<group>"; };
 		C0237D181D23EA4C0009F2FC /* Kiosk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Kiosk.swift; sourceTree = "<group>"; };
+		C026E56F1D3F95E20003DA8B /* SettingsWebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsWebView.swift; sourceTree = "<group>"; };
 		C049D8CC1D33E7800043F60F /* HorizontalPageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalPageControl.swift; sourceTree = "<group>"; };
 		C049D8CE1D33F0930043F60F /* OnboardingInfiniteScrollingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingInfiniteScrollingCell.swift; sourceTree = "<group>"; };
 		C049D8D01D33F0C50043F60F /* OnboardingDoubleTapAnimationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingDoubleTapAnimationCell.swift; sourceTree = "<group>"; };
@@ -1390,6 +1392,7 @@
 			isa = PBXGroup;
 			children = (
 				C006F4D51D3E4A5900573316 /* SettingsWebViewController.swift */,
+				C026E56F1D3F95E20003DA8B /* SettingsWebView.swift */,
 			);
 			path = WebView;
 			sourceTree = "<group>";
@@ -1929,6 +1932,7 @@
 				1D0F3B4C1D1173250052CFF6 /* Animator.swift in Sources */,
 				1D6933521D2E410B00609BB9 /* BrandDescriptionViewController.swift in Sources */,
 				C022208F1D183C0C004411A7 /* CheckoutDeliveryView.swift in Sources */,
+				C026E5701D3F95E20003DA8B /* SettingsWebView.swift in Sources */,
 				C0C635041D339B5100715A77 /* OnboardingViewController.swift in Sources */,
 				1D5F916C1D36541700AE66E6 /* SelectValueTableViewCell.swift in Sources */,
 				1D0F3B641D13D3710052CFF6 /* BasketCountryDataSource.swift in Sources */,

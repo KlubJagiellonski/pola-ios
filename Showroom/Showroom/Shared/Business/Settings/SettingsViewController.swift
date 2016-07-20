@@ -131,26 +131,26 @@ class SettingsViewController: UIViewController {
     
     func howToMeasureRowPressed() {
         logInfo("howToMeasureRowPressed")
-        sendNavigationEvent(ShowSettingsWebViewEvent(title: tr(.SettingsHowToMeasure), url: "https://www.showroom.pl"))
+        sendNavigationEvent(ShowSettingsWebViewEvent(title: tr(.SettingsHowToMeasure), url: "https://www.showroom.pl/d/jak-sie-mierzyc"))
     }
     
     func privacyPolicyRowPressed() {
-        logInfo("privacyPolicyRowPressed")
-        sendNavigationEvent(ShowSettingsWebViewEvent(title: tr(.SettingsPrivacyPolicy), url: "https://www.showroom.pl"))
+        logInfo("privacyPolicyRowPressed")                
+        sendNavigationEvent(ShowSettingsWebViewEvent(title: tr(.SettingsPrivacyPolicy), url: "https://dysk.shwrm.net/marketing/images/pliki/SHWRM5PolitykaPrywatnosci.pdf"))
     }
     
     func frequentQuestionsRowPressed() {
         logInfo("frequentQuestionsRowPressed")
-        sendNavigationEvent(ShowSettingsWebViewEvent(title: tr(.SettingsFrequentQuestions), url: "https://www.showroom.pl"))
+        sendNavigationEvent(ShowSettingsWebViewEvent(title: tr(.SettingsFrequentQuestions), url: "https://www.showroom.pl/czeste-pytania"))
     }
     
     func rulesRowPressed() {
         logInfo("rulesRowPressed")
-        sendNavigationEvent(ShowSettingsWebViewEvent(title: tr(.SettingsRules), url: "https://www.showroom.pl"))
+        sendNavigationEvent(ShowSettingsWebViewEvent(title: tr(.SettingsRules), url: "https://www.showroom.pl/d/nowy-regulamin"))
     }
     
     func contactRowPressed() {
         logInfo("contactRowPressed")
-        sendNavigationEvent(ShowSettingsWebViewEvent(title: tr(.SettingsContact), url: "https://www.showroom.pl"))
+        sendNavigationEvent(ShowSettingsWebViewEvent(title: tr(.SettingsContact), url: "https://www.showroom.pl/kontakt"))
     }
 }
