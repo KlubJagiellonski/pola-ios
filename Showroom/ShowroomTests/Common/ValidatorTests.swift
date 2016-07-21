@@ -15,18 +15,6 @@ class ValidatorTests: QuickSpec {
                     expect(validator.validate("t")) == true
                 }
             }
-            
-            context("phone number validator") {
-                let validator = PhoneNumberValidator()
-                
-                it("should correctly validate") {
-                    expect(validator.validate(nil)) == true
-                    expect(validator.validate("")) == true
-                    expect(validator.validate("+ test")) == true
-                    expect(validator.validate("+")) == true
-                    expect(validator.validate("test")) == false
-                }
-            }
         }
     }
 }

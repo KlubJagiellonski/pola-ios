@@ -30,10 +30,7 @@ extension AddressFormField: CustomStringConvertible {
     
     private var validators: [Validator] {
         var validators: [Validator] = []
-        if case Phone = self {
-            validators.append(PhoneNumberValidator())
-            validators.append(NotEmptyValidator())
-        } else if case Country = self {
+        if case Country = self {
         } else {
             validators.append(NotEmptyValidator())
         }

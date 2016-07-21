@@ -31,26 +31,6 @@ class NotEmptyValidator: Validator {
     }
 }
 
-class PhoneNumberValidator: Validator {
-    @objc var failedMessage: String?
-    
-    @objc func validate(currentValue: AnyObject?) -> Bool {
-        failedMessage = nil
-        guard let text: String? = currentValue as? String else { fatalError("PhoneNumberValidator cannot handle different type than String") }
-        
-        if text == nil || text!.characters.count == 0 {
-            return true
-        }
-        
-        if !text!.hasPrefix("+") {
-            failedMessage = tr(.ValidatorPhoneNumber)
-            return false
-        }
-        
-        return true
-    }
-}
-
 class SelectionRequiredValidator: Validator {
     @objc var failedMessage: String?
     private var messageForNotSelected: String
