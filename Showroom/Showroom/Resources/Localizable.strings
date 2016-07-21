@@ -141,6 +141,10 @@
 "Settings.Male" = "ON";
 "Settings.Female" = "ONA";
 "Settings.UserData" = "Twoje dane";
+"Settings.UserData.Description" = "To jest podgląd Twoich danych. Można je edytować w trakcie składania zamówienia, lub %@.";
+"Settings.UserData.Description.Website" = "przez serwis WWW";
+"Settings.UserData.Name" = "IMIĘ";
+"Settings.UserData.Addresses" = "TWOJE ADRESY";
 "Settings.History" = "Historia zamówień";
 "Settings.History.ToCheckHistory" = "Aby sprawdzić historię swoich zamówień, %@.";
 "Settings.History.GoToWebsite" = "przejdź do serwisu WWW";

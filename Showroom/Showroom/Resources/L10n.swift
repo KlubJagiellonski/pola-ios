@@ -289,6 +289,14 @@ enum L10n {
   case SettingsFemale
   /// Twoje dane
   case SettingsUserData
+  /// To jest podgląd Twoich danych. Można je edytować w trakcie składania zamówienia, lub %@.
+  case SettingsUserDataDescription(String)
+  /// przez serwis WWW
+  case SettingsUserDataDescriptionWebsite
+  /// IMIĘ
+  case SettingsUserDataName
+  /// TWOJE ADRESY
+  case SettingsUserDataAddresses
   /// Historia zamówień
   case SettingsHistory
   /// Aby sprawdzić historię swoich zamówień, %@.
@@ -630,6 +638,14 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Settings.Female")
       case .SettingsUserData:
         return L10n.tr("Settings.UserData")
+      case .SettingsUserDataDescription(let p0):
+        return L10n.tr("Settings.UserData.Description", p0)
+      case .SettingsUserDataDescriptionWebsite:
+        return L10n.tr("Settings.UserData.Description.Website")
+      case .SettingsUserDataName:
+        return L10n.tr("Settings.UserData.Name")
+      case .SettingsUserDataAddresses:
+        return L10n.tr("Settings.UserData.Addresses")
       case .SettingsHistory:
         return L10n.tr("Settings.History")
       case .SettingsHistoryToCheckHistory(let p0):

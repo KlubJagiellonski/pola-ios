@@ -25,8 +25,11 @@ class SettingsNavigationController: UINavigationController, NavigationHandler {
         popViewControllerAnimated(true)
     }
 
-    func showUserInfoView() {
+    func showUserInfoView(user user: User) {
         logInfo("showUserInfoView")
+        let viewController = resolver.resolve(UserInfoViewController.self, argument: user)
+        viewController.navigationItem.title = tr(.SettingsUserData)
+        pushViewController(viewController, animated: true)
     }
     
     func showHistoryOfOrderView() {
@@ -48,15 +51,19 @@ class SettingsNavigationController: UINavigationController, NavigationHandler {
         switch event {
         case let simpleEvent as SimpleNavigationEvent:
             switch simpleEvent.type {
-            case .ShowUserInfo:
-                showUserInfoView()
-                return true
             case .ShowHistoryOfOrder:
                 showHistoryOfOrderView()
+                return true
+            case .Back:
+                didTapBackButton()
                 return true
             default:
                 return false
             }
+        case let userInfoEvent as ShowUserInfoViewEvent:
+            showUserInfoView(user: userInfoEvent.user)
+            return true
+            
         case let webViewEvent as ShowSettingsWebViewEvent:
             showWebView(title: webViewEvent.title, url: webViewEvent.url)
             return true

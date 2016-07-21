@@ -256,6 +256,8 @@
 		C007CD951D2E92FC00700EBB /* SettingsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C007CD941D2E92FC00700EBB /* SettingsDataSource.swift */; };
 		C01FF2E21D366D3B00D025AE /* HeartMaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01FF2E11D366D3B00D025AE /* HeartMaskView.swift */; };
 		C01FF2E61D36771D00D025AE /* TouchIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01FF2E51D36771D00D025AE /* TouchIndicatorView.swift */; };
+		C020DA461D40F39900E6E4AE /* ShowUserInfoViewEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C020DA451D40F39900E6E4AE /* ShowUserInfoViewEvent.swift */; };
+		C020DA481D40F8C300E6E4AE /* UserInfoContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C020DA471D40F8C300E6E4AE /* UserInfoContainerView.swift */; };
 		C02220851D12D4AD004411A7 /* TabBarItemBadgeContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02220841D12D4AD004411A7 /* TabBarItemBadgeContainerView.swift */; };
 		C022208A1D183223004411A7 /* CheckoutNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02220891D183223004411A7 /* CheckoutNavigationController.swift */; };
 		C022208D1D1834B9004411A7 /* CheckoutDeliveryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C022208C1D1834B9004411A7 /* CheckoutDeliveryViewController.swift */; };
@@ -267,6 +269,8 @@
 		C0237D171D229B8C0009F2FC /* ShowEditAddressEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0237D161D229B8C0009F2FC /* ShowEditAddressEvent.swift */; };
 		C0237D191D23EA4C0009F2FC /* Kiosk.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0237D181D23EA4C0009F2FC /* Kiosk.swift */; };
 		C026E5701D3F95E20003DA8B /* SettingsWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C026E56F1D3F95E20003DA8B /* SettingsWebView.swift */; };
+		C02FD4EF1D40E600006B3306 /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02FD4EE1D40E600006B3306 /* UserInfoViewController.swift */; };
+		C02FD4F11D40E626006B3306 /* UserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02FD4F01D40E626006B3306 /* UserInfoView.swift */; };
 		C049D8CD1D33E7800043F60F /* HorizontalPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C049D8CC1D33E7800043F60F /* HorizontalPageControl.swift */; };
 		C049D8CF1D33F0930043F60F /* OnboardingInfiniteScrollingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C049D8CE1D33F0930043F60F /* OnboardingInfiniteScrollingCell.swift */; };
 		C049D8D11D33F0C50043F60F /* OnboardingDoubleTapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C049D8D01D33F0C50043F60F /* OnboardingDoubleTapCell.swift */; };
@@ -592,6 +596,8 @@
 		C007CD941D2E92FC00700EBB /* SettingsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsDataSource.swift; sourceTree = "<group>"; };
 		C01FF2E11D366D3B00D025AE /* HeartMaskView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeartMaskView.swift; sourceTree = "<group>"; };
 		C01FF2E51D36771D00D025AE /* TouchIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchIndicatorView.swift; sourceTree = "<group>"; };
+		C020DA451D40F39900E6E4AE /* ShowUserInfoViewEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowUserInfoViewEvent.swift; sourceTree = "<group>"; };
+		C020DA471D40F8C300E6E4AE /* UserInfoContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoContainerView.swift; sourceTree = "<group>"; };
 		C02220841D12D4AD004411A7 /* TabBarItemBadgeContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarItemBadgeContainerView.swift; sourceTree = "<group>"; };
 		C02220891D183223004411A7 /* CheckoutNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutNavigationController.swift; sourceTree = "<group>"; };
 		C022208C1D1834B9004411A7 /* CheckoutDeliveryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutDeliveryViewController.swift; sourceTree = "<group>"; };
@@ -603,6 +609,8 @@
 		C0237D161D229B8C0009F2FC /* ShowEditAddressEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowEditAddressEvent.swift; sourceTree = "<group>"; };
 		C0237D181D23EA4C0009F2FC /* Kiosk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Kiosk.swift; sourceTree = "<group>"; };
 		C026E56F1D3F95E20003DA8B /* SettingsWebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsWebView.swift; sourceTree = "<group>"; };
+		C02FD4EE1D40E600006B3306 /* UserInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoViewController.swift; sourceTree = "<group>"; };
+		C02FD4F01D40E626006B3306 /* UserInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoView.swift; sourceTree = "<group>"; };
 		C049D8CC1D33E7800043F60F /* HorizontalPageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalPageControl.swift; sourceTree = "<group>"; };
 		C049D8CE1D33F0930043F60F /* OnboardingInfiniteScrollingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingInfiniteScrollingCell.swift; sourceTree = "<group>"; };
 		C049D8D01D33F0C50043F60F /* OnboardingDoubleTapCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingDoubleTapCell.swift; sourceTree = "<group>"; };
@@ -1267,6 +1275,7 @@
 				1D5E91921D3CE25000A6BD55 /* ShowProductSearchEvent.swift */,
 				1D5E919E1D3E46D000A6BD55 /* ShowSearchItemEvent.swift */,
 				C006F4D31D3E40CF00573316 /* ShowSettingsWebViewEvent.swift */,
+				C020DA451D40F39900E6E4AE /* ShowUserInfoViewEvent.swift */,
 			);
 			path = Event;
 			sourceTree = "<group>";
@@ -1464,6 +1473,9 @@
 		C006F4DB1D3E4ADD00573316 /* UserInfo */ = {
 			isa = PBXGroup;
 			children = (
+				C02FD4EE1D40E600006B3306 /* UserInfoViewController.swift */,
+				C02FD4F01D40E626006B3306 /* UserInfoView.swift */,
+				C020DA471D40F8C300E6E4AE /* UserInfoContainerView.swift */,
 			);
 			path = UserInfo;
 			sourceTree = "<group>";
@@ -1831,6 +1843,7 @@
 				1DA846F51D191D5E00BA090A /* KeyboardHelper.swift in Sources */,
 				1DD161B31D01CF790022B5C9 /* ProductDetailsModel.swift in Sources */,
 				1D1A7E201D254904009CCCE7 /* CategoryProductListModel.swift in Sources */,
+				C02FD4F11D40E626006B3306 /* UserInfoView.swift in Sources */,
 				1D5F91681D36500500AE66E6 /* FilterDetailsDataSource.swift in Sources */,
 				1D2423DD1D228A9A0026D46B /* ToastManager.swift in Sources */,
 				1D78249E1D06E50400E60392 /* ProductPageView.swift in Sources */,
@@ -1854,6 +1867,7 @@
 				75C854601D05816300E5F08F /* PriceLabel.swift in Sources */,
 				751A50101D1156AE00DF7D2B /* ProductAmountViewController.swift in Sources */,
 				1D72ED141CFC3028007AFD2F /* User.swift in Sources */,
+				C020DA461D40F39900E6E4AE /* ShowUserInfoViewEvent.swift in Sources */,
 				1DF14F2A1D2A72AB004A6A3A /* ProductErrorPageCell.swift in Sources */,
 				1D5886EC1D2BF274007D0CB1 /* ProductHeaderContainerCell.swift in Sources */,
 				1D6933541D2E411400609BB9 /* BrandDescriptionView.swift in Sources */,
@@ -1868,6 +1882,7 @@
 				1D69334D1D2E40DB00609BB9 /* BrandProductListModel.swift in Sources */,
 				1D7824AC1D06F4F900E60392 /* UIImageUtils.swift in Sources */,
 				1D5E91971D3E13FB00A6BD55 /* SearchModel.swift in Sources */,
+				C020DA481D40F8C300E6E4AE /* UserInfoContainerView.swift in Sources */,
 				1DD161A81D01C43B0022B5C9 /* DashboardNavigationController.swift in Sources */,
 				75D52EB41CFF1063005E34B4 /* BasketNavigationController.swift in Sources */,
 				1D7824A01D06E52D00E60392 /* VerticalPageControl.swift in Sources */,
@@ -2017,6 +2032,7 @@
 				1D5F916C1D36541700AE66E6 /* SelectValueTableViewCell.swift in Sources */,
 				1D0F3B641D13D3710052CFF6 /* BasketCountryDataSource.swift in Sources */,
 				1D0F3B4E1D12819B0052CFF6 /* BasketDeliveryNavigationController.swift in Sources */,
+				C02FD4EF1D40E600006B3306 /* UserInfoViewController.swift in Sources */,
 				1DA5CB491D2F7B2E00A45E93 /* Checkout.swift in Sources */,
 				C006F4D41D3E40CF00573316 /* ShowSettingsWebViewEvent.swift in Sources */,
 				C07CF39B1D2407DD004578FD /* EditKioskViewController.swift in Sources */,

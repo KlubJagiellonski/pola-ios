@@ -123,7 +123,10 @@ class SettingsViewController: UIViewController {
     
     func userDataRowPressed() {
         logInfo("userDataRowPressed")
-        sendNavigationEvent(SimpleNavigationEvent(type: .ShowUserInfo))
+        guard let user = userManager.user else {
+            fatalError("User is not logged")
+        }
+        sendNavigationEvent(ShowUserInfoViewEvent(user: user))
     }
 
     func historyRowPressed() {

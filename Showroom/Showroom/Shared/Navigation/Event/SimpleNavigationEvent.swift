@@ -16,7 +16,6 @@ struct SimpleNavigationEvent: NavigationEvent {
         case SplashEnd
         case ShowFilteredProducts
         case OnboardingEnd
-        case ShowUserInfo
         case ShowHistoryOfOrder
         // TODO: Remove when tested
         case ShowOnboarding
