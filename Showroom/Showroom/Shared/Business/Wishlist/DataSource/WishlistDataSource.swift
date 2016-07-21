@@ -15,6 +15,14 @@ class WishlistDataSource: NSObject, UITableViewDataSource {
         tableView.registerClass(WishlistCell.self, forCellReuseIdentifier: String(WishlistCell))
     }
     
+    func moveToPosition(at index: Int, animated: Bool) {
+        guard index < products.count else {
+            logInfo("Cannot scroll to \(index)")
+            return
+        }
+        tableView?.scrollToRowAtIndexPath(NSIndexPath(forRow: index, inSection: 0), atScrollPosition: .Top, animated: false)
+    }
+    
     func updateData(with newProducts: [ListProduct]) {
         var addedProducts: [NSIndexPath] = []
         var removedProducts: [NSIndexPath] = []

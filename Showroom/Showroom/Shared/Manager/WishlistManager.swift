@@ -34,9 +34,23 @@ final class WishlistManager {
         state.wishlist.remove { $0.id == product.id }
     }
     
+    func createWishlistProductsContext(initialIndex: Int, onChangedForIndex: Int -> ()) -> ProductDetailsContext? {
+        if state.wishlist[safe: initialIndex] == nil {
+            return nil
+        }
+        
+        let onRetrieveProductInfo: Int -> ProductInfo = { index in
+            let product = self.state.wishlist[index]
+            let lowResImageUrl = NSURL.createImageUrl(product.imageUrl, width: WishlistCell.photoSize.width, height: WishlistCell.photoSize.height)
+            return ProductInfo.Object(product.toProduct(withLowResImageUrl: lowResImageUrl.absoluteString))
+        }
+        
+        return OnePageProductDetailsContext(productsCount: state.wishlist.count, initialProductIndex: initialIndex, onChanged: onChangedForIndex, onRetrieveProductInfo: onRetrieveProductInfo)
+    }
+    
     func createSampleData() -> [ListProduct] {
         return [
-            ListProduct(id: 1,
+            ListProduct(id: 56425,
                 brand: ProductBrand(id: 0, name: "Baltica"),
                 name: "Bluza Oversize",
                 basePrice: Money(amt: 219.0),
@@ -45,7 +59,7 @@ final class WishlistManager {
                 freeDelivery: true,
                 premium: false,
                 new: true),
-            ListProduct(id: 2,
+            ListProduct(id: 71626,
                 brand: ProductBrand(id: 1, name: "PASO a PASO"),
                 name: "Sandałki Silvia silver",
                 basePrice: Money(amt: 310.0),
@@ -54,7 +68,7 @@ final class WishlistManager {
                 freeDelivery: true,
                 premium: true,
                 new: true),
-            ListProduct(id: 3,
+            ListProduct(id: 61505,
                 brand: ProductBrand(id: 2, name: "Beata Cupriak"),
                 name: "Sukienka Figurynka granatowo-koralowa",
                 basePrice: Money(amt: 439.0),

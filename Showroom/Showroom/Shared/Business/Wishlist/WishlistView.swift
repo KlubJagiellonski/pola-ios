@@ -42,6 +42,10 @@ final class WishlistView: ViewSwitcher, UITableViewDelegate {
         dataSource.updateData(with: products)
     }
     
+    func moveToPosition(at index: Int, animated: Bool) {
+        dataSource.moveToPosition(at: index, animated: animated)
+    }
+    
     // MARK:- UITableViewDelegate
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return WishlistCell.cellHeight

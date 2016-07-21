@@ -66,8 +66,12 @@ extension WishlistViewController: WishlistViewDelegate {
     }
     
     func wishlistView(view: WishlistView, didSelectProductAt indexPath: NSIndexPath) {
-        // TODO: Create context and show the product
-        sendNavigationEvent(SimpleNavigationEvent(type: .ShowOnboarding))
+        guard let context = manager.createWishlistProductsContext(indexPath.row, onChangedForIndex: { [unowned self] index in
+            self.castView.moveToPosition(at: index, animated: false)
+        }) else {
+            return
+        }
+        sendNavigationEvent(ShowProductDetailsEvent(context: context, retrieveCurrentImageViewTag: nil))
     }
     
     func viewSwitcherDidTapRetry(view: ViewSwitcher) {
