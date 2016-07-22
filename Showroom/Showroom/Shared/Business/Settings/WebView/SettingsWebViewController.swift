@@ -1,11 +1,11 @@
 import UIKit
+import WebKit
 
 class SettingsWebViewController: UIViewController {
     
     var castView: SettingsWebView { return view as! SettingsWebView }
     
-    let url: String
-    private var webViewLoaded = false
+    private let url: String
     
     init(resolver: DiResolver, url: String) {
         self.url = url
@@ -35,28 +35,23 @@ extension SettingsWebViewController: SettingsWebViewDelegate {
         castView.loadRequest(urlString: url)
     }
     
-    func webViewDidStartLoad(webView: UIWebView) {
-        logInfo("webViewDidStartLoad")
-        guard !webViewLoaded else { return }
+    func webView(webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        logInfo("webView didStartProvisionalNavigation")
         castView.switcherState = .Loading
     }
     
-    func webViewDidFinishLoad(webView: UIWebView) {
-        logInfo("webViewDidFinishLoad")
-        guard !webViewLoaded else { return }
+    func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
+        logInfo("webViewDidFinishNavigation")
         castView.switcherState = .Success
-        webViewLoaded = true
     }
     
-    func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
-        logInfo("webView didFailLoadWithError")
-        guard !webViewLoaded else { return }
+    func webView(webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: NSError) {
+        logInfo("webView didFailProvisionalNavigation error \(error.localizedDescription)")
         castView.switcherState = .Error
     }
     
-    func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-        let shouldLoad = request.URL?.absoluteString == url
-        logInfo("webView shouldStartLoadWithRequest: \(request) -> shouldLoad: \(shouldLoad)")
-        return shouldLoad
+    func webView(webView: WKWebView, didFailNavigation navigation: WKNavigation!, withError error: NSError) {
+        logInfo("webView didFailNavigation")
+        castView.switcherState = .Error
     }
 }

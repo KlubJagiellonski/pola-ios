@@ -1,14 +1,15 @@
 import UIKit
+import WebKit
 
-protocol SettingsWebViewDelegate: ViewSwitcherDelegate, UIWebViewDelegate { }
+protocol SettingsWebViewDelegate: ViewSwitcherDelegate, WKNavigationDelegate { }
 
 class SettingsWebView: ViewSwitcher {
-    private let webView = UIWebView()
+    private let webView = WKWebView(frame: CGRectZero)
     
     weak var delegate: SettingsWebViewDelegate? {
         didSet {
             switcherDelegate = delegate
-            webView.delegate = delegate
+            webView.navigationDelegate = delegate
         }
     }
     
