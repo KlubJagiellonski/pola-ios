@@ -46,13 +46,6 @@ class RootViewController: PresenterViewController, NavigationHandler {
         case .OnboardingEnd:
             self.contentViewController = resolver.resolve(StartViewController)
             return true
-            // TODO: Remove when tested
-        case .ShowStart:
-            self.contentViewController = resolver.resolve(StartViewController)
-            return true
-        case .ShowOnboarding:
-            self.contentViewController = resolver.resolve(OnboardingViewController)
-            return true
         default: return false
         }
     }

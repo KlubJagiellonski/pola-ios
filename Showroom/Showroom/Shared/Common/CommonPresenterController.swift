@@ -22,19 +22,27 @@ class CommonPresenterController: PresenterViewController, NavigationHandler {
     func handleNavigationEvent(event: NavigationEvent) -> EventHandled {
         switch event {
         case let showProductDetailsEvent as ShowProductDetailsEvent:
-            let viewController = resolver.resolve(ProductDetailsViewController.self, argument: showProductDetailsEvent.context)
-            
-            let alternativeAnimation = DimModalAnimation(animationDuration: 0.3)
-            if let imageViewTag = showProductDetailsEvent.retrieveCurrentImageViewTag?(), let imageView = view.viewWithTag(imageViewTag) as? UIImageView where imageView.image != nil {
-                retrieveCurrentImageViewTag = showProductDetailsEvent.retrieveCurrentImageViewTag
-                let animation = ImageAnimation(animationDuration: 0.4, imageView: imageView, alternativeAnimation: alternativeAnimation)
-                showModal(viewController, hideContentView: false, animation: animation, completion: nil)
+            if let productDetailsViewController = currentModalViewController as? ProductDetailsViewController {
+                retrieveCurrentImageViewTag = nil
+                productDetailsViewController.updateData(with: showProductDetailsEvent.context)
             } else {
-                showModal(viewController, hideContentView: true, animation: alternativeAnimation, completion: nil)
+                let viewController = resolver.resolve(ProductDetailsViewController.self, argument: showProductDetailsEvent.context)
+                
+                let alternativeAnimation = DimModalAnimation(animationDuration: 0.3)
+                if let imageViewTag = showProductDetailsEvent.retrieveCurrentImageViewTag?(), let imageView = view.viewWithTag(imageViewTag) as? UIImageView where imageView.image != nil {
+                    retrieveCurrentImageViewTag = showProductDetailsEvent.retrieveCurrentImageViewTag
+                    let animation = ImageAnimation(animationDuration: 0.4, imageView: imageView, alternativeAnimation: alternativeAnimation)
+                    showModal(viewController, hideContentView: false, animation: animation, completion: nil)
+                } else {
+                    showModal(viewController, hideContentView: true, animation: alternativeAnimation, completion: nil)
+                }
             }
             return true
         case let simpleEvent as SimpleNavigationEvent:
             switch simpleEvent.type {
+            case .CloseImmediately:
+                hideModal(animation: nil, completion: nil)
+                return true
             case .Close:
                 let alternativeAnimation = DimModalAnimation(animationDuration: 0.3)
                 let contentView = contentViewController?.view ?? hiddenContentViewController?.view

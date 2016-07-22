@@ -2,9 +2,11 @@ import UIKit
 import RxSwift
 
 class TrendProductListViewController: UIViewController, ProductListViewControllerInterface, TrendProductListViewDelegate {
-    let disposeBag = DisposeBag()
+    typealias EntryData = EntryTrendInfo
+    
+    var disposeBag = DisposeBag()
     let productListModel: ProductListModel
-    var trendListModel: TrendProductListModel { return productListModel as! TrendProductListModel }
+    var model: TrendProductListModel { return productListModel as! TrendProductListModel }
     var productListView: ProductListViewInterface { return castView }
     var castView: TrendProductListView { return view as! TrendProductListView }
     
@@ -34,6 +36,13 @@ class TrendProductListViewController: UIViewController, ProductListViewControlle
         fetchFirstPage()
     }
     
+    func updateData(with data: EntryTrendInfo) {
+        title = data.name
+        disposeBag = DisposeBag()
+        model.update(with: data)
+        fetchFirstPage()
+    }
+    
     func createFilterButton() -> UIBarButtonItem? {
         return nil // not needed in trend
     }
@@ -44,7 +53,7 @@ class TrendProductListViewController: UIViewController, ProductListViewControlle
             return
         }
         title = trendInfo.name
-        castView.updateTrendInfo(trendInfo.imageUrl, description: trendListModel.attributedDescription!)
+        castView.updateTrendInfo(trendInfo.imageUrl, description: model.attributedDescription!)
     }
     
     func filterButtonEnableStateChanged(toState enabled: Bool) { }

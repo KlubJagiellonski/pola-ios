@@ -2,8 +2,8 @@ import Foundation
 import RxSwift
 
 class ProductDetailsModel {
-    private let context: ProductDetailsContext
-    private let disposeBag = DisposeBag()
+    private var context: ProductDetailsContext
+    private var disposeBag = DisposeBag()
     private var informAboutMovedToProduct = false
     let newProductsAmountObservable = PublishSubject<NewProductsAmount>()
     
@@ -17,9 +17,7 @@ class ProductDetailsModel {
     
     init(context: ProductDetailsContext) {
         self.context = context
-        context.newProductsObservable.subscribeNext { [weak self] newProductsAmount in
-            self?.newProductsAmountObservable.onNext(newProductsAmount)
-        }.addDisposableTo(disposeBag)
+        configureContext()
     }
     
     func productInfo(forIndex index: Int) -> ProductInfo {
@@ -31,5 +29,18 @@ class ProductDetailsModel {
             context.productDetailsDidMoveToProduct(atIndex: index)
         }
         informAboutMovedToProduct = true
+    }
+    
+    func update(with context: ProductDetailsContext) {
+        disposeBag = DisposeBag()
+        self.context = context
+        configureContext()
+        informAboutMovedToProduct = false
+    }
+    
+    private func configureContext() {
+        context.newProductsObservable.subscribeNext { [weak self] newProductsAmount in
+            self?.newProductsAmountObservable.onNext(newProductsAmount)
+            }.addDisposableTo(disposeBag)
     }
 }

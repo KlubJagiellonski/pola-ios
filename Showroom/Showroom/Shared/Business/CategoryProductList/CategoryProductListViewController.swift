@@ -3,7 +3,9 @@ import UIKit
 import RxSwift
 
 class CategoryProductListViewController: UIViewController, ProductListViewControllerInterface, CategoryProductListViewDelegate {
-    let disposeBag = DisposeBag()
+    typealias EntryData = EntryCategory
+    
+    var disposeBag = DisposeBag()
     let productListModel: ProductListModel
     private var model: CategoryProductListModel { return productListModel as! CategoryProductListModel }
     var productListView: ProductListViewInterface { return castView }
@@ -34,6 +36,13 @@ class CategoryProductListViewController: UIViewController, ProductListViewContro
         castView.delegate = self
         
         configureProductList()
+        fetchFirstPage()
+    }
+    
+    func updateData(with entryCategory: EntryCategory) {
+        title = entryCategory.name
+        disposeBag = DisposeBag()
+        model.update(with: entryCategory)
         fetchFirstPage()
     }
     

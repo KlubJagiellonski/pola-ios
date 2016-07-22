@@ -15,6 +15,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         configureDependencies()
         
+        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        
         logInfo("Configuring main window")
         
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
@@ -27,10 +29,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
-        if url.absoluteString.hasPrefix("fb") {
-            return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
+        logInfo("Received url \(url) with options: \(sourceApplication), \(annotation)")
+        if FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation) {
+            return true
         }
-        
         guard let deepLinkingHandler = window?.rootViewController as? DeepLinkingHandler else { return false }
         return deepLinkingHandler.handleOpen(withURL: url)
     }

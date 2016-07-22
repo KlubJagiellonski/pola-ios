@@ -31,15 +31,15 @@ class CommonNavigationHandler: NavigationHandler {
             return true
         case let searchEvent as ShowProductSearchEvent:
             showSearchProductList(query: searchEvent.query)
-            return true            
+            return true
         default:
             return false
         }
     }
-
+    
     private func showView(forURL url: NSURL, title: String?) -> Bool {
-        let parameters: [NSObject: AnyObject] = title == nil ? [:] : ["title": title!]
-        //todo remove it when we will have trend in content promo
+        let parameters: [NSObject: AnyObject] = title == nil ? [:]: ["title": title!]
+        // todo remove it when we will have trend in content promo
         if url.absoluteString == "https://www.showroom.pl/marki/1027" {
             return urlRouter.routeURL(NSURL(string: "https://www.showroom.pl/trend/stylowekreacjenawesele"), withParameters: parameters)
         } else {
@@ -54,7 +54,7 @@ class CommonNavigationHandler: NavigationHandler {
     }
     
     private func showSearchProductList(query query: String) {
-        let viewController = resolver.resolve(SearchProductListViewController.self, argument: query)
+        let viewController = resolver.resolve(SearchProductListViewController.self, argument: EntrySearchInfo(query: query))
         configureChildViewController(viewController)
         navigationController?.pushViewController(viewController, animated: true)
     }
@@ -70,7 +70,7 @@ class CommonNavigationHandler: NavigationHandler {
     }
     
     private func configureRouter() {
-        urlRouter.addRoute("/:host/tag/*") { [weak self] (parameters: [NSObject: AnyObject]) in
+        urlRouter.addRoute("/:host/tag/*") { [weak self](parameters: [NSObject: AnyObject]) in
             guard let `self` = self else { return false }
             guard let url = parameters[kJLRouteURLKey] as? NSURL else {
                 logError("Cannot retrieve routeURLKey for \(parameters)")
@@ -78,13 +78,10 @@ class CommonNavigationHandler: NavigationHandler {
             }
             let title = parameters["title"] as? String
             
-            let viewController = self.resolver.resolve(CategoryProductListViewController.self, argument: EntryCategory(link: url.absoluteString, name: title))
-            self.configureChildViewController(viewController)
-            self.navigationController?.pushViewController(viewController, animated: true)
-            
-            return true
+            let entryCategory = EntryCategory(link: url.absoluteString, name: title)
+            return self.handleRouting(forProductListViewControllerType: CategoryProductListViewController.self, entryData: entryCategory)
         }
-        urlRouter.addRoute("/:host/marki/:brandComponent") { [weak self] (parameters: [NSObject: AnyObject]!) in
+        urlRouter.addRoute("/:host/marki/:brandComponent") { [weak self](parameters: [NSObject: AnyObject]!) in
             guard let `self` = self else { return false }
             guard let brandComponent = parameters["brandComponent"] as? String else {
                 logError("There is no brandComponent in path: \(parameters)")
@@ -97,13 +94,10 @@ class CommonNavigationHandler: NavigationHandler {
             }
             let title = parameters["title"] as? String
             
-            let viewController = self.resolver.resolve(BrandProductListViewController.self, argument: EntryProductBrand(id: brandId, name: title))
-            self.configureChildViewController(viewController)
-            self.navigationController?.pushViewController(viewController, animated: true)
-            
-            return true
+            let entryProductBrand = EntryProductBrand(id: brandId, name: title)
+            return self.handleRouting(forProductListViewControllerType: BrandProductListViewController.self, entryData: entryProductBrand)
         }
-        urlRouter.addRoute("/:host/trend/:trendSlug") { [weak self] (parameters: [NSObject: AnyObject]!) in
+        urlRouter.addRoute("/:host/trend/:trendSlug") { [weak self](parameters: [NSObject: AnyObject]!) in
             guard let `self` = self else { return false }
             guard let trendSlug = parameters["trendSlug"] as? String else {
                 logError("There is no trendSlug in path: \(parameters)")
@@ -111,13 +105,19 @@ class CommonNavigationHandler: NavigationHandler {
             }
             let title = parameters["title"] as? String
             
-            let viewController = self.resolver.resolve(TrendProductListViewController.self, argument: EntryTrendInfo(slug: trendSlug, name: title))
-            self.configureChildViewController(viewController)
-            self.navigationController?.pushViewController(viewController, animated: true)
-        
-            return true
+            let entryTrendInfo = EntryTrendInfo(slug: trendSlug, name: title)
+            return self.handleRouting(forProductListViewControllerType: TrendProductListViewController.self, entryData: entryTrendInfo)
         }
-        urlRouter.addRoute("/:host/p/:productComponent") { [weak self] (parameters: [NSObject: AnyObject]!) in
+        urlRouter.addRoute("/:host/search") { [weak self](parameters: [NSObject: AnyObject]!) in
+            guard let `self` = self else { return false }
+            guard let query = parameters["s"] as? String else {
+                logError("There is no query parameter in path: \(parameters)")
+                return false
+            }
+            let entrySearchInfo = EntrySearchInfo(query: query)
+            return self.handleRouting(forProductListViewControllerType: SearchProductListViewController.self, entryData: entrySearchInfo)
+        }
+        urlRouter.addRoute("/:host/p/:productComponent") { [weak self](parameters: [NSObject: AnyObject]!) in
             guard let `self` = self else { return false }
             guard let productComponent = parameters["productComponent"] as? String else {
                 logError("There is no productComponent in path: \(parameters)")
@@ -137,6 +137,26 @@ class CommonNavigationHandler: NavigationHandler {
         urlRouter.unmatchedURLHandler = { (routes: JLRoutes, url: NSURL?, parameters: [NSObject: AnyObject]?) in
             logError("Cannot match url: \(url), parameters \(parameters)")
         }
+    }
+    
+    /*
+    * The idea is simple:
+    * - if there is existing view controller with that type in stack we are popping to it with no animtion and changing content
+    * - if not, we are creating new view controller and pushing it to navigation stack
+    */
+    private func handleRouting<T: UIViewController where T:ProductListViewControllerInterface>(forProductListViewControllerType viewControllerType: T.Type, entryData: T.EntryData) -> Bool {
+        guard let navigationController = self.navigationController else { return false }
+        navigationController.sendNavigationEvent(SimpleNavigationEvent(type: .CloseImmediately))
+        
+        if let viewController = navigationController.viewControllers.find({ $0 is T }) as? T {
+            navigationController.popToViewController(viewController, animated: false)
+            viewController.updateData(with: entryData)
+        } else {
+            let viewController = self.resolver.resolve(viewControllerType, argument: entryData)
+            self.configureChildViewController(viewController)
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }
+        return true
     }
 }
 

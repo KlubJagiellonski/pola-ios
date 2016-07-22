@@ -34,19 +34,7 @@ final class ProductDetailsDataSource: NSObject, UICollectionViewDataSource {
         }
     }
 
-    var pageCount = 0 {
-        didSet {
-            if oldValue > pageCount || oldValue == 0 {
-                collectionView?.reloadData()
-            } else {
-                var insertIndexPaths: [NSIndexPath] = []
-                for index in oldValue...(pageCount - 1) {
-                    insertIndexPaths.append(NSIndexPath(forItem: index, inSection: 0))
-                }
-                collectionView?.insertItemsAtIndexPaths(insertIndexPaths)
-            }
-        }
-    }
+    private(set) var pageCount = 0
     
     var pageHandler: ProductDetailsPageHandler?
     
@@ -54,6 +42,28 @@ final class ProductDetailsDataSource: NSObject, UICollectionViewDataSource {
         self.collectionView = collectionView
         collectionView.registerClass(ProductDetailsCell.self, forCellWithReuseIdentifier: String(ProductDetailsCell))
     }
+    
+    func updatePageCount(withNewProductsAmount newProductsAmount: Int) {
+        let oldValue = pageCount
+        pageCount += newProductsAmount
+        
+        if oldValue > pageCount || oldValue == 0 {
+            collectionView?.reloadData()
+        } else {
+            var insertIndexPaths: [NSIndexPath] = []
+            for index in oldValue...(pageCount - 1) {
+                insertIndexPaths.append(NSIndexPath(forItem: index, inSection: 0))
+            }
+            collectionView?.insertItemsAtIndexPaths(insertIndexPaths)
+        }
+    }
+    
+    func reloadPageCount(withNewPageCount newPageCount: Int) {
+        pageCount = newPageCount
+        collectionView?.reloadData()
+    }
+    
+    //MARK:- UICollectionViewDataSource
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return pageCount

@@ -3,7 +3,7 @@ import CocoaMarkdown
 import RxSwift
 
 final class TrendProductListModel: ProductListModel {
-    let entryTrendInfo: EntryTrendInfo
+    private(set) var entryTrendInfo: EntryTrendInfo
     private(set) var trendInfo: TrendInfo?
     
     var attributedDescription: NSAttributedString?
@@ -19,5 +19,11 @@ final class TrendProductListModel: ProductListModel {
                 self?.attributedDescription = result.trendInfo!.description.markdownToAttributedString()
                 self?.trendInfo = result.trendInfo
         }
+    }
+    
+    func update(with entryTrendInfo: EntryTrendInfo) {
+        self.entryTrendInfo = entryTrendInfo
+        trendInfo = nil
+        attributedDescription = nil
     }
 }

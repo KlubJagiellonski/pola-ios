@@ -3,10 +3,12 @@ import UIKit
 import RxSwift
 
 class BrandProductListViewController: UIViewController, ProductListViewControllerInterface, BrandProductListViewDelegate {
+    typealias EntryData = EntryProductBrand
+    
     private let resolver: DiResolver
-    let disposeBag = DisposeBag()
+    var disposeBag = DisposeBag()
     let productListModel: ProductListModel
-    private var brandListModel: BrandProductListModel { return productListModel as! BrandProductListModel }
+    private var model: BrandProductListModel { return productListModel as! BrandProductListModel }
     var productListView: ProductListViewInterface { return castView }
     private var castView: BrandProductListView { return view as! BrandProductListView }
     
@@ -37,6 +39,13 @@ class BrandProductListViewController: UIViewController, ProductListViewControlle
         fetchFirstPage()
     }
     
+    func updateData(with entryProductBrand: EntryProductBrand) {
+        title = entryProductBrand.name
+        disposeBag = DisposeBag()
+        model.update(with: entryProductBrand)
+        fetchFirstPage()
+    }
+    
     func createFilterButton() -> UIBarButtonItem? {
         return UIBarButtonItem(image: UIImage(asset: .Ic_filter), style: .Plain, target: self, action: #selector(didTapFilterButton))
     }
@@ -48,10 +57,10 @@ class BrandProductListViewController: UIViewController, ProductListViewControlle
     }
     
     func pageWasFetched(result productListResult: ProductListResult, page: Int) {
-        if let brand = brandListModel.brand {
+        if let brand = model.brand {
             title = brand.name
         }
-        if let description = brandListModel.description, let brand = brandListModel.brand where page == 0 {
+        if let description = model.description, let brand = model.brand where page == 0 {
             castView.updateBrandInfo(brand.imageUrl, description: description)
         }
     }
@@ -60,7 +69,7 @@ class BrandProductListViewController: UIViewController, ProductListViewControlle
     // MARK:- BrandProductListViewDelegate
     
     func brandProductListDidTapHeader(view: BrandProductListView) {
-        guard let brand = brandListModel.brand else { return }
+        guard let brand = model.brand else { return }
         let imageWidth = castView.headerImageWidth
         let lowResImageUrl = NSURL.createImageUrl(brand.imageUrl, width: imageWidth, height: nil)
         sendNavigationEvent(ShowBrandDescriptionEvent(brand: brand.appendLowResImageUrl(lowResImageUrl.absoluteString)))

@@ -3,12 +3,15 @@ import UIKit
 import RxSwift
 
 protocol ProductListViewControllerInterface: class, NavigationSender, ExtendedViewController {
+    associatedtype EntryData
+    
     var disposeBag: DisposeBag { get }
     var productListModel: ProductListModel { get }
     var productListView: ProductListViewInterface { get }
     var filterButtonVisible: Bool { get set }
     var filterButtonEnabled: Bool { get set }
     
+    func updateData(with data: EntryData)
     func createFilterButton() -> UIBarButtonItem?
     func pageWasFetched(result productListResult: ProductListResult, page: Int) // it is used to inform viewcontroller that first page has been fetched. You can do some additional stuff here
     func filterButtonEnableStateChanged(toState enabled: Bool)

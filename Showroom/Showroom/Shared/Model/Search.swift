@@ -3,10 +3,15 @@ import Foundation
 struct SearchResult {
     let rootItems: [SearchItem]
 }
+
 struct SearchItem {
     let name: String
     let link: String
     let branches: [SearchItem]?
+}
+
+struct EntrySearchInfo {
+    let query: String
 }
 
 //MARK:- Equatable

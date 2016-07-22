@@ -3,7 +3,7 @@ import CocoaMarkdown
 
 final class BrandProductListModel: ProductListModel {
     
-    let productBrand: EntryProductBrand
+    private(set) var productBrand: EntryProductBrand
     var brand: Brand?
     
     //todo it should be created in background on rx network chain
@@ -18,6 +18,12 @@ final class BrandProductListModel: ProductListModel {
         super.init(with: apiService)
         
         self.brand = Brand(id: productBrand.id, name: productBrand.name ?? "Test", imageUrl: "https://assets.shwrm.net/images/s/j/sj573dad96220a8.png?1463659926", description: headerDescription, lowResImageUrl: nil)
+    }
+    
+    func update(with productBrand: EntryProductBrand) {
+        self.productBrand = productBrand
+        self.brand = Brand(id: productBrand.id, name: productBrand.name ?? "Test", imageUrl: "https://assets.shwrm.net/images/s/j/sj573dad96220a8.png?1463659926", description: headerDescription, lowResImageUrl: nil)
+        //reset other stuff, e.g. markdown
     }
 }
 

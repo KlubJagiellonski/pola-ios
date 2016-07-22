@@ -45,6 +45,13 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewDelegate
         }
     }
     
+    func updateData(with context: ProductDetailsContext) {
+        model.update(with: context)
+        removeAllViewControllers()
+        castView.reloadPageCount(withNewProductCount: model.productsCount)
+        castView.scrollToPage(atIndex: model.initialProductIndex, animated: false)
+    }
+    
     // MARK: - ProductDetailsViewDelegate
     
     func productDetailsDidTapClose(view: ProductDetailsView) {
@@ -92,8 +99,17 @@ extension ProductDetailsViewController: ProductDetailsPageHandler {
         model.didMoveToPage(atIndex: index)
     }
     
+    private func removeAllViewControllers() {
+        indexedViewControllers.forEach { (index, viewController) in
+            viewController.willMoveToParentViewController(nil)
+            viewController.view.removeFromSuperview()
+            viewController.removeFromParentViewController()
+        }
+        indexedViewControllers.removeAll()
+    }
+    
     //todo perfectly parent should set content inset, but it would be too much work and too much complications
-    func createChildViewContentInset() -> UIEdgeInsets {
+    private func createChildViewContentInset() -> UIEdgeInsets {
         let bottomInset = bottomLayoutGuide.length == 0 ? Dimensions.tabViewHeight : bottomLayoutGuide.length
         return UIEdgeInsets(top: topLayoutGuide.length, left: 0, bottom: bottomInset, right: 0)
     }

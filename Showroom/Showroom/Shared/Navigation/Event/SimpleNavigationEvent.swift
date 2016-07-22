@@ -6,6 +6,7 @@ struct SimpleNavigationEvent: NavigationEvent {
     enum Type {
         case Back
         case Close
+        case CloseImmediately // same as Close but forcing to close as fast as possible (without animation)
         case ShowCountrySelectionList
         case ShowCheckoutSummary
         case ShowSearch
@@ -17,8 +18,5 @@ struct SimpleNavigationEvent: NavigationEvent {
         case ShowFilteredProducts
         case OnboardingEnd
         case ShowHistoryOfOrder
-        // TODO: Remove when tested
-        case ShowOnboarding
-        case ShowStart
     }
 }

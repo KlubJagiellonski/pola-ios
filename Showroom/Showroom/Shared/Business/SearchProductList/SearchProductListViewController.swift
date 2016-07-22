@@ -3,16 +3,18 @@ import UIKit
 import RxSwift
 
 class SearchProductListViewController: UIViewController, ProductListViewControllerInterface, SearchProductListViewDelegate {
-    let disposeBag = DisposeBag()
+    typealias EntryData = EntrySearchInfo
+    
+    var disposeBag = DisposeBag()
     private let resolver: DiResolver
     let productListModel: ProductListModel
     private var model: SearchProductListModel { return productListModel as! SearchProductListModel }
     var productListView: ProductListViewInterface { return castView }
     private var castView: SearchProductListView { return view as! SearchProductListView }
     
-    init(with resolver: DiResolver, query: String) {
+    init(with resolver: DiResolver, entryData: EntrySearchInfo) {
         self.resolver = resolver
-        productListModel = resolver.resolve(SearchProductListModel.self, argument: query)
+        productListModel = resolver.resolve(SearchProductListModel.self, argument: entryData)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -34,6 +36,13 @@ class SearchProductListViewController: UIViewController, ProductListViewControll
         navigationItem.titleView = castView.searchContainerView
         
         configureProductList()
+        fetchFirstPage()
+    }
+    
+    func updateData(with data: EntrySearchInfo) {
+        disposeBag = DisposeBag()
+        model.update(with: data)
+        castView.queryText = model.query
         fetchFirstPage()
     }
     

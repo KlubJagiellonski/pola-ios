@@ -174,11 +174,11 @@ class UIAssembly: AssemblyType {
         container.register(SearchNavigationController.self) { r in
             return SearchNavigationController(with: r.resolve(DiResolver.self)!)
         }
-        container.register(SearchProductListViewController.self) { r, query in
-            return SearchProductListViewController(with: r.resolve(DiResolver.self)!, query: query)
+        container.register(SearchProductListViewController.self) { r, data in
+            return SearchProductListViewController(with: r.resolve(DiResolver.self)!, entryData: data)
         }
-        container.register(SearchProductListModel.self) { r, query in
-            return SearchProductListModel(withQuery: query, and: r.resolve(ApiService.self)!)
+        container.register(SearchProductListModel.self) { r, data in
+            return SearchProductListModel(with: data, and: r.resolve(ApiService.self)!)
         }
         container.register(SearchContentViewController.self) { r, searchItem, contentType in
             return SearchContentViewController(mainSearchItem: searchItem, type: contentType)
