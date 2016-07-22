@@ -66,7 +66,8 @@ class OnboardingInfiniteScrollingCell: UICollectionViewCell {
         
         animation.snp_makeConstraints { make in
             make.top.equalToSuperview().offset(animationTopOffset)
-            make.centerX.equalToSuperview()
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
         }
     }
 }

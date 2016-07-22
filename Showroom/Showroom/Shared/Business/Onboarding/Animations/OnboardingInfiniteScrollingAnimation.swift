@@ -76,15 +76,6 @@ class OnboardingInfiniteScrollingAnimation: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func willMoveToWindow(newWindow: UIWindow?) {
-        super.willMoveToWindow(newWindow)
-        if newWindow == nil {
-            animating = false
-        } else {
-            animating = true
-        }
-    }
-    
     func configureCustomConstraints() {
         phoneImageView.snp_makeConstraints { make in
             make.top.equalToSuperview()
@@ -107,9 +98,10 @@ class OnboardingInfiniteScrollingAnimation: UIView {
         
         var leadingConstraint: Constraint!
         
+        let contentView = self
         clothesView.snp_makeConstraints { make in
             make.bottom.equalTo(phoneImageView)
-            leadingConstraint = make.leading.equalTo(self.snp_trailing).constraint
+            leadingConstraint = make.leading.equalTo(contentView.snp_trailing).constraint
         }
         layoutIfNeeded()
         
