@@ -1,5 +1,7 @@
 import UIKit
 import RxSwift
+import FBSDKCoreKit
+import FBSDKLoginKit
 
 class LoginViewController: UIViewController, LoginViewDelegate {
     private let resolver: DiResolver
@@ -42,7 +44,16 @@ class LoginViewController: UIViewController, LoginViewDelegate {
     // MARK: - LoginViewDelegate
     
     func loginViewDidTapFacebook() {
-        
+        let fbLoginManager = FBSDKLoginManager()
+        fbLoginManager.logInWithReadPermissions(["public_profile"], fromViewController: self) { (result: FBSDKLoginManagerLoginResult!, error: NSError!) in
+            if error != nil {
+                logInfo("Login error")
+            } else if result.isCancelled {
+                logInfo("Login canceled")
+            } else {
+                logInfo("Logged in")
+            }
+        }
     }
     
     func loginViewDidTapLogin() {

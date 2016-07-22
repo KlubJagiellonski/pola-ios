@@ -3,6 +3,7 @@ import Fabric
 import Crashlytics
 import XCGLogger
 import EmarsysPredictSDK
+import FBSDKCoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -25,7 +26,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
+        if url.absoluteString.hasPrefix("fb") {
+            return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
+        }
+        
         guard let deepLinkingHandler = window?.rootViewController as? DeepLinkingHandler else { return false }
         return deepLinkingHandler.handleOpen(withURL: url)
     }

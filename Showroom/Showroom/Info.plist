@@ -38,6 +38,10 @@
 	<array>
 		<string>fb</string>
 		<string>instagram</string>
+        <string>fbapi</string>
+        <string>fb-messenger-api</string>
+        <string>fbauth2</string>
+        <string>fbshareextension</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
@@ -67,10 +71,15 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>shwrmpl</string>
+                <string>fb230189050352725</string>
 			</array>
 			<key>CFBundleURLName</key>
 			<string>pl.showroom.Showroom</string>
 		</dict>
 	</array>
+    <key>FacebookAppID</key>
+    <string>230189050352725</string>
+    <key>FacebookDisplayName</key>
+    <string>SHOWROOM</string>
 </dict>
 </plist>
