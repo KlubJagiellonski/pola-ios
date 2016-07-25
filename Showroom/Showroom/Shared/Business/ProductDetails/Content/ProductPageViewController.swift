@@ -56,6 +56,11 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate, Prod
         fetchProductDetails()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        castView.updateWishlistButton(selected: model.isOnWishlist)
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         if !firstLayoutSubviewsPassed {
@@ -147,6 +152,10 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate, Prod
         if let popoverPresentationController = shareViewController.popoverPresentationController {
             popoverPresentationController.permittedArrowDirections = .Any
         }
+    }
+    
+    func pageViewDidTapWishlistButton(pageView: ProductPageView) {
+        castView.updateWishlistButton(selected: model.switchOnWishlist())
     }
     
     // MARK:- ViewSwitcherDelegate

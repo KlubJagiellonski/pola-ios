@@ -58,7 +58,7 @@ class UIAssembly: AssemblyType {
             return ProductPageViewController(resolver: r.resolve(DiResolver.self)!, productId: productId, product: product)
         }
         container.register(ProductPageModel.self) { r, productId, product in
-            return ProductPageModel(api: r.resolve(ApiService.self)!, basketManager: r.resolve(BasketManager.self)!, storageManager: r.resolve(StorageManager.self)!, productId: productId, product: product)
+            return ProductPageModel(api: r.resolve(ApiService.self)!, basketManager: r.resolve(BasketManager.self)!, storageManager: r.resolve(StorageManager.self)!, wishlistManager: r.resolve(WishlistManager.self)!, productId: productId, product: product)
         }
         container.register(ProductSizeViewController.self) { r, sizes, selectedSizeId in
             return ProductSizeViewController(resolver: r.resolve(DiResolver.self)!, sizes: sizes, initialSelectedSizeId: selectedSizeId)

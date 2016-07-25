@@ -46,6 +46,8 @@ struct ProductDetails {
     let description: [String]
     let emarsysCategory: String
     let freeDelivery: Bool
+    let premium: Bool
+    let new: Bool
 }
 
 struct EntryProductBrand {
@@ -148,7 +150,9 @@ extension ProductDetails: Decodable, Encodable {
             waitTime: j => "wait_time",
             description: j => "description",
             emarsysCategory: j => "emarsys_category",
-            freeDelivery: j => "free_delivery"
+            freeDelivery: j => "free_delivery",
+            premium: false, // TODO: Change on API update
+            new: false // TODO: Change on API update
         )
     }
     

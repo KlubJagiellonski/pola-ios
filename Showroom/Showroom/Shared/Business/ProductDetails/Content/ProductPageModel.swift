@@ -2,9 +2,12 @@ import Foundation
 import RxSwift
 
 class ProductPageModel {
+    typealias IsOnWishlist = Bool
+    
     let api: ApiService
     let basketManager: BasketManager
     let storageManager: StorageManager
+    let wishlistManager: WishlistManager
     let productId: Int
     let cacheId: String
     
@@ -40,10 +43,15 @@ class ProductPageModel {
     
     var isSizeSet: Bool { return state.currentSize != nil }
     
-    init(api: ApiService, basketManager: BasketManager, storageManager: StorageManager, productId: ObjectId, product: Product? = nil) {
+    var isOnWishlist: IsOnWishlist {
+        return wishlistManager.containsProduct(withId: productId)
+    }
+    
+    init(api: ApiService, basketManager: BasketManager, storageManager: StorageManager, wishlistManager: WishlistManager, productId: ObjectId, product: Product? = nil) {
         self.api = api
         self.storageManager = storageManager
         self.basketManager = basketManager
+        self.wishlistManager = wishlistManager
         self.productId = productId
         cacheId = Constants.Cache.productDetails + String(productId)
         state = ProductPageModelState(product: product)
@@ -123,6 +131,38 @@ class ProductPageModel {
             price: product.price)
         let brand = BasketBrand(from: product)
         basketManager.addToBasket(basketProduct, of: brand)
+    }
+    
+    /// Adds or removes the product from the Wishlist depending on the current state.
+    func switchOnWishlist() -> IsOnWishlist {
+        if (wishlistManager.containsProduct(withId: productId)) {
+            wishlistManager.removeFromWishlistProduct(withId: productId)
+            // Product has been removed from the Wishlist
+            return false
+        }
+        
+        guard let product = state.productDetails else {
+            return false
+        }
+        
+        guard let imageUrl = product.images.first?.url else {
+            fatalError("Could not init ListProduct beacuse there are no images available.")
+        }
+        
+        let listProduct = ListProduct(
+            id: productId,
+            brand: product.brand,
+            name: product.name,
+            basePrice: product.basePrice,
+            price: product.price,
+            imageUrl: imageUrl,
+            freeDelivery: product.freeDelivery,
+            premium: product.premium,
+            new : product.new)
+        wishlistManager.addToWishlist(listProduct)
+        
+        // Product has been added to the Wishlist
+        return true
     }
     
     private func defaultSize(forProductDetails productDetails: ProductDetails) -> ProductDetailsSize? {

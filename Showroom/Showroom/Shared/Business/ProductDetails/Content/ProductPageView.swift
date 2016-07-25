@@ -12,6 +12,7 @@ protocol ProductPageViewDelegate: ViewSwitcherDelegate {
     func pageView(pageView: ProductPageView, willChangePageViewState newPageViewState: ProductPageViewState, animationDuration: Double?)
     func pageView(pageView: ProductPageView, didChangePageViewState newPageViewState: ProductPageViewState, animationDuration: Double?)
     func pageViewDidTapShareButton(pageView: ProductPageView)
+    func pageViewDidTapWishlistButton(pageView: ProductPageView)
 }
 
 enum ProductPageViewState {
@@ -32,7 +33,7 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
     private let pageControl = VerticalPageControl()
     private let contentContainerView = UIView()
     private let buttonStackView = UIStackView()
-    private let whishlistButton = UIButton()
+    private let wishlistButton = UIButton()
     private let shareButton = UIButton()
     
     private let modelState: ProductPageModelState
@@ -41,7 +42,7 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
     
     private var contentInset: UIEdgeInsets?
     private var contentTopConstraint: Constraint?
-    private var currentTopContentOffset:CGFloat = 0
+    private var currentTopContentOffset: CGFloat = 0
     private(set) var viewState: ProductPageViewState = .Default {
         didSet {
             imageCollectionView.scrollEnabled = viewState != .ContentExpanded
@@ -104,15 +105,16 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
         buttonStackView.axis = .Horizontal
         buttonStackView.spacing = 10
         
-        whishlistButton.setImage(UIImage(asset: .Ic_do_ulubionych), forState: .Normal)
-        whishlistButton.setImage(UIImage(asset: .Ic_w_ulubionych), forState: .Selected)
-        whishlistButton.applyCircleStyle()
+        wishlistButton.setImage(UIImage(asset: .Ic_do_ulubionych), forState: .Normal)
+        wishlistButton.setImage(UIImage(asset: .Ic_w_ulubionych), forState: .Selected)
+        wishlistButton.addTarget(self, action: #selector(ProductPageView.didTapWishlistButton(_:)), forControlEvents: .TouchUpInside)
+        wishlistButton.applyCircleStyle()
         
         shareButton.setImage(UIImage(asset: .Ic_share), forState: .Normal)
         shareButton.addTarget(self, action: #selector(ProductPageView.didTapShareButton(_:)), forControlEvents: .TouchUpInside)
         shareButton.applyCircleStyle()
         
-        buttonStackView.addArrangedSubview(whishlistButton)
+        buttonStackView.addArrangedSubview(wishlistButton)
         buttonStackView.addArrangedSubview(shareButton)
         
         contentContainerView.addSubview(UIVisualEffectView(effect: UIBlurEffect(style: .ExtraLight)))
@@ -140,11 +142,13 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
     private func updateProductDetails(productDetails: ProductDetails?) {
         guard let p = productDetails else { return }
         
-        
-        
         imageDataSource.imageUrls = p.images.map { $0.url }
         pageControl.numberOfPages = imageDataSource.imageUrls.count
         pageControl.invalidateIntrinsicContentSize()
+    }
+    
+    func updateWishlistButton(selected selected: Bool) {
+        wishlistButton.selected = selected
     }
     
     func changeViewState(viewState: ProductPageViewState, animationDuration: Double? = defaultContentAnimationDuration, forceUpdate: Bool = false, completion: (() -> Void)? = nil) {
@@ -198,9 +202,9 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
             make.height.equalTo(shareButton.snp_width)
         }
         
-        whishlistButton.snp_makeConstraints { make in
+        wishlistButton.snp_makeConstraints { make in
             make.width.equalTo(Dimensions.circleButtonDiameter)
-            make.height.equalTo(whishlistButton.snp_width)
+            make.height.equalTo(wishlistButton.snp_width)
         }
     }
     
@@ -279,7 +283,11 @@ extension ProductPageView {
         }
     }
     
-    func didTapShareButton(sender: UIButton) {
+    @objc private func didTapWishlistButton(sender: UIButton) {
+        delegate?.pageViewDidTapWishlistButton(self)
+    }
+    
+    @objc private func didTapShareButton(sender: UIButton) {
         delegate?.pageViewDidTapShareButton(self)
     }
 }
@@ -299,7 +307,7 @@ extension ProductPageView: ImageAnimationTargetViewInterface {
     }
     
     var highResImage: UIImage? {
-        //we don't want to animated different animation from that on product list
+        // we don't want to animated different animation from that on product list
         guard currentImageIndex == 0 else { return nil }
         return imageDataSource.highResImage(forIndex: currentImageIndex)
     }
