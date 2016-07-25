@@ -39,12 +39,7 @@ class CommonNavigationHandler: NavigationHandler {
     
     private func showView(forURL url: NSURL, title: String?) -> Bool {
         let parameters: [NSObject: AnyObject] = title == nil ? [:]: ["title": title!]
-        // todo remove it when we will have trend in content promo
-        if url.absoluteString == "https://www.showroom.pl/marki/1027" {
-            return urlRouter.routeURL(NSURL(string: "https://www.showroom.pl/trend/stylowekreacjenawesele"), withParameters: parameters)
-        } else {
-            return urlRouter.routeURL(url, withParameters: parameters)
-        }
+        return urlRouter.routeURL(url, withParameters: parameters)
     }
     
     private func showBrandDescription(brand: Brand) {
