@@ -32,7 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (instancetype)init;
 /*!
- * @brief Initializes a newly allocated transaction instance, if the user comes from selected(clicked) a recommended item
+ * @brief Initializes a newly allocated transaction instance, if the user comes
+ * from selected(clicked) a recommended item
  * @param item The previously selected item object
  */
 - (instancetype)initWithSelectedItemView:(nullable EMRecommendationItem *)item;
@@ -44,7 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /*!
  * @brief Set availability zone.
- * @discussion see javascript api reference for more explonation
+ * @discussion See JavaScript API reference for more explonation.
  * @param availabilityZone ID of the availability zone.
  */
 - (void)setAvailabilityZone:(NSString *)availabilityZone;
@@ -95,6 +96,13 @@ NS_ASSUME_NONNULL_BEGIN
  * @param keyword Keyword selected by user.
  */
 - (void)setKeyword:(NSString *)keyword;
+/*!
+ * @brief Add an arbitrary tag to the current event. The tag is collected and
+ * can be accessed later from other Emarsys products.
+ * @discussion This command can be issued on any page.
+ * @param tag Tag selected by user.
+ */
+- (void)setTag:(NSString *)tag;
 /*!
  * @brief Request recommendations.
  * @discussion See usage examples and the list of available recommendation

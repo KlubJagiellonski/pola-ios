@@ -13,7 +13,7 @@ final class TrendProductListModel: ProductListModel {
         super.init(with: apiService)
     }
     
-    override func createObservable() -> Observable<ProductListResult> {
+    override func createObservable(page: Int) -> Observable<ProductListResult> {
         return apiService.fetchTrend(entryTrendInfo.slug)
             .doOnNext { [weak self] result in
                 self?.attributedDescription = result.trendInfo!.description.markdownToAttributedString()

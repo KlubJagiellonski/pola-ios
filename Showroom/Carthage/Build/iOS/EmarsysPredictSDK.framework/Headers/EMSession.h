@@ -79,6 +79,10 @@ typedef NS_ENUM(uint8_t, EMLogLevel) {
  * @brief Log level.
  */
 @property(readwrite) EMLogLevel logLevel;
+/*!
+ * @brief Set connection to secure or insecure.
+ */
+@property(readwrite) BOOL secure;
 
 @end
 

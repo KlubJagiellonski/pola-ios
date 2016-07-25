@@ -4,6 +4,7 @@ import RxSwift
 class ProductDetailsModel {
     private var context: ProductDetailsContext
     private var disposeBag = DisposeBag()
+    private let emarsysService: EmarsysService
     private var informAboutMovedToProduct = false
     let newProductsAmountObservable = PublishSubject<NewProductsAmount>()
     
@@ -15,8 +16,10 @@ class ProductDetailsModel {
         return context.productsCount
     }
     
-    init(context: ProductDetailsContext) {
+    init(context: ProductDetailsContext, emarsysService: EmarsysService) {
         self.context = context
+        self.emarsysService = emarsysService
+        
         configureContext()
     }
     
@@ -25,6 +28,7 @@ class ProductDetailsModel {
     }
     
     func didMoveToPage(atIndex index: Int) {
+        emarsysService.sendViewEvent(forId: productInfo(forIndex: index).toTuple().0)
         if informAboutMovedToProduct {
             context.productDetailsDidMoveToProduct(atIndex: index)
         }

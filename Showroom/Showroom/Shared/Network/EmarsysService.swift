@@ -4,12 +4,18 @@ import RxSwift
 
 struct EmarsysService {
     let session: EMSession
+    
+    init(session: EMSession) {
+        self.session = session
+        
+        session.merchantID = Constants.emarsysMerchantId
+        session.logLevel = Constants.isDebug ? .Debug : .Warning
+    }
 }
 
 extension EmarsysService {
     func fetchProductRecommendations() -> Observable<ProductRecommendationResult> {
         return Observable<ProductRecommendationResult>.create { observer in
-            let session = EMSession.sharedSession()
             let transaction = EMTransaction()
             
             let recommendationRequest = EMRecommendationRequest(logic: "HOME")
@@ -25,11 +31,56 @@ extension EmarsysService {
                 observer.onCompleted()
             }
             transaction.recommend(recommendationRequest)
-            session.sendTransaction(transaction) { error in
+            self.session.sendTransaction(transaction) { error in
                 observer.onError(error)
                 observer.onCompleted()
             }
             return NopDisposable.instance
         }
+    }
+    
+    func sendViewEvent(forId id: ObjectId) {
+        let transaction = EMTransaction()
+        transaction.setView(String(id))
+        session.sendTransaction(transaction) { error in
+            logInfo("Could not send sendViewEvent for id \(id), error \(error)")
+        }
+    }
+    
+    func sendCartEvent(with basket: Basket) {
+        let transaction = EMTransaction()
+        
+        var cartItems: [EMCartItem] = []
+        for productsByBrand in basket.productsByBrands {
+            for product in productsByBrand.products {
+                cartItems.append(EMCartItem(itemID: String(product.id), price: Float(product.price.amount), quantity: Int32(product.amount)))
+            }
+        }
+        
+        transaction.setCart(cartItems)
+        session.sendTransaction(transaction) { error in
+            logInfo("Could not send sendCartEvent for basket \(basket), error \(error)")
+        }
+    }
+    
+    func sendSearchEvent(withQuery query: String) {
+        let transaction = EMTransaction()
+        transaction.setSearchTerm(query)
+        session.sendTransaction(transaction) { error in
+            logInfo("Could not send sendSearchEvent for query \(query), error \(error)")
+        }
+    }
+    
+    func sendBrandViewEvent(withName name: String) {
+        let transaction = EMTransaction()
+        transaction.setKeyword(name)
+        session.sendTransaction(transaction) { error in
+            logInfo("Could not send sendBrandViewEvent for name \(name), error \(error)")
+        }
+    }
+    
+    func configureUser(customerId: String?, customerEmail: String?) {
+        session.customerID = customerId
+        session.customerEmail = customerEmail
     }
 }

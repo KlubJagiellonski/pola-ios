@@ -26,6 +26,7 @@ class UserManager {
     private static let defaultGender: Gender = .Female
     
     private let apiService: ApiService
+    private let emarsysService: EmarsysService
     private let keychainManager: KeychainManager
     private let storageManager: StorageManager
     private let disposeBag = DisposeBag()
@@ -35,6 +36,7 @@ class UserManager {
     
     private var userSession: UserSession? {
         didSet {
+            emarsysService.configureUser(String(userSession?.user.id), customerEmail: userSession?.user.email)
             keychainManager.saveSession(userSession?.session)
             do {
                 try storageManager.save(Constants.Persistent.currentUser, object: userSession?.user)
@@ -71,11 +73,11 @@ class UserManager {
         }
     }
     
-    init(apiService: ApiService, keychainManager: KeychainManager, storageManager: StorageManager) {
+    init(apiService: ApiService, emarsysService: EmarsysService, keychainManager: KeychainManager, storageManager: StorageManager) {
         self.apiService = apiService
+        self.emarsysService = emarsysService
         self.keychainManager = keychainManager
         self.storageManager = storageManager
-        
         
         let session = keychainManager.loadSession()
         var user: User?

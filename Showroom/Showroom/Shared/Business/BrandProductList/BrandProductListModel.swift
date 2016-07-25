@@ -2,7 +2,7 @@ import Foundation
 import CocoaMarkdown
 
 final class BrandProductListModel: ProductListModel {
-    
+    private let emarsysService: EmarsysService
     private(set) var productBrand: EntryProductBrand
     var brand: Brand?
     
@@ -13,8 +13,9 @@ final class BrandProductListModel: ProductListModel {
         return brand.description.markdownToAttributedString(treatBoldAsNormalText: true)
     }
     
-    init(with apiService: ApiService, and productBrand: EntryProductBrand) {
+    init(with apiService: ApiService, and emarsysService: EmarsysService, and productBrand: EntryProductBrand) {
         self.productBrand = productBrand
+        self.emarsysService = emarsysService
         super.init(with: apiService)
         
         self.brand = Brand(id: productBrand.id, name: productBrand.name ?? "Test", imageUrl: "https://assets.shwrm.net/images/s/j/sj573dad96220a8.png?1463659926", description: headerDescription, lowResImageUrl: nil)
@@ -24,6 +25,11 @@ final class BrandProductListModel: ProductListModel {
         self.productBrand = productBrand
         self.brand = Brand(id: productBrand.id, name: productBrand.name ?? "Test", imageUrl: "https://assets.shwrm.net/images/s/j/sj573dad96220a8.png?1463659926", description: headerDescription, lowResImageUrl: nil)
         //reset other stuff, e.g. markdown
+    }
+    
+    //todo remove this method and add calling to observer
+    func sendToEmarsys() {
+        emarsysService.sendBrandViewEvent(withName: productBrand.name!)
     }
 }
 

@@ -18,14 +18,14 @@ class ProductListModel {
         self.apiService = apiService
     }
     
-    func createObservable() -> Observable<ProductListResult> {
+    func createObservable(page: Int) -> Observable<ProductListResult> {
         return apiService.fetchProducts(page, pageSize: isBigScreen ? Constants.productListPageSizeForLargeScreen : Constants.productListPageSize)
     }
     
     final func fetchFirstPage() -> Observable<ProductListResult> {
         page = 1
         products = []
-        return createObservable()
+        return createObservable(page)
             .doOnNext { [weak self](result: ProductListResult) in
                 self?.products.appendContentsOf(result.products)
         }
@@ -33,7 +33,7 @@ class ProductListModel {
     }
     
     final func fetchNextProductPage() -> Observable<ProductListResult> {
-        return apiService.fetchProducts(page + 1, pageSize: isBigScreen ? Constants.productListPageSizeForLargeScreen : Constants.productListPageSize)
+        return createObservable(page + 1)
             .doOnNext { [weak self](result: ProductListResult) in
                 self?.products.appendContentsOf(result.products)
         }

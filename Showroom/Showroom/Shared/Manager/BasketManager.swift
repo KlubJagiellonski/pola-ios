@@ -4,6 +4,7 @@ import Decodable
 
 final class BasketManager {
     private let apiService: ApiService
+    private let emarsysService: EmarsysService
     private let storageManager: StorageManager
     private let userManager: UserManager
     private let disposeBag = DisposeBag()
@@ -14,8 +15,9 @@ final class BasketManager {
         return userManager.user != nil
     }
     
-    init(with apiService: ApiService, storageManager: StorageManager, userManager: UserManager) {
+    init(with apiService: ApiService, emarsysService: EmarsysService, storageManager: StorageManager, userManager: UserManager) {
         self.apiService = apiService
+        self.emarsysService = emarsysService
         self.storageManager = storageManager
         self.userManager = userManager
         
@@ -34,6 +36,9 @@ final class BasketManager {
         
         state.validationState = BasketValidationState(validating: true, validated: state.validationState.validated)
         apiService.validateBasket(with: request)
+            .doOnNext { [weak self] basket in
+                self?.emarsysService.sendCartEvent(with: basket)
+            }
             .observeOn(MainScheduler.instance)
             .map { [weak self] (basket: Basket) -> BasketState in
                 guard let strongSelf = self else { return BasketState() }
