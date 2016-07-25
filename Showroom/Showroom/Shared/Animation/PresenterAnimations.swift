@@ -19,6 +19,21 @@ struct DimModalAnimation: PresenterModalAnimation {
     }
 }
 
+struct GenieAnimation: PresenterModalAnimation {
+    let animationDuration: NSTimeInterval
+    let destinationRect: CGRect
+    
+    func showModal(containerView: ContainerView, contentView: ContentView?, modalView: ModalView, completion: ((Bool) -> ())?) {
+        fatalError("Showing with genie animation not supported")
+    }
+    
+    func hideModal(containerView: ContainerView, contentView: ContentView?, modalView: ModalView, completion: ((Bool) -> ())?) {
+        modalView.genieInTransitionWithDuration(animationDuration, destinationRect: destinationRect, destinationEdge: .Top) { _ in
+            completion?(true)
+        }
+    }
+}
+
 protocol ImageAnimationTargetViewInterface: class {
     var viewsAboveImageVisibility: Bool { get set }
     var highResImage: UIImage? { get }

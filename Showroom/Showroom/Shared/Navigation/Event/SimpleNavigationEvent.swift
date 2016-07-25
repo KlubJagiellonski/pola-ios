@@ -18,5 +18,6 @@ struct SimpleNavigationEvent: NavigationEvent {
         case ShowFilteredProducts
         case OnboardingEnd
         case ShowHistoryOfOrder
+        case ProductAddedToBasket
     }
 }

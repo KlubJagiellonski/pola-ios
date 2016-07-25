@@ -5,6 +5,12 @@ class CommonPresenterController: PresenterViewController, NavigationHandler {
     
     private let resolver: DiResolver
     private var retrieveCurrentImageViewTag: (() -> Int?)?
+    private var basketTabBarItemFrame: CGRect? {
+        guard let tabBarController = tabBarController else { return nil }
+        let tabBarFrame = tabBarController.tabBar.frame
+        let size = CGSizeMake(180, 22)
+        return CGRectMake(tabBarFrame.midX - size.width / 2, tabBarFrame.midY - size.height / 2, size.width, size.height)
+    }
     
     init(with resolver: DiResolver, contentViewController: UIViewController) {
         self.resolver = resolver
@@ -44,7 +50,7 @@ class CommonPresenterController: PresenterViewController, NavigationHandler {
                 hideModal(animation: nil, completion: nil)
                 return true
             case .Close:
-                let alternativeAnimation = DimModalAnimation(animationDuration: 0.3)
+                let alternativeAnimation = DimModalAnimation(animationDuration: 0.4)
                 let contentView = contentViewController?.view ?? hiddenContentViewController?.view
                 if let tag = retrieveCurrentImageViewTag?(), let imageView = contentView?.viewWithTag(tag) as? UIImageView where imageView.image != nil {
                     let animation = ImageAnimation(animationDuration: 0.4, imageView: imageView, alternativeAnimation: alternativeAnimation)
@@ -53,6 +59,14 @@ class CommonPresenterController: PresenterViewController, NavigationHandler {
                     hideModal(animation: alternativeAnimation, completion: nil)
                 }
                 retrieveCurrentImageViewTag = nil
+                return true
+            case .ProductAddedToBasket:
+                if let basketFrame = basketTabBarItemFrame {
+                    hideModal(animation: GenieAnimation(animationDuration: 0.3, destinationRect: basketFrame), completion: nil)
+                } else {
+                    logError("TabBar not exist, something is wrong")
+                    hideModal(animation: nil, completion: nil)
+                }
                 return true
             default: return false
             }

@@ -47,6 +47,7 @@
 		1D2423DD1D228A9A0026D46B /* ToastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2423DC1D228A9A0026D46B /* ToastManager.swift */; };
 		1D2423DF1D228BA80026D46B /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2423DE1D228BA80026D46B /* ToastView.swift */; };
 		1D2CAC391D421F4A00F678FA /* DeepLinkingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2CAC381D421F4A00F678FA /* DeepLinkingHandler.swift */; };
+		1D2CAC431D46094B00F678FA /* UIView+Genie.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D2CAC421D46094B00F678FA /* UIView+Genie.m */; };
 		1D2F193F1CE9CE250099142E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2F193E1CE9CE250099142E /* AppDelegate.swift */; };
 		1D2F19541CE9CE250099142E /* ShowroomTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2F19531CE9CE250099142E /* ShowroomTests.swift */; };
 		1D2F19611CE9CED80099142E /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2F19601CE9CED80099142E /* RootViewController.swift */; };
@@ -388,6 +389,9 @@
 		1D2423DC1D228A9A0026D46B /* ToastManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToastManager.swift; sourceTree = "<group>"; };
 		1D2423DE1D228BA80026D46B /* ToastView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		1D2CAC381D421F4A00F678FA /* DeepLinkingHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeepLinkingHandler.swift; sourceTree = "<group>"; };
+		1D2CAC411D46094B00F678FA /* UIView+Genie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Genie.h"; sourceTree = "<group>"; };
+		1D2CAC421D46094B00F678FA /* UIView+Genie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Genie.m"; sourceTree = "<group>"; };
+		1D2CAC441D460A8E00F678FA /* Showroom-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Showroom-Bridging-Header.h"; sourceTree = "<group>"; };
 		1D2F193B1CE9CE250099142E /* SHOWROOM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SHOWROOM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D2F193E1CE9CE250099142E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1D2F194A1CE9CE250099142E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -755,6 +759,15 @@
 			path = ProductList;
 			sourceTree = "<group>";
 		};
+		1D2CAC3C1D46084100F678FA /* Genie */ = {
+			isa = PBXGroup;
+			children = (
+				1D2CAC411D46094B00F678FA /* UIView+Genie.h */,
+				1D2CAC421D46094B00F678FA /* UIView+Genie.m */,
+			);
+			path = Genie;
+			sourceTree = "<group>";
+		};
 		1D2F19321CE9CE250099142E = {
 			isa = PBXGroup;
 			children = (
@@ -777,6 +790,7 @@
 		1D2F193D1CE9CE250099142E /* Showroom */ = {
 			isa = PBXGroup;
 			children = (
+				1D2CAC441D460A8E00F678FA /* Showroom-Bridging-Header.h */,
 				1DD1EA5B1CEC5B5B00D99731 /* Resources */,
 				1D2F195E1CE9CE7B0099142E /* Shared */,
 				1D2F193E1CE9CE250099142E /* AppDelegate.swift */,
@@ -1546,6 +1560,7 @@
 		C092804A1D01DA1900350B82 /* Animation */ = {
 			isa = PBXGroup;
 			children = (
+				1D2CAC3C1D46084100F678FA /* Genie */,
 				C09280551D0584A900350B82 /* DropUpActionAnimator.swift */,
 				1D0F3B491D1172E10052CFF6 /* FormSheetAnimator.swift */,
 				1D0F3B4B1D1173250052CFF6 /* Animator.swift */,
@@ -1844,6 +1859,7 @@
 				1DD161B31D01CF790022B5C9 /* ProductDetailsModel.swift in Sources */,
 				1D1A7E201D254904009CCCE7 /* CategoryProductListModel.swift in Sources */,
 				C02FD4F11D40E626006B3306 /* UserInfoView.swift in Sources */,
+				1D2CAC431D46094B00F678FA /* UIView+Genie.m in Sources */,
 				1D5F91681D36500500AE66E6 /* FilterDetailsDataSource.swift in Sources */,
 				1D2423DD1D228A9A0026D46B /* ToastManager.swift in Sources */,
 				1D78249E1D06E50400E60392 /* ProductPageView.swift in Sources */,
@@ -2168,6 +2184,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CI_BUILD_NUMBER = 1;
 				CI_BUILD_VERSION = 1.0;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2183,6 +2200,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.showroom.Showroom;
 				PRODUCT_NAME = SHOWROOM;
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Showroom/Showroom-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -2193,6 +2212,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CI_BUILD_NUMBER = 1;
 				CI_BUILD_VERSION = 1.0;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2208,6 +2228,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.showroom.Showroom;
 				PRODUCT_NAME = SHOWROOM;
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Showroom/Showroom-Bridging-Header.h";
 			};
 			name = Release;
 		};

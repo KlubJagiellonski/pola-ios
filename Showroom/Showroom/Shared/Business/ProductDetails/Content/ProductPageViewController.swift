@@ -177,12 +177,13 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate, Prod
     func descriptionViewDidTapOtherBrandProducts(view: ProductDescriptionView) { }
     
     func descriptionViewDidTapAddToBasket(view: ProductDescriptionView) {
-        guard !model.isSizeSet else {
-            addToBasket()
+        guard model.isSizeSet else {
+            showSizePicker(withBuyMode: true)
             return
         }
         
-        showSizePicker(withBuyMode: true)
+        addToBasket()
+        sendNavigationEvent(SimpleNavigationEvent(type: .ProductAddedToBasket))
     }
 }
 
