@@ -285,6 +285,10 @@
 		C052F8981D1989A6008085E0 /* CheckoutAddressOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C052F8971D1989A6008085E0 /* CheckoutAddressOptionView.swift */; };
 		C0576D811D3E74F20084C30F /* HistoryOfOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0576D801D3E74F20084C30F /* HistoryOfOrderViewController.swift */; };
 		C0576D831D3E76B70084C30F /* HistoryOfOrderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0576D821D3E76B70084C30F /* HistoryOfOrderView.swift */; };
+		C06E53561D478E62000E5B7C /* PaymentSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06E53551D478E62000E5B7C /* PaymentSuccessViewController.swift */; };
+		C06E53581D478F61000E5B7C /* PaymentFailureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06E53571D478F61000E5B7C /* PaymentFailureViewController.swift */; };
+		C06E535A1D478F96000E5B7C /* PaymentSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06E53591D478F96000E5B7C /* PaymentSuccessView.swift */; };
+		C06E535C1D478FB0000E5B7C /* PaymentFailureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06E535B1D478FB0000E5B7C /* PaymentFailureView.swift */; };
 		C07530C71D2532F700224508 /* EditKioskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07530C61D2532F700224508 /* EditKioskView.swift */; };
 		C07CF39B1D2407DD004578FD /* EditKioskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07CF39A1D2407DD004578FD /* EditKioskViewController.swift */; };
 		C07CF39D1D2409D8004578FD /* EditKioskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07CF39C1D2409D8004578FD /* EditKioskModel.swift */; };
@@ -632,6 +636,10 @@
 		C052F8971D1989A6008085E0 /* CheckoutAddressOptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutAddressOptionView.swift; sourceTree = "<group>"; };
 		C0576D801D3E74F20084C30F /* HistoryOfOrderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryOfOrderViewController.swift; sourceTree = "<group>"; };
 		C0576D821D3E76B70084C30F /* HistoryOfOrderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryOfOrderView.swift; sourceTree = "<group>"; };
+		C06E53551D478E62000E5B7C /* PaymentSuccessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentSuccessViewController.swift; sourceTree = "<group>"; };
+		C06E53571D478F61000E5B7C /* PaymentFailureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentFailureViewController.swift; sourceTree = "<group>"; };
+		C06E53591D478F96000E5B7C /* PaymentSuccessView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentSuccessView.swift; sourceTree = "<group>"; };
+		C06E535B1D478FB0000E5B7C /* PaymentFailureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentFailureView.swift; sourceTree = "<group>"; };
 		C07530C61D2532F700224508 /* EditKioskView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditKioskView.swift; path = EditKiosk/EditKioskView.swift; sourceTree = "<group>"; };
 		C07CF39A1D2407DD004578FD /* EditKioskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditKioskViewController.swift; path = EditKiosk/EditKioskViewController.swift; sourceTree = "<group>"; };
 		C07CF39C1D2409D8004578FD /* EditKioskModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditKioskModel.swift; path = EditKiosk/EditKioskModel.swift; sourceTree = "<group>"; };
@@ -1535,6 +1543,7 @@
 		C02220881D1831C8004411A7 /* Checkout */ = {
 			isa = PBXGroup;
 			children = (
+				C06E53541D478DF6000E5B7C /* PaymentResult */,
 				751A50191D194C1400DF7D2B /* Summary */,
 				C022208B1D183453004411A7 /* Delivery */,
 				C02220891D183223004411A7 /* CheckoutNavigationController.swift */,
@@ -1564,6 +1573,17 @@
 				C0237D121D22652F0009F2FC /* EditAddressView.swift */,
 			);
 			path = EditAddress;
+			sourceTree = "<group>";
+		};
+		C06E53541D478DF6000E5B7C /* PaymentResult */ = {
+			isa = PBXGroup;
+			children = (
+				C06E53551D478E62000E5B7C /* PaymentSuccessViewController.swift */,
+				C06E53591D478F96000E5B7C /* PaymentSuccessView.swift */,
+				C06E53571D478F61000E5B7C /* PaymentFailureViewController.swift */,
+				C06E535B1D478FB0000E5B7C /* PaymentFailureView.swift */,
+			);
+			path = PaymentResult;
 			sourceTree = "<group>";
 		};
 		C07CF3991D2407A6004578FD /* EditKiosk */ = {
@@ -1900,6 +1920,7 @@
 				1D5F91161D3388DA00AE66E6 /* CommonNavigationHandler.swift in Sources */,
 				1DA846F71D19474B00BA090A /* StateTextField.swift in Sources */,
 				C0C635021D3396DA00715A77 /* OnboardingView.swift in Sources */,
+				C06E535A1D478F96000E5B7C /* PaymentSuccessView.swift in Sources */,
 				C0B094AD1D2675A100C57D06 /* CLGeocoderUtils.swift in Sources */,
 				C0B094B31D2BA23200C57D06 /* KioskCell.swift in Sources */,
 				75C854601D05816300E5F08F /* PriceLabel.swift in Sources */,
@@ -1912,6 +1933,7 @@
 				1D6933541D2E411400609BB9 /* BrandDescriptionView.swift in Sources */,
 				1D72ED261CFDA591007AFD2F /* StringUtils.swift in Sources */,
 				C01FF2E21D366D3B00D025AE /* HeartMaskView.swift in Sources */,
+				C06E53581D478F61000E5B7C /* PaymentFailureViewController.swift in Sources */,
 				7520AD901D34DE37003FC38B /* RegistrationViewController.swift in Sources */,
 				1D5E919D1D3E2CFA00A6BD55 /* SearchContentDataSource.swift in Sources */,
 				1DD161A21D01C06F0022B5C9 /* PresenterViewController.swift in Sources */,
@@ -1942,6 +1964,7 @@
 				1D66E4421D38D8190041D74D /* SearchNavigationController.swift in Sources */,
 				1D5F915B1D35120F00AE66E6 /* ProductFilterBrandCell.swift in Sources */,
 				C07CF39D1D2409D8004578FD /* EditKioskModel.swift in Sources */,
+				C06E53561D478E62000E5B7C /* PaymentSuccessViewController.swift in Sources */,
 				1D5E91931D3CE25000A6BD55 /* ShowProductSearchEvent.swift in Sources */,
 				C0518D801D2BBA9D0032F1B4 /* EditKioskDataSource.swift in Sources */,
 				75A92AB41D3E271D00EDC89D /* WishlistNavigationController.swift in Sources */,
@@ -1957,6 +1980,7 @@
 				1D470E361D26736E00677122 /* Validator.swift in Sources */,
 				7586E27F1D22BB5F0086DE94 /* UITextViewUtils.swift in Sources */,
 				C0576D831D3E76B70084C30F /* HistoryOfOrderView.swift in Sources */,
+				C06E535C1D478FB0000E5B7C /* PaymentFailureView.swift in Sources */,
 				1D2CAC391D421F4A00F678FA /* DeepLinkingHandler.swift in Sources */,
 				1DAA7C711D09BBA900545BB9 /* ProductDescriptionLineCell.swift in Sources */,
 				1DF796851CEB477B00C7A7F4 /* NetworkAssembly.swift in Sources */,

@@ -87,6 +87,12 @@
 "Checkout.Summary.PayU" = "płatność PayU";
 "Checkout.Summary.Cash" = "opłata za pobraniem";
 "Checkout.Summary.Buy" = "KUP I ZAPŁAĆ";
+"Checkout.PaymentResult.SuccessHeader" = "SUKCES!";
+"Checkout.PaymentResult.SuccessDescription" = "Twoje zamówienie nr %@ zostało złożone do realizacji. Możesz sprawdzić status zamówienia w %@.";
+"Checkout.PaymentResult.WebsiteLink" = "serwisie internetowym";
+"Checkout.PaymentResult.FailureHeader" = "UUUPS!";
+"Checkout.PaymentResult.FailureDescription" = "Twoje zamówienie nr %@ zostało złożone, jednak nie udało się go opłacić. Możesz to zrobić w %@.";
+"Checkout.PaymentResult.GoToMain" = "POWRÓT DO EKRANU GŁÓWNEGO";
 "ProductList.Badge.New" = "NEW";
 "ProductList.Badge.FreeDelivery" = "DARMOWA DOSTAWA";
 "ProductList.Badge.Premium" = "PREMIUM";

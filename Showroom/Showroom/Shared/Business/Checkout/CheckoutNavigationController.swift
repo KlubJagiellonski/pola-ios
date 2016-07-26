@@ -1,8 +1,14 @@
 import UIKit
 
+protocol CheckoutNavigationControllerDelegate: class {
+    func checkoutWantsGoToMainScreen(checkout: CheckoutNavigationController)
+}
+
 class CheckoutNavigationController: UINavigationController, NavigationHandler {
     private let resolver: DiResolver
     private let model: CheckoutModel
+    
+    weak var checkoutDelegate: CheckoutNavigationControllerDelegate?
     
     init(with resolver: DiResolver, and checkout: Checkout) {
         self.resolver = resolver
@@ -46,6 +52,22 @@ class CheckoutNavigationController: UINavigationController, NavigationHandler {
         pushViewController(editKioskViewController, animated: true)
     }
     
+    func showPaymentSuccessView() {
+        // TODO: get order number
+        let orderNumber = 789019238
+        let successViewController = resolver.resolve(PaymentSuccessViewController.self, argument: orderNumber)
+        pushViewController(successViewController, animated: true)
+        setNavigationBarHidden(true, animated: true)
+    }
+    
+    func showPaymentFailureView() {
+        // TODO: get order number
+        let orderNumber = 789019238
+        let failureViewController = resolver.resolve(PaymentFailureViewController.self, argument: orderNumber)
+        pushViewController(failureViewController, animated: true)
+        setNavigationBarHidden(true, animated: true)
+    }
+    
     func didTapCloseButton(sender: UIBarButtonItem) {
         dismissViewControllerAnimated(true, completion: nil)
     }
@@ -59,6 +81,15 @@ class CheckoutNavigationController: UINavigationController, NavigationHandler {
                 return true
             case .ShowEditKiosk:
                 showEditKioskView()
+                return true
+            case .ShowPaymentSuccess:
+                showPaymentSuccessView()
+                return true
+            case .ShowPaymentFailure:
+                showPaymentFailureView()
+                return true
+            case .ShowDashboard:
+                checkoutDelegate?.checkoutWantsGoToMainScreen(self)
                 return true
             default:
                 return false

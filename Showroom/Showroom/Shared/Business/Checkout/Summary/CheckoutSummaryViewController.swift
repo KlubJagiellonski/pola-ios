@@ -58,9 +58,22 @@ final class CheckoutSummaryViewController: UIViewController, CheckoutSummaryView
         castView.updateData(withComments: model.state.comments)
     }
     
+    // for testing purposes
+    enum PaymentResult { case Success, Failure }
+    let paymentResult: PaymentResult = .Failure
+    
     func checkoutSummaryViewDidTapBuy(view: CheckoutSummaryView) {
         logInfo("Did tap buy")
-        //todo buy
+        
+        // TODO: implement payment request
+        
+        switch paymentResult {
+        case .Success:
+            sendNavigationEvent(SimpleNavigationEvent(type: .ShowPaymentSuccess))
+        case .Failure:
+            sendNavigationEvent(SimpleNavigationEvent(type: .ShowPaymentFailure))
+        }
+        
     }
 }
 

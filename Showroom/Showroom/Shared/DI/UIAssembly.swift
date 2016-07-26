@@ -186,5 +186,11 @@ class UIAssembly: AssemblyType {
         container.register(SearchContentNavigationController.self) { r, searchItem in
             return SearchContentNavigationController(with: r.resolve(DiResolver.self)!, mainSearchItem: searchItem)
         }
+        container.register(PaymentSuccessViewController.self) { r, orderNumber in
+            return PaymentSuccessViewController(resolver: r.resolve(DiResolver.self)!, orderNumber: orderNumber)
+        }
+        container.register(PaymentFailureViewController.self) { r, orderNumber in
+            return PaymentFailureViewController(resolver: r.resolve(DiResolver.self)!, orderNumber: orderNumber)
+        }
     }
 }

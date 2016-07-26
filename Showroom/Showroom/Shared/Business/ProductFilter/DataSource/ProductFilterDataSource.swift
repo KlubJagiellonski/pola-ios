@@ -28,7 +28,7 @@ extension Filter {
     private func findSelectedCategory(forId id: ObjectId, categories: [FilterCategory]) -> FilterCategory? {
         for category in categories {
             if category.id == id {
-                 return category
+                return category
             }
             if category.branches != nil {
                 let foundCategory = findSelectedCategory(forId: id, categories: category.branches!)

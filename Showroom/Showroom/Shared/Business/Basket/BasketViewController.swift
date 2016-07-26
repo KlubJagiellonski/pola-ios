@@ -111,6 +111,7 @@ class BasketViewController: UIViewController, BasketViewDelegate {
         guard let checkout = manager.createCheckout() else { return }
         
         let viewController = resolver.resolve(CheckoutNavigationController.self, argument: checkout)
+        viewController.checkoutDelegate = self
         presentViewController(viewController, animated: true, completion: nil)
     }
     
@@ -200,6 +201,13 @@ extension BasketViewController: SigningNavigationControllerDelegate {
         dismissViewControllerAnimated(true) { [weak self] in
             self?.goToCheckout()
         }
+    }
+}
+
+extension BasketViewController: CheckoutNavigationControllerDelegate {
+    func checkoutWantsGoToMainScreen(checkout: CheckoutNavigationController) {
+        dismissViewControllerAnimated(true, completion: nil)
+        sendNavigationEvent(SimpleNavigationEvent(type: .ShowDashboard))
     }
 }
 

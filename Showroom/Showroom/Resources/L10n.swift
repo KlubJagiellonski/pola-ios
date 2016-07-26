@@ -181,6 +181,18 @@ enum L10n {
   case CheckoutSummaryCash
   /// KUP I ZAPŁAĆ
   case CheckoutSummaryBuy
+  /// SUKCES!
+  case CheckoutPaymentResultSuccessHeader
+  /// Twoje zamówienie nr %@ zostało złożone do realizacji. Możesz sprawdzić status zamówienia w %@.
+  case CheckoutPaymentResultSuccessDescription(String, String)
+  /// serwisie internetowym
+  case CheckoutPaymentResultWebsiteLink
+  /// UUUPS!
+  case CheckoutPaymentResultFailureHeader
+  /// Twoje zamówienie nr %@ zostało złożone, jednak nie udało się go opłacić. Możesz to zrobić w %@.
+  case CheckoutPaymentResultFailureDescription(String, String)
+  /// POWRÓT DO EKRANU GŁÓWNEGO
+  case CheckoutPaymentResultGoToMain
   /// NEW
   case ProductListBadgeNew
   /// DARMOWA DOSTAWA
@@ -530,6 +542,18 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Checkout.Summary.Cash")
       case .CheckoutSummaryBuy:
         return L10n.tr("Checkout.Summary.Buy")
+      case .CheckoutPaymentResultSuccessHeader:
+        return L10n.tr("Checkout.PaymentResult.SuccessHeader")
+      case .CheckoutPaymentResultSuccessDescription(let p0, let p1):
+        return L10n.tr("Checkout.PaymentResult.SuccessDescription", p0, p1)
+      case .CheckoutPaymentResultWebsiteLink:
+        return L10n.tr("Checkout.PaymentResult.WebsiteLink")
+      case .CheckoutPaymentResultFailureHeader:
+        return L10n.tr("Checkout.PaymentResult.FailureHeader")
+      case .CheckoutPaymentResultFailureDescription(let p0, let p1):
+        return L10n.tr("Checkout.PaymentResult.FailureDescription", p0, p1)
+      case .CheckoutPaymentResultGoToMain:
+        return L10n.tr("Checkout.PaymentResult.GoToMain")
       case .ProductListBadgeNew:
         return L10n.tr("ProductList.Badge.New")
       case .ProductListBadgeFreeDelivery:
