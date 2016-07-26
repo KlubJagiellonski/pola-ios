@@ -186,6 +186,9 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate, Prod
     }
     
     func descriptionViewDidTapOtherBrandProducts(view: ProductDescriptionView) {
+        guard let product = model.state.productDetails else { return }
+        let productBrand = EntryProductBrand(id: product.brand.id, name: product.brand.name)
+        sendNavigationEvent(ShowBrandProductListEvent(productBrand: productBrand))
     }
     
     func descriptionViewDidTapAddToBasket(view: ProductDescriptionView) {

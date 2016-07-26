@@ -5,12 +5,13 @@ import JLRoutes
 class CommonNavigationHandler: NavigationHandler {
     private weak var navigationController: UINavigationController?
     private let resolver: DiResolver
-    private let navigationDelegateHandler = CommonNavigationControllerDelegateHandler()
+    private let navigationDelegateHandler: CommonNavigationControllerDelegateHandler
     private let urlRouter = JLRoutes()
     
-    init(with navigationController: UINavigationController, and resolver: DiResolver) {
+    init(hideNavigationBarForFirstView: Bool, with navigationController: UINavigationController, and resolver: DiResolver) {
         self.navigationController = navigationController
         self.resolver = resolver
+        self.navigationDelegateHandler = CommonNavigationControllerDelegateHandler(hideNavigationBarForFirstView: hideNavigationBarForFirstView)
         
         navigationController.delegate = navigationDelegateHandler
         
@@ -32,6 +33,9 @@ class CommonNavigationHandler: NavigationHandler {
         case let searchEvent as ShowProductSearchEvent:
             showSearchProductList(query: searchEvent.query)
             return true
+        case let brandProductListEvent as ShowBrandProductListEvent:
+            showBrandProductList(productBrand: brandProductListEvent.productBrand)
+            return true
         default:
             return false
         }
@@ -52,6 +56,18 @@ class CommonNavigationHandler: NavigationHandler {
         let viewController = resolver.resolve(SearchProductListViewController.self, argument: EntrySearchInfo(query: query))
         configureChildViewController(viewController)
         navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+    private func showBrandProductList(productBrand productBrand: EntryProductBrand) {
+        guard let navigationController = navigationController else { return }
+        
+        if let brandProductListViewController = navigationController.visibleViewController as? BrandProductListViewController {
+            brandProductListViewController.updateData(with: productBrand)
+        } else {
+            let viewController = resolver.resolve(BrandProductListViewController.self, argument: productBrand)
+            configureChildViewController(viewController)
+            navigationController.pushViewController(viewController, animated: true)
+        }
     }
     
     private func configureChildViewController(viewController: UIViewController) {
@@ -162,7 +178,15 @@ extension CommonNavigationHandler: DeepLinkingHandler {
 }
 
 class CommonNavigationControllerDelegateHandler: NSObject, UINavigationControllerDelegate {
+    private let hideNavigationBarForFirstView: Bool
+    
+    init(hideNavigationBarForFirstView: Bool) {
+        self.hideNavigationBarForFirstView = hideNavigationBarForFirstView
+        super.init()
+    }
+    
     func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
+        guard hideNavigationBarForFirstView else { return }
         if viewController == navigationController.viewControllers.first && !navigationController.navigationBarHidden {
             navigationController.setNavigationBarHidden(true, animated: true)
         } else if viewController != navigationController.viewControllers.first && navigationController.navigationBarHidden {

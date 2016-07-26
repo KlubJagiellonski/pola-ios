@@ -23,8 +23,20 @@ class CommonPresenterController: PresenterViewController, NavigationHandler {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private func closeModal(withCompletion completion: ((Bool) -> ())?) {
+        let alternativeAnimation = DimTransitionAnimation(animationDuration: 0.4)
+        let contentView = contentViewController?.view ?? hiddenContentViewController?.view
+        if let tag = retrieveCurrentImageViewTag?(), let imageView = contentView?.viewWithTag(tag) as? UIImageView where imageView.image != nil {
+            let animation = ImageTranstionAnimation(animationDuration: 0.4, imageView: imageView, alternativeAnimation: alternativeAnimation)
+            hideModal(animation: animation, completion: completion)
+        } else {
+            hideModal(animation: alternativeAnimation, completion: completion)
+        }
+        retrieveCurrentImageViewTag = nil
+    }
+    
     // MARK:- NavigationHandler
-
+    
     func handleNavigationEvent(event: NavigationEvent) -> EventHandled {
         switch event {
         case let showProductDetailsEvent as ShowProductDetailsEvent:
@@ -44,21 +56,28 @@ class CommonPresenterController: PresenterViewController, NavigationHandler {
                 }
             }
             return true
+        case let brandProductListEvent as ShowBrandProductListEvent:
+            closeModal() { [weak self] _ in
+                guard let `self` = self else { return }
+                
+                let contentViewController = self.contentViewController ?? self.hiddenContentViewController
+                var eventHandled = false
+                if let navigationHandler = contentViewController as? NavigationHandler {
+                    eventHandled = navigationHandler.handleNavigationEvent(brandProductListEvent)
+                }
+                if !eventHandled {
+                    logError("Couldn not handle brand product list event \(contentViewController) \(brandProductListEvent)")
+                }
+            }
+            return true
         case let simpleEvent as SimpleNavigationEvent:
             switch simpleEvent.type {
             case .CloseImmediately:
                 hideModal(animation: nil, completion: nil)
+                retrieveCurrentImageViewTag = nil
                 return true
             case .Close:
-                let alternativeAnimation = DimTransitionAnimation(animationDuration: 0.4)
-                let contentView = contentViewController?.view ?? hiddenContentViewController?.view
-                if let tag = retrieveCurrentImageViewTag?(), let imageView = contentView?.viewWithTag(tag) as? UIImageView where imageView.image != nil {
-                    let animation = ImageTranstionAnimation(animationDuration: 0.4, imageView: imageView, alternativeAnimation: alternativeAnimation)
-                    hideModal(animation: animation, completion: nil)
-                } else {
-                    hideModal(animation: alternativeAnimation, completion: nil)
-                }
-                retrieveCurrentImageViewTag = nil
+                closeModal(withCompletion: nil)
                 return true
             case .ProductAddedToBasket:
                 if let basketFrame = basketTabBarItemFrame {
@@ -67,6 +86,7 @@ class CommonPresenterController: PresenterViewController, NavigationHandler {
                     logError("TabBar not exist, something is wrong")
                     hideModal(animation: nil, completion: nil)
                 }
+                retrieveCurrentImageViewTag = nil
                 return true
             default: return false
             }

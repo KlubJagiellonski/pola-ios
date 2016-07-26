@@ -16,7 +16,7 @@ extension SearchContentType {
 class SearchContentNavigationController: UINavigationController, NavigationHandler {
     private let resolver: DiResolver
     private let mainSearchItem: SearchItem
-    private let navigationDelegateHandler = CommonNavigationControllerDelegateHandler()
+    private let navigationDelegateHandler = CommonNavigationControllerDelegateHandler(hideNavigationBarForFirstView: true)
     
     init(with resolver: DiResolver, mainSearchItem: SearchItem) {
         self.resolver = resolver

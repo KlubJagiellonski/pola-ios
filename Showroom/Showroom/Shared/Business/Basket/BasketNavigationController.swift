@@ -1,8 +1,11 @@
 import Foundation
 import UIKit
 
-class BasketNavigationController: UINavigationController {
+class BasketNavigationController: UINavigationController, NavigationHandler {
     private let resolver: DiResolver
+    private lazy var commonNavigationHandler: CommonNavigationHandler = { [unowned self] in
+        return CommonNavigationHandler(hideNavigationBarForFirstView: false, with: self, and: self.resolver)
+        }()
     
     init(resolver: DiResolver) {
         self.resolver = resolver
@@ -13,11 +16,18 @@ class BasketNavigationController: UINavigationController {
         
         let viewController = resolver.resolve(BasketViewController.self)
         viewController.navigationItem.title = tr(.MainTabBasket)
+        viewController.resetBackTitle()
         viewControllers = [viewController]
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK:- NavigationHandler
+    
+    func handleNavigationEvent(event: NavigationEvent) -> EventHandled {
+        return commonNavigationHandler.handleNavigationEvent(event)
     }
 }
 

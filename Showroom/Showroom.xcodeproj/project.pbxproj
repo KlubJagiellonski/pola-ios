@@ -167,6 +167,7 @@
 		1DAA7C751D0EC17F00545BB9 /* ProductDetailsContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAA7C741D0EC17F00545BB9 /* ProductDetailsContext.swift */; };
 		1DB166BD1D1006A8004F42DC /* SizeChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB166BC1D1006A8004F42DC /* SizeChartViewController.swift */; };
 		1DB166BF1D1006DC004F42DC /* SizeChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB166BE1D1006DC004F42DC /* SizeChartView.swift */; };
+		1DC096A71D477ED300D745DB /* ShowBrandProductListEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC096A61D477ED300D745DB /* ShowBrandProductListEvent.swift */; };
 		1DD161971D01A7310022B5C9 /* ProductDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD161961D01A7310022B5C9 /* ProductDetailsViewController.swift */; };
 		1DD161A21D01C06F0022B5C9 /* PresenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD161A11D01C06F0022B5C9 /* PresenterViewController.swift */; };
 		1DD161A41D01C0850022B5C9 /* PresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD161A31D01C0850022B5C9 /* PresenterView.swift */; };
@@ -513,6 +514,7 @@
 		1DAA7C741D0EC17F00545BB9 /* ProductDetailsContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDetailsContext.swift; sourceTree = "<group>"; };
 		1DB166BC1D1006A8004F42DC /* SizeChartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SizeChartViewController.swift; sourceTree = "<group>"; };
 		1DB166BE1D1006DC004F42DC /* SizeChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SizeChartView.swift; sourceTree = "<group>"; };
+		1DC096A61D477ED300D745DB /* ShowBrandProductListEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowBrandProductListEvent.swift; sourceTree = "<group>"; };
 		1DD161961D01A7310022B5C9 /* ProductDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewController.swift; sourceTree = "<group>"; };
 		1DD161A11D01C06F0022B5C9 /* PresenterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresenterViewController.swift; sourceTree = "<group>"; };
 		1DD161A31D01C0850022B5C9 /* PresenterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresenterView.swift; sourceTree = "<group>"; };
@@ -1307,6 +1309,7 @@
 				1D5E919E1D3E46D000A6BD55 /* ShowSearchItemEvent.swift */,
 				C006F4D31D3E40CF00573316 /* ShowSettingsWebViewEvent.swift */,
 				C020DA451D40F39900E6E4AE /* ShowUserInfoViewEvent.swift */,
+				1DC096A61D477ED300D745DB /* ShowBrandProductListEvent.swift */,
 			);
 			path = Event;
 			sourceTree = "<group>";
@@ -1823,6 +1826,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D2423DF1D228BA80026D46B /* ToastView.swift in Sources */,
+				1DC096A71D477ED300D745DB /* ShowBrandProductListEvent.swift in Sources */,
 				C006F4D61D3E4A5900573316 /* SettingsWebViewController.swift in Sources */,
 				1D5F91571D3509A300AE66E6 /* ProductFilterPriceCell.swift in Sources */,
 				C09280721D08453000350B82 /* ProductColorView.swift in Sources */,

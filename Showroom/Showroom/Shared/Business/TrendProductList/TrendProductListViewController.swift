@@ -37,6 +37,10 @@ class TrendProductListViewController: UIViewController, ProductListViewControlle
     }
     
     func updateData(with data: EntryTrendInfo) {
+        guard data.slug != model.entryTrendInfo.slug else {
+            logInfo("Tried to update same trend info view")
+            return
+        }
         title = data.name
         disposeBag = DisposeBag()
         model.update(with: data)

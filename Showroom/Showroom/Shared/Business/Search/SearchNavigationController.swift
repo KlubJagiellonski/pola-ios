@@ -4,7 +4,7 @@ import UIKit
 final class SearchNavigationController: UINavigationController, NavigationHandler {
     private let resolver: DiResolver
     private lazy var commonNavigationHandler: CommonNavigationHandler = { [unowned self] in
-        return CommonNavigationHandler(with: self, and: self.resolver)
+        return CommonNavigationHandler(hideNavigationBarForFirstView: true, with: self, and: self.resolver)
         }()
     
     init(with resolver: DiResolver) {

@@ -2,7 +2,7 @@ import UIKit
 
 class SettingsNavigationController: UINavigationController, NavigationHandler {
     private let resolver: DiResolver
-    private let navigationDelegateHandler = CommonNavigationControllerDelegateHandler()
+    private let navigationDelegateHandler = CommonNavigationControllerDelegateHandler(hideNavigationBarForFirstView: true)
     
     init(resolver: DiResolver) {
         self.resolver = resolver

@@ -40,6 +40,10 @@ class BrandProductListViewController: UIViewController, ProductListViewControlle
     }
     
     func updateData(with entryProductBrand: EntryProductBrand) {
+        guard entryProductBrand.id != model.productBrand.id else {
+            logInfo("Tried to update same brand info view")
+            return
+        }
         title = entryProductBrand.name
         disposeBag = DisposeBag()
         model.update(with: entryProductBrand)

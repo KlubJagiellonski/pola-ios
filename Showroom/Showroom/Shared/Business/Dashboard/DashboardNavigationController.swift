@@ -4,7 +4,7 @@ import UIKit
 final class DashboardNavigationController: UINavigationController, NavigationHandler {
     private let resolver: DiResolver
     private lazy var commonNavigationHandler: CommonNavigationHandler = { [unowned self] in
-        return CommonNavigationHandler(with: self, and: self.resolver)
+        return CommonNavigationHandler(hideNavigationBarForFirstView: true, with: self, and: self.resolver)
     }()
     
     init(resolver: DiResolver) {
