@@ -159,6 +159,11 @@ class CommonNavigationHandler: NavigationHandler {
         guard let navigationController = self.navigationController else { return false }
         navigationController.sendNavigationEvent(SimpleNavigationEvent(type: .CloseImmediately))
         
+        
+        navigationController.forceCloseModal()
+        for viewController in navigationController.viewControllers {
+            viewController.forceCloseModal()
+        }
         if let viewController = navigationController.viewControllers.find({ $0 is T }) as? T {
             navigationController.popToViewController(viewController, animated: false)
             viewController.updateData(with: entryData)

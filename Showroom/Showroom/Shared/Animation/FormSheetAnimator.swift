@@ -18,7 +18,7 @@ class FormSheetAnimator: NSObject, UIViewControllerTransitioningDelegate, Animat
         presentingViewController.presentViewController(presentedViewController, animated: true, completion: completion)
     }
     
-    func dismissViewController(presentingViewController presentingViewController: UIViewController, completion: (() -> Void)? = nil) {
+    func dismissViewController(presentingViewController presentingViewController: UIViewController, animated: Bool = true, completion: (() -> Void)? = nil) {
         presentingViewController.dismissViewControllerAnimated(true, completion: completion)
     }
     

@@ -19,8 +19,8 @@ class DropUpActionAnimator: NSObject, UIViewControllerTransitioningDelegate, Ani
         presentingViewController.presentViewController(presentedViewController, animated: true, completion: completion)
     }
     
-    func dismissViewController(presentingViewController presentingViewController: UIViewController, completion: (() -> Void)? = nil) {
-        presentingViewController.dismissViewControllerAnimated(true, completion: completion)
+    func dismissViewController(presentingViewController presentingViewController: UIViewController, animated: Bool = true, completion: (() -> Void)? = nil) {
+        presentingViewController.dismissViewControllerAnimated(animated, completion: completion)
     }
     
     func didTapDimView(sender: UITapGestureRecognizer) {

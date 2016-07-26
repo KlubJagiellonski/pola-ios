@@ -10,6 +10,10 @@ protocol ExtendedViewController: class {
     var extendedContentInset: UIEdgeInsets? { get set }
 }
 
+protocol ExtendedModalViewController: class {
+    func forceCloseWithoutAnimation()
+}
+
 extension ExtendedViewController where Self: UIViewController {
     var extendedView: ExtendedView {
         get { return self.view as! ExtendedView }
@@ -58,6 +62,18 @@ extension UIViewController {
                 application.openURL(url)
                 return
             }
+        }
+    }
+    
+    func forceCloseModal() {
+        guard let modalViewController = presentedViewController else { return }
+        
+        if let extendedModalViewController = modalViewController as? ExtendedModalViewController {
+            extendedModalViewController.forceCloseWithoutAnimation()
+        } else if modalViewController is UIActivityViewController {
+            dismissViewControllerAnimated(false, completion: nil)
+        } else {
+            fatalError("UIViewController with type \(modalViewController) is required to conform to ExtendedModalViewControllerProtocol")
         }
     }
 }

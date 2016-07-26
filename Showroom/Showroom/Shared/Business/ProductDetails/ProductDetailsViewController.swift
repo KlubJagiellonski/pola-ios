@@ -101,6 +101,7 @@ extension ProductDetailsViewController: ProductDetailsPageHandler {
     
     private func removeAllViewControllers() {
         indexedViewControllers.forEach { (index, viewController) in
+            viewController.forceCloseModal()
             viewController.willMoveToParentViewController(nil)
             viewController.view.removeFromSuperview()
             viewController.removeFromParentViewController()

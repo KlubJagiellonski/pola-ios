@@ -73,6 +73,7 @@ class CommonPresenterController: PresenterViewController, NavigationHandler {
         case let simpleEvent as SimpleNavigationEvent:
             switch simpleEvent.type {
             case .CloseImmediately:
+                currentModalViewController?.forceCloseModal()
                 hideModal(animation: nil, completion: nil)
                 retrieveCurrentImageViewTag = nil
                 return true

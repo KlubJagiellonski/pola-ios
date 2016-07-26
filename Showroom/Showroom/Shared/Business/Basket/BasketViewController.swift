@@ -181,7 +181,7 @@ extension BasketViewController: ProductAmountViewControllerDelegate {
 
 extension BasketViewController: DimAnimatorDelegate {
     func animatorDidTapOnDimView(animator: Animator) {
-        animator.dismissViewController(presentingViewController: self, completion: nil)
+        animator.dismissViewController(presentingViewController: self, animated: true, completion: nil)
     }
 }
 

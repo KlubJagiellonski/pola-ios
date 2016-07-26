@@ -120,8 +120,8 @@ extension ProductListViewDelegate where Self: ProductListViewControllerInterface
 }
 
 extension ProductFilterNavigationControllerDelegate where Self: UIViewController {
-    func productFilterDidCancel(viewController: ProductFilterNavigationController) {
-        dismissViewControllerAnimated(true, completion: nil)
+    func productFilter(viewController: ProductFilterNavigationController, wantsCancelWithAnimation animation: Bool) {
+        dismissViewControllerAnimated(animation, completion: nil)
     }
 }
 

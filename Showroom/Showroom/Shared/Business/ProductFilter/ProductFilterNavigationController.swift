@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 
 protocol ProductFilterNavigationControllerDelegate: class {
-    func productFilterDidCancel(viewController: ProductFilterNavigationController)
+    func productFilter(viewController: ProductFilterNavigationController, wantsCancelWithAnimation animation: Bool)
 }
 
 class ProductFilterNavigationController: UINavigationController, NavigationHandler {
@@ -28,7 +28,7 @@ class ProductFilterNavigationController: UINavigationController, NavigationHandl
     }
     
     func didTapCancel() {
-        filterDelegate?.productFilterDidCancel(self)
+        filterDelegate?.productFilter(self, wantsCancelWithAnimation: true)
     }
     
     // MARK:- NavigationHandler
@@ -49,5 +49,11 @@ class ProductFilterNavigationController: UINavigationController, NavigationHandl
             }
         }
         return false
+    }
+}
+
+extension ProductFilterNavigationController: ExtendedModalViewController {
+    func forceCloseWithoutAnimation() {
+        filterDelegate?.productFilter(self, wantsCancelWithAnimation: false)
     }
 }

@@ -215,12 +215,20 @@ extension ProductPageViewController: ProductSizeViewControllerDelegate {
             self?.showSizeChart()
         }
     }
+    
+    func productSize(viewController: ProductSizeViewController, wantDismissWithAnimation animation: Bool) {
+        actionAnimator.dismissViewController(presentingViewController: self, animated: animation)
+    }
 }
 
 extension ProductPageViewController: ProductColorViewControllerDelegate {
     func productColor(viewController viewController: ProductColorViewController, didChangeColor colorId: ObjectId) {
         actionAnimator.dismissViewController(presentingViewController: self)
         model.changeSelectedColor(forColorId: colorId)
+    }
+    
+    func productColor(viewController viewController: ProductColorViewController, wantsDismissWithAnimation animation: Bool) {
+        actionAnimator.dismissViewController(presentingViewController: self, animated: animation)
     }
 }
 

@@ -3,9 +3,10 @@ import UIKit
 protocol ProductSizeViewControllerDelegate: class {
     func productSize(viewController: ProductSizeViewController, didChangeSize sizeId: ObjectId)
     func productSizeDidTapSizes(viewController: ProductSizeViewController)
+    func productSize(viewController: ProductSizeViewController, wantDismissWithAnimation animation: Bool)
 }
 
-class ProductSizeViewController: UIViewController, ProductSizeViewDelegate {
+final class ProductSizeViewController: UIViewController, ProductSizeViewDelegate {
     private let sizes: [ProductSize]
     private let initialSelectedSizeId: ObjectId?
     private var castView: ProductSizeView { return view as! ProductSizeView }
@@ -44,5 +45,11 @@ class ProductSizeViewController: UIViewController, ProductSizeViewDelegate {
     
     func productSizeDidTapSizes(view: ProductSizeView) {
         delegate?.productSizeDidTapSizes(self)
+    }
+}
+
+extension ProductSizeViewController: ExtendedModalViewController {
+    func forceCloseWithoutAnimation() {
+        delegate?.productSize(self, wantDismissWithAnimation: false)
     }
 }

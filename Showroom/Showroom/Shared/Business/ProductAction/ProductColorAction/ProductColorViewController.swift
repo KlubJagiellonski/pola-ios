@@ -2,6 +2,7 @@ import UIKit
 
 protocol ProductColorViewControllerDelegate: class {
     func productColor(viewController viewController: ProductColorViewController, didChangeColor colorId: ObjectId)
+    func productColor(viewController viewController: ProductColorViewController, wantsDismissWithAnimation animation: Bool)
 }
 
 class ProductColorViewController: UIViewController, ProductColorViewDelegate {
@@ -38,5 +39,11 @@ class ProductColorViewController: UIViewController, ProductColorViewDelegate {
     
     func productColor(view view: ProductColorView, didSelectColor colorId: ObjectId) {
         delegate?.productColor(viewController: self, didChangeColor: colorId)
+    }
+}
+
+extension ProductColorViewController: ExtendedModalViewController {
+    func forceCloseWithoutAnimation() {
+        delegate?.productColor(viewController: self, wantsDismissWithAnimation: false)
     }
 }
