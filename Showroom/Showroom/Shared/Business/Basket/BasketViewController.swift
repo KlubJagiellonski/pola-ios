@@ -68,6 +68,11 @@ class BasketViewController: UIViewController, BasketViewDelegate {
             return
         }
         
+        guard presentedViewController == nil else {
+            logInfo("Cannot show basket toast, when it shows presented controller")
+            return
+        }
+        
         if let updateInfo = castView.lastUpdateInfo where manager.state.validationState.validating {
             let messages = updateInfo.toMessages(withDiscountErrors: manager.state.basket?.discountErrors)
             if messages.count > 0 {
