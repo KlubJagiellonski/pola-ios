@@ -119,7 +119,7 @@ class ProductDescriptionView: UIView, UITableViewDelegate, ProductDescriptionVie
         headerView.colorButton.enabled = true
         headerView.sizeButton.enabled = true
         headerView.buyButton.enabled = true
-        descriptionDataSource.updateModel(p.waitTime, descriptions: p.description, brandName: p.brand.name)
+        descriptionDataSource.updateModel(p.waitTime, descriptions: p.description, brandName: p.brand.name, sizeChartVisible: p.containSizesMeasurements)
 
         
         headerView.priceLabel.invalidateIntrinsicContentSize()
@@ -168,7 +168,7 @@ class ProductDescriptionView: UIView, UITableViewDelegate, ProductDescriptionVie
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let descriptionRow = ProductDescriptionRow(rawValue: indexPath.row)
+        let descriptionRow = descriptionDataSource.row(forIndexPath: indexPath)
         guard let row = descriptionRow else { return }
         switch row {
         case .BrandProducts:

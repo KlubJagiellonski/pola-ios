@@ -9,7 +9,8 @@ class ProductSizeViewController: UIViewController, ProductSizeViewDelegate {
     private let sizes: [ProductSize]
     private let initialSelectedSizeId: ObjectId?
     private var castView: ProductSizeView { return view as! ProductSizeView }
-    var buyMode: Bool = false //it indicated that this vc was initiatied by buy action
+    var buyMode = false //it indicated that this vc was initiatied by buy action
+    var sizeButtonVisible = true
     
     weak var delegate: ProductSizeViewControllerDelegate?
     
@@ -24,7 +25,7 @@ class ProductSizeViewController: UIViewController, ProductSizeViewDelegate {
     }
     
     override func loadView() {
-        view = ProductSizeView()
+        view = ProductSizeView(sizeButtonVisible: sizeButtonVisible)
     }
     
     override func viewDidLoad() {

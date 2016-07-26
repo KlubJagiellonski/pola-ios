@@ -100,6 +100,17 @@ extension ListProduct {
     }
 }
 
+extension ProductDetails {
+    var containSizesMeasurements: Bool {
+        for size in sizes {
+            if !size.measurements.isEmpty {
+                return true
+            }
+        }
+        return false
+    }
+}
+
 // MARK: - Decodable, Encodable
 
 extension ProductListResult: Decodable {

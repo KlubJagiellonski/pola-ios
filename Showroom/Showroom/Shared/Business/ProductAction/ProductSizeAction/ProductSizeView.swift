@@ -20,7 +20,7 @@ class ProductSizeView: UIView, UITableViewDelegate {
         get { return dataSource.selectedIndex }
     }
     
-    init() {
+    init(sizeButtonVisible: Bool) {
         dataSource = ProductSizeDataSource(tableView: tableView)
         
         super.init(frame: CGRectZero)
@@ -37,6 +37,7 @@ class ProductSizeView: UIView, UITableViewDelegate {
         tableView.showsVerticalScrollIndicator = false
         tableView.separatorStyle = .None
         
+        headerView.button.hidden = !sizeButtonVisible
         headerView.button.addTarget(self, action: #selector(ProductSizeView.didTapSizesButton), forControlEvents: .TouchUpInside)
         
         addSubview(headerView)

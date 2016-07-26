@@ -104,7 +104,9 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate, Prod
     
     private func showSizePicker(withBuyMode buyMode: Bool = false) {
         guard let sizes = model.pickerSizes else { return }
+        guard let productDetails = model.state.productDetails else { return }
         let sizeViewController = resolver.resolve(ProductSizeViewController.self, arguments: (sizes, model.state.currentSize?.id))
+        sizeViewController.sizeButtonVisible = productDetails.containSizesMeasurements
         sizeViewController.delegate = self
         sizeViewController.buyMode = buyMode
         actionAnimator.presentViewController(sizeViewController, presentingViewController: self)
@@ -183,7 +185,8 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate, Prod
         showSizeChart()
     }
     
-    func descriptionViewDidTapOtherBrandProducts(view: ProductDescriptionView) { }
+    func descriptionViewDidTapOtherBrandProducts(view: ProductDescriptionView) {
+    }
     
     func descriptionViewDidTapAddToBasket(view: ProductDescriptionView) {
         guard model.isSizeSet else {

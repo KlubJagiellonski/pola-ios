@@ -4,7 +4,21 @@ import UIKit
 enum ProductDescriptionRow: Int {
     case SizeChart = 0, DeliveryInfo, Description, BrandProducts
     
-    static var count: Int { return ProductDescriptionRow.BrandProducts.rawValue + 1}
+    func index(forSizeChartVisible sizeChartVisible: Bool) -> Int {
+        if sizeChartVisible {
+            return rawValue
+        } else {
+            return rawValue - 1
+        }
+    }
+    
+    static func count(forSizeChartVisible sizeChartVisible: Bool) -> Int{
+        if sizeChartVisible {
+            return ProductDescriptionRow.BrandProducts.rawValue + 1
+        } else {
+            return ProductDescriptionRow.BrandProducts.rawValue
+        }
+    }
 }
 
 class ProductDescriptionDataSource: NSObject, UITableViewDataSource {
@@ -13,11 +27,16 @@ class ProductDescriptionDataSource: NSObject, UITableViewDataSource {
     private var deliveryWaitTime: Int?
     private var descriptions: [String]?
     private var brandName: String?
+    private var sizeChartVisible = true
     
     private weak var tableView: UITableView?
     
     private var descriptionsFirstIndex: Int {
-        return ProductDescriptionRow.Description.rawValue + 1
+        if sizeChartVisible {
+            return ProductDescriptionRow.Description.rawValue + 1
+        } else {
+            return ProductDescriptionRow.Description.rawValue
+        }
     }
     
     init(tableView: UITableView) {
@@ -29,10 +48,11 @@ class ProductDescriptionDataSource: NSObject, UITableViewDataSource {
         tableView.registerClass(ProductDescriptionLineCell.self, forCellReuseIdentifier: String(ProductDescriptionLineCell))
     }
     
-    func updateModel(deliveryWaitTime: Int, descriptions: [String], brandName: String) {
+    func updateModel(deliveryWaitTime: Int, descriptions: [String], brandName: String, sizeChartVisible: Bool) {
         self.deliveryWaitTime = deliveryWaitTime
         self.descriptions = descriptions
         self.brandName = brandName
+        self.sizeChartVisible = sizeChartVisible
         tableView?.reloadData()
     }
     
@@ -49,30 +69,41 @@ class ProductDescriptionDataSource: NSObject, UITableViewDataSource {
         }
     }
     
+    func row(forIndexPath indexPath: NSIndexPath) -> ProductDescriptionRow? {
+        if isBrandProducts(withIndex: indexPath.row) {
+            return ProductDescriptionRow.BrandProducts
+        }
+        var index = indexPath.row
+        if !sizeChartVisible {
+            index += 1
+        }
+        return ProductDescriptionRow(rawValue: index)
+    }
+    
     // MARK:- UITableViewDataSource
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return deliveryWaitTime == nil ? 0 : ProductDescriptionRow.count + descriptions!.count
+        return deliveryWaitTime == nil ? 0 : ProductDescriptionRow.count(forSizeChartVisible: sizeChartVisible) + descriptions!.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
         switch indexPath.row {
-        case ProductDescriptionRow.SizeChart.rawValue:
+        case ProductDescriptionRow.SizeChart.index(forSizeChartVisible: sizeChartVisible):
             let cell = tableView.dequeueReusableCellWithIdentifier(String(ProductDescriptionSimpleCell), forIndexPath: indexPath) as! ProductDescriptionSimpleCell
             cell.bottomSeparator.hidden = false
             cell.topSeparator.hidden = true
             cell.titleLabel.text = tr(.ProductDetailsSizeChart)
             cell.goImageView.hidden = false
             return cell
-        case ProductDescriptionRow.DeliveryInfo.rawValue:
+        case ProductDescriptionRow.DeliveryInfo.index(forSizeChartVisible: sizeChartVisible):
             let cell = tableView.dequeueReusableCellWithIdentifier(String(ProductDescriptionSimpleCell), forIndexPath: indexPath) as! ProductDescriptionSimpleCell
             cell.bottomSeparator.hidden = false
             cell.topSeparator.hidden = true
             cell.titleLabel.text = deliveryWaitTime! == 0 ? tr(.CommonDeliveryInfoSingle(String(deliveryWaitTime!))) : tr(.CommonDeliveryInfoMulti(String(deliveryWaitTime!)))
             cell.goImageView.hidden = true
             return cell
-        case ProductDescriptionRow.Description.rawValue:
+        case ProductDescriptionRow.Description.index(forSizeChartVisible: sizeChartVisible):
             let cell = tableView.dequeueReusableCellWithIdentifier(String(ProductDescriptionSimpleCell), forIndexPath: indexPath) as! ProductDescriptionSimpleCell
             cell.bottomSeparator.hidden = true
             cell.topSeparator.hidden = true
@@ -84,7 +115,7 @@ class ProductDescriptionDataSource: NSObject, UITableViewDataSource {
             let cell = tableView.dequeueReusableCellWithIdentifier(String(ProductDescriptionLineCell), forIndexPath: indexPath) as! ProductDescriptionLineCell
             cell.titleLabel.text = description
             return cell
-        case ProductDescriptionRow.count + descriptions!.count - 1:
+        case let x where isBrandProducts(withIndex: x):
             let cell = tableView.dequeueReusableCellWithIdentifier(String(ProductDescriptionSimpleCell), forIndexPath: indexPath) as! ProductDescriptionSimpleCell
             cell.topSeparator.hidden = false
             cell.bottomSeparator.hidden = false
@@ -108,5 +139,9 @@ class ProductDescriptionDataSource: NSObject, UITableViewDataSource {
     
     func findDescription(forIndexPath indexPath: NSIndexPath) -> String {
         return descriptions![indexPath.row - descriptionsFirstIndex]
+    }
+    
+    func isBrandProducts(withIndex index: Int) -> Bool {
+        return index == ProductDescriptionRow.count(forSizeChartVisible: sizeChartVisible) + descriptions!.count - 1
     }
 }
