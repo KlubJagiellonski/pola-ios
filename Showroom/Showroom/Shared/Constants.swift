@@ -14,6 +14,7 @@ struct Constants {
     #endif
     
     static let baseUrl = "https://api.showroom.pl/ios/v1"
+    static let appScheme = NSBundle.appScheme
     
     #if APPSTORE
     static let googleAnalyticsTrackingId = "UA-28549987-1"

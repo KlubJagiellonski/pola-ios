@@ -1,0 +1,92 @@
+import Foundation
+import RxSwift
+
+final class PayUManager {
+    private let disposeBag = DisposeBag()
+    private let dataSource = PayUAuthorizationDataSource()
+    private let delegate = PayUPaymentServiceDelegate()
+    private let api: ApiService
+    private let userManager: UserManager
+    private let paymentService = PUPaymentService()
+    weak var serviceDelegate: PUPaymentServiceDelegate? {
+        set { delegate.delegate = newValue }
+        get { return delegate.delegate }
+    }
+    
+    init(api: ApiService, userManager: UserManager) {
+        self.api = api
+        self.userManager = userManager
+        
+        dataSource.manager = self
+        paymentService.dataSource = dataSource
+        paymentService.delegate = delegate
+        
+        userManager.sessionObservable.subscribeNext { [weak self] session in
+            if session == nil {
+                self?.paymentService.clearUserContext()
+            }
+        }.addDisposableTo(disposeBag)
+    }
+    
+    private func fetchPayUToken() -> Observable<String> {
+        //todo make here real api call
+        return Observable.just("test")
+    }
+    
+    func paymentButton(withFrame frame: CGRect) -> UIView {
+        return paymentService.paymentMethodWidgetWithFrame(frame)
+    }
+}
+
+final class PayUAuthorizationDataSource: NSObject, PUAuthorizationDataSource {
+    private let disposeBag = DisposeBag()
+    private weak var manager: PayUManager?
+    
+    func refreshTokenWithCompletionHandler(completionHandler: ((String!, NSError!) -> Void)!) {
+        guard let manager = manager else {
+            logError("manager should not be nil")
+            completionHandler(nil, NSError(domain: "PayUManager", code: 400, userInfo: [NSLocalizedDescriptionKey: "Manager is nil"]))
+            return
+        }
+        
+        guard manager.userManager.session != nil else {
+            logError("Cannot refresh PayU token when session is nil")
+            completionHandler(nil, NSError(domain: "PayUManager", code: 401, userInfo: [NSLocalizedDescriptionKey: "No session"]))
+            return
+        }
+        
+        manager.fetchPayUToken().subscribe { (event: Event<String>) in
+            switch event {
+            case .Next(let token):
+                completionHandler(token, nil)
+            case .Error(let error):
+                completionHandler(nil, NSError(domain: "PayUManager", code: 402, userInfo: [NSLocalizedDescriptionKey: String(error)]))
+            default: break
+            }
+        }.addDisposableTo(disposeBag)
+    }
+    
+    func applicationCallbackScheme() -> String! {
+        return Constants.appScheme
+    }
+}
+
+final class PayUPaymentServiceDelegate: NSObject, PUPaymentServiceDelegate {
+    weak var delegate: PUPaymentServiceDelegate?
+    
+    func paymentServiceDidSelectPaymentMethod(paymentMethod: PUPaymentMethodDescription!) {
+        guard let delegate = delegate else {
+            logError("No delegate assigned with selected payment method: \(paymentMethod)")
+            return
+        }
+        delegate.paymentServiceDidSelectPaymentMethod?(paymentMethod)
+    }
+    
+    func paymentServiceDidRequestPresentingViewController(viewController: UIViewController!) {
+        guard let delegate = delegate else {
+            logError("No delegate assigned with request presenting view controller: \(viewController)")
+            return
+        }
+        delegate.paymentServiceDidRequestPresentingViewController(viewController)
+    }
+}

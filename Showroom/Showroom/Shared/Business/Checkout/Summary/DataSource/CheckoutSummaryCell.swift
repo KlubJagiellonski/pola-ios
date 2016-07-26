@@ -262,12 +262,25 @@ class CheckoutSummaryPriceView: UIView {
     }
 }
 
-/// Temporary view representing PayU component that will be added later.
-class PayUButton: UIView {
+class PayUContainerView: UIControl {
+    //todo handle selected state
+    
+    var payUButton: UIView? {
+        didSet {
+            if let button = payUButton {
+                addSubview(button)
+                button.snp_makeConstraints { make in
+                    make.edges.equalToSuperview()
+                }
+            }
+            oldValue?.removeFromSuperview()
+        }
+    }
+    
     init() {
         super.init(frame: CGRectZero)
-        
-        backgroundColor = UIColor(named: .DarkGray)
+        layer.borderColor = UIColor(hex: "E4E5E3")?.CGColor
+        layer.borderWidth = 1
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -275,7 +288,7 @@ class PayUButton: UIView {
     }
     
     override func intrinsicContentSize() -> CGSize {
-        return CGSize(width: UIViewNoIntrinsicMetric, height: 38)
+        return CGSize(width: UIViewNoIntrinsicMetric, height: 50)
     }
 }
 
@@ -291,10 +304,15 @@ class CheckoutSummaryPaymentCell: UITableViewCell {
     private let totalPriceLabel = CheckoutSummaryPriceView(title: tr(.CheckoutSummaryTotalPrice))
     private let methodLabel = UILabel()
     private let payuRadio = RadioButton(title: tr(.CheckoutSummaryPayU))
-    private let payuButton = PayUButton()
+    private let payuContainerView = PayUContainerView()
     private let cashRadio = RadioButton(title: tr(.CheckoutSummaryCash))
     private let separatorView1 = UIView()
     private let separatorView2 = UIView()
+    
+    var payUButton: UIView? {
+        set { payuContainerView.payUButton = newValue }
+        get { return payuContainerView.payUButton }
+    }
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: .Default, reuseIdentifier: reuseIdentifier)
@@ -312,6 +330,7 @@ class CheckoutSummaryPaymentCell: UITableViewCell {
         
         payuRadio.addTarget(self, action: #selector(CheckoutSummaryPaymentCell.didChangePayuValue), forControlEvents: .ValueChanged)
         payuRadio.selected = true
+        payuContainerView.selected = true
         cashRadio.addTarget(self, action: #selector(CheckoutSummaryPaymentCell.didChangeCashValue), forControlEvents: .ValueChanged)
         
         contentView.addSubview(discountLabel)
@@ -320,7 +339,7 @@ class CheckoutSummaryPaymentCell: UITableViewCell {
         contentView.addSubview(separatorView2)
         contentView.addSubview(methodLabel)
         contentView.addSubview(payuRadio)
-        contentView.addSubview(payuButton)
+        contentView.addSubview(payuContainerView)
         contentView.addSubview(cashRadio)
         
         configureCustomConstraints()
@@ -369,14 +388,14 @@ class CheckoutSummaryPaymentCell: UITableViewCell {
             make.left.equalToSuperview().inset(Dimensions.defaultMargin)
         }
         
-        payuButton.snp_makeConstraints { make in
+        payuContainerView.snp_makeConstraints { make in
             make.top.equalTo(payuRadio.snp_bottom)
             make.left.equalToSuperview().inset(Dimensions.defaultMargin)
             make.right.equalToSuperview().inset(Dimensions.defaultMargin)
         }
         
         cashRadio.snp_makeConstraints { make in
-            make.top.equalTo(payuButton.snp_bottom)
+            make.top.equalTo(payuContainerView.snp_bottom)
             make.left.equalToSuperview().inset(Dimensions.defaultMargin)
         }
     }
@@ -405,12 +424,14 @@ class CheckoutSummaryPaymentCell: UITableViewCell {
     // TODO: Move to delegate
     func didChangePayuValue() {
         payuRadio.selected = true
+        payuContainerView.selected = true
         cashRadio.selected = false
     }
     
     // TODO: Move to delegate
     func didChangeCashValue() {
         payuRadio.selected = false
+        payuContainerView.selected = false
         cashRadio.selected = true
     }
 }

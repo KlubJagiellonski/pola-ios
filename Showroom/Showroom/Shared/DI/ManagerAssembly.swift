@@ -27,5 +27,9 @@ class ManagerAssembly: AssemblyType {
         container.register(KeychainManager.self) { r in
             return KeychainManager()
         }.inObjectScope(.Container)
+        
+        container.register(PayUManager.self) { r in
+            return PayUManager(api: r.resolve(ApiService.self)!, userManager: r.resolve(UserManager.self)!)
+        }.inObjectScope(.Container)
     }
 }

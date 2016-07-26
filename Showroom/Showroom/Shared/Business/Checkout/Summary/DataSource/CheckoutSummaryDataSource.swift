@@ -18,7 +18,10 @@ class CheckoutSummaryDataSource: NSObject, UITableViewDataSource, CheckoutSummar
     private weak var tableView: UITableView?
     weak var summaryView: CheckoutSummaryView?
     
-    init(tableView: UITableView) {
+    var createPayUButton: CGRect -> UIView
+    
+    init(tableView: UITableView, createPayUButton: CGRect -> UIView) {
+        self.createPayUButton = createPayUButton
         super.init()
         self.tableView = tableView
         tableView.registerClass(CheckoutSummaryCell.self, forCellReuseIdentifier: String(CheckoutSummaryCell))
@@ -67,6 +70,9 @@ class CheckoutSummaryDataSource: NSObject, UITableViewDataSource, CheckoutSummar
             case CheckoutSummaryPaymentRow.Payment:
                 let cell = tableView.dequeueReusableCellWithIdentifier(String(CheckoutSummaryPaymentCell)) as! CheckoutSummaryPaymentCell
                 cell.updateData(withTotalPrice: totalPrice, discount: discount, discountCode: discountCode)
+                if cell.payUButton == nil {
+                    cell.payUButton = createPayUButton(CGRectMake(0, 0, cell.bounds.width, 50))
+                }
                 return cell
             }
         } else {

@@ -6,12 +6,15 @@ final class CheckoutSummaryViewController: UIViewController, CheckoutSummaryView
     private var castView: CheckoutSummaryView { return view as! CheckoutSummaryView }
     private let resolver: DiResolver
     private let commentAnimator = FormSheetAnimator()
+    private var hasPayUPaymentMethod = false
     
     init(resolver: DiResolver, model: CheckoutModel) {
         self.resolver = resolver
         self.manager = resolver.resolve(BasketManager.self)
         self.model = model
         super.init(nibName: nil, bundle: nil)
+        
+        model.payUDelegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -19,13 +22,17 @@ final class CheckoutSummaryViewController: UIViewController, CheckoutSummaryView
     }
     
     override func loadView() {
-        view = CheckoutSummaryView()
-        castView.delegate = self;
-        commentAnimator.delegate = self
+        view = CheckoutSummaryView() { [unowned self] payUButtonFrame in
+            return self.model.payUButton(withFrame: payUButtonFrame)
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        castView.delegate = self
+        commentAnimator.delegate = self
+        
         let discountCode = manager.state.basket?.discountErrors == nil ? manager.state.discountCode : nil
         castView.updateData(with: manager.state.basket, carrier: manager.state.deliveryCarrier, discountCode: discountCode, comments: model.state.comments)
     }
@@ -35,13 +42,16 @@ final class CheckoutSummaryViewController: UIViewController, CheckoutSummaryView
         logAnalyticsShowScreen(.CheckoutSummary)
     }
     
-    private func showCommentModal(forComment comment: String?, at index: Int)
-    {
+    private func showCommentModal(forComment comment: String?, at index: Int) {
         let viewController = resolver.resolve(CheckoutSummaryCommentViewController.self, arguments: (comment, index))
         viewController.delegate = self
         viewController.modalPresentationStyle = .FormSheet
         viewController.preferredContentSize = CGSize(width: 292, height: 264)
         commentAnimator.presentViewController(viewController, presentingViewController: self, completion: nil)
+    }
+    
+    private func updateBuyButton() {
+        //todo update
     }
     
     // MARK: - CheckoutSummaryViewDelegate
@@ -97,5 +107,16 @@ extension CheckoutSummaryViewController: CheckoutSummaryCommentViewControllerDel
         commentAnimator.dismissViewController(presentingViewController: self, completion: nil)
         model.update(comment: viewController.comment, at: viewController.index)
         castView.updateData(withComments: model.state.comments)
+    }
+}
+
+extension CheckoutSummaryViewController: PUPaymentServiceDelegate {
+    func paymentServiceDidRequestPresentingViewController(viewController: UIViewController!) {
+        presentViewController(viewController, animated: true, completion: nil)
+    }
+    
+    func paymentServiceDidSelectPaymentMethod(paymentMethod: PUPaymentMethodDescription!) {
+        hasPayUPaymentMethod = paymentMethod != nil
+        updateBuyButton()
     }
 }

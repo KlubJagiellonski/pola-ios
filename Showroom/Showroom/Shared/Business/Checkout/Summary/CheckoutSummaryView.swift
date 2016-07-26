@@ -9,14 +9,14 @@ protocol CheckoutSummaryViewDelegate: class {
 }
 
 final class CheckoutSummaryView: UIView, UITableViewDelegate {
-    private let dataSource: CheckoutSummaryDataSource;
+    private let dataSource: CheckoutSummaryDataSource
     private let tableView = UITableView(frame: CGRectZero, style: .Plain)
     private let buyButton = UIButton()
     
     weak var delegate: CheckoutSummaryViewDelegate?
     
-    init() {
-        dataSource = CheckoutSummaryDataSource(tableView: tableView)
+    init(createPayUButton: CGRect -> UIView) {
+        dataSource = CheckoutSummaryDataSource(tableView: tableView, createPayUButton: createPayUButton)
         super.init(frame: CGRectZero)
         
         dataSource.summaryView = self;

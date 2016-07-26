@@ -3,10 +3,16 @@ import RxSwift
 
 class CheckoutModel {
     private let userManager: UserManager
+    private let payUManager: PayUManager
     let state: CheckoutState
+    weak var payUDelegate: PUPaymentServiceDelegate? {
+        set { payUManager.serviceDelegate = newValue }
+        get { return payUManager.serviceDelegate }
+    }
     
-    init(with checkout: Checkout, and userManager: UserManager) {
+    init(with checkout: Checkout, and userManager: UserManager, and payUManager: PayUManager) {
         self.userManager = userManager
+        self.payUManager = payUManager
         
         let comments = [String?](count: checkout.basket.productsByBrands.count, repeatedValue: nil)
         let userAddresses = checkout.user.userAddresses
@@ -38,6 +44,10 @@ class CheckoutModel {
     func comment(at index: Int) -> String? {
         let comments = state.comments
         return comments.count > index ? comments[index] : nil
+    }
+    
+    func payUButton(withFrame frame: CGRect) -> UIView {
+        return payUManager.paymentButton(withFrame: frame)
     }
 }
 

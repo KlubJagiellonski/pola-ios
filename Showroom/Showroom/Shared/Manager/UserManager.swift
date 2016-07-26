@@ -32,8 +32,8 @@ class UserManager {
     private let disposeBag = DisposeBag()
     
     let userObservable = PublishSubject<User?>()
+    let sessionObservable = PublishSubject<Session?>()
     let genderObservable = PublishSubject<Gender>()
-    
     private var userSession: UserSession? {
         didSet {
             emarsysService.configureUser(String(userSession?.user.id), customerEmail: userSession?.user.email)
@@ -44,6 +44,7 @@ class UserManager {
                 logError("Could not save user \(userSession?.user) with error \(error)")
             }
             userObservable.onNext(userSession?.user)
+            sessionObservable.onNext(userSession?.session)
         }
     }
     var user: User? { return userSession?.user }
@@ -63,7 +64,6 @@ class UserManager {
             logInfo("Changed gender to \(newValue.rawValue)")
         }
     }
-    
     var shouldSkipStartScreen: Bool {
         get {
             return NSUserDefaults.standardUserDefaults().boolForKey(UserManager.skipStartScreenKey);
