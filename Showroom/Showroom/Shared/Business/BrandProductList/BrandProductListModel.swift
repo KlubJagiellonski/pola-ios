@@ -13,11 +13,11 @@ final class BrandProductListModel: ProductListModel {
         return brand.description.markdownToAttributedString(treatBoldAsNormalText: true)
     }
     
-    init(with apiService: ApiService, and emarsysService: EmarsysService, and productBrand: EntryProductBrand) {
+    init(with apiService: ApiService, wishlistManager: WishlistManager, emarsysService: EmarsysService, productBrand: EntryProductBrand) {
         self.productBrand = productBrand
         self.emarsysService = emarsysService
-        super.init(with: apiService)
-        
+        super.init(with: apiService, wishlistManager: wishlistManager)
+    
         self.brand = Brand(id: productBrand.id, name: productBrand.name ?? "Test", imageUrl: "https://assets.shwrm.net/images/s/j/sj573dad96220a8.png?1463659926", description: headerDescription, lowResImageUrl: nil)
     }
     

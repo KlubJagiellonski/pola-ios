@@ -115,7 +115,7 @@ extension ProductListViewDelegate where Self: ProductListViewControllerInterface
     }
     
     func productListView(listView: ProductListViewInterface, didDoubleTapProductAtIndex index: Int) {
-        // todo
+        productListModel.addToWishlist(productAtIndex: index)
     }
 }
 

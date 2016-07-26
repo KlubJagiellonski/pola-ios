@@ -82,6 +82,11 @@ final class ProductItemCell: UICollectionViewCell {
     
     func didDoubleTapItem() {
         delegate?.productItemCellDidDoubleTap(self)
+        let heartMaskView = HeartMaskView(frame: self.productImageView.frame)
+        contentView.addSubview(heartMaskView)
+        heartMaskView.animate(duration: 1.3) {
+            heartMaskView.removeFromSuperview()
+        }
     }
     
     func updateData(with product: ListProduct) {

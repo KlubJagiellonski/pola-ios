@@ -106,7 +106,7 @@ class UIAssembly: AssemblyType {
             return CategoryProductListViewController(withResolver: r.resolve(DiResolver.self)!, category: category)
         }
         container.register(CategoryProductListModel.self) { r, category in
-            return CategoryProductListModel(with: category, and: r.resolve(ApiService.self)!)
+            return CategoryProductListModel(with: category, apiService: r.resolve(ApiService.self)!, wishlistManager: r.resolve(WishlistManager.self)!)
         }
         container.register(SigningNavigationController.self) { r, mode in
             return SigningNavigationController(resolver: r.resolve(DiResolver.self)!, mode: mode)
@@ -127,13 +127,13 @@ class UIAssembly: AssemblyType {
             return TrendProductListViewController(with: r.resolve(DiResolver.self)!, and: trendInfo)
         }
         container.register(TrendProductListModel.self) { r, trendInfo in
-            return TrendProductListModel(with: r.resolve(ApiService.self)!, and: trendInfo)
+            return TrendProductListModel(with: r.resolve(ApiService.self)!, wishlistManager: r.resolve(WishlistManager.self)!, trendInfo: trendInfo)
         }
         container.register(BrandProductListViewController.self) { r, brand in
             return BrandProductListViewController(with: r.resolve(DiResolver.self)!, and: brand)
         }
         container.register(BrandProductListModel.self) { r, brand in
-            return BrandProductListModel(with: r.resolve(ApiService.self)!, and: r.resolve(EmarsysService.self)!, and: brand)
+            return BrandProductListModel(with: r.resolve(ApiService.self)!, wishlistManager: r.resolve(WishlistManager.self)!, emarsysService: r.resolve(EmarsysService.self)!, productBrand: brand)
         }
         container.register(BrandDescriptionViewController.self) { r, brand in
             return BrandDescriptionViewController(with: brand)
@@ -178,7 +178,7 @@ class UIAssembly: AssemblyType {
             return SearchProductListViewController(with: r.resolve(DiResolver.self)!, entryData: data)
         }
         container.register(SearchProductListModel.self) { r, data in
-            return SearchProductListModel(with: data, and: r.resolve(ApiService.self)!, and: r.resolve(EmarsysService.self)!)
+            return SearchProductListModel(with: data, apiService: r.resolve(ApiService.self)!, wishlistManager: r.resolve(WishlistManager.self)!, emarsysService: r.resolve(EmarsysService.self)!)
         }
         container.register(SearchContentViewController.self) { r, searchItem, contentType in
             return SearchContentViewController(mainSearchItem: searchItem, type: contentType)

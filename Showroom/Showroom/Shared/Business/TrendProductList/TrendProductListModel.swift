@@ -8,9 +8,9 @@ final class TrendProductListModel: ProductListModel {
     
     var attributedDescription: NSAttributedString?
     
-    init(with apiService: ApiService, and trendInfo: EntryTrendInfo) {
+    init(with apiService: ApiService, wishlistManager: WishlistManager, trendInfo: EntryTrendInfo) {
         self.entryTrendInfo = trendInfo
-        super.init(with: apiService)
+        super.init(with: apiService, wishlistManager: wishlistManager)
     }
     
     override func createObservable(page: Int) -> Observable<ProductListResult> {

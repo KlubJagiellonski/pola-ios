@@ -6,11 +6,11 @@ final class SearchProductListModel: ProductListModel {
     private(set) var entrySearchInfo: EntrySearchInfo
     var query: String
     
-    init(with searchEntryData: EntrySearchInfo, and apiService: ApiService, and emarsysService: EmarsysService) {
+    init(with searchEntryData: EntrySearchInfo, apiService: ApiService, wishlistManager: WishlistManager, emarsysService: EmarsysService) {
         self.entrySearchInfo = searchEntryData
         self.query = searchEntryData.query
         self.emarsysService = emarsysService
-        super.init(with: apiService)
+        super.init(with: apiService, wishlistManager: wishlistManager)
     }
     
     func update(with data: EntrySearchInfo) {

@@ -4,6 +4,7 @@ import UIKit
 
 class ProductListModel {
     let apiService: ApiService
+    private let wishlistManager: WishlistManager
     private var page = 1
     private var products: [ListProduct] = []
     var currentPageIndex: Int {
@@ -14,8 +15,9 @@ class ProductListModel {
     weak var currentProductDetailsContext: MultiPageProductDetailsContext?
     var isBigScreen = false
     
-    init(with apiService: ApiService) {
+    init(with apiService: ApiService, wishlistManager: WishlistManager) {
         self.apiService = apiService
+        self.wishlistManager = wishlistManager
     }
     
     func createObservable(page: Int) -> Observable<ProductListResult> {
@@ -61,6 +63,10 @@ class ProductListModel {
         let productDetailsContext = MultiPageProductDetailsContext(productsCount: products.count, initialProductIndex: index, onChanged: onChanged, onRetrieveProductInfo: onRetrieveProductInfo)
         currentProductDetailsContext = productDetailsContext
         return productDetailsContext
+    }
+    
+    final func addToWishlist(productAtIndex index: Int) {
+        wishlistManager.addToWishlist(products[index])
     }
     
     private func updateProductIndexWithNotyfingObserver(with index: Int?) {
