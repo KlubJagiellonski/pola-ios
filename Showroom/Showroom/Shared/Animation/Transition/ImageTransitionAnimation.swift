@@ -1,54 +1,21 @@
 import Foundation
 import UIKit
 
-struct DimModalAnimation: PresenterModalAnimation {
-    let animationDuration: NSTimeInterval
-    
-    func showModal(containerView: ContainerView, contentView: ContentView?, modalView: ModalView, completion: ((Bool) -> ())?) {
-        modalView.alpha = 0.0
-        UIView.animateWithDuration(animationDuration, animations: {
-            modalView.alpha = 1.0
-            }, completion: completion)
-    }
-    
-    func hideModal(containerView: ContainerView, contentView: ContentView?, modalView: ModalView, completion: ((Bool) -> ())?) {
-        modalView.alpha = 1.0
-        UIView.animateWithDuration(animationDuration, animations: {
-            modalView.alpha = 0.0
-        }, completion: completion)
-    }
-}
-
-struct GenieAnimation: PresenterModalAnimation {
-    let animationDuration: NSTimeInterval
-    let destinationRect: CGRect
-    
-    func showModal(containerView: ContainerView, contentView: ContentView?, modalView: ModalView, completion: ((Bool) -> ())?) {
-        fatalError("Showing with genie animation not supported")
-    }
-    
-    func hideModal(containerView: ContainerView, contentView: ContentView?, modalView: ModalView, completion: ((Bool) -> ())?) {
-        modalView.genieInTransitionWithDuration(animationDuration, destinationRect: destinationRect, destinationEdge: .Top) { _ in
-            completion?(true)
-        }
-    }
-}
-
 protocol ImageAnimationTargetViewInterface: class {
     var viewsAboveImageVisibility: Bool { get set }
     var highResImage: UIImage? { get }
     var highResImageVisible: Bool { get set }
 }
 
-struct ImageAnimation: PresenterModalAnimation {
+struct ImageTranstionAnimation: TransitionAnimation {
     private let mainAnimationRelativeTime = 0.6
     
     let animationDuration: NSTimeInterval
     let imageView: UIImageView
-    let alternativeAnimation: PresenterModalAnimation
+    let alternativeAnimation: TransitionAnimation
     
-    func showModal(containerView: ContainerView, contentView: ContentView?, modalView: ModalView, completion: ((Bool) -> ())?) {
-        guard let animationTargetModalView = modalView as? ImageAnimationTargetViewInterface else {
+    func show(containerView: ContainerView, presentedView: PresentedView, presentationView: PresentationView?, completion: ((Bool) -> ())?) {
+        guard let animationTargetModalView = presentedView as? ImageAnimationTargetViewInterface else {
             fatalError("modalView should conforms to protocol ImageAnimationTargetViewInterface")
         }
         
@@ -63,7 +30,7 @@ struct ImageAnimation: PresenterModalAnimation {
         let scaleTransform = CGAffineTransformMakeScale(scaleFactor, scaleFactor)
         
         imageView.alpha = 0
-        modalView.alpha = 0
+        presentedView.alpha = 0
         animationTargetModalView.viewsAboveImageVisibility = false
         animationTargetModalView.highResImageVisible = false
         containerView.addSubview(movingImageView)
@@ -77,7 +44,7 @@ struct ImageAnimation: PresenterModalAnimation {
                 movingImageView.center = CGPoint(x: finalFrame.midX, y: finalFrame.midY)
             }
             UIView.addKeyframeWithRelativeStartTime(0.2, relativeDuration: 0.6) {
-                modalView.alpha = 1
+                presentedView.alpha = 1
             }
         }) { success in
             self.imageView.alpha = 1
@@ -87,15 +54,15 @@ struct ImageAnimation: PresenterModalAnimation {
                 animationTargetModalView.viewsAboveImageVisibility = true
                 }, completion: completion)
         }
-        
+
     }
     
-    func hideModal(containerView: ContainerView, contentView: ContentView?, modalView: ModalView, completion: ((Bool) -> ())?) {
-        guard let animationTargetModalView = modalView as? ImageAnimationTargetViewInterface else {
+    func hide(containerView: ContainerView, presentedView: PresentedView, presentationView: PresentationView?, completion: ((Bool) -> ())?) {
+        guard let animationTargetModalView = presentedView as? ImageAnimationTargetViewInterface else {
             fatalError("modalView should conforms to protocol ImageAnimationTargetViewInterface")
         }
         guard let targetImage = animationTargetModalView.highResImage else {
-            alternativeAnimation.hideModal(containerView, contentView: contentView, modalView: modalView, completion: completion)
+            alternativeAnimation.hide(containerView, presentedView: presentedView, presentationView: presentationView, completion: completion)
             return
         }
         
@@ -111,7 +78,7 @@ struct ImageAnimation: PresenterModalAnimation {
         
         animationTargetModalView.viewsAboveImageVisibility = true
         imageView.alpha = 0
-        modalView.alpha = 1
+        presentedView.alpha = 1
         movingImageView.alpha = 0
         animationTargetModalView.highResImageVisible = true
         containerView.addSubview(movingImageView)
@@ -130,7 +97,7 @@ struct ImageAnimation: PresenterModalAnimation {
                     movingImageView.center = CGPoint(x: finalFrame.midX, y: finalFrame.midY)
                 }
                 UIView.addKeyframeWithRelativeStartTime(0.2, relativeDuration: 0.6) {
-                    modalView.alpha = 0
+                    presentedView.alpha = 0
                 }
             }) { success in
                 self.imageView.alpha = 1

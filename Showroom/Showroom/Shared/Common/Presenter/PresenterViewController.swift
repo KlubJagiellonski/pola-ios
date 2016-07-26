@@ -1,11 +1,6 @@
 import Foundation
 import UIKit
 
-protocol PresenterModalAnimation {
-    func showModal(containerView: ContainerView, contentView: ContentView?, modalView: ModalView, completion: ((Bool) -> ())?)
-    func hideModal(containerView: ContainerView, contentView: ContentView?, modalView: ModalView, completion: ((Bool) -> ())?)
-}
-
 protocol PresenterContentChildProtocol {
     func presenterWillApear()
 }
@@ -13,19 +8,7 @@ protocol PresenterContentChildProtocol {
 class PresenterViewController: UIViewController {
     var castView: PresenterView { return view as! PresenterView }
     private(set) var hiddenContentViewController: UIViewController?
-    
-    var contentViewController: UIViewController? {
-        didSet {
-            oldValue?.willMoveToParentViewController(nil)
-            if let newViewController = contentViewController {
-                addChildViewController(newViewController)
-            }
-            castView.contentView = contentViewController?.view
-            oldValue?.removeFromParentViewController()
-            contentViewController?.didMoveToParentViewController(self)
-        }
-    }
-    
+    private(set) var contentViewController: UIViewController?
     private(set) var currentModalViewController: UIViewController?
     
     override func loadView() {
@@ -39,7 +22,20 @@ class PresenterViewController: UIViewController {
         }
     }
     
-    func showModal(viewController: UIViewController, hideContentView: Bool, animation: PresenterModalAnimation?, completion: ((Bool) -> ())?) {
+    func showContent(viewController: UIViewController, animation: TransitionAnimation?, completion: ((Bool) -> ())?) {
+        contentViewController?.willMoveToParentViewController(nil)
+        addChildViewController(viewController)
+        
+        let innerCompletion: (Bool) -> () = { [weak self] _ in
+            guard let `self` = self else { return }
+            self.contentViewController?.removeFromParentViewController()
+            viewController.didMoveToParentViewController(self)
+            self.contentViewController = viewController
+        }
+        castView.showContent(viewController.view, customAnimation: animation?.show, completion: innerCompletion)
+    }
+    
+    func showModal(viewController: UIViewController, hideContentView: Bool, animation: TransitionAnimation?, completion: ((Bool) -> ())?) {
         guard currentModalViewController == nil else {
             completion?(false)
             return
@@ -56,10 +52,10 @@ class PresenterViewController: UIViewController {
         
         addChildViewController(viewController)
         self.currentModalViewController = viewController
-        castView.showModal(viewController.view, customAnimation: animation?.showModal, completion: innerCompletion)
+        castView.showModal(viewController.view, customAnimation: animation?.show, completion: innerCompletion)
     }
     
-    func hideModal(animation animation: PresenterModalAnimation?, completion: ((Bool) -> ())?) {
+    func hideModal(animation animation: TransitionAnimation?, completion: ((Bool) -> ())?) {
         guard let currentModalViewController = currentModalViewController else {
             completion?(false)
             return
@@ -77,6 +73,6 @@ class PresenterViewController: UIViewController {
         }
         
         currentModalViewController.willMoveToParentViewController(nil)
-        castView.hideModal(animation?.hideModal, completion: innerCompletion)
+        castView.hideModal(animation?.hide, completion: innerCompletion)
     }
 }

@@ -23,7 +23,6 @@ class StartViewController: UIViewController, StartViewDelegate {
         super.viewDidLoad()
         
         castView.delegate = self
-        userManager.shouldSkipStartScreen = true
     }
     
     // MARK: - StartViewDelegate

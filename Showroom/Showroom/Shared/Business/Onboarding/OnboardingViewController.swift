@@ -24,8 +24,6 @@ class OnboardingViewController: UIViewController, OnboardingViewDelegate {
         super.viewDidLoad()
         
         castView.delegate = self
-        // TODO: remove after testing
-        userManager.shouldSkipStartScreen = true
     }
     
     // MARK:- OnboardingViewDelegate

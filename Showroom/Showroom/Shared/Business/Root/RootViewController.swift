@@ -3,8 +3,9 @@ import UIKit
 import Swinject
 
 class RootViewController: PresenterViewController, NavigationHandler {
-    let model: RootModel
-    let resolver: DiResolver
+    private let model: RootModel
+    private let resolver: DiResolver
+    private var urlToHandle: NSURL?
     
     init?(resolver: DiResolver) {
         self.resolver = resolver
@@ -15,11 +16,11 @@ class RootViewController: PresenterViewController, NavigationHandler {
         
         switch model.startChildType {
         case .Start:
-            self.contentViewController = resolver.resolve(StartViewController)
+            showContent(resolver.resolve(StartViewController), animation: nil, completion: nil)
         case .Main:
-            self.contentViewController = resolver.resolve(MainTabViewController)
+            showContent(resolver.resolve(MainTabViewController), animation: nil, completion: nil)
         case .Onboarding:
-            self.contentViewController = resolver.resolve(OnboardingViewController)
+            showContent(resolver.resolve(OnboardingViewController), animation: nil, completion: nil)
         default:
             let error = "Cannot create view controller for type \(model.startChildType)"
             logError(error)
@@ -38,13 +39,19 @@ class RootViewController: PresenterViewController, NavigationHandler {
         
         switch simpleEvent.type {
         case .ShowDashboard:
-            self.contentViewController = resolver.resolve(MainTabViewController)
+            model.shouldSkipStartScreen = true
+            let mainTabViewController = resolver.resolve(MainTabViewController)
+            showContent(mainTabViewController, animation: DimTransitionAnimation(animationDuration: 0.3), completion: nil)
+            if let urlToHandle = urlToHandle {
+                mainTabViewController.handleOpen(withURL: urlToHandle)
+                self.urlToHandle = nil
+            }
             return true
         case .SplashEnd:
             hideModal(animation: nil, completion: nil)
             return true
         case .OnboardingEnd:
-            self.contentViewController = resolver.resolve(StartViewController)
+            showContent(resolver.resolve(StartViewController), animation: DimTransitionAnimation(animationDuration: 0.3), completion: nil)
             return true
         default: return false
         }
@@ -55,10 +62,14 @@ extension RootViewController: DeepLinkingHandler {
     func handleOpen(withURL url: NSURL) -> Bool {
         if let mainTabViewController = self.contentViewController as? MainTabViewController {
             return mainTabViewController.handleOpen(withURL: url)
-        } else {
+        } else if model.shouldSkipStartScreen {
             let mainTabViewController = resolver.resolve(MainTabViewController.self)
-            self.contentViewController = resolver.resolve(MainTabViewController.self)
+            showContent(mainTabViewController, animation: nil, completion: nil)
             return mainTabViewController.handleOpen(withURL: url)
+        } else {
+            //wait with handling till app finish onboarding and start
+            urlToHandle = url
+            return true
         }
     }
 }

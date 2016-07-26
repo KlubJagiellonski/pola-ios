@@ -16,7 +16,7 @@ class CommonPresenterController: PresenterViewController, NavigationHandler {
         self.resolver = resolver
         super.init(nibName: nil, bundle: nil)
         
-        self.contentViewController = contentViewController
+        showContent(contentViewController, animation: nil, completion: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -34,10 +34,10 @@ class CommonPresenterController: PresenterViewController, NavigationHandler {
             } else {
                 let viewController = resolver.resolve(ProductDetailsViewController.self, argument: showProductDetailsEvent.context)
                 
-                let alternativeAnimation = DimModalAnimation(animationDuration: 0.3)
+                let alternativeAnimation = DimTransitionAnimation(animationDuration: 0.3)
                 if let imageViewTag = showProductDetailsEvent.retrieveCurrentImageViewTag?(), let imageView = view.viewWithTag(imageViewTag) as? UIImageView where imageView.image != nil {
                     retrieveCurrentImageViewTag = showProductDetailsEvent.retrieveCurrentImageViewTag
-                    let animation = ImageAnimation(animationDuration: 0.4, imageView: imageView, alternativeAnimation: alternativeAnimation)
+                    let animation = ImageTranstionAnimation(animationDuration: 0.4, imageView: imageView, alternativeAnimation: alternativeAnimation)
                     showModal(viewController, hideContentView: false, animation: animation, completion: nil)
                 } else {
                     showModal(viewController, hideContentView: true, animation: alternativeAnimation, completion: nil)
@@ -50,10 +50,10 @@ class CommonPresenterController: PresenterViewController, NavigationHandler {
                 hideModal(animation: nil, completion: nil)
                 return true
             case .Close:
-                let alternativeAnimation = DimModalAnimation(animationDuration: 0.4)
+                let alternativeAnimation = DimTransitionAnimation(animationDuration: 0.4)
                 let contentView = contentViewController?.view ?? hiddenContentViewController?.view
                 if let tag = retrieveCurrentImageViewTag?(), let imageView = contentView?.viewWithTag(tag) as? UIImageView where imageView.image != nil {
-                    let animation = ImageAnimation(animationDuration: 0.4, imageView: imageView, alternativeAnimation: alternativeAnimation)
+                    let animation = ImageTranstionAnimation(animationDuration: 0.4, imageView: imageView, alternativeAnimation: alternativeAnimation)
                     hideModal(animation: animation, completion: nil)
                 } else {
                     hideModal(animation: alternativeAnimation, completion: nil)
@@ -62,7 +62,7 @@ class CommonPresenterController: PresenterViewController, NavigationHandler {
                 return true
             case .ProductAddedToBasket:
                 if let basketFrame = basketTabBarItemFrame {
-                    hideModal(animation: GenieAnimation(animationDuration: 0.3, destinationRect: basketFrame), completion: nil)
+                    hideModal(animation: GenieTransitionAnimation(animationDuration: 0.3, destinationRect: basketFrame), completion: nil)
                 } else {
                     logError("TabBar not exist, something is wrong")
                     hideModal(animation: nil, completion: nil)
@@ -86,7 +86,7 @@ extension CommonPresenterController: DeepLinkingHandler {
 
 extension CommonPresenterController: MainTabChild {
     func popToFirstView() {
-        hideModal(animation: DimModalAnimation(animationDuration: 0.2)) { [weak self] _ in
+        hideModal(animation: DimTransitionAnimation(animationDuration: 0.2)) { [weak self] _ in
             if let childContent = self?.contentViewController as? MainTabChild {
                 childContent.popToFirstView()
             }

@@ -8,8 +8,8 @@ enum RootChildType {
 }
 
 class RootModel {
-    let resolver: DiResolver
-    let userManager: UserManager
+    private let resolver: DiResolver
+    private let userManager: UserManager
     
     var startChildType: RootChildType {
         if (!userManager.shouldSkipStartScreen) {
@@ -17,6 +17,11 @@ class RootModel {
         } else {
             return .Main
         }
+    }
+    
+    var shouldSkipStartScreen: Bool {
+        set { userManager.shouldSkipStartScreen = true }
+        get { return userManager.shouldSkipStartScreen }
     }
     
     init(resolver: DiResolver) {

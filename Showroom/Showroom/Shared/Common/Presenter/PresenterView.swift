@@ -1,47 +1,52 @@
 import Foundation
 import UIKit
 
-typealias ContainerView = UIView
-typealias ContentView = UIView
-typealias ModalView = UIView
-
 class PresenterView: UIView {
-    var contentView: UIView? {
-        didSet {
-            if let content = contentView {
-                insertSubview(content, atIndex: 0)
-                configureCustomConstraints()
-            }
-            oldValue?.removeFromSuperview()
-        }
-    }
-    
+    private var contentView: UIView?
     private var modalView: UIView? {
         didSet {
             if let modal = modalView {
                 addSubview(modal)
-                configureCustomConstraints()
+                modal.snp_makeConstraints { make in
+                    make.edges.equalToSuperview()
+                }
             }
             oldValue?.removeFromSuperview()
         }
     }
     
-    func showModal(view: ModalView, customAnimation: ((ContainerView, ContentView?, ModalView, ((Bool) -> ())?) -> ())?, completion: ((Bool) -> ())?) {
+    func showContent(view: PresentedView, customAnimation: ((ContainerView, PresentedView, PresentationView?, ((Bool) -> ())?) -> ())?, completion: ((Bool) -> ())?) {
+        insertSubview(view, atIndex: 0)
+        view.snp_makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        let innerCompletion: (Bool) -> () = { [weak self] success in
+            self?.contentView?.removeFromSuperview()
+            self?.contentView = view
+            completion?(success)
+        }
+        
+        if let customAnimation = customAnimation {
+            customAnimation(self, view, contentView, innerCompletion)
+        } else {
+            innerCompletion(true)
+        }
+    }
+    
+    func showModal(view: PresentedView, customAnimation: ((ContainerView, PresentedView, PresentationView?, ((Bool) -> ())?) -> ())?, completion: ((Bool) -> ())?) {
         guard self.modalView == nil else { fatalError("Cannot show modal view when there is existing one") }
         
         self.modalView = view
         
         if let customAnimation = customAnimation {
-            customAnimation(self, contentView, view, completion)
-            return
+            customAnimation(self, view, nil, completion)
+        } else {
+            completion?(true)
         }
-        
-        addSubview(view)
-        configureCustomConstraints()
-        completion?(true)
     }
     
-    func hideModal(customAnimation: ((ContainerView, ContentView?, ModalView, ((Bool) -> ())?) -> ())?, completion: ((Bool) -> ())?) {
+    func hideModal(customAnimation: ((ContainerView, PresentedView, PresentationView?, ((Bool) -> ())?) -> ())?, completion: ((Bool) -> ())?) {
         guard let modalView = modalView else { fatalError("Cannot hide modal view when there is no existing one") }
         
         let innerCompletion: (Bool) -> () = { [weak self] success in
@@ -50,24 +55,9 @@ class PresenterView: UIView {
         }
         
         if let customAnimation = customAnimation {
-            customAnimation(self, contentView, modalView, innerCompletion)
-            return
-        }
-        
-        modalView.removeFromSuperview()
-        innerCompletion(true)
-    }
-    
-    func configureCustomConstraints() {
-        guard let content = contentView else { return }
-        
-        content.snp_remakeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        
-        guard let modal = modalView else { return }
-        modal.snp_remakeConstraints { make in
-            make.edges.equalToSuperview()
+            customAnimation(self, modalView, nil, innerCompletion)
+        } else {
+            innerCompletion(true)
         }
     }
 }
