@@ -55,8 +55,20 @@ final class WishlistView: ViewSwitcher, UITableViewDelegate {
         delegate?.wishlistView(self, didSelectProductAt: indexPath)
     }
     
-    func tableView(tableView: UITableView, titleForDeleteConfirmationButtonForRowAtIndexPath indexPath: NSIndexPath) -> String? {
-        return tr(.WishlistDelete)
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        let deleteButton = UITableViewRowAction(style: .Default, title: nil, handler: { (action, indexPath) in
+            self.tableView.dataSource?.tableView?(self.tableView, commitEditingStyle: .Delete, forRowAtIndexPath: indexPath)
+        })
+        
+        // This background image was created to work only with wishlist cells and
+        // Polish language. It has a fixed size that fits the size of the delete
+        // button which depends on the cell height and the title length.
+        deleteButton.backgroundColor = UIColor(patternImage: UIImage(asset: Asset.Bg_delete_wishlist))
+        
+        // New line characters allow to move the title label lower.
+        deleteButton.title = "\r\n\r\n" + tr(.WishlistDelete)
+        
+        return [deleteButton]
     }
 }
 

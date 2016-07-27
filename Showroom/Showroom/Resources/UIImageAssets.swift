@@ -3,6 +3,8 @@
 import UIKit.UIImage
 
 enum Asset: String {
+  case Bg_delete_basket = "bg_delete_basket"
+  case Bg_delete_wishlist = "bg_delete_wishlist"
   case Empty_bag = "empty_bag"
   case Error = "error"
   case For_her = "for_her"
