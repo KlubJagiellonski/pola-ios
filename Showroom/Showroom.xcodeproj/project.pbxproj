@@ -67,6 +67,8 @@
 		1D2F19D11CEB16120099142E /* Decodable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2F19961CEA14FE0099142E /* Decodable.framework */; };
 		1D3792721D196931001A7C47 /* ViewSwitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3792711D196931001A7C47 /* ViewSwitcher.swift */; };
 		1D3EEA1A1D143C1100F67B69 /* BasketRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3EEA191D143C1100F67B69 /* BasketRequest.swift */; };
+		1D44AA121D48995200AF612A /* GoogleAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D44AA111D48995200AF612A /* GoogleAnalytics.framework */; };
+		1D44AA141D489B5B00AF612A /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D44AA131D489B5B00AF612A /* Analytics.swift */; };
 		1D470E341D265CB500677122 /* FormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D470E331D265CB500677122 /* FormView.swift */; };
 		1D470E361D26736E00677122 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D470E351D26736E00677122 /* Validator.swift */; };
 		1D470E3B1D26AA7400677122 /* ValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D470E3A1D26AA7400677122 /* ValidatorTests.swift */; };
@@ -423,6 +425,8 @@
 		1D2F19C21CEB07D10099142E /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
 		1D3792711D196931001A7C47 /* ViewSwitcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewSwitcher.swift; sourceTree = "<group>"; };
 		1D3EEA191D143C1100F67B69 /* BasketRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasketRequest.swift; sourceTree = "<group>"; };
+		1D44AA111D48995200AF612A /* GoogleAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleAnalytics.framework; path = Carthage/Build/iOS/GoogleAnalytics.framework; sourceTree = "<group>"; };
+		1D44AA131D489B5B00AF612A /* Analytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Analytics.swift; sourceTree = "<group>"; };
 		1D470E331D265CB500677122 /* FormView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormView.swift; sourceTree = "<group>"; };
 		1D470E351D26736E00677122 /* Validator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
 		1D470E3A1D26AA7400677122 /* ValidatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidatorTests.swift; sourceTree = "<group>"; };
@@ -688,6 +692,7 @@
 				1D6933461D2D176200609BB9 /* CocoaMarkdown.framework in Frameworks */,
 				75A92AD71D42209E00EDC89D /* FBSDKCoreKit.framework in Frameworks */,
 				1DF796731CEB2E1F00C7A7F4 /* Fabric.framework in Frameworks */,
+				1D44AA121D48995200AF612A /* GoogleAnalytics.framework in Frameworks */,
 				1D5F91631D36217F00AE66E6 /* TTRangeSlider.framework in Frameworks */,
 				1DD1EA9D1CF2F58E00D99731 /* SnapKit.framework in Frameworks */,
 				75A92ADB1D42218600EDC89D /* Bolts.framework in Frameworks */,
@@ -886,6 +891,7 @@
 		1D2F19AC1CEA15060099142E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1D44AA111D48995200AF612A /* GoogleAnalytics.framework */,
 				75A92ADA1D42218600EDC89D /* Bolts.framework */,
 				75A92AD41D42209E00EDC89D /* FBSDKCoreKit.framework */,
 				75A92AD51D42209E00EDC89D /* FBSDKLoginKit.framework */,
@@ -1336,6 +1342,7 @@
 			isa = PBXGroup;
 			children = (
 				1DF7967D1CEB3AF600C7A7F4 /* Logging.swift */,
+				1D44AA131D489B5B00AF612A /* Analytics.swift */,
 			);
 			path = Logging;
 			sourceTree = "<group>";
@@ -1816,6 +1823,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/EmarsysPredictSDK.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/CocoaMarkdown.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/TTRangeSlider.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/GoogleAnalytics.framework",
 			);
 			name = "Carthage Run Script";
 			outputPaths = (
@@ -1955,6 +1963,7 @@
 				1D7824B91D0874E700E60392 /* ProductImageCell.swift in Sources */,
 				1D78249C1D058F0600E60392 /* Product.swift in Sources */,
 				1D7824B01D06FD6800E60392 /* ProductImageDataSource.swift in Sources */,
+				1D44AA141D489B5B00AF612A /* Analytics.swift in Sources */,
 				C092806C1D08310400350B82 /* ProductColor.swift in Sources */,
 				1D1A7E0A1D2420EA009CCCE7 /* CategoryProductListView.swift in Sources */,
 				75FE56A51D23C32800DF5356 /* ExtendedTextView.swift in Sources */,
@@ -2245,6 +2254,7 @@
 				INFOPLIST_FILE = Showroom/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "-D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.showroom.Showroom;
 				PRODUCT_NAME = SHOWROOM;
 				PROVISIONING_PROFILE = "";
@@ -2270,6 +2280,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)",
 				);
+				GCC_PREPROCESSOR_DEFINITIONS = "";
 				INFOPLIST_FILE = Showroom/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2312,6 +2323,89 @@
 			};
 			name = Release;
 		};
+		1DE025261D48A46F00324178 /* AppStore */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = AppStore;
+		};
+		1DE025271D48A46F00324178 /* AppStore */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CI_BUILD_NUMBER = 1;
+				CI_BUILD_VERSION = 1.0;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = "APPSTORE=1";
+				INFOPLIST_FILE = Showroom/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "-D APPSTORE";
+				PRODUCT_BUNDLE_IDENTIFIER = com.showroom.Showroom;
+				PRODUCT_NAME = SHOWROOM;
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Showroom/Showroom-Bridging-Header.h";
+			};
+			name = AppStore;
+		};
+		1DE025281D48A46F00324178 /* AppStore */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = ShowroomTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.showroom.ShowroomTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SHOWROOM.app/SHOWROOM";
+			};
+			name = AppStore;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2320,6 +2414,7 @@
 			buildConfigurations = (
 				1D2F19561CE9CE250099142E /* Debug */,
 				1D2F19571CE9CE250099142E /* Release */,
+				1DE025261D48A46F00324178 /* AppStore */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -2329,6 +2424,7 @@
 			buildConfigurations = (
 				1D2F19591CE9CE250099142E /* Debug */,
 				1D2F195A1CE9CE250099142E /* Release */,
+				1DE025271D48A46F00324178 /* AppStore */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -2338,6 +2434,7 @@
 			buildConfigurations = (
 				1D2F195C1CE9CE250099142E /* Debug */,
 				1D2F195D1CE9CE250099142E /* Release */,
+				1DE025281D48A46F00324178 /* AppStore */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

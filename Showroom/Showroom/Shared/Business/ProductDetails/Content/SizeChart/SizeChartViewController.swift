@@ -34,6 +34,7 @@ class SizeChartViewController: UIViewController, SizeChartViewDelegate {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         castView.updateHeaderBackground(true)
+        logAnalyticsShowScreen(.ProductSizeChart)
     }
     
     override func viewDidAppear(animated: Bool) {

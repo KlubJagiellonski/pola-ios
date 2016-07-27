@@ -14,7 +14,7 @@ func logError(text: String, functionName: String = #function, fileName: String =
     Logging.error(text, functionName: functionName, fileName: fileName, lineNumber: lineNumber)
 }
 
-class Logging {
+final class Logging {
     static let xcgLogger = XCGLogger.defaultInstance()
 
     static func configure() {

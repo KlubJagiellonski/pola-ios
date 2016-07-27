@@ -36,6 +36,11 @@ class TrendProductListViewController: UIViewController, ProductListViewControlle
         fetchFirstPage()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        logAnalyticsShowScreen(.Trend)
+    }
+    
     func updateData(with data: EntryTrendInfo) {
         guard data.slug != model.entryTrendInfo.slug else {
             logInfo("Tried to update same trend info view")

@@ -23,6 +23,11 @@ class HistoryOfOrderViewController: UIViewController, HistoryOfOrderViewDelegate
         castView.delegate = self
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        logAnalyticsShowScreen(.OrdersHistory)
+    }
+    
     func historyOfOrderViewdidTapGoToWebsite(view: HistoryOfOrderView) {
         logInfo("historyOfOrderViewdidTapGoToWebsite")
         UIApplication.sharedApplication().openURL(NSURL(string: "https://www.showroom.pl/c/orders")!)

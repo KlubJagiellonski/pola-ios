@@ -39,6 +39,11 @@ class CategoryProductListViewController: UIViewController, ProductListViewContro
         fetchFirstPage()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        logAnalyticsShowScreen(.ProductList)
+    }
+    
     func updateData(with entryCategory: EntryCategory) {
         title = entryCategory.name
         disposeBag = DisposeBag()

@@ -37,6 +37,8 @@ class UserInfoViewController: UIViewController, UserInfoViewDelegate {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+     
+        logAnalyticsShowScreen(.UserData)
         
         // TODO: remove after testing
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UserInfoViewController.test), name: UIApplicationDidBecomeActiveNotification, object: nil)

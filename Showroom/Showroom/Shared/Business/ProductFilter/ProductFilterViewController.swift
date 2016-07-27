@@ -27,6 +27,11 @@ class ProductFilterViewController: UIViewController, ProductFilterViewDelegate {
         castView.delegate = self
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        logAnalyticsShowScreen(.Filter)
+    }
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         

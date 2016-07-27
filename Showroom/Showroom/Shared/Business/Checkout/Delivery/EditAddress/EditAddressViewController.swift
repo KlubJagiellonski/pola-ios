@@ -28,6 +28,11 @@ class EditAddressViewController: UIViewController, EditAddressViewDelegate {
         castView.delegate = self
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        logAnalyticsShowScreen(.CheckoutDeliveryEditAddress)
+    }
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         castView.registerOnKeyboardEvent()

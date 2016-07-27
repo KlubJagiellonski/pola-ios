@@ -37,6 +37,11 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewDelegate
         castView.updatePageCount(withNewProductsAmount: model.productsCount)
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        logAnalyticsShowScreen(.ProductDetails)
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         if !firstLayoutSubviewsPassed {

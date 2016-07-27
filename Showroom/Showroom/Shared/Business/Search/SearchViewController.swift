@@ -33,6 +33,11 @@ final class SearchViewController: UIViewController, SearchViewDelegate {
         fetchSearchItems()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        logAnalyticsShowScreen(.Search)
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         if !firstLayoutSubviewsPassed {

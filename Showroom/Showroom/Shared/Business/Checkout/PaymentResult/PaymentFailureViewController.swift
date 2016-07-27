@@ -24,6 +24,11 @@ class PaymentFailureViewController: UIViewController, PaymentFailureViewDelegate
         castView.delegate = self
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        logAnalyticsShowScreen(.CheckoutError)
+    }
+    
     func paymentFailureViewDidTapLink(view: PaymentFailureView) {
         logInfo("paymentFailureViewDidTapLink")
 

@@ -39,6 +39,11 @@ class BrandProductListViewController: UIViewController, ProductListViewControlle
         fetchFirstPage()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        logAnalyticsShowScreen(.Brand)
+    }
+    
     func updateData(with entryProductBrand: EntryProductBrand) {
         guard entryProductBrand.id != model.productBrand.id else {
             logInfo("Tried to update same brand info view")

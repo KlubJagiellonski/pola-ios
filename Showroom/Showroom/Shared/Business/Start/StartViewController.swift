@@ -25,6 +25,11 @@ class StartViewController: UIViewController, StartViewDelegate {
         castView.delegate = self
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        logAnalyticsShowScreen(.Start)
+    }
+    
     // MARK: - StartViewDelegate
     
     func startViewDidTapLogin() {

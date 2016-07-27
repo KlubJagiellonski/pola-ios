@@ -24,6 +24,11 @@ class PaymentSuccessViewController: UIViewController, PaymentSuccessViewDelegate
         castView.delegate = self
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        logAnalyticsShowScreen(.CheckoutSuccess)
+    }
+    
     func paymentSuccessViewDidTapLink(view: PaymentSuccessView) {
         logInfo("paymentSuccessViewDidTapLink")
         

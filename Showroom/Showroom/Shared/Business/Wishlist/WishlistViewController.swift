@@ -38,6 +38,7 @@ class WishlistViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         manager.synchronize()
+        logAnalyticsShowScreen(.Wishlist)
     }
     
     func updateData(with products: [ListProduct]) {

@@ -39,6 +39,11 @@ class SearchProductListViewController: UIViewController, ProductListViewControll
         fetchFirstPage()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        logAnalyticsShowScreen(.SearchProducts)
+    }
+    
     func updateData(with data: EntrySearchInfo) {
         disposeBag = DisposeBag()
         model.update(with: data)

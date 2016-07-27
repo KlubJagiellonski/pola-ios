@@ -26,6 +26,11 @@ class OnboardingViewController: UIViewController, OnboardingViewDelegate {
         castView.delegate = self
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        logAnalyticsShowScreen(.Onboarding)
+    }
+    
     // MARK:- OnboardingViewDelegate
     
     func onboardingDidTapSkip(view: OnboardingView) {

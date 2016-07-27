@@ -33,6 +33,11 @@ class DashboardViewController: UIViewController, DashboardViewDelegate {
         castView.recommendationViewSwitcherState = .Loading
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        logAnalyticsShowScreen(.Dashboard)
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         if !firstLayoutSubviewsPassed {

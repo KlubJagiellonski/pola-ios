@@ -29,6 +29,11 @@ class RegistrationViewController: UIViewController, RegistrationViewDelegate {
         castView.delegate = self
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        logAnalyticsShowScreen(.Register)
+    }
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         castView.registerOnKeyboardEvent()

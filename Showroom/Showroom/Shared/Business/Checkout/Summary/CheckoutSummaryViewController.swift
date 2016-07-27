@@ -30,6 +30,11 @@ final class CheckoutSummaryViewController: UIViewController, CheckoutSummaryView
         castView.updateData(with: manager.state.basket, carrier: manager.state.deliveryCarrier, discountCode: discountCode, comments: model.state.comments)
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        logAnalyticsShowScreen(.CheckoutSummary)
+    }
+    
     private func showCommentModal(forComment comment: String?, at index: Int)
     {
         let viewController = resolver.resolve(CheckoutSummaryCommentViewController.self, arguments: (comment, index))

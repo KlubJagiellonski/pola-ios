@@ -76,6 +76,11 @@ class SettingsViewController: UIViewController {
         updateSettings(with: userManager.user)
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        logAnalyticsShowScreen(.Settings)
+    }
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -136,26 +141,32 @@ class SettingsViewController: UIViewController {
     
     func howToMeasureRowPressed() {
         logInfo("howToMeasureRowPressed")
+        
+        logAnalyticsShowScreen(.HowToMeasure)
         sendNavigationEvent(ShowSettingsWebViewEvent(title: tr(.SettingsHowToMeasure), url: "https://www.showroom.pl/d/jak-sie-mierzyc"))
     }
     
     func privacyPolicyRowPressed() {
-        logInfo("privacyPolicyRowPressed")                
+        logInfo("privacyPolicyRowPressed")
+        logAnalyticsShowScreen(.Policy)
         sendNavigationEvent(ShowSettingsWebViewEvent(title: tr(.SettingsPrivacyPolicy), url: "https://dysk.shwrm.net/marketing/images/pliki/SHWRM5PolitykaPrywatnosci.pdf"))
     }
     
     func frequentQuestionsRowPressed() {
         logInfo("frequentQuestionsRowPressed")
+        logAnalyticsShowScreen(.FAQ)
         sendNavigationEvent(ShowSettingsWebViewEvent(title: tr(.SettingsFrequentQuestions), url: "https://www.showroom.pl/czeste-pytania"))
     }
     
     func rulesRowPressed() {
         logInfo("rulesRowPressed")
+        logAnalyticsShowScreen(.Rules)
         sendNavigationEvent(ShowSettingsWebViewEvent(title: tr(.SettingsRules), url: "https://www.showroom.pl/d/nowy-regulamin"))
     }
     
     func contactRowPressed() {
         logInfo("contactRowPressed")
+        logAnalyticsShowScreen(.Contact)
         sendNavigationEvent(ShowSettingsWebViewEvent(title: tr(.SettingsContact), url: "https://www.showroom.pl/kontakt"))
     }
 }

@@ -20,4 +20,9 @@ class BrandDescriptionViewController: UIViewController, ExtendedViewController {
     override func loadView() {
         view = BrandDescriptionView(with: brand)
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        logAnalyticsShowScreen(.BrandDescription)
+    }
 }
