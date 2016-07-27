@@ -27,6 +27,19 @@ extension UINavigationBar {
         applyBackButtonStyle()
     }
     
+    func applyTranslucentPopupStyle() {
+        translucent = true
+        shadowImage = UIImage()
+        setBackgroundImage(UIImage(), forBarMetrics: .Default)
+        titleTextAttributes = [
+            NSForegroundColorAttributeName: UIColor(named: .Black),
+            NSFontAttributeName: UIFont(fontType: .Bold)
+        ]
+        tintColor = UIColor(named: .Black)
+        
+        applyBackButtonStyle()
+    }
+    
     func applyWhitePopupStyle() {
         barTintColor = UIColor(named: .White)
         translucent = false

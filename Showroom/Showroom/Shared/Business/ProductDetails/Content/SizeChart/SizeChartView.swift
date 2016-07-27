@@ -2,20 +2,11 @@ import Foundation
 import UIKit
 import SnapKit
 
-protocol SizeChartViewDelegate: class {
-    func sizeChartDidTapBack(view: SizeChartView)
-}
-
 class SizeChartView: UIView {
-    private let headerHeight: CGFloat = 50
+    private let headerHeight: CGFloat = Dimensions.navigationBarHeight
     
-    private let headerView = UIView()
     private let headerBackgroundView = UIView()
-    private let headerLabel = UILabel()
-    private let backButton = UIButton()
     private let mainScrollView: SizeChartMainScrollView
-    
-    weak var delegate: SizeChartViewDelegate?
     
     var contentInset: UIEdgeInsets? {
         didSet {
@@ -24,6 +15,10 @@ class SizeChartView: UIView {
             mainScrollView.scrollIndicatorInsets = contentInset ?? UIEdgeInsetsZero
         }
     }
+    var headerHidden: Bool {
+        set { headerBackgroundView.hidden = newValue }
+        get { return headerBackgroundView.hidden }
+    }
     
     init(sizes: [ProductDetailsSize]) {
         mainScrollView = SizeChartMainScrollView(sizes: sizes)
@@ -31,16 +26,7 @@ class SizeChartView: UIView {
         
         headerBackgroundView.backgroundColor = UIColor(named: .White)
         
-        backButton.setImage(UIImage(asset: .Ic_back), forState: .Normal)
-        backButton.addTarget(self, action: #selector(SizeChartView.didTapBackButton), forControlEvents: .TouchUpInside)
-        
-        headerLabel.text = tr(.ProductDetailsSizeChartUppercase)
-        headerLabel.font = UIFont(fontType: .Bold)
-        
-        headerView.addSubview(headerBackgroundView)
-        headerView.addSubview(headerLabel)
-        headerView.addSubview(backButton)
-        addSubview(headerView)
+        addSubview(headerBackgroundView)
         addSubview(mainScrollView)
         
         configureCustomConstraints()
@@ -50,10 +36,6 @@ class SizeChartView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func didTapBackButton(button: UIButton) {
-        delegate?.sizeChartDidTapBack(self)
-    }
-    
     override func layoutSubviews() {
         super.layoutSubviews()
         mainScrollView.invalidateShadows()
@@ -61,36 +43,25 @@ class SizeChartView: UIView {
     
     func updateHeaderBackground(visible: Bool, animationDuration: NSTimeInterval = 0) {
         headerBackgroundView.alpha = visible ? 0 : 1
-        UIView.animateWithDuration(animationDuration) {
+        headerBackgroundView.hidden = false
+        UIView.animateWithDuration(animationDuration, animations: {
             self.headerBackgroundView.alpha = visible ? 1 : 0
+        }) { _ in
+            self.headerBackgroundView.hidden = visible ? false : true
+            self.headerBackgroundView.alpha = 1
         }
     }
 
     private func configureCustomConstraints() {
-        headerView.snp_makeConstraints { make in
+        headerBackgroundView.snp_makeConstraints { make in
             make.top.equalToSuperview()
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
             make.height.equalTo(headerHeight)
         }
         
-        headerBackgroundView.snp_makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        
-        backButton.snp_makeConstraints { make in
-            make.leading.equalToSuperview()
-            make.top.equalToSuperview()
-            make.bottom.equalToSuperview()
-            make.width.equalTo(backButton.snp_height)
-        }
-        
-        headerLabel.snp_makeConstraints { make in
-            make.center.equalToSuperview()
-        }
-        
         mainScrollView.snp_makeConstraints { make in
-            make.top.equalTo(headerView.snp_bottom)
+            make.top.equalTo(headerBackgroundView.snp_bottom)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
             make.bottom.equalToSuperview()

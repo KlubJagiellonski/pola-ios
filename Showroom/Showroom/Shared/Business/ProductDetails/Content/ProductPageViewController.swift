@@ -6,15 +6,14 @@ protocol ProductPageViewControllerDelegate: class {
     func productPage(page: ProductPageViewController, willChangeProductPageViewState newViewState: ProductPageViewState, animationDuration: Double?)
 }
 
-class ProductPageViewController: UIViewController, ProductPageViewDelegate, ProductDescriptionViewControllerDelegate {
+class ProductPageViewController: UIViewController, ProductPageViewDelegate {
     
     var viewContentInset: UIEdgeInsets?
     weak var delegate: ProductPageViewControllerDelegate?
     
     private let model: ProductPageModel
     private var castView: ProductPageView { return view as! ProductPageView }
-    private weak var contentNavigationController: UINavigationController?
-    private weak var descriptionViewController: ProductDescriptionViewController?
+    private weak var contentNavigationController: ProductDescriptionNavigationController?
     private let resolver: DiResolver
     private let disposeBag = DisposeBag()
     private let actionAnimator = DropUpActionAnimator(height: 207)
@@ -32,18 +31,13 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate, Prod
     }
     
     override func loadView() {
-        let descriptionViewController = resolver.resolve(ProductDescriptionViewController.self, argument: model.state)
-        descriptionViewController.viewContentInset = viewContentInset
-        descriptionViewController.delegate = self
-        let navigationController = UINavigationController(rootViewController: descriptionViewController)
-        navigationController.navigationBarHidden = true
-        navigationController.delegate = self
-        addChildViewController(navigationController)
-        view = ProductPageView(contentView: navigationController.view, descriptionViewInterface: descriptionViewController.view as! ProductDescriptionViewInterface, modelState: model.state, contentInset: viewContentInset)
-        navigationController.didMoveToParentViewController(self)
+        let descriptionNavigationController = resolver.resolve(ProductDescriptionNavigationController.self, arguments: (model.state, viewContentInset))
+        descriptionNavigationController.productDescriptionDelegate = self
+        addChildViewController(descriptionNavigationController)
+        view = ProductPageView(contentView: descriptionNavigationController.view, descriptionViewInterface: descriptionNavigationController.descriptionView, modelState: model.state, contentInset: viewContentInset)
+        descriptionNavigationController.didMoveToParentViewController(self)
         
-        self.contentNavigationController = navigationController
-        self.descriptionViewController = descriptionViewController
+        self.contentNavigationController = descriptionNavigationController
     }
     
     override func viewDidLoad() {
@@ -117,16 +111,13 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate, Prod
     }
     
     private func showSizeChart() {
-        guard let productDetails = model.state.productDetails else { return }
+        guard model.state.productDetails != nil else { return }
         
         if castView.viewState == .Default {
             castView.changeViewState(.ContentExpanded)
         }
         
-        let viewController = resolver.resolve(SizeChartViewController.self, argument: productDetails.sizes)
-        viewController.delegate = self
-        viewController.viewContentInset = viewContentInset
-        contentNavigationController?.pushViewController(viewController, animated: true)
+        contentNavigationController?.showSizeChart()
     }
     
     // MARK:- ProductPageViewDelegate
@@ -166,32 +157,28 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate, Prod
         castView.switcherState = model.state.product == nil ? .Loading : .Success
         fetchProductDetails()
     }
-    
-    // MARK :- ProductDescriptionViewControllerDelegate
-    
-    func descriptionViewDidTapSize(view: ProductDescriptionView) {
+}
+
+extension ProductPageViewController: ProductDescriptionNavigationControllerDelegate {
+    func productDescription(controller: ProductDescriptionNavigationController, didChangeVisibilityOfFirstChild firstChildVisibility: Bool) {
+        castView.contentGestureRecognizerEnabled = firstChildVisibility
+    }
+    func productDescriptionDidTapSize(controller: ProductDescriptionNavigationController) {
         showSizePicker()
     }
-    
-    func descriptionViewDidTapColor(view: ProductDescriptionView) {
+    func productDescriptionDidTapColor(controller: ProductDescriptionNavigationController) {
         guard let colors = model.pickerColors else { return }
         
         let colorViewController = resolver.resolve(ProductColorViewController.self, arguments: (colors, model.state.currentColor?.id))
         colorViewController.delegate = self
         actionAnimator.presentViewController(colorViewController, presentingViewController: self)
     }
-    
-    func descriptionViewDidTapSizeChart(view: ProductDescriptionView) {
-        showSizeChart()
-    }
-    
-    func descriptionViewDidTapOtherBrandProducts(view: ProductDescriptionView) {
+    func productDescriptionDidTapOtherBrandProducts(controller: ProductDescriptionNavigationController) {
         guard let product = model.state.productDetails else { return }
         let productBrand = EntryProductBrand(id: product.brand.id, name: product.brand.name)
         sendNavigationEvent(ShowBrandProductListEvent(productBrand: productBrand))
     }
-    
-    func descriptionViewDidTapAddToBasket(view: ProductDescriptionView) {
+    func productDescriptionDidTapAddToBasket(controller: ProductDescriptionNavigationController) {
         guard model.isSizeSet else {
             showSizePicker(withBuyMode: true)
             return
@@ -235,25 +222,5 @@ extension ProductPageViewController: ProductColorViewControllerDelegate {
 extension ProductPageViewController: DimAnimatorDelegate {
     func animatorDidTapOnDimView(animator: Animator) {
         actionAnimator.dismissViewController(presentingViewController: self)
-    }
-}
-
-extension ProductPageViewController: UINavigationControllerDelegate {
-    func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
-        if !(viewController is ProductDescriptionViewController) {
-            castView.contentGestureRecognizerEnabled = false
-        }
-    }
-    
-    func navigationController(navigationController: UINavigationController, didShowViewController viewController: UIViewController, animated: Bool) {
-        if viewController is ProductDescriptionViewController {
-            castView.contentGestureRecognizerEnabled = true
-        }
-    }
-}
-
-extension ProductPageViewController: SizeChartViewControllerDelegate {
-    func sizeChartDidTapBack(viewController: SizeChartViewController) {
-        contentNavigationController?.popViewControllerAnimated(true)
     }
 }

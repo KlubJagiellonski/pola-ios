@@ -60,6 +60,9 @@ class UIAssembly: AssemblyType {
         container.register(ProductPageModel.self) { r, productId, product in
             return ProductPageModel(api: r.resolve(ApiService.self)!, basketManager: r.resolve(BasketManager.self)!, storageManager: r.resolve(StorageManager.self)!, wishlistManager: r.resolve(WishlistManager.self)!, productId: productId, product: product)
         }
+        container.register(ProductDescriptionNavigationController.self) { r, state, contentInset in
+            return ProductDescriptionNavigationController(resolver: r.resolve(DiResolver.self)!, state: state, viewContentInset: contentInset)
+        }
         container.register(ProductSizeViewController.self) { r, sizes, selectedSizeId in
             return ProductSizeViewController(resolver: r.resolve(DiResolver.self)!, sizes: sizes, initialSelectedSizeId: selectedSizeId)
         }
