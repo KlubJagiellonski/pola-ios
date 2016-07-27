@@ -17,7 +17,7 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate, Prod
     private weak var descriptionViewController: ProductDescriptionViewController?
     private let resolver: DiResolver
     private let disposeBag = DisposeBag()
-    private let actionAnimator = DropUpActionAnimator(height: 216)
+    private let actionAnimator = DropUpActionAnimator(height: 207)
     private var firstLayoutSubviewsPassed = false
     
     init(resolver: DiResolver, productId: ObjectId, product: Product?) {
