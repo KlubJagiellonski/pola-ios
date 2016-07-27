@@ -26,5 +26,6 @@ struct Constants {
     struct Persistent {
         static let basketStateId = "basketStateId"
         static let currentUser = "currentUser"
+        static let wishlistState = "wishlistState"
     }
 }

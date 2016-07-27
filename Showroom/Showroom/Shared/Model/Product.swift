@@ -131,7 +131,7 @@ extension ProductListResult: Decodable {
     }
 }
 
-extension ListProduct: Decodable {
+extension ListProduct: Decodable, Encodable {
     static func decode(j: AnyObject) throws -> ListProduct {
         return try ListProduct(
             id: j => "id",
@@ -144,6 +144,21 @@ extension ListProduct: Decodable {
             premium: j => "premium",
             new: j => "new"
         )
+    }
+    
+    func encode() -> AnyObject {
+        let dict: NSMutableDictionary = [
+            "id": id,
+            "store": brand.encode(),
+            "name": name,
+            "msrp": basePrice.amount,
+            "price": price.amount,
+            "images": ["default": ["url": imageUrl]],
+            "free_delivery": freeDelivery,
+            "premium": premium,
+            "new": new
+        ]
+        return dict
     }
 }
 

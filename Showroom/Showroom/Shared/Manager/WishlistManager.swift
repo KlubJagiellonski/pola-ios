@@ -1,5 +1,6 @@
 import Foundation
 import RxSwift
+import Decodable
 
 final class WishlistManager {
     private let storageManager: StorageManager
@@ -11,13 +12,24 @@ final class WishlistManager {
     init(with storageManager: StorageManager) {
         self.storageManager = storageManager
         
-        state = WishlistState()
+        var wishlistState: WishlistState? = nil
+        do {
+            wishlistState = try storageManager.load(Constants.Persistent.wishlistState)
+        } catch {
+            logError("Error while loading wishlist state from persistent storage: \(error)")
+        }
+        self.state = wishlistState ?? WishlistState()
     }
     
     func synchronize() {
         state.synchronizationState = WishlistSynchronizationState(synchronizing: true, synchronized: state.synchronizationState.synchronized)
         
         // TODO: Make API request
+        do {
+            try storageManager.save(Constants.Persistent.wishlistState, object: state)
+        } catch {
+            logError("Error while saving wihslist state to persistent storage: \(error)")
+        }
         
         state.synchronizationState = WishlistSynchronizationState(synchronizing: false, synchronized: true)
     }
@@ -36,10 +48,12 @@ final class WishlistManager {
     
     func removeFromWishlist(product: ListProduct) {
         state.wishlist.remove { $0.id == product.id }
+        synchronize()
     }
     
     func removeFromWishlistProduct(withId id: Int) {
         state.wishlist.remove { $0.id == id }
+        synchronize()
     }
     
     func createWishlistProductsContext(initialIndex: Int, onChangedForIndex: Int -> ()) -> ProductDetailsContext? {
@@ -74,5 +88,23 @@ final class WishlistState {
     
     var synchronizationState = WishlistSynchronizationState(synchronizing: false, synchronized: false) {
         didSet { synchronizationStateObservable.onNext(synchronizationState) }
+    }
+}
+
+// MARK:- Encodable, Decodable
+
+extension WishlistState: Encodable, Decodable {
+    static func decode(json: AnyObject) throws -> WishlistState {
+        let state = WishlistState()
+        state.wishlist = try json => "wishlist"
+        return state
+    }
+    
+    func encode() -> AnyObject {
+        let wishlistArray: NSMutableArray = []
+        for product in wishlist {
+            wishlistArray.addObject(product.encode())
+        }
+        return ["wishlist": wishlistArray]
     }
 }
