@@ -107,10 +107,12 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
         
         wishlistButton.setImage(UIImage(asset: .Ic_do_ulubionych), forState: .Normal)
         wishlistButton.setImage(UIImage(asset: .Ic_w_ulubionych), forState: .Selected)
+        wishlistButton.imageEdgeInsets = UIEdgeInsetsMake(2, 0, 0, 0)
         wishlistButton.addTarget(self, action: #selector(ProductPageView.didTapWishlistButton(_:)), forControlEvents: .TouchUpInside)
         wishlistButton.applyCircleStyle()
         
         shareButton.setImage(UIImage(asset: .Ic_share), forState: .Normal)
+        shareButton.imageEdgeInsets = UIEdgeInsetsMake(0, 1, 1, 0)
         shareButton.addTarget(self, action: #selector(ProductPageView.didTapShareButton(_:)), forControlEvents: .TouchUpInside)
         shareButton.applyCircleStyle()
         
