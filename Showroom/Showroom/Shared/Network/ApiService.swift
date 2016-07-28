@@ -1,12 +1,21 @@
 import Foundation
 import RxSwift
 
-struct ApiService {
+class ApiService {
     let networkClient: NetworkClient
+    weak var userManager: UserManager?
     
     var basePath: String {
         return Constants.baseUrl
     }
+    
+    init(networkClient: NetworkClient) {
+        self.networkClient = networkClient
+    }
+}
+
+enum ApiError: ErrorType {
+    case NoSession
 }
 
 extension ApiService {
@@ -182,6 +191,28 @@ extension ApiService {
         } catch {
             return Observable.error(error)
         }
+    }
+    
+    func logout() -> Observable<Void> {
+        guard let session = userManager?.session else {
+            return Observable.error(ApiError.NoSession)
+        }
+        
+        let url = NSURL(fileURLWithPath: basePath)
+            .URLByAppendingPathComponent("logout")
+        let urlRequest = NSMutableURLRequest(URL: url)
+        urlRequest.HTTPMethod = "DELETE"
+        urlRequest.applySessionHeaders(session)
+        return networkClient.request(withRequest: urlRequest).flatMap { data -> Observable<Void> in
+            return Observable.just()
+        }
+    }
+}
+
+extension NSMutableURLRequest {
+    func applySessionHeaders(session: Session) {
+        setValue(session.userKey, forHTTPHeaderField: "showroom-key")
+        setValue(session.userSecret, forHTTPHeaderField: "showroom-secret")
     }
 }
 

@@ -165,8 +165,8 @@ class UserManager {
     }
     
     func logout() {
+        apiService.logout().subscribe().addDisposableTo(disposeBag)
         self.userSession = nil
-        // TODO: Api call
     }
 }
 

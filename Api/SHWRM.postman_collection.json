@@ -135,6 +135,31 @@
 				"description": ""
 			},
 			"response": []
+		},
+		{
+			"name": "LOGOUT",
+			"request": {
+				"url": "{{HOST}}/logout",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "showroom-key",
+						"value": "key",
+						"description": ""
+					},
+					{
+						"key": "showroom-secret",
+						"value": "secret",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
 		}
 	]
 }
