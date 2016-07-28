@@ -91,6 +91,10 @@ class ProductImageDataSource: NSObject, UICollectionViewDataSource {
         return nil
     }
     
+    func scrollToImage(atIndex index: Int) {
+        collectionView?.scrollToItemAtIndexPath(NSIndexPath(forItem: index, inSection: 0), atScrollPosition: .Top, animated: true)
+    }
+    
     private func loadImageForFirstItem(imageUrl: String, forCell cell: ProductImageCell) {
         cell.imageView.loadImageWithLowResImage(imageUrl, lowResUrl: lowResImageUrl, width: cell.bounds.width) { (image: UIImage) in
             cell.contentViewSwitcher.switcherState = .Success

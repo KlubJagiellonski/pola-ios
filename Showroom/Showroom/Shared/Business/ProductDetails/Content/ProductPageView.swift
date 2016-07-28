@@ -172,6 +172,10 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
         }
     }
     
+    func scrollToImage(atIndex index: Int) {
+        imageDataSource.scrollToImage(atIndex: index)
+    }
+    
     private func configureCustomConstraints() {
         imageCollectionView.snp_makeConstraints { make in
             make.edges.equalToSuperview()

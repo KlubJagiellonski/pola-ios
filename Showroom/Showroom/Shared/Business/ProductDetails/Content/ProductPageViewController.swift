@@ -212,6 +212,8 @@ extension ProductPageViewController: ProductColorViewControllerDelegate {
     func productColor(viewController viewController: ProductColorViewController, didChangeColor colorId: ObjectId) {
         actionAnimator.dismissViewController(presentingViewController: self)
         model.changeSelectedColor(forColorId: colorId)
+        guard let imageIndex = model.state.productDetails?.images.indexOf({ $0.color == colorId }) else { return }
+        castView.scrollToImage(atIndex: imageIndex)
     }
     
     func productColor(viewController viewController: ProductColorViewController, wantsDismissWithAnimation animation: Bool) {

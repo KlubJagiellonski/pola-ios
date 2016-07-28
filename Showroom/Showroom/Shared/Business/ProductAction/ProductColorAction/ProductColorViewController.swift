@@ -6,8 +6,9 @@ protocol ProductColorViewControllerDelegate: class {
 }
 
 class ProductColorViewController: UIViewController, ProductColorViewDelegate {
-    let colors: [ProductColor]
-    let initialSelectedColorId: ObjectId?
+    private let colors: [ProductColor]
+    private let initialSelectedColorId: ObjectId?
+    private var firstLayoutSubviewsPassed = false
     
     var castView: ProductColorView { return view as! ProductColorView }
     
@@ -32,7 +33,14 @@ class ProductColorViewController: UIViewController, ProductColorViewDelegate {
         
         castView.delegate = self
         castView.updateData(colors)
-        castView.selectedIndex = colors.indexOf { $0.id == initialSelectedColorId }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if !firstLayoutSubviewsPassed {
+            firstLayoutSubviewsPassed = true
+            castView.selectedIndex = colors.indexOf { $0.id == initialSelectedColorId }
+        }
     }
     
     // MARK :- ProductColorViewDelegate
