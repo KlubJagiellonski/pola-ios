@@ -24,11 +24,13 @@ class LoginView: ViewSwitcher {
     var contentValidators: [ContentValidator] = []
     
     var email: String? {
-        return emailField.inputTextField.text
+        get { return emailField.inputTextField.text }
+        set { emailField.inputTextField.text = newValue }
     }
     
     var password: String? {
-        return passwordField.inputTextField.text
+        get { return passwordField.inputTextField.text }
+        set { passwordField.inputTextField.text = newValue }
     }
     
     weak var delegate: LoginViewDelegate?

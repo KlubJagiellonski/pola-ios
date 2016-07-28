@@ -77,3 +77,11 @@ extension UIViewController {
         }
     }
 }
+
+extension UIResponder {
+    func markHandoffUrlActivity(withPath path: String) {
+        let userActivity = NSUserActivity(activityType: NSBundle.mainBundle().bundleIdentifier!.stringByAppendingString(".browsing"))
+        userActivity.webpageURL = NSURL(string: "\(Constants.websiteUrl)\(path)")
+        self.userActivity = userActivity
+    }
+}

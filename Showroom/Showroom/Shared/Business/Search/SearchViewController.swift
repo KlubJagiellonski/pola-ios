@@ -38,6 +38,11 @@ final class SearchViewController: UIViewController, SearchViewDelegate {
         logAnalyticsShowScreen(.Search)
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        markHandoffUrlActivity(withPath: "/")
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         if !firstLayoutSubviewsPassed {

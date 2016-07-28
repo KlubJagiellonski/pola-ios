@@ -41,6 +41,11 @@ class WishlistViewController: UIViewController {
         logAnalyticsShowScreen(.Wishlist)
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        markHandoffUrlActivity(withPath: "/c/wishlist")
+    }
+    
     func updateData(with products: [ListProduct]) {
         castView.updateData(with: products)
         

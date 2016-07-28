@@ -38,6 +38,12 @@ class DashboardViewController: UIViewController, DashboardViewDelegate {
         logAnalyticsShowScreen(.Dashboard)
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        markHandoffUrlActivity(withPath: "/")
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         if !firstLayoutSubviewsPassed {

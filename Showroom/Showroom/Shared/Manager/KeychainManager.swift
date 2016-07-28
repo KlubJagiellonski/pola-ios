@@ -1,5 +1,6 @@
 import Foundation
 import Security
+import RxSwift
 
 // taken from http://stackoverflow.com/questions/25513106/trying-to-use-keychainitemwrapper-by-apple-translated-to-swift
 
@@ -45,5 +46,34 @@ class KeychainManager: NSObject {
             passcode = nil
         }
         return passcode as? String
+    }
+    
+    func fetchSharedWebCredentials() -> Observable<SharedWebCredential> {
+        return Observable.create { observer in
+            SecRequestSharedWebCredential(Constants.websiteDomain, nil) { array, error in
+                if let array = array as Array?, dictionary = array.first as? NSDictionary, let credential = SharedWebCredential(dictionary: dictionary) {
+                    observer.onNext(credential)
+                } else {
+                    observer.onError(SharedWebCredentialsError.Unknown(error))
+                }
+                observer.onCompleted()
+            }
+            
+            return NopDisposable.instance
+        }
+    }
+    
+    func addSharedWebCredentials(credentials: SharedWebCredential) -> Observable<Void> {
+        return Observable.create { observer in
+            SecAddSharedWebCredential(Constants.websiteDomain, credentials.account, credentials.password) { error in
+                if let error = error {
+                    observer.onError(error)
+                } else {
+                    observer.onNext()
+                }
+                observer.onCompleted()
+            }
+            return NopDisposable.instance
+        }
     }
 }

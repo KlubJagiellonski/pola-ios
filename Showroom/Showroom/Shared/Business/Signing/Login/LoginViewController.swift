@@ -29,6 +29,10 @@ class LoginViewController: UIViewController, LoginViewDelegate {
         super.viewDidLoad()
         
         castView.delegate = self
+        userManager.fetchSharedWebCredentials().subscribeNext { [weak self] credential in
+            self?.castView.email = credential.account
+            self?.castView.password = credential.password
+        }.addDisposableTo(disposeBag)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -96,7 +100,7 @@ class LoginViewController: UIViewController, LoginViewDelegate {
         castView.switcherState = .ModalLoading
         
         userManager
-            .login(withEmail: email, password: password)
+            .login(with: Login(username: email, password: password))
             .subscribe { [weak self] event in self?.handleLoginResult(event) }
             .addDisposableTo(disposeBag)
     }

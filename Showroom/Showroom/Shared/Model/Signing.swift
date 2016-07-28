@@ -40,6 +40,30 @@ struct Session {
     let userSecret: String
 }
 
+struct SharedWebCredential {
+    let domain: String?
+    let account: String
+    let password: String?
+    
+    init(account: String, password: String) {
+        self.account = account
+        self.password = password
+        self.domain = nil
+    }
+    init?(dictionary: NSDictionary) {
+        let dict = dictionary as Dictionary
+        
+        guard let domain = dict[kSecAttrServer] as? String,
+            account = dict[kSecAttrAccount] as? String,
+            password = dict[kSecSharedPassword] as? String
+            else { return nil }
+        
+        self.domain = domain
+        self.account = account
+        self.password = password
+    }
+}
+
 // MARK: - Errors
 
 enum SigningError: ErrorType {
@@ -63,6 +87,9 @@ struct SigningFieldsErrors {
     let newsletter: String?
 }
 
+enum SharedWebCredentialsError: ErrorType {
+    case Unknown(CFError?)
+}
 
 // MARK: - Decodable, Encodable
 
@@ -129,4 +156,12 @@ extension SigningFieldsErrors: Decodable {
             newsletter: json =>? "newsletter"
         )
     }
+}
+
+// MARK:- Equatable
+
+extension SharedWebCredential: Equatable {}
+
+func ==(lhs: SharedWebCredential, rhs: SharedWebCredential) -> Bool {
+    return lhs.account == rhs.account && lhs.password == rhs.password
 }

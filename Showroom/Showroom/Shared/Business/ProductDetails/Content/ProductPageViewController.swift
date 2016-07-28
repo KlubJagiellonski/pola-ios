@@ -55,6 +55,11 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
         castView.updateWishlistButton(selected: model.isOnWishlist)
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        markHandoffUrlActivity(withPath: "/p/\(model.productId)")
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         if !firstLayoutSubviewsPassed {

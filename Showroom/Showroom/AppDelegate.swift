@@ -31,9 +31,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation) {
             return true
         }
+        if let payUManager = assembler.resolver.resolve(PayUManager.self) where payUManager.handleOpen(withURL: url) {
+            return true
+        }
         logInfo("Received url \(url) with options: \(sourceApplication)")
-        guard let deepLinkingHandler = window?.rootViewController as? DeepLinkingHandler else { return false }
-        return deepLinkingHandler.handleOpen(withURL: url)
+        return handleOpen(withURL: url)
+    }
+    
+    func application(application: UIApplication, continueUserActivity userActivity: NSUserActivity, restorationHandler: ([AnyObject]?) -> Void) -> Bool {
+        logInfo("Received continueUserActivity \(userActivity)")
+        if let webPageUrl = userActivity.webpageURL where userActivity.activityType == NSUserActivityTypeBrowsingWeb {
+            return handleOpen(withURL: webPageUrl)
+        }
+        return false
     }
     
     private func configureDependencies() {
@@ -42,5 +52,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if !Constants.isDebug {
             Fabric.with([Crashlytics.self])
         }
+    }
+}
+
+extension AppDelegate: DeepLinkingHandler {
+    func handleOpen(withURL url: NSURL) -> Bool {
+        guard let deepLinkingHandler = window?.rootViewController as? DeepLinkingHandler else { return false }
+        return deepLinkingHandler.handleOpen(withURL: url)
     }
 }

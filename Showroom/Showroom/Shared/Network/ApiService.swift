@@ -149,12 +149,11 @@ extension ApiService {
         }
     }
     
-    func login(withEmail email: String, password: String) -> Observable<SigningResult> {
+    func login(with login: Login) -> Observable<SigningResult> {
         let url = NSURL(fileURLWithPath: basePath)
             .URLByAppendingPathComponent("login")
         
         do {
-            let login = Login(username: email, password: password)
             let jsonData = try NSJSONSerialization.dataWithJSONObject(login.encode(), options: [])
             let urlRequest = NSMutableURLRequest(URL: url)
             urlRequest.HTTPMethod = "POST"

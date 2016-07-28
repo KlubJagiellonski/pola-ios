@@ -14,6 +14,8 @@ struct Constants {
     #endif
     
     static let baseUrl = "https://api.showroom.pl/ios/v1"
+    static let websiteDomain = "www.showroom.pl"
+    static let websiteUrl = "https://\(Constants.websiteDomain)"
     static let appScheme = NSBundle.appScheme
     
     #if APPSTORE
@@ -39,5 +41,9 @@ struct Constants {
         static let basketStateId = "basketStateId"
         static let currentUser = "currentUser"
         static let wishlistState = "wishlistState"
+    }
+    
+    struct ActivityType {
+        static let browsing = NSBundle.mainBundle().bundleIdentifier!.stringByAppendingString(".browsing")
     }
 }

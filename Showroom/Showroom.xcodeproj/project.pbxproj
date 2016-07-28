@@ -81,6 +81,7 @@
 		1D49FC901D4A021A00A3832F /* include in Resources */ = {isa = PBXBuildFile; fileRef = 1D49FC8F1D4A021A00A3832F /* include */; };
 		1D49FC961D4A023800A3832F /* PayUOneClickSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1D49FC951D4A023700A3832F /* PayUOneClickSDK.bundle */; };
 		1D49FC981D4A17A500A3832F /* NSBundleUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D49FC971D4A17A500A3832F /* NSBundleUtils.swift */; };
+		1D49FC9A1D4A307900A3832F /* SHOWROOM.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 1D49FC991D4A290800A3832F /* SHOWROOM.entitlements */; };
 		1D5886E01D2BBE26007D0CB1 /* TrendProductListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5886DF1D2BBE26007D0CB1 /* TrendProductListViewController.swift */; };
 		1D5886E21D2BBE66007D0CB1 /* TrendProductListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5886E11D2BBE66007D0CB1 /* TrendProductListView.swift */; };
 		1D5886E41D2BDB31007D0CB1 /* TrendProductListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5886E31D2BDB31007D0CB1 /* TrendProductListModel.swift */; };
@@ -448,6 +449,7 @@
 		1D49FC921D4A022600A3832F /* libPayU-iOS-SDK-Oneclick_Release.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPayU-iOS-SDK-Oneclick_Release.a"; path = "Frameworks/libPayU-iOS-SDK-Oneclick_Release.a"; sourceTree = "<group>"; };
 		1D49FC951D4A023700A3832F /* PayUOneClickSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = PayUOneClickSDK.bundle; sourceTree = "<group>"; };
 		1D49FC971D4A17A500A3832F /* NSBundleUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSBundleUtils.swift; sourceTree = "<group>"; };
+		1D49FC991D4A290800A3832F /* SHOWROOM.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SHOWROOM.entitlements; sourceTree = "<group>"; };
 		1D5886DF1D2BBE26007D0CB1 /* TrendProductListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendProductListViewController.swift; sourceTree = "<group>"; };
 		1D5886E11D2BBE66007D0CB1 /* TrendProductListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendProductListView.swift; sourceTree = "<group>"; };
 		1D5886E31D2BDB31007D0CB1 /* TrendProductListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendProductListModel.swift; sourceTree = "<group>"; };
@@ -838,6 +840,7 @@
 		1D2F193D1CE9CE250099142E /* Showroom */ = {
 			isa = PBXGroup;
 			children = (
+				1D49FC991D4A290800A3832F /* SHOWROOM.entitlements */,
 				1D2CAC441D460A8E00F678FA /* Showroom-Bridging-Header.h */,
 				1DD1EA5B1CEC5B5B00D99731 /* Resources */,
 				1D2F195E1CE9CE7B0099142E /* Shared */,
@@ -1788,6 +1791,11 @@
 					1D2F193A1CE9CE250099142E = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = 73PWPNSU5Y;
+						SystemCapabilities = {
+							com.apple.SafariKeychain = {
+								enabled = 1;
+							};
+						};
 					};
 					1D2F194E1CE9CE250099142E = {
 						CreatedOnToolsVersion = 7.3;
@@ -1824,6 +1832,7 @@
 				1D04534A1CFDD87E001CC5A2 /* Lato-Bold.ttf in Resources */,
 				1D49FC901D4A021A00A3832F /* include in Resources */,
 				1DD1EA671CEC5D0000D99731 /* Localizable.strings in Resources */,
+				1D49FC9A1D4A307900A3832F /* SHOWROOM.entitlements in Resources */,
 				1D04534C1CFDD87E001CC5A2 /* Lato-Regular.ttf in Resources */,
 				C093671E1D0ACAE8004C7748 /* Assets.xcassets in Resources */,
 				1D49FC961D4A023800A3832F /* PayUOneClickSDK.bundle in Resources */,
@@ -2283,6 +2292,7 @@
 				CI_BUILD_NUMBER = 1;
 				CI_BUILD_VERSION = 1.0;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Showroom/SHOWROOM.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2320,6 +2330,7 @@
 				CI_BUILD_NUMBER = 1;
 				CI_BUILD_VERSION = 1.0;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Showroom/SHOWROOM.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2425,6 +2436,7 @@
 				CI_BUILD_NUMBER = 1;
 				CI_BUILD_VERSION = 1.0;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Showroom/SHOWROOM.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";

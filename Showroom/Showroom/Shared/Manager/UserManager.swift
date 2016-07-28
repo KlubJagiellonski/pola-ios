@@ -21,6 +21,12 @@ extension KeychainManager {
     }
 }
 
+extension FBSDKLoginManager {
+    var isLogged: Bool {
+        return FBSDKAccessToken.currentAccessToken() != nil
+    }
+}
+
 class UserManager {
     private static let skipStartScreenKey = "SkipStartScreen"
     private static let genderKey = "Gender"
@@ -32,6 +38,7 @@ class UserManager {
     private let storageManager: StorageManager
     private let disposeBag = DisposeBag()
     private let fbLoginManager = FBSDKLoginManager()
+    private var cachedSharedWebCredential: SharedWebCredential?
     
     let userObservable = PublishSubject<User?>()
     let sessionObservable = PublishSubject<Session?>()
@@ -91,16 +98,22 @@ class UserManager {
         userSession = UserSession(user: user, session: session)
     }
     
-    func login(withEmail email: String, password: String) -> Observable<SigningResult> {
-        return apiService.login(withEmail: email, password: password)
+    func fetchSharedWebCredentials() -> Observable<SharedWebCredential> {
+        return keychainManager.fetchSharedWebCredentials()
+            .observeOn(MainScheduler.instance)
+            .doOnNext { [weak self] credential in self?.cachedSharedWebCredential = credential }
+    }
+    
+    func login(with login: Login) -> Observable<SigningResult> {
+        return apiService.login(with: login)
             .observeOn(MainScheduler.instance)
             .doOnNext { [weak self] result in
                 if let `self` = self {
                     self.userSession = UserSession(user: result.user, session: result.session)
+                    self.updateSharedWebCredentialsIfNeeded(withUsername: login.username, password: login.password)
                 }
         }
             .catchError { [weak self] error in
-                logInfo(" test \(error)")
                 if let `self` = self {
                     self.userSession = nil
                 }
@@ -136,6 +149,7 @@ class UserManager {
             .doOnNext { [weak self] result in
                 if let `self` = self {
                     self.userSession = UserSession(user: result.user, session: result.session)
+                    self.updateSharedWebCredentialsIfNeeded(withUsername: registration.username, password: registration.password)
                 }
         }
             .catchError { [weak self] error in
@@ -181,9 +195,11 @@ class UserManager {
                 if error != nil {
                     logInfo("Facebook login error \(error)")
                     observer.onError(SigningError.FacebookError(error))
+                    observer.onCompleted()
                 } else if result.isCancelled {
                     logInfo("Facebook login cancelled")
                     observer.onError(SigningError.FacebookCancelled)
+                    observer.onCompleted()
                 } else {
                     logInfo("Facebook logged in to sdk")
                     self.loginWithFacebookToken(result.token).subscribe(observer).addDisposableTo(self.disposeBag)
@@ -210,6 +226,13 @@ class UserManager {
                 }
                 
                 return Observable.error(SigningError.Unknown)
+        }
+    }
+    
+    private func updateSharedWebCredentialsIfNeeded(withUsername username: String, password: String) {
+        let newCredentials = SharedWebCredential(account: username, password: password)
+        if cachedSharedWebCredential != newCredentials {
+            self.keychainManager.addSharedWebCredentials(newCredentials).subscribe().addDisposableTo(self.disposeBag)
         }
     }
     

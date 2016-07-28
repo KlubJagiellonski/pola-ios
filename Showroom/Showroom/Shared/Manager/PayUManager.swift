@@ -36,6 +36,10 @@ final class PayUManager {
     func paymentButton(withFrame frame: CGRect) -> UIView {
         return paymentService.paymentMethodWidgetWithFrame(frame)
     }
+    
+    func handleOpen(withURL url: NSURL) -> Bool {
+        return paymentService.handleOpenURL(url)
+    }
 }
 
 final class PayUAuthorizationDataSource: NSObject, PUAuthorizationDataSource {
