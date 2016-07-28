@@ -160,6 +160,26 @@
 				"description": ""
 			},
 			"response": []
+		},
+		{
+			"name": "FACEBOOK",
+			"request": {
+				"url": "{{HOST}}/login/facebook",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"access_token\": \"EAADRWxCT1FUBAF9ICmdpvtaXqQKlHTJQizBuAh7Pg90ZA3CMeZC5Dmj6qfmnRJUZCVTylhRyfASlLvBjuM7BZCNAsr6LTZCHu5Bz8MqcpFWMN2LXeftm4m3OOfMu7ZCZAUWqVshphDytqqZAUIG4phaFsS0ZBeLZCFsDU1u9ARvgVZAy0PQWJ6cSJJq8k5ll73sSF8ftrbxNahx1BUQZA5Kc9qPuEZBg8g2pZBfypvtIvpKfX3jwZDZD\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
 		}
 	]
 }
