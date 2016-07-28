@@ -339,6 +339,22 @@ enum L10n {
   case WishlistEmptyDescription
   /// Usuń
   case WishlistDelete
+  /// Dashboard
+  case QuickActionDashboard
+  /// Szukaj
+  case QuickActionSearch
+  /// Koszyk
+  case QuickActionBasket
+  /// Ulubione
+  case QuickActionWishlist
+  /// Profil
+  case QuickActionSettings
+  /// produkt
+  case QuickActionProductCountOne
+  /// produkty
+  case QuickActionProductCountTwoToFour
+  /// produktów
+  case QuickActionProductCountFiveAndMore
 }
 
 extension L10n: CustomStringConvertible {
@@ -682,6 +698,22 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Wishlist.Empty.Description")
       case .WishlistDelete:
         return L10n.tr("Wishlist.Delete")
+      case .QuickActionDashboard:
+        return L10n.tr("QuickAction.Dashboard")
+      case .QuickActionSearch:
+        return L10n.tr("QuickAction.Search")
+      case .QuickActionBasket:
+        return L10n.tr("QuickAction.Basket")
+      case .QuickActionWishlist:
+        return L10n.tr("QuickAction.Wishlist")
+      case .QuickActionSettings:
+        return L10n.tr("QuickAction.Settings")
+      case .QuickActionProductCountOne:
+        return L10n.tr("QuickAction.ProductCount.One")
+      case .QuickActionProductCountTwoToFour:
+        return L10n.tr("QuickAction.ProductCount.TwoToFour")
+      case .QuickActionProductCountFiveAndMore:
+        return L10n.tr("QuickAction.ProductCount.FiveAndMore")
     }
   }
 

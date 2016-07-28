@@ -32,6 +32,16 @@ class RootViewController: PresenterViewController, NavigationHandler {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func handleQuickActionShortcut(shortcut: ShortcutIdentifier) {
+        if let mainTabViewController = self.contentViewController as? MainTabViewController {
+            mainTabViewController.handleQuickActionShortcut(shortcut)
+        } else {
+            let mainTabViewController = resolver.resolve(MainTabViewController)
+            mainTabViewController.handleQuickActionShortcut(shortcut)
+            showContent(mainTabViewController, animation: nil, completion: nil)
+        }
+    }
+    
     // MARK: - NavigationHandler
     
     func handleNavigationEvent(event: NavigationEvent) -> EventHandled {

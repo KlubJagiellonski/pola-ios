@@ -166,3 +166,11 @@
 "Search.Back" = "Cofnij";
 "Wishlist.Empty.Description" = "Możesz łatwo dodawać produkty z\U00A0listy dwukrotnie stukając palcem w\U00A0ich zdjęcia.";
 "Wishlist.Delete" = "Usuń";
+"QuickAction.Dashboard" = "Dashboard";
+"QuickAction.Search" = "Szukaj";
+"QuickAction.Basket" = "Koszyk";
+"QuickAction.Wishlist" = "Ulubione";
+"QuickAction.Settings" = "Profil";
+"QuickAction.ProductCount.One" = "produkt";
+"QuickAction.ProductCount.TwoToFour" = "produkty";
+"QuickAction.ProductCount.FiveAndMore" = "produktów";

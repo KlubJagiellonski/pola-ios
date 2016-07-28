@@ -31,5 +31,9 @@ class ManagerAssembly: AssemblyType {
         container.register(PayUManager.self) { r in
             return PayUManager(api: r.resolve(ApiService.self)!, userManager: r.resolve(UserManager.self)!)
         }.inObjectScope(.Container)
+        
+        container.register(QuickActionManager.self) { r in
+            return QuickActionManager(resolver: r.resolve(DiResolver.self)!)
+        }.inObjectScope(.Container)
     }
 }

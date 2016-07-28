@@ -134,6 +134,26 @@ class MainTabViewController: UITabBarController, NavigationHandler {
         return viewController
     }
     
+    func handleQuickActionShortcut(shortcut: ShortcutIdentifier) {
+        switch shortcut {
+        case .Dashboard:
+            logInfo("handleQuickActionShortcut: Dashboard")
+            selectedIndex = MainTabChildControllerType.Dashboard.rawValue
+        case .Search:
+            logInfo("handleQuickActionShortcut: Search")
+            selectedIndex = MainTabChildControllerType.Search.rawValue
+        case .Basket:
+            logInfo("handleQuickActionShortcut: Basket")
+            selectedIndex = MainTabChildControllerType.Basket.rawValue
+        case .Wishlist:
+            logInfo("handleQuickActionShortcut: Wishlist")
+            selectedIndex = MainTabChildControllerType.Wishlist.rawValue
+        case .Settings:
+            logInfo("handleQuickActionShortcut: Basket")
+            selectedIndex = MainTabChildControllerType.Settings.rawValue
+        }
+    }
+    
     // MARK:- NavigationHandler
     
     func handleNavigationEvent(event: NavigationEvent) -> EventHandled {

@@ -58,12 +58,15 @@ class UserManager {
     }
     var shouldSkipStartScreen: Bool {
         get {
-            return NSUserDefaults.standardUserDefaults().boolForKey(UserManager.skipStartScreenKey);
+            return NSUserDefaults.standardUserDefaults().boolForKey(UserManager.skipStartScreenKey)
         }
         set {
-            NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: UserManager.skipStartScreenKey);
+            NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: UserManager.skipStartScreenKey)
+            shouldSkipStartScreenObservable.onNext(shouldSkipStartScreen)
         }
     }
+    
+    let shouldSkipStartScreenObservable = PublishSubject<Bool>()
     
     init(apiService: ApiService, emarsysService: EmarsysService, keychainManager: KeychainManager, storageManager: StorageManager) {
         self.apiService = apiService

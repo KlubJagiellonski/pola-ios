@@ -284,6 +284,9 @@
 		C0237D171D229B8C0009F2FC /* ShowEditAddressEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0237D161D229B8C0009F2FC /* ShowEditAddressEvent.swift */; };
 		C0237D191D23EA4C0009F2FC /* Kiosk.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0237D181D23EA4C0009F2FC /* Kiosk.swift */; };
 		C026E5701D3F95E20003DA8B /* SettingsWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C026E56F1D3F95E20003DA8B /* SettingsWebView.swift */; };
+		C02FD4EF1D40E600006B3306 /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02FD4EE1D40E600006B3306 /* UserInfoViewController.swift */; };
+		C02FD4F11D40E626006B3306 /* UserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02FD4F01D40E626006B3306 /* UserInfoView.swift */; };
+		C0456D2D1D4A2174006A3F8F /* QuickActionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0456D2C1D4A2174006A3F8F /* QuickActionManager.swift */; };
 		C049D8CD1D33E7800043F60F /* HorizontalPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = C049D8CC1D33E7800043F60F /* HorizontalPageControl.swift */; };
 		C049D8CF1D33F0930043F60F /* OnboardingInfiniteScrollingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C049D8CE1D33F0930043F60F /* OnboardingInfiniteScrollingCell.swift */; };
 		C049D8D11D33F0C50043F60F /* OnboardingDoubleTapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C049D8D01D33F0C50043F60F /* OnboardingDoubleTapCell.swift */; };
@@ -643,6 +646,9 @@
 		C0237D161D229B8C0009F2FC /* ShowEditAddressEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowEditAddressEvent.swift; sourceTree = "<group>"; };
 		C0237D181D23EA4C0009F2FC /* Kiosk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Kiosk.swift; sourceTree = "<group>"; };
 		C026E56F1D3F95E20003DA8B /* SettingsWebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsWebView.swift; sourceTree = "<group>"; };
+		C02FD4EE1D40E600006B3306 /* UserInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoViewController.swift; sourceTree = "<group>"; };
+		C02FD4F01D40E626006B3306 /* UserInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoView.swift; sourceTree = "<group>"; };
+		C0456D2C1D4A2174006A3F8F /* QuickActionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickActionManager.swift; sourceTree = "<group>"; };
 		C049D8CC1D33E7800043F60F /* HorizontalPageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalPageControl.swift; sourceTree = "<group>"; };
 		C049D8CE1D33F0930043F60F /* OnboardingInfiniteScrollingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingInfiniteScrollingCell.swift; sourceTree = "<group>"; };
 		C049D8D01D33F0C50043F60F /* OnboardingDoubleTapCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingDoubleTapCell.swift; sourceTree = "<group>"; };
@@ -1103,6 +1109,7 @@
 				75A92AB91D3E435500EDC89D /* WishlistManager.swift */,
 				1D5E91A01D3E5D6600A6BD55 /* KeychainManager.swift */,
 				1DC485C61D474BEA00BDA1BD /* PayUManager.swift */,
+				C0456D2C1D4A2174006A3F8F /* QuickActionManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -2089,6 +2096,7 @@
 				751A501B1D194DF200DF7D2B /* CheckoutSummaryViewController.swift in Sources */,
 				1D1A7E101D2424F2009CCCE7 /* ProductListViewController.swift in Sources */,
 				751A50231D19718400DF7D2B /* CheckoutSummaryCell.swift in Sources */,
+				C0456D2D1D4A2174006A3F8F /* QuickActionManager.swift in Sources */,
 				1D5E91881D3CD0C600A6BD55 /* SearchContentViewController.swift in Sources */,
 				1D04533E1CFDD48B001CC5A2 /* Dimensions.swift in Sources */,
 				1D5F91481D34E97900AE66E6 /* ProductFilterNavigationController.swift in Sources */,

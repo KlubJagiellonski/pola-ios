@@ -15,8 +15,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return self.assembler.resolver.resolve(UserManager.self)!
     }()
     
+    var quickActionManager: QuickActionManager!
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         configureDependencies()
+        quickActionManager = assembler.resolver.resolve(QuickActionManager.self)
+        quickActionManager.delegate = self
         
         userManager.updateUser()
         
@@ -30,6 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         
         logInfo("Main window configured")
+        
         return true
     }
     
@@ -63,11 +68,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             Fabric.with([Crashlytics.self])
         }
     }
+    
+    func application(application: UIApplication, performActionForShortcutItem shortcutItem: UIApplicationShortcutItem, completionHandler: (Bool) -> Void) {
+        completionHandler(quickActionManager.handleShortcutItem(shortcutItem))
+    }
 }
 
 extension AppDelegate: DeepLinkingHandler {
     func handleOpen(withURL url: NSURL) -> Bool {
         guard let deepLinkingHandler = window?.rootViewController as? DeepLinkingHandler else { return false }
         return deepLinkingHandler.handleOpen(withURL: url)
+    }
+}
+
+extension AppDelegate: QuickActionManagerDelegate {
+    func quickActionManager(manager: QuickActionManager, didTapShortcut shortcut: ShortcutIdentifier) {
+        let rootViewController = window?.rootViewController as! RootViewController
+        rootViewController.handleQuickActionShortcut(shortcut)
     }
 }
