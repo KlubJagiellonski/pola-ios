@@ -234,6 +234,8 @@
 		7520AD8F1D34DE37003FC38B /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7520AD8A1D34DE37003FC38B /* RegistrationView.swift */; };
 		7520AD901D34DE37003FC38B /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7520AD8B1D34DE37003FC38B /* RegistrationViewController.swift */; };
 		7520AD921D34F24C003FC38B /* Signing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7520AD911D34F24C003FC38B /* Signing.swift */; };
+		753D86591D4A2402001BF7EB /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753D86581D4A2402001BF7EB /* ResetPasswordView.swift */; };
+		753D865B1D4A240F001BF7EB /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753D865A1D4A240F001BF7EB /* ResetPasswordViewController.swift */; };
 		7586E27B1D22B0E70086DE94 /* CheckoutSummaryCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7586E27A1D22B0E70086DE94 /* CheckoutSummaryCommentViewController.swift */; };
 		7586E27D1D22B3D30086DE94 /* CheckoutSummaryCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7586E27C1D22B3D30086DE94 /* CheckoutSummaryCommentView.swift */; };
 		7586E27F1D22BB5F0086DE94 /* UITextViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7586E27E1D22BB5F0086DE94 /* UITextViewUtils.swift */; };
@@ -594,6 +596,8 @@
 		7520AD8A1D34DE37003FC38B /* RegistrationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
 		7520AD8B1D34DE37003FC38B /* RegistrationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		7520AD911D34F24C003FC38B /* Signing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Signing.swift; sourceTree = "<group>"; };
+		753D86581D4A2402001BF7EB /* ResetPasswordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
+		753D865A1D4A240F001BF7EB /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
 		7586E27A1D22B0E70086DE94 /* CheckoutSummaryCommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutSummaryCommentViewController.swift; sourceTree = "<group>"; };
 		7586E27C1D22B3D30086DE94 /* CheckoutSummaryCommentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutSummaryCommentView.swift; sourceTree = "<group>"; };
 		7586E27E1D22BB5F0086DE94 /* UITextViewUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextViewUtils.swift; sourceTree = "<group>"; };
@@ -1420,6 +1424,7 @@
 		7520AD841D34DE37003FC38B /* Signing */ = {
 			isa = PBXGroup;
 			children = (
+				753D86571D4A23EC001BF7EB /* ResetPassword */,
 				7520AD861D34DE37003FC38B /* Login */,
 				7520AD891D34DE37003FC38B /* Registration */,
 				7520AD851D34DE37003FC38B /* SigningNavigationController.swift */,
@@ -1443,6 +1448,16 @@
 				7520AD8B1D34DE37003FC38B /* RegistrationViewController.swift */,
 			);
 			path = Registration;
+			sourceTree = "<group>";
+		};
+		753D86571D4A23EC001BF7EB /* ResetPassword */ = {
+			isa = PBXGroup;
+			children = (
+				753D86581D4A2402001BF7EB /* ResetPasswordView.swift */,
+				753D865A1D4A240F001BF7EB /* ResetPasswordViewController.swift */,
+			);
+			name = ResetPassword;
+			path = Reset;
 			sourceTree = "<group>";
 		};
 		7586E2791D22B0D70086DE94 /* Comment */ = {
@@ -2009,6 +2024,7 @@
 				1D0F3B561D12D28D0052CFF6 /* UINavigationBarUtils.swift in Sources */,
 				1D5886E21D2BBE66007D0CB1 /* TrendProductListView.swift in Sources */,
 				751A50161D11575000DF7D2B /* ProductAmountDataSource.swift in Sources */,
+				753D86591D4A2402001BF7EB /* ResetPasswordView.swift in Sources */,
 				1D470E361D26736E00677122 /* Validator.swift in Sources */,
 				7586E27F1D22BB5F0086DE94 /* UITextViewUtils.swift in Sources */,
 				C0576D831D3E76B70084C30F /* HistoryOfOrderView.swift in Sources */,
@@ -2127,6 +2143,7 @@
 				C0C635041D339B5100715A77 /* OnboardingViewController.swift in Sources */,
 				1D5F916C1D36541700AE66E6 /* SelectValueTableViewCell.swift in Sources */,
 				1D0F3B641D13D3710052CFF6 /* BasketCountryDataSource.swift in Sources */,
+				753D865B1D4A240F001BF7EB /* ResetPasswordViewController.swift in Sources */,
 				1D0F3B4E1D12819B0052CFF6 /* BasketDeliveryNavigationController.swift in Sources */,
 				C02FD4EF1D40E600006B3306 /* UserInfoViewController.swift in Sources */,
 				1DA5CB491D2F7B2E00A45E93 /* Checkout.swift in Sources */,

@@ -135,6 +135,10 @@
 "Registration.HaveAccount" = "Masz już konto?";
 "Registration.RequiringRulesMessage" = "Akceptacja regulaminu jest wymagana do utworzenia konta w serwisie SHOWROOM.";
 "Registration.Error.Unknown" = "Wystąpił błąd podczas rejestracji. Spróbuj jeszcze raz.";
+"ResetPassword.NavigationHeader" = "Reset hasła";
+"ResetPassword.EmailDescription" = "Wpisz adres e-mail powiązany z Twoim kontem.";
+"ResetPassword.Reset" = "ZRESETUJ";
+"ResetPassword.SuccessDescription" = "Nowe hasło zostało wysłane na podany adres e-mail.";
 "Validator.NotEmpty" = "To pole nie może być puste";
 "Validator.PhoneNumber" = "Brakuje międzynarodowego numeru kierunkowego (np. +48)";
 "Validator.Email" = "Niepoprawny format adresu";

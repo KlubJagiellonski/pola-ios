@@ -14,6 +14,7 @@ enum AnalyticsScreenId: String {
     case Start = "Start"
     case Login = "Login"
     case Register = "Register"
+    case ResetPassword = "ResetPassword"
     case Dashboard = "Dashboard"
     case Search = "Search"
     case Basket = "Basket"

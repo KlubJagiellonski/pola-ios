@@ -41,6 +41,7 @@ enum Asset: String {
   case Ic_tick = "ic_tick"
   case Ic_w_ulubionych = "ic_w_ulubionych"
   case Im_sukces = "im_sukces"
+  case Img_password = "img_password"
   case Img_wieszak = "img_wieszak"
   case Kasa_fail = "kasa_fail"
   case Logo = "logo"

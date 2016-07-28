@@ -67,7 +67,6 @@ class LoginView: ViewSwitcher {
         loginButton.addTarget(self, action: #selector(LoginView.didTapLogin), forControlEvents: .TouchUpInside)
         
         remindButton.applyPlainStyle()
-        remindButton.enabled = false
         remindButton.title = tr(.LoginPassReminder)
         remindButton.addTarget(self, action: #selector(LoginView.didTapRemindPassword), forControlEvents: .TouchUpInside)
         

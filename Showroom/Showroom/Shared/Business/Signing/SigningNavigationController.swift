@@ -86,6 +86,12 @@ final class SigningNavigationController: UINavigationController, NavigationHandl
             registrationViewController.resetBackTitle()
             pushViewController(registrationViewController, animated: true)
             return true
+        case .ShowResetPassword:
+            let resetViewController = resolver.resolve(ResetPasswordViewController.self)
+            resetViewController.navigationItem.title = tr(L10n.ResetPasswordNavigationHeader)
+            resetViewController.resetBackTitle()
+            pushViewController(resetViewController, animated: true)
+            return true
         default: return false
         }
     }

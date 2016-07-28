@@ -277,6 +277,14 @@ enum L10n {
   case RegistrationRequiringRulesMessage
   /// Wystąpił błąd podczas rejestracji. Spróbuj jeszcze raz.
   case RegistrationErrorUnknown
+  /// Reset hasła
+  case ResetPasswordNavigationHeader
+  /// Wpisz adres e-mail powiązany z Twoim kontem.
+  case ResetPasswordEmailDescription
+  /// ZRESETUJ
+  case ResetPasswordReset
+  /// Nowe hasło zostało wysłane na podany adres e-mail.
+  case ResetPasswordSuccessDescription
   /// To pole nie może być puste
   case ValidatorNotEmpty
   /// Brakuje międzynarodowego numeru kierunkowego (np. +48)
@@ -638,6 +646,14 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Registration.RequiringRulesMessage")
       case .RegistrationErrorUnknown:
         return L10n.tr("Registration.Error.Unknown")
+      case .ResetPasswordNavigationHeader:
+        return L10n.tr("ResetPassword.NavigationHeader")
+      case .ResetPasswordEmailDescription:
+        return L10n.tr("ResetPassword.EmailDescription")
+      case .ResetPasswordReset:
+        return L10n.tr("ResetPassword.Reset")
+      case .ResetPasswordSuccessDescription:
+        return L10n.tr("ResetPassword.SuccessDescription")
       case .ValidatorNotEmpty:
         return L10n.tr("Validator.NotEmpty")
       case .ValidatorPhoneNumber:

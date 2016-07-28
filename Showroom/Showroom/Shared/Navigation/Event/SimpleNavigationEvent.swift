@@ -14,6 +14,7 @@ struct SimpleNavigationEvent: NavigationEvent {
         case ShowSearch
         case ShowLogin
         case ShowRegistration
+        case ShowResetPassword
         case ShowEditKiosk
         case ShowDashboard
         case SplashEnd

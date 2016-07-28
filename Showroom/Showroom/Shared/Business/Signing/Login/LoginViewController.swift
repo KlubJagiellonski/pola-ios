@@ -104,7 +104,7 @@ class LoginViewController: UIViewController, LoginViewDelegate {
     }
     
     func loginViewDidTapRemindPassword() {
-        
+        sendNavigationEvent(SimpleNavigationEvent(type: .ShowResetPassword))
     }
     
     func loginViewDidTapRegister() {
