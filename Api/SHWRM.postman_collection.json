@@ -162,7 +162,7 @@
 			"response": []
 		},
 		{
-			"name": "FACEBOOK",
+			"name": "LOGIN FACEBOOK",
 			"request": {
 				"url": "{{HOST}}/login/facebook",
 				"method": "POST",
@@ -175,7 +175,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"access_token\": \"EAADRWxCT1FUBAF9ICmdpvtaXqQKlHTJQizBuAh7Pg90ZA3CMeZC5Dmj6qfmnRJUZCVTylhRyfASlLvBjuM7BZCNAsr6LTZCHu5Bz8MqcpFWMN2LXeftm4m3OOfMu7ZCZAUWqVshphDytqqZAUIG4phaFsS0ZBeLZCFsDU1u9ARvgVZAy0PQWJ6cSJJq8k5ll73sSF8ftrbxNahx1BUQZA5Kc9qPuEZBg8g2pZBfypvtIvpKfX3jwZDZD\"\n}"
+					"raw": "{\n    \"access_token\": \"EAADRWxCT1FUBAGhvWRomhmQgLRMrgIkCy5XqUiPpfLPZC1qwENwulYtOLiKaBCpmz7TVz8Ybr70BP9LJBombZBYt58CxKbQu6ZAvDxqIH0oX9c8DaKQiTJ7unZC98aJYKFarwL0feDRNOCFJiT7pNomHaRBwRsZBww8pgDT5lqJXtBofgt2FZAleZAvQPlfaIQrymqrFXduKbN3RZA7V2m2c8WOVLUCSoAsZD\"\n}"
 				},
 				"description": ""
 			},
