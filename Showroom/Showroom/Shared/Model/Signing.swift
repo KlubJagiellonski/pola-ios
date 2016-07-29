@@ -7,6 +7,10 @@ struct Login {
     let password: String
 }
 
+struct FacebookLogin {
+    let accessToken: String
+}
+
 struct Registration {
     let name: String
     let username: String
@@ -41,6 +45,8 @@ struct Session {
 enum SigningError: ErrorType {
     case ValidationFailed(SigningFieldsErrors)
     case InvalidCredentials
+    case FacebookError(NSError)
+    case FacebookCancelled
     case Unknown
 }
 
@@ -65,7 +71,15 @@ extension Login: Encodable {
         return [
             "username": username,
             "password": password
-            ] as NSDictionary
+        ] as NSDictionary
+    }
+}
+
+extension FacebookLogin: Encodable {
+    func encode() -> AnyObject {
+        return [
+            "access_token": accessToken
+        ] as NSDictionary
     }
 }
 

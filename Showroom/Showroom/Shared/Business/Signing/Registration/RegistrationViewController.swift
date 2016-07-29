@@ -44,10 +44,50 @@ class RegistrationViewController: UIViewController, RegistrationViewDelegate {
         castView.unregisterOnKeyboardEvent()
     }
     
+    private func handleRegistrationResult(event: Event<SigningResult>) {
+        castView.switcherState = .Success
+        switch event {
+        case .Next(let result):
+            logInfo("Registered as \(result.user.name) (\(result.user.email))")
+            sendNavigationEvent(SimpleNavigationEvent(type: .Close))
+            toastManager.showMessage(tr(L10n.CommonGreeting(result.user.name)))
+            userManager.gender = castView.gender
+        case .Error(let error):
+            logError("Error during registration: \(error)")
+            switch error {
+            case SigningError.FacebookCancelled: break
+            case SigningError.ValidationFailed(let fieldsErrors):
+                if let nameError = fieldsErrors.name {
+                    castView.emailField.validation = nameError
+                }
+                if let emailError = fieldsErrors.email {
+                    castView.emailField.validation = emailError
+                }
+                if let passwordError = fieldsErrors.password {
+                    castView.passwordField.validation = passwordError
+                }
+                if let newsletterError = fieldsErrors.newsletter {
+                    toastManager.showMessage(newsletterError)
+                }
+                break
+            case SigningError.FacebookError(_), SigningError.Unknown:
+                fallthrough
+            default:
+                toastManager.showMessage(tr(L10n.RegistrationErrorUnknown))
+                break
+            }
+        default: break
+        }
+    }
+    
     // MARK: - RegistrationViewDelegate
     
     func registrationViewDidTapFacebook() {
+        castView.switcherState = .ModalLoading
         
+        userManager.loginToFacebook(with: self)
+            .subscribe { [weak self] event in self?.handleRegistrationResult(event) }
+            .addDisposableTo(disposeBag)
     }
     
     func registrationViewDidTapRules() {
@@ -66,42 +106,8 @@ class RegistrationViewController: UIViewController, RegistrationViewDelegate {
         
         let registration = Registration(name: name, username: email, password: password, newsletter: castView.receiveNewsletter, gender: castView.gender.rawValue)
         userManager.register(with: registration)
-            .subscribe { [weak self](event: Event<SigningResult>) in
-                guard let strongSelf = self else { return }
-                
-                strongSelf.castView.switcherState = .Success
-                switch event {
-                case .Next(let result):
-                    logInfo("Registered as \(result.user.name) (\(result.user.email))")
-                    strongSelf.sendNavigationEvent(SimpleNavigationEvent(type: .Close))
-                    strongSelf.toastManager.showMessage(tr(L10n.CommonGreeting(result.user.name)))
-                    strongSelf.userManager.gender = strongSelf.castView.gender
-                case .Error(let error):
-                    logError("Error during registration: \(error)")
-                    switch error {
-                    case SigningError.ValidationFailed(let fieldsErrors):
-                        if let nameError = fieldsErrors.name {
-                            strongSelf.castView.emailField.validation = nameError
-                        }
-                        if let emailError = fieldsErrors.email {
-                            strongSelf.castView.emailField.validation = emailError
-                        }
-                        if let passwordError = fieldsErrors.password {
-                            strongSelf.castView.passwordField.validation = passwordError
-                        }
-                        if let newsletterError = fieldsErrors.newsletter {
-                            strongSelf.toastManager.showMessage(newsletterError)
-                        }
-                        break
-                    case SigningError.Unknown:
-                        fallthrough
-                    default:
-                        strongSelf.toastManager.showMessage(tr(L10n.RegistrationErrorUnknown))
-                        break
-                    }
-                default: break
-                }
-        }.addDisposableTo(disposeBag)
+            .subscribe { [weak self] (event: Event<SigningResult>) in self?.handleRegistrationResult(event) }
+            .addDisposableTo(disposeBag)
     }
     
     func registrationViewDidTapHaveAccount() {

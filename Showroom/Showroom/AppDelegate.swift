@@ -28,10 +28,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
-        logInfo("Received url \(url) with options: \(sourceApplication)")
         if FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation) {
             return true
         }
+        logInfo("Received url \(url) with options: \(sourceApplication)")
         guard let deepLinkingHandler = window?.rootViewController as? DeepLinkingHandler else { return false }
         return deepLinkingHandler.handleOpen(withURL: url)
     }

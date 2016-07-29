@@ -46,19 +46,46 @@ class LoginViewController: UIViewController, LoginViewDelegate {
         castView.unregisterOnKeyboardEvent()
     }
     
+    private func handleLoginResult(event: Event<SigningResult>) {
+        castView.switcherState = .Success
+        switch event {
+        case .Next(let result):
+            logInfo("Logged in as \(result.user.name) (\(result.user.email))")
+            sendNavigationEvent(SimpleNavigationEvent(type: .Close))
+            toastManager.showMessage(tr(L10n.CommonGreeting(result.user.name)))
+        case .Error(let error):
+            logError("Error during login: \(error)")
+            switch error {
+            case SigningError.FacebookCancelled: break
+            case SigningError.ValidationFailed(let fieldsErrors):
+                if let usernameError = fieldsErrors.username {
+                    castView.emailField.validation = usernameError
+                }
+                if let passwordError = fieldsErrors.password {
+                    castView.passwordField.validation = passwordError
+                }
+                break
+            case SigningError.InvalidCredentials:
+                toastManager.showMessage(tr(L10n.LoginErrorInvalidCredentials))
+                break
+            case SigningError.FacebookError(_), SigningError.Unknown:
+                fallthrough
+            default:
+                toastManager.showMessage(tr(L10n.LoginErrorUnknown))
+                break
+            }
+        default: break
+        }
+    }
+    
     // MARK: - LoginViewDelegate
     
     func loginViewDidTapFacebook() {
-        let fbLoginManager = FBSDKLoginManager()
-        fbLoginManager.logInWithReadPermissions(["public_profile"], fromViewController: self) { (result: FBSDKLoginManagerLoginResult!, error: NSError!) in
-            if error != nil {
-                logInfo("Login error")
-            } else if result.isCancelled {
-                logInfo("Login canceled")
-            } else {
-                logInfo("Logged in")
-            }
-        }
+        castView.switcherState = .ModalLoading
+        
+        userManager.loginToFacebook(with: self)
+            .subscribe { [weak self] event in self?.handleLoginResult(event) }
+            .addDisposableTo(disposeBag)
     }
     
     func loginViewDidTapLogin() {
@@ -68,39 +95,10 @@ class LoginViewController: UIViewController, LoginViewDelegate {
         
         castView.switcherState = .ModalLoading
         
-        userManager.login(withEmail: email, password: password)
-            .subscribe { [weak self](event: Event<SigningResult>) in
-                guard let strongSelf = self else { return }
-                
-                strongSelf.castView.switcherState = .Success
-                switch event {
-                case .Next(let result):
-                    logInfo("Logged in as \(result.user.name) (\(result.user.email))")
-                    strongSelf.sendNavigationEvent(SimpleNavigationEvent(type: .Close))
-                    strongSelf.toastManager.showMessage(tr(L10n.CommonGreeting(result.user.name)))
-                case .Error(let error):
-                    logError("Error during login: \(error)")
-                    switch error {
-                    case SigningError.ValidationFailed(let fieldsErrors):
-                        if let usernameError = fieldsErrors.username {
-                            strongSelf.castView.emailField.validation = usernameError
-                        }
-                        if let passwordError = fieldsErrors.password {
-                            strongSelf.castView.passwordField.validation = passwordError
-                        }
-                        break
-                    case SigningError.InvalidCredentials:
-                        strongSelf.toastManager.showMessage(tr(L10n.LoginErrorInvalidCredentials))
-                        break
-                    case SigningError.Unknown:
-                        fallthrough
-                    default:
-                        strongSelf.toastManager.showMessage(tr(L10n.LoginErrorUnknown))
-                        break
-                    }
-                default: break
-                }
-        }.addDisposableTo(disposeBag)
+        userManager
+            .login(withEmail: email, password: password)
+            .subscribe { [weak self] event in self?.handleLoginResult(event) }
+            .addDisposableTo(disposeBag)
     }
     
     func loginViewDidTapRemindPassword() {

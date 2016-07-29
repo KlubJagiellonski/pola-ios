@@ -67,6 +67,7 @@ extension ApiService {
             let urlRequest = NSMutableURLRequest(URL: url)
             urlRequest.HTTPMethod = "POST"
             urlRequest.HTTPBody = jsonData
+            urlRequest.applyJsonContentTypeHeader()
             return networkClient
                 .request(withRequest: urlRequest)
                 .flatMap { data -> Observable<Basket> in
@@ -132,6 +133,7 @@ extension ApiService {
             let urlRequest = NSMutableURLRequest(URL: url)
             urlRequest.HTTPMethod = "POST"
             urlRequest.HTTPBody = jsonData
+            urlRequest.applyJsonContentTypeHeader()
             return networkClient
                 .request(withRequest: urlRequest)
                 .flatMap { data -> Observable<KioskResult> in
@@ -157,6 +159,7 @@ extension ApiService {
             let urlRequest = NSMutableURLRequest(URL: url)
             urlRequest.HTTPMethod = "POST"
             urlRequest.HTTPBody = jsonData
+            urlRequest.applyJsonContentTypeHeader()
             return networkClient.request(withRequest: urlRequest).flatMap { data -> Observable<SigningResult> in
                 do {
                     let result = try NSJSONSerialization.JSONObjectWithData(data, options: [])
@@ -179,11 +182,36 @@ extension ApiService {
             let urlRequest = NSMutableURLRequest(URL: url)
             urlRequest.HTTPMethod = "POST"
             urlRequest.HTTPBody = jsonData
+            urlRequest.applyJsonContentTypeHeader()
             return networkClient.request(withRequest: urlRequest).flatMap { data -> Observable<SigningResult> in
                 do {
                     let result = try NSJSONSerialization.JSONObjectWithData(data, options: [])
                     let registrationResult = try SigningResult.decode(result)
                     return Observable.just(registrationResult)
+                } catch {
+                    return Observable.error(error)
+                }
+            }
+        } catch {
+            return Observable.error(error)
+        }
+    }
+    
+    func loginWithFacebook(with facebookLogin: FacebookLogin) -> Observable<SigningResult> {
+        let url = NSURL(fileURLWithPath: basePath)
+            .URLByAppendingPathComponent("login/facebook")
+        
+        do {
+            let jsonData = try NSJSONSerialization.dataWithJSONObject(facebookLogin.encode(), options: [])
+            let urlRequest = NSMutableURLRequest(URL: url)
+            urlRequest.HTTPMethod = "POST"
+            urlRequest.HTTPBody = jsonData
+            urlRequest.applyJsonContentTypeHeader()
+            return networkClient.request(withRequest: urlRequest).flatMap { data -> Observable<SigningResult> in
+                do {
+                    let result = try NSJSONSerialization.JSONObjectWithData(data, options: [])
+                    let loginResult = try SigningResult.decode(result)
+                    return Observable.just(loginResult)
                 } catch {
                     return Observable.error(error)
                 }
@@ -213,6 +241,9 @@ extension NSMutableURLRequest {
     func applySessionHeaders(session: Session) {
         setValue(session.userKey, forHTTPHeaderField: "showroom-key")
         setValue(session.userSecret, forHTTPHeaderField: "showroom-secret")
+    }
+    func applyJsonContentTypeHeader() {
+        setValue("application/json", forHTTPHeaderField: "Content-Type")
     }
 }
 

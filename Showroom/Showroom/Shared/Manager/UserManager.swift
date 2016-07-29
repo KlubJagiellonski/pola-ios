@@ -2,6 +2,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 import Decodable
+import FBSDKLoginKit
 
 extension KeychainManager {
     private var userIdIdentifier: String { return "showroom_token_user_id" }
@@ -30,6 +31,7 @@ class UserManager {
     private let keychainManager: KeychainManager
     private let storageManager: StorageManager
     private let disposeBag = DisposeBag()
+    private let fbLoginManager = FBSDKLoginManager()
     
     let userObservable = PublishSubject<User?>()
     let sessionObservable = PublishSubject<Session?>()
@@ -164,8 +166,56 @@ class UserManager {
         }
     }
     
+    func loginToFacebook(with viewController: UIViewController) -> Observable<SigningResult> {
+        return Observable.create {
+            [unowned self] observer in
+            
+            logDebug("Login with facebook")
+            
+            self.fbLoginManager.logInWithReadPermissions(["public_profile", "email"], fromViewController: viewController) {
+                [weak self] (result: FBSDKLoginManagerLoginResult!, error: NSError!) in
+                guard let `self` = self else {
+                    observer.onCompleted()
+                    return
+                }
+                if error != nil {
+                    logInfo("Facebook login error \(error)")
+                    observer.onError(SigningError.FacebookError(error))
+                } else if result.isCancelled {
+                    logInfo("Facebook login cancelled")
+                    observer.onError(SigningError.FacebookCancelled)
+                } else {
+                    logInfo("Facebook logged in to sdk")
+                    self.loginWithFacebookToken(result.token).subscribe(observer).addDisposableTo(self.disposeBag)
+                }
+            }
+            return NopDisposable.instance
+        }
+    }
+    
+    private func loginWithFacebookToken(token: FBSDKAccessToken) -> Observable<SigningResult> {
+        return self.apiService.loginWithFacebook(with: FacebookLogin(accessToken: token.tokenString))
+            .observeOn(MainScheduler.instance)
+            .doOnNext { [weak self] result in
+                logInfo("Facebook logged in to api")
+                if let `self` = self {
+                    self.userSession = UserSession(user: result.user, session: result.session)
+                }
+            }
+            .catchError { [weak self] error in
+                logInfo("Facebook failed to log in to api \(error)")
+                if let `self` = self {
+                    self.userSession = nil
+                    self.fbLoginManager.logOut()
+                }
+                
+                return Observable.error(SigningError.Unknown)
+        }
+    }
+    
     func logout() {
         apiService.logout().subscribe().addDisposableTo(disposeBag)
+        fbLoginManager.logOut()
         self.userSession = nil
     }
 }
