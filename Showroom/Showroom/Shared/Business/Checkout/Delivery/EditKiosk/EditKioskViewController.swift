@@ -3,7 +3,7 @@ import CoreLocation
 import RxSwift
 
 protocol EditKioskViewControllerDelegate: class {
-    func editKioskViewControllerDidChooseKiosk(viewController: EditKioskViewController, kiosk: Kiosk)
+    func editKioskViewControllerDidChooseKiosk(viewController: EditKioskViewController)
 }
 
 class EditKioskViewController: UIViewController, EditKioskViewDelegate {
@@ -52,7 +52,7 @@ class EditKioskViewController: UIViewController, EditKioskViewDelegate {
     }
     
     func fetchKiosks(withAddressString addressString: String) {
-        castView.switcherState = .Loading
+        castView.internalSwitcherState = .Loading
         castView.selectedIndex = nil
         
         model.fetchKiosks(withAddressString: addressString)
@@ -64,24 +64,24 @@ class EditKioskViewController: UIViewController, EditKioskViewDelegate {
                     if let error = error as? CLError {
                         switch error {
                         case .GeocodeFoundNoResult:
-                            self.castView.switcherState = .Empty
+                            self.castView.internalSwitcherState = .Empty
                             self.castView.geocodingErrorVisible = true
                         case .Network:
-                            self.castView.switcherState = .Error
+                            self.castView.internalSwitcherState = .Error
                             self.castView.geocodingErrorVisible = false
                         case .GeocodeCanceled:
                             break
                         default:
-                            self.castView.switcherState = .Success
+                            self.castView.internalSwitcherState = .Success
                             self.castView.geocodingErrorVisible = true
                         }
                     } else {
-                        self.castView.switcherState = .Error
+                        self.castView.internalSwitcherState = .Error
                     }
                 case .Next(let result):
                     logInfo("fetched kiosks: \(result.kiosks)")
                     self.castView.updateKiosks(result.kiosks)
-                    self.castView.switcherState = .Success
+                    self.castView.internalSwitcherState = .Success
                     self.castView.geocodingErrorVisible = false
                 default: break
                 }
@@ -97,7 +97,24 @@ class EditKioskViewController: UIViewController, EditKioskViewDelegate {
     
     func editKioskView(view: EditKioskView, didChooseKioskAtIndex kioskIndex: Int) {
         guard let kiosks = model.kiosks else { return }
-        delegate?.editKioskViewControllerDidChooseKiosk(self, kiosk: kiosks[kioskIndex])
+        
+        castView.switcherState = .ModalLoading
+        
+        let kiosk = kiosks[kioskIndex]
+        model.checkoutModel.update(withSelected: kiosk).subscribe { [weak self] event in
+            guard let `self` = self else { return }
+            
+            self.castView.switcherState = .Success
+            
+            switch event {
+            case .Next():
+                logInfo("Updated selected kiosk \(kiosk)")
+                self.delegate?.editKioskViewControllerDidChooseKiosk(self)
+            case .Error(let error):
+                logError("Couldn't updated kiosk \(kiosk) with error \(error)")
+            default: break
+            }
+        }.addDisposableTo(disposeBag)
     }
     
     // MARK: ViewSwitcherDelegate

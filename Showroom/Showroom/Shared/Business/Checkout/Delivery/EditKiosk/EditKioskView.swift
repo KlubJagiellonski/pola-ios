@@ -6,21 +6,22 @@ protocol EditKioskViewDelegate: ViewSwitcherDelegate {
     func editKioskView(view: EditKioskView, didChooseKioskAtIndex kioskIndex: Int)
 }
 
-class EditKioskView: UIView, UITableViewDelegate {
+class EditKioskView: ViewSwitcher, UITableViewDelegate {
     
     static let tableViewTopInset: CGFloat = 26.0
     
+    private let contentView = UIView()
     private let searchInputView = FormInputView()
-    private let viewSwitcher: ViewSwitcher
+    private let internalViewSwitcher: ViewSwitcher
     private let tableView: UITableView
     private let dataSource: EditKioskDataSource
     private let saveButton = UIButton()
     
     let keyboardHelper = KeyboardHelper()
     
-    var switcherState: ViewSwitcherState {
-        get { return viewSwitcher.switcherState }
-        set { viewSwitcher.switcherState = newValue }
+    var internalSwitcherState: ViewSwitcherState {
+        get { return internalViewSwitcher.switcherState }
+        set { internalViewSwitcher.switcherState = newValue }
     }
     
     var searchString: String? {
@@ -47,14 +48,14 @@ class EditKioskView: UIView, UITableViewDelegate {
         get { return saveButton.enabled }
     }
   
-    weak var delegate: EditKioskViewDelegate? { didSet { viewSwitcher.switcherDelegate = delegate } }
+    weak var delegate: EditKioskViewDelegate? { didSet { internalViewSwitcher.switcherDelegate = delegate } }
     
     init(kioskSearchString: String?) {
         tableView = UITableView(frame: CGRectZero, style: .Plain)
-        viewSwitcher = ViewSwitcher(successView: tableView, initialState: .Success)
+        internalViewSwitcher = ViewSwitcher(successView: tableView, initialState: .Success)
         dataSource = EditKioskDataSource(tableView: tableView)
         geocodingErrorVisible = false
-        super.init(frame: CGRectZero)
+        super.init(successView: contentView, initialState: .Success)
         
         tableView.delegate = self
         tableView.dataSource = dataSource
@@ -62,7 +63,7 @@ class EditKioskView: UIView, UITableViewDelegate {
         tableView.separatorStyle = .None
         tableView.contentInset = UIEdgeInsets(top: EditKioskView.tableViewTopInset, left: 0, bottom: 0, right: 0)
         
-        viewSwitcher.switcherDataSource = self
+        internalViewSwitcher.switcherDataSource = self
         
         keyboardHelper.delegate = self
         
@@ -79,9 +80,9 @@ class EditKioskView: UIView, UITableViewDelegate {
         saveButton.addTarget(self, action: #selector(EditKioskView.didTapSaveButton), forControlEvents: .TouchUpInside)
         saveButton.applyBlueStyle()
         
-        addSubview(searchInputView)
-        addSubview(viewSwitcher)
-        addSubview(saveButton)
+        contentView.addSubview(searchInputView)
+        contentView.addSubview(internalViewSwitcher)
+        contentView.addSubview(saveButton)
         
         configureCustomCostraints()
     }
@@ -103,7 +104,7 @@ class EditKioskView: UIView, UITableViewDelegate {
             make.trailing.equalToSuperview().inset(Dimensions.defaultMargin)
         }
         
-        viewSwitcher.snp_makeConstraints { make in
+        internalViewSwitcher.snp_makeConstraints { make in
             make.top.equalTo(searchInputView.snp_bottom).offset(-FormInputView.validationLabelHeight)
             make.bottom.equalTo(saveButton.snp_top)
             make.leading.equalToSuperview()

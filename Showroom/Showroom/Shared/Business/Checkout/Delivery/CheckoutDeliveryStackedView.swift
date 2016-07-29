@@ -54,6 +54,9 @@ extension DeliveryCarrier {
             return tr(.CheckoutDeliveryRUCHHeader)
         case .UPS:
             return tr(.CheckoutDeliveryCourierHeader)
+        case .Unknown:
+            logError("Unknown carrier type \(id)")
+            return ""
         }
     }
 }
@@ -323,6 +326,8 @@ class CheckoutDeliveryDetailsView: UIView {
             label.text = initialText
             chooseKioskButton.hidden = false
             changeKioskButton.hidden = true
+        case .Unknown:
+            logError("Unknown carrier type when updating data: \(checkout.deliveryCarrier.id)")
         }
     }
     

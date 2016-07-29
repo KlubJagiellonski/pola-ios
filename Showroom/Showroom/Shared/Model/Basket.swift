@@ -4,6 +4,16 @@ import Decodable
 enum DeliveryType: Int {
     case UPS = 2
     case RUCH = 7
+    case Unknown = 100
+}
+
+enum PaymentType: Int {
+    case PayU = 4
+    case Cash = 5
+    case Gratis = 6
+    case PayPal = 11
+    case CreditCard = 13
+    case Unknown = 100
 }
 
 struct Basket: Equatable {
@@ -13,6 +23,7 @@ struct Basket: Equatable {
     let discountErrors: [String]?
     let basePrice: Money
     let price: Money
+    let payments: [Payment]
     
     var isEmpty: Bool {
         return productsByBrands.count == 0
@@ -36,9 +47,7 @@ struct Basket: Equatable {
     }
     
     mutating func remove(product: BasketProduct) {
-        guard let brandIndex = indexOfBrand(containing: product) else {
-            return
-        }
+        guard let brandIndex = indexOfBrand(containing: product) else { return }
         productsByBrands[brandIndex].remove(product)
         if productsByBrands[brandIndex].products.count == 0 {
             productsByBrands.removeAtIndex(brandIndex)
@@ -227,6 +236,13 @@ struct DeliveryCarrier: Equatable {
     let isDefault: Bool
 }
 
+struct Payment: Equatable {
+    let id: PaymentType
+    let name: String
+    let available: Bool
+    let isDefault: Bool
+}
+
 // MARK: - Utilities
 
 extension BasketProduct {
@@ -285,6 +301,10 @@ func == (lhs: BasketProductSize, rhs: BasketProductSize) -> Bool {
     return lhs.id == rhs.id && lhs.name == rhs.name
 }
 
+func == (lhs: Payment, rhs: Payment) -> Bool {
+    return lhs.id == rhs.id && lhs.name == rhs.name && lhs.available == rhs.available && lhs.isDefault == rhs.isDefault
+}
+
 // MARK: - Decodable, Encodable
 extension Basket: Decodable, Encodable {
     static func decode(j: AnyObject) throws -> Basket {
@@ -296,7 +316,8 @@ extension Basket: Decodable, Encodable {
             discount: discount == Money(amt: 0.0) ? nil : discount,
             discountErrors: errors.count == 0 ? nil : errors,
             basePrice: j => "total" => "msrp",
-            price: j => "total" => "price"
+            price: j => "total" => "price",
+            payments: j => "payment"
         )
     }
     
@@ -311,10 +332,16 @@ extension Basket: Decodable, Encodable {
             "price": price.amount
         ]
         
+        let paymentsArray: NSMutableArray = []
+        for payment in payments {
+            paymentsArray.addObject(payment.encode())
+        }
+        
         let dict: NSMutableDictionary = [
             "bags": brandsArray,
             "delivery": deliveryInfo.encode(),
             "total": totalDict,
+            "payment": paymentsArray,
             "coupon": [
                 "discount": discount?.amount ?? 0,
                 "errors": (discountErrors ?? []) as NSArray
@@ -475,7 +502,7 @@ extension DeliveryCountry: Decodable, Encodable {
 extension DeliveryCarrier: Decodable, Encodable {
     static func decode(json: AnyObject) throws -> DeliveryCarrier {
         return try DeliveryCarrier(
-            id: DeliveryType(rawValue: json => "id")!,
+            id: DeliveryType(rawValue: json => "id") ?? DeliveryType.Unknown,
             name: json => "name",
             deliveryCost: json =>? "delivery_cost",
             available: json => "available",
@@ -492,5 +519,25 @@ extension DeliveryCarrier: Decodable, Encodable {
             ] as NSMutableDictionary
         if deliveryCost != nil { dict.setObject(deliveryCost!.amount, forKey: "delivery_cost") }
         return dict
+    }
+}
+
+extension Payment: Decodable, Encodable {
+    static func decode(json: AnyObject) throws -> Payment {
+        return try Payment(
+            id: PaymentType(rawValue: json => "id") ?? PaymentType.Unknown,
+            name: json => "name",
+            available: json => "available",
+            isDefault: json => "default"
+        )
+    }
+    
+    func encode() -> AnyObject {
+        return [
+            "id": id.rawValue,
+            "name": name,
+            "available": available,
+            "default": isDefault
+        ] as NSDictionary
     }
 }

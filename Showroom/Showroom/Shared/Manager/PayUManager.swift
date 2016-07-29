@@ -12,6 +12,9 @@ final class PayUManager {
         set { delegate.delegate = newValue }
         get { return delegate.delegate }
     }
+    var currentPaymentMethod: PUPaymentMethodDescription? {
+        return delegate.paymentMethodDescription
+    }
     
     init(api: ApiService, userManager: UserManager) {
         self.api = api
@@ -23,6 +26,7 @@ final class PayUManager {
         
         userManager.sessionObservable.subscribeNext { [weak self] session in
             if session == nil {
+                self?.delegate.paymentMethodDescription = nil
                 self?.paymentService.clearUserContext()
             }
         }.addDisposableTo(disposeBag)
@@ -76,9 +80,11 @@ final class PayUAuthorizationDataSource: NSObject, PUAuthorizationDataSource {
 }
 
 final class PayUPaymentServiceDelegate: NSObject, PUPaymentServiceDelegate {
-    weak var delegate: PUPaymentServiceDelegate?
+    private weak var delegate: PUPaymentServiceDelegate?
+    private var paymentMethodDescription: PUPaymentMethodDescription?
     
     func paymentServiceDidSelectPaymentMethod(paymentMethod: PUPaymentMethodDescription!) {
+        paymentMethodDescription = paymentMethod
         guard let delegate = delegate else {
             logError("No delegate assigned with selected payment method: \(paymentMethod)")
             return

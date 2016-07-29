@@ -15,6 +15,7 @@ class CheckoutSummaryDataSource: NSObject, UITableViewDataSource, CheckoutSummar
     private var discountCode: String?
     private var comments: [String?]?
     private var deliveryCarrier: DeliveryCarrier?
+    private var payments: [Payment]?
     private weak var tableView: UITableView?
     weak var summaryView: CheckoutSummaryView?
     
@@ -38,6 +39,7 @@ class CheckoutSummaryDataSource: NSObject, UITableViewDataSource, CheckoutSummar
         self.discountCode = discountCode
         self.comments = comments
         self.deliveryCarrier = deliveryCarrier
+        self.payments = basket.payments
         
         tableView?.reloadData()
     }
@@ -69,7 +71,8 @@ class CheckoutSummaryDataSource: NSObject, UITableViewDataSource, CheckoutSummar
             switch paymentRow {
             case CheckoutSummaryPaymentRow.Payment:
                 let cell = tableView.dequeueReusableCellWithIdentifier(String(CheckoutSummaryPaymentCell)) as! CheckoutSummaryPaymentCell
-                cell.updateData(withTotalPrice: totalPrice, discount: discount, discountCode: discountCode)
+                cell.delegate = self
+                cell.updateData(withTotalPrice: totalPrice, discount: discount, discountCode: discountCode, payments: payments)
                 if cell.payUButton == nil {
                     cell.payUButton = createPayUButton(CGRectMake(0, 0, cell.bounds.width, 50))
                 }
@@ -182,5 +185,23 @@ class CheckoutSummaryDataSource: NSObject, UITableViewDataSource, CheckoutSummar
             fatalError("Could not find brand, because given index path points at payment section")
         }
         summaryView?.checkoutSummaryCommentCellDidTapDeleteComment(at: indexPath.section)
+    }
+}
+
+extension CheckoutSummaryDataSource: CheckoutSummaryPaymentCellDelegate {
+    func checkoutSummary(cell: CheckoutSummaryPaymentCell, didChangePaymentType type: CheckoutSummaryPaymentType) {
+        guard let paymentIndex = payments?.indexOf({ $0.id == type.paymentType }) else { return }
+        summaryView?.checkoutSummaryDidChangeToPayment(at: paymentIndex)
+    }
+}
+
+extension CheckoutSummaryPaymentType {
+    var paymentType: PaymentType {
+        switch self {
+        case .PayU:
+            return .PayU
+        case .Cash:
+            return .Cash
+        }
     }
 }

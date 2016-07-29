@@ -5,6 +5,7 @@ protocol CheckoutSummaryViewDelegate: class {
     func checkoutSummaryView(view: CheckoutSummaryView, didTapAddCommentAt index: Int)
     func checkoutSummaryView(view: CheckoutSummaryView, didTapEditCommentAt index: Int)
     func checkoutSummaryView(view: CheckoutSummaryView, didTapDeleteCommentAt index: Int)
+    func checkoutSummaryView(view: CheckoutSummaryView, didSelectPaymentAt index: Int)
     func checkoutSummaryViewDidTapBuy(view: CheckoutSummaryView)
 }
 
@@ -25,6 +26,7 @@ final class CheckoutSummaryView: UIView, UITableViewDelegate {
         tableView.dataSource = dataSource
         tableView.separatorStyle = .None
         
+        buyButton.enabled = false
         buyButton.setTitle(tr(.CheckoutSummaryBuy), forState: .Normal)
         buyButton.applyBlueStyle()
         buyButton.addTarget(self, action: #selector(CheckoutSummaryView.didTapBuy), forControlEvents: .TouchUpInside)
@@ -68,6 +70,10 @@ final class CheckoutSummaryView: UIView, UITableViewDelegate {
         dataSource.updateData(withComments: comments)
     }
     
+    func update(buyButtonEnabled enabled: Bool) {
+        buyButton.enabled = enabled
+    }
+    
     func didTapBuy() {
         delegate?.checkoutSummaryViewDidTapBuy(self)
     }
@@ -90,5 +96,9 @@ final class CheckoutSummaryView: UIView, UITableViewDelegate {
     
     func checkoutSummaryCommentCellDidTapDeleteComment(at index: Int) {
         delegate?.checkoutSummaryView(self, didTapDeleteCommentAt: index)
+    }
+    
+    func checkoutSummaryDidChangeToPayment(at index: Int) {
+        delegate?.checkoutSummaryView(self, didSelectPaymentAt: index)
     }
 }

@@ -1,12 +1,13 @@
 import UIKit
+import RxSwift
 
 final class CheckoutSummaryViewController: UIViewController, CheckoutSummaryViewDelegate {
+    private let disposeBag = DisposeBag()
     private let manager: BasketManager
     private let model: CheckoutModel
     private var castView: CheckoutSummaryView { return view as! CheckoutSummaryView }
     private let resolver: DiResolver
     private let commentAnimator = FormSheetAnimator()
-    private var hasPayUPaymentMethod = false
     
     init(resolver: DiResolver, model: CheckoutModel) {
         self.resolver = resolver
@@ -35,6 +36,10 @@ final class CheckoutSummaryViewController: UIViewController, CheckoutSummaryView
         
         let discountCode = manager.state.basket?.discountErrors == nil ? manager.state.discountCode : nil
         castView.updateData(with: manager.state.basket, carrier: manager.state.deliveryCarrier, discountCode: discountCode, comments: model.state.comments)
+        
+        model.state.buyButtonEnabled.asObservable().subscribeNext { [weak self] enabled in
+            self?.castView.update(buyButtonEnabled: enabled)
+        }.addDisposableTo(disposeBag)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -48,10 +53,6 @@ final class CheckoutSummaryViewController: UIViewController, CheckoutSummaryView
         viewController.modalPresentationStyle = .FormSheet
         viewController.preferredContentSize = CGSize(width: 292, height: 264)
         commentAnimator.presentViewController(viewController, presentingViewController: self, completion: nil)
-    }
-    
-    private func updateBuyButton() {
-        //todo update
     }
     
     // MARK: - CheckoutSummaryViewDelegate
@@ -71,6 +72,10 @@ final class CheckoutSummaryViewController: UIViewController, CheckoutSummaryView
         logInfo("Delete comment")
         model.update(comment: nil, at: index)
         castView.updateData(withComments: model.state.comments)
+    }
+    
+    func checkoutSummaryView(view: CheckoutSummaryView, didSelectPaymentAt index: Int) {
+        model.updateSelectedPayment(forIndex: index)
     }
     
     // for testing purposes
@@ -116,7 +121,6 @@ extension CheckoutSummaryViewController: PUPaymentServiceDelegate {
     }
     
     func paymentServiceDidSelectPaymentMethod(paymentMethod: PUPaymentMethodDescription!) {
-        hasPayUPaymentMethod = paymentMethod != nil
-        updateBuyButton()
+        model.updateBuyButtonState()
     }
 }

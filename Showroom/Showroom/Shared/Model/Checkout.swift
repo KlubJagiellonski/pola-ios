@@ -1,7 +1,7 @@
 import Foundation
 
 struct Checkout {
-    let basket: Basket
+    var basket: Basket
     let user: User
     let deliveryCarrier: DeliveryCarrier
     let deliveryCountry: DeliveryCountry

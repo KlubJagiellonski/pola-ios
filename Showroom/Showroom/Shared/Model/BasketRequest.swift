@@ -6,6 +6,7 @@ struct BasketRequest {
     let countryCode: String?
     let deliveryType: DeliveryType?
     let discountCode: String?
+    let deliveryPop: ObjectId?
 }
 
 struct BasketItem {
@@ -16,7 +17,7 @@ struct BasketItem {
 }
 
 extension BasketRequest {
-    static func create(from basket: Basket?, countryCode: String?, deliveryType: DeliveryType?, discountCode: String?) -> BasketRequest {
+    init(from basket: Basket?, countryCode: String?, deliveryType: DeliveryType?, discountCode: String?, deliveryPop: ObjectId?) {
         var items: [BasketItem] = []
         if let basket = basket {
             for brand in basket.productsByBrands {
@@ -27,7 +28,11 @@ extension BasketRequest {
                 
             }
         }
-        return BasketRequest(items: items, countryCode: countryCode, deliveryType: deliveryType, discountCode: discountCode)
+        self.items = items
+        self.countryCode = countryCode
+        self.deliveryType = deliveryType
+        self.discountCode = discountCode
+        self.deliveryPop = deliveryPop
     }
 }
 
@@ -47,6 +52,7 @@ extension BasketRequest: Encodable {
         if countryCode != nil { dict.setObject(countryCode!, forKey: "country_code") }
         if deliveryType != nil { dict.setObject(deliveryType!.rawValue, forKey: "delivery_type") }
         if discountCode != nil { dict.setObject(discountCode!, forKey: "discount_code") }
+        if deliveryPop != nil { dict.setObject(deliveryPop!, forKey: "delivery_pop") }
         return dict
     }
 }

@@ -106,8 +106,7 @@ class CheckoutNavigationController: UINavigationController, NavigationHandler {
 }
 
 extension CheckoutNavigationController: EditKioskViewControllerDelegate {
-    func editKioskViewControllerDidChooseKiosk(viewController: EditKioskViewController, kiosk: Kiosk) {
-        model.state.selectedKiosk = kiosk
+    func editKioskViewControllerDidChooseKiosk(viewController: EditKioskViewController) {
         popViewControllerAnimated(true)
     }
 }

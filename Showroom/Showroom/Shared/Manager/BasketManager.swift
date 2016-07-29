@@ -172,7 +172,7 @@ final class BasketState {
 
 extension BasketState {
     private func createRequest() -> BasketRequest {
-        return BasketRequest.create(from: basket, countryCode: deliveryCountry?.id, deliveryType: deliveryCarrier?.id, discountCode: discountCode)
+        return BasketRequest(from: basket, countryCode: deliveryCountry?.id, deliveryType: deliveryCarrier?.id, discountCode: discountCode, deliveryPop: nil)
     }
 }
 

@@ -263,10 +263,9 @@ class CheckoutSummaryPriceView: UIView {
 }
 
 class PayUContainerView: UIControl {
-    //todo handle selected state
-    
     var payUButton: UIView? {
         didSet {
+            updateButtonState()
             if let button = payUButton {
                 addSubview(button)
                 button.snp_makeConstraints { make in
@@ -290,6 +289,24 @@ class PayUContainerView: UIControl {
     override func intrinsicContentSize() -> CGSize {
         return CGSize(width: UIViewNoIntrinsicMetric, height: 50)
     }
+    
+    override var enabled: Bool {
+        didSet { updateButtonState() }
+    }
+    
+    private func updateButtonState() {
+        payUButton?.alpha = enabled ? 1.0 : 0.3
+        payUButton?.userInteractionEnabled = enabled
+    }
+}
+
+enum CheckoutSummaryPaymentType {
+    case Cash
+    case PayU
+}
+
+protocol CheckoutSummaryPaymentCellDelegate: class {
+    func checkoutSummary(cell: CheckoutSummaryPaymentCell, didChangePaymentType type: CheckoutSummaryPaymentType)
 }
 
 /// Shows pricing and delivery info on the bottom. It has two possible heights
@@ -313,6 +330,7 @@ class CheckoutSummaryPaymentCell: UITableViewCell {
         set { payuContainerView.payUButton = newValue }
         get { return payuContainerView.payUButton }
     }
+    weak var delegate: CheckoutSummaryPaymentCellDelegate?
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: .Default, reuseIdentifier: reuseIdentifier)
@@ -328,10 +346,8 @@ class CheckoutSummaryPaymentCell: UITableViewCell {
         methodLabel.text = tr(.CheckoutSummaryPaymentMethod)
         methodLabel.font = UIFont(fontType: .FormBold)
         
-        payuRadio.addTarget(self, action: #selector(CheckoutSummaryPaymentCell.didChangePayuValue), forControlEvents: .ValueChanged)
-        payuRadio.selected = true
-        payuContainerView.selected = true
-        cashRadio.addTarget(self, action: #selector(CheckoutSummaryPaymentCell.didChangeCashValue), forControlEvents: .ValueChanged)
+        payuRadio.addTarget(self, action: #selector(CheckoutSummaryPaymentCell.didChangeToPayuValue), forControlEvents: .ValueChanged)
+        cashRadio.addTarget(self, action: #selector(CheckoutSummaryPaymentCell.didChangeToCashValue), forControlEvents: .ValueChanged)
         
         contentView.addSubview(discountLabel)
         contentView.addSubview(separatorView1)
@@ -400,7 +416,7 @@ class CheckoutSummaryPaymentCell: UITableViewCell {
         }
     }
     
-    func updateData(withTotalPrice totalPrice: Money, discount: Money?, discountCode: String?) {
+    func updateData(withTotalPrice totalPrice: Money, discount: Money?, discountCode: String?, payments: [Payment]?) {
         totalPriceLabel.priceLabel.text = totalPrice.stringValue
         if discountCode == nil || discount == nil {
             discountLabel.hidden = true
@@ -410,6 +426,22 @@ class CheckoutSummaryPaymentCell: UITableViewCell {
             discountLabel.priceLabel.text = discount!.stringValue
             discountLabel.hidden = false
             discountHeightConstraint?.updateOffset(CheckoutSummaryPaymentCell.discountCellHeight)
+        }
+        if let payments = payments {
+            let payUPayment = payments.find { $0.id == PaymentType.PayU }
+            let cashPayment = payments.find { $0.id == PaymentType.Cash }
+            
+            payuRadio.enabled = payUPayment?.available ?? false
+            payuRadio.selected = payUPayment?.isDefault ?? false
+            payuContainerView.enabled = payuRadio.selected
+            cashRadio.enabled = cashPayment?.available ?? false
+            cashRadio.selected = cashPayment?.isDefault ?? false
+        } else {
+            payuRadio.selected = false
+            payuRadio.enabled = false
+            payuContainerView.enabled = false
+            cashRadio.enabled = false
+            cashRadio.selected = false
         }
     }
     
@@ -421,17 +453,17 @@ class CheckoutSummaryPaymentCell: UITableViewCell {
         }
     }
     
-    // TODO: Move to delegate
-    func didChangePayuValue() {
+    func didChangeToPayuValue() {
         payuRadio.selected = true
-        payuContainerView.selected = true
+        payuContainerView.enabled = true
         cashRadio.selected = false
+        delegate?.checkoutSummary(self, didChangePaymentType: .PayU)
     }
     
-    // TODO: Move to delegate
-    func didChangeCashValue() {
+    func didChangeToCashValue() {
         payuRadio.selected = false
-        payuContainerView.selected = false
+        payuContainerView.enabled = false
         cashRadio.selected = true
+        delegate?.checkoutSummary(self, didChangePaymentType: .Cash)
     }
 }
