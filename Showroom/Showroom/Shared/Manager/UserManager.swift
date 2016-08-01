@@ -119,7 +119,7 @@ class UserManager {
                 }
                 
                 guard let urlError = error as? RxCocoaURLError else {
-                    return Observable.error(SigningError.Unknown)
+                    return Observable.error(SigningError.Unknown(error))
                 }
                 
                 switch urlError {
@@ -135,10 +135,10 @@ class UserManager {
                         // Invalid credentials
                         return Observable.error(SigningError.InvalidCredentials)
                     default:
-                        return Observable.error(SigningError.Unknown)
+                        return Observable.error(SigningError.Unknown(error))
                     }
                 default:
-                    return Observable.error(SigningError.Unknown)
+                    return Observable.error(SigningError.Unknown(error))
                 }
         }
     }
@@ -158,7 +158,7 @@ class UserManager {
                 }
                 
                 guard let urlError = error as? RxCocoaURLError else {
-                    return Observable.error(SigningError.Unknown)
+                    return Observable.error(SigningError.Unknown(error))
                 }
                 
                 switch urlError {
@@ -172,10 +172,10 @@ class UserManager {
                         logInfo(validtionError.message)
                         return Observable.error(SigningError.ValidationFailed(validtionError.errors))
                     default:
-                        return Observable.error(SigningError.Unknown)
+                        return Observable.error(SigningError.Unknown(error))
                     }
                 default:
-                    return Observable.error(SigningError.Unknown)
+                    return Observable.error(SigningError.Unknown(error))
                 }
         }
     }
@@ -225,7 +225,7 @@ class UserManager {
                     self.fbLoginManager.logOut()
                 }
                 
-                return Observable.error(SigningError.Unknown)
+                return Observable.error(SigningError.Unknown(error))
         }
     }
     

@@ -71,7 +71,7 @@ enum SigningError: ErrorType {
     case InvalidCredentials
     case FacebookError(NSError)
     case FacebookCancelled
-    case Unknown
+    case Unknown(ErrorType)
 }
 
 struct SigningValidationError {
