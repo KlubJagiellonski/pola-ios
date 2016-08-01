@@ -64,6 +64,24 @@ extension ApiService {
         }
     }
     
+    func fetchSearchCatalogue() -> Observable<SearchResult> {
+        let url = NSURL(fileURLWithPath: basePath)
+            .URLByAppendingPathComponent("search_catalogue")
+        
+        let urlRequest = NSMutableURLRequest(URL: url)
+        urlRequest.HTTPMethod = "GET"
+        return networkClient
+            .request(withRequest: urlRequest)
+            .flatMap { data -> Observable<SearchResult> in
+                do {
+                    let result = try NSJSONSerialization.JSONObjectWithData(data, options: [])
+                    return Observable.just(try SearchResult.decode(result))
+                } catch {
+                    return Observable.error(error)
+                }
+        }
+    }
+    
     func validateBasket(with basketRequest: BasketRequest) -> Observable<Basket> {
         let url = NSURL(fileURLWithPath: basePath)
             .URLByAppendingPathComponent("cart/validate")

@@ -31,7 +31,7 @@ class UIAssembly: AssemblyType {
             return SearchViewController(with: r.resolve(DiResolver.self)!)
         }
         container.register(SearchModel.self) { r in
-            return SearchModel(with: r.resolve(ApiService.self)!)
+            return SearchModel(with: r.resolve(ApiService.self)!, and: r.resolve(StorageManager.self)!, and: r.resolve(UserManager.self)!)
         }
         container.register(SettingsViewController.self) { r in
             return SettingsViewController(resolver: r.resolve(DiResolver.self)!)

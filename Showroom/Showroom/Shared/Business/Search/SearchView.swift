@@ -33,6 +33,17 @@ final class SearchView: ViewSwitcher, ExtendedView, UICollectionViewDelegateFlow
             switcherDelegate = delegate
         }
     }
+    private var refreshSelectedTabOnCollectionViewLayoutPass = false
+    var selectedTab = 0 {
+        didSet {
+            guard collectionView.bounds.width > 0 && collectionView.bounds.height > 0 else {
+                refreshSelectedTabOnCollectionViewLayoutPass = true
+                return
+            }
+            tabView.selectedIndex = selectedTab
+            dataSource.scrollToPage(atIndex: selectedTab, animated: false)
+        }
+    }
     
     init() {
         self.dataSource = SearchDataSource(with: collectionView)
@@ -78,6 +89,14 @@ final class SearchView: ViewSwitcher, ExtendedView, UICollectionViewDelegateFlow
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if refreshSelectedTabOnCollectionViewLayoutPass && collectionView.bounds.width > 0 && collectionView.bounds.height > 0 {
+            let selectedTab = self.selectedTab
+            self.selectedTab = selectedTab
+        }
     }
     
     func didTapDimView() {

@@ -30,6 +30,9 @@ final class SearchViewController: UIViewController, SearchViewDelegate {
         castView.pageHandler = self
         castView.delegate = self
         
+        model.genderObservable.subscribeNext { [weak self] gender in
+            self?.updateSelectedTab()
+        }.addDisposableTo(disposeBag)
         fetchSearchItems()
     }
     
@@ -59,6 +62,7 @@ final class SearchViewController: UIViewController, SearchViewDelegate {
                 self.removeAllViewControllers()
                 self.castView.switcherState = .Success
                 self.castView.updateData(with: result.rootItems)
+                self.updateSelectedTab()
             case .CacheError(let error):
                 logError("Error while fetching cached search result \(error)")
                 break
@@ -70,6 +74,13 @@ final class SearchViewController: UIViewController, SearchViewDelegate {
                 break
             }
         }.addDisposableTo(disposeBag)
+    }
+    
+    private func updateSelectedTab() {
+        guard let rootItems = model.searchResult?.rootItems else { return }
+        let gender = model.userGender
+        guard let selectedIndex = rootItems.indexOf({ $0.gender == gender }) else { return }
+        castView.selectedTab = selectedIndex
     }
     
     //MARK:- SearchViewDelegate
