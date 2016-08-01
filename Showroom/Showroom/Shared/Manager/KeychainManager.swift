@@ -5,6 +5,12 @@ import RxSwift
 // taken from http://stackoverflow.com/questions/25513106/trying-to-use-keychainitemwrapper-by-apple-translated-to-swift
 
 class KeychainManager: NSObject {
+    private let cachedUsernameKey = "showroom_cached_username"
+    private let cachedPasswordKey = "showroom_cached_password"
+    private let sessionUserIdIdentifier = "showroom_token_user_id"
+    private let sessionUserSecret = "showroom_token_user_secret"
+    private let facebookTokenKey = "showroom_facebook_token"
+    
     private let secClassGenericPasswordValue = NSString(format: kSecClassGenericPassword)
     private let secClassValue = NSString(format: kSecClass)
     private let secAttrServiceValue = NSString(format: kSecAttrService)
@@ -13,6 +19,39 @@ class KeychainManager: NSObject {
     private let secReturnDataValue = NSString(format: kSecReturnData)
     private let secMatchLimitOneValue = NSString(format: kSecMatchLimitOne)
     private let secAttrAccountValue = NSString(format: kSecAttrAccount)
+    
+    var loginCredentials: Login? {
+        set {
+            setPasscode(cachedUsernameKey, passcode: newValue?.username)
+            setPasscode(cachedPasswordKey, passcode: newValue?.password)
+        }
+        
+        get {
+            guard let username = getPasscode(cachedUsernameKey), let password = getPasscode(cachedPasswordKey) else { return nil }
+            return Login(username: username, password: password)
+        }
+    }
+    
+    var session: Session? {
+        set {
+            setPasscode(sessionUserIdIdentifier, passcode: newValue?.userKey)
+            setPasscode(sessionUserSecret, passcode: newValue?.userSecret)
+        }
+        
+        get {
+            guard let userId = getPasscode(sessionUserIdIdentifier), let secret = getPasscode(sessionUserSecret) else { return nil }
+            return Session(userKey: userId, userSecret: secret)
+        }
+    }
+    
+    var facebookToken: String? {
+        set {
+            setPasscode(facebookTokenKey, passcode: newValue)
+        }
+        get {
+            return getPasscode(facebookTokenKey)
+        }
+    }
     
     func setPasscode(identifier: String, passcode: String?) {
         logInfo("Saving passcode for identifier \(identifier)")

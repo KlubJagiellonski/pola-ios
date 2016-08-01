@@ -18,8 +18,6 @@ class NetworkAssembly: AssemblyType {
         
         container.register(ApiService.self) { r in
             return ApiService(networkClient: r.resolve(NetworkClient.self)!)
-        }.initCompleted { r, api in
-            api.userManager = r.resolve(UserManager.self)
         }
         
         container.register(EmarsysService.self) { r in

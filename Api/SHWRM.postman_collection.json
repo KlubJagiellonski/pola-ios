@@ -75,11 +75,17 @@
 			"name": "PRODUCTS",
 			"request": {
 				"url": "{{HOST}}/products",
-				"method": "GET",
-				"header": [],
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
 				"body": {
-					"mode": "formdata",
-					"formdata": []
+					"mode": "raw",
+					"raw": "{\n    \"pagination\": {\n        \"page\": 3\n    },\n    \"colors\": [3, 6, 9],\n    \"categories\": [\n        \"female\", 78, 106\n    ],\n    \"minPrice\": 100,\n    \"maxPrice\": 1000000,\n    \"stores\": [],\n    \"sizes\": []\n}"
 				}
 			},
 			"response": []
@@ -176,6 +182,45 @@
 				"body": {
 					"mode": "raw",
 					"raw": "{\n    \"access_token\": \"EAADRWxCT1FUBAGhvWRomhmQgLRMrgIkCy5XqUiPpfLPZC1qwENwulYtOLiKaBCpmz7TVz8Ybr70BP9LJBombZBYt58CxKbQu6ZAvDxqIH0oX9c8DaKQiTJ7unZC98aJYKFarwL0feDRNOCFJiT7pNomHaRBwRsZBww8pgDT5lqJXtBofgt2FZAleZAvQPlfaIQrymqrFXduKbN3RZA7V2m2c8WOVLUCSoAsZD\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET USER",
+			"request": {
+				"url": "{{HOST}}/user/profile",
+				"method": "GET",
+				"header": [
+					{
+						"key": "showroom-key",
+						"value": "key",
+						"description": ""
+					},
+					{
+						"key": "showroom-secret",
+						"value": "secret",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Search catalogue",
+			"request": {
+				"url": "{{HOST}}/search_catalogue",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
 				},
 				"description": ""
 			},

@@ -70,3 +70,15 @@ extension UserAddress: Decodable, Encodable {
         ] as NSDictionary
     }
 }
+
+// MARK:- Equatable
+
+extension User: Equatable {}
+extension UserAddress: Equatable {}
+
+func ==(lhs: User, rhs: User) -> Bool {
+    return lhs.id == rhs.id && lhs.name == rhs.name && lhs.email == rhs.email && lhs.userAddresses == rhs.userAddresses
+}
+func ==(lhs: UserAddress, rhs: UserAddress) -> Bool {
+    return lhs.firstName == rhs.firstName && lhs.lastName == rhs.lastName && lhs.streetAndAppartmentNumbers == rhs.streetAndAppartmentNumbers && lhs.postalCode == rhs.postalCode && lhs.city == rhs.city && lhs.country == rhs.country && lhs.phone == rhs.phone && lhs.description == rhs.description
+}

@@ -11,8 +11,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     let assembler = try! DiAssembler()
     
+    lazy var userManager: UserManager = { [unowned self] in
+        return self.assembler.resolver.resolve(UserManager.self)!
+    }()
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         configureDependencies()
+        
+        userManager.updateUser()
         
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
@@ -44,6 +50,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return handleOpen(withURL: webPageUrl)
         }
         return false
+    }
+    
+    func applicationWillEnterForeground(application: UIApplication) {
+        userManager.updateUser()
     }
     
     private func configureDependencies() {

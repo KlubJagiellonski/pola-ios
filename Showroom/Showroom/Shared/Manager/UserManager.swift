@@ -4,23 +4,6 @@ import RxCocoa
 import Decodable
 import FBSDKLoginKit
 
-extension KeychainManager {
-    private var userIdIdentifier: String { return "showroom_token_user_id" }
-    private var userSecret: String { return "showroom_token_user_secret" }
-    
-    private func saveSession(session: Session?) {
-        setPasscode(userIdIdentifier, passcode: session?.userKey)
-        setPasscode(userSecret, passcode: session?.userSecret)
-    }
-    
-    private func loadSession() -> Session? {
-        if let userId = getPasscode(userIdIdentifier), let userSecret = getPasscode(userSecret) {
-            return Session(userKey: userId, userSecret: userSecret)
-        }
-        return nil
-    }
-}
-
 extension FBSDKLoginManager {
     var isLogged: Bool {
         return FBSDKAccessToken.currentAccessToken() != nil
@@ -46,7 +29,7 @@ class UserManager {
     private var userSession: UserSession? {
         didSet {
             emarsysService.configureUser(String(userSession?.user.id), customerEmail: userSession?.user.email)
-            keychainManager.saveSession(userSession?.session)
+            keychainManager.session = userSession?.session
             do {
                 try storageManager.save(Constants.Persistent.currentUser, object: userSession?.user)
             } catch {
@@ -88,7 +71,9 @@ class UserManager {
         self.keychainManager = keychainManager
         self.storageManager = storageManager
         
-        let session = keychainManager.loadSession()
+        apiService.dataSource = self
+        
+        let session = keychainManager.session
         var user: User?
         do {
             user = try storageManager.load(Constants.Persistent.currentUser)
@@ -111,6 +96,7 @@ class UserManager {
                 if let `self` = self {
                     self.userSession = UserSession(user: result.user, session: result.session)
                     self.updateSharedWebCredentialsIfNeeded(withUsername: login.username, password: login.password)
+                    self.keychainManager.loginCredentials = login
                 }
         }
             .catchError { [weak self] error in
@@ -150,6 +136,7 @@ class UserManager {
                 if let `self` = self {
                     self.userSession = UserSession(user: result.user, session: result.session)
                     self.updateSharedWebCredentialsIfNeeded(withUsername: registration.username, password: registration.password)
+                    self.keychainManager.loginCredentials = Login(username: registration.username, password: registration.password)
                 }
         }
             .catchError { [weak self] error in
@@ -202,26 +189,56 @@ class UserManager {
                     observer.onCompleted()
                 } else {
                     logInfo("Facebook logged in to sdk")
-                    self.loginWithFacebookToken(result.token).subscribe(observer).addDisposableTo(self.disposeBag)
+                    self.loginWithFacebookToken(result.token.tokenString).subscribe(observer).addDisposableTo(self.disposeBag)
                 }
             }
             return NopDisposable.instance
         }
     }
     
-    private func loginWithFacebookToken(token: FBSDKAccessToken) -> Observable<SigningResult> {
-        return self.apiService.loginWithFacebook(with: FacebookLogin(accessToken: token.tokenString))
+    func updateUser() {
+        self.apiService.fetchUser()
+            .subscribe { [weak self] (event: Event<User>) in
+                guard let `self` = self else { return }
+                
+                switch event {
+                case .Next(let user):
+                    guard user != self.user else {
+                        logInfo("Fetched user is the same")
+                        return
+                    }
+                    logInfo("Updated user with info: \(user)")
+                    self.userSession = UserSession(user: user, session: self.session)
+                case .Error(let error):
+                    logInfo("Could not update user with error: \(error)")
+                default: break
+                }
+        }.addDisposableTo(disposeBag)
+    }
+    
+    func logout() {
+        apiService.logout().subscribe().addDisposableTo(disposeBag)
+        fbLoginManager.logOut()
+        self.userSession = nil
+        keychainManager.facebookToken = nil
+        keychainManager.loginCredentials = nil
+    }
+    
+    private func loginWithFacebookToken(token: String) -> Observable<SigningResult> {
+        return self.apiService.loginWithFacebook(with: FacebookLogin(accessToken: token))
             .observeOn(MainScheduler.instance)
             .doOnNext { [weak self] result in
                 logInfo("Facebook logged in to api")
                 if let `self` = self {
                     self.userSession = UserSession(user: result.user, session: result.session)
+                    self.keychainManager.facebookToken = token
                 }
             }
             .catchError { [weak self] error in
                 logInfo("Facebook failed to log in to api \(error)")
                 if let `self` = self {
                     self.userSession = nil
+                    self.keychainManager.facebookToken = nil
                     self.fbLoginManager.logOut()
                 }
                 
@@ -235,11 +252,21 @@ class UserManager {
             self.keychainManager.addSharedWebCredentials(newCredentials).subscribe().addDisposableTo(self.disposeBag)
         }
     }
+}
+
+extension UserManager: ApiServiceDataSource {
+    func apiServiceWantsSession(api: ApiService) -> Session? {
+        return session
+    }
     
-    func logout() {
-        apiService.logout().subscribe().addDisposableTo(disposeBag)
-        fbLoginManager.logOut()
-        self.userSession = nil
+    func apiServiceWantsHandleLoginRetry(api: ApiService) -> Observable<Void> {
+        if let facebookToken = keychainManager.facebookToken {
+            return loginWithFacebookToken(facebookToken).flatMap({ _ in return Observable.just() })
+        } else if let loginCredentials = keychainManager.loginCredentials {
+            return login(with: loginCredentials).flatMap({ _ in return Observable.just() })
+        } else {
+            return Observable.error(ApiError.LoginRetryFailed)
+        }
     }
 }
 

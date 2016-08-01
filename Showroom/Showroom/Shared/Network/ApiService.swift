@@ -1,9 +1,15 @@
 import Foundation
 import RxSwift
+import RxCocoa
+
+protocol ApiServiceDataSource: class {
+    func apiServiceWantsSession(api: ApiService) -> Session?
+    func apiServiceWantsHandleLoginRetry(api: ApiService) -> Observable<Void>
+}
 
 class ApiService {
     let networkClient: NetworkClient
-    weak var userManager: UserManager?
+    weak var dataSource: ApiServiceDataSource?
     
     var basePath: String {
         return Constants.baseUrl
@@ -16,6 +22,7 @@ class ApiService {
 
 enum ApiError: ErrorType {
     case NoSession
+    case LoginRetryFailed
 }
 
 extension ApiService {
@@ -149,6 +156,31 @@ extension ApiService {
         }
     }
     
+    func fetchUser(retryOnNotLoggedIn: Bool = true) -> Observable<User> {
+        guard let session = dataSource?.apiServiceWantsSession(self) else {
+            return Observable.error(ApiError.NoSession)
+        }
+        
+        let url = NSURL(fileURLWithPath: basePath)
+            .URLByAppendingPathComponent("user/profile")
+        
+        let urlRequest = NSMutableURLRequest(URL: url)
+        urlRequest.HTTPMethod = "GET"
+        urlRequest.applySessionHeaders(session)
+        return networkClient
+            .request(withRequest: urlRequest)
+            .flatMap { data -> Observable<User> in
+                do {
+                    let dict = try NSJSONSerialization.JSONObjectWithData(data, options: [])
+                    return Observable.just(try User.decode(dict))
+                } catch {
+                    return Observable.error(error)
+                }
+        }.catchError { [unowned self] error -> Observable<User> in
+            return try self.catchNotAuthorizedError(error, shouldRetry: retryOnNotLoggedIn) { [unowned self] (Void) -> Observable<User> in return self.fetchUser(false) }
+        }
+    }
+    
     func login(with login: Login) -> Observable<SigningResult> {
         let url = NSURL(fileURLWithPath: basePath)
             .URLByAppendingPathComponent("login")
@@ -221,7 +253,7 @@ extension ApiService {
     }
     
     func logout() -> Observable<Void> {
-        guard let session = userManager?.session else {
+        guard let session = dataSource?.apiServiceWantsSession(self) else {
             return Observable.error(ApiError.NoSession)
         }
         
@@ -232,6 +264,19 @@ extension ApiService {
         urlRequest.applySessionHeaders(session)
         return networkClient.request(withRequest: urlRequest).flatMap { data -> Observable<Void> in
             return Observable.just()
+        }
+    }
+    
+    private func catchNotAuthorizedError<T>(error: ErrorType, shouldRetry: Bool, retryCall: Void -> Observable<T>) throws -> Observable<T> {
+        guard shouldRetry else { return Observable.error(error) }
+        guard let dataSource = dataSource, let urlError = error as? RxCocoaURLError else { return Observable.error(error) }
+        guard case let .HTTPRequestFailed(response, _) = urlError where response.statusCode == 401 else { return Observable.error(error) }
+        
+        return dataSource.apiServiceWantsHandleLoginRetry(self)
+            .flatMap { Void -> Observable<T> in
+                return Observable<T>.create { observer in
+                    return retryCall().subscribe(observer)
+                }
         }
     }
 }

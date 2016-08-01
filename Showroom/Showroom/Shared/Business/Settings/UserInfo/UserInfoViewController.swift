@@ -39,29 +39,6 @@ class UserInfoViewController: UIViewController, UserInfoViewDelegate {
         super.viewWillAppear(animated)
      
         logAnalyticsShowScreen(.UserData)
-        
-        // TODO: remove after testing
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UserInfoViewController.test), name: UIApplicationDidBecomeActiveNotification, object: nil)
-    }
-    
-    override func viewDidDisappear(animated: Bool) {
-        super.viewDidDisappear(animated)
-        
-        // TODO: remove after testing
-        NSNotificationCenter.defaultCenter().removeObserver(self)
-    }
-    
-    // TODO: remove after testing
-    func test() {
-        logInfo("user info did change test")
-        let user: User? = User(id: 1234, name: "test", email: "test@test", userAddresses: [
-            UserAddress(firstName: "test", lastName: "Kowalski", streetAndAppartmentNumbers: "Sikorskiego 12/30", postalCode: "15-888", city: "Białystok", country: "POLSKA", phone: "+48 501 123 456", description: "opis 1"),
-            UserAddress(firstName: "test", lastName: "Kowalska", streetAndAppartmentNumbers: "Piękna 5/10", postalCode: "02-758", city: "Warszawa", country: "POLSKA", phone: "+48 788 123 456", description: "opis 2"),
-            UserAddress(firstName: "test", lastName: "Kowalski", streetAndAppartmentNumbers: "Sikorskiego 12/30", postalCode: "15-888", city: "Białystok", country: "POLSKA", phone: "+48 501 123 456", description: "opis 1"),
-            UserAddress(firstName: "test", lastName: "Kowalska", streetAndAppartmentNumbers: "Piękna 5/10", postalCode: "02-758", city: "Warszawa", country: "POLSKA", phone: "+48 788 123 456", description: "opis 2")
-            ])
-//        let user: User? = nil
-        userManager.userObservable.onNext(user)
     }
     
     func updateUserInfo(user: User?) {
