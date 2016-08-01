@@ -89,7 +89,7 @@ extension ApiService {
             .URLByAppendingParams(["page": String(forPage), "pageSize": String(pageSize)])
         
         let urlRequest = NSMutableURLRequest(URL: url)
-        urlRequest.HTTPMethod = "GET"
+        urlRequest.HTTPMethod = "POST"
         return networkClient
             .request(withRequest: urlRequest)
             .flatMap { data -> Observable<ProductListResult> in
