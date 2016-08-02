@@ -81,7 +81,7 @@ final class Analytics {
     
     init() {
         let gai = GAI.sharedInstance()
-        gai.logger.logLevel = Constants.isDebug ? GAILogLevel.Verbose : GAILogLevel.Error
+        gai.logger.logLevel = Constants.isDebug ? GAILogLevel.Info : GAILogLevel.Error
         self.tracker = gai.trackerWithTrackingId(Constants.googleAnalyticsTrackingId)
     }
     

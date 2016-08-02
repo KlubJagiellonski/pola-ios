@@ -320,9 +320,9 @@ class CheckoutSummaryPaymentCell: UITableViewCell {
     private let discountLabel = CheckoutSummaryPriceView(title: tr(.CheckoutSummaryDiscountCode("")))
     private let totalPriceLabel = CheckoutSummaryPriceView(title: tr(.CheckoutSummaryTotalPrice))
     private let methodLabel = UILabel()
-    private let payuRadio = RadioButton(title: tr(.CheckoutSummaryPayU))
+    private let payuRadio = RadioButton()
     private let payuContainerView = PayUContainerView()
-    private let cashRadio = RadioButton(title: tr(.CheckoutSummaryCash))
+    private let cashRadio = RadioButton()
     private let separatorView1 = UIView()
     private let separatorView2 = UIView()
     
@@ -431,9 +431,11 @@ class CheckoutSummaryPaymentCell: UITableViewCell {
             let payUPayment = payments.find { $0.id == PaymentType.PayU }
             let cashPayment = payments.find { $0.id == PaymentType.Cash }
             
+            payuRadio.title = payUPayment?.name ?? ""
             payuRadio.enabled = payUPayment?.available ?? false
             payuRadio.selected = payUPayment?.isDefault ?? false
             payuContainerView.enabled = payuRadio.selected
+            cashRadio.title = cashPayment?.name ?? ""
             cashRadio.enabled = cashPayment?.available ?? false
             cashRadio.selected = cashPayment?.isDefault ?? false
         } else {

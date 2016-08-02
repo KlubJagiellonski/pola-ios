@@ -20,7 +20,12 @@ class RadioButton: UIControl {
         }
     }
     
-    init(title: String) {
+    var title: String? {
+        set { titleLabel.text = newValue }
+        get { return titleLabel.text }
+    }
+    
+    init(title: String? = nil) {
         super.init(frame: CGRectZero)
         
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(RadioButton.didTapView)))

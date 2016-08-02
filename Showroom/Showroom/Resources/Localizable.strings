@@ -84,8 +84,6 @@
 "Checkout.Summary.DiscountCode" = "Kod rabatowy %@";
 "Checkout.Summary.TotalPrice" = "Kwota do zapłaty";
 "Checkout.Summary.PaymentMethod" = "Sposób płatności";
-"Checkout.Summary.PayU" = "płatność PayU";
-"Checkout.Summary.Cash" = "opłata za pobraniem";
 "Checkout.Summary.Buy" = "KUP I ZAPŁAĆ";
 "Checkout.PaymentResult.SuccessHeader" = "SUKCES!";
 "Checkout.PaymentResult.SuccessDescription" = "Twoje zamówienie nr %@ zostało złożone do realizacji. Możesz sprawdzić status zamówienia w %@.";

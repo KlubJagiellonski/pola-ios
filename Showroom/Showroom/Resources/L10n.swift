@@ -175,10 +175,6 @@ enum L10n {
   case CheckoutSummaryTotalPrice
   /// Sposób płatności
   case CheckoutSummaryPaymentMethod
-  /// płatność PayU
-  case CheckoutSummaryPayU
-  /// opłata za pobraniem
-  case CheckoutSummaryCash
   /// KUP I ZAPŁAĆ
   case CheckoutSummaryBuy
   /// SUKCES!
@@ -544,10 +540,6 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Checkout.Summary.TotalPrice")
       case .CheckoutSummaryPaymentMethod:
         return L10n.tr("Checkout.Summary.PaymentMethod")
-      case .CheckoutSummaryPayU:
-        return L10n.tr("Checkout.Summary.PayU")
-      case .CheckoutSummaryCash:
-        return L10n.tr("Checkout.Summary.Cash")
       case .CheckoutSummaryBuy:
         return L10n.tr("Checkout.Summary.Buy")
       case .CheckoutPaymentResultSuccessHeader:
