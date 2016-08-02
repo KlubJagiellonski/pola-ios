@@ -197,6 +197,7 @@ class UserManager {
     }
     
     func updateUser() {
+        guard session != nil else { return }
         self.apiService.fetchUser()
             .subscribe { [weak self] (event: Event<User>) in
                 guard let `self` = self else { return }

@@ -149,11 +149,15 @@ class MainTabViewController: UITabBarController, NavigationHandler {
 
 extension MainTabViewController: DeepLinkingHandler {
     func handleOpen(withURL url: NSURL) -> Bool {
-        selectedIndex = MainTabChildControllerType.Search.rawValue
-        guard let deepLinkingHandler = selectedViewController as? DeepLinkingHandler else {
+        let searchIndex = MainTabChildControllerType.Search.rawValue
+        guard let deepLinkingHandler = viewControllers?[searchIndex] as? DeepLinkingHandler else {
             return false
         }
-        return deepLinkingHandler.handleOpen(withURL: url)
+        let handled = deepLinkingHandler.handleOpen(withURL: url)
+        if handled {
+            selectedIndex = searchIndex
+        }
+        return handled
     }
 }
 
