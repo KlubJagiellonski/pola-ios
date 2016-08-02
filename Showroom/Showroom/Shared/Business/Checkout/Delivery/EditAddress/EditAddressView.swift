@@ -4,7 +4,8 @@ protocol EditAddressViewDelegate: class {
     func editAddressViewDidTapSaveButton(view: EditAddressView)
 }
 
-class EditAddressView: UIView {
+class EditAddressView: ViewSwitcher {
+    private let contentView = UIView()
     private let scrollView = UIScrollView()
     private let stackView = UIStackView()
     private let saveButton = UIButton()
@@ -18,14 +19,14 @@ class EditAddressView: UIView {
     var contentValidators: [ContentValidator] = []
     
     weak var delegate: EditAddressViewDelegate?
-    var userAddress: UserAddress? {
+    var userAddress: EditUserAddress? {
         return AddressFormField.formFieldsToUserAddress(formFields)
     }
     
     init(userAddress: UserAddress?, defaultCountry: String) {
-        super.init(frame: CGRectZero)
+        super.init(successView: contentView, initialState: .Success)
         
-        let initialFormFields = userAddress != nil ? AddressFormField.createFormFields(with: userAddress!) : AddressFormField.createEmptyFormFields(withDefaultCountry: defaultCountry)
+        let initialFormFields = userAddress != nil ? AddressFormField.createFormFields(with: userAddress!, defaultCountry: defaultCountry) : AddressFormField.createEmptyFormFields(withDefaultCountry: defaultCountry)
         
         keyboardHelper.delegate = self
         
@@ -33,7 +34,7 @@ class EditAddressView: UIView {
         
         scrollView.bounces = true
         scrollView.showsVerticalScrollIndicator = false
-        addSubview(scrollView)
+        contentView.addSubview(scrollView)
         
         stackView.axis = .Vertical
         updateStackView(formFields: initialFormFields)
@@ -42,7 +43,7 @@ class EditAddressView: UIView {
         saveButton.setTitle(tr(.CheckoutDeliveryEditAddressSave), forState: .Normal)
         saveButton.addTarget(self, action: #selector(EditAddressView.didTapSaveButton), forControlEvents: .TouchUpInside)
         saveButton.applyBlueStyle()
-        addSubview(saveButton)
+        contentView.addSubview(saveButton)
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(EditAddressView.dismissKeyboard))
         scrollView.addGestureRecognizer(tap)
@@ -52,6 +53,13 @@ class EditAddressView: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func updateFieldValidation(withId id: String, validation: String?) {
+        guard let inputView = stackView.arrangedSubviews.find({ $0.tag == id.hashValue }) as? CheckoutDeliveryInputView else {
+            return
+        }
+        inputView.validation = validation
     }
     
     private func configureCustomCostraints() {
@@ -78,6 +86,7 @@ class EditAddressView: UIView {
     private func updateStackView(formFields formFields: [AddressFormField]) {
         for (index, formField) in formFields.enumerate() {
             let inputView = CheckoutDeliveryInputView(addressField: formField)
+            inputView.tag = formField.fieldId.hashValue
             inputView.inputTextField.tag = index
             inputView.inputTextField.returnKeyType = index == (formFields.count - 1) ? .Send : .Next
             inputView.inputTextField.keyboardType = formField.keyboardType

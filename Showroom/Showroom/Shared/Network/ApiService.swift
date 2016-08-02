@@ -208,6 +208,70 @@ extension ApiService {
         }
     }
     
+    func addUserAddress(address: EditUserAddress) -> Observable<UserAddress>{
+        guard let session = dataSource?.apiServiceWantsSession(self) else {
+            return Observable.error(ApiError.NoSession)
+        }
+        
+        let url = NSURL(fileURLWithPath: basePath)
+            .URLByAppendingPathComponent("user/address")
+        
+        do {
+            let jsonData = try NSJSONSerialization.dataWithJSONObject(address.encode(), options: [])
+            
+            let urlRequest = NSMutableURLRequest(URL: url)
+            urlRequest.HTTPMethod = "PUT"
+            urlRequest.HTTPBody = jsonData
+            urlRequest.applyJsonContentTypeHeader()
+            urlRequest.applySessionHeaders(session)
+            return networkClient
+                .request(withRequest: urlRequest)
+                .flatMap { data -> Observable<UserAddress> in
+                    do {
+                        let dict = try NSJSONSerialization.JSONObjectWithData(data, options: [])
+                        return Observable.just(try UserAddress.decode(dict))
+                    } catch {
+                        return Observable.error(error)
+                    }
+            }
+        } catch {
+            return Observable.error(error)
+        }
+    }
+    
+    func editUserAddress(forId id: ObjectId, address: EditUserAddress) -> Observable<UserAddress>{
+        guard let session = dataSource?.apiServiceWantsSession(self) else {
+            return Observable.error(ApiError.NoSession)
+        }
+        
+        let url = NSURL(fileURLWithPath: basePath)
+            .URLByAppendingPathComponent("user/address")
+            .URLByAppendingPathComponent(String(id))
+        
+        do {
+            let jsonData = try NSJSONSerialization.dataWithJSONObject(address.encode(), options: [])
+            
+            let urlRequest = NSMutableURLRequest(URL: url)
+            urlRequest.HTTPMethod = "POST"
+            urlRequest.HTTPBody = jsonData
+            urlRequest.applyJsonContentTypeHeader()
+            urlRequest.applySessionHeaders(session)
+            return networkClient
+                .request(withRequest: urlRequest)
+                .flatMap { data -> Observable<UserAddress> in
+                    do {
+                        let dict = try NSJSONSerialization.JSONObjectWithData(data, options: [])
+                        return Observable.just(try UserAddress.decode(dict))
+                    } catch {
+                        return Observable.error(error)
+                    }
+                    
+            }
+        } catch {
+            return Observable.error(error)
+        }
+    }
+    
     func login(with login: Login) -> Observable<SigningResult> {
         let url = NSURL(fileURLWithPath: basePath)
             .URLByAppendingPathComponent("login")

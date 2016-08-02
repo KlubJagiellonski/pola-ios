@@ -10,7 +10,8 @@ protocol CheckoutDeliveryViewDelegate: class {
     func checkoutDeliveryViewDidTapNextButton(view: CheckoutDeliveryView)
 }
 
-class CheckoutDeliveryView: UIView {
+class CheckoutDeliveryView: ViewSwitcher {
+    private let contentView = UIView()
     private let scrollView = UIScrollView()
     private let stackView = UIStackView()
     private let nextButton = UIButton()
@@ -30,10 +31,13 @@ class CheckoutDeliveryView: UIView {
             updateAddressOptions(selectedIndex: selectedAddressIndex)
         }
     }
+    var userAddress: EditUserAddress? {
+        return AddressFormField.formFieldsToUserAddress(getAddressFields())
+    }
     
     init(checkoutState: CheckoutState) {
-        self.addressInput = AddressInput.fromUserAddresses(checkoutState.userAddresses, defaultCountry: checkoutState.checkout.deliveryCountry.name)
-        super.init(frame: CGRectZero)
+        self.addressInput = AddressInput.fromUserAddresses(checkoutState.userAddresses, defaultCountry: checkoutState.checkout.deliveryCountry.name, isFormMode: checkoutState.isFormMode)
+        super.init(successView: contentView, initialState: .Success)
         
         addValidator(CheckoutValidator())
         
@@ -55,7 +59,7 @@ class CheckoutDeliveryView: UIView {
         
         scrollView.bounces = true
         scrollView.showsVerticalScrollIndicator = false
-        addSubview(scrollView)
+        contentView.addSubview(scrollView)
         
         stackView.axis = .Vertical
         updateStackView(checkoutState)
@@ -64,7 +68,7 @@ class CheckoutDeliveryView: UIView {
         nextButton.setTitle(tr(.CheckoutDeliveryNext), forState: .Normal)
         nextButton.addTarget(self, action: #selector(CheckoutDeliveryView.didTapNextButton), forControlEvents: .TouchUpInside)
         nextButton.applyBlueStyle()
-        addSubview(nextButton)
+        contentView.addSubview(nextButton)
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(CheckoutDeliveryView.dismissKeyboard))
         scrollView.addGestureRecognizer(tap)
@@ -106,7 +110,7 @@ class CheckoutDeliveryView: UIView {
     }
     
     private func updateData(userAddresses: [UserAddress], checkoutState: CheckoutState) {
-        addressInput = AddressInput.fromUserAddresses(userAddresses, defaultCountry: checkoutState.checkout.deliveryCountry.name)
+        addressInput = AddressInput.fromUserAddresses(userAddresses, defaultCountry: checkoutState.checkout.deliveryCountry.name, isFormMode: checkoutState.isFormMode)
         updateStackView(checkoutState)
     }
     
@@ -127,6 +131,7 @@ class CheckoutDeliveryView: UIView {
         case .Form(let fields):
             for (index, field) in fields.enumerate() {
                 let inputView = CheckoutDeliveryInputView(addressField: field)
+                inputView.tag = field.fieldId.hashValue
                 inputView.inputTextField.tag = index
                 inputView.inputTextField.returnKeyType = index == (fields.count - 1) ? .Done : .Next
                 inputView.inputTextField.keyboardType = field.keyboardType
@@ -165,6 +170,13 @@ class CheckoutDeliveryView: UIView {
         for (index, addressOptionView) in addressOptionViews!.enumerate() {
             addressOptionView.selected = (index == selectedIndex)
         }
+    }
+    
+    func updateFieldValidation(withId id: String, validation: String?) {
+        guard let inputView = stackView.arrangedSubviews.find({ $0.tag == id.hashValue }) as? CheckoutDeliveryInputView else {
+            return
+        }
+        inputView.validation = validation
     }
     
     func didTapAddressOptionView(addressOptionView: CheckoutDeliveryAddressOptionView) {
@@ -210,6 +222,16 @@ class CheckoutDeliveryView: UIView {
             }
         }
         return string
+    }
+    
+    private func getAddressFields() -> [AddressFormField] {
+        var addressFields = [AddressFormField]()
+        for view in stackView.arrangedSubviews {
+            if let inputView = view as? CheckoutDeliveryInputView {
+                addressFields.append(inputView.addressField)
+            }
+        }
+        return addressFields
     }
 }
 

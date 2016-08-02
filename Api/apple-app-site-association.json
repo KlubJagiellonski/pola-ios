@@ -3,7 +3,7 @@
 		"apps": [],
 		"details": [
 			{
-				"appId": "73PWPNSU5Y.com.showroom.Showroom",
+				"appID": "73PWPNSU5Y.com.showroom.Showroom",
 				"paths": [ "/tag/*", "/marki/*", "/trend/*", "/search", "/p/*" ]
 			}
 		]

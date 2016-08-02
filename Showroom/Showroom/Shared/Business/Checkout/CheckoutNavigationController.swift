@@ -2,6 +2,7 @@ import UIKit
 
 protocol CheckoutNavigationControllerDelegate: class {
     func checkoutWantsGoToMainScreen(checkout: CheckoutNavigationController)
+    func checkoutWantsDismiss(checkout: CheckoutNavigationController)
 }
 
 class CheckoutNavigationController: UINavigationController, NavigationHandler {
@@ -36,8 +37,8 @@ class CheckoutNavigationController: UINavigationController, NavigationHandler {
         pushViewController(summaryViewController, animated: true)
     }
     
-    func showEditAddressView(userAddress userAddress: UserAddress?) {
-        let editAddressViewController = resolver.resolve(EditAddressViewController.self, arguments: (userAddress, model.state.checkout.deliveryCountry.name))
+    func showEditAddressView() {
+        let editAddressViewController = resolver.resolve(EditAddressViewController.self, argument: model)
         editAddressViewController.delegate = self
         editAddressViewController.navigationItem.title = tr(.CheckoutDeliveryEditAddressNavigationHeader)
         editAddressViewController.resetBackTitle()
@@ -69,7 +70,7 @@ class CheckoutNavigationController: UINavigationController, NavigationHandler {
     }
     
     func didTapCloseButton(sender: UIBarButtonItem) {
-        dismissViewControllerAnimated(true, completion: nil)
+        checkoutDelegate?.checkoutWantsDismiss(self)
     }
     
     func handleNavigationEvent(event: NavigationEvent) -> EventHandled {
@@ -91,14 +92,15 @@ class CheckoutNavigationController: UINavigationController, NavigationHandler {
             case .ShowDashboard:
                 checkoutDelegate?.checkoutWantsGoToMainScreen(self)
                 return true
+            case .Close:
+                checkoutDelegate?.checkoutWantsDismiss(self)
+                return true
+            case .ShowEditAddress:
+                showEditAddressView()
+                return true
             default:
                 return false
             }
-            
-        case let editAddressEvent as ShowEditAddressEvent:
-            showEditAddressView(userAddress: editAddressEvent.userAddress)
-            return true
-            
         default:
             return false
         }
@@ -114,15 +116,10 @@ extension CheckoutNavigationController: EditKioskViewControllerDelegate {
 // MARK: - EditAddressViewControllerDelegate
 
 extension CheckoutNavigationController: EditAddressViewControllerDelegate {
-    func editAddressViewController(viewController: EditAddressViewController, didAddNewUserAddress userAddress: UserAddress) {
-        model.state.addressAdded = true
-        model.state.userAddresses.append(userAddress)
+    func editAddressViewControllerWantsDismiss(viewController: EditAddressViewController) {
+        if let deliveryViewController = viewControllers.first as? CheckoutDeliveryViewController {
+            deliveryViewController.markLastAddressOptionAsSelected()
+        }
         popViewControllerAnimated(true)
     }
-    
-    func editAddressViewController(viewController: EditAddressViewController, didEditUserAddress userAddress: UserAddress) {
-        model.state.userAddresses[model.state.userAddresses.count - 1] = userAddress
-        popViewControllerAnimated(true)
-    }
-
 }

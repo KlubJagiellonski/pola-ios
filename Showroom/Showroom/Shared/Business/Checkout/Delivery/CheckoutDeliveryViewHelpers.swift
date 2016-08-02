@@ -17,18 +17,22 @@ enum AddressFormField {
 }
 
 extension AddressInput {
-    static func fromUserAddresses(userAddresses: [UserAddress], defaultCountry: String) -> AddressInput {
-        if userAddresses.count > 0 {
-            return .Options(addresses: AddressInput.createAddressFormFields(userAddresses))
+    static func fromUserAddresses(userAddresses: [UserAddress], defaultCountry: String, isFormMode: Bool) -> AddressInput {
+        if isFormMode {
+            if let userAddress = userAddresses.first {
+                return .Form(fields: AddressFormField.createFormFields(with: userAddress, defaultCountry: defaultCountry))
+            } else {
+                return .Form(fields: AddressFormField.createEmptyFormFields(withDefaultCountry: defaultCountry))
+            }
         } else {
-            return .Form(fields: AddressFormField.createEmptyFormFields(withDefaultCountry: defaultCountry))
+            return .Options(addresses: AddressInput.createAddressFormFields(userAddresses, defaultCountry: defaultCountry))
         }
     }
     
-    static func createAddressFormFields(userAddresses: [UserAddress]) -> [[AddressFormField]] {
+    static func createAddressFormFields(userAddresses: [UserAddress], defaultCountry: String) -> [[AddressFormField]] {
         var addresses: [[AddressFormField]] = []
         for userAddress in userAddresses {
-            addresses.append(AddressFormField.createFormFields(with: userAddress))
+            addresses.append(AddressFormField.createFormFields(with: userAddress, defaultCountry: defaultCountry))
         }
         return addresses
     }
@@ -46,23 +50,42 @@ extension AddressFormField {
         }
     }
     
+    var fieldId: String {
+        switch self {
+        case .FirstName:
+            return UserAddress.firstNameKey
+        case .LastName:
+            return UserAddress.lastNameKey
+        case .StreetAndApartmentNumbers:
+            return UserAddress.streetAndAppartmentNumbersKey
+        case .PostalCode:
+            return UserAddress.postalCodeKey
+        case .City:
+            return UserAddress.cityKey
+        case .Country:
+            return UserAddress.countryKey
+        case .Phone:
+            return UserAddress.phoneKey
+        }
+    }
+    
     static func createEmptyFormFields(withDefaultCountry defaultCountry: String) -> [AddressFormField] {
         return [.FirstName(value: nil), .LastName(value: nil), .StreetAndApartmentNumbers(value: nil), .PostalCode(value: nil), .City(value: nil), .Country(defaultValue: defaultCountry), .Phone(value: nil)]
     }
     
-    static func createFormFields(with userAddress: UserAddress) -> [AddressFormField] {
+    static func createFormFields(with userAddress: UserAddress, defaultCountry: String) -> [AddressFormField] {
         return [
             .FirstName(value: userAddress.firstName),
             .LastName(value: userAddress.lastName),
             .StreetAndApartmentNumbers(value: userAddress.streetAndAppartmentNumbers),
             .PostalCode(value: userAddress.postalCode),
             .City(value: userAddress.city),
-            .Country(defaultValue: userAddress.country),
+            .Country(defaultValue: defaultCountry),
             .Phone(value: userAddress.phone)
         ]
     }
     
-    static func formFieldsToUserAddress(formFields: [AddressFormField]) -> UserAddress? {
+    static func formFieldsToUserAddress(formFields: [AddressFormField]) -> EditUserAddress? {
         var firstName: String?
         var lastName: String?
         var streetAndApartmentNumbers: String?
@@ -93,6 +116,6 @@ extension AddressFormField {
             return nil
         }
         
-        return UserAddress(firstName: fn, lastName: ln, streetAndAppartmentNumbers: saan, postalCode: pc, city: ci, country: co, phone: p, description: nil)
+        return EditUserAddress(firstName: fn, lastName: ln, streetAndAppartmentNumbers: saan, postalCode: pc, city: ci, country: co, phone: p, description: nil)
     }
 }

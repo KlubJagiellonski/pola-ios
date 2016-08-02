@@ -1,5 +1,6 @@
 import Foundation
 import RxSwift
+import RxCocoa
 
 extension Checkout {
     var defaultPayment: Payment {
@@ -91,6 +92,39 @@ class CheckoutModel {
     func updateBuyButtonState() {
         state.buyButtonEnabled.value = state.selectedPayment.id.isBuyButtonEnabled(with: payUManager)
     }
+    
+    func update(with userAddress: EditUserAddress) -> Observable<UserAddress> {
+        let newUserAddress = userAddress.addressWithChanging(country: state.checkout.deliveryCountry.id)
+        
+        var result: Observable<UserAddress>!
+        if let currentUserAddress = state.userAddresses.last where state.addressAdded {
+            result = api.editUserAddress(forId: currentUserAddress.id, address: newUserAddress)
+        } else {
+            result = api.addUserAddress(newUserAddress)
+        }
+        return result
+            .catchError { error in
+                guard let urlError = error as? RxCocoaURLError else { return Observable.error(EditAddressError.Unknown(error)) }
+                guard case let .HTTPRequestFailed(response, data) = urlError where response.statusCode == 400 else { return Observable.error(EditAddressError.Unknown(error)) }
+                
+                let errorData = try NSJSONSerialization.JSONObjectWithData(data!, options: [])
+                logInfo("Edit address validation error data\(errorData)")
+                let validtionError: EditAddressValidationError = try EditAddressValidationError.decode(errorData)
+                logInfo("Edit address validation error: \(validtionError.message)")
+                return Observable.error(EditAddressError.ValidationFailed(validtionError.errors))
+            }
+            .observeOn(MainScheduler.instance)
+            .doOnNext { [weak self] userAddress in
+                guard let `self` = self else { return }
+                
+                if self.state.addressAdded {
+                    self.state.userAddresses[self.state.userAddresses.count - 1] = userAddress
+                } else {
+                    self.state.addressAdded = true
+                    self.state.userAddresses.append(userAddress)
+                }
+            }
+    }
 }
 
 extension BasketRequest {
@@ -114,6 +148,12 @@ extension PaymentType {
     }
 }
 
+extension EditUserAddress {
+    func addressWithChanging(country country: String) -> EditUserAddress {
+        return EditUserAddress(firstName: firstName, lastName: lastName, streetAndAppartmentNumbers: streetAndAppartmentNumbers, postalCode: postalCode, city: city, country: country, phone: phone, description: description)
+    }
+}
+
 final class CheckoutState {
     let selectedKioskObservable: Observable<Kiosk?> = PublishSubject()
     let userAddressesObservable: Observable<[UserAddress]> = PublishSubject()
@@ -130,6 +170,18 @@ final class CheckoutState {
     var addressAdded = false
     var selectedPayment: Payment
     private(set) var buyButtonEnabled: Variable<Bool>
+    var editableAddress: UserAddress? {
+        if addressAdded {
+            return userAddresses.last
+        } else {
+            return nil
+        }
+    }
+    var isFormMode: Bool {
+        let isInFormEditMode = editableAddress != nil && userAddresses.count == 1
+        let isInFormAddMode = userAddresses.isEmpty
+        return isInFormEditMode || isInFormAddMode
+    }
     
     init(checkout: Checkout, comments: [String?], selectedAddress: UserAddress?, userAddresses: [UserAddress], selectedPayment: Payment, buyButtonEnabled: Bool) {
         self.checkout = checkout

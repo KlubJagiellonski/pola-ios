@@ -19,6 +19,8 @@ enum L10n {
   case CommonPassword
   /// Cześć, %@!
   case CommonGreeting(String)
+  /// Niestety użytkownik został wylogowany. Zaloguj ponownie.
+  case CommonUserLoggedOut
   /// Główna
   case MainTabDashboard
   /// Przeglądanie
@@ -378,6 +380,8 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Common.Password")
       case .CommonGreeting(let p0):
         return L10n.tr("Common.Greeting", p0)
+      case .CommonUserLoggedOut:
+        return L10n.tr("Common.UserLoggedOut")
       case .MainTabDashboard:
         return L10n.tr("MainTab.Dashboard")
       case .MainTabSearch:

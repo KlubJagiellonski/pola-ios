@@ -1,26 +1,26 @@
 import UIKit
+import RxSwift
 
 protocol EditAddressViewControllerDelegate: class {
-    func editAddressViewController(viewController: EditAddressViewController, didAddNewUserAddress userAddress: UserAddress)
-    func editAddressViewController(viewController: EditAddressViewController, didEditUserAddress userAddress: UserAddress)
+    func editAddressViewControllerWantsDismiss(viewController: EditAddressViewController)
 }
 
 class EditAddressViewController: UIViewController, EditAddressViewDelegate {
-    var castView: EditAddressView { return view as! EditAddressView }
-    
-    private let userAddress: UserAddress?
-    private let defaultCountry: String
+    private let disposeBag = DisposeBag()
+    private var castView: EditAddressView { return view as! EditAddressView }
+    private let checkoutModel: CheckoutModel
+    private let toastManager: ToastManager
     
     weak var delegate: EditAddressViewControllerDelegate?
     
-    init(with userAddress: UserAddress?, defaultCountry: String) {
-        self.userAddress = userAddress
-        self.defaultCountry = defaultCountry
+    init(with checkoutModel: CheckoutModel, and resolver: DiResolver, and toastManager: ToastManager) {
+        self.checkoutModel = checkoutModel
+        self.toastManager = toastManager
         super.init(nibName: nil, bundle: nil)
     }
     
     override func loadView() {
-        view = EditAddressView(userAddress: userAddress, defaultCountry: defaultCountry)
+        view = EditAddressView(userAddress: checkoutModel.state.editableAddress, defaultCountry: checkoutModel.state.checkout.deliveryCountry.name)
     }
     
     override func viewDidLoad() {
@@ -51,10 +51,44 @@ class EditAddressViewController: UIViewController, EditAddressViewDelegate {
         guard castView.validate(showResult: true) else { return }
         guard let newUserAddress = castView.userAddress else { return }
         
-        if userAddress != nil {
-            delegate?.editAddressViewController(self, didEditUserAddress: newUserAddress)
-        } else {
-            delegate?.editAddressViewController(self, didAddNewUserAddress: newUserAddress)
+        castView.switcherState = .ModalLoading
+        
+        checkoutModel.update(with: newUserAddress).subscribe { [weak self] (event: Event<UserAddress>) in
+            guard let `self` = self else { return }
+            
+            self.castView.switcherState = .Success
+            
+            switch event {
+            case .Next(_):
+                self.delegate?.editAddressViewControllerWantsDismiss(self)
+            case .Error(let error):
+                logError("Error during login: \(error)")
+                switch error {
+                case ApiError.NoSession, ApiError.LoginRetryFailed:
+                    logInfo("User did logged out, closing checkout")
+                    self.toastManager.showMessage(tr(.CommonUserLoggedOut))
+                    self.sendNavigationEvent(SimpleNavigationEvent(type: .Close))
+                case EditAddressError.ValidationFailed(let fieldsErrors):
+                    self.updateValidationFieldIfNeeded(fieldsErrors.firstName, key: UserAddress.firstNameKey)
+                    self.updateValidationFieldIfNeeded(fieldsErrors.lastName, key: UserAddress.lastNameKey)
+                    self.updateValidationFieldIfNeeded(fieldsErrors.city, key: UserAddress.cityKey)
+                    self.updateValidationFieldIfNeeded(fieldsErrors.country, key: UserAddress.countryKey)
+                    self.updateValidationFieldIfNeeded(fieldsErrors.phone, key: UserAddress.phoneKey)
+                    self.updateValidationFieldIfNeeded(fieldsErrors.postalCode, key: UserAddress.postalCodeKey)
+                    self.updateValidationFieldIfNeeded(fieldsErrors.streetAndAppartmentNumbers, key: UserAddress.streetAndAppartmentNumbersKey)
+                case EditAddressError.Unknown:
+                    fallthrough
+                default:
+                    self.toastManager.showMessage(tr(.CommonError))
+                }
+            default: break
+            }
+        }.addDisposableTo(disposeBag)
+    }
+    
+    private func updateValidationFieldIfNeeded(error: String?, key: String) {
+        if let error = error {
+            self.castView.updateFieldValidation(withId: key, validation: error)
         }
     }
 }

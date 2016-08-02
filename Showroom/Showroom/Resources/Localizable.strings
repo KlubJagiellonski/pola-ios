@@ -6,6 +6,7 @@
 "Common.Email" = "E-mail";
 "Common.Password" = "Hasło";
 "Common.Greeting" = "Cześć, %@!";
+"Common.UserLoggedOut" = "Niestety użytkownik został wylogowany. Zaloguj ponownie.";
 "MainTab.Dashboard" = "Główna";
 "MainTab.Search" = "Przeglądanie";
 "MainTab.Basket" = "Koszyk";

@@ -2,7 +2,7 @@
 	"variables": [],
 	"info": {
 		"name": "SHWRM",
-		"_postman_id": "6959ce8b-deb5-6898-be95-beccf816d1f1",
+		"_postman_id": "5c8cc756-7268-0ab1-0b89-115d171257a9",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -213,7 +213,7 @@
 			"response": []
 		},
 		{
-			"name": "Search catalogue",
+			"name": "SEARCH CATALOG",
 			"request": {
 				"url": "{{HOST}}/search_catalogue",
 				"method": "GET",
@@ -221,6 +221,105 @@
 				"body": {
 					"mode": "formdata",
 					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "ADD ADDRESS",
+			"request": {
+				"url": "{{HOST}}/user/address",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "showroom-key",
+						"value": "123",
+						"description": ""
+					},
+					{
+						"key": "showroom-secret",
+						"value": "123",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "EDIT ADDRESS",
+			"request": {
+				"url": "{{HOST}}/user/address/10",
+				"method": "POST",
+				"header": [
+					{
+						"key": "showroom-key",
+						"value": "123",
+						"description": ""
+					},
+					{
+						"key": "showroom-secret",
+						"value": "123",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Name",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "surname",
+							"value": "Surname",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "street",
+							"value": "Polna 10",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "zip",
+							"value": "05-900",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "city",
+							"value": "Warsaw",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "country",
+							"value": "PL",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "phone",
+							"value": "506573822",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "description",
+							"value": "test description",
+							"type": "text",
+							"enabled": true
+						}
+					]
 				},
 				"description": ""
 			},

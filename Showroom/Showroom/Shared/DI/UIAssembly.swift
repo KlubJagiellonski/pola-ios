@@ -91,13 +91,13 @@ class UIAssembly: AssemblyType {
             return CheckoutNavigationController(with: r.resolve(DiResolver.self)!, and: checkout)
         }
         container.register(CheckoutDeliveryViewController.self) { r, checkoutModel in
-            return CheckoutDeliveryViewController(with: checkoutModel)
+            return CheckoutDeliveryViewController(with: checkoutModel, and: r.resolve(ToastManager.self)!)
         }
         container.register(CheckoutSummaryViewController.self) { r, model in
             return CheckoutSummaryViewController(resolver: r.resolve(DiResolver.self)!, model: model)
         }
-        container.register(EditAddressViewController.self) { r, userAddress, defaultCountry in
-            return EditAddressViewController(with: userAddress, defaultCountry: defaultCountry)
+        container.register(EditAddressViewController.self) { r, checkoutModel in
+            return EditAddressViewController(with: checkoutModel, and: r.resolve(DiResolver.self)!, and: r.resolve(ToastManager.self)!)
         }
         container.register(CheckoutSummaryCommentViewController.self) { r, comment, index in
             return CheckoutSummaryCommentViewController(resolver: r.resolve(DiResolver.self)!, comment: comment, index: index)

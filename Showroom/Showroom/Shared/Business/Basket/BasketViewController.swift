@@ -211,6 +211,9 @@ extension BasketViewController: CheckoutNavigationControllerDelegate {
         dismissViewControllerAnimated(true, completion: nil)
         sendNavigationEvent(SimpleNavigationEvent(type: .ShowDashboard))
     }
+    func checkoutWantsDismiss(checkout: CheckoutNavigationController) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
 }
 
 extension BasketUpdateInfo {

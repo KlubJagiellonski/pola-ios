@@ -281,7 +281,6 @@
 		C0237D0E1D216ADC0009F2FC /* CheckoutDeliveryStackedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0237D0D1D216ADC0009F2FC /* CheckoutDeliveryStackedView.swift */; };
 		C0237D111D2263D20009F2FC /* EditAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0237D101D2263D20009F2FC /* EditAddressViewController.swift */; };
 		C0237D131D22652F0009F2FC /* EditAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0237D121D22652F0009F2FC /* EditAddressView.swift */; };
-		C0237D171D229B8C0009F2FC /* ShowEditAddressEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0237D161D229B8C0009F2FC /* ShowEditAddressEvent.swift */; };
 		C0237D191D23EA4C0009F2FC /* Kiosk.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0237D181D23EA4C0009F2FC /* Kiosk.swift */; };
 		C026E5701D3F95E20003DA8B /* SettingsWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C026E56F1D3F95E20003DA8B /* SettingsWebView.swift */; };
 		C02FD4EF1D40E600006B3306 /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02FD4EE1D40E600006B3306 /* UserInfoViewController.swift */; };
@@ -643,7 +642,6 @@
 		C0237D0D1D216ADC0009F2FC /* CheckoutDeliveryStackedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutDeliveryStackedView.swift; sourceTree = "<group>"; };
 		C0237D101D2263D20009F2FC /* EditAddressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAddressViewController.swift; sourceTree = "<group>"; };
 		C0237D121D22652F0009F2FC /* EditAddressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAddressView.swift; sourceTree = "<group>"; };
-		C0237D161D229B8C0009F2FC /* ShowEditAddressEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowEditAddressEvent.swift; sourceTree = "<group>"; };
 		C0237D181D23EA4C0009F2FC /* Kiosk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Kiosk.swift; sourceTree = "<group>"; };
 		C026E56F1D3F95E20003DA8B /* SettingsWebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsWebView.swift; sourceTree = "<group>"; };
 		C02FD4EE1D40E600006B3306 /* UserInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoViewController.swift; sourceTree = "<group>"; };
@@ -1339,7 +1337,6 @@
 			children = (
 				1DD1EA9A1CF2ED6400D99731 /* SimpleNavigationEvent.swift */,
 				1DD161A51D01C3B90022B5C9 /* ShowProductDetailsEvent.swift */,
-				C0237D161D229B8C0009F2FC /* ShowEditAddressEvent.swift */,
 				1D1A7E131D24F669009CCCE7 /* ShowItemForLinkEvent.swift */,
 				1DA5CB421D2E867000A45E93 /* ShowBrandDescriptionEvent.swift */,
 				1D5F915E1D35221D00AE66E6 /* ShowFilterEvent.swift */,
@@ -2116,7 +2113,6 @@
 				C0CBE2B21D2E50F7008B861D /* Setting.swift in Sources */,
 				1DF796831CEB473300C7A7F4 /* DiAssembler.swift in Sources */,
 				1DA823181D1A8F510054288D /* LoadingIndicator.swift in Sources */,
-				C0237D171D229B8C0009F2FC /* ShowEditAddressEvent.swift in Sources */,
 				75EDE82B1CFDDF6D00C5F96B /* UITextFieldUtils.swift in Sources */,
 				1D0F3B581D12D2C70052CFF6 /* UIViewControllerUtils.swift in Sources */,
 				1DA5CB431D2E867000A45E93 /* ShowBrandDescriptionEvent.swift in Sources */,
