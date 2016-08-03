@@ -53,15 +53,17 @@ protocol ProductListComponentDelegate: class {
     func productListComponent(component: ProductListComponent, didReceiveScrollEventWithContentOffset contentOffset: CGPoint, contentSize: CGSize)
 }
 
-class ProductListComponent: NSObject, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, ProductItemCellDelegate {
+final class ProductListComponent: NSObject, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, ProductItemCellDelegate {
     private static let minItemWidth: CGFloat = 120
     private static let interItemSpacing: CGFloat = 10
     private static let itemTitleHeight: CGFloat = 62
     
+    private var focusedIndexPath: NSIndexPath?
     private var informedAboutNextPage = false
     private var products: [ListProduct] = []
     private weak var collectionView: UICollectionView?
     weak var delegate: ProductListComponentDelegate?
+    
     
     private lazy var itemSize: CGSize = { [unowned self] in
         guard let collectionView = self.collectionView else {
@@ -170,15 +172,24 @@ class ProductListComponent: NSObject, UICollectionViewDataSource, UICollectionVi
     // MARK:- ProductItemCellDelegate
     
     func productItemCellDidTap(cell: ProductItemCell) {
-        guard let collectionView = collectionView else { return }
-        guard let indexPath = collectionView.indexPathForCell(cell) else { return }
+        guard let collectionView = collectionView, let indexPath = collectionView.indexPathForCell(cell) else { return }
+        guard focusedIndexPath == indexPath else { return }
         delegate?.productListComponent(self, didTapProductAtIndex: indexPath.item)
+        focusedIndexPath = nil
     }
     
     func productItemCellDidDoubleTap(cell: ProductItemCell) {
-        guard let collectionView = collectionView else { return }
-        guard let indexPath = collectionView.indexPathForCell(cell) else { return }
+        guard let collectionView = collectionView, let indexPath = collectionView.indexPathForCell(cell) else { return }
+        guard focusedIndexPath == indexPath else { return }
         delegate?.productListComponent(self, didDoubleTapProductAtIndex: indexPath.item)
+        focusedIndexPath = nil
+    }
+    
+    func productItemCellWantsTouchFocus(cell: ProductItemCell) -> Bool {
+        guard focusedIndexPath == nil else { return false }
+        guard let collectionView = collectionView, let indexPath = collectionView.indexPathForCell(cell) else { return false }
+        focusedIndexPath = indexPath
+        return true
     }
     
     // MARK:- UICollectionViewDataSource

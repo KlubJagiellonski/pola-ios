@@ -22,7 +22,7 @@ class PresenterViewController: UIViewController {
         }
     }
     
-    func showContent(viewController: UIViewController, animation: TransitionAnimation?, completion: ((Bool) -> ())?) {
+    final func showContent(viewController: UIViewController, animation: TransitionAnimation?, completion: ((Bool) -> ())?) {
         contentViewController?.willMoveToParentViewController(nil)
         addChildViewController(viewController)
         
@@ -35,7 +35,7 @@ class PresenterViewController: UIViewController {
         castView.showContent(viewController.view, customAnimation: animation?.show, completion: innerCompletion)
     }
     
-    func showModal(viewController: UIViewController, hideContentView: Bool, animation: TransitionAnimation?, completion: ((Bool) -> ())?) {
+    final func showModal(viewController: UIViewController, hideContentView: Bool, animation: TransitionAnimation?, completion: ((Bool) -> ())?) {
         guard currentModalViewController == nil else {
             completion?(false)
             return
@@ -55,7 +55,7 @@ class PresenterViewController: UIViewController {
         castView.showModal(viewController.view, customAnimation: animation?.show, completion: innerCompletion)
     }
     
-    func hideModal(animation animation: TransitionAnimation?, completion: ((Bool) -> ())?) {
+    final func hideModal(animation animation: TransitionAnimation?, completion: ((Bool) -> ())?) {
         guard let currentModalViewController = currentModalViewController else {
             completion?(false)
             return

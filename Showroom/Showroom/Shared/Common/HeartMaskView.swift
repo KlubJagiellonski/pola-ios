@@ -53,7 +53,7 @@ class HeartMaskView: UIView {
             let layerSize = layer.bounds.size
             var transform = CATransform3DIdentity
             transform = CATransform3DTranslate(transform, CGFloat(layerSize.width/2), CGFloat(layerSize.height/2), 0)
-            transform = CATransform3DScale(transform, 30.0, 30.0, 1.0)
+            transform = CATransform3DScale(transform, 35.0, 35.0, 1.0)
             transform = CATransform3DTranslate(transform, CGFloat(-layerSize.width/2), CGFloat(-layerSize.height/2), 0)
             
             scaleAnimation.fromValue = NSValue(CATransform3D: CATransform3DIdentity)

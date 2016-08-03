@@ -21,7 +21,9 @@ class PresenterView: UIView {
             make.edges.equalToSuperview()
         }
         
+        self.userInteractionEnabled = false
         let innerCompletion: (Bool) -> () = { [weak self] success in
+            self?.userInteractionEnabled = true
             self?.contentView?.removeFromSuperview()
             self?.contentView = view
             completion?(success)
@@ -39,17 +41,25 @@ class PresenterView: UIView {
         
         self.modalView = view
         
+        self.userInteractionEnabled = false
+        let innerCompletion = { [weak self] (success: Bool) in
+            self?.userInteractionEnabled = true
+            completion?(success)
+        }
+        
         if let customAnimation = customAnimation {
-            customAnimation(self, view, nil, completion)
+            customAnimation(self, view, nil, innerCompletion)
         } else {
-            completion?(true)
+            innerCompletion(true)
         }
     }
     
     func hideModal(customAnimation: ((ContainerView, PresentedView, PresentationView?, ((Bool) -> ())?) -> ())?, completion: ((Bool) -> ())?) {
         guard let modalView = modalView else { fatalError("Cannot hide modal view when there is no existing one") }
         
+        self.userInteractionEnabled = false
         let innerCompletion: (Bool) -> () = { [weak self] success in
+            self?.userInteractionEnabled = true
             completion?(success)
             self?.modalView = nil
         }

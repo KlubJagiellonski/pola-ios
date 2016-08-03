@@ -4,11 +4,13 @@ import UIKit
 protocol ProductItemCellDelegate : class {
     func productItemCellDidTap(cell: ProductItemCell)
     func productItemCellDidDoubleTap(cell: ProductItemCell)
+    func productItemCellWantsTouchFocus(cell: ProductItemCell) -> Bool
 }
 
 final class ProductItemCell: UICollectionViewCell {
     //when cell width is smaller than this value it is possible that basePrice and price (5 digit) will overlap each other. Then we have to change kerning of base price to make it look better
-    private let changingKernForBasePriceViewWidthThreshold: CGFloat = 124
+    private static let changingKernForBasePriceViewWidthThreshold: CGFloat = 124
+    private static let doubleTapDelay: NSTimeInterval = 0.2
     
     weak var delegate: ProductItemCellDelegate?
     var imageTag: Int {
@@ -30,14 +32,6 @@ final class ProductItemCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        let doubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didDoubleTapItem))
-        doubleTapGestureRecognizer.numberOfTapsRequired = 2
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapItem))
-        tapGestureRecognizer.numberOfTapsRequired = 1
-        tapGestureRecognizer.requireGestureRecognizerToFail(doubleTapGestureRecognizer)
-        addGestureRecognizer(tapGestureRecognizer)
-        addGestureRecognizer(doubleTapGestureRecognizer)
         
         productImageView.layer.masksToBounds = true
         productImageView.contentMode = .ScaleAspectFill
@@ -76,20 +70,38 @@ final class ProductItemCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func didTapItem() {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        guard let touch = touches.first else { return }
+        delegate?.productItemCellWantsTouchFocus(self)
+        if touch.tapCount == 2 {
+            NSObject.cancelPreviousPerformRequestsWithTarget(self)
+        }
+    }
+    
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        guard let touch = touches.first else { return }
+        if touch.tapCount == 1 {
+            performSelector(#selector(ProductItemCell.didTapItem), withObject: nil, afterDelay: ProductItemCell.doubleTapDelay)
+            
+        } else if touch.tapCount == 2 {
+            didDoubleTapItem()
+        }
+    }
+    
+    final func didTapItem() {
         delegate?.productItemCellDidTap(self)
     }
     
-    func didDoubleTapItem() {
+    private func didDoubleTapItem() {
         delegate?.productItemCellDidDoubleTap(self)
         let heartMaskView = HeartMaskView(frame: self.productImageView.frame)
         contentView.addSubview(heartMaskView)
-        heartMaskView.animate(duration: 1.3) {
+        heartMaskView.animate(duration: 1) {
             heartMaskView.removeFromSuperview()
         }
     }
     
-    func updateData(with product: ListProduct) {
+    final func updateData(with product: ListProduct) {
         productImageView.image = nil
         productImageView.loadImageFromUrl(product.imageUrl, width: bounds.width)
         brandLabel.text = product.brand.name
@@ -100,7 +112,7 @@ final class ProductItemCell: UICollectionViewCell {
         let basePriceValue = product.basePrice.stringValue
         let basePriceStrikethrough = basePriceValue.strikethroughString
         let priceCharactersCount = priceValue.characters.count + basePriceValue.characters.count
-        let shouldChangeBasePriceKern = bounds.width < changingKernForBasePriceViewWidthThreshold && !priceRow.basePriceLabel.hidden && priceCharactersCount >= 24
+        let shouldChangeBasePriceKern = bounds.width < ProductItemCell.changingKernForBasePriceViewWidthThreshold && !priceRow.basePriceLabel.hidden && priceCharactersCount >= 24
         if shouldChangeBasePriceKern {
             basePriceStrikethrough.addAttribute(NSKernAttributeName, value: -0.3, range: NSMakeRange(0, basePriceValue.characters.count))
         }
