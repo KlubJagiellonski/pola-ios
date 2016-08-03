@@ -54,4 +54,22 @@ extension SettingsWebViewController: SettingsWebViewDelegate {
         logInfo("webView didFailNavigation")
         castView.switcherState = .Error
     }
+
+    func webView(webView: WKWebView, decidePolicyForNavigationAction navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void) {
+        guard let url = navigationAction.request.URL else {
+            return decisionHandler(.Cancel)
+        }
+        
+        let app = UIApplication.sharedApplication()
+        
+        if navigationAction.targetFrame == nil || url.scheme == "tel" || url.scheme == "mailto" {
+            if app.canOpenURL(url) {
+                app.openURL(url)
+            }
+            decisionHandler(.Cancel)
+            return
+        }
+        
+        decisionHandler(.Allow)
+    }
 }
