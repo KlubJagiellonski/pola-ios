@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 
 class ContentPromoRecommendationsHeaderCell: UITableViewCell {
-    static let insets = UIEdgeInsets(top: 25, left: Dimensions.defaultMargin, bottom: Dimensions.defaultMargin, right: Dimensions.defaultMargin)
+    static let insets = UIEdgeInsets(top: Dimensions.defaultMargin, left: Dimensions.defaultMargin, bottom: Dimensions.defaultMargin, right: Dimensions.defaultMargin)
     static let firstPartFont = UIFont(fontType: .Bold)
     static let secondPartFont = UIFont(fontType: .Italic)
     
