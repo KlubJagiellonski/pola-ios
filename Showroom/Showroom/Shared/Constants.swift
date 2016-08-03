@@ -24,7 +24,7 @@ struct Constants {
     static let googleAnalyticsTrackingId = "UA-81404441-1"
     #endif
     static let emarsysMerchantId = "13CE3A05D54F66DD"
-    static let emarsysRecommendationItemsLimit: Int32 = 10
+    static let emarsysRecommendationItemsLimit: Int32 = 20
     static let basketProductAmountLimit: Int = 10
     static let productListPageSize: Int = 20
     static let productListPageSizeForLargeScreen: Int = 27
