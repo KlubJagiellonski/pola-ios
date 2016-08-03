@@ -154,8 +154,10 @@ class ViewSwitcher: UIView {
     
     private func switchView(fromView fromView: UIView, toView: UIView, completion: (Bool -> ())?) {
         UIView.transitionFromView(fromView, toView: toView, duration: animationDuration, options: [.TransitionCrossDissolve, .ShowHideTransitionViews]) { success in
-            fromView.snp_removeConstraints()
-            fromView.removeFromSuperview()
+            if fromView.superview != nil {
+                fromView.snp_removeConstraints()
+                fromView.removeFromSuperview()
+            }
             completion?(success)
         }
     }

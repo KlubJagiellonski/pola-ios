@@ -24,20 +24,6 @@ class SettingsNavigationController: UINavigationController, NavigationHandler {
     func didTapBackButton() {
         popViewControllerAnimated(true)
     }
-
-    func showUserInfoView(user user: User) {
-        logInfo("showUserInfoView")
-        let viewController = resolver.resolve(UserInfoViewController.self, argument: user)
-        viewController.navigationItem.title = tr(.SettingsUserData)
-        pushViewController(viewController, animated: true)
-    }
-    
-    func showHistoryOfOrderView() {
-        logInfo("showHistoryOfOrderView")
-        let viewController = resolver.resolve(HistoryOfOrderViewController.self)
-        viewController.navigationItem.title = tr(.SettingsHistory)
-        pushViewController(viewController, animated: true)
-    }
     
     func showWebView(title title: String, url: String) {
         let viewController = resolver.resolve(SettingsWebViewController.self, argument: url)
@@ -49,21 +35,6 @@ class SettingsNavigationController: UINavigationController, NavigationHandler {
     
     func handleNavigationEvent(event: NavigationEvent) -> EventHandled {
         switch event {
-        case let simpleEvent as SimpleNavigationEvent:
-            switch simpleEvent.type {
-            case .ShowHistoryOfOrder:
-                showHistoryOfOrderView()
-                return true
-            case .Back:
-                didTapBackButton()
-                return true
-            default:
-                return false
-            }
-        case let userInfoEvent as ShowUserInfoViewEvent:
-            showUserInfoView(user: userInfoEvent.user)
-            return true
-            
         case let webViewEvent as ShowSettingsWebViewEvent:
             showWebView(title: webViewEvent.title, url: webViewEvent.url)
             return true

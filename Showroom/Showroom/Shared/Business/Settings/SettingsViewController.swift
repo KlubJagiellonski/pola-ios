@@ -44,7 +44,6 @@ class SettingsViewController: UIViewController {
                 Setting(type: .Header, action: self.facebookButtonPressed, secondaryAction: self.instagramButtonPressed),
                 Setting(type: .Login, action: self.loginButtonPressed, secondaryAction: self.createAccountButtonPressed),
                 Setting(type: .Gender, labelString: tr(.SettingsDefaultOffer), action: self.femaleButtonPressed, secondaryAction: self.maleButtonPressed, value: self.userManager.gender),
-                Setting(type: .Normal, labelString: tr(.SettingsHistory), action: self.historyRowPressed),
                 Setting(type: .Normal, labelString: tr(.SettingsHowToMeasure), action: self.howToMeasureRowPressed),
                 Setting(type: .Normal, labelString: tr(.SettingsPrivacyPolicy), action: self.privacyPolicyRowPressed),
                 Setting(type: .Normal, labelString: tr(.SettingsFrequentQuestions), action: self.frequentQuestionsRowPressed),
@@ -128,15 +127,14 @@ class SettingsViewController: UIViewController {
     
     func userDataRowPressed() {
         logInfo("userDataRowPressed")
-        guard let user = userManager.user else {
-            fatalError("User is not logged")
-        }
-        sendNavigationEvent(ShowUserInfoViewEvent(user: user))
+        logAnalyticsShowScreen(.UserData)
+        sendNavigationEvent(ShowSettingsWebViewEvent(title: tr(.SettingsUserData), url: "https://www.showroom.pl/c/data"))
     }
 
     func historyRowPressed() {
         logInfo("historyRowPressed")
-        sendNavigationEvent(SimpleNavigationEvent(type: .ShowHistoryOfOrder))
+        logAnalyticsShowScreen(.OrdersHistory)
+        sendNavigationEvent(ShowSettingsWebViewEvent(title: tr(.SettingsHistory), url: "https://www.showroom.pl/c/orders"))
     }
     
     func howToMeasureRowPressed() {

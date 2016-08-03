@@ -9,7 +9,6 @@ enum Asset: String {
   case Error = "error"
   case For_her = "for_her"
   case For_him = "for_him"
-  case History = "history"
   case Ic_back = "ic_back"
   case Ic_bag = "ic_bag"
   case Ic_bag_selected = "ic_bag_selected"
