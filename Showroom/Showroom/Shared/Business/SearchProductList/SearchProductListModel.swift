@@ -18,7 +18,7 @@ final class SearchProductListModel: ProductListModel {
         self.query = data.query
     }
     
-    override func createObservable(with paginationInfo: PaginationInfo, forFilters filters: [Filter]?) -> Observable<ProductListResult> {
+    override func createObservable(with paginationInfo: PaginationInfo, forFilters filters: [FilterId: [FilterObjectId]]?) -> Observable<ProductListResult> {
         if paginationInfo.page == 1 {
             emarsysService.sendSearchEvent(withQuery: query)
         }

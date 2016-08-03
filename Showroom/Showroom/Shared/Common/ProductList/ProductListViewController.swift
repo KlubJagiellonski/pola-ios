@@ -13,7 +13,7 @@ protocol ProductListViewControllerInterface: class, NavigationSender, ExtendedVi
     
     func updateData(with data: EntryData)
     func createFilterButton() -> UIBarButtonItem?
-    func pageWasFetched(result productListResult: ProductListResult, page: Int) // it is used to inform viewcontroller that first page has been fetched. You can do some additional stuff here
+    func pageWasFetched(result productListResult: ProductListResult, pageIndex: Int) // it is used to inform viewcontroller that first page has been fetched. You can do some additional stuff here
     func filterButtonEnableStateChanged(toState enabled: Bool)
 }
 
@@ -26,7 +26,7 @@ extension ProductListViewControllerInterface {
             switch event {
             case .Next(let productListResult):
                 logInfo("Received first product list page \(productListResult)")
-                self.pageWasFetched(result: productListResult, page: self.productListModel.currentPageIndex)
+                self.pageWasFetched(result: productListResult, pageIndex: self.productListModel.currentPageIndex)
                 self.productListView.updateData(productListResult.products, nextPageState: productListResult.isLastPage ? .LastPage : .Fetching)
                 self.productListView.switcherState = productListResult.products.isEmpty ? .Empty : .Success
                 self.filterButtonVisible = productListResult.filters != nil
@@ -47,7 +47,7 @@ extension ProductListViewControllerInterface {
             switch event {
             case .Next(let productListResult):
                 logInfo("Received next product list page \(productListResult)")
-                self.pageWasFetched(result: productListResult, page: self.productListModel.currentPageIndex)
+                self.pageWasFetched(result: productListResult, pageIndex: self.productListModel.currentPageIndex)
                 self.productListView.appendData(productListResult.products, nextPageState: productListResult.isLastPage ? .LastPage : .Fetching)
             case .Error(let error):
                 logInfo("Failed to receive next product list page \(error)")
@@ -76,7 +76,7 @@ extension ProductListViewControllerInterface {
     }
     
     private func updateDataOnFirstPageFetched(productListResult: ProductListResult) {
-        self.pageWasFetched(result: productListResult, page: self.productListModel.currentPageIndex)
+        self.pageWasFetched(result: productListResult, pageIndex: self.productListModel.currentPageIndex)
         self.productListView.updateData(productListResult.products, nextPageState: productListResult.isLastPage ? .LastPage : .Fetching)
         self.productListView.switcherState = productListResult.products.isEmpty ? .Empty : .Success
         self.filterButtonVisible = productListResult.filters != nil

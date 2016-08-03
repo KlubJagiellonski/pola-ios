@@ -65,7 +65,7 @@ class CategoryProductListViewController: UIViewController, ProductListViewContro
         presentViewController(viewController, animated: true, completion: nil)
     }
     
-    func pageWasFetched(result productListResult: ProductListResult, page: Int) {
+    func pageWasFetched(result productListResult: ProductListResult, pageIndex: Int) {
         //todo set title
     }
     

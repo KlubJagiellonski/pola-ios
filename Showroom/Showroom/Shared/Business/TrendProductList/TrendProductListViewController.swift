@@ -56,13 +56,13 @@ class TrendProductListViewController: UIViewController, ProductListViewControlle
         return nil // not needed in trend
     }
     
-    func pageWasFetched(result productListResult: ProductListResult, page: Int) {
-        guard let trendInfo = productListResult.trendInfo else {
+    func pageWasFetched(result productListResult: ProductListResult, pageIndex: Int) {
+        if let trendInfo = productListResult.trendInfo, let description = model.attributedDescription where pageIndex == 0 {
+            title = trendInfo.name
+            castView.updateTrendInfo(trendInfo.imageUrl, description: description)
+        } else if pageIndex == 0 {
             logError("Didn't received trend info in result: \(productListResult)")
-            return
         }
-        title = trendInfo.name
-        castView.updateTrendInfo(trendInfo.imageUrl, description: model.attributedDescription!)
     }
     
     func filterButtonEnableStateChanged(toState enabled: Bool) { }

@@ -115,7 +115,7 @@ extension ApiService {
         do {
             let requestBody = request.encode()
             logInfo("Sentding products request with body: \(requestBody)")
-            let jsonData = try NSJSONSerialization.dataWithJSONObject(request.encode(), options: [])
+            let jsonData = try NSJSONSerialization.dataWithJSONObject(requestBody, options: [])
             
             let urlRequest = NSMutableURLRequest(URL: url)
             urlRequest.HTTPMethod = "POST"
@@ -148,10 +148,39 @@ extension ApiService {
             .flatMap { data -> Observable<ProductListResult> in
                 do {
                     let result = try NSJSONSerialization.JSONObjectWithData(data, options: [])
-                    return Observable.just(try ProductListResult.decodeForTrend(result))
+                    return Observable.just(try ProductListResult.decode(result))
                 } catch {
                     return Observable.error(error)
                 }
+        }
+    }
+    
+    func fetchBrand(forBrandId brandId: Int, request: ProductRequest) -> Observable<ProductListResult> {
+        let url = NSURL(fileURLWithPath: basePath)
+            .URLByAppendingPathComponent("store")
+            .URLByAppendingPathComponent(String(brandId))
+        
+        do {
+            let requestBody = request.encode()
+            logInfo("Sentding brand \(brandId) products request with body: \(requestBody)")
+            let jsonData = try NSJSONSerialization.dataWithJSONObject(requestBody, options: [])
+            
+            let urlRequest = NSMutableURLRequest(URL: url)
+            urlRequest.HTTPMethod = "POST"
+            urlRequest.HTTPBody = jsonData
+            urlRequest.applyJsonContentTypeHeader()
+            return networkClient
+                .request(withRequest: urlRequest)
+                .flatMap { data -> Observable<ProductListResult> in
+                    do {
+                        let result = try NSJSONSerialization.JSONObjectWithData(data, options: [])
+                        return Observable.just(try ProductListResult.decode(result))
+                    } catch {
+                        return Observable.error(error)
+                    }
+            }
+        } catch {
+            return Observable.error(error)
         }
     }
 

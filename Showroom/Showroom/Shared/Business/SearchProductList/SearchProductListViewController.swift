@@ -65,7 +65,7 @@ class SearchProductListViewController: UIViewController, ProductListViewControll
         presentViewController(viewController, animated: true, completion: nil)
     }
     
-    func pageWasFetched(result productListResult: ProductListResult, page: Int) { }
+    func pageWasFetched(result productListResult: ProductListResult, pageIndex: Int) { }
     
     func filterButtonEnableStateChanged(toState enabled: Bool) {
         castView.searchEnabled = enabled

@@ -29,8 +29,8 @@ class ProductListModel {
         self.link = link
     }
     
-    func createObservable(with paginationInfo: PaginationInfo, forFilters filters: [Filter]?) -> Observable<ProductListResult> {
-        let request = ProductRequest(paginationInfo: paginationInfo, link: link, filter: createRequestFilters(filters))
+    func createObservable(with paginationInfo: PaginationInfo, forFilters filters: [FilterId: [FilterObjectId]]?) -> Observable<ProductListResult> {
+        let request = ProductRequest(paginationInfo: paginationInfo, link: link, filter: filters)
         return apiService.fetchProducts(with: request)
     }
     
@@ -38,7 +38,7 @@ class ProductListModel {
         page = 1
         products = []
         let paginationInfo = PaginationInfo(page: page, pageSize: defaultPageSize)
-        return createObservable(with: paginationInfo, forFilters: filters)
+        return createObservable(with: paginationInfo, forFilters: createRequestFilters(filters))
             .doOnNext { [weak self](result: ProductListResult) in
                 self?.link = nil
                 self?.filters = result.filters
@@ -49,7 +49,7 @@ class ProductListModel {
     
     final func fetchNextProductPage() -> Observable<ProductListResult> {
         let paginationInfo = PaginationInfo(page: page + 1, pageSize: defaultPageSize)
-        return createObservable(with: paginationInfo, forFilters: filters)
+        return createObservable(with: paginationInfo, forFilters: createRequestFilters(filters))
             .doOnNext { [weak self](result: ProductListResult) in
                 self?.products.appendContentsOf(result.products)
         }
@@ -89,7 +89,7 @@ class ProductListModel {
         let fetchObservable = {
             [unowned self] (filters: [Filter]) -> Observable<ProductListResult> in
             let paginationInfo = PaginationInfo(page: 1, pageSize: self.defaultPageSize)
-            return self.createObservable(with: paginationInfo, forFilters: filters)
+            return self.createObservable(with: paginationInfo, forFilters: self.createRequestFilters(filters))
         }
         
         return ProductFilterContext(filters: filters!, fetchObservable: fetchObservable)

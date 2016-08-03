@@ -16,11 +16,12 @@ final class TrendProductListModel: ProductListModel {
         super.init(with: apiService, wishlistManager: wishlistManager, link: nil)
     }
     
-    override func createObservable(with paginationInfo: PaginationInfo, forFilters filters: [Filter]?) -> Observable<ProductListResult> {
+    override func createObservable(with paginationInfo: PaginationInfo, forFilters filters: [FilterId: [FilterObjectId]]?) -> Observable<ProductListResult> {
         return apiService.fetchTrend(entryTrendInfo.slug)
             .doOnNext { [weak self] result in
-                self?.attributedDescription = result.trendInfo!.description.markdownToAttributedString()
-                self?.trendInfo = result.trendInfo
+                guard let `self` = self, let trendInfo = result.trendInfo else { return }
+                self.attributedDescription = trendInfo.description.markdownToAttributedString()
+                self.trendInfo = result.trendInfo
         }
     }
     

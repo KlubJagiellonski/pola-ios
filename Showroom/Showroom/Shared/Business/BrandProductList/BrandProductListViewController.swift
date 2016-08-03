@@ -69,14 +69,15 @@ class BrandProductListViewController: UIViewController, ProductListViewControlle
         presentViewController(viewController, animated: true, completion: nil)
     }
     
-    func pageWasFetched(result productListResult: ProductListResult, page: Int) {
-        if let brand = model.brand {
+    func pageWasFetched(result productListResult: ProductListResult, pageIndex: Int) {
+        if let brand = productListResult.brand, let description = model.attributedDescription where pageIndex == 0 {
             title = brand.name
-        }
-        if let description = model.description, let brand = model.brand where page == 0 {
             castView.updateBrandInfo(brand.imageUrl, description: description)
+        } else if pageIndex == 0 {
+            logError("Didn't received brand info in result: \(productListResult)")
         }
     }
+    
     func filterButtonEnableStateChanged(toState enabled: Bool) { }
     
     // MARK:- BrandProductListViewDelegate

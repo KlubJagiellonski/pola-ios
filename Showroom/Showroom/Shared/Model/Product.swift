@@ -19,6 +19,7 @@ struct ProductListResult {
     let products: [ListProduct]
     let trendInfo: TrendInfo?
     let filters: [Filter]?
+    let brand: Brand?
     let isLastPage: Bool
 }
 
@@ -119,18 +120,10 @@ extension ProductListResult: Decodable {
     static func decode(json: AnyObject) throws -> ProductListResult {
         return try ProductListResult(
             products: json =>? "products" ?? [],
-            trendInfo: nil,
+            trendInfo: json =>? "trendInfo",
             filters: json =>? "filters",
-            isLastPage: json => "isLastPage"
-        )
-    }
-    
-    static func decodeForTrend(json: AnyObject) throws -> ProductListResult {
-        return try ProductListResult(
-            products: json => "products",
-            trendInfo: json => "trendInfo",
-            filters: json =>? "filters",
-            isLastPage: true
+            brand: json =>? "brandInfo",
+            isLastPage: json =>? "isLastPage" ?? true
         )
     }
 }
