@@ -10,7 +10,7 @@ final class SearchProductListModel: ProductListModel {
         self.entrySearchInfo = searchEntryData
         self.query = searchEntryData.query
         self.emarsysService = emarsysService
-        super.init(with: apiService, wishlistManager: wishlistManager)
+        super.init(with: apiService, wishlistManager: wishlistManager, link: searchEntryData.link)
     }
     
     func update(with data: EntrySearchInfo) {
@@ -18,10 +18,10 @@ final class SearchProductListModel: ProductListModel {
         self.query = data.query
     }
     
-    override func createObservable(page: Int) -> Observable<ProductListResult> {
-        if page == 1 {
+    override func createObservable(with paginationInfo: PaginationInfo, forFilters filters: [Filter]?) -> Observable<ProductListResult> {
+        if paginationInfo.page == 1 {
             emarsysService.sendSearchEvent(withQuery: query)
         }
-        return super.createObservable(page)
+        return super.createObservable(with: paginationInfo, forFilters: filters)
     }
 }

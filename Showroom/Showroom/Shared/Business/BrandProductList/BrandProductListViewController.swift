@@ -60,7 +60,11 @@ class BrandProductListViewController: UIViewController, ProductListViewControlle
     }
     
     func didTapFilterButton() {
-        let viewController = resolver.resolve(ProductFilterNavigationController.self, argument: mockedFilter)
+        guard let context = productListModel.createFilterContext() else {
+            logError("Cannot create context, possible no filters")
+            return
+        }
+        let viewController = resolver.resolve(ProductFilterNavigationController.self, argument: context)
         viewController.filterDelegate = self
         presentViewController(viewController, animated: true, completion: nil)
     }
@@ -91,5 +95,14 @@ class BrandProductListViewController: UIViewController, ProductListViewControlle
     }
 }
 
-extension BrandProductListViewController: ProductFilterNavigationControllerDelegate {}
+extension BrandProductListViewController: ProductFilterNavigationControllerDelegate {
+    func productFilter(viewController: ProductFilterNavigationController, wantsCancelWithAnimation animation: Bool) {
+        dismissViewControllerAnimated(animation, completion: nil)
+    }
+    
+    func productFilter(viewController: ProductFilterNavigationController, didChangedFilterWithProductListResult productListResult: ProductListResult) {
+        dismissViewControllerAnimated(true, completion: nil)
+        didChangeFilter(withResult: productListResult)
+    }
+}
 

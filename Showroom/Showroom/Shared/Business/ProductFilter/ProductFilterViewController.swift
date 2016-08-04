@@ -1,12 +1,16 @@
 import Foundation
 import UIKit
+import RxSwift
 
 class ProductFilterViewController: UIViewController, ProductFilterViewDelegate {
+    private let disposeBag = DisposeBag()
+    private let toastManager: ToastManager
     private let model: ProductFilterModel
     private var castView: ProductFilterView { return view as! ProductFilterView }
     
-    init(with model: ProductFilterModel) {
+    init(with model: ProductFilterModel, and toastManager: ToastManager) {
         self.model = model
+        self.toastManager = toastManager
         super.init(nibName: nil, bundle: nil)
         
         title = tr(.ProductListFilterTitle)
@@ -25,6 +29,18 @@ class ProductFilterViewController: UIViewController, ProductFilterViewDelegate {
         super.viewDidLoad()
         
         castView.delegate = self
+        model.state.viewState.asObservable().subscribeNext { [weak self] viewState in
+            guard let `self` = self else { return }
+            
+            switch viewState {
+            case .Default:
+                self.castView.switcherState = .Success
+            case .Refreshing:
+                self.castView.switcherState = .ModalLoading
+            case .Error:
+                self.toastManager.showMessage(tr(.CommonError))
+            }
+        }.addDisposableTo(disposeBag)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -48,15 +64,16 @@ class ProductFilterViewController: UIViewController, ProductFilterViewDelegate {
         sendNavigationEvent(SimpleNavigationEvent(type: .ShowFilteredProducts))
     }
     
-    func productFilter(view: ProductFilterView, didSelectItem filterOption: FilterOption) {
-        sendNavigationEvent(ShowFilterOptionEvent(filterOption: filterOption))
+    func productFilter(view: ProductFilterView, didSelectItemAtIndex index: Int) {
+        let filter = model.state.currentFilters.value[index]
+        sendNavigationEvent(ShowFilterEvent(filter: filter))
     }
     
-    func productFilter(view: ProductFilterView, didChangePriceRange priceRange: PriceRange) {
-        model.update(with: priceRange)
+    func productFilter(view: ProductFilterView, didChangeValueRange valueRange: ValueRange, forIndex index: Int) {
+        model.update(with: valueRange, forFilterId: model.state.currentFilters.value[index].id)
     }
     
-    func productFilter(view: ProductFilterView, didChangePriceDiscount priceDiscountSelected: Bool) {
-        model.update(withPriceDiscount: priceDiscountSelected)
+    func productFilter(view: ProductFilterView, didChangeSelect selected: Bool, forIndex index: Int) {
+        model.update(withSelected: selected, forFilterId: model.state.currentFilters.value[index].id)
     }
 }

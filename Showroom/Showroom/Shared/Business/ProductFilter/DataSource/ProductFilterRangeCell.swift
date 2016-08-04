@@ -2,15 +2,20 @@ import Foundation
 import UIKit
 import TTRangeSlider
 
-protocol ProductFilterPriceCellDelegate: class {
-    func filterPrice(cell: ProductFilterPriceCell, didChangeRange range: PriceRange)
+protocol ProductFilterRangeCellDelegate: class {
+    func filterRange(cell: ProductFilterRangeCell, didChangeRange range: ValueRange)
 }
 
-class ProductFilterPriceCell: UITableViewCell, TTRangeSliderDelegate {
+final class ProductFilterRangeCell: UITableViewCell, TTRangeSliderDelegate {
     private let titleLabel = UILabel()
     private let valueLabel = UILabel()
-    private let priceRangeSlider = TTRangeSlider()
-    weak var delegate: ProductFilterPriceCellDelegate?
+    private let rangeSlider = TTRangeSlider()
+    weak var delegate: ProductFilterRangeCellDelegate?
+    
+    var title: String? {
+        set { titleLabel.text = newValue }
+        get { return titleLabel.text }
+    }
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: .Default, reuseIdentifier: reuseIdentifier)
@@ -19,25 +24,24 @@ class ProductFilterPriceCell: UITableViewCell, TTRangeSliderDelegate {
         
         removeSeparatorInset()
         
-        titleLabel.text = tr(.ProductListFilterRowPrice)
         titleLabel.font = UIFont(fontType: .Normal)
         titleLabel.textColor = UIColor(named: .Black)
         
         valueLabel.font = UIFont(fontType: .Normal)
         valueLabel.textColor = UIColor(named: .Manatee)
         
-        priceRangeSlider.tintColor = UIColor(named: .Manatee)
-        priceRangeSlider.hideLabels = true
-        priceRangeSlider.lineHeight = 8
-        priceRangeSlider.tintColorBetweenHandles = UIColor(named: .Blue)
-        priceRangeSlider.selectedHandleDiameterMultiplier = 1.4
-        priceRangeSlider.handleImage = UIImage(asset: .Slider)
-        priceRangeSlider.handleDiameter = 14
-        priceRangeSlider.delegate = self
+        rangeSlider.tintColor = UIColor(named: .Manatee)
+        rangeSlider.hideLabels = true
+        rangeSlider.lineHeight = 8
+        rangeSlider.tintColorBetweenHandles = UIColor(named: .Blue)
+        rangeSlider.selectedHandleDiameterMultiplier = 1.4
+        rangeSlider.handleImage = UIImage(asset: .Slider)
+        rangeSlider.handleDiameter = 14
+        rangeSlider.delegate = self
         
         contentView.addSubview(titleLabel)
         contentView.addSubview(valueLabel)
-        contentView.addSubview(priceRangeSlider)
+        contentView.addSubview(rangeSlider)
         
         configureCustomConstraints()
     }
@@ -46,17 +50,18 @@ class ProductFilterPriceCell: UITableViewCell, TTRangeSliderDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func updataData(priceRange priceRange: PriceRange, selectedPriceRange: PriceRange?) {
-        priceRangeSlider.minValue = Float(priceRange.min.amount)
-        priceRangeSlider.maxValue = Float(priceRange.max.amount)
-        if let selectedPriceRange = selectedPriceRange {
-            priceRangeSlider.selectedMinimum = Float(selectedPriceRange.min.amount)
-            priceRangeSlider.selectedMaximum = Float(selectedPriceRange.max.amount)
+    func updataData(valueRange valueRange: ValueRange, selectedValueRange: ValueRange?, step: Int) {
+        rangeSlider.step = Float(step)
+        rangeSlider.minValue = Float(valueRange.min)
+        rangeSlider.maxValue = Float(valueRange.max)
+        if let selectedValueRange = selectedValueRange {
+            rangeSlider.selectedMinimum = Float(selectedValueRange.min)
+            rangeSlider.selectedMaximum = Float(selectedValueRange.max)
         } else {
-            priceRangeSlider.selectedMinimum = priceRangeSlider.minValue
-            priceRangeSlider.selectedMaximum = priceRangeSlider.maxValue
+            rangeSlider.selectedMinimum = rangeSlider.minValue
+            rangeSlider.selectedMaximum = rangeSlider.maxValue
         }
-        updateValue(minValue: Int(priceRangeSlider.selectedMinimum), maxValue: Int(priceRangeSlider.selectedMaximum))
+        updateValue(minValue: Int(rangeSlider.selectedMinimum), maxValue: Int(rangeSlider.selectedMaximum))
     }
     
     private func configureCustomConstraints() {
@@ -72,7 +77,7 @@ class ProductFilterPriceCell: UITableViewCell, TTRangeSliderDelegate {
         }
         
         let priceRangeHorizontalOffset: CGFloat = 6
-        priceRangeSlider.snp_makeConstraints { make in
+        rangeSlider.snp_makeConstraints { make in
             make.bottom.equalToSuperview().offset(-20)
             make.leading.equalToSuperview().offset(priceRangeHorizontalOffset)
             make.trailing.equalToSuperview().offset(-priceRangeHorizontalOffset)
@@ -81,7 +86,9 @@ class ProductFilterPriceCell: UITableViewCell, TTRangeSliderDelegate {
     }
     
     private func updateValue(minValue minValue: Int, maxValue: Int) {
-        valueLabel.text = tr(.ProductListFilterPriceRange(String(minValue), String(maxValue)))
+        let minValueString = minValue == Int(rangeSlider.minValue) ? tr(.ProductListFilterMin) : String(minValue) + " zł"
+        let maxValueString = maxValue == Int(rangeSlider.maxValue) ? tr(.ProductListFilterMax) : String(maxValue) + " zł"
+        valueLabel.text = tr(.ProductListFilterPriceRange(minValueString, maxValueString))
     }
     
     // MARK:- TTRangeSliderDelegate
@@ -91,7 +98,7 @@ class ProductFilterPriceCell: UITableViewCell, TTRangeSliderDelegate {
     }
     
     func didEndTouchesInRangeSlider(sender: TTRangeSlider!) {
-        let priceRange = PriceRange(min: Money(amt: priceRangeSlider.selectedMinimum), max: Money(amt: priceRangeSlider.selectedMaximum))
-        delegate?.filterPrice(self, didChangeRange: priceRange)
+        let valueRange = ValueRange(min: Int(rangeSlider.selectedMinimum), max: Int(rangeSlider.selectedMaximum))
+        delegate?.filterRange(self, didChangeRange: valueRange)
     }
 }

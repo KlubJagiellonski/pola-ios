@@ -29,7 +29,7 @@ extension ProductListViewControllerInterface {
                 self.pageWasFetched(result: productListResult, page: self.productListModel.currentPageIndex)
                 self.productListView.updateData(productListResult.products, nextPageState: productListResult.isLastPage ? .LastPage : .Fetching)
                 self.productListView.switcherState = productListResult.products.isEmpty ? .Empty : .Success
-                self.filterButtonVisible = true // todo it should be get from result
+                self.filterButtonVisible = productListResult.filters != nil
                 self.filterButtonEnabled = true
             case .Error(let error):
                 logInfo("Failed to receive first product list page \(error)")
@@ -59,6 +59,12 @@ extension ProductListViewControllerInterface {
         productListModel.fetchNextProductPage().subscribe(onEvent).addDisposableTo(disposeBag)
     }
     
+    func didChangeFilter(withResult productListResult: ProductListResult) {
+        logInfo("Changed filter with productListResult \(productListResult)")
+        productListModel.didChangeFilter(withResult: productListResult)
+        updateDataOnFirstPageFetched(productListResult)
+    }
+    
     // call it in viewDidLoad
     func configureProductList() {
         filterButtonVisible = true
@@ -67,6 +73,14 @@ extension ProductListViewControllerInterface {
             guard let index = index else { return }
             self?.productListView.moveToPosition(forProductIndex: index, animated: false)
         }.addDisposableTo(disposeBag)
+    }
+    
+    private func updateDataOnFirstPageFetched(productListResult: ProductListResult) {
+        self.pageWasFetched(result: productListResult, page: self.productListModel.currentPageIndex)
+        self.productListView.updateData(productListResult.products, nextPageState: productListResult.isLastPage ? .LastPage : .Fetching)
+        self.productListView.switcherState = productListResult.products.isEmpty ? .Empty : .Success
+        self.filterButtonVisible = productListResult.filters != nil
+        self.filterButtonEnabled = true
     }
 }
 
@@ -116,69 +130,5 @@ extension ProductListViewDelegate where Self: ProductListViewControllerInterface
     
     func productListView(listView: ProductListViewInterface, didDoubleTapProductAtIndex index: Int) {
         productListModel.addToWishlist(productAtIndex: index)
-    }
-}
-
-extension ProductFilterNavigationControllerDelegate where Self: UIViewController {
-    func productFilter(viewController: ProductFilterNavigationController, wantsCancelWithAnimation animation: Bool) {
-        dismissViewControllerAnimated(animation, completion: nil)
-    }
-}
-
-//TODO remove when api
-
-extension ProductListViewControllerInterface {
-    var mockedFilter: Filter {
-        let sortOptions = [
-            FilterSortOption(id: 1, name: "Wybór projektanta"),
-            FilterSortOption(id: 2, name: "Nowości"),
-            FilterSortOption(id: 3, name: "Cena od najniższej"),
-            FilterSortOption(id: 4, name: "Cena od najwyższej")
-        ]
-        let selectedSortOption = 1
-        
-        let shoesCategories = [
-            FilterCategory(id: 2, name: "Balerinki", branches: nil),
-            FilterCategory(id: 3, name: "Botki", branches: nil),
-            FilterCategory(id: 4, name: "Kozaki", branches: nil),
-            FilterCategory(id: 5, name: "Oksfordki", branches: nil),
-            FilterCategory(id: 6, name: "Sandały i klapki", branches: nil),
-            FilterCategory(id: 7, name: "Szpilki", branches: nil)
-        ]
-        let filterCategories = [
-            FilterCategory(id: 1, name: "Buty", branches: shoesCategories),
-        ]
-        let selectedFilterCategory = 1
-        
-        let sizes = [
-            FilterSize(id: 1, name: "onesize"),
-            FilterSize(id: 2, name: "M"),
-            FilterSize(id: 3, name: "36"),
-            FilterSize(id: 4, name: "38"),
-            FilterSize(id: 5, name: "40"),
-            FilterSize(id: 6, name: "XXS"),
-        ]
-        let colors = [
-            FilterColor(id: 1, name: "Beżowy", type: .RGB, value: "FAFAFA"),
-            FilterColor(id: 2, name: "Biały", type: .RGB, value: "FFFFFF"),
-            FilterColor(id: 3, name: "Czarny", type: .RGB, value: "000000"),
-            FilterColor(id: 4, name: "Pstrokaty", type: .Image, value: "https://placehold.it/50x50/888888/ffffff"),
-        ]
-        let selectedColors = [
-            1
-        ]
-        
-        let brands = [
-            FilterBrand(id: 1, name: "10 DECOART"),
-            FilterBrand(id: 2, name: "4LCK"),
-            FilterBrand(id: 3, name: "9fashion Woman"),
-            FilterBrand(id: 4, name: "A2"),
-            FilterBrand(id: 5, name: "Afriq Password"),
-            FilterBrand(id: 6, name: "Afunguard"),
-        ]
-        let selectedBrands = [1, 2, 3, 4, 5, 6]
-        
-        let mockedFilter = Filter(sortOptions: sortOptions, selectedSortOptionId: selectedSortOption, defaultSortOptionId: 3, categories: filterCategories, selectedCategoryIds: [selectedFilterCategory], sizes: sizes, selectedSizeIds: [], colors: colors, selectedColorIds: selectedColors, priceRange: PriceRange(min: Money(amt: 0.0), max: Money(amt: 1000.0)), selectedPriceRange: nil, onlyDiscountsSelected: true, brands: brands, selectedBrandIds: selectedBrands)
-        return mockedFilter
     }
 }

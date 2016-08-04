@@ -2,178 +2,181 @@ import Foundation
 import RxSwift
 
 final class ProductFilterModel {
+    private let disposeBag = DisposeBag()
     private let api: ApiService
-    private let initialFilter: Filter
+    private let context: ProductFilterContext
+    private(set) var changedProductListResult: ProductListResult?
     let state: ProductFilterModelState
     
-    init(with filter: Filter, and api: ApiService) {
+    init(with context: ProductFilterContext, and api: ApiService) {
         self.api = api
-        self.initialFilter = filter
-        state = ProductFilterModelState(with: filter)
+        self.context = context
+        state = ProductFilterModelState(with: context.filters)
     }
     
-    func update(with priceRange: PriceRange) {
-        state.currentFilter.value.selectedPriceRange = priceRange
-        refreshFilter()
+    func update(with valueRange: ValueRange, forFilterId filterId: FilterId) {
+        update(withData: [valueRange.min, valueRange.max], forFilterId: filterId)
     }
     
-    func update(withPriceDiscount priceDiscount: Bool) {
-        state.currentFilter.value.onlyDiscountsSelected = priceDiscount
-        refreshFilter()
+    func update(withSelected selected: Bool, forFilterId filterId: FilterId) {
+        update(withData: [selected ? 1 : 0], forFilterId: filterId)
+    }
+    
+    func update(withData data: [FilterObjectId], forFilterId filterId: FilterId) {
+        guard let filterIndex = state.currentFilters.value.indexOf({ $0.id == filterId }) else { return }
+        refreshFilter() {
+            if let tempFilter = state.tempFilter.value {
+                updateTemp(withData: data, forFilterId: filterId)
+                state.currentFilters.value[filterIndex] = tempFilter
+            } else {
+                state.currentFilters.value[filterIndex].data = data
+            }
+        }
+    }
+    
+    func updateTemp(withData data: [FilterObjectId], forFilterId filterId: FilterId) {
+        var filters = state.currentFilters.value
+        guard let filterIndex = filters.indexOf({ $0.id == filterId }) else { return }
+        filters[filterIndex].data = data
+        refreshTempFilter(filters, forFilterId: filterId)
     }
     
     func clearChanges() {
-        state.currentFilter.value = initialFilter
-        refreshFilter()
+        refreshFilter() {
+            state.currentFilters.value = context.filters
+        }
     }
     
     func resetTempFilter() {
         state.tempFilter.value = nil
     }
     
-    func updateSelectedFilters(ids: [ObjectId], forOption filterOption: FilterOption) {
-        if let tempFilter = state.tempFilter.value {
-            state.currentFilter.value = tempFilter
-        } else {
-            switch filterOption {
-            case .Sort:
-                state.currentFilter.value.selectedSortOptionId = ids[0]
-            case .Color:
-                state.currentFilter.value.selectedColorIds = ids
-            case .Size:
-                state.currentFilter.value.selectedSizeIds = ids
-            case .Category:
-                state.currentFilter.value.selectedCategoryIds = ids
-            case .Brand:
-                state.currentFilter.value.selectedBrandIds = ids
-            }
-        }
-        
-        refreshFilter()
+    func createFilterInfo(forFilterId filterId: FilterId) -> FilterInfo {
+        let filter = state.currentFilters.value.find({ $0.id == filterId })!
+        return createFilterInfo(forFilter: filter)
     }
     
-    func updateTempSelectedFilters(selectedIds: [ObjectId], forOption filterOption: FilterOption) {
-        var ids = selectedIds
-        if let rootIndex = ids.indexOf(Constants.rootCategoryId) {
-            ids.removeAtIndex(rootIndex)
-        }
-        var tempFilter = state.tempFilter.value ?? state.currentFilter.value
-        switch filterOption {
-        case .Sort:
-            tempFilter.selectedSortOptionId = ids[0]
-        case .Color:
-            tempFilter.selectedColorIds = ids
-        case .Size:
-            tempFilter.selectedSizeIds = ids
-        case .Category:
-            tempFilter.selectedCategoryIds = ids
-        case .Brand:
-            tempFilter.selectedBrandIds = ids
-        }
-        state.tempFilter.value = tempFilter
-        
-        refreshTempFilter()
-    }
-    
-    func createFilterInfo(forOption filterOption: FilterOption) -> FilterInfo {
-        return createFilterInfo(forOption: filterOption, forFilter: state.currentFilter.value)
-    }
-    
-    func createTempFilterInfo(forOption filterOption: FilterOption) -> FilterInfo? {
+    func createTempFilterInfo(forFilterId filterId: FilterId) -> FilterInfo? {
         guard state.tempFilter.value != nil else { return nil }
-        return createFilterInfo(forOption: filterOption, forFilter: state.tempFilter.value!)
+        return createFilterInfo(forFilter: state.tempFilter.value!)
     }
     
-    private func createFilterInfo(forOption filterOption: FilterOption, forFilter filter: Filter) -> FilterInfo {
+    private func createFilterInfo(forFilter filter: Filter) -> FilterInfo {
         var filterItems: [FilterItem] = []
-        var selectedFilterItemsIds: [Int] = []
-        var defaultItemId: Int?
+        var selectedFilterItemsIds: [FilterObjectId] = []
         var mode: FilterDetailsMode!
-        var title: String!
         
-        switch filterOption {
-        case .Sort:
-            filterItems = filter.sortOptions.map { option in
-                return FilterItem(id: option.id, name: option.name, imageInfo: nil, type: .Default, inset: .Default)
+        switch filter.type {
+        case .Choice:
+            filterItems = filter.choices!.map { choice in
+                var imageInfo: FilterImageInfo?
+                if let colorType = choice.colorType, let colorValue = choice.colorValue {
+                    imageInfo = FilterImageInfo(type: colorType, value: colorValue)
+                }
+                return FilterItem(id: choice.id, name: choice.name, imageInfo: imageInfo, type: .Default, inset: .Default)
             }
-            selectedFilterItemsIds.append(filter.selectedSortOptionId)
-            mode = .SingleChoice
-            title = tr(.ProductListFilterRowSort)
-            defaultItemId = filter.defaultSortOptionId
-        case .Color:
-            filterItems = filter.colors.map { option in
-                let imageInfo = FilterImageInfo(type: option.type, value: option.value)
-                return FilterItem(id: option.id, name: option.name, imageInfo: imageInfo, type: .Default, inset: .Default)
+            selectedFilterItemsIds.appendContentsOf(filter.data)
+            mode = filter.multiple ? .MultiChoice : .SingleChoice
+        case .Tree:
+            for branch in filter.branches! {
+                filterItems.appendContentsOf(createFilterItems(forFilterBranch: branch))
             }
-            selectedFilterItemsIds.appendContentsOf(filter.selectedColorIds)
-            mode = .MultiChoice
-            title = tr(.ProductListFilterRowColor)
-        case .Size:
-            filterItems = filter.sizes.map { option in
-                return FilterItem(id: option.id, name: option.name, imageInfo: nil, type: .Default, inset: .Default)
-            }
-            selectedFilterItemsIds.appendContentsOf(filter.selectedSizeIds)
-            mode = .MultiChoice
-            title = tr(.ProductListFilterRowSize)
-        case .Category:
-            filterItems.append(FilterItem(id: Constants.rootCategoryId, name: tr(.ProductListFilterAllCategories), imageInfo: nil, type: .Bold, inset: .Default))
-            for category in filter.categories {
-                filterItems.appendContentsOf(createFilterItems(forCategory: category))
-            }
-            if let selectedCategoryId = filter.selectedCategoryIds.last {
-                selectedFilterItemsIds.append(selectedCategoryId)
-            }
+            selectedFilterItemsIds = filter.data
             mode = .Tree
-            title = tr(.ProductListFilterRowCategory)
-        case .Brand:
-            filterItems = filter.brands!.map { option in
-                return FilterItem(id: option.id, name: option.name, imageInfo: nil, type: .Default, inset: .Default)
-            }
-            
-            selectedFilterItemsIds.appendContentsOf(filter.selectedBrandIds)
-            mode = .MultiChoice
-            title = tr(.ProductListFilterRowBrand)
+        case .Unknown:
+            logError("Cannot create filterInfo for filter \(filter)")
+        case .Range:
+            fallthrough
+        case .Select:
+            fatalError("Cannot create filterInfo for filter \(filter)")
         }
         
-        return FilterInfo(filterItems: filterItems, selectedFilterItemIds: selectedFilterItemsIds, defaultFilterId: defaultItemId, mode: mode, title: title)
+        return FilterInfo(id: filter.id, filterItems: filterItems, selectedFilterItemIds: selectedFilterItemsIds, defaultFilterId: filter.defaultId, mode: mode, title: filter.label)
     }
     
-    private func refreshFilter() {
-        //todo
+    private func refreshFilter(@noescape refreshFilterBlock: () -> ()) {
+        let oldFilters = state.currentFilters.value
+        
+        refreshFilterBlock()
+        
+        state.viewState.value = .Refreshing
+        context.fetchObservable(state.currentFilters.value)
+            .observeOn(MainScheduler.instance)
+            .subscribe { [weak self](event: Event<ProductListResult>) in
+                guard let `self` = self else { return }
+                
+                self.state.viewState.value = .Default
+                
+                switch event {
+                case .Next(let result):
+                    self.changedProductListResult = result
+                case .Error(let error):
+                    self.state.viewState.value = .Error
+                    self.state.currentFilters.value = oldFilters
+                    logInfo("Error during refreshing filter \(error)")
+                default: break
+                }
+        }.addDisposableTo(disposeBag)
     }
     
-    private func refreshTempFilter() {
-        state.tempFilter.value = mockedSubTreeFilter
+    private func refreshTempFilter(currentFilters: [Filter], forFilterId filterId: FilterId) {
+        state.tempViewState.value = .Refreshing
+        
+        context.fetchObservable(currentFilters)
+            .observeOn(MainScheduler.instance)
+            .subscribe { [weak self](event: Event<ProductListResult>) in
+                guard let `self` = self else { return }
+        
+                self.state.tempViewState.value = .Default
+                
+                switch event {
+                case .Next(let result):
+                    logInfo("Fetched temp filter \(result)")
+                    self.state.tempFilter.value = result.filters?.find { $0.id == filterId }
+                case .Error(let error):
+                    logInfo("Error during refreshing temp filter \(error)")
+                    self.state.tempViewState.value = .Error
+                default: break
+                }
+            }.addDisposableTo(disposeBag)
     }
     
-    private func createFilterItems(forCategory category: FilterCategory) -> [FilterItem] {
+    private func createFilterItems(forFilterBranch filterBranch: FilterBranch) -> [FilterItem] {
         var filterItems: [FilterItem] = []
-        if let branches = category.branches {
-            filterItems.append(FilterItem(id: category.id, name: category.name, imageInfo: nil, type: .Bold, inset: .Default))
-            for branch in branches {
-                filterItems.appendContentsOf(createFilterItems(forCategory: branch))
+        if filterBranch.branches.count > 0 {
+            filterItems.append(FilterItem(id: filterBranch.id, name: filterBranch.label, imageInfo: nil, type: .Bold, inset: .Default))
+            for branch in filterBranch.branches {
+                filterItems.appendContentsOf(createFilterItems(forFilterBranch: branch))
             }
         } else {
-            filterItems.append(FilterItem(id: category.id, name: category.name, imageInfo: nil, type: .Default, inset: .Big))
+            filterItems.append(FilterItem(id: filterBranch.id, name: filterBranch.label, imageInfo: nil, type: .Default, inset: .Big))
         }
         return filterItems
     }
 }
 
+enum ProductFilterViewState {
+    case Default
+    case Refreshing
+    case Error
+}
+
 final class ProductFilterModelState {
-    private(set) var currentFilter: Variable<Filter>
+    private(set) var currentFilters: Variable<[Filter]>
     private(set) var tempFilter: Variable<Filter?> = Variable(nil)
-    private(set) var refreshing = Variable(false)
+    private(set) var viewState = Variable(ProductFilterViewState.Default)
+    private(set) var tempViewState = Variable(ProductFilterViewState.Default)
     
-    init(with filter: Filter) {
-        currentFilter = Variable(filter)
+    init(with filters: [Filter]) {
+        currentFilters = Variable(filters)
     }
 }
 
 struct FilterInfo {
+    let id: FilterId
     let filterItems: [FilterItem]
-    let selectedFilterItemIds: [Int]
-    let defaultFilterId: Int?
+    let selectedFilterItemIds: [FilterObjectId]
+    let defaultFilterId: FilterObjectId?
     let mode: FilterDetailsMode
     let title: String
 }
@@ -183,7 +186,7 @@ enum FilterDetailsMode {
 }
 
 struct FilterItem {
-    let id: ObjectId
+    let id: FilterObjectId
     let name: String
     let imageInfo: FilterImageInfo?
     let type: FilterItemType
@@ -201,61 +204,4 @@ enum FilterItemType {
 
 enum FilterItemInset {
     case Default, Big
-}
-
-//todo remove 
-
-extension ProductFilterModel {
-    var mockedSubTreeFilter: Filter {
-        let sortOptions = [
-            FilterSortOption(id: 1, name: "Wybór projektanta"),
-            FilterSortOption(id: 2, name: "Nowości"),
-            FilterSortOption(id: 3, name: "Cena od najniższej"),
-            FilterSortOption(id: 4, name: "Cena od najwyższej")
-        ]
-        let selectedSortOption = 1
-        
-        let balerinkiCategories = [
-            FilterCategory(id: 3, name: "Czarne", branches: nil),
-            FilterCategory(id: 4, name: "Czerwone", branches: nil)
-        ]
-        let shoesCategories = [
-            FilterCategory(id: 2, name: "Balerinki", branches: balerinkiCategories),
-        ]
-        let filterCategories = [
-            FilterCategory(id: 1, name: "Buty", branches: shoesCategories),
-            ]
-        let selectedFilterCategory = [1, 2]
-        
-        let sizes = [
-            FilterSize(id: 1, name: "onesize"),
-            FilterSize(id: 2, name: "M"),
-            FilterSize(id: 3, name: "36"),
-            FilterSize(id: 4, name: "38"),
-            FilterSize(id: 5, name: "40"),
-            FilterSize(id: 6, name: "XXS"),
-            ]
-        let colors = [
-            FilterColor(id: 1, name: "Beżowy", type: .RGB, value: "FAFAFA"),
-            FilterColor(id: 2, name: "Biały", type: .RGB, value: "FFFFFF"),
-            FilterColor(id: 3, name: "Czarny", type: .RGB, value: "000000"),
-            FilterColor(id: 4, name: "Pstrokaty", type: .Image, value: "https://placehold.it/50x50/888888/ffffff"),
-            ]
-        let selectedColors = [
-            1
-        ]
-        
-        let brands = [
-            FilterBrand(id: 1, name: "10 DECOART"),
-            FilterBrand(id: 2, name: "4LCK"),
-            FilterBrand(id: 3, name: "9fashion Woman"),
-            FilterBrand(id: 4, name: "A2"),
-            FilterBrand(id: 5, name: "Afriq Password"),
-            FilterBrand(id: 6, name: "Afunguard"),
-            ]
-        let selectedBrands = [1, 2, 3, 4, 5, 6]
-        
-        let mockedFilter = Filter(sortOptions: sortOptions, selectedSortOptionId: selectedSortOption, defaultSortOptionId: 3, categories: filterCategories, selectedCategoryIds: selectedFilterCategory, sizes: sizes, selectedSizeIds: [], colors: colors, selectedColorIds: selectedColors, priceRange: PriceRange(min: Money(amt: 0.0), max: Money(amt: 1000.0)), selectedPriceRange: nil, onlyDiscountsSelected: true, brands: brands, selectedBrandIds: selectedBrands)
-        return mockedFilter
-    }
 }

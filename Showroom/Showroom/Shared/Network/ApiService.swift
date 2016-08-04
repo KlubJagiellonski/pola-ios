@@ -108,22 +108,31 @@ extension ApiService {
         }
     }
     
-    func fetchProducts(forPage: Int, pageSize: Int = Constants.productListPageSize) -> Observable<ProductListResult> {
+    func fetchProducts(with request: ProductRequest) -> Observable<ProductListResult> {
         let url = NSURL(fileURLWithPath: basePath)
             .URLByAppendingPathComponent("products")
-            .URLByAppendingParams(["page": String(forPage), "pageSize": String(pageSize)])
         
-        let urlRequest = NSMutableURLRequest(URL: url)
-        urlRequest.HTTPMethod = "POST"
-        return networkClient
-            .request(withRequest: urlRequest)
-            .flatMap { data -> Observable<ProductListResult> in
-                do {
-                    let result = try NSJSONSerialization.JSONObjectWithData(data, options: [])
-                    return Observable.just(try ProductListResult.decode(result))
-                } catch {
-                    return Observable.error(error)
-                }
+        do {
+            let requestBody = request.encode()
+            logInfo("Sentding products request with body: \(requestBody)")
+            let jsonData = try NSJSONSerialization.dataWithJSONObject(request.encode(), options: [])
+            
+            let urlRequest = NSMutableURLRequest(URL: url)
+            urlRequest.HTTPMethod = "POST"
+            urlRequest.HTTPBody = jsonData
+            urlRequest.applyJsonContentTypeHeader()
+            return networkClient
+                .request(withRequest: urlRequest)
+                .flatMap { data -> Observable<ProductListResult> in
+                    do {
+                        let result = try NSJSONSerialization.JSONObjectWithData(data, options: [])
+                        return Observable.just(try ProductListResult.decode(result))
+                    } catch {
+                        return Observable.error(error)
+                    }
+            }
+        } catch {
+            return Observable.error(error)
         }
     }
     

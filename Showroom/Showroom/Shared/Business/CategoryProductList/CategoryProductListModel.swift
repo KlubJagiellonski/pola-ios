@@ -5,7 +5,7 @@ final class CategoryProductListModel: ProductListModel {
     
     init(with category: EntryCategory, apiService: ApiService, wishlistManager: WishlistManager) {
         self.category = category
-        super.init(with: apiService, wishlistManager: wishlistManager)
+        super.init(with: apiService, wishlistManager: wishlistManager, link: category.link)
     }
     
     func update(with category: EntryCategory) {

@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-final class ProductFilterBrandCell: UITableViewCell {
+final class ProductFilterMultipleCell: UITableViewCell {
     private static let topValueOffset: CGFloat = 40
     private static let valueFont: UIFont = UIFont(fontType: .Normal)
     
@@ -28,7 +28,7 @@ final class ProductFilterBrandCell: UITableViewCell {
         titleLabel.font = UIFont(fontType: .Normal)
         titleLabel.textColor = UIColor(named: .Black)
         
-        valueLabel.font = ProductFilterBrandCell.valueFont
+        valueLabel.font = ProductFilterMultipleCell.valueFont
         valueLabel.textColor = UIColor(named: .Manatee)
         valueLabel.numberOfLines = 0
         
@@ -47,8 +47,8 @@ final class ProductFilterBrandCell: UITableViewCell {
     
     static func height(forWidth width: CGFloat, andValue value: String?) -> CGFloat {
         guard let value = value else { return Dimensions.defaultCellHeight }
-        let valueHeight = value.heightWithConstrainedWidth(width - 2 * Dimensions.defaultMargin, font: ProductFilterBrandCell.valueFont)
-        return ProductFilterBrandCell.topValueOffset + valueHeight + Dimensions.defaultMargin
+        let valueHeight = value.heightWithConstrainedWidth(width - 2 * Dimensions.defaultMargin, font: ProductFilterMultipleCell.valueFont)
+        return ProductFilterMultipleCell.topValueOffset + valueHeight + Dimensions.defaultMargin
     }
     
     private func configureCustomConstraints() {
@@ -72,7 +72,7 @@ final class ProductFilterBrandCell: UITableViewCell {
         valueLabel.snp_makeConstraints { make in
             make.leading.equalToSuperview().offset(Dimensions.defaultMargin)
             make.trailing.equalToSuperview().offset(-Dimensions.defaultMargin)
-            make.top.equalToSuperview().offset(ProductFilterBrandCell.topValueOffset)
+            make.top.equalToSuperview().offset(ProductFilterMultipleCell.topValueOffset)
         }
     }
 }

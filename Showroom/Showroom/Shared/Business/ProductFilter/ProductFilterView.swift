@@ -2,46 +2,28 @@ import Foundation
 import UIKit
 import RxSwift
 
-extension FilterOption {
-    static func from(rowType rowType: FilterRowType) -> FilterOption? {
-        switch rowType {
-        case .Sort:
-            return .Sort
-        case .Category:
-            return .Category
-        case .Size:
-            return .Size
-        case .Color:
-            return .Color
-        case .Brand:
-            return .Brand
-        default:
-            return nil
-        }
-    }
-}
-
 protocol ProductFilterViewDelegate: class {
     func productFilterDidTapAccept(view: ProductFilterView)
-    func productFilter(view: ProductFilterView, didSelectItem filterOption: FilterOption)
-    func productFilter(view: ProductFilterView, didChangePriceRange priceRange: PriceRange)
-    func productFilter(view: ProductFilterView, didChangePriceDiscount priceDiscountSelected: Bool)
+    func productFilter(view: ProductFilterView, didSelectItemAtIndex index: Int)
+    func productFilter(view: ProductFilterView, didChangeValueRange valueRange: ValueRange, forIndex index: Int)
+    func productFilter(view: ProductFilterView, didChangeSelect selected: Bool, forIndex index: Int)
 }
 
-class ProductFilterView: UIView, UITableViewDelegate {
+class ProductFilterView: ViewSwitcher, UITableViewDelegate {
     private let dataSource: ProductFilterDataSource
     weak var delegate: ProductFilterViewDelegate?
     private let disposeBag = DisposeBag()
     
+    private let contentView = UIView()
     private let tableView = UITableView(frame: CGRectZero, style: .Plain)
     private let acceptButton = UIButton()
     
     init(with state: ProductFilterModelState) {
         dataSource = ProductFilterDataSource(with: tableView)
-        super.init(frame: CGRectZero)
+        super.init(successView: contentView, initialState: .Success)
         
-        state.currentFilter.asObservable().subscribeNext { [weak self] filter in
-            self?.dataSource.filter = filter
+        state.currentFilters.asObservable().subscribeNext { [weak self] filters in
+            self?.dataSource.filters = filters
         }.addDisposableTo(disposeBag)
         
         dataSource.productFilterView = self
@@ -56,8 +38,8 @@ class ProductFilterView: UIView, UITableViewDelegate {
         acceptButton.title = tr(.ProductListFilterShowProducts)
         acceptButton.addTarget(self, action: #selector(ProductFilterView.didTapAccept), forControlEvents: .TouchUpInside)
         
-        addSubview(tableView)
-        addSubview(acceptButton)
+        contentView.addSubview(tableView)
+        contentView.addSubview(acceptButton)
         
         configureCustomConstraints()
     }
@@ -70,22 +52,18 @@ class ProductFilterView: UIView, UITableViewDelegate {
         delegate?.productFilterDidTapAccept(self)
     }
     
-    func updateData(with filter: Filter) {
-        dataSource.filter = filter
-    }
-    
     func deselectRowsIfNeeded() {
         if let selectedRow = tableView.indexPathForSelectedRow {
             tableView.deselectRowAtIndexPath(selectedRow, animated: true)
         }
     }
     
-    func didChangePriceRange(value: PriceRange) {
-        delegate?.productFilter(self, didChangePriceRange: value)
+    func didChangeValueRange(value: ValueRange, forIndex index: Int) {
+        delegate?.productFilter(self, didChangeValueRange: value, forIndex: index)
     }
     
-    func didChangePriceDiscount(value: Bool) {
-        delegate?.productFilter(self, didChangePriceDiscount: value)
+    func didChangeSelect(selected: Bool, forIndex index: Int) {
+        delegate?.productFilter(self, didChangeSelect: selected, forIndex: index)
     }
     
     private func configureCustomConstraints() {
@@ -107,9 +85,7 @@ class ProductFilterView: UIView, UITableViewDelegate {
     // MARK:- UITableViewDelegate
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let rowType = FilterRowType.rowType(forIndex: indexPath)
-        guard let filterItem = FilterOption.from(rowType: rowType) else { return }
-        delegate?.productFilter(self, didSelectItem: filterItem)
+        delegate?.productFilter(self, didSelectItemAtIndex: indexPath.row)
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {

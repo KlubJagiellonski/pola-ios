@@ -4,25 +4,30 @@ import RxSwift
 
 class FilterDetailsViewController: UIViewController, FilterDetailsViewDelegate {
     private let disposeBag = DisposeBag()
+    private let toastManager: ToastManager
     private let model: ProductFilterModel
-    private let filterOption: FilterOption
     private let filterInfo: FilterInfo
     private var tempFilterInfo: FilterInfo?
-    private var currentSelectedIds: [ObjectId] {
+    private var currentSelectedIds: [FilterObjectId] {
         didSet {
             updateAcceptButtonState()
         }
     }
     private var castView: FilterDetailsView { return view as! FilterDetailsView }
     
-    init(with model: ProductFilterModel, and filterOption: FilterOption) {
+    init(with model: ProductFilterModel, filterInfo: FilterInfo, and toastManager: ToastManager) {
         self.model = model
-        self.filterOption = filterOption
-        self.filterInfo = model.createFilterInfo(forOption: filterOption)
-        self.currentSelectedIds = filterInfo.selectedFilterItemIds
+        self.toastManager = toastManager
+        self.filterInfo = filterInfo
+        
+        var selectedIds: [FilterObjectId] = filterInfo.selectedFilterItemIds
+        if let defaultFilterId = filterInfo.defaultFilterId where selectedIds.isEmpty {
+            selectedIds.append(defaultFilterId)
+        }
+        self.currentSelectedIds = selectedIds
         super.init(nibName: nil, bundle: nil)
         
-        if filterOption != .Category {
+        if filterInfo.mode != .Tree {
             navigationItem.rightBarButtonItem = createBlueTextBarButtonItem(title: tr(.ProductListFilterClear), target: self, action: #selector(FilterDetailsViewController.didTapClear))
         }
         title = filterInfo.title
@@ -46,6 +51,11 @@ class FilterDetailsViewController: UIViewController, FilterDetailsViewDelegate {
         castView.updateData(with: filterInfo.filterItems, selectedIds: currentSelectedIds, loadingItemIndex: nil)
         
         model.state.tempFilter.asObservable().subscribeNext { [weak self] _ in self?.updateData() }.addDisposableTo(disposeBag)
+        model.state.tempViewState.asObservable().subscribeNext { [weak self] viewState in
+            if viewState == .Error {
+                self?.toastManager.showMessage(tr(.CommonError))
+            }
+        }.addDisposableTo(disposeBag)
     }
     
     func didTapClear() {
@@ -58,7 +68,7 @@ class FilterDetailsViewController: UIViewController, FilterDetailsViewDelegate {
     }
     
     private func updateData() {
-        tempFilterInfo = model.createTempFilterInfo(forOption: filterOption)
+        tempFilterInfo = model.createTempFilterInfo(forFilterId: filterInfo.id)
         if let filterInfo = tempFilterInfo {
             currentSelectedIds = filterInfo.selectedFilterItemIds
             castView.updateData(with: filterInfo.filterItems, selectedIds: currentSelectedIds, loadingItemIndex: nil)
@@ -66,25 +76,41 @@ class FilterDetailsViewController: UIViewController, FilterDetailsViewDelegate {
     }
     
     private func updateTree(forSelectedItem item: FilterItem) {
-        castView.updateData(withLoadingItemIndex: filterInfo.filterItems.indexOf { $0.id == item.id })
-        var newSelectedIds: [ObjectId] = []
+        let filterInfo = self.tempFilterInfo ?? self.filterInfo
+        let newSelectedIndex = filterInfo.filterItems.indexOf { $0.id == item.id }!
+        castView.updateData(withLoadingItemIndex: newSelectedIndex)
+        
+        var newSelectedAdded = false
+        var newSelectedIds: [FilterObjectId] = []
         for selectedId in currentSelectedIds {
+            let selectedIdIndex = filterInfo.filterItems.indexOf { $0.id == selectedId }!
+            if selectedIdIndex > newSelectedIndex && !newSelectedAdded {
+                newSelectedIds.append(item.id)
+                newSelectedAdded = true
+            }
             newSelectedIds.append(selectedId)
             if selectedId == item.id {
+                newSelectedAdded = true
                 break
             }
         }
-        model.updateTempSelectedFilters(newSelectedIds, forOption: filterOption)
+        if !newSelectedAdded {
+            newSelectedIds.append(item.id)
+        }
+        model.updateTemp(withData: newSelectedIds, forFilterId: filterInfo.id)
     }
     
     //MARK:- FilterDetailsViewDelegate
     
     func filterDetailsDidTapAccept(view: FilterDetailsView) {
-        model.updateSelectedFilters(currentSelectedIds, forOption: filterOption)
+        model.update(withData: currentSelectedIds, forFilterId: filterInfo.id)
         sendNavigationEvent(SimpleNavigationEvent(type: .Back))
     }
     
     func filterDetails(view: FilterDetailsView, didSelectFilterItemAtIndex index: Int) {
+        guard model.state.tempViewState.value != .Refreshing else { return }
+        
+        let filterInfo = self.tempFilterInfo ?? self.filterInfo
         let filterItem = filterInfo.filterItems[index]
         if filterInfo.mode == .Tree {
             updateTree(forSelectedItem: filterItem)

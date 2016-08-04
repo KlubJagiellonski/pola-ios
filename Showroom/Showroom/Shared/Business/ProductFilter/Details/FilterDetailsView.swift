@@ -39,7 +39,7 @@ class FilterDetailsView: UIView, UITableViewDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func updateData(with filterItems: [FilterItem], selectedIds: [ObjectId], loadingItemIndex: Int?) {
+    func updateData(with filterItems: [FilterItem], selectedIds: [FilterObjectId], loadingItemIndex: Int?) {
         dataSource.updateData(with: filterItems, selectedIds: selectedIds, loadingItemIndex: loadingItemIndex)
     }
     
@@ -47,7 +47,7 @@ class FilterDetailsView: UIView, UITableViewDelegate {
         dataSource.updateData(withLoadingItemIndex: loadingItemIndex)
     }
     
-    func updateData(withSelectedIds selectedIds: [Int]) {
+    func updateData(withSelectedIds selectedIds: [FilterObjectId]) {
         dataSource.updateData(withSelectedIds: selectedIds)
     }
     

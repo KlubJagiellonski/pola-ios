@@ -10,10 +10,10 @@ final class TrendProductListModel: ProductListModel {
     
     init(with apiService: ApiService, wishlistManager: WishlistManager, trendInfo: EntryTrendInfo) {
         self.entryTrendInfo = trendInfo
-        super.init(with: apiService, wishlistManager: wishlistManager)
+        super.init(with: apiService, wishlistManager: wishlistManager, link: nil)
     }
     
-    override func createObservable(page: Int) -> Observable<ProductListResult> {
+    override func createObservable(with paginationInfo: PaginationInfo, forFilters filters: [Filter]?) -> Observable<ProductListResult> {
         return apiService.fetchTrend(entryTrendInfo.slug)
             .doOnNext { [weak self] result in
                 self?.attributedDescription = result.trendInfo!.description.markdownToAttributedString()

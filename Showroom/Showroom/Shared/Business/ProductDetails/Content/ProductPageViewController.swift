@@ -180,7 +180,7 @@ extension ProductPageViewController: ProductDescriptionNavigationControllerDeleg
     }
     func productDescriptionDidTapOtherBrandProducts(controller: ProductDescriptionNavigationController) {
         guard let product = model.state.productDetails else { return }
-        let productBrand = EntryProductBrand(id: product.brand.id, name: product.brand.name)
+        let productBrand = EntryProductBrand(id: product.brand.id, name: product.brand.name, link: nil)
         sendNavigationEvent(ShowBrandProductListEvent(productBrand: productBrand))
     }
     func productDescriptionDidTapAddToBasket(controller: ProductDescriptionNavigationController) {

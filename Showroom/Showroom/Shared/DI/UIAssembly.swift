@@ -159,17 +159,17 @@ class UIAssembly: AssemblyType {
         container.register(OnboardingViewController.self) { r in
             return OnboardingViewController(resolver: r.resolve(DiResolver.self)!)
         }
-        container.register(ProductFilterNavigationController.self) { r, filter in
-            return ProductFilterNavigationController(with: r.resolve(DiResolver.self)!, and: filter)
+        container.register(ProductFilterNavigationController.self) { r, context in
+            return ProductFilterNavigationController(with: r.resolve(DiResolver.self)!, and: context)
         }
         container.register(ProductFilterViewController.self) { r, model in
-            return ProductFilterViewController(with: model)
+            return ProductFilterViewController(with: model, and: r.resolve(ToastManager.self)!)
         }
-        container.register(ProductFilterModel.self) { r, filter in
-            return ProductFilterModel(with: filter, and: r.resolve(ApiService.self)!)
+        container.register(ProductFilterModel.self) { r, context in
+            return ProductFilterModel(with: context, and: r.resolve(ApiService.self)!)
         }
-        container.register(FilterDetailsViewController.self) { r, model, option in
-            return FilterDetailsViewController(with: model, and: option)
+        container.register(FilterDetailsViewController.self) { r, model, filterInfo in
+            return FilterDetailsViewController(with: model, filterInfo: filterInfo, and: r.resolve(ToastManager.self)!)
         }
         container.register(SearchNavigationController.self) { r in
             return SearchNavigationController(with: r.resolve(DiResolver.self)!)

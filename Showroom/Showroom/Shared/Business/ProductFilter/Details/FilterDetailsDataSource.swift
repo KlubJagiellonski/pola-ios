@@ -8,6 +8,9 @@ extension FilterImageInfo {
             return ColorRepresentation.ImageUrl(value)
         case .RGB:
             return ColorRepresentation.Color(UIColor(hex: value)!)
+        case .Unknown:
+            logError("Cannot create color representation for filterImageInfo \(self)")
+            return ColorRepresentation.Color(UIColor.whiteColor())
         }
     }
 }
@@ -34,7 +37,7 @@ extension FilterItem {
 final class FilterDetailsDataSource: NSObject, UITableViewDataSource {
     private weak var tableView: UITableView?
     private var filterItems: [FilterItem] = []
-    private var selectedIds: [Int] = []
+    private var selectedIds: [FilterObjectId] = []
     private var loadingItemIndex: Int?
     
     init(with tableView: UITableView) {
@@ -45,82 +48,22 @@ final class FilterDetailsDataSource: NSObject, UITableViewDataSource {
         tableView.registerClass(ImageSelectValueTableViewCell.self, forCellReuseIdentifier: String(ImageSelectValueTableViewCell))
     }
     
-    func updateData(with filterItems: [FilterItem], selectedIds: [ObjectId], loadingItemIndex: Int?) {
-        guard !self.filterItems.isEmpty else {
-            self.filterItems = filterItems
-            self.selectedIds = selectedIds
-            self.loadingItemIndex = loadingItemIndex
-            tableView?.reloadData()
-            return
-        }
-        
-        let oldFilterItems = self.filterItems
+    func updateData(with filterItems: [FilterItem], selectedIds: [FilterObjectId], loadingItemIndex: Int?) {
         self.filterItems = filterItems
         self.selectedIds = selectedIds
         self.loadingItemIndex = loadingItemIndex
-        
-        var deleteIndexPaths: [NSIndexPath] = []
-        var insertIndexPaths: [NSIndexPath] = []
-        var reloadIndexPaths: [NSIndexPath] = []
-        
-        for (index, oldFilterItem) in oldFilterItems.enumerate() {
-            if !filterItems.contains({ $0.id == oldFilterItem.id }) {
-                deleteIndexPaths.append(NSIndexPath(forRow: index, inSection: 0))
-            } else {
-                reloadIndexPaths.append(NSIndexPath(forRow: index, inSection: 0))
-            }
-        }
-        
-        for (index, newFilterItem) in filterItems.enumerate() {
-            if !oldFilterItems.contains({ $0.id == newFilterItem.id }) {
-                insertIndexPaths.append(NSIndexPath(forRow: index, inSection: 0))
-            }
-        }
-        
-        if deleteIndexPaths.isEmpty && insertIndexPaths.isEmpty && reloadIndexPaths.isEmpty {
-            return
-        }
-        
-        tableView?.beginUpdates()
-        tableView?.deleteRowsAtIndexPaths(deleteIndexPaths, withRowAnimation: .Automatic)
-        tableView?.reloadRowsAtIndexPaths(reloadIndexPaths, withRowAnimation: .None)
-        tableView?.insertRowsAtIndexPaths(insertIndexPaths, withRowAnimation: .Automatic)
-        tableView?.endUpdates()
+        tableView?.reloadData()
+        return
     }
     
     func updateData(withLoadingItemIndex loadingItemIndex: Int?) {
-        let oldValue = self.loadingItemIndex
         self.loadingItemIndex = loadingItemIndex
-        
-        var indexPathsToReload: [NSIndexPath] = []
-        if let oldValue = oldValue {
-            indexPathsToReload.append(NSIndexPath(forRow: oldValue, inSection: 0))
-        }
-        if let newValue = loadingItemIndex {
-            indexPathsToReload.append(NSIndexPath(forRow: newValue, inSection: 0))
-        }
-        
-        guard !indexPathsToReload.isEmpty else { return }
-        
-        tableView?.reloadRowsAtIndexPaths(indexPathsToReload, withRowAnimation: .Automatic)
+        tableView?.reloadData()
     }
     
-    func updateData(withSelectedIds selectedIds: [Int]) {
-        var indexPathsToReload: [NSIndexPath] = []
-        
-        let oldValue = self.selectedIds
+    func updateData(withSelectedIds selectedIds: [FilterObjectId]) {
         self.selectedIds = selectedIds
-        
-        indexPathsToReload.appendContentsOf(selectedIds.filter { !oldValue.contains($0) }.map { id in
-            return NSIndexPath(forRow: filterItems.indexOf { $0.id == id }!, inSection: 0)
-            })
-        indexPathsToReload.appendContentsOf(oldValue.filter { !selectedIds.contains($0) }.map { id in
-            return NSIndexPath(forRow: filterItems.indexOf { $0.id == id }!, inSection: 0)
-            })
-        
-        guard !indexPathsToReload.isEmpty else { return }
-        
-        tableView?.reloadRowsAtIndexPaths(indexPathsToReload, withRowAnimation: .Automatic)
+        tableView?.reloadData()
     }
     
     // MARK:- UITableVIewDataSource
@@ -138,10 +81,10 @@ final class FilterDetailsDataSource: NSObject, UITableViewDataSource {
         if let imageInfo = filterItem.imageInfo {
             cell.setColorRepresentation(imageInfo.toColorRepresentation())
         }
-        if isChecked(forIndex: indexPath) {
-            cell.selectAccessoryType = .Checkmark
-        } else if loadingItemIndex == indexPath.row {
+        if loadingItemIndex == indexPath.row {
             cell.selectAccessoryType = .Loading
+        } else if isChecked(forIndex: indexPath) {
+            cell.selectAccessoryType = .Checkmark
         } else {
             cell.selectAccessoryType = .None
         }

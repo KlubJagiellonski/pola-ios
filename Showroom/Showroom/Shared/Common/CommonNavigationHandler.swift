@@ -53,7 +53,7 @@ class CommonNavigationHandler: NavigationHandler {
     }
     
     private func showSearchProductList(query query: String) {
-        let viewController = resolver.resolve(SearchProductListViewController.self, argument: EntrySearchInfo(query: query))
+        let viewController = resolver.resolve(SearchProductListViewController.self, argument: EntrySearchInfo(query: query, link: nil))
         configureChildViewController(viewController)
         navigationController?.pushViewController(viewController, animated: true)
     }
@@ -104,8 +104,9 @@ class CommonNavigationHandler: NavigationHandler {
                 return false
             }
             let title = parameters["title"] as? String
+            let url = parameters[kJLRouteURLKey] as? NSURL
             
-            let entryProductBrand = EntryProductBrand(id: brandId, name: title)
+            let entryProductBrand = EntryProductBrand(id: brandId, name: title, link: url?.absoluteString)
             return self.handleRouting(forProductListViewControllerType: BrandProductListViewController.self, entryData: entryProductBrand)
         }
         urlRouter.addRoute("/:host/trend/:trendSlug") { [weak self](parameters: [NSObject: AnyObject]!) in
@@ -125,7 +126,9 @@ class CommonNavigationHandler: NavigationHandler {
                 logError("There is no query parameter in path: \(parameters)")
                 return false
             }
-            let entrySearchInfo = EntrySearchInfo(query: query)
+            let url = parameters[kJLRouteURLKey] as? NSURL
+            
+            let entrySearchInfo = EntrySearchInfo(query: query, link: url?.absoluteString)
             return self.handleRouting(forProductListViewControllerType: SearchProductListViewController.self, entryData: entrySearchInfo)
         }
         urlRouter.addRoute("/:host/p/:productComponent") { [weak self](parameters: [NSObject: AnyObject]!) in

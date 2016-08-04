@@ -1,8 +1,15 @@
 import Foundation
 import UIKit
+import RxSwift
 
 protocol ProductFilterNavigationControllerDelegate: class {
     func productFilter(viewController: ProductFilterNavigationController, wantsCancelWithAnimation animation: Bool)
+    func productFilter(viewController: ProductFilterNavigationController, didChangedFilterWithProductListResult productListResult: ProductListResult)
+}
+
+struct ProductFilterContext {
+    let filters: [Filter]
+    let fetchObservable: [Filter] -> Observable<ProductListResult>
 }
 
 class ProductFilterNavigationController: UINavigationController, NavigationHandler {
@@ -10,9 +17,9 @@ class ProductFilterNavigationController: UINavigationController, NavigationHandl
     private let model: ProductFilterModel
     weak var filterDelegate: ProductFilterNavigationControllerDelegate?
     
-    init(with resolver: DiResolver, and filter: Filter) {
+    init(with resolver: DiResolver, and context: ProductFilterContext) {
         self.resolver = resolver
-        self.model = resolver.resolve(ProductFilterModel.self, argument: filter)
+        self.model = resolver.resolve(ProductFilterModel.self, argument: context)
         super.init(nibName: nil, bundle: nil)
         
         navigationBar.applyWhiteStyle()
@@ -34,14 +41,19 @@ class ProductFilterNavigationController: UINavigationController, NavigationHandl
     // MARK:- NavigationHandler
     
     func handleNavigationEvent(event: NavigationEvent) -> EventHandled {
-        if let showFilterOptionEvent = event as? ShowFilterOptionEvent {
-            let viewController = resolver.resolve(FilterDetailsViewController.self, arguments:(model, showFilterOptionEvent.filterOption))
+        if let showFilterEvent = event as? ShowFilterEvent {
+            let filterInfo = model.createFilterInfo(forFilterId: showFilterEvent.filter.id)
+            let viewController = resolver.resolve(FilterDetailsViewController.self, arguments:(model, filterInfo))
             viewController.resetBackTitle()
             pushViewController(viewController, animated: true)
             return true
         } else if let simpleEvent = event as? SimpleNavigationEvent {
             if simpleEvent.type == .ShowFilteredProducts {
-                //todo show filtered products
+                guard let result = model.changedProductListResult else {
+                    logError("Received ShowFilteredProducts event when tehre is no productlistresult")
+                    return true
+                }
+                filterDelegate?.productFilter(self, didChangedFilterWithProductListResult: result)
                 return true
             } else if simpleEvent.type == .Back {
                 popViewControllerAnimated(true)
