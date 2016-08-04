@@ -35,5 +35,9 @@ class ManagerAssembly: AssemblyType {
         container.register(QuickActionManager.self) { r in
             return QuickActionManager(resolver: r.resolve(DiResolver.self)!)
         }.inObjectScope(.Container)
+        
+        container.register(NotificationsManager.self) { r in
+            return NotificationsManager(with: r.resolve(ApiService.self)!, and: r.resolve(UIApplication.self)!)
+        }.inObjectScope(.Container)
     }
 }

@@ -9,13 +9,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     
-    let assembler = try! DiAssembler()
-    
-    lazy var userManager: UserManager = { [unowned self] in
+    private let assembler = try! DiAssembler()
+    private lazy var userManager: UserManager = { [unowned self] in
         return self.assembler.resolver.resolve(UserManager.self)!
     }()
+    private lazy var notificationsManager: NotificationsManager = { [unowned self] in
+        let manager = self.assembler.resolver.resolve(NotificationsManager.self)!
+        manager.delegate = self
+        return manager
+    }()
     
-    var quickActionManager: QuickActionManager!
+    private var quickActionManager: QuickActionManager!
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         configureDependencies()
@@ -35,6 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         logInfo("Main window configured")
         
+        notificationsManager.applicationDidFinishLaunching(withLaunchOptions: launchOptions)
         return true
     }
     
@@ -55,6 +60,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return handleOpen(withURL: webPageUrl)
         }
         return false
+    }
+    
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        notificationsManager.didRegisterForRemoteNotifications(withDeviceToken: deviceToken)
+    }
+    
+    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+        notificationsManager.didFailToRegisterForRemoteNotifications(with: error)
+    }
+    
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+        notificationsManager.didReceiveRemoteNotification(userInfo: userInfo)
     }
     
     func applicationWillEnterForeground(application: UIApplication) {
@@ -85,5 +102,15 @@ extension AppDelegate: QuickActionManagerDelegate {
     func quickActionManager(manager: QuickActionManager, didTapShortcut shortcut: ShortcutIdentifier) {
         let rootViewController = window?.rootViewController as! RootViewController
         rootViewController.handleQuickActionShortcut(shortcut)
+    }
+}
+
+extension AppDelegate: NotificationsManagerDelegate {
+    func notificationManager(manager: NotificationsManager, didReceiveLink link: String) {
+        guard let url = NSURL(string: link) else {
+            logError("Wrong notifications url: \(link)")
+            return
+        }
+        handleOpen(withURL: url)
     }
 }

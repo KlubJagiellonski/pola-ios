@@ -7,4 +7,8 @@ extension NSBundle {
         let urlSchemes = urlType["CFBundleURLSchemes" as NSString] as! Array<NSObject>
         return urlSchemes[0] as! String
     }
+    
+    static var pushwooshAppId: String {
+        return NSBundle.mainBundle().objectForInfoDictionaryKey("Pushwoosh_APPID") as! String
+    }
 }

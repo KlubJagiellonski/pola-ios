@@ -14,6 +14,24 @@ struct EmarsysService {
 }
 
 extension EmarsysService {
+    func contactUpdate(withUser user: User?, gender: Gender?) {
+        if let user = user, let gender = gender {
+            let contactData = [
+                "1": user.name,
+                "3": user.email,
+                "5": gender.rawValue
+            ]
+            EmarsysManager.contactUpdate(contactData, mergeID: nil)
+        } else {
+            //causes crash
+//            EmarsysManager.contactUpdate(nil, mergeID: nil)
+        }
+    }
+    
+    func logout() {
+        EmarsysManager.logout()
+    }
+    
     func fetchProductRecommendations() -> Observable<ProductRecommendationResult> {
         return Observable<ProductRecommendationResult>.create { observer in
             let transaction = EMTransaction()

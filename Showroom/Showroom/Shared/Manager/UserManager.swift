@@ -84,6 +84,8 @@ class UserManager {
             logError("Error while loading current user from cache \(error)")
         }
         userSession = UserSession(user: user, session: session)
+        
+        emarsysService.contactUpdate(withUser: user, gender: gender)
     }
     
     func fetchSharedWebCredentials() -> Observable<SharedWebCredential> {
@@ -226,6 +228,7 @@ class UserManager {
         self.userSession = nil
         keychainManager.facebookToken = nil
         keychainManager.loginCredentials = nil
+        emarsysService.logout()
     }
     
     private func loginWithFacebookToken(token: String) -> Observable<SigningResult> {

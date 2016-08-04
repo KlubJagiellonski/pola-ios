@@ -18,6 +18,7 @@
 		1D0453551CFF033E001CC5A2 /* EmarsysService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0453541CFF033E001CC5A2 /* EmarsysService.swift */; };
 		1D0453571CFF1568001CC5A2 /* ProductRecommendationDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0453561CFF1568001CC5A2 /* ProductRecommendationDataSource.swift */; };
 		1D0453591CFF15FD001CC5A2 /* ProductRecommendationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0453581CFF15FD001CC5A2 /* ProductRecommendationCell.swift */; };
+		1D0AAF9B1D5888E1008E40C0 /* Pushwoosh.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D0AAF971D588459008E40C0 /* Pushwoosh.framework */; };
 		1D0F3B481D1172410052CFF6 /* BasketDeliveryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0F3B471D1172410052CFF6 /* BasketDeliveryViewController.swift */; };
 		1D0F3B4A1D1172E10052CFF6 /* FormSheetAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0F3B491D1172E10052CFF6 /* FormSheetAnimator.swift */; };
 		1D0F3B4C1D1173250052CFF6 /* Animator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0F3B4B1D1173250052CFF6 /* Animator.swift */; };
@@ -163,6 +164,7 @@
 		1D7824B71D0709D200E60392 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7824B61D0709D200E60392 /* Utils.swift */; };
 		1D7824B91D0874E700E60392 /* ProductImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7824B81D0874E700E60392 /* ProductImageCell.swift */; };
 		1D88AB781D54799A005DDFBB /* ProductRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D88AB771D54799A005DDFBB /* ProductRequest.swift */; };
+		1D88AB761D5315DD005DDFBB /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D88AB751D5315DD005DDFBB /* NotificationsManager.swift */; };
 		1DA5CB431D2E867000A45E93 /* ShowBrandDescriptionEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA5CB421D2E867000A45E93 /* ShowBrandDescriptionEvent.swift */; };
 		1DA5CB451D2E86C200A45E93 /* Brand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA5CB441D2E86C200A45E93 /* Brand.swift */; };
 		1DA5CB491D2F7B2E00A45E93 /* Checkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA5CB481D2F7B2E00A45E93 /* Checkout.swift */; };
@@ -180,6 +182,8 @@
 		1DAA7C751D0EC17F00545BB9 /* ProductDetailsContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAA7C741D0EC17F00545BB9 /* ProductDetailsContext.swift */; };
 		1DB166BD1D1006A8004F42DC /* SizeChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB166BC1D1006A8004F42DC /* SizeChartViewController.swift */; };
 		1DB166BF1D1006DC004F42DC /* SizeChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB166BE1D1006DC004F42DC /* SizeChartView.swift */; };
+		1DB957CF1D522F29003EE120 /* EmarsysPushSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DB957CD1D522E1D003EE120 /* EmarsysPushSDK.framework */; };
+		1DB957D01D522F29003EE120 /* EmarsysPushSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1DB957CD1D522E1D003EE120 /* EmarsysPushSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1DC096A71D477ED300D745DB /* ShowBrandProductListEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC096A61D477ED300D745DB /* ShowBrandProductListEvent.swift */; };
 		1DC485C71D474BEA00BDA1BD /* PayUManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC485C61D474BEA00BDA1BD /* PayUManager.swift */; };
 		1DD161971D01A7310022B5C9 /* ProductDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD161961D01A7310022B5C9 /* ProductDetailsViewController.swift */; };
@@ -344,6 +348,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				1DB957D01D522F29003EE120 /* EmarsysPushSDK.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -376,6 +381,7 @@
 		1D0453541CFF033E001CC5A2 /* EmarsysService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmarsysService.swift; sourceTree = "<group>"; };
 		1D0453561CFF1568001CC5A2 /* ProductRecommendationDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductRecommendationDataSource.swift; sourceTree = "<group>"; };
 		1D0453581CFF15FD001CC5A2 /* ProductRecommendationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductRecommendationCell.swift; sourceTree = "<group>"; };
+		1D0AAF971D588459008E40C0 /* Pushwoosh.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pushwoosh.framework; path = Frameworks/Pushwoosh.framework; sourceTree = "<group>"; };
 		1D0F3B471D1172410052CFF6 /* BasketDeliveryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasketDeliveryViewController.swift; sourceTree = "<group>"; };
 		1D0F3B491D1172E10052CFF6 /* FormSheetAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormSheetAnimator.swift; sourceTree = "<group>"; };
 		1D0F3B4B1D1173250052CFF6 /* Animator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animator.swift; sourceTree = "<group>"; };
@@ -524,6 +530,7 @@
 		1D7824B61D0709D200E60392 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		1D7824B81D0874E700E60392 /* ProductImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductImageCell.swift; sourceTree = "<group>"; };
 		1D88AB771D54799A005DDFBB /* ProductRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductRequest.swift; sourceTree = "<group>"; };
+		1D88AB751D5315DD005DDFBB /* NotificationsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
 		1DA5CB421D2E867000A45E93 /* ShowBrandDescriptionEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowBrandDescriptionEvent.swift; sourceTree = "<group>"; };
 		1DA5CB441D2E86C200A45E93 /* Brand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Brand.swift; sourceTree = "<group>"; };
 		1DA5CB481D2F7B2E00A45E93 /* Checkout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Checkout.swift; sourceTree = "<group>"; };
@@ -541,6 +548,7 @@
 		1DAA7C741D0EC17F00545BB9 /* ProductDetailsContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDetailsContext.swift; sourceTree = "<group>"; };
 		1DB166BC1D1006A8004F42DC /* SizeChartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SizeChartViewController.swift; sourceTree = "<group>"; };
 		1DB166BE1D1006DC004F42DC /* SizeChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SizeChartView.swift; sourceTree = "<group>"; };
+		1DB957CD1D522E1D003EE120 /* EmarsysPushSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EmarsysPushSDK.framework; path = Frameworks/EmarsysPushSDK.framework; sourceTree = "<group>"; };
 		1DC096A61D477ED300D745DB /* ShowBrandProductListEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowBrandProductListEvent.swift; sourceTree = "<group>"; };
 		1DC485C61D474BEA00BDA1BD /* PayUManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PayUManager.swift; sourceTree = "<group>"; };
 		1DD161961D01A7310022B5C9 /* ProductDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewController.swift; sourceTree = "<group>"; };
@@ -693,6 +701,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D0AAF9B1D5888E1008E40C0 /* Pushwoosh.framework in Frameworks */,
 				1D2CAC581D474A5500F678FA /* FBSDKLoginKit.framework in Frameworks */,
 				1DF796771CEB34AD00C7A7F4 /* Haneke.framework in Frameworks */,
 				1D2F19A31CEA14FE0099142E /* JLRoutes.framework in Frameworks */,
@@ -703,6 +712,7 @@
 				1D2CAC551D474A5500F678FA /* Crashlytics.framework in Frameworks */,
 				1D2F19AB1CEA14FE0099142E /* XCGLogger.framework in Frameworks */,
 				1D2CAC541D474A5500F678FA /* Bolts.framework in Frameworks */,
+				1DB957CF1D522F29003EE120 /* EmarsysPushSDK.framework in Frameworks */,
 				1D2F19D11CEB16120099142E /* Decodable.framework in Frameworks */,
 				1D6933461D2D176200609BB9 /* CocoaMarkdown.framework in Frameworks */,
 				1D44AA121D48995200AF612A /* GoogleAnalytics.framework in Frameworks */,
@@ -906,6 +916,8 @@
 		1D2F19AC1CEA15060099142E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1D0AAF971D588459008E40C0 /* Pushwoosh.framework */,
+				1DB957CD1D522E1D003EE120 /* EmarsysPushSDK.framework */,
 				1D49FC911D4A022600A3832F /* libPayU-iOS-SDK-Oneclick_Debug.a */,
 				1D49FC921D4A022600A3832F /* libPayU-iOS-SDK-Oneclick_Release.a */,
 				1D49FC8F1D4A021A00A3832F /* include */,
@@ -1108,6 +1120,7 @@
 				1D5E91A01D3E5D6600A6BD55 /* KeychainManager.swift */,
 				1DC485C61D474BEA00BDA1BD /* PayUManager.swift */,
 				C0456D2C1D4A2174006A3F8F /* QuickActionManager.swift */,
+				1D88AB751D5315DD005DDFBB /* NotificationsManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -1768,6 +1781,9 @@
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = 73PWPNSU5Y;
 						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
 							com.apple.SafariKeychain = {
 								enabled = 1;
 							};
@@ -2097,6 +2113,7 @@
 				1D5E91881D3CD0C600A6BD55 /* SearchContentViewController.swift in Sources */,
 				1D04533E1CFDD48B001CC5A2 /* Dimensions.swift in Sources */,
 				1D5F91481D34E97900AE66E6 /* ProductFilterNavigationController.swift in Sources */,
+				1D88AB761D5315DD005DDFBB /* NotificationsManager.swift in Sources */,
 				1DA6FA331D00120C004BF10B /* Money.swift in Sources */,
 				1D5886E41D2BDB31007D0CB1 /* TrendProductListModel.swift in Sources */,
 				1D72ED161CFC307D007AFD2F /* ManagerAssembly.swift in Sources */,
@@ -2268,7 +2285,6 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2306,7 +2322,6 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2412,7 +2427,6 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

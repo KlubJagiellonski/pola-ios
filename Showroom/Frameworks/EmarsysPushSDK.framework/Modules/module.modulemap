@@ -1,0 +1,10 @@
+framework module EmarsysPushSDK {
+  umbrella header "EmarsysPushSDK.h"
+
+  export *
+  module * { export * }
+}
+
+module EmarsysPushSDK.Swift {
+    header "EmarsysPushSDK-Swift.h"
+}

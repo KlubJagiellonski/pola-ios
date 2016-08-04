@@ -78,5 +78,7 @@
 	<string></string>
 	<key>FacebookDisplayName</key>
 	<string>SHOWROOM</string>
+    <key>Pushwoosh_APPID</key>
+    <string>63A3E-B6CDA</string>
 </dict>
 </plist>

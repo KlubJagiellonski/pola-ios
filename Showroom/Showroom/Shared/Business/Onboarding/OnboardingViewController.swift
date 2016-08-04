@@ -2,6 +2,7 @@ import UIKit
 
 class OnboardingViewController: UIViewController, OnboardingViewDelegate {
     private let userManager: UserManager
+    private let notificationsManager: NotificationsManager
     private let resolver: DiResolver
     
     private var castView: OnboardingView { return view as! OnboardingView }
@@ -9,6 +10,7 @@ class OnboardingViewController: UIViewController, OnboardingViewDelegate {
     init(resolver: DiResolver) {
         self.resolver = resolver
         self.userManager = resolver.resolve(UserManager.self)
+        self.notificationsManager = resolver.resolve(NotificationsManager.self)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -31,6 +33,15 @@ class OnboardingViewController: UIViewController, OnboardingViewDelegate {
         logAnalyticsShowScreen(.Onboarding)
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    func didHideRegisterAlert() {
+        sendNavigationEvent(SimpleNavigationEvent(type: .OnboardingEnd))
+    }
+    
     // MARK:- OnboardingViewDelegate
     
     func onboardingDidTapSkip(view: OnboardingView) {
@@ -38,6 +49,9 @@ class OnboardingViewController: UIViewController, OnboardingViewDelegate {
     }
     
     func onboardingDidTapAskForNotification(view: OnboardingView) {
-        //todo ask for notification
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(OnboardingViewController.didHideRegisterAlert), name: UIApplicationDidBecomeActiveNotification, object: nil)
+        if !notificationsManager.registerForRemoteNotificationsIfNeeded() {
+            sendNavigationEvent(SimpleNavigationEvent(type: .OnboardingEnd))
+        }
     }
 }
