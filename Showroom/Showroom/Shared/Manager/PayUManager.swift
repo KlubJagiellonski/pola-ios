@@ -32,9 +32,8 @@ final class PayUManager {
         }.addDisposableTo(disposeBag)
     }
     
-    private func fetchPayUToken() -> Observable<String> {
-        //todo make here real api call
-        return Observable.just("test")
+    private func fetchPayUToken() -> Observable<PaymentAuthorizeResult> {
+        return api.authorizePayment(withProvider: .PayU)
     }
     
     func paymentButton(withFrame frame: CGRect) -> UIView {
@@ -63,11 +62,13 @@ final class PayUAuthorizationDataSource: NSObject, PUAuthorizationDataSource {
             return
         }
         
-        manager.fetchPayUToken().subscribe { (event: Event<String>) in
+        manager.fetchPayUToken().subscribe { (event: Event<PaymentAuthorizeResult>) in
             switch event {
-            case .Next(let token):
-                completionHandler(token, nil)
+            case .Next(let result):
+                logInfo("Success in fetching PayU token")
+                completionHandler(result.accessToken, nil)
             case .Error(let error):
+                logInfo("Error during fetching PayU token \(error)")
                 completionHandler(nil, NSError(domain: "PayUManager", code: 402, userInfo: [NSLocalizedDescriptionKey: String(error)]))
             default: break
             }

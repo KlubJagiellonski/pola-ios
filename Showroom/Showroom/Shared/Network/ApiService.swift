@@ -270,6 +270,33 @@ extension ApiService {
         }
     }
     
+    func authorizePayment(withProvider provider: PaymentAuthorizeProvider, retryOnNotLoggedIn: Bool = true) -> Observable<PaymentAuthorizeResult> {
+        guard let session = dataSource?.apiServiceWantsSession(self) else {
+            return Observable.error(ApiError.NoSession)
+        }
+        
+        let url = NSURL(fileURLWithPath: basePath)
+            .URLByAppendingPathComponent("payment")
+            .URLByAppendingPathComponent(provider.rawValue)
+            .URLByAppendingPathComponent("authorize")
+        
+        let urlRequest = NSMutableURLRequest(URL: url)
+        urlRequest.HTTPMethod = "GET"
+        urlRequest.applySessionHeaders(session)
+        return networkClient
+            .request(withRequest: urlRequest)
+            .flatMap { data -> Observable<PaymentAuthorizeResult> in
+                do {
+                    let dict = try NSJSONSerialization.JSONObjectWithData(data, options: [])
+                    return Observable.just(try PaymentAuthorizeResult.decode(dict))
+                } catch {
+                    return Observable.error(error)
+                }
+            }.catchError { [unowned self] error -> Observable<PaymentAuthorizeResult> in
+                return try self.catchNotAuthorizedError(error, shouldRetry: retryOnNotLoggedIn) { [unowned self] (Void) -> Observable<PaymentAuthorizeResult> in return self.authorizePayment(withProvider: provider, retryOnNotLoggedIn: false) }
+        }
+    }
+    
     func logout() -> Observable<Void> {
         guard let session = dataSource?.apiServiceWantsSession(self) else {
             return Observable.error(ApiError.NoSession)
