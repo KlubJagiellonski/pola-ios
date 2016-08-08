@@ -26,7 +26,7 @@ class SettingsViewController: UIViewController {
     
     private func updateSettings(with user: User?) {
         if let user = user {
-            let settings = [
+            var settings = [
                 Setting(type: .Header, action: self.facebookButtonPressed, secondaryAction: self.instagramButtonPressed),
                 Setting(type: .Logout, labelString: tr(.CommonGreeting(user.name)), action: self.logoutButtonPressed),
                 Setting(type: .Gender, labelString: tr(.SettingsDefaultOffer), action: self.femaleButtonPressed, secondaryAction: self.maleButtonPressed, value: self.userManager.gender),
@@ -38,9 +38,12 @@ class SettingsViewController: UIViewController {
                 Setting(type: .Normal, labelString: tr(.SettingsRules), action: self.rulesRowPressed),
                 Setting(type: .Normal, labelString: tr(.SettingsContact), action: self.contactRowPressed)
             ]
+            if !Constants.isAppStore {
+                settings.append(Setting(type: .Normal, labelString: "Pokaż onboarding", action: self.showOnboarding))
+            }
             castView.updateData(with: settings)
         } else {
-            let settings = [
+            var settings = [
                 Setting(type: .Header, action: self.facebookButtonPressed, secondaryAction: self.instagramButtonPressed),
                 Setting(type: .Login, action: self.loginButtonPressed, secondaryAction: self.createAccountButtonPressed),
                 Setting(type: .Gender, labelString: tr(.SettingsDefaultOffer), action: self.femaleButtonPressed, secondaryAction: self.maleButtonPressed, value: self.userManager.gender),
@@ -50,6 +53,9 @@ class SettingsViewController: UIViewController {
                 Setting(type: .Normal, labelString: tr(.SettingsRules), action: self.rulesRowPressed),
                 Setting(type: .Normal, labelString: tr(.SettingsContact), action: self.contactRowPressed)
             ]
+            if !Constants.isAppStore {
+                settings.append(Setting(type: .Normal, labelString: "Pokaż onboarding", action: self.showOnboarding))
+            }
             castView.updateData(with: settings)
         }
     }
@@ -166,6 +172,10 @@ class SettingsViewController: UIViewController {
         logInfo("contactRowPressed")
         logAnalyticsShowScreen(.Contact)
         sendNavigationEvent(ShowSettingsWebViewEvent(title: tr(.SettingsContact), url: "https://www.showroom.pl/kontakt"))
+    }
+    
+    func showOnboarding() {
+        sendNavigationEvent(SimpleNavigationEvent(type: .ShowOnboaridng))
     }
 }
 

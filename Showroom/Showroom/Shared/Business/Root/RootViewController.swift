@@ -63,6 +63,9 @@ class RootViewController: PresenterViewController, NavigationHandler {
         case .OnboardingEnd:
             showContent(resolver.resolve(StartViewController), animation: DimTransitionAnimation(animationDuration: 0.3), completion: nil)
             return true
+        case .ShowOnboaridng:
+            showContent(resolver.resolve(OnboardingViewController), animation: DimTransitionAnimation(animationDuration: 0.3), completion: nil)
+            return true
         default: return false
         }
     }

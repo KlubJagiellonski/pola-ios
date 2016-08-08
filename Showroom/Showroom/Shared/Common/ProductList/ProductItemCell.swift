@@ -40,11 +40,13 @@ final class ProductItemCell: UICollectionViewCell {
         brandLabel.textColor = UIColor(named: .Black)
         brandLabel.numberOfLines = 2
         brandLabel.preferredMaxLayoutWidth = frame.width
+        brandLabel.textAlignment = .Center
         
         nameLabel.font = UIFont(fontType: .ProductListText)
         nameLabel.textColor = UIColor(named: .Black)
         nameLabel.numberOfLines = 2
         nameLabel.preferredMaxLayoutWidth = frame.width
+        nameLabel.textAlignment = .Center
         
         topBadgeStackView.axis = .Vertical
         topBadgeStackView.spacing = 4
