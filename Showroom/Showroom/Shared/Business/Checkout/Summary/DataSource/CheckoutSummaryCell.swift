@@ -430,14 +430,26 @@ class CheckoutSummaryPaymentCell: UITableViewCell {
         if let payments = payments {
             let payUPayment = payments.find { $0.id == PaymentType.PayU }
             let cashPayment = payments.find { $0.id == PaymentType.Cash }
+            let gratisPayment = payments.find { $0.id == PaymentType.Gratis }
             
             payuRadio.title = payUPayment?.name ?? ""
-            payuRadio.enabled = payUPayment?.available ?? false
-            payuRadio.selected = payUPayment?.isDefault ?? false
-            payuContainerView.enabled = payuRadio.selected
             cashRadio.title = cashPayment?.name ?? ""
-            cashRadio.enabled = cashPayment?.available ?? false
-            cashRadio.selected = cashPayment?.isDefault ?? false
+            
+            if gratisPayment?.available == true {
+                methodLabel.textColor = UIColor(named: ColorName.DarkGray)
+                payuRadio.selected = false
+                payuRadio.enabled = false
+                payuContainerView.enabled = false
+                cashRadio.enabled = false
+                cashRadio.selected = false
+            } else {
+                methodLabel.textColor = UIColor(named: ColorName.Black)
+                payuRadio.enabled = payUPayment?.available ?? false
+                payuRadio.selected = payUPayment?.isDefault ?? false
+                payuContainerView.enabled = payuRadio.selected
+                cashRadio.enabled = cashPayment?.available ?? false
+                cashRadio.selected = cashPayment?.isDefault ?? false
+            }
         } else {
             payuRadio.selected = false
             payuRadio.enabled = false
