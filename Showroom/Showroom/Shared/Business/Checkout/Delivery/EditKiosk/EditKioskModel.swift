@@ -8,6 +8,8 @@ class EditKioskModel {
     private let disposeBag = DisposeBag()
     let checkoutModel: CheckoutModel
     
+    private let isoCountryCode = "PL"
+    
     private(set) var kiosks: [Kiosk]?
     
     init(with api: ApiService, and checkoutModel: CheckoutModel) {
@@ -26,11 +28,13 @@ class EditKioskModel {
         return geocoder.rx_geocodeAddressString(addressString)
             .flatMap { [weak self](placemarks: [CLPlacemark]) -> Observable<KioskResult> in
                 guard let `self` = self else { return Observable.empty() }
-                if let coordinates = placemarks.first?.location?.coordinate {
+
+                for placemark in placemarks {
+                    guard placemark.ISOcountryCode == self.isoCountryCode else { continue }
+                    let coordinates = placemark.location!.coordinate
                     return self.fetchKiosks(withLatitude: coordinates.latitude, longitude: coordinates.longitude)
-                } else {
-                    return Observable.just(KioskResult(kiosks: []))
                 }
-        }
+                return Observable.just(KioskResult(kiosks: []))
+            }
     }
 }

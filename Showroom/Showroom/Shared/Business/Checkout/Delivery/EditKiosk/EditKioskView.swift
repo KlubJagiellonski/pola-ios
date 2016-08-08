@@ -2,7 +2,7 @@ import UIKit
 import MapKit
 
 protocol EditKioskViewDelegate: ViewSwitcherDelegate {
-    func editKioskView(view: EditKioskView, didReturnSearchString searchString: String)
+    func editKioskView(view: EditKioskView, didReturnSearchString searchString: String?)
     func editKioskView(view: EditKioskView, didChooseKioskAtIndex kioskIndex: Int)
 }
 
@@ -25,7 +25,13 @@ class EditKioskView: ViewSwitcher, UITableViewDelegate {
     }
     
     var searchString: String? {
-        get { return searchInputView.inputTextField.text }
+        get {
+            let inputText = searchInputView.inputTextField.text
+            if inputText == nil || inputText!.isEmpty {
+                return nil
+            }
+            return inputText
+        }
         set { searchInputView.inputTextField.text = newValue }
     }
     
@@ -142,7 +148,7 @@ class EditKioskView: ViewSwitcher, UITableViewDelegate {
 
 extension EditKioskView: UITextFieldDelegate {
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        delegate?.editKioskView(self, didReturnSearchString: textField.text!)
+        delegate?.editKioskView(self, didReturnSearchString: searchString)
         textField.resignFirstResponder()
         return true
     }

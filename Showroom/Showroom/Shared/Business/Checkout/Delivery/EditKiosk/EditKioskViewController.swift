@@ -59,6 +59,7 @@ class EditKioskViewController: UIViewController, EditKioskViewDelegate {
             .subscribe {[weak self] (kiosksResult: Event<KioskResult>) in
                 guard let `self` = self else { return }
                 switch kiosksResult {
+                    
                 case .Error(let error):
                     logInfo("fetched kiosks error: \(error)")
                     if let error = error as? CLError {
@@ -78,11 +79,19 @@ class EditKioskViewController: UIViewController, EditKioskViewDelegate {
                     } else {
                         self.castView.internalSwitcherState = .Error
                     }
+                    
                 case .Next(let result):
                     logInfo("fetched kiosks: \(result.kiosks)")
+                    if result.kiosks.isEmpty {
+                        self.castView.internalSwitcherState = .Empty
+                        self.castView.geocodingErrorVisible = true
+                        break
+                    }
+                    
                     self.castView.updateKiosks(result.kiosks)
                     self.castView.internalSwitcherState = .Success
                     self.castView.geocodingErrorVisible = false
+                    
                 default: break
                 }
             }
@@ -91,8 +100,8 @@ class EditKioskViewController: UIViewController, EditKioskViewDelegate {
     
     // MARK: EditKioskViewDelegate
     
-    func editKioskView(view: EditKioskView, didReturnSearchString searchString: String) {
-        fetchKiosks(withAddressString: searchString)
+    func editKioskView(view: EditKioskView, didReturnSearchString searchString: String?) {
+        fetchKiosks(withAddressString: searchString ?? "")
     }
     
     func editKioskView(view: EditKioskView, didChooseKioskAtIndex kioskIndex: Int) {
