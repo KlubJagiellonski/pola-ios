@@ -72,5 +72,12 @@ extension StartViewController: SigningNavigationControllerDelegate {
     
     func signingDidLogIn(navigationController: SigningNavigationController) {
         dismissViewControllerAnimated(true, completion: nil)
+        
+        guard let user = userManager.user else {
+            logError("No user after login/register. Something is wrong. \(userManager.session)")
+            return
+        }
+        userManager.gender = user.gender
+        sendNavigationEvent(SimpleNavigationEvent(type: .ShowDashboard))
     }
 }

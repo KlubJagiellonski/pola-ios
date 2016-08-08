@@ -51,7 +51,6 @@ class RegistrationViewController: UIViewController, RegistrationViewDelegate {
             logInfo("Registered as \(result.user.name) (\(result.user.email))")
             sendNavigationEvent(SimpleNavigationEvent(type: .Close))
             toastManager.showMessage(tr(L10n.CommonGreeting(result.user.name)))
-            userManager.gender = castView.gender
         case .Error(let error):
             logError("Error during registration: \(error)")
             switch error {
@@ -107,7 +106,7 @@ class RegistrationViewController: UIViewController, RegistrationViewDelegate {
         
         castView.switcherState = .ModalLoading
         
-        let registration = Registration(name: name, username: email, password: password, newsletter: castView.receiveNewsletter, gender: castView.gender.rawValue)
+        let registration = Registration(name: name, username: email, password: password, newsletter: castView.receiveNewsletter, gender: castView.gender)
         userManager.register(with: registration)
             .subscribe { [weak self] (event: Event<SigningResult>) in self?.handleRegistrationResult(event) }
             .addDisposableTo(disposeBag)

@@ -16,7 +16,7 @@ struct Registration {
     let username: String
     let password: String
     let newsletter: Bool
-    let gender: String
+    let gender: Gender
 }
 
 struct SigningResult {
@@ -117,7 +117,7 @@ extension Registration: Encodable {
             "email": username,
             "password": password,
             "newsletter": newsletter.description,
-            "gender": gender
+            "gender": gender.rawValue
         ] as NSDictionary
     }
 }

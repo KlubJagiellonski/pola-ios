@@ -5,6 +5,7 @@ struct User {
     let id: Int
     let name: String
     let email: String
+    let gender: Gender
     let userAddresses: [UserAddress]
 }
 
@@ -72,6 +73,7 @@ extension User: Decodable, Encodable {
             id: json => "id",
             name: json => "name",
             email: json => "email",
+            gender: Gender(rawValue: json => "gender")!,
             userAddresses: json => "addresses")
     }
     
@@ -84,6 +86,7 @@ extension User: Decodable, Encodable {
             "id": id,
             "name": name,
             "email": email,
+            "gender": gender.rawValue,
             "addresses": addressesArray
         ] as NSDictionary
     }
@@ -165,7 +168,7 @@ extension User: Equatable {}
 extension UserAddress: Equatable {}
 
 func ==(lhs: User, rhs: User) -> Bool {
-    return lhs.id == rhs.id && lhs.name == rhs.name && lhs.email == rhs.email && lhs.userAddresses == rhs.userAddresses
+    return lhs.id == rhs.id && lhs.name == rhs.name && lhs.email == rhs.email && lhs.userAddresses == rhs.userAddresses && lhs.gender == rhs.gender
 }
 func ==(lhs: UserAddress, rhs: UserAddress) -> Bool {
     return lhs.id == rhs.id && lhs.firstName == rhs.firstName && lhs.lastName == rhs.lastName && lhs.streetAndAppartmentNumbers == rhs.streetAndAppartmentNumbers && lhs.postalCode == rhs.postalCode && lhs.city == rhs.city && lhs.country == rhs.country && lhs.phone == rhs.phone && lhs.description == rhs.description
