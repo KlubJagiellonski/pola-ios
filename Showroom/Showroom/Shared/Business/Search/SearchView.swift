@@ -94,6 +94,7 @@ final class SearchView: ViewSwitcher, ExtendedView, UICollectionViewDelegateFlow
     override func layoutSubviews() {
         super.layoutSubviews()
         if refreshSelectedTabOnCollectionViewLayoutPass && collectionView.bounds.width > 0 && collectionView.bounds.height > 0 {
+            refreshSelectedTabOnCollectionViewLayoutPass = false
             let selectedTab = self.selectedTab
             self.selectedTab = selectedTab
         }
