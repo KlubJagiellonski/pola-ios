@@ -24,5 +24,6 @@ struct SimpleNavigationEvent: NavigationEvent {
         case ProductAddedToBasket
         case ShowEditAddress
         case ShowOnboaridng
+        case ShowRules
     }
 }

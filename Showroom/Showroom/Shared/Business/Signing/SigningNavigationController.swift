@@ -92,6 +92,11 @@ final class SigningNavigationController: UINavigationController, NavigationHandl
             resetViewController.resetBackTitle()
             pushViewController(resetViewController, animated: true)
             return true
+        case .ShowRules:
+            let viewController = resolver.resolve(SettingsWebViewController.self, argument: "https://www.showroom.pl/d/nowy-regulamin") // TODO: Is it OK that this URL is hardcoded?
+            viewController.navigationItem.title = tr(.SettingsRules)
+            pushViewController(viewController, animated: true)
+            return true
         default: return false
         }
     }

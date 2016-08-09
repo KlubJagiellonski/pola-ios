@@ -91,7 +91,7 @@ class RegistrationViewController: UIViewController, RegistrationViewDelegate {
     }
     
     func registrationViewDidTapRules() {
-        
+        sendNavigationEvent(SimpleNavigationEvent(type: .ShowRules))
     }
     
     func registrationViewDidTapCreate() {
