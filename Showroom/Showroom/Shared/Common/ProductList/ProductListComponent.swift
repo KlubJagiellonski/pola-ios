@@ -58,7 +58,6 @@ final class ProductListComponent: NSObject, UICollectionViewDataSource, UICollec
     private static let interItemSpacing: CGFloat = 10
     private static let itemTitleHeight: CGFloat = 62
     
-    private var focusedIndexPath: NSIndexPath?
     private var informedAboutNextPage = false
     private var products: [ListProduct] = []
     private weak var collectionView: UICollectionView?
@@ -173,23 +172,12 @@ final class ProductListComponent: NSObject, UICollectionViewDataSource, UICollec
     
     func productItemCellDidTap(cell: ProductItemCell) {
         guard let collectionView = collectionView, let indexPath = collectionView.indexPathForCell(cell) else { return }
-        guard focusedIndexPath == indexPath else { return }
         delegate?.productListComponent(self, didTapProductAtIndex: indexPath.item)
-        focusedIndexPath = nil
     }
     
     func productItemCellDidDoubleTap(cell: ProductItemCell) {
         guard let collectionView = collectionView, let indexPath = collectionView.indexPathForCell(cell) else { return }
-        guard focusedIndexPath == indexPath else { return }
         delegate?.productListComponent(self, didDoubleTapProductAtIndex: indexPath.item)
-        focusedIndexPath = nil
-    }
-    
-    func productItemCellWantsTouchFocus(cell: ProductItemCell) -> Bool {
-        guard focusedIndexPath == nil else { return false }
-        guard let collectionView = collectionView, let indexPath = collectionView.indexPathForCell(cell) else { return false }
-        focusedIndexPath = indexPath
-        return true
     }
     
     // MARK:- UICollectionViewDataSource

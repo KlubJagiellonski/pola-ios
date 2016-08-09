@@ -4,7 +4,6 @@ import UIKit
 protocol ProductItemCellDelegate : class {
     func productItemCellDidTap(cell: ProductItemCell)
     func productItemCellDidDoubleTap(cell: ProductItemCell)
-    func productItemCellWantsTouchFocus(cell: ProductItemCell) -> Bool
 }
 
 final class ProductItemCell: UICollectionViewCell {
@@ -74,7 +73,6 @@ final class ProductItemCell: UICollectionViewCell {
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         guard let touch = touches.first else { return }
-        delegate?.productItemCellWantsTouchFocus(self)
         if touch.tapCount == 2 {
             NSObject.cancelPreviousPerformRequestsWithTarget(self)
         }
@@ -84,7 +82,6 @@ final class ProductItemCell: UICollectionViewCell {
         guard let touch = touches.first else { return }
         if touch.tapCount == 1 {
             performSelector(#selector(ProductItemCell.didTapItem), withObject: nil, afterDelay: ProductItemCell.doubleTapDelay)
-            
         } else if touch.tapCount == 2 {
             didDoubleTapItem()
         }
