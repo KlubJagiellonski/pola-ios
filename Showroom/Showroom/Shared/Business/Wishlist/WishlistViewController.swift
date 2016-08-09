@@ -59,9 +59,9 @@ class WishlistViewController: UIViewController {
         if manager.state.wishlist.count == 0 {
             castView.switcherState = .Empty
         } else if synchronizationState.synchronizing {
-            castView.switcherState = castView.switcherState == .Error ? .Loading : .Success
+            castView.switcherState = .ModalLoading
         } else {
-            castView.switcherState = synchronizationState.synchronized ? .Success : .Error
+            castView.switcherState = .Success
         }
     }
 }

@@ -27,18 +27,24 @@ class WishlistDataSource: NSObject, UITableViewDataSource {
         var addedProducts: [NSIndexPath] = []
         var removedProducts: [NSIndexPath] = []
         var updatedProducts: [NSIndexPath] = []
+        var movedProducts: [(NSIndexPath, NSIndexPath)] = []
         
         // Find removed and updated
-        for (productIndex, oldProduct) in products.enumerate() {
-            if let newProduct = newProducts.find({ $0.id == oldProduct.id }) {
+        for (oldIndex, oldProduct) in products.enumerate() {
+            
+            if let newIndex = newProducts.indexOf({ $0.id == oldProduct.id }) {
+                let newProduct = newProducts[newIndex]
+                
                 // Product has not been removed
                 if newProduct != oldProduct {
                     // Product has been changed
-                    updatedProducts.append(NSIndexPath(forRow: productIndex, inSection: 0))
+                    updatedProducts.append(NSIndexPath(forRow: oldIndex, inSection: 0))
+                } else if newIndex != oldIndex {
+                    movedProducts.append((NSIndexPath(forRow: oldIndex, inSection: 0), NSIndexPath(forRow: newIndex, inSection: 0)))
                 }
             } else {
                 // Product has been removed
-                removedProducts.append(NSIndexPath(forRow: productIndex, inSection: 0))
+                removedProducts.append(NSIndexPath(forRow: oldIndex, inSection: 0))
             }
         }
         
@@ -54,12 +60,19 @@ class WishlistDataSource: NSObject, UITableViewDataSource {
         
         if removedProducts.isEmpty &&
             updatedProducts.isEmpty &&
-            addedProducts.isEmpty {
+            addedProducts.isEmpty &&
+            movedProducts.isEmpty {
             logInfo("Wishlist has been updated but nothing changed.")
             return
         }
         
         tableView?.beginUpdates()
+        
+        if !movedProducts.isEmpty {
+            for movedProduct in movedProducts {
+                tableView?.moveRowAtIndexPath(movedProduct.0, toIndexPath: movedProduct.1)
+            }
+        }
         
         if !removedProducts.isEmpty {
             tableView?.deleteRowsAtIndexPaths(removedProducts, withRowAnimation: .Automatic)

@@ -35,6 +35,7 @@ extension ApiService {
         urlRequest.HTTPMethod = "GET"
         return networkClient
             .request(withRequest: urlRequest)
+            .logNetworkError()
             .flatMap { data -> Observable<ContentPromoResult> in
                 do {
                     let array = try NSJSONSerialization.JSONObjectWithData(data, options: []) as! [AnyObject]
@@ -54,6 +55,7 @@ extension ApiService {
         urlRequest.HTTPMethod = "GET"
         return networkClient
             .request(withRequest: urlRequest)
+            .logNetworkError()
             .flatMap { data -> Observable<ProductDetails> in
                 do {
                     let result = try NSJSONSerialization.JSONObjectWithData(data, options: [])
@@ -95,6 +97,7 @@ extension ApiService {
             urlRequest.applyJsonContentTypeHeader()
             return networkClient
                 .request(withRequest: urlRequest)
+                .logNetworkError()
                 .flatMap { data -> Observable<Basket> in
                     do {
                         let result = try NSJSONSerialization.JSONObjectWithData(data, options: [])
@@ -123,6 +126,7 @@ extension ApiService {
             urlRequest.applyJsonContentTypeHeader()
             return networkClient
                 .request(withRequest: urlRequest)
+                .logNetworkError()
                 .flatMap { data -> Observable<ProductListResult> in
                     do {
                         let result = try NSJSONSerialization.JSONObjectWithData(data, options: [])
@@ -145,6 +149,7 @@ extension ApiService {
         urlRequest.HTTPMethod = "GET"
         return networkClient
             .request(withRequest: urlRequest)
+            .logNetworkError()
             .flatMap { data -> Observable<ProductListResult> in
                 do {
                     let result = try NSJSONSerialization.JSONObjectWithData(data, options: [])
@@ -199,6 +204,7 @@ extension ApiService {
             urlRequest.applyJsonContentTypeHeader()
             return networkClient
                 .request(withRequest: urlRequest)
+                .logNetworkError()
                 .flatMap { data -> Observable<KioskResult> in
                     do {
                         let array = try NSJSONSerialization.JSONObjectWithData(data, options: []) as! [AnyObject]
@@ -225,6 +231,7 @@ extension ApiService {
         urlRequest.applySessionHeaders(session)
         return networkClient
             .request(withRequest: urlRequest)
+            .logNetworkError()
             .flatMap { data -> Observable<User> in
                 do {
                     let dict = try NSJSONSerialization.JSONObjectWithData(data, options: [])
@@ -255,6 +262,7 @@ extension ApiService {
             urlRequest.applySessionHeaders(session)
             return networkClient
                 .request(withRequest: urlRequest)
+                .logNetworkError()
                 .flatMap { data -> Observable<UserAddress> in
                     do {
                         let dict = try NSJSONSerialization.JSONObjectWithData(data, options: [])
@@ -287,6 +295,7 @@ extension ApiService {
             urlRequest.applySessionHeaders(session)
             return networkClient
                 .request(withRequest: urlRequest)
+                .logNetworkError()
                 .flatMap { data -> Observable<UserAddress> in
                     do {
                         let dict = try NSJSONSerialization.JSONObjectWithData(data, options: [])
@@ -311,7 +320,7 @@ extension ApiService {
             urlRequest.HTTPMethod = "POST"
             urlRequest.HTTPBody = jsonData
             urlRequest.applyJsonContentTypeHeader()
-            return networkClient.request(withRequest: urlRequest).flatMap { data -> Observable<SigningResult> in
+            return networkClient.request(withRequest: urlRequest).logNetworkError().flatMap { data -> Observable<SigningResult> in
                 do {
                     let result = try NSJSONSerialization.JSONObjectWithData(data, options: [])
                     let loginResult = try SigningResult.decode(result)
@@ -334,7 +343,7 @@ extension ApiService {
             urlRequest.HTTPMethod = "POST"
             urlRequest.HTTPBody = jsonData
             urlRequest.applyJsonContentTypeHeader()
-            return networkClient.request(withRequest: urlRequest).flatMap { data -> Observable<SigningResult> in
+            return networkClient.request(withRequest: urlRequest).logNetworkError().flatMap { data -> Observable<SigningResult> in
                 do {
                     let result = try NSJSONSerialization.JSONObjectWithData(data, options: [])
                     let registrationResult = try SigningResult.decode(result)
@@ -358,7 +367,7 @@ extension ApiService {
             urlRequest.HTTPMethod = "POST"
             urlRequest.HTTPBody = jsonData
             urlRequest.applyJsonContentTypeHeader()
-            return networkClient.request(withRequest: urlRequest).flatMap { data -> Observable<SigningResult> in
+            return networkClient.request(withRequest: urlRequest).logNetworkError().flatMap { data -> Observable<SigningResult> in
                 do {
                     let result = try NSJSONSerialization.JSONObjectWithData(data, options: [])
                     let loginResult = try SigningResult.decode(result)
@@ -387,6 +396,7 @@ extension ApiService {
         urlRequest.applySessionHeaders(session)
         return networkClient
             .request(withRequest: urlRequest)
+            .logNetworkError()
             .flatMap { data -> Observable<PaymentAuthorizeResult> in
                 do {
                     let dict = try NSJSONSerialization.JSONObjectWithData(data, options: [])
@@ -394,8 +404,71 @@ extension ApiService {
                 } catch {
                     return Observable.error(error)
                 }
-            }.catchError { [unowned self] error -> Observable<PaymentAuthorizeResult> in
-                return try self.catchNotAuthorizedError(error, shouldRetry: retryOnNotLoggedIn) { [unowned self] (Void) -> Observable<PaymentAuthorizeResult> in return self.authorizePayment(withProvider: provider, retryOnNotLoggedIn: false) }
+        }.catchError { [unowned self] error -> Observable<PaymentAuthorizeResult> in
+                return try self.catchNotAuthorizedError(error, shouldRetry: retryOnNotLoggedIn) {
+                    [unowned self](Void) -> Observable<PaymentAuthorizeResult> in
+                    return self.authorizePayment(withProvider: provider, retryOnNotLoggedIn: false)
+                }
+        }
+    }
+    
+    func deleteFromWishlist(with param: SingleWishlistRequest, retryOnNotLoggedIn: Bool = true) -> Observable<WishlistResult> {
+        return wishlistRequest(with: param, method: "DELETE", retryOnNotLoggedIn: retryOnNotLoggedIn) {
+            [unowned self](Void) -> Observable<WishlistResult> in
+            return self.deleteFromWishlist(with: param, retryOnNotLoggedIn: false)
+        }
+    }
+    
+    func fetchWishlist(retryOnNotLoggedIn retryOnNotLoggedIn: Bool = true) -> Observable<WishlistResult> {
+        return wishlistRequest(with: nil, method: "GET", retryOnNotLoggedIn: retryOnNotLoggedIn) {
+            [unowned self](Void) -> Observable<WishlistResult> in
+            return self.fetchWishlist(retryOnNotLoggedIn: false)
+        }
+    }
+    
+    func addToWishlist(with param: SingleWishlistRequest, retryOnNotLoggedIn: Bool = true) -> Observable<WishlistResult> {
+        return wishlistRequest(with: param, method: "PUT", retryOnNotLoggedIn: retryOnNotLoggedIn) {
+            [unowned self](Void) -> Observable<WishlistResult> in
+            return self.addToWishlist(with: param, retryOnNotLoggedIn: false)
+        }
+    }
+    
+    func sendWishlist(with param: MultipleWishlistRequest, retryOnNotLoggedIn: Bool = true) -> Observable<WishlistResult> {
+        guard let session = dataSource?.apiServiceWantsSession(self) else {
+            return Observable.error(ApiError.NoSession)
+        }
+        
+        let url = NSURL(fileURLWithPath: basePath)
+            .URLByAppendingPathComponent("user/wishlist/multiple")
+        
+        do {
+            let encodedParam = param.encode()
+            logInfo("Sending wishlist request with param: \(encodedParam)")
+            let jsonData = try NSJSONSerialization.dataWithJSONObject(encodedParam, options: [])
+            
+            let urlRequest = NSMutableURLRequest(URL: url)
+            urlRequest.HTTPMethod = "POST"
+            urlRequest.HTTPBody = jsonData
+            urlRequest.applyJsonContentTypeHeader()
+            urlRequest.applySessionHeaders(session)
+            return networkClient
+                .request(withRequest: urlRequest)
+                .logNetworkError()
+                .flatMap { data -> Observable<WishlistResult> in
+                    do {
+                        let dict = try NSJSONSerialization.JSONObjectWithData(data, options: [])
+                        return Observable.just(try WishlistResult.decode(dict))
+                    } catch {
+                        return Observable.error(error)
+                    }
+            }.catchError { [unowned self] error -> Observable<WishlistResult> in
+                    return try self.catchNotAuthorizedError(error, shouldRetry: retryOnNotLoggedIn) {
+                        [unowned self](Void) -> Observable<WishlistResult> in
+                        return self.sendWishlist(with: param, retryOnNotLoggedIn: false)
+                    }
+            }
+        } catch {
+            return Observable.error(error)
         }
     }
     
@@ -408,8 +481,9 @@ extension ApiService {
             .URLByAppendingPathComponent("logout")
         let urlRequest = NSMutableURLRequest(URL: url)
         urlRequest.HTTPMethod = "DELETE"
+        urlRequest.applyJsonContentTypeHeader()
         urlRequest.applySessionHeaders(session)
-        return networkClient.request(withRequest: urlRequest).flatMap { data -> Observable<Void> in
+        return networkClient.request(withRequest: urlRequest).logNetworkError().flatMap { data -> Observable<Void> in
             return Observable.just()
         }
     }
@@ -424,6 +498,44 @@ extension ApiService {
                 return Observable<T>.create { observer in
                     return retryCall().subscribe(observer)
                 }
+        }
+    }
+    
+    private func wishlistRequest(with param: SingleWishlistRequest?, method: String, retryOnNotLoggedIn: Bool, retryCall: Void -> Observable<WishlistResult>) -> Observable<WishlistResult> {
+        guard let session = dataSource?.apiServiceWantsSession(self) else {
+            return Observable.error(ApiError.NoSession)
+        }
+        
+        let url = NSURL(fileURLWithPath: basePath)
+            .URLByAppendingPathComponent("user/wishlist")
+        
+        var jsonData: NSData?
+        if let param = param {
+            do {
+                let encodedParam = param.encode()
+                logInfo("Sendind wishlist request with param: \(encodedParam)")
+                jsonData = try NSJSONSerialization.dataWithJSONObject(encodedParam, options: [])
+            } catch {
+                return Observable.error(error)
+            }
+        }
+        let urlRequest = NSMutableURLRequest(URL: url)
+        urlRequest.HTTPMethod = method
+        urlRequest.HTTPBody = jsonData
+        urlRequest.applySessionHeaders(session)
+        urlRequest.applyJsonContentTypeHeader()
+        return networkClient
+            .request(withRequest: urlRequest)
+            .logNetworkError()
+            .flatMap { data -> Observable<WishlistResult> in
+                do {
+                    let dict = try NSJSONSerialization.JSONObjectWithData(data, options: [])
+                    return Observable.just(try WishlistResult.decode(dict))
+                } catch {
+                    return Observable.error(error)
+                }
+        }.catchError { [unowned self] error -> Observable<WishlistResult> in
+                return try self.catchNotAuthorizedError(error, shouldRetry: retryOnNotLoggedIn, retryCall: retryCall)
         }
     }
 }
@@ -447,5 +559,24 @@ extension NSURL {
         }
         url = url.substringToIndex(url.endIndex.predecessor())
         return NSURL(string: url)!
+    }
+}
+
+extension ObservableType {
+    func logNetworkError() -> Observable<E> {
+        return doOnError { error in
+            if let cocoaError = error as? RxCocoaURLError {
+                switch cocoaError {
+                case .HTTPRequestFailed(let response, let data):
+                    var dataString: String?
+                    if let data = data {
+                        dataString = String(data: data, encoding: NSUTF8StringEncoding)
+                    }
+                    let finalDataString = dataString ?? "(no data)"
+                    logInfo("Failed response \(response) with data \(finalDataString)")
+                default: break
+                }
+            }
+        }
     }
 }

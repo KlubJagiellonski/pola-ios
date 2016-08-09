@@ -21,7 +21,7 @@ class ManagerAssembly: AssemblyType {
         }.inObjectScope(.Container)
         
         container.register(WishlistManager.self) { r in
-            return WishlistManager(with: r.resolve(StorageManager.self)!)
+            return WishlistManager(with: r.resolve(StorageManager.self)!, and: r.resolve(UserManager.self)!, and: r.resolve(ApiService.self)!)
         }.inObjectScope(.Container)
         
         container.register(KeychainManager.self) { r in
