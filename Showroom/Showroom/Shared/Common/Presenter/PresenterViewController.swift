@@ -7,7 +7,6 @@ protocol PresenterContentChildProtocol {
 
 class PresenterViewController: UIViewController {
     var castView: PresenterView { return view as! PresenterView }
-    private(set) var hiddenContentViewController: UIViewController?
     private(set) var contentViewController: UIViewController?
     private(set) var currentModalViewController: UIViewController?
     
@@ -44,8 +43,9 @@ class PresenterViewController: UIViewController {
         let innerCompletion: (Bool) -> () = { [weak self] _ in
             viewController.didMoveToParentViewController(self)
             if hideContentView {
-                self?.hiddenContentViewController = self?.contentViewController
-                self?.contentViewController = nil
+                self?.contentViewController?.willMoveToParentViewController(nil)
+                self?.castView.contentHidden = true
+                self?.contentViewController?.removeFromParentViewController()
             }
             completion?(true)
         }
@@ -61,9 +61,10 @@ class PresenterViewController: UIViewController {
             return
         }
         
-        if let cachedContentViewController = hiddenContentViewController {
-            contentViewController = cachedContentViewController
-            self.hiddenContentViewController = nil
+        if let contentViewController = self.contentViewController where castView.contentHidden {
+            addChildViewController(contentViewController)
+            castView.contentHidden = false
+            contentViewController.didMoveToParentViewController(self)
         }
         
         let innerCompletion: (Bool) -> () = { [weak self] _ in

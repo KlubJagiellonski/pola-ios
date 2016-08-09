@@ -2,6 +2,7 @@ import Foundation
 import UIKit
 
 class PresenterView: UIView {
+    private var hiddenContentView: UIView?
     private var contentView: UIView?
     private var modalView: UIView? {
         didSet {
@@ -13,6 +14,20 @@ class PresenterView: UIView {
             }
             oldValue?.removeFromSuperview()
         }
+    }
+    var contentHidden: Bool {
+        set {
+            guard let contentView = contentView else { return }
+            if newValue {
+                contentView.removeFromSuperview()
+            } else if contentView.superview == nil {
+                insertSubview(contentView, atIndex: 0)
+                contentView.snp_remakeConstraints() { make in
+                    make.edges.equalToSuperview()
+                }
+            }
+        }
+        get { return contentView?.superview == nil }
     }
     
     func showContent(view: PresentedView, customAnimation: ((ContainerView, PresentedView, PresentationView?, ((Bool) -> ())?) -> ())?, completion: ((Bool) -> ())?) {

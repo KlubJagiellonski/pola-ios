@@ -25,9 +25,9 @@ class CommonPresenterController: PresenterViewController, NavigationHandler {
     
     private func closeModal(withCompletion completion: ((Bool) -> ())?) {
         let alternativeAnimation = DimTransitionAnimation(animationDuration: 0.4)
-        let contentView = contentViewController?.view ?? hiddenContentViewController?.view
+        let contentView = contentViewController?.view
         if let tag = retrieveCurrentImageViewTag?(), let imageView = contentView?.viewWithTag(tag) as? UIImageView where imageView.image != nil {
-            let animation = ImageTranstionAnimation(animationDuration: 0.4, imageView: imageView, alternativeAnimation: alternativeAnimation)
+            let animation = ImageTransitionAnimation(animationDuration: 0.4, imageView: imageView, alternativeAnimation: alternativeAnimation)
             hideModal(animation: animation, completion: completion)
         } else {
             hideModal(animation: alternativeAnimation, completion: completion)
@@ -49,7 +49,7 @@ class CommonPresenterController: PresenterViewController, NavigationHandler {
                 let alternativeAnimation = DimTransitionAnimation(animationDuration: 0.3)
                 if let imageViewTag = showProductDetailsEvent.retrieveCurrentImageViewTag?(), let imageView = view.viewWithTag(imageViewTag) as? UIImageView where imageView.image != nil {
                     retrieveCurrentImageViewTag = showProductDetailsEvent.retrieveCurrentImageViewTag
-                    let animation = ImageTranstionAnimation(animationDuration: 0.4, imageView: imageView, alternativeAnimation: alternativeAnimation)
+                    let animation = ImageTransitionAnimation(animationDuration: 0.4, imageView: imageView, alternativeAnimation: alternativeAnimation)
                     showModal(viewController, hideContentView: false, animation: animation, completion: nil)
                 } else {
                     showModal(viewController, hideContentView: true, animation: alternativeAnimation, completion: nil)
@@ -60,13 +60,12 @@ class CommonPresenterController: PresenterViewController, NavigationHandler {
             closeModal() { [weak self] _ in
                 guard let `self` = self else { return }
                 
-                let contentViewController = self.contentViewController ?? self.hiddenContentViewController
                 var eventHandled = false
-                if let navigationHandler = contentViewController as? NavigationHandler {
+                if let navigationHandler = self.contentViewController as? NavigationHandler {
                     eventHandled = navigationHandler.handleNavigationEvent(brandProductListEvent)
                 }
                 if !eventHandled {
-                    logError("Couldn not handle brand product list event \(contentViewController) \(brandProductListEvent)")
+                    logError("Couldn not handle brand product list event \(self.contentViewController) \(brandProductListEvent)")
                 }
             }
             return true
@@ -98,7 +97,7 @@ class CommonPresenterController: PresenterViewController, NavigationHandler {
 
 extension CommonPresenterController: DeepLinkingHandler {
     func handleOpen(withURL url: NSURL) -> Bool {
-        guard let deepLinkingHandler = (contentViewController ?? hiddenContentViewController) as? DeepLinkingHandler else {
+        guard let deepLinkingHandler = contentViewController as? DeepLinkingHandler else {
             return false
         }
         return deepLinkingHandler.handleOpen(withURL: url)

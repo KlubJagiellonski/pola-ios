@@ -7,7 +7,7 @@ protocol ImageAnimationTargetViewInterface: class {
     var highResImageVisible: Bool { get set }
 }
 
-struct ImageTranstionAnimation: TransitionAnimation {
+struct ImageTransitionAnimation: TransitionAnimation {
     private let mainAnimationRelativeTime = 0.6
     
     let animationDuration: NSTimeInterval

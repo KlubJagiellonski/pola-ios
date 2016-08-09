@@ -73,17 +73,16 @@ final class BasketView: ViewSwitcher, UITableViewDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func willMoveToWindow(newWindow: UIWindow?) {
-        super.willMoveToWindow(newWindow)
-        if let selectedRow = tableView.indexPathForSelectedRow where newWindow != nil {
-            tableView.deselectRowAtIndexPath(selectedRow, animated: true)
-        }
-     }
-    
     override func layoutSubviews() {
         super.layoutSubviews()
         tableView.contentInset.bottom = bounds.height - checkoutView.frame.minY
         tableView.scrollIndicatorInsets = tableView.contentInset
+    }
+    
+    func deselectRowsIfNeeded() {
+        if let selectedRow = tableView.indexPathForSelectedRow {
+            tableView.deselectRowAtIndexPath(selectedRow, animated: true)
+        }
     }
     
     func dismissKeyboard() {

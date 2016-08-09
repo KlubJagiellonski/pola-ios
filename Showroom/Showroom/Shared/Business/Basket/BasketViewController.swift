@@ -53,6 +53,7 @@ class BasketViewController: UIViewController, BasketViewDelegate {
         super.viewDidAppear(animated)
         castView.registerOnKeyboardEvent()
         markHandoffUrlActivity(withPath: "/c/cart/view")
+        castView.deselectRowsIfNeeded()
     }
     
     override func viewWillDisappear(animated: Bool) {
