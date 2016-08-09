@@ -45,7 +45,11 @@ class SearchContentNavigationController: UINavigationController, NavigationHandl
     func handleNavigationEvent(event: NavigationEvent) -> EventHandled {
         if let searchItemEvent = event as? ShowSearchItemEvent {
             if searchItemEvent.searchItem.branches == nil || searchItemEvent.isMainItem {
-                sendNavigationEvent(ShowItemForLinkEvent(link: searchItemEvent.searchItem.link, title: searchItemEvent.searchItem.name))
+                guard let link = searchItemEvent.searchItem.link else {
+                    logError("It shouldn't be possible to click on search element where link doesn't exist \(searchItemEvent.searchItem)")
+                    return true
+                }
+                sendNavigationEvent(ShowItemForLinkEvent(link: link, title: searchItemEvent.searchItem.name))
             } else {
                 let viewController = createContentViewController(with: searchItemEvent.searchItem, type: .Normal)
                 pushViewController(viewController, animated: true)

@@ -7,7 +7,7 @@ struct SearchResult {
 
 struct SearchItem {
     let name: String
-    let link: String
+    let link: String?
     let gender: Gender?
     let branches: [SearchItem]?
 }
@@ -39,7 +39,7 @@ extension SearchItem: Decodable, Encodable {
         let gender: String? = try json =>? "gender"
         return try SearchItem(
             name: json => "name",
-            link: json => "link",
+            link: json =>? "link",
             gender: gender != nil ? Gender(rawValue: gender!) : nil,
             branches: json =>? "branches"
         )
@@ -47,9 +47,9 @@ extension SearchItem: Decodable, Encodable {
     
     func encode() -> AnyObject {
         let dict = [
-            "name": name,
-            "link": link
+            "name": name
         ] as NSMutableDictionary
+        if link != nil { dict.setObject(link!, forKey: "link") }
         if branches != nil {
             let branchesArray: NSMutableArray = []
             for branch in branches! {

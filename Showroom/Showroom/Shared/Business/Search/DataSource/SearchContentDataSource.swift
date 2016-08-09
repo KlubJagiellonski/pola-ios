@@ -14,6 +14,14 @@ extension SearchContentType {
 
 enum SearchContentSectionType: Int {
     case Main = 0, Branches
+    
+    static func sectionType(forSection section: Int, mainSearchItemContainsLink: Bool) -> SearchContentSectionType {
+        if mainSearchItemContainsLink {
+            return SearchContentSectionType(rawValue: section)!
+        } else {
+            return SearchContentSectionType.Branches
+        }
+    }
 }
 
 final class SearchContentDataSource: NSObject, UITableViewDataSource {
@@ -33,11 +41,11 @@ final class SearchContentDataSource: NSObject, UITableViewDataSource {
     //MARK:- UITableViewDataSource
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2
+        return mainSearchItem.link == nil ? 1 : 2
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let sectionType = SearchContentSectionType(rawValue: section)!
+        let sectionType = SearchContentSectionType.sectionType(forSection: section, mainSearchItemContainsLink: mainSearchItem.link != nil)
         switch sectionType {
         case .Main:
             return 1
@@ -47,7 +55,7 @@ final class SearchContentDataSource: NSObject, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let sectionType = SearchContentSectionType(rawValue: indexPath.section)!
+        let sectionType = SearchContentSectionType.sectionType(forSection: indexPath.section, mainSearchItemContainsLink: mainSearchItem.link != nil)
         
         let cell = tableView.dequeueReusableCellWithIdentifier(String(type.cellClass)) as! SelectValueTableViewCell
         cell.selectAccessoryType = .GoTo
