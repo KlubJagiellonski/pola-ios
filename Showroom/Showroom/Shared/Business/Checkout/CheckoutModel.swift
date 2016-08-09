@@ -117,6 +117,8 @@ class CheckoutModel {
             .doOnNext { [weak self] userAddress in
                 guard let `self` = self else { return }
                 
+                self.userManager.updateUser()
+                
                 if self.state.addressAdded {
                     self.state.userAddresses[self.state.userAddresses.count - 1] = userAddress
                 } else {
