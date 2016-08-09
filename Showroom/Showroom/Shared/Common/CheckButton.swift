@@ -30,6 +30,26 @@ class CheckButton: UIControl {
         set { titleLabel.text = newValue }
     }
     
+    /// Tapable part of the label. Must be a substring of the title.
+    var link: String? {
+        didSet {
+            guard let link = link else {
+                return
+            }
+            guard let title = title else {
+                return
+            }
+            
+            if title.containsString(link) == true {
+                let mutableAttributedText = NSMutableAttributedString(attributedString: title.stringWithHighlightedSubsttring(link))
+                mutableAttributedText.addAttribute(NSFontAttributeName, value: titleLabel.font, range: NSRange(location: 0, length: mutableAttributedText.length))
+                titleLabel.attributedText = mutableAttributedText
+            } else {
+                logError("Cannot set a link value that is not a substring of the title.")
+            }
+        }
+    }
+    
     init(title: String? = nil) {
         super.init(frame: CGRectZero)
         
@@ -58,12 +78,30 @@ class CheckButton: UIControl {
     }
     
     func didTapView(recognizer: UITapGestureRecognizer) {
-        let tappedCheck = recognizer.locationInView(self).x < CheckButton.checkBoxTouchRange
-        if (tappedCheck) {
+        guard let attributedText = titleLabel.attributedText, let text = titleLabel.text, let link = link else {
             selected = !selected
             sendActionsForControlEvents(.ValueChanged)
-        } else {
+            return
+        }
+        
+        let textStorage = NSTextStorage(attributedString: attributedText)
+        let layoutManager = NSLayoutManager()
+        textStorage.addLayoutManager(layoutManager)
+        let textContainer = NSTextContainer(size: titleLabel.bounds.size)
+        textContainer.lineFragmentPadding = 0
+        layoutManager.addTextContainer(textContainer)
+        
+        let linkRange = (text as NSString).rangeOfString(link)
+        var glyphRange:NSRange = NSRange()
+        layoutManager.characterRangeForGlyphRange(linkRange, actualGlyphRange: &glyphRange)
+        
+        let linkBox = layoutManager.boundingRectForGlyphRange(glyphRange, inTextContainer: textContainer)
+        
+        if linkBox.contains(recognizer.locationInView(titleLabel)) {
             sendActionsForControlEvents(.TouchUpInside)
+        } else {
+            selected = !selected
+            sendActionsForControlEvents(.ValueChanged)
         }
     }
     

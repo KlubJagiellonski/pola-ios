@@ -119,7 +119,8 @@ class RegistrationView: ViewSwitcher {
         repeatPasswordField.addValidators([RepeatPasswordValidator(passwordFieldToCompare: passwordField), NotEmptyValidator()])
         
         rulesCheck.selected = true
-        rulesCheck.titleLabel.attributedText = tr(L10n.RegistrationRulesCheck).stringWithHighlightedSubsttring(tr(L10n.RegistrationRulesCheckHighlighted))
+        rulesCheck.title = tr(L10n.RegistrationRulesCheck)
+        rulesCheck.link = tr(L10n.RegistrationRulesCheckHighlighted)
         rulesCheck.addTarget(self, action: #selector(RegistrationView.didTapRules), forControlEvents: .TouchUpInside)
         rulesCheck.addValidator(SelectionRequiredValidator(messageForNotSelected: tr(.RegistrationRequiringRulesMessage)))
         rulesCheck.delegate = self

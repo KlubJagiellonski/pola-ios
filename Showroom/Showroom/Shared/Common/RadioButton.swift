@@ -66,6 +66,7 @@ class RadioButton: UIControl {
         titleLabel.snp_makeConstraints { make in
             make.leading.equalTo(checkBoxImageView.snp_trailing).offset(10)
             make.centerY.equalToSuperview()
+            make.right.equalToSuperview()
         }
         
         contentView.snp_makeConstraints { make in
