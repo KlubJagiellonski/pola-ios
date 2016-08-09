@@ -70,6 +70,7 @@ class CheckoutNavigationController: UINavigationController, NavigationHandler {
     }
     
     func didTapCloseButton(sender: UIBarButtonItem) {
+        logAnalyticsEvent(AnalyticsEventId.CheckoutCancelClicked)
         checkoutDelegate?.checkoutWantsDismiss(self)
     }
     

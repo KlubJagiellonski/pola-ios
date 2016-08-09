@@ -7,6 +7,9 @@ final class TrendProductListModel: ProductListModel {
     private(set) var trendInfo: TrendInfo?
     
     var attributedDescription: NSAttributedString?
+    override var productDetailsFromType: ProductDetailsFromType {
+        return .Trend
+    }
     
     init(with apiService: ApiService, wishlistManager: WishlistManager, trendInfo: EntryTrendInfo) {
         self.entryTrendInfo = trendInfo

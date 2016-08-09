@@ -13,6 +13,7 @@ protocol ProductPageViewDelegate: ViewSwitcherDelegate {
     func pageView(pageView: ProductPageView, didChangePageViewState newPageViewState: ProductPageViewState, animationDuration: Double?)
     func pageViewDidTapShareButton(pageView: ProductPageView)
     func pageViewDidTapWishlistButton(pageView: ProductPageView)
+    func pageViewDidSwitchedImage(pageView: ProductPageView)
 }
 
 enum ProductPageViewState {
@@ -233,6 +234,7 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         pageControl.currentPage = currentImageIndex
+        delegate?.pageViewDidSwitchedImage(self)
     }
 }
 

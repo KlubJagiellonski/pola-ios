@@ -140,7 +140,7 @@ final class BasketManager {
             onChangedForIndexPath(NSIndexPath(forRow: r, inSection: s))
         }
         
-        return OnePageProductDetailsContext(productsCount: productTuples.count, initialProductIndex: index, onChanged: onChanged, onRetrieveProductInfo: onRetrieveProductInfo)
+        return OnePageProductDetailsContext(productsCount: productTuples.count, initialProductIndex: index, fromType: .Basket,onChanged: onChanged, onRetrieveProductInfo: onRetrieveProductInfo)
     }
 }
 

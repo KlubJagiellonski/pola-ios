@@ -69,7 +69,7 @@ final class WishlistManager {
             return ProductInfo.Object(product.toProduct(withLowResImageUrl: lowResImageUrl.absoluteString))
         }
         
-        return OnePageProductDetailsContext(productsCount: state.wishlist.count, initialProductIndex: initialIndex, onChanged: onChangedForIndex, onRetrieveProductInfo: onRetrieveProductInfo)
+        return OnePageProductDetailsContext(productsCount: state.wishlist.count, initialProductIndex: initialIndex, fromType: .Wishlist, onChanged: onChangedForIndex, onRetrieveProductInfo: onRetrieveProductInfo)
     }
 }
 

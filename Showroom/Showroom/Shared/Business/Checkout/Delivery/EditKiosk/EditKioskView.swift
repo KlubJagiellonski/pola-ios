@@ -4,6 +4,7 @@ import MapKit
 protocol EditKioskViewDelegate: ViewSwitcherDelegate {
     func editKioskView(view: EditKioskView, didReturnSearchString searchString: String?)
     func editKioskView(view: EditKioskView, didChooseKioskAtIndex kioskIndex: Int)
+    func editKioskViewDidChangeKioskSelection(view: EditKioskView)
 }
 
 class EditKioskView: ViewSwitcher, UITableViewDelegate {
@@ -139,6 +140,7 @@ class EditKioskView: ViewSwitcher, UITableViewDelegate {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         selectedIndex = indexPath.row
+        delegate?.editKioskViewDidChangeKioskSelection(self)
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {

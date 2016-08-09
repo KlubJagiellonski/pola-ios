@@ -6,7 +6,7 @@ class ProductListModel {
     let apiService: ApiService
     private let wishlistManager: WishlistManager
     private var page = 1
-    private var products: [ListProduct] = []
+    private(set) var products: [ListProduct] = []
     private(set) var link: String?
     private var filters: [Filter]?
     var currentPageIndex: Int {
@@ -18,6 +18,9 @@ class ProductListModel {
     var isBigScreen = false
     private var defaultPageSize: Int {
         return isBigScreen ? Constants.productListPageSizeForLargeScreen : Constants.productListPageSize
+    }
+    var productDetailsFromType: ProductDetailsFromType {
+        return .Category
     }
     
     init(with apiService: ApiService, wishlistManager: WishlistManager, link: String?) {
@@ -71,7 +74,7 @@ class ProductListModel {
             return ProductInfo.Object(product.toProduct(withLowResImageUrl: lowResImageUrl.absoluteString))
         }
         
-        let productDetailsContext = MultiPageProductDetailsContext(productsCount: products.count, initialProductIndex: index, onChanged: onChanged, onRetrieveProductInfo: onRetrieveProductInfo)
+        let productDetailsContext = MultiPageProductDetailsContext(productsCount: products.count, initialProductIndex: index, fromType: productDetailsFromType, onChanged: onChanged, onRetrieveProductInfo: onRetrieveProductInfo)
         currentProductDetailsContext = productDetailsContext
         return productDetailsContext
     }

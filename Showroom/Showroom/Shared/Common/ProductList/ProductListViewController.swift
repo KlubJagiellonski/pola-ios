@@ -118,6 +118,7 @@ extension ProductListViewDelegate where Self: ProductListViewControllerInterface
     }
     
     func productListView(listView: ProductListViewInterface, didTapProductAtIndex index: Int) {
+        logAnalyticsEvent(AnalyticsEventId.ListProductClicked(productListModel.products[safe: index]?.id ?? 0))
         let imageWidth = productListView.productImageWidth
         let context = productListModel.createProductDetailsContext(withProductIndex: index, withImageWidth: imageWidth)
         let retrieveCurrentImageViewTag: () -> Int? = { [weak self] in
@@ -129,6 +130,7 @@ extension ProductListViewDelegate where Self: ProductListViewControllerInterface
     }
     
     func productListView(listView: ProductListViewInterface, didDoubleTapProductAtIndex index: Int) {
+        logAnalyticsEvent(AnalyticsEventId.ListAddToWishlist(productListModel.products[safe: index]?.id ?? 0))
         productListModel.addToWishlist(productAtIndex: index)
     }
 }

@@ -30,10 +30,17 @@ class StartViewController: UIViewController, StartViewDelegate {
         logAnalyticsShowScreen(.Start)
     }
     
+    private func didSelect(gender gender: Gender) {
+        userManager.gender = gender
+        logAnalyticsEvent(AnalyticsEventId.OnboardingGenderChoice(gender.rawValue))
+        sendNavigationEvent(SimpleNavigationEvent(type: .ShowDashboard))
+    }
+    
     // MARK: - StartViewDelegate
     
     func startViewDidTapLogin() {
         logInfo("Tap login")
+        logAnalyticsEvent(AnalyticsEventId.OnboardingLoginClicked)
         let viewController = resolver.resolve(SigningNavigationController.self, argument: SigningMode.Login)
         viewController.signingDelegate = self
         presentViewController(viewController, animated: true, completion: nil)
@@ -41,6 +48,7 @@ class StartViewController: UIViewController, StartViewDelegate {
     
     func startViewDidTapRegister() {
         logInfo("Tap register")
+        logAnalyticsEvent(AnalyticsEventId.OnboardingRegisterClicked)
         let viewController = resolver.resolve(SigningNavigationController.self, argument: SigningMode.Register)
         viewController.signingDelegate = self
         presentViewController(viewController, animated: true, completion: nil)
@@ -48,14 +56,12 @@ class StartViewController: UIViewController, StartViewDelegate {
     
     func startViewDidTapForHer() {
         logInfo("Tap for her")
-        userManager.gender = .Female
-        sendNavigationEvent(SimpleNavigationEvent(type: .ShowDashboard))
+        didSelect(gender: .Female)
     }
     
     func startViewDidTapForHim() {
         logInfo("Tap for him")
-        userManager.gender = .Male
-        sendNavigationEvent(SimpleNavigationEvent(type: .ShowDashboard))
+        didSelect(gender: .Male)
     }
 }
 

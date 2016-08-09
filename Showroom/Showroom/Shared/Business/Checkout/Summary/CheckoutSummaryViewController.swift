@@ -59,23 +59,27 @@ final class CheckoutSummaryViewController: UIViewController, CheckoutSummaryView
     
     func checkoutSummaryView(view: CheckoutSummaryView, didTapAddCommentAt index: Int) {
         logInfo("Add comment")
+        logAnalyticsEvent(AnalyticsEventId.CheckoutSummaryAddNoteClicked)
         showCommentModal(forComment: nil, at: index)
     }
     
     func checkoutSummaryView(view: CheckoutSummaryView, didTapEditCommentAt index: Int) {
         logInfo("Edit comment")
+        logAnalyticsEvent(AnalyticsEventId.CheckoutSummaryEditNoteClicked)
         let editedComment = model.comment(at: index)
         showCommentModal(forComment: editedComment, at: index)
     }
     
     func checkoutSummaryView(view: CheckoutSummaryView, didTapDeleteCommentAt index: Int) {
         logInfo("Delete comment")
+        logAnalyticsEvent(AnalyticsEventId.CheckoutSummaryDeleteNoteClicked)
         model.update(comment: nil, at: index)
         castView.updateData(withComments: model.state.comments)
     }
     
     func checkoutSummaryView(view: CheckoutSummaryView, didSelectPaymentAt index: Int) {
         model.updateSelectedPayment(forIndex: index)
+        logAnalyticsEvent(AnalyticsEventId.CheckoutSummaryPaymentMethodClicked(model.state.selectedPayment.id.rawValue))
     }
     
     // for testing purposes
@@ -84,6 +88,8 @@ final class CheckoutSummaryViewController: UIViewController, CheckoutSummaryView
     
     func checkoutSummaryViewDidTapBuy(view: CheckoutSummaryView) {
         logInfo("Did tap buy")
+        
+        logAnalyticsEvent(AnalyticsEventId.CheckoutSummaryFinishButtonClicked)
         
         // TODO: implement payment request
         

@@ -54,11 +54,13 @@ class BasketDeliveryViewController: UIViewController, BasketDeliveryViewDelegate
     }
     
     func deliveryViewDidTapUpsOption(view: BasketDeliveryView) {
+        logAnalyticsEvent(AnalyticsEventId.CartDeliveryMethodChanged(DeliveryType.UPS.rawValue))
         basketManager.state.deliveryCarrier = basketManager.state.basket?.deliveryInfo.carriers.find { $0.id == DeliveryType.UPS }
         basketManager.validate()
     }
     
     func deliveryViewDidTapRuchOption(view: BasketDeliveryView) {
+        logAnalyticsEvent(AnalyticsEventId.CartDeliveryMethodChanged(DeliveryType.RUCH.rawValue))
         basketManager.state.deliveryCarrier = basketManager.state.basket?.deliveryInfo.carriers.find { $0.id == DeliveryType.RUCH }
         basketManager.validate()
     }

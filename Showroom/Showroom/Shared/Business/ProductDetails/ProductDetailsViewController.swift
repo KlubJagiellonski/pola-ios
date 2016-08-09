@@ -62,6 +62,7 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewDelegate
     func productDetailsDidTapClose(view: ProductDetailsView) {
         switch castView.closeButtonState {
         case .Close:
+            logAnalyticsEvent(AnalyticsEventId.ProductClose(model.productInfo(forIndex: castView.currentPageIndex).toTuple().0))
             sendNavigationEvent(SimpleNavigationEvent(type: .Close))
         case .Dismiss:
             let productPageViewController = indexedViewControllers[view.currentPageIndex] as! ProductPageViewController

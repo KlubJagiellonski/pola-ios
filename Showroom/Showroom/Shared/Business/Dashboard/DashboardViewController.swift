@@ -96,10 +96,13 @@ class DashboardViewController: UIViewController, DashboardViewDelegate {
     // MARK: - DashboardViewDelegate
     
     func dashboardView(dashboardView: DashboardView, didSelectContentPromo contentPromo: ContentPromo) {
-        sendNavigationEvent(ShowItemForLinkEvent(link: contentPromo.link, title: nil))
+        logAnalyticsEvent(AnalyticsEventId.DashboardContentPromoClicked(contentPromo.link, model.state.contentPromoResult?.contentPromos.indexOf(contentPromo) ?? 0))
+        sendNavigationEvent(ShowItemForLinkEvent(link: contentPromo.link, title: nil, productDetailsFromType: .HomeContentPromo))
     }
     
     func dashboardView(dashboardView: DashboardView, didSelectRecommendation productRecommendation: ProductRecommendation) {
+        logAnalyticsEvent(AnalyticsEventId.DashboardRecommendationClicked(productRecommendation.itemId, model.state.recommendationsResult?.productRecommendations.indexOf(productRecommendation) ?? 0))
+        
         let imageWidth = dashboardView.recommendationImageWidth
         let context = model.createProductDetailsContext(forRecommendation: productRecommendation, withImageWidth: imageWidth)
         let retrieveCurrentImageViewTag: () -> Int? = { [weak self] in

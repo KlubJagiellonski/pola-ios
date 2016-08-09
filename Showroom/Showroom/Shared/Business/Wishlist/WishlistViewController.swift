@@ -68,6 +68,7 @@ class WishlistViewController: UIViewController {
 
 extension WishlistViewController: WishlistViewDelegate {
     func wishlistView(view: WishlistView, wantsDelete product: ListProduct) {
+        logAnalyticsEvent(AnalyticsEventId.WishlistProductDeleted(product.id))
         manager.removeFromWishlist(product)
     }
     
@@ -77,6 +78,9 @@ extension WishlistViewController: WishlistViewDelegate {
         }) else {
             return
         }
+        
+        logAnalyticsEvent(AnalyticsEventId.WishlistProductClicked(manager.state.wishlist[safe: indexPath.row]?.id ?? 0))
+        
         sendNavigationEvent(ShowProductDetailsEvent(context: context, retrieveCurrentImageViewTag: nil))
     }
     

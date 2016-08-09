@@ -101,6 +101,7 @@ class EditKioskViewController: UIViewController, EditKioskViewDelegate {
     // MARK: EditKioskViewDelegate
     
     func editKioskView(view: EditKioskView, didReturnSearchString searchString: String?) {
+        logAnalyticsEvent(AnalyticsEventId.CheckoutPOPAddressChanged)
         fetchKiosks(withAddressString: searchString ?? "")
     }
     
@@ -124,6 +125,10 @@ class EditKioskViewController: UIViewController, EditKioskViewDelegate {
             default: break
             }
         }.addDisposableTo(disposeBag)
+    }
+    
+    func editKioskViewDidChangeKioskSelection(view: EditKioskView) {
+        logAnalyticsEvent(AnalyticsEventId.CheckoutPOPClicked)
     }
     
     // MARK: ViewSwitcherDelegate

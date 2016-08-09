@@ -41,6 +41,8 @@ final class ProductDescriptionNavigationController: UINavigationController {
     func showSizeChart() {
         guard let productDetails = state.productDetails else { return }
         
+        logAnalyticsEvent(AnalyticsEventId.ProductSizeTableShown(state.product?.id ?? 0))
+        
         let viewController = resolver.resolve(SizeChartViewController.self, argument: productDetails.sizes)
         viewController.viewContentInset = viewContentInset
         pushViewController(viewController, animated: true)

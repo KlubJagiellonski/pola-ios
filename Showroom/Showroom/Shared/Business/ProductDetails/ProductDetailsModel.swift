@@ -7,6 +7,7 @@ class ProductDetailsModel {
     private let emarsysService: EmarsysService
     private var informAboutMovedToProduct = false
     let newProductsAmountObservable = PublishSubject<NewProductsAmount>()
+    private var lastProductIndex: Int?
     
     var initialProductIndex: Int {
         return context.initialProductIndex
@@ -28,9 +29,19 @@ class ProductDetailsModel {
     }
     
     func didMoveToPage(atIndex index: Int) {
+        if let lastProductIndex = lastProductIndex {
+            if index > lastProductIndex {
+                logAnalyticsEvent(AnalyticsEventId.ProductSwitchedWithRightSwipe(context.fromType.rawValue))
+            } else if index < lastProductIndex {
+                logAnalyticsEvent(AnalyticsEventId.ProductSwitchedWithLeftSwipe(context.fromType.rawValue))
+            }
+        }
+        lastProductIndex = index
+        
         emarsysService.sendViewEvent(forId: productInfo(forIndex: index).toTuple().0)
         if informAboutMovedToProduct {
             context.productDetailsDidMoveToProduct(atIndex: index)
+            
         }
         informAboutMovedToProduct = true
     }

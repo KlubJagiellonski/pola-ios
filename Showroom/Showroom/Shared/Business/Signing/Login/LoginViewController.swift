@@ -85,6 +85,8 @@ class LoginViewController: UIViewController, LoginViewDelegate {
     // MARK: - LoginViewDelegate
     
     func loginViewDidTapFacebook() {
+        logAnalyticsEvent(AnalyticsEventId.LoginFacebookClicked)
+        
         castView.switcherState = .ModalLoading
         
         userManager.loginToFacebook(with: self)
@@ -96,6 +98,8 @@ class LoginViewController: UIViewController, LoginViewDelegate {
         guard castView.validate(showResult: true), let email = castView.email, let password = castView.password else {
             return
         }
+        
+        logAnalyticsEvent(AnalyticsEventId.LoginClicked)
         
         castView.switcherState = .ModalLoading
         

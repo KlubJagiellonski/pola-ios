@@ -28,6 +28,12 @@ class UserManager {
     let genderObservable = PublishSubject<Gender>()
     private var userSession: UserSession? {
         didSet {
+            if let userId = userSession?.user.id {
+                Analytics.sharedInstance.userId = String(userId)
+            } else {
+                Analytics.sharedInstance.userId = nil
+            }
+            
             emarsysService.configureUser(String(userSession?.user.id), customerEmail: userSession?.user.email)
             keychainManager.session = userSession?.session
             do {

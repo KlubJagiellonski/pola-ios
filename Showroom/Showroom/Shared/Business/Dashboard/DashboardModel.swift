@@ -91,7 +91,7 @@ class DashboardModel {
             return ProductInfo.Object(productRecommendation.toProduct(withLowResImageUrl: lowResImageUrl.absoluteString))
         }
         
-        return OnePageProductDetailsContext(productsCount: recommendations.count, initialProductIndex: index, onChanged: onChanged, onRetrieveProductInfo: onRetrieveProductInfo)
+        return OnePageProductDetailsContext(productsCount: recommendations.count, initialProductIndex: index, fromType: .HomeRecommendation, onChanged: onChanged, onRetrieveProductInfo: onRetrieveProductInfo)
     }
 }
 

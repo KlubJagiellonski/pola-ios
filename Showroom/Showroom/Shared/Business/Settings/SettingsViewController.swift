@@ -94,16 +94,19 @@ class SettingsViewController: UIViewController {
 
     func facebookButtonPressed() {
         logInfo("facebookButtonPressed")
+        logAnalyticsEvent(AnalyticsEventId.ProfileSocialMediaClicked("fb"))
         tryOpenURL(urlOptions: ["fb://profile/159930354087746", "https://www.facebook.com/shwrm"])
     }
     
     func instagramButtonPressed() {
         logInfo("instagramButtonPressed")
+        logAnalyticsEvent(AnalyticsEventId.ProfileSocialMediaClicked("insta"))
         tryOpenURL(urlOptions: ["instagram://user?username=shwrm", "https://www.instagram.com/shwrm"])
     }
     
     func loginButtonPressed() {
         logInfo("loginButtonPressed")
+        logAnalyticsEvent(AnalyticsEventId.ProfileLoginClicked)
         let viewController = resolver.resolve(SigningNavigationController.self, argument: SigningMode.Login)
         viewController.signingDelegate = self
         presentViewController(viewController, animated: true, completion: nil)
@@ -111,6 +114,7 @@ class SettingsViewController: UIViewController {
     
     func createAccountButtonPressed() {
         logInfo("createAccountButtonPressed")
+        logAnalyticsEvent(AnalyticsEventId.ProfileRegisterClicked)
         let viewController = resolver.resolve(SigningNavigationController.self, argument: SigningMode.Register)
         viewController.signingDelegate = self
         presentViewController(viewController, animated: true, completion: nil)
@@ -118,17 +122,18 @@ class SettingsViewController: UIViewController {
     
     func logoutButtonPressed() {
         logInfo("logoutButtonPressed")
+        logAnalyticsEvent(AnalyticsEventId.ProfileLogoutClicked)
         userManager.logout()
     }
     
     func femaleButtonPressed() {
         logInfo("femaleButtonPressed")
-        userManager.gender = .Female
+        didChange(gender: .Female)
     }
     
     func maleButtonPressed() {
         logInfo("maleButtonPressed")
-        userManager.gender = .Male
+        didChange(gender: .Male)
     }
     
     func userDataRowPressed() {
@@ -176,6 +181,11 @@ class SettingsViewController: UIViewController {
     
     func showOnboarding() {
         sendNavigationEvent(SimpleNavigationEvent(type: .ShowOnboaridng))
+    }
+    
+    private func didChange(gender gender: Gender) {
+        logAnalyticsEvent(AnalyticsEventId.ProfileGenderChoice(gender.rawValue))
+        userManager.gender = gender
     }
 }
 

@@ -6,6 +6,10 @@ final class BrandProductListModel: ProductListModel {
     private(set) var productBrand: EntryProductBrand
     var brand: Brand?
     
+    override var productDetailsFromType: ProductDetailsFromType {
+        return .Brand
+    }
+    
     //todo it should be created in background on rx network chain
     var description: NSAttributedString? {
         guard let brand = brand else { return nil }

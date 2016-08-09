@@ -112,6 +112,8 @@ class BasketViewController: UIViewController, BasketViewDelegate {
         }
         guard let checkout = manager.createCheckout() else { return }
         
+        logAnalyticsEvent(AnalyticsEventId.CartGoToCheckoutClicked(checkout.basket.price))
+        
         let viewController = resolver.resolve(CheckoutNavigationController.self, argument: checkout)
         viewController.checkoutDelegate = self
         presentViewController(viewController, animated: true, completion: nil)
@@ -119,6 +121,7 @@ class BasketViewController: UIViewController, BasketViewDelegate {
     
     // MARK: - BasketViewDelegate
     func basketViewDidDeleteProduct(product: BasketProduct) {
+        logAnalyticsEvent(.CartProductDeleted(product.id))
         manager.removeFromBasket(product)
     }
     
@@ -146,6 +149,7 @@ class BasketViewController: UIViewController, BasketViewDelegate {
         guard discountCode != manager.state.discountCode else { return }
         if let discountCode = discountCode?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()) {
             manager.state.discountCode = discountCode.characters.count > 0 ? discountCode : nil
+            logAnalyticsEvent(.CartDiscountSubmitted(manager.state.discountCode ?? ""))
         } else {
             manager.state.discountCode = nil
         }
@@ -179,6 +183,7 @@ extension BasketViewController: ProductAmountViewControllerDelegate {
     func productAmount(viewController: ProductAmountViewController, didChangeAmountOf product: BasketProduct) {
         actionAnimator.dismissViewController(presentingViewController: self, completion: nil)
         manager.updateInBasket(product)
+        logAnalyticsEvent(AnalyticsEventId.CartQuantityChanged(product.id))
     }
 }
 

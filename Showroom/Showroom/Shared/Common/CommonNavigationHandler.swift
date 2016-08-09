@@ -22,7 +22,9 @@ class CommonNavigationHandler: NavigationHandler {
         switch event {
         case let linkEvent as ShowItemForLinkEvent:
             if let url = NSURL(string: linkEvent.link) {
-                showView(forURL: url, title: linkEvent.title)
+                let fromType = linkEvent.productDetailsFromType
+                let additionalParams: [NSObject: AnyObject] = fromType == nil ? [:] : ["fromType": fromType!.rawValue]
+                showView(forURL: url, title: linkEvent.title, additionalParams: additionalParams)
             } else {
                 logError("Cannot create NSURL from \(linkEvent.link)")
             }
@@ -41,9 +43,12 @@ class CommonNavigationHandler: NavigationHandler {
         }
     }
     
-    private func showView(forURL url: NSURL, title: String?) -> Bool {
-        let parameters: [NSObject: AnyObject] = title == nil ? [:]: ["title": title!]
-        return urlRouter.routeURL(url, withParameters: parameters)
+    private func showView(forURL url: NSURL, title: String?, additionalParams: [NSObject: AnyObject] = [:]) -> Bool {
+        var params = additionalParams
+        if let title = title {
+            params["title"] = title
+        }
+        return urlRouter.routeURL(url, withParameters: params)
     }
     
     private func showBrandDescription(brand: Brand) {
@@ -143,7 +148,10 @@ class CommonNavigationHandler: NavigationHandler {
                 return false
             }
             
-            let context = OneProductDetailsContext(productInfo: ProductInfo.Id(productId))
+            let fromTypeParam = ProductDetailsFromType(rawValue: (parameters["fromType"] as? String) ?? "")
+            let fromType = fromTypeParam ?? .DeepLink
+            
+            let context = OneProductDetailsContext(productInfo: ProductInfo.Id(productId), fromType: fromType)
             self.navigationController?.sendNavigationEvent(ShowProductDetailsEvent(context: context, retrieveCurrentImageViewTag: nil))
             
             return true

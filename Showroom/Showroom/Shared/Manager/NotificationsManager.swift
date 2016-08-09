@@ -12,7 +12,7 @@ final class NotificationsManager {
         get { return NSUserDefaults.standardUserDefaults().boolForKey("userAlreadyAskedForNotificationPermission") }
         set { NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: "userAlreadyAskedForNotificationPermission") }
     }
-    private var isRegistered: Bool {
+    var isRegistered: Bool {
         return application.isRegisteredForRemoteNotifications()
     }
     private let pushWooshManager = PushNotificationManager.pushManager()

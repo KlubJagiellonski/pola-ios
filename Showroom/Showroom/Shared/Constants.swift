@@ -19,9 +19,9 @@ struct Constants {
     static let appScheme = NSBundle.appScheme
     
     #if APPSTORE
-    static let googleAnalyticsTrackingId = "UA-28549987-1"
+    static let googleAnalyticsTrackingId = "UA-28549987-7"
     #else
-    static let googleAnalyticsTrackingId = "UA-81404441-1"
+    static let googleAnalyticsTrackingId = "UA-28549987-11"
     #endif
     static let emarsysMerchantId = "13CE3A05D54F66DD"
     static let emarsysRecommendationItemsLimit: Int32 = 20
@@ -29,8 +29,6 @@ struct Constants {
     static let basketProductAmountLimit: Int = 10
     static let productListPageSize: Int = 20
     static let productListPageSizeForLargeScreen: Int = 27
-    
-    static let rootCategoryId: ObjectId = -1
     
     struct Cache {
         static let contentPromoId = "ContentPromoId"

@@ -63,6 +63,8 @@ class CheckoutDeliveryViewController: UIViewController, CheckoutDeliveryViewDele
     }
     
     func checkoutDeliveryViewDidSelectAddress(view: CheckoutDeliveryView, atIndex addressIndex: Int) {
+        logAnalyticsEvent(AnalyticsEventId.CheckoutAddressClicked)
+        
         logInfo("did select address at index: \(addressIndex)")
         let address = checkoutModel.state.userAddresses[addressIndex]
         checkoutModel.state.selectedAddress = address
@@ -71,6 +73,7 @@ class CheckoutDeliveryViewController: UIViewController, CheckoutDeliveryViewDele
     // MARK:- CheckoutDeliveryViewDelegate
     
     func checkoutDeliveryViewDidTapAddAddressButton(view: CheckoutDeliveryView) {
+        logAnalyticsEvent(AnalyticsEventId.CheckoutAddNewAddressClicked)
         sendNavigationEvent(SimpleNavigationEvent(type: .ShowEditAddress))
     }
     
@@ -79,10 +82,12 @@ class CheckoutDeliveryViewController: UIViewController, CheckoutDeliveryViewDele
     }
     
     func checkoutDeliveryViewDidTapChooseKioskButton(view: CheckoutDeliveryView) {
+        logAnalyticsEvent(AnalyticsEventId.CheckoutChosePOPClicked)
         sendNavigationEvent(SimpleNavigationEvent(type: .ShowEditKiosk))
     }
     
     func checkoutDeliveryViewDidTapChangeKioskButton(view: CheckoutDeliveryView) {
+        logAnalyticsEvent(AnalyticsEventId.CheckoutChosePOPClicked)
         sendNavigationEvent(SimpleNavigationEvent(type: .ShowEditKiosk))
     }
     
@@ -90,6 +95,8 @@ class CheckoutDeliveryViewController: UIViewController, CheckoutDeliveryViewDele
         guard view.validate(showResult: true) else {
             return
         }
+        
+        logAnalyticsEvent(AnalyticsEventId.CheckoutNextClicked)
         
         if checkoutModel.state.isFormMode {
             guard let newUserAddress = castView.userAddress else { return }

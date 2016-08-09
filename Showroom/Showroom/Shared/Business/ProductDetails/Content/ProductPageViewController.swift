@@ -112,7 +112,9 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
     }
     
     private func addToBasket() {
+        logAnalyticsEvent(AnalyticsEventId.ProductAddToCartClicked(model.productId))
         model.addToBasket()
+        sendNavigationEvent(SimpleNavigationEvent(type: .ProductAddedToBasket))
     }
     
     private func showSizeChart() {
@@ -135,11 +137,17 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
     }
     
     func pageView(pageView: ProductPageView, didChangePageViewState newPageViewState: ProductPageViewState, animationDuration: Double?) {
-        
+        if newPageViewState == .ImageGallery {
+            logAnalyticsEvent(AnalyticsEventId.ProductZoomIn(model.productId))
+        } else if newPageViewState == .ContentExpanded {
+            logAnalyticsEvent(AnalyticsEventId.ProductShowDetails(model.productId))
+        }
     }
     
     func pageViewDidTapShareButton(pageView: ProductPageView) {
         guard let product = model.productSharingInfo else { return }
+        
+        logAnalyticsEvent(AnalyticsEventId.ProductShare(model.productId))
         
         let shared: [AnyObject] = [product.desc + "\n", product.url]
         
@@ -153,7 +161,15 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
     }
     
     func pageViewDidTapWishlistButton(pageView: ProductPageView) {
-        castView.updateWishlistButton(selected: model.switchOnWishlist())
+        let selected = model.switchOnWishlist()
+        if selected {
+            logAnalyticsEvent(AnalyticsEventId.ProductAddToWishlist(model.productId))
+        }
+        castView.updateWishlistButton(selected: selected)
+    }
+    
+    func pageViewDidSwitchedImage(pageView: ProductPageView) {
+        logAnalyticsEvent(AnalyticsEventId.ProductSwitchPicture(model.productId))
     }
     
     // MARK:- ViewSwitcherDelegate
@@ -169,10 +185,13 @@ extension ProductPageViewController: ProductDescriptionNavigationControllerDeleg
         castView.contentGestureRecognizerEnabled = firstChildVisibility
     }
     func productDescriptionDidTapSize(controller: ProductDescriptionNavigationController) {
+        logAnalyticsEvent(AnalyticsEventId.ProductChangeSizeClicked(model.productId))
         showSizePicker()
     }
     func productDescriptionDidTapColor(controller: ProductDescriptionNavigationController) {
         guard let colors = model.pickerColors else { return }
+        
+        logAnalyticsEvent(AnalyticsEventId.ProductChangeColorClicked(model.productId))
         
         let colorViewController = resolver.resolve(ProductColorViewController.self, arguments: (colors, model.state.currentColor?.id))
         colorViewController.delegate = self
@@ -180,6 +199,9 @@ extension ProductPageViewController: ProductDescriptionNavigationControllerDeleg
     }
     func productDescriptionDidTapOtherBrandProducts(controller: ProductDescriptionNavigationController) {
         guard let product = model.state.productDetails else { return }
+        
+        logAnalyticsEvent(AnalyticsEventId.ProductOtherDesignerProductsClicked(model.productId))
+        
         let productBrand = EntryProductBrand(id: product.brand.id, name: product.brand.name, link: nil)
         sendNavigationEvent(ShowBrandProductListEvent(productBrand: productBrand))
     }
@@ -190,7 +212,6 @@ extension ProductPageViewController: ProductDescriptionNavigationControllerDeleg
         }
         
         addToBasket()
-        sendNavigationEvent(SimpleNavigationEvent(type: .ProductAddedToBasket))
     }
 }
 

@@ -83,6 +83,7 @@ class BrandProductListViewController: UIViewController, ProductListViewControlle
     
     func brandProductListDidTapHeader(view: BrandProductListView) {
         guard let brand = model.brand else { return }
+        logAnalyticsEvent(AnalyticsEventId.ListBrandDetails(brand.id))
         let imageWidth = castView.headerImageWidth
         let lowResImageUrl = NSURL.createImageUrl(brand.imageUrl, width: imageWidth, height: nil)
         sendNavigationEvent(ShowBrandDescriptionEvent(brand: brand.appendLowResImageUrl(lowResImageUrl.absoluteString)))

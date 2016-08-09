@@ -103,6 +103,7 @@ class FilterDetailsViewController: UIViewController, FilterDetailsViewDelegate {
     //MARK:- FilterDetailsViewDelegate
     
     func filterDetailsDidTapAccept(view: FilterDetailsView) {
+        logAnalyticsEvent(AnalyticsEventId.ListFilterChanged(filterInfo.id))
         model.update(withData: currentSelectedIds, forFilterId: filterInfo.id)
         sendNavigationEvent(SimpleNavigationEvent(type: .Back))
     }
