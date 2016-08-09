@@ -77,7 +77,7 @@ extension UIFont {
         case .Badge:
             self.init(name: "Lato-Regular", size: 10)
         case .TabBarBadge:
-            self.init(name: "Lato-Regular", size: 11)
+            self.init(name: "Lato-Regular", size: 13)
         case .Input:
             self.init(name: "Lato-Regular", size: 13)
         case .InputLarge:

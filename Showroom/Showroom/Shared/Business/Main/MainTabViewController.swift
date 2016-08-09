@@ -58,10 +58,14 @@ enum MainTabChildControllerType: Int {
 }
 
 class MainTabViewController: UITabBarController, NavigationHandler {
-    private let basketBadgeContainerView = TabBarItemBadgeContainerView()
+    private let badgesContainerView = TabBarItemBadgeContainerView()
     var basketBadgeValue: UInt {
-        set { basketBadgeContainerView.badgeValue = newValue }
-        get { return basketBadgeContainerView.badgeValue }
+        set { badgesContainerView.basketBadgeValue = newValue }
+        get { return badgesContainerView.basketBadgeValue }
+    }    
+    var wishlistBadgeValue: UInt {
+        set { badgesContainerView.wishlistBadgeValue = newValue }
+        get { return badgesContainerView.wishlistBadgeValue }
     }
     
     private(set) var appearance: TabBarAppearance {
@@ -70,18 +74,21 @@ class MainTabViewController: UITabBarController, NavigationHandler {
             let height = self.tabBar.frame.height
             let offsetY = (appearance == .Hidden) ? height : -height
             tabBar.center.y += offsetY
-            basketBadgeContainerView.center.y += offsetY
+            badgesContainerView.center.y += offsetY
         }
     }
     
     private let resolver: DiResolver
     private let basketManager: BasketManager
+    private let wishlistManager: WishlistManager
     private let disposeBag = DisposeBag()
     
-    init(resolver: DiResolver, basketManager: BasketManager) {
+    init(resolver: DiResolver, basketManager: BasketManager, wishlistManager: WishlistManager) {
         self.resolver = resolver
         self.basketManager = basketManager
+        self.wishlistManager = wishlistManager
         appearance = .Visible
+        
         super.init(nibName: nil, bundle: nil)
         
         tabBar.translucent = true
@@ -99,6 +106,7 @@ class MainTabViewController: UITabBarController, NavigationHandler {
         selectedIndex = 0
         
         basketManager.state.basketObservable.subscribeNext(onBasketChanged).addDisposableTo(disposeBag)
+        wishlistManager.state.wishlistObservable.subscribeNext(onWishlistChanged).addDisposableTo(disposeBag)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -106,14 +114,15 @@ class MainTabViewController: UITabBarController, NavigationHandler {
     }
     
     override func viewDidLoad() {
-        view.addSubview(basketBadgeContainerView)
+        view.addSubview(badgesContainerView)
         
         basketBadgeValue = basketManager.state.basket?.productsAmount ?? 0
+        wishlistBadgeValue = UInt(wishlistManager.state.wishlist.count)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        basketBadgeContainerView.frame = tabBar.frame
+        badgesContainerView.frame = tabBar.frame
     }
     
     func updateTabBarAppearance(appearance: TabBarAppearance, animationDuration: Double?) {
@@ -124,6 +133,10 @@ class MainTabViewController: UITabBarController, NavigationHandler {
     
     private func onBasketChanged(basket: Basket?) {
         basketBadgeValue = basket?.productsAmount ?? 0
+    }
+    
+    private func onWishlistChanged(wishlist: [ListProduct]) {
+        wishlistBadgeValue = UInt(wishlist.count)
     }
     
     func createChildViewController(forType type: MainTabChildControllerType) -> UIViewController {

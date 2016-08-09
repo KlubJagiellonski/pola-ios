@@ -13,7 +13,7 @@ class UIAssembly: AssemblyType {
             return StartViewController(resolver: r.resolve(DiResolver.self)!)
         }
         container.register(MainTabViewController.self) { r in
-            return MainTabViewController(resolver: r.resolve(DiResolver.self)!, basketManager: r.resolve(BasketManager.self)!)
+            return MainTabViewController(resolver: r.resolve(DiResolver.self)!, basketManager: r.resolve(BasketManager.self)!, wishlistManager: r.resolve(WishlistManager.self)!)
         }
         container.register(CommonPresenterController.self) { r, contentViewController in
             return CommonPresenterController(with: r.resolve(DiResolver.self)!, contentViewController: contentViewController)
