@@ -2,7 +2,7 @@ import Foundation
 import EmarsysPushSDK
 
 protocol NotificationsManagerDelegate: class {
-    func notificationManager(manager: NotificationsManager, didReceiveLink link: String)
+    func notificationManager(manager: NotificationsManager, didReceiveUrl url: NSURL)
 }
 
 final class NotificationsManager {
@@ -101,8 +101,8 @@ final class NotificationsManager {
         pushWooshManager.handlePushRegistrationFailure(error)
     }
     
-    private func didReceive(link link: String) {
-        delegate?.notificationManager(self, didReceiveLink: link)
+    private func didReceive(url url: NSURL) {
+        delegate?.notificationManager(self, didReceiveUrl: url)
     }
 }
 
@@ -111,11 +111,10 @@ final class PushWooshManagerDelegateHandler: NSObject, PushNotificationDelegate 
     
     func onPushAccepted(pushManager: PushNotificationManager!, withNotification pushNotification: [NSObject : AnyObject]!, onStart: Bool) {
         logInfo("Pushwoosh onPushAccepted: \(pushNotification) \(onStart)")
-        guard let link = pushNotification["link"] as? String else {
-            logError("Cannot handle push notification: \(pushNotification)")
+        guard let link = pushNotification["link"] as? String, let url = NSURL(string: link), let httpsUrl = url.changeToHTTPSchemeIfNeeded() else {
             return
         }
-        manager?.didReceive(link: link)
+        manager?.didReceive(url: httpsUrl)
     }
     
     func onInAppClosed(code: String!) {

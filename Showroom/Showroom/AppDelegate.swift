@@ -51,7 +51,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return true
         }
         logInfo("Received url \(url) with options: \(sourceApplication)")
-        return handleOpen(withURL: url)
+        
+        if let httpsUrl = url.changeToHTTPSchemeIfNeeded() {
+            return handleOpen(withURL: httpsUrl)
+        } else {
+            return false
+        }
     }
     
     func application(application: UIApplication, continueUserActivity userActivity: NSUserActivity, restorationHandler: ([AnyObject]?) -> Void) -> Bool {
@@ -106,11 +111,7 @@ extension AppDelegate: QuickActionManagerDelegate {
 }
 
 extension AppDelegate: NotificationsManagerDelegate {
-    func notificationManager(manager: NotificationsManager, didReceiveLink link: String) {
-        guard let url = NSURL(string: link) else {
-            logError("Wrong notifications url: \(link)")
-            return
-        }
+    func notificationManager(manager: NotificationsManager, didReceiveUrl url: NSURL) {
         handleOpen(withURL: url)
     }
 }

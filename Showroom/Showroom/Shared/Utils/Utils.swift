@@ -82,6 +82,16 @@ extension Array {
     }
 }
 
+extension NSURL {
+    func changeToHTTPSchemeIfNeeded() -> NSURL? {
+        let components = NSURLComponents(URL: self, resolvingAgainstBaseURL: true)
+        if components?.scheme != "https" {
+            components?.scheme = "https"
+        }
+        return components?.URL
+    }
+}
+
 // MARK: - UIEdgeInsets operators
 
 func +(left: UIEdgeInsets, right: UIEdgeInsets) -> UIEdgeInsets {
