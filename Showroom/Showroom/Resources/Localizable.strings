@@ -175,3 +175,7 @@
 "QuickAction.ProductCount.One" = "produkt";
 "QuickAction.ProductCount.TwoToFour" = "produkty";
 "QuickAction.ProductCount.FiveAndMore" = "produktów";
+"AppVersionNotSupported.Title" = "Wersja nie wspierana";
+"AppVersionNotSupported.Description" = "Ta wersja aplikacji nie jest już wspierana. Aby dalej korzystać z Showroom zainstaluj najnowszą wersję z App Store";
+"AppVersionNotSupported.Accept" = "App Store";
+"AppVersionNotSupported.Decline" = "Anuluj";

@@ -18,6 +18,8 @@ struct Constants {
     static let websiteUrl = "https://\(Constants.websiteDomain)"
     static let appScheme = NSBundle.appScheme
     
+    static let appStoreAppId = "" //todo write here appstore app id when we will have it
+    
     #if APPSTORE
     static let googleAnalyticsTrackingId = "UA-28549987-7"
     #else

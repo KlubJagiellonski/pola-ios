@@ -32,6 +32,11 @@ class RootViewController: PresenterViewController, NavigationHandler {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        model.apiService.delegate = self
+    }
+    
     func handleQuickActionShortcut(shortcut: ShortcutIdentifier) {
         if let mainTabViewController = self.contentViewController as? MainTabViewController {
             mainTabViewController.handleQuickActionShortcut(shortcut)
@@ -84,5 +89,22 @@ extension RootViewController: DeepLinkingHandler {
             urlToHandle = url
             return true
         }
+    }
+}
+
+extension RootViewController: ApiServiceDelegate {
+    func apiServiceDidReceiveAppNotSupportedError(api: ApiService) {
+        guard presentedViewController == nil else { return }
+        
+        let acceptAction: (UIAlertAction -> Void) = { _ in
+            if let appStoreUrl = NSURL(string: "itms-apps://itunes.apple.com/app/\(Constants.appStoreAppId)") {
+                UIApplication.sharedApplication().openURL(appStoreUrl)
+            }
+        }
+        
+        let alert = UIAlertController(title: tr(.AppVersionNotSupportedTitle), message: tr(.AppVersionNotSupportedDescription), preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: tr(.AppVersionNotSupportedAccept), style: .Default, handler: acceptAction))
+        alert.addAction(UIAlertAction(title: tr(.AppVersionNotSupportedDecline), style: .Cancel, handler: nil))
+        presentViewController(alert, animated: true, completion: nil)
     }
 }

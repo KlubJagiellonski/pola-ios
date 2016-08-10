@@ -207,7 +207,7 @@ enum L10n {
   case ProductListFilterCancel
   /// Wyczyść
   case ProductListFilterClear
-  /// %@zł - %@zł
+  /// %@ - %@
   case ProductListFilterPriceRange(String, String)
   /// POKAŻ PRODUKTY
   case ProductListFilterShowProducts
@@ -357,6 +357,14 @@ enum L10n {
   case QuickActionProductCountTwoToFour
   /// produktów
   case QuickActionProductCountFiveAndMore
+  /// Wersja nie wspierana
+  case AppVersionNotSupportedTitle
+  /// Ta wersja aplikacji nie jest już wspierana. Aby dalej korzystać z Showroom zainstaluj najnowszą wersję z App Store
+  case AppVersionNotSupportedDescription
+  /// App Store
+  case AppVersionNotSupportedAccept
+  /// Anuluj
+  case AppVersionNotSupportedDecline
 }
 
 extension L10n: CustomStringConvertible {
@@ -718,6 +726,14 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("QuickAction.ProductCount.TwoToFour")
       case .QuickActionProductCountFiveAndMore:
         return L10n.tr("QuickAction.ProductCount.FiveAndMore")
+      case .AppVersionNotSupportedTitle:
+        return L10n.tr("AppVersionNotSupported.Title")
+      case .AppVersionNotSupportedDescription:
+        return L10n.tr("AppVersionNotSupported.Description")
+      case .AppVersionNotSupportedAccept:
+        return L10n.tr("AppVersionNotSupported.Accept")
+      case .AppVersionNotSupportedDecline:
+        return L10n.tr("AppVersionNotSupported.Decline")
     }
   }
 

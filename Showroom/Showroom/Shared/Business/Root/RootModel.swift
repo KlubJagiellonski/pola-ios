@@ -8,8 +8,8 @@ enum RootChildType {
 }
 
 class RootModel {
-    private let resolver: DiResolver
     private let userManager: UserManager
+    let apiService: ApiService
     
     var startChildType: RootChildType {
         if (!userManager.shouldSkipStartScreen) {
@@ -24,8 +24,8 @@ class RootModel {
         get { return userManager.shouldSkipStartScreen }
     }
     
-    init(resolver: DiResolver) {
-        self.resolver = resolver
-        self.userManager = resolver.resolve(UserManager.self)
+    init(with userManager: UserManager, and apiService: ApiService) {
+        self.userManager = userManager
+        self.apiService = apiService
     }
 }

@@ -7,7 +7,7 @@ class UIAssembly: AssemblyType {
             return RootViewController(resolver: r.resolve(DiResolver.self)!)!
         }
         container.register(RootModel.self) { r in
-            return RootModel(resolver: r.resolve(DiResolver.self)!)
+            return RootModel(with: r.resolve(UserManager.self)!, and: r.resolve(ApiService.self)!)
         }
         container.register(StartViewController.self) { r in
             return StartViewController(resolver: r.resolve(DiResolver.self)!)

@@ -7,9 +7,14 @@ protocol ApiServiceDataSource: class {
     func apiServiceWantsHandleLoginRetry(api: ApiService) -> Observable<Void>
 }
 
+protocol ApiServiceDelegate: class {
+    func apiServiceDidReceiveAppNotSupportedError(api: ApiService)
+}
+
 class ApiService {
     let networkClient: NetworkClient
     weak var dataSource: ApiServiceDataSource?
+    weak var delegate: ApiServiceDelegate?
     
     var basePath: String {
         return Constants.baseUrl
@@ -36,6 +41,7 @@ extension ApiService {
         return networkClient
             .request(withRequest: urlRequest)
             .logNetworkError()
+            .handleAppNotSupportedError(self)
             .flatMap { data -> Observable<ContentPromoResult> in
                 do {
                     let array = try NSJSONSerialization.JSONObjectWithData(data, options: []) as! [AnyObject]
@@ -56,6 +62,7 @@ extension ApiService {
         return networkClient
             .request(withRequest: urlRequest)
             .logNetworkError()
+            .handleAppNotSupportedError(self)
             .flatMap { data -> Observable<ProductDetails> in
                 do {
                     let result = try NSJSONSerialization.JSONObjectWithData(data, options: [])
@@ -74,6 +81,8 @@ extension ApiService {
         urlRequest.HTTPMethod = "GET"
         return networkClient
             .request(withRequest: urlRequest)
+            .logNetworkError()
+            .handleAppNotSupportedError(self)
             .flatMap { data -> Observable<SearchResult> in
                 do {
                     let result = try NSJSONSerialization.JSONObjectWithData(data, options: [])
@@ -98,6 +107,7 @@ extension ApiService {
             return networkClient
                 .request(withRequest: urlRequest)
                 .logNetworkError()
+                .handleAppNotSupportedError(self)
                 .flatMap { data -> Observable<Basket> in
                     do {
                         let result = try NSJSONSerialization.JSONObjectWithData(data, options: [])
@@ -127,6 +137,7 @@ extension ApiService {
             return networkClient
                 .request(withRequest: urlRequest)
                 .logNetworkError()
+                .handleAppNotSupportedError(self)
                 .flatMap { data -> Observable<ProductListResult> in
                     do {
                         let result = try NSJSONSerialization.JSONObjectWithData(data, options: [])
@@ -150,6 +161,7 @@ extension ApiService {
         return networkClient
             .request(withRequest: urlRequest)
             .logNetworkError()
+            .handleAppNotSupportedError(self)
             .flatMap { data -> Observable<ProductListResult> in
                 do {
                     let result = try NSJSONSerialization.JSONObjectWithData(data, options: [])
@@ -176,6 +188,8 @@ extension ApiService {
             urlRequest.applyJsonContentTypeHeader()
             return networkClient
                 .request(withRequest: urlRequest)
+                .logNetworkError()
+                .handleAppNotSupportedError(self)
                 .flatMap { data -> Observable<ProductListResult> in
                     do {
                         let result = try NSJSONSerialization.JSONObjectWithData(data, options: [])
@@ -205,6 +219,7 @@ extension ApiService {
             return networkClient
                 .request(withRequest: urlRequest)
                 .logNetworkError()
+                .handleAppNotSupportedError(self)
                 .flatMap { data -> Observable<KioskResult> in
                     do {
                         let array = try NSJSONSerialization.JSONObjectWithData(data, options: []) as! [AnyObject]
@@ -232,6 +247,7 @@ extension ApiService {
         return networkClient
             .request(withRequest: urlRequest)
             .logNetworkError()
+            .handleAppNotSupportedError(self)
             .flatMap { data -> Observable<User> in
                 do {
                     let dict = try NSJSONSerialization.JSONObjectWithData(data, options: [])
@@ -263,6 +279,7 @@ extension ApiService {
             return networkClient
                 .request(withRequest: urlRequest)
                 .logNetworkError()
+                .handleAppNotSupportedError(self)
                 .flatMap { data -> Observable<UserAddress> in
                     do {
                         let dict = try NSJSONSerialization.JSONObjectWithData(data, options: [])
@@ -296,6 +313,7 @@ extension ApiService {
             return networkClient
                 .request(withRequest: urlRequest)
                 .logNetworkError()
+                .handleAppNotSupportedError(self)
                 .flatMap { data -> Observable<UserAddress> in
                     do {
                         let dict = try NSJSONSerialization.JSONObjectWithData(data, options: [])
@@ -320,14 +338,18 @@ extension ApiService {
             urlRequest.HTTPMethod = "POST"
             urlRequest.HTTPBody = jsonData
             urlRequest.applyJsonContentTypeHeader()
-            return networkClient.request(withRequest: urlRequest).logNetworkError().flatMap { data -> Observable<SigningResult> in
-                do {
-                    let result = try NSJSONSerialization.JSONObjectWithData(data, options: [])
-                    let loginResult = try SigningResult.decode(result)
-                    return Observable.just(loginResult)
-                } catch {
-                    return Observable.error(error)
-                }
+            return networkClient
+                .request(withRequest: urlRequest)
+                .logNetworkError()
+                .handleAppNotSupportedError(self)
+                .flatMap { data -> Observable<SigningResult> in
+                    do {
+                        let result = try NSJSONSerialization.JSONObjectWithData(data, options: [])
+                        let loginResult = try SigningResult.decode(result)
+                        return Observable.just(loginResult)
+                    } catch {
+                        return Observable.error(error)
+                    }
             }
         } catch {
             return Observable.error(error)
@@ -343,14 +365,18 @@ extension ApiService {
             urlRequest.HTTPMethod = "POST"
             urlRequest.HTTPBody = jsonData
             urlRequest.applyJsonContentTypeHeader()
-            return networkClient.request(withRequest: urlRequest).logNetworkError().flatMap { data -> Observable<SigningResult> in
-                do {
-                    let result = try NSJSONSerialization.JSONObjectWithData(data, options: [])
-                    let registrationResult = try SigningResult.decode(result)
-                    return Observable.just(registrationResult)
-                } catch {
-                    return Observable.error(error)
-                }
+            return networkClient
+                .request(withRequest: urlRequest)
+                .logNetworkError()
+                .handleAppNotSupportedError(self)
+                .flatMap { data -> Observable<SigningResult> in
+                    do {
+                        let result = try NSJSONSerialization.JSONObjectWithData(data, options: [])
+                        let registrationResult = try SigningResult.decode(result)
+                        return Observable.just(registrationResult)
+                    } catch {
+                        return Observable.error(error)
+                    }
             }
         } catch {
             return Observable.error(error)
@@ -367,14 +393,18 @@ extension ApiService {
             urlRequest.HTTPMethod = "POST"
             urlRequest.HTTPBody = jsonData
             urlRequest.applyJsonContentTypeHeader()
-            return networkClient.request(withRequest: urlRequest).logNetworkError().flatMap { data -> Observable<SigningResult> in
-                do {
-                    let result = try NSJSONSerialization.JSONObjectWithData(data, options: [])
-                    let loginResult = try SigningResult.decode(result)
-                    return Observable.just(loginResult)
-                } catch {
-                    return Observable.error(error)
-                }
+            return networkClient
+                .request(withRequest: urlRequest)
+                .logNetworkError()
+                .handleAppNotSupportedError(self)
+                .flatMap { data -> Observable<SigningResult> in
+                    do {
+                        let result = try NSJSONSerialization.JSONObjectWithData(data, options: [])
+                        let loginResult = try SigningResult.decode(result)
+                        return Observable.just(loginResult)
+                    } catch {
+                        return Observable.error(error)
+                    }
             }
         } catch {
             return Observable.error(error)
@@ -397,6 +427,7 @@ extension ApiService {
         return networkClient
             .request(withRequest: urlRequest)
             .logNetworkError()
+            .handleAppNotSupportedError(self)
             .flatMap { data -> Observable<PaymentAuthorizeResult> in
                 do {
                     let dict = try NSJSONSerialization.JSONObjectWithData(data, options: [])
@@ -454,6 +485,7 @@ extension ApiService {
             return networkClient
                 .request(withRequest: urlRequest)
                 .logNetworkError()
+                .handleAppNotSupportedError(self)
                 .flatMap { data -> Observable<WishlistResult> in
                     do {
                         let dict = try NSJSONSerialization.JSONObjectWithData(data, options: [])
@@ -483,8 +515,12 @@ extension ApiService {
         urlRequest.HTTPMethod = "DELETE"
         urlRequest.applyJsonContentTypeHeader()
         urlRequest.applySessionHeaders(session)
-        return networkClient.request(withRequest: urlRequest).logNetworkError().flatMap { data -> Observable<Void> in
-            return Observable.just()
+        return networkClient
+            .request(withRequest: urlRequest)
+            .logNetworkError()
+            .handleAppNotSupportedError(self)
+            .flatMap { data -> Observable<Void> in
+                return Observable.just()
         }
     }
     
@@ -527,6 +563,7 @@ extension ApiService {
         return networkClient
             .request(withRequest: urlRequest)
             .logNetworkError()
+            .handleAppNotSupportedError(self)
             .flatMap { data -> Observable<WishlistResult> in
                 do {
                     let dict = try NSJSONSerialization.JSONObjectWithData(data, options: [])
@@ -577,6 +614,15 @@ extension ObservableType {
                 default: break
                 }
             }
+        }
+    }
+    func handleAppNotSupportedError(apiService: ApiService) -> Observable<E> {
+        return doOnError { error in
+            guard let urlError = error as? RxCocoaURLError, case let .HTTPRequestFailed(response, _) = urlError where response.statusCode == 410 else {
+                return
+            }
+            logInfo("Received 410")
+            apiService.delegate?.apiServiceDidReceiveAppNotSupportedError(apiService)
         }
     }
 }
