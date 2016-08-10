@@ -27,8 +27,7 @@ final class NotificationsManager {
         pushWooshManager.delegate = pushWooshManagerDelegateHandler
         
         EmarsysManager.setApplicationID(NSBundle.pushwooshAppId)
-        //TODO:- set when we will get this
-//        EmarsysManager.setApplicationPassword("")
+        EmarsysManager.setApplicationPassword(Constants.emarsysPushPassword)
         EmarsysManager.setCustomerHWID(pushWooshManager.getHWID())
     }
     
