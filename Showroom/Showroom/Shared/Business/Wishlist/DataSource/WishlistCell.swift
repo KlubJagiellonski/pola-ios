@@ -106,6 +106,7 @@ class WishlistCell: UITableViewCell {
     func updateData(with product: ListProduct) {
         brandLabel.text = product.brand.name
         nameLabel.text = product.name
+        photoImageView.image = nil
         photoImageView.loadImageFromUrl(product.imageUrl, width: WishlistCell.photoSize.width)
         priceLabel.basePrice = product.basePrice
         priceLabel.discountPrice = product.basePrice != product.price ? product.price : nil
