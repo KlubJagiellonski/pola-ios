@@ -83,8 +83,10 @@ extension CategoryProductListViewController: ProductFilterNavigationControllerDe
         dismissViewControllerAnimated(animation, completion: nil)
     }
     
-    func productFilter(viewController: ProductFilterNavigationController, didChangedFilterWithProductListResult productListResult: ProductListResult) {
+    func productFilter(viewController: ProductFilterNavigationController, didChangedFilterWithProductListResult productListResult: ProductListResult?) {
         dismissViewControllerAnimated(true, completion: nil)
-        didChangeFilter(withResult: productListResult)
+        if productListResult != nil {
+            didChangeFilter(withResult: productListResult!)
+        }
     }
 }

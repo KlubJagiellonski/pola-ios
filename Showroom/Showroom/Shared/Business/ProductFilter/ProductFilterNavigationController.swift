@@ -4,10 +4,11 @@ import RxSwift
 
 protocol ProductFilterNavigationControllerDelegate: class {
     func productFilter(viewController: ProductFilterNavigationController, wantsCancelWithAnimation animation: Bool)
-    func productFilter(viewController: ProductFilterNavigationController, didChangedFilterWithProductListResult productListResult: ProductListResult)
+    func productFilter(viewController: ProductFilterNavigationController, didChangedFilterWithProductListResult productListResult: ProductListResult?)
 }
 
 struct ProductFilterContext {
+    let entryFilters: [Filter]
     let filters: [Filter]
     let fetchObservable: [Filter] -> Observable<ProductListResult>
 }
@@ -49,11 +50,7 @@ class ProductFilterNavigationController: UINavigationController, NavigationHandl
             return true
         } else if let simpleEvent = event as? SimpleNavigationEvent {
             if simpleEvent.type == .ShowFilteredProducts {
-                guard let result = model.changedProductListResult else {
-                    logError("Received ShowFilteredProducts event when tehre is no productlistresult")
-                    return true
-                }
-                filterDelegate?.productFilter(self, didChangedFilterWithProductListResult: result)
+                filterDelegate?.productFilter(self, didChangedFilterWithProductListResult: model.changedProductListResult)
                 return true
             } else if simpleEvent.type == .Back {
                 popViewControllerAnimated(true)

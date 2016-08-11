@@ -19,7 +19,8 @@ final class ProductFilterModel {
     }
     
     func update(withSelected selected: Bool, forFilterId filterId: FilterId) {
-        update(withData: [selected ? 1 : 0], forFilterId: filterId)
+        let data: [Int] = selected ? [1] : []
+        update(withData: data, forFilterId: filterId)
     }
     
     func update(withData data: [FilterObjectId], forFilterId filterId: FilterId) {
@@ -43,7 +44,7 @@ final class ProductFilterModel {
     
     func clearChanges() {
         refreshFilter() {
-            state.currentFilters.value = context.filters
+            state.currentFilters.value = context.entryFilters
         }
     }
     

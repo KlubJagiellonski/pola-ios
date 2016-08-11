@@ -10,5 +10,6 @@ final class CategoryProductListModel: ProductListModel {
     
     func update(with category: EntryCategory) {
         self.category = category
+        resetOnUpdate(withLink: category.link)
     }
 }

@@ -16,6 +16,7 @@ final class SearchProductListModel: ProductListModel {
     func update(with data: EntrySearchInfo) {
         self.entrySearchInfo = data
         self.query = data.query
+        resetOnUpdate(withLink: data.link)
     }
     
     override func createObservable(with paginationInfo: PaginationInfo, forFilters filters: [FilterId: [FilterObjectId]]?) -> Observable<ProductListResult> {

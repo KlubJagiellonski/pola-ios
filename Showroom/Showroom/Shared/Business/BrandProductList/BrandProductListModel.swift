@@ -34,5 +34,6 @@ final class BrandProductListModel: ProductListModel {
         self.productBrand = productBrand
         self.brand = nil
         self.attributedDescription = nil
+        resetOnUpdate(withLink: productBrand.link)
     }
 }

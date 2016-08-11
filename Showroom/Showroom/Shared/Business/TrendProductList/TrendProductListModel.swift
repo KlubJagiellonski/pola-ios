@@ -29,5 +29,6 @@ final class TrendProductListModel: ProductListModel {
         self.entryTrendInfo = entryTrendInfo
         trendInfo = nil
         attributedDescription = nil
+        resetOnUpdate(withLink: nil)
     }
 }

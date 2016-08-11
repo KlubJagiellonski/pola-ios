@@ -3,8 +3,13 @@ import UIKit
 
 extension Filter {
     private var selectedChoiceLabels: String? {
-        let selectedChoices = data.map { id in
-            return choices!.find { $0.id == id }!
+        var selectedChoices: [FilterChoice] = []
+        for selectedId in data {
+            if let choice = choices!.find({ $0.id == selectedId }) {
+                selectedChoices.append(choice)
+            } else {
+                logError("There is no choice for selectedId \(self)")
+            }
         }
         return createText(fromArray: selectedChoices) { $0.name }
     }
@@ -102,8 +107,10 @@ class ProductFilterDataSource: NSObject, UITableViewDataSource {
             }
         case .Select:
             let cell = tableView.dequeueReusableCellWithIdentifier(String(SwitchValueTableViewCell), forIndexPath: indexPath) as! SwitchValueTableViewCell
+            cell.removeSeparatorInset()
             cell.title = filter.label
-            cell.value = !filter.data.isEmpty
+            cell.value = filter.data.isEmpty ? false : filter.data[0] == 1
+            cell.delegate = self
             return cell
         case .Range:
             let cell = tableView.dequeueReusableCellWithIdentifier(String(ProductFilterRangeCell), forIndexPath: indexPath) as! ProductFilterRangeCell

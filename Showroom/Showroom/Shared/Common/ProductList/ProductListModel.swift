@@ -9,6 +9,7 @@ class ProductListModel {
     private(set) var products: [ListProduct] = []
     private(set) var link: String?
     private var filters: [Filter]?
+    private var entryFilters: [Filter]?
     var currentPageIndex: Int {
         return page - 1
     }
@@ -40,9 +41,13 @@ class ProductListModel {
         let paginationInfo = PaginationInfo(page: page, pageSize: defaultPageSize)
         return createObservable(with: paginationInfo, forFilters: createRequestFilters(filters))
             .doOnNext { [weak self](result: ProductListResult) in
-                self?.link = nil
-                self?.filters = result.filters
-                self?.products.appendContentsOf(result.products)
+                guard let `self` = self else { return }
+                self.link = nil
+                self.filters = result.filters
+                if self.entryFilters == nil {
+                    self.entryFilters = self.filters
+                }
+                self.products.appendContentsOf(result.products)
         }
             .observeOn(MainScheduler.instance)
     }
@@ -84,7 +89,7 @@ class ProductListModel {
     }
     
     final func createFilterContext() -> ProductFilterContext? {
-        guard filters != nil else { return nil }
+        guard filters != nil && entryFilters != nil else { return nil }
         
         let fetchObservable = {
             [unowned self] (filters: [Filter]) -> Observable<ProductListResult> in
@@ -92,7 +97,7 @@ class ProductListModel {
             return self.createObservable(with: paginationInfo, forFilters: self.createRequestFilters(filters))
         }
         
-        return ProductFilterContext(filters: filters!, fetchObservable: fetchObservable)
+        return ProductFilterContext(entryFilters: entryFilters!, filters: filters!, fetchObservable: fetchObservable)
     }
     
     final func didChangeFilter(withResult productListResult: ProductListResult) {
@@ -100,6 +105,12 @@ class ProductListModel {
         link = nil
         filters = productListResult.filters
         products = productListResult.products
+    }
+
+    final func resetOnUpdate(withLink link: String?) {
+        self.link = link
+        self.entryFilters = nil
+        self.filters = nil
     }
     
     private func updateProductIndexWithNotyfingObserver(with index: Int?) {
