@@ -119,6 +119,8 @@ enum AnalyticsEventId: RawRepresentable {
             return AnalyticsEvent(category: "onboarding", action: "login_click", label: nil, value: nil)
         case .OnboardingRegisterClicked:
             return AnalyticsEvent(category: "onboarding", action: "register_click", label: nil, value: nil)
+        case .OnboardingNotificationSkip:
+            return AnalyticsEvent(category: "onboarding", action: "notifications_skip", label: nil, value: nil)
         case .DashboardContentPromoClicked(let link, let index):
             return AnalyticsEvent(category: "home", action: "home_banner_click", label: link, value: index)
         case .DashboardRecommendationClicked(let link, let index):
@@ -221,8 +223,6 @@ enum AnalyticsEventId: RawRepresentable {
             return AnalyticsEvent(category: "checkout_summary", action: "payment_method_click", label: nil, value: methodId)
         case CheckoutSummaryFinishButtonClicked:
             return AnalyticsEvent(category: "checkout_summary", action: "finish_button_click", label: nil, value: nil)
-        default:
-            fatalError("Not handled \(self)")
         }
     }
     init?(rawValue: RawValue) {
