@@ -44,6 +44,11 @@ class BrandProductListViewController: UIViewController, ProductListViewControlle
         logAnalyticsShowScreen(.Brand)
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        castView.contentInset = UIEdgeInsetsMake(topLayoutGuide.length, 0, bottomLayoutGuide.length, 0)
+    }
+    
     func updateData(with entryProductBrand: EntryProductBrand) {
         guard entryProductBrand.id != model.productBrand.id else {
             logInfo("Tried to update same brand info view")

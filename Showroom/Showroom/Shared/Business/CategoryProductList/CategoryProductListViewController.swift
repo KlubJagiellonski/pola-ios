@@ -44,6 +44,11 @@ class CategoryProductListViewController: UIViewController, ProductListViewContro
         logAnalyticsShowScreen(.ProductList)
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        castView.contentInset = UIEdgeInsetsMake(topLayoutGuide.length, 0, bottomLayoutGuide.length, 0)
+    }
+    
     func updateData(with entryCategory: EntryCategory) {
         title = entryCategory.name
         disposeBag = DisposeBag()

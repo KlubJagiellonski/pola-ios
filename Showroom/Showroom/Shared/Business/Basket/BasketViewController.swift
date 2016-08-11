@@ -36,6 +36,8 @@ class BasketViewController: UIViewController, BasketViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        automaticallyAdjustsScrollViewInsets = false
+        
         castView.delegate = self
         
         updateBasket(with: manager.state.basket)
@@ -59,6 +61,11 @@ class BasketViewController: UIViewController, BasketViewDelegate {
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         castView.unregisterOnKeyboardEvent()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        castView.contentInset = UIEdgeInsetsMake(topLayoutGuide.length, 0, bottomLayoutGuide.length, 0)
     }
     
     func updateBasket(with basket: Basket?) {

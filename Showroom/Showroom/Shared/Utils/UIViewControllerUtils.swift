@@ -1,28 +1,12 @@
 import Foundation
 import UIKit
 
-protocol ExtendedView: class {
-    var extendedContentInset: UIEdgeInsets? { get set }
-}
-
-protocol ExtendedViewController: class {
-    var extendedView: ExtendedView { get }
-    var extendedContentInset: UIEdgeInsets? { get set }
+protocol ContentInsetHandler: class {
+    var contentInset: UIEdgeInsets { get set }
 }
 
 protocol ExtendedModalViewController: class {
     func forceCloseWithoutAnimation()
-}
-
-extension ExtendedViewController where Self: UIViewController {
-    var extendedView: ExtendedView {
-        get { return self.view as! ExtendedView }
-    }
-    
-    var extendedContentInset: UIEdgeInsets? {
-        set { extendedView.extendedContentInset = newValue }
-        get { return extendedView.extendedContentInset }
-    }
 }
 
 extension UIViewController {    

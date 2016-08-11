@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 import RxSwift
 
-protocol ProductListViewControllerInterface: class, NavigationSender, ExtendedViewController {
+protocol ProductListViewControllerInterface: class, NavigationSender {
     associatedtype EntryData
     
     var disposeBag: DisposeBag { get }

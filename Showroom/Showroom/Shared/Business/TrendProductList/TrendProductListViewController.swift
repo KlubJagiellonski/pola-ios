@@ -41,6 +41,11 @@ class TrendProductListViewController: UIViewController, ProductListViewControlle
         logAnalyticsShowScreen(.Trend)
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        castView.contentInset = UIEdgeInsetsMake(topLayoutGuide.length, 0, bottomLayoutGuide.length, 0)
+    }
+    
     func updateData(with data: EntryTrendInfo) {
         guard data.slug != model.entryTrendInfo.slug else {
             logInfo("Tried to update same trend info view")

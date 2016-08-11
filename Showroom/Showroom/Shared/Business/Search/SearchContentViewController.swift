@@ -27,6 +27,8 @@ class SearchContentViewController: UIViewController, SearchContentViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        automaticallyAdjustsScrollViewInsets = false
+        
         castView.delegate = self
     }
     

@@ -8,7 +8,7 @@ protocol ProductListViewDelegate: class {
     func productListView(listView: ProductListViewInterface, didDoubleTapProductAtIndex index: Int)
 }
 
-protocol ProductListViewInterface: class, ExtendedView {
+protocol ProductListViewInterface: class, ContentInsetHandler {
     var productListComponent: ProductListComponent { get }
     var switcherState: ViewSwitcherState { get set }
     var nextPageState: NextPageState { get }
@@ -23,6 +23,16 @@ protocol ProductListViewInterface: class, ExtendedView {
 }
 
 extension ProductListViewInterface {
+    var contentInset: UIEdgeInsets {
+        set {
+            guard newValue != contentInset else { return }
+            collectionView.contentInset = newValue
+            collectionView.scrollIndicatorInsets = collectionView.contentInset
+        }
+        get {
+            return collectionView.contentInset
+        }
+    }
     var extendedContentInset: UIEdgeInsets? {
         set {
             let inset = newValue ?? UIEdgeInsetsZero

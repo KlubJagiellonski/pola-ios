@@ -12,7 +12,7 @@ protocol BasketViewDelegate: ViewSwitcherDelegate {
     func basketView(view: BasketView, didSelectProductAtIndexPath indexPath: NSIndexPath)
 }
 
-final class BasketView: ViewSwitcher, UITableViewDelegate {
+final class BasketView: ViewSwitcher, UITableViewDelegate, ContentInsetHandler {
     private let contentView = UIView()
     private let checkoutView = BasketCheckoutView()
     private let checkoutBottomBackgroundView = UIView()
@@ -23,7 +23,14 @@ final class BasketView: ViewSwitcher, UITableViewDelegate {
     var lastUpdateInfo: BasketUpdateInfo? {
         return dataSource.lastBasketUpdateInfo
     }
-    
+    var contentInset: UIEdgeInsets = UIEdgeInsetsZero {
+        didSet {
+            guard contentInset != oldValue else { return }
+            
+            tableView.contentInset = UIEdgeInsetsMake(contentInset.top, 0, bounds.height - checkoutView.frame.minY, 0)
+            tableView.scrollIndicatorInsets = tableView.contentInset
+        }
+    }
     var discountCode: String? {
         set { checkoutView.discountInput.text = newValue }
         get { return checkoutView.discountInput.text }
@@ -75,8 +82,7 @@ final class BasketView: ViewSwitcher, UITableViewDelegate {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        tableView.contentInset.bottom = bounds.height - checkoutView.frame.minY
-        tableView.scrollIndicatorInsets = tableView.contentInset
+        updateTableViewContentInsets()
     }
     
     func deselectRowsIfNeeded() {
@@ -138,6 +144,11 @@ final class BasketView: ViewSwitcher, UITableViewDelegate {
         tableView.snp_makeConstraints { make in
             make.edges.equalToSuperview()
         }
+    }
+    
+    private func updateTableViewContentInsets() {
+        tableView.contentInset.bottom = bounds.height - checkoutView.frame.minY
+        tableView.scrollIndicatorInsets = tableView.contentInset
     }
     
     // MARK:- UITableViewDelegate
@@ -202,7 +213,9 @@ extension BasketView: KeyboardHandler, KeyboardHelperDelegate {
         let animations = {
             self.layoutIfNeeded()
         }
-        UIView.animateWithDuration(duration, delay: 0, options: animationOptions, animations: animations, completion: nil)
+        UIView.animateWithDuration(duration, delay: 0, options: animationOptions, animations: animations, completion: { [weak self] _ in
+            self?.updateTableViewContentInsets()
+        })
     }
 }
 

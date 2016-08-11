@@ -44,6 +44,11 @@ class SearchProductListViewController: UIViewController, ProductListViewControll
         logAnalyticsShowScreen(.SearchProducts)
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        castView.contentInset = UIEdgeInsetsMake(topLayoutGuide.length, 0, bottomLayoutGuide.length, 0)
+    }
+    
     func updateData(with data: EntrySearchInfo) {
         disposeBag = DisposeBag()
         model.update(with: data)

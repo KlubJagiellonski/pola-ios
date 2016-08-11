@@ -9,15 +9,15 @@ protocol DashboardViewDelegate: ViewSwitcherDelegate {
     func dashboardViewDidTapRetryRecommendation(dashboardView: DashboardView)
 }
 
-class DashboardView: ViewSwitcher, UITableViewDelegate, UICollectionViewDelegate {
+class DashboardView: ViewSwitcher, ContentInsetHandler, UITableViewDelegate, UICollectionViewDelegate {
     private let tableView = UITableView(frame: CGRectZero, style: .Plain)
     private let dataSource: ContentPromoDataSource
     private let disposeBag = DisposeBag()
     
-    var contentInset: UIEdgeInsets {
-        get { return tableView.contentInset }
-        set {
-            tableView.contentInset = UIEdgeInsetsMake(0, newValue.left, newValue.bottom, newValue.right)
+    var contentInset: UIEdgeInsets = UIEdgeInsetsZero {
+        didSet {
+            guard contentInset != oldValue else { return }
+            tableView.contentInset = UIEdgeInsetsMake(0, contentInset.left, contentInset.bottom, contentInset.right)
             tableView.scrollIndicatorInsets = tableView.contentInset
         }
     }

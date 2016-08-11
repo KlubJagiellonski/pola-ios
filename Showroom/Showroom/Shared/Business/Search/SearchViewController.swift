@@ -8,7 +8,6 @@ final class SearchViewController: UIViewController, SearchViewDelegate {
     private var castView: SearchView { return view as! SearchView }
     private let model: SearchModel
     private var indexedViewControllers: [Int: UIViewController] = [:]
-    private var firstLayoutSubviewsPassed = false
     
     init(with resolver: DiResolver) {
         self.resolver = resolver
@@ -26,6 +25,8 @@ final class SearchViewController: UIViewController, SearchViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        automaticallyAdjustsScrollViewInsets = false
         
         castView.pageHandler = self
         castView.delegate = self
@@ -48,10 +49,7 @@ final class SearchViewController: UIViewController, SearchViewDelegate {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        if !firstLayoutSubviewsPassed {
-            firstLayoutSubviewsPassed = true
-            castView.extendedContentInset = UIEdgeInsets(top: topLayoutGuide.length, left: 0, bottom: 0, right: 0)
-        }
+        castView.contentInset = UIEdgeInsets(top: topLayoutGuide.length, left: 0, bottom: bottomLayoutGuide.length, right: 0)
     }
     
     private func fetchSearchItems() {

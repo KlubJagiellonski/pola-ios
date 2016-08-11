@@ -114,6 +114,7 @@ final class ProductListComponent: NSObject, UICollectionViewDataSource, UICollec
             addedProductIndexPaths.append(NSIndexPath(forItem: index + currentCount, inSection: productsSectionIndex))
         }
         
+        
         self.products.appendContentsOf(products)
         
         collectionView.performBatchUpdates({
@@ -152,7 +153,7 @@ final class ProductListComponent: NSObject, UICollectionViewDataSource, UICollec
         
         let nextPageSectionIndex = ProductListSection.NextPage.toSectionIndex(headerSectionInfo != nil)
         let nextPageIndexPath = [NSIndexPath(forItem: 0, inSection: nextPageSectionIndex)]
-        let nextPageSection = NSIndexSet(index: 1)
+        let nextPageSection = NSIndexSet(index: nextPageSectionIndex)
         
         switch nextPageState {
         case .Error:

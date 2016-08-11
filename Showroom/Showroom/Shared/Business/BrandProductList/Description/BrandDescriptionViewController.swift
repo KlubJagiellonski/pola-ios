@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-class BrandDescriptionViewController: UIViewController, ExtendedViewController {
+class BrandDescriptionViewController: UIViewController {
     private let brand: Brand
     
     private var castView: BrandDescriptionView { return view as! BrandDescriptionView }
@@ -24,5 +24,10 @@ class BrandDescriptionViewController: UIViewController, ExtendedViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         logAnalyticsShowScreen(.BrandDescription)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        castView.contentInset = UIEdgeInsetsMake(topLayoutGuide.length, 0, bottomLayoutGuide.length, 0)
     }
 }

@@ -76,12 +76,6 @@ class CommonNavigationHandler: NavigationHandler {
     }
     
     private func configureChildViewController(viewController: UIViewController) {
-        if let extendedViewController = viewController as? ExtendedViewController {
-            let topLayoutGuide = navigationController?.topLayoutGuide.length ?? 0
-            let bottomLayoutGuide = navigationController?.bottomLayoutGuide.length ?? 0
-            let navigationBarHeight = navigationController?.navigationBar.bounds.height ?? 0
-            extendedViewController.extendedContentInset = UIEdgeInsetsMake(topLayoutGuide + navigationBarHeight, 0, bottomLayoutGuide, 0)
-        }
         viewController.resetBackTitle()
     }
     

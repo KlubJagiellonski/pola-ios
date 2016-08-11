@@ -6,7 +6,7 @@ protocol SearchViewDelegate: ViewSwitcherDelegate {
     func search(view: SearchView, didTapSearchWithQuery query: String)
 }
 
-final class SearchView: ViewSwitcher, ExtendedView, UICollectionViewDelegateFlowLayout {
+final class SearchView: ViewSwitcher, ContentInsetHandler, UICollectionViewDelegateFlowLayout {
     private let contentView = UIView()
     private let headerView = UIView()
     private let searchBar = UISearchBar()
@@ -17,11 +17,15 @@ final class SearchView: ViewSwitcher, ExtendedView, UICollectionViewDelegateFlow
     
     private let dataSource: SearchDataSource
     private var topOffsetConstraint: Constraint?
-    var extendedContentInset: UIEdgeInsets? {
+    private var bottomOffsetConstraint: Constraint?
+    var contentInset: UIEdgeInsets = UIEdgeInsetsZero {
         didSet {
-            let inset = extendedContentInset ?? UIEdgeInsetsZero
-            topOffsetConstraint?.updateOffset(inset)
-            collectionView.contentInset = UIEdgeInsetsMake(0, 0, inset.bottom, 0)
+            guard contentInset != oldValue else {
+                return
+            }
+            topOffsetConstraint?.updateOffset(contentInset.top)
+            bottomOffsetConstraint?.updateOffset(-contentInset.bottom)
+            collectionView.collectionViewLayout.invalidateLayout()
         }
     }
     var pageHandler: SearchPageHandler? {
@@ -144,7 +148,7 @@ final class SearchView: ViewSwitcher, ExtendedView, UICollectionViewDelegateFlow
             make.top.equalTo(tabView.snp_bottom)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
-            make.bottom.equalToSuperview()
+            bottomOffsetConstraint = make.bottom.equalToSuperview().constraint
         }
         
         dimView.snp_makeConstraints { make in
@@ -159,7 +163,7 @@ final class SearchView: ViewSwitcher, ExtendedView, UICollectionViewDelegateFlow
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         let size = collectionView.bounds.size
-        return CGSize(width: size.width, height: size.height - collectionView.contentInset.top - collectionView.contentInset.bottom)
+        return CGSize(width: size.width, height: size.height)
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
