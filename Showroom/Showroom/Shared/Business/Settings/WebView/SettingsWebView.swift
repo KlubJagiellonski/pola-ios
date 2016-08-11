@@ -24,9 +24,8 @@ class SettingsWebView: ViewSwitcher {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func loadRequest(urlString urlString: String) {
-        let url = NSURL(string: urlString)!
-        webView.loadRequest(NSURLRequest(URL: url))
+    func showWebContent(htmlString htmlString: String) {
+        webView.loadHTMLString(htmlString, baseURL: nil)
     }
 }
 

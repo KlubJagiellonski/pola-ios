@@ -233,6 +233,33 @@ extension ApiService {
         }
     }
     
+    func fetchSettingsWebContent(settingsWebType settingsWebType: SettingsWebType, retryOnNotLoggedIn: Bool = true) -> Observable<WebContentResult> {        
+        let session = dataSource?.apiServiceWantsSession(self)
+        if session == nil && settingsWebType.requiresSession {
+            return Observable.error(ApiError.NoSession)
+        }
+        
+        let url = NSURL(fileURLWithPath: basePath).URLByAppendingPathComponent(settingsWebType.pathComponent)
+        let urlRequest = NSMutableURLRequest(URL: url)
+        urlRequest.HTTPMethod = "GET"
+        
+        if settingsWebType.requiresSession {
+            urlRequest.applySessionHeaders(session!)
+        }
+    
+        return networkClient
+            .request(withRequest: urlRequest)
+            .logNetworkError()
+            .flatMap { data -> Observable<WebContentResult> in
+                let result = String(data: data, encoding: NSUTF8StringEncoding)
+                return Observable.just(result ?? "")
+            }.catchError { [unowned self] error -> Observable<WebContentResult> in
+                return try self.catchNotAuthorizedError(error, shouldRetry: retryOnNotLoggedIn) { [unowned self] (Void) -> Observable<WebContentResult> in
+                    return self.fetchSettingsWebContent(settingsWebType: settingsWebType, retryOnNotLoggedIn: false)
+                }
+            }
+    }
+    
     func fetchUser(retryOnNotLoggedIn: Bool = true) -> Observable<User> {
         guard let session = dataSource?.apiServiceWantsSession(self) else {
             return Observable.error(ApiError.NoSession)
@@ -640,6 +667,7 @@ extension ObservableType {
             }
         }
     }
+    
     func handleAppNotSupportedError(apiService: ApiService) -> Observable<E> {
         return doOnError { error in
             guard let urlError = error as? RxCocoaURLError, case let .HTTPRequestFailed(response, _) = urlError where response.statusCode == 410 else {
@@ -647,6 +675,26 @@ extension ObservableType {
             }
             logInfo("Received 410")
             apiService.delegate?.apiServiceDidReceiveAppNotSupportedError(apiService)
+        }
+    }
+}
+
+extension SettingsWebType {
+    var pathComponent: String {
+        switch self {
+        case .UserData: return "user/profile"
+        case .History: return "order/history"
+        case .HowToMeasure: return "how-to-measure"
+        case .PrivacyPolicy: return "privacy-policy"
+        case .FrequestQuestions: return "faq"
+        case .Rules: return "rules"
+        case .Contact: return "contact"
+        }
+    }
+    var requiresSession: Bool {
+        switch self {
+        case UserData, History: return true
+        default: return false
         }
     }
 }

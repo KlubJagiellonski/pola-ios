@@ -1,14 +1,15 @@
 import UIKit
 import WebKit
+import RxSwift
 
 class SettingsWebViewController: UIViewController {
+    var disposeBag = DisposeBag()
     
+    var model: SettingsWebViewModel
     var castView: SettingsWebView { return view as! SettingsWebView }
     
-    private let url: String
-    
-    init(resolver: DiResolver, url: String) {
-        self.url = url
+    init(model: SettingsWebViewModel) {
+        self.model = model
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -24,7 +25,24 @@ class SettingsWebViewController: UIViewController {
         super.viewDidLoad()
         
         castView.delegate = self
-        castView.loadRequest(urlString: url)
+        fetchWebContent()
+    }
+    
+    func fetchWebContent() {
+        castView.switcherState = .Loading
+        
+        model.fetchWebContent().subscribe { [weak self] (fetchResult: Event<WebContentResult>) in
+            guard let `self` = self else { return }
+            switch fetchResult {
+            case .Error(let error):
+                logInfo("Error during fetching settings web content, error: \(error)")
+                self.castView.switcherState = .Error
+            case .Next(let result):
+                logInfo("Fetched settings web content: \(result)")
+                self.castView.showWebContent(htmlString: result)
+            default: break
+            }
+        }.addDisposableTo(disposeBag)
     }
 }
 
@@ -32,7 +50,7 @@ extension SettingsWebViewController: SettingsWebViewDelegate {
     
     func viewSwitcherDidTapRetry(view: ViewSwitcher) {
         logInfo("viewSwitcherDidTapRetry")
-        castView.loadRequest(urlString: url)
+        fetchWebContent()
     }
     
     func webView(webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {

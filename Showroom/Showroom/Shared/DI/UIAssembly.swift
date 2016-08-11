@@ -153,8 +153,11 @@ class UIAssembly: AssemblyType {
         container.register(SettingsViewController.self) { r in
             return SettingsViewController(resolver: r.resolve(DiResolver.self)!)
         }
-        container.register(SettingsWebViewController.self) { r, url in
-            return SettingsWebViewController(resolver: r.resolve(DiResolver.self)!, url: url)
+        container.register(SettingsWebViewController.self) { (r: ResolverType, settingsWebType: SettingsWebType) in
+            return SettingsWebViewController(model: r.resolve(SettingsWebViewModel.self, argument: settingsWebType)!)
+        }
+        container.register(SettingsWebViewModel.self) { r, settingsWebType in
+            return SettingsWebViewModel(apiService: r.resolve(ApiService.self)!, settingsWebType: settingsWebType)
         }
         container.register(SplashViewController.self) { r in
             return SplashViewController()

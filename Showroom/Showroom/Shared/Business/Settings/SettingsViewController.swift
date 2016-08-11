@@ -139,44 +139,44 @@ class SettingsViewController: UIViewController {
     func userDataRowPressed() {
         logInfo("userDataRowPressed")
         logAnalyticsShowScreen(.UserData)
-        sendNavigationEvent(ShowSettingsWebViewEvent(title: tr(.SettingsUserData), url: "https://www.showroom.pl/c/data"))
+        sendNavigationEvent(ShowSettingsWebViewEvent(title: tr(.SettingsUserData), webType: .UserData))
     }
 
     func historyRowPressed() {
         logInfo("historyRowPressed")
         logAnalyticsShowScreen(.OrdersHistory)
-        sendNavigationEvent(ShowSettingsWebViewEvent(title: tr(.SettingsHistory), url: "https://www.showroom.pl/c/orders"))
+        sendNavigationEvent(ShowSettingsWebViewEvent(title: tr(.SettingsHistory), webType: .History))
     }
     
     func howToMeasureRowPressed() {
         logInfo("howToMeasureRowPressed")
         
         logAnalyticsShowScreen(.HowToMeasure)
-        sendNavigationEvent(ShowSettingsWebViewEvent(title: tr(.SettingsHowToMeasure), url: "https://www.showroom.pl/d/jak-sie-mierzyc"))
+        sendNavigationEvent(ShowSettingsWebViewEvent(title: tr(.SettingsHowToMeasure), webType: .HowToMeasure))
     }
     
     func privacyPolicyRowPressed() {
         logInfo("privacyPolicyRowPressed")
         logAnalyticsShowScreen(.Policy)
-        sendNavigationEvent(ShowSettingsWebViewEvent(title: tr(.SettingsPrivacyPolicy), url: "https://dysk.shwrm.net/marketing/images/pliki/SHWRM5PolitykaPrywatnosci.pdf"))
+        sendNavigationEvent(ShowSettingsWebViewEvent(title: tr(.SettingsPrivacyPolicy), webType: .PrivacyPolicy))
     }
     
     func frequentQuestionsRowPressed() {
         logInfo("frequentQuestionsRowPressed")
         logAnalyticsShowScreen(.FAQ)
-        sendNavigationEvent(ShowSettingsWebViewEvent(title: tr(.SettingsFrequentQuestions), url: "https://www.showroom.pl/czeste-pytania"))
+        sendNavigationEvent(ShowSettingsWebViewEvent(title: tr(.SettingsFrequentQuestions), webType: .FrequestQuestions))
     }
     
     func rulesRowPressed() {
         logInfo("rulesRowPressed")
         logAnalyticsShowScreen(.Rules)
-        sendNavigationEvent(ShowSettingsWebViewEvent(title: tr(.SettingsRules), url: "https://www.showroom.pl/d/nowy-regulamin"))
+        sendNavigationEvent(ShowSettingsWebViewEvent(title: tr(.SettingsRules), webType: .Rules))
     }
     
     func contactRowPressed() {
         logInfo("contactRowPressed")
         logAnalyticsShowScreen(.Contact)
-        sendNavigationEvent(ShowSettingsWebViewEvent(title: tr(.SettingsContact), url: "https://www.showroom.pl/kontakt"))
+        sendNavigationEvent(ShowSettingsWebViewEvent(title: tr(.SettingsContact), webType: .Contact))
     }
     
     func showOnboarding() {

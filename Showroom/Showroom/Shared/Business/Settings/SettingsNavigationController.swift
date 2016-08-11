@@ -25,8 +25,8 @@ class SettingsNavigationController: UINavigationController, NavigationHandler {
         popViewControllerAnimated(true)
     }
     
-    func showWebView(title title: String, url: String) {
-        let viewController = resolver.resolve(SettingsWebViewController.self, argument: url)
+    func showWebView(title title: String, webType: SettingsWebType) {
+        let viewController = resolver.resolve(SettingsWebViewController.self, argument: webType)
         viewController.navigationItem.title = title
         pushViewController(viewController, animated: true)
     }
@@ -36,7 +36,7 @@ class SettingsNavigationController: UINavigationController, NavigationHandler {
     func handleNavigationEvent(event: NavigationEvent) -> EventHandled {
         switch event {
         case let webViewEvent as ShowSettingsWebViewEvent:
-            showWebView(title: webViewEvent.title, url: webViewEvent.url)
+            showWebView(title: webViewEvent.title, webType: webViewEvent.webType)
             return true
         default:
             return false
