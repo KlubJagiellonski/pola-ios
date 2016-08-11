@@ -85,7 +85,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"pagination\": {\n        \"page\": 3\n    },\n    \"colors\": [3, 6, 9],\n    \"categories\": [\n        \"female\", 78, 106\n    ],\n    \"minPrice\": 100,\n    \"maxPrice\": 1000000,\n    \"stores\": [],\n    \"sizes\": []\n}"
+					"raw": "{\n    \"pagination\": {\n        \"page\": 3\n    },\n    \"link\": \"https://www.showroom.pl/tag/ona\"\n}"
 				}
 			},
 			"response": []
@@ -241,11 +241,16 @@
 						"key": "showroom-secret",
 						"value": "123",
 						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
 					}
 				],
 				"body": {
-					"mode": "formdata",
-					"formdata": []
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Name\",\n  \"surname\": \"Surname\",\n  \"street\": \"Polna 10\",\n  \"zip\": \"05-900\",\n  \"city\": \"Warsaw\",\n  \"country\": \"PL\",\n  \"phone\": \"506573822\",\n  \"description\": \"test description\"\n}"
 				},
 				"description": ""
 			},
@@ -266,60 +271,81 @@
 						"key": "showroom-secret",
 						"value": "123",
 						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Name\",\n  \"surname\": \"Surname\",\n  \"street\": \"Polna 10\",\n  \"zip\": \"05-900\",\n  \"city\": \"Warsaw\",\n  \"country\": \"PL\",\n  \"phone\": \"506573822\",\n  \"description\": \"test description\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "STORE",
+			"request": {
+				"url": "{{HOST}}/store/584",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"pagination\": {\n        \"page\": 1,\n        \"pageSize\": 1\n    },\n    \"price\": [0, 10000],\n    \"sort\": [2]\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "PAYMENT AUTHORIZE",
+			"request": {
+				"url": "{{HOST}}/payment/payu/authorize",
+				"method": "GET",
+				"header": [
+					{
+						"key": "showroom-key",
+						"value": "123",
+						"description": ""
+					},
+					{
+						"key": "showroom-secret",
+						"value": "123",
+						"description": ""
 					}
 				],
 				"body": {
 					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "name",
-							"value": "Name",
-							"type": "text",
-							"enabled": true
-						},
-						{
-							"key": "surname",
-							"value": "Surname",
-							"type": "text",
-							"enabled": true
-						},
-						{
-							"key": "street",
-							"value": "Polna 10",
-							"type": "text",
-							"enabled": true
-						},
-						{
-							"key": "zip",
-							"value": "05-900",
-							"type": "text",
-							"enabled": true
-						},
-						{
-							"key": "city",
-							"value": "Warsaw",
-							"type": "text",
-							"enabled": true
-						},
-						{
-							"key": "country",
-							"value": "PL",
-							"type": "text",
-							"enabled": true
-						},
-						{
-							"key": "phone",
-							"value": "506573822",
-							"type": "text",
-							"enabled": true
-						},
-						{
-							"key": "description",
-							"value": "test description",
-							"type": "text",
-							"enabled": true
-						}
-					]
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "RESET PASSWORD",
+			"request": {
+				"url": "{{HOST}}/reset-password",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"pjanecze@gmail.com\"\n}"
 				},
 				"description": ""
 			},

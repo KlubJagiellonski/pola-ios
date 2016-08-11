@@ -123,6 +123,9 @@ class UIAssembly: AssemblyType {
         container.register(ResetPasswordViewController.self) { r in
             return ResetPasswordViewController(resolver: r.resolve(DiResolver.self)!)
         }
+        container.register(ResetPasswordModel.self) { r in
+            return ResetPasswordModel(with: r.resolve(ApiService.self)!)
+        }
         container.register(EditKioskViewController.self) { r, checkoutModel in
             return EditKioskViewController(with: r.resolve(DiResolver.self)!, and: checkoutModel)
         }

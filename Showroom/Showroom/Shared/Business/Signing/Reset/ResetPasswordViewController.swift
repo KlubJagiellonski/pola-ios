@@ -1,15 +1,17 @@
 import UIKit
+import RxSwift
 
 class ResetPasswordViewController: UIViewController, ResetPasswordViewDelegate {
+    private let disposeBag = DisposeBag()
     private let resolver: DiResolver
-    private let userManager: UserManager
     private let toastManager: ToastManager
+    private let model: ResetPasswordModel
     private var castView: ResetPasswordView { return view as! ResetPasswordView }
     
     init(resolver: DiResolver) {
         self.resolver = resolver
-        self.userManager = resolver.resolve(UserManager.self)
         self.toastManager = resolver.resolve(ToastManager.self)
+        self.model = resolver.resolve(ResetPasswordModel.self)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -45,13 +47,23 @@ class ResetPasswordViewController: UIViewController, ResetPasswordViewDelegate {
     // MARK: - ResetPasswordViewDelegate
     
     func resetPasswordViewDidReset() {
-        guard castView.validate(showResult: true) else {
+        guard let email = castView.email where castView.validate(showResult: true) else {
             return
         }
         
-        // TODO: Make API request
-        
-        // Success
-        castView.switcherState = .Empty
+        castView.switcherState = .ModalLoading
+        model.resetPassword(withEmail: email).subscribe { [weak self] (event: Event<Void>) in
+            guard let `self` = self else { return }
+            
+            switch event {
+            case .Next:
+                self.castView.switcherState = .Empty //success
+            case .Error(let error):
+                logInfo("Error while reseting password \(error)")
+                self.toastManager.showMessage(tr(.CommonError))
+                self.castView.switcherState = .Success
+            default: break
+            }
+        }.addDisposableTo(disposeBag)
     }
 }

@@ -74,6 +74,7 @@
 		1D2F19CD1CEB083F0099142E /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1D2F19C21CEB07D10099142E /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1D2F19D11CEB16120099142E /* Decodable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2F19961CEA14FE0099142E /* Decodable.framework */; };
 		1D3792721D196931001A7C47 /* ViewSwitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3792711D196931001A7C47 /* ViewSwitcher.swift */; };
+		1D3EC6551D5C81B4004413F9 /* ResetPasswordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3EC6541D5C81B4004413F9 /* ResetPasswordModel.swift */; };
 		1D3EEA1A1D143C1100F67B69 /* BasketRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3EEA191D143C1100F67B69 /* BasketRequest.swift */; };
 		1D44AA121D48995200AF612A /* GoogleAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D44AA111D48995200AF612A /* GoogleAnalytics.framework */; };
 		1D44AA141D489B5B00AF612A /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D44AA131D489B5B00AF612A /* Analytics.swift */; };
@@ -442,6 +443,7 @@
 		1D2F19C11CEB07D10099142E /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		1D2F19C21CEB07D10099142E /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
 		1D3792711D196931001A7C47 /* ViewSwitcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewSwitcher.swift; sourceTree = "<group>"; };
+		1D3EC6541D5C81B4004413F9 /* ResetPasswordModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetPasswordModel.swift; sourceTree = "<group>"; };
 		1D3EEA191D143C1100F67B69 /* BasketRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasketRequest.swift; sourceTree = "<group>"; };
 		1D44AA111D48995200AF612A /* GoogleAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleAnalytics.framework; path = Carthage/Build/iOS/GoogleAnalytics.framework; sourceTree = "<group>"; };
 		1D44AA131D489B5B00AF612A /* Analytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Analytics.swift; sourceTree = "<group>"; };
@@ -1465,6 +1467,7 @@
 			children = (
 				753D86581D4A2402001BF7EB /* ResetPasswordView.swift */,
 				753D865A1D4A240F001BF7EB /* ResetPasswordViewController.swift */,
+				1D3EC6541D5C81B4004413F9 /* ResetPasswordModel.swift */,
 			);
 			name = ResetPassword;
 			path = Reset;
@@ -2139,6 +2142,7 @@
 				1D6933521D2E410B00609BB9 /* BrandDescriptionViewController.swift in Sources */,
 				C022208F1D183C0C004411A7 /* CheckoutDeliveryView.swift in Sources */,
 				C026E5701D3F95E20003DA8B /* SettingsWebView.swift in Sources */,
+				1D3EC6551D5C81B4004413F9 /* ResetPasswordModel.swift in Sources */,
 				C0C635041D339B5100715A77 /* OnboardingViewController.swift in Sources */,
 				1D5F916C1D36541700AE66E6 /* SelectValueTableViewCell.swift in Sources */,
 				1D0F3B641D13D3710052CFF6 /* BasketCountryDataSource.swift in Sources */,
