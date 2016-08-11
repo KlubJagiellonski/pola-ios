@@ -331,7 +331,7 @@ enum L10n {
   case OnboardingNotificationsAskMe
   /// POMIŃ
   case OnboardingNotificationsSkip
-  /// Stuknij dwukrotnie w zdjęcie, aby dodać produkt do ulubionych
+  /// Stuknij dwukrotnie w zdjęcie,\naby dodać produkt do ulubionych
   case OnboardingDoubleTapLabel
   /// Przesuń palcem w bok, aby przejść do kolejnego produktu z listy
   case OnboardingProductPagingLabel

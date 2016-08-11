@@ -277,6 +277,10 @@
 		C007CD921D2E7F6E00700EBB /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C007CD911D2E7F6E00700EBB /* SettingsCell.swift */; };
 		C007CD951D2E92FC00700EBB /* SettingsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C007CD941D2E92FC00700EBB /* SettingsDataSource.swift */; };
 		C00BA8721D5C6A4F009A9637 /* SettingsWebViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00BA8711D5C6A4F009A9637 /* SettingsWebViewModel.swift */; };
+		C00BA8741D5CD334009A9637 /* WishlistInAppOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00BA8731D5CD334009A9637 /* WishlistInAppOnboardingViewController.swift */; };
+		C00BA8761D5CD53E009A9637 /* WishlistInAppOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00BA8751D5CD53E009A9637 /* WishlistInAppOnboardingView.swift */; };
+		C00BA87A1D5DFD01009A9637 /* ProductPagingInAppOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00BA8791D5DFD01009A9637 /* ProductPagingInAppOnboardingViewController.swift */; };
+		C00BA87C1D5DFD2C009A9637 /* ProductPagingInAppOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00BA87B1D5DFD2C009A9637 /* ProductPagingInAppOnboardingView.swift */; };
 		C01FF2E21D366D3B00D025AE /* HeartMaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01FF2E11D366D3B00D025AE /* HeartMaskView.swift */; };
 		C01FF2E61D36771D00D025AE /* TouchIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01FF2E51D36771D00D025AE /* TouchIndicatorView.swift */; };
 		C020DA461D40F39900E6E4AE /* ShowUserInfoViewEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C020DA451D40F39900E6E4AE /* ShowUserInfoViewEvent.swift */; };
@@ -643,6 +647,10 @@
 		C007CD911D2E7F6E00700EBB /* SettingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		C007CD941D2E92FC00700EBB /* SettingsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsDataSource.swift; sourceTree = "<group>"; };
 		C00BA8711D5C6A4F009A9637 /* SettingsWebViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsWebViewModel.swift; sourceTree = "<group>"; };
+		C00BA8731D5CD334009A9637 /* WishlistInAppOnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WishlistInAppOnboardingViewController.swift; sourceTree = "<group>"; };
+		C00BA8751D5CD53E009A9637 /* WishlistInAppOnboardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WishlistInAppOnboardingView.swift; sourceTree = "<group>"; };
+		C00BA8791D5DFD01009A9637 /* ProductPagingInAppOnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductPagingInAppOnboardingViewController.swift; sourceTree = "<group>"; };
+		C00BA87B1D5DFD2C009A9637 /* ProductPagingInAppOnboardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductPagingInAppOnboardingView.swift; sourceTree = "<group>"; };
 		C01FF2E11D366D3B00D025AE /* HeartMaskView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeartMaskView.swift; sourceTree = "<group>"; };
 		C01FF2E51D36771D00D025AE /* TouchIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchIndicatorView.swift; sourceTree = "<group>"; };
 		C020DA451D40F39900E6E4AE /* ShowUserInfoViewEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowUserInfoViewEvent.swift; sourceTree = "<group>"; };
@@ -1704,6 +1712,10 @@
 				C0C635011D3396DA00715A77 /* OnboardingView.swift */,
 				C049D8CC1D33E7800043F60F /* HorizontalPageControl.swift */,
 				C01FF2E51D36771D00D025AE /* TouchIndicatorView.swift */,
+				C00BA8731D5CD334009A9637 /* WishlistInAppOnboardingViewController.swift */,
+				C00BA8751D5CD53E009A9637 /* WishlistInAppOnboardingView.swift */,
+				C00BA8791D5DFD01009A9637 /* ProductPagingInAppOnboardingViewController.swift */,
+				C00BA87B1D5DFD2C009A9637 /* ProductPagingInAppOnboardingView.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -2062,6 +2074,7 @@
 				1D1A7E121D242517009CCCE7 /* ProductListModel.swift in Sources */,
 				1D0453571CFF1568001CC5A2 /* ProductRecommendationDataSource.swift in Sources */,
 				C0C5D28E1D099679004C1B13 /* ColorIconView.swift in Sources */,
+				C00BA8761D5CD53E009A9637 /* WishlistInAppOnboardingView.swift in Sources */,
 				1D0F3B481D1172410052CFF6 /* BasketDeliveryViewController.swift in Sources */,
 				1D49FC981D4A17A500A3832F /* NSBundleUtils.swift in Sources */,
 				1DD1EA881CF2E53500D99731 /* SearchViewController.swift in Sources */,
@@ -2078,6 +2091,7 @@
 				1DD161B81D01D0C10022B5C9 /* ProductPageViewController.swift in Sources */,
 				1D1A7E1E1D25487A009CCCE7 /* Category.swift in Sources */,
 				1D5F91511D3500A200AE66E6 /* ProductFilterView.swift in Sources */,
+				C00BA87A1D5DFD01009A9637 /* ProductPagingInAppOnboardingViewController.swift in Sources */,
 				1D0F3B611D13D2DC0052CFF6 /* BasketCountryView.swift in Sources */,
 				75A92AB21D3E26CB00EDC89D /* WishlistView.swift in Sources */,
 				1D1A7E1C1D253418009CCCE7 /* ProductLoadingPageCell.swift in Sources */,
@@ -2126,6 +2140,8 @@
 				1D72ED161CFC307D007AFD2F /* ManagerAssembly.swift in Sources */,
 				75C854621D05B7BF00E5F08F /* BasketManager.swift in Sources */,
 				1D5F91611D3537BA00AE66E6 /* UITableViewUtils.swift in Sources */,
+				C00BA87C1D5DFD2C009A9637 /* ProductPagingInAppOnboardingView.swift in Sources */,
+				C00BA8741D5CD334009A9637 /* WishlistInAppOnboardingViewController.swift in Sources */,
 				1DD1EA8B1CF2E59E00D99731 /* BasketViewController.swift in Sources */,
 				1DF796791CEB369B00C7A7F4 /* NetworkClient.swift in Sources */,
 				C092805A1D05CA4400350B82 /* ProductSizeView.swift in Sources */,

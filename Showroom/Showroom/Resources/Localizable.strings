@@ -162,7 +162,7 @@
 "Onboarding.Notifications.Label" = "Za chwilę zostaniesz poproszony o zgodę na notyfikacje, które pozwolą na informowanie Ciebie o promocjach.";
 "Onboarding.Notifications.AskMe" = "SPYTAJ MNIE";
 "Onboarding.Notifications.Skip" = "POMIŃ";
-"Onboarding.DoubleTap.Label" = "Stuknij dwukrotnie w zdjęcie, aby dodać produkt do ulubionych";
+"Onboarding.DoubleTap.Label" = "Stuknij dwukrotnie w zdjęcie,\naby dodać produkt do ulubionych";
 "Onboarding.ProductPaging.Label" = "Przesuń palcem w bok, aby przejść do kolejnego produktu z listy";
 "Search.Placeholder" = "szukaj";
 "Search.AllSearchItems" = "WSZYSTKO: %@";

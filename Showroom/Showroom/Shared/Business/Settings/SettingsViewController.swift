@@ -10,6 +10,8 @@ class SettingsViewController: UIViewController {
     
     private var firstLayoutSubviewsPassed = false
     
+    private var onboardingActionAnimator: DropUpActionAnimator!
+    
     let resolver: DiResolver
     
     init(resolver: DiResolver) {
@@ -60,6 +62,8 @@ class SettingsViewController: UIViewController {
         ])
         if !Constants.isAppStore {
             settings.append(Setting(type: .Normal, labelString: "Pokaż onboarding", action: self.showOnboarding))
+            settings.append(Setting(type: .Normal, labelString: "Pokaż in-app wishlist onboarding", action: self.showInAppWishlistOnboarding))
+            settings.append(Setting(type: .Normal, labelString: "Pokaż in-app product paging onboarding", action: self.showInAppProductPagingOnboarding))
         }
         
         castView.updateData(with: settings)
@@ -79,6 +83,7 @@ class SettingsViewController: UIViewController {
             firstLayoutSubviewsPassed = true
             castView.contentInset = UIEdgeInsets(top: topLayoutGuide.length, left: 0, bottom: bottomLayoutGuide.length, right: 0)
         }
+        
     }
     
     override func viewDidLoad() {
@@ -95,6 +100,9 @@ class SettingsViewController: UIViewController {
         super.viewDidAppear(animated)
         markHandoffUrlActivity(withPath: "/")
         castView.deselectRowsIfNeeded()
+        
+        onboardingActionAnimator = DropUpActionAnimator(height: castView.bounds.height - CGFloat(97.0))
+        onboardingActionAnimator.delegate = self
     }
 
     func facebookButtonPressed() {
@@ -194,6 +202,19 @@ class SettingsViewController: UIViewController {
         sendNavigationEvent(SimpleNavigationEvent(type: .ShowOnboaridng))
     }
     
+    func showInAppWishlistOnboarding() {
+        let wishlistOnboardingViewController = WishlistInAppOnboardingViewController()
+        wishlistOnboardingViewController.delegate = self
+        onboardingActionAnimator.presentViewController(wishlistOnboardingViewController, presentingViewController: self)
+    }
+    
+    func showInAppProductPagingOnboarding() {
+        let productPagingOnboardingViewController = ProductPagingInAppOnboardingViewController()
+        productPagingOnboardingViewController.delegate = self
+        onboardingActionAnimator.presentViewController(productPagingOnboardingViewController, presentingViewController: self)
+
+    }
+    
     private func didChange(gender gender: Gender) {
         logAnalyticsEvent(AnalyticsEventId.ProfileGenderChoice(gender.rawValue))
         userManager.gender = gender
@@ -207,5 +228,23 @@ extension SettingsViewController: SigningNavigationControllerDelegate {
     
     func signingDidLogIn(navigationController: SigningNavigationController) {
         dismissViewControllerAnimated(true, completion: nil)
+    }
+}
+
+extension SettingsViewController: WishlistInAppOnboardingViewControllerDelegate {
+    func wishlistOnboardingViewControllerDidTapDismissButton(viewController: WishlistInAppOnboardingViewController) {
+        onboardingActionAnimator.dismissViewController(presentingViewController: self, animated: true, completion: nil)
+    }
+}
+
+extension SettingsViewController: ProductPagingInAppOnboardingViewControllerDelegate {
+    func productPagingOnboardingViewControllerDidTapDismissButton(viewController: ProductPagingInAppOnboardingViewController) {
+        onboardingActionAnimator.dismissViewController(presentingViewController: self, animated: true, completion: nil)
+    }
+}
+
+extension SettingsViewController: DimAnimatorDelegate {
+    func animatorDidTapOnDimView(animator: Animator) {
+        animator.dismissViewController(presentingViewController: self, animated: true, completion: nil)
     }
 }
