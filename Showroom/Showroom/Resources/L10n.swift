@@ -191,6 +191,8 @@ enum L10n {
   case CheckoutPaymentResultFailureDescription(String, String)
   /// POWRÓT DO EKRANU GŁÓWNEGO
   case CheckoutPaymentResultGoToMain
+  /// Transakcja nie mogła zostać wykonana z powodu nieoczekiwanych zmian. Spróbuj ponownie.
+  case CheckoutPaymentOn400Error
   /// NEW
   case ProductListBadgeNew
   /// DARMOWA DOSTAWA
@@ -566,6 +568,8 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Checkout.PaymentResult.FailureDescription", p0, p1)
       case .CheckoutPaymentResultGoToMain:
         return L10n.tr("Checkout.PaymentResult.GoToMain")
+      case .CheckoutPaymentOn400Error:
+        return L10n.tr("Checkout.Payment.On400Error")
       case .ProductListBadgeNew:
         return L10n.tr("ProductList.Badge.New")
       case .ProductListBadgeFreeDelivery:

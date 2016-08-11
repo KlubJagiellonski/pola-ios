@@ -531,6 +531,45 @@ extension ApiService {
         }
     }
     
+    func createPayment(with param: PaymentRequest, retryOnNotLoggedIn: Bool = true) -> Observable<PaymentResult> {
+        guard let session = dataSource?.apiServiceWantsSession(self) else {
+            return Observable.error(ApiError.NoSession)
+        }
+        
+        let url = NSURL(fileURLWithPath: basePath)
+            .URLByAppendingPathComponent("payment")
+        
+        do {
+            let encodedParam = param.encode()
+            logInfo("Sending payment request with param: \(encodedParam)")
+            let jsonData = try NSJSONSerialization.dataWithJSONObject(encodedParam, options: [])
+            
+            let urlRequest = NSMutableURLRequest(URL: url)
+            urlRequest.HTTPMethod = "PUT"
+            urlRequest.HTTPBody = jsonData
+            urlRequest.applyJsonContentTypeHeader()
+            urlRequest.applySessionHeaders(session)
+            return networkClient
+                .request(withRequest: urlRequest)
+                .logNetworkError()
+                .flatMap { data -> Observable<PaymentResult> in
+                    do {
+                        let dict = try NSJSONSerialization.JSONObjectWithData(data, options: [])
+                        return Observable.just(try PaymentResult.decode(dict))
+                    } catch {
+                        return Observable.error(error)
+                    }
+                }.catchError { [unowned self] error -> Observable<PaymentResult> in
+                    return try self.catchNotAuthorizedError(error, shouldRetry: retryOnNotLoggedIn) {
+                        [unowned self](Void) -> Observable<PaymentResult> in
+                        return self.createPayment(with: param, retryOnNotLoggedIn: false)
+                    }
+            }
+        } catch {
+            return Observable.error(error)
+        }
+    }
+    
     func logout() -> Observable<Void> {
         guard let session = dataSource?.apiServiceWantsSession(self) else {
             return Observable.error(ApiError.NoSession)

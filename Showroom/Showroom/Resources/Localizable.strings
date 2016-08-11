@@ -92,6 +92,7 @@
 "Checkout.PaymentResult.FailureHeader" = "UUUPS!";
 "Checkout.PaymentResult.FailureDescription" = "Twoje zamówienie nr %@ zostało złożone, jednak nie udało się go opłacić. Możesz to zrobić w %@.";
 "Checkout.PaymentResult.GoToMain" = "POWRÓT DO EKRANU GŁÓWNEGO";
+"Checkout.Payment.On400Error" = "Transakcja nie mogła zostać wykonana z powodu nieoczekiwanych zmian. Spróbuj ponownie.";
 "ProductList.Badge.New" = "NEW";
 "ProductList.Badge.FreeDelivery" = "DARMOWA DOSTAWA";
 "ProductList.Badge.Premium" = "PREMIUM";

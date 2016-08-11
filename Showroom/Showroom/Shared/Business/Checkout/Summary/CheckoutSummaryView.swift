@@ -9,8 +9,9 @@ protocol CheckoutSummaryViewDelegate: class {
     func checkoutSummaryViewDidTapBuy(view: CheckoutSummaryView)
 }
 
-final class CheckoutSummaryView: UIView, UITableViewDelegate {
+final class CheckoutSummaryView: ViewSwitcher, UITableViewDelegate {
     private let dataSource: CheckoutSummaryDataSource
+    private let contentView = UIView()
     private let tableView = UITableView(frame: CGRectZero, style: .Plain)
     private let buyButton = UIButton()
     
@@ -18,7 +19,7 @@ final class CheckoutSummaryView: UIView, UITableViewDelegate {
     
     init(createPayUButton: CGRect -> UIView) {
         dataSource = CheckoutSummaryDataSource(tableView: tableView, createPayUButton: createPayUButton)
-        super.init(frame: CGRectZero)
+        super.init(successView: contentView, initialState: .Success)
         
         dataSource.summaryView = self;
         
@@ -33,8 +34,8 @@ final class CheckoutSummaryView: UIView, UITableViewDelegate {
         
         backgroundColor = UIColor(named: .White)
         
-        addSubview(tableView)
-        addSubview(buyButton)
+        contentView.addSubview(tableView)
+        contentView.addSubview(buyButton)
         
         configureCustomConstraints()
     }

@@ -15,10 +15,16 @@ extension Checkout {
     }
 }
 
-class CheckoutModel {
+enum PaymentError: ErrorType {
+    case CannotCreatePayment
+    case PaymentRequestFailed(ErrorType)
+}
+
+final class CheckoutModel {
     private let disposeBag = DisposeBag()
     private let userManager: UserManager
     private let payUManager: PayUManager
+    private let basketManager: BasketManager
     private let api: ApiService
     let state: CheckoutState
     weak var payUDelegate: PUPaymentServiceDelegate? {
@@ -26,10 +32,11 @@ class CheckoutModel {
         get { return payUManager.serviceDelegate }
     }
     
-    init(with checkout: Checkout, and userManager: UserManager, and payUManager: PayUManager, and api: ApiService) {
+    init(with checkout: Checkout, and userManager: UserManager, and payUManager: PayUManager, and api: ApiService, and basketManager: BasketManager) {
         self.userManager = userManager
         self.payUManager = payUManager
         self.api = api
+        self.basketManager = basketManager
         
         let comments = [String?](count: checkout.basket.productsByBrands.count, repeatedValue: nil)
         let userAddresses = checkout.user.userAddresses
@@ -126,6 +133,39 @@ class CheckoutModel {
                     self.state.userAddresses.append(userAddress)
                 }
             }
+    }
+    
+    func makePayment() -> Observable<PaymentResult> {
+        guard let paymentRequest = PaymentRequest(with: state) else {
+            logError("Cannot create payment request")
+            return Observable.error(PaymentError.CannotCreatePayment)
+        }
+        
+        let request = api.createPayment(with: paymentRequest)
+        
+        if state.selectedPayment.id == .PayU {
+            return Observable.create { [unowned self] observer in
+                request.subscribe { [weak self](event: Event<PaymentResult>) in
+                    guard let `self` = self else { return }
+                    
+                    switch event {
+                    case .Next(let result):
+                        self.payUManager.makePayment(with: result).subscribe(observer)
+                    case .Error(let error):
+                        observer.onError(PaymentError.PaymentRequestFailed(error))
+                        observer.onCompleted()
+                    case .Completed:
+                        observer.onCompleted()
+                    }
+                }
+            }.observeOn(MainScheduler.instance)
+        } else {
+            return request.catchError { Observable.error(PaymentError.PaymentRequestFailed($0)) }.observeOn(MainScheduler.instance)
+        }
+    }
+    
+    func clearBasket() {
+        basketManager.clearBasket()
     }
 }
 

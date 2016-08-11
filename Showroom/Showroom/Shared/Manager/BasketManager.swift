@@ -90,6 +90,11 @@ final class BasketManager {
         validate()
     }
     
+    func clearBasket() {
+        state.clear()
+        validate()
+    }
+    
     func isInBasket(brand: BasketBrand) -> Bool {
         return state.basket?.productsByBrands.contains { brand.id == $0.id } ?? false
     }
@@ -167,6 +172,13 @@ final class BasketState {
     }
     var validationState = BasketValidationState(validating: false, validated: false) {
         didSet { validationStateObservable.onNext(validationState) }
+    }
+    
+    private func clear() {
+        basket = nil
+        discountCode = nil
+        deliveryCountry = nil
+        deliveryCarrier = nil
     }
 }
 

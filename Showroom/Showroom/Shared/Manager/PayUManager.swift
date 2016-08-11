@@ -1,6 +1,12 @@
 import Foundation
 import RxSwift
 
+enum PayUPaymentError: ErrorType {
+    case InvalidRequest
+    case UserWantsRetry
+    case Cancelled
+}
+
 final class PayUManager {
     private let disposeBag = DisposeBag()
     private let dataSource = PayUAuthorizationDataSource()
@@ -42,6 +48,37 @@ final class PayUManager {
     
     func handleOpen(withURL url: NSURL) -> Bool {
         return paymentService.handleOpenURL(url)
+    }
+    
+    func makePayment(with paymentResult: PaymentResult) -> Observable<PaymentResult> {
+        guard let description = paymentResult.description, let url = paymentResult.notifyUrl, let notifyUrl = NSURL(string: url) else {
+            logError("Cannot make payment with result \(paymentResult)")
+            return Observable.error(PayUPaymentError.InvalidRequest)
+        }
+        
+        let request = PUPaymentRequest()
+        request.extOrderId = String(paymentResult.orderId)
+        request.amount = paymentResult.amount
+        request.currency = paymentResult.currency
+        request.paymentDescription = description
+        request.notifyURL = notifyUrl
+        
+        return Observable.create { [unowned self] observer in
+            self.paymentService.submitPaymentRequest(request) { result in
+                switch result.status {
+                case .Success:
+                    observer.onNext(paymentResult)
+                    observer.onCompleted()
+                case .Failure:
+                    observer.onError(PayUPaymentError.Cancelled)
+                    observer.onCompleted()
+                case .Retry:
+                    observer.onError(PayUPaymentError.UserWantsRetry)
+                    observer.onCompleted()
+                }
+            }
+            return NopDisposable.instance
+        }
     }
 }
 
