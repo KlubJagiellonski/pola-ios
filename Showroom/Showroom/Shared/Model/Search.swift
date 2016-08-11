@@ -10,6 +10,7 @@ struct SearchItem {
     let link: String?
     let gender: Gender?
     let branches: [SearchItem]?
+    let indexable: Bool
 }
 
 struct EntrySearchInfo {
@@ -37,11 +38,13 @@ extension SearchResult: Decodable, Encodable {
 extension SearchItem: Decodable, Encodable {
     static func decode(json: AnyObject) throws -> SearchItem {
         let gender: String? = try json =>? "gender"
+        
         return try SearchItem(
             name: json => "name",
             link: json =>? "link",
             gender: gender != nil ? Gender(rawValue: gender!) : nil,
-            branches: json =>? "branches"
+            branches: json =>? "branches",
+            indexable: json =>? "indexable" ?? false
         )
     }
     
