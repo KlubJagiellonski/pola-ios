@@ -44,7 +44,7 @@ final class SearchContentView: UIView, UITableViewDelegate {
     //MARK:- UITableViewDelegate
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let sectionType = SearchContentSectionType(rawValue: indexPath.section)!
+        let sectionType = dataSource.section(forIndexPath: indexPath)
         switch sectionType {
         case .Main:
             delegate?.searchContentDidSelectMainSearchItem(self)

@@ -38,6 +38,10 @@ final class SearchContentDataSource: NSObject, UITableViewDataSource {
         tableView.registerClass(type.cellClass, forCellReuseIdentifier: String(type.cellClass))
     }
     
+    func section(forIndexPath indexPath: NSIndexPath) -> SearchContentSectionType {
+        return SearchContentSectionType.sectionType(forSection: indexPath.section, mainSearchItemContainsLink: mainSearchItem.link != nil)
+    }
+    
     //MARK:- UITableViewDataSource
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
