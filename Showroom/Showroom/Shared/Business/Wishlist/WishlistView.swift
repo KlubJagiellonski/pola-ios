@@ -5,12 +5,22 @@ protocol WishlistViewDelegate: ViewSwitcherDelegate {
     func wishlistView(view: WishlistView, didSelectProductAt indexPath: NSIndexPath)
 }
 
-final class WishlistView: ViewSwitcher, UITableViewDelegate {
+final class WishlistView: ViewSwitcher, ContentInsetHandler, UITableViewDelegate {
     private let dataSource: WishlistDataSource
     private let tableView = UITableView(frame: CGRectZero, style: .Plain)
     
     weak var delegate: WishlistViewDelegate? {
         didSet { switcherDelegate = delegate }
+    }
+    
+    var contentInset: UIEdgeInsets = UIEdgeInsetsZero {
+        didSet {
+            guard contentInset != oldValue else { return }
+            
+            tableView.contentInset = UIEdgeInsetsMake(contentInset.top, 0, contentInset.bottom, 0)
+            tableView.contentOffset = CGPoint(x: 0, y: -tableView.contentInset.top)
+            tableView.scrollIndicatorInsets = tableView.contentInset
+        }
     }
     
     init() {
@@ -23,8 +33,6 @@ final class WishlistView: ViewSwitcher, UITableViewDelegate {
         tableView.delegate = self
         tableView.dataSource = dataSource
         tableView.separatorStyle = .None
-        tableView.contentInset = UIEdgeInsetsMake(Dimensions.statusBarHeight + Dimensions.navigationBarHeight, 0, Dimensions.tabViewHeight, 0)
-        tableView.scrollIndicatorInsets = tableView.contentInset
     }
     
     required init?(coder aDecoder: NSCoder) {

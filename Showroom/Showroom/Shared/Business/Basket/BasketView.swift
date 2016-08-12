@@ -28,6 +28,7 @@ final class BasketView: ViewSwitcher, UITableViewDelegate, ContentInsetHandler {
             guard contentInset != oldValue else { return }
             
             tableView.contentInset = UIEdgeInsetsMake(contentInset.top, 0, bounds.height - checkoutView.frame.minY, 0)
+            tableView.contentOffset = CGPoint(x: 0, y: -tableView.contentInset.top)
             tableView.scrollIndicatorInsets = tableView.contentInset
         }
     }

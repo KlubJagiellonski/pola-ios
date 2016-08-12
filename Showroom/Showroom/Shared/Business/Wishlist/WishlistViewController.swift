@@ -31,6 +31,9 @@ class WishlistViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        automaticallyAdjustsScrollViewInsets = false
+        
         castView.delegate = self
         updateData(with: manager.state.wishlist)
     }
@@ -44,6 +47,11 @@ class WishlistViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         markHandoffUrlActivity(withPath: "/c/wishlist")
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        castView.contentInset = UIEdgeInsetsMake(topLayoutGuide.length, 0, bottomLayoutGuide.length, 0)
     }
     
     func updateData(with products: [ListProduct]) {
