@@ -118,10 +118,22 @@ extension ProductDetails {
 
 extension ProductListResult: Decodable {
     static func decode(json: AnyObject) throws -> ProductListResult {
+        var filters: [Filter]?
+        
+        if let filtersResult: [Filter] = try json =>? "filters" {
+            filters = []
+            for filter in filtersResult {
+                if filter.type == .Choice && filter.choices?.isEmpty ?? true {
+                    continue
+                }
+                filters!.append(filter)
+            }
+        }
+        
         return try ProductListResult(
             products: json =>? "products" ?? [],
             trendInfo: json =>? "trendInfo",
-            filters: json =>? "filters",
+            filters: filters,
             brand: json =>? "brandInfo",
             isLastPage: json =>? "isLastPage" ?? true
         )
