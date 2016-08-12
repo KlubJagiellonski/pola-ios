@@ -539,6 +539,7 @@ extension ApiService {
             urlRequest.applyJsonContentTypeHeader()
             return networkClient.request(withRequest: urlRequest)
                 .logNetworkError()
+                .handleAppNotSupportedError(self)
                 .flatMap { data -> Observable<Void> in
                     return Observable.just()
             }
