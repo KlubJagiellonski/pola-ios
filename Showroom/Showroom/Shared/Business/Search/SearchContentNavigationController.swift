@@ -49,8 +49,10 @@ class SearchContentNavigationController: UINavigationController, NavigationHandl
                     logError("It shouldn't be possible to click on search element where link doesn't exist \(searchItemEvent.searchItem)")
                     return true
                 }
+                logAnalyticsEvent(AnalyticsEventId.SearchMenuClick(searchItemEvent.searchItem.link ?? ""))
                 sendNavigationEvent(ShowItemForLinkEvent(link: link, title: searchItemEvent.searchItem.name, productDetailsFromType: nil))
             } else {
+                logAnalyticsEvent(AnalyticsEventId.SearchMenuTreeClick(searchItemEvent.searchItem.name))
                 let viewController = createContentViewController(with: searchItemEvent.searchItem, type: .Normal)
                 pushViewController(viewController, animated: true)
             }

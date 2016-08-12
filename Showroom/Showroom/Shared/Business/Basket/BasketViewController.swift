@@ -191,6 +191,9 @@ extension BasketViewController: ProductAmountViewControllerDelegate {
     func productAmount(viewController: ProductAmountViewController, didChangeAmountOf product: BasketProduct) {
         actionAnimator.dismissViewController(presentingViewController: self, completion: nil)
         manager.updateInBasket(product)
+        if product.amount == 0 {
+            logAnalyticsEvent(.CartProductDeleted(product.id))
+        }
         logAnalyticsEvent(AnalyticsEventId.CartQuantityChanged(product.id))
     }
 }

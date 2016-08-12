@@ -53,11 +53,14 @@ enum AnalyticsEventId: RawRepresentable {
     case OnboardingRegisterClicked
     case DashboardContentPromoClicked(String, Int)
     case DashboardRecommendationClicked(String, Int)
-    case SearchItemClick(String)
-    case Search(String)
+    case SearchMainMenuClick(String)
+    case SearchMenuTreeClick(String)
+    case SearchMenuClick(String)
+    case Search(String, Bool)
     case CartDiscountSubmitted(String)
     case CartProductDeleted(ObjectId)
     case CartQuantityChanged(ObjectId)
+    case CartCountryChanged(String)
     case CartDeliveryMethodChanged(ObjectId)
     case CartGoToCheckoutClicked(Money)
     case WishlistProductClicked(ObjectId)
@@ -77,6 +80,7 @@ enum AnalyticsEventId: RawRepresentable {
     case ListFilterChanged(FilterId)
     case ProductClose(ObjectId)
     case ProductAddToWishlist(ObjectId)
+    case ProductRemoveFromWishlist(ObjectId)
     case ProductShare(ObjectId)
     case ProductSwitchPicture(ObjectId)
     case ProductZoomIn(ObjectId)
@@ -85,11 +89,13 @@ enum AnalyticsEventId: RawRepresentable {
     case ProductOtherDesignerProductsClicked(ObjectId)
     case ProductChangeColorClicked(ObjectId)
     case ProductChangeSizeClicked(ObjectId)
-    case ProductAddToCartClicked(ObjectId)
+    case ProductAddToCartClicked(ObjectId, String)
     case ProductSwitchedWithLeftSwipe(String) // category/trend/designer
     case ProductSwitchedWithRightSwipe(String) // category/trend/designer
     case LoginFacebookClicked
     case LoginClicked
+    case RegisterFacebookClicked
+    case RegisterClicked(Bool)
     case CheckoutCancelClicked
     case CheckoutAddressClicked
     case CheckoutAddNewAddressClicked
@@ -125,16 +131,22 @@ enum AnalyticsEventId: RawRepresentable {
             return AnalyticsEvent(category: "home", action: "home_banner_click", label: link, value: index)
         case .DashboardRecommendationClicked(let link, let index):
             return AnalyticsEvent(category: "home", action: "suggested_click", label: link, value: index)
-        case SearchItemClick(let link):
+        case SearchMainMenuClick(let label):
+            return AnalyticsEvent(category: "browse", action: "main_menu_click", label: label, value: nil)
+        case SearchMenuTreeClick(let label):
+            return AnalyticsEvent(category: "browse", action: "tree_menu_click", label: label, value: nil)
+        case SearchMenuClick(let link):
             return AnalyticsEvent(category: "browse", action: "menu_click", label: link, value: nil)
-        case Search(let query):
-            return AnalyticsEvent(category: "browse", action: "search", label: query, value: nil)
+        case Search(let query, let isChanged):
+            return AnalyticsEvent(category: "browse", action: "search", label: query, value: isChanged ? 1 : 0)
         case CartDiscountSubmitted(let coupon):
             return AnalyticsEvent(category: "cart", action: "coupon_submit", label: coupon, value: nil)
         case CartProductDeleted(let id):
             return AnalyticsEvent(category: "cart", action: "product_deleted", label: nil, value: id)
         case CartQuantityChanged(let id):
             return AnalyticsEvent(category: "cart", action: "quantity_changed", label: nil, value: id)
+        case CartCountryChanged(let countryId):
+            return AnalyticsEvent(category: "cart", action: "country_changed", label: countryId, value: nil)
         case CartDeliveryMethodChanged(let id):
             return AnalyticsEvent(category: "cart", action: "delivery_changed", label: nil, value: id)
         case CartGoToCheckoutClicked(let cartValue):
@@ -173,6 +185,8 @@ enum AnalyticsEventId: RawRepresentable {
             return AnalyticsEvent(category: "product", action: "close", label: nil, value: id)
         case ProductAddToWishlist(let id):
             return AnalyticsEvent(category: "product", action: "add_to_wishlist", label: nil, value: id)
+        case ProductRemoveFromWishlist(let id):
+            return AnalyticsEvent(category: "product", action: "remove_from_wishlist", label: nil, value: id)
         case ProductShare(let id):
             return AnalyticsEvent(category: "product", action: "share", label: nil, value: id)
         case ProductSwitchPicture(let id):
@@ -189,8 +203,8 @@ enum AnalyticsEventId: RawRepresentable {
             return AnalyticsEvent(category: "product", action: "change_color_click", label: nil, value: id)
         case ProductChangeSizeClicked(let id):
             return AnalyticsEvent(category: "product", action: "change_size_click", label: nil, value: id)
-        case ProductAddToCartClicked(let id):
-            return AnalyticsEvent(category: "product", action: "add_to_cart", label: nil, value: id)
+        case ProductAddToCartClicked(let id, let viewType):
+            return AnalyticsEvent(category: "product", action: "add_to_cart", label: viewType, value: id)
         case ProductSwitchedWithLeftSwipe(let type):
             return AnalyticsEvent(category: "product", action: "switch_product_left", label: type, value: nil)
         case ProductSwitchedWithRightSwipe(let type):
@@ -199,6 +213,10 @@ enum AnalyticsEventId: RawRepresentable {
             return AnalyticsEvent(category: "login", action: "facebook_button_click", label: nil, value: nil)
         case LoginClicked:
             return AnalyticsEvent(category: "login", action: "login_button_click", label: nil, value: nil)
+        case RegisterFacebookClicked:
+            return AnalyticsEvent(category: "register", action: "facebook_button_click", label: nil, value: nil)
+        case RegisterClicked(let newsletterEnabled):
+            return AnalyticsEvent(category: "register", action: "register_button_click", label: newsletterEnabled ? "true" : "false", value: nil)
         case CheckoutCancelClicked:
             return AnalyticsEvent(category: "checkout", action: "cancel_click", label: nil, value: nil)
         case CheckoutAddressClicked:

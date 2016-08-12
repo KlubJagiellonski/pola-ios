@@ -112,7 +112,11 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
     }
     
     private func addToBasket() {
-        logAnalyticsEvent(AnalyticsEventId.ProductAddToCartClicked(model.productId))
+        if castView.viewState == .Default {
+            logAnalyticsEvent(AnalyticsEventId.ProductAddToCartClicked(model.productId, "gallery"))
+        } else if castView.viewState == .ContentExpanded {
+            logAnalyticsEvent(AnalyticsEventId.ProductAddToCartClicked(model.productId, "details"))
+        }
         model.addToBasket()
         sendNavigationEvent(SimpleNavigationEvent(type: .ProductAddedToBasket))
     }
@@ -164,6 +168,8 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
         let selected = model.switchOnWishlist()
         if selected {
             logAnalyticsEvent(AnalyticsEventId.ProductAddToWishlist(model.productId))
+        } else {
+            logAnalyticsEvent(AnalyticsEventId.ProductRemoveFromWishlist(model.productId))
         }
         castView.updateWishlistButton(selected: selected)
     }
@@ -207,6 +213,7 @@ extension ProductPageViewController: ProductDescriptionNavigationControllerDeleg
     }
     func productDescriptionDidTapAddToBasket(controller: ProductDescriptionNavigationController) {
         guard model.isSizeSet else {
+            logAnalyticsEvent(AnalyticsEventId.ProductChangeSizeClicked(model.productId))
             showSizePicker(withBuyMode: true)
             return
         }

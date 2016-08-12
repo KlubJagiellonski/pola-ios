@@ -83,6 +83,7 @@ class RegistrationViewController: UIViewController, RegistrationViewDelegate {
     // MARK: - RegistrationViewDelegate
     
     func registrationViewDidTapFacebook() {
+        logAnalyticsEvent(AnalyticsEventId.RegisterFacebookClicked)
         castView.switcherState = .ModalLoading
         
         userManager.loginToFacebook(with: self)
@@ -101,6 +102,8 @@ class RegistrationViewController: UIViewController, RegistrationViewDelegate {
             let password = castView.password else {
                 return
         }
+        
+        logAnalyticsEvent(AnalyticsEventId.RegisterClicked(castView.receiveNewsletter))
         
         castView.switcherState = .ModalLoading
         

@@ -83,6 +83,7 @@ class SearchProductListViewController: UIViewController, ProductListViewControll
     }
     
     func searchProductList(view: SearchProductListView, didTapSearchWithQuery query: String) {
+        logAnalyticsEvent(AnalyticsEventId.Search(query, true))
         model.query = query
         fetchFirstPage()
     }

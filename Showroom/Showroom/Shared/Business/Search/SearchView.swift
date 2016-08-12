@@ -4,6 +4,7 @@ import SnapKit
 
 protocol SearchViewDelegate: ViewSwitcherDelegate {
     func search(view: SearchView, didTapSearchWithQuery query: String)
+    func search(view: SearchView, didChangeMainMenuToIndex index: Int)
 }
 
 final class SearchView: ViewSwitcher, ContentInsetHandler, UICollectionViewDelegateFlowLayout {
@@ -172,6 +173,7 @@ final class SearchView: ViewSwitcher, ContentInsetHandler, UICollectionViewDeleg
         let scrollPageOffset = (scrollView.contentOffset.x - (CGFloat(scrollPage) * scrollView.bounds.width)) / scrollView.bounds.width
         if scrollPageOffset == 0 {
             tabView.selectedIndex = scrollPage
+            delegate?.search(self, didChangeMainMenuToIndex: scrollPage)
         } else {
             tabView.indicatorOffsetPercentage = selectedIndex == scrollPage ? scrollPageOffset : (scrollPageOffset - CGFloat(selectedIndex - scrollPage))
         }

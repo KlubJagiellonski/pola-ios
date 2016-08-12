@@ -84,8 +84,12 @@ final class SearchViewController: UIViewController, SearchViewDelegate {
     //MARK:- SearchViewDelegate
     
     func search(view: SearchView, didTapSearchWithQuery query: String) {
-        logAnalyticsEvent(AnalyticsEventId.Search(query))
+        logAnalyticsEvent(AnalyticsEventId.Search(query, false))
         sendNavigationEvent(ShowProductSearchEvent(query: query))
+    }
+    
+    func search(view: SearchView, didChangeMainMenuToIndex index: Int) {
+        logAnalyticsEvent(AnalyticsEventId.SearchMainMenuClick(model.searchResult?.rootItems[index].name ?? ""))
     }
     
     func viewSwitcherDidTapRetry(view: ViewSwitcher) {

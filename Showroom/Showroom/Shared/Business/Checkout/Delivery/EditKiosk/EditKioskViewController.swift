@@ -101,7 +101,6 @@ class EditKioskViewController: UIViewController, EditKioskViewDelegate {
     // MARK: EditKioskViewDelegate
     
     func editKioskView(view: EditKioskView, didReturnSearchString searchString: String?) {
-        logAnalyticsEvent(AnalyticsEventId.CheckoutPOPAddressChanged)
         fetchKiosks(withAddressString: searchString ?? "")
     }
     
@@ -119,6 +118,7 @@ class EditKioskViewController: UIViewController, EditKioskViewDelegate {
             switch event {
             case .Next():
                 logInfo("Updated selected kiosk \(kiosk)")
+                logAnalyticsEvent(AnalyticsEventId.CheckoutPOPAddressChanged)
                 self.delegate?.editKioskViewControllerDidChooseKiosk(self)
             case .Error(let error):
                 logError("Couldn't updated kiosk \(kiosk) with error \(error)")
