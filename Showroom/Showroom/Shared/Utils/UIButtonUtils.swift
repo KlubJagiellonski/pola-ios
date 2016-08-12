@@ -26,6 +26,13 @@ extension UIButton {
         titleLabel!.font = UIFont(fontType: .List)
     }
     
+    func applyPlainBoldStyle() {
+        setTitleColor(UIColor(named: .Blue), forState: .Normal)
+        setTitleColor(UIColor(named: .Black), forState: .Highlighted)
+        setTitleColor(UIColor(named: .DarkGray), forState: .Disabled)
+        titleLabel!.font = UIFont(fontType: .NormalBold)
+    }
+    
     func applyDropDownStyle() {
         setTitleColor(UIColor.blackColor(), forState: .Normal)
         titleLabel!.font = UIFont(fontType: .FormNormal)

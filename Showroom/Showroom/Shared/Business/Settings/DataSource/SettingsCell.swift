@@ -1,6 +1,6 @@
 import UIKit
 
-class SettingsHeaderCell: UITableViewCell {
+final class SettingsHeaderCell: UITableViewCell {
     static let clothesImageTopInset: CGFloat = 15.0
     private static let socialMediaButtonCenterXOffset: CGFloat = 24.0
     private static let socialMediaButtonTopOffset: CGFloat = 21.0
@@ -77,7 +77,7 @@ class SettingsHeaderCell: UITableViewCell {
 
 }
 
-class SettingsLoginCell: UITableViewCell {
+final class SettingsLoginCell: UITableViewCell {
     private let loginButton = UIButton()
     private let createAccountButton = UIButton()
     private let verticalSeparator = UIView()
@@ -154,7 +154,7 @@ class SettingsLoginCell: UITableViewCell {
     
 }
 
-class SettingsLogoutCell: UITableViewCell {
+final class SettingsLogoutCell: UITableViewCell {
     private let label = UILabel()
     private let logoutButton = UIButton()
     private let horizontalSeparator = UIView()
@@ -216,7 +216,7 @@ class SettingsLogoutCell: UITableViewCell {
     }
 }
 
-class SettingsGenderCell: UITableViewCell {
+final class SettingsGenderCell: UITableViewCell {
     private static let genderButtonVerticalInset: CGFloat = 6.0
     private static let genderButtonWidth: CGFloat = 59.0
     
@@ -323,7 +323,7 @@ class SettingsGenderCell: UITableViewCell {
     }
 }
 
-class SettingsNormalCell: UITableViewCell {
+final class SettingsNormalCell: UITableViewCell {
     private let label = UILabel()
     private let chevron = UIImageView(image: UIImage(asset: .Ic_chevron_right))
     private let horizontalSeparator = UIView()
@@ -371,5 +371,61 @@ class SettingsNormalCell: UITableViewCell {
             make.height.equalTo(Dimensions.defaultSeparatorThickness)
         }
     }
+}
 
+final class SettingsAskForNotificationsCell: UITableViewCell {
+    private let label = UILabel()
+    private let askButton = UIButton()
+    private let horizontalSeparator = UIView()
+    
+    var action: (() -> ())?
+    
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: .Default, reuseIdentifier: reuseIdentifier)
+        selectionStyle = .None
+        
+        label.font = UIFont(fontType: .Normal)
+        label.text = tr(.SettingsPermissionForNotifications)
+        
+        askButton.applyPlainBoldStyle()
+        askButton.title = tr(.SettingsAskForNotifications)
+        askButton.addTarget(self, action: #selector(SettingsAskForNotificationsCell.didTapAskButton), forControlEvents: .TouchUpInside)
+        
+        horizontalSeparator.backgroundColor = UIColor(named: .Separator)
+        
+        contentView.addSubview(label)
+        contentView.addSubview(askButton)
+        addSubview(horizontalSeparator)
+        
+        createCustomConstraints()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func didTapAskButton() {
+        action?()
+    }
+    
+    private func createCustomConstraints() {
+        label.snp_makeConstraints { make in
+            make.top.equalToSuperview()
+            make.leading.equalToSuperview().offset(Dimensions.defaultMargin)
+            make.trailing.lessThanOrEqualTo(askButton.snp_leading).offset(Dimensions.defaultMargin)
+            make.bottom.equalTo(horizontalSeparator.snp_top)
+        }
+        
+        askButton.snp_makeConstraints { make in
+            make.trailing.equalToSuperview().inset(Dimensions.defaultMargin)
+            make.centerY.equalToSuperview()
+        }
+        
+        horizontalSeparator.snp_makeConstraints { make in
+            make.trailing.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.height.equalTo(Dimensions.defaultSeparatorThickness)
+        }
+    }
 }

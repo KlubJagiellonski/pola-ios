@@ -11,11 +11,12 @@ class SettingsDataSource: NSObject, UITableViewDataSource {
         super.init()
         
         self.tableView = tableView
-        self.tableView!.registerClass(SettingsHeaderCell.self, forCellReuseIdentifier: String(SettingsHeaderCell))
-        self.tableView!.registerClass(SettingsLoginCell.self, forCellReuseIdentifier: String(SettingsLoginCell))
-        self.tableView!.registerClass(SettingsLogoutCell.self, forCellReuseIdentifier: String(SettingsLogoutCell))
-        self.tableView!.registerClass(SettingsGenderCell.self, forCellReuseIdentifier: String(SettingsGenderCell))
-        self.tableView!.registerClass(SettingsNormalCell.self, forCellReuseIdentifier: String(SettingsNormalCell))
+        tableView.registerClass(SettingsHeaderCell.self, forCellReuseIdentifier: String(SettingsHeaderCell))
+        tableView.registerClass(SettingsLoginCell.self, forCellReuseIdentifier: String(SettingsLoginCell))
+        tableView.registerClass(SettingsLogoutCell.self, forCellReuseIdentifier: String(SettingsLogoutCell))
+        tableView.registerClass(SettingsGenderCell.self, forCellReuseIdentifier: String(SettingsGenderCell))
+        tableView.registerClass(SettingsNormalCell.self, forCellReuseIdentifier: String(SettingsNormalCell))
+        tableView.registerClass(SettingsAskForNotificationsCell.self, forCellReuseIdentifier: String(SettingsAskForNotificationsCell))
     }
     
     func updateData(with settings: [Setting]) {
@@ -72,7 +73,11 @@ class SettingsDataSource: NSObject, UITableViewDataSource {
             let cell = tableView.dequeueReusableCellWithIdentifier(String(SettingsNormalCell), forIndexPath: indexPath) as! SettingsNormalCell
             cell.labelText = setting.labelString
             return cell
-
+        
+        case .AskForNotification:
+            let cell = tableView.dequeueReusableCellWithIdentifier(String(SettingsAskForNotificationsCell), forIndexPath: indexPath) as! SettingsAskForNotificationsCell
+            cell.action = setting.action
+            return cell
         }
     }
 }

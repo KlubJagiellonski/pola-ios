@@ -8,7 +8,7 @@ protocol NotificationsManagerDelegate: class {
 final class NotificationsManager {
     private let api: ApiService
     private let application: UIApplication
-    private var userAlreadyAskedForNotificationPermission: Bool {
+    private(set) var userAlreadyAskedForNotificationPermission: Bool {
         get { return NSUserDefaults.standardUserDefaults().boolForKey("userAlreadyAskedForNotificationPermission") }
         set { NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: "userAlreadyAskedForNotificationPermission") }
     }
@@ -52,6 +52,7 @@ final class NotificationsManager {
             return false
         }
         registerForRemoteNotifications()
+        userAlreadyAskedForNotificationPermission = true
         return true
     }
     

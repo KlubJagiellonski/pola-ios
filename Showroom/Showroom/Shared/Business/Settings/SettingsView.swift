@@ -75,8 +75,8 @@ class SettingsView: UIView, UITableViewDelegate {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let settings = dataSource.settings
-        
-        if case 3..<settings.count = indexPath.row {
+        let setting = settings[indexPath.row]
+        if setting.cellClickable {
             settings[indexPath.row].action()
         }
     }

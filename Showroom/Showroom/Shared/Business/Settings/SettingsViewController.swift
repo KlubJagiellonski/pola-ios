@@ -4,6 +4,7 @@ import RxSwift
 
 class SettingsViewController: UIViewController {
     private let userManager: UserManager
+    private let notificationsManager: NotificationsManager
     private let disposeBag = DisposeBag()
     private var castView: SettingsView { return view as! SettingsView }
     
@@ -14,6 +15,7 @@ class SettingsViewController: UIViewController {
     init(resolver: DiResolver) {
         self.resolver = resolver
         self.userManager = resolver.resolve(UserManager.self)
+        self.notificationsManager = resolver.resolve(NotificationsManager.self)
         
         super.init(nibName: nil, bundle: nil)
         self.userManager.userObservable.subscribeNext(updateSettings).addDisposableTo(disposeBag)
@@ -25,39 +27,42 @@ class SettingsViewController: UIViewController {
     }
     
     private func updateSettings(with user: User?) {
+        var settings = [
+            Setting(type: .Header, action: self.facebookButtonPressed, secondaryAction: self.instagramButtonPressed, cellClickable: false),
+        ]
         if let user = user {
-            var settings = [
-                Setting(type: .Header, action: self.facebookButtonPressed, secondaryAction: self.instagramButtonPressed),
-                Setting(type: .Logout, labelString: tr(.CommonGreeting(user.name)), action: self.logoutButtonPressed),
-                Setting(type: .Gender, labelString: tr(.SettingsDefaultOffer), action: self.femaleButtonPressed, secondaryAction: self.maleButtonPressed, value: self.userManager.gender),
-                Setting(type: .Normal, labelString: tr(.SettingsUserData), action: self.userDataRowPressed),
-                Setting(type: .Normal, labelString: tr(.SettingsHistory), action: self.historyRowPressed),
-                Setting(type: .Normal, labelString: tr(.SettingsHowToMeasure), action: self.howToMeasureRowPressed),
-                Setting(type: .Normal, labelString: tr(.SettingsPrivacyPolicy), action: self.privacyPolicyRowPressed),
-                Setting(type: .Normal, labelString: tr(.SettingsFrequentQuestions), action: self.frequentQuestionsRowPressed),
-                Setting(type: .Normal, labelString: tr(.SettingsRules), action: self.rulesRowPressed),
-                Setting(type: .Normal, labelString: tr(.SettingsContact), action: self.contactRowPressed)
-            ]
-            if !Constants.isAppStore {
-                settings.append(Setting(type: .Normal, labelString: "Pokaż onboarding", action: self.showOnboarding))
-            }
-            castView.updateData(with: settings)
+            settings.append(
+                Setting(type: .Logout, labelString: tr(.CommonGreeting(user.name)), action: self.logoutButtonPressed, cellClickable: false)
+            )
         } else {
-            var settings = [
-                Setting(type: .Header, action: self.facebookButtonPressed, secondaryAction: self.instagramButtonPressed),
-                Setting(type: .Login, action: self.loginButtonPressed, secondaryAction: self.createAccountButtonPressed),
-                Setting(type: .Gender, labelString: tr(.SettingsDefaultOffer), action: self.femaleButtonPressed, secondaryAction: self.maleButtonPressed, value: self.userManager.gender),
-                Setting(type: .Normal, labelString: tr(.SettingsHowToMeasure), action: self.howToMeasureRowPressed),
-                Setting(type: .Normal, labelString: tr(.SettingsPrivacyPolicy), action: self.privacyPolicyRowPressed),
-                Setting(type: .Normal, labelString: tr(.SettingsFrequentQuestions), action: self.frequentQuestionsRowPressed),
-                Setting(type: .Normal, labelString: tr(.SettingsRules), action: self.rulesRowPressed),
-                Setting(type: .Normal, labelString: tr(.SettingsContact), action: self.contactRowPressed)
-            ]
-            if !Constants.isAppStore {
-                settings.append(Setting(type: .Normal, labelString: "Pokaż onboarding", action: self.showOnboarding))
-            }
-            castView.updateData(with: settings)
+            settings.append(
+                Setting(type: .Login, action: self.loginButtonPressed, secondaryAction: self.createAccountButtonPressed, cellClickable: false)
+            )
         }
+        settings.append(
+            Setting(type: .Gender, labelString: tr(.SettingsDefaultOffer), action: self.femaleButtonPressed, secondaryAction: self.maleButtonPressed, cellClickable: false, value: self.userManager.gender)
+        )
+        if !notificationsManager.userAlreadyAskedForNotificationPermission && !notificationsManager.isRegistered {
+            settings.append(
+                Setting(type: .AskForNotification, action: self.askForNotificationPressed, cellClickable: false)
+            )
+        }
+        if user != nil {
+            settings.append(Setting(type: .Normal, labelString: tr(.SettingsUserData), action: self.userDataRowPressed))
+            settings.append(Setting(type: .Normal, labelString: tr(.SettingsHistory), action: self.historyRowPressed))
+        }
+        settings.appendContentsOf([
+            Setting(type: .Normal, labelString: tr(.SettingsHowToMeasure), action: self.howToMeasureRowPressed),
+            Setting(type: .Normal, labelString: tr(.SettingsPrivacyPolicy), action: self.privacyPolicyRowPressed),
+            Setting(type: .Normal, labelString: tr(.SettingsFrequentQuestions), action: self.frequentQuestionsRowPressed),
+            Setting(type: .Normal, labelString: tr(.SettingsRules), action: self.rulesRowPressed),
+            Setting(type: .Normal, labelString: tr(.SettingsContact), action: self.contactRowPressed)
+        ])
+        if !Constants.isAppStore {
+            settings.append(Setting(type: .Normal, labelString: "Pokaż onboarding", action: self.showOnboarding))
+        }
+        
+        castView.updateData(with: settings)
     }
     
     private func updateGender(with gender: Gender) {
@@ -134,6 +139,12 @@ class SettingsViewController: UIViewController {
     func maleButtonPressed() {
         logInfo("maleButtonPressed")
         didChange(gender: .Male)
+    }
+    
+    func askForNotificationPressed() {
+        logInfo("Ask for notification pressed")
+        notificationsManager.registerForRemoteNotificationsIfNeeded()
+        updateSettings(with: userManager.user)
     }
     
     func userDataRowPressed() {

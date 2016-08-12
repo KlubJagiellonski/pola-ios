@@ -144,6 +144,8 @@
 "Settings.DefaultOffer" = "Domyślna oferta";
 "Settings.Male" = "ON";
 "Settings.Female" = "ONA";
+"Settings.PermissionForNotifications" = "Zgoda na notyfikacje";
+"Settings.AskForNotifications" = "Spytaj";
 "Settings.UserData" = "Twoje dane";
 "Settings.History" = "Historia zamówień";
 "Settings.HowToMeasure" = "Jak się mierzyć?";

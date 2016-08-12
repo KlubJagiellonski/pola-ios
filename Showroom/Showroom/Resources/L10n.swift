@@ -295,6 +295,10 @@ enum L10n {
   case SettingsMale
   /// ONA
   case SettingsFemale
+  /// Zgoda na notyfikacje
+  case SettingsPermissionForNotifications
+  /// Spytaj
+  case SettingsAskForNotifications
   /// Twoje dane
   case SettingsUserData
   /// Historia zamówień
@@ -664,6 +668,10 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Settings.Male")
       case .SettingsFemale:
         return L10n.tr("Settings.Female")
+      case .SettingsPermissionForNotifications:
+        return L10n.tr("Settings.PermissionForNotifications")
+      case .SettingsAskForNotifications:
+        return L10n.tr("Settings.AskForNotifications")
       case .SettingsUserData:
         return L10n.tr("Settings.UserData")
       case .SettingsHistory:
