@@ -1,20 +1,18 @@
 import UIKit
 
 enum OnboardingPage: Int {
-    case Infinite = 0, DoubleTap, ProductPaging, Notification
+    case Infinite = 0, Notification
 }
 
 final class OnboardingDataSource: NSObject, UICollectionViewDataSource {
     private weak var collectionView: UICollectionView?
     weak var onboardingView: OnboardingView?
     
-    let pagesCount = 4
+    let pagesCount = 2
     
     init(collectionView: UICollectionView) {
         self.collectionView = collectionView
         collectionView.registerClass(OnboardingInfiniteScrollingCell.self, forCellWithReuseIdentifier: String(OnboardingInfiniteScrollingCell))
-        collectionView.registerClass(OnboardingDoubleTapCell.self, forCellWithReuseIdentifier: String(OnboardingDoubleTapCell))
-        collectionView.registerClass(OnboardingProductPagingCell.self, forCellWithReuseIdentifier: String(OnboardingProductPagingCell))
         collectionView.registerClass(OnboardingNotificationsCell.self, forCellWithReuseIdentifier: String(OnboardingNotificationsCell))
     }
     
@@ -29,14 +27,7 @@ final class OnboardingDataSource: NSObject, UICollectionViewDataSource {
         switch page {
         case .Infinite:
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier(String(OnboardingInfiniteScrollingCell), forIndexPath: indexPath) as! OnboardingInfiniteScrollingCell
-            return cell
-
-        case .DoubleTap:
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(String(OnboardingDoubleTapCell), forIndexPath: indexPath) as! OnboardingDoubleTapCell
-            return cell
-            
-        case .ProductPaging:
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(String(OnboardingProductPagingCell), forIndexPath: indexPath) as! OnboardingProductPagingCell
+            cell.delegate = self
             return cell
             
         case .Notification:
@@ -54,5 +45,11 @@ extension OnboardingDataSource: OnboardingNotificationsCellDelegate {
     
     func onboardingNotificationDidTapSkip(cell: OnboardingNotificationsCell) {
         onboardingView?.didTapSkip()
+    }
+}
+
+extension OnboardingDataSource: OnboardingInfiniteScrollingCellDelegate {
+    func onboardingInfiniteScrollingDidTapNext(cell: OnboardingInfiniteScrollingCell) {
+        onboardingView?.didTapNext()
     }
 }

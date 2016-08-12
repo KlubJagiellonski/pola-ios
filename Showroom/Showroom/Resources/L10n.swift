@@ -323,6 +323,8 @@ enum L10n {
   case StartLogin
   /// ZAREJESTRUJ SIĘ
   case StartRegister
+  /// DALEJ
+  case OnboardingInfiniteScrollingNext
   /// Przeglądaj tysiące produktów bezpośrednio od polskich projektantów
   case OnboardingInfiniteScrollingLabel
   /// Za chwilę zostaniesz poproszony o zgodę na notyfikacje, które pozwolą na informowanie Ciebie o promocjach.
@@ -696,6 +698,8 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Start.Login")
       case .StartRegister:
         return L10n.tr("Start.Register")
+      case .OnboardingInfiniteScrollingNext:
+        return L10n.tr("Onboarding.InfiniteScrolling.Next")
       case .OnboardingInfiniteScrollingLabel:
         return L10n.tr("Onboarding.InfiniteScrolling.Label")
       case .OnboardingNotificationsLabel:

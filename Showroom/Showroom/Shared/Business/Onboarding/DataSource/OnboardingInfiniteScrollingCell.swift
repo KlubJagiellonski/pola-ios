@@ -1,26 +1,49 @@
 import UIKit
 import SnapKit
 
+protocol OnboardingInfiniteScrollingCellDelegate: class {
+    func onboardingInfiniteScrollingDidTapNext(cell: OnboardingInfiniteScrollingCell)
+}
+
 class OnboardingInfiniteScrollingCell: UICollectionViewCell {
     private let animationTopOffset: CGFloat
+    private let buttonBottomOffset: CGFloat
+    private let buttonHeight: CGFloat = 46.0
+    private let buttonWidth: CGFloat = 147.0
+    
     private let label = UILabel()
     private let animation = OnboardingInfiniteScrollingAnimation()
+    private let nextButton = UIButton()
     
     private var animating: Bool {
         get { return animation.animating }
         set { animation.animating = newValue }
     }
     
+    weak var delegate: OnboardingInfiniteScrollingCellDelegate?
+    
     override init(frame: CGRect) {
         
         switch UIDevice.currentDevice().screenType {
         case .iPhone4:
-            animationTopOffset = 160.0
+            animationTopOffset = 130.0
+            buttonBottomOffset = 30.0
             
-        case .iPhone5, .iPhone6, .iPhone6Plus:
-            fallthrough
+        case .iPhone5:
+            animationTopOffset = 150.0
+            buttonBottomOffset = 50.0
+            
+        case .iPhone6:
+            animationTopOffset = 150.0
+            buttonBottomOffset = 55.0
+            
+        case .iPhone6Plus:
+            animationTopOffset = 160.0
+            buttonBottomOffset = 65.0
+            
         default:
-            animationTopOffset = 193.0
+            animationTopOffset = 150.0
+            buttonBottomOffset = 55.0
         }
         
         super.init(frame: CGRectZero)
@@ -33,8 +56,13 @@ class OnboardingInfiniteScrollingCell: UICollectionViewCell {
         label.textAlignment = .Center
         label.lineBreakMode = .ByWordWrapping
         
+        nextButton.applyBlueStyle()
+        nextButton.title = tr(.OnboardingInfiniteScrollingNext)
+        nextButton.addTarget(self, action: #selector(OnboardingInfiniteScrollingCell.didTapNext), forControlEvents: .TouchUpInside)
+        
         contentView.addSubview(label)
         contentView.addSubview(animation)
+        contentView.addSubview(nextButton)
         
         configureCustomConstraints()
     }
@@ -50,6 +78,10 @@ class OnboardingInfiniteScrollingCell: UICollectionViewCell {
         } else {
             animating = true
         }
+    }
+    
+    func didTapNext(sender: UIButton!) {
+        delegate?.onboardingInfiniteScrollingDidTapNext(self)
     }
     
     func configureCustomConstraints() {
@@ -68,6 +100,13 @@ class OnboardingInfiniteScrollingCell: UICollectionViewCell {
             make.top.equalToSuperview().offset(animationTopOffset)
             make.left.equalToSuperview()
             make.right.equalToSuperview()
+        }
+        
+        nextButton.snp_makeConstraints { make in
+            make.bottom.equalToSuperview().offset(-buttonBottomOffset)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(buttonHeight)
+            make.width.equalTo(buttonWidth)
         }
     }
 }

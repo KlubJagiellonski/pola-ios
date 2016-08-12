@@ -8,14 +8,20 @@ protocol OnboardingViewDelegate: class {
 final class OnboardingView: UIView, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     private let collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: UICollectionViewFlowLayout())
-    private let pageControl = HorizontalPageControl()
     
     private let dataSource: OnboardingDataSource
     weak var delegate: OnboardingViewDelegate?
     
     var currentPageIndex: Int {
-        let pageWidth = collectionView.frame.width
-        return Int(collectionView.contentOffset.x / pageWidth)
+        set {
+            let pageWidth = collectionView.frame.width
+            let contentOffsetX = CGFloat(newValue) * pageWidth
+            collectionView.setContentOffset(CGPoint(x: contentOffsetX, y: 0.0), animated: true)
+        }
+        get {
+            let pageWidth = collectionView.frame.width
+            return Int(collectionView.contentOffset.x / pageWidth)
+        }
     }
     
     init() {
@@ -35,17 +41,17 @@ final class OnboardingView: UIView, UICollectionViewDelegate, UICollectionViewDe
         flowLayout.minimumLineSpacing = 0
         flowLayout.minimumInteritemSpacing = 0
         
-        pageControl.numberOfPages = dataSource.pagesCount
-        pageControl.currentPage = 0
-        
         addSubview(collectionView)
-        addSubview(pageControl)
         
         configureCustomConstraits()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func didTapNext() {
+        currentPageIndex += 1
     }
     
     func didTapAskForNotification() {
@@ -60,38 +66,6 @@ final class OnboardingView: UIView, UICollectionViewDelegate, UICollectionViewDe
         collectionView.snp_makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        
-        pageControl.snp_makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalToSuperview().offset(37.0)
-        }
-    }
-    
-    // MARK: UICollectionViewDelegate
-    
-    func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
-        
-        switch cell {
-        case is OnboardingDoubleTapCell:
-            (cell as! OnboardingDoubleTapCell).animating = true
-        case is OnboardingProductPagingCell:
-            (cell as! OnboardingProductPagingCell).animating = true
-        default:
-            break
-        }
-    }
-
-    func collectionView(collectionView: UICollectionView, didEndDisplayingCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
-        
-        switch cell {
-        case is OnboardingDoubleTapCell:
-            (cell as! OnboardingDoubleTapCell).animating = false
-        case is OnboardingProductPagingCell:
-            (cell as! OnboardingProductPagingCell).animating = false
-        default:
-            break
-        }
-
     }
     
     // MARK: UICollectionViewDelegateFlowLayout
@@ -99,9 +73,4 @@ final class OnboardingView: UIView, UICollectionViewDelegate, UICollectionViewDe
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         return self.bounds.size
     }
-    
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        pageControl.currentPage = currentPageIndex
-    }
-
 }
