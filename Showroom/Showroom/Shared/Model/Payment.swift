@@ -7,6 +7,7 @@ struct PaymentRequest {
     let items: [PaymentItem]
     let countryCode: String
     let deliveryType: ObjectId
+    let deliveryAddressId: ObjectId
     let deliveryPop: ObjectId?
     let discountCode: String?
     let payment: PaymentType
@@ -24,6 +25,8 @@ struct PaymentResult {
     let orderId: ObjectId
     let description: String?
     let amount: NSDecimalNumber
+    let taxAmount: NSDecimalNumber
+    let shippingAmount: NSDecimalNumber
     let currency: String
     let notifyUrl: String?
 }
@@ -60,9 +63,15 @@ extension PaymentRequest {
             return nil
         }
         
+        guard let selectedAddress = checkoutState.selectedAddress else {
+            logError("Cannot create PaymentRequest (deliveryAddressId) from state: \(checkoutState)")
+            return nil
+        }
+        
         self.items = items
         self.countryCode = checkoutState.checkout.deliveryCountry.id
         self.deliveryType = checkoutState.checkout.deliveryCarrier.id.rawValue
+        self.deliveryAddressId = selectedAddress.id
         self.deliveryPop = finalDeliveryPop
         self.discountCode = checkoutState.checkout.discountCode
         self.payment = checkoutState.selectedPayment.id
@@ -111,10 +120,14 @@ extension PaymentItem: Encodable {
 extension PaymentResult: Decodable {
     static func decode(json: AnyObject) throws -> PaymentResult {
         let amount: UInt64 = try json => "amount"
+        let taxAmount: UInt64 = try json => "taxAmount"
+        let shippingAmount: UInt64 = try json => "shippingAmount"
         return try PaymentResult(
             orderId: json => "orderId",
             description: json =>? "paymentDescription",
             amount: NSDecimalNumber(mantissa: amount, exponent: -2, isNegative: false),
+            taxAmount: NSDecimalNumber(mantissa: taxAmount, exponent: -2, isNegative: false),
+            shippingAmount: NSDecimalNumber(mantissa: shippingAmount, exponent: -2, isNegative: false),
             currency: json => "currency",
             notifyUrl: json =>? "notifyUrl"
         )

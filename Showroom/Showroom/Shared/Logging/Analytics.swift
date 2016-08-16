@@ -298,8 +298,8 @@ final class Analytics {
             String(payment.orderId),
             affiliation: "In-App",
             revenue: payment.amount,
-            tax: 10, // todo get tax from payment, https://github.com/shwrm/iosproxy/issues/138
-            shipping: 10, // todo get shipping from payment, https://github.com/shwrm/iosproxy/issues/138
+            tax: payment.taxAmount,
+            shipping: payment.shippingAmount,
             currencyCode: payment.currency
         ).build()
         tracker.send(transaction as [NSObject: AnyObject])
