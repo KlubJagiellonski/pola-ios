@@ -158,43 +158,49 @@ class SettingsViewController: UIViewController {
     func userDataRowPressed() {
         logInfo("userDataRowPressed")
         logAnalyticsShowScreen(.UserData)
+        logAnalyticsEvent(AnalyticsEventId.ProfileWebViewLinkClicked("user_info"))
         sendNavigationEvent(ShowSettingsWebViewEvent(title: tr(.SettingsUserData), webType: .UserData))
     }
 
     func historyRowPressed() {
         logInfo("historyRowPressed")
         logAnalyticsShowScreen(.OrdersHistory)
+        logAnalyticsEvent(AnalyticsEventId.ProfileWebViewLinkClicked("orders_history"))
         sendNavigationEvent(ShowSettingsWebViewEvent(title: tr(.SettingsHistory), webType: .History))
     }
     
     func howToMeasureRowPressed() {
         logInfo("howToMeasureRowPressed")
-        
         logAnalyticsShowScreen(.HowToMeasure)
+        logAnalyticsEvent(AnalyticsEventId.ProfileWebViewLinkClicked("how_to_measure"))
         sendNavigationEvent(ShowSettingsWebViewEvent(title: tr(.SettingsHowToMeasure), webType: .HowToMeasure))
     }
     
     func privacyPolicyRowPressed() {
         logInfo("privacyPolicyRowPressed")
         logAnalyticsShowScreen(.Policy)
+        logAnalyticsEvent(AnalyticsEventId.ProfileWebViewLinkClicked("policy"))
         sendNavigationEvent(ShowSettingsWebViewEvent(title: tr(.SettingsPrivacyPolicy), webType: .PrivacyPolicy))
     }
     
     func frequentQuestionsRowPressed() {
         logInfo("frequentQuestionsRowPressed")
         logAnalyticsShowScreen(.FAQ)
+        logAnalyticsEvent(AnalyticsEventId.ProfileWebViewLinkClicked("faq"))
         sendNavigationEvent(ShowSettingsWebViewEvent(title: tr(.SettingsFrequentQuestions), webType: .FrequestQuestions))
     }
     
     func rulesRowPressed() {
         logInfo("rulesRowPressed")
         logAnalyticsShowScreen(.Rules)
+        logAnalyticsEvent(AnalyticsEventId.ProfileWebViewLinkClicked("rules"))
         sendNavigationEvent(ShowSettingsWebViewEvent(title: tr(.SettingsRules), webType: .Rules))
     }
     
     func contactRowPressed() {
         logInfo("contactRowPressed")
         logAnalyticsShowScreen(.Contact)
+        logAnalyticsEvent(AnalyticsEventId.ProfileWebViewLinkClicked("contact"))
         sendNavigationEvent(ShowSettingsWebViewEvent(title: tr(.SettingsContact), webType: .Contact))
     }
     
