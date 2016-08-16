@@ -120,6 +120,7 @@ extension ProductListResult: Decodable {
     static func decode(json: AnyObject) throws -> ProductListResult {
         var filters: [Filter]?
         
+        //backend is not possible to not send filters which doesn't have choices (e.g. brand filter in brand view). We should filter it out.
         if let filtersResult: [Filter] = try json =>? "filters" {
             filters = []
             for filter in filtersResult {
