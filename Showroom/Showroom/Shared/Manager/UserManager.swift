@@ -33,7 +33,7 @@ class UserManager {
             } else {
                 Analytics.sharedInstance.userId = nil
             }
-            
+            emarsysService.contactUpdate(withUser: user, gender: gender)
             emarsysService.configureUser(String(userSession?.user.id), customerEmail: userSession?.user.email)
             keychainManager.session = userSession?.session
             do {
@@ -90,8 +90,6 @@ class UserManager {
             logError("Error while loading current user from cache \(error)")
         }
         userSession = UserSession(user: user, session: session)
-        
-        emarsysService.contactUpdate(withUser: user, gender: gender)
     }
     
     func fetchSharedWebCredentials() -> Observable<SharedWebCredential> {
