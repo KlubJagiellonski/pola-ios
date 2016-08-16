@@ -159,8 +159,7 @@ final class CheckoutModel {
                     case .Error(let error):
                         observer.onError(PaymentError.PaymentRequestFailed(error))
                         observer.onCompleted()
-                    case .Completed:
-                        observer.onCompleted()
+                    default: break
                     }
                 }
             }.observeOn(MainScheduler.instance)
