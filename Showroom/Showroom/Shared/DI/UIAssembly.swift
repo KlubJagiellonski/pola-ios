@@ -103,7 +103,7 @@ class UIAssembly: AssemblyType {
             return CheckoutSummaryCommentViewController(resolver: r.resolve(DiResolver.self)!, comment: comment, index: index)
         }
         container.register(CheckoutModel.self) { r, checkout in
-            return CheckoutModel(with: checkout, and: r.resolve(UserManager.self)!, and: r.resolve(PayUManager.self)!, and: r.resolve(ApiService.self)!, and: r.resolve(BasketManager.self)!)
+            return CheckoutModel(with: checkout, and: r.resolve(UserManager.self)!, and: r.resolve(PayUManager.self)!, and: r.resolve(ApiService.self)!, and: r.resolve(BasketManager.self)!, and: r.resolve(EmarsysService.self)!)
         }
         container.register(CategoryProductListViewController.self) { r, category in
             return CategoryProductListViewController(withResolver: r.resolve(DiResolver.self)!, category: category)

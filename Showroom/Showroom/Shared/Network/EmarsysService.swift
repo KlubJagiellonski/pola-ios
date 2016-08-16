@@ -97,6 +97,18 @@ extension EmarsysService {
         }
     }
     
+    func sendPurchaseEvent(withOrderId orderId: String, products: [BasketProduct]) {
+        let cartItems: [EMCartItem] = products.map { product in
+            return EMCartItem(itemID: String(product.id), price: Float(product.sumPrice?.amount ?? 0), quantity: Int32(product.amount))
+        }
+        
+        let transaction = EMTransaction()
+        transaction.setPurchase(orderId, ofItems: cartItems)
+        session.sendTransaction(transaction) { error in
+            logInfo("Could not send purchase event for orderId \(orderId), error \(error)")
+        }
+    }
+    
     func configureUser(customerId: String?, customerEmail: String?) {
         session.customerID = customerId
         session.customerEmail = customerEmail

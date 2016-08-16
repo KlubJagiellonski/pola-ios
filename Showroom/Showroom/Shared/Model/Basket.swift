@@ -39,6 +39,14 @@ struct Basket: Equatable {
         return count
     }
     
+    var products: [BasketProduct] {
+        var products: [BasketProduct] = []
+        for basketBrand in productsByBrands {
+            basketBrand.products.forEach { products.append($0) }
+        }
+        return products
+    }
+    
     func isPossibleToAddProduct(product: BasketProduct, of brand: BasketBrand, maxProductAmount: Int) -> Bool{
         if let brandIndex = index(of: brand) {
             return productsByBrands[brandIndex].isPossibleToAddProduct(product, maxProductAmount: maxProductAmount)

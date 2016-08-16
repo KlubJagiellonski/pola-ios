@@ -9,6 +9,10 @@ func logAnalyticsEvent(eventId: AnalyticsEventId) {
     Analytics.sharedInstance.sendEvent(eventId)
 }
 
+func logAnalyticsTransactionEvent(with payment: PaymentResult, products: [BasketProduct]) {
+    Analytics.sharedInstance.sendAnalyticsTransactionEvent(with: payment, products: products)
+}
+
 enum AnalyticsScreenId: String {
     case Onboarding = "Onboarding"
     case Start = "Start"
@@ -108,6 +112,7 @@ enum AnalyticsEventId: RawRepresentable {
     case CheckoutSummaryEditNoteClicked
     case CheckoutSummaryPaymentMethodClicked(ObjectId)
     case CheckoutSummaryFinishButtonClicked
+    case CheckoutSummaryPaymentStatus(Bool, ObjectId)
     
     
     typealias RawValue = AnalyticsEvent
@@ -241,6 +246,8 @@ enum AnalyticsEventId: RawRepresentable {
             return AnalyticsEvent(category: "checkout_summary", action: "payment_method_click", label: nil, value: methodId)
         case CheckoutSummaryFinishButtonClicked:
             return AnalyticsEvent(category: "checkout_summary", action: "finish_button_click", label: nil, value: nil)
+        case CheckoutSummaryPaymentStatus(let success, let methodId):
+            return AnalyticsEvent(category: "checkout_summary", action: "payment_status", label: success ? "true" : "false", value: methodId)
         }
     }
     init?(rawValue: RawValue) {
@@ -284,5 +291,30 @@ final class Analytics {
     
     func sendEvent(eventId: AnalyticsEventId) {
         tracker.send(eventId.rawValue.analyticsData)
+    }
+    
+    func sendAnalyticsTransactionEvent(with payment: PaymentResult, products: [BasketProduct]) {
+        let transaction = GAIDictionaryBuilder.createTransactionWithId(
+            String(payment.orderId),
+            affiliation: "In-App",
+            revenue: payment.amount,
+            tax: 10, // todo get tax from payment, https://github.com/shwrm/iosproxy/issues/138
+            shipping: 10, // todo get shipping from payment, https://github.com/shwrm/iosproxy/issues/138
+            currencyCode: payment.currency
+        ).build()
+        tracker.send(transaction as [NSObject: AnyObject])
+        
+        for product in products {
+            let item = GAIDictionaryBuilder.createItemWithTransactionId(
+                String(payment.orderId),
+                name: product.name,
+                sku: String(product.id),
+                category: nil,
+                price: product.price.money.0,
+                quantity: product.amount,
+                currencyCode: payment.currency
+            ).build()
+            tracker.send(item as [NSObject: AnyObject])
+        }
     }
 }

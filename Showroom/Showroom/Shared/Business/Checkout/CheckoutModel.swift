@@ -26,17 +26,19 @@ final class CheckoutModel {
     private let payUManager: PayUManager
     private let basketManager: BasketManager
     private let api: ApiService
+    private let emarsysService: EmarsysService
     let state: CheckoutState
     weak var payUDelegate: PUPaymentServiceDelegate? {
         set { payUManager.serviceDelegate = newValue }
         get { return payUManager.serviceDelegate }
     }
     
-    init(with checkout: Checkout, and userManager: UserManager, and payUManager: PayUManager, and api: ApiService, and basketManager: BasketManager) {
+    init(with checkout: Checkout, and userManager: UserManager, and payUManager: PayUManager, and api: ApiService, and basketManager: BasketManager, and emarsysService: EmarsysService) {
         self.userManager = userManager
         self.payUManager = payUManager
         self.api = api
         self.basketManager = basketManager
+        self.emarsysService = emarsysService
         
         let comments = [String?](count: checkout.basket.productsByBrands.count, repeatedValue: nil)
         let userAddresses = checkout.user.userAddresses
@@ -141,7 +143,10 @@ final class CheckoutModel {
             return Observable.error(PaymentError.CannotCreatePayment)
         }
         
-        let request = api.createPayment(with: paymentRequest)
+        let request = api.createPayment(with: paymentRequest).doOnNext { [weak self] result in
+            guard let `self` = self else { return }
+            self.emarsysService.sendPurchaseEvent(withOrderId: String(result.orderId), products: self.state.checkout.basket.products)
+        }
         
         if state.selectedPayment.id == .PayU {
             return Observable.create { [unowned self] observer in
