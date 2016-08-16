@@ -54,7 +54,7 @@ class WishlistViewController: UIViewController {
         castView.contentInset = UIEdgeInsetsMake(topLayoutGuide.length, 0, bottomLayoutGuide.length, 0)
     }
     
-    func updateData(with products: [ListProduct]) {
+    func updateData(with products: [WishlistProduct]) {
         castView.updateData(with: products)
         
         if products.count == 0 {
@@ -75,7 +75,7 @@ class WishlistViewController: UIViewController {
 }
 
 extension WishlistViewController: WishlistViewDelegate {
-    func wishlistView(view: WishlistView, wantsDelete product: ListProduct) {
+    func wishlistView(view: WishlistView, wantsDelete product: WishlistProduct) {
         logAnalyticsEvent(AnalyticsEventId.WishlistProductDeleted(product.id))
         manager.removeFromWishlist(product)
     }

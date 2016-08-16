@@ -12,10 +12,8 @@ class WishlistCell: UITableViewCell {
     private let topBadgeStackView = UIStackView()
     private let bottomBadgeStackView = UIStackView()
     
-    private let newBadgeLabel = BadgeLabel(withType: .New)
     private let priceDiscountBadgeLabel = BadgeLabel(withType: .Discount)
     private let freeDeliveryBadgeLabel = BadgeLabel(withType: .FreeDelivery)
-    private let premiumBadgeLabel = BadgeLabel(withType: .Premium)
     
     private let separatorView = UIView()
     
@@ -34,13 +32,11 @@ class WishlistCell: UITableViewCell {
         
         topBadgeStackView.axis = .Vertical
         topBadgeStackView.spacing = 4
-        topBadgeStackView.addArrangedSubview(newBadgeLabel)
         topBadgeStackView.addArrangedSubview(priceDiscountBadgeLabel)
         
         bottomBadgeStackView.axis = .Vertical
         bottomBadgeStackView.spacing = 0
         bottomBadgeStackView.addArrangedSubview(freeDeliveryBadgeLabel)
-        bottomBadgeStackView.addArrangedSubview(premiumBadgeLabel)
         
         separatorView.backgroundColor = UIColor(named: ColorName.Separator)
         
@@ -103,7 +99,7 @@ class WishlistCell: UITableViewCell {
         }
     }
     
-    func updateData(with product: ListProduct) {
+    func updateData(with product: WishlistProduct) {
         brandLabel.text = product.brand.name
         nameLabel.text = product.name
         photoImageView.image = nil
@@ -111,9 +107,7 @@ class WishlistCell: UITableViewCell {
         priceLabel.basePrice = product.basePrice
         priceLabel.discountPrice = product.basePrice != product.price ? product.price : nil
         
-        newBadgeLabel.hidden = !product.new
         freeDeliveryBadgeLabel.hidden = !product.freeDelivery
-        premiumBadgeLabel.hidden = !product.premium
         let priceDiscount = product.price.calculateDiscountPercent(fromMoney: product.basePrice)
         priceDiscountBadgeLabel.hidden = priceDiscount == 0
         priceDiscountBadgeLabel.text = "-\(priceDiscount)%"

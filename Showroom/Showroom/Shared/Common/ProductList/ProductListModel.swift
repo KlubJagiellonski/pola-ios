@@ -85,7 +85,7 @@ class ProductListModel {
     }
     
     final func addToWishlist(productAtIndex index: Int) {
-        wishlistManager.addToWishlist(products[index])
+        wishlistManager.addToWishlist(WishlistProduct(listProduct: products[index]))
     }
     
     final func createFilterContext() -> ProductFilterContext? {

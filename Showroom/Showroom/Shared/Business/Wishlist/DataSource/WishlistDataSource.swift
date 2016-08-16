@@ -1,11 +1,11 @@
 import UIKit
 
 protocol WishlistDataSourceDelegate: class {
-    func wishlistDataSource(dataSource: WishlistDataSource, wantsDelete product: ListProduct)
+    func wishlistDataSource(dataSource: WishlistDataSource, wantsDelete product: WishlistProduct)
 }
 
 class WishlistDataSource: NSObject, UITableViewDataSource {
-    private var products: [ListProduct] = []
+    private var products: [WishlistProduct] = []
     private weak var tableView: UITableView?
     weak var delegate: WishlistDataSourceDelegate?
     
@@ -23,7 +23,7 @@ class WishlistDataSource: NSObject, UITableViewDataSource {
         tableView?.scrollToRowAtIndexPath(NSIndexPath(forRow: index, inSection: 0), atScrollPosition: .Top, animated: false)
     }
     
-    func updateData(with newProducts: [ListProduct]) {
+    func updateData(with newProducts: [WishlistProduct]) {
         var addedProducts: [NSIndexPath] = []
         var removedProducts: [NSIndexPath] = []
         var updatedProducts: [NSIndexPath] = []

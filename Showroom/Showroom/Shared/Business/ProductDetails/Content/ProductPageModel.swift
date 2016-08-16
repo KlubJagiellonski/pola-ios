@@ -144,22 +144,11 @@ class ProductPageModel {
         guard let product = state.productDetails else {
             return false
         }
-        
-        guard let imageUrl = product.images.first?.url else {
-            fatalError("Could not init ListProduct beacuse there are no images available.")
+        guard let wishlistProduct = WishlistProduct(productDetails: product) else {
+            return false
         }
         
-        let listProduct = ListProduct(
-            id: productId,
-            brand: product.brand,
-            name: product.name,
-            basePrice: product.basePrice,
-            price: product.price,
-            imageUrl: imageUrl,
-            freeDelivery: product.freeDelivery,
-            premium: product.premium,
-            new : product.new)
-        wishlistManager.addToWishlist(listProduct)
+        wishlistManager.addToWishlist(wishlistProduct)
         
         // Product has been added to the Wishlist
         return true

@@ -49,7 +49,7 @@ class QuickActionManager {
     private let staticShortcutIdentifiers: [ShortcutIdentifier] = [.Search]
     
     var basket: Basket? { return basketManager.state.basket }
-    var wishlist: [ListProduct] { return wishlistManager.state.wishlist }
+    var wishlist: [WishlistProduct] { return wishlistManager.state.wishlist }
     var shouldSkipStartScreen: Bool { return userManager.shouldSkipStartScreen }
     
     weak var delegate: QuickActionManagerDelegate?
@@ -80,7 +80,7 @@ class QuickActionManager {
             }.addDisposableTo(disposeBag)
     }
     
-    func updateQuickActions(shouldSkipStartScreen shouldSkipStartScreen: Bool, basket: Basket?, wishlist: [ListProduct]) {
+    func updateQuickActions(shouldSkipStartScreen shouldSkipStartScreen: Bool, basket: Basket?, wishlist: [WishlistProduct]) {
         var shortcutItems = [UIApplicationShortcutItem]()
         
         guard shouldSkipStartScreen else {

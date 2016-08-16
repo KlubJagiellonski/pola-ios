@@ -15,7 +15,7 @@ final class WishlistManager {
     private let userManager: UserManager
     private let api: ApiService
     private let disposeBag = DisposeBag()
-    private var contextWishlist: [ListProduct] = []
+    private var contextWishlist: [WishlistProduct] = []
     private var synchronizationDisposable: Disposable?
     
     let state: WishlistState
@@ -69,7 +69,7 @@ final class WishlistManager {
         return state.wishlist.contains ({ $0.id == id })
     }
     
-    func addToWishlist(product: ListProduct) {
+    func addToWishlist(product: WishlistProduct) {
         if state.wishlist.contains ({ $0.id == product.id }) {
             return
         }
@@ -90,7 +90,7 @@ final class WishlistManager {
         synchronizationDisposable = handleObservable(api.addToWishlist(with: SingleWishlistRequest(productId: product.id)), alwaysMarkAsSynchronized: false)
     }
     
-    func removeFromWishlist(product: ListProduct) {
+    func removeFromWishlist(product: WishlistProduct) {
         removeFromWishlistProduct(withId: product.id)
     }
     
@@ -166,10 +166,10 @@ struct WishlistSynchronizationState {
 }
 
 final class WishlistState {
-    let wishlistObservable = PublishSubject<[ListProduct]>()
+    let wishlistObservable = PublishSubject<[WishlistProduct]>()
     let synchronizationStateObservable = PublishSubject<WishlistSynchronizationState>()
     
-    var wishlist: [ListProduct] = [] {
+    var wishlist: [WishlistProduct] = [] {
         didSet {
             guard oldValue != wishlist else { return }
             wishlistObservable.onNext(wishlist)
@@ -187,7 +187,7 @@ final class WishlistState {
     
     init () { }
     
-    init(wishlist: [ListProduct], wishlistResult: WishlistResult?, synchronizationState: WishlistSynchronizationState) {
+    init(wishlist: [WishlistProduct], wishlistResult: WishlistResult?, synchronizationState: WishlistSynchronizationState) {
         self.wishlist = wishlist
         self.wishlistResult = wishlistResult
         self.synchronizationState = synchronizationState

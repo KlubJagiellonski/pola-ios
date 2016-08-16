@@ -1,7 +1,7 @@
 import UIKit
 
 protocol WishlistViewDelegate: ViewSwitcherDelegate {
-    func wishlistView(view: WishlistView, wantsDelete product: ListProduct)
+    func wishlistView(view: WishlistView, wantsDelete product: WishlistProduct)
     func wishlistView(view: WishlistView, didSelectProductAt indexPath: NSIndexPath)
 }
 
@@ -46,7 +46,7 @@ final class WishlistView: ViewSwitcher, ContentInsetHandler, UITableViewDelegate
         }
     }
     
-    func updateData(with products: [ListProduct]) {
+    func updateData(with products: [WishlistProduct]) {
         dataSource.updateData(with: products)
     }
     
@@ -91,7 +91,7 @@ extension WishlistView: ViewSwitcherDataSource {
 }
 
 extension WishlistView: WishlistDataSourceDelegate {
-    func wishlistDataSource(dataSource: WishlistDataSource, wantsDelete product: ListProduct) {
+    func wishlistDataSource(dataSource: WishlistDataSource, wantsDelete product: WishlistProduct) {
         delegate?.wishlistView(self, wantsDelete: product)
     }
 }
