@@ -23,11 +23,16 @@ class WishlistDataSource: NSObject, UITableViewDataSource {
         tableView?.scrollToRowAtIndexPath(NSIndexPath(forRow: index, inSection: 0), atScrollPosition: .Top, animated: false)
     }
     
-    func updateData(with newProducts: [WishlistProduct]) {
+    func updateData(with newProducts: [WishlistProduct], animated: Bool) {
+        guard animated else {
+            products = newProducts
+            tableView?.reloadData()
+            return
+        }
+        
         var addedProducts: [NSIndexPath] = []
         var removedProducts: [NSIndexPath] = []
         var updatedProducts: [NSIndexPath] = []
-        var movedProducts: [(NSIndexPath, NSIndexPath)] = []
         
         logInfo("Updating newProducts \(newProducts), oldProducts \(products)")
         
@@ -41,8 +46,6 @@ class WishlistDataSource: NSObject, UITableViewDataSource {
                 if newProduct != oldProduct {
                     // Product has been changed
                     updatedProducts.append(NSIndexPath(forRow: oldIndex, inSection: 0))
-                } else if newIndex != oldIndex {
-                    movedProducts.append((NSIndexPath(forRow: oldIndex, inSection: 0), NSIndexPath(forRow: newIndex, inSection: 0)))
                 }
             } else {
                 // Product has been removed
@@ -62,33 +65,14 @@ class WishlistDataSource: NSObject, UITableViewDataSource {
         
         if removedProducts.isEmpty &&
             updatedProducts.isEmpty &&
-            addedProducts.isEmpty &&
-            movedProducts.isEmpty {
+            addedProducts.isEmpty {
             logInfo("Wishlist has been updated but nothing changed.")
             return
         }
         
-        logInfo("Updating tableView with removed \(removedProducts), updated \(updatedProducts), added \(addedProducts), moved \(movedProducts)")
-        
-        // checking for incostinstency
-        for adddedProduct in addedProducts {
-            for movedProduct in movedProducts {
-                if adddedProduct.row == movedProduct.1.row {
-                    logError("Found incostinstency. Cannot move and add to same index")
-                    tableView?.reloadData()
-                    return
-                }
-            }
-        }
-        
+        logInfo("Updating tableView with removed \(removedProducts), updated \(updatedProducts), added \(addedProducts)")
         
         tableView?.beginUpdates()
-        
-        if !movedProducts.isEmpty {
-            for movedProduct in movedProducts {
-                tableView?.moveRowAtIndexPath(movedProduct.0, toIndexPath: movedProduct.1)
-            }
-        }
         
         if !removedProducts.isEmpty {
             tableView?.deleteRowsAtIndexPaths(removedProducts, withRowAnimation: .Automatic)

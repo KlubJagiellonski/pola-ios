@@ -56,7 +56,7 @@ class WishlistViewController: UIViewController {
     
     func updateData(with products: [WishlistProduct]) {
         logInfo("Updating data with products \(products)")
-        castView.updateData(with: products)
+        castView.updateData(with: products, animated: !manager.state.synchronizationState.synchronizing)
         
         if products.count == 0 {
             castView.switcherState = .Empty

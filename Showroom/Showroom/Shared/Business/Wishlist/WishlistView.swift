@@ -46,8 +46,8 @@ final class WishlistView: ViewSwitcher, ContentInsetHandler, UITableViewDelegate
         }
     }
     
-    func updateData(with products: [WishlistProduct]) {
-        dataSource.updateData(with: products)
+    func updateData(with products: [WishlistProduct], animated: Bool) {
+        dataSource.updateData(with: products, animated: animated)
     }
     
     func moveToPosition(at index: Int, animated: Bool) {
