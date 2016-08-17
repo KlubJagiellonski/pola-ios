@@ -24,7 +24,11 @@ final class ProductFilterModel {
     }
     
     func update(withData data: [FilterObjectId], forFilterId filterId: FilterId) {
-        guard let filterIndex = state.currentFilters.value.indexOf({ $0.id == filterId }) else { return }
+        logInfo("Updating filters for data \(data) filterId \(filterId)")
+        guard let filterIndex = state.currentFilters.value.indexOf({ $0.id == filterId }) else {
+            logError("Could not update filter, filter not found for id \(filterId), filters \(state.currentFilters)")
+            return
+        }
         refreshFilter() {
             if let tempFilter = state.tempFilter.value {
                 updateTemp(withData: data, forFilterId: filterId)
@@ -37,35 +41,50 @@ final class ProductFilterModel {
     
     func updateTemp(withData data: [FilterObjectId], forFilterId filterId: FilterId) {
         var filters = state.currentFilters.value
-        guard let filterIndex = filters.indexOf({ $0.id == filterId }) else { return }
+        guard let filterIndex = filters.indexOf({ $0.id == filterId }) else {
+            logError("Could not update temp filter, filter not found for id \(filterId), filters \(filters)")
+            return
+        }
         filters[filterIndex].data = data
         refreshTempFilter(filters, forFilterId: filterId)
     }
     
     func clearChanges() {
+        logInfo("Clearing changes")
         refreshFilter() {
             state.currentFilters.value = context.entryFilters
         }
     }
     
     func resetTempFilter() {
+        logInfo("Reseting temp filter")
         state.tempFilter.value = nil
     }
     
-    func createFilterInfo(forFilterId filterId: FilterId) -> FilterInfo {
-        let filter = state.currentFilters.value.find({ $0.id == filterId })!
+    func createFilterInfo(forFilterId filterId: FilterId) -> FilterInfo? {
+        logInfo("Creating filter info for id \(filterId)")
+        guard let filter = state.currentFilters.value.find({ $0.id == filterId }) else {
+            logError("Cannot create filter, filter with specified id \(filterId) doesn't exist in \(state.currentFilters)")
+            return nil
+        }
         return createFilterInfo(forFilter: filter)
     }
     
     func createTempFilterInfo(forFilterId filterId: FilterId) -> FilterInfo? {
-        guard state.tempFilter.value != nil else { return nil }
+        logInfo("Creating temp filter info for id \(filterId)")
+        guard state.tempFilter.value != nil else {
+            logError("Cannot create temp filter. Temp filter already exist \(state.tempFilter.value)")
+            return nil
+        }
         return createFilterInfo(forFilter: state.tempFilter.value!)
     }
     
-    private func createFilterInfo(forFilter filter: Filter) -> FilterInfo {
+    private func createFilterInfo(forFilter filter: Filter) -> FilterInfo? {
         var filterItems: [FilterItem] = []
         var selectedFilterItemsIds: [FilterObjectId] = []
         var mode: FilterDetailsMode!
+        
+        logInfo("Creating filter info for filter \(filter)")
         
         switch filter.type {
         case .Choice:
@@ -84,12 +103,9 @@ final class ProductFilterModel {
             }
             selectedFilterItemsIds = filter.data
             mode = .Tree
-        case .Unknown:
+        case .Unknown, .Range, .Select:
             logError("Cannot create filterInfo for filter \(filter)")
-        case .Range:
-            fallthrough
-        case .Select:
-            fatalError("Cannot create filterInfo for filter \(filter)")
+            return nil
         }
         
         return FilterInfo(id: filter.id, filterItems: filterItems, selectedFilterItemIds: selectedFilterItemsIds, defaultFilterId: filter.defaultId, mode: mode, title: filter.label)
@@ -100,6 +116,7 @@ final class ProductFilterModel {
         
         refreshFilterBlock()
         
+        logInfo("Refresing filter")
         state.viewState.value = .Refreshing
         context.fetchObservable(state.currentFilters.value)
             .observeOn(MainScheduler.instance)
@@ -110,6 +127,7 @@ final class ProductFilterModel {
                 
                 switch event {
                 case .Next(let result):
+                    logInfo("Refreshing filter success with result \(result.filters)")
                     self.changedProductListResult = result
                 case .Error(let error):
                     self.state.viewState.value = .Error

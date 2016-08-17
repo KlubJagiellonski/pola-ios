@@ -12,19 +12,14 @@ protocol ProductFilterViewDelegate: class {
 class ProductFilterView: ViewSwitcher, UITableViewDelegate {
     private let dataSource: ProductFilterDataSource
     weak var delegate: ProductFilterViewDelegate?
-    private let disposeBag = DisposeBag()
     
     private let contentView = UIView()
     private let tableView = UITableView(frame: CGRectZero, style: .Plain)
     private let acceptButton = UIButton()
     
-    init(with state: ProductFilterModelState) {
+    init() {
         dataSource = ProductFilterDataSource(with: tableView)
         super.init(successView: contentView, initialState: .Success)
-        
-        state.currentFilters.asObservable().subscribeNext { [weak self] filters in
-            self?.dataSource.filters = filters
-        }.addDisposableTo(disposeBag)
         
         dataSource.productFilterView = self
         
@@ -46,6 +41,10 @@ class ProductFilterView: ViewSwitcher, UITableViewDelegate {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func updateData(with filters: [Filter]) {
+        dataSource.filters = filters
     }
     
     func didTapAccept() {

@@ -45,7 +45,7 @@ extension Filter {
 class ProductFilterDataSource: NSObject, UITableViewDataSource {
     private weak var tableView: UITableView?
     weak var productFilterView: ProductFilterView?
-    var filters: [Filter]! {
+    var filters: [Filter] = [] {
         didSet {
             tableView?.reloadData()
         }

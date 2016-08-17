@@ -22,7 +22,7 @@ class ProductFilterViewController: UIViewController, ProductFilterViewDelegate {
     }
     
     override func loadView() {
-        view = ProductFilterView(with: self.model.state)
+        view = ProductFilterView()
     }
     
     override func viewDidLoad() {
@@ -32,6 +32,8 @@ class ProductFilterViewController: UIViewController, ProductFilterViewDelegate {
         model.state.viewState.asObservable().subscribeNext { [weak self] viewState in
             guard let `self` = self else { return }
             
+            logInfo("Updating state to \(viewState)")
+            
             switch viewState {
             case .Default:
                 self.castView.switcherState = .Success
@@ -40,6 +42,13 @@ class ProductFilterViewController: UIViewController, ProductFilterViewDelegate {
             case .Error:
                 self.toastManager.showMessage(tr(.CommonError))
             }
+        }.addDisposableTo(disposeBag)
+        
+        model.state.currentFilters.asObservable().subscribeNext { [weak self] filters in
+            guard let `self` = self else { return }
+            
+            logInfo("Updating filters \(filters)")
+            self.castView.updateData(with: filters)
         }.addDisposableTo(disposeBag)
     }
     
@@ -61,19 +70,23 @@ class ProductFilterViewController: UIViewController, ProductFilterViewDelegate {
     // MARK:- ProductFilterViewDelegate
     
     func productFilterDidTapAccept(view: ProductFilterView) {
+        logInfo("Did tap accept in product filter view")
         sendNavigationEvent(SimpleNavigationEvent(type: .ShowFilteredProducts))
     }
     
     func productFilter(view: ProductFilterView, didSelectItemAtIndex index: Int) {
+        logInfo("Did select product filter item at index \(index)")
         let filter = model.state.currentFilters.value[index]
         sendNavigationEvent(ShowFilterEvent(filter: filter))
     }
     
     func productFilter(view: ProductFilterView, didChangeValueRange valueRange: ValueRange, forIndex index: Int) {
+        logInfo("Updated product filter range \(valueRange) for index \(index)")
         model.update(with: valueRange, forFilterId: model.state.currentFilters.value[index].id)
     }
     
     func productFilter(view: ProductFilterView, didChangeSelect selected: Bool, forIndex index: Int) {
+        logInfo("Updated product filter select \(selected) for index \(index)")
         model.update(withSelected: selected, forFilterId: model.state.currentFilters.value[index].id)
     }
 }

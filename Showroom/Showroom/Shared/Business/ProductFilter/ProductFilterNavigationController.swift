@@ -43,7 +43,9 @@ class ProductFilterNavigationController: UINavigationController, NavigationHandl
     
     func handleNavigationEvent(event: NavigationEvent) -> EventHandled {
         if let showFilterEvent = event as? ShowFilterEvent {
-            let filterInfo = model.createFilterInfo(forFilterId: showFilterEvent.filter.id)
+            guard let filterInfo = model.createFilterInfo(forFilterId: showFilterEvent.filter.id) else {
+                return true
+            }
             let viewController = resolver.resolve(FilterDetailsViewController.self, arguments:(model, filterInfo))
             viewController.resetBackTitle()
             pushViewController(viewController, animated: true)
