@@ -1,12 +1,19 @@
 import UIKit
 
 class PaymentSuccessViewController: UIViewController, PaymentSuccessViewDelegate {
-    
+    private let resolver: DiResolver
+    private let rateAppManager: RateAppManager
     private var castView: PaymentSuccessView { return view as! PaymentSuccessView }
-    
     private let orderNumber: Int
+    private lazy var formSheetAnimator: FormSheetAnimator = { [unowned self] in
+        let animator = FormSheetAnimator()
+        animator.delegate = self
+        return animator
+    }()
     
     init(resolver: DiResolver, orderNumber: Int) {
+        self.resolver = resolver
+        self.rateAppManager = resolver.resolve(RateAppManager.self)
         self.orderNumber = orderNumber
         super.init(nibName: nil, bundle: nil)
     }
@@ -22,6 +29,7 @@ class PaymentSuccessViewController: UIViewController, PaymentSuccessViewDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         castView.delegate = self
+        showRateAppViewIfNeeded()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -40,5 +48,29 @@ class PaymentSuccessViewController: UIViewController, PaymentSuccessViewDelegate
     func paymentSuccessViewDidTapGoToMain(view: PaymentSuccessView) {
         logInfo("paymentSuccessViewDidTapGoToMain")
         sendNavigationEvent(SimpleNavigationEvent(type: .ShowDashboard))
+    }
+    
+    private func showRateAppViewIfNeeded() {
+        guard rateAppManager.shouldShowRateAppView else {
+            return
+        }
+        
+        let viewController = resolver.resolve(RateAppViewController.self, argument: RateAppViewType.AfterBuy)
+        viewController.preferredContentSize = Dimensions.rateAppPreferredSize
+        viewController.delegate = self
+        formSheetAnimator.presentViewController(viewController, presentingViewController: self)
+        rateAppManager.didShowRateAppView()
+    }
+}
+
+extension PaymentSuccessViewController: DimAnimatorDelegate {
+    func animatorDidTapOnDimView(animator: Animator) {
+        formSheetAnimator.dismissViewController(presentingViewController: self)
+    }
+}
+
+extension PaymentSuccessViewController: RateAppViewControllerDelegate {
+    func rateAppWantsDismiss(viewController: RateAppViewController) {
+        formSheetAnimator.dismissViewController(presentingViewController: self)
     }
 }

@@ -373,6 +373,18 @@ enum L10n {
   case AppVersionNotSupportedAccept
   /// Anuluj
   case AppVersionNotSupportedDecline
+  /// OCEŃ NAS
+  case RateAppTitle
+  /// Pozwól, by inni wiedzieli co sądzisz o aplikacji SHOWROOM. Oceń aplikację w App Store.
+  case RateAppDescriptionAfterTime
+  /// Dzięki za zakupy w SHOWROOM. Pozwól, by inny wiedzieli co o nas sądzisz.
+  case RateAppDescriptionAfterBuy
+  /// OCEŃ
+  case RateAppRate
+  /// NIE, DZIĘKI
+  case RateAppDecline
+  /// INNYM RAZEM
+  case RateAppOtherTime
 }
 
 extension L10n: CustomStringConvertible {
@@ -750,6 +762,18 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("AppVersionNotSupported.Accept")
       case .AppVersionNotSupportedDecline:
         return L10n.tr("AppVersionNotSupported.Decline")
+      case .RateAppTitle:
+        return L10n.tr("RateApp.Title")
+      case .RateAppDescriptionAfterTime:
+        return L10n.tr("RateApp.DescriptionAfterTime")
+      case .RateAppDescriptionAfterBuy:
+        return L10n.tr("RateApp.DescriptionAfterBuy")
+      case .RateAppRate:
+        return L10n.tr("RateApp.Rate")
+      case .RateAppDecline:
+        return L10n.tr("RateApp.Decline")
+      case .RateAppOtherTime:
+        return L10n.tr("RateApp.OtherTime")
     }
   }
 

@@ -7,7 +7,7 @@ class UIAssembly: AssemblyType {
             return RootViewController(resolver: r.resolve(DiResolver.self)!)!
         }
         container.register(RootModel.self) { r in
-            return RootModel(with: r.resolve(UserManager.self)!, and: r.resolve(ApiService.self)!)
+            return RootModel(with: r.resolve(UserManager.self)!, apiService: r.resolve(ApiService.self)!, rateAppManager: r.resolve(RateAppManager.self)!)
         }
         container.register(StartViewController.self) { r in
             return StartViewController(resolver: r.resolve(DiResolver.self)!)
@@ -197,6 +197,9 @@ class UIAssembly: AssemblyType {
         }
         container.register(PaymentFailureViewController.self) { r, orderNumber in
             return PaymentFailureViewController(resolver: r.resolve(DiResolver.self)!, orderNumber: orderNumber)
+        }
+        container.register(RateAppViewController.self) { r, type in
+            return RateAppViewController(with: type, manager: r.resolve(RateAppManager.self)!, application: r.resolve(UIApplication.self)!)
         }
     }
 }

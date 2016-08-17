@@ -10,7 +10,16 @@ class SettingsViewController: UIViewController {
     
     private var firstLayoutSubviewsPassed = false
     
-    private var onboardingActionAnimator: DropUpActionAnimator!
+    private lazy var onboardingActionAnimator: DropUpActionAnimator = { [unowned self] in
+        let animator = DropUpActionAnimator(height: self.castView.bounds.height - CGFloat(97.0))
+        animator.delegate = self
+        return animator
+    }()
+    private lazy var rateAppAnimator: FormSheetAnimator = { [unowned self] in
+        let animator = FormSheetAnimator()
+        animator.delegate = self
+        return animator
+    }()
     
     let resolver: DiResolver
     
@@ -64,6 +73,8 @@ class SettingsViewController: UIViewController {
             settings.append(Setting(type: .Normal, labelString: "Pokaż onboarding", action: self.showOnboarding))
             settings.append(Setting(type: .Normal, labelString: "Pokaż in-app wishlist onboarding", action: self.showInAppWishlistOnboarding))
             settings.append(Setting(type: .Normal, labelString: "Pokaż in-app product paging onboarding", action: self.showInAppProductPagingOnboarding))
+            settings.append(Setting(type: .Normal, labelString: "Pokaż oceń nas (po czasie)", action: self.showRateAppAfterTime))
+            settings.append(Setting(type: .Normal, labelString: "Pokaż oceń nas (po zakupie)", action: self.showRateAppAfterBuy))
         }
         
         castView.updateData(with: settings)
@@ -100,9 +111,6 @@ class SettingsViewController: UIViewController {
         super.viewDidAppear(animated)
         markHandoffUrlActivity(withPath: "/")
         castView.deselectRowsIfNeeded()
-        
-        onboardingActionAnimator = DropUpActionAnimator(height: castView.bounds.height - CGFloat(97.0))
-        onboardingActionAnimator.delegate = self
     }
 
     func facebookButtonPressed() {
@@ -221,6 +229,21 @@ class SettingsViewController: UIViewController {
 
     }
     
+    func showRateAppAfterTime() {
+        showRateApp(withType: .AfterTime)
+    }
+    
+    func showRateAppAfterBuy() {
+        showRateApp(withType: .AfterBuy)
+    }
+    
+    func showRateApp(withType type: RateAppViewType) {
+        let viewController = self.resolver.resolve(RateAppViewController.self, argument: type)
+        viewController.preferredContentSize = Dimensions.rateAppPreferredSize
+        viewController.delegate = self
+        rateAppAnimator.presentViewController(viewController, presentingViewController: self)
+    }
+    
     private func didChange(gender gender: Gender) {
         logAnalyticsEvent(AnalyticsEventId.ProfileGenderChoice(gender.rawValue))
         userManager.gender = gender
@@ -252,5 +275,11 @@ extension SettingsViewController: ProductPagingInAppOnboardingViewControllerDele
 extension SettingsViewController: DimAnimatorDelegate {
     func animatorDidTapOnDimView(animator: Animator) {
         animator.dismissViewController(presentingViewController: self, animated: true, completion: nil)
+    }
+}
+
+extension SettingsViewController: RateAppViewControllerDelegate {
+    func rateAppWantsDismiss(viewController: RateAppViewController) {
+        rateAppAnimator.dismissViewController(presentingViewController: self)
     }
 }

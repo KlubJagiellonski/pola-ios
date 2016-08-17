@@ -216,6 +216,10 @@
 		1DD1EA981CF2ECC200D99731 /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD1EA971CF2ECC200D99731 /* Navigation.swift */; };
 		1DD1EA9B1CF2ED6400D99731 /* SimpleNavigationEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD1EA9A1CF2ED6400D99731 /* SimpleNavigationEvent.swift */; };
 		1DD1EA9D1CF2F58E00D99731 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD1EA9C1CF2F58E00D99731 /* SnapKit.framework */; };
+		1DDE61E81D649152007E5509 /* RateAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDE61E71D649152007E5509 /* RateAppViewController.swift */; };
+		1DDE61EA1D64916C007E5509 /* RateAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDE61E91D64916C007E5509 /* RateAppView.swift */; };
+		1DDE61EC1D649910007E5509 /* RateAppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDE61EB1D649910007E5509 /* RateAppManager.swift */; };
+		1DDE61F01D649C6F007E5509 /* NSDateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDE61EF1D649C6F007E5509 /* NSDateUtils.swift */; };
 		1DE0252A1D48D52000324178 /* ProductDescriptionNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE025291D48D52000324178 /* ProductDescriptionNavigationController.swift */; };
 		1DF14F2A1D2A72AB004A6A3A /* ProductErrorPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF14F291D2A72AB004A6A3A /* ProductErrorPageCell.swift */; };
 		1DF14F2C1D2AA21A004A6A3A /* ProductListEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF14F2B1D2AA21A004A6A3A /* ProductListEmptyView.swift */; };
@@ -584,6 +588,10 @@
 		1DD1EA971CF2ECC200D99731 /* Navigation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
 		1DD1EA9A1CF2ED6400D99731 /* SimpleNavigationEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleNavigationEvent.swift; sourceTree = "<group>"; };
 		1DD1EA9C1CF2F58E00D99731 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
+		1DDE61E71D649152007E5509 /* RateAppViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateAppViewController.swift; sourceTree = "<group>"; };
+		1DDE61E91D64916C007E5509 /* RateAppView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateAppView.swift; sourceTree = "<group>"; };
+		1DDE61EB1D649910007E5509 /* RateAppManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateAppManager.swift; sourceTree = "<group>"; };
+		1DDE61EF1D649C6F007E5509 /* NSDateUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateUtils.swift; sourceTree = "<group>"; };
 		1DE025291D48D52000324178 /* ProductDescriptionNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDescriptionNavigationController.swift; sourceTree = "<group>"; };
 		1DF14F291D2A72AB004A6A3A /* ProductErrorPageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductErrorPageCell.swift; sourceTree = "<group>"; };
 		1DF14F2B1D2AA21A004A6A3A /* ProductListEmptyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductListEmptyView.swift; sourceTree = "<group>"; };
@@ -896,6 +904,7 @@
 		1D2F195F1CE9CEBA0099142E /* Business */ = {
 			isa = PBXGroup;
 			children = (
+				1DDE61E61D649132007E5509 /* RateApp */,
 				7520AD841D34DE37003FC38B /* Signing */,
 				1D5F91441D34E93500AE66E6 /* ProductFilter */,
 				75BB896E1D300A7400F9138D /* Start */,
@@ -1032,6 +1041,7 @@
 				1D5F91601D3537BA00AE66E6 /* UITableViewUtils.swift */,
 				1D5E91891D3CDDB600A6BD55 /* UISearchBarUtils.swift */,
 				1D49FC971D4A17A500A3832F /* NSBundleUtils.swift */,
+				1DDE61EF1D649C6F007E5509 /* NSDateUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1127,6 +1137,7 @@
 				1DC485C61D474BEA00BDA1BD /* PayUManager.swift */,
 				C0456D2C1D4A2174006A3F8F /* QuickActionManager.swift */,
 				1D88AB751D5315DD005DDFBB /* NotificationsManager.swift */,
+				1DDE61EB1D649910007E5509 /* RateAppManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -1368,6 +1379,15 @@
 				1DC096A61D477ED300D745DB /* ShowBrandProductListEvent.swift */,
 			);
 			path = Event;
+			sourceTree = "<group>";
+		};
+		1DDE61E61D649132007E5509 /* RateApp */ = {
+			isa = PBXGroup;
+			children = (
+				1DDE61E71D649152007E5509 /* RateAppViewController.swift */,
+				1DDE61E91D64916C007E5509 /* RateAppView.swift */,
+			);
+			path = RateApp;
 			sourceTree = "<group>";
 		};
 		1DF796751CEB343E00C7A7F4 /* Network */ = {
@@ -2054,12 +2074,14 @@
 				1D2F193F1CE9CE250099142E /* AppDelegate.swift in Sources */,
 				C049D8CF1D33F0930043F60F /* OnboardingInfiniteScrollingCell.swift in Sources */,
 				C0237D131D22652F0009F2FC /* EditAddressView.swift in Sources */,
+				1DDE61F01D649C6F007E5509 /* NSDateUtils.swift in Sources */,
 				1D5F91591D350C7800AE66E6 /* SwitchValueTableViewCell.swift in Sources */,
 				1D0F3B541D12CE3D0052CFF6 /* BasketCountryViewController.swift in Sources */,
 				1D5886E61D2BE06A007D0CB1 /* TrendHeaderCell.swift in Sources */,
 				1D69334F1D2E40E500609BB9 /* BrandHeaderCell.swift in Sources */,
 				1D5E918D1D3CDE1A00A6BD55 /* SearchProductListViewController.swift in Sources */,
 				1D7824B51D0708E900E60392 /* ProductPageModel.swift in Sources */,
+				1DDE61EC1D649910007E5509 /* RateAppManager.swift in Sources */,
 				1DF796801CEB3C4000C7A7F4 /* Constants.swift in Sources */,
 				751A50121D1156CB00DF7D2B /* ProductAmountHeaderView.swift in Sources */,
 				1D72ED0F1CFC2F47007AFD2F /* UserManager.swift in Sources */,
@@ -2087,6 +2109,7 @@
 				1D0F3B611D13D2DC0052CFF6 /* BasketCountryView.swift in Sources */,
 				75A92AB21D3E26CB00EDC89D /* WishlistView.swift in Sources */,
 				1D1A7E1C1D253418009CCCE7 /* ProductLoadingPageCell.swift in Sources */,
+				1DDE61E81D649152007E5509 /* RateAppViewController.swift in Sources */,
 				1DD1EA6B1CEC5D1700D99731 /* L10n.swift in Sources */,
 				1DD161971D01A7310022B5C9 /* ProductDetailsViewController.swift in Sources */,
 				1DD161AC1D01C8680022B5C9 /* ProductDetailsView.swift in Sources */,
@@ -2144,6 +2167,7 @@
 				1D1A7E181D25054D009CCCE7 /* BadgeLabel.swift in Sources */,
 				C0CBE2B21D2E50F7008B861D /* Setting.swift in Sources */,
 				1DF796831CEB473300C7A7F4 /* DiAssembler.swift in Sources */,
+				1DDE61EA1D64916C007E5509 /* RateAppView.swift in Sources */,
 				1DA823181D1A8F510054288D /* LoadingIndicator.swift in Sources */,
 				75EDE82B1CFDDF6D00C5F96B /* UITextFieldUtils.swift in Sources */,
 				1D0F3B581D12D2C70052CFF6 /* UIViewControllerUtils.swift in Sources */,

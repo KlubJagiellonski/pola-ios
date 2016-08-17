@@ -6,6 +6,11 @@ class RootViewController: PresenterViewController, NavigationHandler {
     private let model: RootModel
     private let resolver: DiResolver
     private var urlToHandle: NSURL?
+    private lazy var formSheetAnimator: FormSheetAnimator = { [unowned self] in
+        let animator = FormSheetAnimator()
+        animator.delegate = self
+        return animator
+    }()
     
     init?(resolver: DiResolver) {
         self.resolver = resolver
@@ -47,6 +52,18 @@ class RootViewController: PresenterViewController, NavigationHandler {
         }
     }
     
+    private func showRateAppViewIfNeeded() {
+        guard model.rateAppManager.shouldShowRateAppView else {
+            return
+        }
+        
+        let viewController = self.resolver.resolve(RateAppViewController.self, argument: RateAppViewType.AfterTime)
+        viewController.preferredContentSize = Dimensions.rateAppPreferredSize
+        viewController.delegate = self
+        formSheetAnimator.presentViewController(viewController, presentingViewController: self)
+        model.rateAppManager.didShowRateAppView()
+    }
+    
     // MARK: - NavigationHandler
     
     func handleNavigationEvent(event: NavigationEvent) -> EventHandled {
@@ -63,7 +80,10 @@ class RootViewController: PresenterViewController, NavigationHandler {
             }
             return true
         case .SplashEnd:
-            hideModal(animation: nil, completion: nil)
+            hideModal(animation: nil) { [weak self] _ in
+                guard let `self` = self else { return }
+                self.showRateAppViewIfNeeded()
+            }
             return true
         case .OnboardingEnd:
             showContent(resolver.resolve(StartViewController), animation: DimTransitionAnimation(animationDuration: 0.3), completion: nil)
@@ -97,7 +117,7 @@ extension RootViewController: ApiServiceDelegate {
         guard presentedViewController == nil else { return }
         
         let acceptAction: (UIAlertAction -> Void) = { _ in
-            if let appStoreUrl = NSURL(string: "itms-apps://itunes.apple.com/app/\(Constants.appStoreAppId)") {
+            if let appStoreUrl = NSURL(string: Constants.appStoreUrl) {
                 UIApplication.sharedApplication().openURL(appStoreUrl)
             }
         }
@@ -106,5 +126,17 @@ extension RootViewController: ApiServiceDelegate {
         alert.addAction(UIAlertAction(title: tr(.AppVersionNotSupportedAccept), style: .Default, handler: acceptAction))
         alert.addAction(UIAlertAction(title: tr(.AppVersionNotSupportedDecline), style: .Cancel, handler: nil))
         presentViewController(alert, animated: true, completion: nil)
+    }
+}
+
+extension RootViewController: DimAnimatorDelegate {
+    func animatorDidTapOnDimView(animator: Animator) {
+        formSheetAnimator.dismissViewController(presentingViewController: self)
+    }
+}
+
+extension RootViewController: RateAppViewControllerDelegate {
+    func rateAppWantsDismiss(viewController: RateAppViewController) {
+        formSheetAnimator.dismissViewController(presentingViewController: self)
     }
 }

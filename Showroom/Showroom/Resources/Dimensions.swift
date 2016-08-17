@@ -21,4 +21,5 @@ struct Dimensions {
     static let bottomBadgeHeight: CGFloat = 15
     static let onboardingTopOffset: CGFloat = 62
     static let onboardingTextHorizontalOffset: CGFloat = 22
+    static let rateAppPreferredSize = CGSize(width: 290, height: 283)
 }

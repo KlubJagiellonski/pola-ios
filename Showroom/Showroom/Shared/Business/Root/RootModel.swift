@@ -10,6 +10,7 @@ enum RootChildType {
 class RootModel {
     private let userManager: UserManager
     let apiService: ApiService
+    let rateAppManager: RateAppManager
     
     var startChildType: RootChildType {
         if (!userManager.shouldSkipStartScreen) {
@@ -24,8 +25,9 @@ class RootModel {
         get { return userManager.shouldSkipStartScreen }
     }
     
-    init(with userManager: UserManager, and apiService: ApiService) {
+    init(with userManager: UserManager, apiService: ApiService, rateAppManager: RateAppManager) {
         self.userManager = userManager
         self.apiService = apiService
+        self.rateAppManager = rateAppManager
     }
 }

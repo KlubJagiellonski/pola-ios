@@ -183,3 +183,9 @@
 "AppVersionNotSupported.Description" = "Ta wersja aplikacji nie jest już wspierana. Aby dalej korzystać z Showroom zainstaluj najnowszą wersję z App Store";
 "AppVersionNotSupported.Accept" = "App Store";
 "AppVersionNotSupported.Decline" = "Anuluj";
+"RateApp.Title" = "OCEŃ NAS";
+"RateApp.DescriptionAfterTime" = "Pozwól, by inni wiedzieli co sądzisz o aplikacji SHOWROOM. Oceń aplikację w App Store.";
+"RateApp.DescriptionAfterBuy" = "Dzięki za zakupy w SHOWROOM. Pozwól, by inny wiedzieli co o nas sądzisz.";
+"RateApp.Rate" = "OCEŃ";
+"RateApp.Decline" = "NIE, DZIĘKI";
+"RateApp.OtherTime" = "INNYM RAZEM";
