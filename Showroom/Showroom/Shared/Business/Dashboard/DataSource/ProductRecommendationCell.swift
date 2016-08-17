@@ -26,18 +26,22 @@ class ProductRecommendationCell: UICollectionViewCell {
         brandLabel.textColor = UIColor(named: .Black)
         brandLabel.numberOfLines = 2
         brandLabel.preferredMaxLayoutWidth = Dimensions.recommendationItemSize.width
+        brandLabel.textAlignment = .Center
         
         nameLabel.font = UIFont(fontType: .ProductListText)
         nameLabel.textColor = UIColor(named: .Black)
         nameLabel.numberOfLines = 3
         nameLabel.preferredMaxLayoutWidth = Dimensions.recommendationItemSize.width
         nameLabel.setContentHuggingPriority(UILayoutPriorityDefaultHigh, forAxis: .Vertical)
+        nameLabel.textAlignment = .Center
         
         basePriceLabel.font = UIFont(fontType: .ProductListText)
         basePriceLabel.textColor = UIColor(named: .DarkGray)
+        basePriceLabel.textAlignment = .Center
         
         priceLabel.font = UIFont(fontType: .ProductListText)
         priceLabel.textColor = UIColor(named: .Black)
+        priceLabel.textAlignment = .Center
         
         priceDiscountBadgeLabel.hidden = true
         

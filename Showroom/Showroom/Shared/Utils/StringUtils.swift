@@ -17,6 +17,19 @@ extension String {
     var strikethroughString: NSMutableAttributedString {
         return NSMutableAttributedString(string: self, attributes: [NSStrikethroughStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue])
     }
+
+    func stringWithStrikethroughBasePrice(basePrice: String, kern: Double? = nil) -> NSAttributedString {
+        let string = self as NSString
+        let range = string.rangeOfString(basePrice)
+        let attributedString = NSMutableAttributedString(string: self)
+        attributedString.addAttribute(NSStrikethroughStyleAttributeName, value: NSUnderlineStyle.StyleSingle.rawValue, range: range)
+        attributedString.addAttribute(NSFontAttributeName, value: UIFont(fontType: .ProductListText), range: range)
+        attributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor(named: .DarkGray), range: range)
+        if let kern = kern {
+            attributedString.addAttribute(NSKernAttributeName, value: kern, range: range)
+        }
+        return attributedString
+    }
     
     func stringWithHighlightedSubsttring(substring: String) -> NSMutableAttributedString {
         let string = self as NSString
