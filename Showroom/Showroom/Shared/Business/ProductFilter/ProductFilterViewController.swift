@@ -77,6 +77,10 @@ class ProductFilterViewController: UIViewController, ProductFilterViewDelegate {
     func productFilter(view: ProductFilterView, didSelectItemAtIndex index: Int) {
         logInfo("Did select product filter item at index \(index)")
         let filter = model.state.currentFilters.value[index]
+        guard filter.type.isSelectable else {
+            logInfo("Product filter is not selectable")
+            return
+        }
         sendNavigationEvent(ShowFilterEvent(filter: filter))
     }
     
@@ -88,5 +92,16 @@ class ProductFilterViewController: UIViewController, ProductFilterViewDelegate {
     func productFilter(view: ProductFilterView, didChangeSelect selected: Bool, forIndex index: Int) {
         logInfo("Updated product filter select \(selected) for index \(index)")
         model.update(withSelected: selected, forFilterId: model.state.currentFilters.value[index].id)
+    }
+}
+
+extension FilterType {
+    private var isSelectable: Bool {
+        switch self {
+        case .Choice, .Tree:
+            return true
+        default:
+            return false
+        }
     }
 }

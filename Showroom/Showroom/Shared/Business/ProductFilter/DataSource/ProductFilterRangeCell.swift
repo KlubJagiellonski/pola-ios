@@ -38,6 +38,7 @@ final class ProductFilterRangeCell: UITableViewCell, TTRangeSliderDelegate {
         rangeSlider.handleImage = UIImage(asset: .Slider)
         rangeSlider.handleDiameter = 14
         rangeSlider.delegate = self
+        rangeSlider.enableStep = true
         
         contentView.addSubview(titleLabel)
         contentView.addSubview(valueLabel)
@@ -94,7 +95,8 @@ final class ProductFilterRangeCell: UITableViewCell, TTRangeSliderDelegate {
     // MARK:- TTRangeSliderDelegate
     
     func rangeSlider(sender: TTRangeSlider!, didChangeSelectedMinimumValue selectedMinimum: Float, andMaximumValue selectedMaximum: Float) {
-        updateValue(minValue: Int(selectedMinimum), maxValue: Int(selectedMaximum))
+        logInfo("Minimum \(selectedMinimum)")
+        updateValue(minValue: Int(round(selectedMinimum)), maxValue: Int(round(selectedMaximum)))
     }
     
     func didEndTouchesInRangeSlider(sender: TTRangeSlider!) {

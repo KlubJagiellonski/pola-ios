@@ -29,6 +29,7 @@ class ProductDetailsModel {
     }
     
     func didMoveToPage(atIndex index: Int) {
+        logInfo("Did move to page \(index)")
         if let lastProductIndex = lastProductIndex {
             if index > lastProductIndex {
                 logAnalyticsEvent(AnalyticsEventId.ProductSwitchedWithRightSwipe(context.fromType.rawValue))
@@ -41,12 +42,12 @@ class ProductDetailsModel {
         emarsysService.sendViewEvent(forId: productInfo(forIndex: index).toTuple().0)
         if informAboutMovedToProduct {
             context.productDetailsDidMoveToProduct(atIndex: index)
-            
         }
         informAboutMovedToProduct = true
     }
     
     func update(with context: ProductDetailsContext) {
+        logInfo("Updating context \(context)")
         disposeBag = DisposeBag()
         self.context = context
         configureContext()

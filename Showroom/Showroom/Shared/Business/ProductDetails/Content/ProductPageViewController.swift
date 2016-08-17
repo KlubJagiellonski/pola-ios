@@ -71,13 +71,16 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
     }
     
     func dismissContentView() {
+        logInfo("Dismissing content view")
         castView.changeViewState(.Default)
         if contentNavigationController?.viewControllers.count > 1 {
+            logInfo("Popping to root content view controller")
             contentNavigationController?.popToRootViewControllerAnimated(true)
         }
     }
     
     private func fetchProductDetails() {
+        logInfo("Fetching product details")
         model.fetchProductDetails().subscribeNext { [weak self] fetchResult in
             guard let `self` = self else { return }
             switch fetchResult {
@@ -102,8 +105,11 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
     }
     
     private func showSizePicker(withBuyMode buyMode: Bool = false) {
-        guard let sizes = model.pickerSizes else { return }
-        guard let productDetails = model.state.productDetails else { return }
+        logInfo("Show size picker with buyMode \(buyMode)")
+        guard let sizes = model.pickerSizes, let productDetails = model.state.productDetails else {
+            logError("Cannot show size picker for sizes \(model.pickerSizes), productDetails \(model.state.productDetails)")
+            return
+        }
         let sizeViewController = resolver.resolve(ProductSizeViewController.self, arguments: (sizes, model.state.currentSize?.id))
         sizeViewController.sizeButtonVisible = productDetails.containSizesMeasurements
         sizeViewController.delegate = self
@@ -112,6 +118,7 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
     }
     
     private func addToBasket() {
+        logInfo("Adding to basket")
         if castView.viewState == .Default {
             logAnalyticsEvent(AnalyticsEventId.ProductAddToCartClicked(model.productId, "gallery"))
         } else if castView.viewState == .ContentExpanded {
@@ -122,7 +129,11 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
     }
     
     private func showSizeChart() {
-        guard model.state.productDetails != nil else { return }
+        logInfo("Showing size chart")
+        guard model.state.productDetails != nil else {
+            logError("Cannot show size chart, product details not exist")
+            return
+        }
         
         if castView.viewState == .Default {
             castView.changeViewState(.ContentExpanded)
@@ -134,6 +145,7 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
     // MARK:- ProductPageViewDelegate
     
     func pageView(pageView: ProductPageView, willChangePageViewState newPageViewState: ProductPageViewState, animationDuration: Double?) {
+        logInfo("Changing page view state \(newPageViewState), animationDuration \(animationDuration)")
         delegate?.productPage(self, willChangeProductPageViewState: newPageViewState, animationDuration: animationDuration)
         if newPageViewState == .Default && contentNavigationController?.viewControllers.count > 1 {
             contentNavigationController?.popToRootViewControllerAnimated(true)
@@ -141,6 +153,7 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
     }
     
     func pageView(pageView: ProductPageView, didChangePageViewState newPageViewState: ProductPageViewState, animationDuration: Double?) {
+        logInfo("Did changed page view state \(newPageViewState), animationDuration \(animationDuration)")
         if newPageViewState == .ImageGallery {
             logAnalyticsEvent(AnalyticsEventId.ProductZoomIn(model.productId))
         } else if newPageViewState == .ContentExpanded {
@@ -149,6 +162,7 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
     }
     
     func pageViewDidTapShareButton(pageView: ProductPageView) {
+        logInfo("Did tap share button")
         guard let product = model.productSharingInfo else { return }
         
         logAnalyticsEvent(AnalyticsEventId.ProductShare(model.productId))
@@ -166,6 +180,7 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
     
     func pageViewDidTapWishlistButton(pageView: ProductPageView) {
         let selected = model.switchOnWishlist()
+        logInfo("Did tap wishlist button. Changing to state \(selected) for product id \(model.productId)")
         if selected {
             logAnalyticsEvent(AnalyticsEventId.ProductAddToWishlist(model.productId))
         } else {
@@ -175,12 +190,14 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
     }
     
     func pageViewDidSwitchedImage(pageView: ProductPageView) {
+        logInfo("Did switched image")
         logAnalyticsEvent(AnalyticsEventId.ProductSwitchPicture(model.productId))
     }
     
     // MARK:- ViewSwitcherDelegate
     
     func viewSwitcherDidTapRetry(view: ViewSwitcher) {
+        logInfo("Did tap retry")
         castView.switcherState = model.state.product == nil ? .Loading : .Success
         fetchProductDetails()
     }
@@ -188,14 +205,20 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
 
 extension ProductPageViewController: ProductDescriptionNavigationControllerDelegate {
     func productDescription(controller: ProductDescriptionNavigationController, didChangeVisibilityOfFirstChild firstChildVisibility: Bool) {
+        logInfo("Did change visibility of first child \(firstChildVisibility)")
         castView.contentGestureRecognizerEnabled = firstChildVisibility
     }
     func productDescriptionDidTapSize(controller: ProductDescriptionNavigationController) {
+        logInfo("Did tap size")
         logAnalyticsEvent(AnalyticsEventId.ProductChangeSizeClicked(model.productId))
         showSizePicker()
     }
     func productDescriptionDidTapColor(controller: ProductDescriptionNavigationController) {
-        guard let colors = model.pickerColors else { return }
+        logInfo("Did tap color")
+        guard let colors = model.pickerColors else {
+            logError("Cannot show colors, no picker colors")
+            return
+        }
         
         logAnalyticsEvent(AnalyticsEventId.ProductChangeColorClicked(model.productId))
         
@@ -204,7 +227,11 @@ extension ProductPageViewController: ProductDescriptionNavigationControllerDeleg
         actionAnimator.presentViewController(colorViewController, presentingViewController: self)
     }
     func productDescriptionDidTapOtherBrandProducts(controller: ProductDescriptionNavigationController) {
-        guard let product = model.state.productDetails else { return }
+        logInfo("Did tap other brand products")
+        guard let product = model.state.productDetails else {
+            logError("Cannot show other brand products. No product details.")
+            return
+        }
         
         logAnalyticsEvent(AnalyticsEventId.ProductOtherDesignerProductsClicked(model.productId))
         
@@ -212,7 +239,9 @@ extension ProductPageViewController: ProductDescriptionNavigationControllerDeleg
         sendNavigationEvent(ShowBrandProductListEvent(productBrand: productBrand))
     }
     func productDescriptionDidTapAddToBasket(controller: ProductDescriptionNavigationController) {
+        logInfo("Did tap add to basket")
         guard model.isSizeSet else {
+            logInfo("Size not set, showing size picker")
             logAnalyticsEvent(AnalyticsEventId.ProductChangeSizeClicked(model.productId))
             showSizePicker(withBuyMode: true)
             return
@@ -224,6 +253,7 @@ extension ProductPageViewController: ProductDescriptionNavigationControllerDeleg
 
 extension ProductPageViewController: ProductSizeViewControllerDelegate {
     func productSize(viewController: ProductSizeViewController, didChangeSize sizeId: ObjectId) {
+        logInfo("Did change size with size id \(sizeId)")
         actionAnimator.dismissViewController(presentingViewController: self) { [weak self] in
             if viewController.buyMode { self?.addToBasket() }
         }
@@ -231,31 +261,37 @@ extension ProductPageViewController: ProductSizeViewControllerDelegate {
     }
     
     func productSizeDidTapSizes(viewController: ProductSizeViewController) {
+        logInfo("Did tap sizes from size picker")
         actionAnimator.dismissViewController(presentingViewController: self) { [weak self] in
             self?.showSizeChart()
         }
     }
     
     func productSize(viewController: ProductSizeViewController, wantDismissWithAnimation animation: Bool) {
+        logInfo("Size picker wants to dismiss with animation \(animation)")
         actionAnimator.dismissViewController(presentingViewController: self, animated: animation)
     }
 }
 
 extension ProductPageViewController: ProductColorViewControllerDelegate {
     func productColor(viewController viewController: ProductColorViewController, didChangeColor colorId: ObjectId) {
+        logInfo("Did change color with id \(colorId)")
         actionAnimator.dismissViewController(presentingViewController: self)
         model.changeSelectedColor(forColorId: colorId)
         guard let imageIndex = model.state.productDetails?.images.indexOf({ $0.color == colorId }) else { return }
+        logInfo("Scrolling to image at index \(imageIndex)")
         castView.scrollToImage(atIndex: imageIndex)
     }
     
     func productColor(viewController viewController: ProductColorViewController, wantsDismissWithAnimation animation: Bool) {
+        logInfo("Product color wants dismiss with animation \(animation)")
         actionAnimator.dismissViewController(presentingViewController: self, animated: animation)
     }
 }
 
 extension ProductPageViewController: DimAnimatorDelegate {
     func animatorDidTapOnDimView(animator: Animator) {
+        logInfo("Did tap on dim view")
         actionAnimator.dismissViewController(presentingViewController: self)
     }
 }

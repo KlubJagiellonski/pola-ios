@@ -58,6 +58,8 @@ class ProductPageModel {
     }
     
     func fetchProductDetails() -> Observable<FetchCacheResult<ProductDetails>> {
+        logInfo("Fetching product details")
+        
         let existingResult = state.productDetails
         let memoryCache: Observable<ProductDetails> = existingResult == nil ? Observable.empty() : Observable.just(existingResult!)
         
@@ -81,6 +83,8 @@ class ProductPageModel {
             .doOnNext { [weak self] result in
                 guard let productDetails = result.result() else { return }
                 
+                logInfo("Fetchend product details")
+                
                 self?.state.productDetails = result.result()
                 self?.updateBuyButtonState()
                 self?.state.currentSize = self?.defaultSize(forProductDetails: productDetails)
@@ -89,16 +93,27 @@ class ProductPageModel {
     }
     
     func changeSelectedSize(forSizeId sizeId: ObjectId) {
-        guard let productDetails = state.productDetails else { return }
+        logInfo("Changing selected size with id \(sizeId)")
+        guard let productDetails = state.productDetails else {
+            logError("Cannot change size, not product details")
+            return
+        }
         state.currentSize = productDetails.sizes.find { $0.id == sizeId }
     }
     
     func changeSelectedColor(forColorId colorId: ObjectId) {
-        guard let productDetails = state.productDetails else { return }
-        state.currentColor = productDetails.colors.find { $0.id == colorId }!
-        guard let selectedSize = state.currentSize else { return }
+        logInfo("Changing selected color with id \(colorId)")
+        guard let productDetails = state.productDetails else {
+            logError("Cannot change color, not product details")
+            return
+        }
+        state.currentColor = productDetails.colors.find { $0.id == colorId }
+        guard let selectedSize = state.currentSize else {
+            return
+        }
         let sizeExistForColor = selectedSize.colors.contains { $0 == state.currentColor?.id }
         if !sizeExistForColor {
+            logInfo("Size does not exist for color, unseting")
             state.currentSize = nil
         }
     }

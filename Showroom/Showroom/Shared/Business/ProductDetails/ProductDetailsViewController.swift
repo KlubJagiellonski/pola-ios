@@ -15,10 +15,6 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewDelegate
         model = resolver.resolve(ProductDetailsModel.self, argument: context)
         
         super.init(nibName: nil, bundle: nil)
-        
-        model.newProductsAmountObservable.subscribeNext { [weak self] newProductsAmount in
-            self?.castView.updatePageCount(withNewProductsAmount: newProductsAmount)
-        }.addDisposableTo(disposeBag)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -35,6 +31,11 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewDelegate
         castView.delegate = self
         castView.pageHandler = self
         castView.updatePageCount(withNewProductsAmount: model.productsCount)
+        
+        model.newProductsAmountObservable.subscribeNext { [weak self] newProductsAmount in
+            logInfo("Updating products amount \(newProductsAmount)")
+            self?.castView.updatePageCount(withNewProductsAmount: newProductsAmount)
+            }.addDisposableTo(disposeBag)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -51,6 +52,7 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewDelegate
     }
     
     func updateData(with context: ProductDetailsContext) {
+        logInfo("Updating data with context \(context)")
         model.update(with: context)
         removeAllViewControllers()
         castView.reloadPageCount(withNewProductCount: model.productsCount)
@@ -60,6 +62,7 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewDelegate
     // MARK: - ProductDetailsViewDelegate
     
     func productDetailsDidTapClose(view: ProductDetailsView) {
+        logInfo("Did tap close with current state \(castView.closeButtonState)")
         switch castView.closeButtonState {
         case .Close:
             logAnalyticsEvent(AnalyticsEventId.ProductClose(model.productInfo(forIndex: castView.currentPageIndex).toTuple().0))
@@ -73,6 +76,7 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewDelegate
     // MARKL - ProductPageViewControllerDelegate
     
     func productPage(page: ProductPageViewController, willChangeProductPageViewState newViewState: ProductPageViewState, animationDuration: Double?) {
+        logInfo("Changing product page state \(newViewState), animationDuration \(animationDuration)")
         castView.changeState(ProductDetailsViewState.fromPageState(newViewState), animationDuration: animationDuration)
         changeTabBarAppearanceIfPossible(newViewState == .ImageGallery ? .Hidden : .Visible, animationDuration: animationDuration)
     }
@@ -80,6 +84,7 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewDelegate
 
 extension ProductDetailsViewController: ProductDetailsPageHandler {
     func page(forIndex index: Int, removePageIndex: Int?) -> UIView {
+        logInfo("Creating page for index \(index), removePageIndex \(removePageIndex)")
         let productInfoTuple = model.productInfo(forIndex: index).toTuple()
         let currentViewController = removePageIndex == nil ? nil : indexedViewControllers[removePageIndex!]
         let newViewController = resolver.resolve(ProductPageViewController.self, arguments: productInfoTuple)
@@ -92,6 +97,7 @@ extension ProductDetailsViewController: ProductDetailsPageHandler {
     }
     
     func pageAdded(forIndex index: Int, removePageIndex: Int?) {
+        logInfo("Page added for index \(index), removePageIndex \(removePageIndex)")
         let currentViewController = removePageIndex == nil ? nil : indexedViewControllers[removePageIndex!]
         let newViewController = childViewControllers.last!
         
@@ -103,9 +109,11 @@ extension ProductDetailsViewController: ProductDetailsPageHandler {
         }
         indexedViewControllers[index] = newViewController
         model.didMoveToPage(atIndex: index)
+        logInfo("Indexed view controllers \(indexedViewControllers)")
     }
     
     private func removeAllViewControllers() {
+        logInfo("Remove all view controllers \(indexedViewControllers)")
         indexedViewControllers.forEach { (index, viewController) in
             viewController.forceCloseModal()
             viewController.willMoveToParentViewController(nil)
