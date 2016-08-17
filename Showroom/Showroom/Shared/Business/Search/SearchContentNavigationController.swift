@@ -6,7 +6,7 @@ extension SearchContentType {
         guard let branches = mainSearchItem.branches else { return .Normal }
         for branch in branches {
             if branch.branches != nil {
-                return .Bold
+                return .BoldTree
             }
         }
         return .Normal
@@ -53,7 +53,7 @@ class SearchContentNavigationController: UINavigationController, NavigationHandl
                 sendNavigationEvent(ShowItemForLinkEvent(link: link, title: searchItemEvent.searchItem.name, productDetailsFromType: nil))
             } else {
                 logAnalyticsEvent(AnalyticsEventId.SearchMenuTreeClick(searchItemEvent.searchItem.name))
-                let viewController = createContentViewController(with: searchItemEvent.searchItem, type: .Normal)
+                let viewController = createContentViewController(with: searchItemEvent.searchItem, type: .Tree)
                 pushViewController(viewController, animated: true)
             }
             return true

@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 
 enum SearchContentType {
-    case Normal, Bold
+    case Normal, Tree, BoldTree
 }
 
 class SearchContentViewController: UIViewController, SearchContentViewDelegate {
@@ -40,11 +40,8 @@ class SearchContentViewController: UIViewController, SearchContentViewDelegate {
     
     //MARK:- SearchContentViewDelegate
     
-    func searchContentDidSelectMainSearchItem(view: SearchContentView) {
-        sendNavigationEvent(ShowSearchItemEvent(searchItem: mainSearchItem, isMainItem: true))
-    }
-    
-    func searchContent(view: SearchContentView, didSelectSearchItemAtIndex index: Int) {
-        sendNavigationEvent(ShowSearchItemEvent(searchItem: mainSearchItem.branches![index], isMainItem: false))
+    func searchContent(view: SearchContentView, didSelectSearchItem searchItem: SearchItem) {
+        logInfo("Did tap search item \(searchItem)")
+        sendNavigationEvent(ShowSearchItemEvent(searchItem: searchItem, isMainItem: searchItem == mainSearchItem))
     }
 }

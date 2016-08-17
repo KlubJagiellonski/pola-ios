@@ -4,9 +4,9 @@ import UIKit
 extension SearchContentType {
     private var cellClass: AnyClass {
         switch self {
-        case .Normal:
+        case .Normal, .Tree:
             return SelectValueTableViewCell.self
-        case .Bold:
+        case .BoldTree:
             return BoldSelectValueTableViewCell.self
         }
     }
@@ -44,11 +44,10 @@ final class SearchContentDataSource: NSObject, UITableViewDataSource {
         self.tableView = tableView
         self.mainSearchItem = mainSearchItem
         self.type = type
-        //TODO:- remove mainSearchItem.branches?.count > 100 when api will be done (https://github.com/shwrm/iosproxy/issues/129)
-        self.indexable = mainSearchItem.indexable ? true : mainSearchItem.branches?.count > 100
+        self.indexable = mainSearchItem.indexable
         if self.indexable {
             self.indexedBranches = SearchContentDataSource.createIndex(for: mainSearchItem.branches)
-            self.sectionIndexTitles = indexedBranches?.keys.sort()
+            self.sectionIndexTitles = indexedBranches?.keys.sort { $0.localizedCaseInsensitiveCompare($1) == NSComparisonResult.OrderedAscending }
         } else {
             self.indexedBranches = nil
             self.sectionIndexTitles = nil
@@ -58,7 +57,23 @@ final class SearchContentDataSource: NSObject, UITableViewDataSource {
         tableView.registerClass(type.cellClass, forCellReuseIdentifier: String(type.cellClass))
     }
     
-    func section(forIndexPath indexPath: NSIndexPath) -> SearchContentSectionType {
+    func searchItem(forIndexPath indexPath: NSIndexPath) -> SearchItem {
+        if section(forIndexPath: indexPath) == .Main {
+            return mainSearchItem
+        }
+        
+        if indexedBranches != nil && sectionIndexTitles != nil {
+            let index = indexPath.section - (mainSearchItem.link == nil ? 0 : 1)
+            let title = sectionIndexTitles![index]
+            let searchItem = indexedBranches![title]![indexPath.row]
+            return searchItem
+        } else {
+            return mainSearchItem.branches![indexPath.row]
+        }
+        
+    }
+    
+    private func section(forIndexPath indexPath: NSIndexPath) -> SearchContentSectionType {
         return SearchContentSectionType.sectionType(forSection: indexPath.section, mainSearchItemContainsLink: mainSearchItem.link != nil)
     }
     
@@ -91,13 +106,18 @@ final class SearchContentDataSource: NSObject, UITableViewDataSource {
         switch sectionType {
         case .Main:
             cell.title = tr(.SearchAllSearchItems(mainSearchItem.name))
+            cell.leftOffset = Dimensions.defaultMargin
         case .Branches:
+            var searchItem: SearchItem!
             if indexable {
                 let indexLetter = sectionIndexTitles![indexPath.section - (mainSearchItem.link == nil ? 0 : 1)]
-                cell.title = indexedBranches![indexLetter]?[indexPath.row].name
+                searchItem = indexedBranches![indexLetter]?[indexPath.row]
             } else {
-                cell.title = mainSearchItem.branches![indexPath.row].name
+                searchItem = mainSearchItem.branches![indexPath.row]
             }
+            
+            cell.title = searchItem.name
+            cell.leftOffset = type == .Normal ? Dimensions.defaultMargin : 35
         }
         return cell
     }
@@ -126,11 +146,16 @@ final class SearchContentDataSource: NSObject, UITableViewDataSource {
             return index
         }
         
+        let letters = NSCharacterSet.letterCharacterSet()
+        
         for item in branches {
             if item.name.characters.count == 0 {
                 continue
             }
-            let indexLetter = String(item.name.characters.first!).uppercaseString
+            var indexLetter = String(item.name.characters.first!).uppercaseString
+            if !letters.longCharacterIsMember(indexLetter.unicodeScalars.first!.value) {
+                indexLetter = "#"
+            }
             if index.keys.contains(indexLetter) {
                 index[indexLetter]?.append(item)
             } else {

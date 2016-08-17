@@ -2,8 +2,7 @@ import Foundation
 import UIKit
 
 protocol SearchContentViewDelegate: class {
-    func searchContentDidSelectMainSearchItem(view: SearchContentView)
-    func searchContent(view: SearchContentView, didSelectSearchItemAtIndex index: Int)
+    func searchContent(view: SearchContentView, didSelectSearchItem searchItem: SearchItem)
 }
 
 final class SearchContentView: UIView, UITableViewDelegate {
@@ -45,12 +44,7 @@ final class SearchContentView: UIView, UITableViewDelegate {
     //MARK:- UITableViewDelegate
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let sectionType = dataSource.section(forIndexPath: indexPath)
-        switch sectionType {
-        case .Main:
-            delegate?.searchContentDidSelectMainSearchItem(self)
-        case .Branches:
-            delegate?.searchContent(self, didSelectSearchItemAtIndex: indexPath.row)
-        }
+        let searchItem = dataSource.searchItem(forIndexPath: indexPath)
+        delegate?.searchContent(self, didSelectSearchItem: searchItem)
     }
 }

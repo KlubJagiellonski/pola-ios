@@ -75,5 +75,5 @@ func ==(lhs: SearchResult, rhs: SearchResult) -> Bool {
 }
 
 func ==(lhs: SearchItem, rhs: SearchItem) -> Bool {
-    return lhs.name == rhs.name && lhs.link == rhs.link && lhs.branches == rhs.branches
+    return lhs.name == rhs.name && lhs.link == rhs.link && lhs.branches == rhs.branches && lhs.indexable == rhs.indexable
 }
