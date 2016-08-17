@@ -29,6 +29,8 @@ class WishlistDataSource: NSObject, UITableViewDataSource {
         var updatedProducts: [NSIndexPath] = []
         var movedProducts: [(NSIndexPath, NSIndexPath)] = []
         
+        logInfo("Updating newProducts \(newProducts), oldProducts \(products)")
+        
         // Find removed and updated
         for (oldIndex, oldProduct) in products.enumerate() {
             
@@ -65,6 +67,20 @@ class WishlistDataSource: NSObject, UITableViewDataSource {
             logInfo("Wishlist has been updated but nothing changed.")
             return
         }
+        
+        logInfo("Updating tableView with removed \(removedProducts), updated \(updatedProducts), added \(addedProducts), moved \(movedProducts)")
+        
+        // checking for incostinstency
+        for adddedProduct in addedProducts {
+            for movedProduct in movedProducts {
+                if adddedProduct.row == movedProduct.1.row {
+                    logError("Found incostinstency. Cannot move and add to same index")
+                    tableView?.reloadData()
+                    return
+                }
+            }
+        }
+        
         
         tableView?.beginUpdates()
         

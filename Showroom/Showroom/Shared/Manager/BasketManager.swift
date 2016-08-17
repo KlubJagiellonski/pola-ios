@@ -32,6 +32,8 @@ final class BasketManager {
     }
     
     func validate() {
+        logInfo("Validating basket")
+        
         let request = state.createRequest()
         
         state.validationState = BasketValidationState(validating: true, validated: state.validationState.validated)
@@ -42,7 +44,11 @@ final class BasketManager {
             .observeOn(MainScheduler.instance)
             .map { [weak self] (basket: Basket) -> BasketState in
                 guard let strongSelf = self else { return BasketState() }
-                guard basket != strongSelf.state.basket else { return strongSelf.state }
+                guard basket != strongSelf.state.basket else {
+                    logInfo("Basket state is the same")
+                    return strongSelf.state
+                }
+                logInfo("Mapping basket to basket state")
                 strongSelf.state.basket = basket
                 if strongSelf.state.deliveryCountry == nil || !basket.deliveryInfo.availableCountries.contains({ $0.id == strongSelf.state.deliveryCountry!.id }){
                     strongSelf.state.deliveryCountry = basket.deliveryInfo.defaultCountry
@@ -71,17 +77,23 @@ final class BasketManager {
     }
     
     func addToBasket(product: BasketProduct, of brand: BasketBrand) {
-        guard state.basket?.isPossibleToAddProduct(product, of: brand, maxProductAmount: Constants.basketProductAmountLimit) ?? false else { return }
+        logInfo("Adding to basket \(product), brandId \(brand.id)")
+        guard state.basket?.isPossibleToAddProduct(product, of: brand, maxProductAmount: Constants.basketProductAmountLimit) ?? false else {
+            logInfo("It is not possible to add product to basket")
+            return
+        }
         state.basket?.add(product, of: brand)
         validate()
     }
     
     func removeFromBasket(product: BasketProduct) {
+        logInfo("Removing from basket \(product)")
         state.basket?.remove(product)
         validate()
     }
     
     func updateInBasket(product: BasketProduct) {
+        logInfo("Updating product in basket \(product)")
         if (product.amount == 0) {
             state.basket?.remove(product)
         } else {
@@ -91,6 +103,7 @@ final class BasketManager {
     }
     
     func clearBasket() {
+        logInfo("Clearing basket")
         state.clear()
         validate()
     }
@@ -109,15 +122,22 @@ final class BasketManager {
     
     func createCheckout() -> Checkout? {
         guard let user = userManager.user else {
+            logInfo("Cannot create checkout, no user")
             return nil
         }
         return Checkout.from(basketState: state, user: user)
     }
     
     func createBasketProductListContext(initialIndexPath: NSIndexPath, onChangedForIndexPath: NSIndexPath -> ()) -> ProductDetailsContext? {
-        guard let basket = state.basket else { return nil }
+        guard let basket = state.basket else {
+            logError("Cannot create context, basket does not exist")
+            return nil
+        }
         
-        guard let initialProduct = basket.productsByBrands[safe: initialIndexPath.section]?.products[safe: initialIndexPath.row] else { return nil }
+        guard let initialProduct = basket.productsByBrands[safe: initialIndexPath.section]?.products[safe: initialIndexPath.row] else {
+            logError("Cannot find initial product \(initialIndexPath), productsByBrands \(basket.productsByBrands)")
+            return nil
+        }
         
         var productTuples: [(product: BasketProduct, brand: BasketBrand)] = [] // basketBrand is needed for parsing to Product
         for basketBrand in basket.productsByBrands {
@@ -127,19 +147,24 @@ final class BasketManager {
         }
         
         let initialIndex = productTuples.indexOf { $0.product.isEqualInBasket(to: initialProduct) }
-        guard let index = initialIndex else { return nil }
+        guard let index = initialIndex else {
+            logError("Cannot find initial index \(productTuples), \(initialProduct)")
+            return nil
+        }
         
         let onRetrieveProductInfo: Int -> ProductInfo = { index in
+            logInfo("Retreving productTuple for index \(index)")
             let productTuple = productTuples[index]
             return ProductInfo.Object(productTuple.product.toProduct(productTuple.brand))
         }
         
         let onChanged: Int -> () = { index in
+            logInfo("Changed product with index \(index)")
             let productTuple = productTuples[index]
             let section = basket.productsByBrands.indexOf(productTuple.brand)
             let row = productTuple.brand.products.indexOf(productTuple.product)
             guard let s = section, let r = row else {
-                logInfo("Cannot create indexPath from \(section) \(row) \(index)")
+                logError("Cannot create indexPath from \(section) \(row) \(index)")
                 return
             }
             onChangedForIndexPath(NSIndexPath(forRow: r, inSection: s))

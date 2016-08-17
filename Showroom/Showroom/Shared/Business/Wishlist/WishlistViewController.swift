@@ -55,6 +55,7 @@ class WishlistViewController: UIViewController {
     }
     
     func updateData(with products: [WishlistProduct]) {
+        logInfo("Updating data with products \(products)")
         castView.updateData(with: products)
         
         if products.count == 0 {
@@ -64,6 +65,7 @@ class WishlistViewController: UIViewController {
     }
     
     func updateSynchronizing(with synchronizationState: WishlistSynchronizationState) {
+        logInfo("Changed synchronizing state \(synchronizationState), products count \(manager.state.wishlist.count)")
         if manager.state.wishlist.count == 0 {
             castView.switcherState = .Empty
         } else if synchronizationState.synchronizing {
@@ -76,11 +78,13 @@ class WishlistViewController: UIViewController {
 
 extension WishlistViewController: WishlistViewDelegate {
     func wishlistView(view: WishlistView, wantsDelete product: WishlistProduct) {
+        logInfo("Deleted product \(product)")
         logAnalyticsEvent(AnalyticsEventId.WishlistProductDeleted(product.id))
         manager.removeFromWishlist(product)
     }
     
     func wishlistView(view: WishlistView, didSelectProductAt indexPath: NSIndexPath) {
+        logInfo("Did select wishlist product at index: \(indexPath)")
         guard let context = manager.createWishlistProductsContext(indexPath.row, onChangedForIndex: { [unowned self] index in
             self.castView.moveToPosition(at: index, animated: false)
         }) else {
@@ -93,6 +97,7 @@ extension WishlistViewController: WishlistViewDelegate {
     }
     
     func viewSwitcherDidTapRetry(view: ViewSwitcher) {
+        logInfo("Did tap retry")
         manager.synchronize()
     }
 }

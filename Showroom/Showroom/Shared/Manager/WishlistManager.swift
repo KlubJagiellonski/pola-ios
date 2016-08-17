@@ -35,6 +35,7 @@ final class WishlistManager {
         
         userManager.sessionObservable.subscribeNext { [weak self] session in
             guard let `self` = self else { return }
+            logInfo("Session changed \(session)")
             if session == nil {
                 self.synchronizationDisposable?.dispose()
                 self.state.synchronizationState = WishlistSynchronizationState(synchronizing: false, synchronized: false)
@@ -71,6 +72,7 @@ final class WishlistManager {
     
     func addToWishlist(product: WishlistProduct) {
         if state.wishlist.contains ({ $0.id == product.id }) {
+            logInfo("Cannot add product to wishlist. It already exist \(product)")
             return
         }
         
@@ -113,12 +115,14 @@ final class WishlistManager {
     
     func createWishlistProductsContext(initialIndex: Int, onChangedForIndex: Int -> ()) -> ProductDetailsContext? {
         if state.wishlist[safe: initialIndex] == nil {
+            logError("Cannot create wishlist products context. Index does not exist \(initialIndex), wishlist \(state.wishlist)")
             return nil
         }
         
         contextWishlist = state.wishlist
         
         let onRetrieveProductInfo: Int -> ProductInfo = { index in
+            logInfo("Retrieving product info for index \(index)")
             let product = self.contextWishlist[index]
             let lowResImageUrl = NSURL.createImageUrl(product.imageUrl, width: WishlistCell.photoSize.width, height: WishlistCell.photoSize.height)
             return ProductInfo.Object(product.toProduct(withLowResImageUrl: lowResImageUrl.absoluteString))
@@ -152,6 +156,7 @@ final class WishlistManager {
     }
     
     private func saveStateToStorage() {
+        logInfo("Saving state to storage")
         do {
             try self.storageManager.save(Constants.Persistent.wishlistState, object: state)
         } catch {

@@ -69,11 +69,13 @@ class BasketViewController: UIViewController, BasketViewDelegate {
     }
     
     func updateBasket(with basket: Basket?) {
+        logInfo("Updating basket \(basket)")
         if let basket = basket {
             castView.updateData(with: basket)
         }
         
         guard !isEmptyBasket(basket) else {
+            logInfo("Empty basket")
             castView.switcherState = .Empty
             return
         }
@@ -93,16 +95,20 @@ class BasketViewController: UIViewController, BasketViewDelegate {
     }
     
     func updateCarrier(with carrier: DeliveryCarrier?) {
+        logInfo("Updating carrier \(carrier)")
         castView.updateData(with: manager.state.deliveryCountry, and: carrier)
     }
     
     func updateCountry(with country: DeliveryCountry?) {
+        logInfo("Updating country \(country)")
         castView.updateData(with: country, and: manager.state.deliveryCarrier)
     }
     
     func updateValidating(with validationState: BasketValidationState) {
+        let basketEmpty = isEmptyBasket(manager.state.basket)
+        logInfo("Updating validate \(validationState) basketEmpty \(basketEmpty)")
         castView.updateData(withValidated: validationState.validated)
-        if isEmptyBasket(manager.state.basket) {
+        if basketEmpty {
             castView.switcherState = .Empty
         } else if validationState.validating {
             castView.switcherState = castView.switcherState == .Error ? .Loading : .ModalLoading
@@ -112,13 +118,19 @@ class BasketViewController: UIViewController, BasketViewDelegate {
     }
     
     private func goToCheckout() {
+        logInfo("Going to checkout")
         guard manager.isUserLogged else {
+            logInfo("User need to login")
             let viewController = resolver.resolve(SigningNavigationController.self, argument: SigningMode.Login)
             viewController.signingDelegate = self
             presentViewController(viewController, animated: true, completion: nil)
             return
         }
-        guard let checkout = manager.createCheckout() else { return }
+        guard let checkout = manager.createCheckout() else {
+            logInfo("Cannot create checkout")
+            return
+        }
+        logInfo("Checkout created \(checkout)")
         
         logAnalyticsEvent(AnalyticsEventId.CartGoToCheckoutClicked(checkout.basket.price))
         
@@ -129,17 +141,20 @@ class BasketViewController: UIViewController, BasketViewDelegate {
     
     // MARK: - BasketViewDelegate
     func basketViewDidDeleteProduct(product: BasketProduct) {
+        logInfo("Deleting product \(product)")
         logAnalyticsEvent(.CartProductDeleted(product.id))
         manager.removeFromBasket(product)
     }
     
     func basketViewDidTapAmount(of product: BasketProduct) {
+        logInfo("Did tap amount \(product)")
         let amountViewController = resolver.resolve(ProductAmountViewController.self, argument: product)
         amountViewController.delegate = self
         actionAnimator.presentViewController(amountViewController, presentingViewController: self, completion: nil)
     }
     
     func basketViewDidTapShipping(view: BasketView) {
+        logInfo("did tap shipping")
         deliveryAnimator.delegate = self
         
         let viewController = resolver.resolve(BasketDeliveryNavigationController.self)
@@ -150,11 +165,16 @@ class BasketViewController: UIViewController, BasketViewDelegate {
     }
     
     func basketViewDidTapCheckoutButton(view: BasketView) {
+        logInfo("Did tap checkout button")
         goToCheckout()
     }
     
     func basketView(view: BasketView, didChangeDiscountCode discountCode: String?) {
-        guard discountCode != manager.state.discountCode else { return }
+        logInfo("Did change discount code \(discountCode)")
+        guard discountCode != manager.state.discountCode else {
+            logInfo("Discount code is the same as before")
+            return
+        }
         if let discountCode = discountCode?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()) {
             manager.state.discountCode = discountCode.characters.count > 0 ? discountCode : nil
             logAnalyticsEvent(.CartDiscountSubmitted(manager.state.discountCode ?? ""))
@@ -165,18 +185,25 @@ class BasketViewController: UIViewController, BasketViewDelegate {
     }
     
     func basketViewDidTapStartShoppingButton(view: BasketView) {
+        logInfo("Did tap start shopping button")
         sendNavigationEvent(SimpleNavigationEvent(type: .ShowSearch))
     }
     
     func basketView(view: BasketView, didSelectProductAtIndexPath indexPath: NSIndexPath) {
+        logInfo("Did select product at indexPath \(indexPath)")
         let context = manager.createBasketProductListContext(indexPath) { [unowned self] indexPath in
+            logInfo("Move to position \(indexPath)")
             self.castView.moveToPosition(at: indexPath, animated: false)
         }
-        guard let c = context else { return }
+        guard let c = context else {
+            logError("Context not created")
+            return
+        }
         sendNavigationEvent(ShowProductDetailsEvent(context: c, retrieveCurrentImageViewTag: nil))
     }
     
     func viewSwitcherDidTapRetry(view: ViewSwitcher) {
+        logInfo("Did tap retry")
         manager.validate()
     }
     
@@ -189,6 +216,7 @@ class BasketViewController: UIViewController, BasketViewDelegate {
 
 extension BasketViewController: ProductAmountViewControllerDelegate {
     func productAmount(viewController: ProductAmountViewController, didChangeAmountOf product: BasketProduct) {
+        logInfo("Did change amount of product \(product)")
         actionAnimator.dismissViewController(presentingViewController: self, completion: nil)
         manager.updateInBasket(product)
         if product.amount == 0 {
@@ -200,22 +228,26 @@ extension BasketViewController: ProductAmountViewControllerDelegate {
 
 extension BasketViewController: DimAnimatorDelegate {
     func animatorDidTapOnDimView(animator: Animator) {
+        logInfo("Did tap on dim view")
         animator.dismissViewController(presentingViewController: self, animated: true, completion: nil)
     }
 }
 
 extension BasketViewController: BasketDeliveryNavigationControllerDelegate {
     func basketDeliveryWantsDismiss(viewController: BasketDeliveryNavigationController) {
+        logInfo("Delivery wants dismiss")
         deliveryAnimator.dismissViewController(presentingViewController: self, completion: nil)
     }
 }
 
 extension BasketViewController: SigningNavigationControllerDelegate {
     func signingWantsDismiss(navigationController: SigningNavigationController) {
+        logInfo("Signing wants dismiss")
         dismissViewControllerAnimated(true, completion: nil)
     }
     
     func signingDidLogIn(navigationController: SigningNavigationController) {
+        logInfo("Did logged in")
         dismissViewControllerAnimated(true) { [weak self] in
             self?.goToCheckout()
         }
@@ -224,10 +256,12 @@ extension BasketViewController: SigningNavigationControllerDelegate {
 
 extension BasketViewController: CheckoutNavigationControllerDelegate {
     func checkoutWantsGoToMainScreen(checkout: CheckoutNavigationController) {
+        logInfo("Checkout wants go to main screen")
         dismissViewControllerAnimated(true, completion: nil)
         sendNavigationEvent(SimpleNavigationEvent(type: .ShowDashboard))
     }
     func checkoutWantsDismiss(checkout: CheckoutNavigationController) {
+        logInfo("Cehckout wants to dismiss")
         dismissViewControllerAnimated(true, completion: nil)
     }
 }

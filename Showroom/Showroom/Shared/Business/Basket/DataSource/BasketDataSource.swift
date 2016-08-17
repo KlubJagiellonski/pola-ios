@@ -48,6 +48,8 @@ class BasketDataSource: NSObject, UITableViewDataSource, BasketProductCellDelega
         var removedProducts: [NSIndexPath] = []
         var updatedProducts: [NSIndexPath] = []
         
+        logInfo("Updating data with old productsByBrands \(productsByBrands), new productsByBrands \(newProductsByBrands)")
+        
         // Find removed and updated
         for (brandIndex, oldBrand) in self.productsByBrands.enumerate() {
             if let newBrand = newProductsByBrands.find({ $0.isEqualInBasket(to: oldBrand) }) {
@@ -136,10 +138,7 @@ class BasketDataSource: NSObject, UITableViewDataSource, BasketProductCellDelega
             logInfo("Basket has been updated but nothing changed.")
             return
         }
-        
-        logInfo("Basket has been updated." +
-            String(format: "\nBrands: %d added, %d removed, %d updated", addedBrands.count, removedBrands.count, updatedBrands.count) +
-            String(format: "\nProducts: %d added, %d removed, %d updated", addedProducts.count, removedProducts.count, updatedProducts.count))
+        logInfo("Updating basket with removed brands \(removedBrands), removed products \(removedProducts), updated brands \(updatedBrands), updated products \(updatedProducts), added brands \(addedBrands), added products \(addedProducts)")
         
         tableView?.beginUpdates()
         
