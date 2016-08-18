@@ -25,6 +25,7 @@ struct Constants {
     #else
     static let googleAnalyticsTrackingId = "UA-28549987-11"
     #endif
+    static let googleAnalyticsDefaultAffilation = "In-App"
     static let emarsysMerchantId = "13CE3A05D54F66DD"
     static let emarsysRecommendationItemsLimit: Int32 = 20
     static let emarsysPushPassword = "tkmQP+f3p3ArdsbRcTTfBGpmXawqjo+v"

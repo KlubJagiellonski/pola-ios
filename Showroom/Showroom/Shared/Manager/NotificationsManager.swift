@@ -6,6 +6,8 @@ protocol NotificationsManagerDelegate: class {
 }
 
 final class NotificationsManager {
+    private let lastNotificationIdKey = "last_notification_id"
+    
     private let api: ApiService
     private let application: UIApplication
     private(set) var userAlreadyAskedForNotificationPermission: Bool {
@@ -17,6 +19,14 @@ final class NotificationsManager {
     }
     private let pushWooshManager = PushNotificationManager.pushManager()
     private let pushWooshManagerDelegateHandler = PushWooshManagerDelegateHandler()
+    private var lastNotificationId: String? {
+        set {
+            NSUserDefaults.standardUserDefaults().setObject(newValue, forKey: lastNotificationIdKey)
+        }
+        get {
+            return NSUserDefaults.standardUserDefaults().objectForKey(lastNotificationIdKey) as? String
+        }
+    }
     weak var delegate: NotificationsManagerDelegate?
     
     init(with api: ApiService, and application: UIApplication) {
@@ -74,32 +84,19 @@ final class NotificationsManager {
     
     func didReceiveRemoteNotification(userInfo userInfo: [NSObject : AnyObject]) {
         pushWooshManager.handlePushReceived(userInfo)
-        
-        handleEmarsysRemoteNotification(withUserInfo: userInfo)
-    }
-    
-    func handleEmarsysRemoteNotification(withUserInfo userInfo: [NSObject: AnyObject]) {
-        var customString:String!
-        if let theString = PushNotificationManager.pushManager().getCustomPushData(userInfo) {
-            customString = theString
-        }
-        if (customString != "") && (customString != nil) {
-            let text = customString.dataUsingEncoding(NSUTF8StringEncoding)
-            do {
-                let jsonData:NSDictionary = try NSJSONSerialization.JSONObjectWithData(text!, options: NSJSONReadingOptions.MutableContainers) as! [String:AnyObject]
-                print(jsonData)
-                let sid = jsonData["sid"] as! String
-                EmarsysManager.messageOpen(sid)
-            } catch {
-                logError("Couldn't get notificaiton sid for emarsys \(error)")
-            }
-        }
     }
     
     func didFailToRegisterForRemoteNotifications(with error: NSError) {
         logError("Cannot register for remote notifications \(error)")
         
         pushWooshManager.handlePushRegistrationFailure(error)
+    }
+    
+    func takeNotificationId() -> String? {
+        let lastNotificationId = self.lastNotificationId
+        logInfo("Taking last notification id \(lastNotificationId)")
+        self.lastNotificationId = nil
+        return lastNotificationId
     }
     
     private func didReceive(url url: NSURL) {
@@ -112,10 +109,22 @@ final class PushWooshManagerDelegateHandler: NSObject, PushNotificationDelegate 
     
     func onPushAccepted(pushManager: PushNotificationManager!, withNotification pushNotification: [NSObject : AnyObject]!, onStart: Bool) {
         logInfo("Pushwoosh onPushAccepted: \(pushNotification) \(onStart)")
-        guard let link = pushNotification["link"] as? String, let url = NSURL(string: link), let httpsUrl = url.changeToHTTPSchemeIfNeeded() else {
+        
+        guard let customData = retrieveCustomData(fromNotificaiton: pushNotification, forManager: pushManager) else {
             return
         }
-        manager?.didReceive(url: httpsUrl)
+        
+        if let link = customData["link"] as? String, let url = NSURL(string: link), let httpsUrl = url.changeToHTTPSchemeIfNeeded() {
+            logInfo("Retrieved link \(link)")
+            manager?.didReceive(url: httpsUrl)
+        }
+        
+        if let notificationId = customData["notification_id"] as? String {
+            logInfo("Retrieved notificationId \(notificationId)")
+            manager?.lastNotificationId = notificationId
+        } else {
+            manager?.lastNotificationId = nil
+        }
     }
     
     func onInAppClosed(code: String!) {
@@ -140,5 +149,24 @@ final class PushWooshManagerDelegateHandler: NSObject, PushNotificationDelegate 
     
     func onDidFailToRegisterForRemoteNotificationsWithError(error: NSError!) {
         logInfo("Pushwoosh onDidFailToRegisterForRemoteNotificationsWithError \(error)")
+    }
+    
+    private func retrieveCustomData(fromNotificaiton notification: [NSObject: AnyObject], forManager manager: PushNotificationManager) -> [String: AnyObject]? {
+        guard let customString = manager.getCustomPushData(notification) where !customString.isEmpty else {
+            logError("No custom push data")
+            return nil
+        }
+        
+        guard let customData = customString.dataUsingEncoding(NSUTF8StringEncoding) else {
+            logError("Cannot convert to data")
+            return nil
+        }
+        
+        do {
+            return try NSJSONSerialization.JSONObjectWithData(customData, options: NSJSONReadingOptions.MutableContainers) as? [String: AnyObject]
+        } catch {
+            logError("Could not parse to json \(error)")
+            return nil
+        }
     }
 }

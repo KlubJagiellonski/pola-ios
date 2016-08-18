@@ -9,8 +9,8 @@ func logAnalyticsEvent(eventId: AnalyticsEventId) {
     Analytics.sharedInstance.sendEvent(eventId)
 }
 
-func logAnalyticsTransactionEvent(with payment: PaymentResult, products: [BasketProduct]) {
-    Analytics.sharedInstance.sendAnalyticsTransactionEvent(with: payment, products: products)
+func logAnalyticsTransactionEvent(with payment: PaymentResult, products: [BasketProduct], affilation: String?) {
+    Analytics.sharedInstance.sendAnalyticsTransactionEvent(with: payment, products: products, affilation: affilation ?? Constants.googleAnalyticsDefaultAffilation)
 }
 
 enum AnalyticsScreenId: String {
@@ -293,10 +293,10 @@ final class Analytics {
         tracker.send(eventId.rawValue.analyticsData)
     }
     
-    func sendAnalyticsTransactionEvent(with payment: PaymentResult, products: [BasketProduct]) {
+    func sendAnalyticsTransactionEvent(with payment: PaymentResult, products: [BasketProduct], affilation: String) {
         let transaction = GAIDictionaryBuilder.createTransactionWithId(
             String(payment.orderId),
-            affiliation: "In-App",
+            affiliation: affilation,
             revenue: payment.amount,
             tax: payment.taxAmount,
             shipping: payment.shippingAmount,
