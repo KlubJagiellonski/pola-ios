@@ -10,6 +10,7 @@ protocol ProductFilterNavigationControllerDelegate: class {
 struct ProductFilterContext {
     let entryFilters: [Filter]
     let filters: [Filter]
+    let totalProductsAmount: Int
     let fetchObservable: [Filter] -> Observable<ProductListResult>
 }
 

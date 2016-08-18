@@ -21,6 +21,7 @@ struct ProductListResult {
     let filters: [Filter]?
     let brand: Brand?
     let isLastPage: Bool
+    let totalResults: Int
 }
 
 struct ListProduct {
@@ -134,7 +135,8 @@ extension ProductListResult: Decodable {
             trendInfo: json =>? "trendInfo",
             filters: filters,
             brand: json =>? "brandInfo",
-            isLastPage: json =>? "isLastPage" ?? true
+            isLastPage: json =>? "isLastPage" ?? true,
+            totalResults: json =>? "totalResults" ?? 0
         )
     }
 }

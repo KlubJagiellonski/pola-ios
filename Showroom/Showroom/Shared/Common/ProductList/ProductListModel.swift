@@ -8,6 +8,7 @@ class ProductListModel {
     private var page = 1
     private(set) var products: [ListProduct] = []
     private(set) var link: String?
+    private(set) var totalProductsAmount = 0
     private var filters: [Filter]?
     private var entryFilters: [Filter]?
     var currentPageIndex: Int {
@@ -48,6 +49,7 @@ class ProductListModel {
                     self.entryFilters = self.filters
                 }
                 self.products.appendContentsOf(result.products)
+                self.totalProductsAmount = result.totalResults
         }
             .observeOn(MainScheduler.instance)
     }
@@ -97,7 +99,7 @@ class ProductListModel {
             return self.createObservable(with: paginationInfo, forFilters: self.createRequestFilters(filters))
         }
         
-        return ProductFilterContext(entryFilters: entryFilters!, filters: filters!, fetchObservable: fetchObservable)
+        return ProductFilterContext(entryFilters: entryFilters!, filters: filters!, totalProductsAmount: totalProductsAmount, fetchObservable: fetchObservable)
     }
     
     final func didChangeFilter(withResult productListResult: ProductListResult) {
@@ -105,6 +107,7 @@ class ProductListModel {
         link = nil
         filters = productListResult.filters
         products = productListResult.products
+        totalProductsAmount = productListResult.totalResults
     }
 
     final func resetOnUpdate(withLink link: String?) {

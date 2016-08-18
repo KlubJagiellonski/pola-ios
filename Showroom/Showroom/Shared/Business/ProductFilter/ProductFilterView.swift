@@ -17,6 +17,12 @@ class ProductFilterView: ViewSwitcher, UITableViewDelegate {
     private let tableView = UITableView(frame: CGRectZero, style: .Plain)
     private let acceptButton = UIButton()
     
+    var totalProductsAmount = 0 {
+        didSet {
+            acceptButton.title = tr(.ProductListFilterShowProducts(String(totalProductsAmount)))
+        }
+    }
+    
     init() {
         dataSource = ProductFilterDataSource(with: tableView)
         super.init(successView: contentView, initialState: .Success)
@@ -30,7 +36,6 @@ class ProductFilterView: ViewSwitcher, UITableViewDelegate {
         tableView.extraSeparatorsEnabled = false
         
         acceptButton.applyBlueStyle()
-        acceptButton.title = tr(.ProductListFilterShowProducts)
         acceptButton.addTarget(self, action: #selector(ProductFilterView.didTapAccept), forControlEvents: .TouchUpInside)
         
         contentView.addSubview(tableView)

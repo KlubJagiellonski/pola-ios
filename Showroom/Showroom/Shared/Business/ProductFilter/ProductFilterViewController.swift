@@ -44,6 +44,10 @@ class ProductFilterViewController: UIViewController, ProductFilterViewDelegate {
             }
         }.addDisposableTo(disposeBag)
         
+        model.state.totalProductsAmount.asObservable().subscribeNext { [weak self] totalProductsAmount in
+            self?.castView.totalProductsAmount = totalProductsAmount
+        }.addDisposableTo(disposeBag)
+        
         model.state.currentFilters.asObservable().subscribeNext { [weak self] filters in
             guard let `self` = self else { return }
             

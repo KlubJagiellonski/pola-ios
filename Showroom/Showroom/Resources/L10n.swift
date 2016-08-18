@@ -211,8 +211,8 @@ enum L10n {
   case ProductListFilterClear
   /// %@ - %@
   case ProductListFilterPriceRange(String, String)
-  /// POKAŻ PRODUKTY
-  case ProductListFilterShowProducts
+  /// POKAŻ PRODUKTY (%@)
+  case ProductListFilterShowProducts(String)
   /// ZASTOSUJ
   case ProductListFilterApply
   /// Wszystkie kategorie
@@ -600,8 +600,8 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("ProductListFilter.Clear")
       case .ProductListFilterPriceRange(let p0, let p1):
         return L10n.tr("ProductListFilter.PriceRange", p0, p1)
-      case .ProductListFilterShowProducts:
-        return L10n.tr("ProductListFilter.ShowProducts")
+      case .ProductListFilterShowProducts(let p0):
+        return L10n.tr("ProductListFilter.ShowProducts", p0)
       case .ProductListFilterApply:
         return L10n.tr("ProductListFilter.Apply")
       case .ProductListFilterAllCategories:

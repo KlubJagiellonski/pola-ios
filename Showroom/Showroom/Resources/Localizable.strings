@@ -102,7 +102,7 @@
 "ProductListFilter.Cancel" = "Anuluj";
 "ProductListFilter.Clear" = "Wyczyść";
 "ProductListFilter.PriceRange" = "%@ - %@";
-"ProductListFilter.ShowProducts" = "POKAŻ PRODUKTY";
+"ProductListFilter.ShowProducts" = "POKAŻ PRODUKTY (%@)";
 "ProductListFilter.Apply" = "ZASTOSUJ";
 "ProductListFilter.AllCategories" = "Wszystkie kategorie";
 "ProductListFilter.Min" = "MIN";

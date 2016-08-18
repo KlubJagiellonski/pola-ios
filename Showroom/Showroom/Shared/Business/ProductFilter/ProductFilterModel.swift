@@ -11,7 +11,7 @@ final class ProductFilterModel {
     init(with context: ProductFilterContext, and api: ApiService) {
         self.api = api
         self.context = context
-        state = ProductFilterModelState(with: context.filters)
+        state = ProductFilterModelState(with: context.filters, totalProductsAmount: context.totalProductsAmount)
     }
     
     func update(with valueRange: ValueRange, forFilterId filterId: FilterId) {
@@ -129,6 +129,7 @@ final class ProductFilterModel {
                 case .Next(let result):
                     logInfo("Refreshing filter success with result \(result.filters)")
                     self.changedProductListResult = result
+                    self.state.totalProductsAmount.value = result.totalResults
                 case .Error(let error):
                     self.state.viewState.value = .Error
                     self.state.currentFilters.value = oldFilters
@@ -185,9 +186,11 @@ final class ProductFilterModelState {
     private(set) var tempFilter: Variable<Filter?> = Variable(nil)
     private(set) var viewState = Variable(ProductFilterViewState.Default)
     private(set) var tempViewState = Variable(ProductFilterViewState.Default)
+    private(set) var totalProductsAmount: Variable<Int>
     
-    init(with filters: [Filter]) {
-        currentFilters = Variable(filters)
+    init(with filters: [Filter], totalProductsAmount: Int) {
+        self.currentFilters = Variable(filters)
+        self.totalProductsAmount = Variable(totalProductsAmount)
     }
 }
 
