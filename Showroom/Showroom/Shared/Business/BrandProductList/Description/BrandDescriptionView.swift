@@ -5,7 +5,7 @@ import SnapKit
 class BrandDescriptionView: UIView, ContentInsetHandler {
     private let additionalScrollBottomInset: CGFloat = 60
     
-    private let backgroundImageView = UIImageView()
+    private let backgroundImageView = BrandImageView()
     private let imageGradient = CAGradientLayer()
     private let scrollView = UIScrollView()
     private let textContainerView = UIView()
@@ -30,8 +30,8 @@ class BrandDescriptionView: UIView, ContentInsetHandler {
         
         backgroundImageView.contentMode = .ScaleAspectFill
         backgroundImageView.layer.masksToBounds = true
+        backgroundImageView.alpha = 0
         
-        imageGradient.opacity = 0
         imageGradient.colors = [UIColor(named: .White).colorWithAlphaComponent(0).CGColor, UIColor(named: .White).CGColor]
         
         scrollView.showsVerticalScrollIndicator = false
@@ -87,13 +87,10 @@ class BrandDescriptionView: UIView, ContentInsetHandler {
     private func loadImage(mainUrl: String, lowResImageUrl: String?) {
         backgroundImageView.loadImageWithLowResImage(mainUrl, lowResUrl: lowResImageUrl, width: bounds.width) { [weak self] image in
             guard let `self` = self else { return }
-            UIView.animateWithDuration(0.1, delay: 0, options: .TransitionCrossDissolve, animations: {
-                self.backgroundImageView.image = image
-            }) { _ in
-                guard self.imageGradient.opacity != 1.0 else { return }
-                self.layoutGradient()
-                self.imageGradient.opacity = 1.0
-            }
+            self.backgroundImageView.image = image
+            UIView.animateWithDuration(0.4, delay: 0.1, options: .TransitionNone, animations: {
+                self.backgroundImageView.alpha = 1
+            }, completion: nil)
         }
     }
     
@@ -131,5 +128,15 @@ class BrandDescriptionView: UIView, ContentInsetHandler {
             make.trailing.equalToSuperview().offset(-Dimensions.defaultMargin)
             make.bottom.equalToSuperview().offset(-Dimensions.defaultMargin)
         }
+    }
+}
+
+class BrandImageView: UIImageView {
+    override func intrinsicContentSize() -> CGSize {
+        guard let image = self.image else {
+            return super.intrinsicContentSize()
+        }
+        
+        return CGSizeMake(self.bounds.width, self.bounds.width * image.size.height / image.size.width)
     }
 }
