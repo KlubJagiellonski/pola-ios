@@ -108,7 +108,7 @@ final class ProductFilterModel {
             return nil
         }
         
-        return FilterInfo(id: filter.id, filterItems: filterItems, selectedFilterItemIds: selectedFilterItemsIds, defaultFilterId: filter.defaultId, mode: mode, title: filter.label)
+        return FilterInfo(id: filter.id, filterItems: filterItems, selectedFilterItemIds: selectedFilterItemsIds, defaultFilterId: filter.defaultId, mode: mode, title: filter.label, indexable: filter.indexable)
     }
     
     private func refreshFilter(@noescape refreshFilterBlock: () -> ()) {
@@ -198,6 +198,7 @@ struct FilterInfo {
     let defaultFilterId: FilterObjectId?
     let mode: FilterDetailsMode
     let title: String
+    let indexable: Bool
 }
 
 enum FilterDetailsMode {

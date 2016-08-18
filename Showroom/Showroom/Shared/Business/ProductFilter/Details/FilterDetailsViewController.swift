@@ -48,7 +48,7 @@ class FilterDetailsViewController: UIViewController, FilterDetailsViewDelegate {
         
         castView.acceptButtonEnabled = false
         castView.delegate = self
-        castView.updateData(with: filterInfo.filterItems, selectedIds: currentSelectedIds, loadingItemIndex: nil)
+        castView.updateData(with: filterInfo.filterItems, selectedIds: currentSelectedIds, loadingItemIndex: nil, indexable: filterInfo.indexable)
         
         model.state.tempFilter.asObservable().subscribeNext { [weak self] _ in self?.updateData() }.addDisposableTo(disposeBag)
         model.state.tempViewState.asObservable().subscribeNext { [weak self] viewState in
@@ -74,7 +74,7 @@ class FilterDetailsViewController: UIViewController, FilterDetailsViewDelegate {
         logInfo("Updating data for id \(filterInfo.id) tempFilterInfo \(tempFilterInfo)")
         if let filterInfo = tempFilterInfo {
             currentSelectedIds = filterInfo.selectedFilterItemIds
-            castView.updateData(with: filterInfo.filterItems, selectedIds: currentSelectedIds, loadingItemIndex: nil)
+            castView.updateData(with: filterInfo.filterItems, selectedIds: currentSelectedIds, loadingItemIndex: nil, indexable: filterInfo.indexable)
         }
     }
     
@@ -113,8 +113,8 @@ class FilterDetailsViewController: UIViewController, FilterDetailsViewDelegate {
         sendNavigationEvent(SimpleNavigationEvent(type: .Back))
     }
     
-    func filterDetails(view: FilterDetailsView, didSelectFilterItemAtIndex index: Int) {
-        logInfo("Did select filter item at index \(index)")
+    func filterDetails(view: FilterDetailsView, didSelectFilterItem filterItem: FilterItem) {
+        logInfo("Did select filter item \(filterItem)")
         
         guard model.state.tempViewState.value != .Refreshing else {
             logInfo("Selected while refreshing. Ignoring...")
@@ -122,7 +122,6 @@ class FilterDetailsViewController: UIViewController, FilterDetailsViewDelegate {
         }
         
         let filterInfo = self.tempFilterInfo ?? self.filterInfo
-        let filterItem = filterInfo.filterItems[index]
         if filterInfo.mode == .Tree {
             logInfo("Updating tree for item \(filterItem)")
             updateTree(forSelectedItem: filterItem)

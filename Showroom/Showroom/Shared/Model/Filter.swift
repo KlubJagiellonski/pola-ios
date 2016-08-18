@@ -23,6 +23,7 @@ struct Filter {
     let label: String
     let type: FilterType
     let multiple: Bool
+    let indexable: Bool
     var data: [FilterObjectId]
     let defaultId: FilterObjectId?
     let branches: [FilterBranch]?
@@ -63,6 +64,7 @@ extension Filter: Decodable {
             label: json => "label",
             type: FilterType(rawValue: json => "type") ?? .Unknown,
             multiple: json =>? "multiple" ?? false,
+            indexable: json =>? "indexable" ?? false,
             data: json => "data",
             defaultId: json =>? "default",
             branches: json =>? "branches",

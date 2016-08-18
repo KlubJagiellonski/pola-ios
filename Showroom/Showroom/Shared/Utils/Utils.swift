@@ -36,6 +36,30 @@ extension Array {
         }
         return nil
     }
+    
+    func createIndexes(@noescape retrieveName: (Element) -> String) -> [String: [Element]] {
+        var index: [String: [Element]] = [:]
+        
+        let letters = NSCharacterSet.letterCharacterSet()
+        
+        for item in self {
+            let name = retrieveName(item)
+            if name.characters.count == 0 {
+                continue
+            }
+            var indexLetter = String(name.characters.first!).uppercaseString
+            if !letters.longCharacterIsMember(indexLetter.unicodeScalars.first!.value) {
+                indexLetter = "#"
+            }
+            if index.keys.contains(indexLetter) {
+                index[indexLetter]?.append(item)
+            } else {
+                index[indexLetter] = [item]
+            }
+        }
+        
+        return index
+    }
 }
 
 func ==<T: Equatable>(lhs: [T]?, rhs: [T]?) -> Bool {

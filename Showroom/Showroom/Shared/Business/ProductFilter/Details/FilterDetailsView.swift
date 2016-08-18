@@ -3,7 +3,7 @@ import UIKit
 
 protocol FilterDetailsViewDelegate: class {
     func filterDetailsDidTapAccept(view: FilterDetailsView)
-    func filterDetails(view: FilterDetailsView, didSelectFilterItemAtIndex index: Int)
+    func filterDetails(view: FilterDetailsView, didSelectFilterItem filterItem: FilterItem)
 }
 
 class FilterDetailsView: UIView, UITableViewDelegate {
@@ -39,8 +39,8 @@ class FilterDetailsView: UIView, UITableViewDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func updateData(with filterItems: [FilterItem], selectedIds: [FilterObjectId], loadingItemIndex: Int?) {
-        dataSource.updateData(with: filterItems, selectedIds: selectedIds, loadingItemIndex: loadingItemIndex)
+    func updateData(with filterItems: [FilterItem], selectedIds: [FilterObjectId], loadingItemIndex: Int?, indexable: Bool) {
+        dataSource.updateData(with: filterItems, selectedIds: selectedIds, loadingItemIndex: loadingItemIndex, indexable: indexable)
     }
     
     func updateData(withLoadingItemIndex loadingItemIndex: Int?) {
@@ -75,6 +75,7 @@ class FilterDetailsView: UIView, UITableViewDelegate {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        delegate?.filterDetails(self, didSelectFilterItemAtIndex: indexPath.row)
+        
+        delegate?.filterDetails(self, didSelectFilterItem: dataSource.filterItem(forIndexPath: indexPath))
     }
 }

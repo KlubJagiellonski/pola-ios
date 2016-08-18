@@ -46,7 +46,7 @@ final class SearchContentDataSource: NSObject, UITableViewDataSource {
         self.type = type
         self.indexable = mainSearchItem.indexable
         if self.indexable {
-            self.indexedBranches = SearchContentDataSource.createIndex(for: mainSearchItem.branches)
+            self.indexedBranches = mainSearchItem.branches?.createIndexes { $0.name }
             self.sectionIndexTitles = indexedBranches?.keys.sort { $0.localizedCaseInsensitiveCompare($1) == NSComparisonResult.OrderedAscending }
         } else {
             self.indexedBranches = nil
@@ -70,7 +70,6 @@ final class SearchContentDataSource: NSObject, UITableViewDataSource {
         } else {
             return mainSearchItem.branches![indexPath.row]
         }
-        
     }
     
     private func section(forIndexPath indexPath: NSIndexPath) -> SearchContentSectionType {
@@ -137,34 +136,5 @@ final class SearchContentDataSource: NSObject, UITableViewDataSource {
     
     func sectionIndexTitlesForTableView(tableView: UITableView) -> [String]? {
         return sectionIndexTitles
-    }
-    
-    class func createIndex(for branches: [SearchItem]?) -> Dictionary<String, [SearchItem]> {
-        var index = Dictionary<String, [SearchItem]>()
-        
-        guard let branches = branches else {
-            return index
-        }
-        
-        let letters = NSCharacterSet.letterCharacterSet()
-        
-        for item in branches {
-            if item.name.characters.count == 0 {
-                continue
-            }
-            var indexLetter = String(item.name.characters.first!).uppercaseString
-            if !letters.longCharacterIsMember(indexLetter.unicodeScalars.first!.value) {
-                indexLetter = "#"
-            }
-            if index.keys.contains(indexLetter) {
-                index[indexLetter]?.append(item)
-            } else {
-                index[indexLetter] = [item]
-            }
-        }
-        
-        logInfo(String(index.keys.first))
-        
-        return index
     }
 }
