@@ -76,7 +76,7 @@ final class CheckoutModel {
         return comments.count > index ? comments[index]: nil
     }
     
-    func payUButton(withFrame frame: CGRect) -> UIView {
+    func payUButton(withFrame frame: CGRect) -> UIView? {
         return payUManager.paymentButton(withFrame: frame)
     }
     

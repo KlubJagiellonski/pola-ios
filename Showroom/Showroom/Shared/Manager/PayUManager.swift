@@ -2,6 +2,7 @@ import Foundation
 import RxSwift
 
 enum PayUPaymentError: ErrorType {
+    case SessionNotExist
     case InvalidRequest
     case UserWantsRetry
     case Cancelled
@@ -13,7 +14,7 @@ final class PayUManager {
     private let delegate = PayUPaymentServiceDelegate()
     private let api: ApiService
     private let userManager: UserManager
-    private let paymentService = PUPaymentService()
+    private var paymentService: PUPaymentService?
     weak var serviceDelegate: PUPaymentServiceDelegate? {
         set { delegate.delegate = newValue }
         get { return delegate.delegate }
@@ -27,13 +28,15 @@ final class PayUManager {
         self.userManager = userManager
         
         dataSource.manager = self
-        paymentService.dataSource = dataSource
-        paymentService.delegate = delegate
+        
+        if userManager.session != nil {
+            createSession()
+        }
         
         userManager.sessionObservable.subscribeNext { [weak self] session in
-            if session == nil {
-                self?.delegate.paymentMethodDescription = nil
-                self?.paymentService.clearUserContext()
+            self?.clearSession()
+            if session != nil {
+                self?.createSession()
             }
         }.addDisposableTo(disposeBag)
     }
@@ -42,15 +45,28 @@ final class PayUManager {
         return api.authorizePayment(withProvider: .PayU)
     }
     
-    func paymentButton(withFrame frame: CGRect) -> UIView {
+    func paymentButton(withFrame frame: CGRect) -> UIView? {
+        guard let paymentService = paymentService else {
+            logError("PaymentService not created while creating paymentButton")
+            return nil
+        }
         return paymentService.paymentMethodWidgetWithFrame(frame)
     }
     
     func handleOpen(withURL url: NSURL) -> Bool {
+        guard let paymentService = paymentService else {
+            logError("PaymentService not created while handling url \(url)")
+            return false
+        }
         return paymentService.handleOpenURL(url)
     }
     
     func makePayment(with paymentResult: PaymentResult) -> Observable<PaymentResult> {
+        guard let paymentService = paymentService else {
+            logError("PaymentService not created while making payment")
+            return Observable.error(PayUPaymentError.SessionNotExist)
+        }
+        
         guard let description = paymentResult.description, let url = paymentResult.notifyUrl, let notifyUrl = NSURL(string: url) else {
             logError("Cannot make payment with result \(paymentResult)")
             return Observable.error(PayUPaymentError.InvalidRequest)
@@ -63,8 +79,8 @@ final class PayUManager {
         request.paymentDescription = description
         request.notifyURL = notifyUrl
         
-        return Observable.create { [unowned self] observer in
-            self.paymentService.submitPaymentRequest(request) { result in
+        return Observable.create { observer in
+            paymentService.submitPaymentRequest(request) { result in
                 switch result.status {
                 case .Success:
                     observer.onNext(paymentResult)
@@ -79,6 +95,18 @@ final class PayUManager {
             }
             return NopDisposable.instance
         }
+    }
+    
+    private func clearSession() {
+        paymentService?.clearUserContext()
+        delegate.paymentMethodDescription = nil
+    }
+    
+    private func createSession() {
+        let paymentService = PUPaymentService()
+        paymentService.dataSource = dataSource
+        paymentService.delegate = delegate
+        self.paymentService = paymentService
     }
 }
 
@@ -124,7 +152,7 @@ final class PayUPaymentServiceDelegate: NSObject, PUPaymentServiceDelegate {
     func paymentServiceDidSelectPaymentMethod(paymentMethod: PUPaymentMethodDescription!) {
         paymentMethodDescription = paymentMethod
         guard let delegate = delegate else {
-            logError("No delegate assigned with selected payment method: \(paymentMethod)")
+            logInfo("No delegate assigned with selected payment method: \(paymentMethod)")
             return
         }
         delegate.paymentServiceDidSelectPaymentMethod?(paymentMethod)
@@ -132,7 +160,7 @@ final class PayUPaymentServiceDelegate: NSObject, PUPaymentServiceDelegate {
     
     func paymentServiceDidRequestPresentingViewController(viewController: UIViewController!) {
         guard let delegate = delegate else {
-            logError("No delegate assigned with request presenting view controller: \(viewController)")
+            logInfo("No delegate assigned with request presenting view controller: \(viewController)")
             return
         }
         delegate.paymentServiceDidRequestPresentingViewController(viewController)

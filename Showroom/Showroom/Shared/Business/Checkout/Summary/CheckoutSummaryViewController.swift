@@ -27,7 +27,11 @@ final class CheckoutSummaryViewController: UIViewController, CheckoutSummaryView
     
     override func loadView() {
         view = CheckoutSummaryView() { [unowned self] payUButtonFrame in
-            return self.model.payUButton(withFrame: payUButtonFrame)
+            guard let button = self.model.payUButton(withFrame: payUButtonFrame) else {
+                self.sendNavigationEvent(SimpleNavigationEvent(type: .Close))
+                return UIView()
+            }
+            return button
         }
     }
     
