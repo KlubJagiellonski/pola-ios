@@ -48,7 +48,10 @@ class EditAddressViewController: UIViewController, EditAddressViewDelegate {
     }
     
     func editAddressViewDidTapSaveButton(view: EditAddressView) {
-        guard castView.validate(showResult: true) else { return }
+        guard castView.validate(showResult: true) else {
+            castView.scrollContentToTop()
+            return
+        }
         guard let newUserAddress = castView.userAddress else { return }
         
         castView.switcherState = .ModalLoading
@@ -69,6 +72,7 @@ class EditAddressViewController: UIViewController, EditAddressViewDelegate {
                     self.toastManager.showMessage(tr(.CommonUserLoggedOut))
                     self.sendNavigationEvent(SimpleNavigationEvent(type: .Close))
                 case EditAddressError.ValidationFailed(let fieldsErrors):
+                    self.castView.scrollContentToTop()
                     self.updateValidationFieldIfNeeded(fieldsErrors.firstName, key: UserAddress.firstNameKey)
                     self.updateValidationFieldIfNeeded(fieldsErrors.lastName, key: UserAddress.lastNameKey)
                     self.updateValidationFieldIfNeeded(fieldsErrors.city, key: UserAddress.cityKey)

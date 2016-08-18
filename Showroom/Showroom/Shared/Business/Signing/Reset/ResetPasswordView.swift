@@ -88,7 +88,7 @@ class ResetPasswordView: ViewSwitcher {
         }
         
         resetButton.snp_makeConstraints { make in
-            make.top.equalTo(emailField.snp_bottom).offset(Dimensions.defaultMargin)
+            make.top.equalTo(emailField.snp_bottom).offset(8)
             make.left.equalToSuperview().inset(Dimensions.defaultMargin)
             make.right.equalToSuperview().inset(Dimensions.defaultMargin)
             make.height.equalTo(Dimensions.bigButtonHeight)

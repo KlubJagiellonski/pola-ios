@@ -93,6 +93,7 @@ class CheckoutDeliveryViewController: UIViewController, CheckoutDeliveryViewDele
     
     func checkoutDeliveryViewDidTapNextButton(view: CheckoutDeliveryView) {
         guard view.validate(showResult: true) else {
+            castView.scrollContentToTop()
             return
         }
         
@@ -118,6 +119,7 @@ class CheckoutDeliveryViewController: UIViewController, CheckoutDeliveryViewDele
                         self.toastManager.showMessage(tr(.CommonUserLoggedOut))
                         self.sendNavigationEvent(SimpleNavigationEvent(type: .Close))
                     case EditAddressError.ValidationFailed(let fieldsErrors):
+                        self.castView.scrollContentToTop()
                         self.updateValidationFieldIfNeeded(fieldsErrors.firstName, key: UserAddress.firstNameKey)
                         self.updateValidationFieldIfNeeded(fieldsErrors.lastName, key: UserAddress.lastNameKey)
                         self.updateValidationFieldIfNeeded(fieldsErrors.city, key: UserAddress.cityKey)

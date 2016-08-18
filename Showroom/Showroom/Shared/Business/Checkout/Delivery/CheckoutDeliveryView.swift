@@ -80,7 +80,11 @@ class CheckoutDeliveryView: ViewSwitcher {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureCustomCostraints() {
+    func scrollContentToTop() {
+        scrollView.setContentOffset(CGPoint(x: 0, y: -scrollView.contentInset.top), animated: true)
+    }
+    
+    private func configureCustomCostraints() {
         scrollView.snp_makeConstraints { make in
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()

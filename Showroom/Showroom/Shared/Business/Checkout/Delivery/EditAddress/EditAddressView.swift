@@ -62,6 +62,10 @@ class EditAddressView: ViewSwitcher {
         inputView.validation = validation
     }
     
+    func scrollContentToTop() {
+        scrollView.setContentOffset(CGPoint(x: 0, y: -scrollView.contentInset.top), animated: true)
+    }
+    
     private func configureCustomCostraints() {
         scrollView.snp_makeConstraints { make in
             make.leading.equalToSuperview()

@@ -39,7 +39,7 @@ extension String {
         return attributedString
     }
     
-    func markdownToAttributedString(treatBoldAsNormalText treatBoldAsNormalText: Bool = false) -> NSAttributedString {
+    func markdownToAttributedString(treatBoldAsNormalText treatBoldAsNormalText: Bool = false, lineSpacing: CGFloat? = nil) -> NSAttributedString {
         let normalFont = UIFont(fontType: .Normal)
         let boldFont = UIFont(fontType: .NormalBold)
         
@@ -52,6 +52,17 @@ extension String {
         
         let document = CMDocument(data: dataUsingEncoding(NSUTF8StringEncoding), options: CMDocumentOptions())
         let renderer = CMAttributedStringRenderer(document: document, attributes: textAttributes)
-        return renderer.render()
+        let attributedString = renderer.render()
+        if let lineSpacing = lineSpacing {
+            let mutableAttributedString = NSMutableAttributedString(attributedString: attributedString)
+            
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.lineSpacing = lineSpacing
+            mutableAttributedString.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSMakeRange(0, attributedString.length))
+            
+            return mutableAttributedString
+        } else {
+            return attributedString
+        }
     }
 }

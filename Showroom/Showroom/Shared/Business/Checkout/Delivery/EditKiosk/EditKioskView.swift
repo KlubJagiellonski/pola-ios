@@ -76,6 +76,7 @@ class EditKioskView: ViewSwitcher, UITableViewDelegate {
         
         backgroundColor = UIColor(named: .White)
         
+        searchInputView.bottomOffsetEnabled = false
         searchInputView.title = tr(.CheckoutDeliveryEditKioskSearchInputLabel)
         searchInputView.inputTextField.placeholder = tr(.CheckoutDeliveryEditKioskSearchInputPlaceholder)
         searchInputView.inputTextField.returnKeyType = .Search

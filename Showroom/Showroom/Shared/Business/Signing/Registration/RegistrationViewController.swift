@@ -56,6 +56,7 @@ class RegistrationViewController: UIViewController, RegistrationViewDelegate {
             switch error {
             case SigningError.FacebookCancelled: break
             case SigningError.ValidationFailed(let fieldsErrors):
+                castView.scrollContentToTop()
                 if let nameError = fieldsErrors.name {
                     castView.emailField.validation = nameError
                 }
@@ -99,6 +100,7 @@ class RegistrationViewController: UIViewController, RegistrationViewDelegate {
             let name = castView.name,
             let email = castView.email,
             let password = castView.password else {
+                castView.scrollContentToTop()
                 return
         }
         

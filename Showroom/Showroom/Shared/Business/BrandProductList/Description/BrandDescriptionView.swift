@@ -80,7 +80,7 @@ class BrandDescriptionView: UIView, ContentInsetHandler {
         }
         
         titleLabel.text = brand.name
-        let description = brand.description.markdownToAttributedString()
+        let description = brand.description.markdownToAttributedString(lineSpacing: 5)
         descriptionTextView.attributedText = description
     }
     

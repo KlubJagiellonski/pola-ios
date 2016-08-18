@@ -1,4 +1,5 @@
 import UIKit
+import SnapKit
 
 extension FormInputView: ContentValidator {
     func getValue() -> AnyObject? {
@@ -19,10 +20,12 @@ class FormInputView: UIView {
     static let inputLabelHeight: CGFloat = 17.0
     static let inputLabelToTextFieldOffset: CGFloat = 10.0
     static let validationLabelHeight: CGFloat = 25.0
+    static let validationLabelToBottomInset: CGFloat = 8.0
     
     private let inputLabel = UILabel()
     let inputTextField = FormInputTextField(frame: CGRectZero)
     private let validationLabel = ExtendedLabel(frame: CGRectZero)
+    private var bottomConstraint: Constraint?
     
     var title: String? {
         get {
@@ -40,6 +43,12 @@ class FormInputView: UIView {
         set {
             validationLabel.text = newValue
             validationLabel.hidden = newValue == nil
+        }
+    }
+    
+    var bottomOffsetEnabled = true {
+        didSet {
+            bottomConstraint?.updateOffset(bottomOffsetEnabled ? -FormInputView.validationLabelToBottomInset : 0)
         }
     }
     
@@ -80,7 +89,7 @@ class FormInputView: UIView {
             make.trailing.equalToSuperview()
             make.top.equalTo(inputTextField.snp_bottom)
             make.height.equalTo(FormInputView.validationLabelHeight)
-            make.bottom.equalToSuperview()//.inset(FormInputView.validationLabelToBottomInset)
+            bottomConstraint = make.bottom.equalToSuperview().offset(-FormInputView.validationLabelToBottomInset).constraint
         }
     }
 }

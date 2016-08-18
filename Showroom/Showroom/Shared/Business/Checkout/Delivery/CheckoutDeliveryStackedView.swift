@@ -358,21 +358,19 @@ class CheckoutDeliveryDetailsView: UIView {
             make.leading.equalToSuperview()
             make.trailing.lessThanOrEqualTo(chooseKioskButton.snp_leading)
             make.top.equalToSuperview()
-            make.bottom.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-Dimensions.defaultMargin)
         }
         
         chooseKioskButton.setContentCompressionResistancePriority(UILayoutPriorityDefaultHigh, forAxis: .Horizontal)
         chooseKioskButton.snp_makeConstraints { make in
             make.trailing.equalToSuperview()
-            make.top.equalToSuperview()
-            make.bottom.equalToSuperview()
+            make.baseline.equalTo(label)
         }
         
         changeKioskButton.setContentCompressionResistancePriority(UILayoutPriorityDefaultHigh, forAxis: .Horizontal)
         changeKioskButton.snp_makeConstraints { make in
             make.trailing.equalToSuperview()
-            make.top.equalToSuperview()
-            make.bottom.equalToSuperview()
+            make.baseline.equalTo(label)
         }
     }
 }

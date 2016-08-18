@@ -170,6 +170,10 @@ class RegistrationView: ViewSwitcher {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func scrollContentToTop() {
+        scrollView.setContentOffset(CGPoint(x: 0, y: -scrollView.contentInset.top), animated: true)
+    }
+    
     @objc private func dismissKeyboard() {
         endEditing(true)
     }
