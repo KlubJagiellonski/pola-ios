@@ -7,7 +7,7 @@ final class TrendHeaderCell: UIView {
     static let descriptionBoldFont = UIFont(fontType: .NormalBold)
     private static let textTopOffset: CGFloat = 143
     
-    private let backgroundImageView = UIImageView()
+    private let backgroundImageView = TrendImageView()
     private let imageGradient = CAGradientLayer()
     private let descriptionContainerView = UIView()
     private let descriptionTextView = UITextView()
@@ -37,11 +37,13 @@ final class TrendHeaderCell: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    static func height(forWidth width: CGFloat, andDescription description: NSAttributedString) -> CGFloat {
+    static func height(forWidth width: CGFloat, andDescription description: NSAttributedString, imageInfo: TrendImageInfo) -> CGFloat {
         let textWidth = width - 4 * Dimensions.defaultMargin
         let textHeight = description.boundingRectWithSize(CGSizeMake(textWidth, CGFloat.max), options: [.UsesLineFragmentOrigin, .UsesFontLeading], context: nil).height
         let textContainerHeight = ceil(TrendHeaderCell.textTopOffset + 2 * Dimensions.defaultMargin + textHeight)
-        let imageHeight = ceil(width / CGFloat(Dimensions.defaultImageRatio))
+        
+        let imageRatio = CGFloat(imageInfo.width) / CGFloat(imageInfo.height)
+        let imageHeight = ceil(width / imageRatio)
         return max(textContainerHeight, imageHeight)
     }
     
@@ -57,7 +59,8 @@ final class TrendHeaderCell: UIView {
         }
     }
     
-    func updateData(withImageUrl imageUrl: String, description: NSAttributedString?) {
+    func updateData(withImageUrl imageUrl: String, description: NSAttributedString?, imageRatio: CGFloat) {
+        backgroundImageView.imageRatio = imageRatio
         if backgroundImageView.bounds.width > 0 {
             loadImage(forUrl: imageUrl)
         } else {
@@ -82,7 +85,6 @@ final class TrendHeaderCell: UIView {
             topBackgroundImageViewConstraint = make.top.equalToSuperview().constraint
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
-            make.height.equalTo(backgroundImageView.snp_width).dividedBy(Dimensions.defaultImageRatio)
         }
         
         descriptionContainerView.snp_makeConstraints { make in
@@ -96,6 +98,22 @@ final class TrendHeaderCell: UIView {
             make.leading.equalToSuperview().offset(Dimensions.defaultMargin)
             make.trailing.equalToSuperview().offset(-Dimensions.defaultMargin)
             make.bottom.equalToSuperview().offset(-Dimensions.defaultMargin)
+        }
+    }
+}
+
+final class TrendImageView: UIImageView {
+    var imageRatio: CGFloat? {
+        didSet {
+            invalidateIntrinsicContentSize()
+        }
+    }
+    
+    override func intrinsicContentSize() -> CGSize {
+        if let imageRatio = imageRatio {
+            return CGSizeMake(bounds.width, bounds.width / imageRatio)
+        } else {
+            return super.intrinsicContentSize()
         }
     }
 }

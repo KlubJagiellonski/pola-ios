@@ -9,7 +9,13 @@ struct EntryTrendInfo {
 struct TrendInfo {
     let name: String
     let description: String
-    let imageUrl: String
+    let imageInfo: TrendImageInfo
+}
+
+struct TrendImageInfo {
+    let width: Int
+    let height: Int
+    let url: String
 }
 
 // MARK: - Decodable, Encodable
@@ -19,7 +25,17 @@ extension TrendInfo: Decodable {
         return try TrendInfo(
             name: json => "name",
             description: json => "description",
-            imageUrl: json => "imageUrl"
+            imageInfo: json => "image"
+        )
+    }
+}
+
+extension TrendImageInfo: Decodable {
+    static func decode(json: AnyObject) throws -> TrendImageInfo {
+        return try TrendImageInfo(
+            width: json => "width",
+            height: json => "height",
+            url: json => "url"
         )
     }
 }

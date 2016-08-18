@@ -17,6 +17,7 @@ class TrendProductListView: ViewSwitcher, ProductListViewInterface, ProductListC
     }
     private let headerCell = TrendHeaderCell()
     private var currentHeaderDescription: NSAttributedString?
+    private var currentImageInfo: TrendImageInfo?
     
     init() {
         productListComponent = ProductListComponent(withCollectionView: collectionView)
@@ -28,8 +29,8 @@ class TrendProductListView: ViewSwitcher, ProductListViewInterface, ProductListC
         
         productListComponent.delegate = self
         productListComponent.headerSectionInfo = HeaderSectionInfo(view: headerCell, wantsToReceiveScrollEvents: true) { [unowned self] in
-            guard let headerDescription = self.currentHeaderDescription else { return 0 }
-            return TrendHeaderCell.height(forWidth: self.collectionView.bounds.width, andDescription: headerDescription)
+            guard let headerDescription = self.currentHeaderDescription, let imageInfo = self.currentImageInfo else { return 0 }
+            return TrendHeaderCell.height(forWidth: self.collectionView.bounds.width, andDescription: headerDescription, imageInfo: imageInfo)
         }
         
         collectionView.applyProductListConfiguration()
@@ -41,9 +42,10 @@ class TrendProductListView: ViewSwitcher, ProductListViewInterface, ProductListC
         fatalError("init(coder:) has not been implemented")
     }
     
-    func updateTrendInfo(imageUrl: String, description: NSAttributedString?) {
+    func updateTrendInfo(imageInfo: TrendImageInfo, description: NSAttributedString?) {
         currentHeaderDescription = description
-        headerCell.updateData(withImageUrl: imageUrl, description: description)
+        currentImageInfo = imageInfo
+        headerCell.updateData(withImageUrl: imageInfo.url, description: description, imageRatio: CGFloat(imageInfo.width) / CGFloat(imageInfo.height))
     }
 }
 

@@ -64,7 +64,7 @@ class TrendProductListViewController: UIViewController, ProductListViewControlle
     func pageWasFetched(result productListResult: ProductListResult, pageIndex: Int) {
         if let trendInfo = productListResult.trendInfo, let description = model.attributedDescription where pageIndex == 0 {
             title = trendInfo.name
-            castView.updateTrendInfo(trendInfo.imageUrl, description: description)
+            castView.updateTrendInfo(trendInfo.imageInfo, description: description)
         } else if pageIndex == 0 {
             logError("Didn't received trend info in result: \(productListResult)")
         }

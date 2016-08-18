@@ -156,6 +156,8 @@ extension ApiService {
             .URLByAppendingPathComponent("trend")
             .URLByAppendingPathComponent(slug)
         
+        logInfo("Sending trend \(slug)")
+        
         let urlRequest = NSMutableURLRequest(URL: url)
         urlRequest.HTTPMethod = "GET"
         return networkClient
