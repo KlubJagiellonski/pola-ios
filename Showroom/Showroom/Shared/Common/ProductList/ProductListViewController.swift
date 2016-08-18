@@ -61,6 +61,7 @@ extension ProductListViewControllerInterface {
     
     func didChangeFilter(withResult productListResult: ProductListResult) {
         logInfo("Changed filter with productListResult \(productListResult)")
+        productListView.collectionView.setContentOffset(CGPointMake(0, -productListView.collectionView.contentInset.top), animated: false)
         productListModel.didChangeFilter(withResult: productListResult)
         updateDataOnFirstPageFetched(productListResult)
     }
