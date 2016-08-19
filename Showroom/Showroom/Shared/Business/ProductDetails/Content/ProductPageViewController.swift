@@ -187,6 +187,7 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
             logAnalyticsEvent(AnalyticsEventId.ProductRemoveFromWishlist(model.productId))
         }
         castView.updateWishlistButton(selected: selected)
+        sendNavigationEvent(SimpleNavigationEvent(type: .AskForNotificationsFromWishlist))
     }
     
     func pageViewDidSwitchedImage(pageView: ProductPageView) {

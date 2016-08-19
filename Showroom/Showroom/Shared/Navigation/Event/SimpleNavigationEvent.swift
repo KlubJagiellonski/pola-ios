@@ -23,5 +23,6 @@ struct SimpleNavigationEvent: NavigationEvent {
         case ShowEditAddress
         case ShowOnboaridng
         case ShowRules
+        case AskForNotificationsFromWishlist
     }
 }

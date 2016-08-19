@@ -131,5 +131,7 @@ extension ProductListViewDelegate where Self: ProductListViewControllerInterface
     func productListView(listView: ProductListViewInterface, didDoubleTapProductAtIndex index: Int) {
         logAnalyticsEvent(AnalyticsEventId.ListAddToWishlist(productListModel.products[safe: index]?.id ?? 0))
         productListModel.addToWishlist(productAtIndex: index)
+        
+        sendNavigationEvent(SimpleNavigationEvent(type: .AskForNotificationsFromWishlist))
     }
 }

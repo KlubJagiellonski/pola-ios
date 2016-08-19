@@ -15,7 +15,7 @@ class SettingsViewController: UIViewController {
     private lazy var onboardingActionAnimator: InAppOnboardingActionAnimator = { [unowned self] in
         return InAppOnboardingActionAnimator(parentViewHeight: self.castView.bounds.height)
     }()
-    private lazy var rateAppAnimator: FormSheetAnimator = { [unowned self] in
+    private lazy var formSheetAnimator: FormSheetAnimator = { [unowned self] in
         let animator = FormSheetAnimator()
         animator.delegate = self
         return animator
@@ -32,6 +32,8 @@ class SettingsViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         self.userManager.userObservable.subscribeNext(updateSettings).addDisposableTo(disposeBag)
         self.userManager.genderObservable.subscribeNext(updateGender).addDisposableTo(disposeBag)
+        
+        self.notificationsManager.shouldShowInSettingsObservable.subscribeNext(updateSettings).addDisposableTo(disposeBag)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -54,7 +56,7 @@ class SettingsViewController: UIViewController {
         settings.append(
             Setting(type: .Gender, labelString: tr(.SettingsDefaultOffer), action: self.femaleButtonPressed, secondaryAction: self.maleButtonPressed, cellClickable: false, value: self.userManager.gender)
         )
-        if !notificationsManager.userAlreadyAskedForNotificationPermission && !notificationsManager.isRegistered {
+        if notificationsManager.shouldShowInSettings {
             settings.append(
                 Setting(type: .AskForNotification, action: self.askForNotificationPressed, cellClickable: false)
             )
@@ -77,9 +79,15 @@ class SettingsViewController: UIViewController {
             settings.append(Setting(type: .Normal, labelString: "Pokaż in-app paging onboarding", action: self.showInAppPagingOnboarding))
             settings.append(Setting(type: .Normal, labelString: "Pokaż oceń nas (po czasie)", action: self.showRateAppAfterTime))
             settings.append(Setting(type: .Normal, labelString: "Pokaż oceń nas (po zakupie)", action: self.showRateAppAfterBuy))
+            settings.append(Setting(type: .Normal, labelString: "Pokaż pytanie o powiadomienia (po czasie)", action: self.showNotificationsAccessAfterTime))
+            settings.append(Setting(type: .Normal, labelString: "Pokaż pytanie o powiadomienia (schowek)", action: self.showNotificationsAccessAfterWishlist))
         }
         
         castView.updateData(with: settings)
+    }
+    
+    private func updateSettings() {
+        updateSettings(with: userManager.user)
     }
     
     private func updateGender(with gender: Gender) {
@@ -242,7 +250,22 @@ class SettingsViewController: UIViewController {
         let viewController = self.resolver.resolve(RateAppViewController.self, argument: type)
         viewController.preferredContentSize = Dimensions.rateAppPreferredSize
         viewController.delegate = self
-        rateAppAnimator.presentViewController(viewController, presentingViewController: self)
+        formSheetAnimator.presentViewController(viewController, presentingViewController: self)
+    }
+    
+    func showNotificationsAccessAfterTime() {
+        showNotificationsAccess(.AfterTime)
+    }
+    
+    func showNotificationsAccessAfterWishlist() {
+        showNotificationsAccess(.AfterWishlist)
+    }
+    
+    func showNotificationsAccess(type: NotificationsAccessViewType) {
+        let viewController = self.resolver.resolve(NotificationsAccessViewController.self, argument: type)
+        viewController.preferredContentSize = Dimensions.rateAppPreferredSize
+        viewController.delegate = self
+        formSheetAnimator.presentViewController(viewController, presentingViewController: self)
     }
     
     func sendReportPressed() {
@@ -310,7 +333,13 @@ extension SettingsViewController: DimAnimatorDelegate {
 
 extension SettingsViewController: RateAppViewControllerDelegate {
     func rateAppWantsDismiss(viewController: RateAppViewController) {
-        rateAppAnimator.dismissViewController(presentingViewController: self)
+        formSheetAnimator.dismissViewController(presentingViewController: self)
+    }
+}
+
+extension SettingsViewController: NotificationsAccessViewControllerDelegate {
+    func notificationsAccessWantsDismiss(viewController: NotificationsAccessViewController) {
+        formSheetAnimator.dismissViewController(presentingViewController: self)
     }
 }
 

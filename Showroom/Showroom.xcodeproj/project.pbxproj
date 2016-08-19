@@ -268,6 +268,8 @@
 		75C8545E1D05660400E5F08F /* BasketHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C8545D1D05660400E5F08F /* BasketHeader.swift */; };
 		75C854601D05816300E5F08F /* PriceLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C8545F1D05816300E5F08F /* PriceLabel.swift */; };
 		75C854621D05B7BF00E5F08F /* BasketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C854611D05B7BF00E5F08F /* BasketManager.swift */; };
+		75D50E121D670A990060058F /* NotificationsAccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D50E101D670A990060058F /* NotificationsAccessView.swift */; };
+		75D50E131D670A990060058F /* NotificationsAccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D50E111D670A990060058F /* NotificationsAccessViewController.swift */; };
 		75D52EB41CFF1063005E34B4 /* BasketNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D52EB31CFF1063005E34B4 /* BasketNavigationController.swift */; };
 		75D52EB61CFF20BA005E34B4 /* BasketCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D52EB51CFF20BA005E34B4 /* BasketCell.swift */; };
 		75D52EB81CFF22D4005E34B4 /* Basket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D52EB71CFF22D4005E34B4 /* Basket.swift */; };
@@ -647,6 +649,8 @@
 		75C8545D1D05660400E5F08F /* BasketHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasketHeader.swift; sourceTree = "<group>"; };
 		75C8545F1D05816300E5F08F /* PriceLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PriceLabel.swift; path = ../Business/Basket/PriceLabel.swift; sourceTree = "<group>"; };
 		75C854611D05B7BF00E5F08F /* BasketManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasketManager.swift; sourceTree = "<group>"; };
+		75D50E101D670A990060058F /* NotificationsAccessView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsAccessView.swift; sourceTree = "<group>"; };
+		75D50E111D670A990060058F /* NotificationsAccessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsAccessViewController.swift; sourceTree = "<group>"; };
 		75D52EB31CFF1063005E34B4 /* BasketNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasketNavigationController.swift; sourceTree = "<group>"; };
 		75D52EB51CFF20BA005E34B4 /* BasketCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasketCell.swift; sourceTree = "<group>"; };
 		75D52EB71CFF22D4005E34B4 /* Basket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Basket.swift; sourceTree = "<group>"; };
@@ -918,6 +922,7 @@
 		1D2F195F1CE9CEBA0099142E /* Business */ = {
 			isa = PBXGroup;
 			children = (
+				75D50E0F1D670A990060058F /* NotificationsAccess */,
 				1DDE61E61D649132007E5509 /* RateApp */,
 				7520AD841D34DE37003FC38B /* Signing */,
 				1D5F91441D34E93500AE66E6 /* ProductFilter */,
@@ -1591,6 +1596,15 @@
 			path = Start;
 			sourceTree = "<group>";
 		};
+		75D50E0F1D670A990060058F /* NotificationsAccess */ = {
+			isa = PBXGroup;
+			children = (
+				75D50E111D670A990060058F /* NotificationsAccessViewController.swift */,
+				75D50E101D670A990060058F /* NotificationsAccessView.swift */,
+			);
+			path = NotificationsAccess;
+			sourceTree = "<group>";
+		};
 		75E269AC1CFC7D8400ED3CA2 /* DataSource */ = {
 			isa = PBXGroup;
 			children = (
@@ -2023,6 +2037,7 @@
 				C09280741D08468500350B82 /* ProductColorHeaderView.swift in Sources */,
 				1D470E341D265CB500677122 /* FormView.swift in Sources */,
 				C07530C71D2532F700224508 /* EditKioskView.swift in Sources */,
+				75D50E121D670A990060058F /* NotificationsAccessView.swift in Sources */,
 				1D5F911A1D339A8F00AE66E6 /* CommonPresenterController.swift in Sources */,
 				1DD161B11D01CCB20022B5C9 /* ProductDetailsCell.swift in Sources */,
 				75A92AB61D3E2EDC00EDC89D /* WishlistDataSource.swift in Sources */,
@@ -2203,6 +2218,7 @@
 				1DA6FA2F1CFF265E004BF10B /* ContentPromoRecommendationsHeaderCell.swift in Sources */,
 				1DA5CB451D2E86C200A45E93 /* Brand.swift in Sources */,
 				75C8545E1D05660400E5F08F /* BasketHeader.swift in Sources */,
+				75D50E131D670A990060058F /* NotificationsAccessViewController.swift in Sources */,
 				1D5E91801D391D9D00A6BD55 /* SearchView.swift in Sources */,
 				1DD1ADDD1D5CA63D008B5485 /* Payment.swift in Sources */,
 				75FE56B71D26A3C200DF5356 /* FormInputView.swift in Sources */,

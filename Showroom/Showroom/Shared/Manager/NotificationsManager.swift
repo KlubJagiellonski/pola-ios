@@ -1,24 +1,88 @@
 import Foundation
 import EmarsysPushSDK
+import RxSwift
 
 protocol NotificationsManagerDelegate: class {
     func notificationManager(manager: NotificationsManager, didReceiveUrl url: NSURL)
 }
 
 final class NotificationsManager {
-    private let lastNotificationIdKey = "last_notification_id"
+    private let userAlreadyAskedForNotificationPermissionKey = "userAlreadyAskedForNotificationPermission"
+    private let alreadyShowedNotifcationsAccessViewKey = "alreadyShowedNotifcationsAccessView"
+    private let dontShowNotificationsAccessViewKey = "dontShowNotificationsAccessViewKey"
+    private let daysThreesholdForShowingView = 7
+    private let initialDateKey = "initial_notifications_access_date"
     
     private let api: ApiService
     private let application: UIApplication
-    private(set) var userAlreadyAskedForNotificationPermission: Bool {
-        get { return NSUserDefaults.standardUserDefaults().boolForKey("userAlreadyAskedForNotificationPermission") }
-        set { NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: "userAlreadyAskedForNotificationPermission") }
+    
+    let shouldShowInSettingsObservable = PublishSubject<Void>()
+    
+    /// Returns true if native alert for notifications access was preseted to the user.
+    private var userAlreadyAskedForNotificationsPermission: Bool {
+        get {
+            return NSUserDefaults.standardUserDefaults().boolForKey(userAlreadyAskedForNotificationPermissionKey)
+        }
+        set {
+            NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: userAlreadyAskedForNotificationPermissionKey)
+            shouldShowInSettingsObservable.onNext()
+        }
     }
+    
+    /// Returns true if only notifications acces view was presented to the user.
+    private var alreadyShowedNotifcationsAccessView: Bool {
+        get {
+            return NSUserDefaults.standardUserDefaults().boolForKey(alreadyShowedNotifcationsAccessViewKey)
+        }
+        set {
+            NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: alreadyShowedNotifcationsAccessViewKey)
+        }
+    }
+    
+    /// Returns true if user don't want to be reminded about notifications access.
+    private var dontShowNotificationsAccesView: Bool {
+        get {
+            return NSUserDefaults.standardUserDefaults().boolForKey(dontShowNotificationsAccessViewKey)
+        }
+        set {
+            NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: dontShowNotificationsAccessViewKey)
+        }
+    }
+    
     var isRegistered: Bool {
         return application.isRegisteredForRemoteNotifications()
     }
     private let pushWooshManager = PushNotificationManager.pushManager()
     private let pushWooshManagerDelegateHandler = PushWooshManagerDelegateHandler()
+
+    private var initialDate: NSDate {
+        get {
+            let initialTimeInterval = NSUserDefaults.standardUserDefaults().objectForKey(initialDateKey) as? NSTimeInterval
+            if let timeInterval = initialTimeInterval {
+                return NSDate(timeIntervalSince1970: timeInterval)
+            } else {
+                let initialDate = NSDate()
+                NSUserDefaults.standardUserDefaults().setDouble(initialDate.timeIntervalSince1970, forKey: initialDateKey)
+                return initialDate
+            }
+        }
+        set {
+            NSUserDefaults.standardUserDefaults().setDouble(newValue.timeIntervalSince1970, forKey: initialDateKey)
+        }
+    }
+    var shouldShowInSettings: Bool {
+        return !userAlreadyAskedForNotificationsPermission && !isRegistered
+    }
+    var shouldAskForRemoteNotifications: Bool {
+        return !dontShowNotificationsAccesView
+            && !userAlreadyAskedForNotificationsPermission
+            && initialDate.numberOfDaysUntilDateTime(NSDate()) >= daysThreesholdForShowingView
+    }
+    var shouldShowNotificationsAccessViewFromWishlist: Bool {
+        return !userAlreadyAskedForNotificationsPermission
+            && !alreadyShowedNotifcationsAccessView
+    }
+    
     weak var delegate: NotificationsManagerDelegate?
     
     init(with api: ApiService, and application: UIApplication) {
@@ -38,12 +102,9 @@ final class NotificationsManager {
         pushWooshManager.handlePushReceived(launchOptions)
         pushWooshManager.sendAppOpen()
         
-        if isRegistered && !userAlreadyAskedForNotificationPermission {
-            userAlreadyAskedForNotificationPermission = true
+        if isRegistered && !userAlreadyAskedForNotificationsPermission {
+            userAlreadyAskedForNotificationsPermission = true
         }
-        
-        guard userAlreadyAskedForNotificationPermission else { return }
-        registerForRemoteNotifications()
     }
     
     /*
@@ -54,7 +115,7 @@ final class NotificationsManager {
             return false
         }
         registerForRemoteNotifications()
-        userAlreadyAskedForNotificationPermission = true
+        userAlreadyAskedForNotificationsPermission = true
         return true
     }
     
@@ -86,6 +147,21 @@ final class NotificationsManager {
     
     private func didReceive(url url: NSURL) {
         delegate?.notificationManager(self, didReceiveUrl: url)
+    }
+    
+    func didShowNotificationsAccessView() {
+        logInfo("Did show notifications access view")
+        initialDate = NSDate()
+        alreadyShowedNotifcationsAccessView = true
+    }
+    
+    func didSelectDecline() {
+        logInfo("Did select decline")
+        dontShowNotificationsAccesView = true
+    }
+    
+    func didSelectRemindLater() {
+        logInfo("Did select remind later")
     }
 }
 

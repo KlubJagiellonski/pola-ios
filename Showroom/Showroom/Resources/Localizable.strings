@@ -193,3 +193,10 @@
 "RateApp.Rate" = "OCEŃ";
 "RateApp.Decline" = "NIE, DZIĘKI";
 "RateApp.OtherTime" = "INNYM RAZEM";
+"PushNotification.Title" = "BĄDŹ NA BIEŻĄCO";
+"PushNotification.DescriptionAfterTime" = "Możemy informować Cię na temat obniżek produktów, wyprzedażach i ofertach specjalnych.";
+"PushNotification.DescriptionAfterWishlist" = "Poinformujemy Cię o obniżkach produktów, które mogą Cię interesować.";
+"PushNotification.Question" = "Czy chcesz dostawać od nas powiadomienia?";
+"PushNotification.Allow" = "CHCĘ";
+"PushNotification.Decline" = "NIE, DZIĘKI";
+"PushNotification.RemindLater" = "INNYM RAZEM";

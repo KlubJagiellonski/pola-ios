@@ -52,9 +52,9 @@ class RootViewController: PresenterViewController, NavigationHandler {
         }
     }
     
-    private func showRateAppViewIfNeeded() {
+    private func showRateAppViewIfNeeded() -> Bool {
         guard model.rateAppManager.shouldShowRateAppView else {
-            return
+            return false
         }
         
         let viewController = self.resolver.resolve(RateAppViewController.self, argument: RateAppViewType.AfterTime)
@@ -62,6 +62,15 @@ class RootViewController: PresenterViewController, NavigationHandler {
         viewController.delegate = self
         formSheetAnimator.presentViewController(viewController, presentingViewController: self)
         model.rateAppManager.didShowRateAppView()
+        return true
+    }
+    
+    private func showNotificationAccessView() {
+        let viewController = self.resolver.resolve(NotificationsAccessViewController.self, argument: NotificationsAccessViewType.AfterTime)
+        viewController.preferredContentSize = Dimensions.notificationAccessPreferredSize
+        viewController.delegate = self
+        formSheetAnimator.presentViewController(viewController, presentingViewController: self)
+        model.notificationManager.didShowNotificationsAccessView()
     }
     
     // MARK: - NavigationHandler
@@ -82,7 +91,9 @@ class RootViewController: PresenterViewController, NavigationHandler {
         case .SplashEnd:
             hideModal(animation: nil) { [weak self] _ in
                 guard let `self` = self else { return }
-                self.showRateAppViewIfNeeded()
+                if !self.showRateAppViewIfNeeded() && self.model.notificationManager.shouldAskForRemoteNotifications {
+                    self.showNotificationAccessView()
+                }
             }
             return true
         case .OnboardingEnd:
@@ -90,6 +101,12 @@ class RootViewController: PresenterViewController, NavigationHandler {
             return true
         case .ShowOnboaridng:
             showContent(resolver.resolve(InitialOnboardingViewController), animation: DimTransitionAnimation(animationDuration: 0.3), completion: nil)
+            return true
+        case .AskForNotificationsFromWishlist:
+            // Only happens when the user adds something to the wishlist.
+            if model.notificationManager.shouldShowNotificationsAccessViewFromWishlist {
+                showNotificationAccessView()
+            }
             return true
         default: return false
         }
@@ -137,6 +154,12 @@ extension RootViewController: DimAnimatorDelegate {
 
 extension RootViewController: RateAppViewControllerDelegate {
     func rateAppWantsDismiss(viewController: RateAppViewController) {
+        formSheetAnimator.dismissViewController(presentingViewController: self)
+    }
+}
+
+extension RootViewController: NotificationsAccessViewControllerDelegate {
+    func notificationsAccessWantsDismiss(viewController: NotificationsAccessViewController) {
         formSheetAnimator.dismissViewController(presentingViewController: self)
     }
 }

@@ -393,6 +393,20 @@ enum L10n {
   case RateAppDecline
   /// INNYM RAZEM
   case RateAppOtherTime
+  /// BĄDŹ NA BIEŻĄCO
+  case PushNotificationTitle
+  /// Możemy informować Cię na temat obniżek produktów, wyprzedażach i ofertach specjalnych.
+  case PushNotificationDescriptionAfterTime
+  /// Poinformujemy Cię o obniżkach produktów, które mogą Cię interesować.
+  case PushNotificationDescriptionAfterWishlist
+  /// Czy chcesz dostawać od nas powiadomienia?
+  case PushNotificationQuestion
+  /// CHCĘ
+  case PushNotificationAllow
+  /// NIE, DZIĘKI
+  case PushNotificationDecline
+  /// INNYM RAZEM
+  case PushNotificationRemindLater
 }
 
 extension L10n: CustomStringConvertible {
@@ -790,6 +804,20 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("RateApp.Decline")
       case .RateAppOtherTime:
         return L10n.tr("RateApp.OtherTime")
+      case .PushNotificationTitle:
+        return L10n.tr("PushNotification.Title")
+      case .PushNotificationDescriptionAfterTime:
+        return L10n.tr("PushNotification.DescriptionAfterTime")
+      case .PushNotificationDescriptionAfterWishlist:
+        return L10n.tr("PushNotification.DescriptionAfterWishlist")
+      case .PushNotificationQuestion:
+        return L10n.tr("PushNotification.Question")
+      case .PushNotificationAllow:
+        return L10n.tr("PushNotification.Allow")
+      case .PushNotificationDecline:
+        return L10n.tr("PushNotification.Decline")
+      case .PushNotificationRemindLater:
+        return L10n.tr("PushNotification.RemindLater")
     }
   }
 
