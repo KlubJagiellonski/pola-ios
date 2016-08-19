@@ -76,8 +76,6 @@ class CategoryProductListViewController: UIViewController, ProductListViewContro
         //todo set title
     }
     
-    func filterButtonEnableStateChanged(toState enabled: Bool) { }
-    
     // MARK:- ProductListViewDelegate
     
     func viewSwitcherDidTapRetry(view: ViewSwitcher) {

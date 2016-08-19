@@ -8,6 +8,7 @@ class ProductListModel {
     private var page = 1
     private(set) var products: [ListProduct] = []
     private(set) var link: String?
+    private(set) var query: String?
     private(set) var totalProductsAmount = 0
     private var filters: [Filter]?
     private var entryFilters: [Filter]?
@@ -25,14 +26,15 @@ class ProductListModel {
         return .Category
     }
     
-    init(with apiService: ApiService, wishlistManager: WishlistManager, link: String?) {
+    init(with apiService: ApiService, wishlistManager: WishlistManager, link: String?, query: String?) {
         self.apiService = apiService
         self.wishlistManager = wishlistManager
         self.link = link
+        self.query = query
     }
     
     func createObservable(with paginationInfo: PaginationInfo, forFilters filters: [FilterId: [FilterObjectId]]?) -> Observable<ProductListResult> {
-        let request = ProductRequest(paginationInfo: paginationInfo, link: link, filter: filters)
+        let request = ProductRequest(paginationInfo: paginationInfo, link: link, filter: filters, search: query == nil ? nil : SearchInfo(query: query!))
         return apiService.fetchProducts(with: request)
     }
     
@@ -110,8 +112,9 @@ class ProductListModel {
         totalProductsAmount = productListResult.totalResults
     }
 
-    final func resetOnUpdate(withLink link: String?) {
+    final func resetOnUpdate(withLink link: String?, query: String?) {
         self.link = link
+        self.query = query
         self.entryFilters = nil
         self.filters = nil
     }

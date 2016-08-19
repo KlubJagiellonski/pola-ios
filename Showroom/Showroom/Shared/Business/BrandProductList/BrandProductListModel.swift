@@ -16,11 +16,11 @@ final class BrandProductListModel: ProductListModel {
     init(with apiService: ApiService, wishlistManager: WishlistManager, emarsysService: EmarsysService, productBrand: EntryProductBrand) {
         self.productBrand = productBrand
         self.emarsysService = emarsysService
-        super.init(with: apiService, wishlistManager: wishlistManager, link: productBrand.link)
+        super.init(with: apiService, wishlistManager: wishlistManager, link: productBrand.link, query: nil)
     }
 
     override func createObservable(with paginationInfo: PaginationInfo, forFilters filters: [FilterId: [FilterObjectId]]?) -> Observable<ProductListResult> {
-        let request = ProductRequest(paginationInfo: paginationInfo, link: link, filter: filters)
+        let request = ProductRequest(paginationInfo: paginationInfo, link: link, filter: filters, search: nil)
         return apiService.fetchBrand(forBrandId: productBrand.id, request: request)
             .doOnNext { [weak self] result in
                 guard let `self` = self, let brand = result.brand else { return }
@@ -34,6 +34,6 @@ final class BrandProductListModel: ProductListModel {
         self.productBrand = productBrand
         self.brand = nil
         self.attributedDescription = nil
-        resetOnUpdate(withLink: productBrand.link)
+        resetOnUpdate(withLink: productBrand.link, query: nil)
     }
 }

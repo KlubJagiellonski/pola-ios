@@ -74,10 +74,6 @@ class SearchProductListViewController: UIViewController, ProductListViewControll
     
     func pageWasFetched(result productListResult: ProductListResult, pageIndex: Int) { }
     
-    func filterButtonEnableStateChanged(toState enabled: Bool) {
-        castView.searchEnabled = enabled
-    }
-    
     // MARK:- ProductListViewDelegate
     
     func viewSwitcherDidTapRetry(view: ViewSwitcher) {
@@ -85,9 +81,7 @@ class SearchProductListViewController: UIViewController, ProductListViewControll
     }
     
     func searchProductList(view: SearchProductListView, didTapSearchWithQuery query: String) {
-        logAnalyticsEvent(AnalyticsEventId.Search(query, true))
-        model.query = query
-        fetchFirstPage()
+        updateData(with: EntrySearchInfo(query: query, link: nil))
     }
     
     func searchProductListDidCancelEditing(view: SearchProductListView) {

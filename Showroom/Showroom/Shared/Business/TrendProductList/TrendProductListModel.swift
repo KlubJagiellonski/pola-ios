@@ -13,7 +13,7 @@ final class TrendProductListModel: ProductListModel {
     
     init(with apiService: ApiService, wishlistManager: WishlistManager, trendInfo: EntryTrendInfo) {
         self.entryTrendInfo = trendInfo
-        super.init(with: apiService, wishlistManager: wishlistManager, link: nil)
+        super.init(with: apiService, wishlistManager: wishlistManager, link: nil, query: nil)
     }
     
     override func createObservable(with paginationInfo: PaginationInfo, forFilters filters: [FilterId: [FilterObjectId]]?) -> Observable<ProductListResult> {
@@ -29,6 +29,6 @@ final class TrendProductListModel: ProductListModel {
         self.entryTrendInfo = entryTrendInfo
         trendInfo = nil
         attributedDescription = nil
-        resetOnUpdate(withLink: nil)
+        resetOnUpdate(withLink: nil, query: nil)
     }
 }

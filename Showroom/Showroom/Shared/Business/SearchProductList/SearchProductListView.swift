@@ -6,7 +6,7 @@ protocol SearchProductListViewDelegate: ProductListViewDelegate, ViewSwitcherDel
     func searchProductListDidCancelEditing(view: SearchProductListView)
 }
 
-class SearchProductListView: UIView, ProductListViewInterface, ProductListComponentDelegate {
+final class SearchProductListView: UIView, ProductListViewInterface, ProductListComponentDelegate {
     private let viewSwitcher: ViewSwitcher
     let collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: UICollectionViewFlowLayout())
     let searchContainerView: SearchContainerView

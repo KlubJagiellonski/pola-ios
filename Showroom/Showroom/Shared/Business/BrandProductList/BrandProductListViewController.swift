@@ -85,8 +85,6 @@ class BrandProductListViewController: UIViewController, ProductListViewControlle
         }
     }
     
-    func filterButtonEnableStateChanged(toState enabled: Bool) { }
-    
     // MARK:- BrandProductListViewDelegate
     
     func brandProductListDidTapHeader(view: BrandProductListView) {

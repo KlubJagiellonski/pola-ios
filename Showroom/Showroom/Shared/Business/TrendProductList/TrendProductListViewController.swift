@@ -70,8 +70,6 @@ class TrendProductListViewController: UIViewController, ProductListViewControlle
         }
     }
     
-    func filterButtonEnableStateChanged(toState enabled: Bool) { }
-    
     // MARK:- ProductListViewDelegate
     
     func viewSwitcherDidTapRetry(view: ViewSwitcher) {

@@ -4,11 +4,16 @@ struct ProductRequest {
     let paginationInfo: PaginationInfo
     let link: String?
     let filter: [FilterId: [FilterObjectId]]?
+    let search: SearchInfo?
 }
 
 struct PaginationInfo {
     let page: Int
     let pageSize: Int
+}
+
+struct SearchInfo {
+    let query: String
 }
 
 // MARK:- Encodable
@@ -25,6 +30,7 @@ extension ProductRequest: Encodable {
                 dict.setObject(data, forKey: filterId)
             }
         }
+        if search != nil { dict.setObject(search!.encode(), forKey: "search") }
         return dict
     }
 }
@@ -34,6 +40,14 @@ extension PaginationInfo: Encodable {
         return [
             "page": page,
             "pageSize": pageSize
+        ] as NSDictionary
+    }
+}
+
+extension SearchInfo: Encodable {
+    func encode() -> AnyObject {
+        return [
+            "query": query
         ] as NSDictionary
     }
 }

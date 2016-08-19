@@ -8,13 +8,12 @@ protocol ProductListViewControllerInterface: class, NavigationSender {
     var disposeBag: DisposeBag { get }
     var productListModel: ProductListModel { get }
     var productListView: ProductListViewInterface { get }
-    var filterButtonVisible: Bool { get set }
     var filterButtonEnabled: Bool { get set }
     
     func updateData(with data: EntryData)
     func createFilterButton() -> UIBarButtonItem?
     func pageWasFetched(result productListResult: ProductListResult, pageIndex: Int) // it is used to inform viewcontroller that first page has been fetched. You can do some additional stuff here
-    func filterButtonEnableStateChanged(toState enabled: Bool)
+    func configureFilterButton()
 }
 
 extension ProductListViewControllerInterface {
@@ -29,8 +28,7 @@ extension ProductListViewControllerInterface {
                 self.pageWasFetched(result: productListResult, pageIndex: self.productListModel.currentPageIndex)
                 self.productListView.updateData(productListResult.products, nextPageState: productListResult.isLastPage ? .LastPage : .Fetching)
                 self.productListView.switcherState = productListResult.products.isEmpty ? .Empty : .Success
-                self.filterButtonVisible = productListResult.filters != nil
-                self.filterButtonEnabled = true
+                self.filterButtonEnabled = productListResult.filters != nil
             case .Error(let error):
                 logInfo("Failed to receive first product list page \(error)")
                 self.productListView.switcherState = .Error
@@ -70,7 +68,7 @@ extension ProductListViewControllerInterface {
     
     // call it in viewDidLoad
     func configureProductList() {
-        filterButtonVisible = true
+        configureFilterButton()
         productListModel.isBigScreen = UIScreen.mainScreen().bounds.width >= ProductListComponent.threeColumnsRequiredWidth
         productListModel.productIndexObservable.subscribeNext { [weak self] (index: Int?) in
             guard let index = index else { return }
@@ -82,27 +80,17 @@ extension ProductListViewControllerInterface {
         self.pageWasFetched(result: productListResult, pageIndex: self.productListModel.currentPageIndex)
         self.productListView.updateData(productListResult.products, nextPageState: productListResult.isLastPage ? .LastPage : .Fetching)
         self.productListView.switcherState = productListResult.products.isEmpty ? .Empty : .Success
-        self.filterButtonVisible = productListResult.filters != nil
-        self.filterButtonEnabled = true
+        self.filterButtonEnabled = productListResult.filters != nil
     }
 }
 
 extension ProductListViewControllerInterface where Self: UIViewController {
-    var filterButtonVisible: Bool {
-        set {
-            guard newValue != filterButtonVisible else { return }
-            
-            let button: UIBarButtonItem? = newValue ? createFilterButton() : nil
-            navigationItem.rightBarButtonItem = button
-        }
-        get {
-            return navigationItem.rightBarButtonItem != nil
-        }
+    func configureFilterButton() {
+        navigationItem.setRightBarButtonItem(createFilterButton(), animated: false)
     }
     var filterButtonEnabled: Bool {
         set {
             navigationItem.rightBarButtonItem?.enabled = newValue
-            filterButtonEnableStateChanged(toState: newValue)
         }
         get {
             return navigationItem.rightBarButtonItem?.enabled ?? false
