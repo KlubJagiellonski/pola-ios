@@ -1,6 +1,7 @@
 import Foundation
 import RxSwift
 import Decodable
+import RxCocoa
 
 final class BasketManager {
     private let apiService: ApiService
@@ -69,7 +70,13 @@ final class BasketManager {
                     logInfo("Validated basket: \(state.basket)")
                     strongSelf.state.validationState = BasketValidationState(validating: false, validated: true)
                 case .Error(let error):
-                    logError("Error during basket validation: \(error)")
+                    if let urlError = error as? RxCocoaURLError, case let .HTTPRequestFailed(response, _) = urlError
+                        where response.statusCode >= 400 && response.statusCode < 600 {
+                        logError("Error during basket validation: \(error)")
+                    } else {
+                        logInfo("Error during basket validation: \(error)")
+                    }
+                    
                     strongSelf.state.validationState = BasketValidationState(validating: false, validated: false)
                 default: break
                 }
