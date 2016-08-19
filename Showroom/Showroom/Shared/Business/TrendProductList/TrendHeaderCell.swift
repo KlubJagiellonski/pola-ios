@@ -50,8 +50,11 @@ final class TrendHeaderCell: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        //disabling imagegradient animation
         let gradientHeight = backgroundImageView.bounds.width
-        imageGradient.frame = CGRectMake(0, backgroundImageView.bounds.height - gradientHeight, backgroundImageView.bounds.width, gradientHeight)
+        CALayer.performWithoutAnimation {
+            imageGradient.frame = CGRectMake(0, backgroundImageView.bounds.height - gradientHeight, backgroundImageView.bounds.width, gradientHeight)
+        }
         
         if let loadImageUrl = imageUrlToLoadOnLayoutPass where backgroundImageView.bounds.width > 0 {
             loadImage(forUrl: loadImageUrl)

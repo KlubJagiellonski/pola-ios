@@ -86,7 +86,7 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
             switch fetchResult {
             case .Success(let productDetails):
                 logInfo("Successfuly fetched product details: \(productDetails)")
-                self.castView.switcherState = .Success
+                self.castView.changeSwitcherState(.Success)
                 if self.castView.viewState == .ContentHidden {
                     //hate this approach, but there is no other way to fix blur artefacts
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(0.2 * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), {
@@ -98,7 +98,7 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
             case .NetworkError(let errorType):
                 logInfo("Error while downloading product info: \(errorType)")
                 if self.model.state.productDetails == nil {
-                    self.castView.switcherState = self.model.state.product == nil ? .Error : .ModalError
+                    self.castView.changeSwitcherState(self.model.state.product == nil ? .Error : .ModalError)
                 }
             }
         }.addDisposableTo(disposeBag)
@@ -198,7 +198,7 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
     
     func viewSwitcherDidTapRetry(view: ViewSwitcher) {
         logInfo("Did tap retry")
-        castView.switcherState = model.state.product == nil ? .Loading : .Success
+        castView.changeSwitcherState(model.state.product == nil ? .Loading : .Success)
         fetchProductDetails()
     }
 }

@@ -2,14 +2,14 @@ import Foundation
 import UIKit
 
 extension NSURL {
-    static func createImageUrl(url: String, width: CGFloat? = nil, height: CGFloat? = nil, scale: CGFloat = UIScreen.mainScreen().scale) -> NSURL {
+    static func createImageUrl(url: String, width: Int? = nil, height: Int? = nil) -> NSURL {
         var url = NSURL(string: url)!
         
         if let width = width {
-            url = url.URLByAppendingParams(["w": String(Int(width * scale))])
+            url = url.URLByAppendingParams(["w": String(width)])
         }
         if let height = height {
-            url = url.URLByAppendingParams(["h": String(Int(height * scale))])
+            url = url.URLByAppendingParams(["h": String(height)])
         }
         return url
     }

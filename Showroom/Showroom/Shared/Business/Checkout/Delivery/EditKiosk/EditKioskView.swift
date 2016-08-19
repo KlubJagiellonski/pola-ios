@@ -22,7 +22,7 @@ class EditKioskView: ViewSwitcher, UITableViewDelegate {
     
     var internalSwitcherState: ViewSwitcherState {
         get { return internalViewSwitcher.switcherState }
-        set { internalViewSwitcher.switcherState = newValue }
+        set { internalViewSwitcher.changeSwitcherState(newValue) }
     }
     
     var searchString: String? {

@@ -1,6 +1,5 @@
 import Foundation
 import UIKit
-import Haneke
 
 enum ProductImageDataSourceState {
     case Default
@@ -96,9 +95,10 @@ class ProductImageDataSource: NSObject, UICollectionViewDataSource {
     }
     
     private func loadImageForFirstItem(imageUrl: String, forCell cell: ProductImageCell) {
-        cell.imageView.loadImageWithLowResImage(imageUrl, lowResUrl: lowResImageUrl, width: cell.bounds.width) { (image: UIImage) in
-            cell.contentViewSwitcher.switcherState = .Success
-            cell.imageView.image = image
+        cell.imageView.loadImageWithLowResImage(imageUrl, lowResUrl: lowResImageUrl, width: cell.bounds.width, onRetrievedFromCache: { (image: UIImage?) in
+            cell.contentViewSwitcher.changeSwitcherState(image == nil ? .Loading : .Success, animated: false)
+        }) { (image: UIImage) in
+            cell.contentViewSwitcher.changeSwitcherState(.Success)
         }
     }
     
@@ -115,13 +115,13 @@ class ProductImageDataSource: NSObject, UICollectionViewDataSource {
         cell.fullScreenMode = state == .FullScreen
         cell.imageView.image = nil
         cell.imageView.alpha = highResImageVisible ? 1 : 0
-        cell.contentViewSwitcher.switcherState = .Loading
         if indexPath.row == 0 {
             loadImageForFirstItem(imageUrl, forCell: cell)
         } else {
-            cell.imageView.loadImageFromUrl(imageUrl, width: cell.bounds.width) { (image: UIImage) in
-                cell.contentViewSwitcher.switcherState = .Success
-                cell.imageView.image = image
+            cell.imageView.loadImageFromUrl(imageUrl, width: cell.bounds.width, onRetrievedFromCache: { (image: UIImage?) in
+                cell.contentViewSwitcher.changeSwitcherState(image == nil ? .Loading : .Success, animated: false)
+            }) { (image: UIImage) in
+                cell.contentViewSwitcher.changeSwitcherState(.Success)
             }
         }
         

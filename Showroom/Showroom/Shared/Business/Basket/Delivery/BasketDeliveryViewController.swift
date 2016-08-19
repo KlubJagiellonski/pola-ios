@@ -37,9 +37,9 @@ class BasketDeliveryViewController: UIViewController, BasketDeliveryViewDelegate
     
     func updateValidating(with validationState: BasketValidationState) {
         if validationState.validating {
-            castView.switcherState = .Loading
+            castView.changeSwitcherState(.Loading)
         } else {
-            castView.switcherState = validationState.validated ? .Success : .Error
+            castView.changeSwitcherState(validationState.validated ? .Success : .Error)
         }
     }
     

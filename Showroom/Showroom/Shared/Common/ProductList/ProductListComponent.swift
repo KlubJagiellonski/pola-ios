@@ -85,8 +85,8 @@ final class ProductListComponent: NSObject, UICollectionViewDataSource, UICollec
     static var threeColumnsRequiredWidth: CGFloat {
         return minItemWidth * 3 + Dimensions.defaultMargin * 2 + ProductListComponent.interItemSpacing * 2
     }
-    var imageWidth: CGFloat {
-        return itemSize.width
+    var imageWidth: Int {
+        return UIImageView.scaledImageSize(itemSize.width)
     }
     var nextPageState: NextPageState = .LastPage
     var headerSectionInfo: HeaderSectionInfo?

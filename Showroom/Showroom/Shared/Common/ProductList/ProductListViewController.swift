@@ -18,7 +18,7 @@ protocol ProductListViewControllerInterface: class, NavigationSender {
 
 extension ProductListViewControllerInterface {
     func fetchFirstPage() {
-        productListView.switcherState = .Loading
+        productListView.changeSwitcherState(.Loading, animated: true)
         filterButtonEnabled = false
         let onEvent = { [weak self](event: Event<ProductListResult>) in
             guard let `self` = self else { return }
@@ -27,11 +27,11 @@ extension ProductListViewControllerInterface {
                 logInfo("Received first product list page \(productListResult)")
                 self.pageWasFetched(result: productListResult, pageIndex: self.productListModel.currentPageIndex)
                 self.productListView.updateData(productListResult.products, nextPageState: productListResult.isLastPage ? .LastPage : .Fetching)
-                self.productListView.switcherState = productListResult.products.isEmpty ? .Empty : .Success
+                self.productListView.changeSwitcherState(productListResult.products.isEmpty ? .Empty : .Success, animated: true)
                 self.filterButtonEnabled = productListResult.filters != nil
             case .Error(let error):
                 logInfo("Failed to receive first product list page \(error)")
-                self.productListView.switcherState = .Error
+                self.productListView.changeSwitcherState(.Error, animated: true)
             default: break
             }
         }
@@ -79,7 +79,7 @@ extension ProductListViewControllerInterface {
     private func updateDataOnFirstPageFetched(productListResult: ProductListResult) {
         self.pageWasFetched(result: productListResult, pageIndex: self.productListModel.currentPageIndex)
         self.productListView.updateData(productListResult.products, nextPageState: productListResult.isLastPage ? .LastPage : .Fetching)
-        self.productListView.switcherState = productListResult.products.isEmpty ? .Empty : .Success
+        self.productListView.changeSwitcherState(productListResult.products.isEmpty ? .Empty : .Success, animated: true)
         self.filterButtonEnabled = productListResult.filters != nil
     }
 }

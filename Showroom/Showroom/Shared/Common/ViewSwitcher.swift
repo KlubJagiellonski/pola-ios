@@ -64,19 +64,7 @@ class ViewSwitcher: UIView {
     weak var switcherDataSource: ViewSwitcherDataSource?
     weak var switcherDelegate: ViewSwitcherDelegate?
     
-    var switcherState: ViewSwitcherState {
-        didSet {
-            guard oldValue != switcherState else { return }
-            
-            if let animatingToState = animatingToState {
-                animationEndBlock = { [weak self] in
-                    self?.animateToNewState(fromState: animatingToState)
-                }
-                return
-            }
-            animateToNewState(fromState: oldValue)
-        }
-    }
+    private(set) var switcherState: ViewSwitcherState
     
     var currentView: UIView {
         return view(forState: switcherState)
@@ -95,7 +83,22 @@ class ViewSwitcher: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func animateToNewState(fromState fromState: ViewSwitcherState) {
+    func changeSwitcherState(switcherState: ViewSwitcherState, animated: Bool = true) {
+        let oldValue = self.switcherState
+        self.switcherState = switcherState
+        
+        guard oldValue != switcherState else { return }
+        
+        if let animatingToState = animatingToState {
+            animationEndBlock = { [weak self] in
+                self?.animateToNewState(fromState: animatingToState, animated: animated)
+            }
+            return
+        }
+        animateToNewState(fromState: oldValue, animated: animated)
+    }
+    
+    private func animateToNewState(fromState fromState: ViewSwitcherState, animated: Bool) {
         if fromState == switcherState {
             return
         }
@@ -117,13 +120,13 @@ class ViewSwitcher: UIView {
         let oldView = view(forState: fromState)
         
         if switcherState.isModal() || fromState.isModal() {
-            switchModalView(fromView: oldView, toView: newView, isNewStateModal: switcherState.isModal(), isOldStateModal: fromState.isModal(), completion: commonCompletion)
+            switchModalView(fromView: oldView, toView: newView, isNewStateModal: switcherState.isModal(), isOldStateModal: fromState.isModal(), animated: animated, completion: commonCompletion)
         } else {
-            switchView(fromView: oldView, toView: newView, completion: commonCompletion)
+            switchView(fromView: oldView, toView: newView, animated: animated, completion: commonCompletion)
         }
     }
     
-    private func switchModalView(fromView fromView: UIView, toView: UIView, isNewStateModal: Bool, isOldStateModal: Bool, completion: Bool -> ()) {
+    private func switchModalView(fromView fromView: UIView, toView: UIView, isNewStateModal: Bool, isOldStateModal: Bool, animated: Bool, completion: Bool -> ()) {
         if isNewStateModal {
             toView.alpha = 0
             toView.hidden = false
@@ -137,10 +140,10 @@ class ViewSwitcher: UIView {
         //it is for situation when there is existing modal and not modal view below it. Then when we want to change it to different view we have to transition between those views
         if !isNewStateModal && toView != subviews[0] {
             let existingView = subviews[0]
-            switchView(fromView: existingView, toView: toView, completion: nil)
+            switchView(fromView: existingView, toView: toView, animated: animated, completion: nil)
         }
         
-        UIView.animateWithDuration(animationDuration, animations: {
+        UIView.animateWithDuration(animated ? animationDuration : 0, animations: {
             if isNewStateModal { toView.alpha = 1 }
             if isOldStateModal { fromView.alpha = 0 }
         }) { success in
@@ -152,8 +155,8 @@ class ViewSwitcher: UIView {
         }
     }
     
-    private func switchView(fromView fromView: UIView, toView: UIView, completion: (Bool -> ())?) {
-        UIView.transitionFromView(fromView, toView: toView, duration: animationDuration, options: [.TransitionCrossDissolve, .ShowHideTransitionViews]) { success in
+    private func switchView(fromView fromView: UIView, toView: UIView, animated: Bool, completion: (Bool -> ())?) {
+        UIView.transitionFromView(fromView, toView: toView, duration: animated ? animationDuration: 0, options: [.TransitionCrossDissolve, .ShowHideTransitionViews]) { success in
             if fromView.superview != nil {
                 fromView.snp_removeConstraints()
                 fromView.removeFromSuperview()

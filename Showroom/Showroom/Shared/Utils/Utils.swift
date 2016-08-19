@@ -116,6 +116,15 @@ extension NSURL {
     }
 }
 
+extension CALayer {
+    static func performWithoutAnimation(@noescape block: Void -> Void) {
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        block()
+        CATransaction.commit()
+    }
+}
+
 // MARK: - UIEdgeInsets operators
 
 func +(left: UIEdgeInsets, right: UIEdgeInsets) -> UIEdgeInsets {

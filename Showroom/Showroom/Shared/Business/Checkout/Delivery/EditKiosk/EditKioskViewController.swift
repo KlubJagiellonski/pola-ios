@@ -107,13 +107,13 @@ class EditKioskViewController: UIViewController, EditKioskViewDelegate {
     func editKioskView(view: EditKioskView, didChooseKioskAtIndex kioskIndex: Int) {
         guard let kiosks = model.kiosks else { return }
         
-        castView.switcherState = .ModalLoading
+        castView.changeSwitcherState(.ModalLoading)
         
         let kiosk = kiosks[kioskIndex]
         model.checkoutModel.update(withSelected: kiosk).subscribe { [weak self] event in
             guard let `self` = self else { return }
             
-            self.castView.switcherState = .Success
+            self.castView.changeSwitcherState(.Success)
             
             switch event {
             case .Next():

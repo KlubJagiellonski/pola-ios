@@ -28,7 +28,7 @@ class DashboardViewController: UIViewController, DashboardViewDelegate {
         
         castView.delegate = self
         
-        castView.switcherState = .Loading
+        castView.changeSwitcherState(.Loading)
         castView.recommendationViewSwitcherState = .Loading
     }
     
@@ -55,17 +55,17 @@ class DashboardViewController: UIViewController, DashboardViewDelegate {
     
     private func fetchContentPromo() {
         model.fetchContentPromo().subscribeNext { [weak self] fetchResult in
-            guard let strongSelf = self else { return }
+            guard let `self` = self else { return }
             switch fetchResult {
             case .Success(let contentPromoResult):
                 logInfo("Fetched content promo: \(contentPromoResult)")
-                strongSelf.castView.switcherState = .Success
+                self.castView.changeSwitcherState(.Success)
             case .CacheError(let cacheError):
                 logError("Error during fetching content promo, cacheError: \(cacheError)")
             case .NetworkError(let networkError):
                 logInfo("Error during fetching content promo, networkError: \(networkError)")
-                if strongSelf.model.state.contentPromoResult == nil {
-                    strongSelf.castView.switcherState = .Error
+                if self.model.state.contentPromoResult == nil {
+                    self.castView.changeSwitcherState(.Error)
                 }
             }
             }.addDisposableTo(disposeBag)
@@ -117,7 +117,7 @@ class DashboardViewController: UIViewController, DashboardViewDelegate {
     // MARK: - ViewSwitchedDelegate
     
     func viewSwitcherDidTapRetry(view: ViewSwitcher) {
-        castView.switcherState = .Loading
+        castView.changeSwitcherState(.Loading)
         fetchContentPromo()
         if castView.recommendationViewSwitcherState == .Error {
             castView.recommendationViewSwitcherState = .Loading

@@ -10,16 +10,17 @@ protocol ProductListViewDelegate: class {
 
 protocol ProductListViewInterface: class, ContentInsetHandler {
     var productListComponent: ProductListComponent { get }
-    var switcherState: ViewSwitcherState { get set }
+    var switcherState: ViewSwitcherState { get }
     var nextPageState: NextPageState { get }
     var collectionView: UICollectionView { get }
-    var productImageWidth: CGFloat { get }
+    var productImageWidth: Int { get }
     weak var delegate: ProductListViewDelegate? { get set }
     
     func appendData(products: [ListProduct], nextPageState: NextPageState)
     func updateData(products: [ListProduct], nextPageState: NextPageState)
     func updateNextPageState(nextPageState: NextPageState)
     func moveToPosition(forProductIndex index: Int, animated: Bool)
+    func changeSwitcherState(switcherState: ViewSwitcherState, animated: Bool)
 }
 
 extension ProductListViewInterface {
@@ -46,7 +47,7 @@ extension ProductListViewInterface {
         get { return productListComponent.nextPageState }
     }
     
-    var productImageWidth: CGFloat {
+    var productImageWidth: Int {
         get { return productListComponent.imageWidth }
     }
     

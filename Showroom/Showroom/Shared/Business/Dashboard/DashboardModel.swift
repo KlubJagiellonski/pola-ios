@@ -1,7 +1,6 @@
 import Foundation
 import RxSwift
 import Decodable
-import Haneke
 
 class DashboardModel {
     private let apiService: ApiService
@@ -73,7 +72,7 @@ class DashboardModel {
         }
     }
     
-    func createProductDetailsContext(forRecommendation recommendation: ProductRecommendation, withImageWidth imageWidth: CGFloat) -> ProductDetailsContext {
+    func createProductDetailsContext(forRecommendation recommendation: ProductRecommendation, withImageWidth imageWidth: Int) -> ProductDetailsContext {
         let recommendations = state.recommendationsResult!.productRecommendations
         let index = recommendations.indexOf(recommendation)!
         

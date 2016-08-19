@@ -36,9 +36,9 @@ class ProductFilterViewController: UIViewController, ProductFilterViewDelegate {
             
             switch viewState {
             case .Default:
-                self.castView.switcherState = .Success
+                self.castView.changeSwitcherState(.Success)
             case .Refreshing:
-                self.castView.switcherState = .ModalLoading
+                self.castView.changeSwitcherState(.ModalLoading)
             case .Error:
                 self.toastManager.showMessage(tr(.CommonError))
             }

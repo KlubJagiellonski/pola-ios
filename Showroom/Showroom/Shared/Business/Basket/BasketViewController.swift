@@ -76,7 +76,7 @@ class BasketViewController: UIViewController, BasketViewDelegate {
         
         guard !isEmptyBasket(basket) else {
             logInfo("Empty basket")
-            castView.switcherState = .Empty
+            castView.changeSwitcherState(.Empty)
             return
         }
         
@@ -109,11 +109,11 @@ class BasketViewController: UIViewController, BasketViewDelegate {
         logInfo("Updating validate \(validationState) basketEmpty \(basketEmpty)")
         castView.updateData(withValidated: validationState.validated)
         if basketEmpty {
-            castView.switcherState = .Empty
+            castView.changeSwitcherState(.Empty)
         } else if validationState.validating {
-            castView.switcherState = castView.switcherState == .Error ? .Loading : .ModalLoading
+            castView.changeSwitcherState(castView.switcherState == .Error ? .Loading : .ModalLoading)
         } else {
-            castView.switcherState = validationState.validated ? .Success : .Error
+            castView.changeSwitcherState(validationState.validated ? .Success : .Error)
         }
     }
     

@@ -58,7 +58,7 @@ final class SearchViewController: UIViewController, SearchViewDelegate {
             switch cacheResult {
             case .Success(let result):
                 self.removeAllViewControllers()
-                self.castView.switcherState = .Success
+                self.castView.changeSwitcherState(.Success)
                 self.castView.updateData(with: result.rootItems)
                 self.updateSelectedTab()
             case .CacheError(let error):
@@ -67,7 +67,7 @@ final class SearchViewController: UIViewController, SearchViewDelegate {
             case .NetworkError(let error):
                 logInfo("Couldn't download search result \(error)")
                 if self.model.searchResult == nil {
-                    self.castView.switcherState = .Error
+                    self.castView.changeSwitcherState(.Error)
                 }
                 break
             }
@@ -93,7 +93,7 @@ final class SearchViewController: UIViewController, SearchViewDelegate {
     }
     
     func viewSwitcherDidTapRetry(view: ViewSwitcher) {
-        self.castView.switcherState = .Loading
+        castView.changeSwitcherState(.Loading)
         fetchSearchItems()
     }
 }

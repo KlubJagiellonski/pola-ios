@@ -23,7 +23,6 @@ final class SearchProductListView: UIView, ProductListViewInterface, ProductList
         return delegate as? SearchProductListViewDelegate
     }
     var switcherState: ViewSwitcherState {
-        set { viewSwitcher.switcherState = newValue }
         get { return viewSwitcher.switcherState }
     }
     var queryText: String? {
@@ -63,6 +62,10 @@ final class SearchProductListView: UIView, ProductListViewInterface, ProductList
         addSubview(dimView)
         
         configureCustomConstraints()
+    }
+    
+    func changeSwitcherState(switcherState: ViewSwitcherState, animated: Bool) {
+        viewSwitcher.changeSwitcherState(switcherState, animated: animated)
     }
     
     func didTapDimView() {

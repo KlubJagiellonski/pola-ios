@@ -15,7 +15,7 @@ class BrandProductListView: ViewSwitcher, ProductListViewInterface, ProductListC
     weak var brandListDelegate: BrandProductListViewDelegate? {
         return delegate as? BrandProductListViewDelegate
     }
-    var headerImageWidth: CGFloat? {
+    var headerImageWidth: Int {
         return headerCell.imageWidth
     }
     private let headerCell = BrandHeaderCell()

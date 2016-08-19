@@ -12,8 +12,8 @@ final class BrandHeaderCell: UIControl {
     private let bottomSeparator = UIView()
     
     private var imageUrlToLoadOnLayoutPass: String?
-    var imageWidth: CGFloat? {
-        return imageView.image?.size.width
+    var imageWidth: Int {
+        return UIImageView.scaledImageSize(imageView.bounds.width)
     }
     
     override init(frame: CGRect) {
@@ -76,11 +76,6 @@ final class BrandHeaderCell: UIControl {
             
             UIView.transitionWithView(self.blurredImageView, duration: 0.2, options: .TransitionCrossDissolve, animations: {
                 self.blurredImageView.image = image
-                }, completion: { success in
-            })
-            
-            UIView.transitionWithView(self.imageView, duration: 0.1, options: .TransitionCrossDissolve, animations: {
-                self.imageView.image = image
                 }, completion: nil)
         }
     }

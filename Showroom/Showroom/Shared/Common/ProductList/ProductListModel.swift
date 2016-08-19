@@ -71,7 +71,7 @@ class ProductListModel {
             .observeOn(MainScheduler.instance)
     }
     
-    final func createProductDetailsContext(withProductIndex index: Int, withImageWidth imageWidth: CGFloat) -> ProductDetailsContext {
+    final func createProductDetailsContext(withProductIndex index: Int, withImageWidth imageWidth: Int) -> ProductDetailsContext {
         productIndex = index
         let onChanged = { [unowned self](index: Int) -> () in
             self.updateProductIndexWithNotyfingObserver(with: index)

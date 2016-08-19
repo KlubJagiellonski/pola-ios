@@ -22,7 +22,7 @@ class DashboardView: ViewSwitcher, ContentInsetHandler, UITableViewDelegate, UIC
         }
     }
     
-    var recommendationImageWidth: CGFloat {
+    var recommendationImageWidth: Int {
         return dataSource.recommendationsDataSource.imageWidth
     }
     

@@ -30,7 +30,6 @@ class BrandDescriptionView: UIView, ContentInsetHandler {
         
         backgroundImageView.contentMode = .ScaleAspectFill
         backgroundImageView.layer.masksToBounds = true
-        backgroundImageView.alpha = 0
         
         imageGradient.colors = [UIColor(named: .White).colorWithAlphaComponent(0).CGColor, UIColor(named: .White).CGColor]
         
@@ -85,19 +84,16 @@ class BrandDescriptionView: UIView, ContentInsetHandler {
     }
     
     private func loadImage(mainUrl: String, lowResImageUrl: String?) {
-        backgroundImageView.loadImageWithLowResImage(mainUrl, lowResUrl: lowResImageUrl, width: bounds.width) { [weak self] image in
-            guard let `self` = self else { return }
-            self.backgroundImageView.image = image
-            UIView.animateWithDuration(0.4, delay: 0.1, options: .TransitionNone, animations: {
-                self.backgroundImageView.alpha = 1
-            }, completion: nil)
-        }
+        backgroundImageView.loadImageWithLowResImage(mainUrl, lowResUrl: lowResImageUrl, width: bounds.width)
     }
     
     private func layoutGradient() {
         let gradientHeight = bounds.width
         let gradientY = self.backgroundImageView.frame.height == 0 ? self.frame.height - gradientHeight : backgroundImageView.frame.maxY - gradientHeight
-        imageGradient.frame = CGRectMake(0, gradientY, backgroundImageView.bounds.width, gradientHeight)
+        
+        CALayer.performWithoutAnimation {
+            imageGradient.frame = CGRectMake(0, gradientY, backgroundImageView.bounds.width, gradientHeight)
+        }
     }
     
     private func configureCustomConstraints() {

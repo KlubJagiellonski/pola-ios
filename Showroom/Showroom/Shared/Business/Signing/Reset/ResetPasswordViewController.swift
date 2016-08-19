@@ -51,17 +51,17 @@ class ResetPasswordViewController: UIViewController, ResetPasswordViewDelegate {
             return
         }
         
-        castView.switcherState = .ModalLoading
+        castView.changeSwitcherState(.ModalLoading)
         model.resetPassword(withEmail: email).subscribe { [weak self] (event: Event<Void>) in
             guard let `self` = self else { return }
             
             switch event {
             case .Next:
-                self.castView.switcherState = .Empty //success
+                self.castView.changeSwitcherState(.Empty) //success
             case .Error(let error):
                 logInfo("Error while reseting password \(error)")
                 self.toastManager.showMessage(tr(.CommonError))
-                self.castView.switcherState = .Success
+                self.castView.changeSwitcherState(.Success)
             default: break
             }
         }.addDisposableTo(disposeBag)

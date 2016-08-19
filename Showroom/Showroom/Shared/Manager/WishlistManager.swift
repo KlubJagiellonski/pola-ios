@@ -124,7 +124,8 @@ final class WishlistManager {
         let onRetrieveProductInfo: Int -> ProductInfo = { index in
             logInfo("Retrieving product info for index \(index)")
             let product = self.contextWishlist[index]
-            let lowResImageUrl = NSURL.createImageUrl(product.imageUrl, width: WishlistCell.photoSize.width, height: WishlistCell.photoSize.height)
+            let imageWidth = UIImageView.scaledImageSize(WishlistCell.photoSize.width)
+            let lowResImageUrl = NSURL.createImageUrl(product.imageUrl, width: imageWidth, height: nil)
             return ProductInfo.Object(product.toProduct(withLowResImageUrl: lowResImageUrl.absoluteString))
         }
         

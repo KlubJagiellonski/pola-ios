@@ -45,7 +45,7 @@ class RegistrationViewController: UIViewController, RegistrationViewDelegate {
     }
     
     private func handleRegistrationResult(event: Event<SigningResult>) {
-        castView.switcherState = .Success
+        castView.changeSwitcherState(.Success)
         switch event {
         case .Next(let result):
             logInfo("Registered as \(result.user.name) (\(result.user.email))")
@@ -84,7 +84,7 @@ class RegistrationViewController: UIViewController, RegistrationViewDelegate {
     
     func registrationViewDidTapFacebook() {
         logAnalyticsEvent(AnalyticsEventId.RegisterFacebookClicked)
-        castView.switcherState = .ModalLoading
+        castView.changeSwitcherState(.ModalLoading)
         
         userManager.loginToFacebook(with: self)
             .subscribe { [weak self] event in self?.handleRegistrationResult(event) }
@@ -106,7 +106,7 @@ class RegistrationViewController: UIViewController, RegistrationViewDelegate {
         
         logAnalyticsEvent(AnalyticsEventId.RegisterClicked(castView.receiveNewsletter))
         
-        castView.switcherState = .ModalLoading
+        castView.changeSwitcherState(.ModalLoading)
         
         let registration = Registration(name: name, username: email, password: password, newsletter: castView.receiveNewsletter, gender: castView.gender)
         userManager.register(with: registration)

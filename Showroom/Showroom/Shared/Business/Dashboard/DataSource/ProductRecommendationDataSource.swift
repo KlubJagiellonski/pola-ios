@@ -4,8 +4,8 @@ import UIKit
 class ProductRecommendationDataSource: NSObject, UICollectionViewDataSource {
     private var productRecommendations: [ProductRecommendation] = []
     
-    var imageWidth: CGFloat {
-        return ProductRecommendationCell.imageSize.width
+    var imageWidth: Int {
+        return UIImageView.scaledImageSize(ProductRecommendationCell.imageSize.width)
     }
     weak var collectionView: UICollectionView? {
         didSet {
@@ -17,7 +17,7 @@ class ProductRecommendationDataSource: NSObject, UICollectionViewDataSource {
     var viewSwitcherState: ViewSwitcherState = .Loading {
         didSet {
             if let viewSwitcher = viewSwitcher {
-                viewSwitcher.switcherState = viewSwitcherState
+                viewSwitcher.changeSwitcherState(viewSwitcherState)
             }
         }
     }
@@ -28,7 +28,7 @@ class ProductRecommendationDataSource: NSObject, UICollectionViewDataSource {
             if let viewSwitcher = viewSwitcher {
                 viewSwitcher.switcherDelegate = viewSwitcherDelegate
                 viewSwitcher.switcherDataSource = viewSwitcherDataSource
-                viewSwitcher.switcherState = viewSwitcherState
+                viewSwitcher.changeSwitcherState(viewSwitcherState)
             }
         }
     }

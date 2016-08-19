@@ -6,7 +6,7 @@ github "Anviking/Decodable" == 0.4.2
 github "joeldev/JLRoutes" == 1.6
 github "Quick/Quick" == 0.9.2
 github "Quick/Nimble" == 4.0.1
-github "Haneke/HanekeSwift" "d4fc957878c85bfa30802f37367180cf2bf76b07"
+github "onevcat/Kingfisher" == 2.4.3
 github "SnapKit/SnapKit" == 0.21.0
 github "scarabresearch/EmarsysPredictSDK" == 1.0.30
 github "indragiek/CocoaMarkdown" "0d8541a796101e0a6c55a04cd9a3279fc5997bbe"

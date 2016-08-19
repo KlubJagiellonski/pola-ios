@@ -144,13 +144,13 @@ final class CheckoutSummaryViewController: UIViewController, CheckoutSummaryView
         
         logAnalyticsEvent(AnalyticsEventId.CheckoutSummaryFinishButtonClicked)
         
-        castView.switcherState = .ModalLoading
+        castView.changeSwitcherState(.ModalLoading)
         navigationItem.hidesBackButton = true
         
         model.makePayment().subscribe { [weak self] (event: Event<PaymentResult>) in
             guard let `self` = self else { return }
             
-            self.castView.switcherState = .Success
+            self.castView.changeSwitcherState(.Success)
             self.navigationItem.hidesBackButton = false
             
             switch event {

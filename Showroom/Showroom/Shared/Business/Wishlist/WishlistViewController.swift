@@ -59,7 +59,7 @@ class WishlistViewController: UIViewController {
         castView.updateData(with: products, animated: !manager.state.synchronizationState.synchronizing)
         
         if products.count == 0 {
-            castView.switcherState = .Empty
+            castView.changeSwitcherState(.Empty)
             return
         }
     }
@@ -67,11 +67,11 @@ class WishlistViewController: UIViewController {
     func updateSynchronizing(with synchronizationState: WishlistSynchronizationState) {
         logInfo("Changed synchronizing state \(synchronizationState), products count \(manager.state.wishlist.count)")
         if manager.state.wishlist.count == 0 {
-            castView.switcherState = .Empty
+            castView.changeSwitcherState(.Empty)
         } else if synchronizationState.synchronizing {
-            castView.switcherState = .ModalLoading
+            castView.changeSwitcherState(.ModalLoading)
         } else {
-            castView.switcherState = .Success
+            castView.changeSwitcherState(.Success)
         }
     }
 }

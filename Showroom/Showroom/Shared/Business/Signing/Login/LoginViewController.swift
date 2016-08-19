@@ -51,7 +51,7 @@ class LoginViewController: UIViewController, LoginViewDelegate {
     }
     
     private func handleLoginResult(event: Event<SigningResult>) {
-        castView.switcherState = .Success
+        castView.changeSwitcherState(.Success)
         switch event {
         case .Next(let result):
             logInfo("Logged in as \(result.user.name) (\(result.user.email))")
@@ -87,7 +87,7 @@ class LoginViewController: UIViewController, LoginViewDelegate {
     func loginViewDidTapFacebook() {
         logAnalyticsEvent(AnalyticsEventId.LoginFacebookClicked)
         
-        castView.switcherState = .ModalLoading
+        castView.changeSwitcherState(.ModalLoading)
         
         userManager.loginToFacebook(with: self)
             .subscribe { [weak self] event in self?.handleLoginResult(event) }
@@ -101,7 +101,7 @@ class LoginViewController: UIViewController, LoginViewDelegate {
         
         logAnalyticsEvent(AnalyticsEventId.LoginClicked)
         
-        castView.switcherState = .ModalLoading
+        castView.changeSwitcherState(.ModalLoading)
         
         userManager
             .login(with: Login(username: email, password: password))

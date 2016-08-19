@@ -1,122 +1,119 @@
 import Foundation
 import UIKit
-import Haneke
+import Kingfisher
 
 extension UIImageView {
     
-    func loadImageFromUrl(url: String, width: CGFloat? = nil, height: CGFloat? = nil, failure fail: ((NSError?) -> ())? = nil, success succeed: ((UIImage) -> ())? = nil) {
-        let scale = UIScreen.mainScreen().scale
-        let url = NSURL.createImageUrl(url, width: width, height: height, scale: scale)
-        hnk_setImageFromURL(url, format: UIImageView.defaultImageFormat, failure: fail, success: succeed)
+    static func scaledImageSize(size: CGFloat?, scale: CGFloat = UIScreen.mainScreen().scale) -> Int? {
+        guard let size = size else {
+            return nil
+        }
+        return Int(size * scale)
     }
     
-    func loadImageWithLowResImage(url: String, lowResUrl: String?, width: CGFloat? = nil, height: CGFloat? = nil, failure fail: ((NSError?) -> ())? = nil, success succeed: ((UIImage) -> ())? = nil) {
-        let scale = UIScreen.mainScreen().scale
+    static func scaledImageSize(size: CGFloat, scale: CGFloat = UIScreen.mainScreen().scale) -> Int {
+        return Int(size * scale)
+    }
+    
+    func loadImageFromUrl(url: String, width: CGFloat? = nil, height: CGFloat? = nil, onRetrievedFromCache: (UIImage? -> Void)? = nil, failure fail: ((NSError?) -> ())? = nil, success succeed: ((UIImage) -> ())? = nil) {
+        let url = NSURL.createImageUrl(url, width: UIImageView.scaledImageSize(width), height: UIImageView.scaledImageSize(height))
         
-        let url = NSURL.createImageUrl(url, width: width, height: height, scale: scale)
-        let fetcher = ImageWithLowResFetcher(url: url, lowResUrl: lowResUrl == nil ? nil : NSURL(string: lowResUrl!))
-        
-        let cache = Shared.imageCache
-        let format = UIImageView.defaultImageFormat
-        cache.addFormat(format)
-        
-        hnk_cancelSetImage()
-        hnk_fetcher = fetcher
-        var animated = false
-        cache.fetch(fetcher: fetcher, formatName: format.name, failure: { [weak self] error in
-            guard let strongSelf = self else { return }
-            if strongSelf.hnk_shouldCancelForKey(fetcher.key) { return }
-            
-            strongSelf.hnk_fetcher = nil
-            
-            fail?(error)
-            
-        }) { [weak self] image in
-            guard let strongSelf = self else { return }
-            
-            if strongSelf.hnk_shouldCancelForKey(fetcher.key) { return }
-            
-            // we don't want to stop fetcher when this is not final image
-            if image.size.width == width {
-                strongSelf.hnk_fetcher = nil
-            }
-            
-            if let succeed = succeed {
-                succeed(image)
-            } else if animated {
-                UIView.transitionWithView(strongSelf, duration: 0.1, options: .TransitionCrossDissolve, animations: {
-                    strongSelf.image = image
-                    }, completion: nil)
+        let completionHandler: CompletionHandler = { (image: UIImage?, error: NSError?, cacheType: CacheType, imageURL: NSURL?) in
+            if let image = image {
+                succeed?(image)
             } else {
-                strongSelf.image = image
+                fail?(error)
             }
         }
-        animated = true
-    }
-    
-    static var defaultImageFormat: Format<UIImage> {
-        return Format<UIImage>(name: "original")
-    }
-}
-
-final class ImageWithLowResFetcher: Fetcher<UIImage> {
-    let lowResUrl: NSURL?
-    let url: NSURL
-    var cancelled = false
-    var onFinished: (() -> ())?
-    var cache: Cache<UIImage> {
-        let cache = Shared.imageCache
-        cache.addFormat(UIImageView.defaultImageFormat)
-        return cache
-    }
-    
-    init(url: NSURL, lowResUrl: NSURL?) {
-        self.lowResUrl = lowResUrl
-        self.url = url
-        super.init(key: url.absoluteString)
-    }
-    
-    // it happens when there is no cached data for url
-    override func fetch(failure fail: ((NSError?) -> ()), success succeed: (UIImage) -> ()) {
-        let cache = Shared.imageCache
-        cache.addFormat(UIImageView.defaultImageFormat)
-        if let lowRes = lowResUrl {
-            fetchLowResImage(lowRes, failure: fail, success: succeed)
+        
+        if let onRetrievedFromCache = onRetrievedFromCache {
+            let cacheCompletionHandler: CompletionHandler = { [weak self] (image: UIImage?, error: NSError?, cacheType: CacheType, imageURL: NSURL?) in
+                guard let `self` = self else { return }
+                
+                onRetrievedFromCache(image)
+                if let image = image {
+                    succeed?(image)
+                } else {
+                    self.kf_setImageWithURL(
+                        url,
+                        placeholderImage: self.image,
+                        optionsInfo: succeed == nil ? [.Transition(ImageTransition.Fade(0.2)), .ForceRefresh] : [],
+                        completionHandler: completionHandler
+                    )
+                }
+            }
+            
+            kf_setImageWithURL(
+                url,
+                placeholderImage: image,
+                optionsInfo: [.OnlyFromCache],
+                completionHandler: cacheCompletionHandler
+            )
         } else {
-            fetchImage(failure: fail, success: succeed)
+            kf_setImageWithURL(
+                url,
+                placeholderImage: image,
+                optionsInfo: succeed == nil ? [.Transition(ImageTransition.Fade(0.2))] : [],
+                completionHandler: completionHandler
+            )
         }
     }
     
-    override func cancelFetch() {
-        self.cancelled = true
-    }
-    
-    private func fetchLowResImage(lowRes: NSURL, failure fail: ((NSError?) -> ()), success succeed: (UIImage) -> ()) {
-        cache.fetch(key: lowRes.absoluteString, failure: { [weak self] error in
-            if self?.cancelled ?? false { return }
-            self?.fetchImage(failure: fail, success: succeed)
-        }) { [weak self] image in
-            if self?.cancelled ?? false { return }
-            self?.success(image, success: succeed)
-            self?.fetchImage(failure: fail, success: succeed)
+    func loadImageWithLowResImage(url: String, lowResUrl: String?, width: CGFloat? = nil, height: CGFloat? = nil, onRetrievedFromCache: (UIImage? -> Void)? = nil, failure fail: ((NSError?) -> ())? = nil, success succeed: ((UIImage) -> ())? = nil) {
+        guard let lowResLink = lowResUrl, let lowResUrl = NSURL(string: lowResLink) else {
+            loadImageFromUrl(url, width: width, height: height, onRetrievedFromCache:  onRetrievedFromCache, failure: fail, success: succeed)
+            return
         }
-    }
-    
-    private func fetchImage(failure fail: ((NSError?) -> ()), success succeed: (UIImage) -> ()) {
-        cache.fetch(URL: url, failure: { [weak self] error in
-            if self?.cancelled ?? false { return }
-            self?.failure(error, failure: fail)
-        }) { [weak self] image in
-            if self?.cancelled ?? false { return }
-            self?.success(image, success: succeed)
+
+        let url = NSURL.createImageUrl(url, width: UIImageView.scaledImageSize(width), height: UIImageView.scaledImageSize(height))
+        
+        let completionHandler: CompletionHandler = { (image: UIImage?, error: NSError?, cacheType: CacheType, imageURL: NSURL?) in
+            if let image = image {
+                succeed?(image)
+            } else {
+                fail?(error)
+            }
         }
-    }
-    
-    private func success(image: UIImage, success succeed: (UIImage) -> ()) {
-        dispatch_async(dispatch_get_main_queue()) { succeed(image) }
-    }
-    
-    private func failure(error: NSError?, failure fail: NSError? -> ()) {
-        dispatch_async(dispatch_get_main_queue()) { fail(error) }
+        
+        let lowResFromCacheCompletionHandler: CompletionHandler = { [weak self]
+            (image: UIImage?, error: NSError?, cacheType: CacheType, imageURL: NSURL?) in
+            guard let `self` = self else { return }
+            
+            onRetrievedFromCache?(image)
+            
+            //third, when check for low res cached image ends, then download high res
+            self.kf_setImageWithURL(
+                url,
+                placeholderImage: image,
+                optionsInfo: succeed == nil ? [.Transition(ImageTransition.Fade(0.2))] : [],
+                completionHandler: completionHandler
+            )
+        }
+        
+        let highResFromCacheCompletionHandler: CompletionHandler = { [weak self]
+            (image: UIImage?, error: NSError?, cacheType: CacheType, imageURL: NSURL?) in
+            guard let `self` = self else { return }
+            
+            if let image = image {
+                onRetrievedFromCache?(image)
+                succeed?(image)
+            } else {
+                //second, if high res does not exist check if low res is in cache
+                self.kf_setImageWithURL(
+                    lowResUrl,
+                    placeholderImage: self.image,
+                    optionsInfo: [.OnlyFromCache],
+                    completionHandler: lowResFromCacheCompletionHandler
+                )
+            }
+        }
+        
+        //first, check if high res is in cache
+        kf_setImageWithURL(
+            url,
+            placeholderImage: self.image,
+            optionsInfo: [.OnlyFromCache],
+            completionHandler: highResFromCacheCompletionHandler
+        )
     }
 }

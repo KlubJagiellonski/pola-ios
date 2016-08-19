@@ -29,14 +29,14 @@ class SettingsWebViewController: UIViewController {
     }
     
     func fetchWebContent() {
-        castView.switcherState = .Loading
+        castView.changeSwitcherState(.Loading)
         
         model.fetchWebContent().subscribe { [weak self] (fetchResult: Event<WebContentResult>) in
             guard let `self` = self else { return }
             switch fetchResult {
             case .Error(let error):
                 logInfo("Error during fetching settings web content, error: \(error)")
-                self.castView.switcherState = .Error
+                self.castView.changeSwitcherState(.Error)
             case .Next(let result):
                 logInfo("Fetched settings web content: \(result)")
                 self.castView.showWebContent(htmlString: result)
@@ -55,22 +55,22 @@ extension SettingsWebViewController: SettingsWebViewDelegate {
     
     func webView(webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         logInfo("webView didStartProvisionalNavigation")
-        castView.switcherState = .Loading
+        castView.changeSwitcherState(.Loading)
     }
     
     func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
         logInfo("webViewDidFinishNavigation")
-        castView.switcherState = .Success
+        castView.changeSwitcherState(.Success)
     }
     
     func webView(webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: NSError) {
         logInfo("webView didFailProvisionalNavigation error \(error.localizedDescription)")
-        castView.switcherState = .Error
+        castView.changeSwitcherState(.Error)
     }
     
     func webView(webView: WKWebView, didFailNavigation navigation: WKNavigation!, withError error: NSError) {
         logInfo("webView didFailNavigation")
-        castView.switcherState = .Error
+        castView.changeSwitcherState(.Error)
     }
 
     func webView(webView: WKWebView, decidePolicyForNavigationAction navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void) {

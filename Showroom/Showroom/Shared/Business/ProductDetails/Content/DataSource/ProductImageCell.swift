@@ -34,11 +34,10 @@ class ProductImageCell: UICollectionViewCell, UIScrollViewDelegate {
     }
     
     override init(frame: CGRect) {
-        contentViewSwitcher = ViewSwitcher(successView: contentScrollView)
+        contentViewSwitcher = ViewSwitcher(successView: contentScrollView, initialState: .Success)
         
         super.init(frame: frame)
         
-        contentViewSwitcher.animationDuration = 0.1
         updateLoadingTopContentOffset()
         
         imageView.contentMode = .ScaleAspectFit

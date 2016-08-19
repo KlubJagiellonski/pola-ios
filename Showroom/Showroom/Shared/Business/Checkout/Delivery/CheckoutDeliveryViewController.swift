@@ -101,12 +101,12 @@ class CheckoutDeliveryViewController: UIViewController, CheckoutDeliveryViewDele
         
         if checkoutModel.state.isFormMode {
             guard let newUserAddress = castView.userAddress else { return }
-            castView.switcherState = .ModalLoading
+            castView.changeSwitcherState(.ModalLoading)
             
             checkoutModel.update(with: newUserAddress).subscribe { [weak self](event: Event<UserAddress>) in
                 guard let `self` = self else { return }
                 
-                self.castView.switcherState = .Success
+                self.castView.changeSwitcherState(.Success)
                 
                 switch event {
                 case .Next(_):
