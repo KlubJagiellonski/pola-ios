@@ -168,7 +168,10 @@
 "Onboarding.Notifications.AskMe" = "SPYTAJ MNIE";
 "Onboarding.Notifications.Skip" = "POMIŃ";
 "Onboarding.DoubleTap.Label" = "Stuknij dwukrotnie w zdjęcie,\naby dodać produkt do ulubionych";
-"Onboarding.ProductPaging.Label" = "Przesuń palcem w bok, aby przejść do kolejnego produktu z listy";
+"Onboarding.PhotosPaging.Label" = "Przesuń palcem w górę,\naby zobaczyć kolejne zdjęcie produktu";
+"Onboarding.PhotosPaging.Next" = "DALEJ";
+"Onboarding.ProductPaging.Label" = "Przesuń palcem w bok, aby przejść\ndo kolejnego produktu z listy";
+"Onboarding.ProductPaging.Dismiss" = "ROZUMIEM";
 "Search.Placeholder" = "szukaj";
 "Search.AllSearchItems" = "Wszystko: %@";
 "Search.Back" = "Cofnij";

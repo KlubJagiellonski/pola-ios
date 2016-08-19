@@ -1,16 +1,16 @@
 import UIKit
 
-protocol OnboardingViewDelegate: class {
-    func onboardingDidTapAskForNotification(view: OnboardingView)
-    func onboardingDidTapSkip(view: OnboardingView)
+protocol InitialOnboardingViewDelegate: class {
+    func onboardingDidTapAskForNotification(view: InitialOnboardingView)
+    func onboardingDidTapSkip(view: InitialOnboardingView)
 }
 
-final class OnboardingView: UIView, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+final class InitialOnboardingView: UIView, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
 
     private let collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: UICollectionViewFlowLayout())
     
-    private let dataSource: OnboardingDataSource
-    weak var delegate: OnboardingViewDelegate?
+    private let dataSource: InitialOnboardingDataSource
+    weak var delegate: InitialOnboardingViewDelegate?
     
     var currentPageIndex: Int {
         set {
@@ -25,7 +25,7 @@ final class OnboardingView: UIView, UICollectionViewDelegate, UICollectionViewDe
     }
     
     init() {
-        dataSource = OnboardingDataSource(collectionView: collectionView)
+        dataSource = InitialOnboardingDataSource(collectionView: collectionView)
         super.init(frame: CGRectZero)
         
         dataSource.onboardingView = self

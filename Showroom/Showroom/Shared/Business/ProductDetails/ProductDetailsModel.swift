@@ -17,6 +17,11 @@ class ProductDetailsModel {
         return context.productsCount
     }
     
+    var userSeenPagingInAppOnboarding: Bool {
+        get { return NSUserDefaults.standardUserDefaults().boolForKey("userSeenPagingInAppOnboarding") }
+        set { NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: "userSeenPagingInAppOnboarding") }
+    }
+    
     init(context: ProductDetailsContext, emarsysService: EmarsysService) {
         self.context = context
         self.emarsysService = emarsysService

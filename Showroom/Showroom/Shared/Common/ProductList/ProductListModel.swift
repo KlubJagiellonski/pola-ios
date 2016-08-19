@@ -25,6 +25,10 @@ class ProductListModel {
     var productDetailsFromType: ProductDetailsFromType {
         return .Category
     }
+    var userSeenWishlistInAppOnboarding: Bool {
+        get { return NSUserDefaults.standardUserDefaults().boolForKey("userSeenWishlistInAppOnboarding") }
+        set { NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: "userSeenWishlistInAppOnboarding") }
+    }
     
     init(with apiService: ApiService, wishlistManager: WishlistManager, link: String?, query: String?) {
         self.apiService = apiService

@@ -343,8 +343,14 @@ enum L10n {
   case OnboardingNotificationsSkip
   /// Stuknij dwukrotnie w zdjęcie,\naby dodać produkt do ulubionych
   case OnboardingDoubleTapLabel
-  /// Przesuń palcem w bok, aby przejść do kolejnego produktu z listy
+  /// Przesuń palcem w górę,\naby zobaczyć kolejne zdjęcie produktu
+  case OnboardingPhotosPagingLabel
+  /// DALEJ
+  case OnboardingPhotosPagingNext
+  /// Przesuń palcem w bok, aby przejść\ndo kolejnego produktu z listy
   case OnboardingProductPagingLabel
+  /// ROZUMIEM
+  case OnboardingProductPagingDismiss
   /// szukaj
   case SearchPlaceholder
   /// Wszystko: %@
@@ -738,8 +744,14 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Onboarding.Notifications.Skip")
       case .OnboardingDoubleTapLabel:
         return L10n.tr("Onboarding.DoubleTap.Label")
+      case .OnboardingPhotosPagingLabel:
+        return L10n.tr("Onboarding.PhotosPaging.Label")
+      case .OnboardingPhotosPagingNext:
+        return L10n.tr("Onboarding.PhotosPaging.Next")
       case .OnboardingProductPagingLabel:
         return L10n.tr("Onboarding.ProductPaging.Label")
+      case .OnboardingProductPagingDismiss:
+        return L10n.tr("Onboarding.ProductPaging.Dismiss")
       case .SearchPlaceholder:
         return L10n.tr("Search.Placeholder")
       case .SearchAllSearchItems(let p0):

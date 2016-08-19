@@ -284,8 +284,6 @@
 		C00BA8721D5C6A4F009A9637 /* SettingsWebViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00BA8711D5C6A4F009A9637 /* SettingsWebViewModel.swift */; };
 		C00BA8741D5CD334009A9637 /* WishlistInAppOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00BA8731D5CD334009A9637 /* WishlistInAppOnboardingViewController.swift */; };
 		C00BA8761D5CD53E009A9637 /* WishlistInAppOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00BA8751D5CD53E009A9637 /* WishlistInAppOnboardingView.swift */; };
-		C00BA87A1D5DFD01009A9637 /* ProductPagingInAppOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00BA8791D5DFD01009A9637 /* ProductPagingInAppOnboardingViewController.swift */; };
-		C00BA87C1D5DFD2C009A9637 /* ProductPagingInAppOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00BA87B1D5DFD2C009A9637 /* ProductPagingInAppOnboardingView.swift */; };
 		C01FF2E21D366D3B00D025AE /* HeartMaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01FF2E11D366D3B00D025AE /* HeartMaskView.swift */; };
 		C01FF2E61D36771D00D025AE /* TouchIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01FF2E51D36771D00D025AE /* TouchIndicatorView.swift */; };
 		C020DA461D40F39900E6E4AE /* ShowUserInfoViewEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C020DA451D40F39900E6E4AE /* ShowUserInfoViewEvent.swift */; };
@@ -300,10 +298,11 @@
 		C0237D191D23EA4C0009F2FC /* Kiosk.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0237D181D23EA4C0009F2FC /* Kiosk.swift */; };
 		C026E5701D3F95E20003DA8B /* SettingsWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C026E56F1D3F95E20003DA8B /* SettingsWebView.swift */; };
 		C0456D2D1D4A2174006A3F8F /* QuickActionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0456D2C1D4A2174006A3F8F /* QuickActionManager.swift */; };
-		C049D8CF1D33F0930043F60F /* OnboardingInfiniteScrollingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C049D8CE1D33F0930043F60F /* OnboardingInfiniteScrollingCell.swift */; };
-		C049D8D51D33F1010043F60F /* OnboardingNotificationsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C049D8D41D33F1010043F60F /* OnboardingNotificationsCell.swift */; };
+		C049D8CF1D33F0930043F60F /* InitialOnboardingInfiniteScrollingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C049D8CE1D33F0930043F60F /* InitialOnboardingInfiniteScrollingCell.swift */; };
+		C049D8D51D33F1010043F60F /* InitialOnboardingNotificationsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C049D8D41D33F1010043F60F /* InitialOnboardingNotificationsCell.swift */; };
 		C0518D801D2BBA9D0032F1B4 /* EditKioskDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0518D7F1D2BBA9D0032F1B4 /* EditKioskDataSource.swift */; };
 		C052F8981D1989A6008085E0 /* CheckoutAddressOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C052F8971D1989A6008085E0 /* CheckoutAddressOptionView.swift */; };
+		C05DAE5B1D6C429D008877BE /* OnboardingActionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05DAE5A1D6C429D008877BE /* OnboardingActionAnimator.swift */; };
 		C06E53561D478E62000E5B7C /* PaymentSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06E53551D478E62000E5B7C /* PaymentSuccessViewController.swift */; };
 		C06E53581D478F61000E5B7C /* PaymentFailureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06E53571D478F61000E5B7C /* PaymentFailureViewController.swift */; };
 		C06E535A1D478F96000E5B7C /* PaymentSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06E53591D478F96000E5B7C /* PaymentSuccessView.swift */; };
@@ -327,12 +326,18 @@
 		C09367181D09AB79004C7748 /* UIFontAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09367171D09AB79004C7748 /* UIFontAssets.swift */; };
 		C093671A1D09AB9D004C7748 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09367191D09AB9D004C7748 /* StorageManager.swift */; };
 		C093671E1D0ACAE8004C7748 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C093671D1D0ACAE8004C7748 /* Assets.xcassets */; };
+		C0A997741D66FA2F00DBF558 /* PagingInAppOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A997731D66FA2F00DBF558 /* PagingInAppOnboardingViewController.swift */; };
+		C0A997761D66FA3B00DBF558 /* PagingInAppOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A997751D66FA3B00DBF558 /* PagingInAppOnboardingView.swift */; };
+		C0A997791D6701C000DBF558 /* InAppOnboardingProductPagingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A997781D6701C000DBF558 /* InAppOnboardingProductPagingCell.swift */; };
+		C0A9977B1D6701DB00DBF558 /* InAppOnboardingPhotosPagingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A9977A1D6701DB00DBF558 /* InAppOnboardingPhotosPagingCell.swift */; };
+		C0A9977D1D6702D500DBF558 /* PagingInAppOnboardingDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A9977C1D6702D500DBF558 /* PagingInAppOnboardingDataSource.swift */; };
+		C0A9977F1D67376C00DBF558 /* OnboardingPhotosPagingAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A9977E1D67376C00DBF558 /* OnboardingPhotosPagingAnimation.swift */; };
 		C0B094AD1D2675A100C57D06 /* CLGeocoderUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B094AC1D2675A100C57D06 /* CLGeocoderUtils.swift */; };
 		C0B094B31D2BA23200C57D06 /* KioskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B094B21D2BA23200C57D06 /* KioskCell.swift */; };
 		C0C5D28E1D099679004C1B13 /* ColorIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C5D28D1D099679004C1B13 /* ColorIconView.swift */; };
-		C0C635001D33969900715A77 /* OnboardingDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C634FF1D33969900715A77 /* OnboardingDataSource.swift */; };
-		C0C635021D3396DA00715A77 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C635011D3396DA00715A77 /* OnboardingView.swift */; };
-		C0C635041D339B5100715A77 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C635031D339B5100715A77 /* OnboardingViewController.swift */; };
+		C0C635001D33969900715A77 /* InitialOnboardingDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C634FF1D33969900715A77 /* InitialOnboardingDataSource.swift */; };
+		C0C635021D3396DA00715A77 /* InitialOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C635011D3396DA00715A77 /* InitialOnboardingView.swift */; };
+		C0C635041D339B5100715A77 /* InitialOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C635031D339B5100715A77 /* InitialOnboardingViewController.swift */; };
 		C0CBE2AA1D2D4270008B861D /* SettingsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CBE2A91D2D4270008B861D /* SettingsNavigationController.swift */; };
 		C0CBE2AC1D2D46B7008B861D /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CBE2AB1D2D46B7008B861D /* SettingsView.swift */; };
 		C0CBE2B21D2E50F7008B861D /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CBE2B11D2E50F7008B861D /* Setting.swift */; };
@@ -656,8 +661,6 @@
 		C00BA8711D5C6A4F009A9637 /* SettingsWebViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsWebViewModel.swift; sourceTree = "<group>"; };
 		C00BA8731D5CD334009A9637 /* WishlistInAppOnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WishlistInAppOnboardingViewController.swift; sourceTree = "<group>"; };
 		C00BA8751D5CD53E009A9637 /* WishlistInAppOnboardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WishlistInAppOnboardingView.swift; sourceTree = "<group>"; };
-		C00BA8791D5DFD01009A9637 /* ProductPagingInAppOnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductPagingInAppOnboardingViewController.swift; sourceTree = "<group>"; };
-		C00BA87B1D5DFD2C009A9637 /* ProductPagingInAppOnboardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductPagingInAppOnboardingView.swift; sourceTree = "<group>"; };
 		C01FF2E11D366D3B00D025AE /* HeartMaskView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeartMaskView.swift; sourceTree = "<group>"; };
 		C01FF2E51D36771D00D025AE /* TouchIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchIndicatorView.swift; sourceTree = "<group>"; };
 		C020DA451D40F39900E6E4AE /* ShowUserInfoViewEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowUserInfoViewEvent.swift; sourceTree = "<group>"; };
@@ -672,10 +675,11 @@
 		C0237D181D23EA4C0009F2FC /* Kiosk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Kiosk.swift; sourceTree = "<group>"; };
 		C026E56F1D3F95E20003DA8B /* SettingsWebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsWebView.swift; sourceTree = "<group>"; };
 		C0456D2C1D4A2174006A3F8F /* QuickActionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickActionManager.swift; sourceTree = "<group>"; };
-		C049D8CE1D33F0930043F60F /* OnboardingInfiniteScrollingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingInfiniteScrollingCell.swift; sourceTree = "<group>"; };
-		C049D8D41D33F1010043F60F /* OnboardingNotificationsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingNotificationsCell.swift; sourceTree = "<group>"; };
+		C049D8CE1D33F0930043F60F /* InitialOnboardingInfiniteScrollingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialOnboardingInfiniteScrollingCell.swift; sourceTree = "<group>"; };
+		C049D8D41D33F1010043F60F /* InitialOnboardingNotificationsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialOnboardingNotificationsCell.swift; sourceTree = "<group>"; };
 		C0518D7F1D2BBA9D0032F1B4 /* EditKioskDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditKioskDataSource.swift; path = Showroom/Shared/Business/Checkout/Delivery/EditKiosk/DataSource/EditKioskDataSource.swift; sourceTree = SOURCE_ROOT; };
 		C052F8971D1989A6008085E0 /* CheckoutAddressOptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutAddressOptionView.swift; sourceTree = "<group>"; };
+		C05DAE5A1D6C429D008877BE /* OnboardingActionAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingActionAnimator.swift; sourceTree = "<group>"; };
 		C06E53551D478E62000E5B7C /* PaymentSuccessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentSuccessViewController.swift; sourceTree = "<group>"; };
 		C06E53571D478F61000E5B7C /* PaymentFailureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentFailureViewController.swift; sourceTree = "<group>"; };
 		C06E53591D478F96000E5B7C /* PaymentSuccessView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentSuccessView.swift; sourceTree = "<group>"; };
@@ -699,12 +703,18 @@
 		C09367171D09AB79004C7748 /* UIFontAssets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIFontAssets.swift; sourceTree = "<group>"; };
 		C09367191D09AB9D004C7748 /* StorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		C093671D1D0ACAE8004C7748 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C0A997731D66FA2F00DBF558 /* PagingInAppOnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingInAppOnboardingViewController.swift; sourceTree = "<group>"; };
+		C0A997751D66FA3B00DBF558 /* PagingInAppOnboardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingInAppOnboardingView.swift; sourceTree = "<group>"; };
+		C0A997781D6701C000DBF558 /* InAppOnboardingProductPagingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InAppOnboardingProductPagingCell.swift; sourceTree = "<group>"; };
+		C0A9977A1D6701DB00DBF558 /* InAppOnboardingPhotosPagingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InAppOnboardingPhotosPagingCell.swift; sourceTree = "<group>"; };
+		C0A9977C1D6702D500DBF558 /* PagingInAppOnboardingDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingInAppOnboardingDataSource.swift; sourceTree = "<group>"; };
+		C0A9977E1D67376C00DBF558 /* OnboardingPhotosPagingAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingPhotosPagingAnimation.swift; sourceTree = "<group>"; };
 		C0B094AC1D2675A100C57D06 /* CLGeocoderUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLGeocoderUtils.swift; sourceTree = "<group>"; };
 		C0B094B21D2BA23200C57D06 /* KioskCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KioskCell.swift; path = Showroom/Shared/Business/Checkout/Delivery/EditKiosk/DataSource/KioskCell.swift; sourceTree = SOURCE_ROOT; };
 		C0C5D28D1D099679004C1B13 /* ColorIconView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ColorIconView.swift; path = ../Business/ProductAction/ProductColorAction/DataSource/ColorIconView.swift; sourceTree = "<group>"; };
-		C0C634FF1D33969900715A77 /* OnboardingDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingDataSource.swift; sourceTree = "<group>"; };
-		C0C635011D3396DA00715A77 /* OnboardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
-		C0C635031D339B5100715A77 /* OnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		C0C634FF1D33969900715A77 /* InitialOnboardingDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialOnboardingDataSource.swift; sourceTree = "<group>"; };
+		C0C635011D3396DA00715A77 /* InitialOnboardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialOnboardingView.swift; sourceTree = "<group>"; };
+		C0C635031D339B5100715A77 /* InitialOnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialOnboardingViewController.swift; sourceTree = "<group>"; };
 		C0CBE2A91D2D4270008B861D /* SettingsNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsNavigationController.swift; sourceTree = "<group>"; };
 		C0CBE2AB1D2D46B7008B861D /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		C0CBE2B11D2E50F7008B861D /* Setting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
@@ -1561,6 +1571,7 @@
 				75A92ABC1D3FA84600EDC89D /* OnboardingInfiniteScrollingAnimation.swift */,
 				75A92ABE1D3FA85300EDC89D /* OnboardingDoubleTapAnimation.swift */,
 				75A92AC01D3FA86900EDC89D /* OnboardingProductPagingAnimation.swift */,
+				C0A9977E1D67376C00DBF558 /* OnboardingPhotosPagingAnimation.swift */,
 			);
 			path = Animations;
 			sourceTree = "<group>";
@@ -1666,6 +1677,7 @@
 				1D2CAC451D473FF600F678FA /* Transition */,
 				1D2CAC3C1D46084100F678FA /* Genie */,
 				C09280551D0584A900350B82 /* DropUpActionAnimator.swift */,
+				C05DAE5A1D6C429D008877BE /* OnboardingActionAnimator.swift */,
 				1D0F3B491D1172E10052CFF6 /* FormSheetAnimator.swift */,
 				1D0F3B4B1D1173250052CFF6 /* Animator.swift */,
 			);
@@ -1711,6 +1723,54 @@
 			path = DataSource;
 			sourceTree = "<group>";
 		};
+		C0A9976F1D66F7C400DBF558 /* Initial */ = {
+			isa = PBXGroup;
+			children = (
+				C0C635071D33A1E200715A77 /* DataSource */,
+				C0C635031D339B5100715A77 /* InitialOnboardingViewController.swift */,
+				C0C635011D3396DA00715A77 /* InitialOnboardingView.swift */,
+			);
+			path = Initial;
+			sourceTree = "<group>";
+		};
+		C0A997701D66F7D100DBF558 /* InApp */ = {
+			isa = PBXGroup;
+			children = (
+				C0A997721D66F87300DBF558 /* Wishlist */,
+				C0A997711D66F85300DBF558 /* Paging */,
+			);
+			path = InApp;
+			sourceTree = "<group>";
+		};
+		C0A997711D66F85300DBF558 /* Paging */ = {
+			isa = PBXGroup;
+			children = (
+				C0A997771D67018200DBF558 /* DataSource */,
+				C0A997731D66FA2F00DBF558 /* PagingInAppOnboardingViewController.swift */,
+				C0A997751D66FA3B00DBF558 /* PagingInAppOnboardingView.swift */,
+			);
+			path = Paging;
+			sourceTree = "<group>";
+		};
+		C0A997721D66F87300DBF558 /* Wishlist */ = {
+			isa = PBXGroup;
+			children = (
+				C00BA8731D5CD334009A9637 /* WishlistInAppOnboardingViewController.swift */,
+				C00BA8751D5CD53E009A9637 /* WishlistInAppOnboardingView.swift */,
+			);
+			path = Wishlist;
+			sourceTree = "<group>";
+		};
+		C0A997771D67018200DBF558 /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				C0A9977C1D6702D500DBF558 /* PagingInAppOnboardingDataSource.swift */,
+				C0A9977A1D6701DB00DBF558 /* InAppOnboardingPhotosPagingCell.swift */,
+				C0A997781D6701C000DBF558 /* InAppOnboardingProductPagingCell.swift */,
+			);
+			path = DataSource;
+			sourceTree = "<group>";
+		};
 		C0B094B11D2B9E5A00C57D06 /* DataSource */ = {
 			isa = PBXGroup;
 			children = (
@@ -1723,15 +1783,10 @@
 		C0C634FA1D3394D200715A77 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				C0A9976F1D66F7C400DBF558 /* Initial */,
+				C0A997701D66F7D100DBF558 /* InApp */,
 				75A92ABB1D3FA83200EDC89D /* Animations */,
-				C0C635071D33A1E200715A77 /* DataSource */,
-				C0C635031D339B5100715A77 /* OnboardingViewController.swift */,
-				C0C635011D3396DA00715A77 /* OnboardingView.swift */,
 				C01FF2E51D36771D00D025AE /* TouchIndicatorView.swift */,
-				C00BA8731D5CD334009A9637 /* WishlistInAppOnboardingViewController.swift */,
-				C00BA8751D5CD53E009A9637 /* WishlistInAppOnboardingView.swift */,
-				C00BA8791D5DFD01009A9637 /* ProductPagingInAppOnboardingViewController.swift */,
-				C00BA87B1D5DFD2C009A9637 /* ProductPagingInAppOnboardingView.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -1739,9 +1794,9 @@
 		C0C635071D33A1E200715A77 /* DataSource */ = {
 			isa = PBXGroup;
 			children = (
-				C0C634FF1D33969900715A77 /* OnboardingDataSource.swift */,
-				C049D8CE1D33F0930043F60F /* OnboardingInfiniteScrollingCell.swift */,
-				C049D8D41D33F1010043F60F /* OnboardingNotificationsCell.swift */,
+				C0C634FF1D33969900715A77 /* InitialOnboardingDataSource.swift */,
+				C049D8CE1D33F0930043F60F /* InitialOnboardingInfiniteScrollingCell.swift */,
+				C049D8D41D33F1010043F60F /* InitialOnboardingNotificationsCell.swift */,
 			);
 			path = DataSource;
 			sourceTree = "<group>";
@@ -1934,7 +1989,9 @@
 				1D3792721D196931001A7C47 /* ViewSwitcher.swift in Sources */,
 				1D5F91141D2FA19B00AE66E6 /* CheckoutDeliveryViewHelpers.swift in Sources */,
 				C052F8981D1989A6008085E0 /* CheckoutAddressOptionView.swift in Sources */,
+				C0A9977D1D6702D500DBF558 /* PagingInAppOnboardingDataSource.swift in Sources */,
 				C092804C1D01DA8D00350B82 /* ProductSizeViewController.swift in Sources */,
+				C0A9977B1D6701DB00DBF558 /* InAppOnboardingPhotosPagingCell.swift in Sources */,
 				1D5886E01D2BBE26007D0CB1 /* TrendProductListViewController.swift in Sources */,
 				C007CD921D2E7F6E00700EBB /* SettingsCell.swift in Sources */,
 				1DAA7C671D099A9200545BB9 /* ProductDescriptionViewController.swift in Sources */,
@@ -1954,7 +2011,7 @@
 				1D5E918A1D3CDDB600A6BD55 /* UISearchBarUtils.swift in Sources */,
 				1DD1EA6C1CEC5D1700D99731 /* UIColorAssets.swift in Sources */,
 				1D1A7DFB1D240065009CCCE7 /* CategoryProductListViewController.swift in Sources */,
-				C049D8D51D33F1010043F60F /* OnboardingNotificationsCell.swift in Sources */,
+				C049D8D51D33F1010043F60F /* InitialOnboardingNotificationsCell.swift in Sources */,
 				75E269AB1CFC7B8700ED3CA2 /* BasketView.swift in Sources */,
 				1D5E91851D3CCA3F00A6BD55 /* SearchPageCell.swift in Sources */,
 				C09280741D08468500350B82 /* ProductColorHeaderView.swift in Sources */,
@@ -1975,6 +2032,7 @@
 				1DA846F51D191D5E00BA090A /* KeyboardHelper.swift in Sources */,
 				1DD161B31D01CF790022B5C9 /* ProductDetailsModel.swift in Sources */,
 				1D1A7E201D254904009CCCE7 /* CategoryProductListModel.swift in Sources */,
+				C0A9977F1D67376C00DBF558 /* OnboardingPhotosPagingAnimation.swift in Sources */,
 				1D2CAC431D46094B00F678FA /* UIView+Genie.m in Sources */,
 				1D5F91681D36500500AE66E6 /* FilterDetailsDataSource.swift in Sources */,
 				1D2423DD1D228A9A0026D46B /* ToastManager.swift in Sources */,
@@ -1983,6 +2041,7 @@
 				1D5F91661D364FBA00AE66E6 /* FilterDetailsView.swift in Sources */,
 				1D0AAF9D1D59B836008E40C0 /* Wishlist.swift in Sources */,
 				1D5E91991D3E2C0400A6BD55 /* SearchContentNavigationController.swift in Sources */,
+				C0A997761D66FA3B00DBF558 /* PagingInAppOnboardingView.swift in Sources */,
 				1D5E91951D3E133C00A6BD55 /* Search.swift in Sources */,
 				7520AD8C1D34DE37003FC38B /* SigningNavigationController.swift in Sources */,
 				75BB89721D300A9A00F9138D /* StartView.swift in Sources */,
@@ -1995,7 +2054,7 @@
 				1DC485C71D474BEA00BDA1BD /* PayUManager.swift in Sources */,
 				1D5F91161D3388DA00AE66E6 /* CommonNavigationHandler.swift in Sources */,
 				1DA846F71D19474B00BA090A /* StateTextField.swift in Sources */,
-				C0C635021D3396DA00715A77 /* OnboardingView.swift in Sources */,
+				C0C635021D3396DA00715A77 /* InitialOnboardingView.swift in Sources */,
 				C06E535A1D478F96000E5B7C /* PaymentSuccessView.swift in Sources */,
 				C0B094AD1D2675A100C57D06 /* CLGeocoderUtils.swift in Sources */,
 				C0B094B31D2BA23200C57D06 /* KioskCell.swift in Sources */,
@@ -2027,7 +2086,7 @@
 				1DAA7C6B1D099B0100545BB9 /* ProductDescriptionView.swift in Sources */,
 				1DA6FA311CFF29B7004BF10B /* ContentPromoRecommendationsCell.swift in Sources */,
 				7586E27D1D22B3D30086DE94 /* CheckoutSummaryCommentView.swift in Sources */,
-				C0C635001D33969900715A77 /* OnboardingDataSource.swift in Sources */,
+				C0C635001D33969900715A77 /* InitialOnboardingDataSource.swift in Sources */,
 				1D7824B91D0874E700E60392 /* ProductImageCell.swift in Sources */,
 				1D78249C1D058F0600E60392 /* Product.swift in Sources */,
 				1D88AB781D54799A005DDFBB /* ProductRequest.swift in Sources */,
@@ -2072,7 +2131,7 @@
 				1DD1EA781CEDB47B00D99731 /* DashboardModel.swift in Sources */,
 				1D5F914C1D34EF9B00AE66E6 /* ProductFilterModel.swift in Sources */,
 				1D2F193F1CE9CE250099142E /* AppDelegate.swift in Sources */,
-				C049D8CF1D33F0930043F60F /* OnboardingInfiniteScrollingCell.swift in Sources */,
+				C049D8CF1D33F0930043F60F /* InitialOnboardingInfiniteScrollingCell.swift in Sources */,
 				C0237D131D22652F0009F2FC /* EditAddressView.swift in Sources */,
 				1DDE61F01D649C6F007E5509 /* NSDateUtils.swift in Sources */,
 				1D5F91591D350C7800AE66E6 /* SwitchValueTableViewCell.swift in Sources */,
@@ -2105,7 +2164,6 @@
 				1DD161B81D01D0C10022B5C9 /* ProductPageViewController.swift in Sources */,
 				1D1A7E1E1D25487A009CCCE7 /* Category.swift in Sources */,
 				1D5F91511D3500A200AE66E6 /* ProductFilterView.swift in Sources */,
-				C00BA87A1D5DFD01009A9637 /* ProductPagingInAppOnboardingViewController.swift in Sources */,
 				1D0F3B611D13D2DC0052CFF6 /* BasketCountryView.swift in Sources */,
 				75A92AB21D3E26CB00EDC89D /* WishlistView.swift in Sources */,
 				1D1A7E1C1D253418009CCCE7 /* ProductLoadingPageCell.swift in Sources */,
@@ -2129,6 +2187,7 @@
 				75A92ABD1D3FA84600EDC89D /* OnboardingInfiniteScrollingAnimation.swift in Sources */,
 				1DAA7C6F1D09AEF700545BB9 /* ProductDescriptionSimpleCell.swift in Sources */,
 				C0237D191D23EA4C0009F2FC /* Kiosk.swift in Sources */,
+				C0A997741D66FA2F00DBF558 /* PagingInAppOnboardingViewController.swift in Sources */,
 				1DB166BF1D1006DC004F42DC /* SizeChartView.swift in Sources */,
 				75A92ABF1D3FA85300EDC89D /* OnboardingDoubleTapAnimation.swift in Sources */,
 				1D5F91411D34E33100AE66E6 /* UIDeviceUtils.swift in Sources */,
@@ -2155,7 +2214,6 @@
 				1D72ED161CFC307D007AFD2F /* ManagerAssembly.swift in Sources */,
 				75C854621D05B7BF00E5F08F /* BasketManager.swift in Sources */,
 				1D5F91611D3537BA00AE66E6 /* UITableViewUtils.swift in Sources */,
-				C00BA87C1D5DFD2C009A9637 /* ProductPagingInAppOnboardingView.swift in Sources */,
 				C00BA8741D5CD334009A9637 /* WishlistInAppOnboardingViewController.swift in Sources */,
 				1DD1EA8B1CF2E59E00D99731 /* BasketViewController.swift in Sources */,
 				1DF796791CEB369B00C7A7F4 /* NetworkClient.swift in Sources */,
@@ -2179,8 +2237,9 @@
 				C022208F1D183C0C004411A7 /* CheckoutDeliveryView.swift in Sources */,
 				C026E5701D3F95E20003DA8B /* SettingsWebView.swift in Sources */,
 				1D3EC6551D5C81B4004413F9 /* ResetPasswordModel.swift in Sources */,
-				C0C635041D339B5100715A77 /* OnboardingViewController.swift in Sources */,
+				C0C635041D339B5100715A77 /* InitialOnboardingViewController.swift in Sources */,
 				1D5F916C1D36541700AE66E6 /* SelectValueTableViewCell.swift in Sources */,
+				C0A997791D6701C000DBF558 /* InAppOnboardingProductPagingCell.swift in Sources */,
 				1D0F3B641D13D3710052CFF6 /* BasketCountryDataSource.swift in Sources */,
 				753D865B1D4A240F001BF7EB /* ResetPasswordViewController.swift in Sources */,
 				1D0F3B4E1D12819B0052CFF6 /* BasketDeliveryNavigationController.swift in Sources */,
@@ -2194,6 +2253,7 @@
 				C007CD951D2E92FC00700EBB /* SettingsDataSource.swift in Sources */,
 				1D5F915F1D35221D00AE66E6 /* ShowFilterEvent.swift in Sources */,
 				1D7824A81D06E9CB00E60392 /* ProductDescriptionDataSource.swift in Sources */,
+				C05DAE5B1D6C429D008877BE /* OnboardingActionAnimator.swift in Sources */,
 				75E269AE1CFC7DA200ED3CA2 /* BasketDataSource.swift in Sources */,
 				1D5F91551D35035300AE66E6 /* ValueTableViewCell.swift in Sources */,
 				7586E27B1D22B0E70086DE94 /* CheckoutSummaryCommentViewController.swift in Sources */,

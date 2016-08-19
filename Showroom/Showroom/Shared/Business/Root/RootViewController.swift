@@ -25,7 +25,7 @@ class RootViewController: PresenterViewController, NavigationHandler {
         case .Main:
             showContent(resolver.resolve(MainTabViewController), animation: nil, completion: nil)
         case .Onboarding:
-            showContent(resolver.resolve(OnboardingViewController), animation: nil, completion: nil)
+            showContent(resolver.resolve(InitialOnboardingViewController), animation: nil, completion: nil)
         default:
             let error = "Cannot create view controller for type \(model.startChildType)"
             logError(error)
@@ -89,7 +89,7 @@ class RootViewController: PresenterViewController, NavigationHandler {
             showContent(resolver.resolve(StartViewController), animation: DimTransitionAnimation(animationDuration: 0.3), completion: nil)
             return true
         case .ShowOnboaridng:
-            showContent(resolver.resolve(OnboardingViewController), animation: DimTransitionAnimation(animationDuration: 0.3), completion: nil)
+            showContent(resolver.resolve(InitialOnboardingViewController), animation: DimTransitionAnimation(animationDuration: 0.3), completion: nil)
             return true
         default: return false
         }

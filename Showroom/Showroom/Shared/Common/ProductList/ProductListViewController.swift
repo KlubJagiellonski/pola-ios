@@ -14,9 +14,17 @@ protocol ProductListViewControllerInterface: class, NavigationSender {
     func createFilterButton() -> UIBarButtonItem?
     func pageWasFetched(result productListResult: ProductListResult, pageIndex: Int) // it is used to inform viewcontroller that first page has been fetched. You can do some additional stuff here
     func configureFilterButton()
+    func showInAppWishlistOnboarding()
 }
 
 extension ProductListViewControllerInterface {
+    func showInAppWishlistOnboardingIfNeeded() {
+        if !productListModel.userSeenWishlistInAppOnboarding {
+            showInAppWishlistOnboarding()
+            productListModel.userSeenWishlistInAppOnboarding = true
+        }
+    }
+    
     func fetchFirstPage() {
         productListView.changeSwitcherState(.Loading, animated: true)
         filterButtonEnabled = false

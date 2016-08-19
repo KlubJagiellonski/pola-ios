@@ -12,6 +12,10 @@ class BrandProductListViewController: UIViewController, ProductListViewControlle
     var productListView: ProductListViewInterface { return castView }
     private var castView: BrandProductListView { return view as! BrandProductListView }
     
+    private lazy var onboardingActionAnimator: InAppOnboardingActionAnimator = { [unowned self] in
+        return InAppOnboardingActionAnimator(parentViewHeight: self.castView.bounds.height)
+    }()
+    
     init(with resolver: DiResolver, and brand: EntryProductBrand) {
         self.resolver = resolver
         productListModel = resolver.resolve(BrandProductListModel.self, argument: brand)
@@ -47,6 +51,11 @@ class BrandProductListViewController: UIViewController, ProductListViewControlle
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         castView.contentInset = UIEdgeInsetsMake(topLayoutGuide.length, 0, bottomLayoutGuide.length, 0)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        showInAppWishlistOnboardingIfNeeded()
     }
     
     func updateData(with entryProductBrand: EntryProductBrand) {
@@ -85,6 +94,12 @@ class BrandProductListViewController: UIViewController, ProductListViewControlle
         }
     }
     
+    func showInAppWishlistOnboarding() {
+        let wishlistOnboardingViewController = WishlistInAppOnboardingViewController()
+        wishlistOnboardingViewController.delegate = self
+        onboardingActionAnimator.presentViewController(wishlistOnboardingViewController, presentingViewController: self)
+    }
+    
     // MARK:- BrandProductListViewDelegate
     
     func brandProductListDidTapHeader(view: BrandProductListView) {
@@ -115,3 +130,8 @@ extension BrandProductListViewController: ProductFilterNavigationControllerDeleg
     }
 }
 
+extension BrandProductListViewController: WishlistInAppOnboardingViewControllerDelegate {
+    func wishlistOnboardingViewControllerDidTapDismissButton(viewController: WishlistInAppOnboardingViewController) {
+        onboardingActionAnimator.dismissViewController(presentingViewController: self)
+    }
+}

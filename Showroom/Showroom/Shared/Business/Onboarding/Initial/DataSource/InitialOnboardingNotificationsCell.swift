@@ -1,18 +1,18 @@
 import UIKit
 
-protocol OnboardingNotificationsCellDelegate: class {
-    func onboardingNotificationDidTapAskMe(cell: OnboardingNotificationsCell)
-    func onboardingNotificationDidTapSkip(cell: OnboardingNotificationsCell)
+protocol InitialOnboardingNotificationsCellDelegate: class {
+    func onboardingNotificationDidTapAskMe(cell: InitialOnboardingNotificationsCell)
+    func onboardingNotificationDidTapSkip(cell: InitialOnboardingNotificationsCell)
 }
 
-class OnboardingNotificationsCell: UICollectionViewCell {
+class InitialOnboardingNotificationsCell: UICollectionViewCell {
     private let label = UILabel()
     private let freeSpaceContentView = UIView()
     private let imageView: UIImageView
     private let askMeButton = UIButton()
     private let skipButton = UIButton()
     
-    weak var delegate: OnboardingNotificationsCellDelegate?
+    weak var delegate: InitialOnboardingNotificationsCellDelegate?
     
     override init(frame: CGRect) {
         switch UIDevice.currentDevice().screenType {
@@ -40,11 +40,11 @@ class OnboardingNotificationsCell: UICollectionViewCell {
         
         askMeButton.title = tr(.OnboardingNotificationsAskMe)
         askMeButton.applyBlueStyle()
-        askMeButton.addTarget(self, action: #selector(OnboardingNotificationsCell.didTapAskMe), forControlEvents: .TouchUpInside)
+        askMeButton.addTarget(self, action: #selector(InitialOnboardingNotificationsCell.didTapAskMe), forControlEvents: .TouchUpInside)
         
         skipButton.title = tr(.OnboardingNotificationsSkip)
         skipButton.applyPlainStyle()
-        skipButton.addTarget(self, action: #selector(OnboardingNotificationsCell.didTapSkip), forControlEvents: .TouchUpInside)
+        skipButton.addTarget(self, action: #selector(InitialOnboardingNotificationsCell.didTapSkip), forControlEvents: .TouchUpInside)
         
         freeSpaceContentView.addSubview(imageView)
         freeSpaceContentView.addSubview(askMeButton)

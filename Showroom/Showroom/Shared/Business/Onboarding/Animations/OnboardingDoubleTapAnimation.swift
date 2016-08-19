@@ -73,24 +73,12 @@ class OnboardingDoubleTapAnimation: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureCustomConstraints() {
-        phoneImageView.snp_makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalToSuperview()
-        }
-        
-        screenImageView.snp_makeConstraints { make in
-            make.centerX.equalTo(phoneImageView)
-            make.top.equalTo(phoneImageView).offset(screenTopOffset)
-        }
-    }
-    
-    func startAnimation() {
+    private func startAnimation() {
         self.heartMaskView.hidden = true
         performSelector(#selector(OnboardingDoubleTapAnimation.animate), withObject: nil, afterDelay: delayBeforeFirstAnimationCycle)
     }
     
-    func animate() {
+    @objc private func animate() {
         guard animating else { return }
         
         self.touchIndicator.animateDoubleTap(completion: { [weak self] _ in
@@ -107,9 +95,21 @@ class OnboardingDoubleTapAnimation: UIView {
             })
     }
     
-    func stopAnimation() {
+    private func stopAnimation() {
         touchIndicator.layer.removeAllAnimations()
         touchIndicator.touchUp()
         heartMaskView.removeTransformAnimation()
+    }
+    
+    func configureCustomConstraints() {
+        phoneImageView.snp_makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalToSuperview()
+        }
+        
+        screenImageView.snp_makeConstraints { make in
+            make.centerX.equalTo(phoneImageView)
+            make.top.equalTo(phoneImageView).offset(screenTopOffset)
+        }
     }
 }

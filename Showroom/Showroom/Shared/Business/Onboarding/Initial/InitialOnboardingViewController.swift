@@ -1,11 +1,11 @@
 import UIKit
 
-class OnboardingViewController: UIViewController, OnboardingViewDelegate {
+class InitialOnboardingViewController: UIViewController, InitialOnboardingViewDelegate {
     private let userManager: UserManager
     private let notificationsManager: NotificationsManager
     private let resolver: DiResolver
     
-    private var castView: OnboardingView { return view as! OnboardingView }
+    private var castView: InitialOnboardingView { return view as! InitialOnboardingView }
     
     init(resolver: DiResolver) {
         self.resolver = resolver
@@ -19,7 +19,7 @@ class OnboardingViewController: UIViewController, OnboardingViewDelegate {
     }
     
     override func loadView() {
-        view = OnboardingView()
+        view = InitialOnboardingView()
     }
     
     override func viewDidLoad() {
@@ -49,14 +49,14 @@ class OnboardingViewController: UIViewController, OnboardingViewDelegate {
     
     // MARK:- OnboardingViewDelegate
     
-    func onboardingDidTapSkip(view: OnboardingView) {
+    func onboardingDidTapSkip(view: InitialOnboardingView) {
         logAnalyticsEvent(.OnboardingNotificationSkip)
         sendNavigationEvent(SimpleNavigationEvent(type: .OnboardingEnd))
     }
     
-    func onboardingDidTapAskForNotification(view: OnboardingView) {
+    func onboardingDidTapAskForNotification(view: InitialOnboardingView) {
         logAnalyticsEvent(.OnboardingNotificationClicked)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(OnboardingViewController.didHideRegisterAlert), name: UIApplicationDidBecomeActiveNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(InitialOnboardingViewController.didHideRegisterAlert), name: UIApplicationDidBecomeActiveNotification, object: nil)
         if !notificationsManager.registerForRemoteNotificationsIfNeeded() {
             sendNavigationEvent(SimpleNavigationEvent(type: .OnboardingEnd))
         }

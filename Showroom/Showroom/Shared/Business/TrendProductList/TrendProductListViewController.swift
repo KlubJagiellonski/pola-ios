@@ -10,6 +10,10 @@ class TrendProductListViewController: UIViewController, ProductListViewControlle
     var productListView: ProductListViewInterface { return castView }
     var castView: TrendProductListView { return view as! TrendProductListView }
     
+    private lazy var onboardingActionAnimator: InAppOnboardingActionAnimator = { [unowned self] in
+        return InAppOnboardingActionAnimator(parentViewHeight: self.castView.bounds.height)
+    }()
+    
     init(with resolver: DiResolver, and info: EntryTrendInfo) {
         productListModel = resolver.resolve(TrendProductListModel.self, argument: info)
         super.init(nibName: nil, bundle: nil)
@@ -46,6 +50,11 @@ class TrendProductListViewController: UIViewController, ProductListViewControlle
         castView.contentInset = UIEdgeInsetsMake(topLayoutGuide.length, 0, bottomLayoutGuide.length, 0)
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        showInAppWishlistOnboardingIfNeeded()
+    }
+    
     func updateData(with data: EntryTrendInfo) {
         guard data.slug != model.entryTrendInfo.slug else {
             logInfo("Tried to update same trend info view")
@@ -70,9 +79,21 @@ class TrendProductListViewController: UIViewController, ProductListViewControlle
         }
     }
     
+    func showInAppWishlistOnboarding() {
+        let wishlistOnboardingViewController = WishlistInAppOnboardingViewController()
+        wishlistOnboardingViewController.delegate = self
+        onboardingActionAnimator.presentViewController(wishlistOnboardingViewController, presentingViewController: self)
+    }
+    
     // MARK:- ProductListViewDelegate
     
     func viewSwitcherDidTapRetry(view: ViewSwitcher) {
         fetchFirstPage()
+    }
+}
+
+extension TrendProductListViewController: WishlistInAppOnboardingViewControllerDelegate {
+    func wishlistOnboardingViewControllerDidTapDismissButton(viewController: WishlistInAppOnboardingViewController) {
+        onboardingActionAnimator.dismissViewController(presentingViewController: self)
     }
 }

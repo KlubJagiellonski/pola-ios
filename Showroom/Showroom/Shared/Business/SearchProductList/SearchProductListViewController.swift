@@ -12,6 +12,10 @@ class SearchProductListViewController: UIViewController, ProductListViewControll
     var productListView: ProductListViewInterface { return castView }
     private var castView: SearchProductListView { return view as! SearchProductListView }
     
+    private lazy var onboardingActionAnimator: InAppOnboardingActionAnimator = { [unowned self] in
+        return InAppOnboardingActionAnimator(parentViewHeight: self.castView.bounds.height)
+    }()
+    
     init(with resolver: DiResolver, entryData: EntrySearchInfo) {
         self.resolver = resolver
         productListModel = resolver.resolve(SearchProductListModel.self, argument: entryData)
@@ -49,6 +53,11 @@ class SearchProductListViewController: UIViewController, ProductListViewControll
         castView.contentInset = UIEdgeInsetsMake(topLayoutGuide.length, 0, bottomLayoutGuide.length, 0)
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        showInAppWishlistOnboardingIfNeeded()
+    }
+    
     func updateData(with data: EntrySearchInfo) {
         disposeBag = DisposeBag()
         model.update(with: data)
@@ -73,6 +82,12 @@ class SearchProductListViewController: UIViewController, ProductListViewControll
     }
     
     func pageWasFetched(result productListResult: ProductListResult, pageIndex: Int) { }
+    
+    func showInAppWishlistOnboarding() {
+        let wishlistOnboardingViewController = WishlistInAppOnboardingViewController()
+        wishlistOnboardingViewController.delegate = self
+        onboardingActionAnimator.presentViewController(wishlistOnboardingViewController, presentingViewController: self)
+    }
     
     // MARK:- ProductListViewDelegate
     
@@ -99,5 +114,11 @@ extension SearchProductListViewController: ProductFilterNavigationControllerDele
         if productListResult != nil {
             didChangeFilter(withResult: productListResult!)
         }
+    }
+}
+
+extension SearchProductListViewController: WishlistInAppOnboardingViewControllerDelegate {
+    func wishlistOnboardingViewControllerDidTapDismissButton(viewController: WishlistInAppOnboardingViewController) {
+        onboardingActionAnimator.dismissViewController(presentingViewController: self)
     }
 }

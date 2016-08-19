@@ -1,11 +1,11 @@
 import UIKit
 import SnapKit
 
-protocol OnboardingInfiniteScrollingCellDelegate: class {
-    func onboardingInfiniteScrollingDidTapNext(cell: OnboardingInfiniteScrollingCell)
+protocol InitialOnboardingInfiniteScrollingCellDelegate: class {
+    func onboardingInfiniteScrollingDidTapNext(cell: InitialOnboardingInfiniteScrollingCell)
 }
 
-class OnboardingInfiniteScrollingCell: UICollectionViewCell {
+class InitialOnboardingInfiniteScrollingCell: UICollectionViewCell {
     private let animationTopOffset: CGFloat
     private let buttonBottomOffset: CGFloat
     private let buttonHeight: CGFloat = 46.0
@@ -20,7 +20,7 @@ class OnboardingInfiniteScrollingCell: UICollectionViewCell {
         set { animation.animating = newValue }
     }
     
-    weak var delegate: OnboardingInfiniteScrollingCellDelegate?
+    weak var delegate: InitialOnboardingInfiniteScrollingCellDelegate?
     
     override init(frame: CGRect) {
         
@@ -58,7 +58,7 @@ class OnboardingInfiniteScrollingCell: UICollectionViewCell {
         
         nextButton.applyBlueStyle()
         nextButton.title = tr(.OnboardingInfiniteScrollingNext)
-        nextButton.addTarget(self, action: #selector(OnboardingInfiniteScrollingCell.didTapNext), forControlEvents: .TouchUpInside)
+        nextButton.addTarget(self, action: #selector(InitialOnboardingInfiniteScrollingCell.didTapNext), forControlEvents: .TouchUpInside)
         
         contentView.addSubview(label)
         contentView.addSubview(animation)

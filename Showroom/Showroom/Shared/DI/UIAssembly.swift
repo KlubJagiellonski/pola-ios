@@ -162,8 +162,8 @@ class UIAssembly: AssemblyType {
         container.register(SplashViewController.self) { r in
             return SplashViewController()
         }
-        container.register(OnboardingViewController.self) { r in
-            return OnboardingViewController(resolver: r.resolve(DiResolver.self)!)
+        container.register(InitialOnboardingViewController.self) { r in
+            return InitialOnboardingViewController(resolver: r.resolve(DiResolver.self)!)
         }
         container.register(ProductFilterNavigationController.self) { r, context in
             return ProductFilterNavigationController(with: r.resolve(DiResolver.self)!, and: context)

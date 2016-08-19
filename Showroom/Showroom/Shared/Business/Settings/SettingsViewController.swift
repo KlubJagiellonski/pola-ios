@@ -12,10 +12,8 @@ class SettingsViewController: UIViewController {
     
     private var firstLayoutSubviewsPassed = false
     
-    private lazy var onboardingActionAnimator: DropUpActionAnimator = { [unowned self] in
-        let animator = DropUpActionAnimator(height: self.castView.bounds.height - CGFloat(97.0))
-        animator.delegate = self
-        return animator
+    private lazy var onboardingActionAnimator: InAppOnboardingActionAnimator = { [unowned self] in
+        return InAppOnboardingActionAnimator(parentViewHeight: self.castView.bounds.height)
     }()
     private lazy var rateAppAnimator: FormSheetAnimator = { [unowned self] in
         let animator = FormSheetAnimator()
@@ -76,7 +74,7 @@ class SettingsViewController: UIViewController {
         if !Constants.isAppStore {
             settings.append(Setting(type: .Normal, labelString: "Pokaż onboarding", action: self.showOnboarding))
             settings.append(Setting(type: .Normal, labelString: "Pokaż in-app wishlist onboarding", action: self.showInAppWishlistOnboarding))
-            settings.append(Setting(type: .Normal, labelString: "Pokaż in-app product paging onboarding", action: self.showInAppProductPagingOnboarding))
+            settings.append(Setting(type: .Normal, labelString: "Pokaż in-app paging onboarding", action: self.showInAppPagingOnboarding))
             settings.append(Setting(type: .Normal, labelString: "Pokaż oceń nas (po czasie)", action: self.showRateAppAfterTime))
             settings.append(Setting(type: .Normal, labelString: "Pokaż oceń nas (po zakupie)", action: self.showRateAppAfterBuy))
         }
@@ -98,7 +96,6 @@ class SettingsViewController: UIViewController {
             firstLayoutSubviewsPassed = true
             castView.contentInset = UIEdgeInsets(top: topLayoutGuide.length, left: 0, bottom: bottomLayoutGuide.length, right: 0)
         }
-        
     }
     
     override func viewDidLoad() {
@@ -227,11 +224,10 @@ class SettingsViewController: UIViewController {
         onboardingActionAnimator.presentViewController(wishlistOnboardingViewController, presentingViewController: self)
     }
     
-    func showInAppProductPagingOnboarding() {
-        let productPagingOnboardingViewController = ProductPagingInAppOnboardingViewController()
-        productPagingOnboardingViewController.delegate = self
-        onboardingActionAnimator.presentViewController(productPagingOnboardingViewController, presentingViewController: self)
-
+    func showInAppPagingOnboarding() {
+        let pagingOnboardingViewController = PagingInAppOnboardingViewController()
+        pagingOnboardingViewController.delegate = self
+        onboardingActionAnimator.presentViewController(pagingOnboardingViewController, presentingViewController: self)
     }
     
     func showRateAppAfterTime() {
@@ -300,9 +296,9 @@ extension SettingsViewController: WishlistInAppOnboardingViewControllerDelegate 
     }
 }
 
-extension SettingsViewController: ProductPagingInAppOnboardingViewControllerDelegate {
-    func productPagingOnboardingViewControllerDidTapDismissButton(viewController: ProductPagingInAppOnboardingViewController) {
-        onboardingActionAnimator.dismissViewController(presentingViewController: self, animated: true, completion: nil)
+extension SettingsViewController: PagingInAppOnboardingViewControllerDelegate {
+    func pagingOnboardingViewControllerDidTapDismiss(viewController: PagingInAppOnboardingViewController) {
+        onboardingActionAnimator.dismissViewController(presentingViewController: self)
     }
 }
 

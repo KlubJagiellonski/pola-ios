@@ -2,38 +2,37 @@ import Foundation
 import UIKit
 import SnapKit
 
-enum HorizontalSide {
-    case Left, Right
-    var opposite: HorizontalSide { return (self == .Left) ? .Right : .Left }
+enum VerticalSide {
+    case Up, Down
+    var opposite: VerticalSide { return (self == .Up) ? .Down : .Up }
 }
 
-enum ProductPage {
+enum PhotoPage {
     case First
-    case Second(direction: HorizontalSide)
+    case Second(direction: VerticalSide)
     case Third
     
-    var nextDirection: HorizontalSide {
+    var nextDirection: VerticalSide {
         switch self {
-        case .First: return .Right
+        case .First: return .Down
         case .Second(let direction): return direction
-        case .Third: return .Left
+        case .Third: return .Up
         }
     }
     mutating func setNext() {
         switch self {
-        case .First: self = .Second(direction: .Right)
-        case .Second(direction: .Right): self = .Third
-        case .Third: self = .Second(direction: .Left)
-        case .Second(direction: .Left): self = .First
+        case .First: self = .Second(direction: .Down)
+        case .Second(direction: .Down): self = .Third
+        case .Third: self = .Second(direction: .Up)
+        case .Second(direction: .Up): self = .First
         }
     }
 }
 
-class OnboardingProductPagingAnimation: UIView {
-    private let firstPageContentToPhoneHorizontalOffset: CGFloat
-    private let contentToPhoneVerticalOffset: CGFloat
-    private let touchIndicatorToPhoneOffsetX: CGFloat = 50.0
-    private let touchIndicatorToPhoneOffsetY: CGFloat = 200.0
+final class OnboardingPhotosPagingAnimation: UIView {
+    private let firstPageContentToPhoneVerticalOffset: CGFloat
+    private let contentToPhoneHorizontalOffset: CGFloat
+    private let touchIndicatorToScreenOffsetY: CGFloat = 60.0
     
     private let phoneImageView: UIImageView
     private let screenContentMaskView = UIView()
@@ -41,17 +40,17 @@ class OnboardingProductPagingAnimation: UIView {
     
     private let touchIndicator = TouchIndicatorView()
     
-    private var screenContentLeadingConstraint: Constraint!
+    private var screenContentTopConstraint: Constraint!
     
-    private var visibleScreenContentPage: ProductPage {
+    private var visibleScreenContentPage: PhotoPage {
         didSet {
             switch visibleScreenContentPage {
             case .First:
-                screenContentLeadingConstraint.updateOffset(firstPageContentToPhoneHorizontalOffset)
+                screenContentTopConstraint.updateOffset(firstPageContentToPhoneVerticalOffset)
             case .Second:
-                screenContentLeadingConstraint.updateOffset(firstPageContentToPhoneHorizontalOffset - (screenContentImageView.bounds.width / 3))
+                screenContentTopConstraint.updateOffset(firstPageContentToPhoneVerticalOffset - (screenContentImageView.bounds.height / 3))
             case .Third:
-                screenContentLeadingConstraint.updateOffset(firstPageContentToPhoneHorizontalOffset - (screenContentImageView.bounds.width * 2 / 3))
+                screenContentTopConstraint.updateOffset(firstPageContentToPhoneVerticalOffset - (screenContentImageView.bounds.height * 2 / 3))
             }
         }
     }
@@ -71,34 +70,34 @@ class OnboardingProductPagingAnimation: UIView {
         
         switch UIDevice.currentDevice().screenType {
         case .iPhone4:
-            phoneImageView = UIImageView(image: UIImage(asset: .Onb_iphone_big_4))
-            screenContentImageView = UIImageView(image: UIImage(asset: .Onb_img_3_4))
-            firstPageContentToPhoneHorizontalOffset = 14.0
-            contentToPhoneVerticalOffset = 56.0
+            phoneImageView = UIImageView(image: UIImage(asset: .Onb_iphone_big_4_vert))
+            screenContentImageView = UIImageView(image: UIImage(asset: .Onb_img_4_4))
+            firstPageContentToPhoneVerticalOffset = 56.0
+            contentToPhoneHorizontalOffset = 11.0
             
         case .iPhone5:
-            phoneImageView = UIImageView(image: UIImage(asset: .Onb_iphone_big))
-            screenContentImageView = UIImageView(image: UIImage(asset: .Onb_img_3))
-            firstPageContentToPhoneHorizontalOffset = 15.0
-            contentToPhoneVerticalOffset = 66.0
+            phoneImageView = UIImageView(image: UIImage(asset: .Onb_iphone_big_5_vert))
+            screenContentImageView = UIImageView(image: UIImage(asset: .Onb_img_4))
+            firstPageContentToPhoneVerticalOffset = 67.0
+            contentToPhoneHorizontalOffset = 15.0
             
         case .iPhone6:
-            phoneImageView = UIImageView(image: UIImage(asset: .Onb_iphone_big_6))
-            screenContentImageView = UIImageView(image: UIImage(asset: .Onb_img_3_6))
-            firstPageContentToPhoneHorizontalOffset = 19.0
-            contentToPhoneVerticalOffset = 76.0
+            phoneImageView = UIImageView(image: UIImage(asset: .Onb_iphone_big_6_vert))
+            screenContentImageView = UIImageView(image: UIImage(asset: .Onb_img_4_6))
+            firstPageContentToPhoneVerticalOffset = 76.0
+            contentToPhoneHorizontalOffset = 17.0
             
         case .iPhone6Plus:
-            phoneImageView = UIImageView(image: UIImage(asset: .Onb_iphone_big_6p))
-            screenContentImageView = UIImageView(image: UIImage(asset: .Onb_img_3_6p))
-            firstPageContentToPhoneHorizontalOffset = 22.0
-            contentToPhoneVerticalOffset = 88.0
+            phoneImageView = UIImageView(image: UIImage(asset: .Onb_iphone_big_6p_vert))
+            screenContentImageView = UIImageView(image: UIImage(asset: .Onb_img_4_6p))
+            firstPageContentToPhoneVerticalOffset = 88.0
+            contentToPhoneHorizontalOffset = 19.0
             
         default:
-            phoneImageView = UIImageView(image: UIImage(asset: .Onb_iphone_big_6))
-            screenContentImageView = UIImageView(image: UIImage(asset: .Onb_img_3_6))
-            firstPageContentToPhoneHorizontalOffset = 19.0
-            contentToPhoneVerticalOffset = 76.0
+            phoneImageView = UIImageView(image: UIImage(asset: .Onb_iphone_big_6_vert))
+            screenContentImageView = UIImageView(image: UIImage(asset: .Onb_img_4_6))
+            firstPageContentToPhoneVerticalOffset = 76.0
+            contentToPhoneHorizontalOffset = 17.0
         }
         
         visibleScreenContentPage = .First
@@ -158,9 +157,9 @@ class OnboardingProductPagingAnimation: UIView {
             })
             
             }, completion: { [weak self] success in
-            guard let `self` = self where success else { return }
-            self.startAnimation()
-        })
+                guard let `self` = self where success else { return }
+                self.startAnimation()
+            })
     }
     
     func stopAnimation() {
@@ -169,12 +168,13 @@ class OnboardingProductPagingAnimation: UIView {
         touchIndicator.touchUp()
     }
     
-    func moveTouchIndicator(toSide side: HorizontalSide) {
+    func moveTouchIndicator(toSide side: VerticalSide) {
         switch side {
-        case .Left:
-            self.touchIndicator.frame.origin = CGPoint(x: self.touchIndicatorToPhoneOffsetX, y: self.touchIndicatorToPhoneOffsetY)
-        case .Right:
-            self.touchIndicator.frame.origin = CGPoint(x: self.phoneImageView.bounds.width - self.touchIndicator.bounds.width - self.touchIndicatorToPhoneOffsetX, y: self.touchIndicatorToPhoneOffsetY)
+        case .Up:
+            self.touchIndicator.frame.origin = CGPoint(x: self.phoneImageView.bounds.midX - touchIndicator.bounds.midX, y: self.touchIndicatorToScreenOffsetY + self.firstPageContentToPhoneVerticalOffset)
+        case .Down:
+            self.touchIndicator.frame.origin = CGPoint(x: self.phoneImageView.bounds.midX - touchIndicator.bounds.midX, y: self.phoneImageView.bounds.maxY - self.touchIndicator.bounds.maxY - self.touchIndicatorToScreenOffsetY)
+
         }
     }
     
@@ -187,8 +187,8 @@ class OnboardingProductPagingAnimation: UIView {
         }
         
         screenContentImageView.snp_makeConstraints { make in
-            screenContentLeadingConstraint = make.leading.equalTo(phoneImageView).offset(firstPageContentToPhoneHorizontalOffset).constraint
-            make.top.equalTo(phoneImageView).offset(contentToPhoneVerticalOffset)
+            make.leading.equalTo(phoneImageView).offset(contentToPhoneHorizontalOffset)
+            screenContentTopConstraint = make.top.equalTo(phoneImageView).offset(firstPageContentToPhoneVerticalOffset).constraint
         }
         
         phoneImageView.snp_makeConstraints { make in
