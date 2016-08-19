@@ -28,14 +28,8 @@ class ProductPageModel {
     }
     
     var productSharingInfo: (desc: String, url: NSURL)? {
-        let baseUrl = "https://www.showroom.pl/p/"
-        
-        if let product = state.product {
-            return (product.brand + " " + product.name, NSURL(string: baseUrl + String(product.id))!)
-            
-        } else if let productDetails = state.productDetails {
-            return (productDetails.brand.name + " " + productDetails.name, NSURL(string: baseUrl + String(productDetails.id))!)
-            
+        if let productDetails = state.productDetails, let url = NSURL(string: productDetails.link) {
+            return (productDetails.brand.name + " " + productDetails.name, url)
         } else {
             return nil
         }

@@ -49,6 +49,7 @@ struct ProductDetails {
     let description: [String]
     let emarsysCategory: String
     let freeDelivery: Bool
+    let link: String
 }
 
 struct EntryProductBrand {
@@ -186,7 +187,8 @@ extension ProductDetails: Decodable, Encodable {
             waitTime: j => "wait_time",
             description: j => "description",
             emarsysCategory: j => "emarsys_category",
-            freeDelivery: j => "free_delivery"
+            freeDelivery: j => "free_delivery",
+            link: j => "link"
         )
     }
     
@@ -203,7 +205,8 @@ extension ProductDetails: Decodable, Encodable {
             "wait_time": waitTime,
             "description": description as NSArray,
             "emarsys_category": emarsysCategory,
-            "free_delivery": freeDelivery
+            "free_delivery": freeDelivery,
+            "link": link
         ]
         return dict
     }
