@@ -61,6 +61,8 @@ class CategoryProductListViewController: UIViewController, ProductListViewContro
     }
     
     func didTapFilterButton() {
+        logAnalyticsEvent(AnalyticsEventId.ListFilterIconClicked)
+        
         guard let context = productListModel.createFilterContext() else {
             logError("Cannot create context, possible no filters")
             return

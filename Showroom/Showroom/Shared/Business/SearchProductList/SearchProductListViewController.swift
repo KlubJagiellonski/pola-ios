@@ -61,13 +61,15 @@ class SearchProductListViewController: UIViewController, ProductListViewControll
     }
     
     func didTapFilterButton() {
+        logAnalyticsEvent(AnalyticsEventId.ListFilterIconClicked)
+        
         guard let context = productListModel.createFilterContext() else {
             logError("Cannot create context, possible no filters")
             return
         }
         let viewController = resolver.resolve(ProductFilterNavigationController.self, argument: context)
         viewController.filterDelegate = self
-        presentViewController(viewController, animated: true, completion: nil)
+        presentViewController(viewController, animated: true, completion: nil)f
     }
     
     func pageWasFetched(result productListResult: ProductListResult, pageIndex: Int) { }

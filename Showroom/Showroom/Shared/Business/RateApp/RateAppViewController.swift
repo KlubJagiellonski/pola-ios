@@ -50,6 +50,8 @@ final class RateAppViewController: UIViewController, RateAppViewDelegate {
     // MARK:- RateAppViewDelegate
     
     func rateAppDidTapRate(view: RateAppView) {
+        logAnalyticsEvent(AnalyticsEventId.ModalRateUs("rate"))
+        
         manager.didSelectRateApp()
         if let appStoreUrl = NSURL(string: Constants.appStoreUrl) {
             application?.openURL(appStoreUrl)
@@ -58,11 +60,15 @@ final class RateAppViewController: UIViewController, RateAppViewDelegate {
     }
     
     func rateAppDidTapDecline(view: RateAppView) {
+        logAnalyticsEvent(AnalyticsEventId.ModalRateUs("decline"))
+        
         manager.didSelectDeclineRateApp()
         delegate?.rateAppWantsDismiss(self)
     }
     
     func rateAppDidTapRemindLater(view: RateAppView) {
+        logAnalyticsEvent(AnalyticsEventId.ModalRateUs("later"))
+        
         manager.didSelectRemindLater()
         delegate?.rateAppWantsDismiss(self)
     }

@@ -42,6 +42,8 @@ extension ProductListViewControllerInterface {
     }
     
     func fetchNextPage() {
+        logAnalyticsEvent(AnalyticsEventId.ListNextPage)
+        
         let onEvent = { [weak self](event: Event<ProductListResult>) in
             guard let `self` = self else { return }
             switch event {

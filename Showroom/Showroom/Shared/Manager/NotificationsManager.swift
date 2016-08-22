@@ -114,17 +114,24 @@ final class PushWooshManagerDelegateHandler: NSObject, PushNotificationDelegate 
             return
         }
         
+        var notificationLink: String?
+        var notificationId: Int?
+        
         if let link = customData["link"] as? String, let url = NSURL(string: link), let httpsUrl = url.changeToHTTPSchemeIfNeeded() {
+            notificationLink = link
             logInfo("Retrieved link \(link)")
             manager?.didReceive(url: httpsUrl)
         }
         
-        if let notificationId = customData["notification_id"] as? String {
-            logInfo("Retrieved notificationId \(notificationId)")
-            manager?.lastNotificationId = notificationId
+        if let id = customData["notification_id"] as? String {
+            notificationId = Int(id)
+            logInfo("Retrieved notificationId \(id)")
+            manager?.lastNotificationId = id
         } else {
             manager?.lastNotificationId = nil
         }
+        
+        logAnalyticsEvent(AnalyticsEventId.ApplicationNotification(notificationLink, notificationId))
     }
     
     func onInAppClosed(code: String!) {

@@ -75,6 +75,7 @@ class ProductFilterViewController: UIViewController, ProductFilterViewDelegate {
     
     func productFilterDidTapAccept(view: ProductFilterView) {
         logInfo("Did tap accept in product filter view")
+        logAnalyticsEvent(AnalyticsEventId.ListFilterSubmit)
         sendNavigationEvent(SimpleNavigationEvent(type: .ShowFilteredProducts))
     }
     

@@ -75,12 +75,13 @@ enum AnalyticsEventId: RawRepresentable {
     case ProfileRegisterClicked
     case ProfileGenderChoice(String)
     case ProfileLogoutClicked
+    case ProfileNotifications
     case ListBrandDetails(ObjectId)
-    case ListNextPage(String)
+    case ListNextPage
     case ListProductClicked(ObjectId)
     case ListAddToWishlist(ObjectId)
-    case ListFilterSubmit(String)
-    case ListFilterIconClicked(String)
+    case ListFilterSubmit
+    case ListFilterIconClicked
     case ListFilterChanged(FilterId)
     case ProductClose(ObjectId)
     case ProductAddToWishlist(ObjectId)
@@ -113,7 +114,10 @@ enum AnalyticsEventId: RawRepresentable {
     case CheckoutSummaryPaymentMethodClicked(ObjectId)
     case CheckoutSummaryFinishButtonClicked
     case CheckoutSummaryPaymentStatus(Bool, ObjectId)
-    
+    case ApplicationNotification(String?, Int?)
+    case ApplicationLaunch(Int)
+    case ModalRateUs(String)
+    case ModalPush(String)
     
     typealias RawValue = AnalyticsEvent
     var rawValue: RawValue {
@@ -172,18 +176,20 @@ enum AnalyticsEventId: RawRepresentable {
             return AnalyticsEvent(category: "profile", action: "gender_choice", label: gender, value: nil)
         case ProfileLogoutClicked:
             return AnalyticsEvent(category: "profile", action: "logout", label: nil, value: nil)
+        case ProfileNotifications:
+            return AnalyticsEvent(category: "profile", action: "ask_notifications", label: nil, value: nil)
         case ListBrandDetails(let brandId):
             return AnalyticsEvent(category: "listing", action: "designer_details", label: nil, value: brandId)
-        case ListNextPage(let link):
-            return AnalyticsEvent(category: "listing", action: "list_scroll", label: link, value: nil)
+        case ListNextPage():
+            return AnalyticsEvent(category: "listing", action: "list_scroll", label: nil, value: nil)
         case ListProductClicked(let id):
             return AnalyticsEvent(category: "listing", action: "product_click", label: nil, value: id)
         case ListAddToWishlist(let id):
             return AnalyticsEvent(category: "listing", action: "add_to_wishlist", label: nil, value: id)
-        case ListFilterSubmit(let link):
-            return AnalyticsEvent(category: "listing", action: "filter_submit", label: link, value: nil)
-        case ListFilterIconClicked(let link):
-            return AnalyticsEvent(category: "listing", action: "filter_click", label: link, value: nil)
+        case ListFilterSubmit:
+            return AnalyticsEvent(category: "listing", action: "filter_submit", label: nil, value: nil)
+        case ListFilterIconClicked:
+            return AnalyticsEvent(category: "listing", action: "filter_click", label: nil, value: nil)
         case ListFilterChanged(let filterId):
             return AnalyticsEvent(category: "listing", action: "filter_change", label: filterId, value: nil)
         case ProductClose(let id):
@@ -248,6 +254,14 @@ enum AnalyticsEventId: RawRepresentable {
             return AnalyticsEvent(category: "checkout_summary", action: "finish_button_click", label: nil, value: nil)
         case CheckoutSummaryPaymentStatus(let success, let methodId):
             return AnalyticsEvent(category: "checkout_summary", action: "payment_status", label: success ? "true" : "false", value: methodId)
+        case ApplicationNotification(let link, let notificationId):
+            return AnalyticsEvent(category: "application", action: "notification", label: link, value: notificationId)
+        case ApplicationLaunch(let launchCounter):
+            return AnalyticsEvent(category: "application", action: "launch", label: nil, value: launchCounter)
+        case ModalRateUs(let buttonType):
+            return AnalyticsEvent(category: "modal", action: "rate_us", label: buttonType, value: nil)
+        case ModalPush(let buttonType):
+            return AnalyticsEvent(category: "modal", action: "push", label: buttonType, value: nil)
         }
     }
     init?(rawValue: RawValue) {

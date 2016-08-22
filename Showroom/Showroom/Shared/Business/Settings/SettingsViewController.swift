@@ -159,6 +159,7 @@ class SettingsViewController: UIViewController {
     
     func askForNotificationPressed() {
         logInfo("Ask for notification pressed")
+        logAnalyticsEvent(AnalyticsEventId.ProfileNotifications)
         notificationsManager.registerForRemoteNotificationsIfNeeded()
         updateSettings(with: userManager.user)
     }

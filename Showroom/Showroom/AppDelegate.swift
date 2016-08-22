@@ -18,10 +18,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         manager.delegate = self
         return manager
     }()
+    private var launchCount: Int {
+        let launchCountKey = "launch_count"
+        let count = NSUserDefaults.standardUserDefaults().integerForKey(launchCountKey) + 1
+        NSUserDefaults.standardUserDefaults().setInteger(count, forKey: launchCountKey)
+        return count
+    }
     
     private var quickActionManager: QuickActionManager!
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        logAnalyticsEvent(AnalyticsEventId.ApplicationLaunch(launchCount))
+        
         configureDependencies()
         quickActionManager = assembler.resolver.resolve(QuickActionManager.self)
         quickActionManager.delegate = self
