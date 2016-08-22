@@ -62,13 +62,15 @@ class ProductRecommendationCell: UICollectionViewCell {
         super.layoutSubviews()
         
         //we need to make name label smaller (by changing number of lines), when it is overlapping base price or price label
-        let nameMaxY = CGRectGetMinY(nameLabel.frame) + nameLabel.text!.heightWithConstrainedWidth(nameLabel.bounds.width, font: nameLabel.font)
+        let nameHeight = nameLabel.text!.heightWithConstrainedWidth(nameLabel.bounds.width, font: nameLabel.font)
+        let nameMaxY = CGRectGetMinY(nameLabel.frame) + nameHeight
         let nameOverlappingPriceLabel = nameMaxY > CGRectGetMinY(priceLabel.frame)
         let nameOverlappingBasePriceLabel = isBasePriceVisible() && nameMaxY > CGRectGetMinY(basePriceLabel.frame)
         if nameOverlappingPriceLabel && nameOverlappingBasePriceLabel {
             nameLabel.numberOfLines = 1
         } else if nameOverlappingPriceLabel || nameOverlappingBasePriceLabel {
-            nameLabel.numberOfLines = 2
+            let nameAlreadyHave2Lines = nameHeight >=  2 * nameLabel.font.lineHeight && nameHeight <= 3 * nameLabel.font.lineHeight
+            nameLabel.numberOfLines = nameAlreadyHave2Lines ? 1 : 2
         } else {
             nameLabel.numberOfLines = 3
         }
