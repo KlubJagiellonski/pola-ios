@@ -69,7 +69,7 @@ class SearchProductListViewController: UIViewController, ProductListViewControll
         }
         let viewController = resolver.resolve(ProductFilterNavigationController.self, argument: context)
         viewController.filterDelegate = self
-        presentViewController(viewController, animated: true, completion: nil)f
+        presentViewController(viewController, animated: true, completion: nil)
     }
     
     func pageWasFetched(result productListResult: ProductListResult, pageIndex: Int) { }
