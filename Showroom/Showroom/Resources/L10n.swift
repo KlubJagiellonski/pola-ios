@@ -315,6 +315,12 @@ enum L10n {
   case SettingsRules
   /// Kontakt
   case SettingsContact
+  /// Wyślij uwagi na temat aplikacji
+  case SettingsSendReport
+  /// Uwagi na temat aplikacji SHOWROOM
+  case SettingsSendReportTitle
+  /// Brak skonfigurowanego konta e-mail w systemie.
+  case SettingsSendReportMailNotConfigured
   /// przeglądaj produkty
   case StartBrowse
   /// DLA NIEJ
@@ -704,6 +710,12 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Settings.Rules")
       case .SettingsContact:
         return L10n.tr("Settings.Contact")
+      case .SettingsSendReport:
+        return L10n.tr("Settings.SendReport")
+      case .SettingsSendReportTitle:
+        return L10n.tr("Settings.SendReport.Title")
+      case .SettingsSendReportMailNotConfigured:
+        return L10n.tr("Settings.SendReport.MailNotConfigured")
       case .StartBrowse:
         return L10n.tr("Start.Browse")
       case .StartForHer:

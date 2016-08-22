@@ -154,6 +154,9 @@
 "Settings.FrequentQuestions" = "Częste pytania";
 "Settings.Rules" = "Regulamin";
 "Settings.Contact" = "Kontakt";
+"Settings.SendReport" = "Wyślij uwagi na temat aplikacji";
+"Settings.SendReport.Title" = "Uwagi na temat aplikacji SHOWROOM";
+"Settings.SendReport.MailNotConfigured" = "Brak skonfigurowanego konta e-mail w systemie.";
 "Start.Browse" = "przeglądaj produkty";
 "Start.ForHer" = "DLA NIEJ";
 "Start.ForHim" = "DLA NIEGO";

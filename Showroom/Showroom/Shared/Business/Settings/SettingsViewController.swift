@@ -1,11 +1,13 @@
 import Foundation
 import UIKit
 import RxSwift
+import MessageUI
 
 class SettingsViewController: UIViewController {
     private let userManager: UserManager
     private let notificationsManager: NotificationsManager
     private let disposeBag = DisposeBag()
+    private let toastManager: ToastManager
     private var castView: SettingsView { return view as! SettingsView }
     
     private var firstLayoutSubviewsPassed = false
@@ -27,6 +29,7 @@ class SettingsViewController: UIViewController {
         self.resolver = resolver
         self.userManager = resolver.resolve(UserManager.self)
         self.notificationsManager = resolver.resolve(NotificationsManager.self)
+        self.toastManager = resolver.resolve(ToastManager.self)
         
         super.init(nibName: nil, bundle: nil)
         self.userManager.userObservable.subscribeNext(updateSettings).addDisposableTo(disposeBag)
@@ -67,7 +70,8 @@ class SettingsViewController: UIViewController {
             Setting(type: .Normal, labelString: tr(.SettingsPrivacyPolicy), action: self.privacyPolicyRowPressed),
             Setting(type: .Normal, labelString: tr(.SettingsFrequentQuestions), action: self.frequentQuestionsRowPressed),
             Setting(type: .Normal, labelString: tr(.SettingsRules), action: self.rulesRowPressed),
-            Setting(type: .Normal, labelString: tr(.SettingsContact), action: self.contactRowPressed)
+            Setting(type: .Normal, labelString: tr(.SettingsContact), action: self.contactRowPressed),
+            Setting(type: .Normal, labelString: tr(.SettingsSendReport), action: self.sendReportPressed)
         ])
         if !Constants.isAppStore {
             settings.append(Setting(type: .Normal, labelString: "Pokaż onboarding", action: self.showOnboarding))
@@ -245,9 +249,38 @@ class SettingsViewController: UIViewController {
         rateAppAnimator.presentViewController(viewController, presentingViewController: self)
     }
     
+    func sendReportPressed() {
+        castView.deselectRowsIfNeeded()
+        
+        guard MFMailComposeViewController.canSendMail() else {
+            toastManager.showMessage(tr(.SettingsSendReportMailNotConfigured))
+            return
+        }
+        
+        let viewController = MFMailComposeViewController()
+        viewController.mailComposeDelegate = self
+        viewController.setSubject(tr(.SettingsSendReportTitle))
+        viewController.setToRecipients([Constants.reportEmail])
+        if let deviceInfo = generateReportDeviceInfo() {
+            viewController.addAttachmentData(deviceInfo, mimeType: "text/plain", fileName: "report.txt")
+        }
+        presentViewController(viewController, animated: true, completion: nil)
+    }
+    
     private func didChange(gender gender: Gender) {
         logAnalyticsEvent(AnalyticsEventId.ProfileGenderChoice(gender.rawValue))
         userManager.gender = gender
+    }
+    
+    private func generateReportDeviceInfo() -> NSData? {
+        let device = UIDevice.currentDevice()
+        
+        var deviceInfo = ""
+        deviceInfo += "systemInfo: \(device.systemName), \(device.systemVersion)\n"
+        deviceInfo += "deviceInfo: \(device.name), \(device.model), \(device.screenType.rawValue), \(device.modelName)\n"
+        deviceInfo += "appInfo: \(NSBundle.appVersionNumber), \(NSBundle.appBuildNumber)\n"
+        deviceInfo += "preferredLanguages: \(NSLocale.preferredLanguages())\n"
+        return deviceInfo.dataUsingEncoding(NSUTF8StringEncoding)
     }
 }
 
@@ -282,5 +315,11 @@ extension SettingsViewController: DimAnimatorDelegate {
 extension SettingsViewController: RateAppViewControllerDelegate {
     func rateAppWantsDismiss(viewController: RateAppViewController) {
         rateAppAnimator.dismissViewController(presentingViewController: self)
+    }
+}
+
+extension SettingsViewController: MFMailComposeViewControllerDelegate {
+    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+        dismissViewControllerAnimated(true, completion: nil)
     }
 }

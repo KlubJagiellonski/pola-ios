@@ -11,4 +11,12 @@ extension NSBundle {
     static var pushwooshAppId: String {
         return NSBundle.mainBundle().objectForInfoDictionaryKey("Pushwoosh_APPID") as! String
     }
+    
+    static var appVersionNumber: String {
+        return NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as! String
+    }
+    
+    static var appBuildNumber: String {
+        return NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleVersion") as! String
+    }
 }

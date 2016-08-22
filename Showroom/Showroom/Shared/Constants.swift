@@ -20,6 +20,8 @@ struct Constants {
     
     static let appStoreUrl = "itms-apps://itunes.apple.com/app/APP_ID" //todo write here appstore app id when we will have it
     
+    static let reportEmail = "ios+v1@showroom.pl"
+    
     #if APPSTORE
     static let googleAnalyticsTrackingId = "UA-28549987-7"
     #else
