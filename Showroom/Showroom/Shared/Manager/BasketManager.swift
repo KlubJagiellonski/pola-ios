@@ -63,21 +63,23 @@ final class BasketManager {
             .save(Constants.Persistent.basketStateId, storageManager: storageManager)
             .observeOn(MainScheduler.instance)
             .subscribe { [weak self](event: Event<BasketState>) in
-                guard let strongSelf = self else { return }
+                guard let `self` = self else { return }
                 
                 switch event {
                 case .Next(let state):
                     logInfo("Validated basket: \(state.basket)")
-                    strongSelf.state.validationState = BasketValidationState(validating: false, validated: true)
+                    self.state.validationState = BasketValidationState(validating: false, validated: true)
                 case .Error(let error):
                     if let urlError = error as? RxCocoaURLError, case let .HTTPRequestFailed(response, _) = urlError
-                        where response.statusCode >= 400 && response.statusCode < 600 {
+                        where response.statusCode >= 400 && response.statusCode < 500 {
+                        //it should not happened, that we get 400. But if this happenes we should clear basket and logError
                         logError("Error during basket validation: \(error)")
+                        self.clearBasket()
                     } else {
                         logInfo("Error during basket validation: \(error)")
                     }
                     
-                    strongSelf.state.validationState = BasketValidationState(validating: false, validated: false)
+                    self.state.validationState = BasketValidationState(validating: false, validated: false)
                 default: break
                 }
         }.addDisposableTo(disposeBag)
@@ -86,7 +88,13 @@ final class BasketManager {
     func addToBasket(product: BasketProduct, of brand: BasketBrand) {
         logInfo("Adding to basket \(product), brandId \(brand.id)")
         guard state.basket?.isPossibleToAddProduct(product, of: brand, maxProductAmount: Constants.basketProductAmountLimit) ?? false else {
-            logInfo("It is not possible to add product to basket")
+            let error = "It is not possible to add product to basket \(state.basket), product \(product)"
+            if state.basket == nil {
+                //it is somehow possible (when no internet connection on app startup, or basket clearing), but to know if it really happens to user we will look at errors
+                logError(error)
+            } else {
+                logInfo(error)
+            }
             return
         }
         state.basket?.add(product, of: brand)
@@ -112,6 +120,11 @@ final class BasketManager {
     func clearBasket() {
         logInfo("Clearing basket")
         state.clear()
+        do {
+            try storageManager.save(Constants.Persistent.basketStateId, object: state)
+        } catch {
+            logError("Cannot save basket while clearing \(error)")
+        }
         validate()
     }
     
