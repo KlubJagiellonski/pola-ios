@@ -24,6 +24,7 @@ class FilterDetailsView: UIView, UITableViewDelegate {
         tableView.dataSource = dataSource
         tableView.delegate = self
         tableView.separatorStyle = .None
+        tableView.sectionIndexColor = UIColor(named: .Blue)
         
         acceptButton.title = tr(.ProductListFilterApply)
         acceptButton.applyBlueStyle()

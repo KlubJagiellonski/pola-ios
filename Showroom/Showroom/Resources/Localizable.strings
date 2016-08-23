@@ -170,7 +170,7 @@
 "Onboarding.DoubleTap.Label" = "Stuknij dwukrotnie w zdjęcie,\naby dodać produkt do ulubionych";
 "Onboarding.ProductPaging.Label" = "Przesuń palcem w bok, aby przejść do kolejnego produktu z listy";
 "Search.Placeholder" = "szukaj";
-"Search.AllSearchItems" = "WSZYSTKO: %@";
+"Search.AllSearchItems" = "Wszystko: %@";
 "Search.Back" = "Cofnij";
 "Wishlist.Empty.Description" = "Możesz łatwo dodawać produkty z\U00A0listy dwukrotnie stukając palcem w\U00A0ich zdjęcia.";
 "Wishlist.Delete" = "Usuń";

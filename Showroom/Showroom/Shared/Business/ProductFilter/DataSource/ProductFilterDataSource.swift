@@ -11,6 +11,15 @@ extension Filter {
                 logError("There is no choice for selectedId \(self)")
             }
         }
+        
+        if let defaultId = defaultId where selectedChoices.isEmpty {
+            if let choice = choices!.find({ $0.id == defaultId }) {
+                selectedChoices.append(choice)
+            } else {
+                logError("There is no choice for defaultId \(self)")
+            }
+        }
+        
         return createText(fromArray: selectedChoices) { $0.name }
     }
     

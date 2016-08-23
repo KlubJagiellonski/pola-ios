@@ -204,9 +204,11 @@ extension SearchView: UISearchBarDelegate {
             self.dimView.alpha = 0
         }) { [weak self] _ in
             self?.dimView.hidden = true
+            self?.searchBar.text = nil
         }
         return true
     }
+    
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         guard let query = searchBar.text else { return }
         searchBar.resignFirstResponder()

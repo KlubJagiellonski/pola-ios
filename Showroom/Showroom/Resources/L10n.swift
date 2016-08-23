@@ -347,7 +347,7 @@ enum L10n {
   case OnboardingProductPagingLabel
   /// szukaj
   case SearchPlaceholder
-  /// WSZYSTKO: %@
+  /// Wszystko: %@
   case SearchAllSearchItems(String)
   /// Cofnij
   case SearchBack
