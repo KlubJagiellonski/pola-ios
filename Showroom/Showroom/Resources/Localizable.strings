@@ -58,7 +58,6 @@
 "Checkout.Delivery.AddressForm.City" = "Miejscowość";
 "Checkout.Delivery.AddressForm.Country" = "Kraj";
 "Checkout.Delivery.AddressForm.Phone" = "Numer telefonu";
-"Checkout.Delivery.Adress.Header" = "Adres";
 "Checkout.Delivery.Adress.Edit" = "EDYTUJ ADRES";
 "Checkout.Delivery.Adress.Add" = "DODAJ INNY ADRES";
 "Checkout.Delivery.Adress.Street" = "ul.";
@@ -135,7 +134,6 @@
 "ResetPassword.Reset" = "ZRESETUJ";
 "ResetPassword.SuccessDescription" = "Nowe hasło zostało wysłane na podany adres e-mail.";
 "Validator.NotEmpty" = "To pole nie może być puste";
-"Validator.PhoneNumber" = "Brakuje międzynarodowego numeru kierunkowego (np. +48)";
 "Validator.Email" = "Niepoprawny format adresu";
 "Brand.AboutTitle" = "O projektancie";
 "Validator.RepeatPassword" = "Powtórzone hasło jest inne";

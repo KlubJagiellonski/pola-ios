@@ -36,61 +36,6 @@ extension AddressFormField: CustomStringConvertible {
         }
         return validators
     }
-    
-    private var placeholder: String? {
-        switch self {
-        case Phone:
-            return "+48"
-        default:
-            return nil
-        }
-    }
-}
-
-extension DeliveryCarrier {
-    private var checkoutHeaderText: String {
-        switch id {
-        case .RUCH:
-            return tr(.CheckoutDeliveryRUCHHeader)
-        case .UPS:
-            return tr(.CheckoutDeliveryCourierHeader)
-        case .Unknown:
-            logError("Unknown carrier type \(id)")
-            return ""
-        }
-    }
-}
-
-class CheckoutDeliveryInfoHeaderView: UIView {
-    let label = UILabel()
-
-    init(carrier: DeliveryCarrier) {
-        super.init(frame: CGRectZero)
-        label.font = UIFont(fontType: .Description)
-        label.numberOfLines = 2
-        label.lineBreakMode = .ByWordWrapping
-        label.text = carrier.checkoutHeaderText
-
-        addSubview(label)
-        configureCustomConstraints()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func configureCustomConstraints() {
-        label.snp_makeConstraints { make in
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
-            make.top.equalToSuperview()
-            make.bottom.equalToSuperview()
-        }
-    }
-    
-    override func intrinsicContentSize() -> CGSize {
-        return CGSizeMake(UIViewNoIntrinsicMetric, label.intrinsicContentSize().height + 2 * Dimensions.defaultMargin)
-    }
 }
 
 class CheckoutDeliveryInputView: FormInputView {
@@ -125,7 +70,6 @@ class CheckoutDeliveryInputView: FormInputView {
     
     private func updateTextField(addressFormField addressFormField: AddressFormField) {
         addValidators(addressFormField.validators)
-        inputTextField.placeholder = addressFormField.placeholder
         switch addressFormField {
         case .FirstName(let value): inputTextField.text = value
         case .LastName(let value): inputTextField.text = value
@@ -144,29 +88,29 @@ class CheckoutDeliveryInputView: FormInputView {
     }
 }
 
-class CheckoutDeliveryLabelView: UIView {
+final class CheckoutDeliveryLabelView: UIView {
     static let labelHeight: CGFloat = 17.0
     static let inset: CGFloat = 10.0
     
     let label = UILabel()
     
-    init(text: String) {
+    init(text: String, topMargin: CGFloat) {
         super.init(frame: CGRectZero)
         label.text = text
         label.font = UIFont(fontType: .FormBold)
         addSubview(label)
-        configureCustomConstraints()
+        configureCustomConstraints(topMargin: topMargin)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureCustomConstraints() {
+    private func configureCustomConstraints(topMargin topMargin: CGFloat) {
         label.snp_makeConstraints { make in
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
-            make.top.equalToSuperview()
+            make.top.equalToSuperview().offset(topMargin)
             make.height.equalTo(CheckoutDeliveryLabelView.labelHeight)
             make.bottom.equalToSuperview().inset(CheckoutDeliveryLabelView.inset)
         }

@@ -129,7 +129,7 @@ class CheckoutDeliveryView: ViewSwitcher {
             view.removeFromSuperview()
         }
         
-        stackView.addArrangedSubview(CheckoutDeliveryInfoHeaderView(carrier: checkoutState.checkout.deliveryCarrier))
+        stackView.addArrangedSubview(CheckoutDeliveryLabelView(text: checkoutState.checkout.deliveryCarrier.checkoutHeaderText, topMargin: Dimensions.defaultMargin))
         
         switch addressInput {
         case .Form(let fields):
@@ -146,8 +146,6 @@ class CheckoutDeliveryView: ViewSwitcher {
             }
             
         case .Options(let addresses):
-            stackView.addArrangedSubview(CheckoutDeliveryLabelView(text: tr(.CheckoutDeliveryAdressHeader)))
-            
             for address in addresses {
                 let addressOptionView = CheckoutDeliveryAddressOptionView(address: stringFromAddressFormFields(address), selected: false)
                 addressOptionView.deliveryView = self
@@ -162,7 +160,7 @@ class CheckoutDeliveryView: ViewSwitcher {
             updateAddressOptions(selectedIndex: selectedAddressIndex)
         }
         
-        stackView.addArrangedSubview(CheckoutDeliveryLabelView(text: tr(.CheckoutDeliveryDeliveryHeader)))
+        stackView.addArrangedSubview(CheckoutDeliveryLabelView(text: tr(.CheckoutDeliveryDeliveryHeader), topMargin: 0))
         
         let deliveryDetailsView = CheckoutDeliveryDetailsView(checkoutState: checkoutState)
         deliveryDetailsView.deliveryView = self
@@ -263,6 +261,20 @@ extension CheckoutDeliveryView: KeyboardHelperDelegate, KeyboardHandler {
     func keyboardHelperChangedKeyboardState(fromFrame: CGRect, toFrame: CGRect, duration: Double, animationOptions: UIViewAnimationOptions, visible: Bool) {
         let bottomOffset = keyboardHelper.retrieveBottomMargin(self, keyboardToFrame: toFrame) - nextButton.bounds.height
         scrollView.contentInset = UIEdgeInsetsMake(0, 0, max(bottomOffset, 0), 0)
+    }
+}
+
+extension DeliveryCarrier {
+    private var checkoutHeaderText: String {
+        switch id {
+        case .RUCH:
+            return tr(.CheckoutDeliveryRUCHHeader)
+        case .UPS:
+            return tr(.CheckoutDeliveryCourierHeader)
+        case .Unknown:
+            logError("Unknown carrier type \(id)")
+            return ""
+        }
     }
 }
 

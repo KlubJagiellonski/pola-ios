@@ -123,8 +123,6 @@ enum L10n {
   case CheckoutDeliveryAddressFormCountry
   /// Numer telefonu
   case CheckoutDeliveryAddressFormPhone
-  /// Adres
-  case CheckoutDeliveryAdressHeader
   /// EDYTUJ ADRES
   case CheckoutDeliveryAdressEdit
   /// DODAJ INNY ADRES
@@ -277,8 +275,6 @@ enum L10n {
   case ResetPasswordSuccessDescription
   /// To pole nie może być puste
   case ValidatorNotEmpty
-  /// Brakuje międzynarodowego numeru kierunkowego (np. +48)
-  case ValidatorPhoneNumber
   /// Niepoprawny format adresu
   case ValidatorEmail
   /// O projektancie
@@ -524,8 +520,6 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Checkout.Delivery.AddressForm.Country")
       case .CheckoutDeliveryAddressFormPhone:
         return L10n.tr("Checkout.Delivery.AddressForm.Phone")
-      case .CheckoutDeliveryAdressHeader:
-        return L10n.tr("Checkout.Delivery.Adress.Header")
       case .CheckoutDeliveryAdressEdit:
         return L10n.tr("Checkout.Delivery.Adress.Edit")
       case .CheckoutDeliveryAdressAdd:
@@ -678,8 +672,6 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("ResetPassword.SuccessDescription")
       case .ValidatorNotEmpty:
         return L10n.tr("Validator.NotEmpty")
-      case .ValidatorPhoneNumber:
-        return L10n.tr("Validator.PhoneNumber")
       case .ValidatorEmail:
         return L10n.tr("Validator.Email")
       case .BrandAboutTitle:
