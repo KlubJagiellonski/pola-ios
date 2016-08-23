@@ -61,6 +61,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         logInfo("Received url \(url) with options: \(sourceApplication)")
         
         if let httpsUrl = url.changeToHTTPSchemeIfNeeded() {
+            Analytics.sharedInstance.affilation = httpsUrl.retrieveUtmSource()
             return handleOpen(withURL: httpsUrl)
         } else {
             return false

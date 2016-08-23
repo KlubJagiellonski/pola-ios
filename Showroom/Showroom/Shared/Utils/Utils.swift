@@ -114,6 +114,16 @@ extension NSURL {
         }
         return components?.URL
     }
+    
+    func retrieveUtmSource() -> String? {
+        guard let components = NSURLComponents(URL: self, resolvingAgainstBaseURL: true) else {
+            return nil
+        }
+        guard let queryItems = components.queryItems else {
+            return nil
+        }
+        return queryItems.filter { $0.name == "utm_source" }.first?.value
+    }
 }
 
 extension CALayer {

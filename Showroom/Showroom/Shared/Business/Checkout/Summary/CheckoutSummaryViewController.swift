@@ -157,7 +157,7 @@ final class CheckoutSummaryViewController: UIViewController, CheckoutSummaryView
             case .Next(let result):
                 logInfo("Payment success \(result)")
                 logAnalyticsEvent(AnalyticsEventId.CheckoutSummaryPaymentStatus(true, self.model.state.selectedPayment.id.rawValue))
-                logAnalyticsTransactionEvent(with: result, products: self.model.state.checkout.basket.products, affilation: self.model.takeAffilation())
+                logAnalyticsTransactionEvent(with: result, products: self.model.state.checkout.basket.products)
                 self.sendNavigationEvent(SimpleNavigationEvent(type: .ShowPaymentSuccess))
                 self.model.clearBasket()
             case .Error(let error):

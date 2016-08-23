@@ -9,8 +9,8 @@ func logAnalyticsEvent(eventId: AnalyticsEventId) {
     Analytics.sharedInstance.sendEvent(eventId)
 }
 
-func logAnalyticsTransactionEvent(with payment: PaymentResult, products: [BasketProduct], affilation: String?) {
-    Analytics.sharedInstance.sendAnalyticsTransactionEvent(with: payment, products: products, affilation: affilation ?? Constants.googleAnalyticsDefaultAffilation)
+func logAnalyticsTransactionEvent(with payment: PaymentResult, products: [BasketProduct]) {
+    Analytics.sharedInstance.sendAnalyticsTransactionEvent(with: payment, products: products)
 }
 
 enum AnalyticsScreenId: String {
@@ -285,10 +285,16 @@ final class Analytics {
     static let sharedInstance = Analytics()
     
     private let tracker: GAITracker
+    private let affilationKey = "affilation_key"
     
     var userId: String? {
         set { tracker.set(kGAIUserId, value: newValue) }
         get { return tracker.get(kGAIUserId) }
+    }
+    
+    var affilation: String? {
+        set { NSUserDefaults.standardUserDefaults().setObject(newValue, forKey: affilationKey) }
+        get { return NSUserDefaults.standardUserDefaults().objectForKey(affilationKey) as? String }
     }
     
     init() {
@@ -307,10 +313,10 @@ final class Analytics {
         tracker.send(eventId.rawValue.analyticsData)
     }
     
-    func sendAnalyticsTransactionEvent(with payment: PaymentResult, products: [BasketProduct], affilation: String) {
+    func sendAnalyticsTransactionEvent(with payment: PaymentResult, products: [BasketProduct]) {
         let transaction = GAIDictionaryBuilder.createTransactionWithId(
             String(payment.orderId),
-            affiliation: affilation,
+            affiliation: affilation ?? "",
             revenue: payment.amount,
             tax: payment.taxAmount,
             shipping: payment.shippingAmount,
@@ -330,5 +336,7 @@ final class Analytics {
             ).build()
             tracker.send(item as [NSObject: AnyObject])
         }
+        
+        affilation = nil
     }
 }

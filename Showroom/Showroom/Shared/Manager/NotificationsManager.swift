@@ -19,14 +19,6 @@ final class NotificationsManager {
     }
     private let pushWooshManager = PushNotificationManager.pushManager()
     private let pushWooshManagerDelegateHandler = PushWooshManagerDelegateHandler()
-    private var lastNotificationId: String? {
-        set {
-            NSUserDefaults.standardUserDefaults().setObject(newValue, forKey: lastNotificationIdKey)
-        }
-        get {
-            return NSUserDefaults.standardUserDefaults().objectForKey(lastNotificationIdKey) as? String
-        }
-    }
     weak var delegate: NotificationsManagerDelegate?
     
     init(with api: ApiService, and application: UIApplication) {
@@ -92,13 +84,6 @@ final class NotificationsManager {
         pushWooshManager.handlePushRegistrationFailure(error)
     }
     
-    func takeNotificationId() -> String? {
-        let lastNotificationId = self.lastNotificationId
-        logInfo("Taking last notification id \(lastNotificationId)")
-        self.lastNotificationId = nil
-        return lastNotificationId
-    }
-    
     private func didReceive(url url: NSURL) {
         delegate?.notificationManager(self, didReceiveUrl: url)
     }
@@ -126,9 +111,9 @@ final class PushWooshManagerDelegateHandler: NSObject, PushNotificationDelegate 
         if let id = customData["notification_id"] as? String {
             notificationId = Int(id)
             logInfo("Retrieved notificationId \(id)")
-            manager?.lastNotificationId = id
+            Analytics.sharedInstance.affilation = id
         } else {
-            manager?.lastNotificationId = nil
+            Analytics.sharedInstance.affilation = nil
         }
         
         logAnalyticsEvent(AnalyticsEventId.ApplicationNotification(notificationLink, notificationId))

@@ -27,20 +27,18 @@ final class CheckoutModel {
     private let basketManager: BasketManager
     private let api: ApiService
     private let emarsysService: EmarsysService
-    private let notificationsManager: NotificationsManager
     let state: CheckoutState
     weak var payUDelegate: PUPaymentServiceDelegate? {
         set { payUManager.serviceDelegate = newValue }
         get { return payUManager.serviceDelegate }
     }
     
-    init(with checkout: Checkout, userManager: UserManager, payUManager: PayUManager, api: ApiService, basketManager: BasketManager, emarsysService: EmarsysService, notificationsManager: NotificationsManager) {
+    init(with checkout: Checkout, userManager: UserManager, payUManager: PayUManager, api: ApiService, basketManager: BasketManager, emarsysService: EmarsysService) {
         self.userManager = userManager
         self.payUManager = payUManager
         self.api = api
         self.basketManager = basketManager
         self.emarsysService = emarsysService
-        self.notificationsManager = notificationsManager
         
         let comments = [String?](count: checkout.basket.productsByBrands.count, repeatedValue: nil)
         let userAddresses = checkout.user.userAddresses
@@ -172,10 +170,6 @@ final class CheckoutModel {
     
     func clearBasket() {
         basketManager.clearBasket()
-    }
-    
-    func takeAffilation() -> String? {
-        return notificationsManager.takeNotificationId()
     }
 }
 
