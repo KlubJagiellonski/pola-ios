@@ -12,6 +12,7 @@ class FormSheetAnimator: NSObject, UIViewControllerTransitioningDelegate, Animat
     }
     
     func presentViewController(presentedViewController: UIViewController, presentingViewController: UIViewController, completion: (() -> Void)? = nil) {
+        logInfo("Presenting \(presentedViewController.dynamicType) in \(presentingViewController.dynamicType) with form sheet animation")
         presentedViewController.modalPresentationStyle = .Custom
         presentedViewController.transitioningDelegate = self
         
@@ -19,10 +20,12 @@ class FormSheetAnimator: NSObject, UIViewControllerTransitioningDelegate, Animat
     }
     
     func dismissViewController(presentingViewController presentingViewController: UIViewController, animated: Bool = true, completion: (() -> Void)? = nil) {
+        logInfo("Dismissing to \(presentingViewController.dynamicType) with form sheet animation")
         presentingViewController.dismissViewControllerAnimated(true, completion: completion)
     }
     
     func didTapDimView(sender: UITapGestureRecognizer) {
+        logInfo("Did tap dim view")
         delegate?.animatorDidTapOnDimView(self)
     }
     
@@ -56,6 +59,8 @@ class FormSheetAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransiti
         let finalFrame = calculateFinalFrame(containerView.bounds)
         let scaleFactor = initialFrame.width / finalFrame.width
         
+        logInfo("Animating \(presentedView.dynamicType) in \(presentingView.dynamicType) from \(initialFrame) to \(finalFrame)")
+        
         presentedView.frame = finalFrame
         
         let scaleTransform = CGAffineTransformMakeScale(scaleFactor, scaleFactor)
@@ -81,6 +86,8 @@ class FormSheetAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransiti
         let finalFrame = calculateInitialFrame(containerView.bounds)
         let scaleFactor = finalFrame.width / initialFrame.width
         let scaleTransform = CGAffineTransformMakeScale(scaleFactor, scaleFactor)
+        
+        logInfo("Animating \(presentedView.dynamicType) in \(presentingView.dynamicType) from \(initialFrame) to \(finalFrame)")
         
         UIView.animateWithDuration(animationDuration, delay: 0, options: [.BeginFromCurrentState, .CurveEaseIn], animations: {
             presentedView.transform = scaleTransform

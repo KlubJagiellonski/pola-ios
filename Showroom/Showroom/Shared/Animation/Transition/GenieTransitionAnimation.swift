@@ -9,6 +9,7 @@ struct GenieTransitionAnimation: TransitionAnimation {
     }
     
     func hide(containerView: ContainerView, presentedView: PresentedView, presentationView: PresentationView?, completion: ((Bool) -> ())?) {
+        logInfo("Hiding with genie animation")
         presentedView.genieInTransitionWithDuration(animationDuration, destinationRect: destinationRect, destinationEdge: .Top) { _ in
             completion?(true)
         }

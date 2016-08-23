@@ -15,6 +15,7 @@ struct ImageTransitionAnimation: TransitionAnimation {
     let alternativeAnimation: TransitionAnimation
     
     func show(containerView: ContainerView, presentedView: PresentedView, presentationView: PresentationView?, completion: ((Bool) -> ())?) {
+        logInfo("Showing image")
         guard let animationTargetModalView = presentedView as? ImageAnimationTargetViewInterface else {
             fatalError("modalView should conforms to protocol ImageAnimationTargetViewInterface")
         }
@@ -22,6 +23,8 @@ struct ImageTransitionAnimation: TransitionAnimation {
         let ratio = imageView.bounds.width / imageView.bounds.height
         let initialFrame = imageView.superview!.convertRect(imageView.frame, toView: containerView)
         let finalFrame = CGRectMake(0, 0, containerView.bounds.width, containerView.bounds.width / ratio)
+        
+        logInfo("Animating image from \(initialFrame) to \(finalFrame)")
         
         let movingImageView = UIImageView(image: imageView.image)
         movingImageView.frame = initialFrame
@@ -58,6 +61,7 @@ struct ImageTransitionAnimation: TransitionAnimation {
     }
     
     func hide(containerView: ContainerView, presentedView: PresentedView, presentationView: PresentationView?, completion: ((Bool) -> ())?) {
+        logInfo("Hiding image")
         guard let animationTargetModalView = presentedView as? ImageAnimationTargetViewInterface else {
             fatalError("modalView should conforms to protocol ImageAnimationTargetViewInterface")
         }
@@ -69,6 +73,8 @@ struct ImageTransitionAnimation: TransitionAnimation {
         let ratio = imageView.bounds.width / imageView.bounds.height
         let initialFrame = CGRectMake(0, 0, containerView.bounds.width, containerView.bounds.width / ratio)
         let finalFrame = imageView.superview!.convertRect(imageView.frame, toView: containerView)
+        
+        logInfo("Animating image from \(initialFrame) to \(finalFrame)")
         
         let movingImageView = UIImageView(image: targetImage)
         movingImageView.frame = initialFrame

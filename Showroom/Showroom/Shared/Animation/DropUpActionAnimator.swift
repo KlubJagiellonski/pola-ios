@@ -12,6 +12,7 @@ class DropUpActionAnimator: NSObject, UIViewControllerTransitioningDelegate, Ani
     }
     
     func presentViewController(presentedViewController: UIViewController, presentingViewController: UIViewController, completion: (() -> Void)? = nil) {
+        logInfo("Presenting \(presentedViewController.dynamicType) in \(presentingViewController.dynamicType) with drop up animation")
         presentedViewController.modalPresentationStyle = .Custom
         presentedViewController.modalTransitionStyle = .CoverVertical
         presentedViewController.transitioningDelegate = self
@@ -20,10 +21,12 @@ class DropUpActionAnimator: NSObject, UIViewControllerTransitioningDelegate, Ani
     }
     
     func dismissViewController(presentingViewController presentingViewController: UIViewController, animated: Bool = true, completion: (() -> Void)? = nil) {
+        logInfo("Dismissing to \(presentingViewController.dynamicType) with drop down animation")
         presentingViewController.dismissViewControllerAnimated(animated, completion: completion)
     }
     
     func didTapDimView(sender: UITapGestureRecognizer) {
+        logInfo("Did tap dim view")
         delegate?.animatorDidTapOnDimView(self)
     }
     
@@ -55,6 +58,7 @@ class DropUpAnimatedTransitioning : NSObject, UIViewControllerAnimatedTransition
     }
     
     func presentView(presentedView: UIView, presentingView: UIView, dimView: UIView, animationDuration: Double, completion: ((completed: Bool) -> Void)?) {
+        logInfo("Animating \(presentedView.dynamicType) in \(presentingView.dynamicType) to Y = \(height) with drop up animation")
         presentedView.frame = CGRect(x: 0, y: presentingView.bounds.maxY, width: presentingView.bounds.width, height: height)
         presentedView.frame.origin = CGPoint(x: CGFloat(0), y: presentingView.bounds.maxY)
         dimView.alpha = 0
@@ -67,6 +71,7 @@ class DropUpAnimatedTransitioning : NSObject, UIViewControllerAnimatedTransition
     }
     
     func dismissView(presentedView: UIView, presentingView: UIView, dimView: UIView, animationDuration: Double, completion: ((completed: Bool) -> Void)?) {
+        logInfo("Animating \(presentedView.dynamicType) in \(presentingView.dynamicType) with drop down animation")
         UIView.animateWithDuration(animationDuration, delay: 0, options: [.BeginFromCurrentState, .CurveEaseInOut], animations: {
             presentedView.frame.origin.y += presentedView.frame.height
             dimView.alpha = 0
