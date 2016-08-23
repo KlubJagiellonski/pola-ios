@@ -29,6 +29,7 @@ struct PaymentResult {
     let shippingAmount: NSDecimalNumber
     let currency: String
     let notifyUrl: String?
+    let orderUrl: String
 }
 
 //MARK:- Utiliteies
@@ -52,13 +53,8 @@ extension PaymentRequest {
             }
         }
         
-        var deliveryPop: ObjectId?
-        if checkoutState.checkout.deliveryCarrier.id == .RUCH {
-            deliveryPop = checkoutState.selectedKiosk?.id
-        } else {
-            deliveryPop = checkoutState.selectedAddress?.id
-        }
-        guard let finalDeliveryPop = deliveryPop else {
+        let deliveryPop = checkoutState.selectedKiosk?.id
+        if deliveryPop == nil && checkoutState.checkout.deliveryCarrier.id == .RUCH {
             logError("Cannot create PaymentRequest (deliveryPop) from state: \(checkoutState)")
             return nil
         }
@@ -72,7 +68,7 @@ extension PaymentRequest {
         self.countryCode = checkoutState.checkout.deliveryCountry.id
         self.deliveryType = checkoutState.checkout.deliveryCarrier.id.rawValue
         self.deliveryAddressId = selectedAddress.id
-        self.deliveryPop = finalDeliveryPop
+        self.deliveryPop = deliveryPop
         self.discountCode = checkoutState.checkout.discountCode
         self.payment = checkoutState.selectedPayment.id
         self.comments = comments
@@ -129,7 +125,8 @@ extension PaymentResult: Decodable {
             taxAmount: NSDecimalNumber(mantissa: taxAmount, exponent: -2, isNegative: false),
             shippingAmount: NSDecimalNumber(mantissa: shippingAmount, exponent: -2, isNegative: false),
             currency: json => "currency",
-            notifyUrl: json =>? "notifyUrl"
+            notifyUrl: json =>? "notifyUrl",
+            orderUrl: json => "orderUrl"
         )
     }
 }

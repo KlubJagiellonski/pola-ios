@@ -134,6 +134,7 @@ final class CheckoutModel {
                     self.state.addressAdded = true
                     self.state.userAddresses.append(userAddress)
                 }
+                self.state.selectedAddress = userAddress
             }
     }
     

@@ -5,9 +5,11 @@ class PaymentFailureViewController: UIViewController, PaymentFailureViewDelegate
     private var castView: PaymentFailureView { return view as! PaymentFailureView }
     
     private let orderNumber: Int
+    private let orderUrl: String
     
-    init(resolver: DiResolver, orderNumber: Int) {
+    init(resolver: DiResolver, orderNumber: Int, orderUrl: String) {
         self.orderNumber = orderNumber
+        self.orderUrl = orderUrl
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -32,9 +34,12 @@ class PaymentFailureViewController: UIViewController, PaymentFailureViewDelegate
     func paymentFailureViewDidTapLink(view: PaymentFailureView) {
         logInfo("paymentFailureViewDidTapLink")
 
-        UIApplication.sharedApplication().openURL(NSURL(string: "https://www.showroom.pl/c/orders")!)
+        guard let orderUrl = NSURL(string: orderUrl) else {
+            logError("Cannot create url from \(self.orderUrl)")
+            return
+        }
         
-        // TODO: go to wkwebview (?) with user authentication
+        UIApplication.sharedApplication().openURL(orderUrl)
     }
     
     func paymentFailureViewDidTapGoToMain(view: PaymentFailureView) {

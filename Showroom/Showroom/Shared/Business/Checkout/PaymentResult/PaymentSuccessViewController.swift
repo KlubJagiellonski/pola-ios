@@ -5,16 +5,18 @@ class PaymentSuccessViewController: UIViewController, PaymentSuccessViewDelegate
     private let rateAppManager: RateAppManager
     private var castView: PaymentSuccessView { return view as! PaymentSuccessView }
     private let orderNumber: Int
+    private let orderUrl: String
     private lazy var formSheetAnimator: FormSheetAnimator = { [unowned self] in
         let animator = FormSheetAnimator()
         animator.delegate = self
         return animator
     }()
     
-    init(resolver: DiResolver, orderNumber: Int) {
+    init(resolver: DiResolver, orderNumber: Int, orderUrl: String) {
         self.resolver = resolver
         self.rateAppManager = resolver.resolve(RateAppManager.self)
         self.orderNumber = orderNumber
+        self.orderUrl = orderUrl
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -40,9 +42,12 @@ class PaymentSuccessViewController: UIViewController, PaymentSuccessViewDelegate
     func paymentSuccessViewDidTapLink(view: PaymentSuccessView) {
         logInfo("paymentSuccessViewDidTapLink")
         
-        UIApplication.sharedApplication().openURL(NSURL(string: "https://www.showroom.pl/c/orders")!)
+        guard let orderUrl = NSURL(string: orderUrl) else {
+            logError("Cannot create url from \(self.orderUrl)")
+            return
+        }
         
-        // TODO: go to wkwebview (?) with user authentication
+        UIApplication.sharedApplication().openURL(orderUrl)
     }
     
     func paymentSuccessViewDidTapGoToMain(view: PaymentSuccessView) {

@@ -2,10 +2,23 @@ import Foundation
 import RxSwift
 
 enum PayUPaymentError: ErrorType {
-    case SessionNotExist
-    case InvalidRequest
-    case UserWantsRetry
-    case Cancelled
+    case SessionNotExist(PaymentResult)
+    case InvalidRequest(PaymentResult)
+    case UserWantsRetry(PaymentResult)
+    case Cancelled(PaymentResult)
+    
+    var paymentResult: PaymentResult {
+        switch self {
+        case .SessionNotExist(let paymentResult):
+            return paymentResult
+        case .InvalidRequest(let paymentResult):
+            return paymentResult
+        case .UserWantsRetry(let paymentResult):
+            return paymentResult
+        case .Cancelled(let paymentResult):
+            return paymentResult
+        }
+    }
 }
 
 final class PayUManager {
@@ -64,12 +77,12 @@ final class PayUManager {
     func makePayment(with paymentResult: PaymentResult) -> Observable<PaymentResult> {
         guard let paymentService = paymentService else {
             logError("PaymentService not created while making payment")
-            return Observable.error(PayUPaymentError.SessionNotExist)
+            return Observable.error(PayUPaymentError.SessionNotExist(paymentResult))
         }
         
         guard let description = paymentResult.description, let url = paymentResult.notifyUrl, let notifyUrl = NSURL(string: url) else {
             logError("Cannot make payment with result \(paymentResult)")
-            return Observable.error(PayUPaymentError.InvalidRequest)
+            return Observable.error(PayUPaymentError.InvalidRequest(paymentResult))
         }
         
         let request = PUPaymentRequest()
@@ -86,10 +99,10 @@ final class PayUManager {
                     observer.onNext(paymentResult)
                     observer.onCompleted()
                 case .Failure:
-                    observer.onError(PayUPaymentError.Cancelled)
+                    observer.onError(PayUPaymentError.Cancelled(paymentResult))
                     observer.onCompleted()
                 case .Retry:
-                    observer.onError(PayUPaymentError.UserWantsRetry)
+                    observer.onError(PayUPaymentError.UserWantsRetry(paymentResult))
                     observer.onCompleted()
                 }
             }

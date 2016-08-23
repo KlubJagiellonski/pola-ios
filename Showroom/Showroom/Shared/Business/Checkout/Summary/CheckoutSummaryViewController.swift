@@ -63,52 +63,57 @@ final class CheckoutSummaryViewController: UIViewController, CheckoutSummaryView
     }
     
     private func handlePaymentError(error: ErrorType) {
-        var showErrorAndMoveToBasket = false
-        var showErrotToast = false
-        var showErrorView = false
+        var moveToBasket = false
+        var errorToast: String?
+        var paymentResult: PaymentResult?
         var clearBasket = false
         
         if let paymentError = error as? PaymentError {
             switch paymentError {
             case .CannotCreatePayment:
                 //means that something is wrong with input data. Cancel payment and show basket.
-                showErrorAndMoveToBasket = true
+                errorToast = tr(.CommonError)
+                moveToBasket = true
             case .PaymentRequestFailed(let requestFailedError):
                 if let urlError = requestFailedError as? RxCocoaURLError, case let .HTTPRequestFailed(response, _) = urlError {
                     switch response.statusCode {
                     case 400..<500:
                         //means that something is wrong with with params. Need to go back to bask and validate it again
-                        showErrorAndMoveToBasket = true
+                        errorToast = tr(.CheckoutPaymentOn400Error)
+                        moveToBasket = true
                     default:
                         //other means 5xx which is server error. Try again if possible
-                        showErrotToast = true
+                        errorToast = tr(.CommonError)
                     }
                 } else {
                     //other http error or NSURLDomainError - treat as 5xx
-                    showErrotToast = true
+                    errorToast = tr(.CommonError)
                 }
             }
-        } else if error is PayUPaymentError {
+        } else if let payUError = error as? PayUPaymentError {
             //it means that something went wrong with PayU payment. Show error view and clear basket. Possible that payment went ok
-            showErrorView = true
+            paymentResult = payUError.paymentResult
             clearBasket = true
+        } else if error is ApiError {
+            errorToast = tr(.CommonUserLoggedOut)
+            moveToBasket = true
         } else {
             //shouldn't happen
             fatalError("Received wrong error: \(error)")
         }
         
-        if showErrorAndMoveToBasket {
-            toastManager.showMessage(tr(.CheckoutPaymentOn400Error))
-            sendNavigationEvent(SimpleNavigationEvent(type: .Close))
+        if let errorToast = errorToast {
+            toastManager.showMessage(errorToast)
         }
-        if showErrotToast {
-            toastManager.showMessage(tr(.CommonError))
-        }
-        if showErrorView {
-            self.sendNavigationEvent(SimpleNavigationEvent(type: .ShowPaymentFailure))
-        }
+        
         if clearBasket {
             self.model.clearBasket()
+        }
+        
+        if moveToBasket {
+            sendNavigationEvent(SimpleNavigationEvent(type: .Close))
+        } else if let paymentResult = paymentResult {
+            sendNavigationEvent(ShowPaymentFailureEvent(orderId: paymentResult.orderId, orderUrl: paymentResult.orderUrl))
         }
     }
     
@@ -158,7 +163,7 @@ final class CheckoutSummaryViewController: UIViewController, CheckoutSummaryView
                 logInfo("Payment success \(result)")
                 logAnalyticsEvent(AnalyticsEventId.CheckoutSummaryPaymentStatus(true, self.model.state.selectedPayment.id.rawValue))
                 logAnalyticsTransactionEvent(with: result, products: self.model.state.checkout.basket.products)
-                self.sendNavigationEvent(SimpleNavigationEvent(type: .ShowPaymentSuccess))
+                self.sendNavigationEvent(ShowPaymentSuccessEvent(orderId: result.orderId, orderUrl: result.orderUrl))
                 self.model.clearBasket()
             case .Error(let error):
                 logInfo("Payment error \(error)")

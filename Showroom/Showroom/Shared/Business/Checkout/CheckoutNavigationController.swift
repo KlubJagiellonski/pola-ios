@@ -53,18 +53,14 @@ class CheckoutNavigationController: UINavigationController, NavigationHandler {
         pushViewController(editKioskViewController, animated: true)
     }
     
-    func showPaymentSuccessView() {
-        // TODO: get order number
-        let orderNumber = 789019238
-        let successViewController = resolver.resolve(PaymentSuccessViewController.self, argument: orderNumber)
+    func showPaymentSuccessView(orderId orderId: ObjectId, let orderUrl: String) {
+        let successViewController = resolver.resolve(PaymentSuccessViewController.self, arguments: (orderId, orderUrl))
         pushViewController(successViewController, animated: true)
         setNavigationBarHidden(true, animated: true)
     }
     
-    func showPaymentFailureView() {
-        // TODO: get order number
-        let orderNumber = 789019238
-        let failureViewController = resolver.resolve(PaymentFailureViewController.self, argument: orderNumber)
+    func showPaymentFailureView(orderId orderId: ObjectId, let orderUrl: String) {
+        let failureViewController = resolver.resolve(PaymentFailureViewController.self, arguments: (orderId, orderUrl))
         pushViewController(failureViewController, animated: true)
         setNavigationBarHidden(true, animated: true)
     }
@@ -76,6 +72,12 @@ class CheckoutNavigationController: UINavigationController, NavigationHandler {
     
     func handleNavigationEvent(event: NavigationEvent) -> EventHandled {
         switch event {
+        case let paymentSuccessEvent as ShowPaymentSuccessEvent:
+            showPaymentSuccessView(orderId: paymentSuccessEvent.orderId, orderUrl: paymentSuccessEvent.orderUrl)
+            return true
+        case let paymentFailureEvent as ShowPaymentFailureEvent:
+            showPaymentFailureView(orderId: paymentFailureEvent.orderId, orderUrl: paymentFailureEvent.orderUrl)
+            return true
         case let simpleEvent as SimpleNavigationEvent:
             switch simpleEvent.type {
             case .ShowCheckoutSummary:
@@ -83,12 +85,6 @@ class CheckoutNavigationController: UINavigationController, NavigationHandler {
                 return true
             case .ShowEditKiosk:
                 showEditKioskView()
-                return true
-            case .ShowPaymentSuccess:
-                showPaymentSuccessView()
-                return true
-            case .ShowPaymentFailure:
-                showPaymentFailureView()
                 return true
             case .ShowDashboard:
                 checkoutDelegate?.checkoutWantsGoToMainScreen(self)

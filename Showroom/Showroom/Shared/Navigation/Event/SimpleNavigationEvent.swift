@@ -9,8 +9,6 @@ struct SimpleNavigationEvent: NavigationEvent {
         case CloseImmediately // same as Close but forcing to close as fast as possible (without animation)
         case ShowCountrySelectionList
         case ShowCheckoutSummary
-        case ShowPaymentSuccess
-        case ShowPaymentFailure
         case ShowSearch
         case ShowLogin
         case ShowRegistration
