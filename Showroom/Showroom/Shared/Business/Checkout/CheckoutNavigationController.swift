@@ -45,8 +45,8 @@ class CheckoutNavigationController: UINavigationController, NavigationHandler {
         pushViewController(editAddressViewController, animated: true)
     }
     
-    func showEditKioskView() {
-        let editKioskViewController = resolver.resolve(EditKioskViewController.self, argument: model)
+    func showEditKioskView(editKioskEntry editKioskEntry: EditKioskEntry?) {
+        let editKioskViewController = resolver.resolve(EditKioskViewController.self, arguments: (model, editKioskEntry))
         editKioskViewController.delegate = self
         editKioskViewController.navigationItem.title = tr(.CheckoutDeliveryEditKioskNavigationHeader)
         editKioskViewController.resetBackTitle()
@@ -78,13 +78,13 @@ class CheckoutNavigationController: UINavigationController, NavigationHandler {
         case let paymentFailureEvent as ShowPaymentFailureEvent:
             showPaymentFailureView(orderId: paymentFailureEvent.orderId, orderUrl: paymentFailureEvent.orderUrl)
             return true
+        case let showEditKioskEvent as ShowEditKioskEvent:
+            showEditKioskView(editKioskEntry: showEditKioskEvent.editKioskEntry)
+            return true
         case let simpleEvent as SimpleNavigationEvent:
             switch simpleEvent.type {
             case .ShowCheckoutSummary:
                 showSummaryView()
-                return true
-            case .ShowEditKiosk:
-                showEditKioskView()
                 return true
             case .ShowDashboard:
                 checkoutDelegate?.checkoutWantsGoToMainScreen(self)

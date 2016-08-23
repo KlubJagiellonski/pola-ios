@@ -20,7 +20,7 @@ class EditAddressViewController: UIViewController, EditAddressViewDelegate {
     }
     
     override func loadView() {
-        view = EditAddressView(userAddress: checkoutModel.state.editableAddress, defaultCountry: checkoutModel.state.checkout.deliveryCountry.name)
+        view = EditAddressView(userAddress: checkoutModel.state.editableAddress, defaultCountry: checkoutModel.state.checkout.deliveryCountry.name, userFirstName: checkoutModel.state.checkout.user.name)
     }
     
     override func viewDidLoad() {

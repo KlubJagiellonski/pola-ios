@@ -17,12 +17,12 @@ enum AddressFormField {
 }
 
 extension AddressInput {
-    static func fromUserAddresses(userAddresses: [UserAddress], defaultCountry: String, isFormMode: Bool) -> AddressInput {
+    static func fromUserAddresses(userAddresses: [UserAddress], defaultCountry: String, userFirstName: String, isFormMode: Bool) -> AddressInput {
         if isFormMode {
             if let userAddress = userAddresses.first {
                 return .Form(fields: AddressFormField.createFormFields(with: userAddress, defaultCountry: defaultCountry))
             } else {
-                return .Form(fields: AddressFormField.createEmptyFormFields(withDefaultCountry: defaultCountry))
+                return .Form(fields: AddressFormField.createEmptyFormFields(withDefaultCountry: defaultCountry, userFirstName: userFirstName))
             }
         } else {
             return .Options(addresses: AddressInput.createAddressFormFields(userAddresses, defaultCountry: defaultCountry))
@@ -69,19 +69,35 @@ extension AddressFormField {
         }
     }
     
-    static func createEmptyFormFields(withDefaultCountry defaultCountry: String) -> [AddressFormField] {
-        return [.FirstName(value: nil), .LastName(value: nil), .StreetAndApartmentNumbers(value: nil), .PostalCode(value: nil), .City(value: nil), .Country(defaultValue: defaultCountry), .Phone(value: nil)]
+    var isEditable: Bool {
+        switch self {
+        case .Country:
+            return false
+        default:
+            return true
+        }
+    }
+    
+    static func createEmptyFormFields(withDefaultCountry defaultCountry: String, userFirstName: String) -> [AddressFormField] {
+        return [
+                .FirstName(value: userFirstName),
+                .LastName(value: nil),
+                .Phone(value: nil),
+                .StreetAndApartmentNumbers(value: nil),
+                .PostalCode(value: nil), .City(value: nil),
+                .Country(defaultValue: defaultCountry)
+        ]
     }
     
     static func createFormFields(with userAddress: UserAddress, defaultCountry: String) -> [AddressFormField] {
         return [
             .FirstName(value: userAddress.firstName),
             .LastName(value: userAddress.lastName),
+            .Phone(value: userAddress.phone),
             .StreetAndApartmentNumbers(value: userAddress.streetAndAppartmentNumbers),
             .PostalCode(value: userAddress.postalCode),
             .City(value: userAddress.city),
-            .Country(defaultValue: defaultCountry),
-            .Phone(value: userAddress.phone)
+            .Country(defaultValue: defaultCountry)
         ]
     }
     

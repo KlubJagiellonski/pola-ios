@@ -42,6 +42,11 @@ struct EditUserAddress {
     let description: String?
 }
 
+struct EditKioskEntry {
+    let entryStreetAndAppartmentNumbers: String?
+    let entryCity: String?
+}
+
 // MARK:- Errors
 
 enum EditAddressError: ErrorType {

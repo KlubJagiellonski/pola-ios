@@ -6,8 +6,8 @@ protocol CheckoutDeliveryViewDelegate: class {
     func checkoutDeliveryViewDidTapAddAddressButton(view: CheckoutDeliveryView)
     func checkoutDeliveryViewDidTapEditAddressButton(view: CheckoutDeliveryView)
     func checkoutDeliveryViewDidTapChooseKioskButton(view: CheckoutDeliveryView)
-    func checkoutDeliveryViewDidTapChangeKioskButton(view: CheckoutDeliveryView)
     func checkoutDeliveryViewDidTapNextButton(view: CheckoutDeliveryView)
+    func checkoutDeliveryViewDidReachFormEnd(view: CheckoutDeliveryView)
 }
 
 class CheckoutDeliveryView: ViewSwitcher {
@@ -35,8 +35,30 @@ class CheckoutDeliveryView: ViewSwitcher {
         return AddressFormField.formFieldsToUserAddress(getAddressFields())
     }
     
+    var streetAndApartmentNumbersValue: String? {
+        for formField in getAddressFields() {
+            switch formField {
+            case .StreetAndApartmentNumbers(let value):
+                return value
+            default: continue
+            }
+        }
+        return nil
+    }
+    
+    var cityValue: String? {
+        for formField in getAddressFields() {
+            switch formField {
+            case .City(let value):
+                return value
+            default: continue
+            }
+        }
+        return nil
+    }
+    
     init(checkoutState: CheckoutState) {
-        self.addressInput = AddressInput.fromUserAddresses(checkoutState.userAddresses, defaultCountry: checkoutState.checkout.deliveryCountry.name, isFormMode: checkoutState.isFormMode)
+        self.addressInput = AddressInput.fromUserAddresses(checkoutState.userAddresses, defaultCountry: checkoutState.checkout.deliveryCountry.name, userFirstName: checkoutState.checkout.user.name, isFormMode: checkoutState.isFormMode)
         super.init(successView: contentView, initialState: .Success)
         
         addValidator(CheckoutValidator())
@@ -114,7 +136,7 @@ class CheckoutDeliveryView: ViewSwitcher {
     }
     
     private func updateData(userAddresses: [UserAddress], checkoutState: CheckoutState) {
-        addressInput = AddressInput.fromUserAddresses(userAddresses, defaultCountry: checkoutState.checkout.deliveryCountry.name, isFormMode: checkoutState.isFormMode)
+        addressInput = AddressInput.fromUserAddresses(userAddresses, defaultCountry: checkoutState.checkout.deliveryCountry.name, userFirstName: checkoutState.checkout.user.name, isFormMode: checkoutState.isFormMode)
         updateStackView(checkoutState)
     }
     
@@ -137,7 +159,7 @@ class CheckoutDeliveryView: ViewSwitcher {
                 let inputView = CheckoutDeliveryInputView(addressField: field)
                 inputView.tag = field.fieldId.hashValue
                 inputView.inputTextField.tag = index
-                inputView.inputTextField.returnKeyType = index == (fields.count - 1) ? .Done : .Next
+                inputView.inputTextField.returnKeyType = .Next
                 inputView.inputTextField.keyboardType = field.keyboardType
                 inputView.inputTextField.delegate = self
                 contentValidators.append(inputView)
@@ -199,7 +221,7 @@ class CheckoutDeliveryView: ViewSwitcher {
     }
     
     func dataSourceDidTapChangeKioskButton() {
-        delegate?.checkoutDeliveryViewDidTapChangeKioskButton(self)
+        delegate?.checkoutDeliveryViewDidTapChooseKioskButton(self)
     }
     
     func didTapNextButton() {
@@ -219,7 +241,7 @@ class CheckoutDeliveryView: ViewSwitcher {
             case .StreetAndApartmentNumbers(let value?): string += tr(.CheckoutDeliveryAdressStreet) + " " + value + "\n"
             case .PostalCode(let value?): string += value + " "
             case .City(let value?): string += value + "\n"
-            case .Phone(let value?): string += tr(.CheckoutDeliveryAdressPhoneNumber) + " " + value
+            case .Phone(let value?): string += tr(.CheckoutDeliveryAdressPhoneNumber) + " " + value + "\n"
             default: break
             }
         }
@@ -280,6 +302,7 @@ extension CheckoutDeliveryView: UITextFieldDelegate {
 extension CheckoutDeliveryView: FormView {
     func onFormReachedEnd() {
         dismissKeyboard()
+        delegate?.checkoutDeliveryViewDidReachFormEnd(self)
     }
 }
 

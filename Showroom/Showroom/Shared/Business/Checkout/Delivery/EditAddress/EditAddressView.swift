@@ -23,10 +23,10 @@ class EditAddressView: ViewSwitcher {
         return AddressFormField.formFieldsToUserAddress(formFields)
     }
     
-    init(userAddress: UserAddress?, defaultCountry: String) {
+    init(userAddress: UserAddress?, defaultCountry: String, userFirstName: String) {
         super.init(successView: contentView, initialState: .Success)
         
-        let initialFormFields = userAddress != nil ? AddressFormField.createFormFields(with: userAddress!, defaultCountry: defaultCountry) : AddressFormField.createEmptyFormFields(withDefaultCountry: defaultCountry)
+        let initialFormFields = userAddress != nil ? AddressFormField.createFormFields(with: userAddress!, defaultCountry: defaultCountry) : AddressFormField.createEmptyFormFields(withDefaultCountry: defaultCountry, userFirstName: userFirstName)
         
         keyboardHelper.delegate = self
         
@@ -88,11 +88,18 @@ class EditAddressView: ViewSwitcher {
     }
     
     private func updateStackView(formFields formFields: [AddressFormField]) {
+        var indexOfLastEditableField = 0
+        for (index, field) in formFields.enumerate() {
+            if field.isEditable {
+                indexOfLastEditableField = index
+            }
+        }
+        
         for (index, formField) in formFields.enumerate() {
             let inputView = CheckoutDeliveryInputView(addressField: formField)
             inputView.tag = formField.fieldId.hashValue
             inputView.inputTextField.tag = index
-            inputView.inputTextField.returnKeyType = index == (formFields.count - 1) ? .Send : .Next
+            inputView.inputTextField.returnKeyType = index == indexOfLastEditableField ? .Send : .Next
             inputView.inputTextField.keyboardType = formField.keyboardType
             inputView.inputTextField.delegate = self
             contentValidators.append(inputView)
@@ -126,6 +133,7 @@ extension EditAddressView: UITextFieldDelegate {
 
 extension EditAddressView: FormView {
     func onFormReachedEnd() {
+        dismissKeyboard()
         delegate?.editAddressViewDidTapSaveButton(self)
     }
 }

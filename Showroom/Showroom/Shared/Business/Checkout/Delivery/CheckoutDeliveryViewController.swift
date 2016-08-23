@@ -50,7 +50,7 @@ class CheckoutDeliveryViewController: UIViewController, CheckoutDeliveryViewDele
     
     private func showSummaryIfPossible() {
         if checkoutModel.state.checkout.deliveryCarrier.id == .RUCH && checkoutModel.state.selectedKiosk == nil {
-            sendNavigationEvent(SimpleNavigationEvent(type: .ShowEditKiosk))
+            sendShowEditKioskEvent()
             return
         }
         sendNavigationEvent(SimpleNavigationEvent(type: .ShowCheckoutSummary))
@@ -70,6 +70,14 @@ class CheckoutDeliveryViewController: UIViewController, CheckoutDeliveryViewDele
         checkoutModel.state.selectedAddress = address
     }
     
+    private func createEditKioskEntry() -> EditKioskEntry {
+        return EditKioskEntry(entryStreetAndAppartmentNumbers: castView.streetAndApartmentNumbersValue, entryCity: castView.cityValue)
+    }
+    
+    private func sendShowEditKioskEvent() {
+        sendNavigationEvent(ShowEditKioskEvent(editKioskEntry: createEditKioskEntry()))
+    }
+    
     // MARK:- CheckoutDeliveryViewDelegate
     
     func checkoutDeliveryViewDidTapAddAddressButton(view: CheckoutDeliveryView) {
@@ -83,12 +91,7 @@ class CheckoutDeliveryViewController: UIViewController, CheckoutDeliveryViewDele
     
     func checkoutDeliveryViewDidTapChooseKioskButton(view: CheckoutDeliveryView) {
         logAnalyticsEvent(AnalyticsEventId.CheckoutChosePOPClicked)
-        sendNavigationEvent(SimpleNavigationEvent(type: .ShowEditKiosk))
-    }
-    
-    func checkoutDeliveryViewDidTapChangeKioskButton(view: CheckoutDeliveryView) {
-        logAnalyticsEvent(AnalyticsEventId.CheckoutChosePOPClicked)
-        sendNavigationEvent(SimpleNavigationEvent(type: .ShowEditKiosk))
+        sendShowEditKioskEvent()
     }
     
     func checkoutDeliveryViewDidTapNextButton(view: CheckoutDeliveryView) {
@@ -138,6 +141,13 @@ class CheckoutDeliveryViewController: UIViewController, CheckoutDeliveryViewDele
         } else {
             showSummaryIfPossible()
         }
+    }
+    
+    func checkoutDeliveryViewDidReachFormEnd(view: CheckoutDeliveryView) {
+        guard checkoutModel.state.selectedKiosk == nil else {
+            return
+        }
+        sendShowEditKioskEvent()
     }
 }
 

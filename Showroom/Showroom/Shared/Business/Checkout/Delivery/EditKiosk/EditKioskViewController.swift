@@ -9,13 +9,15 @@ protocol EditKioskViewControllerDelegate: class {
 class EditKioskViewController: UIViewController, EditKioskViewDelegate {
     private let model: EditKioskModel
     private let disposeBag = DisposeBag()
+    private let editKioskEntry: EditKioskEntry?
     
     private var castView: EditKioskView { return view as! EditKioskView }
     
     weak var delegate: EditKioskViewControllerDelegate?
     
-    init(with resolver: DiResolver, and checkoutModel: CheckoutModel) {
+    init(with resolver: DiResolver, and checkoutModel: CheckoutModel, editKioskEntry: EditKioskEntry?) {
         self.model = resolver.resolve(EditKioskModel.self, argument: checkoutModel)
+        self.editKioskEntry = editKioskEntry
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -24,7 +26,7 @@ class EditKioskViewController: UIViewController, EditKioskViewDelegate {
     }
     
     override func loadView() {
-        view = EditKioskView(kioskSearchString: model.checkoutModel.state.selectedAddress?.displayAddress )
+        view = EditKioskView(kioskSearchString: model.checkoutModel.state.selectedAddress?.displayAddress ?? editKioskEntry?.displayAddress )
     }
     
     override func viewDidLoad() {
@@ -145,4 +147,24 @@ extension UserAddress {
     }
 }
 
-
+extension EditKioskEntry {
+    private var displayAddress: String? {
+        var firstPart: String?
+        if let streetAndAppartmentNumbers = entryStreetAndAppartmentNumbers {
+            firstPart = streetAndAppartmentNumbers.isEmpty ? nil : streetAndAppartmentNumbers
+        }
+        var secondPart: String?
+        if let city = entryCity {
+            secondPart = city.isEmpty ? nil : city
+        }
+        if firstPart != nil && secondPart != nil {
+            return "\(firstPart!), \(secondPart!)"
+        } else if firstPart != nil {
+            return firstPart!
+        } else if secondPart != nil {
+            return secondPart!
+        } else {
+            return nil
+        }
+    }
+}
