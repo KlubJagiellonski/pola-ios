@@ -36,7 +36,7 @@ final class ProductDetailsDataSource: NSObject, UICollectionViewDataSource {
 
     private(set) var pageCount = 0
     
-    var pageHandler: ProductDetailsPageHandler?
+    weak var pageHandler: ProductDetailsPageHandler?
     
     init(collectionView: UICollectionView) {
         self.collectionView = collectionView

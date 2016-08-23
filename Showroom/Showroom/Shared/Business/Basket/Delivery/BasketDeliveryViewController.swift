@@ -11,11 +11,6 @@ class BasketDeliveryViewController: UIViewController, BasketDeliveryViewDelegate
         self.basketManager = basketManager
         super.init(nibName: nil, bundle: nil)
         title = tr(.BasketDeliveryTitle)
-        
-        basketManager.state.basketObservable.subscribeNext(castView.updateData).addDisposableTo(disposeBag)
-        basketManager.state.deliveryCountryObservable.subscribeNext(castView.updateData).addDisposableTo(disposeBag)
-        basketManager.state.deliveryCarrierObservable.subscribeNext(castView.updateData).addDisposableTo(disposeBag)
-        basketManager.state.validationStateObservable.subscribeNext(updateValidating).addDisposableTo(disposeBag)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -33,6 +28,19 @@ class BasketDeliveryViewController: UIViewController, BasketDeliveryViewDelegate
         castView.updateData(with: basketManager.state.basket)
         castView.updateData(with: basketManager.state.deliveryCountry)
         castView.updateData(with: basketManager.state.deliveryCarrier)
+        
+        basketManager.state.basketObservable.subscribeNext { [weak self] basket in
+            self?.castView.updateData(with: basket)
+            }.addDisposableTo(disposeBag)
+        basketManager.state.deliveryCountryObservable.subscribeNext { [weak self] deliveryCountry in
+            self?.castView.updateData(with: deliveryCountry)
+            }.addDisposableTo(disposeBag)
+        basketManager.state.deliveryCarrierObservable.subscribeNext { [weak self] deliveryCarrier in
+            self?.castView.updateData(with: deliveryCarrier)
+            }.addDisposableTo(disposeBag)
+        basketManager.state.validationStateObservable.subscribeNext { [weak self] validationState in
+            self?.updateValidating(with: validationState)
+        }.addDisposableTo(disposeBag)
     }
     
     func updateValidating(with validationState: BasketValidationState) {

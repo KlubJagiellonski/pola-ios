@@ -16,9 +16,9 @@ class BrandProductListView: ViewSwitcher, ProductListViewInterface, ProductListC
         return delegate as? BrandProductListViewDelegate
     }
     var headerImageWidth: Int {
-        return headerCell.imageWidth
+        return headerCell?.imageWidth ?? 0
     }
-    private let headerCell = BrandHeaderCell()
+    private weak var headerCell: BrandHeaderCell?
     private var currentHeaderDescription: NSAttributedString?
     
     init() {
@@ -29,10 +29,12 @@ class BrandProductListView: ViewSwitcher, ProductListViewInterface, ProductListC
         
         switcherDataSource = self
         
+        let headerCell = BrandHeaderCell()
+        headerCell.addTarget(self, action: #selector(BrandProductListView.didTapHeaderCell), forControlEvents: .TouchUpInside)
+        
         productListComponent.delegate = self
         productListComponent.headerSectionInfo = HeaderSectionInfo(view: headerCell, wantsToReceiveScrollEvents: false) { 86 }
-        
-        headerCell.addTarget(self, action: #selector(BrandProductListView.didTapHeaderCell), forControlEvents: .TouchUpInside)
+        self.headerCell = headerCell
         
         collectionView.applyProductListConfiguration()
         collectionView.delegate = productListComponent
@@ -45,7 +47,7 @@ class BrandProductListView: ViewSwitcher, ProductListViewInterface, ProductListC
     
     func updateBrandInfo(imageUrl: String, description: NSAttributedString) {
         currentHeaderDescription = description
-        headerCell.updateData(withImageUrl: imageUrl, description: description)
+        headerCell?.updateData(withImageUrl: imageUrl, description: description)
     }
     
     func didTapHeaderCell() {

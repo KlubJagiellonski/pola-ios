@@ -32,7 +32,6 @@ class ProductDescriptionView: UIView, UITableViewDelegate, ProductDescriptionVie
     
     private let descriptionDataSource: ProductDescriptionDataSource
     private let disposeBag = DisposeBag()
-    private let modelState: ProductPageModelState
     
     weak var delegate: ProductDescriptionViewDelegate?
     
@@ -48,15 +47,22 @@ class ProductDescriptionView: UIView, UITableViewDelegate, ProductDescriptionVie
     }
     
     init(modelState: ProductPageModelState) {
-        self.modelState = modelState
         descriptionDataSource = ProductDescriptionDataSource(tableView: tableView)
         
         super.init(frame: CGRectZero)
         
-        modelState.currentColorObservable.subscribeNext(updateCurrentColor).addDisposableTo(disposeBag)
-        modelState.currentSizeObservable.subscribeNext(updateCurrentSize).addDisposableTo(disposeBag)
-        modelState.buyButtonObservable.subscribeNext(updateBuyButtonEnabledState).addDisposableTo(disposeBag)
-        modelState.productDetailsObservable.subscribeNext(updateProductDetails).addDisposableTo(disposeBag)
+        modelState.currentColorObservable.subscribeNext { [weak self] currentColor in
+            self?.updateCurrentColor(currentColor)
+            }.addDisposableTo(disposeBag)
+        modelState.currentSizeObservable.subscribeNext { [weak self] currentSize in
+            self?.updateCurrentSize(currentSize)
+            }.addDisposableTo(disposeBag)
+        modelState.buyButtonObservable.subscribeNext { [weak self] buttonState in
+            self?.updateBuyButtonEnabledState(buttonState)
+            }.addDisposableTo(disposeBag)
+        modelState.productDetailsObservable.subscribeNext { [weak self] productDetails in
+            self?.updateProductDetails(productDetails)
+            }.addDisposableTo(disposeBag)
         updateProduct(modelState.product)
         
         tableView.showsVerticalScrollIndicator = false

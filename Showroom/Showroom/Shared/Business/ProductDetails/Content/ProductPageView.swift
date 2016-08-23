@@ -78,7 +78,9 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
         
         switcherDataSource = self
         
-        modelState.productDetailsObservable.subscribeNext(updateProductDetails).addDisposableTo(disposeBag)
+        modelState.productDetailsObservable.subscribeNext { [weak self] productDetails in
+            self?.updateProductDetails(productDetails)
+            }.addDisposableTo(disposeBag)
         
         let imageCollectionTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ProductPageView.didTapOnImageCollectionView))
         imageCollectionTapGestureRecognizer.delegate = self

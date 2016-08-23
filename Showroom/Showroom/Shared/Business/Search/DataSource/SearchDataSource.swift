@@ -13,7 +13,7 @@ final class SearchDataSource: NSObject, UICollectionViewDataSource {
             collectionView?.reloadData()
         }
     }
-    var pageHandler: SearchPageHandler?
+    weak var pageHandler: SearchPageHandler?
     
     init(with collectionView: UICollectionView) {
         self.collectionView = collectionView

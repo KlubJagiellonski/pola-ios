@@ -122,7 +122,7 @@ class CheckoutDeliveryView: ViewSwitcher {
         formFieldsViews?.removeAll()
         addressOptionViews?.removeAll()
         contentValidators.removeAll()
-        contentValidators.append(self)
+        contentValidators.append(CheckoutDeliveryContentValidatorProxy(deliveryView: self))
         
         for view in stackView.arrangedSubviews {
             stackView.removeArrangedSubview(view)
@@ -234,6 +234,32 @@ class CheckoutDeliveryView: ViewSwitcher {
             }
         }
         return addressFields
+    }
+}
+
+final class CheckoutDeliveryContentValidatorProxy: ContentValidator {
+    weak var deliveryView: CheckoutDeliveryView?
+    
+    init(deliveryView: CheckoutDeliveryView) {
+        self.deliveryView = deliveryView
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func getValue() -> AnyObject? {
+        return deliveryView?.getValue()
+    }
+    func showError(error: String) {
+        deliveryView?.showError(error)
+    }
+    func hideError() {
+        deliveryView?.hideError()
+    }
+    
+    func validate(showResult: Bool) -> Bool {
+        return deliveryView?.validate(showResult) ?? false
     }
 }
 

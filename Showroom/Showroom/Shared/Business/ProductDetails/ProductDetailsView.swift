@@ -53,7 +53,7 @@ class ProductDetailsView: UIView, UICollectionViewDelegateFlowLayout {
         }
     }
     weak var delegate: ProductDetailsViewDelegate?
-    weak var pageHandler: ProductDetailsPageHandler? {
+    var pageHandler: ProductDetailsPageHandler? {
         set { dataSource.pageHandler = newValue }
         get { return dataSource.pageHandler }
     }
