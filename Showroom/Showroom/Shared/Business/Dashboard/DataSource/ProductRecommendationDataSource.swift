@@ -40,7 +40,6 @@ class ProductRecommendationDataSource: NSObject, UICollectionViewDataSource {
     }
     
     func changeData(productRecommendations: [ProductRecommendation]) {
-        //TODO add animations
         self.productRecommendations = productRecommendations
         collectionView?.reloadData()
     }

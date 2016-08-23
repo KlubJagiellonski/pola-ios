@@ -26,7 +26,6 @@ class ContentPromoDataSource : NSObject, UITableViewDataSource {
     }
     
     func changeData(contentPromos: [ContentPromo]) {
-        //TODO add animations
         self.contentPromos = contentPromos
         tableView?.reloadData()
     }

@@ -18,7 +18,7 @@ final class ToastWindow: UIWindow {
         currentToastView?.alpha = 0
         addSubview(currentToastView!)
         currentToastView?.snp_makeConstraints { make in
-            make.top.equalToSuperview().offset(20) //todo change with dimensions
+            make.top.equalToSuperview().offset(20)
             make.leading.equalToSuperview().offset(toastMargin)
             make.trailing.equalToSuperview().inset(toastMargin)
         }

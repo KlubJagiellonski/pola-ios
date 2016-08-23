@@ -123,7 +123,7 @@ extension ProductDetailsViewController: ProductDetailsPageHandler {
         indexedViewControllers.removeAll()
     }
     
-    //todo perfectly parent should set content inset, but it would be too much work and too much complications
+    //perfectly parent should set content inset, but it would be too much work and too much complications
     private func createChildViewContentInset() -> UIEdgeInsets {
         let bottomInset = bottomLayoutGuide.length == 0 ? Dimensions.tabViewHeight : bottomLayoutGuide.length
         return UIEdgeInsets(top: topLayoutGuide.length, left: 0, bottom: bottomInset, right: 0)
