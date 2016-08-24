@@ -45,6 +45,7 @@ final class ProductErrorPageCell: UICollectionViewCell {
     }
     
     func didTapRetryButton() {
+        logInfo("Tapped retry button")
         delegate?.productErrorCellDidTapRetry(self)
     }
     

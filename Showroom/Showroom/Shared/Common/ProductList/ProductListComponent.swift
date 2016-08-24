@@ -102,7 +102,12 @@ final class ProductListComponent: NSObject, UICollectionViewDataSource, UICollec
     }
     
     func appendData(products: [ListProduct], nextPageState: NextPageState) {
-        guard let collectionView = collectionView else { return }
+        guard let collectionView = collectionView else {
+            logError("Could not append data, because collectionView is not initialized.")
+            return
+        }
+        
+        logInfo("Appending data with \(products.count) products and next page state as \(nextPageState)")
         
         informedAboutNextPage = false
         
@@ -124,6 +129,8 @@ final class ProductListComponent: NSObject, UICollectionViewDataSource, UICollec
     }
     
     func updateData(products: [ListProduct], nextPageState: NextPageState) {
+        logInfo("Updating data with \(products.count) products and next page state as \(nextPageState)")
+        
         informedAboutNextPage = false
         self.products = products
         self.nextPageState = nextPageState
@@ -137,7 +144,11 @@ final class ProductListComponent: NSObject, UICollectionViewDataSource, UICollec
     }
     
     func moveToPosition(forProductIndex index: Int, animated: Bool) {
-        guard let view = collectionView else { return }
+        guard let view = collectionView else {
+            logError("Cannot scroll collection view that is not initialized")
+            return
+        }
+        logInfo("Scrolling to product at index \(index)")
         let indexPath = NSIndexPath(forItem: index, inSection: ProductListSection.Products.toSectionIndex(headerSectionInfo != nil))
         view.scrollToItemAtIndexPath(indexPath, atScrollPosition: .CenteredVertically, animated: animated)
     }
@@ -150,6 +161,8 @@ final class ProductListComponent: NSObject, UICollectionViewDataSource, UICollec
         guard self.nextPageState != nextPageState else { return }
         let oldValue = self.nextPageState
         self.nextPageState = nextPageState
+        
+        logInfo("Changed next page state from \(oldValue) to \(nextPageState)")
         
         let nextPageSectionIndex = ProductListSection.NextPage.toSectionIndex(headerSectionInfo != nil)
         let nextPageIndexPath = [NSIndexPath(forItem: 0, inSection: nextPageSectionIndex)]
@@ -172,12 +185,20 @@ final class ProductListComponent: NSObject, UICollectionViewDataSource, UICollec
     // MARK:- ProductItemCellDelegate
     
     func productItemCellDidTap(cell: ProductItemCell) {
-        guard let collectionView = collectionView, let indexPath = collectionView.indexPathForCell(cell) else { return }
+        guard let collectionView = collectionView, let indexPath = collectionView.indexPathForCell(cell) else {
+            logError("Tried to tap a cell when collection view isn't initialized or doesn't contain the cell")
+            return
+        }
+        logInfo("Tapped cell at row \(indexPath.row)")
         delegate?.productListComponent(self, didTapProductAtIndex: indexPath.item)
     }
     
     func productItemCellDidDoubleTap(cell: ProductItemCell) {
-        guard let collectionView = collectionView, let indexPath = collectionView.indexPathForCell(cell) else { return }
+        guard let collectionView = collectionView, let indexPath = collectionView.indexPathForCell(cell) else {
+            logError("Tried to double tap a cell when collection view isn't initialized or doesn't contain the cell")
+            return
+        }
+        logInfo("Double tapped cell at row \(indexPath.row)")
         delegate?.productListComponent(self, didDoubleTapProductAtIndex: indexPath.item)
     }
     
@@ -283,7 +304,9 @@ final class ProductListComponent: NSObject, UICollectionViewDataSource, UICollec
 // MARK:- Utilities
     
     private func changeLoadingIndicatorAnimationStateIfPossible(forCell cell: UICollectionViewCell, animationEnabled: Bool) {
-        guard let cell = cell as? ProductLoadingPageCell else { return }
+        guard let cell = cell as? ProductLoadingPageCell else {
+            return
+        }
         if animationEnabled {
             cell.loadingIndicator.startAnimation()
         } else {

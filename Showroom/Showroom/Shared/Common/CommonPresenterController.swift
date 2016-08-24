@@ -38,6 +38,7 @@ class CommonPresenterController: PresenterViewController, NavigationHandler {
     // MARK:- NavigationHandler
     
     func handleNavigationEvent(event: NavigationEvent) -> EventHandled {
+        logInfo("Handling navigation event \(event.dynamicType)")
         switch event {
         case let showProductDetailsEvent as ShowProductDetailsEvent:
             if let productDetailsViewController = currentModalViewController as? ProductDetailsViewController {
@@ -97,6 +98,7 @@ class CommonPresenterController: PresenterViewController, NavigationHandler {
 
 extension CommonPresenterController: DeepLinkingHandler {
     func handleOpen(withURL url: NSURL) -> Bool {
+        logInfo("Opening URL: \(url)")
         guard let deepLinkingHandler = contentViewController as? DeepLinkingHandler else {
             return false
         }

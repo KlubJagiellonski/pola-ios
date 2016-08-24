@@ -61,6 +61,7 @@ class ProductListModel {
                 if let emarsysCategory = result.emarsysCategory {
                     self.emarsysService.sendCategoryEvent(withCategory: emarsysCategory)
                 }
+                logInfo("Fetched \(result.products.count) products for first page")
         }
             .observeOn(MainScheduler.instance)
     }
@@ -70,6 +71,7 @@ class ProductListModel {
         return createObservable(with: paginationInfo, forFilters: createRequestFilters(filters))
             .doOnNext { [weak self](result: ProductListResult) in
                 self?.products.appendContentsOf(result.products)
+                logInfo("Fetched \(result.products.count) products for next page")
         }
             .observeOn(MainScheduler.instance)
             .doOnNext { [weak self](result: ProductListResult) in
@@ -119,6 +121,8 @@ class ProductListModel {
         filters = productListResult.filters
         products = productListResult.products
         totalProductsAmount = productListResult.totalResults
+        
+        logInfo("Changed filter with total \(totalProductsAmount) products")
         if let emarsysCategory = productListResult.emarsysCategory {
             self.emarsysService.sendCategoryEvent(withCategory: emarsysCategory)
         }

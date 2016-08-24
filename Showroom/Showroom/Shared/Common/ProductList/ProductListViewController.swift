@@ -26,6 +26,8 @@ extension ProductListViewControllerInterface {
     }
     
     func fetchFirstPage() {
+        logInfo("Fetching first page")
+        
         productListView.changeSwitcherState(.Loading, animated: true)
         filterButtonEnabled = false
         let onEvent = { [weak self](event: Event<ProductListResult>) in
@@ -48,6 +50,8 @@ extension ProductListViewControllerInterface {
     }
     
     func fetchNextPage() {
+        logInfo("Fetching next page")
+        
         logAnalyticsEvent(AnalyticsEventId.ListNextPage)
         
         let onEvent = { [weak self](event: Event<ProductListResult>) in
@@ -108,15 +112,18 @@ extension ProductListViewControllerInterface where Self: UIViewController {
 
 extension ProductListViewDelegate where Self: ProductListViewControllerInterface {
     func productListViewDidReachPageEnd(listView: ProductListViewInterface) {
+        logInfo("Reached page end")
         fetchNextPage()
     }
     
     func productListViewDidTapRetryPage(listView: ProductListViewInterface) {
+        logInfo("Tapped retry")
         productListView.updateNextPageState(.Fetching)
         fetchNextPage()
     }
     
     func productListView(listView: ProductListViewInterface, didTapProductAtIndex index: Int) {
+        logInfo("Tapped product at index \(index)")
         logAnalyticsEvent(AnalyticsEventId.ListProductClicked(productListModel.products[safe: index]?.id ?? 0))
         let imageWidth = productListView.productImageWidth
         let context = productListModel.createProductDetailsContext(withProductIndex: index, withImageWidth: imageWidth)
@@ -129,6 +136,7 @@ extension ProductListViewDelegate where Self: ProductListViewControllerInterface
     }
     
     func productListView(listView: ProductListViewInterface, didDoubleTapProductAtIndex index: Int) {
+        logInfo("Double tapped product at index \(index)")
         logAnalyticsEvent(AnalyticsEventId.ListAddToWishlist(productListModel.products[safe: index]?.id ?? 0))
         productListModel.addToWishlist(productAtIndex: index)
         

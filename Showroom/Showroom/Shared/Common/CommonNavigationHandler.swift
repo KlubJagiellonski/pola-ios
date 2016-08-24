@@ -19,6 +19,7 @@ class CommonNavigationHandler: NavigationHandler {
     }
     
     func handleNavigationEvent(event: NavigationEvent) -> EventHandled {
+        logInfo("Handling navigation event \(event.dynamicType)")
         switch event {
         case let linkEvent as ShowItemForLinkEvent:
             if let url = NSURL(string: linkEvent.link) {
@@ -44,6 +45,7 @@ class CommonNavigationHandler: NavigationHandler {
     }
     
     private func showView(forURL url: NSURL, title: String?, additionalParams: [NSObject: AnyObject] = [:]) -> Bool {
+        logInfo("Showing view for URL: \(url.absoluteString)")
         var params = additionalParams
         if let title = title {
             params["title"] = title

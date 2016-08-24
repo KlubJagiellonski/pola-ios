@@ -89,6 +89,8 @@ class ViewSwitcher: UIView {
         
         guard oldValue != switcherState else { return }
         
+        logInfo("ViewSwitcher is changing state from \(oldValue) to \(switcherState)")
+        
         if let animatingToState = animatingToState {
             animationEndBlock = { [weak self] in
                 self?.animateToNewState(fromState: animatingToState, animated: animated)
@@ -237,6 +239,7 @@ final class ErrorView: UIView {
     }
     
     func didTapRetry() {
+        logInfo("Tapped retry")
         viewSwitcher?.switcherDelegate?.viewSwitcherDidTapRetry(viewSwitcher!)
     }
     
