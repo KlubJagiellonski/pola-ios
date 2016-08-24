@@ -149,13 +149,13 @@ extension EditAddressValidationError: Decodable {
 extension EditAddressFieldErrors: Decodable {
     static func decode(json: AnyObject) throws -> EditAddressFieldErrors {
         return try EditAddressFieldErrors(
-            firstName: json => UserAddress.firstNameKey,
-            lastName: json => UserAddress.lastNameKey,
-            streetAndAppartmentNumbers: json => UserAddress.streetAndAppartmentNumbersKey,
-            postalCode: json => UserAddress.postalCodeKey,
-            city: json => UserAddress.cityKey,
-            country: json => UserAddress.countryKey,
-            phone: json => UserAddress.phoneKey,
+            firstName: json =>? UserAddress.firstNameKey,
+            lastName: json =>? UserAddress.lastNameKey,
+            streetAndAppartmentNumbers: json =>? UserAddress.streetAndAppartmentNumbersKey,
+            postalCode: json =>? UserAddress.postalCodeKey,
+            city: json =>? UserAddress.cityKey,
+            country: json =>? UserAddress.countryKey,
+            phone: json =>? UserAddress.phoneKey,
             description: json =>? UserAddress.descriptionKey
         )
     }

@@ -723,7 +723,7 @@ extension ObservableType {
 extension SettingsWebType {
     var pathComponent: String {
         switch self {
-        case .UserData: return "user/profile"
+        case .UserData: return "user-profile"
         case .History: return "order/history"
         case .HowToMeasure: return "how-to-measure"
         case .PrivacyPolicy: return "privacy-policy"
