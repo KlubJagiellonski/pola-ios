@@ -73,22 +73,22 @@ class WishlistInAppOnboardingView: UIView {
         super.willMoveToWindow(newWindow)
         logInfo("willMoveToWindow: \(newWindow)")
         if newWindow != nil {
+            startAnimation()
             NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(WishlistInAppOnboardingView.startAnimation), name: UIApplicationDidBecomeActiveNotification, object: nil)
             NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(WishlistInAppOnboardingView.stopAnimation), name: UIApplicationWillResignActiveNotification, object: nil)
         } else {
+            stopAnimation()
             NSNotificationCenter.defaultCenter().removeObserver(self)
         }
-        
-        animation.animating = newWindow != nil
     }
     
     func startAnimation() {
-        logInfo("startAnimation")
+        logInfo("Start animation")
         animation.animating = true
     }
     
     func stopAnimation() {
-        logInfo("stopAnimation")
+        logInfo("Stop animation")
         animation.animating = false
     }
     

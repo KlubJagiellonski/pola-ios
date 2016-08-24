@@ -45,11 +45,16 @@ final class SigningNavigationController: UINavigationController, NavigationHandl
     }
     
     func didTapCloseButton(sender: UIBarButtonItem) {
+        logInfo("Did tap close button")
         signingDelegate?.signingWantsDismiss(self)
     }
     
     func handleNavigationEvent(event: NavigationEvent) -> EventHandled {
-        guard let simpleEvent = event as? SimpleNavigationEvent else { return false }
+        logInfo("Handle navigation event: \(event)")
+        guard let simpleEvent = event as? SimpleNavigationEvent else {
+            logError("Unexpected event type: \(event)")
+            return false
+        }
         
         switch simpleEvent.type {
         case .Back:

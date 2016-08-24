@@ -56,6 +56,7 @@ class TrendProductListViewController: UIViewController, ProductListViewControlle
     }
     
     func updateData(with data: EntryTrendInfo) {
+        logInfo("Update data with data: \(data)")
         guard data.slug != model.entryTrendInfo.slug else {
             logInfo("Tried to update same trend info view")
             return
@@ -71,6 +72,7 @@ class TrendProductListViewController: UIViewController, ProductListViewControlle
     }
     
     func pageWasFetched(result productListResult: ProductListResult, pageIndex: Int) {
+        logInfo("Fetched page with index: \(pageIndex)")
         if let trendInfo = productListResult.trendInfo, let description = model.attributedDescription where pageIndex == 0 {
             title = trendInfo.name
             castView.updateTrendInfo(trendInfo.imageInfo, description: description)
@@ -80,6 +82,7 @@ class TrendProductListViewController: UIViewController, ProductListViewControlle
     }
     
     func showInAppWishlistOnboarding() {
+        logInfo("Show in-app wishlist onboarding")
         let wishlistOnboardingViewController = WishlistInAppOnboardingViewController()
         wishlistOnboardingViewController.delegate = self
         onboardingActionAnimator.presentViewController(wishlistOnboardingViewController, presentingViewController: self)
@@ -88,6 +91,7 @@ class TrendProductListViewController: UIViewController, ProductListViewControlle
     // MARK:- ProductListViewDelegate
     
     func viewSwitcherDidTapRetry(view: ViewSwitcher) {
+        logInfo("View switcher did tap retry")
         fetchFirstPage()
     }
 }

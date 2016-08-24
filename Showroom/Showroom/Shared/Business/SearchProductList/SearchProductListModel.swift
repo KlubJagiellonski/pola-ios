@@ -10,6 +10,7 @@ final class SearchProductListModel: ProductListModel {
     }
     
     func update(with data: EntrySearchInfo) {
+        logInfo("Update with data: \(data)")
         self.entrySearchInfo = data
         resetOnUpdate(withLink: data.link, query: data.query)
     }

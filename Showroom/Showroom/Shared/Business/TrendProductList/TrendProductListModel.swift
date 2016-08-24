@@ -26,6 +26,7 @@ final class TrendProductListModel: ProductListModel {
     }
     
     func update(with entryTrendInfo: EntryTrendInfo) {
+        logInfo("Update with entry trend info: \(entryTrendInfo)")
         self.entryTrendInfo = entryTrendInfo
         trendInfo = nil
         attributedDescription = nil

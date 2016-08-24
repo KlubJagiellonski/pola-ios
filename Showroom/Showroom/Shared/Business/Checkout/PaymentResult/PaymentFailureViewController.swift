@@ -32,7 +32,7 @@ class PaymentFailureViewController: UIViewController, PaymentFailureViewDelegate
     }
     
     func paymentFailureViewDidTapLink(view: PaymentFailureView) {
-        logInfo("paymentFailureViewDidTapLink")
+        logInfo("Payment failure did tap link")
 
         guard let orderUrl = NSURL(string: orderUrl) else {
             logError("Cannot create url from \(self.orderUrl)")
@@ -43,7 +43,7 @@ class PaymentFailureViewController: UIViewController, PaymentFailureViewDelegate
     }
     
     func paymentFailureViewDidTapGoToMain(view: PaymentFailureView) {
-        logInfo("paymentFailureViewDidTapGoToMain")
+        logInfo("Payment failure did tap go to main")
         sendNavigationEvent(SimpleNavigationEvent(type: .ShowDashboard))
     }
 }

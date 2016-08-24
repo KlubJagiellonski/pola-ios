@@ -18,13 +18,14 @@ class EditKioskModel {
     }
     
     func fetchKiosks(withLatitude latitude: Double, longitude: Double, limit: Int = 10) -> Observable<KioskResult> {
+        logInfo("fetch kiosks near location latitude: \(latitude), longitude: \(longitude), kiosk count limit: \(limit)")
         return api.fetchKiosks(withLatitude: latitude, longitude: longitude, limit: limit)
             .doOnNext { [weak self] in self?.kiosks = $0.kiosks }
             .observeOn(MainScheduler.instance)
     }
     
     func fetchKiosks(withAddressString addressString: String) -> Observable<KioskResult> {
-        
+        logInfo("fetch kiosks near location address string: \(addressString)")
         return geocoder.rx_geocodeAddressString(addressString)
             .flatMap { [weak self](placemarks: [CLPlacemark]) -> Observable<KioskResult> in
                 guard let `self` = self else { return Observable.empty() }

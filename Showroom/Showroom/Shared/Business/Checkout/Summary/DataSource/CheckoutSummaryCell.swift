@@ -48,12 +48,14 @@ class CheckoutSummaryCell: UITableViewCell {
     }
     
     func updateData(with product: BasketProduct) {
+        logInfo("Update data with product: \(product)")
         descriptionLabel.title = product.name
         descriptionLabel.value = tr(.CheckoutSummaryProductDescription(String(product.amount), product.size.name, product.color.name))
         priceLabel.basePrice = product.sumPrice!
     }
     
     func updateData(with brand: BasketBrand, carrier deliveryCarrier: DeliveryCarrier) {
+        logInfo("Update data with brand: \(brand), delivery carrier: \(deliveryCarrier)")
         let deliveryWaitTime = brand.waitTime!
         let deliveryTimeDescription = (deliveryWaitTime == 1 ? tr(.CommonDeliveryInfoSingle(String(deliveryWaitTime))) : tr(.CommonDeliveryInfoMulti(String(deliveryWaitTime))))
         
@@ -189,6 +191,7 @@ class CheckoutSummaryCommentCell: UITableViewCell {
     }
     
     func updateData(withComment comment: String?) {
+        logInfo("Update data with comment: \(comment)")
         guard let comment = comment else {
             commentLabel.hidden = true
             addButton.hidden = false
@@ -424,6 +427,7 @@ class CheckoutSummaryPaymentCell: UITableViewCell {
     }
     
     func updateData(withTotalPrice totalPrice: Money, discount: Money?, discountCode: String?, payments: [Payment]?) {
+        logInfo("Update data with total price: \(totalPrice), discount: \(discount), discount code: \(discountCode), payments: \(payments)")
         totalPriceLabel.priceLabel.text = totalPrice.stringValue
         if discountCode == nil || discount == nil {
             discountLabel.hidden = true

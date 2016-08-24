@@ -143,6 +143,7 @@ class ProductFilterDataSource: NSObject, UITableViewDataSource {
 extension ProductFilterDataSource: ProductFilterRangeCellDelegate {
     func filterRange(cell: ProductFilterRangeCell, didChangeRange range: ValueRange) {
         guard let index = tableView?.indexPathForCell(cell)?.row else { return }
+        logInfo("Filter range did change to: \(range)")
         productFilterView?.didChangeValueRange(range, forIndex: index)
     }
 }
@@ -150,6 +151,7 @@ extension ProductFilterDataSource: ProductFilterRangeCellDelegate {
 extension ProductFilterDataSource: SwitchValueTableViewCellDelegate {
     func switchValue(cell: SwitchValueTableViewCell, didChangeValue value: Bool) {
         guard let index = tableView?.indexPathForCell(cell)?.row else { return }
+        logInfo("Switch value did change to: \(value)")
         productFilterView?.didChangeSelect(value, forIndex: index)
     }
 }

@@ -48,6 +48,7 @@ final class CheckoutModel {
     }
     
     func update(comment comment: String?, at index: Int) {
+        logInfo("Update comment: \(comment) at index: \(index)")
         if index < 0 || index >= state.comments.count {
             return
         }
@@ -83,6 +84,7 @@ final class CheckoutModel {
             .observeOn(MainScheduler.instance)
             .doOnNext { [weak self] basket in
                 guard let `self` = self else { return }
+                logInfo("Update with selected kiosk: \(kiosk) on basket changed: \(basket)")
                 self.state.checkout.basket = basket
                 self.state.selectedKiosk = kiosk
                 self.updateSelectedPaymentForDefault()
@@ -90,11 +92,13 @@ final class CheckoutModel {
     }
     
     func updateSelectedPayment(forIndex index: Int) {
+        logInfo("Update selected payment for index: \(index)")
         state.selectedPayment = state.checkout.basket.payments[index]
         updateBuyButtonState()
     }
     
     func updateSelectedPaymentForDefault() {
+        logInfo("Update selected payment for default")
         state.selectedPayment = state.checkout.defaultPayment
     }
     
@@ -125,6 +129,7 @@ final class CheckoutModel {
             .observeOn(MainScheduler.instance)
             .doOnNext { [weak self] userAddress in
                 guard let `self` = self else { return }
+                logInfo("Update on user address changed: \(userAddress)")
                 
                 self.userManager.updateUser()
                 
@@ -170,6 +175,7 @@ final class CheckoutModel {
     }
     
     func clearBasket() {
+        logInfo("Clear basket")
         basketManager.clearBasket()
     }
 }

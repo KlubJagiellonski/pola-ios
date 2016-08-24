@@ -63,27 +63,31 @@ class EditKioskViewController: UIViewController, EditKioskViewDelegate {
                 switch kiosksResult {
                     
                 case .Error(let error):
-                    logInfo("fetched kiosks error: \(error)")
                     if let error = error as? CLError {
                         switch error {
                         case .GeocodeFoundNoResult:
+                            logInfo("Fetching kiosks error: CLError: GeocodeFoundNoResult")
                             self.castView.internalSwitcherState = .Empty
                             self.castView.geocodingErrorVisible = true
                         case .Network:
+                            logInfo("Fetching kiosks error: CLError: Network")
                             self.castView.internalSwitcherState = .Error
                             self.castView.geocodingErrorVisible = false
                         case .GeocodeCanceled:
+                            logInfo("Fetching kiosks error: CLError: GeocodeCancelled")
                             break
                         default:
+                            logInfo("Fetching kiosks error: CLError: \(error)")
                             self.castView.internalSwitcherState = .Success
                             self.castView.geocodingErrorVisible = true
                         }
                     } else {
+                        logInfo("Fetching kiosks error: Unknown error")
                         self.castView.internalSwitcherState = .Error
                     }
                     
                 case .Next(let result):
-                    logInfo("fetched kiosks: \(result.kiosks)")
+                    logInfo("Fetched kiosks: \(result.kiosks)")
                     if result.kiosks.isEmpty {
                         self.castView.internalSwitcherState = .Empty
                         self.castView.geocodingErrorVisible = true
@@ -103,10 +107,12 @@ class EditKioskViewController: UIViewController, EditKioskViewDelegate {
     // MARK: EditKioskViewDelegate
     
     func editKioskView(view: EditKioskView, didReturnSearchString searchString: String?) {
+        logInfo("Edit kiosk view did retur search string: \(searchString)")
         fetchKiosks(withAddressString: searchString ?? "")
     }
     
     func editKioskView(view: EditKioskView, didChooseKioskAtIndex kioskIndex: Int) {
+        logInfo("Edit kiosk view did choose kiosk at index: \(kioskIndex)")
         guard let kiosks = model.kiosks else { return }
         
         castView.changeSwitcherState(.ModalLoading)
@@ -123,7 +129,7 @@ class EditKioskViewController: UIViewController, EditKioskViewDelegate {
                 logAnalyticsEvent(AnalyticsEventId.CheckoutPOPAddressChanged)
                 self.delegate?.editKioskViewControllerDidChooseKiosk(self)
             case .Error(let error):
-                logError("Couldn't updated kiosk \(kiosk) with error \(error)")
+                logError("Couldn't update kiosk \(kiosk) with error \(error)")
             default: break
             }
         }.addDisposableTo(disposeBag)
@@ -136,6 +142,7 @@ class EditKioskViewController: UIViewController, EditKioskViewDelegate {
     // MARK: ViewSwitcherDelegate
     
     func viewSwitcherDidTapRetry(view: ViewSwitcher) {
+        logInfo("View switcher did tap retry")
         guard let searchString = castView.searchString else { return }
         fetchKiosks(withAddressString: searchString)
     }

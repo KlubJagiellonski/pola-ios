@@ -40,7 +40,7 @@ class PaymentSuccessViewController: UIViewController, PaymentSuccessViewDelegate
     }
     
     func paymentSuccessViewDidTapLink(view: PaymentSuccessView) {
-        logInfo("paymentSuccessViewDidTapLink")
+        logInfo("Payment success view did tap link")
         
         guard let orderUrl = NSURL(string: orderUrl) else {
             logError("Cannot create url from \(self.orderUrl)")
@@ -51,14 +51,16 @@ class PaymentSuccessViewController: UIViewController, PaymentSuccessViewDelegate
     }
     
     func paymentSuccessViewDidTapGoToMain(view: PaymentSuccessView) {
-        logInfo("paymentSuccessViewDidTapGoToMain")
+        logInfo("Payment success view did tap go to main")
         sendNavigationEvent(SimpleNavigationEvent(type: .ShowDashboard))
     }
     
     private func showRateAppViewIfNeeded() {
         guard rateAppManager.shouldShowRateAppView else {
+            logInfo("Showing rate app view was not needed")
             return
         }
+        logInfo("Show rate app view")
         
         let viewController = resolver.resolve(RateAppViewController.self, argument: RateAppViewType.AfterBuy)
         viewController.preferredContentSize = Dimensions.rateAppPreferredSize
@@ -70,12 +72,14 @@ class PaymentSuccessViewController: UIViewController, PaymentSuccessViewDelegate
 
 extension PaymentSuccessViewController: DimAnimatorDelegate {
     func animatorDidTapOnDimView(animator: Animator) {
+        logInfo("Animator did tap on dim view")
         formSheetAnimator.dismissViewController(presentingViewController: self)
     }
 }
 
 extension PaymentSuccessViewController: RateAppViewControllerDelegate {
     func rateAppWantsDismiss(viewController: RateAppViewController) {
+        logInfo("Rate app view controller wants dismiss")
         formSheetAnimator.dismissViewController(presentingViewController: self)
     }
 }

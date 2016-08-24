@@ -57,14 +57,17 @@ final class RateAppView: UIView {
     }
     
     func didTapRate() {
+        logInfo("Did tap rate")
         delegate?.rateAppDidTapRate(self)
     }
     
     func didTapDecline() {
+        logInfo("Did tap decline")
         delegate?.rateAppDidTapDecline(self)
     }
     
     func didTapRemindLater() {
+        logInfo("Did tap remind me later")
         delegate?.rateAppDidTapRemindLater(self)
     }
     

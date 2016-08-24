@@ -19,6 +19,7 @@ class WishlistInAppOnboardingViewController: UIViewController, WishlistInAppOnbo
     }
     
     func wishlistOnboardingViewDidTapDismissButton(view: WishlistInAppOnboardingView) {
+        logInfo("Wishlist onboarding view did tap dismiss button")
         delegate?.wishlistOnboardingViewControllerDidTapDismissButton(self)
     }
     

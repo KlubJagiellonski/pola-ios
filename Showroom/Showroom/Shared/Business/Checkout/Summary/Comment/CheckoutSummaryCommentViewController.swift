@@ -48,10 +48,12 @@ class CheckoutSummaryCommentViewController: UIViewController, CheckoutSummaryCom
     // MARK: - CheckoutSummaryCommentViewDelegate
     
     func checkoutSummaryCommentViewDidTapClose(view: CheckoutSummaryCommentView) {
+        logInfo("Checkout summary view did tap close")
         delegate?.checkoutSummaryCommentWantsDismiss(self)
     }
     
     func checkoutSummaryCommentViewDidTapSave(view: CheckoutSummaryCommentView) {
+        logInfo("Checkout summary comment view did tap save")
         comment = view.comment
         delegate?.checkoutSummaryCommentWantsSaveAndDimsiss(self)
     }

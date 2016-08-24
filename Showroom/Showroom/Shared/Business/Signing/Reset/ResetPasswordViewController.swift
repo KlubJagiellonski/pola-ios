@@ -47,6 +47,7 @@ class ResetPasswordViewController: UIViewController, ResetPasswordViewDelegate {
     // MARK: - ResetPasswordViewDelegate
     
     func resetPasswordViewDidReset() {
+        logInfo("Reset password view did tap reset")
         guard let email = castView.email where castView.validate(showResult: true) else {
             return
         }

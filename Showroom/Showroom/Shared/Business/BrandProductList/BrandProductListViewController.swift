@@ -74,6 +74,7 @@ class BrandProductListViewController: UIViewController, ProductListViewControlle
     }
     
     func didTapFilterButton() {
+        logInfo("Did tap filter button")
         logAnalyticsEvent(AnalyticsEventId.ListFilterIconClicked)
         
         guard let context = productListModel.createFilterContext() else {
@@ -86,6 +87,7 @@ class BrandProductListViewController: UIViewController, ProductListViewControlle
     }
     
     func pageWasFetched(result productListResult: ProductListResult, pageIndex: Int) {
+        logInfo("Fetched page with index: \(pageIndex)")
         if let brand = productListResult.brand, let description = model.attributedDescription where pageIndex == 0 {
             title = brand.name
             castView.updateBrandInfo(brand.imageUrl, description: description)
@@ -95,6 +97,7 @@ class BrandProductListViewController: UIViewController, ProductListViewControlle
     }
     
     func showInAppWishlistOnboarding() {
+        logInfo("Show in-app wishlist onboarding")
         let wishlistOnboardingViewController = WishlistInAppOnboardingViewController()
         wishlistOnboardingViewController.delegate = self
         onboardingActionAnimator.presentViewController(wishlistOnboardingViewController, presentingViewController: self)
@@ -103,6 +106,7 @@ class BrandProductListViewController: UIViewController, ProductListViewControlle
     // MARK:- BrandProductListViewDelegate
     
     func brandProductListDidTapHeader(view: BrandProductListView) {
+        logInfo("Brand product list did tap header")
         guard let brand = model.brand else { return }
         logAnalyticsEvent(AnalyticsEventId.ListBrandDetails(brand.id))
         let imageWidth = castView.headerImageWidth
@@ -113,16 +117,19 @@ class BrandProductListViewController: UIViewController, ProductListViewControlle
     // MARK:- ProductListViewDelegate
     
     func viewSwitcherDidTapRetry(view: ViewSwitcher) {
+        logInfo("View switcher did tap retry")
         fetchFirstPage()
     }
 }
 
 extension BrandProductListViewController: ProductFilterNavigationControllerDelegate {
     func productFilter(viewController: ProductFilterNavigationController, wantsCancelWithAnimation animation: Bool) {
+        logInfo("Product filter wants cancel, with animation: \(animation)")
         dismissViewControllerAnimated(animation, completion: nil)
     }
     
     func productFilter(viewController: ProductFilterNavigationController, didChangedFilterWithProductListResult productListResult: ProductListResult?) {
+        logInfo("Product filter did changed filter")
         dismissViewControllerAnimated(true, completion: nil)
         if productListResult != nil {
             didChangeFilter(withResult: productListResult!)

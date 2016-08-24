@@ -31,6 +31,7 @@ class CheckoutNavigationController: UINavigationController, NavigationHandler {
     }
     
     func showSummaryView() {
+        logInfo("Show summary view")
         let summaryViewController = resolver.resolve(CheckoutSummaryViewController.self, argument: model)
         summaryViewController.navigationItem.title = tr(.CheckoutSummaryNavigationHeader)
         summaryViewController.resetBackTitle()
@@ -38,6 +39,7 @@ class CheckoutNavigationController: UINavigationController, NavigationHandler {
     }
     
     func showEditAddressView() {
+        logInfo("Show edit address view")
         let editAddressViewController = resolver.resolve(EditAddressViewController.self, argument: model)
         editAddressViewController.delegate = self
         editAddressViewController.navigationItem.title = tr(.CheckoutDeliveryEditAddressNavigationHeader)
@@ -46,6 +48,7 @@ class CheckoutNavigationController: UINavigationController, NavigationHandler {
     }
     
     func showEditKioskView(editKioskEntry editKioskEntry: EditKioskEntry?) {
+        logInfo("Show edit kiosk view, editKioskEntry: \(editKioskEntry)")
         let editKioskViewController = resolver.resolve(EditKioskViewController.self, arguments: (model, editKioskEntry))
         editKioskViewController.delegate = self
         editKioskViewController.navigationItem.title = tr(.CheckoutDeliveryEditKioskNavigationHeader)
@@ -54,18 +57,21 @@ class CheckoutNavigationController: UINavigationController, NavigationHandler {
     }
     
     func showPaymentSuccessView(orderId orderId: ObjectId, let orderUrl: String) {
+        logInfo("Show payment success view with order id: \(orderId), orderUrl: \(orderUrl)")
         let successViewController = resolver.resolve(PaymentSuccessViewController.self, arguments: (orderId, orderUrl))
         pushViewController(successViewController, animated: true)
         setNavigationBarHidden(true, animated: true)
     }
     
     func showPaymentFailureView(orderId orderId: ObjectId, let orderUrl: String) {
+        logInfo("Show payment failure view with order id: \(orderId), orderUrl: \(orderUrl)")
         let failureViewController = resolver.resolve(PaymentFailureViewController.self, arguments: (orderId, orderUrl))
         pushViewController(failureViewController, animated: true)
         setNavigationBarHidden(true, animated: true)
     }
     
     func didTapCloseButton(sender: UIBarButtonItem) {
+        logInfo("Did tap close button")
         logAnalyticsEvent(AnalyticsEventId.CheckoutCancelClicked)
         checkoutDelegate?.checkoutWantsDismiss(self)
     }

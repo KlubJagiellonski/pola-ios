@@ -70,28 +70,29 @@ class InAppOnboardingPhotosPagingCell: UICollectionViewCell {
     }
     
     func startAnimation() {
-        logInfo("startAnimation")
+        logInfo("Start animation")
         animation.animating = true
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(InAppOnboardingPhotosPagingCell.didReceiveApplicationDidBecomeActive), name: UIApplicationDidBecomeActiveNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(InAppOnboardingPhotosPagingCell.didReceiveApplicationWillResignActive), name: UIApplicationWillResignActiveNotification, object: nil)
     }
     
     func stopAnimation() {
-        logInfo("stopAnimation")
+        logInfo("Stop animation")
         animation.animating = false
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     func didTapNext(sender: UIButton!) {
-        logInfo("photos paging did tap next")
         delegate?.onboardingPhotoPagingCellDidTapNext(self)
     }
     
     @objc private func didReceiveApplicationWillResignActive() {
+        logInfo("Did receive notification: app will resign active. Stop animation.")
         animation.animating = false
     }
     
     @objc private func didReceiveApplicationDidBecomeActive() {
+        logInfo("Did receive notification: app did become active. Start animation.")
         animation.animating = true
     }
     

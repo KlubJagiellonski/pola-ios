@@ -263,6 +263,7 @@ extension RegistrationView: KeyboardHelperDelegate, KeyboardHandler {
 
 extension RegistrationView: CheckButtonDelegate {
     func checkButton(checkButton: CheckButton, wantsShowMessage message: String) {
+        logInfo("Check button wants show message")
         delegate?.registrationView(self, wantShowMessage: message)
     }
 }
@@ -333,12 +334,14 @@ class GenderSelectorView: UIControl {
     }
     
     func didChangeFemaleValue() {
+        logInfo("Did select female")
         femaleButton.selected = true
         maleButton.selected = false
         sendActionsForControlEvents(.ValueChanged)
     }
     
     func didChangeMaleValue() {
+        logInfo("Did select male")
         femaleButton.selected = false
         maleButton.selected = true
         sendActionsForControlEvents(.ValueChanged)

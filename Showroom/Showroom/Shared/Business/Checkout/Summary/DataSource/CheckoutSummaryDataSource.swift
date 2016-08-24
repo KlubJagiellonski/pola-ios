@@ -158,7 +158,9 @@ class CheckoutSummaryDataSource: NSObject, UITableViewDataSource, CheckoutSummar
     // MARK: - CheckoutSummaryCommentCellDelegate
     
     func checkoutSummaryCommentCellDidTapAdd(cell: CheckoutSummaryCommentCell) {
+        logInfo("Checkout summary comment cell did tap add")
         guard let indexPath = tableView?.indexPathForCell(cell) else {
+            logError("Could not find index path for cell: \(cell)")
             return
         }
         if isPaymentSection(indexPath.section) {
@@ -168,7 +170,9 @@ class CheckoutSummaryDataSource: NSObject, UITableViewDataSource, CheckoutSummar
     }
     
     func checkoutSummaryCommentCellDidTapEdit(cell: CheckoutSummaryCommentCell) {
+        logInfo("Checkout summary comment cell did tap edit")
         guard let indexPath = tableView?.indexPathForCell(cell) else {
+            logError("Could not find index path for cell: \(cell)")
             return
         }
         if isPaymentSection(indexPath.section) {
@@ -178,7 +182,9 @@ class CheckoutSummaryDataSource: NSObject, UITableViewDataSource, CheckoutSummar
     }
     
     func checkoutSummaryCommentCellDidTapDelete(cell: CheckoutSummaryCommentCell) {
+        logInfo("Checkout summary comment cell did tap delete")
         guard let indexPath = tableView?.indexPathForCell(cell) else {
+            logError("Could not find index path for cell: \(cell)")
             return
         }
         if isPaymentSection(indexPath.section) {
@@ -190,7 +196,11 @@ class CheckoutSummaryDataSource: NSObject, UITableViewDataSource, CheckoutSummar
 
 extension CheckoutSummaryDataSource: CheckoutSummaryPaymentCellDelegate {
     func checkoutSummary(cell: CheckoutSummaryPaymentCell, didChangePaymentType type: CheckoutSummaryPaymentType) {
-        guard let paymentIndex = payments?.indexOf({ $0.id == type.paymentType }) else { return }
+        logInfo("Checkout summary did change payment type to type: \(type)")
+        guard let paymentIndex = payments?.indexOf({ $0.id == type.paymentType }) else {
+            logError("Cound not find index of payment type: \(type.paymentType)")
+            return
+        }
         summaryView?.checkoutSummaryDidChangeToPayment(at: paymentIndex)
     }
 }

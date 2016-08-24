@@ -68,6 +68,7 @@ class ProductFilterViewController: UIViewController, ProductFilterViewDelegate {
     }
     
     func didTapClear() {
+        logInfo("Did tap clear")
         model.clearChanges()
     }
     

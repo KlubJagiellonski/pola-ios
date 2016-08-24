@@ -59,6 +59,7 @@ class CategoryProductListViewController: UIViewController, ProductListViewContro
     }
     
     func updateData(with entryCategory: EntryCategory) {
+        logInfo("Update data with entry category: \(entryCategory)")
         title = entryCategory.name
         disposeBag = DisposeBag()
         model.update(with: entryCategory)
@@ -70,6 +71,7 @@ class CategoryProductListViewController: UIViewController, ProductListViewContro
     }
     
     func didTapFilterButton() {
+        logInfo("Did tap filter button")
         logAnalyticsEvent(AnalyticsEventId.ListFilterIconClicked)
         
         guard let context = productListModel.createFilterContext() else {
@@ -82,10 +84,12 @@ class CategoryProductListViewController: UIViewController, ProductListViewContro
     }
     
     func pageWasFetched(result productListResult: ProductListResult, pageIndex: Int) {
+        logInfo("Fetched page with index: \(pageIndex)")
         //todo set title
     }
     
     func showInAppWishlistOnboarding() {
+        logInfo("Show in-app wishlist onboarding")
         let wishlistOnboardingViewController = WishlistInAppOnboardingViewController()
         wishlistOnboardingViewController.delegate = self
         onboardingActionAnimator.presentViewController(wishlistOnboardingViewController, presentingViewController: self)
@@ -94,12 +98,14 @@ class CategoryProductListViewController: UIViewController, ProductListViewContro
     // MARK:- ProductListViewDelegate
     
     func viewSwitcherDidTapRetry(view: ViewSwitcher) {
+        logInfo("View switcher did tap retry")
         fetchFirstPage()
     }
 }
 
 extension CategoryProductListViewController: ProductFilterNavigationControllerDelegate {
     func productFilter(viewController: ProductFilterNavigationController, wantsCancelWithAnimation animation: Bool) {
+        logInfo("Product filter wants cancel, with animation: \(animation)")
         dismissViewControllerAnimated(animation, completion: nil)
     }
     

@@ -9,6 +9,7 @@ final class CategoryProductListModel: ProductListModel {
     }
     
     func update(with category: EntryCategory) {
+        logInfo("Update with category: \(category)")
         self.category = category
         resetOnUpdate(withLink: category.link, query: nil)
     }

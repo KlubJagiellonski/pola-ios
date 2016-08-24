@@ -50,6 +50,7 @@ extension InitialOnboardingDataSource: InitialOnboardingNotificationsCellDelegat
 
 extension InitialOnboardingDataSource: InitialOnboardingInfiniteScrollingCellDelegate {
     func onboardingInfiniteScrollingDidTapNext(cell: InitialOnboardingInfiniteScrollingCell) {
+        logInfo("Onboarding infinte scrolling cell did tap next")
         onboardingView?.didTapNext()
     }
 }

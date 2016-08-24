@@ -41,12 +41,14 @@ class PagingInAppOnboardingDataSource: NSObject, UICollectionViewDataSource {
 
 extension PagingInAppOnboardingDataSource: InAppOnboardingPhotosPagingCellDelegate {
     func onboardingPhotoPagingCellDidTapNext(cell: InAppOnboardingPhotosPagingCell) {
+        logInfo("Onboarding photo paging cell did tap next")
         onboardingView?.didTapNext()
     }
 }
 
 extension PagingInAppOnboardingDataSource: InAppOnboardingProductPagingCellDelegate {
     func onboardingProductPagingCellDidTapDismiss(cell: InAppOnboardingProductPagingCell) {
+        logInfo("Onboarding product paging cell did tap dismiss")
         onboardingView?.didTapDismiss()
     }
 }

@@ -48,7 +48,9 @@ class EditAddressViewController: UIViewController, EditAddressViewDelegate {
     }
     
     func editAddressViewDidTapSaveButton(view: EditAddressView) {
+        logInfo("Edit address view did tap save button")
         guard castView.validate(showResult: true) else {
+            logInfo("Edit address fields validation failed")
             castView.scrollContentToTop()
             return
         }
@@ -83,6 +85,7 @@ class EditAddressViewController: UIViewController, EditAddressViewDelegate {
                 case EditAddressError.Unknown:
                     fallthrough
                 default:
+                    logInfo("Unknown error")
                     self.toastManager.showMessage(tr(.CommonError))
                 }
             default: break
@@ -91,6 +94,7 @@ class EditAddressViewController: UIViewController, EditAddressViewDelegate {
     }
     
     private func updateValidationFieldIfNeeded(error: String?, key: String) {
+        logInfo("Update validation field if needed with error: \(error), key: \(key)")
         if let error = error {
             self.castView.updateFieldValidation(withId: key, validation: error)
         }

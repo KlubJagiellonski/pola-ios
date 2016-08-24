@@ -55,6 +55,7 @@ final class CheckoutSummaryViewController: UIViewController, CheckoutSummaryView
     }
     
     private func showCommentModal(forComment comment: String?, at index: Int) {
+        logInfo("Show comment modal for comment: \(comment), at index: \(index)")
         let viewController = resolver.resolve(CheckoutSummaryCommentViewController.self, arguments: (comment, index))
         viewController.delegate = self
         viewController.modalPresentationStyle = .FormSheet
@@ -72,6 +73,7 @@ final class CheckoutSummaryViewController: UIViewController, CheckoutSummaryView
             switch paymentError {
             case .CannotCreatePayment:
                 //means that something is wrong with input data. Cancel payment and show basket.
+                logError("Payment error: cannot create payment. There is something wrong with input data. Cancel payment and show basket.")
                 errorToast = tr(.CommonError)
                 moveToBasket = true
             case .PaymentRequestFailed(let requestFailedError):
@@ -79,22 +81,27 @@ final class CheckoutSummaryViewController: UIViewController, CheckoutSummaryView
                     switch response.statusCode {
                     case 400..<500:
                         //means that something is wrong with with params. Need to go back to bask and validate it again
+                        logError("Payment error: payment request failed with status code \(response.statusCode): something is wrong with params. Need to go back to basket and validate it again.")
                         errorToast = tr(.CheckoutPaymentOn400Error)
                         moveToBasket = true
                     default:
                         //other means 5xx which is server error. Try again if possible
+                        logInfo("Payment error: payment request failed with status code \(response.statusCode): server error. Try again if possible.")
                         errorToast = tr(.CommonError)
                     }
                 } else {
                     //other http error or NSURLDomainError - treat as 5xx
+                    logInfo("Payment error: payment request failed: unknown http error or NSURLDomainError")
                     errorToast = tr(.CommonError)
                 }
             }
         } else if let payUError = error as? PayUPaymentError {
             //it means that something went wrong with PayU payment. Show error view and clear basket. Possible that payment went ok
+            logInfo("PayU error: something went wrong with payU payment. Show error view and clear basket. It is possible that payment went ok.")
             paymentResult = payUError.paymentResult
             clearBasket = true
         } else if error is ApiError {
+            logInfo("API error: \(error)")
             errorToast = tr(.CommonUserLoggedOut)
             moveToBasket = true
         } else {
@@ -120,32 +127,33 @@ final class CheckoutSummaryViewController: UIViewController, CheckoutSummaryView
     // MARK: - CheckoutSummaryViewDelegate
     
     func checkoutSummaryView(view: CheckoutSummaryView, didTapAddCommentAt index: Int) {
-        logInfo("Add comment")
+        logInfo("Checkout summary view did tap add comment at index: \(index)")
         logAnalyticsEvent(AnalyticsEventId.CheckoutSummaryAddNoteClicked)
         showCommentModal(forComment: nil, at: index)
     }
     
     func checkoutSummaryView(view: CheckoutSummaryView, didTapEditCommentAt index: Int) {
-        logInfo("Edit comment")
+        logInfo("Checkout summary view did tap edit comment at index: \(index)")
         logAnalyticsEvent(AnalyticsEventId.CheckoutSummaryEditNoteClicked)
         let editedComment = model.comment(at: index)
         showCommentModal(forComment: editedComment, at: index)
     }
     
     func checkoutSummaryView(view: CheckoutSummaryView, didTapDeleteCommentAt index: Int) {
-        logInfo("Delete comment")
+        logInfo("Checkout summary view did tap delete comment at index: \(index)")
         logAnalyticsEvent(AnalyticsEventId.CheckoutSummaryDeleteNoteClicked)
         model.update(comment: nil, at: index)
         castView.updateData(withComments: model.state.comments)
     }
     
     func checkoutSummaryView(view: CheckoutSummaryView, didSelectPaymentAt index: Int) {
+        logInfo("Checkout summary view did select payment at index: \(index)")
         model.updateSelectedPayment(forIndex: index)
         logAnalyticsEvent(AnalyticsEventId.CheckoutSummaryPaymentMethodClicked(model.state.selectedPayment.id.rawValue))
     }
     
     func checkoutSummaryViewDidTapBuy(view: CheckoutSummaryView) {
-        logInfo("Did tap buy")
+        logInfo("Checkout summary view did tap buy")
         
         logAnalyticsEvent(AnalyticsEventId.CheckoutSummaryFinishButtonClicked)
         
@@ -177,6 +185,7 @@ final class CheckoutSummaryViewController: UIViewController, CheckoutSummaryView
 
 extension CheckoutSummaryViewController: DimAnimatorDelegate {
     func animatorDidTapOnDimView(animator: Animator) {
+        logInfo("Animator did tap on dim view")
         animator.dismissViewController(presentingViewController: self, animated: true, completion: nil)
     }
 }
@@ -195,10 +204,12 @@ extension CheckoutSummaryViewController: CheckoutSummaryCommentViewControllerDel
 
 extension CheckoutSummaryViewController: PUPaymentServiceDelegate {
     func paymentServiceDidRequestPresentingViewController(viewController: UIViewController!) {
+        logInfo("Payment service did request presenting view controller: \(viewController)")
         presentViewController(viewController, animated: true, completion: nil)
     }
     
     func paymentServiceDidSelectPaymentMethod(paymentMethod: PUPaymentMethodDescription!) {
+        logInfo("Payment service did select payment method: \(paymentMethod)")
         model.updateBuyButtonState()
     }
 }

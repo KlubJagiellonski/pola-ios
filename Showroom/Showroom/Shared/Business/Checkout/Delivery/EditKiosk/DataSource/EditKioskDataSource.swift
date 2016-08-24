@@ -25,6 +25,7 @@ class EditKioskDataSource: NSObject, UITableViewDataSource {
     }
     
     func updateData(kiosks: [Kiosk]) {
+        logInfo("Update data with kiosks: \(kiosks)")
         self.kiosks = kiosks
         tableView!.reloadData()
     }

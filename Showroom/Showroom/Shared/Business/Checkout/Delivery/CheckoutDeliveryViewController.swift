@@ -63,9 +63,9 @@ class CheckoutDeliveryViewController: UIViewController, CheckoutDeliveryViewDele
     }
     
     func checkoutDeliveryViewDidSelectAddress(view: CheckoutDeliveryView, atIndex addressIndex: Int) {
+        logInfo("Checkout delivery view did select address at index: \(addressIndex)")
         logAnalyticsEvent(AnalyticsEventId.CheckoutAddressClicked)
         
-        logInfo("did select address at index: \(addressIndex)")
         let address = checkoutModel.state.userAddresses[addressIndex]
         checkoutModel.state.selectedAddress = address
     }
@@ -81,21 +81,32 @@ class CheckoutDeliveryViewController: UIViewController, CheckoutDeliveryViewDele
     // MARK:- CheckoutDeliveryViewDelegate
     
     func checkoutDeliveryViewDidTapAddAddressButton(view: CheckoutDeliveryView) {
+        logInfo("Checkout delivery view did tap add address button")
         logAnalyticsEvent(AnalyticsEventId.CheckoutAddNewAddressClicked)
         sendNavigationEvent(SimpleNavigationEvent(type: .ShowEditAddress))
     }
     
     func checkoutDeliveryViewDidTapEditAddressButton(view: CheckoutDeliveryView) {
+        logInfo("Checkout delivery view did tap edit address button")
         sendNavigationEvent(SimpleNavigationEvent(type: .ShowEditAddress))
     }
     
     func checkoutDeliveryViewDidTapChooseKioskButton(view: CheckoutDeliveryView) {
+        logInfo("Checkout delivery view did tap choose kiosk button")
+        logAnalyticsEvent(AnalyticsEventId.CheckoutChosePOPClicked)
+        sendShowEditKioskEvent()
+    }
+    
+    func checkoutDeliveryViewDidTapChangeKioskButton(view: CheckoutDeliveryView) {
+        logInfo("Checkout delivery view did tap change kiosk button")
         logAnalyticsEvent(AnalyticsEventId.CheckoutChosePOPClicked)
         sendShowEditKioskEvent()
     }
     
     func checkoutDeliveryViewDidTapNextButton(view: CheckoutDeliveryView) {
+        logInfo("Checkout delivery view did tap next button")
         guard view.validate(showResult: true) else {
+            logInfo("Checkout delivery view validation failed")
             castView.scrollContentToTop()
             return
         }
@@ -133,6 +144,7 @@ class CheckoutDeliveryViewController: UIViewController, CheckoutDeliveryViewDele
                     case EditAddressError.Unknown:
                         fallthrough
                     default:
+                        logInfo("Unknown error")
                         self.toastManager.showMessage(tr(.CommonError))
                     }
                 default: break

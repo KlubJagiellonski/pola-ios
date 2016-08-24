@@ -39,6 +39,7 @@ class InitialOnboardingViewController: UIViewController, InitialOnboardingViewDe
     }
     
     func didHideRegisterAlert() {
+        logInfo("Did hide register alert")
         if notificationsManager.isRegistered {
             logAnalyticsEvent(.OnboardingNotificationAllow)
         } else {
@@ -50,11 +51,13 @@ class InitialOnboardingViewController: UIViewController, InitialOnboardingViewDe
     // MARK:- OnboardingViewDelegate
     
     func onboardingDidTapSkip(view: InitialOnboardingView) {
+        logInfo("Onboarding did tap skip notifications")
         logAnalyticsEvent(.OnboardingNotificationSkip)
         sendNavigationEvent(SimpleNavigationEvent(type: .OnboardingEnd))
     }
     
     func onboardingDidTapAskForNotification(view: InitialOnboardingView) {
+        logInfo("Onboarding did tap ask for notifications")
         logAnalyticsEvent(.OnboardingNotificationClicked)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(InitialOnboardingViewController.didHideRegisterAlert), name: UIApplicationDidBecomeActiveNotification, object: nil)
         if !notificationsManager.registerForRemoteNotificationsIfNeeded() {

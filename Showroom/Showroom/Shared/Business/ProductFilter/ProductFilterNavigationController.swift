@@ -37,6 +37,7 @@ class ProductFilterNavigationController: UINavigationController, NavigationHandl
     }
     
     func didTapCancel() {
+        logInfo("Did tap cancel")
         filterDelegate?.productFilter(self, wantsCancelWithAnimation: true)
     }
     
@@ -44,7 +45,9 @@ class ProductFilterNavigationController: UINavigationController, NavigationHandl
     
     func handleNavigationEvent(event: NavigationEvent) -> EventHandled {
         if let showFilterEvent = event as? ShowFilterEvent {
+            logInfo("Show filter details")
             guard let filterInfo = model.createFilterInfo(forFilterId: showFilterEvent.filter.id) else {
+                logError("Failed to show filter details, filter: \(showFilterEvent.filter)")
                 return true
             }
             let viewController = resolver.resolve(FilterDetailsViewController.self, arguments:(model, filterInfo))
@@ -53,9 +56,11 @@ class ProductFilterNavigationController: UINavigationController, NavigationHandl
             return true
         } else if let simpleEvent = event as? SimpleNavigationEvent {
             if simpleEvent.type == .ShowFilteredProducts {
+                logInfo("Show filter products")
                 filterDelegate?.productFilter(self, didChangedFilterWithProductListResult: model.changedProductListResult)
                 return true
             } else if simpleEvent.type == .Back {
+                logInfo("Back")
                 popViewControllerAnimated(true)
                 return true
             }

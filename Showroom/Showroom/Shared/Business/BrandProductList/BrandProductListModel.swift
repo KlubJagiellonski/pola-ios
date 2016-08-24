@@ -29,6 +29,7 @@ final class BrandProductListModel: ProductListModel {
     }
     
     func update(with productBrand: EntryProductBrand) {
+        logInfo("Update with product brand: \(productBrand)")
         self.productBrand = productBrand
         self.brand = nil
         self.attributedDescription = nil
