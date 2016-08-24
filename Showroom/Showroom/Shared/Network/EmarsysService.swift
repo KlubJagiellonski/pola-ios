@@ -24,8 +24,7 @@ extension EmarsysService {
             ]
             EmarsysManager.contactUpdate(contactData, mergeID: 3)
         } else {
-            //causes crash
-//            EmarsysManager.contactUpdate(nil, mergeID: nil)
+            EmarsysManager.contactUpdate(mergeID: nil)
         }
     }
     
