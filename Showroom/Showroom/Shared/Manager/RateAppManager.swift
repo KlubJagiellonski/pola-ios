@@ -1,7 +1,7 @@
 import Foundation
 
 final class RateAppManager {
-    private let daysThreesholdForShowingView = 14
+    private let daysThresholdForShowingView = 14
     private let initialDateKey = "initial_rate_app_date"
     private let appRatedKey = "app_rated"
     
@@ -32,7 +32,7 @@ final class RateAppManager {
     }
     
     var shouldShowRateAppView: Bool {
-        return !appAlreadyRated && initialDate.numberOfDaysUntilDateTime(NSDate()) >= daysThreesholdForShowingView
+        return !appAlreadyRated && initialDate.numberOfDaysUntilDateTime(NSDate()) >= daysThresholdForShowingView
     }
 
     func didShowRateAppView() {

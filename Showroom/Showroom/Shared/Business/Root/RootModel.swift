@@ -12,6 +12,7 @@ class RootModel {
     let apiService: ApiService
     let rateAppManager: RateAppManager
     let notificationManager: NotificationsManager
+    let versionManager: VersionManager
     
     var startChildType: RootChildType {
         if (!userManager.shouldSkipStartScreen) {
@@ -26,10 +27,11 @@ class RootModel {
         get { return userManager.shouldSkipStartScreen }
     }
     
-    init(with userManager: UserManager, apiService: ApiService, rateAppManager: RateAppManager, notificationManager: NotificationsManager) {
+    init(with userManager: UserManager, apiService: ApiService, rateAppManager: RateAppManager, notificationManager: NotificationsManager, versionManager: VersionManager) {
         self.userManager = userManager
         self.apiService = apiService
         self.rateAppManager = rateAppManager
         self.notificationManager = notificationManager
+        self.versionManager = versionManager
     }
 }

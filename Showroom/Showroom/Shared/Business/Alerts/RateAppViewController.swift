@@ -19,8 +19,8 @@ protocol RateAppViewControllerDelegate: class {
     func rateAppWantsDismiss(viewController: RateAppViewController)
 }
 
-final class RateAppViewController: UIViewController, RateAppViewDelegate {
-    private var castView: RateAppView { return view as! RateAppView }
+final class RateAppViewController: UIViewController, AlertViewDelegate {
+    private var castView: AlertView { return view as! AlertView }
     private let type: RateAppViewType
     private let manager: RateAppManager
     private weak var application: UIApplication?
@@ -38,7 +38,7 @@ final class RateAppViewController: UIViewController, RateAppViewDelegate {
     }
     
     override func loadView() {
-        view = RateAppView(withDescription: type.description)
+        view = AlertView(title: tr(L10n.RateAppTitle), description: type.description, acceptButtonTitle: tr(L10n.RateAppRate))
     }
     
     override func viewDidLoad() {
@@ -49,7 +49,7 @@ final class RateAppViewController: UIViewController, RateAppViewDelegate {
     
     // MARK:- RateAppViewDelegate
     
-    func rateAppDidTapRate(view: RateAppView) {
+    func alertViewDidTapAccept(view: AlertView) {
         logAnalyticsEvent(AnalyticsEventId.ModalRateUs("rate"))
         
         manager.didSelectRateApp()
@@ -59,14 +59,14 @@ final class RateAppViewController: UIViewController, RateAppViewDelegate {
         delegate?.rateAppWantsDismiss(self)
     }
     
-    func rateAppDidTapDecline(view: RateAppView) {
+    func alertViewDidTapDecline(view: AlertView) {
         logAnalyticsEvent(AnalyticsEventId.ModalRateUs("decline"))
         
         manager.didSelectDeclineRateApp()
         delegate?.rateAppWantsDismiss(self)
     }
     
-    func rateAppDidTapRemindLater(view: RateAppView) {
+    func alertViewDidTapRemind(view: AlertView) {
         logAnalyticsEvent(AnalyticsEventId.ModalRateUs("later"))
         
         manager.didSelectRemindLater()

@@ -1,10 +1,12 @@
 import Foundation
 import UIKit
 import Swinject
+import RxSwift
 
 class RootViewController: PresenterViewController, NavigationHandler {
     private let model: RootModel
     private let resolver: DiResolver
+    private let disposeBag = DisposeBag()
     private var urlToHandle: NSURL?
     private lazy var formSheetAnimator: FormSheetAnimator = { [unowned self] in
         let animator = FormSheetAnimator()
@@ -54,6 +56,10 @@ class RootViewController: PresenterViewController, NavigationHandler {
     }
     
     private func showRateAppViewIfNeeded() -> Bool {
+        if self.presentedViewController != nil {
+            return false
+        }
+        
         guard model.rateAppManager.shouldShowRateAppView else {
             return false
         }
@@ -61,7 +67,6 @@ class RootViewController: PresenterViewController, NavigationHandler {
         logInfo("Showing rate app view")
         
         let viewController = self.resolver.resolve(RateAppViewController.self, argument: RateAppViewType.AfterTime)
-        viewController.preferredContentSize = Dimensions.rateAppPreferredSize
         viewController.delegate = self
         formSheetAnimator.presentViewController(viewController, presentingViewController: self)
         model.rateAppManager.didShowRateAppView()
@@ -69,13 +74,29 @@ class RootViewController: PresenterViewController, NavigationHandler {
     }
     
     private func showNotificationAccessView() {
+        if self.presentedViewController != nil {
+            return
+        }
+        
         logInfo("Showing notification access view")
         
         let viewController = self.resolver.resolve(NotificationsAccessViewController.self, argument: NotificationsAccessViewType.AfterTime)
-        viewController.preferredContentSize = Dimensions.notificationAccessPreferredSize
         viewController.delegate = self
         formSheetAnimator.presentViewController(viewController, presentingViewController: self)
         model.notificationManager.didShowNotificationsAccessView()
+    }
+    
+    private func showUpdateAlert() {
+        if self.presentedViewController != nil {
+            return
+        }
+        
+        logInfo("Showing update alert")
+        
+        let viewController = self.resolver.resolve(UpdateAppViewController.self)
+        viewController.delegate = self
+        formSheetAnimator.presentViewController(viewController, presentingViewController: self)
+        model.versionManager.didShowVersionAlert()
     }
     
     // MARK: - NavigationHandler
@@ -101,6 +122,15 @@ class RootViewController: PresenterViewController, NavigationHandler {
                 guard let `self` = self else { return }
                 if !self.showRateAppViewIfNeeded() && self.model.notificationManager.shouldAskForRemoteNotifications {
                     self.showNotificationAccessView()
+                }
+                if self.model.shouldSkipStartScreen {
+                    self.model.versionManager.fetchLatestVersion()
+                        .subscribeNext { [weak self](latestVersion: String) in
+                            guard let `self` = self else { return }
+                            if self.model.versionManager.shouldShowUpdateAlert {
+                                self.showUpdateAlert()
+                            }
+                    }.addDisposableTo(self.disposeBag)
                 }
             }
             return true
@@ -178,6 +208,13 @@ extension RootViewController: RateAppViewControllerDelegate {
 extension RootViewController: NotificationsAccessViewControllerDelegate {
     func notificationsAccessWantsDismiss(viewController: NotificationsAccessViewController) {
         logInfo("Notification access wants dismiss")
+        formSheetAnimator.dismissViewController(presentingViewController: self)
+    }
+}
+
+extension RootViewController: UpdateAppViewControllerDelegate {
+    func updateAppWantsDismiss(viewController: UpdateAppViewController) {
+        logInfo("Update alert wants dismiss")
         formSheetAnimator.dismissViewController(presentingViewController: self)
     }
 }

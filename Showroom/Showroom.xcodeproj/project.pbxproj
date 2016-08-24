@@ -219,7 +219,6 @@
 		1DD1EA9B1CF2ED6400D99731 /* SimpleNavigationEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD1EA9A1CF2ED6400D99731 /* SimpleNavigationEvent.swift */; };
 		1DD1EA9D1CF2F58E00D99731 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD1EA9C1CF2F58E00D99731 /* SnapKit.framework */; };
 		1DDE61E81D649152007E5509 /* RateAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDE61E71D649152007E5509 /* RateAppViewController.swift */; };
-		1DDE61EA1D64916C007E5509 /* RateAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDE61E91D64916C007E5509 /* RateAppView.swift */; };
 		1DDE61EC1D649910007E5509 /* RateAppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDE61EB1D649910007E5509 /* RateAppManager.swift */; };
 		1DDE61F01D649C6F007E5509 /* NSDateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDE61EF1D649C6F007E5509 /* NSDateUtils.swift */; };
 		1DDE61F21D670566007E5509 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DDE61F11D670566007E5509 /* Kingfisher.framework */; };
@@ -251,6 +250,10 @@
 		7520AD921D34F24C003FC38B /* Signing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7520AD911D34F24C003FC38B /* Signing.swift */; };
 		753D86591D4A2402001BF7EB /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753D86581D4A2402001BF7EB /* ResetPasswordView.swift */; };
 		753D865B1D4A240F001BF7EB /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753D865A1D4A240F001BF7EB /* ResetPasswordViewController.swift */; };
+		7566CE6D1D6DC6F70065DFB3 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7566CE6C1D6DC6F70065DFB3 /* AlertView.swift */; };
+		7566CE6F1D6DE56C0065DFB3 /* VersionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7566CE6E1D6DE56C0065DFB3 /* VersionManager.swift */; };
+		7566CE711D6DEFB70065DFB3 /* AppVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7566CE701D6DEFB70065DFB3 /* AppVersion.swift */; };
+		7566CE741D6EDD3B0065DFB3 /* UpdateAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7566CE731D6EDD3B0065DFB3 /* UpdateAppViewController.swift */; };
 		7586E27B1D22B0E70086DE94 /* CheckoutSummaryCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7586E27A1D22B0E70086DE94 /* CheckoutSummaryCommentViewController.swift */; };
 		7586E27D1D22B3D30086DE94 /* CheckoutSummaryCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7586E27C1D22B3D30086DE94 /* CheckoutSummaryCommentView.swift */; };
 		7586E27F1D22BB5F0086DE94 /* UITextViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7586E27E1D22BB5F0086DE94 /* UITextViewUtils.swift */; };
@@ -268,7 +271,6 @@
 		75C8545E1D05660400E5F08F /* BasketHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C8545D1D05660400E5F08F /* BasketHeader.swift */; };
 		75C854601D05816300E5F08F /* PriceLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C8545F1D05816300E5F08F /* PriceLabel.swift */; };
 		75C854621D05B7BF00E5F08F /* BasketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C854611D05B7BF00E5F08F /* BasketManager.swift */; };
-		75D50E121D670A990060058F /* NotificationsAccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D50E101D670A990060058F /* NotificationsAccessView.swift */; };
 		75D50E131D670A990060058F /* NotificationsAccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D50E111D670A990060058F /* NotificationsAccessViewController.swift */; };
 		75D52EB41CFF1063005E34B4 /* BasketNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D52EB31CFF1063005E34B4 /* BasketNavigationController.swift */; };
 		75D52EB61CFF20BA005E34B4 /* BasketCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D52EB51CFF20BA005E34B4 /* BasketCell.swift */; };
@@ -600,7 +602,6 @@
 		1DD1EA9A1CF2ED6400D99731 /* SimpleNavigationEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleNavigationEvent.swift; sourceTree = "<group>"; };
 		1DD1EA9C1CF2F58E00D99731 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
 		1DDE61E71D649152007E5509 /* RateAppViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateAppViewController.swift; sourceTree = "<group>"; };
-		1DDE61E91D64916C007E5509 /* RateAppView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateAppView.swift; sourceTree = "<group>"; };
 		1DDE61EB1D649910007E5509 /* RateAppManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateAppManager.swift; sourceTree = "<group>"; };
 		1DDE61EF1D649C6F007E5509 /* NSDateUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateUtils.swift; sourceTree = "<group>"; };
 		1DDE61F11D670566007E5509 /* Kingfisher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kingfisher.framework; path = Carthage/Build/iOS/Kingfisher.framework; sourceTree = "<group>"; };
@@ -632,6 +633,10 @@
 		7520AD911D34F24C003FC38B /* Signing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Signing.swift; sourceTree = "<group>"; };
 		753D86581D4A2402001BF7EB /* ResetPasswordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
 		753D865A1D4A240F001BF7EB /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
+		7566CE6C1D6DC6F70065DFB3 /* AlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
+		7566CE6E1D6DE56C0065DFB3 /* VersionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionManager.swift; sourceTree = "<group>"; };
+		7566CE701D6DEFB70065DFB3 /* AppVersion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppVersion.swift; sourceTree = "<group>"; };
+		7566CE731D6EDD3B0065DFB3 /* UpdateAppViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateAppViewController.swift; sourceTree = "<group>"; };
 		7586E27A1D22B0E70086DE94 /* CheckoutSummaryCommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutSummaryCommentViewController.swift; sourceTree = "<group>"; };
 		7586E27C1D22B3D30086DE94 /* CheckoutSummaryCommentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutSummaryCommentView.swift; sourceTree = "<group>"; };
 		7586E27E1D22BB5F0086DE94 /* UITextViewUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextViewUtils.swift; sourceTree = "<group>"; };
@@ -649,7 +654,6 @@
 		75C8545D1D05660400E5F08F /* BasketHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasketHeader.swift; sourceTree = "<group>"; };
 		75C8545F1D05816300E5F08F /* PriceLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PriceLabel.swift; path = ../Business/Basket/PriceLabel.swift; sourceTree = "<group>"; };
 		75C854611D05B7BF00E5F08F /* BasketManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasketManager.swift; sourceTree = "<group>"; };
-		75D50E101D670A990060058F /* NotificationsAccessView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsAccessView.swift; sourceTree = "<group>"; };
 		75D50E111D670A990060058F /* NotificationsAccessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsAccessViewController.swift; sourceTree = "<group>"; };
 		75D52EB31CFF1063005E34B4 /* BasketNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasketNavigationController.swift; sourceTree = "<group>"; };
 		75D52EB51CFF20BA005E34B4 /* BasketCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasketCell.swift; sourceTree = "<group>"; };
@@ -921,8 +925,7 @@
 		1D2F195F1CE9CEBA0099142E /* Business */ = {
 			isa = PBXGroup;
 			children = (
-				75D50E0F1D670A990060058F /* NotificationsAccess */,
-				1DDE61E61D649132007E5509 /* RateApp */,
+				7566CE721D6ED9E40065DFB3 /* Alerts */,
 				7520AD841D34DE37003FC38B /* Signing */,
 				1D5F91441D34E93500AE66E6 /* ProductFilter */,
 				75BB896E1D300A7400F9138D /* Start */,
@@ -1155,6 +1158,7 @@
 				C0456D2C1D4A2174006A3F8F /* QuickActionManager.swift */,
 				1D88AB751D5315DD005DDFBB /* NotificationsManager.swift */,
 				1DDE61EB1D649910007E5509 /* RateAppManager.swift */,
+				7566CE6E1D6DE56C0065DFB3 /* VersionManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -1182,6 +1186,7 @@
 				1D10DE341D3FA74B00022F23 /* Trend.swift */,
 				1D0AAF9C1D59B836008E40C0 /* Wishlist.swift */,
 				1DD1ADDC1D5CA63D008B5485 /* Payment.swift */,
+				7566CE701D6DEFB70065DFB3 /* AppVersion.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1401,15 +1406,6 @@
 			path = Event;
 			sourceTree = "<group>";
 		};
-		1DDE61E61D649132007E5509 /* RateApp */ = {
-			isa = PBXGroup;
-			children = (
-				1DDE61E71D649152007E5509 /* RateAppViewController.swift */,
-				1DDE61E91D64916C007E5509 /* RateAppView.swift */,
-			);
-			path = RateApp;
-			sourceTree = "<group>";
-		};
 		1DF796751CEB343E00C7A7F4 /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -1520,6 +1516,16 @@
 			path = Reset;
 			sourceTree = "<group>";
 		};
+		7566CE721D6ED9E40065DFB3 /* Alerts */ = {
+			isa = PBXGroup;
+			children = (
+				75D50E111D670A990060058F /* NotificationsAccessViewController.swift */,
+				1DDE61E71D649152007E5509 /* RateAppViewController.swift */,
+				7566CE731D6EDD3B0065DFB3 /* UpdateAppViewController.swift */,
+			);
+			path = Alerts;
+			sourceTree = "<group>";
+		};
 		7586E2791D22B0D70086DE94 /* Comment */ = {
 			isa = PBXGroup;
 			children = (
@@ -1561,6 +1567,7 @@
 				C0C5D28D1D099679004C1B13 /* ColorIconView.swift */,
 				C01FF2E11D366D3B00D025AE /* HeartMaskView.swift */,
 				1D2CAC381D421F4A00F678FA /* DeepLinkingHandler.swift */,
+				7566CE6C1D6DC6F70065DFB3 /* AlertView.swift */,
 			);
 			name = Common;
 			path = Showroom/Shared/Common;
@@ -1593,15 +1600,6 @@
 				75BB89711D300A9A00F9138D /* StartView.swift */,
 			);
 			path = Start;
-			sourceTree = "<group>";
-		};
-		75D50E0F1D670A990060058F /* NotificationsAccess */ = {
-			isa = PBXGroup;
-			children = (
-				75D50E111D670A990060058F /* NotificationsAccessViewController.swift */,
-				75D50E101D670A990060058F /* NotificationsAccessView.swift */,
-			);
-			path = NotificationsAccess;
 			sourceTree = "<group>";
 		};
 		75E269AC1CFC7D8400ED3CA2 /* DataSource */ = {
@@ -1995,6 +1993,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D2423DF1D228BA80026D46B /* ToastView.swift in Sources */,
+				7566CE741D6EDD3B0065DFB3 /* UpdateAppViewController.swift in Sources */,
 				1DC096A71D477ED300D745DB /* ShowBrandProductListEvent.swift in Sources */,
 				C006F4D61D3E4A5900573316 /* SettingsWebViewController.swift in Sources */,
 				1D5F91571D3509A300AE66E6 /* ProductFilterRangeCell.swift in Sources */,
@@ -2017,6 +2016,7 @@
 				1DD1EA731CEDAE9000D99731 /* DashboardView.swift in Sources */,
 				751A50271D1AAFD700DF7D2B /* RadioButton.swift in Sources */,
 				1DD161A41D01C0850022B5C9 /* PresenterView.swift in Sources */,
+				7566CE6D1D6DC6F70065DFB3 /* AlertView.swift in Sources */,
 				751A50201D19717200DF7D2B /* CheckoutSummaryDataSource.swift in Sources */,
 				1D7824AA1D06EEA200E60392 /* DropDownButton.swift in Sources */,
 				1D72ED241CFD7502007AFD2F /* ContentPromoCell.swift in Sources */,
@@ -2035,7 +2035,6 @@
 				C09280741D08468500350B82 /* ProductColorHeaderView.swift in Sources */,
 				1D470E341D265CB500677122 /* FormView.swift in Sources */,
 				C07530C71D2532F700224508 /* EditKioskView.swift in Sources */,
-				75D50E121D670A990060058F /* NotificationsAccessView.swift in Sources */,
 				1D5F911A1D339A8F00AE66E6 /* CommonPresenterController.swift in Sources */,
 				1DD161B11D01CCB20022B5C9 /* ProductDetailsCell.swift in Sources */,
 				75A92AB61D3E2EDC00EDC89D /* WishlistDataSource.swift in Sources */,
@@ -2160,6 +2159,7 @@
 				1D5E918D1D3CDE1A00A6BD55 /* SearchProductListViewController.swift in Sources */,
 				1D7824B51D0708E900E60392 /* ProductPageModel.swift in Sources */,
 				1DDE61EC1D649910007E5509 /* RateAppManager.swift in Sources */,
+				7566CE6F1D6DE56C0065DFB3 /* VersionManager.swift in Sources */,
 				1DF796801CEB3C4000C7A7F4 /* Constants.swift in Sources */,
 				751A50121D1156CB00DF7D2B /* ProductAmountHeaderView.swift in Sources */,
 				1D72ED0F1CFC2F47007AFD2F /* UserManager.swift in Sources */,
@@ -2215,6 +2215,7 @@
 				1D5F914F1D35009700AE66E6 /* ProductFilterDataSource.swift in Sources */,
 				1DD1EA761CEDB2A300D99731 /* ContentPromoDataSource.swift in Sources */,
 				1DA6FA2F1CFF265E004BF10B /* ContentPromoRecommendationsHeaderCell.swift in Sources */,
+				7566CE711D6DEFB70065DFB3 /* AppVersion.swift in Sources */,
 				1DA5CB451D2E86C200A45E93 /* Brand.swift in Sources */,
 				75C8545E1D05660400E5F08F /* BasketHeader.swift in Sources */,
 				75D50E131D670A990060058F /* NotificationsAccessViewController.swift in Sources */,
@@ -2247,7 +2248,6 @@
 				1D1A7E181D25054D009CCCE7 /* BadgeLabel.swift in Sources */,
 				C0CBE2B21D2E50F7008B861D /* Setting.swift in Sources */,
 				1DF796831CEB473300C7A7F4 /* DiAssembler.swift in Sources */,
-				1DDE61EA1D64916C007E5509 /* RateAppView.swift in Sources */,
 				1D94B88A1D6C378400155F88 /* ShowPaymentSuccessEvent.swift in Sources */,
 				1DA823181D1A8F510054288D /* LoadingIndicator.swift in Sources */,
 				75EDE82B1CFDDF6D00C5F96B /* UITextFieldUtils.swift in Sources */,

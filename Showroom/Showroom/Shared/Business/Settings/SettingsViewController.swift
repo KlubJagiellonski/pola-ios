@@ -117,6 +117,7 @@ class SettingsViewController: UIViewController {
             settings.append(Setting(type: .Normal, labelString: "Pokaż oceń nas (po zakupie)", action: self.showRateAppAfterBuy))
             settings.append(Setting(type: .Normal, labelString: "Pokaż pytanie o powiadomienia (po czasie)", action: self.showNotificationsAccessAfterTime))
             settings.append(Setting(type: .Normal, labelString: "Pokaż pytanie o powiadomienia (schowek)", action: self.showNotificationsAccessAfterWishlist))
+            settings.append(Setting(type: .Normal, labelString: "Pokaż pytanie o aktualizację", action: self.showUpdateApp))
         }
         
         castView.updateData(with: settings)
@@ -257,7 +258,6 @@ class SettingsViewController: UIViewController {
     
     func showRateApp(withType type: RateAppViewType) {
         let viewController = self.resolver.resolve(RateAppViewController.self, argument: type)
-        viewController.preferredContentSize = Dimensions.rateAppPreferredSize
         viewController.delegate = self
         formSheetAnimator.presentViewController(viewController, presentingViewController: self)
     }
@@ -272,7 +272,12 @@ class SettingsViewController: UIViewController {
     
     func showNotificationsAccess(type: NotificationsAccessViewType) {
         let viewController = self.resolver.resolve(NotificationsAccessViewController.self, argument: type)
-        viewController.preferredContentSize = Dimensions.rateAppPreferredSize
+        viewController.delegate = self
+        formSheetAnimator.presentViewController(viewController, presentingViewController: self)
+    }
+    
+    func showUpdateApp() {
+        let viewController = self.resolver.resolve(UpdateAppViewController.self)
         viewController.delegate = self
         formSheetAnimator.presentViewController(viewController, presentingViewController: self)
     }
@@ -353,6 +358,12 @@ extension SettingsViewController: RateAppViewControllerDelegate {
 
 extension SettingsViewController: NotificationsAccessViewControllerDelegate {
     func notificationsAccessWantsDismiss(viewController: NotificationsAccessViewController) {
+        formSheetAnimator.dismissViewController(presentingViewController: self)
+    }
+}
+
+extension SettingsViewController: UpdateAppViewControllerDelegate {
+    func updateAppWantsDismiss(viewController: UpdateAppViewController) {
         formSheetAnimator.dismissViewController(presentingViewController: self)
     }
 }

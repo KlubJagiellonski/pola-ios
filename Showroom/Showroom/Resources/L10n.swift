@@ -373,6 +373,12 @@ enum L10n {
   case QuickActionProductCountTwoToFour
   /// produktów
   case QuickActionProductCountFiveAndMore
+  /// OK
+  case AlertViewAccept
+  /// NIE, DZIĘKI
+  case AlertViewDecline
+  /// INNYM RAZEM
+  case AlertViewRemindLater
   /// CZAS NA UPDATE
   case AppVersionNotSupportedTitle
   /// Niestety ta wersja aplikacji nie jest już wspierana. Aby dalej korzystać z SHOWROOM zainstaluj najnowszą wersję z App Store
@@ -389,10 +395,6 @@ enum L10n {
   case RateAppDescriptionAfterBuy
   /// OCEŃ
   case RateAppRate
-  /// NIE, DZIĘKI
-  case RateAppDecline
-  /// INNYM RAZEM
-  case RateAppOtherTime
   /// BĄDŹ NA BIEŻĄCO
   case PushNotificationTitle
   /// Możemy w pierwszej kolejności informować Cię o specjalnych promocjach, wyprzedażach i nowych kolekcjach.
@@ -403,10 +405,12 @@ enum L10n {
   case PushNotificationQuestion
   /// CHCĘ
   case PushNotificationAllow
-  /// NIE, DZIĘKI
-  case PushNotificationDecline
-  /// INNYM RAZEM
-  case PushNotificationRemindLater
+  /// CZAS NA UPDATE
+  case UpdateAppTitle
+  /// Niedawno opublikowaliśmy nową wersję aplikacji SHOWROOM, którą wzbogaciliśmy o bardzo ciekawe funkcje. Zachęcamy do jej pobrania z App Store.
+  case UpdateAppDescription
+  /// IDŹ DO APP STORE
+  case UpdateAppUpdate
 }
 
 extension L10n: CustomStringConvertible {
@@ -784,6 +788,12 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("QuickAction.ProductCount.TwoToFour")
       case .QuickActionProductCountFiveAndMore:
         return L10n.tr("QuickAction.ProductCount.FiveAndMore")
+      case .AlertViewAccept:
+        return L10n.tr("AlertView.Accept")
+      case .AlertViewDecline:
+        return L10n.tr("AlertView.Decline")
+      case .AlertViewRemindLater:
+        return L10n.tr("AlertView.RemindLater")
       case .AppVersionNotSupportedTitle:
         return L10n.tr("AppVersionNotSupported.Title")
       case .AppVersionNotSupportedDescription:
@@ -800,10 +810,6 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("RateApp.DescriptionAfterBuy")
       case .RateAppRate:
         return L10n.tr("RateApp.Rate")
-      case .RateAppDecline:
-        return L10n.tr("RateApp.Decline")
-      case .RateAppOtherTime:
-        return L10n.tr("RateApp.OtherTime")
       case .PushNotificationTitle:
         return L10n.tr("PushNotification.Title")
       case .PushNotificationDescriptionAfterTime:
@@ -814,10 +820,12 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("PushNotification.Question")
       case .PushNotificationAllow:
         return L10n.tr("PushNotification.Allow")
-      case .PushNotificationDecline:
-        return L10n.tr("PushNotification.Decline")
-      case .PushNotificationRemindLater:
-        return L10n.tr("PushNotification.RemindLater")
+      case .UpdateAppTitle:
+        return L10n.tr("UpdateApp.Title")
+      case .UpdateAppDescription:
+        return L10n.tr("UpdateApp.Description")
+      case .UpdateAppUpdate:
+        return L10n.tr("UpdateApp.Update")
     }
   }
 

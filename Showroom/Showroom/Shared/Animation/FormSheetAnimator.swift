@@ -32,7 +32,11 @@ class FormSheetAnimator: NSObject, UIViewControllerTransitioningDelegate, Animat
     // MARK: - UIViewControllerTransitioningDelegate
     
     func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return FormSheetAnimatedTransitioning(formSize: formSize ?? presented.preferredContentSize, presenting: true)
+        var size = formSize ?? presented.preferredContentSize
+        if size == CGSizeZero {
+            size = presented.view.intrinsicContentSize()
+        }
+        return FormSheetAnimatedTransitioning(formSize: size, presenting: true)
     }
     
     func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {

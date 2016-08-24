@@ -19,9 +19,9 @@ protocol NotificationsAccessViewControllerDelegate: class {
     func notificationsAccessWantsDismiss(viewController: NotificationsAccessViewController)
 }
 
-final class NotificationsAccessViewController: UIViewController, NotificationsAccessViewDelegate {
-    private var castView: NotificationsAccessView {
-        return view as! NotificationsAccessView
+final class NotificationsAccessViewController: UIViewController, AlertViewDelegate {
+    private var castView: AlertView {
+        return view as! AlertView
     }
     private let type: NotificationsAccessViewType
     private let manager: NotificationsManager
@@ -39,7 +39,7 @@ final class NotificationsAccessViewController: UIViewController, NotificationsAc
     }
     
     override func loadView() {
-        view = NotificationsAccessView(withDescription: type.description)
+        view = AlertView(title: tr(L10n.PushNotificationTitle), description: type.description, question: tr(L10n.PushNotificationQuestion), acceptButtonTitle: tr(L10n.PushNotificationAllow))
     }
     
     override func viewDidLoad() {
@@ -50,18 +50,18 @@ final class NotificationsAccessViewController: UIViewController, NotificationsAc
     
     // MARK: - PushNotificationViewDelegate
     
-    func notificationsAccessViewDidTapAllow(view: NotificationsAccessView) {
+    func alertViewDidTapAccept(view: AlertView) {
         manager.registerForRemoteNotificationsIfNeeded()
         delegate?.notificationsAccessWantsDismiss(self)
     }
     
-    func notificationsAccessViewDidTapRemindLater(view: NotificationsAccessView) {
-        manager.didSelectRemindLater()
+    func alertViewDidTapDecline(view: AlertView) {
+        manager.didSelectDecline()
         delegate?.notificationsAccessWantsDismiss(self)
     }
     
-    func notificationsAccessViewDidTapDecline(view: NotificationsAccessView) {
-        manager.didSelectDecline()
+    func alertViewDidTapRemind(view: AlertView) {
+        manager.didSelectRemindLater()
         delegate?.notificationsAccessWantsDismiss(self)
     }
 }

@@ -63,7 +63,6 @@ class PaymentSuccessViewController: UIViewController, PaymentSuccessViewDelegate
         logInfo("Show rate app view")
         
         let viewController = resolver.resolve(RateAppViewController.self, argument: RateAppViewType.AfterBuy)
-        viewController.preferredContentSize = Dimensions.rateAppPreferredSize
         viewController.delegate = self
         formSheetAnimator.presentViewController(viewController, presentingViewController: self)
         rateAppManager.didShowRateAppView()

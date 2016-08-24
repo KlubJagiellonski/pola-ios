@@ -99,6 +99,24 @@ extension ApiService {
         }
     }
     
+    func fetchAppVersion() -> Observable<AppVersion> {
+        let url = NSURL(fileURLWithPath: basePath)
+            .URLByAppendingPathComponent("appRecentVersion")
+        let urlRequest = NSMutableURLRequest(URL: url)
+        urlRequest.HTTPMethod = "GET"
+        return networkClient.request(withRequest: urlRequest)
+            .logNetworkError()
+            .handleAppNotSupportedError(self)
+            .flatMap { data -> Observable<AppVersion> in
+            do {
+                let result = try NSJSONSerialization.JSONObjectWithData(data, options: [])
+                return Observable.just(try AppVersion.decode(result))
+            } catch {
+                return Observable.error(error)
+            }
+        }
+    }
+    
     func validateBasket(with basketRequest: BasketRequest) -> Observable<Basket> {
         let url = NSURL(fileURLWithPath: basePath)
             .URLByAppendingPathComponent("cart/validate")

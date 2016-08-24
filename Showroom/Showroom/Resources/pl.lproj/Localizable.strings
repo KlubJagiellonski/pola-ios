@@ -183,6 +183,9 @@
 "QuickAction.ProductCount.One" = "produkt";
 "QuickAction.ProductCount.TwoToFour" = "produkty";
 "QuickAction.ProductCount.FiveAndMore" = "produktów";
+"AlertView.Accept" = "OK";
+"AlertView.Decline" = "NIE, DZIĘKI";
+"AlertView.RemindLater" = "INNYM RAZEM";
 "AppVersionNotSupported.Title" = "CZAS NA UPDATE";
 "AppVersionNotSupported.Description" = "Niestety ta wersja aplikacji nie jest już wspierana. Aby dalej korzystać z SHOWROOM zainstaluj najnowszą wersję z App Store";
 "AppVersionNotSupported.Accept" = "IDŹ DO APP STORE";
@@ -191,12 +194,11 @@
 "RateApp.DescriptionAfterTime" = "Mamy nadzieję, że z przyjemnością korzystasz z naszej aplikacji!\nPodziel się swoją opinią z innymi i oceń SHOWROOM w App Store.";
 "RateApp.DescriptionAfterBuy" = "Mamy nadzieję, że zakupy w naszej aplikacji były dla Ciebie przyjemnością!\nPodziel się swoją opinią z innymi i oceń SHOWROOM w App Store.";
 "RateApp.Rate" = "OCEŃ";
-"RateApp.Decline" = "NIE, DZIĘKI";
-"RateApp.OtherTime" = "INNYM RAZEM";
 "PushNotification.Title" = "BĄDŹ NA BIEŻĄCO";
 "PushNotification.DescriptionAfterTime" = "Możemy w pierwszej kolejności informować Cię o specjalnych promocjach, wyprzedażach i nowych kolekcjach.";
 "PushNotification.DescriptionAfterWishlist" = "Możemy informować Cię o obniżkach cen produktów z Twojej listy ulubionych.";
 "PushNotification.Question" = "Czy chcesz dostawać od nas powiadomienia?";
 "PushNotification.Allow" = "CHCĘ";
-"PushNotification.Decline" = "NIE, DZIĘKI";
-"PushNotification.RemindLater" = "INNYM RAZEM";
+"UpdateApp.Title" = "CZAS NA UPDATE";
+"UpdateApp.Description" = "Niedawno opublikowaliśmy nową wersję aplikacji SHOWROOM, którą wzbogaciliśmy o bardzo ciekawe funkcje. Zachęcamy do jej pobrania z App Store.";
+"UpdateApp.Update" = "IDŹ DO APP STORE";

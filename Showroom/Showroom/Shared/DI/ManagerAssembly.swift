@@ -43,5 +43,9 @@ class ManagerAssembly: AssemblyType {
         container.register(RateAppManager.self) { r in
             return RateAppManager()
         }.inObjectScope(.Container)
+        
+        container.register(VersionManager.self) { r in
+            return VersionManager(api: r.resolve(ApiService.self)!)
+        }.inObjectScope(.Container)
     }
 }
