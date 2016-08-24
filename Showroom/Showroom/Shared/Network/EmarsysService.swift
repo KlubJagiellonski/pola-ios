@@ -19,9 +19,9 @@ extension EmarsysService {
             let contactData = [
                 "1": user.name,
                 "3": user.email,
-                "5": gender.rawValue
+                "5": NSNumber(integer: gender.emarsysValue)
             ]
-            EmarsysManager.contactUpdate(contactData, mergeID: nil)
+            EmarsysManager.contactUpdate(contactData, mergeID: 3)
         } else {
             //causes crash
 //            EmarsysManager.contactUpdate(nil, mergeID: nil)
@@ -120,5 +120,16 @@ extension EmarsysService {
     func configureUser(customerId: String?, customerEmail: String?) {
         session.customerID = customerId
         session.customerEmail = customerEmail
+    }
+}
+
+extension Gender {
+    private var emarsysValue: Int {
+        switch self {
+        case .Female:
+            return 2
+        case .Male:
+            return 1
+        }
     }
 }
