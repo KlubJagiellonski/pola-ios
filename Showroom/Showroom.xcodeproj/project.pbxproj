@@ -2459,7 +2459,7 @@
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
 				OTHER_LDFLAGS = (
 					"-all_load",
-					"-lPayU-iOS-SDK-Oneclick_Debug",
+					"-lPayU-iOS-SDK-Oneclick_Release",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.showroom.Showroom;
 				PRODUCT_NAME = SHOWROOM;
