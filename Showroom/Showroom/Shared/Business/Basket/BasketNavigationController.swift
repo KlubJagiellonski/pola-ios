@@ -33,6 +33,7 @@ class BasketNavigationController: UINavigationController, NavigationHandler {
 
 extension BasketNavigationController: MainTabChild {
     func popToFirstView() {
+        logInfo("Poping to first view")
         popToRootViewControllerAnimated(true)
     }
 }

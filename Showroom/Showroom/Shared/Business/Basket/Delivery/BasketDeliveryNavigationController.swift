@@ -31,12 +31,15 @@ class BasketDeliveryNavigationController: UINavigationController, NavigationHand
         
         switch simpleEvent.type {
         case .Back:
+            logInfo("Back to previous view controller")
             popViewControllerAnimated(true)
             return true
         case .Close:
+            logInfo("Closing basket delivery")
             deliveryDelegate?.basketDeliveryWantsDismiss(self)
             return true
         case .ShowCountrySelectionList:
+            logInfo("Showing country selection list")
             let viewController = resolver.resolve(BasketCountryViewController.self)
             viewController.resetBackTitle()
             pushViewController(viewController, animated: true)

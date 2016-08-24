@@ -43,7 +43,9 @@ class BasketCountryViewController: UIViewController, BasketCountryViewDelegate {
     // MARK:- BasketCountryViewDelegate
     
     func countryView(view: BasketCountryView, didSelectCountryAtIndex index: Int) {
-        basketManager.state.deliveryCountry = basketManager.state.basket?.deliveryInfo.availableCountries[index]
+        let country = basketManager.state.basket?.deliveryInfo.availableCountries[safe: index]
+        logInfo("Did select country at index \(index) \(country)")
+        basketManager.state.deliveryCountry = country
         basketManager.validate()
         sendNavigationEvent(SimpleNavigationEvent(type: .Back))
     }
