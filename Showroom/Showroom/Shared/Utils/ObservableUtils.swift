@@ -11,7 +11,6 @@ extension Observable where Element: Decodable {
                     observer.onCompleted()
                     return NopDisposable.instance
                 }
-                logInfo("Received cached for \(cacheId): \(cachedData)")
                 observer.onNext(cachedData)
             } catch {
                 observer.onError(error)
@@ -26,7 +25,6 @@ extension ObservableType where E: Encodable {
     func save(cacheId: String, storageManager: StorageManager) -> Observable<E> {
         return doOnNext { result in
             do {
-                logInfo("Saving persistent data \(cacheId): \(result)")
                 try storageManager.save(cacheId, object: result)
             } catch {
                 logError("Error during saving persistent data \(cacheId): \(error)")
@@ -37,7 +35,6 @@ extension ObservableType where E: Encodable {
     func saveToCache(cacheId: String, storageManager: StorageManager) -> Observable<E> {
         return doOnNext { result in
             do {
-                logInfo("Saving cache \(cacheId): \(result)")
                 try storageManager.saveToCache(cacheId, object: result)
             } catch {
                 logError("Error during caching \(cacheId): \(error)")

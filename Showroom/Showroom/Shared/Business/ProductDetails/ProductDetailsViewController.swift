@@ -72,6 +72,7 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewDelegate
     }
     
     func showInAppPagingOnboarding() {
+        logInfo("Showing in app paging onboarding")
         let pagingOnboardingViewController = PagingInAppOnboardingViewController()
         pagingOnboardingViewController.delegate = self
         onboardingActionAnimator.presentViewController(pagingOnboardingViewController, presentingViewController: self)
@@ -150,6 +151,7 @@ extension ProductDetailsViewController: ProductDetailsPageHandler {
 
 extension ProductDetailsViewController: PagingInAppOnboardingViewControllerDelegate {
     func pagingOnboardingViewControllerDidTapDismiss(viewController: PagingInAppOnboardingViewController) {
+        logInfo("Paging onboarding did tap dismiss")
         onboardingActionAnimator.dismissViewController(presentingViewController: self)
     }
 }

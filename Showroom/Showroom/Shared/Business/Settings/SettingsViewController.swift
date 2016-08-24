@@ -30,20 +30,56 @@ class SettingsViewController: UIViewController {
         self.toastManager = resolver.resolve(ToastManager.self)
         
         super.init(nibName: nil, bundle: nil)
-        self.userManager.userObservable.subscribeNext(updateSettings).addDisposableTo(disposeBag)
-        self.userManager.genderObservable.subscribeNext(updateGender).addDisposableTo(disposeBag)
-        
-        self.notificationsManager.shouldShowInSettingsObservable.subscribeNext(updateSettings).addDisposableTo(disposeBag)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func loadView() {
+        view = SettingsView()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if !firstLayoutSubviewsPassed {
+            firstLayoutSubviewsPassed = true
+            castView.contentInset = UIEdgeInsets(top: topLayoutGuide.length, left: 0, bottom: bottomLayoutGuide.length, right: 0)
+        }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        updateSettings(with: userManager.user)
+        
+        self.userManager.userObservable.subscribeNext { [weak self] user in
+            self?.updateSettings(with: user)
+            }.addDisposableTo(disposeBag)
+        self.userManager.genderObservable.subscribeNext { [weak self] gender in
+            self?.updateGender(with: gender)
+            }.addDisposableTo(disposeBag)
+        self.notificationsManager.shouldShowInSettingsObservable.subscribeNext { [weak self] showInSettings in
+            self?.updateSettings()
+            }.addDisposableTo(disposeBag)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        logAnalyticsShowScreen(.Settings)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        markHandoffUrlActivity(withPath: "/")
+        castView.deselectRowsIfNeeded()
+    }
+
     private func updateSettings(with user: User?) {
+        logInfo("Updating settings with user exist \(user != nil)")
+        
         var settings = [
             Setting(type: .Header, action: self.facebookButtonPressed, secondaryAction: self.instagramButtonPressed, cellClickable: false),
-        ]
+            ]
         if let user = user {
             settings.append(
                 Setting(type: .Logout, labelString: tr(.CommonGreeting(user.name)), action: self.logoutButtonPressed, cellClickable: false)
@@ -72,7 +108,7 @@ class SettingsViewController: UIViewController {
             Setting(type: .Normal, labelString: tr(.SettingsContact), action: self.contactRowPressed),
             Setting(type: .Normal, labelString: tr(.SettingsRules), action: self.rulesRowPressed),
             Setting(type: .Normal, labelString: tr(.SettingsPrivacyPolicy), action: self.privacyPolicyRowPressed)
-        ])
+            ])
         if !Constants.isAppStore {
             settings.append(Setting(type: .Normal, labelString: "Pokaż onboarding", action: self.showOnboarding))
             settings.append(Setting(type: .Normal, labelString: "Pokaż in-app wishlist onboarding", action: self.showInAppWishlistOnboarding))
@@ -91,37 +127,10 @@ class SettingsViewController: UIViewController {
     }
     
     private func updateGender(with gender: Gender) {
+        logInfo("Update gender \(gender)")
         castView.updateData(with: gender)
     }
     
-    override func loadView() {
-        view = SettingsView()
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        if !firstLayoutSubviewsPassed {
-            firstLayoutSubviewsPassed = true
-            castView.contentInset = UIEdgeInsets(top: topLayoutGuide.length, left: 0, bottom: bottomLayoutGuide.length, right: 0)
-        }
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        updateSettings(with: userManager.user)
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        logAnalyticsShowScreen(.Settings)
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        markHandoffUrlActivity(withPath: "/")
-        castView.deselectRowsIfNeeded()
-    }
-
     func facebookButtonPressed() {
         logInfo("facebookButtonPressed")
         logAnalyticsEvent(AnalyticsEventId.ProfileSocialMediaClicked("fb"))
@@ -269,6 +278,8 @@ class SettingsViewController: UIViewController {
     }
     
     func sendReportPressed() {
+        logInfo("sendReportPressed")
+        
         castView.deselectRowsIfNeeded()
         
         guard MFMailComposeViewController.canSendMail() else {
@@ -287,6 +298,7 @@ class SettingsViewController: UIViewController {
     }
     
     private func didChange(gender gender: Gender) {
+        logInfo("Did change gender \(gender)")
         logAnalyticsEvent(AnalyticsEventId.ProfileGenderChoice(gender.rawValue))
         userManager.gender = gender
     }
@@ -305,10 +317,12 @@ class SettingsViewController: UIViewController {
 
 extension SettingsViewController: SigningNavigationControllerDelegate {
     func signingWantsDismiss(navigationController: SigningNavigationController) {
+        logInfo("Dismissed signing")
         dismissViewControllerAnimated(true, completion: nil)
     }
     
     func signingDidLogIn(navigationController: SigningNavigationController) {
+        logInfo("Did logged in")
         dismissViewControllerAnimated(true, completion: nil)
     }
 }
@@ -345,6 +359,7 @@ extension SettingsViewController: NotificationsAccessViewControllerDelegate {
 
 extension SettingsViewController: MFMailComposeViewControllerDelegate {
     func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+        logInfo("Did finish mail composing \(result)")
         dismissViewControllerAnimated(true, completion: nil)
     }
 }

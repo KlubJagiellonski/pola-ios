@@ -20,6 +20,7 @@ private func curry2<A, B, C>(f: (A, B) -> C, _ a: A) -> B -> C {
 }
 
 private func geocodeHandler(observer: AnyObserver<[CLPlacemark]>, geocode: (CLGeocodeCompletionHandler) -> Void) {
+    logInfo("Handling geocoder")
     let semaphore = dispatch_semaphore_create(0)
     dispatch_async(waitForCompletionQueue) {
         geocode { placemarks, error in

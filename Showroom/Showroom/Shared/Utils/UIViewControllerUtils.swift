@@ -31,7 +31,9 @@ extension UIViewController {
     }
     
     func changeTabBarAppearanceIfPossible(appearance: TabBarAppearance, animationDuration: Double?) -> Bool {
+        logInfo("Change tab bar appearance \(appearance) animation \(animationDuration)")
         guard let mainTabBarController = tabBarController as? MainTabViewController else {
+            logInfo("Not MainTabViewController")
             return false
         }
         mainTabBarController.updateTabBarAppearance(appearance, animationDuration: animationDuration)
@@ -39,6 +41,7 @@ extension UIViewController {
     }
     
     func tryOpenURL(urlOptions urls: [String]) {
+        logInfo("Try open urls \(urls)")
         let application = UIApplication.sharedApplication()
         for urlString in urls {
             let url: NSURL = NSURL(string: urlString)!
@@ -50,6 +53,7 @@ extension UIViewController {
     }
     
     func forceCloseModal() {
+        logInfo("Force close modal \(presentedViewController)")
         guard let modalViewController = presentedViewController else { return }
         
         if let extendedModalViewController = modalViewController as? ExtendedModalViewController {

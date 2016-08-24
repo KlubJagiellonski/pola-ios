@@ -46,12 +46,14 @@ class ProductColorViewController: UIViewController, ProductColorViewDelegate {
     // MARK :- ProductColorViewDelegate
     
     func productColor(view view: ProductColorView, didSelectColor colorId: ObjectId) {
+        logInfo("Did select color \(colorId)")
         delegate?.productColor(viewController: self, didChangeColor: colorId)
     }
 }
 
 extension ProductColorViewController: ExtendedModalViewController {
     func forceCloseWithoutAnimation() {
+        logInfo("Forcing close without animation")
         delegate?.productColor(viewController: self, wantsDismissWithAnimation: false)
     }
 }

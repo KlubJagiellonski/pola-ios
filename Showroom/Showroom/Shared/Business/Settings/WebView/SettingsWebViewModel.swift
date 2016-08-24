@@ -18,6 +18,7 @@ class SettingsWebViewModel {
     }
     
     func fetchWebContent() -> Observable<WebContentResult> {
+        logInfo("Fetching web content for type \(webType)")
         return apiService.fetchSettingsWebContent(settingsWebType: webType).observeOn(MainScheduler.instance)
     }
 }

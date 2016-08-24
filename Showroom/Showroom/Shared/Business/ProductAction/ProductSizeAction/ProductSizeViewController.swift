@@ -40,16 +40,19 @@ final class ProductSizeViewController: UIViewController, ProductSizeViewDelegate
     // MARK :- ProductSizeViewDelegate
     
     func productSize(view: ProductSizeView, didSelectSize sizeId: ObjectId) {
+        logInfo("Did select size \(sizeId)")
         delegate?.productSize(self, didChangeSize: sizeId)
     }
     
     func productSizeDidTapSizes(view: ProductSizeView) {
+        logInfo("Did tap sizes")
         delegate?.productSizeDidTapSizes(self)
     }
 }
 
 extension ProductSizeViewController: ExtendedModalViewController {
     func forceCloseWithoutAnimation() {
+        logInfo("Forcing close without animation")
         delegate?.productSize(self, wantDismissWithAnimation: false)
     }
 }

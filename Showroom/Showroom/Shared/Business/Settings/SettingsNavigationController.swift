@@ -21,11 +21,8 @@ class SettingsNavigationController: UINavigationController, NavigationHandler {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func didTapBackButton() {
-        popViewControllerAnimated(true)
-    }
-    
     func showWebView(title title: String, webType: SettingsWebType) {
+        logInfo("Show web view with title \(title), webType \(webType)")
         let viewController = resolver.resolve(SettingsWebViewController.self, argument: webType)
         viewController.navigationItem.title = title
         pushViewController(viewController, animated: true)
@@ -46,6 +43,7 @@ class SettingsNavigationController: UINavigationController, NavigationHandler {
 
 extension SettingsNavigationController: MainTabChild {
     func popToFirstView() {
+        logInfo("Popt to first view")
         popToRootViewControllerAnimated(true)
     }
 }

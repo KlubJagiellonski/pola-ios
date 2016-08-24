@@ -29,6 +29,7 @@ class SettingsWebViewController: UIViewController {
     }
     
     func fetchWebContent() {
+        logInfo("Fetching web content")
         castView.changeSwitcherState(.Loading)
         
         model.fetchWebContent().subscribe { [weak self] (fetchResult: Event<WebContentResult>) in
@@ -81,6 +82,7 @@ extension SettingsWebViewController: SettingsWebViewDelegate {
         let app = UIApplication.sharedApplication()
         
         if navigationAction.targetFrame == nil || ["tel", "mailto", "https", "http"].contains(url.scheme) {
+            logInfo("Opening external url \(url)")
             if app.canOpenURL(url) {
                 app.openURL(url)
             }

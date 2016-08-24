@@ -65,9 +65,12 @@ extension UIImageView {
             return
         }
 
+        logInfo("Retrieving image with low res \(url), lowRes \(lowResUrl)")
+        
         let url = NSURL.createImageUrl(url, width: UIImageView.scaledImageSize(width), height: UIImageView.scaledImageSize(height))
         
         let completionHandler: CompletionHandler = { (image: UIImage?, error: NSError?, cacheType: CacheType, imageURL: NSURL?) in
+            logInfo("Retrieved high res")
             if let image = image {
                 succeed?(image)
             } else {
@@ -78,6 +81,8 @@ extension UIImageView {
         let lowResFromCacheCompletionHandler: CompletionHandler = { [weak self]
             (image: UIImage?, error: NSError?, cacheType: CacheType, imageURL: NSURL?) in
             guard let `self` = self else { return }
+            
+            logInfo("Retrieved high res from cache \(image != nil)")
             
             onRetrievedFromCache?(image)
             
@@ -93,6 +98,8 @@ extension UIImageView {
         let highResFromCacheCompletionHandler: CompletionHandler = { [weak self]
             (image: UIImage?, error: NSError?, cacheType: CacheType, imageURL: NSURL?) in
             guard let `self` = self else { return }
+            
+            logInfo("Retrieve high res from cache \(image != nil)")
             
             if let image = image {
                 onRetrievedFromCache?(image)

@@ -15,6 +15,7 @@ struct EmarsysService {
 
 extension EmarsysService {
     func contactUpdate(withUser user: User?, gender: Gender?) {
+        logInfo("Contact update \(user), gender \(gender)")
         if let user = user, let gender = gender {
             let contactData = [
                 "1": user.name,
@@ -29,11 +30,14 @@ extension EmarsysService {
     }
     
     func logout() {
+        logInfo("Logout")
         EmarsysManager.logout()
     }
     
     func fetchProductRecommendations() -> Observable<ProductRecommendationResult> {
         return Observable<ProductRecommendationResult>.create { observer in
+            logInfo("Fetching product recommendations")
+            
             let transaction = EMTransaction()
             
             let recommendationRequest = EMRecommendationRequest(logic: "HOME")
@@ -58,6 +62,8 @@ extension EmarsysService {
     }
     
     func sendViewEvent(forId id: ObjectId) {
+        logInfo("Sending view event \(id)")
+        
         let transaction = EMTransaction()
         transaction.setView(String(id))
         session.sendTransaction(transaction) { error in
@@ -66,6 +72,8 @@ extension EmarsysService {
     }
     
     func sendCartEvent(with basket: Basket) {
+        logInfo("Sending cart event")
+        
         let transaction = EMTransaction()
         
         var cartItems: [EMCartItem] = []
@@ -82,6 +90,8 @@ extension EmarsysService {
     }
     
     func sendSearchEvent(withQuery query: String) {
+        logInfo("Sending search event \(query)")
+        
         let transaction = EMTransaction()
         transaction.setSearchTerm(query)
         session.sendTransaction(transaction) { error in
@@ -90,6 +100,8 @@ extension EmarsysService {
     }
     
     func sendBrandViewEvent(withName name: String) {
+        logInfo("Sending brand event \(name)")
+        
         let transaction = EMTransaction()
         transaction.setKeyword(name)
         session.sendTransaction(transaction) { error in
@@ -98,6 +110,8 @@ extension EmarsysService {
     }
     
     func sendPurchaseEvent(withOrderId orderId: String, products: [BasketProduct]) {
+        logInfo("Sending purchase event \(orderId), product \(products)")
+        
         let cartItems: [EMCartItem] = products.map { product in
             return EMCartItem(itemID: String(product.id), price: Float(product.sumPrice?.amount ?? 0), quantity: Int32(product.amount))
         }
@@ -110,6 +124,8 @@ extension EmarsysService {
     }
     
     func sendCategoryEvent(withCategory category: String) {
+        logInfo("Sending category event \(category)")
+        
         let transaction = EMTransaction()
         transaction.setCategory(category)
         session.sendTransaction(transaction) { error in

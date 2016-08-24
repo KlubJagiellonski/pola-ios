@@ -39,6 +39,7 @@ final class ProductDescriptionNavigationController: UINavigationController {
     }
     
     func showSizeChart() {
+        logInfo("Showing size chart")
         guard let productDetails = state.productDetails else { return }
         
         logAnalyticsEvent(AnalyticsEventId.ProductSizeTableShown(state.product?.id ?? 0))
@@ -51,18 +52,23 @@ final class ProductDescriptionNavigationController: UINavigationController {
 
 extension ProductDescriptionNavigationController: ProductDescriptionViewControllerDelegate {
     func descriptionViewDidTapSize(view: ProductDescriptionView) {
+        logInfo("Did tap size")
         productDescriptionDelegate?.productDescriptionDidTapSize(self)
     }
     func descriptionViewDidTapColor(view: ProductDescriptionView) {
+        logInfo("Did tap color")
         productDescriptionDelegate?.productDescriptionDidTapColor(self)
     }
     func descriptionViewDidTapSizeChart(view: ProductDescriptionView) {
+        logInfo("Did tap size chart")
         showSizeChart()
     }
     func descriptionViewDidTapOtherBrandProducts(view: ProductDescriptionView) {
+        logInfo("Did tap other brand products")
         productDescriptionDelegate?.productDescriptionDidTapOtherBrandProducts(self)
     }
     func descriptionViewDidTapAddToBasket(view: ProductDescriptionView) {
+        logInfo("Did tap add to basket")
         productDescriptionDelegate?.productDescriptionDidTapAddToBasket(self)
     }
 }

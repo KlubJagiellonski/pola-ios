@@ -4,7 +4,7 @@ protocol ProductAmountViewControllerDelegate: class {
     func productAmount(viewController: ProductAmountViewController, didChangeAmountOf product: BasketProduct)
 }
 
-class ProductAmountViewController: UIViewController, ProductAmountViewDelegate {
+final class ProductAmountViewController: UIViewController, ProductAmountViewDelegate {
     var product: BasketProduct
     
     var castView: ProductAmountView { return view as! ProductAmountView }
@@ -34,6 +34,7 @@ class ProductAmountViewController: UIViewController, ProductAmountViewDelegate {
     
     // MARK :- ProductAmountViewDelegate
     func productAmount(view: ProductAmountView, didSelectAmount amount: Int) {
+        logInfo("Changing product amount \(amount) for product \(product)")
         product.amount = amount
         delegate?.productAmount(self, didChangeAmountOf: product)
     }

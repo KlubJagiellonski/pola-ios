@@ -19,7 +19,10 @@ class ProductDetailsModel {
     
     var userSeenPagingInAppOnboarding: Bool {
         get { return NSUserDefaults.standardUserDefaults().boolForKey("userSeenPagingInAppOnboarding") }
-        set { NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: "userSeenPagingInAppOnboarding") }
+        set {
+            logInfo("userSeenPagingInAppOnboarding \(newValue)")
+            NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: "userSeenPagingInAppOnboarding")
+        }
     }
     
     init(context: ProductDetailsContext, emarsysService: EmarsysService) {

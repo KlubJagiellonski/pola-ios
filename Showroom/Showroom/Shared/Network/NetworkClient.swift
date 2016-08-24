@@ -25,12 +25,12 @@ class HttpClient: NetworkClient {
         return Observable.create {
             [unowned self] observer in
             
-            logDebug("Sending request: \(urlRequest)")
+            logInfo("Sending request: \(urlRequest)")
             
             self.setNetworkActivityIndicatorVisible(true)
             
             let disposable = self.session.rx_data(urlRequest)
-                .doOnNext({ _ in logDebug("Response received: \(urlRequest)") })
+                .doOnNext({ _ in logInfo("Response received: \(urlRequest)") })
                 .subscribe(onNext: observer.onNext, onCompleted: observer.onCompleted, onError: observer.onError, onDisposed: {
                     self.setNetworkActivityIndicatorVisible(false)
             })

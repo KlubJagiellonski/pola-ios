@@ -36,6 +36,8 @@ extension ApiService {
             .URLByAppendingPathComponent("home")
             .URLByAppendingParams(["gender": gender.rawValue])
         
+        logInfo("Fetching content promo \(url)")
+        
         let urlRequest = NSMutableURLRequest(URL: url)
         urlRequest.HTTPMethod = "GET"
         return networkClient
@@ -57,6 +59,8 @@ extension ApiService {
             .URLByAppendingPathComponent("products")
             .URLByAppendingPathComponent(String(productId))
         
+        logInfo("Fetching product details \(url)")
+        
         let urlRequest = NSMutableURLRequest(URL: url)
         urlRequest.HTTPMethod = "GET"
         return networkClient
@@ -76,6 +80,8 @@ extension ApiService {
     func fetchSearchCatalogue() -> Observable<SearchResult> {
         let url = NSURL(fileURLWithPath: basePath)
             .URLByAppendingPathComponent("search_catalogue")
+        
+        logInfo("Fetching search catalogue \(url)")
         
         let urlRequest = NSMutableURLRequest(URL: url)
         urlRequest.HTTPMethod = "GET"
@@ -98,8 +104,9 @@ extension ApiService {
             .URLByAppendingPathComponent("cart/validate")
         
         do {
+            let data = basketRequest.encode()
+            logInfo("Validating basket \(url) with data \(data)")
             let jsonData = try NSJSONSerialization.dataWithJSONObject(basketRequest.encode(), options: [])
-            
             let urlRequest = NSMutableURLRequest(URL: url)
             urlRequest.HTTPMethod = "POST"
             urlRequest.HTTPBody = jsonData
@@ -127,9 +134,8 @@ extension ApiService {
         
         do {
             let requestBody = request.encode()
-            logInfo("Sentding products request with body: \(requestBody)")
+            logInfo("Fetching products \(url) with data: \(requestBody)")
             let jsonData = try NSJSONSerialization.dataWithJSONObject(requestBody, options: [])
-            
             let urlRequest = NSMutableURLRequest(URL: url)
             urlRequest.HTTPMethod = "POST"
             urlRequest.HTTPBody = jsonData
@@ -156,7 +162,7 @@ extension ApiService {
             .URLByAppendingPathComponent("trend")
             .URLByAppendingPathComponent(slug)
         
-        logInfo("Sending trend \(slug)")
+        logInfo("Fetching trend \(url)")
         
         let urlRequest = NSMutableURLRequest(URL: url)
         urlRequest.HTTPMethod = "GET"
@@ -181,7 +187,7 @@ extension ApiService {
         
         do {
             let requestBody = request.encode()
-            logInfo("Sentding brand \(brandId) products request with body: \(requestBody)")
+            logInfo("Fetching brand \(url) with data: \(requestBody)")
             let jsonData = try NSJSONSerialization.dataWithJSONObject(requestBody, options: [])
             
             let urlRequest = NSMutableURLRequest(URL: url)
@@ -212,8 +218,8 @@ extension ApiService {
         
         do {
             let paramsDict = ["lat": latitude, "lng": longitude] as NSDictionary
+            logInfo("Fetching kiosks \(url) with data \(paramsDict)")
             let jsonData = try NSJSONSerialization.dataWithJSONObject(paramsDict, options: [])
-            
             let urlRequest = NSMutableURLRequest(URL: url)
             urlRequest.HTTPMethod = "POST"
             urlRequest.HTTPBody = jsonData
@@ -242,6 +248,9 @@ extension ApiService {
         }
         
         let url = NSURL(fileURLWithPath: basePath).URLByAppendingPathComponent(settingsWebType.pathComponent)
+        
+        logInfo("Fetching settings web content \(url)")
+        
         let urlRequest = NSMutableURLRequest(URL: url)
         urlRequest.HTTPMethod = "GET"
         
@@ -269,6 +278,8 @@ extension ApiService {
         
         let url = NSURL(fileURLWithPath: basePath)
             .URLByAppendingPathComponent("user/profile")
+        
+        logInfo("Fetching user \(url)")
         
         let urlRequest = NSMutableURLRequest(URL: url)
         urlRequest.HTTPMethod = "GET"
@@ -298,8 +309,9 @@ extension ApiService {
             .URLByAppendingPathComponent("user/address")
         
         do {
-            let jsonData = try NSJSONSerialization.dataWithJSONObject(address.encode(), options: [])
-            
+            let data = address.encode()
+            logInfo("Adding user address \(url) with data \(data)")
+            let jsonData = try NSJSONSerialization.dataWithJSONObject(data, options: [])
             let urlRequest = NSMutableURLRequest(URL: url)
             urlRequest.HTTPMethod = "PUT"
             urlRequest.HTTPBody = jsonData
@@ -332,8 +344,9 @@ extension ApiService {
             .URLByAppendingPathComponent(String(id))
         
         do {
-            let jsonData = try NSJSONSerialization.dataWithJSONObject(address.encode(), options: [])
-            
+            let data = address.encode()
+            logInfo("Editing user address \(url) with data \(data)")
+            let jsonData = try NSJSONSerialization.dataWithJSONObject(data, options: [])
             let urlRequest = NSMutableURLRequest(URL: url)
             urlRequest.HTTPMethod = "POST"
             urlRequest.HTTPBody = jsonData
@@ -362,6 +375,7 @@ extension ApiService {
             .URLByAppendingPathComponent("login")
         
         do {
+            logInfo("Login \(url)")
             let jsonData = try NSJSONSerialization.dataWithJSONObject(login.encode(), options: [])
             let urlRequest = NSMutableURLRequest(URL: url)
             urlRequest.HTTPMethod = "POST"
@@ -389,6 +403,7 @@ extension ApiService {
         let url = NSURL(fileURLWithPath: basePath)
             .URLByAppendingPathComponent("register")
         do {
+            logInfo("Register \(url)")
             let jsonData = try NSJSONSerialization.dataWithJSONObject(registration.encode(), options: [])
             let urlRequest = NSMutableURLRequest(URL: url)
             urlRequest.HTTPMethod = "POST"
@@ -417,6 +432,7 @@ extension ApiService {
             .URLByAppendingPathComponent("login/facebook")
         
         do {
+            logInfo("Login with facebook \(url)")
             let jsonData = try NSJSONSerialization.dataWithJSONObject(facebookLogin.encode(), options: [])
             let urlRequest = NSMutableURLRequest(URL: url)
             urlRequest.HTTPMethod = "POST"
@@ -449,6 +465,8 @@ extension ApiService {
             .URLByAppendingPathComponent("payment")
             .URLByAppendingPathComponent(provider.rawValue)
             .URLByAppendingPathComponent("authorize")
+        
+        logInfo("Authorizing payment \(url)")
         
         let urlRequest = NSMutableURLRequest(URL: url)
         urlRequest.HTTPMethod = "GET"
@@ -503,7 +521,7 @@ extension ApiService {
         
         do {
             let encodedParam = param.encode()
-            logInfo("Sending wishlist request with param: \(encodedParam)")
+            logInfo("Sending wishlist \(url) with data \(encodedParam)")
             let jsonData = try NSJSONSerialization.dataWithJSONObject(encodedParam, options: [])
             
             let urlRequest = NSMutableURLRequest(URL: url)
@@ -543,7 +561,7 @@ extension ApiService {
         
         do {
             let encodedParam = param.encode()
-            logInfo("Sending payment request with param: \(encodedParam)")
+            logInfo("Sending payment \(url) with data \(encodedParam)")
             let jsonData = try NSJSONSerialization.dataWithJSONObject(encodedParam, options: [])
             
             let urlRequest = NSMutableURLRequest(URL: url)
@@ -579,6 +597,9 @@ extension ApiService {
         
         let url = NSURL(fileURLWithPath: basePath)
             .URLByAppendingPathComponent("logout")
+        
+        logInfo("Logout \(url)")
+        
         let urlRequest = NSMutableURLRequest(URL: url)
         urlRequest.HTTPMethod = "DELETE"
         urlRequest.applyJsonContentTypeHeader()
@@ -598,7 +619,7 @@ extension ApiService {
         
         do {
             let param = ["email": email] as NSDictionary
-            logInfo("Sending reset password request with param: \(param)")
+            logInfo("Reseting password \(url) with data \(param)")
             let jsonData = try NSJSONSerialization.dataWithJSONObject(param, options: [])
             
             let urlRequest = NSMutableURLRequest(URL: url)
@@ -621,6 +642,8 @@ extension ApiService {
         guard let dataSource = dataSource, let urlError = error as? RxCocoaURLError else { return Observable.error(error) }
         guard case let .HTTPRequestFailed(response, _) = urlError where response.statusCode == 401 else { return Observable.error(error) }
         
+        logInfo("Catched not authorized error \(error), shouldRetry \(shouldRetry)")
+        
         return dataSource.apiServiceWantsHandleLoginRetry(self)
             .flatMap { Void -> Observable<T> in
                 return Observable<T>.create { observer in
@@ -641,7 +664,7 @@ extension ApiService {
         if let param = param {
             do {
                 let encodedParam = param.encode()
-                logInfo("Sendind wishlist request with param: \(encodedParam)")
+                logInfo("Sending wishlist \(url) with method \(method) with data \(encodedParam)")
                 jsonData = try NSJSONSerialization.dataWithJSONObject(encodedParam, options: [])
             } catch {
                 return Observable.error(error)
