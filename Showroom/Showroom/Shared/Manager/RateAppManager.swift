@@ -17,6 +17,7 @@ final class RateAppManager {
             }
         }
         set {
+            logInfo("initialDate \(initialDate)")
             NSUserDefaults.standardUserDefaults().setDouble(newValue.timeIntervalSince1970, forKey: initialDateKey)
         }
     }
@@ -25,6 +26,7 @@ final class RateAppManager {
             return NSUserDefaults.standardUserDefaults().boolForKey(appRatedKey)
         }
         set {
+            logInfo("appAlreadyRated \(newValue)")
             NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: appRatedKey)
         }
     }

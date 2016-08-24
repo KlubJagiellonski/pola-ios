@@ -103,7 +103,7 @@ class QuickActionManager {
         UIApplication.sharedApplication().shortcutItems = shortcutItems
     }
     
-    func dynamicShortcutItem(shortcutId: ShortcutIdentifier, productCount: UInt) -> UIApplicationShortcutItem? {
+    private func dynamicShortcutItem(shortcutId: ShortcutIdentifier, productCount: UInt) -> UIApplicationShortcutItem? {
         guard productCount != 0 else { return nil }
         
         switch shortcutId {
@@ -128,6 +128,7 @@ class QuickActionManager {
     }
     
     func handleShortcutItem(shortcutItem: UIApplicationShortcutItem) -> Bool {
+        logInfo("Handling shortcutitem \(shortcutItem)")
         guard let shortcut = ShortcutIdentifier(fullType: shortcutItem.type) else { return false }
         delegate?.quickActionManager(self, didTapShortcut: shortcut)
         return true

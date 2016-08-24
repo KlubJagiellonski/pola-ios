@@ -47,6 +47,7 @@ final class PayUManager {
         }
         
         userManager.sessionObservable.subscribeNext { [weak self] session in
+            logInfo("Received new session \(session)")
             self?.clearSession()
             if session != nil {
                 self?.createSession()
@@ -55,6 +56,7 @@ final class PayUManager {
     }
     
     private func fetchPayUToken() -> Observable<PaymentAuthorizeResult> {
+        logInfo("Fetching payu token")
         return api.authorizePayment(withProvider: .PayU)
     }
     
@@ -63,6 +65,7 @@ final class PayUManager {
             logError("PaymentService not created while creating paymentButton")
             return nil
         }
+        logInfo("Creating payment button")
         return paymentService.paymentMethodWidgetWithFrame(frame)
     }
     
@@ -71,6 +74,7 @@ final class PayUManager {
             logError("PaymentService not created while handling url \(url)")
             return false
         }
+        logInfo("Handling open \(url)")
         return paymentService.handleOpenURL(url)
     }
     
@@ -85,6 +89,8 @@ final class PayUManager {
             return Observable.error(PayUPaymentError.InvalidRequest(paymentResult))
         }
         
+        logInfo("Making payment \(paymentResult)")
+        
         let request = PUPaymentRequest()
         request.extOrderId = String(paymentResult.orderId)
         request.amount = paymentResult.amount
@@ -94,6 +100,7 @@ final class PayUManager {
         
         return Observable.create { observer in
             paymentService.submitPaymentRequest(request) { result in
+                logInfo("Received status \(result.status)")
                 switch result.status {
                 case .Success:
                     observer.onNext(paymentResult)
@@ -111,11 +118,13 @@ final class PayUManager {
     }
     
     private func clearSession() {
+        logInfo("Clear session")
         paymentService?.clearUserContext()
         delegate.paymentMethodDescription = nil
     }
     
     private func createSession() {
+        logInfo("Create session")
         let paymentService = PUPaymentService()
         paymentService.dataSource = dataSource
         paymentService.delegate = delegate
@@ -139,7 +148,6 @@ final class PayUAuthorizationDataSource: NSObject, PUAuthorizationDataSource {
             completionHandler(nil, NSError(domain: "PayUManager", code: 401, userInfo: [NSLocalizedDescriptionKey: "No session"]))
             return
         }
-        
         manager.fetchPayUToken().subscribe { (event: Event<PaymentAuthorizeResult>) in
             switch event {
             case .Next(let result):
@@ -163,6 +171,7 @@ final class PayUPaymentServiceDelegate: NSObject, PUPaymentServiceDelegate {
     private var paymentMethodDescription: PUPaymentMethodDescription?
     
     func paymentServiceDidSelectPaymentMethod(paymentMethod: PUPaymentMethodDescription!) {
+        logInfo("Did select payment method")
         paymentMethodDescription = paymentMethod
         guard let delegate = delegate else {
             logInfo("No delegate assigned with selected payment method: \(paymentMethod)")
@@ -172,6 +181,7 @@ final class PayUPaymentServiceDelegate: NSObject, PUPaymentServiceDelegate {
     }
     
     func paymentServiceDidRequestPresentingViewController(viewController: UIViewController!) {
+        logInfo("Did request presenting view controller")
         guard let delegate = delegate else {
             logInfo("No delegate assigned with request presenting view controller: \(viewController)")
             return

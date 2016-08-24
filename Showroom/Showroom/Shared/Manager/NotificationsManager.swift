@@ -24,6 +24,7 @@ final class NotificationsManager {
             return NSUserDefaults.standardUserDefaults().boolForKey(userAlreadyAskedForNotificationPermissionKey)
         }
         set {
+            logInfo("userAlreadyAskedForNotificationsPermission \(newValue)")
             NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: userAlreadyAskedForNotificationPermissionKey)
             shouldShowInSettingsObservable.onNext()
         }
@@ -35,6 +36,7 @@ final class NotificationsManager {
             return NSUserDefaults.standardUserDefaults().boolForKey(alreadyShowedNotifcationsAccessViewKey)
         }
         set {
+            logInfo("alreadyShowedNotifcationsAccessView \(newValue)")
             NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: alreadyShowedNotifcationsAccessViewKey)
         }
     }
@@ -45,6 +47,7 @@ final class NotificationsManager {
             return NSUserDefaults.standardUserDefaults().boolForKey(dontShowNotificationsAccessViewKey)
         }
         set {
+            logInfo("dontShowNotificationsAccesView \(newValue)")
             NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: dontShowNotificationsAccessViewKey)
         }
     }
@@ -67,6 +70,7 @@ final class NotificationsManager {
             }
         }
         set {
+            logInfo("initialDate \(newValue)")
             NSUserDefaults.standardUserDefaults().setDouble(newValue.timeIntervalSince1970, forKey: initialDateKey)
         }
     }
@@ -98,6 +102,7 @@ final class NotificationsManager {
     }
     
     func applicationDidFinishLaunching(withLaunchOptions launchOptions: [NSObject: AnyObject]?) {
+        logInfo("Did finish launching with options")
         EmarsysManager.appLaunch()
         pushWooshManager.handlePushReceived(launchOptions)
         pushWooshManager.sendAppOpen()
@@ -111,7 +116,9 @@ final class NotificationsManager {
     * Returns true if `registerForRemoteNotifications` called. False if it is not needed (already registered)
     */
     func registerForRemoteNotificationsIfNeeded() -> Bool {
+        logInfo("Registering for remote notification if needed")
         guard !isRegistered else {
+            logInfo("Registered already")
             return false
         }
         registerForRemoteNotifications()
@@ -136,6 +143,7 @@ final class NotificationsManager {
     }
     
     func didReceiveRemoteNotification(userInfo userInfo: [NSObject : AnyObject]) {
+        logInfo("Did receive remote notification \(userInfo)")
         pushWooshManager.handlePushReceived(userInfo)
     }
     
@@ -146,6 +154,7 @@ final class NotificationsManager {
     }
     
     private func didReceive(url url: NSURL) {
+        logInfo("Did receive url \(url)")
         delegate?.notificationManager(self, didReceiveUrl: url)
     }
     

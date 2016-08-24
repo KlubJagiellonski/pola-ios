@@ -23,6 +23,7 @@ class StorageManager {
     }
     
     private func saveData<T: Encodable>(path: String, object: T?) throws {
+        logInfo("Saving to path \(path) empty object \(object == nil)")
         guard let object = object else {
             let fileManager = NSFileManager.defaultManager()
             if fileManager.fileExistsAtPath(path) {
@@ -36,6 +37,7 @@ class StorageManager {
     }
     
     private func loadData<T: Decodable>(path: String) throws -> T? {
+        logInfo("Loading data \(path)")
         guard let data = NSData(contentsOfFile: path) else { return nil }
         let jsonData = try NSJSONSerialization.JSONObjectWithData(data, options: [])
         return try T.decode(jsonData)

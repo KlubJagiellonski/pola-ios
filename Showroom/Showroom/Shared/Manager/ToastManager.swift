@@ -18,7 +18,9 @@ class ToastManager {
     }
     
     func showMessages(messages: [String]) {
+        logInfo("Showing messages \(messages)")
         if toastWindow.animationInProgress || toastWindow.currentToastView != nil || timer != nil {
+            logInfo("Adding to queue")
             messagesQueue.append(messages)
             return
         }
@@ -31,6 +33,7 @@ class ToastManager {
     }
     
     private func hideMessages() {
+        logInfo("Hide messages")
         timer?.invalidate()
         timer = nil
         
@@ -40,7 +43,9 @@ class ToastManager {
     }
     
     private func showMessagesFromQueue() {
+        logInfo("Show messages from queue")
         guard messagesQueue.count > 0 else {
+            logInfo("No messages in queue, hidding window")
             toastWindow.hidden = true
             return
         }

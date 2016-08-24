@@ -28,6 +28,7 @@ class UserManager {
     let genderObservable = PublishSubject<Gender>()
     private var userSession: UserSession? {
         didSet {
+            logInfo("Did set user session \(userSession)")
             if let userId = userSession?.user.id {
                 Analytics.sharedInstance.userId = String(userId)
             } else {
@@ -57,9 +58,9 @@ class UserManager {
             return loadedGender
         }
         set {
+            logInfo("Changed gender to \(newValue.rawValue)")
             NSUserDefaults.standardUserDefaults().setValue(newValue.rawValue, forKey: UserManager.genderKey)
             genderObservable.onNext(newValue)
-            logInfo("Changed gender to \(newValue.rawValue)")
         }
     }
     var shouldSkipStartScreen: Bool {
@@ -67,6 +68,7 @@ class UserManager {
             return NSUserDefaults.standardUserDefaults().boolForKey(UserManager.skipStartScreenKey)
         }
         set {
+            logInfo("Changed shouldSkipStartScreen to \(shouldSkipStartScreen)")
             NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: UserManager.skipStartScreenKey)
             shouldSkipStartScreenObservable.onNext(shouldSkipStartScreen)
         }
@@ -93,12 +95,14 @@ class UserManager {
     }
     
     func fetchSharedWebCredentials() -> Observable<SharedWebCredential> {
+        logInfo("Fetching shared web credentials")
         return keychainManager.fetchSharedWebCredentials()
             .observeOn(MainScheduler.instance)
             .doOnNext { [weak self] credential in self?.cachedSharedWebCredential = credential }
     }
     
     func login(with login: Login) -> Observable<SigningResult> {
+        logInfo("Fetching login \(login)")
         return apiService.login(with: login)
             .observeOn(MainScheduler.instance)
             .doOnNext { [weak self] result in
@@ -109,6 +113,7 @@ class UserManager {
                 }
         }
             .catchError { [weak self] error in
+                logInfo("Received error when login \(error)")
                 if let `self` = self {
                     self.userSession = nil
                 }
@@ -123,8 +128,8 @@ class UserManager {
                     case 400:
                         // Validation Failed
                         let errorData = try NSJSONSerialization.JSONObjectWithData(data!, options: [])
+                        logInfo("Validation error \(errorData)")
                         let validtionError: SigningValidationError = try SigningValidationError.decode(errorData)
-                        logInfo(validtionError.message)
                         return Observable.error(SigningError.ValidationFailed(validtionError.errors))
                     case 401:
                         // Invalid credentials
@@ -139,6 +144,7 @@ class UserManager {
     }
     
     func register(with registration: Registration) -> Observable<SigningResult> {
+        logInfo("Registering \(registration)")
         return apiService.register(with: registration)
             .observeOn(MainScheduler.instance)
             .doOnNext { [weak self] result in
@@ -149,6 +155,7 @@ class UserManager {
                 }
         }
             .catchError { [weak self] error in
+                logInfo("Received error when registering \(error)")
                 if let `self` = self {
                     self.userSession = nil
                 }
@@ -163,9 +170,8 @@ class UserManager {
                     case 400:
                         // Validation Failed
                         let errorData = try NSJSONSerialization.JSONObjectWithData(data!, options: [])
-                        logInfo("\(errorData)")
+                        logInfo("Validation error \(errorData)")
                         let validtionError: SigningValidationError = try SigningValidationError.decode(errorData)
-                        logInfo(validtionError.message)
                         return Observable.error(SigningError.ValidationFailed(validtionError.errors))
                     default:
                         return Observable.error(SigningError.Unknown(error))
@@ -180,7 +186,7 @@ class UserManager {
         return Observable.create {
             [unowned self] observer in
             
-            logDebug("Login with facebook")
+            logInfo("Login with facebook")
             
             self.fbLoginManager.logInWithReadPermissions(["public_profile", "email"], fromViewController: viewController) {
                 [weak self] (result: FBSDKLoginManagerLoginResult!, error: NSError!) in
@@ -206,7 +212,11 @@ class UserManager {
     }
     
     func updateUser() {
-        guard session != nil else { return }
+        logInfo("Updating user")
+        guard session != nil else {
+            logInfo("No session")
+            return
+        }
         self.apiService.fetchUser()
             .subscribe { [weak self] (event: Event<User>) in
                 guard let `self` = self else { return }
@@ -227,6 +237,7 @@ class UserManager {
     }
     
     func logout() {
+        logInfo("Logout")
         apiService.logout().subscribe().addDisposableTo(disposeBag)
         fbLoginManager.logOut()
         self.userSession = nil
@@ -236,6 +247,7 @@ class UserManager {
     }
     
     private func loginWithFacebookToken(token: String) -> Observable<SigningResult> {
+        logInfo("Login with facebook token")
         return self.apiService.loginWithFacebook(with: FacebookLogin(accessToken: token))
             .observeOn(MainScheduler.instance)
             .doOnNext { [weak self] result in
@@ -258,8 +270,10 @@ class UserManager {
     }
     
     private func updateSharedWebCredentialsIfNeeded(withUsername username: String, password: String) {
+        logInfo("Updating shared web credentials if needed \(username)")
         let newCredentials = SharedWebCredential(account: username, password: password)
         if cachedSharedWebCredential != newCredentials {
+            logInfo("Credentials changed")
             self.keychainManager.addSharedWebCredentials(newCredentials).subscribe().addDisposableTo(self.disposeBag)
         }
     }
@@ -271,9 +285,12 @@ extension UserManager: ApiServiceDataSource {
     }
     
     func apiServiceWantsHandleLoginRetry(api: ApiService) -> Observable<Void> {
+        logInfo("Handle login retry")
         if let facebookToken = keychainManager.facebookToken {
+            logInfo("Facebook token exist")
             return loginWithFacebookToken(facebookToken).flatMap({ _ in return Observable.just() })
         } else if let loginCredentials = keychainManager.loginCredentials {
+            logInfo("Login credentials exist")
             return login(with: loginCredentials).flatMap({ _ in return Observable.just() })
         } else {
             return Observable.error(ApiError.LoginRetryFailed)

@@ -88,11 +88,13 @@ class KeychainManager: NSObject {
     }
     
     func fetchSharedWebCredentials() -> Observable<SharedWebCredential> {
+        logInfo("Fetching shared web credentials")
         return Observable.create { observer in
             SecRequestSharedWebCredential(Constants.websiteDomain, nil) { array, error in
                 if let array = array as Array?, dictionary = array.first as? NSDictionary, let credential = SharedWebCredential(dictionary: dictionary) {
                     observer.onNext(credential)
                 } else {
+                    logInfo("Cannot fetch credentials \(error)")
                     observer.onError(SharedWebCredentialsError.Unknown(error))
                 }
                 observer.onCompleted()
@@ -103,9 +105,11 @@ class KeychainManager: NSObject {
     }
     
     func addSharedWebCredentials(credentials: SharedWebCredential) -> Observable<Void> {
+        logInfo("Adding shared web credentials")
         return Observable.create { observer in
             SecAddSharedWebCredential(Constants.websiteDomain, credentials.account, credentials.password) { error in
                 if let error = error {
+                    logInfo("Cannot add shared web credentials")
                     observer.onError(error)
                 } else {
                     observer.onNext()
