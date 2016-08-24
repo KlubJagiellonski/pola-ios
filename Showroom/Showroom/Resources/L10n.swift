@@ -7,7 +7,7 @@ enum L10n {
   case CommonDeliveryInfoSingle(String)
   /// Wysyłka w %@ dni
   case CommonDeliveryInfoMulti(String)
-  /// Coś poszło nie tak. Nie udało się załadować danych.
+  /// Ups, coś poszło nie tak.\nNie udało się załadować danych.
   case CommonError
   /// Nie udało się załadować danych.
   case CommonErrorShort
@@ -17,11 +17,11 @@ enum L10n {
   case CommonEmail
   /// Hasło
   case CommonPassword
-  /// Cześć, %@!
+  /// Cześć %@!
   case CommonGreeting(String)
-  /// Niestety użytkownik został wylogowany. Zaloguj ponownie.
+  /// Niestety użytkownik został wylogowany. Zaloguj się ponownie.
   case CommonUserLoggedOut
-  /// Główna
+  /// Strona główna
   case MainTabDashboard
   /// Przeglądanie
   case MainTabSearch
@@ -33,7 +33,7 @@ enum L10n {
   case MainTabSettings
   /// KOD RABATOWY
   case BasketDiscountCode
-  /// WYSYŁKA
+  /// DOSTAWA
   case BasketShipping
   /// SUMA
   case BasketTotalPrice
@@ -51,25 +51,25 @@ enum L10n {
   case BasketEmpty
   /// ZACZNIJ ZAKUPY
   case BasketStartShopping
-  /// SPOSÓB DOSTAWY
+  /// DOSTAWA
   case BasketDeliveryTitle
   /// Kraj dostawy
   case BasketDeliveryDeliveryCountry
   /// Sposób dostawy
   case BasketDeliveryDeliveryOption
-  /// W SHOWROOM każdy projektant wysyła produkty oddzielnie, dlatego ponosisz koszty wysyłki kilkukrotnie. Możesz wybrać tylko jeden sposób wysyłki dla całego zamówienia.
+  /// Aby maksymalnie przyspieszyć czas dostawy, w SHOWROOM każdy projektant wysyła produkty oddzielnie - bezpośrednio do Ciebie. Dlatego ponosisz koszty dostawy kilkukrotnie. Możesz wybrać tylko jeden sposób wysyłki dla całego zamówienia.
   case BasketDeliveryInfo
   /// OK
   case BasketDeliveryOk
   /// KRAJ DOSTAWY
   case BasketDeliveryDeliveryCountryTitle
-  /// Poniższe produkty zostały usunięte z listy, ponieważ już nie są dostępne:
+  /// Poniższe produkty zostały usunięte z listy, ponieważ nie są już dostępne:
   case BasketErrorProductsRemoved
   /// Ceny poniższych produktów uległy zmianie:
   case BasketErrorPriceChanged
-  /// Cena lub termin wysyłki poniższych marek uległy zmianie:
+  /// Cena lub termin wysyłki poniższych produktów uległy zmianie:
   case BasketErrorDeilveryInfoChanged
-  /// Ilość poniższych produktów została zmniejszona:
+  /// Liczba poniższych produktów została zmniejszona:
   case BasketErrorProductsAmountChanged
   /// Błąd kodu rabatowego:
   case BasketErrorInvalidDiscountCode
@@ -87,27 +87,27 @@ enum L10n {
   case ProductActionSizeCellSizeUnavailable
   /// WYBIERZ KOLOR
   case ProductActionPickColorTitle
-  /// tylko w innym rozmiarze
+  /// brak koloru w wybranym rozmiarze
   case ProductActionColorCellColorUnavailable
-  /// WYBIERZ ILOŚĆ
+  /// WYBIERZ LICZBĘ
   case ProductActionPickAmountTitle
   /// DO KOSZYKA
   case ProductDetailsToBasket
   /// Tabela rozmiarów
   case ProductDetailsSizeChart
-  /// Inne produkty %@
+  /// Pozostałe produkty %@
   case ProductDetailsOtherBrandProducts(String)
   /// Opis produktu
   case ProductDetailsProductDescription
   /// TABELA ROZMIARÓW
   case ProductDetailsSizeChartUppercase
-  /// rozmiar
+  /// [cm]
   case ProductDetailsSizeChartSize
   /// Kasa
   case CheckoutDeliveryNavigationHeader
-  /// Adres dostawy
+  /// ADRES DOSTAWY
   case CheckoutDeliveryCourierHeader
-  /// Twój adres
+  /// TWÓJ ADRES
   case CheckoutDeliveryRUCHHeader
   /// Imię
   case CheckoutDeliveryAddressFormFirstName
@@ -117,7 +117,7 @@ enum L10n {
   case CheckoutDeliveryAddressFormStreetAndApartmentNumbers
   /// Kod pocztowy
   case CheckoutDeliveryAddressFormPostalCode
-  /// Miejscowość
+  /// Miasto  
   case CheckoutDeliveryAddressFormCity
   /// Kraj
   case CheckoutDeliveryAddressFormCountry
@@ -131,7 +131,7 @@ enum L10n {
   case CheckoutDeliveryAdressStreet
   /// tel.
   case CheckoutDeliveryAdressPhoneNumber
-  /// Dostawa
+  /// DOSTAWA
   case CheckoutDeliveryDeliveryHeader
   /// WYBIERZ KIOSK
   case CheckoutDeliveryDeliveryRUCHPickKiosk
@@ -145,9 +145,9 @@ enum L10n {
   case CheckoutDeliveryEditAddressSave
   /// Wybór kiosku
   case CheckoutDeliveryEditKioskNavigationHeader
-  /// Znajdź kiosk w pobliżu
+  /// Znajdź kiosk w pobliżu:
   case CheckoutDeliveryEditKioskSearchInputLabel
-  /// Piękna 5, Warszawa
+  /// Hoża 51, Warszawa
   case CheckoutDeliveryEditKioskSearchInputPlaceholder
   /// Nie znaleziono adresu
   case CheckoutDeliveryEditKioskGeocodingError
@@ -157,9 +157,9 @@ enum L10n {
   case CheckoutSummaryNavigationHeader
   /// %@ szt. Rozmiar: %@ Kolor: %@
   case CheckoutSummaryProductDescription(String, String, String)
-  /// Uwagi do projektanta
+  /// KOMENTARZ
   case CheckoutSummaryCommentTitle
-  /// DODAJ UWAGĘ
+  /// DODAJ KOMENTARZ
   case CheckoutSummaryAddComment
   /// EDYTUJ
   case CheckoutSummaryEditComment
@@ -167,29 +167,29 @@ enum L10n {
   case CheckoutSummaryDeleteComment
   /// ZAPISZ
   case CheckoutSummarySaveComment
-  /// Tutaj wpisz wiadomość do projektanta.
+  /// Tutaj wpisz swoje uwagi do projektanta.
   case CheckoutSummaryCommentPlaceholder
   /// Kod rabatowy %@
   case CheckoutSummaryDiscountCode(String)
   /// Kwota do zapłaty
   case CheckoutSummaryTotalPrice
-  /// Sposób płatności
+  /// SPOSÓB PŁATNOŚCI
   case CheckoutSummaryPaymentMethod
-  /// KUP I ZAPŁAĆ
+  /// ZŁÓŻ ZAMÓWIENIE
   case CheckoutSummaryBuy
-  /// SUKCES!
+  /// GRATULACJE!
   case CheckoutPaymentResultSuccessHeader
-  /// Twoje zamówienie nr %@ zostało złożone do realizacji. Możesz sprawdzić status zamówienia w %@.
+  /// Twoje zamówienie nr %@ zostało przekazane do realizacji. O postępach będziemy informować Cię mailem, możesz też sprawdzić status zamówienia na %@.\nW imieniu swoim i Projektantów dziękujemy za zakupy w aplikacji SHOWROOM!
   case CheckoutPaymentResultSuccessDescription(String, String)
-  /// serwisie internetowym
+  /// naszej stronie internetowej
   case CheckoutPaymentResultWebsiteLink
   /// UUUPS!
   case CheckoutPaymentResultFailureHeader
-  /// Twoje zamówienie nr %@ zostało złożone, jednak nie udało się go opłacić. Możesz to zrobić w %@.
+  /// Twoje zamówienie nr %@ zostało zapisane, jednak wystąpił błąd z płatnością. Możesz ją ponowić na %@. Przepraszamy za kłopot.
   case CheckoutPaymentResultFailureDescription(String, String)
-  /// POWRÓT DO EKRANU GŁÓWNEGO
+  /// STRONA GŁÓWNA
   case CheckoutPaymentResultGoToMain
-  /// Transakcja nie mogła zostać wykonana z powodu nieoczekiwanych zmian. Spróbuj ponownie.
+  /// Zamówienie nie mogło zostać złożone z powodu nieoczekiwanego błędu. Spróbuj ponownie. Przepraszamy za kłopot.
   case CheckoutPaymentOn400Error
   /// NEW
   case ProductListBadgeNew
@@ -197,11 +197,11 @@ enum L10n {
   case ProductListBadgeFreeDelivery
   /// PREMIUM
   case ProductListBadgePremium
-  /// Niestety nie znaleziono żadnych produktów.
+  /// Niestety nie znaleźliśmy żadnych produktów spełniających podane kryteria.
   case ProductListEmptyDescription
-  /// Niestety nie znaleziono żadnych produktów.\nSpróbuj ponownie z innym hasłem.
+  /// Niestety nie znaleźliśmy żadnych produktów.\nSpróbuj ponownie z innym słowem kluczowym.
   case ProductListEmptySearchDescription
-  /// Filtry
+  /// Filtrowanie
   case ProductListFilterTitle
   /// Anuluj
   case ProductListFilterCancel
@@ -221,13 +221,13 @@ enum L10n {
   case ProductListFilterMax
   /// Logowanie
   case LoginNavigationHeader
-  /// ZALOGUJ SIĘ Z FACEBOOKIEM
+  /// ZALOGUJ SIĘ FACEBOOKIEM
   case LoginLoginWithFacebook
   /// lub
   case LoginOr
   /// ZALOGUJ SIĘ
   case LoginLoginButton
-  /// Przypomnienie hasła
+  /// Nie pamiętam hasła
   case LoginPassReminder
   /// Załóż nowe konto
   case LoginNewAccount
@@ -237,7 +237,7 @@ enum L10n {
   case LoginErrorUnknown
   /// Rejestracja
   case RegistrationNavigationHeader
-  /// REJESTRACJA Z FACEBOOKIEM
+  /// REJESTRACJA FACEBOOKIEM
   case RegistrationRegisterWithFacebook
   /// lub
   case RegistrationOr
@@ -251,7 +251,7 @@ enum L10n {
   case RegistrationFemale
   /// Mężczyzna
   case RegistrationMale
-  /// Chcę zapisać się do newslettera
+  /// Chcę otrzymywać newsletter
   case RegistrationNewsletterCheck
   /// Akceptuję regulamin SHOWROOM
   case RegistrationRulesCheck
@@ -261,17 +261,17 @@ enum L10n {
   case RegistrationCraeteAccount
   /// Masz już konto?
   case RegistrationHaveAccount
-  /// Akceptacja regulaminu jest wymagana do utworzenia konta w serwisie SHOWROOM.
+  /// Akceptacja regulaminu SHOWROOM jest wymagana.
   case RegistrationRequiringRulesMessage
   /// Wystąpił błąd podczas rejestracji. Spróbuj jeszcze raz.
   case RegistrationErrorUnknown
-  /// Reset hasła
+  /// Zapomniane hasło
   case ResetPasswordNavigationHeader
-  /// Wpisz adres e-mail powiązany z Twoim kontem.
+  /// Podaj adres e-mail powiązany z Twoim kontem. Na ten adres prześlemy Ci nowe, tymczasowe hasło.
   case ResetPasswordEmailDescription
-  /// ZRESETUJ
+  /// DALEJ
   case ResetPasswordReset
-  /// Nowe hasło zostało wysłane na podany adres e-mail.
+  /// Nowe hasło tymczasowe zostało wysłane na podany przez Ciebie adres e-mail.
   case ResetPasswordSuccessDescription
   /// To pole nie może być puste
   case ValidatorNotEmpty
@@ -279,7 +279,7 @@ enum L10n {
   case ValidatorEmail
   /// O projektancie
   case BrandAboutTitle
-  /// Powtórzone hasło jest inne
+  /// Wpisane hasła są różne
   case ValidatorRepeatPassword
   /// Zaloguj się
   case SettingsLogin
@@ -293,7 +293,7 @@ enum L10n {
   case SettingsMale
   /// ONA
   case SettingsFemale
-  /// Zgoda na notyfikacje
+  /// Zgoda na powiadomienia
   case SettingsPermissionForNotifications
   /// Spytaj
   case SettingsAskForNotifications
@@ -317,7 +317,7 @@ enum L10n {
   case SettingsSendReportTitle
   /// Brak skonfigurowanego konta e-mail w systemie.
   case SettingsSendReportMailNotConfigured
-  /// przeglądaj produkty
+  /// Przeglądaj produkty
   case StartBrowse
   /// DLA NIEJ
   case StartForHer
@@ -329,21 +329,21 @@ enum L10n {
   case StartRegister
   /// DALEJ
   case OnboardingInfiniteScrollingNext
-  /// Przeglądaj tysiące produktów bezpośrednio od polskich projektantów
+  /// Witaj w aplikacji SHOWROOM!\nZnajdziesz tu wyselekcjonowane produkty od najciekawszych projektantów i marek modowych.
   case OnboardingInfiniteScrollingLabel
-  /// Za chwilę zostaniesz poproszony o zgodę na notyfikacje, które pozwolą na informowanie Ciebie o promocjach.
+  /// Czy chcesz w pierwszej kolejności dostawać informacje o specjalnych promocjach, wyprzedażach i nowych kolekcjach?
   case OnboardingNotificationsLabel
-  /// SPYTAJ MNIE
+  /// JASNE!
   case OnboardingNotificationsAskMe
   /// POMIŃ
   case OnboardingNotificationsSkip
-  /// Stuknij dwukrotnie w zdjęcie,\naby dodać produkt do ulubionych
+  /// Stuknij dwukrotnie w zdjęcie,\naby szybko dodać produkt do ulubionych
   case OnboardingDoubleTapLabel
-  /// Przesuń palcem w górę,\naby zobaczyć kolejne zdjęcie produktu
+  /// Przesuń palcem w górę,\naby zobaczyć kolejne zdjęcie przeglądanego produktu
   case OnboardingPhotosPagingLabel
   /// DALEJ
   case OnboardingPhotosPagingNext
-  /// Przesuń palcem w bok, aby przejść\ndo kolejnego produktu z listy
+  /// Przesuń palcem w bok,\naby szybko przejść do kolejnego produktu z listy
   case OnboardingProductPagingLabel
   /// ROZUMIEM
   case OnboardingProductPagingDismiss
@@ -353,11 +353,11 @@ enum L10n {
   case SearchAllSearchItems(String)
   /// Cofnij
   case SearchBack
-  /// Możesz łatwo dodawać produkty z\U00A0listy dwukrotnie stukając palcem w\U00A0ich zdjęcia.
+  /// Dodawaj produkty do ulubionych\ndwukrotnie stukając palcem w ich zdjęcia
   case WishlistEmptyDescription
   /// Usuń
   case WishlistDelete
-  /// Dashboard
+  /// Strona główna
   case QuickActionDashboard
   /// Szukaj
   case QuickActionSearch
@@ -373,19 +373,19 @@ enum L10n {
   case QuickActionProductCountTwoToFour
   /// produktów
   case QuickActionProductCountFiveAndMore
-  /// Wersja nie wspierana
+  /// CZAS NA UPDATE
   case AppVersionNotSupportedTitle
-  /// Ta wersja aplikacji nie jest już wspierana. Aby dalej korzystać z Showroom zainstaluj najnowszą wersję z App Store
+  /// Niestety ta wersja aplikacji nie jest już wspierana. Aby dalej korzystać z SHOWROOM zainstaluj najnowszą wersję z App Store
   case AppVersionNotSupportedDescription
-  /// App Store
+  /// IDŹ DO APP STORE
   case AppVersionNotSupportedAccept
-  /// Anuluj
+  /// ANULUJ
   case AppVersionNotSupportedDecline
   /// OCEŃ NAS
   case RateAppTitle
-  /// Pozwól, by inni wiedzieli co sądzisz o aplikacji SHOWROOM. Oceń aplikację w App Store.
+  /// Mamy nadzieję, że z przyjemnością korzystasz z naszej aplikacji!\nPodziel się swoją opinią z innymi i oceń SHOWROOM w App Store.
   case RateAppDescriptionAfterTime
-  /// Dzięki za zakupy w SHOWROOM. Pozwól, by inny wiedzieli co o nas sądzisz.
+  /// Mamy nadzieję, że zakupy w naszej aplikacji były dla Ciebie przyjemnością!\nPodziel się swoją opinią z innymi i oceń SHOWROOM w App Store.
   case RateAppDescriptionAfterBuy
   /// OCEŃ
   case RateAppRate
@@ -395,9 +395,9 @@ enum L10n {
   case RateAppOtherTime
   /// BĄDŹ NA BIEŻĄCO
   case PushNotificationTitle
-  /// Możemy informować Cię na temat obniżek produktów, wyprzedażach i ofertach specjalnych.
+  /// Możemy w pierwszej kolejności informować Cię o specjalnych promocjach, wyprzedażach i nowych kolekcjach.
   case PushNotificationDescriptionAfterTime
-  /// Poinformujemy Cię o obniżkach produktów, które mogą Cię interesować.
+  /// Możemy informować Cię o obniżkach cen produktów z Twojej listy ulubionych.
   case PushNotificationDescriptionAfterWishlist
   /// Czy chcesz dostawać od nas powiadomienia?
   case PushNotificationQuestion
