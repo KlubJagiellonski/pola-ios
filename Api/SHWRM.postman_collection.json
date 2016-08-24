@@ -350,6 +350,20 @@
 				"description": ""
 			},
 			"response": []
+		},
+		{
+			"name": "APP VERSION",
+			"request": {
+				"url": "{{HOST}}/appRecentVersion",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
 		}
 	]
 }
