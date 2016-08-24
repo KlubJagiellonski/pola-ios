@@ -49,11 +49,13 @@ class DashboardViewController: UIViewController, DashboardViewDelegate {
     }
     
     func updateData() {
+        logInfo("Updating data")
         fetchContentPromo()
         fetchRecommendations()
     }
     
     private func fetchContentPromo() {
+        logInfo("Fetching content promo")
         model.fetchContentPromo().subscribeNext { [weak self] fetchResult in
             guard let `self` = self else { return }
             switch fetchResult {
@@ -72,6 +74,7 @@ class DashboardViewController: UIViewController, DashboardViewDelegate {
     }
     
     private func fetchRecommendations() {
+        logInfo("Fetching recommendations")
         model.fetchRecommendations().subscribeNext { [weak self] fetchResult in
             guard let strongSelf = self else { return }
             switch fetchResult {
@@ -92,11 +95,13 @@ class DashboardViewController: UIViewController, DashboardViewDelegate {
     // MARK: - DashboardViewDelegate
     
     func dashboardView(dashboardView: DashboardView, didSelectContentPromo contentPromo: ContentPromo) {
+        logInfo("Did select content promo \(contentPromo)")
         logAnalyticsEvent(AnalyticsEventId.DashboardContentPromoClicked(contentPromo.link, model.state.contentPromoResult?.contentPromos.indexOf(contentPromo) ?? 0))
         sendNavigationEvent(ShowItemForLinkEvent(link: contentPromo.link, title: nil, productDetailsFromType: .HomeContentPromo))
     }
     
     func dashboardView(dashboardView: DashboardView, didSelectRecommendation productRecommendation: ProductRecommendation) {
+        logInfo("Did select recommendation \(productRecommendation)")
         logAnalyticsEvent(AnalyticsEventId.DashboardRecommendationClicked(productRecommendation.itemId, model.state.recommendationsResult?.productRecommendations.indexOf(productRecommendation) ?? 0))
         
         let imageWidth = dashboardView.recommendationImageWidth
@@ -104,12 +109,14 @@ class DashboardViewController: UIViewController, DashboardViewDelegate {
         let retrieveCurrentImageViewTag: () -> Int? = { [weak self] in
             guard let `self` = self else { return nil }
             guard let index = self.model.state.recommendationsIndex else { return nil }
+            logInfo("Retrieving current image view tag for index \(index)")
             return self.castView.imageTag(forIndex: index)
         }
         sendNavigationEvent(ShowProductDetailsEvent(context: context, retrieveCurrentImageViewTag: retrieveCurrentImageViewTag))
     }
     
     func dashboardViewDidTapRetryRecommendation(dashboardView: DashboardView) {
+        logInfo("Did tap retry recommendation")
         castView.recommendationViewSwitcherState = .Loading
         fetchRecommendations()
     }
@@ -117,6 +124,7 @@ class DashboardViewController: UIViewController, DashboardViewDelegate {
     // MARK: - ViewSwitchedDelegate
     
     func viewSwitcherDidTapRetry(view: ViewSwitcher) {
+        logInfo("Did tap retry")
         castView.changeSwitcherState(.Loading)
         fetchContentPromo()
         if castView.recommendationViewSwitcherState == .Error {

@@ -22,7 +22,7 @@ class RootModel {
     }
     
     var shouldSkipStartScreen: Bool {
-        set { userManager.shouldSkipStartScreen = true }
+        set { userManager.shouldSkipStartScreen = newValue }
         get { return userManager.shouldSkipStartScreen }
     }
     

@@ -59,6 +59,7 @@ class SearchProductListViewController: UIViewController, ProductListViewControll
     }
     
     func updateData(with data: EntrySearchInfo) {
+        logInfo("Updating data \(data)")
         disposeBag = DisposeBag()
         model.update(with: data)
         castView.queryText = model.query
@@ -70,6 +71,7 @@ class SearchProductListViewController: UIViewController, ProductListViewControll
     }
     
     func didTapFilterButton() {
+        logInfo("Did tap filter button")
         logAnalyticsEvent(AnalyticsEventId.ListFilterIconClicked)
         
         guard let context = productListModel.createFilterContext() else {
@@ -84,6 +86,7 @@ class SearchProductListViewController: UIViewController, ProductListViewControll
     func pageWasFetched(result productListResult: ProductListResult, pageIndex: Int) { }
     
     func showInAppWishlistOnboarding() {
+        logInfo("Showing in ap wishlist onboarding")
         let wishlistOnboardingViewController = WishlistInAppOnboardingViewController()
         wishlistOnboardingViewController.delegate = self
         onboardingActionAnimator.presentViewController(wishlistOnboardingViewController, presentingViewController: self)
@@ -92,24 +95,29 @@ class SearchProductListViewController: UIViewController, ProductListViewControll
     // MARK:- ProductListViewDelegate
     
     func viewSwitcherDidTapRetry(view: ViewSwitcher) {
+        logInfo("Did tap retry")
         fetchFirstPage()
     }
     
     func searchProductList(view: SearchProductListView, didTapSearchWithQuery query: String) {
+        logInfo("Did tap search with query \(query)")
         updateData(with: EntrySearchInfo(query: query, link: nil))
     }
     
     func searchProductListDidCancelEditing(view: SearchProductListView) {
+        logInfo("Did cancel editing")
         castView.queryText = model.query
     }
 }
 
 extension SearchProductListViewController: ProductFilterNavigationControllerDelegate {
     func productFilter(viewController: ProductFilterNavigationController, wantsCancelWithAnimation animation: Bool) {
+        logInfo("Filter wants cancel with animation \(animation)")
         dismissViewControllerAnimated(animation, completion: nil)
     }
     
     func productFilter(viewController: ProductFilterNavigationController, didChangedFilterWithProductListResult productListResult: ProductListResult?) {
+        logInfo("Did changed filter with new results")
         dismissViewControllerAnimated(true, completion: nil)
         if productListResult != nil {
             didChangeFilter(withResult: productListResult!)
@@ -119,6 +127,7 @@ extension SearchProductListViewController: ProductFilterNavigationControllerDele
 
 extension SearchProductListViewController: WishlistInAppOnboardingViewControllerDelegate {
     func wishlistOnboardingViewControllerDidTapDismissButton(viewController: WishlistInAppOnboardingViewController) {
+        logInfo("Did tap dismiss button in wishlist")
         onboardingActionAnimator.dismissViewController(presentingViewController: self)
     }
 }

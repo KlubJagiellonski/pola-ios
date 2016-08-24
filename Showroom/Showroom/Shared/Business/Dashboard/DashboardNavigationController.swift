@@ -31,6 +31,7 @@ final class DashboardNavigationController: UINavigationController, NavigationHan
 
 extension DashboardNavigationController: MainTabChild {
     func popToFirstView() {
+        logInfo("Popping ot first view")
         popToRootViewControllerAnimated(true)
     }
 }

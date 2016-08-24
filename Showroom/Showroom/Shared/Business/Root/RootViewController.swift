@@ -43,6 +43,7 @@ class RootViewController: PresenterViewController, NavigationHandler {
     }
     
     func handleQuickActionShortcut(shortcut: ShortcutIdentifier) {
+        logInfo("Handling quick action shortcut \(shortcut)")
         if let mainTabViewController = self.contentViewController as? MainTabViewController {
             mainTabViewController.handleQuickActionShortcut(shortcut)
         } else {
@@ -57,6 +58,8 @@ class RootViewController: PresenterViewController, NavigationHandler {
             return false
         }
         
+        logInfo("Showing rate app view")
+        
         let viewController = self.resolver.resolve(RateAppViewController.self, argument: RateAppViewType.AfterTime)
         viewController.preferredContentSize = Dimensions.rateAppPreferredSize
         viewController.delegate = self
@@ -66,6 +69,8 @@ class RootViewController: PresenterViewController, NavigationHandler {
     }
     
     private func showNotificationAccessView() {
+        logInfo("Showing notification access view")
+        
         let viewController = self.resolver.resolve(NotificationsAccessViewController.self, argument: NotificationsAccessViewType.AfterTime)
         viewController.preferredContentSize = Dimensions.notificationAccessPreferredSize
         viewController.delegate = self
@@ -80,6 +85,8 @@ class RootViewController: PresenterViewController, NavigationHandler {
         
         switch simpleEvent.type {
         case .ShowDashboard:
+            logInfo("Showing dashboard")
+            
             model.shouldSkipStartScreen = true
             let mainTabViewController = resolver.resolve(MainTabViewController)
             showContent(mainTabViewController, animation: DimTransitionAnimation(animationDuration: 0.3), completion: nil)
@@ -89,6 +96,7 @@ class RootViewController: PresenterViewController, NavigationHandler {
             }
             return true
         case .SplashEnd:
+            logInfo("Splash end")
             hideModal(animation: nil) { [weak self] _ in
                 guard let `self` = self else { return }
                 if !self.showRateAppViewIfNeeded() && self.model.notificationManager.shouldAskForRemoteNotifications {
@@ -97,12 +105,14 @@ class RootViewController: PresenterViewController, NavigationHandler {
             }
             return true
         case .OnboardingEnd:
+            logInfo("Onboarding end")
             showContent(resolver.resolve(StartViewController), animation: DimTransitionAnimation(animationDuration: 0.3), completion: nil)
             return true
         case .ShowOnboaridng:
             showContent(resolver.resolve(InitialOnboardingViewController), animation: DimTransitionAnimation(animationDuration: 0.3), completion: nil)
             return true
         case .AskForNotificationsFromWishlist:
+            logInfo("Ask for notificaiton from wishlsit")
             // Only happens when the user adds something to the wishlist.
             if model.notificationManager.shouldShowNotificationsAccessViewFromWishlist {
                 showNotificationAccessView()
@@ -115,6 +125,7 @@ class RootViewController: PresenterViewController, NavigationHandler {
 
 extension RootViewController: DeepLinkingHandler {
     func handleOpen(withURL url: NSURL) -> Bool {
+        logInfo("Handling open with url \(url)")
         if let mainTabViewController = self.contentViewController as? MainTabViewController {
             return mainTabViewController.handleOpen(withURL: url)
         } else if model.shouldSkipStartScreen {
@@ -122,6 +133,7 @@ extension RootViewController: DeepLinkingHandler {
             showContent(mainTabViewController, animation: nil, completion: nil)
             return mainTabViewController.handleOpen(withURL: url)
         } else {
+            logInfo("Onboarding or start view not finished yet. Postponing url handling")
             //wait with handling till app finish onboarding and start
             urlToHandle = url
             return true
@@ -133,7 +145,10 @@ extension RootViewController: ApiServiceDelegate {
     func apiServiceDidReceiveAppNotSupportedError(api: ApiService) {
         guard presentedViewController == nil else { return }
         
+        logInfo("Received app not support error. Showing alert")
+        
         let acceptAction: (UIAlertAction -> Void) = { _ in
+            logInfo("Showing app store")
             if let appStoreUrl = NSURL(string: Constants.appStoreUrl) {
                 UIApplication.sharedApplication().openURL(appStoreUrl)
             }
@@ -148,18 +163,21 @@ extension RootViewController: ApiServiceDelegate {
 
 extension RootViewController: DimAnimatorDelegate {
     func animatorDidTapOnDimView(animator: Animator) {
+        logInfo("Did tap on dim view")
         formSheetAnimator.dismissViewController(presentingViewController: self)
     }
 }
 
 extension RootViewController: RateAppViewControllerDelegate {
     func rateAppWantsDismiss(viewController: RateAppViewController) {
+        logInfo("Rate app wants dismiss")
         formSheetAnimator.dismissViewController(presentingViewController: self)
     }
 }
 
 extension RootViewController: NotificationsAccessViewControllerDelegate {
     func notificationsAccessWantsDismiss(viewController: NotificationsAccessViewController) {
+        logInfo("Notification access wants dismiss")
         formSheetAnimator.dismissViewController(presentingViewController: self)
     }
 }

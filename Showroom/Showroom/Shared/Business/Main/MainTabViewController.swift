@@ -114,6 +114,8 @@ class MainTabViewController: UITabBarController, NavigationHandler {
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
         view.addSubview(badgesContainerView)
         
         basketBadgeValue = basketManager.state.basket?.productsAmount ?? 0
@@ -126,16 +128,19 @@ class MainTabViewController: UITabBarController, NavigationHandler {
     }
     
     func updateTabBarAppearance(appearance: TabBarAppearance, animationDuration: Double?) {
+        logInfo("Updating tab bar appearance \(appearance) animation \(animationDuration)")
         UIView.animateWithDuration(animationDuration ?? 0, delay: 0.0, options: [.BeginFromCurrentState, .CurveEaseInOut], animations: {
             self.appearance = appearance
             }, completion: nil)
     }
     
     private func onBasketChanged(basket: Basket?) {
+        logInfo("Basket changed with amount \(basket?.productsAmount)")
         basketBadgeValue = basket?.productsAmount ?? 0
     }
     
     private func onWishlistChanged(wishlist: [WishlistProduct]) {
+        logInfo("Wishlist changed with amount \(wishlist.count)")
         wishlistBadgeValue = UInt(wishlist.count)
     }
     
@@ -172,6 +177,7 @@ class MainTabViewController: UITabBarController, NavigationHandler {
     func handleNavigationEvent(event: NavigationEvent) -> EventHandled {
         if let simpleEvent = event as? SimpleNavigationEvent {
             if simpleEvent.type == .ShowSearch {
+                logInfo("Show search")
                 selectedIndex = MainTabChildControllerType.Search.rawValue
                 return true
             }
@@ -182,12 +188,14 @@ class MainTabViewController: UITabBarController, NavigationHandler {
 
 extension MainTabViewController: DeepLinkingHandler {
     func handleOpen(withURL url: NSURL) -> Bool {
+        logInfo("Handling url \(url)")
         let searchIndex = MainTabChildControllerType.Search.rawValue
         guard let deepLinkingHandler = viewControllers?[searchIndex] as? DeepLinkingHandler else {
             return false
         }
         let handled = deepLinkingHandler.handleOpen(withURL: url)
         if handled {
+            logInfo("Url handled")
             selectedIndex = searchIndex
         }
         return handled

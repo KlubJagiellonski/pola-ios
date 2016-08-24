@@ -78,6 +78,7 @@ class DashboardModel {
         
         self.state.recommendationsIndex = index
         let onChanged = { [unowned self] (index: Int) -> () in
+            logInfo("Changed recommendation to index \(index)")
             self.state.updateRecommendationsIndexWithNotyfingObserver(with: index)
         }
         
@@ -87,7 +88,9 @@ class DashboardModel {
             }
             let productRecommendation = recommendations[index]
             let lowResImageUrl = NSURL.createImageUrl(productRecommendation.imageUrl, width: imageWidth, height: nil)
-            return ProductInfo.Object(productRecommendation.toProduct(withLowResImageUrl: lowResImageUrl.absoluteString))
+            let info = ProductInfo.Object(productRecommendation.toProduct(withLowResImageUrl: lowResImageUrl.absoluteString))
+            logInfo("Retrieve product info \(info)")
+            return info
         }
         
         return OnePageProductDetailsContext(productsCount: recommendations.count, initialProductIndex: index, fromType: .HomeRecommendation, onChanged: onChanged, onRetrieveProductInfo: onRetrieveProductInfo)
