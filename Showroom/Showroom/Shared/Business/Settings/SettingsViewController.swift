@@ -66,12 +66,12 @@ class SettingsViewController: UIViewController {
             settings.append(Setting(type: .Normal, labelString: tr(.SettingsHistory), action: self.historyRowPressed))
         }
         settings.appendContentsOf([
-            Setting(type: .Normal, labelString: tr(.SettingsHowToMeasure), action: self.howToMeasureRowPressed),
-            Setting(type: .Normal, labelString: tr(.SettingsPrivacyPolicy), action: self.privacyPolicyRowPressed),
+            Setting(type: .Normal, labelString: tr(.SettingsSendReport), action: self.sendReportPressed),
             Setting(type: .Normal, labelString: tr(.SettingsFrequentQuestions), action: self.frequentQuestionsRowPressed),
-            Setting(type: .Normal, labelString: tr(.SettingsRules), action: self.rulesRowPressed),
+            Setting(type: .Normal, labelString: tr(.SettingsHowToMeasure), action: self.howToMeasureRowPressed),
             Setting(type: .Normal, labelString: tr(.SettingsContact), action: self.contactRowPressed),
-            Setting(type: .Normal, labelString: tr(.SettingsSendReport), action: self.sendReportPressed)
+            Setting(type: .Normal, labelString: tr(.SettingsRules), action: self.rulesRowPressed),
+            Setting(type: .Normal, labelString: tr(.SettingsPrivacyPolicy), action: self.privacyPolicyRowPressed)
         ])
         if !Constants.isAppStore {
             settings.append(Setting(type: .Normal, labelString: "Pokaż onboarding", action: self.showOnboarding))
