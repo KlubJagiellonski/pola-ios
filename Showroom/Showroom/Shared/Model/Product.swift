@@ -22,6 +22,7 @@ struct ProductListResult {
     let brand: Brand?
     let isLastPage: Bool
     let totalResults: Int
+    let emarsysCategory: String?
 }
 
 struct ListProduct {
@@ -137,7 +138,8 @@ extension ProductListResult: Decodable {
             filters: filters,
             brand: json =>? "brandInfo",
             isLastPage: json =>? "isLastPage" ?? true,
-            totalResults: json =>? "totalResults" ?? 0
+            totalResults: json =>? "totalResults" ?? 0,
+            emarsysCategory: json =>? "emarsys"
         )
     }
 }

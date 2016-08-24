@@ -109,6 +109,14 @@ extension EmarsysService {
         }
     }
     
+    func sendCategoryEvent(withCategory category: String) {
+        let transaction = EMTransaction()
+        transaction.setCategory(category)
+        session.sendTransaction(transaction) { error in
+            logInfo("Could not send category event for category \(category), error \(error)")
+        }
+    }
+    
     func configureUser(customerId: String?, customerEmail: String?) {
         session.customerID = customerId
         session.customerEmail = customerEmail

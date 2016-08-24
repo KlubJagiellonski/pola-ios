@@ -109,7 +109,7 @@ class UIAssembly: AssemblyType {
             return CategoryProductListViewController(withResolver: r.resolve(DiResolver.self)!, category: category)
         }
         container.register(CategoryProductListModel.self) { r, category in
-            return CategoryProductListModel(with: category, apiService: r.resolve(ApiService.self)!, wishlistManager: r.resolve(WishlistManager.self)!)
+            return CategoryProductListModel(with: category, apiService: r.resolve(ApiService.self)!, emarsysService: r.resolve(EmarsysService.self)!, wishlistManager: r.resolve(WishlistManager.self)!)
         }
         container.register(SigningNavigationController.self) { r, mode in
             return SigningNavigationController(resolver: r.resolve(DiResolver.self)!, mode: mode)
@@ -136,7 +136,7 @@ class UIAssembly: AssemblyType {
             return TrendProductListViewController(with: r.resolve(DiResolver.self)!, and: trendInfo)
         }
         container.register(TrendProductListModel.self) { r, trendInfo in
-            return TrendProductListModel(with: r.resolve(ApiService.self)!, wishlistManager: r.resolve(WishlistManager.self)!, trendInfo: trendInfo)
+            return TrendProductListModel(with: r.resolve(ApiService.self)!, emarsysService: r.resolve(EmarsysService.self)!, wishlistManager: r.resolve(WishlistManager.self)!, trendInfo: trendInfo)
         }
         container.register(BrandProductListViewController.self) { r, brand in
             return BrandProductListViewController(with: r.resolve(DiResolver.self)!, and: brand)

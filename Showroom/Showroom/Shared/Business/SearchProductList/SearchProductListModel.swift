@@ -2,13 +2,11 @@ import Foundation
 import RxSwift
 
 final class SearchProductListModel: ProductListModel {
-    private let emarsysService: EmarsysService
     private(set) var entrySearchInfo: EntrySearchInfo
     
     init(with searchEntryData: EntrySearchInfo, apiService: ApiService, wishlistManager: WishlistManager, emarsysService: EmarsysService) {
         self.entrySearchInfo = searchEntryData
-        self.emarsysService = emarsysService
-        super.init(with: apiService, wishlistManager: wishlistManager, link: searchEntryData.link, query: entrySearchInfo.query)
+        super.init(with: apiService, emarsysService: emarsysService, wishlistManager: wishlistManager, link: searchEntryData.link, query: entrySearchInfo.query)
     }
     
     func update(with data: EntrySearchInfo) {

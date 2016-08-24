@@ -3,7 +3,6 @@ import CocoaMarkdown
 import RxSwift
 
 final class BrandProductListModel: ProductListModel {
-    private let emarsysService: EmarsysService
     private(set) var productBrand: EntryProductBrand
     var brand: Brand?
     
@@ -15,8 +14,7 @@ final class BrandProductListModel: ProductListModel {
     
     init(with apiService: ApiService, wishlistManager: WishlistManager, emarsysService: EmarsysService, productBrand: EntryProductBrand) {
         self.productBrand = productBrand
-        self.emarsysService = emarsysService
-        super.init(with: apiService, wishlistManager: wishlistManager, link: productBrand.link, query: nil)
+        super.init(with: apiService, emarsysService: emarsysService, wishlistManager: wishlistManager, link: productBrand.link, query: nil)
     }
 
     override func createObservable(with paginationInfo: PaginationInfo, forFilters filters: [FilterId: [FilterObjectId]]?) -> Observable<ProductListResult> {
