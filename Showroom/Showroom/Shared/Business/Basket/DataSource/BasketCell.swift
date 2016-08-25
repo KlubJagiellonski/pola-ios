@@ -25,9 +25,11 @@ class BasketProductCell: UITableViewCell {
         photoImageView.layer.masksToBounds = true
         photoImageView.contentMode = .ScaleAspectFill
         
+        nameLabel.backgroundColor = UIColor(named: .White)
         nameLabel.font = UIFont(fontType: .List)
         nameLabel.numberOfLines = 2
         
+        propertiesLabel.backgroundColor = UIColor(named: .White)
         propertiesLabel.font = UIFont(fontType: .List)
         propertiesLabel.textColor = UIColor(named: .DarkGray)
         propertiesLabel.numberOfLines = 2
@@ -112,7 +114,9 @@ class BasketShippingCell: UITableViewCell {
         super.init(style: .Default, reuseIdentifier: reuseIdentifier)
         selectionStyle = .None
         
+        shippingLabel.backgroundColor = UIColor(named: .White)
         shippingLabel.font = UIFont(fontType: .List)
+        priceLabel.backgroundColor = UIColor(named: .White)
         priceLabel.font = UIFont(fontType: .List)
         separatorView.backgroundColor = UIColor(named: .Separator)
         

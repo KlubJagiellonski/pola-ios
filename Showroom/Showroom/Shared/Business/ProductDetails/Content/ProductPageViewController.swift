@@ -17,7 +17,6 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
     private let resolver: DiResolver
     private let disposeBag = DisposeBag()
     private let actionAnimator = DropUpActionAnimator(height: 207)
-    private var firstLayoutSubviewsPassed = false
     
     init(resolver: DiResolver, productId: ObjectId, product: Product?) {
         self.resolver = resolver
@@ -47,6 +46,10 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
         
         castView.delegate = self
         
+        let containsInfo = (model.state.product == nil && model.state.productDetails == nil) ?? false
+        let initialState: ProductPageViewState = containsInfo ? .ContentHidden : .Default
+        castView.changeViewState(initialState, animationDuration: nil)
+        
         fetchProductDetails()
     }
     
@@ -58,16 +61,6 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         markHandoffUrlActivity(withPath: "/p/\(model.productId)")
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        if !firstLayoutSubviewsPassed {
-            firstLayoutSubviewsPassed = true
-            let containsInfo = (model.state.product == nil && model.state.productDetails == nil) ?? false
-            let initialState: ProductPageViewState = containsInfo ? .ContentHidden : .Default
-            castView.changeViewState(initialState, animationDuration: nil, forceUpdate: true)
-        }
     }
     
     func dismissContentView() {

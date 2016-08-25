@@ -54,6 +54,8 @@ class FormInputView: UIView {
     
     init() {
         super.init(frame: CGRectZero)
+        
+        inputLabel.backgroundColor = UIColor(named: .White)
         inputLabel.font = UIFont(fontType: .FormBold)
         
         validationLabel.applyFormValidationStyle()

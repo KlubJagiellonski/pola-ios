@@ -16,6 +16,7 @@ class BasketCountryCell: UITableViewCell {
         layoutMargins = UIEdgeInsetsZero
         separatorInset = UIEdgeInsetsZero
         
+        countryNameLabel.backgroundColor = UIColor(named: .White)
         countryNameLabel.font = UIFont(fontType: .FormNormal)
         countryNameLabel.textColor = UIColor(named: .Black)
         

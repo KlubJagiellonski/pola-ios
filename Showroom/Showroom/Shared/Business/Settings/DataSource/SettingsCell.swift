@@ -170,6 +170,7 @@ final class SettingsLogoutCell: UITableViewCell {
         super.init(style: .Default, reuseIdentifier: reuseIdentifier)
         selectionStyle = .None
         
+        label.backgroundColor = UIColor(named: .White)
         label.font = UIFont(fontType: .Normal)
         
         logoutButton.title = tr(.SettingsLogout)
@@ -240,6 +241,7 @@ final class SettingsGenderCell: UITableViewCell {
         super.init(style: .Default, reuseIdentifier: reuseIdentifier)
         selectionStyle = .None
         
+        label.backgroundColor = UIColor(named: .White)
         label.text = tr(.SettingsDefaultOffer)
         label.font = UIFont(fontType: .Normal)
         
@@ -336,6 +338,7 @@ final class SettingsNormalCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: .Default, reuseIdentifier: reuseIdentifier)
         
+        label.backgroundColor = UIColor(named: .White)
         label.font = UIFont(fontType: .Normal)
         
         horizontalSeparator.backgroundColor = UIColor(named: .Separator)
@@ -384,6 +387,7 @@ final class SettingsAskForNotificationsCell: UITableViewCell {
         super.init(style: .Default, reuseIdentifier: reuseIdentifier)
         selectionStyle = .None
         
+        label.backgroundColor = UIColor(named: .White)
         label.font = UIFont(fontType: .Normal)
         label.text = tr(.SettingsPermissionForNotifications)
         

@@ -96,6 +96,8 @@ final class CheckoutDeliveryLabelView: UIView {
     
     init(text: String, topMargin: CGFloat) {
         super.init(frame: CGRectZero)
+        
+        label.backgroundColor = UIColor(named: .White)
         label.text = text
         label.font = UIFont(fontType: .FormBold)
         addSubview(label)
@@ -237,6 +239,7 @@ class CheckoutDeliveryDetailsView: UIView {
         updateData(with: checkoutState.checkout)
         checkoutState.selectedKioskObservable.subscribeNext(updateData).addDisposableTo(disposeBag)
         
+        label.backgroundColor = UIColor(named: .White)
         label.font = UIFont(fontType: .FormNormal)
         label.numberOfLines = 3
         label.lineBreakMode = .ByWordWrapping

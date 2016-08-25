@@ -29,6 +29,7 @@ class ResetPasswordView: ViewSwitcher {
         
         backgroundColor = UIColor(named: .White)
         
+        descriptionLabel.backgroundColor = UIColor(named: .White)
         descriptionLabel.text = tr(L10n.ResetPasswordEmailDescription)
         descriptionLabel.font = UIFont(fontType: .Normal)
         descriptionLabel.numberOfLines = 0

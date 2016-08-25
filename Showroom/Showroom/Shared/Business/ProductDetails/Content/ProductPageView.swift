@@ -305,6 +305,9 @@ extension ProductPageView {
 extension ProductPageView: ImageAnimationTargetViewInterface {
     var viewsAboveImageVisibility: Bool {
         set {
+            guard newValue != viewsAboveImageVisibility else {
+                return
+            }
             pageControl.alpha = newValue ? 1 : 0
             
             currentTopContentOffset = calculateTopContentOffset(forViewState: newValue ? .Default : .ImageGallery)

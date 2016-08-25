@@ -23,11 +23,11 @@ final class Logging {
         xcgLogger.setup(isDebug ? .Debug : .Info,
             showLogIdentifier: isDebug,
             showFunctionName: isDebug,
-            showThreadName: true,
-            showLogLevel: true,
+            showThreadName: isDebug,
+            showLogLevel: isDebug,
             showFileNames: true,
             showLineNumbers: true,
-            showDate: true,
+            showDate: isDebug,
             writeToFile: nil,
             fileLogLevel: nil)
 

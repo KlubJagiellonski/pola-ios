@@ -32,21 +32,26 @@ final class ProductItemCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        backgroundColor = UIColor(named: .White)
+        
         productImageView.layer.masksToBounds = true
         productImageView.contentMode = .ScaleAspectFill
         
+        brandLabel.backgroundColor = backgroundColor
         brandLabel.font = UIFont(fontType: .ProductListBoldText)
         brandLabel.textColor = UIColor(named: .Black)
         brandLabel.numberOfLines = 2
         brandLabel.preferredMaxLayoutWidth = frame.width
         brandLabel.textAlignment = .Center
         
+        nameLabel.backgroundColor = backgroundColor
         nameLabel.font = UIFont(fontType: .ProductListText)
         nameLabel.textColor = UIColor(named: .Black)
         nameLabel.numberOfLines = 2
         nameLabel.preferredMaxLayoutWidth = frame.width
         nameLabel.textAlignment = .Center
         
+        priceLabel.backgroundColor = backgroundColor
         priceLabel.font = UIFont(fontType: .ProductListBoldText)
         priceLabel.textColor = UIColor(named: .Black)
         

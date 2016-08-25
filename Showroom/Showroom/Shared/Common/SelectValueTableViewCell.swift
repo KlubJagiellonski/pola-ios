@@ -51,6 +51,7 @@ class SelectValueTableViewCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: .Default, reuseIdentifier: reuseIdentifier)
         
+        titleLabel.backgroundColor = UIColor(named: .White)
         titleLabel.font = titleLabelFont
         
         separatorView.backgroundColor = UIColor(named: .Separator)

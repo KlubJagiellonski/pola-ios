@@ -19,15 +19,19 @@ class ProductRecommendationCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: CGRectZero)
         
+        backgroundColor = UIColor(named: .White)
+        
         productImageView.layer.masksToBounds = true
         productImageView.contentMode = .ScaleAspectFill
         
+        brandLabel.backgroundColor = backgroundColor
         brandLabel.font = UIFont(fontType: .ProductListBoldText)
         brandLabel.textColor = UIColor(named: .Black)
         brandLabel.numberOfLines = 2
         brandLabel.preferredMaxLayoutWidth = Dimensions.recommendationItemSize.width
         brandLabel.textAlignment = .Center
         
+        nameLabel.backgroundColor = backgroundColor
         nameLabel.font = UIFont(fontType: .ProductListText)
         nameLabel.textColor = UIColor(named: .Black)
         nameLabel.numberOfLines = 3
@@ -35,10 +39,12 @@ class ProductRecommendationCell: UICollectionViewCell {
         nameLabel.setContentHuggingPriority(UILayoutPriorityDefaultHigh, forAxis: .Vertical)
         nameLabel.textAlignment = .Center
         
+        basePriceLabel.backgroundColor = backgroundColor
         basePriceLabel.font = UIFont(fontType: .ProductListText)
         basePriceLabel.textColor = UIColor(named: .DarkGray)
         basePriceLabel.textAlignment = .Center
         
+        priceLabel.backgroundColor = backgroundColor
         priceLabel.font = UIFont(fontType: .ProductListText)
         priceLabel.textColor = UIColor(named: .Black)
         priceLabel.textAlignment = .Center

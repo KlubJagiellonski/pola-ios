@@ -292,6 +292,7 @@ class GenderSelectorView: UIControl {
     init() {
         super.init(frame: CGRectZero)
         
+        titleLabel.backgroundColor = UIColor(named: .White)
         titleLabel.text = tr(L10n.RegistrationGender)
         titleLabel.font = UIFont(fontType: .FormBold)
         

@@ -24,9 +24,11 @@ final class ProductFilterRangeCell: UITableViewCell, TTRangeSliderDelegate {
         
         removeSeparatorInset()
         
+        titleLabel.backgroundColor = UIColor(named: .White)
         titleLabel.font = UIFont(fontType: .Normal)
         titleLabel.textColor = UIColor(named: .Black)
         
+        valueLabel.backgroundColor = UIColor(named: .White)
         valueLabel.font = UIFont(fontType: .Normal)
         valueLabel.textColor = UIColor(named: .Manatee)
         

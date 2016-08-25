@@ -32,6 +32,7 @@ class RadioButton: UIControl {
         
         checkBoxImageView.tintColor = RadioButton.disabledColor
         
+        titleLabel.backgroundColor = UIColor(named: .White)
         titleLabel.font = UIFont(fontType: .FormNormal)
         titleLabel.text = title
         

@@ -24,9 +24,11 @@ class WishlistCell: UITableViewCell {
         
         photoImageView.contentMode = .ScaleAspectFill
         
+        brandLabel.backgroundColor = UIColor(named: .White)
         brandLabel.numberOfLines = 2
         brandLabel.font = UIFont.latoHeavy(ofSize: 14)
         
+        nameLabel.backgroundColor = UIColor(named: .White)
         nameLabel.numberOfLines = 2
         nameLabel.font = UIFont.latoRegular(ofSize: 13)
         

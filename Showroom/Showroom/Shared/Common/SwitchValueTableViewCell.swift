@@ -26,6 +26,7 @@ final class SwitchValueTableViewCell: UITableViewCell {
         
         selectionStyle = .None
         
+        titleLabel.backgroundColor = UIColor(named: .White)
         titleLabel.font = UIFont(fontType: .Normal)
         titleLabel.textColor = UIColor(named: .Black)
         

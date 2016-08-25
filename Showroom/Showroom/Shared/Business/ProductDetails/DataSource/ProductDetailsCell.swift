@@ -12,8 +12,6 @@ class ProductDetailsCell: UICollectionViewCell {
             page.snp_makeConstraints { make in
                 make.edges.equalToSuperview()
             }
-            setNeedsLayout()
-            layoutIfNeeded()
         }
     }
     

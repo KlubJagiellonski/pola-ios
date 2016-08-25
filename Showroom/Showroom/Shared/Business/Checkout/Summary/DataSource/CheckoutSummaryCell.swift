@@ -17,8 +17,11 @@ class CheckoutSummaryCell: UITableViewCell {
         super.init(style: .Default, reuseIdentifier: reuseIdentifier)
         selectionStyle = .None
         
+        descriptionLabel.backgroundColor = UIColor(named: .White)
         descriptionLabel.font = UIFont(fontType: .CheckoutSummary)
         descriptionLabel.valueLabel.textColor = UIColor(named: .OldLavender)
+        
+        priceLabel.backgroundColor = UIColor(named: .White)
         priceLabel.normalPriceLabel.font = descriptionLabel.font
         priceLabel.textAlignment = NSTextAlignment.Right
         
@@ -70,6 +73,7 @@ class CheckoutSummaryBrandCell: UITableViewCell {
         super.init(style: .Default, reuseIdentifier: reuseIdentifier)
         selectionStyle = .None
         
+        headerLabel.backgroundColor = UIColor(named: .White)
         headerLabel.font = UIFont(fontType: .FormBold)
         
         contentView.addSubview(headerLabel)
@@ -231,8 +235,10 @@ class CheckoutSummaryPriceView: UIView {
     init(title: String = "", price: Money? = nil) {
         super.init(frame: CGRectZero)
         
+        titleLabel.backgroundColor = UIColor(named: .White)
         titleLabel.text = title
         
+        priceLabel.backgroundColor = UIColor(named: .White)
         priceLabel.textAlignment = .Right
         if price != nil {
             priceLabel.text = price?.stringValue
@@ -343,6 +349,7 @@ class CheckoutSummaryPaymentCell: UITableViewCell {
         
         totalPriceLabel.font = UIFont(fontType: .PriceBold)
         
+        methodLabel.backgroundColor = UIColor(named: .White)
         methodLabel.text = tr(.CheckoutSummaryPaymentMethod)
         methodLabel.font = UIFont(fontType: .FormBold)
         

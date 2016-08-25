@@ -59,6 +59,8 @@ final class SearchView: ViewSwitcher, ContentInsetHandler, UICollectionViewDeleg
         
         backgroundColor = UIColor(named: .White)
         
+        headerView.backgroundColor = backgroundColor
+        
         searchBar.showsCancelButton = false
         searchBar.placeholder = tr(.SearchPlaceholder)
         searchBar.delegate = self

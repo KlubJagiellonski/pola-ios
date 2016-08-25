@@ -29,12 +29,14 @@ class BasketDeliveryView: ViewSwitcher {
         
         switcherDataSource = self
         
+        countryTitleLabel.backgroundColor = UIColor(named: .White)
         countryTitleLabel.font = UIFont(fontType: .FormBold)
         countryTitleLabel.textColor = UIColor(named: .Black)
         countryTitleLabel.text = tr(.BasketDeliveryDeliveryCountry)
         
         countryDeliveryView.addTarget(self, action: #selector(BasketDeliveryView.didTapCountryDelivery(_:)), forControlEvents: .TouchUpInside)
         
+        deliveryOptionsTitle.backgroundColor = UIColor(named: .White)
         deliveryOptionsTitle.font = UIFont(fontType: .FormBold)
         deliveryOptionsTitle.textColor = UIColor(named: .Black)
         deliveryOptionsTitle.text = tr(.BasketDeliveryDeliveryOption)
@@ -44,6 +46,7 @@ class BasketDeliveryView: ViewSwitcher {
         ruchDeliveryOptionView.addTarget(self, action: #selector(BasketDeliveryView.didChangeRuchValue(_:)), forControlEvents: .ValueChanged)
         ruchDeliveryOptionView.enabled = false
         
+        infoLabel.backgroundColor = UIColor(named: .White)
         infoLabel.font = UIFont(fontType: .Description)
         infoLabel.textColor = UIColor(named: .Black)
         infoLabel.numberOfLines = 0
@@ -190,6 +193,7 @@ class BasketCountryDeliveryView: UIControl {
         
         topSeparator.backgroundColor = UIColor(named: .Separator)
         
+        countryLabel.backgroundColor = UIColor(named: .White)
         countryLabel.font = UIFont(fontType: .FormNormal)
         countryLabel.textColor = UIColor(named: .Black)
         
@@ -269,8 +273,10 @@ class BasketDeliveryOptionView: UIControl {
         
         checkBoxImageView.tintColor = BasketDeliveryOptionView.disabledColor
         
+        titleLabel.backgroundColor = UIColor(named: .White)
         titleLabel.font = UIFont(fontType: .FormNormal)
         
+        priceLabel.backgroundColor = UIColor(named: .White)
         priceLabel.font = UIFont(fontType: .FormNormal)
         
         updateViewsState()

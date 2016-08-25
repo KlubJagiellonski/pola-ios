@@ -88,7 +88,7 @@ class ProductDescriptionView: UIView, UITableViewDelegate, ProductDescriptionVie
     }
     
     private func updateCurrentColor(currentColor: ProductDetailsColor?) {
-        headerView.colorButton.value = currentColor?.toDropDownValue() ?? .Text(nil)
+        headerView.colorButton.value = currentColor?.toDropDownValue() ?? .Color(nil)
     }
     
     private func updateCurrentSize(currentSize: ProductDetailsSize?) {
@@ -201,7 +201,7 @@ class DescriptionHeaderView: UIView {
     let infoImageView = UIImageView(image: UIImage(asset: .Ic_info))
     let buttonsContainerView = TouchConsumingView()
     let sizeButton = DropDownButton()
-    let colorButton = DropDownButton()
+    let colorButton = DropDownButton(value: .Color(nil))
     let buyButton = UIButton()
     
     init() {
@@ -220,9 +220,7 @@ class DescriptionHeaderView: UIView {
         nameLabel.textColor = UIColor(named: .Black)
         
         sizeButton.enabled = false
-        sizeButton.value = .Text("")
         colorButton.enabled = false
-        colorButton.value = .Text("")
         
         buyButton.applyBlueStyle()
         buyButton.setTitle(tr(.ProductDetailsToBasket), forState: .Normal)

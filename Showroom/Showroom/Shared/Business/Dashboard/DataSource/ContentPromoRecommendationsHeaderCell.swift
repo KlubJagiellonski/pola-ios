@@ -18,11 +18,15 @@ class ContentPromoRecommendationsHeaderCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        backgroundColor = UIColor(named: .White)
+
+        firstPartLabel.backgroundColor = backgroundColor
         firstPartLabel.text = tr(.DashboardRecommendationTitleFirstPart)
         firstPartLabel.font = ContentPromoRecommendationsHeaderCell.firstPartFont
         firstPartLabel.textColor = UIColor(named: .Black)
         firstPartLabel.setContentHuggingPriority(UILayoutPriorityRequired, forAxis: .Horizontal)
         
+        secondPartLabel.backgroundColor = backgroundColor
         secondPartLabel.text = tr(.DashboardRecommendationTitleSecondPart)
         secondPartLabel.font = ContentPromoRecommendationsHeaderCell.secondPartFont
         secondPartLabel.textColor = UIColor(named: .Black)

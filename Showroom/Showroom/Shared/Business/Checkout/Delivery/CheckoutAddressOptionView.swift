@@ -20,6 +20,7 @@ class CheckoutAddressOptionView: UIView {
         
         checkBoxImageView.tintColor = CheckoutAddressOptionView.disabledColor
         
+        addressLabel.backgroundColor = UIColor(named: .White)
         addressLabel.font = UIFont(fontType: .FormNormal)
         addressLabel.numberOfLines = 4
         addressLabel.lineBreakMode = .ByWordWrapping

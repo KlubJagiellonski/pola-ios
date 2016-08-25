@@ -267,6 +267,7 @@ final class BasketCheckoutView: UIView {
         checkoutButton.setTitle(tr(.BasketCheckoutButton), forState: .Normal)
         checkoutButton.applyBlueStyle()
         
+        discountLabel.backgroundColor = UIColor(named: .White)
         discountLabel.title = tr(.BasketDiscountCode)
         
         shippingLabel.title = tr(.BasketShipping)

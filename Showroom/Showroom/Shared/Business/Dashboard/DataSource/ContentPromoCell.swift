@@ -41,12 +41,16 @@ class ContentPromoCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: .Default, reuseIdentifier: reuseIdentifier)
         
+        backgroundColor = UIColor(named: .White)
+        
+        promoImageView.backgroundColor = backgroundColor
         promoImageView.layer.masksToBounds = true
         promoImageView.contentMode = .ScaleAspectFill
+        
+        footerView.backgroundColor = backgroundColor
+        
         contentView.addSubview(promoImageView)
-        
         contentView.addSubview(textContainerView)
-        
         contentView.addSubview(footerView)
         
         configureCustomConstraints()
@@ -105,6 +109,7 @@ class ContentPromoWithCaptionCell: ContentPromoCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
         
         footerView.addSubview(captionContainerView)
         
@@ -198,10 +203,12 @@ class ContentPromoCaptionContainerView: UIView {
         super.init(frame: CGRectZero)
         backgroundColor = UIColor.whiteColor()
         
+        titleLabel.backgroundColor = backgroundColor
         titleLabel.font = ContentPromoCaptionContainerView.titleFont
         titleLabel.numberOfLines = 2
         addSubview(titleLabel)
         
+        subtitleLabel.backgroundColor = backgroundColor
         subtitleLabel.font = ContentPromoCaptionContainerView.subtitleFont
         subtitleLabel.numberOfLines = 2
         addSubview(subtitleLabel)

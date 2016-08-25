@@ -57,6 +57,7 @@ class CheckButton: UIControl {
         
         checkBoxImageView.image = UIImage(asset: .Ic_tick)
         
+        titleLabel.backgroundColor = UIColor(named: .White)
         titleLabel.font = UIFont(fontType: .FormNormal)
         titleLabel.text = title
         
