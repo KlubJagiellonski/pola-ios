@@ -130,6 +130,7 @@ class QuickActionManager {
     func handleShortcutItem(shortcutItem: UIApplicationShortcutItem) -> Bool {
         logInfo("Handling shortcutitem \(shortcutItem)")
         guard let shortcut = ShortcutIdentifier(fullType: shortcutItem.type) else { return false }
+        logAnalyticsEvent(AnalyticsEventId.QuickAction(shortcut.rawValue))
         delegate?.quickActionManager(self, didTapShortcut: shortcut)
         return true
     }

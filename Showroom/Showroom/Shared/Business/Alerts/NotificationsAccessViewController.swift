@@ -51,16 +51,19 @@ final class NotificationsAccessViewController: UIViewController, AlertViewDelega
     // MARK: - PushNotificationViewDelegate
     
     func alertViewDidTapAccept(view: AlertView) {
+        logAnalyticsEvent(AnalyticsEventId.ModalPush("accept"))
         manager.registerForRemoteNotificationsIfNeeded()
         delegate?.notificationsAccessWantsDismiss(self)
     }
     
     func alertViewDidTapDecline(view: AlertView) {
+        logAnalyticsEvent(AnalyticsEventId.ModalPush("decline"))
         manager.didSelectDecline()
         delegate?.notificationsAccessWantsDismiss(self)
     }
     
     func alertViewDidTapRemind(view: AlertView) {
+        logAnalyticsEvent(AnalyticsEventId.ModalPush("later"))
         manager.didSelectRemindLater()
         delegate?.notificationsAccessWantsDismiss(self)
     }

@@ -119,6 +119,7 @@ enum AnalyticsEventId: RawRepresentable {
     case ModalRateUs(String)
     case ModalPush(String)
     case ModalUpdate(String)
+    case QuickAction(String)
     
     typealias RawValue = AnalyticsEvent
     var rawValue: RawValue {
@@ -264,7 +265,9 @@ enum AnalyticsEventId: RawRepresentable {
         case ModalPush(let buttonType):
             return AnalyticsEvent(category: "modal", action: "push", label: buttonType, value: nil)
         case ModalUpdate(let buttonType):
-            return AnalyticsEvent(category: "modal", action: "update", label: buttonType, value: nil)
+            return AnalyticsEvent(category: "modal", action: "new_version", label: buttonType, value: nil)
+        case QuickAction(let action):
+            return AnalyticsEvent(category: "quickaction", action: "click", label: action, value: nil)
         }
     }
     init?(rawValue: RawValue) {
