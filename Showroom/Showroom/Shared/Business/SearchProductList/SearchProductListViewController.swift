@@ -102,6 +102,7 @@ class SearchProductListViewController: UIViewController, ProductListViewControll
     func searchProductList(view: SearchProductListView, didTapSearchWithQuery query: String) {
         logInfo("Did tap search with query \(query)")
         updateData(with: EntrySearchInfo(query: query, link: nil))
+        productListView.collectionView.setContentOffset(CGPointMake(0, -productListView.collectionView.contentInset.top), animated: false)
     }
     
     func searchProductListDidCancelEditing(view: SearchProductListView) {
