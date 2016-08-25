@@ -85,7 +85,9 @@ class CategoryProductListViewController: UIViewController, ProductListViewContro
     
     func pageWasFetched(result productListResult: ProductListResult, pageIndex: Int) {
         logInfo("Fetched page with index: \(pageIndex)")
-        //todo set title
+        if title?.isEmpty ?? true {
+            title = productListResult.title
+        }
     }
     
     func showInAppWishlistOnboarding() {
