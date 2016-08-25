@@ -74,20 +74,19 @@ class InitialOnboardingNotificationsCell: UICollectionViewCell {
         }
         
         label.snp_makeConstraints { make in
-            make.top.equalToSuperview().offset(Dimensions.onboardingTopOffset)
+            make.top.equalToSuperview().offset(Dimensions.statusBarHeight)
             make.leading.equalToSuperview().offset(Dimensions.onboardingTextHorizontalOffset)
             make.trailing.equalToSuperview().offset(-Dimensions.onboardingTextHorizontalOffset)
+            make.bottom.equalTo(freeSpaceContentView.snp_top)
         }
         
         freeSpaceContentView.snp_makeConstraints { make in
-            make.top.equalTo(label.snp_bottom)
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
-            make.bottom.equalTo(skipButton.snp_top)
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview().offset(20)
         }
         
         imageView.snp_makeConstraints { make in
-            make.center.equalToSuperview()
+            make.edges.equalToSuperview()
         }
         
         askMeButton.snp_makeConstraints { make in

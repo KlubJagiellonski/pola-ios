@@ -90,10 +90,10 @@ class InitialOnboardingInfiniteScrollingCell: UICollectionViewCell {
         }
         
         label.snp_makeConstraints { make in
-            make.top.equalToSuperview().offset(Dimensions.onboardingTopOffset)
+            make.top.equalToSuperview().offset(Dimensions.statusBarHeight)
             make.leading.equalToSuperview().offset(Dimensions.onboardingTextHorizontalOffset)
             make.trailing.equalToSuperview().offset(-Dimensions.onboardingTextHorizontalOffset)
-            make.bottom.lessThanOrEqualTo(animation.snp_top)
+            make.bottom.equalTo(animation.snp_top)
         }
         
         animation.snp_makeConstraints { make in
