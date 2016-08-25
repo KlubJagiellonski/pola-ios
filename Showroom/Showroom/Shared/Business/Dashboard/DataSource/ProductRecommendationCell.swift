@@ -99,6 +99,12 @@ class ProductRecommendationCell: UICollectionViewCell {
         }
     }
 
+    func refreshImageIfNeeded(withUrl url: String) {
+        if !productImageView.imageDownloadingInProgress {
+            productImageView.loadImageFromUrl(url, width: ProductRecommendationCell.imageSize.width)
+        }
+    }
+    
     override func updateConstraints() {
         contentView.snp_remakeConstraints { make in
             make.edges.equalToSuperview()

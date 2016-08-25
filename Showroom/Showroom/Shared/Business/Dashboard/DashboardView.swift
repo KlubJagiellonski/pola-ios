@@ -74,6 +74,10 @@ class DashboardView: ViewSwitcher, ContentInsetHandler, UITableViewDelegate, UIC
         return dataSource.recommendationsDataSource.imageTag(forIndex: index)
     }
     
+    func refreshImagesIfNeeded() {
+        dataSource.refreshImagesIfNeeded()
+    }
+    
     private func changeContentPromos(contentPromos: [ContentPromo]) {
         dataSource.changeData(contentPromos)
     }

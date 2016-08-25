@@ -81,6 +81,12 @@ class ContentPromoCell: UITableViewCell {
         }
     }
     
+    func refreshImageIfNeeded(withUrl url: String) {
+        if !promoImageView.imageDownloadingInProgress {
+            promoImageView.loadImageFromUrl(url, width: self.contentView.bounds.width)
+        }
+    }
+    
     private func configureCustomConstraints() {
         promoImageView.snp_makeConstraints { make in
             make.top.equalToSuperview()

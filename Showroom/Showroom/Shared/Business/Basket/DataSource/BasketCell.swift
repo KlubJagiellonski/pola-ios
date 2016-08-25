@@ -67,6 +67,12 @@ class BasketProductCell: UITableViewCell {
         amountButton.setTitle(String(product.amount) + " szt.", forState: .Normal)
     }
     
+    func refreshImageIfNeeded(withUrl url: String) {
+        if !photoImageView.imageDownloadingInProgress {
+            photoImageView.loadImageFromUrl(url, width: BasketProductCell.photoSize.width)
+        }
+    }
+    
     func didTapAmount() {
         delegate?.basketProductCellDidTapAmount(self)
     }

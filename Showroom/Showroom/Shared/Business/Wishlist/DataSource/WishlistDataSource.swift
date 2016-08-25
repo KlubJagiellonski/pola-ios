@@ -87,6 +87,17 @@ class WishlistDataSource: NSObject, UITableViewDataSource {
         tableView?.endUpdates()
     }
     
+    func refreshImagesIfNeeded() {
+        guard let tableView = tableView else {
+            return
+        }
+        for cell in tableView.visibleCells{
+            if let wishlistCell = cell as? WishlistCell, let indexPath = tableView.indexPathForCell(cell) {
+                wishlistCell.refreshImageIfNeeded(withUrl: products[indexPath.row].imageUrl)
+            }
+        }
+    }
+    
     // MARK:- UITableViewDataSource
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {

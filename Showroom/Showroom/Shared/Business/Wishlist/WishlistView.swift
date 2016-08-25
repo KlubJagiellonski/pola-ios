@@ -54,6 +54,10 @@ final class WishlistView: ViewSwitcher, ContentInsetHandler, UITableViewDelegate
         dataSource.moveToPosition(at: index, animated: animated)
     }
     
+    func refreshImagesIfNeeded() {
+        dataSource.refreshImagesIfNeeded()
+    }
+    
     // MARK:- UITableViewDelegate
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return WishlistCell.cellHeight

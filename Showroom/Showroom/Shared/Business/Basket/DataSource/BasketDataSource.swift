@@ -164,6 +164,17 @@ class BasketDataSource: NSObject, UITableViewDataSource, BasketProductCellDelega
         tableView?.endUpdates()
     }
     
+    func refreshImagesIfNeeded() {
+        guard let tableView = tableView else {
+            return
+        }
+        for cell in tableView.visibleCells{
+            if let productCell = cell as? BasketProductCell, let indexPath = tableView.indexPathForCell(cell) {
+                productCell.refreshImageIfNeeded(withUrl: productsByBrands[indexPath.section].products[indexPath.row].imageUrl)
+            }
+        }
+    }
+    
     // MARK:- UITableViewDataSource
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {

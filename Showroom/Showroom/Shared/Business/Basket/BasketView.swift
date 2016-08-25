@@ -92,6 +92,10 @@ final class BasketView: ViewSwitcher, UITableViewDelegate, ContentInsetHandler {
         }
     }
     
+    func refreshImagesIfNeeded() {
+        dataSource.refreshImagesIfNeeded()
+    }
+    
     func dismissKeyboard() {
         if checkoutView.discountInput.isFirstResponder() {
             delegate?.basketView(self, didChangeDiscountCode: discountCode)

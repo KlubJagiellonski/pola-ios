@@ -46,6 +46,18 @@ class ContentPromoDataSource : NSObject, UITableViewDataSource {
         return contentPromos[index]
     }
     
+    func refreshImagesIfNeeded() {
+        guard let tableView = tableView else {
+            return
+        }
+        for cell in tableView.visibleCells{
+            if let contentPromoCell = cell as? ContentPromoCell, let indexPath = tableView.indexPathForCell(cell), let index = contentPromoIndex(with: indexPath) {
+                contentPromoCell.refreshImageIfNeeded(withUrl: contentPromos[index].image.url)
+            }
+        }
+        recommendationsDataSource.refreshImagesIfNeeded()
+    }
+    
     // MARK: - UITableViewDataSource
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return numberOfSections

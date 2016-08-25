@@ -52,6 +52,17 @@ class ProductRecommendationDataSource: NSObject, UICollectionViewDataSource {
         return "\(productRecommendations[index].itemId) \(index)".hashValue
     }
     
+    func refreshImagesIfNeeded() {
+        guard let collectionView = collectionView else {
+            return
+        }
+        for cell in collectionView.visibleCells() {
+            if let recommendationCell = cell as? ProductRecommendationCell, let indexPath = collectionView.indexPathForCell(cell) {
+                recommendationCell.refreshImageIfNeeded(withUrl: productRecommendations[indexPath.row].imageUrl)
+            }
+        }
+    }
+    
     // MARK: - UICollectionViewDataSource
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return productRecommendations.count

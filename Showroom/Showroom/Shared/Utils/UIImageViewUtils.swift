@@ -2,6 +2,8 @@ import Foundation
 import UIKit
 import Kingfisher
 
+private var imageDownloadingInProgressKey: Void?
+
 extension UIImageView {
     
     static func scaledImageSize(size: CGFloat?, scale: CGFloat = UIScreen.mainScreen().scale) -> Int? {
@@ -15,15 +17,27 @@ extension UIImageView {
         return Int(size * scale)
     }
     
+    private(set) var imageDownloadingInProgress: Bool {
+        get {
+            return objc_getAssociatedObject(self, &imageDownloadingInProgressKey) as? Bool ?? false
+        }
+        set {
+            objc_setAssociatedObject(self, &imageDownloadingInProgressKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+    
     func loadImageFromUrl(url: String, width: CGFloat? = nil, height: CGFloat? = nil, onRetrievedFromCache: (UIImage? -> Void)? = nil, failure fail: ((NSError?) -> ())? = nil, success succeed: ((UIImage) -> ())? = nil) {
         let url = NSURL.createImageUrl(url, width: UIImageView.scaledImageSize(width), height: UIImageView.scaledImageSize(height))
         
-        let completionHandler: CompletionHandler = { (image: UIImage?, error: NSError?, cacheType: CacheType, imageURL: NSURL?) in
+        imageDownloadingInProgress = true
+        
+        let completionHandler: CompletionHandler = { [weak self] (image: UIImage?, error: NSError?, cacheType: CacheType, imageURL: NSURL?) in
             if let image = image {
                 succeed?(image)
             } else {
                 fail?(error)
             }
+            self?.imageDownloadingInProgress = false
         }
         
         if let onRetrievedFromCache = onRetrievedFromCache {
@@ -33,6 +47,7 @@ extension UIImageView {
                 onRetrievedFromCache(image)
                 if let image = image {
                     succeed?(image)
+                    self.imageDownloadingInProgress = false
                 } else {
                     self.kf_setImageWithURL(
                         url,
@@ -69,13 +84,14 @@ extension UIImageView {
         
         let url = NSURL.createImageUrl(url, width: UIImageView.scaledImageSize(width), height: UIImageView.scaledImageSize(height))
         
-        let completionHandler: CompletionHandler = { (image: UIImage?, error: NSError?, cacheType: CacheType, imageURL: NSURL?) in
+        let completionHandler: CompletionHandler = { [weak self] (image: UIImage?, error: NSError?, cacheType: CacheType, imageURL: NSURL?) in
             logInfo("Retrieved high res")
             if let image = image {
                 succeed?(image)
             } else {
                 fail?(error)
             }
+            self?.imageDownloadingInProgress = false
         }
         
         let lowResFromCacheCompletionHandler: CompletionHandler = { [weak self]
@@ -104,6 +120,8 @@ extension UIImageView {
             if let image = image {
                 onRetrievedFromCache?(image)
                 succeed?(image)
+                
+                self.imageDownloadingInProgress = false
             } else {
                 //second, if high res does not exist check if low res is in cache
                 self.kf_setImageWithURL(
@@ -114,6 +132,8 @@ extension UIImageView {
                 )
             }
         }
+        
+        imageDownloadingInProgress = true
         
         //first, check if high res is in cache
         kf_setImageWithURL(

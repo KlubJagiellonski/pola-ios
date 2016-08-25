@@ -1,6 +1,6 @@
 import UIKit
 
-class WishlistCell: UITableViewCell {
+final class WishlistCell: UITableViewCell {
     static let cellHeight: CGFloat = 148
     static let photoSize: CGSize = CGSizeMake(115, 148)
     
@@ -57,6 +57,26 @@ class WishlistCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func refreshImageIfNeeded(withUrl url: String) {
+        if !photoImageView.imageDownloadingInProgress {
+            photoImageView.loadImageFromUrl(url, width: WishlistCell.photoSize.width)
+        }
+    }
+    
+    func updateData(with product: WishlistProduct) {
+        brandLabel.text = product.brand.name
+        nameLabel.text = product.name
+        photoImageView.image = nil
+        photoImageView.loadImageFromUrl(product.imageUrl, width: WishlistCell.photoSize.width)
+        priceLabel.basePrice = product.basePrice
+        priceLabel.discountPrice = product.basePrice != product.price ? product.price : nil
+        
+        freeDeliveryBadgeLabel.hidden = !product.freeDelivery
+        let priceDiscount = product.price.calculateDiscountPercent(fromMoney: product.basePrice)
+        priceDiscountBadgeLabel.hidden = priceDiscount == 0
+        priceDiscountBadgeLabel.text = "-\(priceDiscount)%"
+    }
+    
     private func configureCustomConstraints() {
         photoImageView.snp_makeConstraints { make in
             make.left.equalToSuperview()
@@ -99,19 +119,5 @@ class WishlistCell: UITableViewCell {
             make.left.equalToSuperview()
             make.right.equalTo(photoImageView)
         }
-    }
-    
-    func updateData(with product: WishlistProduct) {
-        brandLabel.text = product.brand.name
-        nameLabel.text = product.name
-        photoImageView.image = nil
-        photoImageView.loadImageFromUrl(product.imageUrl, width: WishlistCell.photoSize.width)
-        priceLabel.basePrice = product.basePrice
-        priceLabel.discountPrice = product.basePrice != product.price ? product.price : nil
-        
-        freeDeliveryBadgeLabel.hidden = !product.freeDelivery
-        let priceDiscount = product.price.calculateDiscountPercent(fromMoney: product.basePrice)
-        priceDiscountBadgeLabel.hidden = priceDiscount == 0
-        priceDiscountBadgeLabel.text = "-\(priceDiscount)%"
     }
 }
