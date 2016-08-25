@@ -21,16 +21,10 @@ enum L10n {
   case CommonGreeting(String)
   /// Niestety użytkownik został wylogowany. Zaloguj się ponownie.
   case CommonUserLoggedOut
-  /// Strona główna
-  case MainTabDashboard
-  /// Przeglądanie
-  case MainTabSearch
   /// Koszyk
   case MainTabBasket
   /// Ulubione
   case MainTabWishlist
-  /// Ustawienia
-  case MainTabSettings
   /// KOD RABATOWY
   case BasketDiscountCode
   /// DOSTAWA
@@ -213,8 +207,6 @@ enum L10n {
   case ProductListFilterShowProducts(String)
   /// ZASTOSUJ
   case ProductListFilterApply
-  /// Wszystkie kategorie
-  case ProductListFilterAllCategories
   /// MIN
   case ProductListFilterMin
   /// MAX
@@ -436,16 +428,10 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Common.Greeting", p0)
       case .CommonUserLoggedOut:
         return L10n.tr("Common.UserLoggedOut")
-      case .MainTabDashboard:
-        return L10n.tr("MainTab.Dashboard")
-      case .MainTabSearch:
-        return L10n.tr("MainTab.Search")
       case .MainTabBasket:
         return L10n.tr("MainTab.Basket")
       case .MainTabWishlist:
         return L10n.tr("MainTab.Wishlist")
-      case .MainTabSettings:
-        return L10n.tr("MainTab.Settings")
       case .BasketDiscountCode:
         return L10n.tr("Basket.DiscountCode")
       case .BasketShipping:
@@ -628,8 +614,6 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("ProductListFilter.ShowProducts", p0)
       case .ProductListFilterApply:
         return L10n.tr("ProductListFilter.Apply")
-      case .ProductListFilterAllCategories:
-        return L10n.tr("ProductListFilter.AllCategories")
       case .ProductListFilterMin:
         return L10n.tr("ProductListFilter.Min")
       case .ProductListFilterMax:

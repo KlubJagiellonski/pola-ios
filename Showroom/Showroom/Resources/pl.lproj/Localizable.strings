@@ -7,11 +7,8 @@
 "Common.Password" = "Hasło";
 "Common.Greeting" = "Cześć %@!";
 "Common.UserLoggedOut" = "Niestety użytkownik został wylogowany. Zaloguj się ponownie.";
-"MainTab.Dashboard" = "Strona główna";
-"MainTab.Search" = "Przeglądanie";
 "MainTab.Basket" = "Koszyk";
 "MainTab.Wishlist" = "Ulubione";
-"MainTab.Settings" = "Ustawienia";
 "Basket.DiscountCode" = "KOD RABATOWY";
 "Basket.Shipping" = "DOSTAWA";
 "Basket.TotalPrice" = "SUMA";
@@ -103,7 +100,6 @@
 "ProductListFilter.PriceRange" = "%@ - %@";
 "ProductListFilter.ShowProducts" = "POKAŻ PRODUKTY (%@)";
 "ProductListFilter.Apply" = "ZASTOSUJ";
-"ProductListFilter.AllCategories" = "Wszystkie kategorie";
 "ProductListFilter.Min" = "MIN";
 "ProductListFilter.Max" = "MAX";
 "Login.NavigationHeader" = "Logowanie";
