@@ -187,7 +187,6 @@
 		1DAA7C751D0EC17F00545BB9 /* ProductDetailsContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAA7C741D0EC17F00545BB9 /* ProductDetailsContext.swift */; };
 		1DB166BD1D1006A8004F42DC /* SizeChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB166BC1D1006A8004F42DC /* SizeChartViewController.swift */; };
 		1DB166BF1D1006DC004F42DC /* SizeChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB166BE1D1006DC004F42DC /* SizeChartView.swift */; };
-		1DB957CF1D522F29003EE120 /* EmarsysPushSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DB957CD1D522E1D003EE120 /* EmarsysPushSDK.framework */; };
 		1DB957D01D522F29003EE120 /* EmarsysPushSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1DB957CD1D522E1D003EE120 /* EmarsysPushSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1DC096A71D477ED300D745DB /* ShowBrandProductListEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC096A61D477ED300D745DB /* ShowBrandProductListEvent.swift */; };
 		1DC485C71D474BEA00BDA1BD /* PayUManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC485C61D474BEA00BDA1BD /* PayUManager.swift */; };
@@ -746,7 +745,6 @@
 				1D2CAC551D474A5500F678FA /* Crashlytics.framework in Frameworks */,
 				1D2F19AB1CEA14FE0099142E /* XCGLogger.framework in Frameworks */,
 				1D2CAC541D474A5500F678FA /* Bolts.framework in Frameworks */,
-				1DB957CF1D522F29003EE120 /* EmarsysPushSDK.framework in Frameworks */,
 				1D2F19D11CEB16120099142E /* Decodable.framework in Frameworks */,
 				1D6933461D2D176200609BB9 /* CocoaMarkdown.framework in Frameworks */,
 				1D44AA121D48995200AF612A /* GoogleAnalytics.framework in Frameworks */,
@@ -2485,8 +2483,10 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks/**";
 				INFOPLIST_FILE = ShowroomTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.showroom.ShowroomTests;
@@ -2501,8 +2501,10 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks/**";
 				INFOPLIST_FILE = ShowroomTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.showroom.ShowroomTests;
@@ -2595,8 +2597,10 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks/**";
 				INFOPLIST_FILE = ShowroomTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.showroom.ShowroomTests;

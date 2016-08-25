@@ -81,6 +81,10 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewDelegate
     // MARK: - ProductDetailsViewDelegate
     
     func productDetailsDidTapClose(view: ProductDetailsView) {
+        guard castView.viewState != .FullScreen else {
+            logInfo("Did tap close on full screen. Ignoring")
+            return
+        }
         logInfo("Did tap close with current state \(castView.closeButtonState)")
         switch castView.closeButtonState {
         case .Close:
@@ -95,6 +99,10 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewDelegate
     // MARKL - ProductPageViewControllerDelegate
     
     func productPage(page: ProductPageViewController, willChangeProductPageViewState newViewState: ProductPageViewState, animationDuration: Double?) {
+        guard castView.viewsAboveImageVisibility else {
+            logInfo("Tried to change view state when view above image are not visible. Ignoring")
+            return
+        }
         logInfo("Changing product page state \(newViewState), animationDuration \(animationDuration)")
         castView.changeState(ProductDetailsViewState.fromPageState(newViewState), animationDuration: animationDuration)
         changeTabBarAppearanceIfPossible(newViewState == .ImageGallery ? .Hidden : .Visible, animationDuration: animationDuration)

@@ -139,7 +139,7 @@ extension ProductDetailsView: ImageAnimationTargetViewInterface {
             dataSource.viewsAboveImageVisibility = newValue
         }
         get {
-            return closeButton.alpha == 1
+            return dataSource.viewsAboveImageVisibility ?? true
         }
     }
     
