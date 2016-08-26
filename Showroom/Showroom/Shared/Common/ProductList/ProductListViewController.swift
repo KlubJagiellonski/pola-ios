@@ -19,9 +19,12 @@ protocol ProductListViewControllerInterface: class, NavigationSender {
 
 extension ProductListViewControllerInterface {
     func showInAppWishlistOnboardingIfNeeded() {
-        if !productListModel.userSeenWishlistInAppOnboarding {
-            showInAppWishlistOnboarding()
-            productListModel.userSeenWishlistInAppOnboarding = true
+        perform(withDelay: 0.5) { [weak self] in
+            guard let `self` = self else { return }
+            if !self.productListModel.userSeenWishlistInAppOnboarding {
+                self.showInAppWishlistOnboarding()
+                self.productListModel.userSeenWishlistInAppOnboarding = true
+            }
         }
     }
     
@@ -39,6 +42,8 @@ extension ProductListViewControllerInterface {
                 self.productListView.updateData(productListResult.products, nextPageState: productListResult.isLastPage ? .LastPage : .Fetching)
                 self.productListView.changeSwitcherState(productListResult.products.isEmpty ? .Empty : .Success, animated: true)
                 self.filterButtonEnabled = productListResult.filters != nil
+                
+                self.showInAppWishlistOnboardingIfNeeded()
             case .Error(let error):
                 logInfo("Failed to receive first product list page \(error)")
                 self.productListView.changeSwitcherState(.Error, animated: true)

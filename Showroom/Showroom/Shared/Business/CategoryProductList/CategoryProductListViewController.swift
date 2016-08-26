@@ -53,11 +53,6 @@ class CategoryProductListViewController: UIViewController, ProductListViewContro
         castView.contentInset = UIEdgeInsetsMake(topLayoutGuide.length, 0, bottomLayoutGuide.length, 0)
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        showInAppWishlistOnboardingIfNeeded()
-    }
-    
     func updateData(with entryCategory: EntryCategory) {
         logInfo("Update data with entry category: \(entryCategory)")
         title = entryCategory.name

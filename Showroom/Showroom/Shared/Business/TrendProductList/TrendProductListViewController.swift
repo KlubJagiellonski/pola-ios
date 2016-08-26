@@ -50,11 +50,6 @@ class TrendProductListViewController: UIViewController, ProductListViewControlle
         castView.contentInset = UIEdgeInsetsMake(topLayoutGuide.length, 0, bottomLayoutGuide.length, 0)
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        showInAppWishlistOnboardingIfNeeded()
-    }
-    
     func updateData(with data: EntryTrendInfo) {
         logInfo("Update data with data: \(data)")
         guard data.slug != model.entryTrendInfo.slug else {

@@ -25,6 +25,10 @@ class ProductDetailsModel {
         }
     }
     
+    var shouldUserSeeInAppOnboarding: Bool {
+        return !userSeenPagingInAppOnboarding && context.productsCount > 1
+    }
+    
     init(context: ProductDetailsContext, emarsysService: EmarsysService) {
         self.context = context
         self.emarsysService = emarsysService

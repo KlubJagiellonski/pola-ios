@@ -53,11 +53,6 @@ class BrandProductListViewController: UIViewController, ProductListViewControlle
         castView.contentInset = UIEdgeInsetsMake(topLayoutGuide.length, 0, bottomLayoutGuide.length, 0)
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        showInAppWishlistOnboardingIfNeeded()
-    }
-    
     func updateData(with entryProductBrand: EntryProductBrand) {
         guard entryProductBrand.id != model.productBrand.id else {
             logInfo("Tried to update same brand info view")

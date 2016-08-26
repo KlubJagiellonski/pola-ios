@@ -47,19 +47,23 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewDelegate
         logAnalyticsShowScreen(.ProductDetails)
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        perform(withDelay: 0.5) { [weak self] in
+            guard let `self` = self else { return }
+            if self.model.shouldUserSeeInAppOnboarding && self.castView.bounds.height > 0 {
+                self.showInAppPagingOnboarding()
+                self.model.userSeenPagingInAppOnboarding = true
+            }
+        }
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         if !firstLayoutSubviewsPassed {
             firstLayoutSubviewsPassed = true
             castView.scrollToPage(atIndex: model.initialProductIndex, animated: false)
-        }
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        if !model.userSeenPagingInAppOnboarding {
-            showInAppPagingOnboarding()
-            model.userSeenPagingInAppOnboarding = true
         }
     }
     

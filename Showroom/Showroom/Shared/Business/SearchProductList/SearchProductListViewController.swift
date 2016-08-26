@@ -53,11 +53,6 @@ class SearchProductListViewController: UIViewController, ProductListViewControll
         castView.contentInset = UIEdgeInsetsMake(topLayoutGuide.length, 0, bottomLayoutGuide.length, 0)
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        showInAppWishlistOnboardingIfNeeded()
-    }
-    
     func updateData(with data: EntrySearchInfo) {
         logInfo("Update data with data: \(data)")
         disposeBag = DisposeBag()
