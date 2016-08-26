@@ -74,6 +74,8 @@
 		1D2F19D11CEB16120099142E /* Decodable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2F19961CEA14FE0099142E /* Decodable.framework */; };
 		1D372E2E1D6C7B05004F3155 /* ShowEditKioskEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D372E2D1D6C7B05004F3155 /* ShowEditKioskEvent.swift */; };
 		1D372E371D6ED22F004F3155 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1D372E391D6ED22F004F3155 /* Localizable.strings */; };
+		1D372E3C1D701E9F004F3155 /* OptimiseMobileTracking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D372E3A1D701E74004F3155 /* OptimiseMobileTracking.framework */; };
+		1D372E3D1D701E9F004F3155 /* OptimiseMobileTracking.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1D372E3A1D701E74004F3155 /* OptimiseMobileTracking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1D3792721D196931001A7C47 /* ViewSwitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3792711D196931001A7C47 /* ViewSwitcher.swift */; };
 		1D3EC6551D5C81B4004413F9 /* ResetPasswordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3EC6541D5C81B4004413F9 /* ResetPasswordModel.swift */; };
 		1D3EEA1A1D143C1100F67B69 /* BasketRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3EEA191D143C1100F67B69 /* BasketRequest.swift */; };
@@ -365,6 +367,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				1D372E3D1D701E9F004F3155 /* OptimiseMobileTracking.framework in Embed Frameworks */,
 				1DB957D01D522F29003EE120 /* EmarsysPushSDK.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -460,6 +463,7 @@
 		1D2F19C21CEB07D10099142E /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
 		1D372E2D1D6C7B05004F3155 /* ShowEditKioskEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowEditKioskEvent.swift; sourceTree = "<group>"; };
 		1D372E381D6ED22F004F3155 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1D372E3A1D701E74004F3155 /* OptimiseMobileTracking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OptimiseMobileTracking.framework; path = Frameworks/OptimiseMobileTracking.framework; sourceTree = "<group>"; };
 		1D3792711D196931001A7C47 /* ViewSwitcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewSwitcher.swift; sourceTree = "<group>"; };
 		1D3EC6541D5C81B4004413F9 /* ResetPasswordModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetPasswordModel.swift; sourceTree = "<group>"; };
 		1D3EEA191D143C1100F67B69 /* BasketRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasketRequest.swift; sourceTree = "<group>"; };
@@ -755,6 +759,7 @@
 				1DD1EA9D1CF2F58E00D99731 /* SnapKit.framework in Frameworks */,
 				1DDE61F21D670566007E5509 /* Kingfisher.framework in Frameworks */,
 				1D04534F1CFEDE74001CC5A2 /* EmarsysPredictSDK.framework in Frameworks */,
+				1D372E3C1D701E9F004F3155 /* OptimiseMobileTracking.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -950,6 +955,7 @@
 		1D2F19AC1CEA15060099142E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1D372E3A1D701E74004F3155 /* OptimiseMobileTracking.framework */,
 				1DDE61F11D670566007E5509 /* Kingfisher.framework */,
 				1D0AAF971D588459008E40C0 /* Pushwoosh.framework */,
 				1DB957CD1D522E1D003EE120 /* EmarsysPushSDK.framework */,

@@ -2,6 +2,10 @@ import Foundation
 import GoogleAnalytics
 import FBSDKCoreKit
 
+func logAnalyticsAppStart() {
+    Analytics.sharedInstance.sendAppStartEvent()
+}
+
 func logAnalyticsShowScreen(screenId: AnalyticsScreenId) {
     Analytics.sharedInstance.sendScreenViewEvent(screenId)
 }
@@ -334,6 +338,7 @@ final class Analytics {
     static let sharedInstance = Analytics()
     
     private let tracker: GAITracker
+    private let optimiseManager = OMGSDK.sharedManager()
     private let affilationKey = "affilation_key"
     
     var userId: String? {
@@ -350,6 +355,9 @@ final class Analytics {
         let gai = GAI.sharedInstance()
         gai.logger.logLevel = Constants.isDebug ? GAILogLevel.Info : GAILogLevel.Error
         self.tracker = gai.trackerWithTrackingId(Constants.googleAnalyticsTrackingId)
+        
+        optimiseManager.setApiKey(Constants.optimiseApiKey)
+        optimiseManager.setMerchantID(Constants.optimiseMerchantId)
     }
     
     func sendScreenViewEvent(screenId: AnalyticsScreenId) {
@@ -372,6 +380,11 @@ final class Analytics {
     }
     
     func sendAnalyticsTransactionEvent(with payment: PaymentResult, products: [BasketProduct]) {
+        // sending optimise
+        for product in products {
+            optimiseManager.trackSalesWhereAppID(String(payment.orderId), productID: Constants.optimiseTrackSaleProductId, status: String(payment.amount.doubleValue), currency: payment.currency, ex1: "Sale", ex2: String(product.id), ex3: nil, ex4: nil, ex5: nil)
+        }
+        
         // sending facebook
         let paramaters = [
             FBSDKAppEventParameterNameNumItems: NSNumber(integer: products.count)
@@ -404,4 +417,9 @@ final class Analytics {
         
         affilation = nil
     }
+    
+    func sendAppStartEvent() {
+        optimiseManager.trackInstallWhereAppID(nil, productID: Constants.optimiseTrackInstallProductId, deepLink: false, ex1: "Install", ex2: nil, ex3: nil, ex4: nil, ex5: nil)
+    }
 }
+

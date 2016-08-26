@@ -28,6 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private var quickActionManager: QuickActionManager!
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        logAnalyticsAppStart()
         logAnalyticsEvent(AnalyticsEventId.ApplicationLaunch(launchCount))
         
         configureDependencies()

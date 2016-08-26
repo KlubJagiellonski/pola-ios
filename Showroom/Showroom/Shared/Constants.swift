@@ -22,6 +22,11 @@ struct Constants {
     
     static let reportEmail = "ios+v1@showroom.pl"
     
+    static let optimiseApiKey = "72933403-B469-41FD-B6E4-635B5B44584F"
+    static let optimiseMerchantId = 990079
+    static let optimiseTrackInstallProductId = 28575
+    static let optimiseTrackSaleProductId = 28577
+    
     #if APPSTORE
     static let googleAnalyticsTrackingId = "UA-28549987-7"
     #else

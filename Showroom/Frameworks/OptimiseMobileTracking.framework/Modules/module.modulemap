@@ -1,0 +1,6 @@
+framework module OptimiseMobileTracking {
+  umbrella header "OptimiseMobileTracking.h"
+
+  export *
+  module * { export * }
+}
