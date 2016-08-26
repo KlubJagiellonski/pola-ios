@@ -12,10 +12,6 @@ class BrandProductListViewController: UIViewController, ProductListViewControlle
     var productListView: ProductListViewInterface { return castView }
     private var castView: BrandProductListView { return view as! BrandProductListView }
     
-    private lazy var onboardingActionAnimator: InAppOnboardingActionAnimator = { [unowned self] in
-        return InAppOnboardingActionAnimator(parentViewHeight: self.castView.bounds.height)
-    }()
-    
     init(with resolver: DiResolver, and brand: EntryProductBrand) {
         self.resolver = resolver
         productListModel = resolver.resolve(BrandProductListModel.self, argument: brand)
@@ -91,13 +87,6 @@ class BrandProductListViewController: UIViewController, ProductListViewControlle
         }
     }
     
-    func showInAppWishlistOnboarding() {
-        logInfo("Show in-app wishlist onboarding")
-        let wishlistOnboardingViewController = WishlistInAppOnboardingViewController()
-        wishlistOnboardingViewController.delegate = self
-        onboardingActionAnimator.presentViewController(wishlistOnboardingViewController, presentingViewController: self)
-    }
-    
     // MARK:- BrandProductListViewDelegate
     
     func brandProductListDidTapHeader(view: BrandProductListView) {
@@ -129,11 +118,5 @@ extension BrandProductListViewController: ProductFilterNavigationControllerDeleg
         if productListResult != nil {
             didChangeFilter(withResult: productListResult!)
         }
-    }
-}
-
-extension BrandProductListViewController: WishlistInAppOnboardingViewControllerDelegate {
-    func wishlistOnboardingViewControllerDidTapDismissButton(viewController: WishlistInAppOnboardingViewController) {
-        onboardingActionAnimator.dismissViewController(presentingViewController: self)
     }
 }

@@ -23,5 +23,7 @@ struct SimpleNavigationEvent: NavigationEvent {
         case ShowOnboaridng
         case ShowRules
         case AskForNotificationsFromWishlist
+        case ShowProductDetailsInAppOnboarding
+        case ShowProductListInAppOnboarding
     }
 }

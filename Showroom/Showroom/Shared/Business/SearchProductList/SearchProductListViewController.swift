@@ -12,10 +12,6 @@ class SearchProductListViewController: UIViewController, ProductListViewControll
     var productListView: ProductListViewInterface { return castView }
     private var castView: SearchProductListView { return view as! SearchProductListView }
     
-    private lazy var onboardingActionAnimator: InAppOnboardingActionAnimator = { [unowned self] in
-        return InAppOnboardingActionAnimator(parentViewHeight: self.castView.bounds.height)
-    }()
-    
     init(with resolver: DiResolver, entryData: EntrySearchInfo) {
         self.resolver = resolver
         productListModel = resolver.resolve(SearchProductListModel.self, argument: entryData)
@@ -80,13 +76,6 @@ class SearchProductListViewController: UIViewController, ProductListViewControll
     
     func pageWasFetched(result productListResult: ProductListResult, pageIndex: Int) { }
     
-    func showInAppWishlistOnboarding() {
-        logInfo("Show in-app wishlist onboarding")
-        let wishlistOnboardingViewController = WishlistInAppOnboardingViewController()
-        wishlistOnboardingViewController.delegate = self
-        onboardingActionAnimator.presentViewController(wishlistOnboardingViewController, presentingViewController: self)
-    }
-    
     // MARK:- ProductListViewDelegate
     
     func viewSwitcherDidTapRetry(view: ViewSwitcher) {
@@ -118,11 +107,5 @@ extension SearchProductListViewController: ProductFilterNavigationControllerDele
         if productListResult != nil {
             didChangeFilter(withResult: productListResult!)
         }
-    }
-}
-
-extension SearchProductListViewController: WishlistInAppOnboardingViewControllerDelegate {
-    func wishlistOnboardingViewControllerDidTapDismissButton(viewController: WishlistInAppOnboardingViewController) {
-        onboardingActionAnimator.dismissViewController(presentingViewController: self)
     }
 }

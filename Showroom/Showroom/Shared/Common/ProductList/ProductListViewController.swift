@@ -14,17 +14,13 @@ protocol ProductListViewControllerInterface: class, NavigationSender {
     func createFilterButton() -> UIBarButtonItem?
     func pageWasFetched(result productListResult: ProductListResult, pageIndex: Int) // it is used to inform viewcontroller that first page has been fetched. You can do some additional stuff here
     func configureFilterButton()
-    func showInAppWishlistOnboarding()
 }
 
 extension ProductListViewControllerInterface {
     func showInAppWishlistOnboardingIfNeeded() {
         perform(withDelay: 0.5) { [weak self] in
             guard let `self` = self else { return }
-            if !self.productListModel.userSeenWishlistInAppOnboarding {
-                self.showInAppWishlistOnboarding()
-                self.productListModel.userSeenWishlistInAppOnboarding = true
-            }
+            self.sendNavigationEvent(SimpleNavigationEvent(type: .ShowProductListInAppOnboarding))
         }
     }
     
@@ -145,6 +141,9 @@ extension ProductListViewDelegate where Self: ProductListViewControllerInterface
         logAnalyticsEvent(AnalyticsEventId.ListAddToWishlist(productListModel.products[safe: index]?.id ?? 0))
         productListModel.addToWishlist(productAtIndex: index)
         
-        sendNavigationEvent(SimpleNavigationEvent(type: .AskForNotificationsFromWishlist))
+        perform(withDelay: 0.5) { [weak self] in
+            guard let `self` = self else { return }
+            self.sendNavigationEvent(SimpleNavigationEvent(type: .AskForNotificationsFromWishlist))
+        }
     }
 }

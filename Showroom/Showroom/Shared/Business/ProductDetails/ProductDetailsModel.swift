@@ -17,16 +17,8 @@ class ProductDetailsModel {
         return context.productsCount
     }
     
-    var userSeenPagingInAppOnboarding: Bool {
-        get { return NSUserDefaults.standardUserDefaults().boolForKey("userSeenPagingInAppOnboarding") }
-        set {
-            logInfo("userSeenPagingInAppOnboarding \(newValue)")
-            NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: "userSeenPagingInAppOnboarding")
-        }
-    }
-    
-    var shouldUserSeeInAppOnboarding: Bool {
-        return !userSeenPagingInAppOnboarding && context.productsCount > 1
+    var shouldShowInAppOnboarding: Bool {
+        return context.productsCount > 1
     }
     
     init(context: ProductDetailsContext, emarsysService: EmarsysService) {

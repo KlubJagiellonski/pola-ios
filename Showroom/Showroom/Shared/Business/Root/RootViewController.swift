@@ -14,6 +14,10 @@ class RootViewController: PresenterViewController, NavigationHandler {
         return animator
     }()
     
+    private lazy var onboardingActionAnimator: InAppOnboardingActionAnimator = { [unowned self] in
+        return InAppOnboardingActionAnimator(parentViewHeight: self.castView.bounds.height)
+    }()
+    
     init?(resolver: DiResolver) {
         self.resolver = resolver
         self.model = resolver.resolve(RootModel.self)
@@ -99,6 +103,30 @@ class RootViewController: PresenterViewController, NavigationHandler {
         model.versionManager.didShowVersionAlert()
     }
     
+    func showInAppPagingOnboarding() -> Bool {
+        if self.presentedViewController != nil {
+            return false
+        }
+        
+        logInfo("Showing in app paging onboarding")
+        let pagingOnboardingViewController = PagingInAppOnboardingViewController()
+        pagingOnboardingViewController.delegate = self
+        onboardingActionAnimator.presentViewController(pagingOnboardingViewController, presentingViewController: self)
+        return true
+    }
+    
+    func showInAppWishlistOnboarding() -> Bool {
+        if self.presentedViewController != nil {
+            return false
+        }
+        
+        logInfo("Show in-app wishlist onboarding")
+        let wishlistOnboardingViewController = WishlistInAppOnboardingViewController()
+        wishlistOnboardingViewController.delegate = self
+        onboardingActionAnimator.presentViewController(wishlistOnboardingViewController, presentingViewController: self)
+        return true
+    }
+    
     // MARK: - NavigationHandler
     
     func handleNavigationEvent(event: NavigationEvent) -> EventHandled {
@@ -146,6 +174,24 @@ class RootViewController: PresenterViewController, NavigationHandler {
             // Only happens when the user adds something to the wishlist.
             if model.notificationManager.shouldShowNotificationsAccessViewFromWishlist {
                 showNotificationAccessView()
+            }
+            return true
+        case .ShowProductDetailsInAppOnboarding:
+            logInfo("Show product details in app onboarding")
+            
+            if !model.userSeenPagingInAppOnboarding {
+                if showInAppPagingOnboarding() {
+                    model.userSeenPagingInAppOnboarding = true
+                }
+            }
+            return true
+        case .ShowProductListInAppOnboarding:
+            logInfo("Show product list in app onboarding")
+            
+            if !model.userSeenWishlistInAppOnboarding {
+                if showInAppWishlistOnboarding() {
+                    model.userSeenWishlistInAppOnboarding = true
+                }
             }
             return true
         default: return false
@@ -216,5 +262,17 @@ extension RootViewController: UpdateAppViewControllerDelegate {
     func updateAppWantsDismiss(viewController: UpdateAppViewController) {
         logInfo("Update alert wants dismiss")
         formSheetAnimator.dismissViewController(presentingViewController: self)
+    }
+}
+
+extension RootViewController: PagingInAppOnboardingViewControllerDelegate, WishlistInAppOnboardingViewControllerDelegate {
+    func pagingOnboardingViewControllerDidTapDismiss(viewController: PagingInAppOnboardingViewController) {
+        logInfo("Paging onboarding did tap dismiss")
+        onboardingActionAnimator.dismissViewController(presentingViewController: self)
+    }
+    
+    func wishlistOnboardingViewControllerDidTapDismissButton(viewController: WishlistInAppOnboardingViewController) {
+        logInfo("Wishlist onboarding did tap dismiss")
+        onboardingActionAnimator.dismissViewController(presentingViewController: self)
     }
 }

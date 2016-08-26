@@ -10,10 +10,6 @@ class TrendProductListViewController: UIViewController, ProductListViewControlle
     var productListView: ProductListViewInterface { return castView }
     var castView: TrendProductListView { return view as! TrendProductListView }
     
-    private lazy var onboardingActionAnimator: InAppOnboardingActionAnimator = { [unowned self] in
-        return InAppOnboardingActionAnimator(parentViewHeight: self.castView.bounds.height)
-    }()
-    
     init(with resolver: DiResolver, and info: EntryTrendInfo) {
         productListModel = resolver.resolve(TrendProductListModel.self, argument: info)
         super.init(nibName: nil, bundle: nil)
@@ -76,23 +72,10 @@ class TrendProductListViewController: UIViewController, ProductListViewControlle
         }
     }
     
-    func showInAppWishlistOnboarding() {
-        logInfo("Show in-app wishlist onboarding")
-        let wishlistOnboardingViewController = WishlistInAppOnboardingViewController()
-        wishlistOnboardingViewController.delegate = self
-        onboardingActionAnimator.presentViewController(wishlistOnboardingViewController, presentingViewController: self)
-    }
-    
     // MARK:- ProductListViewDelegate
     
     func viewSwitcherDidTapRetry(view: ViewSwitcher) {
         logInfo("View switcher did tap retry")
         fetchFirstPage()
-    }
-}
-
-extension TrendProductListViewController: WishlistInAppOnboardingViewControllerDelegate {
-    func wishlistOnboardingViewControllerDidTapDismissButton(viewController: WishlistInAppOnboardingViewController) {
-        onboardingActionAnimator.dismissViewController(presentingViewController: self)
     }
 }

@@ -10,10 +10,6 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewDelegate
     private var indexedViewControllers: [Int: UIViewController] = [:]
     private var firstLayoutSubviewsPassed = false
     
-    private lazy var onboardingActionAnimator: InAppOnboardingActionAnimator = { [unowned self] in
-        return InAppOnboardingActionAnimator(parentViewHeight: self.castView.bounds.height)
-    }()
-    
     init(resolver: DiResolver, context: ProductDetailsContext) {
         self.resolver = resolver
         model = resolver.resolve(ProductDetailsModel.self, argument: context)
@@ -52,9 +48,8 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewDelegate
         
         perform(withDelay: 0.5) { [weak self] in
             guard let `self` = self else { return }
-            if self.model.shouldUserSeeInAppOnboarding && self.castView.bounds.height > 0 {
-                self.showInAppPagingOnboarding()
-                self.model.userSeenPagingInAppOnboarding = true
+            if self.model.shouldShowInAppOnboarding {
+                self.sendNavigationEvent(SimpleNavigationEvent(type: .ShowProductDetailsInAppOnboarding))
             }
         }
     }
@@ -73,13 +68,6 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewDelegate
         removeAllViewControllers()
         castView.reloadPageCount(withNewProductCount: model.productsCount)
         castView.scrollToPage(atIndex: model.initialProductIndex, animated: false)
-    }
-    
-    func showInAppPagingOnboarding() {
-        logInfo("Showing in app paging onboarding")
-        let pagingOnboardingViewController = PagingInAppOnboardingViewController()
-        pagingOnboardingViewController.delegate = self
-        onboardingActionAnimator.presentViewController(pagingOnboardingViewController, presentingViewController: self)
     }
     
     // MARK: - ProductDetailsViewDelegate
@@ -160,14 +148,6 @@ extension ProductDetailsViewController: ProductDetailsPageHandler {
         return UIEdgeInsets(top: topLayoutGuide.length, left: 0, bottom: bottomInset, right: 0)
     }
 }
-
-extension ProductDetailsViewController: PagingInAppOnboardingViewControllerDelegate {
-    func pagingOnboardingViewControllerDidTapDismiss(viewController: PagingInAppOnboardingViewController) {
-        logInfo("Paging onboarding did tap dismiss")
-        onboardingActionAnimator.dismissViewController(presentingViewController: self)
-    }
-}
-
 
 extension ProductDetailsViewState {
     static func fromPageState(pageState: ProductPageViewState) -> ProductDetailsViewState {

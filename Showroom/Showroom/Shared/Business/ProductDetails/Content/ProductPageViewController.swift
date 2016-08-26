@@ -180,7 +180,10 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
             logAnalyticsEvent(AnalyticsEventId.ProductRemoveFromWishlist(model.productId))
         }
         castView.updateWishlistButton(selected: selected)
-        sendNavigationEvent(SimpleNavigationEvent(type: .AskForNotificationsFromWishlist))
+        perform(withDelay: 0.5) { [weak self] in
+            guard let `self` = self else { return }
+            self.sendNavigationEvent(SimpleNavigationEvent(type: .AskForNotificationsFromWishlist))
+        }
     }
     
     func pageViewDidSwitchedImage(pageView: ProductPageView) {
