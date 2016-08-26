@@ -228,6 +228,11 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
         }
     }
     
+    private func didChangeImage() {
+        pageControl.currentPage = currentImageIndex
+        delegate?.pageViewDidSwitchedImage(self)
+    }
+    
     // MARK: - UICollectionViewDelegateFlowLayout
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
@@ -235,8 +240,11 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
     }
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        pageControl.currentPage = currentImageIndex
-        delegate?.pageViewDidSwitchedImage(self)
+        didChangeImage()
+    }
+    
+    func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
+        didChangeImage()
     }
 }
 
