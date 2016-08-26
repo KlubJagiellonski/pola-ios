@@ -80,6 +80,7 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
             case .Success(let productDetails):
                 logInfo("Successfuly fetched product details: \(productDetails)")
                 self.castView.changeSwitcherState(.Success)
+                logAnalyticsEvent(AnalyticsEventId.ProductOpen(productDetails.id, productDetails.price))
                 if self.castView.viewState == .ContentHidden {
                     //hate this approach, but there is no other way to fix blur artefacts
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(0.2 * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), {
@@ -111,11 +112,15 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
     }
     
     private func addToBasket() {
+        guard let productDetails = model.state.productDetails else {
+            logError("Cannot add to basket because product details were not loaded \(model.productId)")
+            return
+        }
         logInfo("Adding to basket")
         if castView.viewState == .Default {
-            logAnalyticsEvent(AnalyticsEventId.ProductAddToCartClicked(model.productId, "gallery"))
+            logAnalyticsEvent(AnalyticsEventId.ProductAddToCartClicked(model.productId, "gallery", productDetails.price))
         } else if castView.viewState == .ContentExpanded {
-            logAnalyticsEvent(AnalyticsEventId.ProductAddToCartClicked(model.productId, "details"))
+            logAnalyticsEvent(AnalyticsEventId.ProductAddToCartClicked(model.productId, "details", productDetails.price))
         }
         model.addToBasket()
         sendNavigationEvent(SimpleNavigationEvent(type: .ProductAddedToBasket))
@@ -175,7 +180,8 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
         let selected = model.switchOnWishlist()
         logInfo("Did tap wishlist button. Changing to state \(selected) for product id \(model.productId)")
         if selected {
-            logAnalyticsEvent(AnalyticsEventId.ProductAddToWishlist(model.productId))
+            let product = model.state.productDetails
+            logAnalyticsEvent(AnalyticsEventId.ProductAddToWishlist(model.productId, product?.price ?? Money(amt: 0.0)))
         } else {
             logAnalyticsEvent(AnalyticsEventId.ProductRemoveFromWishlist(model.productId))
         }

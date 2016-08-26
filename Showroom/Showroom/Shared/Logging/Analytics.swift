@@ -1,5 +1,6 @@
 import Foundation
 import GoogleAnalytics
+import FBSDKCoreKit
 
 func logAnalyticsShowScreen(screenId: AnalyticsScreenId) {
     Analytics.sharedInstance.sendScreenViewEvent(screenId)
@@ -70,7 +71,7 @@ enum AnalyticsEventId: RawRepresentable {
     case WishlistProductClicked(ObjectId)
     case WishlistProductDeleted(ObjectId)
     case ProfileWebViewLinkClicked(String)
-    case ProfileSocialMediaClicked(String) //fb/insta
+    case ProfileSocialMediaClicked(String) // fb/insta
     case ProfileLoginClicked
     case ProfileRegisterClicked
     case ProfileGenderChoice(String)
@@ -79,12 +80,13 @@ enum AnalyticsEventId: RawRepresentable {
     case ListBrandDetails(ObjectId)
     case ListNextPage
     case ListProductClicked(ObjectId)
-    case ListAddToWishlist(ObjectId)
+    case ListAddToWishlist(ObjectId, Money)
     case ListFilterSubmit
     case ListFilterIconClicked
     case ListFilterChanged(FilterId)
+    case ProductOpen(ObjectId, Money)
     case ProductClose(ObjectId)
-    case ProductAddToWishlist(ObjectId)
+    case ProductAddToWishlist(ObjectId, Money)
     case ProductRemoveFromWishlist(ObjectId)
     case ProductShare(ObjectId)
     case ProductSwitchPicture(ObjectId)
@@ -94,7 +96,7 @@ enum AnalyticsEventId: RawRepresentable {
     case ProductOtherDesignerProductsClicked(ObjectId)
     case ProductChangeColorClicked(ObjectId)
     case ProductChangeSizeClicked(ObjectId)
-    case ProductAddToCartClicked(ObjectId, String)
+    case ProductAddToCartClicked(ObjectId, String, Money)
     case ProductSwitchedWithLeftSwipe(String) // category/trend/designer
     case ProductSwitchedWithRightSwipe(String) // category/trend/designer
     case LoginFacebookClicked
@@ -121,153 +123,186 @@ enum AnalyticsEventId: RawRepresentable {
     case ModalUpdate(String)
     case QuickAction(String)
     
-    typealias RawValue = AnalyticsEvent
+    typealias RawValue = [AnalyticsEvent]
     var rawValue: RawValue {
         switch self {
         case .OnboardingNotificationClicked:
-            return AnalyticsEvent(category: "onboarding", action: "notifications_button_click", label: nil, value: nil)
+            return [GoogleAnalyticsEvent(category: "onboarding", action: "notifications_button_click", label: nil, value: nil)]
         case .OnboardingNotificationAllow:
-            return AnalyticsEvent(category: "onboarding", action: "notifications_popup", label: nil, value: 1)
+            return [GoogleAnalyticsEvent(category: "onboarding", action: "notifications_popup", label: nil, value: 1)]
         case .OnboardingNotificationDisallow:
-            return AnalyticsEvent(category: "onboarding", action: "notifications_popup", label: nil, value: 0)
+            return [GoogleAnalyticsEvent(category: "onboarding", action: "notifications_popup", label: nil, value: 0)]
         case .OnboardingGenderChoice(let gender):
-            return AnalyticsEvent(category: "onboarding", action: "gender_choice", label: gender, value: nil)
+            return [GoogleAnalyticsEvent(category: "onboarding", action: "gender_choice", label: gender, value: nil)]
         case .OnboardingLoginClicked:
-            return AnalyticsEvent(category: "onboarding", action: "login_click", label: nil, value: nil)
+            return [GoogleAnalyticsEvent(category: "onboarding", action: "login_click", label: nil, value: nil)]
         case .OnboardingRegisterClicked:
-            return AnalyticsEvent(category: "onboarding", action: "register_click", label: nil, value: nil)
+            return [GoogleAnalyticsEvent(category: "onboarding", action: "register_click", label: nil, value: nil)]
         case .OnboardingNotificationSkip:
-            return AnalyticsEvent(category: "onboarding", action: "notifications_skip", label: nil, value: nil)
+            return [GoogleAnalyticsEvent(category: "onboarding", action: "notifications_skip", label: nil, value: nil)]
         case .DashboardContentPromoClicked(let link, let index):
-            return AnalyticsEvent(category: "home", action: "home_banner_click", label: link, value: index)
+            return [GoogleAnalyticsEvent(category: "home", action: "home_banner_click", label: link, value: index)]
         case .DashboardRecommendationClicked(let link, let index):
-            return AnalyticsEvent(category: "home", action: "suggested_click", label: link, value: index)
+            return [GoogleAnalyticsEvent(category: "home", action: "suggested_click", label: link, value: index)]
         case SearchMainMenuClick(let label):
-            return AnalyticsEvent(category: "browse", action: "main_menu_click", label: label, value: nil)
+            return [GoogleAnalyticsEvent(category: "browse", action: "main_menu_click", label: label, value: nil)]
         case SearchMenuTreeClick(let label):
-            return AnalyticsEvent(category: "browse", action: "tree_menu_click", label: label, value: nil)
+            return [GoogleAnalyticsEvent(category: "browse", action: "tree_menu_click", label: label, value: nil)]
         case SearchMenuClick(let link):
-            return AnalyticsEvent(category: "browse", action: "menu_click", label: link, value: nil)
+            return [GoogleAnalyticsEvent(category: "browse", action: "menu_click", label: link, value: nil)]
         case Search(let query, let isChanged):
-            return AnalyticsEvent(category: "browse", action: "search", label: query, value: isChanged ? 1 : 0)
+            return [GoogleAnalyticsEvent(category: "browse", action: "search", label: query, value: isChanged ? 1 : 0)]
         case CartDiscountSubmitted(let coupon):
-            return AnalyticsEvent(category: "cart", action: "coupon_submit", label: coupon, value: nil)
+            return [GoogleAnalyticsEvent(category: "cart", action: "coupon_submit", label: coupon, value: nil)]
         case CartProductDeleted(let id):
-            return AnalyticsEvent(category: "cart", action: "product_deleted", label: nil, value: id)
+            return [GoogleAnalyticsEvent(category: "cart", action: "product_deleted", label: nil, value: id)]
         case CartQuantityChanged(let id):
-            return AnalyticsEvent(category: "cart", action: "quantity_changed", label: nil, value: id)
+            return [GoogleAnalyticsEvent(category: "cart", action: "quantity_changed", label: nil, value: id)]
         case CartCountryChanged(let countryId):
-            return AnalyticsEvent(category: "cart", action: "country_changed", label: countryId, value: nil)
+            return [GoogleAnalyticsEvent(category: "cart", action: "country_changed", label: countryId, value: nil)]
         case CartDeliveryMethodChanged(let id):
-            return AnalyticsEvent(category: "cart", action: "delivery_changed", label: nil, value: id)
+            return [GoogleAnalyticsEvent(category: "cart", action: "delivery_changed", label: nil, value: id)]
         case CartGoToCheckoutClicked(let cartValue):
-            return AnalyticsEvent(category: "cart", action: "go_to_checkout", label: nil, value: Int(cartValue.amount))
+            return [GoogleAnalyticsEvent(category: "cart", action: "go_to_checkout", label: nil, value: Int(cartValue.amount))]
         case WishlistProductClicked(let id):
-            return AnalyticsEvent(category: "wishlist", action: "product_click", label: nil, value: id)
+            return [GoogleAnalyticsEvent(category: "wishlist", action: "product_click", label: nil, value: id)]
         case WishlistProductDeleted(let id):
-            return AnalyticsEvent(category: "wishlist", action: "product_deleted", label: nil, value: id)
+            return [GoogleAnalyticsEvent(category: "wishlist", action: "product_deleted", label: nil, value: id)]
         case ProfileWebViewLinkClicked(let link):
-            return AnalyticsEvent(category: "profile", action: "webview_click", label: link, value: nil)
+            return [GoogleAnalyticsEvent(category: "profile", action: "webview_click", label: link, value: nil)]
         case ProfileSocialMediaClicked(let type):
-            return AnalyticsEvent(category: "profile", action: "socialmedia_click", label: type, value: nil)
+            return [GoogleAnalyticsEvent(category: "profile", action: "socialmedia_click", label: type, value: nil)]
         case ProfileLoginClicked:
-            return AnalyticsEvent(category: "profile", action: "login_click", label: nil, value: nil)
+            return [GoogleAnalyticsEvent(category: "profile", action: "login_click", label: nil, value: nil)]
         case ProfileRegisterClicked:
-            return AnalyticsEvent(category: "profile", action: "register_click", label: nil, value: nil)
+            return [GoogleAnalyticsEvent(category: "profile", action: "register_click", label: nil, value: nil)]
         case ProfileGenderChoice(let gender):
-            return AnalyticsEvent(category: "profile", action: "gender_choice", label: gender, value: nil)
+            return [GoogleAnalyticsEvent(category: "profile", action: "gender_choice", label: gender, value: nil)]
         case ProfileLogoutClicked:
-            return AnalyticsEvent(category: "profile", action: "logout", label: nil, value: nil)
+            return [GoogleAnalyticsEvent(category: "profile", action: "logout", label: nil, value: nil)]
         case ProfileNotifications:
-            return AnalyticsEvent(category: "profile", action: "ask_notifications", label: nil, value: nil)
+            return [GoogleAnalyticsEvent(category: "profile", action: "ask_notifications", label: nil, value: nil)]
         case ListBrandDetails(let brandId):
-            return AnalyticsEvent(category: "listing", action: "designer_details", label: nil, value: brandId)
+            return [GoogleAnalyticsEvent(category: "listing", action: "designer_details", label: nil, value: brandId)]
         case ListNextPage():
-            return AnalyticsEvent(category: "listing", action: "list_scroll", label: nil, value: nil)
+            return [GoogleAnalyticsEvent(category: "listing", action: "list_scroll", label: nil, value: nil)]
         case ListProductClicked(let id):
-            return AnalyticsEvent(category: "listing", action: "product_click", label: nil, value: id)
-        case ListAddToWishlist(let id):
-            return AnalyticsEvent(category: "listing", action: "add_to_wishlist", label: nil, value: id)
+            return [GoogleAnalyticsEvent(category: "listing", action: "product_click", label: nil, value: id)]
+        case ListAddToWishlist(let id, let value):
+            let facebookParams = [
+                FBSDKAppEventParameterNameContentID: NSNumber(integer: id),
+                FBSDKAppEventParameterNameContentType: "list",
+                FBSDKAppEventParameterNameCurrency: value.currency.eanValue
+            ]
+            return [
+                GoogleAnalyticsEvent(category: "listing", action: "add_to_wishlist", label: nil, value: id),
+                FacebookAnalyticsEvent(id: FBSDKAppEventNameAddedToWishlist, params: facebookParams, valueToSum: NSNumber(double: value.amount))
+            ]
         case ListFilterSubmit:
-            return AnalyticsEvent(category: "listing", action: "filter_submit", label: nil, value: nil)
+            return [GoogleAnalyticsEvent(category: "listing", action: "filter_submit", label: nil, value: nil)]
         case ListFilterIconClicked:
-            return AnalyticsEvent(category: "listing", action: "filter_click", label: nil, value: nil)
+            return [GoogleAnalyticsEvent(category: "listing", action: "filter_click", label: nil, value: nil)]
         case ListFilterChanged(let filterId):
-            return AnalyticsEvent(category: "listing", action: "filter_change", label: filterId, value: nil)
+            return [GoogleAnalyticsEvent(category: "listing", action: "filter_change", label: filterId, value: nil)]
         case ProductClose(let id):
-            return AnalyticsEvent(category: "product", action: "close", label: nil, value: id)
-        case ProductAddToWishlist(let id):
-            return AnalyticsEvent(category: "product", action: "add_to_wishlist", label: nil, value: id)
+            return [GoogleAnalyticsEvent(category: "product", action: "close", label: nil, value: id)]
+        case ProductOpen(let id, let value):
+            let facebookParams = [
+                FBSDKAppEventParameterNameContentID: NSNumber(integer: id),
+                FBSDKAppEventParameterNameContentType: "product",
+                FBSDKAppEventParameterNameCurrency: value.currency.eanValue
+            ]
+            return [
+                FacebookAnalyticsEvent(id: FBSDKAppEventNameViewedContent, params: facebookParams, valueToSum: value.amount)
+            ]
+        case ProductAddToWishlist(let id, let value):
+            let facebookParams = [
+                FBSDKAppEventParameterNameContentID: NSNumber(integer: id),
+                FBSDKAppEventParameterNameContentType: "product",
+                FBSDKAppEventParameterNameCurrency: value.currency.eanValue
+            ]
+            return [
+                GoogleAnalyticsEvent(category: "product", action: "add_to_wishlist", label: nil, value: id),
+                FacebookAnalyticsEvent(id: FBSDKAppEventNameAddedToWishlist, params: facebookParams, valueToSum: NSNumber(double: value.amount))
+            ]
         case ProductRemoveFromWishlist(let id):
-            return AnalyticsEvent(category: "product", action: "remove_from_wishlist", label: nil, value: id)
+            return [GoogleAnalyticsEvent(category: "product", action: "remove_from_wishlist", label: nil, value: id)]
         case ProductShare(let id):
-            return AnalyticsEvent(category: "product", action: "share", label: nil, value: id)
+            return [GoogleAnalyticsEvent(category: "product", action: "share", label: nil, value: id)]
         case ProductSwitchPicture(let id):
-            return AnalyticsEvent(category: "product", action: "switch_picture", label: nil, value: id)
+            return [GoogleAnalyticsEvent(category: "product", action: "switch_picture", label: nil, value: id)]
         case ProductZoomIn(let id):
-            return AnalyticsEvent(category: "product", action: "zoom", label: nil, value: id)
+            return [GoogleAnalyticsEvent(category: "product", action: "zoom", label: nil, value: id)]
         case ProductShowDetails(let id):
-            return AnalyticsEvent(category: "product", action: "show_details", label: nil, value: id)
+            return [GoogleAnalyticsEvent(category: "product", action: "show_details", label: nil, value: id)]
         case ProductSizeTableShown(let id):
-            return AnalyticsEvent(category: "product", action: "size_table", label: nil, value: id)
+            return [GoogleAnalyticsEvent(category: "product", action: "size_table", label: nil, value: id)]
         case ProductOtherDesignerProductsClicked(let id):
-            return AnalyticsEvent(category: "product", action: "other_products", label: nil, value: id)
+            return [GoogleAnalyticsEvent(category: "product", action: "other_products", label: nil, value: id)]
         case ProductChangeColorClicked(let id):
-            return AnalyticsEvent(category: "product", action: "change_color_click", label: nil, value: id)
+            return [GoogleAnalyticsEvent(category: "product", action: "change_color_click", label: nil, value: id)]
         case ProductChangeSizeClicked(let id):
-            return AnalyticsEvent(category: "product", action: "change_size_click", label: nil, value: id)
-        case ProductAddToCartClicked(let id, let viewType):
-            return AnalyticsEvent(category: "product", action: "add_to_cart", label: viewType, value: id)
+            return [GoogleAnalyticsEvent(category: "product", action: "change_size_click", label: nil, value: id)]
+        case ProductAddToCartClicked(let id, let viewType, let value):
+            let facebookParams = [
+                FBSDKAppEventParameterNameContentID: NSNumber(integer: id),
+                FBSDKAppEventParameterNameContentType: viewType,
+                FBSDKAppEventParameterNameCurrency: value.currency.eanValue
+            ]
+            return [
+                GoogleAnalyticsEvent(category: "product", action: "add_to_cart", label: viewType, value: id),
+                FacebookAnalyticsEvent(id: FBSDKAppEventNameAddedToCart, params: facebookParams, valueToSum: NSNumber(double: value.amount))
+            ]
         case ProductSwitchedWithLeftSwipe(let type):
-            return AnalyticsEvent(category: "product", action: "switch_product_left", label: type, value: nil)
+            return [GoogleAnalyticsEvent(category: "product", action: "switch_product_left", label: type, value: nil)]
         case ProductSwitchedWithRightSwipe(let type):
-            return AnalyticsEvent(category: "product", action: "switch_product_right", label: type, value: nil)
+            return [GoogleAnalyticsEvent(category: "product", action: "switch_product_right", label: type, value: nil)]
         case LoginFacebookClicked:
-            return AnalyticsEvent(category: "login", action: "facebook_button_click", label: nil, value: nil)
+            return [GoogleAnalyticsEvent(category: "login", action: "facebook_button_click", label: nil, value: nil)]
         case LoginClicked:
-            return AnalyticsEvent(category: "login", action: "login_button_click", label: nil, value: nil)
+            return [GoogleAnalyticsEvent(category: "login", action: "login_button_click", label: nil, value: nil)]
         case RegisterFacebookClicked:
-            return AnalyticsEvent(category: "register", action: "facebook_button_click", label: nil, value: nil)
+            return [GoogleAnalyticsEvent(category: "register", action: "facebook_button_click", label: nil, value: nil)]
         case RegisterClicked(let newsletterEnabled):
-            return AnalyticsEvent(category: "register", action: "register_button_click", label: newsletterEnabled ? "true" : "false", value: nil)
+            return [GoogleAnalyticsEvent(category: "register", action: "register_button_click", label: newsletterEnabled ? "true" : "false", value: nil)]
         case CheckoutCancelClicked:
-            return AnalyticsEvent(category: "checkout", action: "cancel_click", label: nil, value: nil)
+            return [GoogleAnalyticsEvent(category: "checkout", action: "cancel_click", label: nil, value: nil)]
         case CheckoutAddressClicked:
-            return AnalyticsEvent(category: "checkout", action: "address_click", label: nil, value: nil)
+            return [GoogleAnalyticsEvent(category: "checkout", action: "address_click", label: nil, value: nil)]
         case CheckoutAddNewAddressClicked:
-            return AnalyticsEvent(category: "checkout", action: "add_new_address", label: nil, value: nil)
+            return [GoogleAnalyticsEvent(category: "checkout", action: "add_new_address", label: nil, value: nil)]
         case CheckoutChosePOPClicked:
-            return AnalyticsEvent(category: "checkout", action: "pop_button_click", label: nil, value: nil)
+            return [GoogleAnalyticsEvent(category: "checkout", action: "pop_button_click", label: nil, value: nil)]
         case CheckoutNextClicked:
-            return AnalyticsEvent(category: "checkout", action: "next_button_click", label: nil, value: nil)
+            return [GoogleAnalyticsEvent(category: "checkout", action: "next_button_click", label: nil, value: nil)]
         case CheckoutPOPClicked:
-            return AnalyticsEvent(category: "checkout", action: "pop_choice", label: nil, value: nil)
+            return [GoogleAnalyticsEvent(category: "checkout", action: "pop_choice", label: nil, value: nil)]
         case CheckoutPOPAddressChanged:
-            return AnalyticsEvent(category: "checkout", action: "pop_address_changed", label: nil, value: nil)
+            return [GoogleAnalyticsEvent(category: "checkout", action: "pop_address_changed", label: nil, value: nil)]
         case CheckoutSummaryAddNoteClicked:
-            return AnalyticsEvent(category: "checkout_summary", action: "add_note_click", label: nil, value: nil)
+            return [GoogleAnalyticsEvent(category: "checkout_summary", action: "add_note_click", label: nil, value: nil)]
         case CheckoutSummaryDeleteNoteClicked:
-            return AnalyticsEvent(category: "checkout_summary", action: "delete_note_click", label: nil, value: nil)
+            return [GoogleAnalyticsEvent(category: "checkout_summary", action: "delete_note_click", label: nil, value: nil)]
         case CheckoutSummaryEditNoteClicked:
-            return AnalyticsEvent(category: "checkout_summary", action: "edit_note_click", label: nil, value: nil)
+            return [GoogleAnalyticsEvent(category: "checkout_summary", action: "edit_note_click", label: nil, value: nil)]
         case CheckoutSummaryPaymentMethodClicked(let methodId):
-            return AnalyticsEvent(category: "checkout_summary", action: "payment_method_click", label: nil, value: methodId)
+            return [GoogleAnalyticsEvent(category: "checkout_summary", action: "payment_method_click", label: nil, value: methodId)]
         case CheckoutSummaryFinishButtonClicked:
-            return AnalyticsEvent(category: "checkout_summary", action: "finish_button_click", label: nil, value: nil)
+            return [GoogleAnalyticsEvent(category: "checkout_summary", action: "finish_button_click", label: nil, value: nil)]
         case CheckoutSummaryPaymentStatus(let success, let methodId):
-            return AnalyticsEvent(category: "checkout_summary", action: "payment_status", label: success ? "true" : "false", value: methodId)
+            return [GoogleAnalyticsEvent(category: "checkout_summary", action: "payment_status", label: success ? "true" : "false", value: methodId)]
         case ApplicationNotification(let link, let notificationId):
-            return AnalyticsEvent(category: "application", action: "notification", label: link, value: notificationId)
+            return [GoogleAnalyticsEvent(category: "application", action: "notification", label: link, value: notificationId)]
         case ApplicationLaunch(let launchCounter):
-            return AnalyticsEvent(category: "application", action: "launch", label: nil, value: launchCounter)
+            return [GoogleAnalyticsEvent(category: "application", action: "launch", label: nil, value: launchCounter)]
         case ModalRateUs(let buttonType):
-            return AnalyticsEvent(category: "modal", action: "rate_us", label: buttonType, value: nil)
+            return [GoogleAnalyticsEvent(category: "modal", action: "rate_us", label: buttonType, value: nil)]
         case ModalPush(let buttonType):
-            return AnalyticsEvent(category: "modal", action: "push", label: buttonType, value: nil)
+            return [GoogleAnalyticsEvent(category: "modal", action: "push", label: buttonType, value: nil)]
         case ModalUpdate(let buttonType):
-            return AnalyticsEvent(category: "modal", action: "new_version", label: buttonType, value: nil)
+            return [GoogleAnalyticsEvent(category: "modal", action: "new_version", label: buttonType, value: nil)]
         case QuickAction(let action):
-            return AnalyticsEvent(category: "quickaction", action: "click", label: action, value: nil)
+            return [GoogleAnalyticsEvent(category: "quickaction", action: "click", label: action, value: nil)]
         }
     }
     init?(rawValue: RawValue) {
@@ -276,15 +311,23 @@ enum AnalyticsEventId: RawRepresentable {
     }
 }
 
-struct AnalyticsEvent {
+protocol AnalyticsEvent { }
+
+struct GoogleAnalyticsEvent: AnalyticsEvent {
     let category: String
     let action: String
     let label: String?
     let value: Int?
     
     private var analyticsData: [NSObject: AnyObject] {
-        return GAIDictionaryBuilder.createEventWithCategory(category, action: action, label: label, value: value).build() as [NSObject : AnyObject]
+        return GAIDictionaryBuilder.createEventWithCategory(category, action: action, label: label, value: value).build() as [NSObject: AnyObject]
     }
+}
+
+struct FacebookAnalyticsEvent: AnalyticsEvent {
+    let id: String
+    let params: [NSObject: AnyObject]?
+    let valueToSum: NSNumber?
 }
 
 final class Analytics {
@@ -312,14 +355,30 @@ final class Analytics {
     func sendScreenViewEvent(screenId: AnalyticsScreenId) {
         tracker.set(kGAIScreenName, value: screenId.rawValue)
         let builder = GAIDictionaryBuilder.createScreenView()
-        tracker.send(builder.build() as [NSObject : AnyObject])
+        tracker.send(builder.build() as [NSObject: AnyObject])
     }
     
     func sendEvent(eventId: AnalyticsEventId) {
-        tracker.send(eventId.rawValue.analyticsData)
+        for event in eventId.rawValue {
+            switch event {
+            case let googleEvent as GoogleAnalyticsEvent:
+                tracker.send(googleEvent.analyticsData)
+            case let facebookEvent as FacebookAnalyticsEvent:
+                FBSDKAppEvents.logEvent(facebookEvent.id, valueToSum: facebookEvent.valueToSum, parameters: facebookEvent.params, accessToken: FBSDKAccessToken.currentAccessToken())
+            default: continue
+            }
+        }
+        
     }
     
     func sendAnalyticsTransactionEvent(with payment: PaymentResult, products: [BasketProduct]) {
+        // sending facebook
+        let paramaters = [
+            FBSDKAppEventParameterNameNumItems: NSNumber(integer: products.count)
+        ]
+        FBSDKAppEvents.logPurchase(payment.amount.doubleValue, currency: payment.currency, parameters: paramaters, accessToken: FBSDKAccessToken.currentAccessToken())
+        
+        // sending google analytics
         let transaction = GAIDictionaryBuilder.createTransactionWithId(
             String(payment.orderId),
             affiliation: affilation ?? "",

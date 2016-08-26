@@ -6,13 +6,19 @@ import Decodable
 enum Currency {
     case Zl
     
-    var stringValue: String {
-        get {
-            switch self {
-            case Zl:
-                return tr(.MoneyZl)
-            }
+    var eanValue: String {
+        switch self {
+        case Zl:
+            return "PLN"
         }
+    }
+    
+    var stringValue: String {
+        switch self {
+        case Zl:
+            return tr(.MoneyZl)
+        }
+        
     }
 }
 
@@ -22,7 +28,6 @@ struct Money: Comparable {
     let money: (NSDecimalNumber, Currency)
     
     static let decimalHandler = NSDecimalNumberHandler(roundingMode: .RoundDown, scale: 2, raiseOnExactness: true, raiseOnOverflow: true, raiseOnUnderflow: true, raiseOnDivideByZero: true)
-
     
     init(amt: Float, currency: Currency = .Zl) {
         money = (NSDecimalNumber(float: amt), currency)
@@ -82,7 +87,7 @@ extension Money {
 
 // MARK: - Operators handling
 
-func +(lhs: Money, rhs: Money) -> Money {
+func + (lhs: Money, rhs: Money) -> Money {
     if lhs.currency == rhs.currency {
         let money = lhs.money.0.decimalNumberByAdding(rhs.money.0)
         return Money(amt: money.decimalValue, currency: lhs.currency)
@@ -91,7 +96,7 @@ func +(lhs: Money, rhs: Money) -> Money {
     return Money(amt: 0.0, currency: lhs.currency)
 }
 
-func -(lhs: Money, rhs: Money) -> Money {
+func - (lhs: Money, rhs: Money) -> Money {
     if lhs.currency == rhs.currency {
         let money = lhs.money.0.decimalNumberBySubtracting(rhs.money.0)
         return Money(amt: money.decimalValue, currency: lhs.currency)
@@ -100,7 +105,7 @@ func -(lhs: Money, rhs: Money) -> Money {
     return Money(amt: 0.0, currency: lhs.currency)
 }
 
-func /(lhs: Money, rhs: Money) -> Money {
+func / (lhs: Money, rhs: Money) -> Money {
     if lhs.currency == rhs.currency {
         let money = lhs.money.0.decimalNumberByDividingBy(rhs.money.0)
         return Money(amt: money.decimalValue, currency: lhs.currency)
@@ -109,7 +114,7 @@ func /(lhs: Money, rhs: Money) -> Money {
     return Money(amt: 0.0, currency: lhs.currency)
 }
 
-func *(lhs: Money, rhs: Money) -> Money {
+func * (lhs: Money, rhs: Money) -> Money {
     if lhs.currency == rhs.currency {
         let money = lhs.money.0.decimalNumberByMultiplyingBy(rhs.money.0)
         return Money(amt: money.decimalValue, currency: lhs.currency)
@@ -118,30 +123,30 @@ func *(lhs: Money, rhs: Money) -> Money {
     return Money(amt: 0.0, currency: lhs.currency)
 }
 
-func +(lhs:Money, rhs: Double) -> Money {
+func + (lhs: Money, rhs: Double) -> Money {
     let amount = lhs.amount + rhs
     return Money(amt: amount, currency: lhs.currency)
 }
 
-func +(lhs:Double, rhs: Money) -> Money {
+func + (lhs: Double, rhs: Money) -> Money {
     let amount = lhs + rhs.amount
     return Money(amt: amount, currency: rhs.currency)
 }
 
-func *(lhs:Double, rhs: Money) -> Money {
+func * (lhs: Double, rhs: Money) -> Money {
     let amount = lhs * rhs.amount
     return Money(amt: amount, currency: rhs.currency)
 }
 
-func *(lhs:Money, rhs: Double) -> Money {
+func * (lhs: Money, rhs: Double) -> Money {
     let amount = lhs.amount * rhs
     return Money(amt: amount, currency: lhs.currency)
 }
 
-func ==(lhs: Money, rhs: Money) -> Bool {
+func == (lhs: Money, rhs: Money) -> Bool {
     return lhs.money.0.compare(rhs.money.0) == .OrderedSame && lhs.currency == rhs.currency
 }
 
-func <(lhs: Money, rhs: Money) -> Bool {
+func < (lhs: Money, rhs: Money) -> Bool {
     return lhs.currency == rhs.currency && lhs.amount < rhs.amount
 }

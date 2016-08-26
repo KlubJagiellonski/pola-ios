@@ -138,7 +138,8 @@ extension ProductListViewDelegate where Self: ProductListViewControllerInterface
     
     func productListView(listView: ProductListViewInterface, didDoubleTapProductAtIndex index: Int) {
         logInfo("Double tapped product at index \(index)")
-        logAnalyticsEvent(AnalyticsEventId.ListAddToWishlist(productListModel.products[safe: index]?.id ?? 0))
+        let product = productListModel.products[safe: index]
+        logAnalyticsEvent(AnalyticsEventId.ListAddToWishlist(product?.id ?? 0, product?.price ?? Money(amt: 0.0)))
         productListModel.addToWishlist(productAtIndex: index)
         
         perform(withDelay: 0.5) { [weak self] in

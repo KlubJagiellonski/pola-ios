@@ -92,6 +92,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         userManager.updateUser()
     }
     
+    func applicationDidBecomeActive(application: UIApplication) {
+        FBSDKAppEvents.activateApp()
+    }
+    
     private func configureDependencies() {
         Logging.configure()
         
