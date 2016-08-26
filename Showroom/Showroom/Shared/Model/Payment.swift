@@ -1,8 +1,6 @@
 import Foundation
 import Decodable
 
-typealias StoreId = ObjectId
-
 struct PaymentRequest {
     let items: [PaymentItem]
     let countryCode: String
@@ -11,7 +9,7 @@ struct PaymentRequest {
     let deliveryPop: ObjectId?
     let discountCode: String?
     let payment: PaymentType
-    let comments: [StoreId: String]
+    let comments: [PaymentComment]
 }
 
 struct PaymentItem {
@@ -19,6 +17,11 @@ struct PaymentItem {
     let amount: Int
     let color: ObjectId
     let size: ObjectId
+}
+
+struct PaymentComment {
+    let storeId: ObjectId
+    let text: String
 }
 
 struct PaymentResult {
@@ -45,11 +48,11 @@ extension PaymentRequest {
         for productByBrands in checkoutState.checkout.basket.productsByBrands {
             items.appendContentsOf(productByBrands.products.map{ PaymentItem(with: $0) })
         }
-        var comments: [StoreId: String] = [:]
+        var comments: [PaymentComment] = []
         for (index, comment) in checkoutState.comments.enumerate() {
             if let comment = comment {
                 let productByBrand = checkoutState.checkout.basket.productsByBrands[index]
-                comments[productByBrand.id] = comment
+                comments.append(PaymentComment(storeId: productByBrand.id, text: comment))
             }
         }
         
@@ -93,7 +96,7 @@ extension PaymentRequest: Encodable {
             "country_code": countryCode,
             "delivery_type": deliveryType,
             "payment": payment.rawValue,
-            "comments": comments as NSDictionary
+            "comments": comments.map { $0.encode() } as NSArray
         ] as NSMutableDictionary
         
         if deliveryPop != nil { dict.setObject(deliveryPop!, forKey: "delivery_pop") }
@@ -110,6 +113,15 @@ extension PaymentItem: Encodable {
             "color": color,
             "size": size
         ] as NSDictionary
+    }
+}
+
+extension PaymentComment: Encodable {
+    func encode() -> AnyObject {
+        return [
+            "storeId": storeId,
+            "text": text
+        ]
     }
 }
 
