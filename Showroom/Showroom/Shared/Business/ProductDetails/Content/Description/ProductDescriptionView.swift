@@ -57,9 +57,6 @@ class ProductDescriptionView: UIView, UITableViewDelegate, ProductDescriptionVie
         modelState.currentSizeObservable.subscribeNext { [weak self] currentSize in
             self?.updateCurrentSize(currentSize)
             }.addDisposableTo(disposeBag)
-        modelState.buyButtonObservable.subscribeNext { [weak self] buttonState in
-            self?.updateBuyButtonEnabledState(buttonState)
-            }.addDisposableTo(disposeBag)
         modelState.productDetailsObservable.subscribeNext { [weak self] productDetails in
             self?.updateProductDetails(productDetails)
             }.addDisposableTo(disposeBag)
@@ -122,11 +119,25 @@ class ProductDescriptionView: UIView, UITableViewDelegate, ProductDescriptionVie
         } else {
             headerView.priceLabel.discountPrice = nil
         }
-        headerView.colorButton.enabled = true
-        headerView.sizeButton.enabled = true
-        headerView.buyButton.enabled = true
+        
+        let productAvailability: ProductAvailability = { _ in
+            switch (p.available, p.onVacationDate) {
+            case (true, let onVacationDate):
+                if let date = onVacationDate {
+                    let formatter = NSDateFormatter()
+                    formatter.dateFormat = "dd.MM"
+                    let dateString = formatter.stringFromDate(date)
+                    return .AvailableAtDate(dateString: dateString)
+                } else {
+                    return .Available
+                }
+            case (false, _):
+                return .SoldOut
+            }
+        }()
+        headerView.update(toProductAvailability: productAvailability)
+        
         descriptionDataSource.updateModel(p.waitTime, descriptions: p.description, brandName: p.brand.name, sizeChartVisible: p.containSizesMeasurements)
-
         
         headerView.priceLabel.invalidateIntrinsicContentSize()
         headerView.invalidateIntrinsicContentSize()
@@ -186,6 +197,10 @@ class ProductDescriptionView: UIView, UITableViewDelegate, ProductDescriptionVie
     }
 }
 
+enum ProductAvailability {
+    case Available, Unknown, AvailableAtDate(dateString: String), SoldOut
+}
+
 class DescriptionHeaderView: UIView {
     private let defaultVerticalPadding: CGFloat = 8
     private let horizontalItemPadding: CGFloat = 5
@@ -223,8 +238,7 @@ class DescriptionHeaderView: UIView {
         colorButton.enabled = false
         
         buyButton.applyBlueStyle()
-        buyButton.setTitle(tr(.ProductDetailsToBasket), forState: .Normal)
-        buyButton.enabled = false
+        update(toProductAvailability: .Unknown)
         
         brandAndPriceContainerView.addSubview(brandNameLabel)
         brandAndPriceContainerView.addSubview(priceLabel)
@@ -245,6 +259,37 @@ class DescriptionHeaderView: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func update(toProductAvailability newProductAvailability: ProductAvailability) {
+        switch newProductAvailability {
+        case .Available:
+            buyButton.enabled = true
+            buyButton.setTitle(tr(.ProductDetailsToBasket), forState: .Normal)
+            colorButton.enabled = true
+            sizeButton.enabled = true
+            
+        case .AvailableAtDate(let dateString):
+            buyButton.enabled = false
+            buyButton.setTitle(tr(.ProductDetailsAvailableAtDate(dateString)), forState: .Normal)
+            colorButton.enabled = true
+            sizeButton.enabled = true
+            
+        case .SoldOut:
+            buyButton.enabled = false
+            buyButton.setTitle(tr(.ProductDetailsSoldOut), forState: .Normal)
+            colorButton.value = .Color(nil)
+            colorButton.enabled = false
+            sizeButton.value = .Text(nil)
+            sizeButton.enabled = false
+            
+        case .Unknown:
+            buyButton.enabled = false
+            buyButton.setTitle(tr(.ProductDetailsToBasket), forState: .Normal)
+            colorButton.value = .Color(nil)
+            colorButton.enabled = false
+            sizeButton.enabled = false
+        }
     }
     
     func configureCustomConstraints() {

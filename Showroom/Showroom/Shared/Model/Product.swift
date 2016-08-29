@@ -52,6 +52,8 @@ struct ProductDetails {
     let emarsysCategory: String
     let freeDelivery: Bool
     let link: String
+    let available: Bool
+    let onVacationDate: NSDate?
 }
 
 struct EntryProductBrand {
@@ -192,7 +194,10 @@ extension ProductDetails: Decodable, Encodable {
             description: j => "description",
             emarsysCategory: j => "emarsys_category",
             freeDelivery: j => "free_delivery",
-            link: j => "link"
+            link: j => "link",
+            // TODO: unmock
+            available: true,
+            onVacationDate: nil //NSDate()
         )
     }
     
@@ -211,6 +216,7 @@ extension ProductDetails: Decodable, Encodable {
             "emarsys_category": emarsysCategory,
             "free_delivery": freeDelivery,
             "link": link
+            // TODO: add API call parameters
         ]
         return dict
     }
@@ -320,7 +326,7 @@ func ==(lhs: ListProduct, rhs: ListProduct) -> Bool {
 }
 
 func ==(lhs: ProductDetails, rhs: ProductDetails) -> Bool {
-    return lhs.id == rhs.id && lhs.brand == rhs.brand && lhs.name == rhs.name && lhs.basePrice == rhs.basePrice && lhs.price == rhs.price && lhs.images == rhs.images && lhs.colors == rhs.colors && lhs.sizes == rhs.sizes && lhs.waitTime == rhs.waitTime && lhs.description == rhs.description && lhs.freeDelivery == rhs.freeDelivery
+    return lhs.id == rhs.id && lhs.brand == rhs.brand && lhs.name == rhs.name && lhs.basePrice == rhs.basePrice && lhs.price == rhs.price && lhs.images == rhs.images && lhs.colors == rhs.colors && lhs.sizes == rhs.sizes && lhs.waitTime == rhs.waitTime && lhs.description == rhs.description && lhs.freeDelivery == rhs.freeDelivery && lhs.available == rhs.available && lhs.onVacationDate == rhs.onVacationDate
 }
 
 func ==(lhs: ProductBrand, rhs: ProductBrand) -> Bool {

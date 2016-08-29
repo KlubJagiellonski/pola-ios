@@ -25,7 +25,7 @@ class DropDownButton : UIControl {
                 guard let valueLabel = valueLabel else {
                     fatalError("Cannot change dropdown type after initialization \(oldValue) \(value)")
                 }
-                valueLabel.text = text
+                valueLabel.text = text ?? ""
             case .Image(let imageUrl):
                 guard let valueImageView = valueImageView else {
                     fatalError("Cannot change dropdown type after initialization \(oldValue) \(value)")
@@ -41,7 +41,21 @@ class DropDownButton : UIControl {
                 valueImageView.image = nil
                 if let c = color {
                     valueImageView.setColorRepresentation(.Color(c))
+                } else {
+                    valueImageView.setColorRepresentation(.None)
                 }
+            }
+        }
+    }
+    
+    override var enabled: Bool {
+        didSet {
+            if enabled {
+                layer.borderColor = UIColor(named: .Black).CGColor
+                arrowImageView.image = UIImage(asset: .Ic_dropdown)
+            } else {
+                layer.borderColor = UIColor(named: .DarkGray).CGColor
+                arrowImageView.image = UIImage(asset: .Ic_dropdown_disabled)
             }
         }
     }

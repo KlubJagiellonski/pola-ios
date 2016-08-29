@@ -22,6 +22,7 @@ enum Asset: String {
   case Ic_cross_red = "ic_cross_red"
   case Ic_do_ulubionych = "ic_do_ulubionych"
   case Ic_dropdown = "ic_dropdown"
+  case Ic_dropdown_disabled = "ic_dropdown_disabled"
   case Ic_dropdown_small = "ic_dropdown_small"
   case Ic_facebook = "ic_facebook"
   case Ic_favorites = "ic_favorites"

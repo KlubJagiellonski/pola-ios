@@ -40,6 +40,8 @@
 "ProductAction.ColorCell.ColorUnavailable" = "brak koloru w wybranym rozmiarze";
 "ProductAction.PickAmountTitle" = "WYBIERZ LICZBĘ";
 "ProductDetails.ToBasket" = "DO KOSZYKA";
+"ProductDetails.SoldOut" = "WYPRZEDANY";
+"ProductDetails.AvailableAtDate" = "DOSTĘPNY: %@";
 "ProductDetails.SizeChart" = "Tabela rozmiarów";
 "ProductDetails.OtherBrandProducts" = "Pozostałe produkty %@";
 "ProductDetails.ProductDescription" = "Opis produktu";

@@ -87,6 +87,10 @@ enum L10n {
   case ProductActionPickAmountTitle
   /// DO KOSZYKA
   case ProductDetailsToBasket
+  /// WYPRZEDANY
+  case ProductDetailsSoldOut
+  /// DOSTĘPNY: %@
+  case ProductDetailsAvailableAtDate(String)
   /// Tabela rozmiarów
   case ProductDetailsSizeChart
   /// Pozostałe produkty %@
@@ -494,6 +498,10 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("ProductAction.PickAmountTitle")
       case .ProductDetailsToBasket:
         return L10n.tr("ProductDetails.ToBasket")
+      case .ProductDetailsSoldOut:
+        return L10n.tr("ProductDetails.SoldOut")
+      case .ProductDetailsAvailableAtDate(let p0):
+        return L10n.tr("ProductDetails.AvailableAtDate", p0)
       case .ProductDetailsSizeChart:
         return L10n.tr("ProductDetails.SizeChart")
       case .ProductDetailsOtherBrandProducts(let p0):

@@ -31,6 +31,7 @@ struct ProductColor: CustomStringConvertible {
 typealias Url = String
 
 enum ColorRepresentation {
+    case None
     case Color(UIColor)
     case ImageUrl(Url)
 }

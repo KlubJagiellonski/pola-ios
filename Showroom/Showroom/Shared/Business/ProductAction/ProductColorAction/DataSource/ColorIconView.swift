@@ -1,7 +1,7 @@
 import UIKit
 
 enum ColorIconState {
-    case Unknown
+    case Empty
     case SetColor(UIColor)
     case SetImage(UIImage)
     case WaitingForResponse
@@ -14,10 +14,14 @@ class ColorIconView: UIImageView {
     
     private var spinner = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
     
-    private var state: ColorIconState = .Unknown {
+    private var state: ColorIconState = .Empty {
         didSet {
             switch state {
-            case .Unknown: break
+            case .Empty:
+                self.image = nil
+                self.hidden = true
+                spinner.stopAnimating()
+
             case .SetColor(let color):
                 self.image = nil
                 self.image = UIImage.fromColor(color)
@@ -62,6 +66,8 @@ class ColorIconView: UIImageView {
     
     func setColorRepresentation(colorRepresentation: ColorRepresentation) {
         switch colorRepresentation {
+        case .None:
+            state = .Empty
         case .Color(let color):
             state = .SetColor(color)
         case .ImageUrl(let url):

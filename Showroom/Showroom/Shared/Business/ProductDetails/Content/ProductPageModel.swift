@@ -80,10 +80,15 @@ class ProductPageModel {
                 logInfo("Fetchend product details")
                 
                 self?.state.productDetails = result.result()
-                self?.updateBuyButtonState()
-                self?.state.currentSize = self?.defaultSize(forProductDetails: productDetails)
-                self?.state.currentColor = self?.defaultColor(forProductDetails: productDetails)
-            }
+                
+                if productDetails.available {
+                    self?.state.currentSize = self?.defaultSize(forProductDetails: productDetails)
+                    self?.state.currentColor = self?.defaultColor(forProductDetails: productDetails)
+                } else {
+                    self?.state.currentSize = nil
+                    self?.state.currentColor = nil
+                }
+        }
     }
     
     func changeSelectedSize(forSizeId sizeId: ObjectId) {
@@ -172,16 +177,11 @@ class ProductPageModel {
     private func defaultColor(forProductDetails productDetails: ProductDetails) -> ProductDetailsColor? {
         return productDetails.colors.first
     }
-    
-    private func updateBuyButtonState() {
-        state.buyButtonEnabled = state.productDetails != nil
-    }
 }
 
 class ProductPageModelState {
     let currentSizeObservable = PublishSubject<ProductDetailsSize?>()
     let currentColorObservable = PublishSubject<ProductDetailsColor?>()
-    let buyButtonObservable = PublishSubject<Bool>()
     let productDetailsObservable = PublishSubject<ProductDetails?>()
     
     var product: Product?
@@ -193,9 +193,6 @@ class ProductPageModelState {
     }
     var currentColor: ProductDetailsColor? {
         didSet { currentColorObservable.onNext(currentColor) }
-    }
-    var buyButtonEnabled: Bool = false {
-        didSet { buyButtonObservable.onNext(buyButtonEnabled) }
     }
 
     init(product: Product?) {
