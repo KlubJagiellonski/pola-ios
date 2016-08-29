@@ -15,6 +15,8 @@ class LoadingIndicator: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        userInteractionEnabled = false
+        
         for _ in 0..<numberOfDots {
             let dot = UIView()
             dot.backgroundColor = UIColor.blackColor()
