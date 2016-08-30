@@ -79,7 +79,7 @@ extension ApiService {
     
     func fetchSearchCatalogue() -> Observable<SearchResult> {
         let url = NSURL(fileURLWithPath: basePath)
-            .URLByAppendingPathComponent("search_catalogue")
+            .URLByAppendingPathComponent("search-catalogue")
         
         logInfo("Fetching search catalogue \(url)")
         
@@ -101,7 +101,7 @@ extension ApiService {
     
     func fetchAppVersion() -> Observable<AppVersion> {
         let url = NSURL(fileURLWithPath: basePath)
-            .URLByAppendingPathComponent("appRecentVersion")
+            .URLByAppendingPathComponent("app-recent-version")
         let urlRequest = NSMutableURLRequest(URL: url)
         urlRequest.HTTPMethod = "GET"
         return networkClient.request(withRequest: urlRequest)
