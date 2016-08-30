@@ -110,8 +110,8 @@ extension PaymentItem: Encodable {
         return [
             "id": id,
             "amount": amount,
-            "color": color,
-            "size": size
+            "colorId": color,
+            "sizeId": size
         ] as NSDictionary
     }
 }

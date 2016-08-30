@@ -62,8 +62,8 @@ extension BasketItem: Encodable {
         let dict: NSDictionary = [
             "id": id,
             "amount": amount,
-            "color": color,
-            "size": size
+            "colorId": color,
+            "sizeId": size
         ]
         return dict
     }
