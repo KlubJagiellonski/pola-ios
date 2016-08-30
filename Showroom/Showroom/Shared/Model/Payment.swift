@@ -95,7 +95,7 @@ extension PaymentRequest: Encodable {
             "items": items.map { $0.encode() } as NSArray,
             "country_code": countryCode,
             "delivery_type": deliveryType,
-            "payment": payment.rawValue,
+            "payment_type": payment.rawValue,
             "comments": comments.map { $0.encode() } as NSArray
         ] as NSMutableDictionary
         

@@ -55,7 +55,7 @@ final class BasketManager {
                     strongSelf.state.deliveryCountry = basket.deliveryInfo.defaultCountry
                 }
                 if strongSelf.state.deliveryCarrier == nil || !basket.deliveryInfo.carriers.contains({ $0.id == strongSelf.state.deliveryCarrier!.id && $0.available }) {
-                    strongSelf.state.deliveryCarrier = basket.deliveryInfo.carriers.find { $0.available }
+                    strongSelf.state.deliveryCarrier = basket.deliveryInfo.carriers.find { $0.isDefault }
                 }
                 return strongSelf.state
             }
