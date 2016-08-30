@@ -110,6 +110,7 @@ class UserManager {
                     self.userSession = UserSession(user: result.user, session: result.session)
                     self.updateSharedWebCredentialsIfNeeded(withUsername: login.username, password: login.password)
                     self.keychainManager.loginCredentials = login
+                    logAnalyticsRegistration()
                 }
         }
             .catchError { [weak self] error in
@@ -152,6 +153,7 @@ class UserManager {
                     self.userSession = UserSession(user: result.user, session: result.session)
                     self.updateSharedWebCredentialsIfNeeded(withUsername: registration.username, password: registration.password)
                     self.keychainManager.loginCredentials = Login(username: registration.username, password: registration.password)
+                    logAnalyticsRegistration()
                 }
         }
             .catchError { [weak self] error in
@@ -255,6 +257,7 @@ class UserManager {
                 if let `self` = self {
                     self.userSession = UserSession(user: result.user, session: result.session)
                     self.keychainManager.facebookToken = token
+                    logAnalyticsRegistration()
                 }
             }
             .catchError { [weak self] error in

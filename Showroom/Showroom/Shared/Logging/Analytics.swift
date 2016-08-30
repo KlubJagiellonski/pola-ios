@@ -6,6 +6,10 @@ func logAnalyticsAppStart() {
     Analytics.sharedInstance.sendAppStartEvent()
 }
 
+func logAnalyticsRegistration() {
+    Analytics.sharedInstance.sendRegistrationEvent()
+}
+
 func logAnalyticsShowScreen(screenId: AnalyticsScreenId) {
     Analytics.sharedInstance.sendScreenViewEvent(screenId)
 }
@@ -420,6 +424,10 @@ final class Analytics {
     
     func sendAppStartEvent() {
         optimiseManager.trackInstallWhereAppID(nil, productID: Constants.optimiseTrackInstallProductId, deepLink: false, ex1: "Install", ex2: nil, ex3: nil, ex4: nil, ex5: nil)
+    }
+    
+    func sendRegistrationEvent() {
+        optimiseManager.trackEventWhereAppID(nil, productID: Constants.optimiseTrackRegistrationProductId, status: "1", actionType: Start, ex1: "Registration", ex2: nil, ex3: nil, ex4: nil, ex5: nil)
     }
 }
 

@@ -26,6 +26,7 @@ struct Constants {
     static let optimiseMerchantId = 990079
     static let optimiseTrackInstallProductId = 28575
     static let optimiseTrackSaleProductId = 28577
+    static let optimiseTrackRegistrationProductId = 28576
     
     #if APPSTORE
     static let googleAnalyticsTrackingId = "UA-28549987-7"
