@@ -360,7 +360,7 @@ final class Analytics {
         gai.logger.logLevel = Constants.isDebug ? GAILogLevel.Info : GAILogLevel.Error
         self.tracker = gai.trackerWithTrackingId(Constants.googleAnalyticsTrackingId)
         
-        optimiseManager.setApiKey(Constants.optimiseApiKey)
+        optimiseManager.setApplicationKey(Constants.optimiseApiKey)
         optimiseManager.setMerchantID(Constants.optimiseMerchantId)
     }
     
@@ -386,7 +386,7 @@ final class Analytics {
     func sendAnalyticsTransactionEvent(with payment: PaymentResult, products: [BasketProduct]) {
         // sending optimise
         for product in products {
-            optimiseManager.trackSalesWhereAppID(String(payment.orderId), productID: Constants.optimiseTrackSaleProductId, status: String(payment.amount.doubleValue), currency: payment.currency, ex1: "Sale", ex2: String(product.id), ex3: nil, ex4: nil, ex5: nil)
+            optimiseManager.trackSalesWhereAppID(String(payment.orderId), pid: Constants.optimiseTrackSaleProductId, status: String(payment.amount.doubleValue), currency: payment.currency, ex1: "Sale", ex2: String(product.id), ex3: nil, ex4: nil, ex5: nil)
         }
         
         // sending facebook
@@ -426,11 +426,11 @@ final class Analytics {
     }
     
     func sendAppStartEvent() {
-        optimiseManager.trackInstallWhereAppID(nil, productID: Constants.optimiseTrackInstallProductId, deepLink: false, ex1: "Install", ex2: nil, ex3: nil, ex4: nil, ex5: nil)
+        optimiseManager.trackInstallWhereAppID(nil, pid: Constants.optimiseTrackInstallProductId, deepLink: false, ex1: "Install", ex2: nil, ex3: nil, ex4: nil, ex5: nil)
     }
     
     func sendRegistrationEvent() {
-        optimiseManager.trackEventWhereAppID(nil, productID: Constants.optimiseTrackRegistrationProductId, status: "1", actionType: Start, ex1: "Registration", ex2: nil, ex3: nil, ex4: nil, ex5: nil)
+        optimiseManager.trackEventWhereAppID(nil, pid: Constants.optimiseTrackRegistrationProductId, status: "1", actionType: Start, ex1: "Registration", ex2: nil, ex3: nil, ex4: nil, ex5: nil)
     }
 }
 
