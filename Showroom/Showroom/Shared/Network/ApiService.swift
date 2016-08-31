@@ -655,6 +655,33 @@ extension ApiService {
         }
     }
     
+    func pushToken(with request: PushTokenRequest) -> Observable<Void> {
+        let url = NSURL(fileURLWithPath: basePath)
+            .URLByAppendingPathComponent("push-token")
+        
+        do {
+            let data = request.encode()
+            logInfo("Pushing token \(url) with data \(data)")
+            let jsonData = try NSJSONSerialization.dataWithJSONObject(data, options: [])
+            
+            let urlRequest = NSMutableURLRequest(URL: url)
+            urlRequest.HTTPMethod = "POST"
+            urlRequest.HTTPBody = jsonData
+            if let session = dataSource?.apiServiceWantsSession(self) {
+                urlRequest.applySessionHeaders(session)
+            }
+            urlRequest.applyJsonContentTypeHeader()
+            return networkClient.request(withRequest: urlRequest)
+                .logNetworkError()
+                .handleAppNotSupportedError(self)
+                .flatMap { data -> Observable<Void> in
+                    return Observable.just()
+            }
+        } catch {
+            return Observable.error(error)
+        }
+    }
+    
     private func catchNotAuthorizedError<T>(error: ErrorType, shouldRetry: Bool, retryCall: Void -> Observable<T>) throws -> Observable<T> {
         guard shouldRetry else { return Observable.error(error) }
         guard let dataSource = dataSource, let urlError = error as? RxCocoaURLError else { return Observable.error(error) }

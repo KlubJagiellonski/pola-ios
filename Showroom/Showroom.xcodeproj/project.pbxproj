@@ -84,6 +84,7 @@
 		1D470E341D265CB500677122 /* FormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D470E331D265CB500677122 /* FormView.swift */; };
 		1D470E361D26736E00677122 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D470E351D26736E00677122 /* Validator.swift */; };
 		1D470E3B1D26AA7400677122 /* ValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D470E3A1D26AA7400677122 /* ValidatorTests.swift */; };
+		1D49EB161D76FBAC00A2F6F2 /* PushToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D49EB151D76FBAC00A2F6F2 /* PushToken.swift */; };
 		1D49FC901D4A021A00A3832F /* include in Resources */ = {isa = PBXBuildFile; fileRef = 1D49FC8F1D4A021A00A3832F /* include */; };
 		1D49FC961D4A023800A3832F /* PayUOneClickSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1D49FC951D4A023700A3832F /* PayUOneClickSDK.bundle */; };
 		1D49FC981D4A17A500A3832F /* NSBundleUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D49FC971D4A17A500A3832F /* NSBundleUtils.swift */; };
@@ -472,6 +473,7 @@
 		1D470E331D265CB500677122 /* FormView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormView.swift; sourceTree = "<group>"; };
 		1D470E351D26736E00677122 /* Validator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
 		1D470E3A1D26AA7400677122 /* ValidatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidatorTests.swift; sourceTree = "<group>"; };
+		1D49EB151D76FBAC00A2F6F2 /* PushToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushToken.swift; sourceTree = "<group>"; };
 		1D49FC8F1D4A021A00A3832F /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; name = include; path = Frameworks/include; sourceTree = "<group>"; };
 		1D49FC911D4A022600A3832F /* libPayU-iOS-SDK-Oneclick_Debug.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPayU-iOS-SDK-Oneclick_Debug.a"; path = "Frameworks/libPayU-iOS-SDK-Oneclick_Debug.a"; sourceTree = "<group>"; };
 		1D49FC921D4A022600A3832F /* libPayU-iOS-SDK-Oneclick_Release.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPayU-iOS-SDK-Oneclick_Release.a"; path = "Frameworks/libPayU-iOS-SDK-Oneclick_Release.a"; sourceTree = "<group>"; };
@@ -1191,6 +1193,7 @@
 				1D0AAF9C1D59B836008E40C0 /* Wishlist.swift */,
 				1DD1ADDC1D5CA63D008B5485 /* Payment.swift */,
 				7566CE701D6DEFB70065DFB3 /* AppVersion.swift */,
+				1D49EB151D76FBAC00A2F6F2 /* PushToken.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2071,6 +2074,7 @@
 				1D0453531CFEF6F6001CC5A2 /* ObservableUtils.swift in Sources */,
 				1D72ED131CFC3028007AFD2F /* ContentPromo.swift in Sources */,
 				1DAA7C731D0E9E8E00545BB9 /* TouchHandlingDelegate.swift in Sources */,
+				1D49EB161D76FBAC00A2F6F2 /* PushToken.swift in Sources */,
 				C09367161D09AB46004C7748 /* UIImageAssets.swift in Sources */,
 				1D2CAC491D47405500F678FA /* TransitionAnimation.swift in Sources */,
 				1DC485C71D474BEA00BDA1BD /* PayUManager.swift in Sources */,

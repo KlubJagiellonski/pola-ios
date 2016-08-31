@@ -15,6 +15,7 @@ final class NotificationsManager {
     
     private let api: ApiService
     private let application: UIApplication
+    private let disposeBag = DisposeBag()
     
     let shouldShowInSettingsObservable = PublishSubject<Void>()
     
@@ -140,6 +141,10 @@ final class NotificationsManager {
         
         pushWooshManager.handlePushRegistration(deviceToken)
         EmarsysManager.pushAccepted(pushWooshManager.getPushToken())
+        
+        api.pushToken(with: PushTokenRequest(pushToken: pushWooshManager.getPushToken(), hardwareId: pushWooshManager.getHWID()))
+            .subscribeNext { logInfo("Send push token with success") }
+            .addDisposableTo(disposeBag)
     }
     
     func didReceiveRemoteNotification(userInfo userInfo: [NSObject : AnyObject]) {
