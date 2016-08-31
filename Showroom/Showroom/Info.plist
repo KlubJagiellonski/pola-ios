@@ -18,6 +18,18 @@
 	<string>$(CI_BUILD_VERSION)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>pl.showroom.Showroom</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>shwrmpl</string>
+				<string>fb230189050352725</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CI_BUILD_NUMBER)</string>
 	<key>Fabric</key>
@@ -34,6 +46,12 @@
 			</dict>
 		</array>
 	</dict>
+	<key>FacebookAppID</key>
+	<string>230189050352725</string>
+	<key>FacebookDisplayName</key>
+	<string>SHOWROOM</string>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fb</string>
@@ -45,6 +63,8 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>Pushwoosh_APPID</key>
+	<string>63A3E-B6CDA</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Lato-Bold.ttf</string>
@@ -60,25 +80,5 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>shwrmpl</string>
-				<string>fb230189050352725</string>
-			</array>
-			<key>CFBundleURLName</key>
-			<string>pl.showroom.Showroom</string>
-		</dict>
-	</array>
-	<key>FacebookAppID</key>
-	<string>230189050352725</string>
-	<key>LSApplicationCategoryType</key>
-	<string></string>
-	<key>FacebookDisplayName</key>
-	<string>SHOWROOM</string>
-    <key>Pushwoosh_APPID</key>
-    <string>63A3E-B6CDA</string>
 </dict>
 </plist>
