@@ -390,10 +390,13 @@ final class Analytics {
         }
         
         // sending facebook
-        let paramaters = [
-            FBSDKAppEventParameterNameNumItems: NSNumber(integer: products.count)
-        ]
-        FBSDKAppEvents.logPurchase(payment.amount.doubleValue, currency: payment.currency, parameters: paramaters, accessToken: FBSDKAccessToken.currentAccessToken())
+        for product in products {
+            let facebookParams = [
+                FBSDKAppEventParameterNameContentID: NSNumber(integer: product.id),
+                FBSDKAppEventParameterNameContentType: "product"
+            ]
+            FBSDKAppEvents.logPurchase(product.price.amount, currency: product.price.currency.eanValue, parameters: facebookParams, accessToken: FBSDKAccessToken.currentAccessToken())
+        }
         
         // sending google analytics
         let transaction = GAIDictionaryBuilder.createTransactionWithId(
