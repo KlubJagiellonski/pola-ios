@@ -181,6 +181,11 @@ extension ListProduct: Decodable, Encodable {
 
 extension ProductDetails: Decodable, Encodable {
     static func decode(j: AnyObject) throws -> ProductDetails {
+        var onVacationDate: NSDate?
+        let onVacationSeconds: NSTimeInterval? = try j =>? "on_vacation_date"
+        if let seconds = onVacationSeconds where seconds != 0 {
+            onVacationDate = NSDate(timeIntervalSince1970: seconds)
+        }
         return try ProductDetails(
             id: j => "id",
             brand: j => "store",
@@ -195,9 +200,8 @@ extension ProductDetails: Decodable, Encodable {
             emarsysCategory: j => "emarsys_category",
             freeDelivery: j => "free_delivery",
             link: j => "link",
-            // TODO: unmock
-            available: true,
-            onVacationDate: nil //NSDate()
+            available: j => "available",
+            onVacationDate: onVacationDate
         )
     }
     
@@ -215,9 +219,10 @@ extension ProductDetails: Decodable, Encodable {
             "description": description as NSArray,
             "emarsys_category": emarsysCategory,
             "free_delivery": freeDelivery,
-            "link": link
-            // TODO: add API call parameters
+            "link": link,
+            "available": available
         ]
+        if onVacationDate != nil { dict.setObject(onVacationDate!.timeIntervalSince1970, forKey: "on_vacation_date") }
         return dict
     }
 }
