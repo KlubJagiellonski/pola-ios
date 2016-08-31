@@ -104,7 +104,7 @@ enum AnalyticsEventId: RawRepresentable {
     case ProductOtherDesignerProductsClicked(ObjectId)
     case ProductChangeColorClicked(ObjectId)
     case ProductChangeSizeClicked(ObjectId)
-    case ProductAddToCartClicked(ObjectId, Money)
+    case ProductAddToCartClicked(ObjectId, String, Money)
     case ProductSwitchedWithLeftSwipe(String) // category/trend/designer
     case ProductSwitchedWithRightSwipe(String) // category/trend/designer
     case LoginFacebookClicked
@@ -251,7 +251,7 @@ enum AnalyticsEventId: RawRepresentable {
             return [GoogleAnalyticsEvent(category: "product", action: "change_color_click", label: nil, value: id)]
         case ProductChangeSizeClicked(let id):
             return [GoogleAnalyticsEvent(category: "product", action: "change_size_click", label: nil, value: id)]
-        case ProductAddToCartClicked(let id, let value):
+        case ProductAddToCartClicked(let id, let viewType, let value):
             let facebookParams = [
                 FBSDKAppEventParameterNameContentID: NSNumber(integer: id),
                 FBSDKAppEventParameterNameContentType: "product",
