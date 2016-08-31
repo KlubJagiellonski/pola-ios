@@ -118,9 +118,9 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
         }
         logInfo("Adding to basket")
         if castView.viewState == .Default {
-            logAnalyticsEvent(AnalyticsEventId.ProductAddToCartClicked(model.productId, "gallery", productDetails.price))
+            logAnalyticsEvent(AnalyticsEventId.ProductAddToCartClicked(model.productId, productDetails.price))
         } else if castView.viewState == .ContentExpanded {
-            logAnalyticsEvent(AnalyticsEventId.ProductAddToCartClicked(model.productId, "details", productDetails.price))
+            logAnalyticsEvent(AnalyticsEventId.ProductAddToCartClicked(model.productId, productDetails.price))
         }
         model.addToBasket()
         sendNavigationEvent(SimpleNavigationEvent(type: .ProductAddedToBasket))
