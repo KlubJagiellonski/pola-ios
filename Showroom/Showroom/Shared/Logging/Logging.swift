@@ -89,7 +89,7 @@ class CrashlyticsLogDestination: XCGLogDestinationProtocol {
 
 extension NSError {
     static func fromXCGLogDetails(xcgLogDetails: XCGLogDetails) -> NSError {
-        return NSError(domain: "Error", code: 400, userInfo: [
+        return NSError(domain: xcgLogDetails.logMessage, code: 500, userInfo: [
             NSLocalizedDescriptionKey: xcgLogDetails.toMessage()
         ])
     }
