@@ -36,7 +36,7 @@ typedef enum tagActionType {
 
 // set Global variable's
 -(void)setApplicationKey:(NSString *)applicationKey;
--(void)setMerchantID:(NSInteger)mid;
+-(void)setMID:(NSInteger)mid;
 
 //optional method
 -(void)setLatitude:(double)latitude;

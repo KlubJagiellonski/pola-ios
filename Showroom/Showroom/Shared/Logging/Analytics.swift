@@ -361,7 +361,7 @@ final class Analytics {
         self.tracker = gai.trackerWithTrackingId(Constants.googleAnalyticsTrackingId)
         
         optimiseManager.setApplicationKey(Constants.optimiseApiKey)
-        optimiseManager.setMerchantID(Constants.optimiseMerchantId)
+        optimiseManager.setMID(Constants.optimiseMerchantId)
     }
     
     func sendScreenViewEvent(screenId: AnalyticsScreenId) {
