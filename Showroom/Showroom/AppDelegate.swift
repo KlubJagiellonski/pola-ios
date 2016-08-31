@@ -9,7 +9,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     
-    private let assembler = try! DiAssembler()
+    let assembler = try! DiAssembler()
     private lazy var userManager: UserManager = { [unowned self] in
         return self.assembler.resolver.resolve(UserManager.self)!
     }()
@@ -18,13 +18,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         manager.delegate = self
         return manager
     }()
+    private lazy var languageManager: LanguageManager = { [unowned self] in
+        return self.assembler.resolver.resolve(LanguageManager.self)!
+    }()
     private var launchCount: Int {
         let launchCountKey = "launch_count"
         let count = NSUserDefaults.standardUserDefaults().integerForKey(launchCountKey) + 1
         NSUserDefaults.standardUserDefaults().setInteger(count, forKey: launchCountKey)
         return count
     }
-    
     private var quickActionManager: QuickActionManager!
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -41,6 +43,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         logInfo("Configuring main window")
         
+        // has to be called before initializing RootViewController
+        if !languageManager.shouldSkipPlatformSelection {
+            setAppLanguageToDeviceLanguageIfPossible()
+        }
+        
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         window?.backgroundColor = UIColor.whiteColor()
         window?.rootViewController = assembler.resolver.resolve(RootViewController.self)
@@ -49,6 +56,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         logInfo("Main window configured")
         
         notificationsManager.applicationDidFinishLaunching(withLaunchOptions: launchOptions)
+        
         return true
     }
     
@@ -97,6 +105,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             } else {
                 logInfo("Cannot fetch deferred app link \(url) \(error)")
             }
+        }
+
+        logInfo("app did become active")
+    }
+    
+    func setAppLanguageToDeviceLanguageIfPossible() {
+        let deviceLanguageCode = NSLocale.currentLocale().languageCode
+        logInfo("Trying to find available app language matching the device language with languageCode: \(deviceLanguageCode)")
+        
+        if let matchingAvailableLanguage = languageManager
+            .availableLanguages
+            .find({ $0.languageCode == deviceLanguageCode }) {
+                languageManager.language = matchingAvailableLanguage
+                languageManager.shouldSkipPlatformSelection = true
         }
     }
     

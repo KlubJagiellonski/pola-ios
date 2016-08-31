@@ -313,6 +313,10 @@ enum L10n {
   case SettingsSendReportTitle
   /// Brak skonfigurowanego konta e-mail w systemie.
   case SettingsSendReportMailNotConfigured
+  /// Platforma
+  case SettingsPlatform
+  /// Wybór platformy
+  case SettingsPlatformSelection
   /// Przeglądaj produkty
   case StartBrowse
   /// DLA NIEJ
@@ -726,6 +730,10 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Settings.SendReport.Title")
       case .SettingsSendReportMailNotConfigured:
         return L10n.tr("Settings.SendReport.MailNotConfigured")
+      case .SettingsPlatform:
+        return L10n.tr("Settings.Platform")
+      case .SettingsPlatformSelection:
+        return L10n.tr("Settings.PlatformSelection")
       case .StartBrowse:
         return L10n.tr("Start.Browse")
       case .StartForHer:
@@ -826,12 +834,17 @@ extension L10n: CustomStringConvertible {
   }
 
   private static func tr(key: String, _ args: CVarArgType...) -> String {
-    let format = NSLocalizedString(key, comment: "")
-    return String(format: format, locale: NSLocale.currentLocale(), arguments: args)
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    let languageManager = appDelegate.assembler.resolver.resolve(LanguageManager.self)!
+    guard let format = languageManager.translation(forKey: key), let locale = languageManager.language?.locale else {
+        return ""
+    }
+    return String(format: format, locale: locale, arguments: args)
   }
 }
 
 func tr(key: L10n) -> String {
   return key.string
 }
+
 

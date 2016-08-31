@@ -291,6 +291,7 @@
 		C00BA8721D5C6A4F009A9637 /* SettingsWebViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00BA8711D5C6A4F009A9637 /* SettingsWebViewModel.swift */; };
 		C00BA8741D5CD334009A9637 /* WishlistInAppOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00BA8731D5CD334009A9637 /* WishlistInAppOnboardingViewController.swift */; };
 		C00BA8761D5CD53E009A9637 /* WishlistInAppOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00BA8751D5CD53E009A9637 /* WishlistInAppOnboardingView.swift */; };
+		C01B6BFA1D79AA43007DE452 /* LanguageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01B6BF91D79AA43007DE452 /* LanguageManager.swift */; };
 		C01FF2E21D366D3B00D025AE /* HeartMaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01FF2E11D366D3B00D025AE /* HeartMaskView.swift */; };
 		C01FF2E61D36771D00D025AE /* TouchIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01FF2E51D36771D00D025AE /* TouchIndicatorView.swift */; };
 		C020DA461D40F39900E6E4AE /* ShowUserInfoViewEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C020DA451D40F39900E6E4AE /* ShowUserInfoViewEvent.swift */; };
@@ -348,6 +349,13 @@
 		C0CBE2AA1D2D4270008B861D /* SettingsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CBE2A91D2D4270008B861D /* SettingsNavigationController.swift */; };
 		C0CBE2AC1D2D46B7008B861D /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CBE2AB1D2D46B7008B861D /* SettingsView.swift */; };
 		C0CBE2B21D2E50F7008B861D /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CBE2B11D2E50F7008B861D /* Setting.swift */; };
+		C0ED7EAE1D7EE39E00CBC796 /* NSLocaleUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED7EAD1D7EE39E00CBC796 /* NSLocaleUtils.swift */; };
+		C0ED7EB21D803E9900CBC796 /* AppLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED7EB11D803E9900CBC796 /* AppLanguage.swift */; };
+		C0ED7EB51D804A6800CBC796 /* SettingsPlatformSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED7EB41D804A6800CBC796 /* SettingsPlatformSelectionViewController.swift */; };
+		C0ED7EB71D804BF500CBC796 /* SettingsPlatformSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED7EB61D804BF500CBC796 /* SettingsPlatformSelectionView.swift */; };
+		C0FE51D11D8061C500990155 /* PlatformSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FE51D01D8061C500990155 /* PlatformSelectionViewController.swift */; };
+		C0FE51D31D8061D200990155 /* PlatformSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FE51D21D8061D200990155 /* PlatformSelectionView.swift */; };
+		C0FE51D51D81C20400990155 /* PlatformButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FE51D41D81C20300990155 /* PlatformButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -665,6 +673,7 @@
 		C00BA8711D5C6A4F009A9637 /* SettingsWebViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsWebViewModel.swift; sourceTree = "<group>"; };
 		C00BA8731D5CD334009A9637 /* WishlistInAppOnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WishlistInAppOnboardingViewController.swift; sourceTree = "<group>"; };
 		C00BA8751D5CD53E009A9637 /* WishlistInAppOnboardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WishlistInAppOnboardingView.swift; sourceTree = "<group>"; };
+		C01B6BF91D79AA43007DE452 /* LanguageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageManager.swift; sourceTree = "<group>"; };
 		C01FF2E11D366D3B00D025AE /* HeartMaskView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeartMaskView.swift; sourceTree = "<group>"; };
 		C01FF2E51D36771D00D025AE /* TouchIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchIndicatorView.swift; sourceTree = "<group>"; };
 		C020DA451D40F39900E6E4AE /* ShowUserInfoViewEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowUserInfoViewEvent.swift; sourceTree = "<group>"; };
@@ -722,6 +731,14 @@
 		C0CBE2A91D2D4270008B861D /* SettingsNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsNavigationController.swift; sourceTree = "<group>"; };
 		C0CBE2AB1D2D46B7008B861D /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		C0CBE2B11D2E50F7008B861D /* Setting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
+		C0DF72781D75C7A4001BA783 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C0ED7EAD1D7EE39E00CBC796 /* NSLocaleUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSLocaleUtils.swift; sourceTree = "<group>"; };
+		C0ED7EB11D803E9900CBC796 /* AppLanguage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppLanguage.swift; sourceTree = "<group>"; };
+		C0ED7EB41D804A6800CBC796 /* SettingsPlatformSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsPlatformSelectionViewController.swift; sourceTree = "<group>"; };
+		C0ED7EB61D804BF500CBC796 /* SettingsPlatformSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsPlatformSelectionView.swift; sourceTree = "<group>"; };
+		C0FE51D01D8061C500990155 /* PlatformSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlatformSelectionViewController.swift; sourceTree = "<group>"; };
+		C0FE51D21D8061D200990155 /* PlatformSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlatformSelectionView.swift; sourceTree = "<group>"; };
+		C0FE51D41D81C20300990155 /* PlatformButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlatformButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -923,6 +940,7 @@
 				1D5F91441D34E93500AE66E6 /* ProductFilter */,
 				75BB896E1D300A7400F9138D /* Start */,
 				1D5F911B1D33D68E00AE66E6 /* Splash */,
+				C0FE51CF1D8061A700990155 /* PlatformSelection */,
 				C0C634FA1D3394D200715A77 /* Onboarding */,
 				1D6933471D2E40A500609BB9 /* BrandProductList */,
 				1D5886DE1D2BBDED007D0CB1 /* TrendProductList */,
@@ -1056,6 +1074,7 @@
 				1D5E91891D3CDDB600A6BD55 /* UISearchBarUtils.swift */,
 				1D49FC971D4A17A500A3832F /* NSBundleUtils.swift */,
 				1DDE61EF1D649C6F007E5509 /* NSDateUtils.swift */,
+				C0ED7EAD1D7EE39E00CBC796 /* NSLocaleUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1153,6 +1172,7 @@
 				1D88AB751D5315DD005DDFBB /* NotificationsManager.swift */,
 				1DDE61EB1D649910007E5509 /* RateAppManager.swift */,
 				7566CE6E1D6DE56C0065DFB3 /* VersionManager.swift */,
+				C01B6BF91D79AA43007DE452 /* LanguageManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -1182,6 +1202,7 @@
 				1DD1ADDC1D5CA63D008B5485 /* Payment.swift */,
 				7566CE701D6DEFB70065DFB3 /* AppVersion.swift */,
 				1D49EB151D76FBAC00A2F6F2 /* PushToken.swift */,
+				C0ED7EB11D803E9900CBC796 /* AppLanguage.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1362,6 +1383,7 @@
 		1DD1EA8F1CF2E60400D99731 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				C0ED7EB31D804A4A00CBC796 /* SettingsPlatformSelection */,
 				C006F4DA1D3E4AC400573316 /* WebView */,
 				C007CD961D2E939800700EBB /* DataSource */,
 				C0CBE2A91D2D4270008B861D /* SettingsNavigationController.swift */,
@@ -1823,6 +1845,25 @@
 			path = ProductAction;
 			sourceTree = "<group>";
 		};
+		C0ED7EB31D804A4A00CBC796 /* SettingsPlatformSelection */ = {
+			isa = PBXGroup;
+			children = (
+				C0ED7EB41D804A6800CBC796 /* SettingsPlatformSelectionViewController.swift */,
+				C0ED7EB61D804BF500CBC796 /* SettingsPlatformSelectionView.swift */,
+			);
+			name = SettingsPlatformSelection;
+			sourceTree = "<group>";
+		};
+		C0FE51CF1D8061A700990155 /* PlatformSelection */ = {
+			isa = PBXGroup;
+			children = (
+				C0FE51D01D8061C500990155 /* PlatformSelectionViewController.swift */,
+				C0FE51D21D8061D200990155 /* PlatformSelectionView.swift */,
+				C0FE51D41D81C20300990155 /* PlatformButton.swift */,
+			);
+			name = PlatformSelection;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1899,6 +1940,7 @@
 			knownRegions = (
 				Base,
 				pl,
+				de,
 			);
 			mainGroup = 1D2F19321CE9CE250099142E;
 			productRefGroup = 1D2F193C1CE9CE250099142E /* Products */;
@@ -1988,6 +2030,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0FE51D51D81C20400990155 /* PlatformButton.swift in Sources */,
 				1D2423DF1D228BA80026D46B /* ToastView.swift in Sources */,
 				7566CE741D6EDD3B0065DFB3 /* UpdateAppViewController.swift in Sources */,
 				1DC096A71D477ED300D745DB /* ShowBrandProductListEvent.swift in Sources */,
@@ -2020,8 +2063,10 @@
 				1D5EF1D11CEB666B0071C097 /* UIImageViewUtils.swift in Sources */,
 				1D5E91A11D3E5D6600A6BD55 /* KeychainManager.swift in Sources */,
 				C0CBE2AC1D2D46B7008B861D /* SettingsView.swift in Sources */,
+				C0ED7EB21D803E9900CBC796 /* AppLanguage.swift in Sources */,
 				1D5F911D1D33D69C00AE66E6 /* SplashViewController.swift in Sources */,
 				1DD161A61D01C3B90022B5C9 /* ShowProductDetailsEvent.swift in Sources */,
+				C0ED7EB51D804A6800CBC796 /* SettingsPlatformSelectionViewController.swift in Sources */,
 				1D5E918A1D3CDDB600A6BD55 /* UISearchBarUtils.swift in Sources */,
 				1DD1EA6C1CEC5D1700D99731 /* UIColorAssets.swift in Sources */,
 				1D1A7DFB1D240065009CCCE7 /* CategoryProductListViewController.swift in Sources */,
@@ -2084,6 +2129,7 @@
 				1D72ED261CFDA591007AFD2F /* StringUtils.swift in Sources */,
 				C01FF2E21D366D3B00D025AE /* HeartMaskView.swift in Sources */,
 				C06E53581D478F61000E5B7C /* PaymentFailureViewController.swift in Sources */,
+				C0FE51D31D8061D200990155 /* PlatformSelectionView.swift in Sources */,
 				7520AD901D34DE37003FC38B /* RegistrationViewController.swift in Sources */,
 				1D5E919D1D3E2CFA00A6BD55 /* SearchContentDataSource.swift in Sources */,
 				1DD161A21D01C06F0022B5C9 /* PresenterViewController.swift in Sources */,
@@ -2161,6 +2207,7 @@
 				751A50121D1156CB00DF7D2B /* ProductAmountHeaderView.swift in Sources */,
 				1D72ED0F1CFC2F47007AFD2F /* UserManager.swift in Sources */,
 				1D1A7E121D242517009CCCE7 /* ProductListModel.swift in Sources */,
+				C01B6BFA1D79AA43007DE452 /* LanguageManager.swift in Sources */,
 				1D0453571CFF1568001CC5A2 /* ProductRecommendationDataSource.swift in Sources */,
 				C0C5D28E1D099679004C1B13 /* ColorIconView.swift in Sources */,
 				C00BA8761D5CD53E009A9637 /* WishlistInAppOnboardingView.swift in Sources */,
@@ -2209,6 +2256,7 @@
 				1D94B8881D6C371800155F88 /* ShowPaymentFailureEvent.swift in Sources */,
 				75A92ABF1D3FA85300EDC89D /* OnboardingDoubleTapAnimation.swift in Sources */,
 				1D5F91411D34E33100AE66E6 /* UIDeviceUtils.swift in Sources */,
+				C0FE51D11D8061C500990155 /* PlatformSelectionViewController.swift in Sources */,
 				1D5F914F1D35009700AE66E6 /* ProductFilterDataSource.swift in Sources */,
 				1DD1EA761CEDB2A300D99731 /* ContentPromoDataSource.swift in Sources */,
 				1DA6FA2F1CFF265E004BF10B /* ContentPromoRecommendationsHeaderCell.swift in Sources */,
@@ -2225,6 +2273,7 @@
 				1D1A7E101D2424F2009CCCE7 /* ProductListViewController.swift in Sources */,
 				751A50231D19718400DF7D2B /* CheckoutSummaryCell.swift in Sources */,
 				C0456D2D1D4A2174006A3F8F /* QuickActionManager.swift in Sources */,
+				C0ED7EAE1D7EE39E00CBC796 /* NSLocaleUtils.swift in Sources */,
 				1D5E91881D3CD0C600A6BD55 /* SearchContentViewController.swift in Sources */,
 				1D04533E1CFDD48B001CC5A2 /* Dimensions.swift in Sources */,
 				1D5F91481D34E97900AE66E6 /* ProductFilterNavigationController.swift in Sources */,
@@ -2262,6 +2311,7 @@
 				C0A997791D6701C000DBF558 /* InAppOnboardingProductPagingCell.swift in Sources */,
 				1D0F3B641D13D3710052CFF6 /* BasketCountryDataSource.swift in Sources */,
 				753D865B1D4A240F001BF7EB /* ResetPasswordViewController.swift in Sources */,
+				C0ED7EB71D804BF500CBC796 /* SettingsPlatformSelectionView.swift in Sources */,
 				1D0F3B4E1D12819B0052CFF6 /* BasketDeliveryNavigationController.swift in Sources */,
 				1DA5CB491D2F7B2E00A45E93 /* Checkout.swift in Sources */,
 				C006F4D41D3E40CF00573316 /* ShowSettingsWebViewEvent.swift in Sources */,
@@ -2314,6 +2364,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				1D372E381D6ED22F004F3155 /* pl */,
+				C0DF72781D75C7A4001BA783 /* de */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

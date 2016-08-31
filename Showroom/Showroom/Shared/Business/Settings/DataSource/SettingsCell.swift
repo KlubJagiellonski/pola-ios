@@ -376,6 +376,80 @@ final class SettingsNormalCell: UITableViewCell {
     }
 }
 
+final class SettingsPlatformCell: UITableViewCell {
+    private static let valueFont: UIFont = UIFont(fontType: .Normal)
+    
+    private let titleLabel = UILabel()
+    private let valueLabel = UILabel()
+    private let chevron = UIImageView(image: UIImage(asset: .Ic_chevron_right))
+    private let horizontalSeparator = UIView()
+    
+    var title: String? {
+        set { titleLabel.text = newValue }
+        get { return titleLabel.text }
+    }
+    
+    var value: String? {
+        set { valueLabel.text = newValue
+            logInfo("did set value: \(newValue)")
+        }
+        get { return valueLabel.text }
+    }
+    
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: .Default, reuseIdentifier: reuseIdentifier)
+        
+        titleLabel.backgroundColor = UIColor(named: .White)
+        titleLabel.font = UIFont(fontType: .Normal)
+        titleLabel.textColor = UIColor(named: .Black)
+        
+        valueLabel.backgroundColor = UIColor(named: .White)
+        valueLabel.font = UIFont(fontType: .Normal)
+        valueLabel.textColor = UIColor(named: .Manatee)
+        valueLabel.numberOfLines = 1
+        
+        horizontalSeparator.backgroundColor = UIColor(named: .Separator)
+        
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(valueLabel)
+        contentView.addSubview(chevron)
+        
+        addSubview(horizontalSeparator)
+        
+        configureCustomConstraints()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func configureCustomConstraints() {
+        titleLabel.snp_makeConstraints { make in
+            make.leading.equalToSuperview().offset(Dimensions.defaultMargin)
+            make.trailing.lessThanOrEqualTo(valueLabel.snp_leading).offset(Dimensions.defaultMargin)
+            make.top.equalToSuperview()
+            make.bottom.equalTo(horizontalSeparator.snp_top)
+        }
+        
+        valueLabel.snp_makeConstraints { make in
+            make.trailing.equalTo(chevron.snp_leading).offset(-Dimensions.defaultMargin)
+            make.centerY.equalTo(titleLabel)
+        }
+        
+        chevron.snp_makeConstraints { make in
+            make.trailing.equalToSuperview().offset(-Dimensions.defaultMargin)
+            make.centerY.equalToSuperview()
+        }
+        
+        horizontalSeparator.snp_makeConstraints { make in
+            make.trailing.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.height.equalTo(Dimensions.defaultSeparatorThickness)
+        }
+    }
+}
+
 final class SettingsAskForNotificationsCell: UITableViewCell {
     private let label = UILabel()
     private let askButton = UIButton()

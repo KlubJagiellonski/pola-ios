@@ -3,6 +3,7 @@ import Foundation
 enum RootChildType {
     case Main
     case Login
+    case PlatformSelection
     case Onboarding
     case Start
 }
@@ -13,13 +14,21 @@ class RootModel {
     let rateAppManager: RateAppManager
     let notificationManager: NotificationsManager
     let versionManager: VersionManager
+    let languageManager: LanguageManager
     
     var startChildType: RootChildType {
-        if (!userManager.shouldSkipStartScreen) {
+        if !shouldSkipPlatformSelection {
+            return .PlatformSelection
+        } else if !shouldSkipStartScreen {
             return .Onboarding
         } else {
             return .Main
         }
+    }
+    
+    var shouldSkipPlatformSelection: Bool {
+        set { languageManager.shouldSkipPlatformSelection = newValue }
+        get { return languageManager.shouldSkipPlatformSelection }
     }
     
     var shouldSkipStartScreen: Bool {
@@ -43,11 +52,12 @@ class RootModel {
         }
     }
     
-    init(with userManager: UserManager, apiService: ApiService, rateAppManager: RateAppManager, notificationManager: NotificationsManager, versionManager: VersionManager) {
+    init(with userManager: UserManager, apiService: ApiService, rateAppManager: RateAppManager, notificationManager: NotificationsManager, versionManager: VersionManager, languageManager: LanguageManager) {
         self.userManager = userManager
         self.apiService = apiService
         self.rateAppManager = rateAppManager
         self.notificationManager = notificationManager
         self.versionManager = versionManager
+        self.languageManager = languageManager
     }
 }

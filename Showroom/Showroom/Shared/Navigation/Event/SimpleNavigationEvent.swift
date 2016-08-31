@@ -25,5 +25,9 @@ struct SimpleNavigationEvent: NavigationEvent {
         case AskForNotificationsFromWishlist
         case ShowProductDetailsInAppOnboarding
         case ShowProductListInAppOnboarding
+        case InvalidateMainTabViewController
+        case ShowSettingsPlatformSelection
+        case ShowInitialPlatformSelection
+        case PlatformSelectionEnd
     }
 }

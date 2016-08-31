@@ -6,6 +6,7 @@ import MessageUI
 class SettingsViewController: UIViewController {
     private let userManager: UserManager
     private let notificationsManager: NotificationsManager
+    private let languageManager: LanguageManager
     private let disposeBag = DisposeBag()
     private let toastManager: ToastManager
     private var castView: SettingsView { return view as! SettingsView }
@@ -28,6 +29,7 @@ class SettingsViewController: UIViewController {
         self.userManager = resolver.resolve(UserManager.self)
         self.notificationsManager = resolver.resolve(NotificationsManager.self)
         self.toastManager = resolver.resolve(ToastManager.self)
+        self.languageManager = resolver.resolve(LanguageManager.self)
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -90,7 +92,7 @@ class SettingsViewController: UIViewController {
             )
         }
         settings.append(
-            Setting(type: .Gender, labelString: tr(.SettingsDefaultOffer), action: self.femaleButtonPressed, secondaryAction: self.maleButtonPressed, cellClickable: false, value: self.userManager.gender)
+            Setting(type: .Gender, action: self.femaleButtonPressed, secondaryAction: self.maleButtonPressed, cellClickable: false, value: self.userManager.gender)
         )
         if notificationsManager.shouldShowInSettings {
             settings.append(
@@ -107,7 +109,8 @@ class SettingsViewController: UIViewController {
             Setting(type: .Normal, labelString: tr(.SettingsHowToMeasure), action: self.howToMeasureRowPressed),
             Setting(type: .Normal, labelString: tr(.SettingsContact), action: self.contactRowPressed),
             Setting(type: .Normal, labelString: tr(.SettingsRules), action: self.rulesRowPressed),
-            Setting(type: .Normal, labelString: tr(.SettingsPrivacyPolicy), action: self.privacyPolicyRowPressed)
+            Setting(type: .Normal, labelString: tr(.SettingsPrivacyPolicy), action: self.privacyPolicyRowPressed),
+            Setting(type: .Platform, labelString: tr(.SettingsPlatform), secondaryLabelString: languageManager.language?.platformString, action: self.platformRowPressed)
             ])
         if !Constants.isAppStore {
             settings.append(Setting(type: .Normal, labelString: "Pokaż onboarding", action: self.showOnboarding))
@@ -118,6 +121,7 @@ class SettingsViewController: UIViewController {
             settings.append(Setting(type: .Normal, labelString: "Pokaż pytanie o powiadomienia (po czasie)", action: self.showNotificationsAccessAfterTime))
             settings.append(Setting(type: .Normal, labelString: "Pokaż pytanie o powiadomienia (schowek)", action: self.showNotificationsAccessAfterWishlist))
             settings.append(Setting(type: .Normal, labelString: "Pokaż pytanie o aktualizację", action: self.showUpdateApp))
+            settings.append(Setting(type: .Normal, labelString: "Pokaż initial platform selection", action: self.showInitialPlatformSelection))
         }
         
         castView.updateData(with: settings)
@@ -174,6 +178,11 @@ class SettingsViewController: UIViewController {
     func maleButtonPressed() {
         logInfo("maleButtonPressed")
         didChange(gender: .Male)
+    }
+    
+    func platformRowPressed() {
+        logInfo("platform selection row pressed")
+        sendNavigationEvent(SimpleNavigationEvent(type: .ShowSettingsPlatformSelection))
     }
     
     func askForNotificationPressed() {
@@ -282,6 +291,10 @@ class SettingsViewController: UIViewController {
         formSheetAnimator.presentViewController(viewController, presentingViewController: self)
     }
     
+    func showInitialPlatformSelection() {
+        sendNavigationEvent(SimpleNavigationEvent(type: .ShowInitialPlatformSelection))
+    }
+    
     func sendReportPressed() {
         logInfo("sendReportPressed")
         
@@ -306,6 +319,13 @@ class SettingsViewController: UIViewController {
         logInfo("Did change gender \(gender)")
         logAnalyticsEvent(AnalyticsEventId.ProfileGenderChoice(gender.rawValue))
         userManager.gender = gender
+    }
+    
+    private func didChange(language language: AppLanguage) {
+        logInfo("Did change language \(language)")
+//        TODO: add langage logAnalyticsEvent
+        languageManager.language = language
+        sendNavigationEvent(SimpleNavigationEvent(type: .InvalidateMainTabViewController))
     }
     
     private func generateReportDeviceInfo() -> NSData? {

@@ -28,6 +28,14 @@ class SettingsNavigationController: UINavigationController, NavigationHandler {
         pushViewController(viewController, animated: true)
     }
     
+    func showSettingsPlatformSelection() {
+        logInfo("Show settings platform selection")
+        let viewController = resolver.resolve(SettingsPlatformSelectionViewController.self)
+        viewController.navigationItem.title = tr(.SettingsPlatformSelection)
+        pushViewController(viewController, animated: true)
+
+    }
+    
     // MARK:- NavigationHandler
     
     func handleNavigationEvent(event: NavigationEvent) -> EventHandled {
@@ -35,6 +43,14 @@ class SettingsNavigationController: UINavigationController, NavigationHandler {
         case let webViewEvent as ShowSettingsWebViewEvent:
             showWebView(title: webViewEvent.title, webType: webViewEvent.webType)
             return true
+        case let simpleEvent as SimpleNavigationEvent:
+            switch simpleEvent.type {
+            case .ShowSettingsPlatformSelection:
+                showSettingsPlatformSelection()
+                return true
+            default:
+                return false
+            }
         default:
             return false
         }

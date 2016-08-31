@@ -30,6 +30,8 @@ class RootViewController: PresenterViewController, NavigationHandler {
             showContent(resolver.resolve(StartViewController), animation: nil, completion: nil)
         case .Main:
             showContent(resolver.resolve(MainTabViewController), animation: nil, completion: nil)
+        case .PlatformSelection:
+            showContent(resolver.resolve(PlatformSelectionViewController), animation: nil, completion: nil)
         case .Onboarding:
             showContent(resolver.resolve(InitialOnboardingViewController), animation: nil, completion: nil)
         default:
@@ -167,6 +169,18 @@ class RootViewController: PresenterViewController, NavigationHandler {
                 }
             }
             return true
+        case .PlatformSelectionEnd:
+            logInfo("Platform selection end")
+            if !model.shouldSkipStartScreen {
+                let initialOnboardingViewController = resolver.resolve(InitialOnboardingViewController)
+                showContent(initialOnboardingViewController, animation: DimTransitionAnimation(animationDuration: 0.3), completion: nil)
+                return true
+            } else {
+                model.shouldSkipStartScreen = true
+                let mainTabViewController = resolver.resolve(MainTabViewController)
+                showContent(mainTabViewController, animation: DimTransitionAnimation(animationDuration: 0.3), completion: nil)
+                return true
+            }
         case .OnboardingEnd:
             logInfo("Onboarding end")
             guard !(contentViewController is StartViewController) else {
@@ -179,6 +193,12 @@ class RootViewController: PresenterViewController, NavigationHandler {
                 return true
             }
             showContent(resolver.resolve(InitialOnboardingViewController), animation: DimTransitionAnimation(animationDuration: 0.3), completion: nil)
+            return true
+        case .ShowInitialPlatformSelection:
+            guard !(contentViewController is PlatformSelectionViewController) else {
+                return true
+            }
+            showContent(resolver.resolve(PlatformSelectionViewController), animation: DimTransitionAnimation(animationDuration: 0.3), completion: nil)
             return true
         case .AskForNotificationsFromWishlist:
             logInfo("Ask for notificaiton from wishlsit")
@@ -204,6 +224,12 @@ class RootViewController: PresenterViewController, NavigationHandler {
                     model.userSeenWishlistInAppOnboarding = true
                 }
             }
+            return true
+        case .InvalidateMainTabViewController:
+            dismissViewControllerAnimated(true, completion: nil)
+            // TODO: remove leak - previous MainTabViewController is not being released
+            let mainTabViewController = resolver.resolve(MainTabViewController.self)
+            showContent(mainTabViewController, animation: DimTransitionAnimation(animationDuration: 0.3), completion: nil)
             return true
         default: return false
         }
