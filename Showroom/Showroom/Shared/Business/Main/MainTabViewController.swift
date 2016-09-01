@@ -134,24 +134,6 @@ class MainTabViewController: UITabBarController, NavigationHandler {
             }, completion: nil)
     }
     
-    private func onBasketChanged(basket: Basket?) {
-        logInfo("Basket changed with amount \(basket?.productsAmount)")
-        basketBadgeValue = basket?.productsAmount ?? 0
-    }
-    
-    private func onWishlistChanged(wishlist: [WishlistProduct]) {
-        logInfo("Wishlist changed with amount \(wishlist.count)")
-        wishlistBadgeValue = UInt(wishlist.count)
-    }
-    
-    func createChildViewController(forType type: MainTabChildControllerType) -> UIViewController {
-        let contentViewController = type.createViewController(resolver)
-        let viewController = resolver.resolve(CommonPresenterController.self, argument: contentViewController)
-        viewController.tabBarItem = UITabBarItem(type: type)
-        viewController.tabBarItem.imageInsets = type.tabBarInsets()
-        return viewController
-    }
-    
     func handleQuickActionShortcut(shortcut: ShortcutIdentifier) {
         switch shortcut {
         case .Dashboard:
@@ -170,6 +152,28 @@ class MainTabViewController: UITabBarController, NavigationHandler {
             logInfo("handleQuickActionShortcut: Basket")
             selectedIndex = MainTabChildControllerType.Settings.rawValue
         }
+    }
+    
+    func updateSelectedIndex(forControllerType controllerType: MainTabChildControllerType) {
+        selectedIndex = controllerType.rawValue
+    }
+    
+    private func onBasketChanged(basket: Basket?) {
+        logInfo("Basket changed with amount \(basket?.productsAmount)")
+        basketBadgeValue = basket?.productsAmount ?? 0
+    }
+    
+    private func onWishlistChanged(wishlist: [WishlistProduct]) {
+        logInfo("Wishlist changed with amount \(wishlist.count)")
+        wishlistBadgeValue = UInt(wishlist.count)
+    }
+    
+    private func createChildViewController(forType type: MainTabChildControllerType) -> UIViewController {
+        let contentViewController = type.createViewController(resolver)
+        let viewController = resolver.resolve(CommonPresenterController.self, argument: contentViewController)
+        viewController.tabBarItem = UITabBarItem(type: type)
+        viewController.tabBarItem.imageInsets = type.tabBarInsets()
+        return viewController
     }
     
     // MARK:- NavigationHandler

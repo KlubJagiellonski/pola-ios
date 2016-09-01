@@ -14,8 +14,7 @@ class FormSheetAnimator: NSObject, UIViewControllerTransitioningDelegate, Animat
     func presentViewController(presentedViewController: UIViewController, presentingViewController: UIViewController, completion: (() -> Void)? = nil) {
         logInfo("Presenting \(presentedViewController.dynamicType) in \(presentingViewController.dynamicType) with form sheet animation")
         presentedViewController.modalPresentationStyle = .Custom
-        presentedViewController.transitioningDelegate = self
-        
+        presentedViewController.transitioningDelegate = self        
         presentingViewController.presentViewController(presentedViewController, animated: true, completion: completion)
     }
     

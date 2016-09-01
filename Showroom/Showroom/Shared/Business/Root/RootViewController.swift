@@ -136,12 +136,17 @@ class RootViewController: PresenterViewController, NavigationHandler {
         case .ShowDashboard:
             logInfo("Showing dashboard")
             
-            model.shouldSkipStartScreen = true
-            let mainTabViewController = resolver.resolve(MainTabViewController)
-            showContent(mainTabViewController, animation: DimTransitionAnimation(animationDuration: 0.3), completion: nil)
-            if let urlToHandle = urlToHandle {
-                mainTabViewController.handleOpen(withURL: urlToHandle)
-                self.urlToHandle = nil
+            if let currentMainTabViewController = self.contentViewController as? MainTabViewController {
+                currentMainTabViewController.updateSelectedIndex(forControllerType: MainTabChildControllerType.Dashboard)
+            } else {
+                model.shouldSkipStartScreen = true
+                
+                let mainTabViewController = resolver.resolve(MainTabViewController)
+                showContent(mainTabViewController, animation: DimTransitionAnimation(animationDuration: 0.3), completion: nil)
+                if let urlToHandle = urlToHandle {
+                    mainTabViewController.handleOpen(withURL: urlToHandle)
+                    self.urlToHandle = nil
+                }
             }
             return true
         case .SplashEnd:
@@ -164,9 +169,15 @@ class RootViewController: PresenterViewController, NavigationHandler {
             return true
         case .OnboardingEnd:
             logInfo("Onboarding end")
+            guard !(contentViewController is StartViewController) else {
+                return true
+            }
             showContent(resolver.resolve(StartViewController), animation: DimTransitionAnimation(animationDuration: 0.3), completion: nil)
             return true
         case .ShowOnboaridng:
+            guard !(contentViewController is InitialOnboardingViewController) else {
+                return true
+            }
             showContent(resolver.resolve(InitialOnboardingViewController), animation: DimTransitionAnimation(animationDuration: 0.3), completion: nil)
             return true
         case .AskForNotificationsFromWishlist:
