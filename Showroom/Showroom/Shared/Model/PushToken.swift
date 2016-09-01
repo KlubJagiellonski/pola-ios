@@ -10,8 +10,8 @@ struct PushTokenRequest {
 extension PushTokenRequest: Encodable {
     func encode() -> AnyObject {
         return [
-            "push_token": pushToken,
-            "hardware_id": hardwareId
+            "pushToken": pushToken,
+            "hardwareId": hardwareId
         ] as NSDictionary
     }
 }
