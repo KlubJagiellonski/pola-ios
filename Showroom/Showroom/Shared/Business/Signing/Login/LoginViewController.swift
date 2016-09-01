@@ -58,7 +58,7 @@ class LoginViewController: UIViewController, LoginViewDelegate {
             sendNavigationEvent(SimpleNavigationEvent(type: .Close))
             toastManager.showMessage(tr(L10n.CommonGreeting(result.user.name)))
         case .Error(let error):
-            logError("Error during login: \(error)")
+            logInfo("Error during login: \(error)")
             switch error {
             case SigningError.FacebookCancelled: break
             case SigningError.ValidationFailed(let fieldsErrors):
@@ -73,6 +73,7 @@ class LoginViewController: UIViewController, LoginViewDelegate {
                 toastManager.showMessage(tr(L10n.LoginErrorInvalidCredentials))
                 break
             case SigningError.FacebookError(_), SigningError.Unknown:
+                logError("Unknown login error: \(error)")
                 fallthrough
             default:
                 toastManager.showMessage(tr(L10n.LoginErrorUnknown))

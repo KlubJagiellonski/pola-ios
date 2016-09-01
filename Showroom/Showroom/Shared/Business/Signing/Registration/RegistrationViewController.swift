@@ -52,7 +52,7 @@ class RegistrationViewController: UIViewController, RegistrationViewDelegate {
             sendNavigationEvent(SimpleNavigationEvent(type: .Close))
             toastManager.showMessage(tr(L10n.CommonGreeting(result.user.name)))
         case .Error(let error):
-            logError("Error during registration: \(error)")
+            logInfo("Error during registration: \(error)")
             switch error {
             case SigningError.FacebookCancelled: break
             case SigningError.ValidationFailed(let fieldsErrors):
@@ -71,6 +71,7 @@ class RegistrationViewController: UIViewController, RegistrationViewDelegate {
                 }
                 break
             case SigningError.FacebookError(_), SigningError.Unknown:
+                logError("Unknown registration error: \(error)")
                 fallthrough
             default:
                 toastManager.showMessage(tr(L10n.RegistrationErrorUnknown))
