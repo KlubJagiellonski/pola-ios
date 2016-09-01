@@ -56,14 +56,14 @@ class CheckoutNavigationController: UINavigationController, NavigationHandler {
         pushViewController(editKioskViewController, animated: true)
     }
     
-    func showPaymentSuccessView(orderId orderId: ObjectId, let orderUrl: String) {
+    func showPaymentSuccessView(orderId orderId: String, let orderUrl: String) {
         logInfo("Show payment success view with order id: \(orderId), orderUrl: \(orderUrl)")
         let successViewController = resolver.resolve(PaymentSuccessViewController.self, arguments: (orderId, orderUrl))
         pushViewController(successViewController, animated: true)
         setNavigationBarHidden(true, animated: true)
     }
     
-    func showPaymentFailureView(orderId orderId: ObjectId, let orderUrl: String) {
+    func showPaymentFailureView(orderId orderId: String, let orderUrl: String) {
         logInfo("Show payment failure view with order id: \(orderId), orderUrl: \(orderUrl)")
         let failureViewController = resolver.resolve(PaymentFailureViewController.self, arguments: (orderId, orderUrl))
         pushViewController(failureViewController, animated: true)

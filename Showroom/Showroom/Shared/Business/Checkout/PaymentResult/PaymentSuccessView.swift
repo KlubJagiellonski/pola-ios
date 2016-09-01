@@ -16,7 +16,7 @@ class PaymentSuccessView: UIView {
     
     weak var delegate: PaymentSuccessViewDelegate?
     
-    init(orderNumber: Int) {
+    init(orderNumber: String) {
         super.init(frame: CGRectZero)
         
         backgroundColor = UIColor(named: .White)
@@ -27,7 +27,7 @@ class PaymentSuccessView: UIView {
         label.textAlignment = .Center
         
         let linkString = tr(.CheckoutPaymentResultWebsiteLink)
-        linkLabel.attributedText = tr(.CheckoutPaymentResultSuccessDescription(String(orderNumber), linkString)).stringWithHighlightedSubsttring(linkString)
+        linkLabel.attributedText = tr(.CheckoutPaymentResultSuccessDescription(orderNumber, linkString)).stringWithHighlightedSubsttring(linkString)
         linkLabel.font = UIFont.latoRegular(ofSize: 14.0)
         linkLabel.numberOfLines = 0
         linkLabel.lineBreakMode = .ByWordWrapping

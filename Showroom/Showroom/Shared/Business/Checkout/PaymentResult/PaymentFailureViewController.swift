@@ -4,10 +4,10 @@ class PaymentFailureViewController: UIViewController, PaymentFailureViewDelegate
     
     private var castView: PaymentFailureView { return view as! PaymentFailureView }
     
-    private let orderNumber: Int
+    private let orderNumber: String
     private let orderUrl: String
     
-    init(resolver: DiResolver, orderNumber: Int, orderUrl: String) {
+    init(resolver: DiResolver, orderNumber: String, orderUrl: String) {
         self.orderNumber = orderNumber
         self.orderUrl = orderUrl
         super.init(nibName: nil, bundle: nil)

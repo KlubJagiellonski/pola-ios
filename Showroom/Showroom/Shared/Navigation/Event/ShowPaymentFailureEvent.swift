@@ -1,6 +1,6 @@
 import Foundation
 
 struct ShowPaymentFailureEvent: NavigationEvent {
-    let orderId: ObjectId
+    let orderId: String
     let orderUrl: String
 }

@@ -151,7 +151,7 @@ final class CheckoutModel {
         
         let request = api.createPayment(with: paymentRequest).doOnNext { [weak self] result in
             guard let `self` = self else { return }
-            self.emarsysService.sendPurchaseEvent(withOrderId: String(result.orderId), products: self.state.checkout.basket.products)
+            self.emarsysService.sendPurchaseEvent(withOrderId: result.orderId, products: self.state.checkout.basket.products)
         }
         
         if state.selectedPayment.id == .PayU {

@@ -16,7 +16,7 @@ class PaymentFailureView: UIView {
     
     weak var delegate: PaymentFailureViewDelegate?
     
-    init(orderNumber: Int) {
+    init(orderNumber: String) {
         super.init(frame: CGRectZero)
         
         backgroundColor = UIColor(named: .White)
@@ -27,7 +27,7 @@ class PaymentFailureView: UIView {
         label.textAlignment = .Center
         
         let linkString = tr(.CheckoutPaymentResultWebsiteLink)
-        linkLabel.attributedText = tr(.CheckoutPaymentResultFailureDescription(String(orderNumber), linkString)).stringWithHighlightedSubsttring(linkString)
+        linkLabel.attributedText = tr(.CheckoutPaymentResultFailureDescription(orderNumber, linkString)).stringWithHighlightedSubsttring(linkString)
         linkLabel.font = UIFont.latoRegular(ofSize: 14.0)
         linkLabel.numberOfLines = 0
         linkLabel.lineBreakMode = .ByWordWrapping

@@ -4,7 +4,7 @@ class PaymentSuccessViewController: UIViewController, PaymentSuccessViewDelegate
     private let resolver: DiResolver
     private let rateAppManager: RateAppManager
     private var castView: PaymentSuccessView { return view as! PaymentSuccessView }
-    private let orderNumber: Int
+    private let orderNumber: String
     private let orderUrl: String
     private lazy var formSheetAnimator: FormSheetAnimator = { [unowned self] in
         let animator = FormSheetAnimator()
@@ -12,7 +12,7 @@ class PaymentSuccessViewController: UIViewController, PaymentSuccessViewDelegate
         return animator
     }()
     
-    init(resolver: DiResolver, orderNumber: Int, orderUrl: String) {
+    init(resolver: DiResolver, orderNumber: String, orderUrl: String) {
         self.resolver = resolver
         self.rateAppManager = resolver.resolve(RateAppManager.self)
         self.orderNumber = orderNumber

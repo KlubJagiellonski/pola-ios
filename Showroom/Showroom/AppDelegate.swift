@@ -61,12 +61,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         logInfo("Received url \(url) with options: \(sourceApplication)")
         
-        if let httpsUrl = url.changeToHTTPSchemeIfNeeded() {
-            Analytics.sharedInstance.affilation = httpsUrl.retrieveUtmSource()
-            return handleOpen(withURL: httpsUrl)
-        } else {
-            return false
-        }
+        return handle(url: url)
     }
     
     func application(application: UIApplication, continueUserActivity userActivity: NSUserActivity, restorationHandler: ([AnyObject]?) -> Void) -> Bool {
@@ -95,6 +90,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationDidBecomeActive(application: UIApplication) {
         FBSDKAppEvents.activateApp()
+        
+        FBSDKAppLinkUtility.fetchDeferredAppLink { [weak self] url, error in
+            if url != nil && error == nil {
+                self?.handle(url: url)
+            } else {
+                logInfo("Cannot fetch deferred app link \(url) \(error)")
+            }
+        }
     }
     
     private func configureDependencies() {
@@ -107,6 +110,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, performActionForShortcutItem shortcutItem: UIApplicationShortcutItem, completionHandler: (Bool) -> Void) {
         completionHandler(quickActionManager.handleShortcutItem(shortcutItem))
+    }
+    
+    private func handle(url url: NSURL) -> Bool {
+        if let httpsUrl = url.changeToHTTPSchemeIfNeeded() {
+            Analytics.sharedInstance.affilation = httpsUrl.retrieveUtmSource()
+            return handleOpen(withURL: httpsUrl)
+        } else {
+            return false
+        }
     }
 }
 

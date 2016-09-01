@@ -84,7 +84,7 @@ final class PayUManager {
             return Observable.error(PayUPaymentError.SessionNotExist(paymentResult))
         }
         
-        guard let description = paymentResult.description, let url = paymentResult.notifyUrl, let notifyUrl = NSURL(string: url) else {
+        guard let description = paymentResult.description, let url = paymentResult.notifyUrl, let notifyUrl = NSURL(string: url), let extOrderId = paymentResult.extOrderId else {
             logError("Cannot make payment with result \(paymentResult)")
             return Observable.error(PayUPaymentError.InvalidRequest(paymentResult))
         }
@@ -92,7 +92,7 @@ final class PayUManager {
         logInfo("Making payment \(paymentResult)")
         
         let request = PUPaymentRequest()
-        request.extOrderId = String(paymentResult.orderId)
+        request.extOrderId = extOrderId
         request.amount = paymentResult.amount
         request.currency = paymentResult.currency
         request.paymentDescription = description

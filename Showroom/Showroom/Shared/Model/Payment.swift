@@ -25,7 +25,8 @@ struct PaymentComment {
 }
 
 struct PaymentResult {
-    let orderId: ObjectId
+    let orderId: String
+    let extOrderId: String?
     let description: String?
     let amount: NSDecimalNumber
     let taxAmount: NSDecimalNumber
@@ -132,6 +133,7 @@ extension PaymentResult: Decodable {
         let shippingAmount: UInt64 = try json => "shippingAmount"
         return try PaymentResult(
             orderId: json => "orderId",
+            extOrderId: json =>? "extOrderId",
             description: json =>? "paymentDescription",
             amount: NSDecimalNumber(mantissa: amount, exponent: -2, isNegative: false),
             taxAmount: NSDecimalNumber(mantissa: taxAmount, exponent: -2, isNegative: false),
