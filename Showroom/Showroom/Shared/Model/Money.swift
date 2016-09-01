@@ -59,6 +59,11 @@ struct Money: Comparable {
             return String(format: "%@ \(currency.stringValue)", moneyFormat)
         }
     }
+    
+    var stringAmount: String {
+        guard let moneyFormat = Money.moneyFormatter.stringForObjectValue(amount) else { return "" }
+        return moneyFormat
+    }
 }
 
 // MARK: - Extensions

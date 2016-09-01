@@ -5,7 +5,7 @@ protocol CheckoutSummaryViewDelegate: class {
     func checkoutSummaryView(view: CheckoutSummaryView, didTapAddCommentAt index: Int)
     func checkoutSummaryView(view: CheckoutSummaryView, didTapEditCommentAt index: Int)
     func checkoutSummaryView(view: CheckoutSummaryView, didTapDeleteCommentAt index: Int)
-    func checkoutSummaryView(view: CheckoutSummaryView, didSelectPaymentAt index: Int)
+    func checkoutSummaryView(view: CheckoutSummaryView, didSelectPaymentWithType type: PaymentType)
     func checkoutSummaryViewDidTapBuy(view: CheckoutSummaryView)
 }
 
@@ -17,8 +17,8 @@ final class CheckoutSummaryView: ViewSwitcher, UITableViewDelegate {
     
     weak var delegate: CheckoutSummaryViewDelegate?
     
-    init(createPayUButton: CGRect -> UIView) {
-        dataSource = CheckoutSummaryDataSource(tableView: tableView, createPayUButton: createPayUButton)
+    init(with checkout: Checkout, comments: [String?]?, createPayUButton: CGRect -> UIView) {
+        dataSource = CheckoutSummaryDataSource(tableView: tableView, checkout: checkout, comments: comments, createPayUButton: createPayUButton)
         super.init(successView: contentView, initialState: .Success)
         
         dataSource.summaryView = self;
@@ -60,13 +60,6 @@ final class CheckoutSummaryView: ViewSwitcher, UITableViewDelegate {
         }
     }
     
-    func updateData(with basket: Basket?, carrier deliveryCarrier: DeliveryCarrier?, discountCode: String?, comments: [String?]?) {
-        guard let basket = basket else { return }
-        guard let deliveryCarrier = deliveryCarrier else { return }
-    
-        dataSource.updateData(with: basket, carrier: deliveryCarrier, discountCode: discountCode, comments: comments)
-    }
-    
     func updateData(withComments comments: [String?]) {
         dataSource.updateData(withComments: comments)
     }
@@ -99,7 +92,7 @@ final class CheckoutSummaryView: ViewSwitcher, UITableViewDelegate {
         delegate?.checkoutSummaryView(self, didTapDeleteCommentAt: index)
     }
     
-    func checkoutSummaryDidChangeToPayment(at index: Int) {
-        delegate?.checkoutSummaryView(self, didSelectPaymentAt: index)
+    func checkoutSummaryDidChangeToPaymentType(type: PaymentType) {
+        delegate?.checkoutSummaryView(self, didSelectPaymentWithType: type)
     }
 }

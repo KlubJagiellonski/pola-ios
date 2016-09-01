@@ -29,6 +29,8 @@ struct Constants {
     static let optimiseTrackSaleProductId = 28577
     static let optimiseTrackRegistrationProductId = 28576
     
+    static let braintreePayPalUrlScheme = "\(NSBundle.mainBundle().bundleIdentifier!).payments"
+    
     #if APPSTORE
     static let googleAnalyticsTrackingId = "UA-28549987-7"
     #else

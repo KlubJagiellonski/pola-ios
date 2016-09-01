@@ -18,6 +18,13 @@ extension Platform {
         case German: return "de"
         }
     }
+    
+    var currencyCode: String {
+        switch self {
+        case Polish: return "PLN"
+        case German: return "EUR"
+        }
+    }
 }
 
 final class PlatformManager {

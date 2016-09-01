@@ -3,8 +3,13 @@ import Decodable
 
 enum DeliveryType: Int {
     case UPS = 2
+    case UPSDe = 3
     case RUCH = 7
     case Unknown = 100
+    
+    var isUps: Bool {
+        return self == .UPS || self == .UPSDe
+    }
 }
 
 enum PaymentType: Int {

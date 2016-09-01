@@ -318,7 +318,7 @@ extension DeliveryCarrier {
         switch id {
         case .RUCH:
             return tr(.CheckoutDeliveryRUCHHeader)
-        case .UPS:
+        case .UPS, .UPSDe:
             return tr(.CheckoutDeliveryCourierHeader)
         case .Unknown:
             logError("Unknown carrier type \(id)")

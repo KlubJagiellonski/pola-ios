@@ -78,7 +78,7 @@ class BasketDeliveryView: ViewSwitcher {
             return
         }
         
-        let upsCarrier = basket.deliveryInfo.carriers.find { $0.id == DeliveryType.UPS }
+        let upsCarrier = basket.deliveryInfo.carriers.find { $0.id.isUps }
         upsDeliveryOptionView.enabled = upsCarrier?.available ?? false
         upsDeliveryOptionView.priceLabel.text = upsCarrier?.deliveryCost?.stringValue
         upsDeliveryOptionView.titleLabel.text = upsCarrier?.name
@@ -94,7 +94,7 @@ class BasketDeliveryView: ViewSwitcher {
     }
     
     func updateData(with selectedCarrier: DeliveryCarrier?) {
-        upsDeliveryOptionView.selected = selectedCarrier?.id == DeliveryType.UPS
+        upsDeliveryOptionView.selected = selectedCarrier?.id.isUps ?? false
         ruchDeliveryOptionView.selected = selectedCarrier?.id == DeliveryType.RUCH
     }
     

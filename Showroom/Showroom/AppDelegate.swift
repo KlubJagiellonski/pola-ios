@@ -21,6 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private lazy var platformManager: PlatformManager = { [unowned self] in
         return self.assembler.resolver.resolve(PlatformManager.self)!
     }()
+    private lazy var paymentManager: PaymentManager = { [unowned self] in
+        return self.assembler.resolver.resolve(PaymentManager.self)!
+    }()
     private var launchCount: Int {
         let launchCountKey = "launch_count"
         let count = NSUserDefaults.standardUserDefaults().integerForKey(launchCountKey) + 1
@@ -40,6 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         userManager.updateUser()
         
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        BTAppSwitch.setReturnURLScheme(Constants.braintreePayPalUrlScheme)
         
         // has to be called before initializing RootViewController
         platformManager.initializePlatformWithDeviceLanguage()
@@ -62,7 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation) {
             return true
         }
-        if let payUManager = assembler.resolver.resolve(PayUManager.self) where payUManager.handleOpen(withURL: url) {
+        if paymentManager.currentPaymentHandler?.handleOpenURL(url, sourceApplication: sourceApplication) ?? false {
             return true
         }
         logInfo("Received url \(url) with options: \(sourceApplication)")

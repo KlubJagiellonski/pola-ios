@@ -267,7 +267,7 @@ class CheckoutDeliveryDetailsView: UIView {
     
     private func updateData(with checkout: Checkout) {
         switch checkout.deliveryCarrier.id {
-        case .UPS:
+        case .UPS, .UPSDe:
             label.text = "\(checkout.deliveryCountry.name), \(checkout.deliveryCarrier.name)"
             chooseKioskButton.hidden = true
             changeKioskButton.hidden = true

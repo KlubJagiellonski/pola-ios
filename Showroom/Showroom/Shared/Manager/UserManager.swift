@@ -34,6 +34,11 @@ class UserManager {
             } else {
                 Analytics.sharedInstance.userId = nil
             }
+            
+            if userSession == nil {
+                PayUOptionHandler.resetUserCache()
+            }
+            
             emarsysService.contactUpdate(withUser: user, gender: gender)
             emarsysService.configureUser(String(userSession?.user.id), customerEmail: userSession?.user.email)
             keychainManager.session = userSession?.session

@@ -69,8 +69,8 @@ class BasketDeliveryViewController: UIViewController, BasketDeliveryViewDelegate
     
     func deliveryViewDidTapUpsOption(view: BasketDeliveryView) {
         logInfo("Did tap ups option")
-        logAnalyticsEvent(AnalyticsEventId.CartDeliveryMethodChanged(DeliveryType.UPS.rawValue))
-        basketManager.state.deliveryCarrier = basketManager.state.basket?.deliveryInfo.carriers.find { $0.id == DeliveryType.UPS }
+        basketManager.state.deliveryCarrier = basketManager.state.basket?.deliveryInfo.carriers.find { $0.id.isUps }
+        logAnalyticsEvent(AnalyticsEventId.CartDeliveryMethodChanged(basketManager.state.deliveryCarrier?.id.rawValue ?? 0))
         basketManager.validate()
     }
     
