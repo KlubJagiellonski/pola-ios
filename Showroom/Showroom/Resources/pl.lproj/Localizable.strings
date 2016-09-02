@@ -85,10 +85,10 @@
 "Checkout.Summary.PaymentMethod" = "SPOSÓB PŁATNOŚCI";
 "Checkout.Summary.Buy" = "ZŁÓŻ ZAMÓWIENIE";
 "Checkout.PaymentResult.SuccessHeader" = "GRATULACJE!";
-"Checkout.PaymentResult.SuccessDescription" = "Twoje zamówienie nr %@ zostało przekazane do realizacji.\nO postępach będziemy informować Cię mailem, możesz też sprawdzić status zamówienia na %@.\nW imieniu swoim i Projektantów dziękujemy za zakupy w aplikacji SHOWROOM!";
+"Checkout.PaymentResult.SuccessDescription" = "Twoje zamówienie zostało przekazane do realizacji pod numerem %@.\n\nO postępach będziemy informować Cię e-mailem, możesz też sprawdzić status zamówienia na %@.\n\nW imieniu swoim i Projektantów dziękujemy za zakupy w aplikacji SHOWROOM!";
 "Checkout.PaymentResult.WebsiteLink" = "naszej stronie internetowej";
 "Checkout.PaymentResult.FailureHeader" = "UUUPS!";
-"Checkout.PaymentResult.FailureDescription" = "Twoje zamówienie nr %@ zostało zapisane, jednak wystąpił błąd z płatnością. Możesz ją ponowić na %@. Przepraszamy za kłopot.";
+"Checkout.PaymentResult.FailureDescription" = "Twoje zamówienie nr %@ zostało zapisane, jednak wystąpił błąd z płatnością.\n\nMożesz sprawdzić jej status oraz ponowić na %@.\n\nPrzepraszamy za kłopot.";
 "Checkout.PaymentResult.GoToMain" = "STRONA GŁÓWNA";
 "Checkout.Payment.On400Error" = "Zamówienie nie mogło zostać złożone z powodu nieoczekiwanego błędu. Spróbuj ponownie. Przepraszamy za kłopot.";
 "ProductList.Badge.New" = "NEW";
