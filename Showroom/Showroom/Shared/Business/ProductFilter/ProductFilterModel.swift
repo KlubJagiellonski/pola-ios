@@ -73,7 +73,7 @@ final class ProductFilterModel {
     func createTempFilterInfo(forFilterId filterId: FilterId) -> FilterInfo? {
         logInfo("Creating temp filter info for id \(filterId)")
         guard state.tempFilter.value != nil else {
-            logError("Cannot create temp filter. Temp filter already exist \(state.tempFilter.value)")
+            logInfo("Cannot create filter info. Temp filter not exist")
             return nil
         }
         return createFilterInfo(forFilter: state.tempFilter.value!)
