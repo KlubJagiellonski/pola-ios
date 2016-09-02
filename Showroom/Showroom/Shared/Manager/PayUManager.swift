@@ -65,7 +65,7 @@ final class PayUManager {
             logError("PaymentService not created while creating paymentButton")
             return nil
         }
-        logInfo("Creating payment button")
+        logInfo("Creating payment button \(frame)")
         return paymentService.paymentMethodWidgetWithFrame(frame)
     }
     
