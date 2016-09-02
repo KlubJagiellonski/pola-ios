@@ -159,7 +159,8 @@
 "Start.Login" = "ZALOGUJ SIĘ";
 "Start.Register" = "ZAREJESTRUJ SIĘ";
 "Onboarding.InfiniteScrolling.Next" = "DALEJ";
-"Onboarding.InfiniteScrolling.Label" = "Witaj w aplikacji SHOWROOM!\n\nZnajdziesz tu wyselekcjonowane produkty najciekawszych projektantów i marek.";
+"Onboarding.InfiniteScrolling.Label" = "%@\n\nZnajdziesz tu wyselekcjonowane produkty najciekawszych projektantów i marek.";
+"Onboarding.InfiniteScrolling.LabelBoldPart" = "Witaj w aplikacji SHOWROOM!";
 "Onboarding.Notifications.Label" = "Czy chcesz w pierwszej kolejności dostawać informacje o specjalnych promocjach, wyprzedażach i nowych kolekcjach?";
 "Onboarding.Notifications.AskMe" = "JASNE!";
 "Onboarding.Notifications.Skip" = "POMIŃ";

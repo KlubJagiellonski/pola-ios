@@ -116,6 +116,11 @@ final class BasketView: ViewSwitcher, UITableViewDelegate, ContentInsetHandler {
         checkoutView.checkoutButton.enabled = validated
     }
     
+    func resetDiscountCodeValue() {
+        checkoutView.discountInput.imageState = .Default
+        checkoutView.discountInput.text = nil
+    }
+    
     func moveToPosition(at indexPath: NSIndexPath, animated: Bool) {
         dataSource.moveToPosition(at: indexPath, animated: animated)
     }

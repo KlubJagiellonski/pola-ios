@@ -204,11 +204,18 @@ final class BasketState {
     let deliveryCountryObservable = PublishSubject<DeliveryCountry?>()
     let deliveryCarrierObservable = PublishSubject<DeliveryCarrier?>()
     let validationStateObservable = PublishSubject<BasketValidationState>()
+    let resetDiscountCodeObservable = PublishSubject<Void>()
     
     private(set) var basket: Basket? {
         didSet { basketObservable.onNext(basket) }
     }
-    var discountCode: String?
+    var discountCode: String? {
+        didSet {
+            if discountCode?.isEmpty ?? true {
+                resetDiscountCodeObservable.onNext()
+            }
+        }
+    }
     var deliveryCountry: DeliveryCountry? {
         didSet { deliveryCountryObservable.onNext(deliveryCountry) }
     }

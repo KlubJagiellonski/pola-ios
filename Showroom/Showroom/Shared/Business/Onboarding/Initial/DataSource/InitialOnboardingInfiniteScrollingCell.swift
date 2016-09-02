@@ -50,8 +50,9 @@ class InitialOnboardingInfiniteScrollingCell: UICollectionViewCell {
         
         contentView.backgroundColor = UIColor(named: .White)
         
-        label.text = tr(.OnboardingInfiniteScrollingLabel)
+        let boldedText = tr(.OnboardingInfiniteScrollingLabelBoldPart)
         label.font = UIFont(fontType: .Onboarding)
+        label.attributedText = tr(.OnboardingInfiniteScrollingLabel(boldedText)).stringWithOtherFontSubstring(boldedText, font: UIFont.latoBold(ofSize: 16))
         label.numberOfLines = 0
         label.textAlignment = .Center
         label.lineBreakMode = .ByWordWrapping

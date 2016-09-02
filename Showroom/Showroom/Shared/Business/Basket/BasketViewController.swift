@@ -16,12 +16,6 @@ class BasketViewController: UIViewController, BasketViewDelegate {
         self.toastManager = resolver.resolve(ToastManager.self)
         self.resolver = resolver
         super.init(nibName: nil, bundle: nil)
-        
-        manager.validate()
-        manager.state.basketObservable.subscribeNext(updateBasket).addDisposableTo(disposeBag)
-        manager.state.deliveryCarrierObservable.subscribeNext(updateCarrier).addDisposableTo(disposeBag)
-        manager.state.deliveryCountryObservable.subscribeNext(updateCountry).addDisposableTo(disposeBag)
-        manager.state.validationStateObservable.subscribeNext(updateValidating).addDisposableTo(disposeBag)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -43,6 +37,16 @@ class BasketViewController: UIViewController, BasketViewDelegate {
         updateBasket(with: manager.state.basket)
         castView.updateData(with: manager.state.deliveryCountry, and: manager.state.deliveryCarrier)
         castView.discountCode = manager.state.discountCode
+        
+        manager.state.basketObservable.subscribeNext(updateBasket).addDisposableTo(disposeBag)
+        manager.state.deliveryCarrierObservable.subscribeNext(updateCarrier).addDisposableTo(disposeBag)
+        manager.state.deliveryCountryObservable.subscribeNext(updateCountry).addDisposableTo(disposeBag)
+        manager.state.validationStateObservable.subscribeNext(updateValidating).addDisposableTo(disposeBag)
+        manager.state.resetDiscountCodeObservable.subscribeNext { [weak self] in
+            self?.castView.resetDiscountCodeValue()
+        }.addDisposableTo(disposeBag)
+        
+        manager.validate()
     }
     
     override func viewWillAppear(animated: Bool) {

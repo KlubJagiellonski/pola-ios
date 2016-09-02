@@ -39,6 +39,14 @@ extension String {
         return attributedString
     }
     
+    func stringWithOtherFontSubstring(substring: String, font: UIFont) -> NSMutableAttributedString {
+        let string = self as NSString
+        let range = string.rangeOfString(substring)
+        let attributedString = NSMutableAttributedString(string: self)
+        attributedString.addAttribute(NSFontAttributeName, value: font, range: range)
+        return attributedString
+    }
+    
     func markdownToAttributedString(treatBoldAsNormalText treatBoldAsNormalText: Bool = false, lineSpacing: CGFloat? = nil) -> NSAttributedString {
         let normalFont = UIFont(fontType: .Normal)
         let boldFont = UIFont(fontType: .NormalBold)

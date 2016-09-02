@@ -20,7 +20,7 @@ struct Constants {
     
     static let appStoreUrl = "itms-apps://itunes.apple.com/app/1147114961"
     
-    static let reportEmail = "ios+v1@showroom.pl"
+    static let reportEmail = "iosv1@showroom.pl"
     
     static let optimiseApiKey = "72933403-B469-41FD-B6E4-635B5B44584F"
     static let optimiseMerchantId = 990079

@@ -177,7 +177,7 @@ enum L10n {
   case CheckoutSummaryBuy
   /// GRATULACJE!
   case CheckoutPaymentResultSuccessHeader
-  /// Twoje zamówienie nr %@ zostało przekazane do realizacji. O postępach będziemy informować Cię mailem, możesz też sprawdzić status zamówienia na %@.\nW imieniu swoim i Projektantów dziękujemy za zakupy w aplikacji SHOWROOM!
+  /// Twoje zamówienie nr %@ zostało przekazane do realizacji.\nO postępach będziemy informować Cię mailem, możesz też sprawdzić status zamówienia na %@.\nW imieniu swoim i Projektantów dziękujemy za zakupy w aplikacji SHOWROOM!
   case CheckoutPaymentResultSuccessDescription(String, String)
   /// naszej stronie internetowej
   case CheckoutPaymentResultWebsiteLink
@@ -263,7 +263,7 @@ enum L10n {
   case RegistrationErrorUnknown
   /// Zapomniane hasło
   case ResetPasswordNavigationHeader
-  /// Podaj adres e-mail powiązany z Twoim kontem. Na ten adres prześlemy Ci nowe, tymczasowe hasło.
+  /// Podaj adres e-mail powiązany z Twoim kontem, abyśmy mogli przesłać Ci nowe, tymczasowe hasło.
   case ResetPasswordEmailDescription
   /// DALEJ
   case ResetPasswordReset
@@ -325,21 +325,23 @@ enum L10n {
   case StartRegister
   /// DALEJ
   case OnboardingInfiniteScrollingNext
-  /// Witaj w aplikacji SHOWROOM!\nZnajdziesz tu wyselekcjonowane produkty od najciekawszych projektantów i marek modowych.
-  case OnboardingInfiniteScrollingLabel
+  /// %@\n\nZnajdziesz tu wyselekcjonowane produkty najciekawszych projektantów i marek.
+  case OnboardingInfiniteScrollingLabel(String)
+  /// Witaj w aplikacji SHOWROOM!
+  case OnboardingInfiniteScrollingLabelBoldPart
   /// Czy chcesz w pierwszej kolejności dostawać informacje o specjalnych promocjach, wyprzedażach i nowych kolekcjach?
   case OnboardingNotificationsLabel
   /// JASNE!
   case OnboardingNotificationsAskMe
   /// POMIŃ
   case OnboardingNotificationsSkip
-  /// Stuknij dwukrotnie w zdjęcie,\naby szybko dodać produkt do ulubionych
+  /// Stuknij dwukrotnie w zdjęcie, aby szybko dodać produkt do ulubionych.
   case OnboardingDoubleTapLabel
-  /// Przesuń palcem w górę,\naby zobaczyć kolejne zdjęcie przeglądanego produktu
+  /// Przesuń palcem w górę, aby zobaczyć kolejne zdjęcie przeglądanego produktu.
   case OnboardingPhotosPagingLabel
   /// DALEJ
   case OnboardingPhotosPagingNext
-  /// Przesuń palcem w bok,\naby szybko przejść do kolejnego produktu z listy
+  /// Przesuń palcem w bok,\naby szybko przejść do kolejnego produktu z listy.
   case OnboardingProductPagingLabel
   /// ROZUMIEM
   case OnboardingProductPagingDismiss
@@ -349,7 +351,7 @@ enum L10n {
   case SearchAllSearchItems(String)
   /// Cofnij
   case SearchBack
-  /// Dodawaj produkty do ulubionych\ndwukrotnie stukając palcem w ich zdjęcia
+  /// Dodawaj produkty do ulubionych\ndwukrotnie stukając palcem w ich zdjęcia.
   case WishlistEmptyDescription
   /// Usuń
   case WishlistDelete
@@ -401,7 +403,7 @@ enum L10n {
   case PushNotificationQuestion
   /// CHCĘ
   case PushNotificationAllow
-  /// CZAS NA UPDATE
+  /// AKTUALIZACJA
   case UpdateAppTitle
   /// Niedawno opublikowaliśmy nową wersję aplikacji SHOWROOM, którą wzbogaciliśmy o bardzo ciekawe funkcje. Zachęcamy do jej pobrania z App Store.
   case UpdateAppDescription
@@ -736,8 +738,10 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Start.Register")
       case .OnboardingInfiniteScrollingNext:
         return L10n.tr("Onboarding.InfiniteScrolling.Next")
-      case .OnboardingInfiniteScrollingLabel:
-        return L10n.tr("Onboarding.InfiniteScrolling.Label")
+      case .OnboardingInfiniteScrollingLabel(let p0):
+        return L10n.tr("Onboarding.InfiniteScrolling.Label", p0)
+      case .OnboardingInfiniteScrollingLabelBoldPart:
+        return L10n.tr("Onboarding.InfiniteScrolling.LabelBoldPart")
       case .OnboardingNotificationsLabel:
         return L10n.tr("Onboarding.Notifications.Label")
       case .OnboardingNotificationsAskMe:
