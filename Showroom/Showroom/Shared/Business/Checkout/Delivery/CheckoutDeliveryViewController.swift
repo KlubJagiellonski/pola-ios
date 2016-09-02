@@ -156,7 +156,7 @@ class CheckoutDeliveryViewController: UIViewController, CheckoutDeliveryViewDele
     }
     
     func checkoutDeliveryViewDidReachFormEnd(view: CheckoutDeliveryView) {
-        guard checkoutModel.state.selectedKiosk == nil else {
+        guard checkoutModel.state.checkout.deliveryCarrier.id == .RUCH && checkoutModel.state.selectedKiosk == nil else {
             return
         }
         sendShowEditKioskEvent()
