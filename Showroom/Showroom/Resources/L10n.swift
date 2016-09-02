@@ -177,13 +177,13 @@ enum L10n {
   case CheckoutSummaryBuy
   /// GRATULACJE!
   case CheckoutPaymentResultSuccessHeader
-  /// Twoje zamówienie nr %@ zostało przekazane do realizacji.\nO postępach będziemy informować Cię mailem, możesz też sprawdzić status zamówienia na %@.\nW imieniu swoim i Projektantów dziękujemy za zakupy w aplikacji SHOWROOM!
+  /// Twoje zamówienie zostało przekazane do realizacji pod numerem %@.\n\nO postępach będziemy informować Cię e-mailem, możesz też sprawdzić status zamówienia na %@.\n\nW imieniu swoim i Projektantów dziękujemy za zakupy w aplikacji SHOWROOM!
   case CheckoutPaymentResultSuccessDescription(String, String)
   /// naszej stronie internetowej
   case CheckoutPaymentResultWebsiteLink
   /// UUUPS!
   case CheckoutPaymentResultFailureHeader
-  /// Twoje zamówienie nr %@ zostało zapisane, jednak wystąpił błąd z płatnością. Możesz ją ponowić na %@. Przepraszamy za kłopot.
+  /// Twoje zamówienie nr %@ zostało zapisane, jednak wystąpił błąd z płatnością.\n\nMożesz sprawdzić jej status oraz ponowić na %@.\n\nPrzepraszamy za kłopot.
   case CheckoutPaymentResultFailureDescription(String, String)
   /// STRONA GŁÓWNA
   case CheckoutPaymentResultGoToMain
