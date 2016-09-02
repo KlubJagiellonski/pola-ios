@@ -74,8 +74,8 @@
 		1D2F19D11CEB16120099142E /* Decodable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2F19961CEA14FE0099142E /* Decodable.framework */; };
 		1D372E2E1D6C7B05004F3155 /* ShowEditKioskEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D372E2D1D6C7B05004F3155 /* ShowEditKioskEvent.swift */; };
 		1D372E371D6ED22F004F3155 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1D372E391D6ED22F004F3155 /* Localizable.strings */; };
-		1D372E3C1D701E9F004F3155 /* OptimiseMobileTracking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D372E3A1D701E74004F3155 /* OptimiseMobileTracking.framework */; };
-		1D372E3D1D701E9F004F3155 /* OptimiseMobileTracking.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1D372E3A1D701E74004F3155 /* OptimiseMobileTracking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1D3763C41D7A053D000CF8C3 /* OptimiseMobileTracking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D372E3A1D701E74004F3155 /* OptimiseMobileTracking.framework */; };
+		1D3763C51D7A0544000CF8C3 /* EmarsysPushSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DB957CD1D522E1D003EE120 /* EmarsysPushSDK.framework */; };
 		1D3792721D196931001A7C47 /* ViewSwitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3792711D196931001A7C47 /* ViewSwitcher.swift */; };
 		1D3EC6551D5C81B4004413F9 /* ResetPasswordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3EC6541D5C81B4004413F9 /* ResetPasswordModel.swift */; };
 		1D3EEA1A1D143C1100F67B69 /* BasketRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3EEA191D143C1100F67B69 /* BasketRequest.swift */; };
@@ -190,7 +190,6 @@
 		1DAA7C751D0EC17F00545BB9 /* ProductDetailsContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAA7C741D0EC17F00545BB9 /* ProductDetailsContext.swift */; };
 		1DB166BD1D1006A8004F42DC /* SizeChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB166BC1D1006A8004F42DC /* SizeChartViewController.swift */; };
 		1DB166BF1D1006DC004F42DC /* SizeChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB166BE1D1006DC004F42DC /* SizeChartView.swift */; };
-		1DB957D01D522F29003EE120 /* EmarsysPushSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1DB957CD1D522E1D003EE120 /* EmarsysPushSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1DC096A71D477ED300D745DB /* ShowBrandProductListEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC096A61D477ED300D745DB /* ShowBrandProductListEvent.swift */; };
 		1DC485C71D474BEA00BDA1BD /* PayUManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC485C61D474BEA00BDA1BD /* PayUManager.swift */; };
 		1DD161971D01A7310022B5C9 /* ProductDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD161961D01A7310022B5C9 /* ProductDetailsViewController.swift */; };
@@ -362,18 +361,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		1D2F19901CE9D39C0099142E /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				1D372E3D1D701E9F004F3155 /* OptimiseMobileTracking.framework in Embed Frameworks */,
-				1DB957D01D522F29003EE120 /* EmarsysPushSDK.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		1D2F19C71CEB08070099142E /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -742,6 +729,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D3763C51D7A0544000CF8C3 /* EmarsysPushSDK.framework in Frameworks */,
+				1D3763C41D7A053D000CF8C3 /* OptimiseMobileTracking.framework in Frameworks */,
 				1D0AAF9B1D5888E1008E40C0 /* Pushwoosh.framework in Frameworks */,
 				1D2CAC581D474A5500F678FA /* FBSDKLoginKit.framework in Frameworks */,
 				1D2F19A31CEA14FE0099142E /* JLRoutes.framework in Frameworks */,
@@ -761,7 +750,6 @@
 				1DD1EA9D1CF2F58E00D99731 /* SnapKit.framework in Frameworks */,
 				1DDE61F21D670566007E5509 /* Kingfisher.framework in Frameworks */,
 				1D04534F1CFEDE74001CC5A2 /* EmarsysPredictSDK.framework in Frameworks */,
-				1D372E3C1D701E9F004F3155 /* OptimiseMobileTracking.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1845,7 +1833,6 @@
 				1D2F19371CE9CE250099142E /* Sources */,
 				1D2F19381CE9CE250099142E /* Frameworks */,
 				1D2F19391CE9CE250099142E /* Resources */,
-				1D2F19901CE9D39C0099142E /* Embed Frameworks */,
 				1D2F19B81CEA15EC0099142E /* Carthage Run Script */,
 				1DF796701CEB2C1500C7A7F4 /* Fabric Run Script */,
 			);
@@ -1970,6 +1957,8 @@
 				"$(SRCROOT)/Carthage/Build/iOS/TTRangeSlider.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/GoogleAnalytics.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Kingfisher.framework",
+				"$(SRCROOT)/Frameworks/OptimiseMobileTracking.framework",
+				"$(SRCROOT)/Frameworks/EmarsysPushSDK.framework",
 			);
 			name = "Carthage Run Script";
 			outputPaths = (
@@ -2566,7 +2555,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CI_BUILD_NUMBER = 100;
+				CI_BUILD_NUMBER = 101;
 				CI_BUILD_VERSION = 1.0;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Showroom/SHOWROOM.entitlements;
