@@ -105,8 +105,12 @@ class MainTabViewController: UITabBarController, NavigationHandler {
         ]
         selectedIndex = 0
         
-        basketManager.state.basketObservable.subscribeNext(onBasketChanged).addDisposableTo(disposeBag)
-        wishlistManager.state.wishlistObservable.subscribeNext(onWishlistChanged).addDisposableTo(disposeBag)
+        basketManager.state.basketObservable.subscribeNext { [weak self] basket in
+            self?.onBasketChanged(basket)
+            }.addDisposableTo(disposeBag)
+        wishlistManager.state.wishlistObservable.subscribeNext { [weak self] wishlist in
+            self?.onWishlistChanged(wishlist)
+            }.addDisposableTo(disposeBag)
     }
     
     required init?(coder aDecoder: NSCoder) {

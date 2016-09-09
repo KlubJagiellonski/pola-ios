@@ -17,8 +17,12 @@ class WishlistViewController: UIViewController {
         automaticallyAdjustsScrollViewInsets = false
         
         manager.synchronize()
-        manager.state.wishlistObservable.subscribeNext(updateData).addDisposableTo(disposeBag)
-        manager.state.synchronizationStateObservable.subscribeNext(updateSynchronizing).addDisposableTo(disposeBag)
+        manager.state.wishlistObservable.subscribeNext { [weak self] wishlist in
+            self?.updateData(with: wishlist)
+            }.addDisposableTo(disposeBag)
+        manager.state.synchronizationStateObservable.subscribeNext { [weak self] synchronizing in
+            self?.updateSynchronizing(with: synchronizing)
+            }.addDisposableTo(disposeBag)
     }
     
     required init?(coder aDecoder: NSCoder) {

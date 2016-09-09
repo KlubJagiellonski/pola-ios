@@ -237,7 +237,9 @@ class CheckoutDeliveryDetailsView: UIView {
         super.init(frame: CGRectZero)
         
         updateData(with: checkoutState.checkout)
-        checkoutState.selectedKioskObservable.subscribeNext(updateData).addDisposableTo(disposeBag)
+        checkoutState.selectedKioskObservable.subscribeNext { [weak self] kiosk in
+            self?.updateData(kiosk)
+            }.addDisposableTo(disposeBag)
         
         label.backgroundColor = UIColor(named: .White)
         label.font = UIFont(fontType: .FormNormal)

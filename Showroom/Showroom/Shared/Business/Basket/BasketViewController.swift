@@ -38,10 +38,18 @@ class BasketViewController: UIViewController, BasketViewDelegate {
         castView.updateData(with: manager.state.deliveryCountry, and: manager.state.deliveryCarrier)
         castView.discountCode = manager.state.discountCode
         
-        manager.state.basketObservable.subscribeNext(updateBasket).addDisposableTo(disposeBag)
-        manager.state.deliveryCarrierObservable.subscribeNext(updateCarrier).addDisposableTo(disposeBag)
-        manager.state.deliveryCountryObservable.subscribeNext(updateCountry).addDisposableTo(disposeBag)
-        manager.state.validationStateObservable.subscribeNext(updateValidating).addDisposableTo(disposeBag)
+        manager.state.basketObservable.subscribeNext { [weak self] basket in
+            self?.updateBasket(with: basket)
+            }.addDisposableTo(disposeBag)
+        manager.state.deliveryCarrierObservable.subscribeNext { [weak self] carrier in
+            self?.updateCarrier(with: carrier)
+        }.addDisposableTo(disposeBag)
+        manager.state.deliveryCountryObservable.subscribeNext { [weak self] country in
+            self?.updateCountry(with: country)
+            }.addDisposableTo(disposeBag)
+        manager.state.validationStateObservable.subscribeNext { [weak self] validating in
+            self?.updateValidating(with: validating)
+            }.addDisposableTo(disposeBag)
         manager.state.resetDiscountCodeObservable.subscribeNext { [weak self] in
             self?.castView.resetDiscountCodeValue()
         }.addDisposableTo(disposeBag)
