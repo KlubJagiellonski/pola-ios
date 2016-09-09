@@ -123,13 +123,17 @@ class ProductDescriptionView: UIView, UITableViewDelegate, ProductDescriptionVie
         let productAvailability: ProductAvailability = { _ in
             switch (p.available, p.onVacationDate) {
             case (true, let onVacationDate):
+                let oneSize = p.sizes.count == 1    // or <= 1 ?
+                let oneColor = p.colors.count == 1
+                
                 if let date = onVacationDate {
                     let formatter = NSDateFormatter()
                     formatter.dateFormat = "dd.MM"
                     let dateString = formatter.stringFromDate(date)
-                    return .AvailableAtDate(dateString: dateString)
+                    
+                    return .AvailableAtDate(dateString: dateString, oneSize: oneSize, oneColor: oneColor)
                 } else {
-                    return .Available
+                    return .Available(oneSize: oneSize, oneColor: oneColor)
                 }
             case (false, _):
                 return .SoldOut
@@ -198,7 +202,10 @@ class ProductDescriptionView: UIView, UITableViewDelegate, ProductDescriptionVie
 }
 
 enum ProductAvailability {
-    case Available, Unknown, AvailableAtDate(dateString: String), SoldOut
+    case Available(oneSize: Bool, oneColor: Bool)
+    case Unknown
+    case AvailableAtDate(dateString: String, oneSize: Bool, oneColor: Bool)
+    case SoldOut
 }
 
 class DescriptionHeaderView: UIView {
@@ -263,17 +270,18 @@ class DescriptionHeaderView: UIView {
     
     func update(toProductAvailability newProductAvailability: ProductAvailability) {
         switch newProductAvailability {
-        case .Available:
+            
+        case .Available(let oneSize, let oneColor):
             buyButton.enabled = true
             buyButton.setTitle(tr(.ProductDetailsToBasket), forState: .Normal)
-            colorButton.enabled = true
-            sizeButton.enabled = true
+            colorButton.enabled = !oneColor
+            sizeButton.enabled = !oneSize
             
-        case .AvailableAtDate(let dateString):
+        case .AvailableAtDate(let dateString, let oneSize, let oneColor):
             buyButton.enabled = false
             buyButton.setTitle(tr(.ProductDetailsAvailableAtDate(dateString)), forState: .Normal)
-            colorButton.enabled = true
-            sizeButton.enabled = true
+            colorButton.enabled = !oneColor
+            sizeButton.enabled = !oneSize
             
         case .SoldOut:
             buyButton.enabled = false
