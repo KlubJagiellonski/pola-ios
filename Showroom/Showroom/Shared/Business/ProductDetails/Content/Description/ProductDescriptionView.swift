@@ -123,7 +123,7 @@ class ProductDescriptionView: UIView, UITableViewDelegate, ProductDescriptionVie
         let productAvailability: ProductAvailability = { _ in
             switch (p.available, p.onVacationDate) {
             case (true, let onVacationDate):
-                let oneSize = p.sizes.count == 1    // or <= 1 ?
+                let oneSize = p.sizes.count == 1
                 let oneColor = p.colors.count == 1
                 
                 if let date = onVacationDate {
@@ -222,7 +222,7 @@ class DescriptionHeaderView: UIView {
     let nameLabel = UILabel()
     let infoImageView = UIImageView(image: UIImage(asset: .Ic_info))
     let buttonsContainerView = TouchConsumingView()
-    let sizeButton = DropDownButton()
+    let sizeButton = DropDownButton(value: .Text(nil))
     let colorButton = DropDownButton(value: .Color(nil))
     let buyButton = UIButton()
     
@@ -270,7 +270,7 @@ class DescriptionHeaderView: UIView {
     
     func update(toProductAvailability newProductAvailability: ProductAvailability) {
         switch newProductAvailability {
-            
+        
         case .Available(let oneSize, let oneColor):
             buyButton.enabled = true
             buyButton.setTitle(tr(.ProductDetailsToBasket), forState: .Normal)
