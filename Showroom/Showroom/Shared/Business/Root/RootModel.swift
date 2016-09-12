@@ -14,21 +14,16 @@ class RootModel {
     let rateAppManager: RateAppManager
     let notificationManager: NotificationsManager
     let versionManager: VersionManager
-    let languageManager: LanguageManager
+    let platformManager: PlatformLanguageManager
     
     var startChildType: RootChildType {
-        if !shouldSkipPlatformSelection {
+        if !platformManager.shouldSkipPlatformSelection {
             return .PlatformSelection
         } else if !shouldSkipStartScreen {
             return .Onboarding
         } else {
             return .Main
         }
-    }
-    
-    var shouldSkipPlatformSelection: Bool {
-        set { languageManager.shouldSkipPlatformSelection = newValue }
-        get { return languageManager.shouldSkipPlatformSelection }
     }
     
     var shouldSkipStartScreen: Bool {
@@ -52,12 +47,12 @@ class RootModel {
         }
     }
     
-    init(with userManager: UserManager, apiService: ApiService, rateAppManager: RateAppManager, notificationManager: NotificationsManager, versionManager: VersionManager, languageManager: LanguageManager) {
+    init(with userManager: UserManager, apiService: ApiService, rateAppManager: RateAppManager, notificationManager: NotificationsManager, versionManager: VersionManager, platformManager: PlatformLanguageManager) {
         self.userManager = userManager
         self.apiService = apiService
         self.rateAppManager = rateAppManager
         self.notificationManager = notificationManager
         self.versionManager = versionManager
-        self.languageManager = languageManager
+        self.platformManager = platformManager
     }
 }

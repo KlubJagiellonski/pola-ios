@@ -30,7 +30,7 @@ class SettingsNavigationController: UINavigationController, NavigationHandler {
     
     func showSettingsPlatformSelection() {
         logInfo("Show settings platform selection")
-        let viewController = resolver.resolve(SettingsPlatformSelectionViewController.self)
+        let viewController = resolver.resolve(PlatformSelectionViewController.self)
         viewController.navigationItem.title = tr(.SettingsPlatformSelection)
         pushViewController(viewController, animated: true)
 

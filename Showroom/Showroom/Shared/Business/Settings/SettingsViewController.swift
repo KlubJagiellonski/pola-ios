@@ -6,7 +6,7 @@ import MessageUI
 class SettingsViewController: UIViewController {
     private let userManager: UserManager
     private let notificationsManager: NotificationsManager
-    private let languageManager: LanguageManager
+    private let platformManager: PlatformLanguageManager
     private let disposeBag = DisposeBag()
     private let toastManager: ToastManager
     private var castView: SettingsView { return view as! SettingsView }
@@ -29,7 +29,7 @@ class SettingsViewController: UIViewController {
         self.userManager = resolver.resolve(UserManager.self)
         self.notificationsManager = resolver.resolve(NotificationsManager.self)
         self.toastManager = resolver.resolve(ToastManager.self)
-        self.languageManager = resolver.resolve(LanguageManager.self)
+        self.platformManager = resolver.resolve(PlatformLanguageManager.self)
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -110,7 +110,7 @@ class SettingsViewController: UIViewController {
             Setting(type: .Normal, labelString: tr(.SettingsContact), action: self.contactRowPressed),
             Setting(type: .Normal, labelString: tr(.SettingsRules), action: self.rulesRowPressed),
             Setting(type: .Normal, labelString: tr(.SettingsPrivacyPolicy), action: self.privacyPolicyRowPressed),
-            Setting(type: .Platform, labelString: tr(.SettingsPlatform), secondaryLabelString: languageManager.language?.platformString, action: self.platformRowPressed)
+            Setting(type: .Platform, labelString: tr(.SettingsPlatform), secondaryLabelString: platformManager.language?.platformString, action: self.platformRowPressed)
             ])
         if !Constants.isAppStore {
             settings.append(Setting(type: .Normal, labelString: "Pokaż onboarding", action: self.showOnboarding))
@@ -319,13 +319,6 @@ class SettingsViewController: UIViewController {
         logInfo("Did change gender \(gender)")
         logAnalyticsEvent(AnalyticsEventId.ProfileGenderChoice(gender.rawValue))
         userManager.gender = gender
-    }
-    
-    private func didChange(language language: AppLanguage) {
-        logInfo("Did change language \(language)")
-//        TODO: add langage logAnalyticsEvent
-        languageManager.language = language
-        sendNavigationEvent(SimpleNavigationEvent(type: .InvalidateMainTabViewController))
     }
     
     private func generateReportDeviceInfo() -> NSData? {

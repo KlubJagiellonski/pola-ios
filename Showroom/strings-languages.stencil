@@ -29,8 +29,8 @@ extension {{enumName}}: CustomStringConvertible {
 
   private static func tr(key: String, _ args: CVarArgType...) -> String {
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-    let languageManager = appDelegate.assembler.resolver.resolve(LanguageManager.self)!
-    guard let format = languageManager.translation(forKey: key), let locale = languageManager.language?.locale else {
+    let platformManager = appDelegate.assembler.resolver.resolve(PlatformLanguageManager.self)!
+    guard let format = platformManager.translation(forKey: key), let locale = platformManager.language?.locale else {
         return ""
     }
     return String(format: format, locale: locale, arguments: args)

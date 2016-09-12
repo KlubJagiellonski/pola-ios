@@ -1,22 +1,14 @@
 import Foundation
 
-protocol KeyValueCache {
-    func synchronize() -> Bool
-    func setObject(value: AnyObject?, forKey defaultName: String)
-    func stringForKey(defaultName: String) -> String?
-    func setBool(value: Bool, forKey defaultName: String)
-    func boolForKey(defaultName: String) -> Bool
-}
-
 extension NSUserDefaults: KeyValueCache { }
 
-final class LanguageManager {
+final class PlatformLanguageManager {
     private static let languageCodeKey = "LanguageCode"
     private let cache: KeyValueCache
     
     private(set) var availableLanguages: [AppLanguage] = AppLanguage.allValues
 
-    var shouldSkipPlatformSelection: Bool {
+    private(set) var shouldSkipPlatformSelection: Bool {
         get {
             return cache.boolForKey("shouldSkipPlatformSelectionView")
         }
@@ -35,13 +27,18 @@ final class LanguageManager {
                 logError("Tried to set language to nil")
                 return
             }
-            cache.setObject(newValue.languageCode, forKey: LanguageManager.languageCodeKey)
+            cache.setObject(newValue.languageCode, forKey: PlatformLanguageManager.languageCodeKey)
             let success = cache.synchronize()
-            logInfo("Did set language: \(newValue) in user defaults with success: \(success)")
+            if success {
+                logInfo("Did set app language: \(newValue) to user defaults")
+                shouldSkipPlatformSelection = true
+            } else {
+                logError("Failed to set app language \(newValue) to user defaults")
+            }
         }
         get {
-            guard let languageCode = cache.stringForKey(LanguageManager.languageCodeKey) else {
-                logError("Could not find language code in user defaults for key: \(LanguageManager.languageCodeKey)")
+            guard let languageCode = cache.stringForKey(PlatformLanguageManager.languageCodeKey) else {
+                logError("Could not find language code in user defaults for key: \(PlatformLanguageManager.languageCodeKey)")
                 return nil
             }
             guard let language = AppLanguage(languageCode: languageCode) else {
@@ -69,5 +66,21 @@ final class LanguageManager {
             return nil
         }
         return translatedString
+    }
+    
+    // search for current device language in available languages. set matching one if possible.
+    func initializePlatform() {
+        if !shouldSkipPlatformSelection {
+            let deviceLanguageCode = NSLocale.currentLocale().languageCode
+            logInfo("Trying to find available app language matching the device language with languageCode: \(deviceLanguageCode)")
+            
+            if let matchingAvailableLanguage =
+                availableLanguages
+                    .find({ $0.languageCode == deviceLanguageCode }) {
+                language = matchingAvailableLanguage
+                // TODO: set platform
+                shouldSkipPlatformSelection = true
+            }
+        }
     }
 }

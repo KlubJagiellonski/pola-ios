@@ -311,6 +311,7 @@
 		C0518D801D2BBA9D0032F1B4 /* EditKioskDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0518D7F1D2BBA9D0032F1B4 /* EditKioskDataSource.swift */; };
 		C052F8981D1989A6008085E0 /* CheckoutAddressOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C052F8971D1989A6008085E0 /* CheckoutAddressOptionView.swift */; };
 		C05DAE5B1D6C429D008877BE /* OnboardingActionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05DAE5A1D6C429D008877BE /* OnboardingActionAnimator.swift */; };
+		C05E09FA1D86B71E000A9A4F /* KeyValueCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05E09F91D86B71E000A9A4F /* KeyValueCache.swift */; };
 		C06E53561D478E62000E5B7C /* PaymentSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06E53551D478E62000E5B7C /* PaymentSuccessViewController.swift */; };
 		C06E53581D478F61000E5B7C /* PaymentFailureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06E53571D478F61000E5B7C /* PaymentFailureViewController.swift */; };
 		C06E535A1D478F96000E5B7C /* PaymentSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06E53591D478F96000E5B7C /* PaymentSuccessView.swift */; };
@@ -351,8 +352,6 @@
 		C0CBE2B21D2E50F7008B861D /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CBE2B11D2E50F7008B861D /* Setting.swift */; };
 		C0ED7EAE1D7EE39E00CBC796 /* NSLocaleUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED7EAD1D7EE39E00CBC796 /* NSLocaleUtils.swift */; };
 		C0ED7EB21D803E9900CBC796 /* AppLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED7EB11D803E9900CBC796 /* AppLanguage.swift */; };
-		C0ED7EB51D804A6800CBC796 /* SettingsPlatformSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED7EB41D804A6800CBC796 /* SettingsPlatformSelectionViewController.swift */; };
-		C0ED7EB71D804BF500CBC796 /* SettingsPlatformSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED7EB61D804BF500CBC796 /* SettingsPlatformSelectionView.swift */; };
 		C0FE51D11D8061C500990155 /* PlatformSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FE51D01D8061C500990155 /* PlatformSelectionViewController.swift */; };
 		C0FE51D31D8061D200990155 /* PlatformSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FE51D21D8061D200990155 /* PlatformSelectionView.swift */; };
 		C0FE51D51D81C20400990155 /* PlatformButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FE51D41D81C20300990155 /* PlatformButton.swift */; };
@@ -693,6 +692,7 @@
 		C0518D7F1D2BBA9D0032F1B4 /* EditKioskDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditKioskDataSource.swift; path = Showroom/Shared/Business/Checkout/Delivery/EditKiosk/DataSource/EditKioskDataSource.swift; sourceTree = SOURCE_ROOT; };
 		C052F8971D1989A6008085E0 /* CheckoutAddressOptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutAddressOptionView.swift; sourceTree = "<group>"; };
 		C05DAE5A1D6C429D008877BE /* OnboardingActionAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingActionAnimator.swift; sourceTree = "<group>"; };
+		C05E09F91D86B71E000A9A4F /* KeyValueCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyValueCache.swift; sourceTree = "<group>"; };
 		C06E53551D478E62000E5B7C /* PaymentSuccessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentSuccessViewController.swift; sourceTree = "<group>"; };
 		C06E53571D478F61000E5B7C /* PaymentFailureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentFailureViewController.swift; sourceTree = "<group>"; };
 		C06E53591D478F96000E5B7C /* PaymentSuccessView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentSuccessView.swift; sourceTree = "<group>"; };
@@ -734,8 +734,6 @@
 		C0DF72781D75C7A4001BA783 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C0ED7EAD1D7EE39E00CBC796 /* NSLocaleUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSLocaleUtils.swift; sourceTree = "<group>"; };
 		C0ED7EB11D803E9900CBC796 /* AppLanguage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppLanguage.swift; sourceTree = "<group>"; };
-		C0ED7EB41D804A6800CBC796 /* SettingsPlatformSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsPlatformSelectionViewController.swift; sourceTree = "<group>"; };
-		C0ED7EB61D804BF500CBC796 /* SettingsPlatformSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsPlatformSelectionView.swift; sourceTree = "<group>"; };
 		C0FE51D01D8061C500990155 /* PlatformSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlatformSelectionViewController.swift; sourceTree = "<group>"; };
 		C0FE51D21D8061D200990155 /* PlatformSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlatformSelectionView.swift; sourceTree = "<group>"; };
 		C0FE51D41D81C20300990155 /* PlatformButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlatformButton.swift; sourceTree = "<group>"; };
@@ -1383,7 +1381,6 @@
 		1DD1EA8F1CF2E60400D99731 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				C0ED7EB31D804A4A00CBC796 /* SettingsPlatformSelection */,
 				C006F4DA1D3E4AC400573316 /* WebView */,
 				C007CD961D2E939800700EBB /* DataSource */,
 				C0CBE2A91D2D4270008B861D /* SettingsNavigationController.swift */,
@@ -1585,6 +1582,7 @@
 				C01FF2E11D366D3B00D025AE /* HeartMaskView.swift */,
 				1D2CAC381D421F4A00F678FA /* DeepLinkingHandler.swift */,
 				7566CE6C1D6DC6F70065DFB3 /* AlertView.swift */,
+				C05E09F91D86B71E000A9A4F /* KeyValueCache.swift */,
 			);
 			name = Common;
 			path = Showroom/Shared/Common;
@@ -1845,15 +1843,6 @@
 			path = ProductAction;
 			sourceTree = "<group>";
 		};
-		C0ED7EB31D804A4A00CBC796 /* SettingsPlatformSelection */ = {
-			isa = PBXGroup;
-			children = (
-				C0ED7EB41D804A6800CBC796 /* SettingsPlatformSelectionViewController.swift */,
-				C0ED7EB61D804BF500CBC796 /* SettingsPlatformSelectionView.swift */,
-			);
-			name = SettingsPlatformSelection;
-			sourceTree = "<group>";
-		};
 		C0FE51CF1D8061A700990155 /* PlatformSelection */ = {
 			isa = PBXGroup;
 			children = (
@@ -2042,6 +2031,7 @@
 				1D5F914A1D34E9AC00AE66E6 /* Filter.swift in Sources */,
 				1D2F19611CE9CED80099142E /* RootViewController.swift in Sources */,
 				1D5E918F1D3CDE6A00A6BD55 /* SearchProductListModel.swift in Sources */,
+				C05E09FA1D86B71E000A9A4F /* KeyValueCache.swift in Sources */,
 				1D3792721D196931001A7C47 /* ViewSwitcher.swift in Sources */,
 				1D5F91141D2FA19B00AE66E6 /* CheckoutDeliveryViewHelpers.swift in Sources */,
 				C052F8981D1989A6008085E0 /* CheckoutAddressOptionView.swift in Sources */,
@@ -2066,7 +2056,6 @@
 				C0ED7EB21D803E9900CBC796 /* AppLanguage.swift in Sources */,
 				1D5F911D1D33D69C00AE66E6 /* SplashViewController.swift in Sources */,
 				1DD161A61D01C3B90022B5C9 /* ShowProductDetailsEvent.swift in Sources */,
-				C0ED7EB51D804A6800CBC796 /* SettingsPlatformSelectionViewController.swift in Sources */,
 				1D5E918A1D3CDDB600A6BD55 /* UISearchBarUtils.swift in Sources */,
 				1DD1EA6C1CEC5D1700D99731 /* UIColorAssets.swift in Sources */,
 				1D1A7DFB1D240065009CCCE7 /* CategoryProductListViewController.swift in Sources */,
@@ -2311,7 +2300,6 @@
 				C0A997791D6701C000DBF558 /* InAppOnboardingProductPagingCell.swift in Sources */,
 				1D0F3B641D13D3710052CFF6 /* BasketCountryDataSource.swift in Sources */,
 				753D865B1D4A240F001BF7EB /* ResetPasswordViewController.swift in Sources */,
-				C0ED7EB71D804BF500CBC796 /* SettingsPlatformSelectionView.swift in Sources */,
 				1D0F3B4E1D12819B0052CFF6 /* BasketDeliveryNavigationController.swift in Sources */,
 				1DA5CB491D2F7B2E00A45E93 /* Checkout.swift in Sources */,
 				C006F4D41D3E40CF00573316 /* ShowSettingsWebViewEvent.swift in Sources */,

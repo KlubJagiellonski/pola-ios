@@ -48,8 +48,8 @@ class ManagerAssembly: AssemblyType {
             return VersionManager(api: r.resolve(ApiService.self)!)
         }.inObjectScope(.Container)
         
-        container.register(LanguageManager.self) { r in
-            return LanguageManager()
+        container.register(PlatformLanguageManager.self) { r in
+            return PlatformLanguageManager()
         }.inObjectScope(.Container)
     }
 }

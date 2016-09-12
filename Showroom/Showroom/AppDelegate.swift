@@ -18,8 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         manager.delegate = self
         return manager
     }()
-    private lazy var languageManager: LanguageManager = { [unowned self] in
-        return self.assembler.resolver.resolve(LanguageManager.self)!
+    private lazy var platformManager: PlatformLanguageManager = { [unowned self] in
+        return self.assembler.resolver.resolve(PlatformLanguageManager.self)!
     }()
     private var launchCount: Int {
         let launchCountKey = "launch_count"
@@ -44,9 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         logInfo("Configuring main window")
         
         // has to be called before initializing RootViewController
-        if !languageManager.shouldSkipPlatformSelection {
-            setAppLanguageToDeviceLanguageIfPossible()
-        }
+        platformManager.initializePlatform()
         
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         window?.backgroundColor = UIColor.whiteColor()
@@ -108,18 +106,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         logInfo("app did become active")
-    }
-    
-    func setAppLanguageToDeviceLanguageIfPossible() {
-        let deviceLanguageCode = NSLocale.currentLocale().languageCode
-        logInfo("Trying to find available app language matching the device language with languageCode: \(deviceLanguageCode)")
-        
-        if let matchingAvailableLanguage = languageManager
-            .availableLanguages
-            .find({ $0.languageCode == deviceLanguageCode }) {
-                languageManager.language = matchingAvailableLanguage
-                languageManager.shouldSkipPlatformSelection = true
-        }
     }
     
     private func configureDependencies() {

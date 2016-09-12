@@ -4,10 +4,10 @@ class PlatformSelectionViewController: UIViewController, PlatformSelectionViewDe
     
     private var castView: PlatformSelectionView { return view as! PlatformSelectionView }
     
-    let languageManager: LanguageManager
+    let platformManager: PlatformLanguageManager
     
-    init(languageManager: LanguageManager) {
-        self.languageManager = languageManager
+    init(platformManager: PlatformLanguageManager) {
+        self.platformManager = platformManager
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -26,15 +26,13 @@ class PlatformSelectionViewController: UIViewController, PlatformSelectionViewDe
     
     func platformSelectionViewDidTapPolish(view: PlatformSelectionView) {
         logInfo("platform selection view did tap polish")
-        languageManager.language = .Polish
-        languageManager.shouldSkipPlatformSelection = true
+        platformManager.language = .Polish
         sendNavigationEvent(SimpleNavigationEvent(type: .PlatformSelectionEnd))
     }
     
     func platformSelectionViewDidTapGerman(view: PlatformSelectionView) {
         logInfo("platform selection view did tap german")
-        languageManager.language = .German
-        languageManager.shouldSkipPlatformSelection = true
+        platformManager.language = .German
         sendNavigationEvent(SimpleNavigationEvent(type: .PlatformSelectionEnd))
     }
 }
