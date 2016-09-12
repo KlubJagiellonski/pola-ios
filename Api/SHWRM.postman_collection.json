@@ -1,0 +1,369 @@
+{
+	"variables": [],
+	"info": {
+		"name": "SHWRM",
+		"_postman_id": "5c8cc756-7268-0ab1-0b89-115d171257a9",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "HOME",
+			"request": {
+				"url": "{{HOST}}/home?gender=female",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PRODUCT DETAILS",
+			"request": {
+				"url": "{{HOST}}/products/123",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CART VALIDATE",
+			"request": {
+				"url": "{{HOST}}/cart/validate",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"items\": [\n        {\n            \"id\": 1,\n            \"amount\": 2,\n            \"color\": 1,\n            \"size\": 1\n        }, {\n            \"id\": 2,\n            \"amount\": 10,\n            \"color\": 2,\n            \"size\": 1\n        }, {\n            \"id\": 3,\n            \"amount\": 2,\n            \"color\": 1,\n            \"size\": 2\n        }\n    ],\n    \"country_code\": \"PL\",\n    \"delivery_type\": \"2\",\n    \"discount_code\": \"12345\"\n}"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET KIOSKS",
+			"request": {
+				"url": "{{HOST}}/delivery/pwr/pops?limit=10",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"lat\":52.069167,\n    \"lng\":19.480556\n}"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PRODUCTS",
+			"request": {
+				"url": "{{HOST}}/products",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"pagination\": {\n        \"page\": 3\n    },\n    \"link\": \"https://www.showroom.pl/tag/ona\"\n}"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LOGIN",
+			"request": {
+				"url": "{{HOST}}/login",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"sebastian@grodzicki.pl\",\n    \"password\": \"SHOWROOM\"\n}"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "REGISTER",
+			"request": {
+				"url": "{{HOST}}/register",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Jan\",\n    \"password\": \"SHOWROOM\",\n    \"email\": \"jan.kowalski@gmail.com\",\n    \"newsletter\": \"true\"\n}"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TRENDS",
+			"request": {
+				"url": "{{HOST}}/trend/stylowekreacjenawesele",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "LOGOUT",
+			"request": {
+				"url": "{{HOST}}/logout",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "showroom-key",
+						"value": "key",
+						"description": ""
+					},
+					{
+						"key": "showroom-secret",
+						"value": "secret",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "LOGIN FACEBOOK",
+			"request": {
+				"url": "{{HOST}}/login/facebook",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"access_token\": \"EAADRWxCT1FUBAGhvWRomhmQgLRMrgIkCy5XqUiPpfLPZC1qwENwulYtOLiKaBCpmz7TVz8Ybr70BP9LJBombZBYt58CxKbQu6ZAvDxqIH0oX9c8DaKQiTJ7unZC98aJYKFarwL0feDRNOCFJiT7pNomHaRBwRsZBww8pgDT5lqJXtBofgt2FZAleZAvQPlfaIQrymqrFXduKbN3RZA7V2m2c8WOVLUCSoAsZD\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET USER",
+			"request": {
+				"url": "{{HOST}}/user/profile",
+				"method": "GET",
+				"header": [
+					{
+						"key": "showroom-key",
+						"value": "key",
+						"description": ""
+					},
+					{
+						"key": "showroom-secret",
+						"value": "secret",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "SEARCH CATALOG",
+			"request": {
+				"url": "{{HOST}}/search_catalogue",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "ADD ADDRESS",
+			"request": {
+				"url": "{{HOST}}/user/address",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "showroom-key",
+						"value": "123",
+						"description": ""
+					},
+					{
+						"key": "showroom-secret",
+						"value": "123",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Name\",\n  \"surname\": \"Surname\",\n  \"street\": \"Polna 10\",\n  \"zip\": \"05-900\",\n  \"city\": \"Warsaw\",\n  \"country\": \"PL\",\n  \"phone\": \"506573822\",\n  \"description\": \"test description\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "EDIT ADDRESS",
+			"request": {
+				"url": "{{HOST}}/user/address/10",
+				"method": "POST",
+				"header": [
+					{
+						"key": "showroom-key",
+						"value": "123",
+						"description": ""
+					},
+					{
+						"key": "showroom-secret",
+						"value": "123",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Name\",\n  \"surname\": \"Surname\",\n  \"street\": \"Polna 10\",\n  \"zip\": \"05-900\",\n  \"city\": \"Warsaw\",\n  \"country\": \"PL\",\n  \"phone\": \"506573822\",\n  \"description\": \"test description\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "STORE",
+			"request": {
+				"url": "{{HOST}}/store/584",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"pagination\": {\n        \"page\": 1,\n        \"pageSize\": 1\n    },\n    \"price\": [0, 10000],\n    \"sort\": [2]\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "PAYMENT AUTHORIZE",
+			"request": {
+				"url": "{{HOST}}/payment/payu/authorize",
+				"method": "GET",
+				"header": [
+					{
+						"key": "showroom-key",
+						"value": "123",
+						"description": ""
+					},
+					{
+						"key": "showroom-secret",
+						"value": "123",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "RESET PASSWORD",
+			"request": {
+				"url": "{{HOST}}/reset-password",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"pjanecze@gmail.com\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "APP VERSION",
+			"request": {
+				"url": "{{HOST}}/appRecentVersion",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

@@ -1,6 +1,6 @@
 import Quick
 import Nimble
-@testable import Showroom
+@testable import SHOWROOM
 
 class ShowroomTests: QuickSpec {
     override func spec() {

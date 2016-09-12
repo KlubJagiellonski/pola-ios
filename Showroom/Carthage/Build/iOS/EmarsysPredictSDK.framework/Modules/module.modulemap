@@ -1,0 +1,14 @@
+framework module EmarsysPredictSDK {
+  umbrella header "EmarsysPredictSDK.h"
+
+  export *
+  module * { export * }
+
+  header "EMCartItem.h"
+  header "EMError.h"
+  header "EMRecommendationItem.h"
+  header "EMRecommendationRequest.h"
+  header "EMRecommendationResult.h"
+  header "EMSession.h"
+  header "EMTransaction.h"
+}

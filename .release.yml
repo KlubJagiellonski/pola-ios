@@ -3,6 +3,7 @@ env: WORKDIR=Showroom/
 xcode_project: Showroom.xcodeproj
 xcode_scheme: 
  - Showroom
+ - ShowroomAppStore
 xcode_sdk:
  - iphoneos
 xcode_version:

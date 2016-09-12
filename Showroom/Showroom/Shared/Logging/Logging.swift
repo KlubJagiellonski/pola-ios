@@ -14,7 +14,7 @@ func logError(text: String, functionName: String = #function, fileName: String =
     Logging.error(text, functionName: functionName, fileName: fileName, lineNumber: lineNumber)
 }
 
-class Logging {
+final class Logging {
     static let xcgLogger = XCGLogger.defaultInstance()
 
     static func configure() {
@@ -23,11 +23,11 @@ class Logging {
         xcgLogger.setup(isDebug ? .Debug : .Info,
             showLogIdentifier: isDebug,
             showFunctionName: isDebug,
-            showThreadName: true,
-            showLogLevel: true,
+            showThreadName: isDebug,
+            showLogLevel: isDebug,
             showFileNames: true,
             showLineNumbers: true,
-            showDate: true,
+            showDate: isDebug,
             writeToFile: nil,
             fileLogLevel: nil)
 
@@ -62,7 +62,7 @@ class CrashlyticsLogDestination: XCGLogDestinationProtocol {
         if logDetails.logLevel >= .Error {
             Crashlytics.sharedInstance().recordError(NSError.fromXCGLogDetails(logDetails))
         } else {
-            CLSLogv(logDetails.toMessage(), getVaList([]))
+            CLSLogv("%@", getVaList([logDetails.toMessage()]))
         }
     }
 
@@ -89,7 +89,7 @@ class CrashlyticsLogDestination: XCGLogDestinationProtocol {
 
 extension NSError {
     static func fromXCGLogDetails(xcgLogDetails: XCGLogDetails) -> NSError {
-        return NSError(domain: "Error", code: 400, userInfo: [
+        return NSError(domain: xcgLogDetails.logMessage, code: 500, userInfo: [
             NSLocalizedDescriptionKey: xcgLogDetails.toMessage()
         ])
     }

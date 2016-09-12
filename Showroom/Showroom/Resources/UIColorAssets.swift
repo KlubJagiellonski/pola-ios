@@ -1,6 +1,6 @@
 // Generated using SwiftGen, by O.Halligon — https://github.com/AliSoftware/SwiftGen
 
-import UIKit
+import UIKit.UIColor
 
 extension UIColor {
   convenience init(rgbaValue: UInt32) {
@@ -13,24 +13,76 @@ extension UIColor {
   }
 }
 
-extension UIColor {
-  enum Name {
-    /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#ffffff"></span>
-    /// Alpha: 100% <br/> (0xffffffff)
-    case White
+enum ColorName {
+  /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#000000"></span>
+  /// Alpha: 100% <br/> (0x000000ff)
+  case Black
+  /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#1e1cbf"></span>
+  /// Alpha: 100% <br/> (0x1e1cbfff)
+  case Blue
+  /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#a4aab3"></span>
+  /// Alpha: 100% <br/> (0xa4aab3ff)
+  case DarkGray
+  /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#a3aab2"></span>
+  /// Alpha: 100% <br/> (0xa3aab2ff)
+  case Dim
+  /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#4267b2"></span>
+  /// Alpha: 100% <br/> (0x4267b2ff)
+  case Facebook
+  /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#edeef0"></span>
+  /// Alpha: 100% <br/> (0xedeef0ff)
+  case Gray
+  /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#9b9b9b"></span>
+  /// Alpha: 100% <br/> (0x9b9b9bff)
+  case Manatee
+  /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#e6e6e6"></span>
+  /// Alpha: 100% <br/> (0xe6e6e6ff)
+  case Mercury
+  /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#767676"></span>
+  /// Alpha: 100% <br/> (0x767676ff)
+  case OldLavender
+  /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#f2f4fa"></span>
+  /// Alpha: 100% <br/> (0xf2f4faff)
+  case ProductPageBackground
+  /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#fe3824"></span>
+  /// Alpha: 100% <br/> (0xfe3824ff)
+  case RedViolet
+  /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#dddddd"></span>
+  /// Alpha: 100% <br/> (0xddddddff)
+  case Separator
+  /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#fafafa"></span>
+  /// Alpha: 100% <br/> (0xfafafaff)
+  case Snow
+  /// <span style="display:block;width:3em;height:2em;border:1px solid black;background:#ffffff"></span>
+  /// Alpha: 100% <br/> (0xffffffff)
+  case White
 
-    var rgbaValue: UInt32! {
-      switch self {
-      case .White: return 0xffffffff
-      }
-    }
-
-    var color: UIColor {
-      return UIColor(named: self)
+  var rgbaValue: UInt32! {
+    switch self {
+    case .Black: return 0x000000ff
+    case .Blue: return 0x1e1cbfff
+    case .DarkGray: return 0xa4aab3ff
+    case .Dim: return 0xa3aab2ff
+    case .Facebook: return 0x4267b2ff
+    case .Gray: return 0xedeef0ff
+    case .Manatee: return 0x9b9b9bff
+    case .Mercury: return 0xe6e6e6ff
+    case .OldLavender: return 0x767676ff
+    case .ProductPageBackground: return 0xf2f4faff
+    case .RedViolet: return 0xfe3824ff
+    case .Separator: return 0xddddddff
+    case .Snow: return 0xfafafaff
+    case .White: return 0xffffffff
     }
   }
 
-  convenience init(named name: Name) {
+  var color: UIColor {
+    return UIColor(named: self)
+  }
+}
+
+extension UIColor {
+  convenience init(named name: ColorName) {
     self.init(rgbaValue: name.rgbaValue)
   }
 }
