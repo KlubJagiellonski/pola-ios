@@ -7,6 +7,9 @@
 		<string>applinks:www.showroom.pl</string>
 		<string>activitycontinuation:www.showroom.pl</string>
 		<string>webcredentials:www.showroom.pl</string>
+		<string>applinks:www.showroom.de</string>
+		<string>activitycontinuation:www.showroom.de</string>
+		<string>webcredentials:www.showroom.de</string>
 	</array>
 </dict>
 </plist>

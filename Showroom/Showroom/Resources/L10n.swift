@@ -835,8 +835,8 @@ extension L10n: CustomStringConvertible {
 
   private static func tr(key: String, _ args: CVarArgType...) -> String {
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-    let platformManager = appDelegate.assembler.resolver.resolve(PlatformLanguageManager.self)!
-    guard let format = platformManager.translation(forKey: key), let locale = platformManager.language?.locale else {
+    let platformManager = appDelegate.assembler.resolver.resolve(PlatformManager.self)!
+    guard let format = platformManager.translation(forKey: key), let locale = platformManager.platform?.locale else {
         return ""
     }
     return String(format: format, locale: locale, arguments: args)

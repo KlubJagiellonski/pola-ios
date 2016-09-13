@@ -14,7 +14,7 @@ class RootModel {
     let rateAppManager: RateAppManager
     let notificationManager: NotificationsManager
     let versionManager: VersionManager
-    let platformManager: PlatformLanguageManager
+    let platformManager: PlatformManager
     
     var startChildType: RootChildType {
         if !platformManager.shouldSkipPlatformSelection {
@@ -47,7 +47,7 @@ class RootModel {
         }
     }
     
-    init(with userManager: UserManager, apiService: ApiService, rateAppManager: RateAppManager, notificationManager: NotificationsManager, versionManager: VersionManager, platformManager: PlatformLanguageManager) {
+    init(with userManager: UserManager, apiService: ApiService, rateAppManager: RateAppManager, notificationManager: NotificationsManager, versionManager: VersionManager, platformManager: PlatformManager) {
         self.userManager = userManager
         self.apiService = apiService
         self.rateAppManager = rateAppManager

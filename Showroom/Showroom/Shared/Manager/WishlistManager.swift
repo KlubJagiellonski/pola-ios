@@ -51,18 +51,18 @@ final class WishlistManager {
             return
         }
         
-        if state.synchronizationState.synchronized {
+        if userManager.session == nil {
+            logInfo("User not logged, need to synchronize")
+            state.synchronizationState = WishlistSynchronizationState(synchronizing: false, synchronized: false)
+        } else if state.synchronizationState.synchronized {
             logInfo("Not need to synchronize, just fetching wishlist")
             state.synchronizationState = WishlistSynchronizationState(synchronizing: true, synchronized: state.synchronizationState.synchronized)
             synchronizationDisposable = handleObservable(api.fetchWishlist(), alwaysMarkAsSynchronized: true)
-        } else if userManager.session != nil {
+        } else {
             logInfo("User logged, need to synchronize")
             state.synchronizationState = WishlistSynchronizationState(synchronizing: true, synchronized: state.synchronizationState.synchronized)
             let productsIds = state.wishlist.reverse().map { $0.id }
             synchronizationDisposable = handleObservable(api.sendWishlist(with: MultipleWishlistRequest(productIds: productsIds)), alwaysMarkAsSynchronized: false)
-        } else {
-            logInfo("User not logged, need to synchronize")
-            state.synchronizationState = WishlistSynchronizationState(synchronizing: false, synchronized: false)
         }
     }
     

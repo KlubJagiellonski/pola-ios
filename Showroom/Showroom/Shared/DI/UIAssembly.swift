@@ -7,7 +7,7 @@ class UIAssembly: AssemblyType {
             return RootViewController(resolver: r.resolve(DiResolver.self)!)!
         }
         container.register(RootModel.self) { r in
-            return RootModel(with: r.resolve(UserManager.self)!, apiService: r.resolve(ApiService.self)!, rateAppManager: r.resolve(RateAppManager.self)!, notificationManager: r.resolve(NotificationsManager.self)!, versionManager: r.resolve(VersionManager.self)!, platformManager: r.resolve(PlatformLanguageManager.self)!)
+            return RootModel(with: r.resolve(UserManager.self)!, apiService: r.resolve(ApiService.self)!, rateAppManager: r.resolve(RateAppManager.self)!, notificationManager: r.resolve(NotificationsManager.self)!, versionManager: r.resolve(VersionManager.self)!, platformManager: r.resolve(PlatformManager.self)!)
         }
         container.register(StartViewController.self) { r in
             return StartViewController(resolver: r.resolve(DiResolver.self)!)
@@ -208,7 +208,7 @@ class UIAssembly: AssemblyType {
             return UpdateAppViewController(manager: r.resolve(VersionManager.self)!, application: r.resolve(UIApplication.self)!)
         }
         container.register(PlatformSelectionViewController.self) { r in
-            return PlatformSelectionViewController(platformManager: r.resolve(PlatformLanguageManager.self)!)
+            return PlatformSelectionViewController(platformManager: r.resolve(PlatformManager.self)!)
         }
 
     }

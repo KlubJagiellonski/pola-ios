@@ -13,7 +13,12 @@ struct Constants {
         static let isAppStore = false
     #endif
     
-    static let baseUrl = "https://api.showroom.pl/ios/v1"
+    #if ENV_STAGING
+        static let isStagingEnv = true
+    #else
+        static let isStagingEnv = false
+    #endif
+    
     static let websiteDomain = "www.showroom.pl"
     static let websiteUrl = "https://\(Constants.websiteDomain)"
     static let appScheme = NSBundle.appScheme

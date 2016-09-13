@@ -5,17 +5,23 @@
 			{
 				"appID": "73PWPNSU5Y.com.showroom.Showroom",
 				"paths": [ "/tag/*", "/marki/*", "/trend/*", "/search", "/p/*" ]
+			},
+			{
+				"appID": "73PWPNSU5Y.com.showroom.Showroom.staging",
+				"paths": [ "/tag/*", "/marki/*", "/trend/*", "/search", "/p/*" ]	
 			}
 		]
 	},
 	"activitycontinuation": {
 		"apps": [    
-			"73PWPNSU5Y.com.showroom.Showroom"
+			"73PWPNSU5Y.com.showroom.Showroom",
+			"73PWPNSU5Y.com.showroom.Showroom.staging"
 		]
 	},
 	"webcredentials": {
 		"apps": [
-			"73PWPNSU5Y.com.showroom.Showroom"
+			"73PWPNSU5Y.com.showroom.Showroom",
+			"73PWPNSU5Y.com.showroom.Showroom.staging"
 		]
 	}
 }

@@ -4,6 +4,7 @@ import RxCocoa
 
 protocol NetworkClient {
     func request(withRequest urlRequest: NSURLRequest) -> Observable<NSData>
+    func invalidateSession()
 }
 
 protocol NetworkActivityIndicatorController {
@@ -12,12 +13,12 @@ protocol NetworkActivityIndicatorController {
 
 class HttpClient: NetworkClient {
     private var numberOfCallsToSetVisible = 0
-    private let session: NSURLSession
+    private var session: NSURLSession
     
     private(set) var activityIndicatorController: NetworkActivityIndicatorController
     
-    init(session: NSURLSession, activityIndicatorController: NetworkActivityIndicatorController) {
-        self.session = session
+    init(activityIndicatorController: NetworkActivityIndicatorController) {
+        self.session = NSURLSession.createSession()
         self.activityIndicatorController = activityIndicatorController
     }
     
@@ -38,6 +39,11 @@ class HttpClient: NetworkClient {
             return disposable
         }
     }
+ 
+    func invalidateSession() {
+        session.invalidateAndCancel()
+        session = NSURLSession.createSession()
+    }
     
     private func setNetworkActivityIndicatorVisible(visible: Bool) {
         if visible {
@@ -46,5 +52,11 @@ class HttpClient: NetworkClient {
             numberOfCallsToSetVisible -= 1
         }
         activityIndicatorController.networkActivityIndicatorVisible = numberOfCallsToSetVisible > 0
+    }
+}
+
+extension NSURLSession {
+    static func createSession() -> NSURLSession {
+        return NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
     }
 }

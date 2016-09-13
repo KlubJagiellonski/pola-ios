@@ -215,7 +215,7 @@
 		{
 			"name": "SEARCH CATALOG",
 			"request": {
-				"url": "{{HOST}}/search_catalogue",
+				"url": "{{HOST}}/search-catalogue",
 				"method": "GET",
 				"header": [],
 				"body": {
@@ -346,20 +346,6 @@
 				"body": {
 					"mode": "raw",
 					"raw": "{\n    \"email\": \"pjanecze@gmail.com\"\n}"
-				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "APP VERSION",
-			"request": {
-				"url": "{{HOST}}/appRecentVersion",
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": []
 				},
 				"description": ""
 			},

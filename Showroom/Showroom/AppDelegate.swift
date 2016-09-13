@@ -18,8 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         manager.delegate = self
         return manager
     }()
-    private lazy var platformManager: PlatformLanguageManager = { [unowned self] in
-        return self.assembler.resolver.resolve(PlatformLanguageManager.self)!
+    private lazy var platformManager: PlatformManager = { [unowned self] in
+        return self.assembler.resolver.resolve(PlatformManager.self)!
     }()
     private var launchCount: Int {
         let launchCountKey = "launch_count"
@@ -41,10 +41,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
-        logInfo("Configuring main window")
-        
         // has to be called before initializing RootViewController
         platformManager.initializePlatform()
+        
+        logInfo("Configuring main window")
         
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         window?.backgroundColor = UIColor.whiteColor()

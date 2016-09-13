@@ -7,3 +7,5 @@ protocol KeyValueCache {
     func setBool(value: Bool, forKey defaultName: String)
     func boolForKey(defaultName: String) -> Bool
 }
+
+extension NSUserDefaults: KeyValueCache { }
