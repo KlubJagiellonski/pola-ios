@@ -18,7 +18,7 @@ struct Constants {
     static let websiteUrl = "https://\(Constants.websiteDomain)"
     static let appScheme = NSBundle.appScheme
     
-    static let appStoreUrl = "itms-apps://itunes.apple.com/app/1147114961"
+    static let appStoreUrl = "itms-apps://itunes.apple.com/app/id1147114961"
     
     static let reportEmail = "iosv1@showroom.pl"
     
