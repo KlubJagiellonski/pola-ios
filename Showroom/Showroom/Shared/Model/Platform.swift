@@ -20,4 +20,11 @@ extension Platform {
         case German: return "de"
         }
     }
+    
+    var isFemaleOnly: Bool {
+        switch self {
+        case Polish: return false
+        case German: return true
+        }
+    }
 }

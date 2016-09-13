@@ -82,27 +82,28 @@ class SettingsViewController: UIViewController {
         var settings = [
             Setting(type: .Header, action: self.facebookButtonPressed, secondaryAction: self.instagramButtonPressed, cellClickable: false),
             ]
+        
         if let user = user {
-            settings.append(
-                Setting(type: .Logout, labelString: tr(.CommonGreeting(user.name)), action: self.logoutButtonPressed, cellClickable: false)
-            )
+            settings.append(Setting(type: .Logout, labelString: tr(.CommonGreeting(user.name)), action: self.logoutButtonPressed, cellClickable: false))
         } else {
-            settings.append(
-                Setting(type: .Login, action: self.loginButtonPressed, secondaryAction: self.createAccountButtonPressed, cellClickable: false)
-            )
+            settings.append(Setting(type: .Login, action: self.loginButtonPressed, secondaryAction: self.createAccountButtonPressed, cellClickable: false))
         }
-        settings.append(
-            Setting(type: .Gender, action: self.femaleButtonPressed, secondaryAction: self.maleButtonPressed, cellClickable: false, value: self.userManager.gender)
-        )
+        
+        if platformManager.platform!.isFemaleOnly == false {
+            settings.append(Setting(type: .Gender, action: self.femaleButtonPressed, secondaryAction: self.maleButtonPressed, cellClickable: false, value: self.userManager.gender))
+        }
+                
         if notificationsManager.shouldShowInSettings {
             settings.append(
                 Setting(type: .AskForNotification, action: self.askForNotificationPressed, cellClickable: false)
             )
         }
+        
         if user != nil {
             settings.append(Setting(type: .Normal, labelString: tr(.SettingsUserData), action: self.userDataRowPressed))
             settings.append(Setting(type: .Normal, labelString: tr(.SettingsHistory), action: self.historyRowPressed))
         }
+        
         settings.appendContentsOf([
             Setting(type: .Normal, labelString: tr(.SettingsSendReport), action: self.sendReportPressed),
             Setting(type: .Normal, labelString: tr(.SettingsFrequentQuestions), action: self.frequentQuestionsRowPressed),
@@ -112,6 +113,7 @@ class SettingsViewController: UIViewController {
             Setting(type: .Normal, labelString: tr(.SettingsPrivacyPolicy), action: self.privacyPolicyRowPressed),
             Setting(type: .Platform, labelString: tr(.SettingsPlatform), secondaryLabelString: platformManager.platform?.platformString, action: self.platformRowPressed)
             ])
+        
         if !Constants.isAppStore {
             settings.append(Setting(type: .Normal, labelString: "Pokaż onboarding", action: self.showOnboarding))
             settings.append(Setting(type: .Normal, labelString: "Pokaż in-app wishlist onboarding", action: self.showInAppWishlistOnboarding))
@@ -242,7 +244,7 @@ class SettingsViewController: UIViewController {
     }
     
     func showOnboarding() {
-        sendNavigationEvent(SimpleNavigationEvent(type: .ShowOnboaridng))
+        sendNavigationEvent(SimpleNavigationEvent(type: .ShowOnboarding))
     }
     
     func showInAppWishlistOnboarding() {

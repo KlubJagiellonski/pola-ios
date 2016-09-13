@@ -26,14 +26,12 @@ class RootViewController: PresenterViewController, NavigationHandler {
         showModal(resolver.resolve(SplashViewController.self), hideContentView: false, animation: nil, completion: nil)
         
         switch model.startChildType {
-        case .Start:
-            showContent(resolver.resolve(StartViewController), animation: nil, completion: nil)
-        case .Main:
-            showContent(resolver.resolve(MainTabViewController), animation: nil, completion: nil)
         case .PlatformSelection:
             showContent(resolver.resolve(PlatformSelectionViewController.self), animation: nil, completion: nil)
         case .Onboarding:
             showContent(resolver.resolve(InitialOnboardingViewController), animation: nil, completion: nil)
+        case .Main:
+            showContent(resolver.resolve(MainTabViewController), animation: nil, completion: nil)
         default:
             let error = "Cannot create view controller for type \(model.startChildType)"
             logError(error)
@@ -105,6 +103,28 @@ class RootViewController: PresenterViewController, NavigationHandler {
         model.versionManager.didShowVersionAlert()
     }
     
+    func showInitialOnboarding() {
+        guard !(contentViewController is InitialOnboardingViewController) else { return }
+        
+        let initialOnboardingViewController = resolver.resolve(InitialOnboardingViewController)
+        showContent(initialOnboardingViewController, animation: DimTransitionAnimation(animationDuration: 0.3), completion: nil)
+    }
+    
+    func showDashboard() {
+        if let currentMainTabViewController = self.contentViewController as? MainTabViewController {
+            currentMainTabViewController.updateSelectedIndex(forControllerType: MainTabChildControllerType.Dashboard)
+        } else {
+            model.shouldSkipStartScreen = true
+            
+            let mainTabViewController = resolver.resolve(MainTabViewController)
+            showContent(mainTabViewController, animation: DimTransitionAnimation(animationDuration: 0.3), completion: nil)
+            if let urlToHandle = urlToHandle {
+                mainTabViewController.handleOpen(withURL: urlToHandle)
+                self.urlToHandle = nil
+            }
+        }
+    }
+    
     func showInAppPagingOnboarding() -> Bool {
         if self.presentedViewController != nil {
             return false
@@ -135,22 +155,7 @@ class RootViewController: PresenterViewController, NavigationHandler {
         guard let simpleEvent = event as? SimpleNavigationEvent else { return false }
         
         switch simpleEvent.type {
-        case .ShowDashboard:
-            logInfo("Showing dashboard")
             
-            if let currentMainTabViewController = self.contentViewController as? MainTabViewController {
-                currentMainTabViewController.updateSelectedIndex(forControllerType: MainTabChildControllerType.Dashboard)
-            } else {
-                model.shouldSkipStartScreen = true
-                
-                let mainTabViewController = resolver.resolve(MainTabViewController)
-                showContent(mainTabViewController, animation: DimTransitionAnimation(animationDuration: 0.3), completion: nil)
-                if let urlToHandle = urlToHandle {
-                    mainTabViewController.handleOpen(withURL: urlToHandle)
-                    self.urlToHandle = nil
-                }
-            }
-            return true
         case .SplashEnd:
             logInfo("Splash end")
             hideModal(animation: nil) { [weak self] _ in
@@ -169,37 +174,68 @@ class RootViewController: PresenterViewController, NavigationHandler {
                 }
             }
             return true
+            
+        case .ShowInitialPlatformSelection:
+            logInfo("Show initial platform selection")
+            guard !(contentViewController is PlatformSelectionViewController) else {
+                return true
+            }
+            showContent(resolver.resolve(PlatformSelectionViewController.self), animation: DimTransitionAnimation(animationDuration: 0.3), completion: nil)
+            return true
+            
         case .PlatformSelectionEnd:
             logInfo("Initial platform selection end")
             if !model.shouldSkipStartScreen {
-                let initialOnboardingViewController = resolver.resolve(InitialOnboardingViewController.self)
-                showContent(initialOnboardingViewController, animation: DimTransitionAnimation(animationDuration: 0.3), completion: nil)
-                return true
+                
+                return self.handleNavigationEvent(SimpleNavigationEvent(type: .ShowOnboarding))
             } else {
                 model.shouldSkipStartScreen = true
                 let mainTabViewController = resolver.resolve(MainTabViewController.self)
                 showContent(mainTabViewController, animation: DimTransitionAnimation(animationDuration: 0.3), completion: nil)
                 return true
             }
+            
+        case .ShowOnboarding:
+            logInfo("Show onboarding")
+            showInitialOnboarding()
+            return true
+
         case .OnboardingEnd:
             logInfo("Onboarding end")
-            guard !(contentViewController is StartViewController) else {
+            if model.platformManager.platform!.isFemaleOnly {
+                // user must not be able to set gender
+                // gender will be set to default value: woman in UserManager
+                showDashboard()
+                return true
+            } else {
+                guard !(contentViewController is StartViewController) else { return true }
+                showContent(resolver.resolve(StartViewController), animation: DimTransitionAnimation(animationDuration: 0.3), completion: nil)
                 return true
             }
-            showContent(resolver.resolve(StartViewController), animation: DimTransitionAnimation(animationDuration: 0.3), completion: nil)
+            
+        case .ShowDashboard:
+            logInfo("Showing dashboard")
+            showDashboard()
             return true
-        case .ShowOnboaridng:
-            guard !(contentViewController is InitialOnboardingViewController) else {
-                return true
+            
+        case .ShowProductDetailsInAppOnboarding:
+            logInfo("Show product details in app onboarding")
+            if !model.userSeenPagingInAppOnboarding {
+                if showInAppPagingOnboarding() {
+                    model.userSeenPagingInAppOnboarding = true
+                }
             }
-            showContent(resolver.resolve(InitialOnboardingViewController), animation: DimTransitionAnimation(animationDuration: 0.3), completion: nil)
             return true
-        case .ShowInitialPlatformSelection:
-            guard !(contentViewController is PlatformSelectionViewController) else {
-                return true
+            
+        case .ShowProductListInAppOnboarding:
+            logInfo("Show product list in app onboarding")            
+            if !model.userSeenWishlistInAppOnboarding {
+                if showInAppWishlistOnboarding() {
+                    model.userSeenWishlistInAppOnboarding = true
+                }
             }
-            showContent(resolver.resolve(PlatformSelectionViewController.self), animation: DimTransitionAnimation(animationDuration: 0.3), completion: nil)
             return true
+            
         case .AskForNotificationsFromWishlist:
             logInfo("Ask for notificaiton from wishlsit")
             // Only happens when the user adds something to the wishlist.
@@ -207,25 +243,9 @@ class RootViewController: PresenterViewController, NavigationHandler {
                 showNotificationAccessView()
             }
             return true
-        case .ShowProductDetailsInAppOnboarding:
-            logInfo("Show product details in app onboarding")
             
-            if !model.userSeenPagingInAppOnboarding {
-                if showInAppPagingOnboarding() {
-                    model.userSeenPagingInAppOnboarding = true
-                }
-            }
-            return true
-        case .ShowProductListInAppOnboarding:
-            logInfo("Show product list in app onboarding")
-            
-            if !model.userSeenWishlistInAppOnboarding {
-                if showInAppWishlistOnboarding() {
-                    model.userSeenWishlistInAppOnboarding = true
-                }
-            }
-            return true
-        default: return false
+        default:
+            return false
         }
     }
 }

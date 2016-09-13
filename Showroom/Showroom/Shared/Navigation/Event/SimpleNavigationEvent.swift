@@ -20,7 +20,7 @@ struct SimpleNavigationEvent: NavigationEvent {
         case ShowHistoryOfOrder
         case ProductAddedToBasket
         case ShowEditAddress
-        case ShowOnboaridng
+        case ShowOnboarding
         case ShowRules
         case AskForNotificationsFromWishlist
         case ShowProductDetailsInAppOnboarding
