@@ -107,9 +107,11 @@ class StartView: UIView {
 }
 
 class StartButton: UIButton {
-    var startImageView = UIImageView()
-    var browseLabel = UILabel()
-    var targetLabel = UILabel()
+    private let containerView = UIView()
+    
+    let startImageView = UIImageView()
+    private let browseLabel = UILabel()
+    let targetLabel = UILabel()
     
     init() {
         super.init(frame: CGRectZero)
@@ -117,7 +119,7 @@ class StartButton: UIButton {
         setBackgroundImage(UIImage.fromColor(UIColor(named: .White)), forState: .Normal)
         setBackgroundImage(UIImage.fromColor(UIColor(named: ColorName.Gray)), forState: .Highlighted)
         layer.borderColor = UIColor(named: .Blue).CGColor
-        layer.borderWidth = 2;
+        layer.borderWidth = 2
         
         startImageView.contentMode = .ScaleAspectFit
         
@@ -126,9 +128,11 @@ class StartButton: UIButton {
         
         targetLabel.font = UIFont.latoBold(ofSize: 24)
         
-        addSubview(startImageView)
-        addSubview(browseLabel)
-        addSubview(targetLabel)
+        containerView.addSubview(startImageView)
+        containerView.addSubview(browseLabel)
+        containerView.addSubview(targetLabel)
+        
+        addSubview(containerView)
         
         configureCustomConstraints()
     }
@@ -138,21 +142,26 @@ class StartButton: UIButton {
     }
     
     private func configureCustomConstraints() {
+        containerView.snp_makeConstraints { make in
+            make.center.equalToSuperview()
+        }
+        
         startImageView.snp_makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.left.equalToSuperview().offset(20)
-            make.top.greaterThanOrEqualToSuperview().inset(10)
-            make.bottom.greaterThanOrEqualToSuperview().inset(10)
+            make.leading.equalToSuperview()
+            make.top.equalToSuperview()
+            make.bottom.equalToSuperview()
         }
         
         browseLabel.snp_makeConstraints { make in
-            make.bottom.equalTo(self.snp_centerY).offset(-2)
-            make.left.equalToSuperview().offset(110)
+            make.bottom.equalTo(containerView.snp_centerY).offset(-2)
+            make.leading.equalToSuperview().offset(90)
+            make.trailing.equalToSuperview()
         }
         
         targetLabel.snp_makeConstraints { make in
             make.top.equalTo(self.snp_centerY).offset(-2)
-            make.left.equalToSuperview().offset(110)
+            make.leading.equalTo(browseLabel)
+            make.trailing.equalToSuperview()
         }
     }
 }
