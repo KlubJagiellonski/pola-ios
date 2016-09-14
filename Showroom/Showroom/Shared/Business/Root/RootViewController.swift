@@ -59,15 +59,15 @@ class RootViewController: PresenterViewController, NavigationHandler {
         }
     }
     
+    var shouldShowCustomAlert: Bool {
+        return self.presentedViewController == nil && contentViewController is MainTabViewController
+    }
+    
     private func showRateAppViewIfNeeded() -> Bool {
-        if self.presentedViewController != nil {
+        guard model.rateAppManager.shouldShowRateAppView && shouldShowCustomAlert else {
+            logInfo("Could not show rate app view")
             return false
         }
-        
-        guard model.rateAppManager.shouldShowRateAppView else {
-            return false
-        }
-        
         logInfo("Showing rate app view")
         
         let viewController = self.resolver.resolve(RateAppViewController.self, argument: RateAppViewType.AfterTime)
@@ -78,10 +78,10 @@ class RootViewController: PresenterViewController, NavigationHandler {
     }
     
     private func showNotificationAccessView() {
-        if self.presentedViewController != nil {
+        guard shouldShowCustomAlert else {
+            logInfo("Could not show notification access view")
             return
         }
-        
         logInfo("Showing notification access view")
         
         let viewController = self.resolver.resolve(NotificationsAccessViewController.self, argument: NotificationsAccessViewType.AfterTime)
@@ -91,10 +91,10 @@ class RootViewController: PresenterViewController, NavigationHandler {
     }
     
     private func showUpdateAlert() {
-        if self.presentedViewController != nil {
+        guard shouldShowCustomAlert else {
+            logInfo("Could not show update alert view")
             return
         }
-        
         logInfo("Showing update alert")
         
         let viewController = self.resolver.resolve(UpdateAppViewController.self)
@@ -186,8 +186,8 @@ class RootViewController: PresenterViewController, NavigationHandler {
         case .PlatformSelectionEnd:
             logInfo("Initial platform selection end")
             if !model.shouldSkipStartScreen {
-                
-                return self.handleNavigationEvent(SimpleNavigationEvent(type: .ShowOnboarding))
+                showInitialOnboarding()
+                return true
             } else {
                 model.shouldSkipStartScreen = true
                 let mainTabViewController = resolver.resolve(MainTabViewController.self)
