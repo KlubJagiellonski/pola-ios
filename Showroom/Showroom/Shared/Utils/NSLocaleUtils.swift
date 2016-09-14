@@ -8,17 +8,4 @@ extension NSLocale {
         }
         return code
     }
-    
-    func hasEqualLanguageCode(to platform: Platform) -> Bool {
-        guard let selfLanguageCode = self.languageCode else {
-            return false
-        }
-        return selfLanguageCode.caseInsensitiveCompare(platform.languageCode) == NSComparisonResult.OrderedSame
-    }
-}
-
-extension Platform {
-    func hasEqualLanguageCode(to locale: NSLocale) -> Bool {
-        return locale.hasEqualLanguageCode(to: self)
-    }
 }

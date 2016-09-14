@@ -44,7 +44,7 @@ final class SearchViewController: UIViewController, SearchViewDelegate {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        markHandoffUrlActivity(withPath: "/")
+        markHandoffUrlActivity(withPathComponent: "", resolver: resolver)
     }
     
     override func viewDidLayoutSubviews() {

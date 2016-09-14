@@ -114,17 +114,6 @@ struct ApiServiceCall {
 
 // MARK:- Configuration
 
-extension Platform {
-    private var pathComponent: String {
-        switch self {
-        case .Polish:
-            return "pl"
-        case .German:
-            return "de"
-        }
-    }
-}
-
 enum ApiServiceVersion: String {
     case V1 = "v1"
 }
@@ -136,7 +125,7 @@ struct ApiServiceConfiguration {
     
     var path: String {
         let typeComponent = isStagingEnv ? "api-test" : "api"
-        return "https://\(typeComponent).showroom.\(platform.pathComponent)/ios/\(version.rawValue)"
+        return "https://\(typeComponent).showroom.\(platform.code)/ios/\(version.rawValue)"
     }
     
     init(platform: Platform, isStagingEnv: Bool = Constants.isStagingEnv, version: ApiServiceVersion = .V1) {

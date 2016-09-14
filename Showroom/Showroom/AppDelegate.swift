@@ -42,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
         // has to be called before initializing RootViewController
-        platformManager.initializePlatform()
+        platformManager.initializePlatformWithDeviceLanguage()
         
         logInfo("Configuring main window")
         

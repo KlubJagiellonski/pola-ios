@@ -50,7 +50,7 @@ class WishlistViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        markHandoffUrlActivity(withPath: "/c/wishlist")
+        markHandoffUrlActivity(withPathComponent: "/c/wishlist", resolver: resolver)
         castView.refreshImagesIfNeeded()
     }
     

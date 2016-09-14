@@ -25,7 +25,7 @@ final class PlatformManager {
     private let cache: KeyValueCache
     private let api: ApiService
     
-    private(set) var availableLanguages: [Platform] = Platform.allValues
+    private(set) var availablePlatforms: [Platform] = Platform.allValues
 
     private(set) var shouldSkipPlatformSelection: Bool {
         get {
@@ -72,26 +72,43 @@ final class PlatformManager {
             return platform
         }
     }
+}
+
+// MARK:- Utils
+
+extension PlatformManager {
+    var webpageUrl: NSURL? {
+        guard let platform = platform else { return nil }
+        
+        if Constants.isStagingEnv {
+            return NSURL(string: "https://\(platform.code).test.shwrm.net")
+        } else {
+            return NSURL(string: "https://www.showroom.\(platform.code)")
+        }
+    }
     
-    // search for current device language in available languages. set matching one if possible.
-    func initializePlatform() {
+    var reportEmail: String? {
+        guard let platform = platform else { return nil }
+        
+        if Constants.isAppStore {
+            return "iosv\(NSBundle.appVersionNumber)@showroom.\(platform.code)"
+        } else {
+            return "iosv1.1@showroom.\(platform.code)"
+        }
+    }
+    
+    func initializePlatformWithDeviceLanguage() {
         if !shouldSkipPlatformSelection {
             let deviceLanguageCode = NSLocale.currentLocale().languageCode
-            logInfo("Trying to find available app language matching the device language with languageCode: \(deviceLanguageCode)")
+            logInfo("Trying to find available app platform matching the device language with languageCode: \(deviceLanguageCode)")
             
-            if let matchingAvailableLanguage =
-                availableLanguages
-                    .find({ $0.code == deviceLanguageCode }) {
+            if let matchingAvailableLanguage = availablePlatforms.find({ $0.languageCode == deviceLanguageCode }) {
                 platform = matchingAvailableLanguage
                 shouldSkipPlatformSelection = true
             }
         }
     }
-}
-
-// MARK:- Translation
-
-extension PlatformManager {
+    
     func translation(forKey key: String) -> String? {
         guard let languageCode = platform?.languageCode else { return nil }
         let budleType = "lproj"

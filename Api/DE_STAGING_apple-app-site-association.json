@@ -1,0 +1,21 @@
+{
+	"applinks": {
+		"apps": [],
+		"details": [
+			{
+				"appID": "73PWPNSU5Y.com.showroom.Showroom.staging",
+				"paths": [ "/tag/*", "/marken/*", "/trend/*", "/search", "/p/*" ]
+			}
+		]
+	},
+	"activitycontinuation": {
+		"apps": [    
+			"73PWPNSU5Y.com.showroom.Showroom.staging"
+		]
+	},
+	"webcredentials": {
+		"apps": [
+			"73PWPNSU5Y.com.showroom.Showroom.staging"
+		]
+	}
+}

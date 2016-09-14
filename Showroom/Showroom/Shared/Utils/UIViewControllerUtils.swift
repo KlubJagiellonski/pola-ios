@@ -67,9 +67,11 @@ extension UIViewController {
 }
 
 extension UIResponder {
-    func markHandoffUrlActivity(withPath path: String) {
+    func markHandoffUrlActivity(withPathComponent pathComponent: String, resolver: DiResolver) {
+        let platformManager = resolver.resolve(PlatformManager.self)
+        guard let webpageUrl = platformManager.webpageUrl else { return }
         let userActivity = NSUserActivity(activityType: NSBundle.mainBundle().bundleIdentifier!.stringByAppendingString(".browsing"))
-        userActivity.webpageURL = NSURL(string: "\(Constants.websiteUrl)\(path)")
+        userActivity.webpageURL = webpageUrl.URLByAppendingPathComponent(pathComponent)
         self.userActivity = userActivity
     }
 }

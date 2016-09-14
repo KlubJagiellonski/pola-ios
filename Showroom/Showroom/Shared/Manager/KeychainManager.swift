@@ -4,12 +4,19 @@ import RxSwift
 
 // taken from http://stackoverflow.com/questions/25513106/trying-to-use-keychainitemwrapper-by-apple-translated-to-swift
 
+enum SharedWebCredentialsError: ErrorType {
+    case Unknown(CFError?)
+    case CannotCreateWebPageUrl
+}
+
 class KeychainManager: NSObject {
     private let cachedUsernameKey = "showroom_cached_username"
     private let cachedPasswordKey = "showroom_cached_password"
     private let sessionUserIdIdentifier = "showroom_token_user_id"
     private let sessionUserSecret = "showroom_token_user_secret"
     private let facebookTokenKey = "showroom_facebook_token"
+    
+    private let platformManager: PlatformManager
     
     private let secClassGenericPasswordValue = NSString(format: kSecClassGenericPassword)
     private let secClassValue = NSString(format: kSecClass)
@@ -53,6 +60,10 @@ class KeychainManager: NSObject {
         }
     }
     
+    init(platformManager: PlatformManager) {
+        self.platformManager = platformManager
+    }
+    
     func setPasscode(identifier: String, passcode: String?) {
         logInfo("Saving passcode for identifier \(identifier)")
         let pass = passcode ?? ""
@@ -88,9 +99,13 @@ class KeychainManager: NSObject {
     }
     
     func fetchSharedWebCredentials() -> Observable<SharedWebCredential> {
+        guard let webpageUrl = platformManager.webpageUrl, let host = webpageUrl.host else {
+            logError("Cannot create webpageUrl \(platformManager.platform) \(Constants.isStagingEnv)")
+            return Observable.error(SharedWebCredentialsError.CannotCreateWebPageUrl)
+        }
         logInfo("Fetching shared web credentials")
         return Observable.create { observer in
-            SecRequestSharedWebCredential(Constants.websiteDomain, nil) { array, error in
+            SecRequestSharedWebCredential(host, nil) { array, error in
                 if let array = array as Array?, dictionary = array.first as? NSDictionary, let credential = SharedWebCredential(dictionary: dictionary) {
                     observer.onNext(credential)
                 } else {
@@ -105,9 +120,14 @@ class KeychainManager: NSObject {
     }
     
     func addSharedWebCredentials(credentials: SharedWebCredential) -> Observable<Void> {
+        guard let webpageUrl = platformManager.webpageUrl, let host = webpageUrl.host else {
+            logError("Cannot create webpageUrl \(platformManager.platform) \(Constants.isStagingEnv)")
+            return Observable.error(SharedWebCredentialsError.CannotCreateWebPageUrl)
+        }
+        
         logInfo("Adding shared web credentials")
         return Observable.create { observer in
-            SecAddSharedWebCredential(Constants.websiteDomain, credentials.account, credentials.password) { error in
+            SecAddSharedWebCredential(host, credentials.account, credentials.password) { error in
                 if let error = error {
                     logInfo("Cannot add shared web credentials")
                     observer.onError(error)

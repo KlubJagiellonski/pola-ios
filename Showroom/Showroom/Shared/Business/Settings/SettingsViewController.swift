@@ -72,7 +72,7 @@ class SettingsViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        markHandoffUrlActivity(withPath: "/")
+        markHandoffUrlActivity(withPathComponent: "/", resolver: resolver)
         castView.deselectRowsIfNeeded()
     }
 
@@ -305,10 +305,15 @@ class SettingsViewController: UIViewController {
             return
         }
         
+        guard let reportEmail = platformManager.reportEmail else {
+            logError("Cannot report email with platform \(platformManager.platform)")
+            return
+        }
+        
         let viewController = MFMailComposeViewController()
         viewController.mailComposeDelegate = self
         viewController.setSubject(tr(.SettingsSendReportTitle))
-        viewController.setToRecipients([Constants.reportEmail])
+        viewController.setToRecipients([reportEmail])
         if let deviceInfo = generateReportDeviceInfo() {
             viewController.addAttachmentData(deviceInfo, mimeType: "text/plain", fileName: "report.txt")
         }
@@ -325,6 +330,7 @@ class SettingsViewController: UIViewController {
         let device = UIDevice.currentDevice()
         
         var deviceInfo = ""
+        deviceInfo += "platform: \(platformManager.platform)"
         deviceInfo += "systemInfo: \(device.systemName), \(device.systemVersion)\n"
         deviceInfo += "deviceInfo: \(device.name), \(device.model), \(device.screenType.rawValue), \(device.modelName)\n"
         deviceInfo += "appInfo: \(NSBundle.appVersionNumber), \(NSBundle.appBuildNumber)\n"

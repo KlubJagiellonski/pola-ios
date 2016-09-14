@@ -19,13 +19,9 @@ struct Constants {
         static let isStagingEnv = false
     #endif
     
-    static let websiteDomain = "www.showroom.pl"
-    static let websiteUrl = "https://\(Constants.websiteDomain)"
     static let appScheme = NSBundle.appScheme
     
     static let appStoreUrl = "itms-apps://itunes.apple.com/app/id1147114961"
-    
-    static let reportEmail = "iosv1@showroom.pl"
     
     static let optimiseApiKey = "72933403-B469-41FD-B6E4-635B5B44584F"
     static let optimiseMerchantId = 990079

@@ -66,7 +66,7 @@ class BasketViewController: UIViewController, BasketViewDelegate {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         castView.registerOnKeyboardEvent()
-        markHandoffUrlActivity(withPath: "/c/cart/view")
+        markHandoffUrlActivity(withPathComponent: "c/cart/view", resolver: resolver)
         castView.deselectRowsIfNeeded()
     }
     

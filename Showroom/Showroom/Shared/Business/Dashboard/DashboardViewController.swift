@@ -6,9 +6,11 @@ class DashboardViewController: UIViewController, DashboardViewDelegate {
     private let model: DashboardModel
     private var castView: DashboardView { return view as! DashboardView }
     
+    private let resolver: DiResolver
     private let disposeBag = DisposeBag()
     
     init(resolver: DiResolver) {
+        self.resolver = resolver
         self.model = resolver.resolve(DashboardModel.self)
         super.init(nibName: nil, bundle: nil)
     }
@@ -40,7 +42,7 @@ class DashboardViewController: UIViewController, DashboardViewDelegate {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        markHandoffUrlActivity(withPath: "/")
+        markHandoffUrlActivity(withPathComponent: "", resolver: resolver)
         castView.refreshImagesIfNeeded()
     }
     

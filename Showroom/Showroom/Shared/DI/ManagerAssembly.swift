@@ -25,7 +25,7 @@ class ManagerAssembly: AssemblyType {
         }.inObjectScope(.Container)
         
         container.register(KeychainManager.self) { r in
-            return KeychainManager()
+            return KeychainManager(platformManager: r.resolve(PlatformManager.self)!)
         }.inObjectScope(.Container)
         
         container.register(PayUManager.self) { r in
