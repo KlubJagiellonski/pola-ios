@@ -192,6 +192,11 @@ final class PushWooshManagerDelegateHandler: NSObject, PushNotificationDelegate 
         var notificationLink: String?
         var notificationId: Int?
         
+        if let sid = customData["sid"] as? String {
+            logInfo("Sending message open with sid \(sid)")
+            EmarsysManager.messageOpen(sid)
+        }
+        
         if let link = customData["link"] as? String, let url = NSURL(string: link), let httpsUrl = url.changeToHTTPSchemeIfNeeded() {
             notificationLink = link
             logInfo("Retrieved link \(link)")
