@@ -116,6 +116,8 @@ class StartButton: UIButton {
     init() {
         super.init(frame: CGRectZero)
         
+        containerView.userInteractionEnabled = false
+        
         setBackgroundImage(UIImage.fromColor(UIColor(named: .White)), forState: .Normal)
         setBackgroundImage(UIImage.fromColor(UIColor(named: ColorName.Gray)), forState: .Highlighted)
         layer.borderColor = UIColor(named: .Blue).CGColor
