@@ -7,7 +7,7 @@ class UIAssembly: AssemblyType {
             return RootViewController(resolver: r.resolve(DiResolver.self)!)!
         }
         container.register(RootModel.self) { r in
-            return RootModel(with: r.resolve(UserManager.self)!, apiService: r.resolve(ApiService.self)!, rateAppManager: r.resolve(RateAppManager.self)!, notificationManager: r.resolve(NotificationsManager.self)!, versionManager: r.resolve(VersionManager.self)!, platformManager: r.resolve(PlatformManager.self)!)
+            return RootModel(with: r.resolve(UserManager.self)!, apiService: r.resolve(ApiService.self)!, rateAppManager: r.resolve(RateAppManager.self)!, notificationManager: r.resolve(NotificationsManager.self)!, versionManager: r.resolve(VersionManager.self)!, platformManager: r.resolve(PlatformManager.self)!, prefetchingManager: r.resolve(PrefetchingManager.self)!)
         }
         container.register(StartViewController.self) { r in
             return StartViewController(resolver: r.resolve(DiResolver.self)!)
@@ -25,7 +25,7 @@ class UIAssembly: AssemblyType {
             return DashboardViewController(resolver: r.resolve(DiResolver.self)!)
         }
         container.register(DashboardModel.self) { r in
-            return DashboardModel(apiService: r.resolve(ApiService.self)!, userManager: r.resolve(UserManager.self)!, storageManager: r.resolve(StorageManager.self)!, emarsysService: r.resolve(EmarsysService.self)!)
+            return DashboardModel(apiService: r.resolve(ApiService.self)!, userManager: r.resolve(UserManager.self)!, storageManager: r.resolve(StorageManager.self)!, prefetchingManager: r.resolve(PrefetchingManager.self)!, emarsysService: r.resolve(EmarsysService.self)!)
         }
         container.register(SearchViewController.self) { r in
             return SearchViewController(with: r.resolve(DiResolver.self)!)

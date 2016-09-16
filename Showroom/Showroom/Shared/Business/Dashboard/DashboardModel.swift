@@ -7,13 +7,21 @@ class DashboardModel {
     private let emarsysService: EmarsysService
     private let userManager: UserManager
     private let storageManager: StorageManager
+    private let prefetchingManager: PrefetchingManager
+    private var takeOnlyCachedRecommendations = false
     let state = DashboardModelState()
     
-    init(apiService: ApiService, userManager: UserManager, storageManager: StorageManager, emarsysService: EmarsysService) {
+    init(apiService: ApiService, userManager: UserManager, storageManager: StorageManager, prefetchingManager: PrefetchingManager, emarsysService: EmarsysService) {
         self.apiService = apiService
         self.userManager = userManager
         self.storageManager = storageManager
+        self.prefetchingManager = prefetchingManager
         self.emarsysService = emarsysService
+        
+        (state.contentPromoResult, state.recommendationsResult) = prefetchingManager.takeCachedDashboard(forGender: userManager.gender)
+        if state.recommendationsResult != nil {
+            takeOnlyCachedRecommendations = true
+        }
     }
     
     func fetchContentPromo() -> Observable<FetchCacheResult<ContentPromoResult>> {
@@ -60,8 +68,9 @@ class DashboardModel {
             .saveToCache(Constants.Cache.productRecommendationsId, storageManager: storageManager)
             .map { FetchCacheResult.Success($0) }
             .catchError { Observable.just(FetchCacheResult.NetworkError($0)) }
-        
-        return Observable.of(cacheCompose, network)
+        let observable = takeOnlyCachedRecommendations ? Observable.of(cacheCompose) : Observable.of(cacheCompose, network)
+        takeOnlyCachedRecommendations = false
+        return observable
             .observeOn(ConcurrentDispatchQueueScheduler(globalConcurrentQueueQOS: .Background))
             .merge().distinctUntilChanged(==)
             .observeOn(MainScheduler.instance)

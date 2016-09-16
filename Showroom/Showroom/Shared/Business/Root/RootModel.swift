@@ -15,6 +15,7 @@ class RootModel {
     let notificationManager: NotificationsManager
     let versionManager: VersionManager
     let platformManager: PlatformManager
+    private let prefetchingManager: PrefetchingManager
     
     var startChildType: RootChildType {
         if !platformManager.shouldSkipPlatformSelection {
@@ -47,12 +48,17 @@ class RootModel {
         }
     }
     
-    init(with userManager: UserManager, apiService: ApiService, rateAppManager: RateAppManager, notificationManager: NotificationsManager, versionManager: VersionManager, platformManager: PlatformManager) {
+    init(with userManager: UserManager, apiService: ApiService, rateAppManager: RateAppManager, notificationManager: NotificationsManager, versionManager: VersionManager, platformManager: PlatformManager, prefetchingManager: PrefetchingManager) {
         self.userManager = userManager
         self.apiService = apiService
         self.rateAppManager = rateAppManager
         self.notificationManager = notificationManager
         self.versionManager = versionManager
         self.platformManager = platformManager
+        self.prefetchingManager = prefetchingManager
+    }
+    
+    func willShowInitialOnboarding() {
+        prefetchingManager.prefetchDashboard()
     }
 }

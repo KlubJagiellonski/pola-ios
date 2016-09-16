@@ -22,13 +22,20 @@ class StorageManager {
         return try loadData(getCachePath(forFilename: cacheName))
     }
     
+    func remove(name: String) throws {
+        let path = try getPersistentPath(forFilename: name)
+        try removeFile(atPath: path)
+    }
+    
+    func removeFromCache(name: String) throws {
+        let path = try getCachePath(forFilename: name)
+        try removeFile(atPath: path)
+    }
+    
     private func saveData<T: Encodable>(path: String, object: T?) throws {
         logInfo("Saving to path \(path) empty object \(object == nil)")
         guard let object = object else {
-            let fileManager = NSFileManager.defaultManager()
-            if fileManager.fileExistsAtPath(path) {
-                try fileManager.removeItemAtPath(path)
-            }
+            try removeFile(atPath: path)
             return
         }
         let data = object.encode()
@@ -71,6 +78,13 @@ class StorageManager {
         let fileManager = NSFileManager.defaultManager()
         if !fileManager.fileExistsAtPath(path) {
             try fileManager.createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil)
+        }
+    }
+    
+    private func removeFile(atPath path: String) throws {
+        let fileManager = NSFileManager.defaultManager()
+        if fileManager.fileExistsAtPath(path) {
+            try fileManager.removeItemAtPath(path)
         }
     }
 }

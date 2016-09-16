@@ -51,5 +51,9 @@ class ManagerAssembly: AssemblyType {
         container.register(PaymentManager.self) { r in
             return PaymentManager(api: r.resolve(ApiService.self)!)
         }.inObjectScope(.Container)
+        
+        container.register(PrefetchingManager.self) { r in
+            return PrefetchingManager(api: r.resolve(ApiService.self)!, emarsysService: r.resolve(EmarsysService.self)!, storageManager: r.resolve(StorageManager.self)!)
+        }.inObjectScope(.Container)
     }
 }

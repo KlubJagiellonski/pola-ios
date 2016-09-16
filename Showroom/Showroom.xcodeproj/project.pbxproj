@@ -177,6 +177,7 @@
 		1D84761F1D8AA6CA009EB212 /* PayPalUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D84761E1D8AA6CA009EB212 /* PayPalUtils.framework */; };
 		1D8476211D8AA6F4009EB212 /* PayPalDataCollector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D8476201D8AA6F4009EB212 /* PayPalDataCollector.framework */; };
 		1D8476231D8AD48E009EB212 /* PaymentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8476221D8AD48E009EB212 /* PaymentManager.swift */; };
+		1D8476271D8AE72E009EB212 /* PrefetchingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8476261D8AE72E009EB212 /* PrefetchingManager.swift */; };
 		1D88AB761D5315DD005DDFBB /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D88AB751D5315DD005DDFBB /* NotificationsManager.swift */; };
 		1D88AB781D54799A005DDFBB /* ProductRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D88AB771D54799A005DDFBB /* ProductRequest.swift */; };
 		1D94B8881D6C371800155F88 /* ShowPaymentFailureEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D94B8871D6C371800155F88 /* ShowPaymentFailureEvent.swift */; };
@@ -575,6 +576,7 @@
 		1D84761E1D8AA6CA009EB212 /* PayPalUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PayPalUtils.framework; path = Carthage/Build/iOS/PayPalUtils.framework; sourceTree = "<group>"; };
 		1D8476201D8AA6F4009EB212 /* PayPalDataCollector.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PayPalDataCollector.framework; path = Carthage/Build/iOS/PayPalDataCollector.framework; sourceTree = "<group>"; };
 		1D8476221D8AD48E009EB212 /* PaymentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentManager.swift; sourceTree = "<group>"; };
+		1D8476261D8AE72E009EB212 /* PrefetchingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrefetchingManager.swift; sourceTree = "<group>"; };
 		1D88AB751D5315DD005DDFBB /* NotificationsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
 		1D88AB771D54799A005DDFBB /* ProductRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductRequest.swift; sourceTree = "<group>"; };
 		1D94B8871D6C371800155F88 /* ShowPaymentFailureEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowPaymentFailureEvent.swift; sourceTree = "<group>"; };
@@ -1221,6 +1223,7 @@
 				1DDE61EB1D649910007E5509 /* RateAppManager.swift */,
 				7566CE6E1D6DE56C0065DFB3 /* VersionManager.swift */,
 				1D8476221D8AD48E009EB212 /* PaymentManager.swift */,
+				1D8476261D8AE72E009EB212 /* PrefetchingManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -2305,6 +2308,7 @@
 				1DD161AC1D01C8680022B5C9 /* ProductDetailsView.swift in Sources */,
 				1DB166BD1D1006A8004F42DC /* SizeChartViewController.swift in Sources */,
 				1D0F3B4A1D1172E10052CFF6 /* FormSheetAnimator.swift in Sources */,
+				1D8476271D8AE72E009EB212 /* PrefetchingManager.swift in Sources */,
 				1D372E2E1D6C7B05004F3155 /* ShowEditKioskEvent.swift in Sources */,
 				1DF428BE1D8971ED00396A0D /* PaymentHandler.swift in Sources */,
 				1D7824B71D0709D200E60392 /* Utils.swift in Sources */,

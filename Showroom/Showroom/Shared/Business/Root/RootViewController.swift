@@ -29,6 +29,7 @@ class RootViewController: PresenterViewController, NavigationHandler {
         case .PlatformSelection:
             showContent(resolver.resolve(PlatformSelectionViewController.self), animation: nil, completion: nil)
         case .Onboarding:
+            model.willShowInitialOnboarding()
             showContent(resolver.resolve(InitialOnboardingViewController), animation: nil, completion: nil)
         case .Main:
             showContent(resolver.resolve(MainTabViewController), animation: nil, completion: nil)
@@ -105,6 +106,8 @@ class RootViewController: PresenterViewController, NavigationHandler {
     
     func showInitialOnboarding() {
         guard !(contentViewController is InitialOnboardingViewController) else { return }
+        
+        model.willShowInitialOnboarding()
         
         let initialOnboardingViewController = resolver.resolve(InitialOnboardingViewController)
         showContent(initialOnboardingViewController, animation: DimTransitionAnimation(animationDuration: 0.3), completion: nil)
