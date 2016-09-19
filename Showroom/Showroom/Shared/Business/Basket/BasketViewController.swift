@@ -129,6 +129,30 @@ class BasketViewController: UIViewController, BasketViewDelegate {
         }
     }
     
+    func didReceiveNewDiscountCode(discountCode: String) {
+        logInfo("Received new discount code \(discountCode)")
+        castView.discountCode = discountCode
+        didChangeDiscountCode(discountCode)
+        if isEmptyBasket(manager.state.basket) { //when empty view
+            toastManager.showMessage(tr(.BasketCouponCodeAddedToBasket(discountCode)))
+        }
+    }
+    
+    private func didChangeDiscountCode(discountCode: String?) {
+        logInfo("Did change discount code \(discountCode)")
+        guard discountCode != manager.state.discountCode else {
+            logInfo("Discount code is the same as before")
+            return
+        }
+        if let discountCode = discountCode?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()) {
+            manager.state.discountCode = discountCode.characters.isEmpty ? nil : discountCode
+            logAnalyticsEvent(.CartDiscountSubmitted(manager.state.discountCode ?? ""))
+        } else {
+            manager.state.discountCode = nil
+        }
+        manager.validate()
+    }
+    
     private func goToCheckout() {
         logInfo("Going to checkout")
         guard manager.isUserLogged else {
@@ -182,18 +206,7 @@ class BasketViewController: UIViewController, BasketViewDelegate {
     }
     
     func basketView(view: BasketView, didChangeDiscountCode discountCode: String?) {
-        logInfo("Did change discount code \(discountCode)")
-        guard discountCode != manager.state.discountCode else {
-            logInfo("Discount code is the same as before")
-            return
-        }
-        if let discountCode = discountCode?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()) {
-            manager.state.discountCode = discountCode.characters.count > 0 ? discountCode : nil
-            logAnalyticsEvent(.CartDiscountSubmitted(manager.state.discountCode ?? ""))
-        } else {
-            manager.state.discountCode = nil
-        }
-        manager.validate()
+        didChangeDiscountCode(discountCode)
     }
     
     func basketViewDidTapStartShoppingButton(view: BasketView) {

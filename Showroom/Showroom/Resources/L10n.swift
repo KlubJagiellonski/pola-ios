@@ -59,6 +59,8 @@ enum L10n {
   case BasketStartShopping
   /// SUMA
   case BasketTotalPrice
+  /// Kod %@ został dodany do koszyka.
+  case BasketCouponCodeAddedToBasket(String)
   /// O projektancie
   case BrandAboutTitle
   /// Miasto
@@ -371,6 +373,10 @@ enum L10n {
   case SettingsMale
   /// Zgoda na powiadomienia
   case SettingsPermissionForNotifications
+  /// Platforma
+  case SettingsPlatform
+  /// Wybór platformy
+  case SettingsPlatformSelection
   /// Polityka prywatności
   case SettingsPrivacyPolicy
   /// Regulamin
@@ -383,10 +389,6 @@ enum L10n {
   case SettingsSendReportTitle
   /// Twoje dane
   case SettingsUserData
-  /// Platforma
-  case SettingsPlatform
-  /// Wybór platformy
-  case SettingsPlatformSelection
   /// Przeglądaj produkty
   case StartBrowse
   /// DLA NIEJ
@@ -476,6 +478,8 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Basket.StartShopping")
       case .BasketTotalPrice:
         return L10n.tr("Basket.TotalPrice")
+      case .BasketCouponCodeAddedToBasket(let p0):
+        return L10n.tr("Basket.CouponCodeAddedToBasket", p0)
       case .BrandAboutTitle:
         return L10n.tr("Brand.AboutTitle")
       case .CheckoutDeliveryAddressFormCity:
@@ -788,6 +792,10 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Settings.Male")
       case .SettingsPermissionForNotifications:
         return L10n.tr("Settings.PermissionForNotifications")
+      case .SettingsPlatform:
+        return L10n.tr("Settings.Platform")
+      case .SettingsPlatformSelection:
+        return L10n.tr("Settings.PlatformSelection")
       case .SettingsPrivacyPolicy:
         return L10n.tr("Settings.PrivacyPolicy")
       case .SettingsRules:
@@ -800,10 +808,6 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Settings.SendReport.Title")
       case .SettingsUserData:
         return L10n.tr("Settings.UserData")
-      case .SettingsPlatform:
-        return L10n.tr("Settings.Platform")
-      case .SettingsPlatformSelection:
-        return L10n.tr("Settings.PlatformSelection")
       case .StartBrowse:
         return L10n.tr("Start.Browse")
       case .StartForHer:

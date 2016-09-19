@@ -178,6 +178,7 @@
 		1D8476211D8AA6F4009EB212 /* PayPalDataCollector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D8476201D8AA6F4009EB212 /* PayPalDataCollector.framework */; };
 		1D8476231D8AD48E009EB212 /* PaymentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8476221D8AD48E009EB212 /* PaymentManager.swift */; };
 		1D8476271D8AE72E009EB212 /* PrefetchingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D8476261D8AE72E009EB212 /* PrefetchingManager.swift */; };
+		1D84762D1D8FCB5A009EB212 /* MainTabDeepLinkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D84762C1D8FCB5A009EB212 /* MainTabDeepLinkHandler.swift */; };
 		1D88AB761D5315DD005DDFBB /* NotificationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D88AB751D5315DD005DDFBB /* NotificationsManager.swift */; };
 		1D88AB781D54799A005DDFBB /* ProductRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D88AB771D54799A005DDFBB /* ProductRequest.swift */; };
 		1D94B8881D6C371800155F88 /* ShowPaymentFailureEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D94B8871D6C371800155F88 /* ShowPaymentFailureEvent.swift */; };
@@ -577,6 +578,7 @@
 		1D8476201D8AA6F4009EB212 /* PayPalDataCollector.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PayPalDataCollector.framework; path = Carthage/Build/iOS/PayPalDataCollector.framework; sourceTree = "<group>"; };
 		1D8476221D8AD48E009EB212 /* PaymentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentManager.swift; sourceTree = "<group>"; };
 		1D8476261D8AE72E009EB212 /* PrefetchingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrefetchingManager.swift; sourceTree = "<group>"; };
+		1D84762C1D8FCB5A009EB212 /* MainTabDeepLinkHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabDeepLinkHandler.swift; sourceTree = "<group>"; };
 		1D88AB751D5315DD005DDFBB /* NotificationsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsManager.swift; sourceTree = "<group>"; };
 		1D88AB771D54799A005DDFBB /* ProductRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductRequest.swift; sourceTree = "<group>"; };
 		1D94B8871D6C371800155F88 /* ShowPaymentFailureEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowPaymentFailureEvent.swift; sourceTree = "<group>"; };
@@ -1388,6 +1390,7 @@
 			isa = PBXGroup;
 			children = (
 				1DD1EA821CF2E46C00D99731 /* MainTabViewController.swift */,
+				1D84762C1D8FCB5A009EB212 /* MainTabDeepLinkHandler.swift */,
 				C02220841D12D4AD004411A7 /* TabBarItemBadgeContainerView.swift */,
 			);
 			path = Main;
@@ -2409,6 +2412,7 @@
 				C092805F1D06EC0C00350B82 /* ProductSizeCell.swift in Sources */,
 				C022208A1D183223004411A7 /* CheckoutNavigationController.swift in Sources */,
 				1D0453591CFF15FD001CC5A2 /* ProductRecommendationCell.swift in Sources */,
+				1D84762D1D8FCB5A009EB212 /* MainTabDeepLinkHandler.swift in Sources */,
 				1D69334B1D2E40D200609BB9 /* BrandProductListView.swift in Sources */,
 				1D2CAC4B1D4740BC00F678FA /* ImageTransitionAnimation.swift in Sources */,
 				C0237D111D2263D20009F2FC /* EditAddressViewController.swift in Sources */,

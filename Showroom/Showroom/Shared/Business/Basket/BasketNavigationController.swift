@@ -24,6 +24,15 @@ class BasketNavigationController: UINavigationController, NavigationHandler {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func didReceiveCartLink(withNewDiscountCode discountCode: String?) {
+        logInfo("Received cart link with discount code \(discountCode)")
+        popToRootViewControllerAnimated(true)
+        guard let discountCode = discountCode, let basketViewController = viewControllers.first as? BasketViewController else {
+            return
+        }
+        basketViewController.didReceiveNewDiscountCode(discountCode)
+    }
+    
     // MARK:- NavigationHandler
     
     func handleNavigationEvent(event: NavigationEvent) -> EventHandled {

@@ -82,6 +82,7 @@ class MainTabViewController: UITabBarController, NavigationHandler {
     private let basketManager: BasketManager
     private let wishlistManager: WishlistManager
     private let disposeBag = DisposeBag()
+    private let deepLinkHandler = MainTabDeepLinkHandler()
     
     init(resolver: DiResolver, basketManager: BasketManager, wishlistManager: WishlistManager) {
         self.resolver = resolver
@@ -90,6 +91,8 @@ class MainTabViewController: UITabBarController, NavigationHandler {
         appearance = .Visible
         
         super.init(nibName: nil, bundle: nil)
+        
+        deepLinkHandler.mainTabViewController = self
         
         tabBar.translucent = true
         tabBar.tintColor = UIColor(named: .Blue)
@@ -197,16 +200,7 @@ class MainTabViewController: UITabBarController, NavigationHandler {
 extension MainTabViewController: DeepLinkingHandler {
     func handleOpen(withURL url: NSURL) -> Bool {
         logInfo("Handling url \(url)")
-        let searchIndex = MainTabChildControllerType.Search.rawValue
-        guard let deepLinkingHandler = viewControllers?[searchIndex] as? DeepLinkingHandler else {
-            return false
-        }
-        let handled = deepLinkingHandler.handleOpen(withURL: url)
-        if handled {
-            logInfo("Url handled")
-            selectedIndex = searchIndex
-        }
-        return handled
+        return deepLinkHandler.handleOpen(withURL: url)
     }
 }
 
