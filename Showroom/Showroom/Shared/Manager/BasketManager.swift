@@ -8,6 +8,7 @@ final class BasketManager {
     private let emarsysService: EmarsysService
     private let storage: KeyValueStorage
     private let userManager: UserManager
+    private let platformManager: PlatformManager
     private let disposeBag = DisposeBag()
     
     let state: BasketState
@@ -16,15 +17,22 @@ final class BasketManager {
         return userManager.user != nil
     }
     
-    init(with apiService: ApiService, emarsysService: EmarsysService, storage: KeyValueStorage, userManager: UserManager) {
+    init(with apiService: ApiService, emarsysService: EmarsysService, storage: KeyValueStorage, userManager: UserManager, platformManager: PlatformManager) {
         self.apiService = apiService
         self.emarsysService = emarsysService
         self.storage = storage
         self.userManager = userManager
+        self.platformManager = platformManager
         
         //if it will be a problem we will need to think about loading it in background
         let basketState: BasketState? = storage.load(forKey: Constants.Persistent.basketStateId, type: .Persistent)
         self.state = basketState ?? BasketState()
+
+        platformManager.platformObservable.subscribeNext { [weak self] platform in
+            guard let `self` = self else { return }
+            logInfo("platform changed: \(platform)")
+            self.state.clear()
+        }.addDisposableTo(disposeBag)
     }
     
     func validate() {

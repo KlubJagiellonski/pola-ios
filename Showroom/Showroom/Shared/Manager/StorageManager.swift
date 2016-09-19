@@ -1,5 +1,6 @@
 import Foundation
 import Decodable
+import RxSwift
 
 private protocol StorageHandler {
     func save<T: Encodable>(name: String, object: T?) -> Bool

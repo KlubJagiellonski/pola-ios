@@ -17,12 +17,14 @@ final class WishlistManager {
     private let disposeBag = DisposeBag()
     private var contextWishlist: [WishlistProduct] = []
     private var synchronizationDisposable: Disposable?
+    private var platformManager: PlatformManager
     
     let state: WishlistState
-    
-    init(with storage: KeyValueStorage, and userManager: UserManager, and api: ApiService) {
+
+    init(with storage: KeyValueStorage, and userManager: UserManager, and platformManager: PlatformManager, and api: ApiService) {
         self.storage = storage
         self.userManager = userManager
+        self.platformManager = platformManager
         self.api = api
         
         let wishlistState: WishlistState? = storage.load(forKey: Constants.Persistent.wishlistState, type: .Persistent)
@@ -37,6 +39,12 @@ final class WishlistManager {
             } else {
                 self.synchronize()
             }
+        }.addDisposableTo(disposeBag)
+        
+        platformManager.platformObservable.subscribeNext { [weak self] platform in
+            guard let `self` = self else { return }
+            logInfo("platform changed: \(platform)")
+            self.state.wishlist.removeAll()
         }.addDisposableTo(disposeBag)
     }
     
@@ -177,7 +185,7 @@ final class WishlistState {
             wishlistObservable.onNext(wishlist)
         }
     }
-    private(set) var wishlistResult: WishlistResult? {
+    var wishlistResult: WishlistResult? {
         didSet {
             wishlist = wishlistResult?.products ?? []
         }

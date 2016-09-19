@@ -19,6 +19,7 @@ class UserManager {
     private let emarsysService: EmarsysService
     private let keychainManager: KeychainManager
     private let storage: KeyValueStorage
+    private let platformManager: PlatformManager
     private let disposeBag = DisposeBag()
     private let fbLoginManager = FBSDKLoginManager()
     private var cachedSharedWebCredential: SharedWebCredential?
@@ -80,17 +81,26 @@ class UserManager {
     
     let shouldSkipStartScreenObservable = PublishSubject<Bool>()
     
-    init(apiService: ApiService, emarsysService: EmarsysService, keychainManager: KeychainManager, storage: KeyValueStorage) {
+    init(apiService: ApiService, emarsysService: EmarsysService, keychainManager: KeychainManager, storage: KeyValueStorage, platformManager: PlatformManager) {
         self.apiService = apiService
         self.emarsysService = emarsysService
         self.keychainManager = keychainManager
         self.storage = storage
+        self.platformManager = platformManager
         
         apiService.dataSource = self
         
         let session = keychainManager.session
         let user: User? = storage.load(forKey: Constants.Persistent.currentUser, type: .PlatformPersistent)
         userSession = UserSession(user: user, session: session)
+        
+        platformManager.platformObservable.subscribeNext { [weak self] platform in
+            guard let `self` = self else { return }
+            logInfo("Platform changed: \(platform)")
+            if platform.isFemaleOnly {
+                self.gender = .Female
+            }
+        }.addDisposableTo(disposeBag)
     }
     
     func fetchSharedWebCredentials() -> Observable<SharedWebCredential> {
