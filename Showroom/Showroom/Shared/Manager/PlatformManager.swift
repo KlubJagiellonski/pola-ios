@@ -29,22 +29,22 @@ extension Platform {
 
 final class PlatformManager {
     private static let platformCodeKey = "PlatformCodeKey"
-    private let cache: KeyValueCache
+    private let storage: KeyValueStorage
     private let api: ApiService
     
     private(set) var availablePlatforms: [Platform] = Platform.allValues
 
     private(set) var shouldSkipPlatformSelection: Bool {
         get {
-            return cache.boolForKey("shouldSkipPlatformSelectionView")
+            return storage.load(forKey: "shouldSkipPlatformSelectionView") ?? false
         }
         set {
-            cache.setBool(newValue, forKey: "shouldSkipPlatformSelectionView")
+            storage.save(newValue, forKey: "shouldSkipPlatformSelectionView")
         }
     }
     
-    init(keyValueCache: KeyValueCache, api: ApiService) {
-        self.cache = keyValueCache
+    init(keyValueStorage: KeyValueStorage, api: ApiService) {
+        self.storage = keyValueStorage
         self.api = api
         
         if let platform = platform {
@@ -58,8 +58,7 @@ final class PlatformManager {
                 logError("Tried to set platform to nil")
                 return
             }
-            cache.setObject(newValue.code, forKey: PlatformManager.platformCodeKey)
-            if cache.synchronize() {
+            if storage.save(newValue.code, forKey: PlatformManager.platformCodeKey) {
                 logInfo("Did set app platform: \(newValue) to user defaults")
                 shouldSkipPlatformSelection = true
             } else {
@@ -68,7 +67,7 @@ final class PlatformManager {
             api.configuration = ApiServiceConfiguration(platform: newValue)
         }
         get {
-            guard let platformCode = cache.stringForKey(PlatformManager.platformCodeKey) else {
+            guard let platformCode: String = storage.load(forKey: PlatformManager.platformCodeKey) else {
                 logError("Could not find language code in user defaults for key: \(PlatformManager.platformCodeKey)")
                 return nil
             }

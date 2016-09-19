@@ -11,7 +11,7 @@ import RxCocoa
  */
 
 final class WishlistManager {
-    private let storageManager: StorageManager
+    private let storage: KeyValueStorage
     private let userManager: UserManager
     private let api: ApiService
     private let disposeBag = DisposeBag()
@@ -20,17 +20,12 @@ final class WishlistManager {
     
     let state: WishlistState
     
-    init(with storageManager: StorageManager, and userManager: UserManager, and api: ApiService) {
-        self.storageManager = storageManager
+    init(with storage: KeyValueStorage, and userManager: UserManager, and api: ApiService) {
+        self.storage = storage
         self.userManager = userManager
         self.api = api
         
-        var wishlistState: WishlistState? = nil
-        do {
-            wishlistState = try storageManager.load(Constants.Persistent.wishlistState)
-        } catch {
-            logError("Error while loading wishlist state from persistent storage: \(error)")
-        }
+        let wishlistState: WishlistState? = storage.load(forKey: Constants.Persistent.wishlistState, type: .Persistent)
         self.state = wishlistState ?? WishlistState()
         
         userManager.sessionObservable.subscribeNext { [weak self] session in
@@ -141,7 +136,7 @@ final class WishlistManager {
                 guard let `self` = self else { return }
                 
                 let state = WishlistState(wishlist: result.products, wishlistResult: result, synchronizationState: WishlistSynchronizationState(synchronizing: false, synchronized: true))
-                try self.storageManager.save(Constants.Persistent.wishlistState, object: state)
+                self.storage.save(state, forKey: Constants.Persistent.wishlistState, type: .Persistent)
         }
             .observeOn(MainScheduler.instance)
             .subscribe { [weak self] event in
@@ -161,10 +156,8 @@ final class WishlistManager {
     
     private func saveStateToStorage() {
         logInfo("Saving state to storage")
-        do {
-            try self.storageManager.save(Constants.Persistent.wishlistState, object: state)
-        } catch {
-            logError("Cannot save wishlist to storage \(error)")
+        if !self.storage.save(state, forKey: Constants.Persistent.wishlistState, type: .Persistent) {
+            logError("Cannot save wishlist to storage")
         }
     }
 }

@@ -6,7 +6,7 @@ class ProductPageModel {
     
     let api: ApiService
     let basketManager: BasketManager
-    let storageManager: StorageManager
+    private let storage: KeyValueStorage
     let wishlistManager: WishlistManager
     let productId: Int
     let cacheId: String
@@ -41,9 +41,9 @@ class ProductPageModel {
         return wishlistManager.containsProduct(withId: productId)
     }
     
-    init(api: ApiService, basketManager: BasketManager, storageManager: StorageManager, wishlistManager: WishlistManager, productId: ObjectId, product: Product? = nil) {
+    init(api: ApiService, basketManager: BasketManager, storage: KeyValueStorage, wishlistManager: WishlistManager, productId: ObjectId, product: Product? = nil) {
         self.api = api
-        self.storageManager = storageManager
+        self.storage = storage
         self.basketManager = basketManager
         self.wishlistManager = wishlistManager
         self.productId = productId
@@ -57,7 +57,7 @@ class ProductPageModel {
         let existingResult = state.productDetails
         let memoryCache: Observable<ProductDetails> = existingResult == nil ? Observable.empty() : Observable.just(existingResult!)
         
-        let diskCache: Observable<ProductDetails> = Observable.retrieveFromCache(cacheId, storageManager: storageManager)
+        let diskCache: Observable<ProductDetails> = Observable.load(forKey: cacheId, storage: storage, type: .Cache)
             .subscribeOn(ConcurrentDispatchQueueScheduler(globalConcurrentQueueQOS: .Background))
         
         let cacheCompose = Observable.of(memoryCache, diskCache)
@@ -66,7 +66,7 @@ class ProductPageModel {
             .catchError { Observable.just(FetchCacheResult.CacheError($0)) }
         
         let network = api.fetchProductDetails(withProductId: productId)
-            .saveToCache(cacheId, storageManager: storageManager)
+            .save(forKey: cacheId, storage: storage, type: .Cache)
             .map { FetchCacheResult.Success($0) }
             .catchError { Observable.just(FetchCacheResult.NetworkError($0)) }
         

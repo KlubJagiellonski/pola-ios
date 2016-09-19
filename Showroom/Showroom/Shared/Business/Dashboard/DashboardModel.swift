@@ -6,15 +6,15 @@ class DashboardModel {
     private let apiService: ApiService
     private let emarsysService: EmarsysService
     private let userManager: UserManager
-    private let storageManager: StorageManager
+    private let storage: KeyValueStorage
     private let prefetchingManager: PrefetchingManager
     private var takeOnlyCachedRecommendations = false
     let state = DashboardModelState()
     
-    init(apiService: ApiService, userManager: UserManager, storageManager: StorageManager, prefetchingManager: PrefetchingManager, emarsysService: EmarsysService) {
+    init(apiService: ApiService, userManager: UserManager, storage: KeyValueStorage, prefetchingManager: PrefetchingManager, emarsysService: EmarsysService) {
         self.apiService = apiService
         self.userManager = userManager
-        self.storageManager = storageManager
+        self.storage = storage
         self.prefetchingManager = prefetchingManager
         self.emarsysService = emarsysService
         
@@ -28,7 +28,7 @@ class DashboardModel {
         let existingResult = state.contentPromoResult
         let memoryCache: Observable<ContentPromoResult> = existingResult == nil ? Observable.empty() : Observable.just(existingResult!)
         
-        let diskCache: Observable<ContentPromoResult> = Observable.retrieveFromCache(Constants.Cache.contentPromoId, storageManager: storageManager)
+        let diskCache: Observable<ContentPromoResult> = Observable.load(forKey: Constants.Cache.contentPromoId, storage: storage, type: .Persistent)
             .subscribeOn(ConcurrentDispatchQueueScheduler(globalConcurrentQueueQOS: .Background))
         
         let cacheCompose = Observable.of(memoryCache, diskCache)
@@ -37,7 +37,7 @@ class DashboardModel {
             .catchError { Observable.just(FetchCacheResult.CacheError($0)) }
         
         let network = apiService.fetchContentPromo(withGender: userManager.gender)
-            .saveToCache(Constants.Cache.contentPromoId, storageManager: storageManager)
+            .save(forKey: Constants.Cache.contentPromoId, storage: storage, type: .Persistent)
             .map { FetchCacheResult.Success($0) }
             .catchError { Observable.just(FetchCacheResult.NetworkError($0)) }
         
@@ -56,7 +56,7 @@ class DashboardModel {
         let existingResult = state.recommendationsResult
         let memoryCache: Observable<ProductRecommendationResult> = existingResult == nil ? Observable.empty() : Observable.just(existingResult!)
         
-        let diskCache: Observable<ProductRecommendationResult> = Observable.retrieveFromCache(Constants.Cache.productRecommendationsId, storageManager: storageManager)
+        let diskCache: Observable<ProductRecommendationResult> = Observable.load(forKey: Constants.Cache.productRecommendationsId, storage: storage, type: .Persistent)
             .subscribeOn(ConcurrentDispatchQueueScheduler(globalConcurrentQueueQOS: .Background))
         
         let cacheCompose = Observable.of(memoryCache, diskCache)
@@ -65,7 +65,7 @@ class DashboardModel {
             .catchError { Observable.just(FetchCacheResult.CacheError($0)) }
         
         let network = emarsysService.fetchProductRecommendations()
-            .saveToCache(Constants.Cache.productRecommendationsId, storageManager: storageManager)
+            .save(forKey: Constants.Cache.productRecommendationsId, storage: storage, type: .Persistent)
             .map { FetchCacheResult.Success($0) }
             .catchError { Observable.just(FetchCacheResult.NetworkError($0)) }
         let observable = takeOnlyCachedRecommendations ? Observable.of(cacheCompose) : Observable.of(cacheCompose, network)

@@ -24,10 +24,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private lazy var paymentManager: PaymentManager = { [unowned self] in
         return self.assembler.resolver.resolve(PaymentManager.self)!
     }()
+    private lazy var storage: KeyValueStorage = { [unowned self] in
+        return self.assembler.resolver.resolve(KeyValueStorage.self)!
+    }()
     private var launchCount: Int {
         let launchCountKey = "launch_count"
-        let count = NSUserDefaults.standardUserDefaults().integerForKey(launchCountKey) + 1
-        NSUserDefaults.standardUserDefaults().setInteger(count, forKey: launchCountKey)
+        let count = (storage.load(forKey: launchCountKey) ?? 0) + 1
+        storage.save(count, forKey: launchCountKey)
         return count
     }
     private var quickActionManager: QuickActionManager!

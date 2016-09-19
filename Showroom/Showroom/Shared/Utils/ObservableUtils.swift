@@ -3,18 +3,14 @@ import RxSwift
 import Decodable
 
 extension Observable where Element: Decodable {
-    static func retrieveFromCache(cacheId: String, storageManager: StorageManager) -> Observable<Element> {
+    static func load(forKey key: String, storage: KeyValueStorage, type: StorageType) -> Observable<Element> {
         return Observable<Element>.create { observer in
-            do {
-                guard let cachedData: Element = try storageManager.loadFromCache(cacheId) else {
-                    logInfo("No cache for cacheId: \(cacheId)")
-                    observer.onCompleted()
-                    return NopDisposable.instance
-                }
-                observer.onNext(cachedData)
-            } catch {
-                observer.onError(error)
+            guard let cachedData: Element = storage.load(forKey: key, type: type) else {
+                logInfo("No cache for cacheId: \(key), type \(type)")
+                observer.onCompleted()
+                return NopDisposable.instance
             }
+            observer.onNext(cachedData)
             observer.onCompleted()
             return NopDisposable.instance
         }
@@ -22,22 +18,10 @@ extension Observable where Element: Decodable {
 }
 
 extension ObservableType where E: Encodable {
-    func save(cacheId: String, storageManager: StorageManager) -> Observable<E> {
+    func save(forKey key: String, storage: KeyValueStorage, type: StorageType) -> Observable<E> {
         return doOnNext { result in
-            do {
-                try storageManager.save(cacheId, object: result)
-            } catch {
-                logError("Error during saving persistent data \(cacheId): \(error)")
-            }
-        }
-    }
-    
-    func saveToCache(cacheId: String, storageManager: StorageManager) -> Observable<E> {
-        return doOnNext { result in
-            do {
-                try storageManager.saveToCache(cacheId, object: result)
-            } catch {
-                logError("Error during caching \(cacheId): \(error)")
+            if !storage.save(result, forKey: key, type: type) {
+                logError("Error during saving persistent data \(key), type \(type)")
             }
         }
     }

@@ -332,7 +332,7 @@
 		C0518D801D2BBA9D0032F1B4 /* EditKioskDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0518D7F1D2BBA9D0032F1B4 /* EditKioskDataSource.swift */; };
 		C052F8981D1989A6008085E0 /* CheckoutAddressOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C052F8971D1989A6008085E0 /* CheckoutAddressOptionView.swift */; };
 		C05DAE5B1D6C429D008877BE /* OnboardingActionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05DAE5A1D6C429D008877BE /* OnboardingActionAnimator.swift */; };
-		C05E09FA1D86B71E000A9A4F /* KeyValueCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05E09F91D86B71E000A9A4F /* KeyValueCache.swift */; };
+		C05E09FA1D86B71E000A9A4F /* KeyValueStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05E09F91D86B71E000A9A4F /* KeyValueStorage.swift */; };
 		C06E53561D478E62000E5B7C /* PaymentSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06E53551D478E62000E5B7C /* PaymentSuccessViewController.swift */; };
 		C06E53581D478F61000E5B7C /* PaymentFailureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06E53571D478F61000E5B7C /* PaymentFailureViewController.swift */; };
 		C06E535A1D478F96000E5B7C /* PaymentSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06E53591D478F96000E5B7C /* PaymentSuccessView.swift */; };
@@ -733,7 +733,7 @@
 		C0518D7F1D2BBA9D0032F1B4 /* EditKioskDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditKioskDataSource.swift; path = Showroom/Shared/Business/Checkout/Delivery/EditKiosk/DataSource/EditKioskDataSource.swift; sourceTree = SOURCE_ROOT; };
 		C052F8971D1989A6008085E0 /* CheckoutAddressOptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutAddressOptionView.swift; sourceTree = "<group>"; };
 		C05DAE5A1D6C429D008877BE /* OnboardingActionAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingActionAnimator.swift; sourceTree = "<group>"; };
-		C05E09F91D86B71E000A9A4F /* KeyValueCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyValueCache.swift; sourceTree = "<group>"; };
+		C05E09F91D86B71E000A9A4F /* KeyValueStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyValueStorage.swift; sourceTree = "<group>"; };
 		C06E53551D478E62000E5B7C /* PaymentSuccessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentSuccessViewController.swift; sourceTree = "<group>"; };
 		C06E53571D478F61000E5B7C /* PaymentFailureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentFailureViewController.swift; sourceTree = "<group>"; };
 		C06E53591D478F96000E5B7C /* PaymentSuccessView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentSuccessView.swift; sourceTree = "<group>"; };
@@ -1657,7 +1657,7 @@
 				C01FF2E11D366D3B00D025AE /* HeartMaskView.swift */,
 				1D2CAC381D421F4A00F678FA /* DeepLinkingHandler.swift */,
 				7566CE6C1D6DC6F70065DFB3 /* AlertView.swift */,
-				C05E09F91D86B71E000A9A4F /* KeyValueCache.swift */,
+				C05E09F91D86B71E000A9A4F /* KeyValueStorage.swift */,
 			);
 			name = Common;
 			path = Showroom/Shared/Common;
@@ -2113,7 +2113,7 @@
 				1D5F914A1D34E9AC00AE66E6 /* Filter.swift in Sources */,
 				1D2F19611CE9CED80099142E /* RootViewController.swift in Sources */,
 				1D5E918F1D3CDE6A00A6BD55 /* SearchProductListModel.swift in Sources */,
-				C05E09FA1D86B71E000A9A4F /* KeyValueCache.swift in Sources */,
+				C05E09FA1D86B71E000A9A4F /* KeyValueStorage.swift in Sources */,
 				1D3792721D196931001A7C47 /* ViewSwitcher.swift in Sources */,
 				1D5F91141D2FA19B00AE66E6 /* CheckoutDeliveryViewHelpers.swift in Sources */,
 				C052F8981D1989A6008085E0 /* CheckoutAddressOptionView.swift in Sources */,

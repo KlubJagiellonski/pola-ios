@@ -7,19 +7,19 @@ final class PrefetchingManager {
     
     private let api: ApiService
     private let emarsysService: EmarsysService
-    private let storageManager: StorageManager
+    private let storage: KeyValueStorage
     private var contentPromoPrefetcher: DataPrefetcher<ContentPromoResult>?
     private var recommendationsPrefetcher: DataPrefetcher<ProductRecommendationResult>?
     
-    init(api: ApiService, emarsysService: EmarsysService, storageManager: StorageManager) {
+    init(api: ApiService, emarsysService: EmarsysService, storage: KeyValueStorage) {
         self.api = api
         self.emarsysService = emarsysService
-        self.storageManager = storageManager
+        self.storage = storage
     }
     
     func prefetchDashboard() {
         logInfo("Starting dashboard prefetch")
-        contentPromoPrefetcher = DataPrefetcher(storageManager: storageManager, cacheId: Constants.Cache.contentPromoId, dataObservable: self.api.fetchContentPromo(withGender: .Female)) { [weak self] result in
+        contentPromoPrefetcher = DataPrefetcher(storage: storage, cacheId: Constants.Cache.contentPromoId, dataObservable: self.api.fetchContentPromo(withGender: .Female)) { [weak self] result in
             guard let `self` = self else { return [] }
             
             var urls: [NSURL] = []
@@ -33,7 +33,7 @@ final class PrefetchingManager {
             }
             return urls
         }
-        recommendationsPrefetcher = DataPrefetcher(storageManager: storageManager, cacheId: Constants.Cache.productRecommendationsId, dataObservable: self.emarsysService.fetchProductRecommendations()) { result in
+        recommendationsPrefetcher = DataPrefetcher(storage: storage, cacheId: Constants.Cache.productRecommendationsId, dataObservable: self.emarsysService.fetchProductRecommendations()) { result in
             var urls: [NSURL] = []
             for recommendation in result.productRecommendations {
                 let imageSize = UIImageView.scaledImageSize(Dimensions.recommendationItemSize.width)
@@ -58,9 +58,7 @@ final class PrefetchingManager {
         if gender == .Female { // for now we are caching only for female
             return (contentPromoResult, recommendationsResult)
         } else {
-            do {
-                try storageManager.removeFromCache(Constants.Cache.contentPromoId)
-            } catch {
+            if !storage.remove(forKey: Constants.Cache.contentPromoId, type: .Cache) {
                 logError("Cannot remove from cache")
             }
             return (nil, recommendationsResult)
@@ -69,7 +67,7 @@ final class PrefetchingManager {
 }
 
 private class DataPrefetcher<T: Encodable> {
-    private let storageManager: StorageManager
+    private let storage: KeyValueStorage
     private let cacheId: String
     private let dataObservable: Observable<T>
     private let retrieveUrlsBlock: T -> [NSURL]
@@ -78,8 +76,8 @@ private class DataPrefetcher<T: Encodable> {
     private var result: T?
     private var imagePrefetcher: ImagePrefetcher?
     
-    init(storageManager: StorageManager, cacheId: String, dataObservable: Observable<T>, retrieveUrlsBlock: T -> [NSURL]) {
-        self.storageManager = storageManager
+    init(storage: KeyValueStorage, cacheId: String, dataObservable: Observable<T>, retrieveUrlsBlock: T -> [NSURL]) {
+        self.storage = storage
         self.cacheId = cacheId
         self.dataObservable = dataObservable
         self.retrieveUrlsBlock = retrieveUrlsBlock
@@ -88,7 +86,7 @@ private class DataPrefetcher<T: Encodable> {
     func start() {
         disposable = Observable<Void>.create { [unowned self] observer in
             let disposable = self.dataObservable
-                .saveToCache(self.cacheId, storageManager: self.storageManager)
+                .save(forKey: self.cacheId, storage: self.storage, type: .Cache)
                 .subscribe { [weak self](event: Event<T>) in
                     guard let `self` = self else { return }
                     

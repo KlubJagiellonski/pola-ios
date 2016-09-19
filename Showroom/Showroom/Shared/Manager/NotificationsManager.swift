@@ -16,17 +16,18 @@ final class NotificationsManager {
     private let api: ApiService
     private let application: UIApplication
     private let disposeBag = DisposeBag()
+    private let storage: KeyValueStorage
     
     let shouldShowInSettingsObservable = PublishSubject<Void>()
     
     /// Returns true if native alert for notifications access was preseted to the user.
     private var userAlreadyAskedForNotificationsPermission: Bool {
         get {
-            return NSUserDefaults.standardUserDefaults().boolForKey(userAlreadyAskedForNotificationPermissionKey)
+            return storage.load(forKey: userAlreadyAskedForNotificationPermissionKey) ?? false
         }
         set {
             logInfo("userAlreadyAskedForNotificationsPermission \(newValue)")
-            NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: userAlreadyAskedForNotificationPermissionKey)
+            storage.save(newValue, forKey: userAlreadyAskedForNotificationPermissionKey)
             shouldShowInSettingsObservable.onNext()
         }
     }
@@ -34,22 +35,22 @@ final class NotificationsManager {
     /// Returns true if only notifications acces view was presented to the user.
     private var alreadyShowedNotifcationsAccessView: Bool {
         get {
-            return NSUserDefaults.standardUserDefaults().boolForKey(alreadyShowedNotifcationsAccessViewKey)
+            return storage.load(forKey: alreadyShowedNotifcationsAccessViewKey) ?? false
         }
         set {
             logInfo("alreadyShowedNotifcationsAccessView \(newValue)")
-            NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: alreadyShowedNotifcationsAccessViewKey)
+            storage.save(newValue, forKey: alreadyShowedNotifcationsAccessViewKey)
         }
     }
     
     /// Returns true if user don't want to be reminded about notifications access.
     private var dontShowNotificationsAccesView: Bool {
         get {
-            return NSUserDefaults.standardUserDefaults().boolForKey(dontShowNotificationsAccessViewKey)
+            return storage.load(forKey: dontShowNotificationsAccessViewKey) ?? false
         }
         set {
             logInfo("dontShowNotificationsAccesView \(newValue)")
-            NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: dontShowNotificationsAccessViewKey)
+            storage.save(newValue, forKey: dontShowNotificationsAccessViewKey)
         }
     }
     
@@ -61,18 +62,18 @@ final class NotificationsManager {
 
     private var initialDate: NSDate {
         get {
-            let initialTimeInterval = NSUserDefaults.standardUserDefaults().objectForKey(initialDateKey) as? NSTimeInterval
+            let initialTimeInterval: NSTimeInterval? = storage.load(forKey: initialDateKey)
             if let timeInterval = initialTimeInterval {
                 return NSDate(timeIntervalSince1970: timeInterval)
             } else {
                 let initialDate = NSDate()
-                NSUserDefaults.standardUserDefaults().setDouble(initialDate.timeIntervalSince1970, forKey: initialDateKey)
+                storage.save(initialDate.timeIntervalSince1970, forKey: initialDateKey)
                 return initialDate
             }
         }
         set {
             logInfo("initialDate \(newValue)")
-            NSUserDefaults.standardUserDefaults().setDouble(newValue.timeIntervalSince1970, forKey: initialDateKey)
+            storage.save(newValue.timeIntervalSince1970, forKey: initialDateKey)
         }
     }
     var shouldShowInSettings: Bool {
@@ -90,9 +91,10 @@ final class NotificationsManager {
     
     weak var delegate: NotificationsManagerDelegate?
     
-    init(with api: ApiService, and application: UIApplication) {
+    init(with api: ApiService, application: UIApplication, storage: KeyValueStorage) {
         self.api = api
         self.application = application
+        self.storage = storage
         
         pushWooshManagerDelegateHandler.manager = self
         pushWooshManager.delegate = pushWooshManagerDelegateHandler
