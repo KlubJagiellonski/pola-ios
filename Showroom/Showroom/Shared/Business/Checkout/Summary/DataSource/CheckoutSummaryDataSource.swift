@@ -25,9 +25,8 @@ class CheckoutSummaryDataSource: NSObject, UITableViewDataSource, CheckoutSummar
         self.discountCode = checkout.discountCode
         self.comments = comments
         self.deliveryCarrier = checkout.deliveryCarrier
-        let payments = basket.payments.filter { $0.available }
-        self.selectedPaymentType = payments.find({ $0.isDefault })?.id ?? payments[0].id
-        self.payments = payments
+        self.selectedPaymentType = basket.payments.find({ $0.isDefault })?.id ?? basket.payments[0].id
+        self.payments = basket.payments
         self.createPayUButton = createPayUButton
         
         super.init()
@@ -65,8 +64,7 @@ class CheckoutSummaryDataSource: NSObject, UITableViewDataSource, CheckoutSummar
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if isPaymentInfoSection(indexPath.section) {
             let cell = tableView.dequeueReusableCellWithIdentifier(String(CheckoutSummaryPaymentCell)) as! CheckoutSummaryPaymentCell
-            let gratisPayment = payments.find { $0.id == PaymentType.Gratis }
-            cell.updateData(withTotalPrice: totalPrice, discount: discount, discountCode: discountCode, gratisAvailable: gratisPayment != nil)
+            cell.updateData(withTotalPrice: totalPrice, discount: discount, discountCode: discountCode)
             return cell
         } else if isPaymentOptionsSection(indexPath.section) {
             let payment = payments[indexPath.row]

@@ -22,7 +22,10 @@ struct PaymentAuthorizeResult {
 
 extension Checkout {
     static func from(basketState basketState: BasketState, user: User) -> Checkout? {
-        guard let basket = basketState.basket, let carrier = basketState.deliveryCarrier, let country = basketState.deliveryCountry else {
+        guard let basket = basketState.basket,
+            let carrier = basketState.deliveryCarrier,
+            let country = basketState.deliveryCountry
+            where !basket.payments.isEmpty else {
             logInfo("Cannot create checkout for state \(basketState)")
             return nil
         }

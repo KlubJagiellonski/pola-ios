@@ -4,7 +4,7 @@ import RxSwift
 final class CreditCardOptionHandler: PaymentOptionHandler {
     private let api: ApiService
     private var dropInDelegateHandler: DropInViewControllerDelegateHandler?
-    let paymentType = PaymentType.CreditCard
+    let paymentTypes = [PaymentType.CreditCard, PaymentType.CreditCardDe]
     weak var delegate: PaymentHandlerDelegate?
     var isPayMethodSelected: Bool {
         return true
@@ -20,7 +20,7 @@ final class CreditCardOptionHandler: PaymentOptionHandler {
     
     func makePayment(with info: PaymentInfo, createPaymentRequest: Nonce? -> Observable<PaymentResult>) -> Observable<PaymentResult> {
         return Observable.create { [unowned self] observer in
-            return self.retrievePaymentNonce().subscribe { (event: Event<BTPaymentMethodNonce>) in
+            return self.retrievePaymentNonce(with: info).subscribe { (event: Event<BTPaymentMethodNonce>) in
                 switch event {
                 case .Next(let nonce):
                     createPaymentRequest(nonce.nonce).subscribe(observer)
@@ -36,7 +36,7 @@ final class CreditCardOptionHandler: PaymentOptionHandler {
         return false
     }
     
-    private func retrievePaymentNonce() -> Observable<BTPaymentMethodNonce> {
+    private func retrievePaymentNonce(with info: PaymentInfo) -> Observable<BTPaymentMethodNonce> {
         return Observable.create { [unowned self] observer in
             return self.api.authorizePayment(withProvider: .Braintree)
                 .observeOn(MainScheduler.instance)
@@ -44,19 +44,17 @@ final class CreditCardOptionHandler: PaymentOptionHandler {
                     switch event {
                     case .Next(let result):
                         logInfo("Success in fetching Braintree token")
-                        self.handlePayment(withToken: result.accessToken, observer: observer)
+                        self.handlePayment(with: info, token: result.accessToken, observer: observer)
                     case .Error(let error):
                         logInfo("Error during fetching Braintree token \(error)")
-                        let clientToken = "eyJ2ZXJzaW9uIjoyLCJhdXRob3JpemF0aW9uRmluZ2VycHJpbnQiOiIwODRlZWI1MGZjNGU5YjBlNTNhZWZlNDlmMGMzNWJkNDZlYTFlY2IyYzFjMmIzYzg1MTFmNWM2Y2YzZGE5OTlifGNyZWF0ZWRfYXQ9MjAxNi0wOS0xMlQxNTowOTo0Ny42NzE5NTgzNjIrMDAwMFx1MDAyNm1lcmNoYW50X2lkPTM0OHBrOWNnZjNiZ3l3MmJcdTAwMjZwdWJsaWNfa2V5PTJuMjQ3ZHY4OWJxOXZtcHIiLCJjb25maWdVcmwiOiJodHRwczovL2FwaS5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tOjQ0My9tZXJjaGFudHMvMzQ4cGs5Y2dmM2JneXcyYi9jbGllbnRfYXBpL3YxL2NvbmZpZ3VyYXRpb24iLCJjaGFsbGVuZ2VzIjpbXSwiZW52aXJvbm1lbnQiOiJzYW5kYm94IiwiY2xpZW50QXBpVXJsIjoiaHR0cHM6Ly9hcGkuc2FuZGJveC5icmFpbnRyZWVnYXRld2F5LmNvbTo0NDMvbWVyY2hhbnRzLzM0OHBrOWNnZjNiZ3l3MmIvY2xpZW50X2FwaSIsImFzc2V0c1VybCI6Imh0dHBzOi8vYXNzZXRzLmJyYWludHJlZWdhdGV3YXkuY29tIiwiYXV0aFVybCI6Imh0dHBzOi8vYXV0aC52ZW5tby5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tIiwiYW5hbHl0aWNzIjp7InVybCI6Imh0dHBzOi8vY2xpZW50LWFuYWx5dGljcy5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tLzM0OHBrOWNnZjNiZ3l3MmIifSwidGhyZWVEU2VjdXJlRW5hYmxlZCI6dHJ1ZSwicGF5cGFsRW5hYmxlZCI6dHJ1ZSwicGF5cGFsIjp7ImRpc3BsYXlOYW1lIjoiQWNtZSBXaWRnZXRzLCBMdGQuIChTYW5kYm94KSIsImNsaWVudElkIjpudWxsLCJwcml2YWN5VXJsIjoiaHR0cDovL2V4YW1wbGUuY29tL3BwIiwidXNlckFncmVlbWVudFVybCI6Imh0dHA6Ly9leGFtcGxlLmNvbS90b3MiLCJiYXNlVXJsIjoiaHR0cHM6Ly9hc3NldHMuYnJhaW50cmVlZ2F0ZXdheS5jb20iLCJhc3NldHNVcmwiOiJodHRwczovL2NoZWNrb3V0LnBheXBhbC5jb20iLCJkaXJlY3RCYXNlVXJsIjpudWxsLCJhbGxvd0h0dHAiOnRydWUsImVudmlyb25tZW50Tm9OZXR3b3JrIjp0cnVlLCJlbnZpcm9ubWVudCI6Im9mZmxpbmUiLCJ1bnZldHRlZE1lcmNoYW50IjpmYWxzZSwiYnJhaW50cmVlQ2xpZW50SWQiOiJtYXN0ZXJjbGllbnQzIiwiYmlsbGluZ0FncmVlbWVudHNFbmFibGVkIjp0cnVlLCJtZXJjaGFudEFjY291bnRJZCI6ImFjbWV3aWRnZXRzbHRkc2FuZGJveCIsImN1cnJlbmN5SXNvQ29kZSI6IlVTRCJ9LCJjb2luYmFzZUVuYWJsZWQiOmZhbHNlLCJtZXJjaGFudElkIjoiMzQ4cGs5Y2dmM2JneXcyYiIsInZlbm1vIjoib2ZmIn0="
-                        self.handlePayment(withToken: clientToken, observer: observer)
-                    //                    observer.onError(BraintreeError.FetchingTokenError(error))
+                        observer.onError(PaymentHandlerError.BrainTreeFetchingTokenError(error))
                     default: break
                     }
             }
         }
     }
     
-    private func handlePayment(withToken token: String, observer: AnyObserver<BTPaymentMethodNonce>) {
+    private func handlePayment(with info: PaymentInfo, token: String, observer: AnyObserver<BTPaymentMethodNonce>) {
         guard let braintreeClient = BTAPIClient(authorization: token) else {
             logError("Cannot create client for token \(token)")
             observer.onError(PaymentHandlerError.BrainTreeCreatingClientError)
@@ -82,10 +80,13 @@ final class CreditCardOptionHandler: PaymentOptionHandler {
         
         let dropInViewController = BTDropInViewController(APIClient: braintreeClient)
         let navigationController = UINavigationController(rootViewController: dropInViewController)
+        navigationController.navigationBar.applyWhiteStyle()
         
         dropInDelegateHandler = DropInViewControllerDelegateHandler(presentedViewController:navigationController, onSucceedWithTokenization: onSucceedWithTokenization, onDidCancel: onDidCancel)
+        dropInViewController.applyBlackCloseButton(target: self, action: #selector(CreditCardOptionHandler.didTapCancelPayment))
+        dropInViewController.title = info.payment.name
         dropInViewController.delegate = dropInDelegateHandler
-        dropInViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: #selector(CreditCardOptionHandler.didTapCancelPayment))
+        dropInViewController.theme = DropInTheme()
         delegate?.paymentHandlerWantsPresentViewController(navigationController)
     }
     
@@ -119,9 +120,41 @@ final private class DropInViewControllerDelegateHandler: NSObject, BTDropInViewC
     
     @objc func dropInViewControllerDidLoad(viewController: BTDropInViewController) {
         logInfo("Drop in did load")
+        removePayPalButton(fromSubviews: viewController.view.subviews, backgroundColor: viewController.theme?.viewBackgroundColor() ?? BTUI.braintreeTheme().viewBackgroundColor())
     }
     
     @objc func dropInViewControllerWillComplete(viewController: BTDropInViewController) {
         logInfo("Drop in will complete")
     }
+    
+    private func removePayPalButton(fromSubviews subviews: [UIView], backgroundColor: UIColor) {
+        for view in subviews {
+            if view is BTPaymentButton {
+                view.hidden = true
+                view.alpha = 0.0
+                let whiteView = UIView()
+                whiteView.backgroundColor = backgroundColor
+                view.insertSubview(whiteView, atIndex: 0)
+                whiteView.snp_makeConstraints { make in
+                    make.edges.equalToSuperview()
+                }
+                whiteView.layer.zPosition = 1
+            }
+            removePayPalButton(fromSubviews: view.subviews, backgroundColor: backgroundColor)
+        }
+    }
+}
+
+private final class DropInTheme: BTUI {
+    override func idealGray() -> UIColor! { return UIColor(named: .Black) }
+    override func viewBackgroundColor() -> UIColor! { return UIColor(named: .White) }
+    override func disabledButtonColor() -> UIColor! { return UIColor(named: .DarkGray) }
+    override func titleColor() -> UIColor! { return UIColor(named: .Black) }
+    override func detailColor() -> UIColor! { return UIColor(named: .Black) }
+    override func textFieldTextColor() -> UIColor! { return UIColor(named: .Black) }
+    override func textFieldPlaceholderColor() -> UIColor! { return UIColor(named: .DarkGray) }
+    override func sectionHeaderTextColor() -> UIColor! { return UIColor(named: .Black) }
+    override func controlFont() -> UIFont! { return UIFont(fontType: .Bold) }
+    override func sectionHeaderFont() -> UIFont! { return UIFont.latoBold(ofSize: 16) }
+    override func horizontalMargin() -> CGFloat { return Dimensions.defaultMargin }
 }

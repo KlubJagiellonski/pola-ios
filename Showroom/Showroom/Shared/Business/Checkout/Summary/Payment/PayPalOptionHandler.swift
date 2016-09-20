@@ -4,7 +4,7 @@ import RxSwift
 final class PayPalOptionHandler: PaymentOptionHandler {
     private let api: ApiService
     private let presentingDelegate = PayPalPresentingDelegateHandler()
-    let paymentType = PaymentType.PayPal
+    let paymentTypes = [PaymentType.PayPal, PaymentType.PayPalDe]
     var isPayMethodSelected: Bool { return true }
     weak var delegate: PaymentHandlerDelegate?
     

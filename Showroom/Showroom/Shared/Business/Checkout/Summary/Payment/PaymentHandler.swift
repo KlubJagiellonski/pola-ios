@@ -22,7 +22,7 @@ protocol PaymentHandlerDelegate: class {
 }
 
 protocol PaymentOptionHandler: class {
-    var paymentType: PaymentType { get }
+    var paymentTypes: [PaymentType] { get }
     weak var delegate: PaymentHandlerDelegate? { set get }
     var isPayMethodSelected: Bool { get } //for enabling disabling buy button
     
@@ -47,10 +47,10 @@ final class PaymentHandler {
         for payment in payments {
             switch payment.id {
             case .Cash: handlers.append(CashOptionHandler())
-            case .CreditCard: handlers.append(CreditCardOptionHandler(api: api))
-            case .Gratis: handlers.append(GratisOptionHandler())
-            case .PayPal: handlers.append(PayPalOptionHandler(api: api))
-            case .PayU: handlers.append(PayUOptionHandler(api: api))
+            case .CreditCard, .CreditCardDe: handlers.append(CreditCardOptionHandler(api: api))
+            case .Gratis, .GratisDe: handlers.append(GratisOptionHandler())
+            case .PayPal, .PayPalDe: handlers.append(PayPalOptionHandler(api: api))
+            case .PayU, .PayUDe: handlers.append(PayUOptionHandler(api: api))
             case .Unknown:
                 logError("Cannot create payment handler for unknown payment type")
                 continue
@@ -61,15 +61,16 @@ final class PaymentHandler {
     }
     
     func createPayMethodView(frame: CGRect, forType type: PaymentType) -> UIView? {
-        guard let handler = handlers.find({ $0.paymentType == type }) else {
+        guard let handler = findHandler(forPaymentType: type) else {
             logError("Cannot find handler for type \(type), handlers \(handlers)")
             return nil
         }
+        
         return handler.createPayMethodView(frame)
     }
     
     func makePayment(forPaymentType type: PaymentType, info: PaymentInfo) -> Observable<PaymentResult> {
-        guard let handler = handlers.find({ $0.paymentType == type }) else {
+        guard let handler = findHandler(forPaymentType: type) else {
             logError("Cannot retrieve handler for type \(type), handlers \(handlers)")
             return Observable.error(PaymentHandlerError.NoPaymentHandler)
         }
@@ -77,15 +78,14 @@ final class PaymentHandler {
             guard let `self` = self else {
                 return Observable.error(PaymentHandlerError.CannotCreatePayment)
             }
-            // TODO: add nonce to api call
-            return self.api.createPayment(with: PaymentRequest(with: info)).catchError {
+            return self.api.createPayment(with: PaymentRequest(with: info, nonce: nonce)).catchError {
                 Observable.error(PaymentHandlerError.PaymentRequestFailed($0))
             }
         }
     }
     
     func isPayMethodSelected(forType type: PaymentType) -> Bool {
-        guard let handler = handlers.find({ $0.paymentType == type }) else {
+        guard let handler = findHandler(forPaymentType: type) else {
             logError("Cannot retrieve handler for type \(type), handlers \(handlers)")
             return false
         }
@@ -100,5 +100,9 @@ final class PaymentHandler {
             }
         }
         return handled
+    }
+    
+    private func findHandler(forPaymentType paymentType: PaymentType) -> PaymentOptionHandler? {
+        return handlers.find { $0.paymentTypes.contains(paymentType) }
     }
 }

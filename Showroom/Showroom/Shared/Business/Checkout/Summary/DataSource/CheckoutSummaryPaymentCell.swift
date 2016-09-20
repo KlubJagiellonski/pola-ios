@@ -78,8 +78,8 @@ final class CheckoutSummaryPaymentCell: UITableViewCell {
         }
     }
     
-    func updateData(withTotalPrice totalPrice: Money, discount: Money?, discountCode: String?, gratisAvailable: Bool) {
-        logInfo("Update data with total price: \(totalPrice), discount: \(discount), discount code: \(discountCode), gratisAvailable: \(gratisAvailable)")
+    func updateData(withTotalPrice totalPrice: Money, discount: Money?, discountCode: String?) {
+        logInfo("Update data with total price: \(totalPrice), discount: \(discount), discount code: \(discountCode)")
         totalPriceLabel.priceLabel.text = totalPrice.stringValue
         if discountCode == nil || discount == nil {
             discountLabel.hidden = true
@@ -90,7 +90,7 @@ final class CheckoutSummaryPaymentCell: UITableViewCell {
             discountLabel.hidden = false
             discountHeightConstraint?.updateOffset(CheckoutSummaryPaymentCell.discountCellHeight)
         }
-        methodLabel.textColor = gratisAvailable ? UIColor(named: ColorName.DarkGray) : UIColor(named: ColorName.Black)
+        methodLabel.textColor = UIColor(named: ColorName.Black)
     }
     
     class func getHeight(withDiscount hasDiscount: Bool) -> CGFloat {

@@ -2,7 +2,7 @@ import Foundation
 import RxSwift
 
 final class GratisOptionHandler: PaymentOptionHandler {
-    let paymentType = PaymentType.Gratis
+    let paymentTypes = [PaymentType.Gratis, PaymentType.GratisDe]
     weak var delegate: PaymentHandlerDelegate?
     var isPayMethodSelected: Bool { return true }
     
