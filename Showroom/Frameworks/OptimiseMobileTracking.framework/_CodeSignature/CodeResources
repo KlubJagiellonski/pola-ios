@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/OMGSDK.h</key>
 		<data>
-		i4eMfcxx4k/fAWz6oyFjneLse94=
+		32e9gA/BMNZdyYNpumjngq2e7+E=
 		</data>
 		<key>Headers/OptimiseMobileTracking.h</key>
 		<data>
@@ -14,7 +14,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		F+dSP4K24NA+d/nYzco49KWCkis=
+		8oSrmcKJWZ8+elFh0k+vmSyNEz4=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -24,17 +24,38 @@
 	<key>files2</key>
 	<dict>
 		<key>Headers/OMGSDK.h</key>
-		<data>
-		i4eMfcxx4k/fAWz6oyFjneLse94=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			32e9gA/BMNZdyYNpumjngq2e7+E=
+			</data>
+			<key>hash2</key>
+			<data>
+			uOv8GlPD8K8qqjaggvMEFuew2RS+DW/0/joD39f6GrE=
+			</data>
+		</dict>
 		<key>Headers/OptimiseMobileTracking.h</key>
-		<data>
-		ta4FxfO7M2VJQZkAKG66NJDctbU=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			ta4FxfO7M2VJQZkAKG66NJDctbU=
+			</data>
+			<key>hash2</key>
+			<data>
+			VP3OO1kLsGXUQt1H4JIpNP9Vc+ofzIy5D7eQ48ZDJuI=
+			</data>
+		</dict>
 		<key>Modules/module.modulemap</key>
-		<data>
-		IXyF96H9LGnbyoDygkwhmt9bC3Y=
-		</data>
+		<dict>
+			<key>hash</key>
+			<data>
+			IXyF96H9LGnbyoDygkwhmt9bC3Y=
+			</data>
+			<key>hash2</key>
+			<data>
+			7mDmXYolmSiUYYAqnw8wci2VaKZ7oPNoQ3eQPWQXKN4=
+			</data>
+		</dict>
 	</dict>
 	<key>rules</key>
 	<dict>

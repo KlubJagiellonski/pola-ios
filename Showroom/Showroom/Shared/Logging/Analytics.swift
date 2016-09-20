@@ -386,7 +386,7 @@ final class Analytics {
     func sendAnalyticsTransactionEvent(with payment: PaymentResult, products: [BasketProduct]) {
         // sending optimise
         for product in products {
-            optimiseManager.trackSalesWhereAppID(String(payment.orderId), pid: Constants.optimiseTrackSaleProductId, status: String(payment.amount.doubleValue), currency: payment.currency, ex1: "Sale", ex2: String(product.id), ex3: nil, ex4: nil, ex5: nil)
+            optimiseManager.trackEventWhereAppID(String(payment.orderId), pid: Constants.optimiseTrackSaleProductId, status: String(payment.amount.doubleValue), currency: payment.currency, ex1: "Sale", ex2: String(product.id), ex3: nil, ex4: nil, ex5: nil)
         }
         
         // sending facebook
@@ -430,7 +430,7 @@ final class Analytics {
     }
     
     func sendRegistrationEvent() {
-        optimiseManager.trackEventWhereAppID(nil, pid: Constants.optimiseTrackRegistrationProductId, status: "1", actionType: Start, ex1: "Registration", ex2: nil, ex3: nil, ex4: nil, ex5: nil)
+        optimiseManager.trackEventWhereAppID(nil, pid: Constants.optimiseTrackRegistrationProductId, status: "1", currency: nil, ex1: "Registration", ex2: nil, ex3: nil, ex4: nil, ex5: nil)
     }
 }
 
