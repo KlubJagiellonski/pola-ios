@@ -3,6 +3,7 @@ import UIKit
 protocol WishlistViewDelegate: ViewSwitcherDelegate {
     func wishlistView(view: WishlistView, wantsDelete product: WishlistProduct)
     func wishlistView(view: WishlistView, didSelectProductAt indexPath: NSIndexPath)
+    func wishlistView(view: WishlistView, sizeForDeleteActionViewForRowAtIndexPath indexPath: NSIndexPath) -> CGSize
 }
 
 final class WishlistView: ViewSwitcher, ContentInsetHandler, UITableViewDelegate {
@@ -71,11 +72,14 @@ final class WishlistView: ViewSwitcher, ContentInsetHandler, UITableViewDelegate
         let deleteButton = UITableViewRowAction(style: .Default, title: nil, handler: { (action, indexPath) in
             self.tableView.dataSource?.tableView?(self.tableView, commitEditingStyle: .Delete, forRowAtIndexPath: indexPath)
         })
-        
-        // This background image was created to work only with wishlist cells and
-        // Polish language. It has a fixed size that fits the size of the delete
-        // button which depends on the cell height and the title length.
-        deleteButton.backgroundColor = UIColor(patternImage: UIImage(asset: Asset.Bg_delete_wishlist))
+
+        let deleteIconImage = UIImage(asset: .Bg_delete_wishlist)
+        guard let size = delegate?.wishlistView(self, sizeForDeleteActionViewForRowAtIndexPath: indexPath) else {
+            logError("Delegate not set. Unable to view edit actions.")
+            return nil
+        }
+        let deleteIconWithBackgroundImage = UIImage.centeredImage(deleteIconImage, size: size, offsetY: -10, backgroundColor: UIColor(named: .RedViolet))
+        deleteButton.backgroundColor = UIColor(patternImage: deleteIconWithBackgroundImage)
         
         // New line characters allow to move the title label lower.
         deleteButton.title = "\r\n\r\n" + tr(.WishlistDelete)
