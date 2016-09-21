@@ -116,7 +116,11 @@ private final class DriveStorageHandler: StorageHandler {
             let path = type.retrieveDirectoryPath()
             try createDirectoriesForPathIfNeeded(path)
             for file in try fileManager.contentsOfDirectoryAtPath(path) {
-                try fileManager.removeItemAtPath(file)
+                do {
+                    try fileManager.removeItemAtPath(retrievePath(forFilename: file, type: type))
+                } catch {
+                    logInfo("Cannot remove filte \(file)")
+                }
             }
             return true
         } catch {
