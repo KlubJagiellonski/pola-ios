@@ -4,7 +4,7 @@
 		"details": [
 			{
 				"appID": "73PWPNSU5Y.com.showroom.Showroom",
-				"paths": [ "/tag/*", "/marken/*", "/trend/*", "/search", "/p/*" ]
+				"paths": [ "/tag/*", "/marken/*", "/trend/*", "/search", "/p/*", "/c/cart/view" ]
 			}
 		]
 	},
