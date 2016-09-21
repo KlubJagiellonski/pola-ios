@@ -21,6 +21,8 @@ enum L10n {
   case BasketAmount0
   /// DO KASY
   case BasketCheckoutButton
+  /// Kod %@ został dodany do koszyka.
+  case BasketCouponCodeAddedToBasket(String)
   /// Usuń
   case BasketDelete
   /// Kraj dostawy
@@ -59,8 +61,6 @@ enum L10n {
   case BasketStartShopping
   /// SUMA
   case BasketTotalPrice
-  /// Kod %@ został dodany do koszyka.
-  case BasketCouponCodeAddedToBasket(String)
   /// O projektancie
   case BrandAboutTitle
   /// Miasto
@@ -83,8 +83,6 @@ enum L10n {
   case CheckoutDeliveryAdressEdit
   /// tel.
   case CheckoutDeliveryAdressPhoneNumber
-  /// ul.
-  case CheckoutDeliveryAdressStreet
   /// ADRES DOSTAWY
   case CheckoutDeliveryCourierHeader
   /// DOSTAWA
@@ -440,6 +438,8 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Basket.Amount0")
       case .BasketCheckoutButton:
         return L10n.tr("Basket.CheckoutButton")
+      case .BasketCouponCodeAddedToBasket(let p0):
+        return L10n.tr("Basket.CouponCodeAddedToBasket", p0)
       case .BasketDelete:
         return L10n.tr("Basket.Delete")
       case .BasketDeliveryDeliveryCountry:
@@ -478,8 +478,6 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Basket.StartShopping")
       case .BasketTotalPrice:
         return L10n.tr("Basket.TotalPrice")
-      case .BasketCouponCodeAddedToBasket(let p0):
-        return L10n.tr("Basket.CouponCodeAddedToBasket", p0)
       case .BrandAboutTitle:
         return L10n.tr("Brand.AboutTitle")
       case .CheckoutDeliveryAddressFormCity:
@@ -502,8 +500,6 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Checkout.Delivery.Adress.Edit")
       case .CheckoutDeliveryAdressPhoneNumber:
         return L10n.tr("Checkout.Delivery.Adress.PhoneNumber")
-      case .CheckoutDeliveryAdressStreet:
-        return L10n.tr("Checkout.Delivery.Adress.Street")
       case .CheckoutDeliveryCourierHeader:
         return L10n.tr("Checkout.Delivery.Courier.Header")
       case .CheckoutDeliveryDeliveryHeader:
