@@ -3,10 +3,10 @@
 import UIKit.UIImage
 
 enum Asset: String {
-  case Bg_delete_basket = "bg_delete_basket"
-  case Bg_delete_wishlist = "bg_delete_wishlist"
   case Empty_bag = "empty_bag"
   case Error = "error"
+  case Flag_4_de = "flag_4_de"
+  case Flag_4_pl = "flag_4_pl"
   case For_her = "for_her"
   case For_him = "for_him"
   case Ic_bag = "ic_bag"
@@ -32,6 +32,7 @@ enum Asset: String {
   case Ic_home_selected = "ic_home_selected"
   case Ic_info = "ic_info"
   case Ic_instagram = "ic_instagram"
+  case Ic_kosz = "ic_kosz"
   case Ic_navigation_back = "ic_navigation_back"
   case Ic_settings = "ic_settings"
   case Ic_settings_selected = "ic_settings_selected"
@@ -39,8 +40,6 @@ enum Asset: String {
   case Ic_tick = "ic_tick"
   case Ic_w_ulubionych = "ic_w_ulubionych"
   case Im_sukces = "im_sukces"
-  case Img_flag_de = "img_flag_de"
-  case Img_flag_pl = "img_flag_pl"
   case Img_password = "img_password"
   case Img_wieszak = "img_wieszak"
   case Kasa_fail = "kasa_fail"

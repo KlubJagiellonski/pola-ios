@@ -3,7 +3,7 @@ import UIKit
 protocol WishlistViewDelegate: ViewSwitcherDelegate {
     func wishlistView(view: WishlistView, wantsDelete product: WishlistProduct)
     func wishlistView(view: WishlistView, didSelectProductAt indexPath: NSIndexPath)
-    func wishlistView(view: WishlistView, sizeForDeleteActionViewForRowAtIndexPath indexPath: NSIndexPath) -> CGSize
+    func wishlistView(view: WishlistView, widthForDeleteActionViewForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
 }
 
 final class WishlistView: ViewSwitcher, ContentInsetHandler, UITableViewDelegate {
@@ -73,11 +73,13 @@ final class WishlistView: ViewSwitcher, ContentInsetHandler, UITableViewDelegate
             self.tableView.dataSource?.tableView?(self.tableView, commitEditingStyle: .Delete, forRowAtIndexPath: indexPath)
         })
 
-        let deleteIconImage = UIImage(asset: .Bg_delete_wishlist)
-        guard let size = delegate?.wishlistView(self, sizeForDeleteActionViewForRowAtIndexPath: indexPath) else {
+        let deleteIconImage = UIImage(asset: .Ic_kosz)
+        guard let width = delegate?.wishlistView(self, widthForDeleteActionViewForRowAtIndexPath: indexPath) else {
             logError("Delegate not set. Unable to view edit actions.")
             return nil
         }
+        let height = self.tableView(self.tableView, heightForRowAtIndexPath: indexPath)
+        let size = CGSize(width: width, height: height)
         let deleteIconWithBackgroundImage = UIImage.centeredImage(deleteIconImage, size: size, offsetY: -10, backgroundColor: UIColor(named: .RedViolet))
         deleteButton.backgroundColor = UIColor(patternImage: deleteIconWithBackgroundImage)
         

@@ -10,6 +10,7 @@ protocol BasketViewDelegate: ViewSwitcherDelegate {
     func basketViewDidTapStartShoppingButton(view: BasketView)
     func basketView(view: BasketView, didChangeDiscountCode discountCode: String?)
     func basketView(view: BasketView, didSelectProductAtIndexPath indexPath: NSIndexPath)
+    func basketView(view: BasketView, widthForDeleteActionViewForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
 }
 
 final class BasketView: ViewSwitcher, UITableViewDelegate, ContentInsetHandler {
@@ -198,11 +199,15 @@ final class BasketView: ViewSwitcher, UITableViewDelegate, ContentInsetHandler {
             self.tableView.dataSource?.tableView?(self.tableView, commitEditingStyle: .Delete, forRowAtIndexPath: indexPath)
         })
         
-        // This background image was created to work only with basket cells and
-        // Polish language. It has a fixed size that fits the size of the delete
-        // button which depends on the cell height and the title length.
-        deleteButton.backgroundColor = UIColor(patternImage: UIImage(asset: Asset.Bg_delete_basket))
-        
+        let deleteIconImage = UIImage(asset: .Ic_kosz)
+        guard let width = delegate?.basketView(self, widthForDeleteActionViewForRowAtIndexPath: indexPath) else {
+            logError("Delegate not set. Unable to view edit actions.")
+            return nil
+        }
+        let height = self.tableView(self.tableView, heightForRowAtIndexPath: indexPath)
+        let size = CGSize(width: width, height: height)
+        let deleteIconWithBackgroundImage = UIImage.centeredImage(deleteIconImage, size: size, offsetY: -10, backgroundColor: UIColor(named: .RedViolet))
+        deleteButton.backgroundColor = UIColor(patternImage: deleteIconWithBackgroundImage)
         // New line characters allow to move the title label lower.
         deleteButton.title = "\r\n\r\n" + tr(.BasketDelete)
         

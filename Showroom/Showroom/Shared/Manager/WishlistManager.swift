@@ -17,7 +17,7 @@ final class WishlistManager {
     private let disposeBag = DisposeBag()
     private var contextWishlist: [WishlistProduct] = []
     private var synchronizationDisposable: Disposable?
-    private(set) var platformManager: PlatformManager
+    let platformManager: PlatformManager
     
     let state: WishlistState
 

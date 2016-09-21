@@ -2,10 +2,9 @@ import UIKit
 
 class PlatformButton: UIButton {
     
-    private let flag = UIImageView()
-    private let label = UILabel()
+    private let flagAndText = UIImageView()
     
-    init(flagImage: UIImage, title: String) {
+    init(flagAndTextImage: UIImage) {
         super.init(frame: CGRectZero)
         
         setBackgroundImage(UIImage.fromColor(UIColor(named: .White)), forState: .Normal)
@@ -13,14 +12,9 @@ class PlatformButton: UIButton {
         layer.borderColor = UIColor(named: .Black).CGColor
         layer.borderWidth = 2
         
-        flag.image = flagImage
+        flagAndText.image = flagAndTextImage
         
-        label.text = title
-        label.textColor = UIColor(named: .Black)
-        label.font = UIFont(fontType: .NormalBold)
-        
-        addSubview(flag)
-        addSubview(label)
+        addSubview(flagAndText)
         
         configureCustomConstraints()
     }
@@ -30,14 +24,8 @@ class PlatformButton: UIButton {
     }
     
     func configureCustomConstraints() {
-        flag.snp_makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.leading.equalToSuperview().offset(Dimensions.defaultMargin)
-        }
-        
-        label.snp_makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview().offset(-Dimensions.defaultMargin)
+        flagAndText.snp_makeConstraints { make in
+            make.center.equalToSuperview()
         }
     }
     

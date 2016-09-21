@@ -101,12 +101,12 @@ extension WishlistViewController: WishlistViewDelegate {
         sendNavigationEvent(ShowProductDetailsEvent(context: context, retrieveCurrentImageViewTag: nil))
     }
     
-    func wishlistView(view: WishlistView, sizeForDeleteActionViewForRowAtIndexPath indexPath: NSIndexPath) -> CGSize {
+    func wishlistView(view: WishlistView, widthForDeleteActionViewForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         logInfo("Size for delete actionview for row at index path: \(indexPath)")
         let platform = self.manager.platformManager.platform!
         switch platform {
-        case .Polish: return CGSize(width: 72.5, height: 148)
-        case .German: return CGSize(width: 109, height: 148)
+        case .Polish: return 72.5
+        case .German: return 109
         }
     }
     

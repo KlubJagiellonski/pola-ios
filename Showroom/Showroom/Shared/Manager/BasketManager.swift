@@ -8,7 +8,7 @@ final class BasketManager {
     private let emarsysService: EmarsysService
     private let storage: KeyValueStorage
     private let userManager: UserManager
-    private let platformManager: PlatformManager
+    let platformManager: PlatformManager
     private let disposeBag = DisposeBag()
     
     let state: BasketState

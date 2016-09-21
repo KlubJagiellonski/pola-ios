@@ -10,8 +10,9 @@ class PlatformSelectionView: UIView {
     private let buttonsSpacing: CGFloat = 23
     
     private let backgroundImageView = UIImageView()
-    private let polishButton = PlatformButton(flagImage: UIImage(asset: .Img_flag_pl), title: "showroom.pl")
-    private let germanButton = PlatformButton(flagImage: UIImage(asset: .Img_flag_de), title: "showroom.de")
+    private let polishButton = PlatformButton(flagAndTextImage: UIImage(asset: .Flag_4_pl))
+    private let germanButton = PlatformButton(flagAndTextImage: UIImage(asset: .Flag_4_de))
+
     
     weak var delegate: PlatformSelectionViewDelegate?
     
