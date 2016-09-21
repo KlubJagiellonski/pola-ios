@@ -3,12 +3,14 @@ import RxSwift
 import Decodable
 
 class DashboardModel {
+    private let disposeBag = DisposeBag()
     private let apiService: ApiService
     private let emarsysService: EmarsysService
     private let userManager: UserManager
     private let storage: KeyValueStorage
     private let prefetchingManager: PrefetchingManager
     private var takeOnlyCachedRecommendations = false
+    let triggerFetchContentPromoObservable: Observable<Void> = PublishSubject()
     let state = DashboardModelState()
     
     init(apiService: ApiService, userManager: UserManager, storage: KeyValueStorage, prefetchingManager: PrefetchingManager, emarsysService: EmarsysService) {
@@ -18,10 +20,21 @@ class DashboardModel {
         self.prefetchingManager = prefetchingManager
         self.emarsysService = emarsysService
         
-        (state.contentPromoResult, state.recommendationsResult) = prefetchingManager.takeCachedDashboard(forGender: userManager.gender)
-        if state.recommendationsResult != nil {
+        let (contentPromoResult, recommendationsResult) = prefetchingManager.takeCachedDashboard(forGender: userManager.gender)
+        if recommendationsResult != nil {
+            state.recommendationsResult = recommendationsResult
             takeOnlyCachedRecommendations = true
         }
+        if contentPromoResult != nil {
+            state.contentPromoResult = contentPromoResult
+        }
+        
+        userManager.genderObservable.subscribeNext { [weak self] gender in
+            guard let `self` = self else { return }
+            self.storage.remove(forKey: Constants.Cache.contentPromoId, type: .Persistent)
+            self.state.contentPromoResult = nil
+            (self.triggerFetchContentPromoObservable as! PublishSubject).onNext()
+        }.addDisposableTo(disposeBag)
     }
     
     func fetchContentPromo() -> Observable<FetchCacheResult<ContentPromoResult>> {

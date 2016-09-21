@@ -20,7 +20,7 @@ class DashboardViewController: UIViewController, DashboardViewDelegate {
     }
     
     override func loadView() {
-        view = DashboardView(modelState: model.state)
+        view = DashboardView()
     }
     
     override func viewDidLoad() {
@@ -30,8 +30,34 @@ class DashboardViewController: UIViewController, DashboardViewDelegate {
         
         castView.delegate = self
         
-        castView.changeSwitcherState(.Loading)
-        castView.recommendationViewSwitcherState = .Loading
+        castView.changeProductRecommendations(model.state.recommendationsResult?.productRecommendations ?? [])
+        castView.recommendationViewSwitcherState = model.state.recommendationsResult?.productRecommendations == nil ? .Loading : .Success
+        
+        castView.changeContentPromos(model.state.contentPromoResult?.contentPromos ?? [])
+        castView.changeSwitcherState(model.state.contentPromoResult?.contentPromos == nil ? .Loading : .Success, animated: false)
+        
+        model.state.recommendationsResultObservable.subscribeNext { [weak self] result in
+            guard let `self` = self else { return }
+            self.castView.changeProductRecommendations(result?.productRecommendations ?? [])
+        }.addDisposableTo(disposeBag)
+        
+        model.state.contentPromoObservable.subscribeNext { [weak self] result in
+            guard let `self` = self else { return }
+            self.castView.changeContentPromos(result?.contentPromos ?? [])
+        }.addDisposableTo(disposeBag)
+        
+        model.state.recommendationsIndexObservable.subscribeNext { [weak self] index in
+            guard let `self` = self, let index = index else { return }
+            self.castView.moveToRecommendation(atIndex: index)
+        }.addDisposableTo(disposeBag)
+        
+        model.triggerFetchContentPromoObservable.subscribeNext { [weak self] in
+            guard let `self` = self else { return }
+            if self.model.state.contentPromoResult == nil {
+                self.castView.changeSwitcherState(.Loading)
+            }
+            self.fetchContentPromo()
+        }.addDisposableTo(disposeBag)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -73,7 +99,7 @@ class DashboardViewController: UIViewController, DashboardViewDelegate {
                     self.castView.changeSwitcherState(.Error)
                 }
             }
-            }.addDisposableTo(disposeBag)
+        }.addDisposableTo(disposeBag)
     }
     
     private func fetchRecommendations() {
@@ -92,7 +118,7 @@ class DashboardViewController: UIViewController, DashboardViewDelegate {
                     strongSelf.castView.recommendationViewSwitcherState = .Error
                 }
             }
-            }.addDisposableTo(disposeBag)
+        }.addDisposableTo(disposeBag)
     }
     
     // MARK: - DashboardViewDelegate
