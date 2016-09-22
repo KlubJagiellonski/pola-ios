@@ -59,12 +59,15 @@ enum MainTabChildControllerType: Int {
 
 class MainTabViewController: UITabBarController, NavigationHandler {
     private let badgesContainerView = TabBarItemBadgeContainerView()
-    var basketBadgeValue: UInt {
+    private var basketBadgeValue: UInt {
         set { badgesContainerView.basketBadgeValue = newValue }
         get { return badgesContainerView.basketBadgeValue }
     }    
-    var wishlistBadgeValue: UInt {
-        set { badgesContainerView.wishlistBadgeValue = newValue }
+    private var wishlistBadgeValue: UInt {
+        set {
+            badgesContainerView.wishlistBadgeValue = newValue
+            logInfo("wishlist badge value did set to \(newValue)")            
+        }
         get { return badgesContainerView.wishlistBadgeValue }
     }
     
@@ -173,6 +176,7 @@ class MainTabViewController: UITabBarController, NavigationHandler {
     private func onWishlistChanged(wishlist: [WishlistProduct]) {
         logInfo("Wishlist changed with amount \(wishlist.count)")
         wishlistBadgeValue = UInt(wishlist.count)
+        wishlistBadgeValue = UInt(wishlist.count)        
     }
     
     private func createChildViewController(forType type: MainTabChildControllerType) -> UIViewController {

@@ -187,12 +187,13 @@ class RootViewController: PresenterViewController, NavigationHandler {
             return true
             
         case .PlatformSelectionEnd:
-            logInfo("Initial platform selection end")
+            logInfo("Platform selection end")
             if !model.shouldSkipStartScreen {
                 showInitialOnboarding()
                 return true
             } else {
                 model.shouldSkipStartScreen = true
+                
                 let mainTabViewController = resolver.resolve(MainTabViewController.self)
                 showContent(mainTabViewController, animation: DimTransitionAnimation(animationDuration: 0.3), completion: nil)
                 return true

@@ -19,7 +19,7 @@ final class WishlistManager {
     private var synchronizationDisposable: Disposable?
     let platformManager: PlatformManager
     
-    let state: WishlistState
+    private(set) var state: WishlistState
 
     init(with storage: KeyValueStorage, and userManager: UserManager, and platformManager: PlatformManager, and api: ApiService) {
         self.storage = storage
@@ -44,7 +44,7 @@ final class WishlistManager {
         platformManager.platformObservable.subscribeNext { [weak self] platform in
             guard let `self` = self else { return }
             logInfo("platform changed: \(platform)")
-            self.state.wishlist.removeAll()
+            self.state = WishlistState()
         }.addDisposableTo(disposeBag)
     }
     
