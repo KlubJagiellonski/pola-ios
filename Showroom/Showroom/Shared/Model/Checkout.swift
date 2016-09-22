@@ -29,9 +29,11 @@ extension Checkout {
             logInfo("Cannot create checkout for state \(basketState)")
             return nil
         }
+        let filteredAddresses = user.userAddresses.filter { $0.country == country.id }
+        let checkoutUser = User(id: user.id, name: user.name, email: user.email, gender: user.gender, userAddresses: filteredAddresses)
         return Checkout(
             basket: basket,
-            user: user,
+            user: checkoutUser,
             deliveryCarrier: carrier,
             deliveryCountry: country,
             discountCode: basketState.discountCode
