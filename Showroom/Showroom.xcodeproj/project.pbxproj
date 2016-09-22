@@ -141,6 +141,7 @@
 		1D5F91681D36500500AE66E6 /* FilterDetailsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F91671D36500500AE66E6 /* FilterDetailsDataSource.swift */; };
 		1D5F916A1D36508000AE66E6 /* FilterDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F91691D36508000AE66E6 /* FilterDetailsViewController.swift */; };
 		1D5F916C1D36541700AE66E6 /* SelectValueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F916B1D36541700AE66E6 /* SelectValueTableViewCell.swift */; };
+		1D6671671D93E4BE00070502 /* Drop-In.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1D6671691D93E4BE00070502 /* Drop-In.strings */; };
 		1D66E4421D38D8190041D74D /* SearchNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D66E4411D38D8190041D74D /* SearchNavigationController.swift */; };
 		1D6933461D2D176200609BB9 /* CocoaMarkdown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D6933451D2D176200609BB9 /* CocoaMarkdown.framework */; };
 		1D6933491D2E40C700609BB9 /* BrandProductListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6933481D2E40C700609BB9 /* BrandProductListViewController.swift */; };
@@ -543,6 +544,8 @@
 		1D5F91671D36500500AE66E6 /* FilterDetailsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterDetailsDataSource.swift; sourceTree = "<group>"; };
 		1D5F91691D36508000AE66E6 /* FilterDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterDetailsViewController.swift; sourceTree = "<group>"; };
 		1D5F916B1D36541700AE66E6 /* SelectValueTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectValueTableViewCell.swift; sourceTree = "<group>"; };
+		1D66716A1D93E4C300070502 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = "pl.lproj/Drop-In.strings"; sourceTree = "<group>"; };
+		1D66716B1D93E4C500070502 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = "de.lproj/Drop-In.strings"; sourceTree = "<group>"; };
 		1D66E4411D38D8190041D74D /* SearchNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchNavigationController.swift; sourceTree = "<group>"; };
 		1D6933451D2D176200609BB9 /* CocoaMarkdown.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaMarkdown.framework; path = Carthage/Build/iOS/CocoaMarkdown.framework; sourceTree = "<group>"; };
 		1D6933481D2E40C700609BB9 /* BrandProductListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrandProductListViewController.swift; sourceTree = "<group>"; };
@@ -1068,6 +1071,13 @@
 			path = TrendProductList;
 			sourceTree = "<group>";
 		};
+		1D5960001D93E22500F3727D /* Braintree */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Braintree;
+			sourceTree = "<group>";
+		};
 		1D5B5E641D01979D00B74822 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -1341,6 +1351,7 @@
 		1DD1EA5B1CEC5B5B00D99731 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1D5960001D93E22500F3727D /* Braintree */,
 				1D49FC951D4A023700A3832F /* PayUOneClickSDK.bundle */,
 				1D0453411CFDD728001CC5A2 /* Fonts */,
 				1DD1EA681CEC5D1700D99731 /* L10n.swift */,
@@ -1351,6 +1362,7 @@
 				C09367151D09AB46004C7748 /* UIImageAssets.swift */,
 				C09367171D09AB79004C7748 /* UIFontAssets.swift */,
 				1D372E391D6ED22F004F3155 /* Localizable.strings */,
+				1D6671691D93E4BE00070502 /* Drop-In.strings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -2028,6 +2040,7 @@
 				1D04534B1CFDD87E001CC5A2 /* Lato-Heavy.ttf in Resources */,
 				1D04534D1CFDD87E001CC5A2 /* Lato-Semibold.ttf in Resources */,
 				1D04534A1CFDD87E001CC5A2 /* Lato-Bold.ttf in Resources */,
+				1D6671671D93E4BE00070502 /* Drop-In.strings in Resources */,
 				1D49FC901D4A021A00A3832F /* include in Resources */,
 				1D49FC9A1D4A307900A3832F /* SHOWROOM.entitlements in Resources */,
 				1D372E371D6ED22F004F3155 /* Localizable.strings in Resources */,
@@ -2454,6 +2467,15 @@
 				C0DF72781D75C7A4001BA783 /* de */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		1D6671691D93E4BE00070502 /* Drop-In.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1D66716A1D93E4C300070502 /* pl */,
+				1D66716B1D93E4C500070502 /* de */,
+			);
+			name = "Drop-In.strings";
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

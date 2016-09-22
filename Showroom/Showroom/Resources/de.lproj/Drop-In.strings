@@ -1,0 +1,38 @@
+/* Title for view controller presented by Drop In to collect a new payment method when payment methods are already on file */
+"ADD_PAYMENT_METHOD_VIEW_CONTROLLER_TITLE" = "Zahlungsmethode hinzufügen";
+
+/* Section header above card form in Drop In view controller */
+"CARD_FORM_SECTION_HEADER" = "Mit Kreditkarte bezahlen";
+
+/* Default text to display in Drop In view controller call to action (Submit button) */
+"DEFAULT_CALL_TO_ACTION" = "Bezahlen";
+
+/* Title text for button on Drop In with a selected payment method that allows user to choose a different payment method on file */
+"DROP_IN_CHANGE_PAYMENT_METHOD_BUTTON_TEXT" = "Zahlungsmethode ändern";
+
+/* Button text to indicate acceptance of an alert condition */
+"ERROR_ALERT_CANCEL_BUTTON_TEXT" = "Abbrechen";
+
+/* Vague title for alert view that ambiguously indicates an unspecified failure */
+"ERROR_ALERT_CONNECTION_ERROR" = "Verbindungsfehler";
+
+/* Button text to indicate acceptance of an alert condition */
+"ERROR_ALERT_OK_BUTTON_TEXT" = "OK";
+
+/* Button text to request that an failed operation should be restarted and to try again */
+"ERROR_ALERT_TRY_AGAIN_BUTTON_TEXT" = "Erneut versuchen";
+
+/* Title for alert view that is displayed when Drop In submission fails because there was an error saving the card */
+"ERROR_SAVING_CARD_ALERT_TITLE" = "Fehler beim Speichern von Karte";
+
+/* Message for alert view that is displayed when Drop In submission fails because there was an error saving the card */
+"ERROR_SAVING_CARD_MESSAGE" = "Versuchen Sie es noch einmal.";
+
+/* Title for alert view that is displayed when Drop In submission fails because there was an error saving the PayPal account */
+"ERROR_SAVING_PAYMENT_METHOD_ALERT_TITLE" = "Fehler bei beim Speichern von PayPal-Konto";
+
+/* Message for alert view that is displayed when Drop In submission fails because there was an error saving the PayPal account */
+"ERROR_SAVING_PAYPAL_ACCOUNT_ALERT_MESSAGE" = "Versuchen Sie es noch einmal.";
+
+/* Title for select payment method view controller */
+"SELECT_PAYMENT_METHOD_TITLE" = "Zahlungsmethode";
