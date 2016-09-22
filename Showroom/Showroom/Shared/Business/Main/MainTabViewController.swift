@@ -175,7 +175,6 @@ class MainTabViewController: UITabBarController, NavigationHandler {
     
     private func onWishlistChanged(wishlist: [WishlistProduct]) {
         logInfo("Wishlist changed with amount \(wishlist.count)")
-        wishlistBadgeValue = UInt(wishlist.count)
         wishlistBadgeValue = UInt(wishlist.count)        
     }
     

@@ -89,8 +89,8 @@ final class ProductFilterRangeCell: UITableViewCell, TTRangeSliderDelegate {
     }
     
     private func updateValue(minValue minValue: Int, maxValue: Int) {
-        let minValueString = minValue == Int(rangeSlider.minValue) ? tr(.ProductListFilterMin) : String(minValue) + " zł"
-        let maxValueString = maxValue == Int(rangeSlider.maxValue) ? tr(.ProductListFilterMax) : String(maxValue) + " zł"
+        let minValueString = minValue == Int(rangeSlider.minValue) ? tr(.ProductListFilterMin) : String(minValue) + " \(tr(.MoneyZl))"
+        let maxValueString = maxValue == Int(rangeSlider.maxValue) ? tr(.ProductListFilterMax) : String(maxValue) + " \(tr(.MoneyZl))"
         valueLabel.text = tr(.ProductListFilterPriceRange(minValueString, maxValueString))
     }
     

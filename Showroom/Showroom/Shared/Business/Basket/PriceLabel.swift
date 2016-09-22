@@ -40,7 +40,7 @@ class PriceLabel: UIView {
         strikedPriceLabel.textColor = UIColor(named: .DarkGray)
         strikedPriceLabel.font = UIFont(fontType: .PriceSmall)
         
-        normalPriceLabel.text = "0,00 zł"
+        normalPriceLabel.text = "0,00 \(tr(.MoneyZl))"
         normalPriceLabel.textColor = UIColor.blackColor()
         normalPriceLabel.font = UIFont(fontType: .PriceList)
         

@@ -195,7 +195,6 @@ class BasketCountryDeliveryView: UIControl {
         
         topSeparator.backgroundColor = UIColor(named: .Separator)
         
-        countryLabel.backgroundColor = UIColor(named: .White)
         countryLabel.font = UIFont(fontType: .FormNormal)
         countryLabel.textColor = UIColor(named: .Black)
         
