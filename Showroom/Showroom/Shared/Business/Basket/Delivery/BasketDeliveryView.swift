@@ -79,11 +79,13 @@ class BasketDeliveryView: ViewSwitcher {
         }
         
         let upsCarrier = basket.deliveryInfo.carriers.find { $0.id.isUps }
+        upsDeliveryOptionView.hidden = upsCarrier == nil
         upsDeliveryOptionView.enabled = upsCarrier?.available ?? false
         upsDeliveryOptionView.priceLabel.text = upsCarrier?.deliveryCost?.stringValue
         upsDeliveryOptionView.titleLabel.text = upsCarrier?.name
         
         let ruchCarrier = basket.deliveryInfo.carriers.find { $0.id == DeliveryType.RUCH }
+        ruchDeliveryOptionView.hidden = ruchCarrier == nil
         ruchDeliveryOptionView.enabled = ruchCarrier?.available ?? false
         ruchDeliveryOptionView.priceLabel.text = ruchCarrier?.deliveryCost?.stringValue
         ruchDeliveryOptionView.titleLabel.text = ruchCarrier?.name
