@@ -51,9 +51,6 @@ class ApiService {
         
         let urlRequest = NSMutableURLRequest(URL: url)
         urlRequest.HTTPMethod = call.httpMethod.rawValue
-        if call.httpMethod == .Post {
-            urlRequest.applyJsonContentTypeHeader()
-        }
         if call.authenticationType == .Required {
             guard let session = dataSource?.apiServiceWantsSession(self) else {
                 logInfo("Cannot make call, no session")
@@ -65,6 +62,7 @@ class ApiService {
         }
         
         if let jsonData = call.jsonData {
+            urlRequest.applyJsonContentTypeHeader()
             logInfo("Making call \(url) with data \(jsonData)")
             do {
                 let data = try NSJSONSerialization.dataWithJSONObject(jsonData, options: [])

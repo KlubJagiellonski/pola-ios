@@ -229,6 +229,7 @@ class UserManager {
             return
         }
         self.apiService.fetchUser()
+            .observeOn(MainScheduler.instance)
             .subscribe { [weak self] (event: Event<User>) in
                 guard let `self` = self else { return }
                 
