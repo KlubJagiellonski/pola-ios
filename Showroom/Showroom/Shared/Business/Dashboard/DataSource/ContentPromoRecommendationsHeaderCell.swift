@@ -31,6 +31,8 @@ class ContentPromoRecommendationsHeaderCell: UITableViewCell {
         secondPartLabel.font = ContentPromoRecommendationsHeaderCell.secondPartFont
         secondPartLabel.textColor = UIColor(named: .Black)
         
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        
         contentView.addSubview(firstPartLabel)
         contentView.addSubview(secondPartLabel)
         

@@ -106,8 +106,8 @@ class InAppOnboardingPhotosPagingCell: UICollectionViewCell {
         
         label.snp_makeConstraints { make in
             make.top.equalTo(separator.snp_bottom).offset(labelTopOffset)
-            make.leading.equalToSuperview().offset(Dimensions.onboardingTextHorizontalOffset)
-            make.trailing.equalToSuperview().offset(-Dimensions.onboardingTextHorizontalOffset)
+            make.centerX.equalToSuperview()
+            make.width.equalTo(self).offset(-Dimensions.onboardingTextHorizontalOffset * 2)
         }
         
         nextButton.snp_makeConstraints { make in
