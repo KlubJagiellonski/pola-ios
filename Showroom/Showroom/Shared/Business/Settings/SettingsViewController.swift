@@ -80,50 +80,50 @@ class SettingsViewController: UIViewController {
         logInfo("Updating settings with user exist \(user != nil)")
         
         var settings = [
-            Setting(type: .Header, action: self.facebookButtonPressed, secondaryAction: self.instagramButtonPressed, cellClickable: false),
+            Setting(type: .Header, action: { [weak self] in self?.facebookButtonPressed() }, secondaryAction: { [weak self] in self?.instagramButtonPressed() }, cellClickable: false),
             ]
         
         if let user = user {
-            settings.append(Setting(type: .Logout, labelString: tr(.CommonGreeting(user.name)), action: self.logoutButtonPressed, cellClickable: false))
+            settings.append(Setting(type: .Logout, labelString: tr(.CommonGreeting(user.name)), action: { [weak self] in self?.logoutButtonPressed() }, cellClickable: false))
         } else {
-            settings.append(Setting(type: .Login, action: self.loginButtonPressed, secondaryAction: self.createAccountButtonPressed, cellClickable: false))
+            settings.append(Setting(type: .Login, action: { [weak self] in self?.loginButtonPressed() }, secondaryAction: { [weak self] in self?.createAccountButtonPressed() }, cellClickable: false))
         }
         
         if platformManager.platform!.isFemaleOnly == false {
-            settings.append(Setting(type: .Gender, action: self.femaleButtonPressed, secondaryAction: self.maleButtonPressed, cellClickable: false, value: self.userManager.gender))
+            settings.append(Setting(type: .Gender, action: { [weak self] in self?.femaleButtonPressed() }, secondaryAction: { [weak self] in self?.maleButtonPressed() }, cellClickable: false, value: self.userManager.gender))
         }
                 
         if notificationsManager.shouldShowInSettings {
             settings.append(
-                Setting(type: .AskForNotification, action: self.askForNotificationPressed, cellClickable: false)
+                Setting(type: .AskForNotification, action: { [weak self] in self?.askForNotificationPressed() }, cellClickable: false)
             )
         }
         
         if user != nil {
-            settings.append(Setting(type: .Normal, labelString: tr(.SettingsUserData), action: self.userDataRowPressed))
-            settings.append(Setting(type: .Normal, labelString: tr(.SettingsHistory), action: self.historyRowPressed))
+            settings.append(Setting(type: .Normal, labelString: tr(.SettingsUserData), action: { [weak self] in self?.userDataRowPressed() }))
+            settings.append(Setting(type: .Normal, labelString: tr(.SettingsHistory), action: { [weak self] in self?.historyRowPressed() }))
         }
         
         settings.appendContentsOf([
-            Setting(type: .Normal, labelString: tr(.SettingsSendReport), action: self.sendReportPressed),
-            Setting(type: .Normal, labelString: tr(.SettingsFrequentQuestions), action: self.frequentQuestionsRowPressed),
-            Setting(type: .Normal, labelString: tr(.SettingsHowToMeasure), action: self.howToMeasureRowPressed),
-            Setting(type: .Normal, labelString: tr(.SettingsContact), action: self.contactRowPressed),
-            Setting(type: .Normal, labelString: tr(.SettingsRules), action: self.rulesRowPressed),
-            Setting(type: .Normal, labelString: tr(.SettingsPrivacyPolicy), action: self.privacyPolicyRowPressed),
-            Setting(type: .Platform, labelString: tr(.SettingsPlatform), secondaryLabelString: platformManager.platform?.platformString, action: self.platformRowPressed)
+            Setting(type: .Normal, labelString: tr(.SettingsSendReport), action: { [weak self] in self?.sendReportPressed() }),
+            Setting(type: .Normal, labelString: tr(.SettingsFrequentQuestions), action: { [weak self] in self?.frequentQuestionsRowPressed() }),
+            Setting(type: .Normal, labelString: tr(.SettingsHowToMeasure), action: { [weak self] in self?.howToMeasureRowPressed() }),
+            Setting(type: .Normal, labelString: tr(.SettingsContact), action: { [weak self] in self?.contactRowPressed() }),
+            Setting(type: .Normal, labelString: tr(.SettingsRules), action: { [weak self] in self?.rulesRowPressed() }),
+            Setting(type: .Normal, labelString: tr(.SettingsPrivacyPolicy), action: { [weak self] in self?.privacyPolicyRowPressed() }),
+            Setting(type: .Platform, labelString: tr(.SettingsPlatform), secondaryLabelString: platformManager.platform?.platformString, action: { [weak self] in self?.platformRowPressed() })
             ])
         
         if !Constants.isAppStore {
-            settings.append(Setting(type: .Normal, labelString: "Pokaż onboarding", action: self.showOnboarding))
-            settings.append(Setting(type: .Normal, labelString: "Pokaż in-app wishlist onboarding", action: self.showInAppWishlistOnboarding))
-            settings.append(Setting(type: .Normal, labelString: "Pokaż in-app paging onboarding", action: self.showInAppPagingOnboarding))
-            settings.append(Setting(type: .Normal, labelString: "Pokaż oceń nas (po czasie)", action: self.showRateAppAfterTime))
-            settings.append(Setting(type: .Normal, labelString: "Pokaż oceń nas (po zakupie)", action: self.showRateAppAfterBuy))
-            settings.append(Setting(type: .Normal, labelString: "Pokaż pytanie o powiadomienia (po czasie)", action: self.showNotificationsAccessAfterTime))
-            settings.append(Setting(type: .Normal, labelString: "Pokaż pytanie o powiadomienia (schowek)", action: self.showNotificationsAccessAfterWishlist))
-            settings.append(Setting(type: .Normal, labelString: "Pokaż pytanie o aktualizację", action: self.showUpdateApp))
-            settings.append(Setting(type: .Normal, labelString: "Pokaż initial platform selection", action: self.showInitialPlatformSelection))
+            settings.append(Setting(type: .Normal, labelString: "Pokaż onboarding", action: { [weak self] in self?.showOnboarding() }))
+            settings.append(Setting(type: .Normal, labelString: "Pokaż in-app wishlist onboarding", action: { [weak self] in self?.showInAppWishlistOnboarding() }))
+            settings.append(Setting(type: .Normal, labelString: "Pokaż in-app paging onboarding", action: { [weak self] in self?.showInAppPagingOnboarding() }))
+            settings.append(Setting(type: .Normal, labelString: "Pokaż oceń nas (po czasie)", action: { [weak self] in self?.showRateAppAfterTime() }))
+            settings.append(Setting(type: .Normal, labelString: "Pokaż oceń nas (po zakupie)", action: { [weak self] in self?.showRateAppAfterBuy() }))
+            settings.append(Setting(type: .Normal, labelString: "Pokaż pytanie o powiadomienia (po czasie)", action: { [weak self] in self?.showNotificationsAccessAfterTime() }))
+            settings.append(Setting(type: .Normal, labelString: "Pokaż pytanie o powiadomienia (schowek)", action: { [weak self] in self?.showNotificationsAccessAfterWishlist() }))
+            settings.append(Setting(type: .Normal, labelString: "Pokaż pytanie o aktualizację", action: { [weak self] in self?.showUpdateApp() }))
+            settings.append(Setting(type: .Normal, labelString: "Pokaż initial platform selection", action: { [weak self] in self?.showInitialPlatformSelection() }))
         }
         
         castView.updateData(with: settings)
