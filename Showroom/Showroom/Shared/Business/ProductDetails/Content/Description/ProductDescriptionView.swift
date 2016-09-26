@@ -213,7 +213,7 @@ class DescriptionHeaderView: UIView {
     private let horizontalItemPadding: CGFloat = 5
     private let buttonsToNameInfoVerticalPadding: CGFloat = 13
     private let smallDropDownButtonWidth: CGFloat = 54
-    private let largeDropDownButtonWidth: CGFloat = 81
+    private let largeDropDownButtonWidth: CGFloat = 71
     
     let brandAndPriceContainerView = UIView()
     let brandNameLabel = UILabel()
