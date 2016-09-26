@@ -2,14 +2,28 @@ import Foundation
 import EmarsysPredictSDK
 import RxSwift
 
+extension Platform {
+    private var merchantID: String {
+        switch self {
+        case .Polish:
+            return Constants.emarsysMerchantId
+        case .German:
+            return Constants.deEmarsysMerchantId
+        }
+    }
+}
+
 struct EmarsysService {
     let session: EMSession
     
     init(session: EMSession) {
         self.session = session
         
-        session.merchantID = Constants.emarsysMerchantId
         session.logLevel = Constants.isDebug ? .Debug : .Warning
+    }
+    
+    func configure(forPlatform platform: Platform) {
+        session.merchantID = platform.merchantID
     }
 }
 

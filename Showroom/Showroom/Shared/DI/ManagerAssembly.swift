@@ -44,7 +44,7 @@ class ManagerAssembly: AssemblyType {
         }.inObjectScope(.Container)
         
         container.register(PlatformManager.self) { r in
-            return PlatformManager(keyValueStorage: r.resolve(KeyValueStorage.self)!, api: r.resolve(ApiService.self)!)
+            return PlatformManager(keyValueStorage: r.resolve(KeyValueStorage.self)!, api: r.resolve(ApiService.self)!, emarsysService: r.resolve(EmarsysService.self)!)
         }.inObjectScope(.Container)
         
         container.register(PaymentManager.self) { r in

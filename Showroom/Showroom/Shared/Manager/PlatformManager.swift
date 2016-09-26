@@ -32,6 +32,7 @@ final class PlatformManager {
     private static let platformCodeKey = "PlatformCodeKey"
     private let storage: KeyValueStorage
     private let api: ApiService
+    private let emarsysService: EmarsysService
     private(set) var availablePlatforms: [Platform] = Platform.allValues
 
     private(set) var shouldSkipPlatformSelection: Bool {
@@ -43,12 +44,14 @@ final class PlatformManager {
         }
     }
     
-    init(keyValueStorage: KeyValueStorage, api: ApiService) {
+    init(keyValueStorage: KeyValueStorage, api: ApiService, emarsysService: EmarsysService) {
         self.storage = keyValueStorage
         self.api = api
+        self.emarsysService = emarsysService
         
         if let platform = platform {
             api.configuration = ApiServiceConfiguration(platform: platform)
+            emarsysService.configure(forPlatform: platform)
         }
     }
     
@@ -70,6 +73,7 @@ final class PlatformManager {
                 logError("Failed to set app platform \(newValue) to user defaults")
             }
             api.configuration = ApiServiceConfiguration(platform: newValue)
+            emarsysService.configure(forPlatform: newValue)
             platformObservable.onNext(newValue)
         }
         get {
