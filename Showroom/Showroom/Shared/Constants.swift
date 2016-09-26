@@ -39,7 +39,10 @@ struct Constants {
     static let emarsysMerchantId = "13CE3A05D54F66DD"
     static let emarsysRecommendationItemsLimit: Int32 = 20
     static let emarsysPushPassword = "tkmQP+f3p3ArdsbRcTTfBGpmXawqjo+v"
+    static let pushWooshAppId = "63A3E-B6CDA"
     static let deEmarsysMerchantId = "1B0C17B93E151CAA"
+    static let deEmarsysPushPassword = "NjG06NhkAPQvxmi7UFonQZnF6Aip1dv6"
+    static let dePushWooshAppId = "1B9C1-3FA16"
     static let basketProductAmountLimit: Int = 10
     static let productListPageSize: Int = 20
     static let productListPageSizeForLargeScreen: Int = 27

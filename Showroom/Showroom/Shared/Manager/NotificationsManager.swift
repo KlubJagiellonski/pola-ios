@@ -17,6 +17,8 @@ final class NotificationsManager {
     private let application: UIApplication
     private let disposeBag = DisposeBag()
     private let storage: KeyValueStorage
+    private var pushWooshManager: PushNotificationManager?
+    private let pushWooshManagerDelegateHandler = PushWooshManagerDelegateHandler()
     
     let shouldShowInSettingsObservable = PublishSubject<Void>()
     
@@ -57,8 +59,6 @@ final class NotificationsManager {
     var isRegistered: Bool {
         return application.isRegisteredForRemoteNotifications()
     }
-    private let pushWooshManager = PushNotificationManager.pushManager()
-    private let pushWooshManagerDelegateHandler = PushWooshManagerDelegateHandler()
 
     private var initialDate: NSDate {
         get {
@@ -91,24 +91,43 @@ final class NotificationsManager {
     
     weak var delegate: NotificationsManagerDelegate?
     
-    init(with api: ApiService, application: UIApplication, storage: KeyValueStorage) {
+    init(with api: ApiService, application: UIApplication, storage: KeyValueStorage, platformManager: PlatformManager) {
         self.api = api
         self.application = application
         self.storage = storage
         
-        pushWooshManagerDelegateHandler.manager = self
+        if let platform = platformManager.platform {
+            configure(forPlatform: platform)
+        }
+        
+        platformManager.platformObservable.subscribeNext { [weak self] platform in
+            self?.configure(forPlatform: platform, informAboutAppLaunch: true)
+        }.addDisposableTo(disposeBag)
+    }
+    
+    private func configure(forPlatform platform: Platform, informAboutAppLaunch: Bool = false) {
+        let pushWooshManager = PushNotificationManager(applicationCode: platform.pushwooshAppId, appName: NSBundle.appDisplayName)
         pushWooshManager.delegate = pushWooshManagerDelegateHandler
         
-        EmarsysManager.setApplicationID(NSBundle.pushwooshAppId)
-        EmarsysManager.setApplicationPassword(Constants.emarsysPushPassword)
+        EmarsysManager.setApplicationID(platform.pushwooshAppId)
+        EmarsysManager.setApplicationPassword(platform.emarsysApplicationPassword)
         EmarsysManager.setCustomerHWID(pushWooshManager.getHWID())
+        
+        if informAboutAppLaunch {
+            pushWooshManager.sendAppOpen()
+            EmarsysManager.appLaunch()
+        }
+        
+        self.pushWooshManager = pushWooshManager
     }
     
     func applicationDidFinishLaunching(withLaunchOptions launchOptions: [NSObject: AnyObject]?) {
         logInfo("Did finish launching with options")
-        EmarsysManager.appLaunch()
-        pushWooshManager.handlePushReceived(launchOptions)
-        pushWooshManager.sendAppOpen()
+        if let pushWooshManager = pushWooshManager {
+            EmarsysManager.appLaunch()
+            pushWooshManager.handlePushReceived(launchOptions)
+            pushWooshManager.sendAppOpen()
+        }
         
         if isRegistered && !userAlreadyAskedForNotificationsPermission {
             userAlreadyAskedForNotificationsPermission = true
@@ -139,6 +158,11 @@ final class NotificationsManager {
     }
     
     func didRegisterForRemoteNotifications(withDeviceToken deviceToken: NSData) {
+        guard let pushWooshManager = pushWooshManager else {
+            logInfo("No pushwoosh manager")
+            return
+        }
+        
         logInfo("Registered for remote notifications with success: \(deviceToken)")
         
         pushWooshManager.handlePushRegistration(deviceToken)
@@ -151,13 +175,13 @@ final class NotificationsManager {
     
     func didReceiveRemoteNotification(userInfo userInfo: [NSObject : AnyObject]) {
         logInfo("Did receive remote notification \(userInfo)")
-        pushWooshManager.handlePushReceived(userInfo)
+        pushWooshManager?.handlePushReceived(userInfo)
     }
     
     func didFailToRegisterForRemoteNotifications(with error: NSError) {
         logError("Cannot register for remote notifications \(error)")
         
-        pushWooshManager.handlePushRegistrationFailure(error)
+        pushWooshManager?.handlePushRegistrationFailure(error)
     }
     
     private func didReceive(url url: NSURL) {
@@ -256,6 +280,26 @@ final class PushWooshManagerDelegateHandler: NSObject, PushNotificationDelegate 
         } catch {
             logError("Could not parse to json \(error)")
             return nil
+        }
+    }
+}
+
+extension Platform {
+    private var pushwooshAppId: String {
+        switch self {
+        case .Polish:
+            return Constants.pushWooshAppId
+        case .German:
+            return Constants.dePushWooshAppId
+        }
+    }
+    
+    var emarsysApplicationPassword: String {
+        switch self {
+        case .Polish:
+            return Constants.emarsysPushPassword
+        case .German:
+            return Constants.deEmarsysPushPassword
         }
     }
 }

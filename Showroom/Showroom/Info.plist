@@ -71,8 +71,6 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>Pushwoosh_APPID</key>
-	<string>63A3E-B6CDA</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Lato-Bold.ttf</string>

@@ -19,4 +19,8 @@ extension NSBundle {
     static var appBuildNumber: String {
         return NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleVersion") as! String
     }
+    
+    static var appDisplayName: String {
+        return NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleDisplayName") as! String
+    }
 }

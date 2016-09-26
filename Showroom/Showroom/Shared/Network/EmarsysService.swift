@@ -2,17 +2,6 @@ import Foundation
 import EmarsysPredictSDK
 import RxSwift
 
-extension Platform {
-    private var merchantID: String {
-        switch self {
-        case .Polish:
-            return Constants.emarsysMerchantId
-        case .German:
-            return Constants.deEmarsysMerchantId
-        }
-    }
-}
-
 struct EmarsysService {
     let session: EMSession
     
@@ -159,6 +148,17 @@ extension Gender {
             return 2
         case .Male:
             return 1
+        }
+    }
+}
+
+extension Platform {
+    private var merchantID: String {
+        switch self {
+        case .Polish:
+            return Constants.emarsysMerchantId
+        case .German:
+            return Constants.deEmarsysMerchantId
         }
     }
 }

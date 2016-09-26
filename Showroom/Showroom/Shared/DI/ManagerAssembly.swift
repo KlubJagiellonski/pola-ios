@@ -32,7 +32,7 @@ class ManagerAssembly: AssemblyType {
         }.inObjectScope(.Container)
         
         container.register(NotificationsManager.self) { r in
-            return NotificationsManager(with: r.resolve(ApiService.self)!, application: r.resolve(UIApplication.self)!, storage: r.resolve(KeyValueStorage.self)!)
+            return NotificationsManager(with: r.resolve(ApiService.self)!, application: r.resolve(UIApplication.self)!, storage: r.resolve(KeyValueStorage.self)!, platformManager: r.resolve(PlatformManager.self)!)
         }.inObjectScope(.Container)
         
         container.register(RateAppManager.self) { r in
