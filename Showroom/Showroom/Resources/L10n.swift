@@ -25,8 +25,6 @@ enum L10n {
   case BasketCouponCodeAddedToBasket(String)
   /// Usuń
   case BasketDelete
-  ///  szt.
-  case BasketPieces
   /// Kraj dostawy
   case BasketDeliveryDeliveryCountry
   /// KRAJ DOSTAWY
@@ -55,6 +53,8 @@ enum L10n {
   case BasketErrorProductsAmountChanged
   /// Poniższe produkty zostały usunięte z listy, ponieważ nie są już dostępne:
   case BasketErrorProductsRemoved
+  /// szt.
+  case BasketPieces
   /// DOSTAWA
   case BasketShipping
   /// ZMIEŃ
@@ -215,7 +215,7 @@ enum L10n {
   case OnboardingPhotosPagingNext
   /// ROZUMIEM
   case OnboardingProductPagingDismiss
-  /// Przesuń palcem w bok,\naby szybko przejść do kolejnego produktu z listy.
+  /// Przesuń palcem w bok, aby szybko przejść do kolejnego produktu z listy.
   case OnboardingProductPagingLabel
   /// brak koloru w wybranym rozmiarze
   case ProductActionColorCellColorUnavailable
@@ -444,8 +444,6 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Basket.CouponCodeAddedToBasket", p0)
       case .BasketDelete:
         return L10n.tr("Basket.Delete")
-      case .BasketPieces:
-        return L10n.tr("Basket.Pieces")
       case .BasketDeliveryDeliveryCountry:
         return L10n.tr("Basket.Delivery.DeliveryCountry")
       case .BasketDeliveryDeliveryCountryTitle:
@@ -474,6 +472,8 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Basket.Error.ProductsAmountChanged")
       case .BasketErrorProductsRemoved:
         return L10n.tr("Basket.Error.ProductsRemoved")
+      case .BasketPieces:
+        return L10n.tr("Basket.Pieces")
       case .BasketShipping:
         return L10n.tr("Basket.Shipping")
       case .BasketShippingChange:
