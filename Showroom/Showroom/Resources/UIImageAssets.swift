@@ -3,6 +3,7 @@
 import UIKit.UIImage
 
 enum Asset: String {
+  case Braintree = "braintree"
   case Empty_bag = "empty_bag"
   case Error = "error"
   case Flag_4_de = "flag_4_de"

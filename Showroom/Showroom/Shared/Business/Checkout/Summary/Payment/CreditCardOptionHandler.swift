@@ -132,7 +132,8 @@ final private class DropInViewControllerDelegateHandler: NSObject, BTDropInViewC
             if view is BTPaymentButton {
                 view.hidden = true
                 view.alpha = 0.0
-                let whiteView = UIView()
+                let whiteView = UIImageView(image: UIImage(asset: .Braintree))
+                whiteView.contentMode = .Center
                 whiteView.backgroundColor = backgroundColor
                 view.insertSubview(whiteView, atIndex: 0)
                 whiteView.snp_makeConstraints { make in
