@@ -64,7 +64,7 @@ class BasketProductCell: UITableViewCell {
         } else {
             priceLabel.discountPrice = nil
         }
-        amountButton.setTitle(String(product.amount) + " szt.", forState: .Normal)
+        amountButton.setTitle(String(product.amount) + tr(.BasketPieces), forState: .Normal)
     }
     
     func refreshImageIfNeeded(withUrl url: String) {

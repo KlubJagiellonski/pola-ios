@@ -25,6 +25,8 @@ enum L10n {
   case BasketCouponCodeAddedToBasket(String)
   /// Usuń
   case BasketDelete
+  ///  szt.
+  case BasketPieces
   /// Kraj dostawy
   case BasketDeliveryDeliveryCountry
   /// KRAJ DOSTAWY
@@ -442,6 +444,8 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Basket.CouponCodeAddedToBasket", p0)
       case .BasketDelete:
         return L10n.tr("Basket.Delete")
+      case .BasketPieces:
+        return L10n.tr("Basket.Pieces")
       case .BasketDeliveryDeliveryCountry:
         return L10n.tr("Basket.Delivery.DeliveryCountry")
       case .BasketDeliveryDeliveryCountryTitle:
