@@ -63,6 +63,8 @@ final class CreditCardOptionHandler: PaymentOptionHandler {
         
         let onSucceedWithTokenization: BTPaymentMethodNonce -> Void = { [weak self] nonce in
             guard let `self` = self else { return }
+            
+            self.dropInDelegateHandler?.presentedViewController?.dismissViewControllerAnimated(true, completion: nil)
             self.dropInDelegateHandler = nil
             
             observer.onNext(nonce)
