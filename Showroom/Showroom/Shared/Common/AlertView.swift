@@ -69,12 +69,16 @@ final class AlertView: UIView {
         remindButton.title = tr(L10n.AlertViewRemindLater)
         remindButton.addTarget(self, action: #selector(AlertView.didTapRemind), forControlEvents: .TouchUpInside)
         
-        if let _ = imageUrl {
+        if imageUrl != nil {
             let imageView = UIImageView()
-            viewSwitcher = ViewSwitcher(successView: imageView)
-            viewSwitcher!.switcherDelegate = self
-            viewSwitcher!.switcherDataSource = self
-            addSubview(viewSwitcher!)
+            imageView.userInteractionEnabled = true
+            imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(AlertView.didTapImage)))
+            let viewSwitcher = ViewSwitcher(successView: imageView)
+            viewSwitcher.switcherDelegate = self
+            viewSwitcher.switcherDataSource = self
+            addSubview(viewSwitcher)
+            
+            self.viewSwitcher = viewSwitcher
         }
         
         addSubview(titleLabel)
@@ -95,17 +99,14 @@ final class AlertView: UIView {
             return
         }
         
-        viewSwitcher.changeSwitcherState(.Loading, animated: true)
         imageView.loadImageFromUrl(imageUrl, height: imageHeight,
-                                    failure: { [weak self] error in
-                                        guard let `self` = self else { return }
-                                        logInfo("failed to load image with error: \(error)")
-                                        self.viewSwitcher!.changeSwitcherState(.Error, animated: true)
-            }, success: { [weak self] image in
-                guard let `self` = self else { return }
-                self.imageView!.image = image
-                self.viewSwitcher!.changeSwitcherState(.Success, animated: true)
-            })
+            failure: { error in
+                logInfo("failed to load image with error: \(error)")
+                viewSwitcher.changeSwitcherState(.Error, animated: true)
+            }, success: { image in
+                imageView.image = image
+                viewSwitcher.changeSwitcherState(.Success, animated: true)
+        })
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -125,6 +126,11 @@ final class AlertView: UIView {
     @objc private func didTapRemind() {
         logInfo("Tapped remind later")
         delegate?.alertViewDidTapRemind(self)
+    }
+    
+    @objc private func didTapImage() {
+        logInfo("Tapped image")
+        delegate?.alertViewDidTapAccept(self)
     }
     
     private func configureCustomConstraints() {
@@ -185,7 +191,7 @@ final class AlertView: UIView {
         let descriptioinHeight = descriptionLabel.sizeThatFits(constraintRect).height
         let questionHeight = questionLabel.text == nil ? 0.0 : questionLabel.sizeThatFits(constraintRect).height
         var height = AlertView.verticalInnerMargin + titleHeight + Dimensions.defaultMargin * 2 + descriptioinHeight + Dimensions.defaultMargin + questionHeight + Dimensions.defaultMargin  + Dimensions.bigButtonHeight + AlertView.verticalInnerMargin + Dimensions.bigButtonHeight + AlertView.verticalInnerMargin
-        if let _ = imageUrl {
+        if imageUrl != nil {
             height += imageHeight + Dimensions.defaultMargin
         }
         return CGSizeMake(AlertView.defaultWidth, height)
