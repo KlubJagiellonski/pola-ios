@@ -82,12 +82,10 @@ final class VersionManager {
         return version
     }
     
-    func fetchLatestVersion() -> Observable<String> {
+    func fetchLatestVersion() -> Observable<AppVersion> {
         return api.fetchAppVersion().observeOn(MainScheduler.instance)
-            .map { (appVersion: AppVersion) -> String in
-                return appVersion.version
-            }.doOnNext { [weak self] (version: String) in
-                self?.latestVersion = version
+            .doOnNext { [weak self] (appVersion: AppVersion) in
+                self?.latestVersion = appVersion.version
             }.asObservable()
     }
     

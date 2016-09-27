@@ -204,8 +204,8 @@ class UIAssembly: AssemblyType {
         container.register(NotificationsAccessViewController.self) { r, type in
             return NotificationsAccessViewController(with: type, manager: r.resolve(NotificationsManager.self)!)
         }
-        container.register(UpdateAppViewController.self) { r in
-            return UpdateAppViewController(manager: r.resolve(VersionManager.self)!, application: r.resolve(UIApplication.self)!)
+        container.register(UpdateAppViewController.self) { r, imageUrl in
+            return UpdateAppViewController(manager: r.resolve(VersionManager.self)!, application: r.resolve(UIApplication.self)!, imageUrl: imageUrl)
         }
         container.register(PlatformSelectionViewController.self) { r in
             return PlatformSelectionViewController(platformManager: r.resolve(PlatformManager.self)!)

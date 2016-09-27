@@ -91,14 +91,14 @@ class RootViewController: PresenterViewController, NavigationHandler {
         model.notificationManager.didShowNotificationsAccessView()
     }
     
-    private func showUpdateAlert() {
+    private func showUpdateAlert(imageUrl imageUrl: String?) {
         guard shouldShowCustomAlert else {
             logInfo("Could not show update alert view")
             return
         }
         logInfo("Showing update alert")
         
-        let viewController = self.resolver.resolve(UpdateAppViewController.self)
+        let viewController = self.resolver.resolve(UpdateAppViewController.self, argument: imageUrl)
         viewController.delegate = self
         formSheetAnimator.presentViewController(viewController, presentingViewController: self)
         model.versionManager.didShowVersionAlert()
@@ -168,10 +168,10 @@ class RootViewController: PresenterViewController, NavigationHandler {
                 }
                 if self.model.shouldSkipStartScreen {
                     self.model.versionManager.fetchLatestVersion()
-                        .subscribeNext { [weak self](latestVersion: String) in
+                        .subscribeNext { [weak self](appVersion: AppVersion) in
                             guard let `self` = self else { return }
                             if self.model.versionManager.shouldShowUpdateAlert {
-                                self.showUpdateAlert()
+                                self.showUpdateAlert(imageUrl: appVersion.promoImageUrl)
                             }
                     }.addDisposableTo(self.disposeBag)
                 }

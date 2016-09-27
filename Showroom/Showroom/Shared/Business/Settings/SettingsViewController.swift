@@ -9,6 +9,7 @@ class SettingsViewController: UIViewController {
     private let platformManager: PlatformManager
     private let disposeBag = DisposeBag()
     private let toastManager: ToastManager
+    private let versionManager: VersionManager
     private var castView: SettingsView { return view as! SettingsView }
     
     private var firstLayoutSubviewsPassed = false
@@ -30,6 +31,7 @@ class SettingsViewController: UIViewController {
         self.notificationsManager = resolver.resolve(NotificationsManager.self)
         self.toastManager = resolver.resolve(ToastManager.self)
         self.platformManager = resolver.resolve(PlatformManager.self)
+        self.versionManager = resolver.resolve(VersionManager.self)
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -288,9 +290,13 @@ class SettingsViewController: UIViewController {
     }
     
     func showUpdateApp() {
-        let viewController = self.resolver.resolve(UpdateAppViewController.self)
-        viewController.delegate = self
-        formSheetAnimator.presentViewController(viewController, presentingViewController: self)
+        self.versionManager.fetchLatestVersion()
+            .subscribeNext { [weak self](appVersion: AppVersion) in
+                guard let `self` = self else { return }
+                let viewController = self.resolver.resolve(UpdateAppViewController.self, argument: appVersion.promoImageUrl)
+                viewController.delegate = self
+                self.formSheetAnimator.presentViewController(viewController, presentingViewController: self)
+        }.addDisposableTo(self.disposeBag)
     }
     
     func showInitialPlatformSelection() {
