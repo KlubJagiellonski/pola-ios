@@ -135,9 +135,10 @@ final private class DropInViewControllerDelegateHandler: NSObject, BTDropInViewC
                 view.hidden = true
                 view.alpha = 0.0
                 let whiteView = UIImageView(image: UIImage(asset: .Braintree))
+                whiteView.userInteractionEnabled = true
                 whiteView.contentMode = .Center
                 whiteView.backgroundColor = backgroundColor
-                view.insertSubview(whiteView, atIndex: 0)
+                view.addSubview(whiteView)
                 whiteView.snp_makeConstraints { make in
                     make.edges.equalToSuperview()
                 }
