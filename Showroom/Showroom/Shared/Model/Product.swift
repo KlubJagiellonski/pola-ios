@@ -19,7 +19,7 @@ struct ProductListResult {
     let products: [ListProduct]
     let trendInfo: TrendInfo?
     let filters: [Filter]?
-    let brand: Brand?
+    let brand: BrandDetails?
     let isLastPage: Bool
     let totalResults: Int
     let emarsysCategory: String?
@@ -28,7 +28,7 @@ struct ProductListResult {
 
 struct ListProduct {
     let id: ObjectId
-    let brand: ProductBrand
+    let brand: Brand
     let name: String
     let basePrice: Money
     let price: Money
@@ -40,7 +40,7 @@ struct ListProduct {
 
 struct ProductDetails {
     let id: ObjectId
-    let brand: ProductBrand
+    let brand: Brand
     let name: String
     let basePrice: Money
     let price: Money
@@ -60,11 +60,6 @@ struct EntryProductBrand {
     let id: ObjectId
     let name: String?
     let link: String?
-}
-
-struct ProductBrand {
-    let id: ObjectId
-    let name: String
 }
 
 struct ProductDetailsImage {
@@ -227,23 +222,6 @@ extension ProductDetails: Decodable, Encodable {
     }
 }
 
-extension ProductBrand: Decodable, Encodable {
-    static func decode(j: AnyObject) throws -> ProductBrand {
-        return try ProductBrand(
-            id: j => "id",
-            name: j => "name"
-        )
-    }
-    
-    func encode() -> AnyObject {
-        let dict: NSDictionary = [
-            "id": id,
-            "name": name
-        ]
-        return dict
-    }
-}
-
 extension ProductDetailsImage: Decodable, Encodable {
     static func decode(j: AnyObject) throws -> ProductDetailsImage {
         return try ProductDetailsImage(
@@ -316,7 +294,6 @@ extension ProductDetailsSize: Decodable, Encodable {
 extension ProductListResult: Equatable {}
 extension ListProduct: Equatable {}
 extension ProductDetails: Equatable {}
-extension ProductBrand: Equatable {}
 extension ProductDetailsImage: Equatable {}
 extension ProductDetailsColor: Equatable {}
 extension ProductDetailsColorType: Equatable {}
@@ -332,10 +309,6 @@ func ==(lhs: ListProduct, rhs: ListProduct) -> Bool {
 
 func ==(lhs: ProductDetails, rhs: ProductDetails) -> Bool {
     return lhs.id == rhs.id && lhs.brand == rhs.brand && lhs.name == rhs.name && lhs.basePrice == rhs.basePrice && lhs.price == rhs.price && lhs.images == rhs.images && lhs.colors == rhs.colors && lhs.sizes == rhs.sizes && lhs.waitTime == rhs.waitTime && lhs.description == rhs.description && lhs.freeDelivery == rhs.freeDelivery && lhs.available == rhs.available && lhs.onVacationDate == rhs.onVacationDate
-}
-
-func ==(lhs: ProductBrand, rhs: ProductBrand) -> Bool {
-    return lhs.id == rhs.id && lhs.name == rhs.name
 }
 
 func ==(lhs: ProductDetailsImage, rhs: ProductDetailsImage) -> Bool {

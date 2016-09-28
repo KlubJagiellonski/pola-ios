@@ -4,7 +4,7 @@ import RxSwift
 
 final class BrandProductListModel: ProductListModel {
     private(set) var productBrand: EntryProductBrand
-    var brand: Brand?
+    var brand: BrandDetails?
     
     override var productDetailsFromType: ProductDetailsFromType {
         return .Brand

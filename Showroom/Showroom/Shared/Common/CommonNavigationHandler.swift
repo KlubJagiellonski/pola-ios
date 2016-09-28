@@ -64,7 +64,7 @@ final class CommonNavigationHandler: NavigationHandler {
         return urlRouter.routeURL(url, withParameters: params)
     }
     
-    private func showBrandDescription(brand: Brand) {
+    private func showBrandDescription(brand: BrandDetails) {
         let viewController = resolver.resolve(BrandDescriptionViewController.self, argument: brand)
         configureChildViewController(viewController)
         navigationController?.pushViewController(viewController, animated: true)
@@ -169,6 +169,23 @@ final class CommonNavigationHandler: NavigationHandler {
             
             return true
         }
+        
+        urlRouter.addRoute("/:host/video/:videoComponent") { [weak self](parameters: [NSObject: AnyObject]!) in
+            guard let `self` = self else { return false }
+            guard let videoComponent = parameters["videoComponent"] as? String else {
+                logError("There is no videoComponent in path: \(parameters)")
+                return false
+            }
+            let videoComponents = videoComponent.componentsSeparatedByString(",")
+            guard let videoId = Int(videoComponents[0]) else {
+                logError("Cannot retrieve videoId for path: \(parameters)")
+                return false
+            }
+            self.navigationController?.sendNavigationEvent(ShowPromoSlideshowEvent(slideshowId: videoId))
+            
+            return true
+        }
+        
         urlRouter.unmatchedURLHandler = { (routes: JLRoutes, url: NSURL?, parameters: [NSObject: AnyObject]?) in
             logError("Cannot match url: \(url), parameters \(parameters)")
         }

@@ -23,7 +23,7 @@ class BrandDescriptionView: UIView, ContentInsetHandler {
         }
     }
     
-    init(with brand: Brand) {
+    init(with brand: BrandDetails) {
         super.init(frame: CGRectZero)
         
         backgroundColor = UIColor(named: .White)
@@ -71,7 +71,7 @@ class BrandDescriptionView: UIView, ContentInsetHandler {
         }
     }
     
-    private func updateData(with brand: Brand) {
+    private func updateData(with brand: BrandDetails) {
         if bounds.width > 0 && bounds.height > 0 {
             loadImage(brand.imageUrl, lowResImageUrl: brand.lowResImageUrl)
         } else {

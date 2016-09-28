@@ -35,27 +35,53 @@ class CommonPresenterController: PresenterViewController, NavigationHandler {
         retrieveCurrentImageViewTag = nil
     }
     
+    private func showProductDetails(with event: ShowProductDetailsEvent) {
+        if let productDetailsViewController = currentModalViewController as? ProductDetailsViewController {
+            retrieveCurrentImageViewTag = nil
+            productDetailsViewController.updateData(with: event.context)
+            return
+        }
+        
+        closeModal() { [weak self] _ in
+            guard let `self` = self else { return }
+            
+            let viewController = self.resolver.resolve(ProductDetailsViewController.self, argument: event.context)
+            
+            let alternativeAnimation = DimTransitionAnimation(animationDuration: 0.3)
+            if let imageViewTag = event.retrieveCurrentImageViewTag?(),
+                let imageView = self.view.viewWithTag(imageViewTag) as? UIImageView
+            where imageView.image != nil {
+                self.retrieveCurrentImageViewTag = event.retrieveCurrentImageViewTag
+                let animation = ImageTransitionAnimation(animationDuration: 0.4, imageView: imageView, alternativeAnimation: alternativeAnimation)
+                self.showModal(viewController, hideContentView: false, animation: animation, completion: nil)
+            } else {
+                self.showModal(viewController, hideContentView: true, animation: alternativeAnimation, completion: nil)
+            }
+        }
+        
+    }
+    
+    private func showPromoSlideshow(with event: ShowPromoSlideshowEvent) {
+        if let promoSlideshowViewController = currentModalViewController as? PromoSlideshowViewController {
+            promoSlideshowViewController.updateData(with: event.slideshowId)
+            return
+        }
+        closeModal() { [weak self] _ in
+            guard let `self` = self else { return }
+            
+            let viewController = self.resolver.resolve(PromoSlideshowViewController.self, argument: event.slideshowId)
+            let animation = DimTransitionAnimation(animationDuration: 0.3)
+            self.showModal(viewController, hideContentView: true, animation: animation, completion: nil)
+        }
+    }
+    
     // MARK:- NavigationHandler
     
     func handleNavigationEvent(event: NavigationEvent) -> EventHandled {
         logInfo("Handling navigation event \(event.dynamicType)")
         switch event {
         case let showProductDetailsEvent as ShowProductDetailsEvent:
-            if let productDetailsViewController = currentModalViewController as? ProductDetailsViewController {
-                retrieveCurrentImageViewTag = nil
-                productDetailsViewController.updateData(with: showProductDetailsEvent.context)
-            } else {
-                let viewController = resolver.resolve(ProductDetailsViewController.self, argument: showProductDetailsEvent.context)
-                
-                let alternativeAnimation = DimTransitionAnimation(animationDuration: 0.3)
-                if let imageViewTag = showProductDetailsEvent.retrieveCurrentImageViewTag?(), let imageView = view.viewWithTag(imageViewTag) as? UIImageView where imageView.image != nil {
-                    retrieveCurrentImageViewTag = showProductDetailsEvent.retrieveCurrentImageViewTag
-                    let animation = ImageTransitionAnimation(animationDuration: 0.4, imageView: imageView, alternativeAnimation: alternativeAnimation)
-                    showModal(viewController, hideContentView: false, animation: animation, completion: nil)
-                } else {
-                    showModal(viewController, hideContentView: true, animation: alternativeAnimation, completion: nil)
-                }
-            }
+            showProductDetails(with: showProductDetailsEvent)
             return true
         case let brandProductListEvent as ShowBrandProductListEvent:
             closeModal() { [weak self] _ in
@@ -91,6 +117,9 @@ class CommonPresenterController: PresenterViewController, NavigationHandler {
                 return true
             default: return false
             }
+        case let promoSlideshowEvent as ShowPromoSlideshowEvent:
+            showPromoSlideshow(with: promoSlideshowEvent)
+            return true
         default: return false
         }
     }

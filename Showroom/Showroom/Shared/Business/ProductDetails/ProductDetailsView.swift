@@ -92,7 +92,7 @@ class ProductDetailsView: UIView, UICollectionViewDelegateFlowLayout {
         }
         closeButton.snp_makeConstraints { make in
             make.leading.equalToSuperview().offset(Dimensions.defaultMargin)
-            make.top.equalToSuperview().offset(Dimensions.productDetailsTopMargin)
+            make.top.equalToSuperview().offset(Dimensions.modalTopMargin)
             make.width.equalTo(Dimensions.circleButtonDiameter)
             make.height.equalTo(closeButton.snp_width)
         }

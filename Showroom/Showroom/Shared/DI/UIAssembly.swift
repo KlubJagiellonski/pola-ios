@@ -210,6 +210,23 @@ class UIAssembly: AssemblyType {
         container.register(PlatformSelectionViewController.self) { r in
             return PlatformSelectionViewController(platformManager: r.resolve(PlatformManager.self)!)
         }
-
+        container.register(PromoSlideshowViewController.self) { r, slideshowId in
+            return PromoSlideshowViewController(resolver: r.resolve(DiResolver.self)!, slideshowId: slideshowId)
+        }
+        container.register(PromoSlideshowModel.self) { r, slideshowId in
+            return PromoSlideshowModel(slideshowId: slideshowId)
+        }
+        container.register(ImageStepViewController.self) { r, link in
+            return ImageStepViewController(with: r.resolve(DiResolver.self)!, link: link)
+        }
+        container.register(VideoStepViewController.self) { r, link in
+            return VideoStepViewController(with: r.resolve(DiResolver.self)!, link: link)
+        }
+        container.register(ProductStepViewController.self) { r, productId in
+            return ProductStepViewController(with: r.resolve(DiResolver.self)!, productId: productId)
+        }
+        container.register(PromoSummaryViewController.self) { r, promoSlideshow in
+            return PromoSummaryViewController(with: r.resolve(DiResolver.self)!, promoSlideshow: promoSlideshow)
+        }
     }
 }
