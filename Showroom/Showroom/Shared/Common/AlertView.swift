@@ -13,7 +13,7 @@ final class AlertView: UIView {
     private var imageHeight: CGFloat {
         switch UIDevice.currentDevice().screenType {
         case .iPhone4:
-            return 188
+            return 180
         default:
             return AlertView.defaultWidth - (2 * Dimensions.defaultMargin)
         }
@@ -23,9 +23,9 @@ final class AlertView: UIView {
     private let descriptionLabel = UILabel()
     private let questionLabel = UILabel()
     
-    private var viewSwitcher: ViewSwitcher?
+    private var imageViewSwitcher: ViewSwitcher?
     private var imageView: UIImageView? {
-        guard let viewSwitcher = viewSwitcher else { return nil }
+        guard let viewSwitcher = imageViewSwitcher else { return nil }
         return viewSwitcher.successView as? UIImageView
     }
     
@@ -78,7 +78,7 @@ final class AlertView: UIView {
             viewSwitcher.switcherDataSource = self
             addSubview(viewSwitcher)
             
-            self.viewSwitcher = viewSwitcher
+            self.imageViewSwitcher = viewSwitcher
         }
         
         addSubview(titleLabel)
@@ -94,7 +94,7 @@ final class AlertView: UIView {
     }
     
     func loadImage() {
-        guard let imageUrl = imageUrl, viewSwitcher = viewSwitcher, imageView = imageView else {
+        guard let imageUrl = imageUrl, viewSwitcher = imageViewSwitcher, imageView = imageView else {
             logInfo("Unable to start loading image with imageUrl: \(self.imageUrl)")
             return
         }
@@ -140,7 +140,8 @@ final class AlertView: UIView {
         }
         
         descriptionLabel.snp_makeConstraints { make in
-            make.top.equalTo(titleLabel.snp_bottom).offset(Dimensions.defaultMargin * 2)
+            let offset = (imageViewSwitcher == nil) ? Dimensions.defaultMargin * 2 : Dimensions.defaultMargin
+            make.top.equalTo(titleLabel.snp_bottom).offset(offset)
             make.left.equalToSuperview().inset(Dimensions.defaultMargin)
             make.right.equalToSuperview().inset(Dimensions.defaultMargin)
         }
@@ -151,7 +152,7 @@ final class AlertView: UIView {
             make.right.equalToSuperview().inset(Dimensions.defaultMargin)
         }
         
-        if let viewSwitcher = viewSwitcher {
+        if let viewSwitcher = imageViewSwitcher {
             viewSwitcher.snp_makeConstraints { make in
                 make.top.equalTo(descriptionLabel.snp_bottom).offset(Dimensions.defaultMargin)
                 make.centerX.equalToSuperview()
@@ -190,9 +191,11 @@ final class AlertView: UIView {
         let titleHeight = titleLabel.sizeThatFits(constraintRect).height
         let descriptioinHeight = descriptionLabel.sizeThatFits(constraintRect).height
         let questionHeight = questionLabel.text == nil ? 0.0 : questionLabel.sizeThatFits(constraintRect).height
-        var height = AlertView.verticalInnerMargin + titleHeight + Dimensions.defaultMargin * 2 + descriptioinHeight + Dimensions.defaultMargin + questionHeight + Dimensions.defaultMargin  + Dimensions.bigButtonHeight + AlertView.verticalInnerMargin + Dimensions.bigButtonHeight + AlertView.verticalInnerMargin
+        var height = AlertView.verticalInnerMargin + titleHeight + descriptioinHeight + Dimensions.defaultMargin + questionHeight + Dimensions.defaultMargin  + Dimensions.bigButtonHeight + AlertView.verticalInnerMargin + Dimensions.bigButtonHeight + AlertView.verticalInnerMargin
         if imageUrl != nil {
             height += imageHeight + Dimensions.defaultMargin
+        } else {
+            height += 2 * Dimensions.defaultMargin
         }
         return CGSizeMake(AlertView.defaultWidth, height)
     }
@@ -200,6 +203,7 @@ final class AlertView: UIView {
 
 extension AlertView: ViewSwitcherDelegate, ViewSwitcherDataSource {
     func viewSwitcherDidTapRetry(view: ViewSwitcher) {
+        imageViewSwitcher?.changeSwitcherState(.Loading, animated: true)
         loadImage()
     }
     
