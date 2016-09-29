@@ -7,12 +7,20 @@ protocol ImageAnimationTargetViewInterface: class {
     var highResImageVisible: Bool { get set }
 }
 
-struct ImageTransitionAnimation: TransitionAnimation {
+final class ImageTransitionAnimation: TransitionAnimation {
     private let mainAnimationRelativeTime = 0.6
     
     let animationDuration: NSTimeInterval
     let imageView: UIImageView
-    let alternativeAnimation: TransitionAnimation
+    var alternativeAnimation: TransitionAnimation
+    
+    var additionalAnimationBlock: (Void -> Void)?
+    
+    init(animationDuration: NSTimeInterval, imageView: UIImageView, alternativeAnimation: TransitionAnimation) {
+        self.animationDuration = animationDuration
+        self.imageView = imageView
+        self.alternativeAnimation = alternativeAnimation
+    }
     
     func show(containerView: ContainerView, presentedView: PresentedView, presentationView: PresentationView?, completion: ((Bool) -> ())?) {
         logInfo("Showing image")
@@ -41,6 +49,10 @@ struct ImageTransitionAnimation: TransitionAnimation {
         let mainAnimationTime = animationDuration * mainAnimationRelativeTime
         let endAnimationTime = animationDuration - mainAnimationTime
         
+        UIView.animateWithDuration(mainAnimationTime + endAnimationTime) { [unowned self] in
+            self.additionalAnimationBlock?()
+        }
+        
         UIView.animateKeyframesWithDuration(mainAnimationTime, delay: 0, options: [], animations: {
             UIView.addKeyframeWithRelativeStartTime(0, relativeDuration: 1.0) {
                 movingImageView.transform = scaleTransform
@@ -49,8 +61,8 @@ struct ImageTransitionAnimation: TransitionAnimation {
             UIView.addKeyframeWithRelativeStartTime(0.2, relativeDuration: 0.6) {
                 presentedView.alpha = 1
             }
-        }) { success in
-            self.imageView.alpha = 1
+        }) { [weak self] success in
+            self?.imageView.alpha = 1
             animationTargetModalView.highResImageVisible = true
             movingImageView.removeFromSuperview()
             UIView.animateWithDuration(endAnimationTime, animations: {
@@ -66,6 +78,7 @@ struct ImageTransitionAnimation: TransitionAnimation {
             fatalError("modalView should conforms to protocol ImageAnimationTargetViewInterface")
         }
         guard let targetImage = animationTargetModalView.highResImage else {
+            alternativeAnimation.additionalAnimationBlock = additionalAnimationBlock
             alternativeAnimation.hide(containerView, presentedView: presentedView, presentationView: presentationView, completion: completion)
             return
         }
@@ -92,6 +105,10 @@ struct ImageTransitionAnimation: TransitionAnimation {
         let mainAnimationTime = animationDuration * mainAnimationRelativeTime
         let startAnimationTime = animationDuration - mainAnimationTime
         
+        UIView.animateWithDuration(startAnimationTime + mainAnimationTime) { [unowned self] in
+            self.additionalAnimationBlock?()
+        }
+        
         UIView.animateWithDuration(startAnimationTime, animations: {
             animationTargetModalView.viewsAboveImageVisibility = false
         }) { success in
@@ -105,8 +122,8 @@ struct ImageTransitionAnimation: TransitionAnimation {
                 UIView.addKeyframeWithRelativeStartTime(0.2, relativeDuration: 0.6) {
                     presentedView.alpha = 0
                 }
-            }) { success in
-                self.imageView.alpha = 1
+            }) { [weak self] success in
+                self?.imageView.alpha = 1
                 movingImageView.removeFromSuperview()
                 completion?(success)
             }

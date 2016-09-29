@@ -97,7 +97,16 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewDelegate
         }
         logInfo("Changing product page state \(newViewState), animationDuration \(animationDuration)")
         castView.changeState(ProductDetailsViewState.fromPageState(newViewState), animationDuration: animationDuration)
-        changeTabBarAppearanceIfPossible(newViewState == .ImageGallery ? .Hidden : .Visible, animationDuration: animationDuration)
+        
+        UIView.animateWithDuration(animationDuration ?? 0, delay: 0.0, options: [.BeginFromCurrentState, .CurveEaseInOut], animations: { [unowned self] in
+            self.setNeedsTabBarAppearanceUpdate()
+            }, completion: nil)
+    }
+}
+
+extension ProductDetailsViewController: TabBarStateDataSource {
+    var prefersTabBarHidden: Bool {
+        return castView.viewState == .FullScreen ? true : false
     }
 }
 

@@ -1,7 +1,7 @@
 import Foundation
 
 final class VideoStepViewController: UIViewController, PromoPageInterface {
-    weak var delegate: PromoPageDelegate?
+    weak var pageDelegate: PromoPageDelegate?
     
     init(with resolver: DiResolver, link: String) {
         super.init(nibName: nil, bundle: nil)

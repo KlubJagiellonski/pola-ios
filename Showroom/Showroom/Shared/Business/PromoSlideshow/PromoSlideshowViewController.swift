@@ -33,6 +33,10 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
         fetchSlideshow()
     }
     
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
+    
     func updateData(with slideshowId: Int) {
         // TODO: updating data
     }
@@ -88,6 +92,12 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
     }
 }
 
+extension PromoSlideshowViewController: TabBarStateDataSource {
+    var prefersTabBarHidden: Bool {
+        return true
+    }
+}
+
 extension PromoSlideshowViewController: PromoSlideshowPageHandler {
     func page(forIndex index: Int, removePageIndex: Int?) -> UIView {
         logInfo("Creating page for index \(index), removePageIndex \(removePageIndex)")
@@ -101,7 +111,7 @@ extension PromoSlideshowViewController: PromoSlideshowPageHandler {
         guard let promoPageInterface = newViewController as? PromoPageInterface else {
             fatalError("View controller \(newViewController) must implement protocol PromoPageInterface")
         }
-        promoPageInterface.delegate = self
+        promoPageInterface.pageDelegate = self
         
         currentViewController?.willMoveToParentViewController(nil)
         addChildViewController(newViewController)

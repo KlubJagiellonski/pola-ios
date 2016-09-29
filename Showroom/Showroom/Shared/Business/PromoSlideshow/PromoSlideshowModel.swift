@@ -68,7 +68,7 @@ extension PromoSlideshowPageData {
         case .Video:
             self = .Image(step.link)
         case .Product:
-            self = .Product(1234) //todo handle product link
+            self = .Product(78854) //todo handle product link
         }
     }
 }

@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 
 final class ImageStepViewController: UIViewController, PromoPageInterface {
-    weak var delegate: PromoPageDelegate?
+    weak var pageDelegate: PromoPageDelegate?
     
     init(with resolver: DiResolver, link: String) {
         super.init(nibName: nil, bundle: nil)

@@ -1,7 +1,7 @@
 import Foundation
 
 final class PromoSummaryViewController: UIViewController, PromoPageInterface {
-    weak var delegate: PromoPageDelegate?
+    weak var pageDelegate: PromoPageDelegate?
     
     init(with resolver: DiResolver, promoSlideshow: PromoSlideshow) {
         super.init(nibName: nil, bundle: nil)

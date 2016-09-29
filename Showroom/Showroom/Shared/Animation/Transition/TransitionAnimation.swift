@@ -5,7 +5,10 @@ typealias ContainerView = UIView
 typealias PresentedView = UIView
 typealias PresentationView = UIView
 
-protocol TransitionAnimation {
+protocol TransitionAnimation: class {
+    
+    var additionalAnimationBlock: (Void -> Void)? { get set }
+    
     func show(containerView: ContainerView, presentedView: PresentedView, presentationView: PresentationView?, completion: ((Bool) -> ())?)
     func hide(containerView: ContainerView, presentedView: PresentedView, presentationView: PresentationView?, completion: ((Bool) -> ())?)
 }

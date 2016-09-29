@@ -10,6 +10,8 @@ class PresenterViewController: UIViewController {
     private(set) var contentViewController: UIViewController?
     private(set) var currentModalViewController: UIViewController?
     
+    private var forceContentForControllingBarHiddenStates = false
+    
     override func loadView() {
         self.view = PresenterView()
     }
@@ -50,6 +52,11 @@ class PresenterViewController: UIViewController {
             completion?(true)
         }
         
+        animation?.additionalAnimationBlock = { [weak self] in
+            self?.setNeedsStatusBarAppearanceUpdate()
+            self?.setNeedsTabBarAppearanceUpdate()
+        }
+        
         addChildViewController(viewController)
         self.currentModalViewController = viewController
         castView.showModal(viewController.view, customAnimation: animation?.show, completion: innerCompletion)
@@ -73,7 +80,35 @@ class PresenterViewController: UIViewController {
             completion?(true)
         }
         
+        animation?.additionalAnimationBlock = { [weak self] in
+            self?.forceContentForControllingBarHiddenStates = true
+            self?.setNeedsStatusBarAppearanceUpdate()
+            self?.setNeedsTabBarAppearanceUpdate()
+            self?.forceContentForControllingBarHiddenStates = false
+        }
+        
         currentModalViewController.willMoveToParentViewController(nil)
         castView.hideModal(animation?.hide, completion: innerCompletion)
+    }
+    
+    override func childViewControllerForStatusBarHidden() -> UIViewController? {
+        if forceContentForControllingBarHiddenStates {
+            return contentViewController
+        }
+        return currentModalViewController ?? contentViewController
+    }
+}
+
+extension PresenterViewController: TabBarHandler, TabBarStateDataSource {
+    func dataSourceForTabBarHidden() -> TabBarStateDataSource? {
+        guard let dataSource = currentModalViewController as? TabBarStateDataSource
+        where !forceContentForControllingBarHiddenStates else {
+            return self
+        }
+        return dataSource
+    }
+    
+    var prefersTabBarHidden: Bool {
+        return false
     }
 }

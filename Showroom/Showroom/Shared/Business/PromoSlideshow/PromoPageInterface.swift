@@ -12,5 +12,5 @@ protocol PromoPageDelegate: class {
 }
 
 protocol PromoPageInterface: class {
-    weak var delegate: PromoPageDelegate? { get set }
+    weak var pageDelegate: PromoPageDelegate? { get set }
 }
