@@ -73,23 +73,6 @@ func ==<T: Equatable>(lhs: [T]?, rhs: [T]?) -> Bool {
     }
 }
 
-class MoneyFormatter: NSNumberFormatter {
-    override init() {
-        super.init()
-        
-        locale = NSLocale.currentLocale()
-        numberStyle = NSNumberFormatterStyle.DecimalStyle
-        usesGroupingSeparator = true
-        alwaysShowsDecimalSeparator = true
-        maximumFractionDigits = 2
-        minimumFractionDigits = 2
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
 extension CollectionType {
     /// Returns the element at the specified index iff it is within bounds, otherwise nil.
     subscript (safe index: Index) -> Generator.Element? {

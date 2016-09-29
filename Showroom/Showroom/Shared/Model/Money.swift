@@ -60,9 +60,30 @@ struct Money: Comparable {
         }
     }
     
+    // 0,000.00 format
     var stringAmount: String {
-        guard let moneyFormat = Money.moneyFormatter.stringForObjectValue(amount) else { return "" }
+        let moneyFormatter = MoneyFormatter()
+        moneyFormatter.decimalSeparator = "."
+        moneyFormatter.groupingSeparator = ","
+        guard let moneyFormat = moneyFormatter.stringForObjectValue(amount) else { return "" }
         return moneyFormat
+    }
+}
+
+final class MoneyFormatter: NSNumberFormatter {
+    override init() {
+        super.init()
+        
+        locale = NSLocale.currentLocale()
+        numberStyle = NSNumberFormatterStyle.DecimalStyle
+        usesGroupingSeparator = true
+        alwaysShowsDecimalSeparator = true
+        maximumFractionDigits = 2
+        minimumFractionDigits = 2
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
 
