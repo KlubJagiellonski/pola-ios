@@ -34,8 +34,7 @@ class ProductDetailsView: UIView, UICollectionViewDelegateFlowLayout {
         }
     }
     var currentPageIndex: Int {
-        let pageWidth = collectionView.frame.width
-        return Int(collectionView.contentOffset.x / pageWidth)
+        return collectionView.currentPageIndex
     }
     var scrollingEnabled = true {
         didSet {
@@ -66,11 +65,7 @@ class ProductDetailsView: UIView, UICollectionViewDelegateFlowLayout {
         collectionView.backgroundColor = UIColor(named: .ProductPageBackground)
         collectionView.dataSource = dataSource
         collectionView.delegate = self
-        collectionView.pagingEnabled = true
-        let flowLayout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
-        flowLayout.scrollDirection = .Horizontal
-        flowLayout.minimumLineSpacing = 0
-        flowLayout.minimumInteritemSpacing = 0
+        collectionView.configureForPaging(withDirection: .Horizontal)
         
         closeButton.setImage(UIImage(asset: .Ic_close), forState: .Normal)
         closeButton.applyCircleStyle()

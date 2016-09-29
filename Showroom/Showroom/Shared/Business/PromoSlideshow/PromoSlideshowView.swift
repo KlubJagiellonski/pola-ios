@@ -6,10 +6,11 @@ protocol PromoSlideshowViewDelegate: ViewSwitcherDelegate {
 }
 
 final class PromoSlideshowView: ViewSwitcher, UICollectionViewDelegate {
+    private let closeButton = UIButton(type: .Custom)
+    private let viewSwitcher: ViewSwitcher
     private let contentView = UIView()
     private let collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: UICollectionViewFlowLayout())
     private let progressView = PromoSlideshowProgressView()
-    private let closeButton = UIButton(type: .Custom)
     
     private let dataSource: PromoSlideshowDataSource
     var pageHandler: PromoSlideshowPageHandler? {
@@ -17,8 +18,7 @@ final class PromoSlideshowView: ViewSwitcher, UICollectionViewDelegate {
         get { return dataSource.pageHandler }
     }
     var currentPageIndex: Int {
-        let pageWidth = collectionView.frame.width
-        return Int(collectionView.contentOffset.x / pageWidth)
+        return collectionView.currentPageIndex
     }
     weak var delegate: PromoSlideshowViewDelegate? {
         didSet {
@@ -27,6 +27,7 @@ final class PromoSlideshowView: ViewSwitcher, UICollectionViewDelegate {
     }
     
     init() {
+        viewSwitcher = ViewSwitcher(successView: contentView)
         dataSource = PromoSlideshowDataSource(with: collectionView)
         super.init(successView: contentView)
         
@@ -37,11 +38,7 @@ final class PromoSlideshowView: ViewSwitcher, UICollectionViewDelegate {
         collectionView.backgroundColor = backgroundColor
         collectionView.dataSource = dataSource
         collectionView.delegate = self
-        collectionView.pagingEnabled = true
-        let flowLayout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
-        flowLayout.scrollDirection = .Horizontal
-        flowLayout.minimumLineSpacing = 0
-        flowLayout.minimumInteritemSpacing = 0
+        collectionView.configureForPaging(withDirection: .Horizontal)
         
         closeButton.setImage(UIImage(asset: .Ic_close), forState: .Normal)
         closeButton.applyCircleStyle()
@@ -49,7 +46,9 @@ final class PromoSlideshowView: ViewSwitcher, UICollectionViewDelegate {
         
         contentView.addSubview(collectionView)
         contentView.addSubview(progressView)
-        contentView.addSubview(closeButton)
+        
+        addSubview(contentView)
+        addSubview(closeButton)
         
         configureCustomConstraints()
     }
@@ -77,19 +76,25 @@ final class PromoSlideshowView: ViewSwitcher, UICollectionViewDelegate {
     }
     
     private func configureCustomConstraints() {
-        collectionView.snp_makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        progressView.snp_makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
-        }
         closeButton.snp_makeConstraints { make in
             make.leading.equalToSuperview().offset(Dimensions.defaultMargin)
             make.top.equalToSuperview().offset(Dimensions.modalTopMargin)
             make.width.equalTo(Dimensions.circleButtonDiameter)
             make.height.equalTo(closeButton.snp_width)
+        }
+        
+        contentView.snp_makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        collectionView.snp_makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        progressView.snp_makeConstraints { make in
+            make.top.equalToSuperview()
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
         }
     }
     

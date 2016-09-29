@@ -91,13 +91,8 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
         imageCollectionView.backgroundColor = UIColor.clearColor()
         imageCollectionView.dataSource = imageDataSource
         imageCollectionView.delegate = self
-        imageCollectionView.pagingEnabled = true
-        imageCollectionView.showsVerticalScrollIndicator = false
+        imageCollectionView.configureForPaging(withDirection: .Vertical)
         imageCollectionView.addGestureRecognizer(imageCollectionTapGestureRecognizer)
-        let flowLayout = imageCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
-        flowLayout.scrollDirection = .Vertical
-        flowLayout.minimumLineSpacing = 0
-        flowLayout.minimumInteritemSpacing = 0
         
         pageControl.currentPage = 0
         
