@@ -96,6 +96,8 @@ final class NotificationsManager {
         self.application = application
         self.storage = storage
         
+        pushWooshManagerDelegateHandler.manager = self
+        
         if let platform = platformManager.platform {
             configure(forPlatform: platform)
         }
@@ -106,7 +108,8 @@ final class NotificationsManager {
     }
     
     private func configure(forPlatform platform: Platform, informAboutAppLaunch: Bool = false) {
-        let pushWooshManager = PushNotificationManager(applicationCode: platform.pushwooshAppId, appName: NSBundle.appDisplayName)
+        PushNotificationManager.initializeWithAppCode(platform.pushwooshAppId, appName: NSBundle.appDisplayName)
+        let pushWooshManager = PushNotificationManager.pushManager()
         pushWooshManager.delegate = pushWooshManagerDelegateHandler
         
         EmarsysManager.setApplicationID(platform.pushwooshAppId)
@@ -174,7 +177,7 @@ final class NotificationsManager {
     }
     
     func didReceiveRemoteNotification(userInfo userInfo: [NSObject : AnyObject]) {
-        logInfo("Did receive remote notification \(userInfo)")
+        logInfo("Did receive remote notification \(userInfo) \(pushWooshManager) \(pushWooshManager?.delegate)")
         pushWooshManager?.handlePushReceived(userInfo)
     }
     
