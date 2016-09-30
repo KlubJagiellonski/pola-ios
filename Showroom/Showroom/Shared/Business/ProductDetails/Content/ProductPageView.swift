@@ -1,11 +1,13 @@
 import Foundation
 import UIKit
 import SnapKit
-import RxSwift
 
 protocol ProductDescriptionViewInterface: class {
     var headerHeight: CGFloat { get }
+    var headerButtonSectionHeight: CGFloat { get }
     var touchRequiredView: UIView { get } // view for which we want to disable uitapgesturerecognizer
+    var previewMode: Bool { get set }
+    var expandedProgress: CGFloat { get set }
 }
 
 protocol ProductPageViewDelegate: ViewSwitcherDelegate {
@@ -14,6 +16,7 @@ protocol ProductPageViewDelegate: ViewSwitcherDelegate {
     func pageViewDidTapShareButton(pageView: ProductPageView)
     func pageViewDidTapWishlistButton(pageView: ProductPageView)
     func pageViewDidSwitchedImage(pageView: ProductPageView)
+    func pageView(pageView: ProductPageView, didDownloadFirstImageWithSuccess success: Bool)
 }
 
 enum ProductPageViewState {
@@ -37,22 +40,48 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
     private let wishlistButton = UIButton()
     private let shareButton = UIButton()
     
-    private let modelState: ProductPageModelState
     private let imageDataSource: ProductImageDataSource
-    private let disposeBag = DisposeBag()
     
     private var contentInset: UIEdgeInsets?
     private var contentTopConstraint: Constraint?
-    private var currentTopContentOffset: CGFloat = 0
+    private var currentTopContentOffset: CGFloat = 0 {
+        didSet {
+            descriptionViewInterface?.expandedProgress = calculateDescriptionExpandedProgress()
+        }
+    }
     private(set) var viewState: ProductPageViewState = .Default {
         didSet {
             imageCollectionView.scrollEnabled = viewState != .ContentExpanded
             contentTopConstraint?.updateOffset(currentTopContentOffset)
-            pageControl.alpha = viewState == .ImageGallery ? 0 : 1
             imageDataSource.state = viewState == .ImageGallery ? .FullScreen : .Default
+            configurePageControlAlpha()
         }
     }
-    private weak var descriptionViewInterface: ProductDescriptionViewInterface?
+    var previewOverlayView: UIView? {
+        didSet {
+            oldValue?.removeFromSuperview()
+            guard let previewOverlayView = previewOverlayView else { return }
+            
+            containerView.addSubview(previewOverlayView)
+            previewOverlayView.snp_makeConstraints { make in
+                make.edges.equalToSuperview()
+            }
+        }
+    }
+    var previewMode: Bool = false {
+        didSet {
+            wishlistButton.alpha = previewMode ? 0 : 1
+            shareButton.alpha = previewMode ? 0 : 1
+            configurePageControlAlpha()
+            descriptionViewInterface?.previewMode = previewMode
+        }
+    }
+    weak var descriptionViewInterface: ProductDescriptionViewInterface? {
+        didSet {
+            currentTopContentOffset = calculateTopContentOffset(forViewState: .Default)
+            contentTopConstraint?.updateOffset(currentTopContentOffset)
+        }
+    }
     
     var currentImageIndex: Int {
         let pageHeight = imageCollectionView.frame.height
@@ -66,21 +95,18 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
     weak var delegate: ProductPageViewDelegate? {
         didSet { switcherDelegate = delegate }
     }
+    var firstImageDownloaded: Bool {
+        return imageDataSource.firstImageDownloaded
+    }
     
-    init(contentView: UIView, descriptionViewInterface: ProductDescriptionViewInterface, modelState: ProductPageModelState, contentInset: UIEdgeInsets?) {
-        self.descriptionViewInterface = descriptionViewInterface
-        self.modelState = modelState
+    init(contentView: UIView, contentInset: UIEdgeInsets?) {
         imageDataSource = ProductImageDataSource(collectionView: imageCollectionView)
         
-        super.init(successView: containerView, initialState: modelState.product == nil ? .Loading : .Success)
+        super.init(successView: containerView)
         
         self.contentInset = contentInset
         
         switcherDataSource = self
-        
-        modelState.productDetailsObservable.subscribeNext { [weak self] productDetails in
-            self?.updateProductDetails(productDetails)
-            }.addDisposableTo(disposeBag)
         
         let imageCollectionTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ProductPageView.didTapOnImageCollectionView))
         imageCollectionTapGestureRecognizer.delegate = self
@@ -88,6 +114,7 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
         let contentContainerTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ProductPageView.didTapOnDescriptionView))
         contentContainerTapGestureRecognizer.delegate = self
         
+        imageDataSource.productPageView = self
         imageCollectionView.backgroundColor = UIColor.clearColor()
         imageCollectionView.dataSource = imageDataSource
         imageCollectionView.delegate = self
@@ -126,20 +153,19 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
         containerView.addSubview(buttonStackView)
         
         configureCustomConstraints()
-        configure(forProduct: modelState.product)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func configure(forProduct product: Product?) {
+    func update(with product: Product?) {
         guard let p = product else { return }
         imageDataSource.lowResImageUrl = p.lowResImageUrl
         imageDataSource.imageUrls = [p.imageUrl]
     }
     
-    private func updateProductDetails(productDetails: ProductDetails?) {
+    func update(with productDetails: ProductDetails?) {
         guard let p = productDetails else { return }
         
         imageDataSource.imageUrls = p.images.map { $0.url }
@@ -147,8 +173,14 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
         pageControl.invalidateIntrinsicContentSize()
     }
     
-    func updateWishlistButton(selected selected: Bool) {
+    func update(withWishlistButtonSelected selected: Bool) {
         wishlistButton.selected = selected
+    }
+    
+    func update(withPreviewModeEnabled previewModeEnabled: Bool, animationDuration: Double?) {
+        UIView.animateWithDuration(animationDuration ?? 0) { [unowned self] in
+            self.previewMode = previewModeEnabled
+        }
     }
     
     func changeViewState(viewState: ProductPageViewState, animationDuration: Double? = defaultContentAnimationDuration, forceUpdate: Bool = false, completion: (() -> Void)? = nil) {
@@ -156,11 +188,10 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
         
         delegate?.pageView(self, willChangePageViewState: viewState, animationDuration: animationDuration)
         
-        currentTopContentOffset = calculateTopContentOffset(forViewState: viewState)
-        
         layoutIfNeeded()
         setNeedsLayout()
         UIView.animateWithDuration(animationDuration ?? 0, delay: 0, options: [.CurveEaseInOut], animations: {
+            self.currentTopContentOffset = self.calculateTopContentOffset(forViewState: viewState)
             self.viewState = viewState
             self.layoutIfNeeded()
         }) { [weak self] _ in
@@ -174,14 +205,17 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
         imageDataSource.scrollToImage(atIndex: index)
     }
     
+    func didDownloadFirstImage(withSuccess success: Bool) {
+        delegate?.pageView(self, didDownloadFirstImageWithSuccess: success)
+    }
+    
     private func configureCustomConstraints() {
         imageCollectionView.snp_makeConstraints { make in
             make.edges.equalToSuperview()
         }
         
-        currentTopContentOffset = calculateTopContentOffset(forViewState: .Default)
         contentContainerView.snp_makeConstraints { make in
-            contentTopConstraint = make.top.equalTo(contentContainerView.superview!.snp_bottom).offset(currentTopContentOffset).constraint
+            contentTopConstraint = make.top.equalTo(contentContainerView.superview!.snp_bottom).constraint
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
             make.height.equalToSuperview().offset(-defaultDescriptionTopMargin)
@@ -215,7 +249,7 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
     private func calculateTopContentOffset(forViewState viewState: ProductPageViewState) -> CGFloat {
         switch viewState {
         case .Default:
-            return -(descriptionViewInterface!.headerHeight + (contentInset?.bottom ?? 0))
+            return -((descriptionViewInterface?.headerHeight ?? 0) + (contentInset?.bottom ?? 0))
         case .ContentExpanded:
             return defaultDescriptionTopMargin - bounds.height
         case .ImageGallery, .ContentHidden:
@@ -223,9 +257,19 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
         }
     }
     
+    private func calculateDescriptionExpandedProgress() -> CGFloat {
+        let defaultOffset = calculateTopContentOffset(forViewState: .Default)
+        let expandedOffset = calculateTopContentOffset(forViewState: .ContentExpanded)
+        return abs((currentTopContentOffset - defaultOffset) / (expandedOffset - defaultOffset))
+    }
+    
     private func didChangeImage() {
         pageControl.currentPage = currentImageIndex
         delegate?.pageViewDidSwitchedImage(self)
+    }
+    
+    private func configurePageControlAlpha() {
+        pageControl.alpha = (viewState == .ImageGallery || previewMode) ? 0 : 1
     }
     
     // MARK: - UICollectionViewDelegateFlowLayout
@@ -259,6 +303,7 @@ extension ProductPageView {
             else if !contentVisible && moveY < -movableY { moveY = -movableY }
             
             let newOffset = contentVisible ? (defaultDescriptionTopMargin - bounds.height) + moveY: -bottomOffset + moveY
+            self.currentTopContentOffset = newOffset
             self.contentTopConstraint?.updateOffset(newOffset)
         case .Ended:
             let movedMoreThanHalf = contentVisible && moveY > movableY * 0.5 || !contentVisible && moveY < -movableY * 0.5
@@ -287,11 +332,7 @@ extension ProductPageView {
         switch viewState {
         case .Default:
             changeViewState(.ImageGallery)
-        case .ContentExpanded:
-            changeViewState(.Default)
-        case .ImageGallery:
-            changeViewState(.Default)
-        case .ContentHidden:
+        case .ContentExpanded, .ImageGallery, .ContentHidden:
             changeViewState(.Default)
         }
     }

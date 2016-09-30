@@ -24,6 +24,11 @@ class CommonPresenterController: PresenterViewController, NavigationHandler {
     }
     
     private func closeModal(withCompletion completion: ((Bool) -> ())?) {
+        guard currentModalViewController != nil else {
+            retrieveCurrentImageViewTag = nil
+            completion?(true)
+            return
+        }
         let alternativeAnimation = DimTransitionAnimation(animationDuration: 0.4)
         let contentView = contentViewController?.view
         if let tag = retrieveCurrentImageViewTag?(), let imageView = contentView?.viewWithTag(tag) as? UIImageView where imageView.image != nil {

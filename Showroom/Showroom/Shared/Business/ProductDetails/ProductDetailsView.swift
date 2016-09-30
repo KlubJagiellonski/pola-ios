@@ -12,7 +12,7 @@ enum ProductDetailsViewState {
     case FullScreen
 }
 
-enum CloseButtonState {
+enum ProductDetailsCloseButtonState {
     case Close
     case Dismiss
 }
@@ -23,7 +23,7 @@ class ProductDetailsView: UIView, UICollectionViewDelegateFlowLayout {
     
     private let dataSource: ProductDetailsDataSource
     
-    var closeButtonState: CloseButtonState = .Close {
+    var closeButtonState: ProductDetailsCloseButtonState = .Close {
         didSet {
             switch closeButtonState {
             case .Close:

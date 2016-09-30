@@ -6,7 +6,7 @@ enum ProductImageDataSourceState {
     case FullScreen
 }
 
-class ProductImageDataSource: NSObject, UICollectionViewDataSource {
+final class ProductImageDataSource: NSObject, UICollectionViewDataSource {
     private weak var collectionView: UICollectionView?
     var lowResImageUrl: String?
     var imageUrls: [String] = [] {
@@ -75,6 +75,12 @@ class ProductImageDataSource: NSObject, UICollectionViewDataSource {
             }
         }
     }
+    var firstImageDownloaded: Bool {
+        guard let collectionView = collectionView else { return false }
+        guard let cell = collectionView.cellForItemAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as? ProductImageCell else { return false }
+        return cell.imageView.image != nil
+    }
+    weak var productPageView: ProductPageView?
     
     init(collectionView: UICollectionView) {
         super.init()
@@ -95,11 +101,21 @@ class ProductImageDataSource: NSObject, UICollectionViewDataSource {
     }
     
     private func loadImageForFirstItem(imageUrl: String, forCell cell: ProductImageCell) {
-        cell.imageView.loadImageWithLowResImage(imageUrl, lowResUrl: lowResImageUrl, width: cell.bounds.width, onRetrievedFromCache: { (image: UIImage?) in
+        let onRetrieveFromCache: (UIImage?) -> () = { image in
             cell.contentViewSwitcher.changeSwitcherState(image == nil ? .Loading : .Success, animated: false)
-        }) { (image: UIImage) in
+        }
+        
+        let onFailure: (NSError?) -> () = { [weak self] error in
+            logInfo("Failed to download image \(error)")
+            self?.productPageView?.didDownloadFirstImage(withSuccess: false)
+        }
+        
+        let onSuccess: (UIImage) -> () = { [weak self] image in
+            self?.productPageView?.didDownloadFirstImage(withSuccess: true)
             cell.contentViewSwitcher.changeSwitcherState(.Success)
         }
+        
+        cell.imageView.loadImageWithLowResImage(imageUrl, lowResUrl: lowResImageUrl, width: cell.bounds.width, onRetrievedFromCache: onRetrieveFromCache, failure: onFailure, success: onSuccess)
     }
     
     // MARK:- UICollectionViewDataSource

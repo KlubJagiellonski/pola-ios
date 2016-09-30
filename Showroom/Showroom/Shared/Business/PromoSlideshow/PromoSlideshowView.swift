@@ -5,6 +5,12 @@ protocol PromoSlideshowViewDelegate: ViewSwitcherDelegate {
     func promoSlideshowDidTapClose(promoSlideshow: PromoSlideshowView)
 }
 
+enum PromoSlideshowCloseButtonState {
+    case Close
+    case Dismiss
+    case Play
+}
+
 final class PromoSlideshowView: ViewSwitcher, UICollectionViewDelegate {
     private let closeButton = UIButton(type: .Custom)
     private let viewSwitcher: ViewSwitcher
@@ -19,6 +25,31 @@ final class PromoSlideshowView: ViewSwitcher, UICollectionViewDelegate {
     }
     var currentPageIndex: Int {
         return collectionView.currentPageIndex
+    }
+    private(set) var closeButtonState: PromoSlideshowCloseButtonState = .Close {
+        didSet {
+            switch closeButtonState {
+            case .Close:
+                closeButton.setImage(UIImage(asset: .Ic_close), forState: .Normal)
+            case .Dismiss:
+                closeButton.setImage(UIImage(asset: .Ic_chevron_down), forState: .Normal)
+            case .Play:
+                closeButton.setImage(UIImage(asset: .Play_back), forState: .Normal)
+            }
+        }
+    }
+    var viewState: PromoPageViewState = .Close {
+        didSet {
+            if viewState == .Close || viewState == .Dismiss {
+                closeButtonState = viewState == .Close ? .Close : .Dismiss
+            } else if viewState == .Paused {
+                closeButtonState = .Play
+            }
+            
+            closeButton.alpha = viewState == .FullScreen ? 0 : 1
+            progressView.alpha = viewState == .Close ? 1 : 0
+            collectionView.scrollEnabled = viewState == .Close
+        }
     }
     weak var delegate: PromoSlideshowViewDelegate? {
         didSet {
@@ -66,8 +97,14 @@ final class PromoSlideshowView: ViewSwitcher, UICollectionViewDelegate {
         progressView.update(with: progress)
     }
     
-    func update(with state: PromoPageViewState, animationDuration: Double?) {
-        //TODO: update view state
+    func update(with newState: PromoPageViewState, animationDuration: Double?) {
+        guard viewState != newState else { return }
+        
+        layoutIfNeeded()
+        UIView.animateWithDuration(animationDuration ?? 0, delay: 0, options: [.CurveEaseInOut], animations: {
+            self.viewState = newState
+            self.layoutIfNeeded()
+            }, completion: nil)
     }
     
     func moveToNextPage() {

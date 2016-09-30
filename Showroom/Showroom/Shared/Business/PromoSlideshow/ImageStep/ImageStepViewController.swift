@@ -11,4 +11,10 @@ final class ImageStepViewController: UIViewController, PromoPageInterface {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    // MARK:- PromoPageInterface
+    
+    func didTapPlay() {}
+    
+    func didTapDismiss() {}
 }

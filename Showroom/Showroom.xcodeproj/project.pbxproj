@@ -242,6 +242,7 @@
 		1DD1EA981CF2ECC200D99731 /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD1EA971CF2ECC200D99731 /* Navigation.swift */; };
 		1DD1EA9B1CF2ED6400D99731 /* SimpleNavigationEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD1EA9A1CF2ED6400D99731 /* SimpleNavigationEvent.swift */; };
 		1DD1EA9D1CF2F58E00D99731 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD1EA9C1CF2F58E00D99731 /* SnapKit.framework */; };
+		1DDBCD1C1DA23DA700BC93B8 /* ProductPagePreviewOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDBCD1B1DA23DA700BC93B8 /* ProductPagePreviewOverlayView.swift */; };
 		1DDE61E81D649152007E5509 /* RateAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDE61E71D649152007E5509 /* RateAppViewController.swift */; };
 		1DDE61EC1D649910007E5509 /* RateAppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDE61EB1D649910007E5509 /* RateAppManager.swift */; };
 		1DDE61F01D649C6F007E5509 /* NSDateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDE61EF1D649C6F007E5509 /* NSDateUtils.swift */; };
@@ -660,6 +661,7 @@
 		1DD1EA971CF2ECC200D99731 /* Navigation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
 		1DD1EA9A1CF2ED6400D99731 /* SimpleNavigationEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleNavigationEvent.swift; sourceTree = "<group>"; };
 		1DD1EA9C1CF2F58E00D99731 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
+		1DDBCD1B1DA23DA700BC93B8 /* ProductPagePreviewOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProductPagePreviewOverlayView.swift; path = ../../ProductDetails/Content/ProductPagePreviewOverlayView.swift; sourceTree = "<group>"; };
 		1DDE61E71D649152007E5509 /* RateAppViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateAppViewController.swift; sourceTree = "<group>"; };
 		1DDE61EB1D649910007E5509 /* RateAppManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateAppManager.swift; sourceTree = "<group>"; };
 		1DDE61EF1D649C6F007E5509 /* NSDateUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateUtils.swift; sourceTree = "<group>"; };
@@ -1364,6 +1366,7 @@
 			isa = PBXGroup;
 			children = (
 				1D80F47E1D9BE5D500DFB1C3 /* ProductStepViewController.swift */,
+				1DDBCD1B1DA23DA700BC93B8 /* ProductPagePreviewOverlayView.swift */,
 			);
 			path = ProductStep;
 			sourceTree = "<group>";
@@ -2476,6 +2479,7 @@
 				1DF428C41D8973A200396A0D /* PayUOptionHandler.swift in Sources */,
 				C09280611D06FC7600350B82 /* ProductSize.swift in Sources */,
 				1D10DE351D3FA74B00022F23 /* Trend.swift in Sources */,
+				1DDBCD1C1DA23DA700BC93B8 /* ProductPagePreviewOverlayView.swift in Sources */,
 				751A501B1D194DF200DF7D2B /* CheckoutSummaryViewController.swift in Sources */,
 				1D1A7E101D2424F2009CCCE7 /* ProductListViewController.swift in Sources */,
 				751A50231D19718400DF7D2B /* CheckoutSummaryCell.swift in Sources */,

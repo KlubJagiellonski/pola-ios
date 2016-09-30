@@ -21,10 +21,21 @@ protocol ProductDescriptionViewDelegate: class {
     func descriptionViewDidTapAddToBasket(view: ProductDescriptionView)
 }
 
-class ProductDescriptionView: UIView, UITableViewDelegate, ProductDescriptionViewInterface {
+final class ProductDescriptionView: UIView, UITableViewDelegate, ProductDescriptionViewInterface {
     private let defaultVerticalPadding: CGFloat = 8
     private let descriptionTableViewTopMargin: CGFloat = 10
     let headerHeight: CGFloat = 158
+    let headerButtonSectionHeight: CGFloat = 60
+    var previewMode: Bool = false {
+        didSet {
+            headerView.infoImageView.alpha = previewMode ? 0 : 1
+        }
+    }
+    var expandedProgress: CGFloat = 0 {
+        didSet {
+            headerView.infoImageView.alpha = previewMode ? 0 : (1 - expandedProgress)
+        }
+    }
     
     private let headerView = DescriptionHeaderView()
     private let tableView = UITableView(frame: CGRectZero, style: .Plain)
@@ -208,7 +219,7 @@ enum ProductAvailability {
     case SoldOut
 }
 
-class DescriptionHeaderView: UIView {
+final class DescriptionHeaderView: UIView {
     private let defaultVerticalPadding: CGFloat = 8
     private let horizontalItemPadding: CGFloat = 5
     private let buttonsToNameInfoVerticalPadding: CGFloat = 13

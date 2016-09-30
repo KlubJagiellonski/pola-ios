@@ -11,16 +11,18 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
     var viewContentInset: UIEdgeInsets?
     weak var delegate: ProductPageViewControllerDelegate?
     
-    private let model: ProductPageModel
-    private var castView: ProductPageView { return view as! ProductPageView }
+    let model: ProductPageModel
+    var castView: ProductPageView { return view as! ProductPageView }
     private weak var contentNavigationController: ProductDescriptionNavigationController?
     private let resolver: DiResolver
-    private let disposeBag = DisposeBag()
+    let disposeBag = DisposeBag()
     private let actionAnimator = DropUpActionAnimator(height: 207)
+    private let previewMode: Bool
     
-    init(resolver: DiResolver, productId: ObjectId, product: Product?) {
+    init(resolver: DiResolver, productId: ObjectId, product: Product?, previewMode: Bool) {
         self.resolver = resolver
-        model = resolver.resolve(ProductPageModel.self, arguments: (productId, product))
+        self.previewMode = previewMode
+        self.model = resolver.resolve(ProductPageModel.self, arguments: (productId, product))
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -33,7 +35,7 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
         let descriptionNavigationController = resolver.resolve(ProductDescriptionNavigationController.self, arguments: (model.state, viewContentInset))
         descriptionNavigationController.productDescriptionDelegate = self
         addChildViewController(descriptionNavigationController)
-        view = ProductPageView(contentView: descriptionNavigationController.view, descriptionViewInterface: descriptionNavigationController.descriptionView, modelState: model.state, contentInset: viewContentInset)
+        view = ProductPageView(contentView: descriptionNavigationController.view, contentInset: viewContentInset)
         descriptionNavigationController.didMoveToParentViewController(self)
         
         self.contentNavigationController = descriptionNavigationController
@@ -44,7 +46,16 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
         
         actionAnimator.delegate = self
         
+        castView.descriptionViewInterface = self.contentNavigationController?.descriptionView
+        
         castView.delegate = self
+        
+        castView.changeSwitcherState(model.state.product == nil ? .Loading : .Success, animated: false)
+        
+        castView.update(with: model.state.product)
+        model.state.productDetailsObservable.subscribeNext { [weak self] productDetails in
+            self?.castView.update(with: productDetails)
+            }.addDisposableTo(disposeBag)
         
         let containsInfo = (model.state.product == nil && model.state.productDetails == nil) ?? false
         let initialState: ProductPageViewState = containsInfo ? .ContentHidden : .Default
@@ -55,7 +66,7 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        castView.updateWishlistButton(selected: model.isOnWishlist)
+        castView.update(withWishlistButtonSelected: model.isOnWishlist)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -185,7 +196,7 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
         } else {
             logAnalyticsEvent(AnalyticsEventId.ProductRemoveFromWishlist(model.productId))
         }
-        castView.updateWishlistButton(selected: selected)
+        castView.update(withWishlistButtonSelected: selected)
         perform(withDelay: 0.5) { [weak self] in
             guard let `self` = self else { return }
             self.sendNavigationEvent(SimpleNavigationEvent(type: .AskForNotificationsFromWishlist))
@@ -195,6 +206,10 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
     func pageViewDidSwitchedImage(pageView: ProductPageView) {
         logInfo("Did switched image")
         logAnalyticsEvent(AnalyticsEventId.ProductSwitchPicture(model.productId))
+    }
+    
+    func pageView(pageView: ProductPageView, didDownloadFirstImageWithSuccess success: Bool) {
+        logInfo("Did download first image with success: \(success)")
     }
     
     // MARK:- ViewSwitcherDelegate

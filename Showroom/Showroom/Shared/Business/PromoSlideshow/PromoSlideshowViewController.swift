@@ -34,7 +34,7 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
     }
     
     override func prefersStatusBarHidden() -> Bool {
-        return true
+        return castView.viewState == .Close
     }
     
     func updateData(with slideshowId: Int) {
@@ -59,10 +59,27 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
         }.addDisposableTo(disposeBag)
     }
     
+    private func informChildViewControllers(@noescape about block: PromoPageInterface -> Void) {
+        for (_, viewController) in indexedViewControllers {
+            if let promoPageInterface = viewController as? PromoPageInterface {
+                block(promoPageInterface)
+            } else {
+                logError("View controller \(viewController) do not implement PromoPageInterface")
+            }
+        }
+    }
+    
     // MARK:- PromoSlideshowViewDelegate
     
     func promoSlideshowDidTapClose(promoSlideshow: PromoSlideshowView) {
-        sendNavigationEvent(SimpleNavigationEvent(type: .Close))
+        switch castView.closeButtonState {
+        case .Close:
+            sendNavigationEvent(SimpleNavigationEvent(type: .Close))
+        case .Dismiss:
+            informChildViewControllers(about: { $0.didTapDismiss() })
+        case .Play:
+            informChildViewControllers(about: { $0.didTapPlay() })
+        }
     }
     
     // MARK:- ViewSwitcherDelegate
@@ -85,6 +102,9 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
     
     func promoPage(promoStep: PromoPageInterface, willChangePromoPageViewState newViewState: PromoPageViewState, animationDuration: Double?) {
         castView.update(with: newViewState, animationDuration: animationDuration)
+        UIView.animateWithDuration(animationDuration ?? 0) { [unowned self] in
+            self.setNeedsStatusBarAppearanceUpdate()
+        }
     }
     
     func promoPageDidFinished(promoStep: PromoPageInterface) {

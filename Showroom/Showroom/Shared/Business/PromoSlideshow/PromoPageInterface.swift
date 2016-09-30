@@ -1,7 +1,10 @@
 import Foundation
 
 enum PromoPageViewState {
-    
+    case Close
+    case Dismiss
+    case FullScreen
+    case Paused
 }
 
 protocol PromoPageDelegate: class {
@@ -13,4 +16,7 @@ protocol PromoPageDelegate: class {
 
 protocol PromoPageInterface: class {
     weak var pageDelegate: PromoPageDelegate? { get set }
+    
+    func didTapPlay()
+    func didTapDismiss()
 }
