@@ -640,6 +640,8 @@
 		1DE025291D48D52000324178 /* ProductDescriptionNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDescriptionNavigationController.swift; sourceTree = "<group>"; };
 		1DF14F291D2A72AB004A6A3A /* ProductErrorPageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductErrorPageCell.swift; sourceTree = "<group>"; };
 		1DF14F2B1D2AA21A004A6A3A /* ProductListEmptyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductListEmptyView.swift; sourceTree = "<group>"; };
+		1DF3A5871D9E3E8D009B5BC8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		1DF3A5881D9E3EF9009B5BC8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = "en.lproj/Drop-In.strings"; sourceTree = "<group>"; };
 		1DF428AB1D87FAA000396A0D /* ApiServiceCalls.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiServiceCalls.swift; sourceTree = "<group>"; };
 		1DF428AD1D880D1300396A0D /* Platform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Platform.swift; sourceTree = "<group>"; };
 		1DF428AF1D894AEE00396A0D /* CheckoutSummaryBrandCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutSummaryBrandCell.swift; sourceTree = "<group>"; };
@@ -2020,6 +2022,7 @@
 				Base,
 				pl,
 				de,
+				en,
 			);
 			mainGroup = 1D2F19321CE9CE250099142E;
 			productRefGroup = 1D2F193C1CE9CE250099142E /* Products */;
@@ -2465,6 +2468,7 @@
 			children = (
 				1D372E381D6ED22F004F3155 /* pl */,
 				C0DF72781D75C7A4001BA783 /* de */,
+				1DF3A5871D9E3E8D009B5BC8 /* en */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -2474,6 +2478,7 @@
 			children = (
 				1D66716A1D93E4C300070502 /* pl */,
 				1D66716B1D93E4C500070502 /* de */,
+				1DF3A5881D9E3EF9009B5BC8 /* en */,
 			);
 			name = "Drop-In.strings";
 			sourceTree = "<group>";
