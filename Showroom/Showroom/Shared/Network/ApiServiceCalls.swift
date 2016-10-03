@@ -51,7 +51,7 @@ extension ApiService {
             pathComponent: "cart/validate",
             params: nil,
             httpMethod: .Post,
-            authenticationType: .NotRequired,
+            authenticationType: .Optional,
             jsonData: basketRequest.encode()
         )
         return makeCall(with: call).decode { try Basket.decode($0) }
