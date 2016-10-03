@@ -1,38 +1,43 @@
 import Foundation
 
 final class RateAppManager {
+    private let storage: KeyValueStorage
     private let daysThresholdForShowingView = 14
     private let initialDateKey = "initial_rate_app_date"
     private let appRatedKey = "app_rated"
     
     private var initialDate: NSDate {
         get {
-            let initialTimeInterval = NSUserDefaults.standardUserDefaults().objectForKey(initialDateKey) as? NSTimeInterval
+            let initialTimeInterval: NSTimeInterval? = storage.load(forKey: initialDateKey)
             if let timeInterval = initialTimeInterval {
                 return NSDate(timeIntervalSince1970: timeInterval)
             } else {
                 let initialDate = NSDate()
-                NSUserDefaults.standardUserDefaults().setDouble(initialDate.timeIntervalSince1970, forKey: initialDateKey)
+                storage.save(initialDate.timeIntervalSince1970, forKey: initialDateKey)
                 return initialDate
             }
         }
         set {
             logInfo("initialDate \(initialDate)")
-            NSUserDefaults.standardUserDefaults().setDouble(newValue.timeIntervalSince1970, forKey: initialDateKey)
+            storage.save(newValue.timeIntervalSince1970, forKey: initialDateKey)
         }
     }
     private(set) var appAlreadyRated: Bool {
         get {
-            return NSUserDefaults.standardUserDefaults().boolForKey(appRatedKey)
+            return storage.load(forKey: appRatedKey) ?? false
         }
         set {
             logInfo("appAlreadyRated \(newValue)")
-            NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: appRatedKey)
+            storage.save(newValue, forKey: appRatedKey)
         }
     }
     
     var shouldShowRateAppView: Bool {
         return !appAlreadyRated && initialDate.numberOfDaysUntilDateTime(NSDate()) >= daysThresholdForShowingView
+    }
+    
+    init(storage: KeyValueStorage) {
+        self.storage = storage
     }
 
     func didShowRateAppView() {

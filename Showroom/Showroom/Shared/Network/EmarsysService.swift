@@ -8,8 +8,11 @@ struct EmarsysService {
     init(session: EMSession) {
         self.session = session
         
-        session.merchantID = Constants.emarsysMerchantId
         session.logLevel = Constants.isDebug ? .Debug : .Warning
+    }
+    
+    func configure(forPlatform platform: Platform) {
+        session.merchantID = platform.merchantID
     }
 }
 
@@ -145,6 +148,17 @@ extension Gender {
             return 2
         case .Male:
             return 1
+        }
+    }
+}
+
+extension Platform {
+    private var merchantID: String {
+        switch self {
+        case .Polish:
+            return Constants.emarsysMerchantId
+        case .German:
+            return Constants.deEmarsysMerchantId
         }
     }
 }

@@ -1,0 +1,14 @@
+phraseapp:
+  access_token: 98f5efe6e88615e6e3296c95550d70e2407e8acd4e0177f606427505a76d709e
+  project_id: 453e338d5d67e7c502d0e57781832878
+  file_format: strings
+  push:
+    sources:
+    - file: ./Showroom/Showroom/Resources/<locale_code>.lproj/Localizable.strings
+      params:
+        file_format: strings
+  pull:
+    targets:
+    - file: ./Showroom/Showroom/Resources/<locale_code>.lproj/Localizable.strings
+      params:
+        file_format: strings

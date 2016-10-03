@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import SnapKit
 
 typealias ImageUrl = String
 
@@ -12,7 +13,6 @@ enum DropDownValue {
 class DropDownButton : UIControl {
     private let borderWidth: CGFloat = 1
     private let defaultMargin: CGFloat = 5
-    private let valueArrowHorizontalMargin: CGFloat = 4
     
     private let valueImageView: ColorIconView?
     private let valueLabel: UILabel?
@@ -50,17 +50,13 @@ class DropDownButton : UIControl {
     
     override var enabled: Bool {
         didSet {
-            if enabled {
-                layer.borderColor = UIColor(named: .Black).CGColor
-                arrowImageView.image = UIImage(asset: .Ic_dropdown)
-            } else {
-                layer.borderColor = UIColor(named: .DarkGray).CGColor
-                arrowImageView.image = UIImage(asset: .Ic_dropdown_disabled)
-            }
+            layer.borderColor = enabled ? UIColor(named: .Black).CGColor : UIColor(named: .DarkGray).CGColor
+            arrowImageView.hidden = !enabled
+            remakeValueConstraints(enabled: enabled)
         }
     }
     
-    init(value: DropDownValue = .Text(nil)) {
+    init(value: DropDownValue) {
         self.value = value
         
         switch value {
@@ -89,23 +85,13 @@ class DropDownButton : UIControl {
         switch value {
         case .Text:
             addSubview(valueLabel!)
-            
-            valueLabel!.snp_makeConstraints { make in
-                make.leading.equalToSuperview().offset(defaultMargin)
-                make.centerY.equalToSuperview()
-                make.trailing.equalToSuperview().offset(-23)
-            }
         case .Image, .Color:
             addSubview(valueImageView!)
-            valueImageView!.snp_makeConstraints { make in
-                make.leading.equalToSuperview().offset(defaultMargin)
-                make.top.equalToSuperview().offset(defaultMargin)
-                make.bottom.equalToSuperview().inset(defaultMargin)
-                make.width.equalTo(valueImageView!.snp_height)
-            }
         }
         
         addSubview(arrowImageView)
+        
+        remakeValueConstraints(enabled: enabled)
         
         arrowImageView.snp_makeConstraints { make in
             make.trailing.equalToSuperview().inset(defaultMargin)
@@ -119,5 +105,39 @@ class DropDownButton : UIControl {
     
     func didTapView() {
         sendActionsForControlEvents(.TouchUpInside)
+    }
+    
+    func remakeValueConstraints(enabled enabled: Bool) {
+        switch (value, enabled) {
+        case (.Text, true):
+            valueLabel!.snp_remakeConstraints { make in
+                make.leading.equalToSuperview().offset(defaultMargin)
+                make.centerY.equalToSuperview()
+                make.trailing.equalToSuperview().offset(-23)
+            }
+            
+        case (.Text, false):
+            valueLabel!.snp_remakeConstraints { make in
+                make.leading.equalToSuperview().offset(defaultMargin)
+                make.trailing.equalToSuperview().offset(-defaultMargin)
+                make.centerY.equalToSuperview()
+            }
+            
+        case (.Image, true), (.Color, true):
+            valueImageView!.snp_remakeConstraints { make in
+                make.leading.equalToSuperview().offset(defaultMargin)
+                make.top.equalToSuperview().offset(defaultMargin)
+                make.bottom.equalToSuperview().inset(defaultMargin)
+                make.width.equalTo(valueImageView!.snp_height)
+            }
+            
+        case (.Image, false), (.Color, false):
+            valueImageView!.snp_remakeConstraints { make in
+                make.centerX.equalToSuperview()
+                make.width.equalTo(valueImageView!.snp_height)
+                make.top.equalToSuperview().offset(defaultMargin)
+                make.bottom.equalToSuperview().inset(defaultMargin)
+            }
+        }
     }
 }

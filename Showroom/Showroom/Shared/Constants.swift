@@ -13,20 +13,23 @@ struct Constants {
         static let isAppStore = false
     #endif
     
-    static let baseUrl = "https://api.showroom.pl/ios/v1"
-    static let websiteDomain = "www.showroom.pl"
-    static let websiteUrl = "https://\(Constants.websiteDomain)"
+    #if ENV_STAGING
+        static let isStagingEnv = true
+    #else
+        static let isStagingEnv = false
+    #endif
+    
     static let appScheme = NSBundle.appScheme
     
-    static let appStoreUrl = "itms-apps://itunes.apple.com/app/1147114961"
-    
-    static let reportEmail = "iosv1@showroom.pl"
+    static let appStoreUrl = "itms-apps://itunes.apple.com/app/id1147114961"
     
     static let optimiseApiKey = "72933403-B469-41FD-B6E4-635B5B44584F"
     static let optimiseMerchantId = 990079
     static let optimiseTrackInstallProductId = 28575
     static let optimiseTrackSaleProductId = 28577
     static let optimiseTrackRegistrationProductId = 28576
+    
+    static let braintreePayPalUrlScheme = "\(NSBundle.mainBundle().bundleIdentifier!).payments"
     
     #if APPSTORE
     static let googleAnalyticsTrackingId = "UA-28549987-7"
@@ -36,6 +39,10 @@ struct Constants {
     static let emarsysMerchantId = "13CE3A05D54F66DD"
     static let emarsysRecommendationItemsLimit: Int32 = 20
     static let emarsysPushPassword = "tkmQP+f3p3ArdsbRcTTfBGpmXawqjo+v"
+    static let pushWooshAppId = "63A3E-B6CDA"
+    static let deEmarsysMerchantId = "1B0C17B93E151CAA"
+    static let deEmarsysPushPassword = "NjG06NhkAPQvxmi7UFonQZnF6Aip1dv6"
+    static let dePushWooshAppId = "1B9C1-3FA16"
     static let basketProductAmountLimit: Int = 10
     static let productListPageSize: Int = 20
     static let productListPageSizeForLargeScreen: Int = 27

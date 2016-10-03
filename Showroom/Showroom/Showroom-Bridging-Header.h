@@ -6,3 +6,6 @@
 #import <EmarsysPushSDK/EmarsysPushSDK.h>
 #import <Pushwoosh/PushNotificationManager.h>
 #import <OptimiseMobileTracking/OptimiseMobileTracking.h>
+#import <BraintreeCore/BraintreeCore.h>
+#import <BraintreeUI/BraintreeUI.h>
+#import <BraintreePayPal/BraintreePayPal.h>

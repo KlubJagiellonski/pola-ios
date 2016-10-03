@@ -67,7 +67,7 @@ class ContentPromoCell: UITableViewCell {
     func updateData(contentPromo: ContentPromo) {
         let image = contentPromo.image
         promoImageView.image = nil
-        promoImageView.loadImageFromUrl(image.url, width: self.contentView.bounds.width)
+        promoImageView.loadImageFromUrl(image.url, width: Dimensions.contentPromoImageWidth)
         
         if let title = image.title, let subtitle = image.subtitle, let textColor = image.color {
             textContainerView.hidden = false
@@ -83,7 +83,7 @@ class ContentPromoCell: UITableViewCell {
     
     func refreshImageIfNeeded(withUrl url: String) {
         if !promoImageView.imageDownloadingInProgress {
-            promoImageView.loadImageFromUrl(url, width: self.contentView.bounds.width)
+            promoImageView.loadImageFromUrl(url, width: Dimensions.contentPromoImageWidth)
         }
     }
     

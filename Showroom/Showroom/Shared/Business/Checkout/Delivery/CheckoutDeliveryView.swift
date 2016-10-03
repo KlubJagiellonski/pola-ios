@@ -238,7 +238,7 @@ class CheckoutDeliveryView: ViewSwitcher {
             switch addressField {
             case .FirstName(let value?): string += value + " "
             case .LastName(let value?): string += value + "\n"
-            case .StreetAndApartmentNumbers(let value?): string += tr(.CheckoutDeliveryAdressStreet) + " " + value + "\n"
+            case .StreetAndApartmentNumbers(let value?): string += value + "\n"
             case .PostalCode(let value?): string += value + " "
             case .City(let value?): string += value + "\n"
             case .Phone(let value?): string += tr(.CheckoutDeliveryAdressPhoneNumber) + " " + value + "\n"
@@ -318,7 +318,7 @@ extension DeliveryCarrier {
         switch id {
         case .RUCH:
             return tr(.CheckoutDeliveryRUCHHeader)
-        case .UPS:
+        case .UPS, .UPSDe:
             return tr(.CheckoutDeliveryCourierHeader)
         case .Unknown:
             logError("Unknown carrier type \(id)")

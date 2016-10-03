@@ -8,12 +8,8 @@ class NetworkAssembly: AssemblyType {
             return r.resolve(UIApplication.self)!
         }
         
-        container.register(NSURLSession.self) { r in
-            return NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
-        }
-        
         container.register(NetworkClient.self) { r in
-            return HttpClient(session: r.resolve(NSURLSession.self)!, activityIndicatorController: r.resolve(NetworkActivityIndicatorController.self)!)
+            return HttpClient(activityIndicatorController: r.resolve(NetworkActivityIndicatorController.self)!)
         }.inObjectScope(.Container)
         
         container.register(ApiService.self) { r in

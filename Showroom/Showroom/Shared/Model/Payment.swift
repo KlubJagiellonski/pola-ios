@@ -10,6 +10,21 @@ struct PaymentRequest {
     let discountCode: String?
     let payment: PaymentType
     let comments: [PaymentComment]
+    let nonce: String?
+}
+
+struct PaymentInfo {
+    let items: [PaymentItem]
+    let countryCode: String
+    let deliveryType: ObjectId
+    let deliveryAddressId: ObjectId
+    let deliveryPop: ObjectId?
+    let discountCode: String?
+    let payment: Payment
+    let comments: [PaymentComment]
+    let amount: String
+    let currencyCode: String
+    let localeCode: String
 }
 
 struct PaymentItem {
@@ -38,8 +53,8 @@ struct PaymentResult {
 
 //MARK:- Utiliteies
 
-extension PaymentRequest {
-    init?(with checkoutState: CheckoutState) {
+extension PaymentInfo {
+    init?(with checkoutState: CheckoutState, platformManager: PlatformManager) {
         guard checkoutState.checkout.deliveryCarrier.id != .Unknown && checkoutState.selectedPayment.id != .Unknown else {
             logError("Cannot create PaymentRequest (carrier, selectedPayment) from state: \(checkoutState)")
             return nil
@@ -68,14 +83,41 @@ extension PaymentRequest {
             return nil
         }
         
+        guard let currencyCode = platformManager.platform?.currencyCode else {
+            logError("Cannot create PaymentRequest (currencyCode) from state: \(checkoutState)")
+            return nil
+        }
+        
+        guard let localeCode = platformManager.platform?.locale.languageCode else {
+            logError("Cannot create PaymentRequest (localeCode) from state: \(checkoutState), platform \(platformManager.platform)")
+            return nil
+        }
+        
         self.items = items
         self.countryCode = checkoutState.checkout.deliveryCountry.id
         self.deliveryType = checkoutState.checkout.deliveryCarrier.id.rawValue
         self.deliveryAddressId = selectedAddress.id
         self.deliveryPop = deliveryPop
         self.discountCode = checkoutState.checkout.discountCode
-        self.payment = checkoutState.selectedPayment.id
+        self.payment = checkoutState.selectedPayment
         self.comments = comments
+        self.amount = checkoutState.checkout.basket.price.stringAmount
+        self.currencyCode = currencyCode
+        self.localeCode = localeCode
+    }
+}
+
+extension PaymentRequest {
+    init(with paymentInfo: PaymentInfo, nonce: String?) {
+        self.items = paymentInfo.items
+        self.countryCode = paymentInfo.countryCode
+        self.deliveryType = paymentInfo.deliveryType
+        self.deliveryAddressId = paymentInfo.deliveryAddressId
+        self.deliveryPop = paymentInfo.deliveryPop
+        self.discountCode = paymentInfo.discountCode
+        self.payment = paymentInfo.payment.id
+        self.comments = paymentInfo.comments
+        self.nonce = nonce
     }
 }
 
@@ -96,12 +138,14 @@ extension PaymentRequest: Encodable {
             "items": items.map { $0.encode() } as NSArray,
             "country_code": countryCode,
             "delivery_type": deliveryType,
+            "delivery_address_id": deliveryAddressId,
             "payment_type": payment.rawValue,
             "comments": comments.map { $0.encode() } as NSArray
         ] as NSMutableDictionary
         
         if deliveryPop != nil { dict.setObject(deliveryPop!, forKey: "delivery_pop") }
         if discountCode != nil { dict.setObject(discountCode!, forKey: "discount_code") }
+        if nonce != nil { dict.setObject(nonce!, forKey: "payment_nonce") }
         return dict
     }
 }

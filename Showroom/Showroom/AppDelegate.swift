@@ -9,7 +9,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     
-    private let assembler = try! DiAssembler()
+    let assembler = try! DiAssembler()
     private lazy var userManager: UserManager = { [unowned self] in
         return self.assembler.resolver.resolve(UserManager.self)!
     }()
@@ -18,13 +18,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         manager.delegate = self
         return manager
     }()
+    private lazy var platformManager: PlatformManager = { [unowned self] in
+        return self.assembler.resolver.resolve(PlatformManager.self)!
+    }()
+    private lazy var paymentManager: PaymentManager = { [unowned self] in
+        return self.assembler.resolver.resolve(PaymentManager.self)!
+    }()
+    private lazy var storage: KeyValueStorage = { [unowned self] in
+        return self.assembler.resolver.resolve(KeyValueStorage.self)!
+    }()
     private var launchCount: Int {
         let launchCountKey = "launch_count"
-        let count = NSUserDefaults.standardUserDefaults().integerForKey(launchCountKey) + 1
-        NSUserDefaults.standardUserDefaults().setInteger(count, forKey: launchCountKey)
+        let count = (storage.load(forKey: launchCountKey) ?? 0) + 1
+        storage.save(count, forKey: launchCountKey)
         return count
     }
-    
     private var quickActionManager: QuickActionManager!
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -38,6 +46,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         userManager.updateUser()
         
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        BTAppSwitch.setReturnURLScheme(Constants.braintreePayPalUrlScheme)
+        
+        // has to be called before initializing RootViewController
+        platformManager.initializePlatformWithDeviceLanguage()
         
         logInfo("Configuring main window")
         
@@ -49,6 +61,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         logInfo("Main window configured")
         
         notificationsManager.applicationDidFinishLaunching(withLaunchOptions: launchOptions)
+        
         return true
     }
     
@@ -56,7 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation) {
             return true
         }
-        if let payUManager = assembler.resolver.resolve(PayUManager.self) where payUManager.handleOpen(withURL: url) {
+        if paymentManager.currentPaymentHandler?.handleOpenURL(url, sourceApplication: sourceApplication) ?? false {
             return true
         }
         logInfo("Received url \(url) with options: \(sourceApplication)")
@@ -98,6 +111,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 logInfo("Cannot fetch deferred app link \(url) \(error)")
             }
         }
+
+        logInfo("app did become active")
     }
     
     private func configureDependencies() {

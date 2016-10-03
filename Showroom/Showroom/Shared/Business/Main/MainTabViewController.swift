@@ -59,12 +59,15 @@ enum MainTabChildControllerType: Int {
 
 class MainTabViewController: UITabBarController, NavigationHandler {
     private let badgesContainerView = TabBarItemBadgeContainerView()
-    var basketBadgeValue: UInt {
+    private var basketBadgeValue: UInt {
         set { badgesContainerView.basketBadgeValue = newValue }
         get { return badgesContainerView.basketBadgeValue }
     }    
-    var wishlistBadgeValue: UInt {
-        set { badgesContainerView.wishlistBadgeValue = newValue }
+    private var wishlistBadgeValue: UInt {
+        set {
+            badgesContainerView.wishlistBadgeValue = newValue
+            logInfo("wishlist badge value did set to \(newValue)")            
+        }
         get { return badgesContainerView.wishlistBadgeValue }
     }
     
@@ -82,6 +85,7 @@ class MainTabViewController: UITabBarController, NavigationHandler {
     private let basketManager: BasketManager
     private let wishlistManager: WishlistManager
     private let disposeBag = DisposeBag()
+    private let deepLinkHandler = MainTabDeepLinkHandler()
     
     init(resolver: DiResolver, basketManager: BasketManager, wishlistManager: WishlistManager) {
         self.resolver = resolver
@@ -90,6 +94,8 @@ class MainTabViewController: UITabBarController, NavigationHandler {
         appearance = .Visible
         
         super.init(nibName: nil, bundle: nil)
+        
+        deepLinkHandler.mainTabViewController = self
         
         tabBar.translucent = true
         tabBar.tintColor = UIColor(named: .Blue)
@@ -105,8 +111,12 @@ class MainTabViewController: UITabBarController, NavigationHandler {
         ]
         selectedIndex = 0
         
-        basketManager.state.basketObservable.subscribeNext(onBasketChanged).addDisposableTo(disposeBag)
-        wishlistManager.state.wishlistObservable.subscribeNext(onWishlistChanged).addDisposableTo(disposeBag)
+        basketManager.state.basketObservable.subscribeNext { [weak self] basket in
+            self?.onBasketChanged(basket)
+            }.addDisposableTo(disposeBag)
+        wishlistManager.state.wishlistObservable.subscribeNext { [weak self] wishlist in
+            self?.onWishlistChanged(wishlist)
+            }.addDisposableTo(disposeBag)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -165,7 +175,7 @@ class MainTabViewController: UITabBarController, NavigationHandler {
     
     private func onWishlistChanged(wishlist: [WishlistProduct]) {
         logInfo("Wishlist changed with amount \(wishlist.count)")
-        wishlistBadgeValue = UInt(wishlist.count)
+        wishlistBadgeValue = UInt(wishlist.count)        
     }
     
     private func createChildViewController(forType type: MainTabChildControllerType) -> UIViewController {
@@ -193,16 +203,7 @@ class MainTabViewController: UITabBarController, NavigationHandler {
 extension MainTabViewController: DeepLinkingHandler {
     func handleOpen(withURL url: NSURL) -> Bool {
         logInfo("Handling url \(url)")
-        let searchIndex = MainTabChildControllerType.Search.rawValue
-        guard let deepLinkingHandler = viewControllers?[searchIndex] as? DeepLinkingHandler else {
-            return false
-        }
-        let handled = deepLinkingHandler.handleOpen(withURL: url)
-        if handled {
-            logInfo("Url handled")
-            selectedIndex = searchIndex
-        }
-        return handled
+        return deepLinkHandler.handleOpen(withURL: url)
     }
 }
 

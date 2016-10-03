@@ -207,13 +207,13 @@ class RegistrationView: ViewSwitcher {
         newsletterCheck.snp_makeConstraints { make in
             make.top.equalToSuperview()
             make.left.equalToSuperview().inset(Dimensions.defaultMargin)
-            make.right.equalToSuperview()
+            make.width.equalTo(contentView).offset(-2 * Dimensions.defaultMargin)
         }
         
         rulesCheck.snp_makeConstraints { make in
             make.top.equalTo(newsletterCheck.snp_bottom)
             make.left.equalToSuperview().inset(Dimensions.defaultMargin)
-            make.right.equalToSuperview()
+            make.width.equalTo(contentView).offset(-2 * Dimensions.defaultMargin)
             make.bottom.equalToSuperview().inset(Dimensions.defaultMargin)
         }
     }

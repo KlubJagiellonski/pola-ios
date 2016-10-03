@@ -78,12 +78,14 @@ class BasketDeliveryView: ViewSwitcher {
             return
         }
         
-        let upsCarrier = basket.deliveryInfo.carriers.find { $0.id == DeliveryType.UPS }
+        let upsCarrier = basket.deliveryInfo.carriers.find { $0.id.isUps }
+        upsDeliveryOptionView.hidden = upsCarrier == nil
         upsDeliveryOptionView.enabled = upsCarrier?.available ?? false
         upsDeliveryOptionView.priceLabel.text = upsCarrier?.deliveryCost?.stringValue
         upsDeliveryOptionView.titleLabel.text = upsCarrier?.name
         
         let ruchCarrier = basket.deliveryInfo.carriers.find { $0.id == DeliveryType.RUCH }
+        ruchDeliveryOptionView.hidden = ruchCarrier == nil
         ruchDeliveryOptionView.enabled = ruchCarrier?.available ?? false
         ruchDeliveryOptionView.priceLabel.text = ruchCarrier?.deliveryCost?.stringValue
         ruchDeliveryOptionView.titleLabel.text = ruchCarrier?.name
@@ -94,7 +96,7 @@ class BasketDeliveryView: ViewSwitcher {
     }
     
     func updateData(with selectedCarrier: DeliveryCarrier?) {
-        upsDeliveryOptionView.selected = selectedCarrier?.id == DeliveryType.UPS
+        upsDeliveryOptionView.selected = selectedCarrier?.id.isUps ?? false
         ruchDeliveryOptionView.selected = selectedCarrier?.id == DeliveryType.RUCH
     }
     
@@ -193,7 +195,6 @@ class BasketCountryDeliveryView: UIControl {
         
         topSeparator.backgroundColor = UIColor(named: .Separator)
         
-        countryLabel.backgroundColor = UIColor(named: .White)
         countryLabel.font = UIFont(fontType: .FormNormal)
         countryLabel.textColor = UIColor(named: .Black)
         

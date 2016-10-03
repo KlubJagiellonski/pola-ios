@@ -11,26 +11,23 @@ import RxCocoa
  */
 
 final class WishlistManager {
-    private let storageManager: StorageManager
+    private let storage: KeyValueStorage
     private let userManager: UserManager
     private let api: ApiService
     private let disposeBag = DisposeBag()
     private var contextWishlist: [WishlistProduct] = []
     private var synchronizationDisposable: Disposable?
+    let platformManager: PlatformManager
     
-    let state: WishlistState
-    
-    init(with storageManager: StorageManager, and userManager: UserManager, and api: ApiService) {
-        self.storageManager = storageManager
+    private(set) var state: WishlistState
+
+    init(with storage: KeyValueStorage, and userManager: UserManager, and platformManager: PlatformManager, and api: ApiService) {
+        self.storage = storage
         self.userManager = userManager
+        self.platformManager = platformManager
         self.api = api
         
-        var wishlistState: WishlistState? = nil
-        do {
-            wishlistState = try storageManager.load(Constants.Persistent.wishlistState)
-        } catch {
-            logError("Error while loading wishlist state from persistent storage: \(error)")
-        }
+        let wishlistState: WishlistState? = storage.load(forKey: Constants.Persistent.wishlistState, type: .Persistent)
         self.state = wishlistState ?? WishlistState()
         
         userManager.sessionObservable.subscribeNext { [weak self] session in
@@ -43,6 +40,12 @@ final class WishlistManager {
                 self.synchronize()
             }
         }.addDisposableTo(disposeBag)
+        
+        platformManager.platformObservable.subscribeNext { [weak self] platform in
+            guard let `self` = self else { return }
+            logInfo("platform changed: \(platform)")
+            self.state = WishlistState()
+        }.addDisposableTo(disposeBag)
     }
     
     func synchronize() {
@@ -51,18 +54,18 @@ final class WishlistManager {
             return
         }
         
-        if state.synchronizationState.synchronized {
+        if userManager.session == nil {
+            logInfo("User not logged, need to synchronize")
+            state.synchronizationState = WishlistSynchronizationState(synchronizing: false, synchronized: false)
+        } else if state.synchronizationState.synchronized {
             logInfo("Not need to synchronize, just fetching wishlist")
             state.synchronizationState = WishlistSynchronizationState(synchronizing: true, synchronized: state.synchronizationState.synchronized)
             synchronizationDisposable = handleObservable(api.fetchWishlist(), alwaysMarkAsSynchronized: true)
-        } else if userManager.session != nil {
+        } else {
             logInfo("User logged, need to synchronize")
             state.synchronizationState = WishlistSynchronizationState(synchronizing: true, synchronized: state.synchronizationState.synchronized)
             let productsIds = state.wishlist.reverse().map { $0.id }
             synchronizationDisposable = handleObservable(api.sendWishlist(with: MultipleWishlistRequest(productIds: productsIds)), alwaysMarkAsSynchronized: false)
-        } else {
-            logInfo("User not logged, need to synchronize")
-            state.synchronizationState = WishlistSynchronizationState(synchronizing: false, synchronized: false)
         }
     }
     
@@ -141,7 +144,7 @@ final class WishlistManager {
                 guard let `self` = self else { return }
                 
                 let state = WishlistState(wishlist: result.products, wishlistResult: result, synchronizationState: WishlistSynchronizationState(synchronizing: false, synchronized: true))
-                try self.storageManager.save(Constants.Persistent.wishlistState, object: state)
+                self.storage.save(state, forKey: Constants.Persistent.wishlistState, type: .Persistent)
         }
             .observeOn(MainScheduler.instance)
             .subscribe { [weak self] event in
@@ -161,10 +164,8 @@ final class WishlistManager {
     
     private func saveStateToStorage() {
         logInfo("Saving state to storage")
-        do {
-            try self.storageManager.save(Constants.Persistent.wishlistState, object: state)
-        } catch {
-            logError("Cannot save wishlist to storage \(error)")
+        if !self.storage.save(state, forKey: Constants.Persistent.wishlistState, type: .Persistent) {
+            logError("Cannot save wishlist to storage")
         }
     }
 }
@@ -184,7 +185,7 @@ final class WishlistState {
             wishlistObservable.onNext(wishlist)
         }
     }
-    private(set) var wishlistResult: WishlistResult? {
+    var wishlistResult: WishlistResult? {
         didSet {
             wishlist = wishlistResult?.products ?? []
         }

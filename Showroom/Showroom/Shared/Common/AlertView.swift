@@ -10,18 +10,35 @@ protocol AlertViewDelegate: class {
 final class AlertView: UIView {
     private static let defaultWidth: CGFloat = 290.0
     private static let verticalInnerMargin: CGFloat = 10.0
+    private var imageHeight: CGFloat {
+        switch UIDevice.currentDevice().screenType {
+        case .iPhone4:
+            return 180
+        default:
+            return AlertView.defaultWidth - (2 * Dimensions.defaultMargin)
+        }
+    }
     
     private let titleLabel = UILabel()
     private let descriptionLabel = UILabel()
     private let questionLabel = UILabel()
     
+    private var imageViewSwitcher: ViewSwitcher?
+    private var imageView: UIImageView? {
+        guard let viewSwitcher = imageViewSwitcher else { return nil }
+        return viewSwitcher.successView as? UIImageView
+    }
+    
     private let acceptButton = UIButton()
     private let declineButton = UIButton()
     private let remindButton = UIButton()
     
+    private let imageUrl: String?
+    
     weak var delegate: AlertViewDelegate?
     
-    init(title: String, description: String, question: String? = nil, acceptButtonTitle: String?) {
+    init(title: String, description: String, question: String? = nil, acceptButtonTitle: String?, imageUrl: String? = nil) {
+        self.imageUrl = imageUrl
         super.init(frame: CGRectZero)
         
         backgroundColor = UIColor(named: .White)
@@ -52,6 +69,18 @@ final class AlertView: UIView {
         remindButton.title = tr(L10n.AlertViewRemindLater)
         remindButton.addTarget(self, action: #selector(AlertView.didTapRemind), forControlEvents: .TouchUpInside)
         
+        if imageUrl != nil {
+            let imageView = UIImageView()
+            imageView.userInteractionEnabled = true
+            imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(AlertView.didTapImage)))
+            let viewSwitcher = ViewSwitcher(successView: imageView)
+            viewSwitcher.switcherDelegate = self
+            viewSwitcher.switcherDataSource = self
+            addSubview(viewSwitcher)
+            
+            self.imageViewSwitcher = viewSwitcher
+        }
+        
         addSubview(titleLabel)
         addSubview(descriptionLabel)
         addSubview(questionLabel)
@@ -60,6 +89,24 @@ final class AlertView: UIView {
         addSubview(remindButton)
         
         configureCustomConstraints()
+        
+        loadImage()
+    }
+    
+    func loadImage() {
+        guard let imageUrl = imageUrl, viewSwitcher = imageViewSwitcher, imageView = imageView else {
+            logInfo("Unable to start loading image with imageUrl: \(self.imageUrl)")
+            return
+        }
+        
+        imageView.loadImageFromUrl(imageUrl, height: imageHeight,
+            failure: { error in
+                logInfo("failed to load image with error: \(error)")
+                viewSwitcher.changeSwitcherState(.Error, animated: true)
+            }, success: { image in
+                imageView.image = image
+                viewSwitcher.changeSwitcherState(.Success, animated: true)
+        })
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -81,6 +128,11 @@ final class AlertView: UIView {
         delegate?.alertViewDidTapRemind(self)
     }
     
+    @objc private func didTapImage() {
+        logInfo("Tapped image")
+        delegate?.alertViewDidTapAccept(self)
+    }
+    
     private func configureCustomConstraints() {
         titleLabel.snp_makeConstraints { make in
             make.top.equalToSuperview().offset(AlertView.verticalInnerMargin)
@@ -88,7 +140,8 @@ final class AlertView: UIView {
         }
         
         descriptionLabel.snp_makeConstraints { make in
-            make.top.equalTo(titleLabel.snp_bottom).offset(Dimensions.defaultMargin * 2)
+            let offset = (imageViewSwitcher == nil) ? Dimensions.defaultMargin * 2 : Dimensions.defaultMargin
+            make.top.equalTo(titleLabel.snp_bottom).offset(offset)
             make.left.equalToSuperview().inset(Dimensions.defaultMargin)
             make.right.equalToSuperview().inset(Dimensions.defaultMargin)
         }
@@ -97,6 +150,15 @@ final class AlertView: UIView {
             make.top.equalTo(descriptionLabel.snp_bottom).offset(Dimensions.defaultMargin)
             make.left.equalToSuperview().inset(Dimensions.defaultMargin)
             make.right.equalToSuperview().inset(Dimensions.defaultMargin)
+        }
+        
+        if let viewSwitcher = imageViewSwitcher {
+            viewSwitcher.snp_makeConstraints { make in
+                make.top.equalTo(descriptionLabel.snp_bottom).offset(Dimensions.defaultMargin)
+                make.centerX.equalToSuperview()
+                make.height.equalTo(imageHeight)
+                make.width.equalTo(imageHeight)
+            }
         }
         
         acceptButton.snp_makeConstraints { make in
@@ -129,7 +191,27 @@ final class AlertView: UIView {
         let titleHeight = titleLabel.sizeThatFits(constraintRect).height
         let descriptioinHeight = descriptionLabel.sizeThatFits(constraintRect).height
         let questionHeight = questionLabel.text == nil ? 0.0 : questionLabel.sizeThatFits(constraintRect).height
-        let height = AlertView.verticalInnerMargin + titleHeight + Dimensions.defaultMargin * 2 + descriptioinHeight + Dimensions.defaultMargin + questionHeight + Dimensions.defaultMargin + Dimensions.bigButtonHeight + AlertView.verticalInnerMargin + Dimensions.bigButtonHeight + AlertView.verticalInnerMargin
+        var height = AlertView.verticalInnerMargin + titleHeight + descriptioinHeight + Dimensions.defaultMargin + questionHeight + Dimensions.defaultMargin  + Dimensions.bigButtonHeight + AlertView.verticalInnerMargin + Dimensions.bigButtonHeight + AlertView.verticalInnerMargin
+        if imageUrl != nil {
+            height += imageHeight + Dimensions.defaultMargin
+        } else {
+            height += 2 * Dimensions.defaultMargin
+        }
         return CGSizeMake(AlertView.defaultWidth, height)
+    }
+}
+
+extension AlertView: ViewSwitcherDelegate, ViewSwitcherDataSource {
+    func viewSwitcherDidTapRetry(view: ViewSwitcher) {
+        imageViewSwitcher?.changeSwitcherState(.Loading, animated: true)
+        loadImage()
+    }
+    
+    func viewSwitcherWantsEmptyView(view: ViewSwitcher) -> UIView? {
+        return nil
+    }
+    
+    func viewSwitcherWantsErrorInfo(view: ViewSwitcher) -> (ErrorText, ErrorImage?) {
+        return (tr(.CommonError), nil)
     }
 }

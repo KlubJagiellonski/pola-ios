@@ -18,7 +18,8 @@ class UserManager {
     private let apiService: ApiService
     private let emarsysService: EmarsysService
     private let keychainManager: KeychainManager
-    private let storageManager: StorageManager
+    private let storage: KeyValueStorage
+    private let platformManager: PlatformManager
     private let disposeBag = DisposeBag()
     private let fbLoginManager = FBSDKLoginManager()
     private var cachedSharedWebCredential: SharedWebCredential?
@@ -34,13 +35,17 @@ class UserManager {
             } else {
                 Analytics.sharedInstance.userId = nil
             }
+            
+            if userSession == nil {
+                PayUOptionHandler.resetUserCache()
+            }
+            
             emarsysService.contactUpdate(withUser: user, gender: gender)
             emarsysService.configureUser(String(userSession?.user.id), customerEmail: userSession?.user.email)
             keychainManager.session = userSession?.session
-            do {
-                try storageManager.save(Constants.Persistent.currentUser, object: userSession?.user)
-            } catch {
-                logError("Could not save user \(userSession?.user) with error \(error)")
+            
+            if !storage.save(userSession?.user, forKey: Constants.Persistent.currentUser, type: .PlatformPersistent) {
+                logError("Could not save user \(userSession?.user)")
             }
             userObservable.onNext(userSession?.user)
             sessionObservable.onNext(userSession?.session)
@@ -50,7 +55,7 @@ class UserManager {
     var session: Session? { return userSession?.session }
     var gender: Gender {
         get {
-            guard let genderString = NSUserDefaults.standardUserDefaults().stringForKey(UserManager.genderKey),
+            guard let genderString: String = storage.load(forKey: UserManager.genderKey),
                 let loadedGender = Gender(rawValue: genderString) else {
                     self.gender = UserManager.defaultGender
                     return UserManager.defaultGender
@@ -59,39 +64,43 @@ class UserManager {
         }
         set {
             logInfo("Changed gender to \(newValue.rawValue)")
-            NSUserDefaults.standardUserDefaults().setValue(newValue.rawValue, forKey: UserManager.genderKey)
+            storage.save(newValue.rawValue, forKey: UserManager.genderKey)
             genderObservable.onNext(newValue)
         }
     }
     var shouldSkipStartScreen: Bool {
         get {
-            return NSUserDefaults.standardUserDefaults().boolForKey(UserManager.skipStartScreenKey)
+            return storage.load(forKey: UserManager.skipStartScreenKey) ?? false
         }
         set {
             logInfo("Changed shouldSkipStartScreen to \(shouldSkipStartScreen)")
-            NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: UserManager.skipStartScreenKey)
+            storage.save(newValue, forKey: UserManager.skipStartScreenKey)
             shouldSkipStartScreenObservable.onNext(shouldSkipStartScreen)
         }
     }
     
     let shouldSkipStartScreenObservable = PublishSubject<Bool>()
     
-    init(apiService: ApiService, emarsysService: EmarsysService, keychainManager: KeychainManager, storageManager: StorageManager) {
+    init(apiService: ApiService, emarsysService: EmarsysService, keychainManager: KeychainManager, storage: KeyValueStorage, platformManager: PlatformManager) {
         self.apiService = apiService
         self.emarsysService = emarsysService
         self.keychainManager = keychainManager
-        self.storageManager = storageManager
+        self.storage = storage
+        self.platformManager = platformManager
         
         apiService.dataSource = self
         
         let session = keychainManager.session
-        var user: User?
-        do {
-            user = try storageManager.load(Constants.Persistent.currentUser)
-        } catch {
-            logError("Error while loading current user from cache \(error)")
-        }
+        let user: User? = storage.load(forKey: Constants.Persistent.currentUser, type: .PlatformPersistent)
         userSession = UserSession(user: user, session: session)
+        
+        platformManager.platformObservable.subscribeNext { [weak self] platform in
+            guard let `self` = self else { return }
+            logInfo("Platform changed: \(platform)")
+            if platform.isFemaleOnly {
+                self.gender = .Female
+            }
+        }.addDisposableTo(disposeBag)
     }
     
     func fetchSharedWebCredentials() -> Observable<SharedWebCredential> {
@@ -220,6 +229,7 @@ class UserManager {
             return
         }
         self.apiService.fetchUser()
+            .observeOn(MainScheduler.instance)
             .subscribe { [weak self] (event: Event<User>) in
                 guard let `self` = self else { return }
                 

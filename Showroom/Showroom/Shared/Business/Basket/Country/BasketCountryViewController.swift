@@ -14,7 +14,9 @@ class BasketCountryViewController: UIViewController, BasketCountryViewDelegate {
         
         title = tr(.BasketDeliveryDeliveryCountryTitle)
         
-        basketManager.state.basketObservable.subscribeNext(castView.updateData).addDisposableTo(disposeBag)
+        basketManager.state.basketObservable.subscribeNext { [weak self] basket in
+            self?.castView.updateData(with: basket)
+            }.addDisposableTo(disposeBag)
     }
     
     required init?(coder aDecoder: NSCoder) {

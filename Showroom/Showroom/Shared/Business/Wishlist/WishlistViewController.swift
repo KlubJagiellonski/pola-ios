@@ -17,8 +17,12 @@ class WishlistViewController: UIViewController {
         automaticallyAdjustsScrollViewInsets = false
         
         manager.synchronize()
-        manager.state.wishlistObservable.subscribeNext(updateData).addDisposableTo(disposeBag)
-        manager.state.synchronizationStateObservable.subscribeNext(updateSynchronizing).addDisposableTo(disposeBag)
+        manager.state.wishlistObservable.subscribeNext { [weak self] wishlist in
+            self?.updateData(with: wishlist)
+            }.addDisposableTo(disposeBag)
+        manager.state.synchronizationStateObservable.subscribeNext { [weak self] synchronizing in
+            self?.updateSynchronizing(with: synchronizing)
+            }.addDisposableTo(disposeBag)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -46,7 +50,7 @@ class WishlistViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        markHandoffUrlActivity(withPath: "/c/wishlist")
+        markHandoffUrlActivity(withPathComponent: "/c/wishlist", resolver: resolver)
         castView.refreshImagesIfNeeded()
     }
     
@@ -95,6 +99,15 @@ extension WishlistViewController: WishlistViewDelegate {
         logAnalyticsEvent(AnalyticsEventId.WishlistProductClicked(manager.state.wishlist[safe: indexPath.row]?.id ?? 0))
         
         sendNavigationEvent(ShowProductDetailsEvent(context: context, retrieveCurrentImageViewTag: nil))
+    }
+    
+    func wishlistView(view: WishlistView, widthForDeleteActionViewForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        logInfo("Size for delete actionview for row at index path: \(indexPath)")
+        let platform = self.manager.platformManager.platform!
+        switch platform {
+        case .Polish: return 72.5
+        case .German: return 109
+        }
     }
     
     func viewSwitcherDidTapRetry(view: ViewSwitcher) {

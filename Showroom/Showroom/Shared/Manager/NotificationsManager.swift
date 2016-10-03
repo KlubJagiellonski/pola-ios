@@ -16,17 +16,20 @@ final class NotificationsManager {
     private let api: ApiService
     private let application: UIApplication
     private let disposeBag = DisposeBag()
+    private let storage: KeyValueStorage
+    private var pushWooshManager: PushNotificationManager?
+    private let pushWooshManagerDelegateHandler = PushWooshManagerDelegateHandler()
     
     let shouldShowInSettingsObservable = PublishSubject<Void>()
     
     /// Returns true if native alert for notifications access was preseted to the user.
     private var userAlreadyAskedForNotificationsPermission: Bool {
         get {
-            return NSUserDefaults.standardUserDefaults().boolForKey(userAlreadyAskedForNotificationPermissionKey)
+            return storage.load(forKey: userAlreadyAskedForNotificationPermissionKey) ?? false
         }
         set {
             logInfo("userAlreadyAskedForNotificationsPermission \(newValue)")
-            NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: userAlreadyAskedForNotificationPermissionKey)
+            storage.save(newValue, forKey: userAlreadyAskedForNotificationPermissionKey)
             shouldShowInSettingsObservable.onNext()
         }
     }
@@ -34,45 +37,43 @@ final class NotificationsManager {
     /// Returns true if only notifications acces view was presented to the user.
     private var alreadyShowedNotifcationsAccessView: Bool {
         get {
-            return NSUserDefaults.standardUserDefaults().boolForKey(alreadyShowedNotifcationsAccessViewKey)
+            return storage.load(forKey: alreadyShowedNotifcationsAccessViewKey) ?? false
         }
         set {
             logInfo("alreadyShowedNotifcationsAccessView \(newValue)")
-            NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: alreadyShowedNotifcationsAccessViewKey)
+            storage.save(newValue, forKey: alreadyShowedNotifcationsAccessViewKey)
         }
     }
     
     /// Returns true if user don't want to be reminded about notifications access.
     private var dontShowNotificationsAccesView: Bool {
         get {
-            return NSUserDefaults.standardUserDefaults().boolForKey(dontShowNotificationsAccessViewKey)
+            return storage.load(forKey: dontShowNotificationsAccessViewKey) ?? false
         }
         set {
             logInfo("dontShowNotificationsAccesView \(newValue)")
-            NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: dontShowNotificationsAccessViewKey)
+            storage.save(newValue, forKey: dontShowNotificationsAccessViewKey)
         }
     }
     
     var isRegistered: Bool {
         return application.isRegisteredForRemoteNotifications()
     }
-    private let pushWooshManager = PushNotificationManager.pushManager()
-    private let pushWooshManagerDelegateHandler = PushWooshManagerDelegateHandler()
 
     private var initialDate: NSDate {
         get {
-            let initialTimeInterval = NSUserDefaults.standardUserDefaults().objectForKey(initialDateKey) as? NSTimeInterval
+            let initialTimeInterval: NSTimeInterval? = storage.load(forKey: initialDateKey)
             if let timeInterval = initialTimeInterval {
                 return NSDate(timeIntervalSince1970: timeInterval)
             } else {
                 let initialDate = NSDate()
-                NSUserDefaults.standardUserDefaults().setDouble(initialDate.timeIntervalSince1970, forKey: initialDateKey)
+                storage.save(initialDate.timeIntervalSince1970, forKey: initialDateKey)
                 return initialDate
             }
         }
         set {
             logInfo("initialDate \(newValue)")
-            NSUserDefaults.standardUserDefaults().setDouble(newValue.timeIntervalSince1970, forKey: initialDateKey)
+            storage.save(newValue.timeIntervalSince1970, forKey: initialDateKey)
         }
     }
     var shouldShowInSettings: Bool {
@@ -90,23 +91,46 @@ final class NotificationsManager {
     
     weak var delegate: NotificationsManagerDelegate?
     
-    init(with api: ApiService, and application: UIApplication) {
+    init(with api: ApiService, application: UIApplication, storage: KeyValueStorage, platformManager: PlatformManager) {
         self.api = api
         self.application = application
+        self.storage = storage
         
         pushWooshManagerDelegateHandler.manager = self
+        
+        if let platform = platformManager.platform {
+            configure(forPlatform: platform)
+        }
+        
+        platformManager.platformObservable.subscribeNext { [weak self] platform in
+            self?.configure(forPlatform: platform, informAboutAppLaunch: true)
+        }.addDisposableTo(disposeBag)
+    }
+    
+    private func configure(forPlatform platform: Platform, informAboutAppLaunch: Bool = false) {
+        PushNotificationManager.initializeWithAppCode(platform.pushwooshAppId, appName: NSBundle.appDisplayName)
+        let pushWooshManager = PushNotificationManager.pushManager()
         pushWooshManager.delegate = pushWooshManagerDelegateHandler
         
-        EmarsysManager.setApplicationID(NSBundle.pushwooshAppId)
-        EmarsysManager.setApplicationPassword(Constants.emarsysPushPassword)
+        EmarsysManager.setApplicationID(platform.pushwooshAppId)
+        EmarsysManager.setApplicationPassword(platform.emarsysApplicationPassword)
         EmarsysManager.setCustomerHWID(pushWooshManager.getHWID())
+        
+        if informAboutAppLaunch {
+            pushWooshManager.sendAppOpen()
+            EmarsysManager.appLaunch()
+        }
+        
+        self.pushWooshManager = pushWooshManager
     }
     
     func applicationDidFinishLaunching(withLaunchOptions launchOptions: [NSObject: AnyObject]?) {
         logInfo("Did finish launching with options")
-        EmarsysManager.appLaunch()
-        pushWooshManager.handlePushReceived(launchOptions)
-        pushWooshManager.sendAppOpen()
+        if let pushWooshManager = pushWooshManager {
+            EmarsysManager.appLaunch()
+            pushWooshManager.handlePushReceived(launchOptions)
+            pushWooshManager.sendAppOpen()
+        }
         
         if isRegistered && !userAlreadyAskedForNotificationsPermission {
             userAlreadyAskedForNotificationsPermission = true
@@ -137,6 +161,11 @@ final class NotificationsManager {
     }
     
     func didRegisterForRemoteNotifications(withDeviceToken deviceToken: NSData) {
+        guard let pushWooshManager = pushWooshManager else {
+            logInfo("No pushwoosh manager")
+            return
+        }
+        
         logInfo("Registered for remote notifications with success: \(deviceToken)")
         
         pushWooshManager.handlePushRegistration(deviceToken)
@@ -148,14 +177,14 @@ final class NotificationsManager {
     }
     
     func didReceiveRemoteNotification(userInfo userInfo: [NSObject : AnyObject]) {
-        logInfo("Did receive remote notification \(userInfo)")
-        pushWooshManager.handlePushReceived(userInfo)
+        logInfo("Did receive remote notification \(userInfo) \(pushWooshManager) \(pushWooshManager?.delegate)")
+        pushWooshManager?.handlePushReceived(userInfo)
     }
     
     func didFailToRegisterForRemoteNotifications(with error: NSError) {
         logError("Cannot register for remote notifications \(error)")
         
-        pushWooshManager.handlePushRegistrationFailure(error)
+        pushWooshManager?.handlePushRegistrationFailure(error)
     }
     
     private func didReceive(url url: NSURL) {
@@ -191,6 +220,11 @@ final class PushWooshManagerDelegateHandler: NSObject, PushNotificationDelegate 
         
         var notificationLink: String?
         var notificationId: Int?
+        
+        if let sid = customData["sid"] as? String {
+            logInfo("Sending message open with sid \(sid)")
+            EmarsysManager.messageOpen(sid)
+        }
         
         if let link = customData["link"] as? String, let url = NSURL(string: link), let httpsUrl = url.changeToHTTPSchemeIfNeeded() {
             notificationLink = link
@@ -249,6 +283,26 @@ final class PushWooshManagerDelegateHandler: NSObject, PushNotificationDelegate 
         } catch {
             logError("Could not parse to json \(error)")
             return nil
+        }
+    }
+}
+
+extension Platform {
+    private var pushwooshAppId: String {
+        switch self {
+        case .Polish:
+            return Constants.pushWooshAppId
+        case .German:
+            return Constants.dePushWooshAppId
+        }
+    }
+    
+    var emarsysApplicationPassword: String {
+        switch self {
+        case .Polish:
+            return Constants.emarsysPushPassword
+        case .German:
+            return Constants.deEmarsysPushPassword
         }
     }
 }

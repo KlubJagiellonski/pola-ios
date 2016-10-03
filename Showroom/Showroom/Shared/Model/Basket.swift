@@ -3,17 +3,42 @@ import Decodable
 
 enum DeliveryType: Int {
     case UPS = 2
+    case UPSDe = 3
     case RUCH = 7
     case Unknown = 100
+    
+    var isUps: Bool {
+        return self == .UPS || self == .UPSDe
+    }
 }
 
 enum PaymentType: Int {
     case PayU = 4
+    case PayUDe = 7
     case Cash = 5
     case Gratis = 6
+    case GratisDe = 8
     case PayPal = 11
+    case PayPalDe = 12
     case CreditCard = 13
+    case CreditCardDe = 15
     case Unknown = 100
+    
+    var isPayU: Bool {
+        return self == .PayU || self == .PayUDe
+    }
+    
+    var isGratis: Bool {
+        return self == .Gratis || self == .GratisDe
+    }
+    
+    var isPayPal: Bool {
+        return self == .PayPal || self == .PayPalDe
+    }
+    
+    var isCreditCard: Bool {
+        return self == .CreditCard || self == .CreditCardDe
+    }
 }
 
 struct Basket: Equatable {
@@ -267,6 +292,7 @@ func == (lhs: Basket, rhs: Basket) -> Bool {
         && lhs.basePrice == rhs.basePrice
         && lhs.price == rhs.price
         && lhs.discountErrors == rhs.discountErrors
+        && lhs.payments == rhs.payments
 }
 
 func == (lhs: DeliveryInfo, rhs: DeliveryInfo) -> Bool {
@@ -318,6 +344,7 @@ extension Basket: Decodable, Encodable {
     static func decode(j: AnyObject) throws -> Basket {
         let discount: Money = try j => "coupon" => "discount"
         let errors: [String] = try j => "coupon" => "errors"
+        let payments: [Payment] = (try j => "payment").filter { $0.available && $0.id != .Unknown }
         return try Basket(
             productsByBrands: j => "bags",
             deliveryInfo: j => "delivery",
@@ -325,7 +352,7 @@ extension Basket: Decodable, Encodable {
             discountErrors: errors.count == 0 ? nil : errors,
             basePrice: j => "total" => "msrp",
             price: j => "total" => "price",
-            payments: j => "payment"
+            payments: payments
         )
     }
     

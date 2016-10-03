@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-class ContentPromoDataSource : NSObject, UITableViewDataSource {
+class ContentPromoDataSource: NSObject, UITableViewDataSource {
     private let numberOfSections = 3
     private let numberOfRowsInRecommendationsSection = 2
     private var numberOfContentPromosInFirstSection: Int {
@@ -50,7 +50,7 @@ class ContentPromoDataSource : NSObject, UITableViewDataSource {
         guard let tableView = tableView else {
             return
         }
-        for cell in tableView.visibleCells{
+        for cell in tableView.visibleCells {
             if let contentPromoCell = cell as? ContentPromoCell, let indexPath = tableView.indexPathForCell(cell), let index = contentPromoIndex(with: indexPath) {
                 contentPromoCell.refreshImageIfNeeded(withUrl: contentPromos[index].image.url)
             }

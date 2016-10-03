@@ -12,6 +12,7 @@ class ProductRecommendationDataSource: NSObject, UICollectionViewDataSource {
             guard oldValue != collectionView else { return }
             
             collectionView?.registerClass(ProductRecommendationCell.self, forCellWithReuseIdentifier: String(ProductRecommendationCell))
+            collectionView?.reloadData()
         }
     }
     var viewSwitcherState: ViewSwitcherState = .Loading {
@@ -40,8 +41,16 @@ class ProductRecommendationDataSource: NSObject, UICollectionViewDataSource {
     }
     
     func changeData(productRecommendations: [ProductRecommendation]) {
+        let animateContentChange = !productRecommendations.isEmpty && !self.productRecommendations.isEmpty
         self.productRecommendations = productRecommendations
-        collectionView?.reloadData()
+        
+        guard let collectionView = collectionView else { return }
+        
+        if animateContentChange {
+            collectionView.performBatchUpdates({ collectionView.reloadSections(NSIndexSet(index: 0)) }, completion: nil)
+        } else {
+            collectionView.reloadData()
+        }
     }
     
     func getDataForRow(atIndexPath indexPath: NSIndexPath) -> ProductRecommendation {

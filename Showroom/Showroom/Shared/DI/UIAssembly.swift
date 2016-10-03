@@ -7,7 +7,7 @@ class UIAssembly: AssemblyType {
             return RootViewController(resolver: r.resolve(DiResolver.self)!)!
         }
         container.register(RootModel.self) { r in
-            return RootModel(with: r.resolve(UserManager.self)!, apiService: r.resolve(ApiService.self)!, rateAppManager: r.resolve(RateAppManager.self)!, notificationManager: r.resolve(NotificationsManager.self)!, versionManager: r.resolve(VersionManager.self)!)
+            return RootModel(with: r.resolve(UserManager.self)!, apiService: r.resolve(ApiService.self)!, rateAppManager: r.resolve(RateAppManager.self)!, notificationManager: r.resolve(NotificationsManager.self)!, versionManager: r.resolve(VersionManager.self)!, platformManager: r.resolve(PlatformManager.self)!, prefetchingManager: r.resolve(PrefetchingManager.self)!, storage: r.resolve(KeyValueStorage.self)!)
         }
         container.register(StartViewController.self) { r in
             return StartViewController(resolver: r.resolve(DiResolver.self)!)
@@ -25,13 +25,13 @@ class UIAssembly: AssemblyType {
             return DashboardViewController(resolver: r.resolve(DiResolver.self)!)
         }
         container.register(DashboardModel.self) { r in
-            return DashboardModel(apiService: r.resolve(ApiService.self)!, userManager: r.resolve(UserManager.self)!, storageManager: r.resolve(StorageManager.self)!, emarsysService: r.resolve(EmarsysService.self)!)
+            return DashboardModel(apiService: r.resolve(ApiService.self)!, userManager: r.resolve(UserManager.self)!, storage: r.resolve(KeyValueStorage.self)!, prefetchingManager: r.resolve(PrefetchingManager.self)!, emarsysService: r.resolve(EmarsysService.self)!)
         }
         container.register(SearchViewController.self) { r in
             return SearchViewController(with: r.resolve(DiResolver.self)!)
         }
         container.register(SearchModel.self) { r in
-            return SearchModel(with: r.resolve(ApiService.self)!, and: r.resolve(StorageManager.self)!, and: r.resolve(UserManager.self)!)
+            return SearchModel(with: r.resolve(ApiService.self)!, and: r.resolve(KeyValueStorage.self)!, and: r.resolve(UserManager.self)!)
         }
         container.register(SettingsViewController.self) { r in
             return SettingsViewController(resolver: r.resolve(DiResolver.self)!)
@@ -58,7 +58,7 @@ class UIAssembly: AssemblyType {
             return ProductPageViewController(resolver: r.resolve(DiResolver.self)!, productId: productId, product: product)
         }
         container.register(ProductPageModel.self) { r, productId, product in
-            return ProductPageModel(api: r.resolve(ApiService.self)!, basketManager: r.resolve(BasketManager.self)!, storageManager: r.resolve(StorageManager.self)!, wishlistManager: r.resolve(WishlistManager.self)!, productId: productId, product: product)
+            return ProductPageModel(api: r.resolve(ApiService.self)!, basketManager: r.resolve(BasketManager.self)!, storage: r.resolve(KeyValueStorage.self)!, wishlistManager: r.resolve(WishlistManager.self)!, productId: productId, product: product)
         }
         container.register(ProductDescriptionNavigationController.self) { r, state, contentInset in
             return ProductDescriptionNavigationController(resolver: r.resolve(DiResolver.self)!, state: state, viewContentInset: contentInset)
@@ -103,7 +103,7 @@ class UIAssembly: AssemblyType {
             return CheckoutSummaryCommentViewController(resolver: r.resolve(DiResolver.self)!, comment: comment, index: index)
         }
         container.register(CheckoutModel.self) { r, checkout in
-            return CheckoutModel(with: checkout, userManager: r.resolve(UserManager.self)!, payUManager: r.resolve(PayUManager.self)!, api: r.resolve(ApiService.self)!, basketManager: r.resolve(BasketManager.self)!, emarsysService: r.resolve(EmarsysService.self)!)
+            return CheckoutModel(with: checkout, userManager: r.resolve(UserManager.self)!, platformManager: r.resolve(PlatformManager.self)!, paymentManager: r.resolve(PaymentManager.self)!, api: r.resolve(ApiService.self)!, basketManager: r.resolve(BasketManager.self)!, emarsysService: r.resolve(EmarsysService.self)!)
         }
         container.register(CategoryProductListViewController.self) { r, category in
             return CategoryProductListViewController(withResolver: r.resolve(DiResolver.self)!, category: category)
@@ -204,8 +204,12 @@ class UIAssembly: AssemblyType {
         container.register(NotificationsAccessViewController.self) { r, type in
             return NotificationsAccessViewController(with: type, manager: r.resolve(NotificationsManager.self)!)
         }
-        container.register(UpdateAppViewController.self) { r in
-            return UpdateAppViewController(manager: r.resolve(VersionManager.self)!, application: r.resolve(UIApplication.self)!)
+        container.register(UpdateAppViewController.self) { r, imageUrl in
+            return UpdateAppViewController(manager: r.resolve(VersionManager.self)!, application: r.resolve(UIApplication.self)!, imageUrl: imageUrl)
         }
+        container.register(PlatformSelectionViewController.self) { r in
+            return PlatformSelectionViewController(platformManager: r.resolve(PlatformManager.self)!)
+        }
+
     }
 }

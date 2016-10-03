@@ -87,10 +87,6 @@ struct SigningFieldsErrors {
     let newsletter: String?
 }
 
-enum SharedWebCredentialsError: ErrorType {
-    case Unknown(CFError?)
-}
-
 // MARK: - Decodable, Encodable
 
 extension Login: Encodable {

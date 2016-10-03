@@ -79,7 +79,7 @@ extension UIButton {
     
     func applyGhostStyle() {
         layer.borderColor = UIColor(named: .Black).CGColor
-        layer.borderWidth = 2;
+        layer.borderWidth = 2
         setTitleColor(UIColor(named: .Black), forState: .Normal)
         setTitleColor(UIColor(named: .White), forState: .Highlighted)
         setBackgroundImage(UIImage.fromColor(UIColor(named: .White)), forState: .Normal)

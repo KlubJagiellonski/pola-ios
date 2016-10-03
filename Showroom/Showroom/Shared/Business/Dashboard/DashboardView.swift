@@ -37,7 +37,7 @@ class DashboardView: ViewSwitcher, ContentInsetHandler, UITableViewDelegate, UIC
         }
     }
     
-    init(modelState: DashboardModelState) {
+    init() {
         dataSource = ContentPromoDataSource(tableView: tableView)
         
         super.init(successView: tableView)
@@ -45,20 +45,6 @@ class DashboardView: ViewSwitcher, ContentInsetHandler, UITableViewDelegate, UIC
         switcherDataSource = self
         dataSource.recommendationsDataSource.viewSwitcherDataSource = self
         dataSource.recommendationsDataSource.viewSwitcherDelegate = self
-        
-        modelState.recommendationsResultObservable.subscribeNext { [weak self] result in
-            guard let recommendations = result?.productRecommendations else { return }
-            self?.changeProductRecommendations(recommendations)
-        }.addDisposableTo(disposeBag)
-        modelState.contentPromoObservable.subscribeNext { [weak self] result in
-            guard let promos = result?.contentPromos else { return }
-            self?.changeContentPromos(promos)
-        }.addDisposableTo(disposeBag)
-        modelState.recommendationsIndexObservable.subscribeNext { [weak self] index in
-            guard let index = index else { return }
-            self?.dataSource.recommendationsDataSource.moveToPosition(atIndex: index, animated: false)
-        }.addDisposableTo(disposeBag)
-        
         dataSource.recommendationCollectionViewDelegate = self
         
         tableView.delegate = self
@@ -78,12 +64,16 @@ class DashboardView: ViewSwitcher, ContentInsetHandler, UITableViewDelegate, UIC
         dataSource.refreshImagesIfNeeded()
     }
     
-    private func changeContentPromos(contentPromos: [ContentPromo]) {
+    func changeContentPromos(contentPromos: [ContentPromo]) {
         dataSource.changeData(contentPromos)
     }
     
-    private func changeProductRecommendations(productRecommendations: [ProductRecommendation]) {
+    func changeProductRecommendations(productRecommendations: [ProductRecommendation]) {
         dataSource.recommendationsDataSource.changeData(productRecommendations)
+    }
+    
+    func moveToRecommendation(atIndex index: Int) {
+        dataSource.recommendationsDataSource.moveToPosition(atIndex: index, animated: false)
     }
     
     // MARK: - UITableViewDelegate

@@ -15,27 +15,24 @@ extension Checkout {
     }
 }
 
-enum PaymentError: ErrorType {
-    case CannotCreatePayment
-    case PaymentRequestFailed(ErrorType)
-}
-
 final class CheckoutModel {
     private let disposeBag = DisposeBag()
     private let userManager: UserManager
-    private let payUManager: PayUManager
     private let basketManager: BasketManager
+    private let platformManager: PlatformManager
+    private let paymentManager: PaymentManager
     private let api: ApiService
     private let emarsysService: EmarsysService
     let state: CheckoutState
-    weak var payUDelegate: PUPaymentServiceDelegate? {
-        set { payUManager.serviceDelegate = newValue }
-        get { return payUManager.serviceDelegate }
+    weak var paymentDelegate: PaymentHandlerDelegate? {
+        set { paymentManager.currentPaymentHandler?.delegate = newValue }
+        get { return paymentManager.currentPaymentHandler?.delegate }
     }
     
-    init(with checkout: Checkout, userManager: UserManager, payUManager: PayUManager, api: ApiService, basketManager: BasketManager, emarsysService: EmarsysService) {
+    init(with checkout: Checkout, userManager: UserManager, platformManager: PlatformManager, paymentManager: PaymentManager, api: ApiService, basketManager: BasketManager, emarsysService: EmarsysService) {
         self.userManager = userManager
-        self.payUManager = payUManager
+        self.platformManager = platformManager
+        self.paymentManager = paymentManager
         self.api = api
         self.basketManager = basketManager
         self.emarsysService = emarsysService
@@ -43,8 +40,7 @@ final class CheckoutModel {
         let comments = [String?](count: checkout.basket.productsByBrands.count, repeatedValue: nil)
         let userAddresses = checkout.user.userAddresses
         let selectedPayment = checkout.defaultPayment
-        let buyButtonEnabled = selectedPayment.id.isBuyButtonEnabled(with: payUManager)
-        state = CheckoutState(checkout: checkout, comments: comments, selectedAddress: userAddresses.first, userAddresses: userAddresses, selectedPayment: selectedPayment, buyButtonEnabled: buyButtonEnabled)
+        state = CheckoutState(checkout: checkout, comments: comments, selectedAddress: userAddresses.first, userAddresses: userAddresses, selectedPayment: selectedPayment, buyButtonEnabled: false)
     }
     
     func update(comment comment: String?, at index: Int) {
@@ -76,7 +72,7 @@ final class CheckoutModel {
     }
     
     func payUButton(withFrame frame: CGRect) -> UIView? {
-        return payUManager.paymentButton(withFrame: frame)
+        return paymentManager.currentPaymentHandler?.createPayMethodView(frame, forType: .PayU)
     }
     
     func update(withSelected kiosk: Kiosk) -> Observable<Void> {
@@ -91,9 +87,13 @@ final class CheckoutModel {
         }.flatMap { _ in Observable.just() }
     }
     
-    func updateSelectedPayment(forIndex index: Int) {
-        logInfo("Update selected payment for index: \(index)")
-        state.selectedPayment = state.checkout.basket.payments[index]
+    func updateSelectedPayment(forType type: PaymentType) {
+        logInfo("Update selected payment for type: \(type)")
+        guard let selectedPayment = state.checkout.basket.payments.find({ $0.id == type }) else {
+            logError("Cannot retrieve payment with id \(type) from payments \(state.checkout.basket.payments)")
+            return
+        }
+        state.selectedPayment = selectedPayment
         updateBuyButtonState()
     }
     
@@ -103,7 +103,7 @@ final class CheckoutModel {
     }
     
     func updateBuyButtonState() {
-        state.buyButtonEnabled.value = state.selectedPayment.id.isBuyButtonEnabled(with: payUManager)
+        state.buyButtonEnabled.value = paymentManager.currentPaymentHandler?.isPayMethodSelected(forType: state.selectedPayment.id) ?? false
     }
     
     func update(with userAddress: EditUserAddress) -> Observable<UserAddress> {
@@ -143,35 +143,32 @@ final class CheckoutModel {
             }
     }
     
+    func initializePaymentHandler() {
+        logInfo("Initializing payment handler")
+        paymentManager.initializePaymentHandler(with: state.checkout.basket.payments)
+        updateBuyButtonState()
+    }
+    
+    func invalidatePaymentHandler() {
+        logInfo("Invalidating payment handler")
+        paymentManager.invalidatePaymentHandler()
+    }
+
+    
     func makePayment() -> Observable<PaymentResult> {
-        guard let paymentRequest = PaymentRequest(with: state) else {
-            logError("Cannot create payment request")
-            return Observable.error(PaymentError.CannotCreatePayment)
+        guard let paymentHandler = paymentManager.currentPaymentHandler else {
+            logError("No payment handler")
+            return Observable.error(PaymentHandlerError.NoPaymentHandler)
         }
-        
-        let request = api.createPayment(with: paymentRequest).doOnNext { [weak self] result in
-            guard let `self` = self else { return }
-            self.emarsysService.sendPurchaseEvent(withOrderId: result.orderId, products: self.state.checkout.basket.products)
+        guard let paymentInfo = PaymentInfo(with: state, platformManager: platformManager) else {
+            logError("Cannot create payment info \(state), \(platformManager.platform)")
+            return Observable.error(PaymentHandlerError.CannotCreatePayment)
         }
-        
-        if state.selectedPayment.id == .PayU {
-            return Observable.create { [unowned self] observer in
-                request.subscribe { [weak self](event: Event<PaymentResult>) in
-                    guard let `self` = self else { return }
-                    
-                    switch event {
-                    case .Next(let result):
-                        self.payUManager.makePayment(with: result).subscribe(observer)
-                    case .Error(let error):
-                        observer.onError(PaymentError.PaymentRequestFailed(error))
-                        observer.onCompleted()
-                    default: break
-                    }
-                }
+        return paymentHandler.makePayment(forPaymentType: state.selectedPayment.id, info: paymentInfo)
+            .doOnNext { [weak self] result in
+                guard let `self` = self else { return }
+                self.emarsysService.sendPurchaseEvent(withOrderId: result.orderId, products: self.state.checkout.basket.products)
             }.observeOn(MainScheduler.instance)
-        } else {
-            return request.catchError { Observable.error(PaymentError.PaymentRequestFailed($0)) }.observeOn(MainScheduler.instance)
-        }
     }
     
     func clearBasket() {
@@ -183,21 +180,6 @@ final class CheckoutModel {
 extension BasketRequest {
     private init(from checkout: Checkout, deliveryPop: ObjectId) {
         self.init(from: checkout.basket, countryCode: checkout.deliveryCountry.id, deliveryType: checkout.deliveryCarrier.id, discountCode: checkout.discountCode, deliveryPop: deliveryPop)
-    }
-}
-
-extension PaymentType {
-    func isBuyButtonEnabled(with payUManager: PayUManager) -> Bool {
-        switch self {
-        case .Cash:
-            return true
-        case .PayU:
-            return payUManager.currentPaymentMethod != nil
-        case .Gratis:
-            return true
-        default:
-            return false
-        }
     }
 }
 

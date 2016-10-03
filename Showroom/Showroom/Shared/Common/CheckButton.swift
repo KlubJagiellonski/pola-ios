@@ -60,6 +60,7 @@ class CheckButton: UIControl {
         titleLabel.backgroundColor = UIColor(named: .White)
         titleLabel.font = UIFont(fontType: .FormNormal)
         titleLabel.text = title
+        titleLabel.numberOfLines = 0
         
         boxView.layer.borderColor = UIColor(named: .Black).CGColor
         boxView.layer.borderWidth = 1
@@ -114,16 +115,17 @@ class CheckButton: UIControl {
         
         boxView.setContentHuggingPriority(UILayoutPriorityDefaultHigh, forAxis: .Horizontal)
         boxView.snp_makeConstraints { make in
+            make.top.equalToSuperview()
             make.width.equalTo(CheckButton.checkBoxSize)
             make.height.equalTo(CheckButton.checkBoxSize)
             make.left.equalToSuperview()
-            make.centerY.equalToSuperview()
         }
         
         titleLabel.setContentHuggingPriority(UILayoutPriorityDefaultLow, forAxis: .Horizontal)
         titleLabel.snp_makeConstraints { make in
             make.leading.equalTo(boxView.snp_trailing).offset(CheckButton.checkBoxMargin)
-            make.centerY.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.top.equalToSuperview()
         }
         
         contentView.snp_makeConstraints { make in

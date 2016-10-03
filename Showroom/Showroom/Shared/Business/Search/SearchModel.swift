@@ -3,7 +3,7 @@ import RxSwift
 
 final class SearchModel {
     private let api: ApiService
-    private let storageManager: StorageManager
+    private let storage: KeyValueStorage
     private let userManager: UserManager
     
     private(set) var searchResult: SearchResult?
@@ -14,9 +14,9 @@ final class SearchModel {
         return userManager.genderObservable
     }
     
-    init(with api: ApiService, and storageManager: StorageManager, and userManager: UserManager) {
+    init(with api: ApiService, and storage: KeyValueStorage, and userManager: UserManager) {
         self.api = api
-        self.storageManager = storageManager
+        self.storage = storage
         self.userManager = userManager
     }
     
@@ -24,7 +24,7 @@ final class SearchModel {
         let existingResult = searchResult
         let memoryCache: Observable<SearchResult> = existingResult == nil ? Observable.empty() : Observable.just(existingResult!)
         
-        let diskCache: Observable<SearchResult> = Observable.retrieveFromCache(Constants.Cache.searchCatalogueId, storageManager: storageManager)
+        let diskCache: Observable<SearchResult> = Observable.load(forKey: Constants.Cache.searchCatalogueId, storage: storage, type: .Persistent)
             .subscribeOn(ConcurrentDispatchQueueScheduler(globalConcurrentQueueQOS: .Background))
         
         let cacheCompose = Observable.of(memoryCache, diskCache)
@@ -33,7 +33,7 @@ final class SearchModel {
             .catchError { Observable.just(FetchCacheResult.CacheError($0)) }
         
         let network = api.fetchSearchCatalogue()
-            .saveToCache(Constants.Cache.searchCatalogueId, storageManager: storageManager)
+            .save(forKey: Constants.Cache.searchCatalogueId, storage: storage, type: .Persistent)
             .map { FetchCacheResult.Success($0) }
             .catchError { Observable.just(FetchCacheResult.NetworkError($0)) }
         

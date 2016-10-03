@@ -4,7 +4,6 @@ import RxCocoa
 
 final class CheckoutSummaryViewController: UIViewController, CheckoutSummaryViewDelegate {
     private let disposeBag = DisposeBag()
-    private let manager: BasketManager
     private let model: CheckoutModel
     private var castView: CheckoutSummaryView { return view as! CheckoutSummaryView }
     private let resolver: DiResolver
@@ -13,20 +12,24 @@ final class CheckoutSummaryViewController: UIViewController, CheckoutSummaryView
     
     init(resolver: DiResolver, model: CheckoutModel) {
         self.resolver = resolver
-        self.manager = resolver.resolve(BasketManager.self)
         self.toastManager = resolver.resolve(ToastManager.self)
         self.model = model
         super.init(nibName: nil, bundle: nil)
         
-        model.payUDelegate = self
+        model.initializePaymentHandler()
+        model.paymentDelegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        model.invalidatePaymentHandler()
+    }
+    
     override func loadView() {
-        view = CheckoutSummaryView() { [unowned self] payUButtonFrame in
+        view = CheckoutSummaryView(with: model.state.checkout, comments: model.state.comments) { [unowned self] payUButtonFrame in
             guard let button = self.model.payUButton(withFrame: payUButtonFrame) else {
                 self.sendNavigationEvent(SimpleNavigationEvent(type: .Close))
                 return UIView()
@@ -40,10 +43,7 @@ final class CheckoutSummaryViewController: UIViewController, CheckoutSummaryView
         
         castView.delegate = self
         commentAnimator.delegate = self
-        
-        let discountCode = manager.state.basket?.discountErrors == nil ? manager.state.discountCode : nil
-        castView.updateData(with: manager.state.basket, carrier: manager.state.deliveryCarrier, discountCode: discountCode, comments: model.state.comments)
-        
+
         model.state.buyButtonEnabled.asObservable().subscribeNext { [weak self] enabled in
             self?.castView.update(buyButtonEnabled: enabled)
         }.addDisposableTo(disposeBag)
@@ -69,8 +69,16 @@ final class CheckoutSummaryViewController: UIViewController, CheckoutSummaryView
         var paymentResult: PaymentResult?
         var clearBasket = false
         
-        if let paymentError = error as? PaymentError {
+        let handlePayUError: PaymentResult -> Void = { result in
+            //it means that something went wrong with PayU payment. Show error view and clear basket. Possible that payment went ok
+            logInfo("PayU error: something went wrong with payU payment. Show error view and clear basket. It is possible that payment went ok.")
+            paymentResult = result
+            clearBasket = true
+        }
+        
+        if let paymentError = error as? PaymentHandlerError {
             switch paymentError {
+            case .NoPaymentHandler: break
             case .CannotCreatePayment:
                 //means that something is wrong with input data. Cancel payment and show basket.
                 logError("Payment error: cannot create payment. There is something wrong with input data. Cancel payment and show basket.")
@@ -89,21 +97,30 @@ final class CheckoutSummaryViewController: UIViewController, CheckoutSummaryView
                         logInfo("Payment error: payment request failed with status code \(response.statusCode): server error. Try again if possible.")
                         errorToast = tr(.CommonError)
                     }
+                } else if let apiError = requestFailedError as? ApiError {
+                    logInfo("API error: \(apiError)")
+                    errorToast = tr(.CommonUserLoggedOut)
+                    moveToBasket = true
                 } else {
                     //other http error or NSURLDomainError - treat as 5xx
                     logInfo("Payment error: payment request failed: unknown http error or NSURLDomainError")
                     errorToast = tr(.CommonError)
                 }
+            case .PayUInvalidRequest(let result): handlePayUError(result)
+            case .PayUUserWantsRetry(let result): handlePayUError(result)
+            case .PayUCancelled(let result): handlePayUError(result)
+            case .BrainTreeFetchingTokenError(let fetchingTokenError):
+                logInfo("Cannot fetch braintree token \(fetchingTokenError)")
+                errorToast = tr(.CommonError)
+            case .BrainTreeError(let unknownError):
+                logInfo("Cannot retrieve nonce with error \(unknownError)")
+                errorToast = tr(.CommonError)
+            case .BrainTreeCreatingClientError:
+                logInfo("Cannot create client error")
+                errorToast = tr(.CommonError)
+            case .BrainTreeCancelled:
+                logInfo("User cancelled braintree payment")
             }
-        } else if let payUError = error as? PayUPaymentError {
-            //it means that something went wrong with PayU payment. Show error view and clear basket. Possible that payment went ok
-            logInfo("PayU error: something went wrong with payU payment. Show error view and clear basket. It is possible that payment went ok.")
-            paymentResult = payUError.paymentResult
-            clearBasket = true
-        } else if error is ApiError {
-            logInfo("API error: \(error)")
-            errorToast = tr(.CommonUserLoggedOut)
-            moveToBasket = true
         } else {
             //shouldn't happen
             fatalError("Received wrong error: \(error)")
@@ -146,9 +163,9 @@ final class CheckoutSummaryViewController: UIViewController, CheckoutSummaryView
         castView.updateData(withComments: model.state.comments)
     }
     
-    func checkoutSummaryView(view: CheckoutSummaryView, didSelectPaymentAt index: Int) {
+    func checkoutSummaryView(view: CheckoutSummaryView, didSelectPaymentWithType type: PaymentType) {
         logInfo("Checkout summary view did select payment at index: \(index)")
-        model.updateSelectedPayment(forIndex: index)
+        model.updateSelectedPayment(forType: type)
         logAnalyticsEvent(AnalyticsEventId.CheckoutSummaryPaymentMethodClicked(model.state.selectedPayment.id.rawValue))
     }
     
@@ -202,14 +219,14 @@ extension CheckoutSummaryViewController: CheckoutSummaryCommentViewControllerDel
     }
 }
 
-extension CheckoutSummaryViewController: PUPaymentServiceDelegate {
-    func paymentServiceDidRequestPresentingViewController(viewController: UIViewController!) {
-        logInfo("Payment service did request presenting view controller: \(viewController)")
-        presentViewController(viewController, animated: true, completion: nil)
+extension CheckoutSummaryViewController: PaymentHandlerDelegate {
+    func paymentHandlerDidChange() {
+        logInfo("Payment service did change")
+        model.updateBuyButtonState()
     }
     
-    func paymentServiceDidSelectPaymentMethod(paymentMethod: PUPaymentMethodDescription!) {
-        logInfo("Payment service did select payment method: \(paymentMethod)")
-        model.updateBuyButtonState()
+    func paymentHandlerWantsPresentViewController(viewController: UIViewController) {
+        logInfo("Payment service did request presenting view controller: \(viewController)")
+        presentViewController(viewController, animated: true, completion: nil)
     }
 }

@@ -6,8 +6,10 @@ import MessageUI
 class SettingsViewController: UIViewController {
     private let userManager: UserManager
     private let notificationsManager: NotificationsManager
+    private let platformManager: PlatformManager
     private let disposeBag = DisposeBag()
     private let toastManager: ToastManager
+    private let versionManager: VersionManager
     private var castView: SettingsView { return view as! SettingsView }
     
     private var firstLayoutSubviewsPassed = false
@@ -28,6 +30,8 @@ class SettingsViewController: UIViewController {
         self.userManager = resolver.resolve(UserManager.self)
         self.notificationsManager = resolver.resolve(NotificationsManager.self)
         self.toastManager = resolver.resolve(ToastManager.self)
+        self.platformManager = resolver.resolve(PlatformManager.self)
+        self.versionManager = resolver.resolve(VersionManager.self)
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -70,7 +74,7 @@ class SettingsViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        markHandoffUrlActivity(withPath: "/")
+        markHandoffUrlActivity(withPathComponent: "/", resolver: resolver)
         castView.deselectRowsIfNeeded()
     }
 
@@ -78,46 +82,50 @@ class SettingsViewController: UIViewController {
         logInfo("Updating settings with user exist \(user != nil)")
         
         var settings = [
-            Setting(type: .Header, action: self.facebookButtonPressed, secondaryAction: self.instagramButtonPressed, cellClickable: false),
+            Setting(type: .Header, action: { [weak self] in self?.facebookButtonPressed() }, secondaryAction: { [weak self] in self?.instagramButtonPressed() }, cellClickable: false),
             ]
+        
         if let user = user {
-            settings.append(
-                Setting(type: .Logout, labelString: tr(.CommonGreeting(user.name)), action: self.logoutButtonPressed, cellClickable: false)
-            )
+            settings.append(Setting(type: .Logout, labelString: tr(.CommonGreeting(user.name)), action: { [weak self] in self?.logoutButtonPressed() }, cellClickable: false))
         } else {
-            settings.append(
-                Setting(type: .Login, action: self.loginButtonPressed, secondaryAction: self.createAccountButtonPressed, cellClickable: false)
-            )
+            settings.append(Setting(type: .Login, action: { [weak self] in self?.loginButtonPressed() }, secondaryAction: { [weak self] in self?.createAccountButtonPressed() }, cellClickable: false))
         }
-        settings.append(
-            Setting(type: .Gender, labelString: tr(.SettingsDefaultOffer), action: self.femaleButtonPressed, secondaryAction: self.maleButtonPressed, cellClickable: false, value: self.userManager.gender)
-        )
+        
+        if platformManager.platform!.isFemaleOnly == false {
+            settings.append(Setting(type: .Gender, action: { [weak self] in self?.femaleButtonPressed() }, secondaryAction: { [weak self] in self?.maleButtonPressed() }, cellClickable: false, value: self.userManager.gender))
+        }
+                
         if notificationsManager.shouldShowInSettings {
             settings.append(
-                Setting(type: .AskForNotification, action: self.askForNotificationPressed, cellClickable: false)
+                Setting(type: .AskForNotification, action: { [weak self] in self?.askForNotificationPressed() }, cellClickable: false)
             )
         }
+        
         if user != nil {
-            settings.append(Setting(type: .Normal, labelString: tr(.SettingsUserData), action: self.userDataRowPressed))
-            settings.append(Setting(type: .Normal, labelString: tr(.SettingsHistory), action: self.historyRowPressed))
+            settings.append(Setting(type: .Normal, labelString: tr(.SettingsUserData), action: { [weak self] in self?.userDataRowPressed() }))
+            settings.append(Setting(type: .Normal, labelString: tr(.SettingsHistory), action: { [weak self] in self?.historyRowPressed() }))
         }
+        
         settings.appendContentsOf([
-            Setting(type: .Normal, labelString: tr(.SettingsSendReport), action: self.sendReportPressed),
-            Setting(type: .Normal, labelString: tr(.SettingsFrequentQuestions), action: self.frequentQuestionsRowPressed),
-            Setting(type: .Normal, labelString: tr(.SettingsHowToMeasure), action: self.howToMeasureRowPressed),
-            Setting(type: .Normal, labelString: tr(.SettingsContact), action: self.contactRowPressed),
-            Setting(type: .Normal, labelString: tr(.SettingsRules), action: self.rulesRowPressed),
-            Setting(type: .Normal, labelString: tr(.SettingsPrivacyPolicy), action: self.privacyPolicyRowPressed)
+            Setting(type: .Normal, labelString: tr(.SettingsSendReport), action: { [weak self] in self?.sendReportPressed() }),
+            Setting(type: .Normal, labelString: tr(.SettingsFrequentQuestions), action: { [weak self] in self?.frequentQuestionsRowPressed() }),
+            Setting(type: .Normal, labelString: tr(.SettingsHowToMeasure), action: { [weak self] in self?.howToMeasureRowPressed() }),
+            Setting(type: .Normal, labelString: tr(.SettingsContact), action: { [weak self] in self?.contactRowPressed() }),
+            Setting(type: .Normal, labelString: tr(.SettingsRules), action: { [weak self] in self?.rulesRowPressed() }),
+            Setting(type: .Normal, labelString: tr(.SettingsPrivacyPolicy), action: { [weak self] in self?.privacyPolicyRowPressed() }),
+            Setting(type: .Platform, labelString: tr(.SettingsPlatform), secondaryLabelString: platformManager.platform?.platformString, action: { [weak self] in self?.platformRowPressed() })
             ])
+        
         if !Constants.isAppStore {
-            settings.append(Setting(type: .Normal, labelString: "Pokaż onboarding", action: self.showOnboarding))
-            settings.append(Setting(type: .Normal, labelString: "Pokaż in-app wishlist onboarding", action: self.showInAppWishlistOnboarding))
-            settings.append(Setting(type: .Normal, labelString: "Pokaż in-app paging onboarding", action: self.showInAppPagingOnboarding))
-            settings.append(Setting(type: .Normal, labelString: "Pokaż oceń nas (po czasie)", action: self.showRateAppAfterTime))
-            settings.append(Setting(type: .Normal, labelString: "Pokaż oceń nas (po zakupie)", action: self.showRateAppAfterBuy))
-            settings.append(Setting(type: .Normal, labelString: "Pokaż pytanie o powiadomienia (po czasie)", action: self.showNotificationsAccessAfterTime))
-            settings.append(Setting(type: .Normal, labelString: "Pokaż pytanie o powiadomienia (schowek)", action: self.showNotificationsAccessAfterWishlist))
-            settings.append(Setting(type: .Normal, labelString: "Pokaż pytanie o aktualizację", action: self.showUpdateApp))
+            settings.append(Setting(type: .Normal, labelString: "Pokaż onboarding", action: { [weak self] in self?.showOnboarding() }))
+            settings.append(Setting(type: .Normal, labelString: "Pokaż in-app wishlist onboarding", action: { [weak self] in self?.showInAppWishlistOnboarding() }))
+            settings.append(Setting(type: .Normal, labelString: "Pokaż in-app paging onboarding", action: { [weak self] in self?.showInAppPagingOnboarding() }))
+            settings.append(Setting(type: .Normal, labelString: "Pokaż oceń nas (po czasie)", action: { [weak self] in self?.showRateAppAfterTime() }))
+            settings.append(Setting(type: .Normal, labelString: "Pokaż oceń nas (po zakupie)", action: { [weak self] in self?.showRateAppAfterBuy() }))
+            settings.append(Setting(type: .Normal, labelString: "Pokaż pytanie o powiadomienia (po czasie)", action: { [weak self] in self?.showNotificationsAccessAfterTime() }))
+            settings.append(Setting(type: .Normal, labelString: "Pokaż pytanie o powiadomienia (schowek)", action: { [weak self] in self?.showNotificationsAccessAfterWishlist() }))
+            settings.append(Setting(type: .Normal, labelString: "Pokaż pytanie o aktualizację", action: { [weak self] in self?.showUpdateApp() }))
+            settings.append(Setting(type: .Normal, labelString: "Pokaż initial platform selection", action: { [weak self] in self?.showInitialPlatformSelection() }))
         }
         
         castView.updateData(with: settings)
@@ -174,6 +182,11 @@ class SettingsViewController: UIViewController {
     func maleButtonPressed() {
         logInfo("maleButtonPressed")
         didChange(gender: .Male)
+    }
+    
+    func platformRowPressed() {
+        logInfo("platform selection row pressed")
+        sendNavigationEvent(SimpleNavigationEvent(type: .ShowSettingsPlatformSelection))
     }
     
     func askForNotificationPressed() {
@@ -233,7 +246,7 @@ class SettingsViewController: UIViewController {
     }
     
     func showOnboarding() {
-        sendNavigationEvent(SimpleNavigationEvent(type: .ShowOnboaridng))
+        sendNavigationEvent(SimpleNavigationEvent(type: .ShowOnboarding))
     }
     
     func showInAppWishlistOnboarding() {
@@ -277,9 +290,17 @@ class SettingsViewController: UIViewController {
     }
     
     func showUpdateApp() {
-        let viewController = self.resolver.resolve(UpdateAppViewController.self)
-        viewController.delegate = self
-        formSheetAnimator.presentViewController(viewController, presentingViewController: self)
+        self.versionManager.fetchLatestVersion()
+            .subscribeNext { [weak self](appVersion: AppVersion) in
+                guard let `self` = self else { return }
+                let viewController = self.resolver.resolve(UpdateAppViewController.self, argument: appVersion.promoImageUrl)
+                viewController.delegate = self
+                self.formSheetAnimator.presentViewController(viewController, presentingViewController: self)
+        }.addDisposableTo(self.disposeBag)
+    }
+    
+    func showInitialPlatformSelection() {
+        sendNavigationEvent(SimpleNavigationEvent(type: .ShowInitialPlatformSelection))
     }
     
     func sendReportPressed() {
@@ -292,10 +313,15 @@ class SettingsViewController: UIViewController {
             return
         }
         
+        guard let reportEmail = platformManager.reportEmail else {
+            logError("Cannot report email with platform \(platformManager.platform)")
+            return
+        }
+        
         let viewController = MFMailComposeViewController()
         viewController.mailComposeDelegate = self
         viewController.setSubject(tr(.SettingsSendReportTitle))
-        viewController.setToRecipients([Constants.reportEmail])
+        viewController.setToRecipients([reportEmail])
         if let deviceInfo = generateReportDeviceInfo() {
             viewController.addAttachmentData(deviceInfo, mimeType: "text/plain", fileName: "report.txt")
         }
@@ -312,6 +338,7 @@ class SettingsViewController: UIViewController {
         let device = UIDevice.currentDevice()
         
         var deviceInfo = ""
+        deviceInfo += "platform: \(platformManager.platform)"
         deviceInfo += "systemInfo: \(device.systemName), \(device.systemVersion)\n"
         deviceInfo += "deviceInfo: \(device.name), \(device.model), \(device.screenType.rawValue), \(device.modelName)\n"
         deviceInfo += "appInfo: \(NSBundle.appVersionNumber), \(NSBundle.appBuildNumber)\n"
@@ -372,5 +399,14 @@ extension SettingsViewController: MFMailComposeViewControllerDelegate {
     func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
         logInfo("Did finish mail composing \(result)")
         dismissViewControllerAnimated(true, completion: nil)
+    }
+}
+
+extension Platform {
+    private var platformString: String {
+        switch self {
+        case Polish: return "showroom.pl"
+        case German: return "showroom.de"
+        }
     }
 }

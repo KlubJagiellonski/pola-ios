@@ -2,9 +2,19 @@ import Foundation
 import UIKit
 import JLRoutes
 
-class CommonNavigationHandler: NavigationHandler {
+extension Platform {
+    var brandPathComponent: String {
+        switch self {
+        case .Polish: return "marki"
+        case .German: return "marken"
+        }
+    }
+}
+
+final class CommonNavigationHandler: NavigationHandler {
     private weak var navigationController: UINavigationController?
     private let resolver: DiResolver
+    private let platformManager: PlatformManager
     private let navigationDelegateHandler: CommonNavigationControllerDelegateHandler
     private let urlRouter = JLRoutes()
     
@@ -12,6 +22,7 @@ class CommonNavigationHandler: NavigationHandler {
         self.navigationController = navigationController
         self.resolver = resolver
         self.navigationDelegateHandler = CommonNavigationControllerDelegateHandler(hideNavigationBarForFirstView: hideNavigationBarForFirstView)
+        self.platformManager = resolver.resolve(PlatformManager.self)
         
         navigationController.delegate = navigationDelegateHandler
         
@@ -93,23 +104,29 @@ class CommonNavigationHandler: NavigationHandler {
             let entryCategory = EntryCategory(link: url.absoluteString, name: title)
             return self.handleRouting(forProductListViewControllerType: CategoryProductListViewController.self, entryData: entryCategory)
         }
-        urlRouter.addRoute("/:host/marki/:brandComponent") { [weak self](parameters: [NSObject: AnyObject]!) in
-            guard let `self` = self else { return false }
-            guard let brandComponent = parameters["brandComponent"] as? String else {
-                logError("There is no brandComponent in path: \(parameters)")
-                return false
+        
+        if let brandsPathComponent = platformManager.platform?.brandPathComponent {
+            urlRouter.addRoute("/:host/\(brandsPathComponent)/:brandComponent") { [weak self](parameters: [NSObject: AnyObject]!) in
+                guard let `self` = self else { return false }
+                guard let brandComponent = parameters["brandComponent"] as? String else {
+                    logError("There is no brandComponent in path: \(parameters)")
+                    return false
+                }
+                let brandComponents = brandComponent.componentsSeparatedByString(",")
+                guard let brandId = Int(brandComponents[0]) else {
+                    logError("Cannot retrieve brandId for path: \(parameters)")
+                    return false
+                }
+                let title = parameters["title"] as? String
+                let url = parameters[kJLRouteURLKey] as? NSURL
+                
+                let entryProductBrand = EntryProductBrand(id: brandId, name: title, link: url?.absoluteString)
+                return self.handleRouting(forProductListViewControllerType: BrandProductListViewController.self, entryData: entryProductBrand)
             }
-            let brandComponents = brandComponent.componentsSeparatedByString(",")
-            guard let brandId = Int(brandComponents[0]) else {
-                logError("Cannot retrieve brandId for path: \(parameters)")
-                return false
-            }
-            let title = parameters["title"] as? String
-            let url = parameters[kJLRouteURLKey] as? NSURL
-            
-            let entryProductBrand = EntryProductBrand(id: brandId, name: title, link: url?.absoluteString)
-            return self.handleRouting(forProductListViewControllerType: BrandProductListViewController.self, entryData: entryProductBrand)
+        } else {
+            logError("Cannot create router for brand. No platform selected.")
         }
+        
         urlRouter.addRoute("/:host/trend/:trendSlug") { [weak self](parameters: [NSObject: AnyObject]!) in
             guard let `self` = self else { return false }
             guard let trendSlug = parameters["trendSlug"] as? String else {

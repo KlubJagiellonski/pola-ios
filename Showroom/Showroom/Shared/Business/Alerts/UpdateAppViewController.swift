@@ -9,11 +9,15 @@ final class UpdateAppViewController: UIViewController, AlertViewDelegate {
     private var castView: AlertView { return view as! AlertView }
     private let manager: VersionManager
     private weak var application: UIApplication?
+    
+    private let imageUrl: String?
+    
     weak var delegate: UpdateAppViewControllerDelegate?
     
-    init(manager: VersionManager, application: UIApplication) {
+    init(manager: VersionManager, application: UIApplication, imageUrl: String?) {
         self.manager = manager
         self.application = application
+        self.imageUrl = imageUrl
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -22,12 +26,11 @@ final class UpdateAppViewController: UIViewController, AlertViewDelegate {
     }
     
     override func loadView() {
-        view = AlertView(title: tr(L10n.UpdateAppTitle), description: tr(L10n.UpdateAppDescription), acceptButtonTitle: tr(L10n.UpdateAppUpdate))
+        view = AlertView(title: tr(.UpdateAppTitle), description: tr(.UpdateAppDescription), acceptButtonTitle: tr(.UpdateAppUpdate), imageUrl: imageUrl)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         castView.delegate = self
     }
     

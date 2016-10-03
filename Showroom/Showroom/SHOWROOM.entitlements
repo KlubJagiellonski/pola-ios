@@ -5,8 +5,17 @@
 	<key>com.apple.developer.associated-domains</key>
 	<array>
 		<string>applinks:www.showroom.pl</string>
+		<string>applinks:www.showroom.de</string>
+		<string>applinks:pl.test.shwrm.net</string>
+		<string>applinks:de.test.shwrm.net</string>
 		<string>activitycontinuation:www.showroom.pl</string>
+		<string>activitycontinuation:www.showroom.de</string>
+		<string>activitycontinuation:pl.test.shwrm.net</string>
+		<string>activitycontinuation:de.test.shwrm.net</string>
 		<string>webcredentials:www.showroom.pl</string>
+		<string>webcredentials:www.showroom.de</string>
+		<string>webcredentials:pl.test.shwrm.net</string>
+		<string>webcredentials:de.test.shwrm.net</string>
 	</array>
 </dict>
 </plist>

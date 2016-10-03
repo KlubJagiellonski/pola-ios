@@ -20,4 +20,5 @@ struct Dimensions {
     static let topBadgeSize = CGSizeMake(31, 15)
     static let bottomBadgeHeight: CGFloat = 15
     static let onboardingTextHorizontalOffset: CGFloat = 22
+    static let contentPromoImageWidth: CGFloat = UIScreen.mainScreen().bounds.width
 }

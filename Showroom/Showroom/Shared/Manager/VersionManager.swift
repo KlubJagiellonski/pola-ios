@@ -12,43 +12,44 @@ final class VersionManager {
     private let dontUpdateKey = "dontUpdate"
     
     private let api: ApiService
+    private let storage: KeyValueStorage
     
     private let installedVersion: String
     private var latestVersion: String
     
     private var initialDate: NSDate {
         get {
-            let initialTimeInterval = NSUserDefaults.standardUserDefaults().objectForKey(initialDateKey) as? NSTimeInterval
+            let initialTimeInterval: NSTimeInterval? = storage.load(forKey: initialDateKey)
             if let timeInterval = initialTimeInterval {
                 return NSDate(timeIntervalSince1970: timeInterval)
             } else {
                 let initialDate = NSDate()
-                NSUserDefaults.standardUserDefaults().setDouble(initialDate.timeIntervalSince1970, forKey: initialDateKey)
+                storage.save(initialDate.timeIntervalSince1970, forKey: initialDateKey)
                 return initialDate
             }
         }
         set {
             logInfo("Last version check date: \(initialDate)")
-            NSUserDefaults.standardUserDefaults().setDouble(newValue.timeIntervalSince1970, forKey: initialDateKey)
+            storage.save(newValue.timeIntervalSince1970, forKey: initialDateKey)
         }
     }
     
     private var savedVersion: String {
         get {
-            return NSUserDefaults.standardUserDefaults().stringForKey(savedVersionKey) ?? installedVersion
+            return storage.load(forKey: savedVersionKey) ?? installedVersion
         }
         set {
             logInfo("Latest stored version: \(newValue)")
-            NSUserDefaults.standardUserDefaults().setValue(newValue, forKey: savedVersionKey)
+            storage.save(newValue, forKey: savedVersionKey)
         }
     }
     
     private var dontUpdateToTheSavedVersion: Bool {
         get {
-            return NSUserDefaults.standardUserDefaults().boolForKey(dontUpdateKey)
+            return storage.load(forKey: dontUpdateKey) ?? false
         }
         set {
-            NSUserDefaults.standardUserDefaults().setBool(newValue, forKey: dontUpdateKey)
+            storage.save(newValue, forKey: dontUpdateKey)
         }
     }
     
@@ -68,8 +69,9 @@ final class VersionManager {
             && initialDate.numberOfDaysUntilDateTime(NSDate()) >= daysThresholdForShowingView
     }
     
-    init(api: ApiService) {
+    init(api: ApiService, storage: KeyValueStorage) {
         self.api = api
+        self.storage = storage
         self.installedVersion = VersionManager.checkInstalledVersion()
         self.latestVersion = self.installedVersion
     }
@@ -80,12 +82,10 @@ final class VersionManager {
         return version
     }
     
-    func fetchLatestVersion() -> Observable<String> {
+    func fetchLatestVersion() -> Observable<AppVersion> {
         return api.fetchAppVersion().observeOn(MainScheduler.instance)
-            .map { (appVersion: AppVersion) -> String in
-                return appVersion.version
-            }.doOnNext { [weak self] (version: String) in
-                self?.latestVersion = version
+            .doOnNext { [weak self] (appVersion: AppVersion) in
+                self?.latestVersion = appVersion.version
             }.asObservable()
     }
     

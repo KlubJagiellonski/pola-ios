@@ -6,11 +6,10 @@
 //  Copyright (c) 2014 PayU S.A. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "PUPaymentRequest.h"
-#import "PUPaymentMethodDescription.h"
 #import "PUAuthorizationDataSource.h"
+#import "PUPaymentMethodDescription.h"
+#import "PUPaymentRequest.h"
 #import "PUPaymentRequestResult.h"
 
 typedef NS_ENUM(NSInteger, PUPresentationStyle) {
@@ -21,7 +20,6 @@ typedef NS_ENUM(NSInteger, PUPresentationStyle) {
 typedef void (^PUPaymentRequestCompletionHandler)(PUPaymentRequestResult *result);
 
 @class PUPaymentService;
-@protocol PUPaymentMethodViewControllerDelegate;
 
 @protocol PUPaymentServiceDelegate <NSObject>
 
@@ -42,7 +40,7 @@ typedef void (^PUPaymentRequestCompletionHandler)(PUPaymentRequestResult *result
 
 /**
  *  This method notifies about changes to payment method that are visible in payment method widget. It is invoked on
- *  various events like: user selects payment method, widgets load previously selected payment method, user deletes 
+ *  various events like: user selects payment method, widgets load previously selected payment method, user deletes
  *  selected payment method ,etc.
  *
  *  Use this method to enable/disable payment button in merchant application.

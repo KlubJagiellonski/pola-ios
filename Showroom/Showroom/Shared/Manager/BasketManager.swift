@@ -6,8 +6,9 @@ import RxCocoa
 final class BasketManager {
     private let apiService: ApiService
     private let emarsysService: EmarsysService
-    private let storageManager: StorageManager
+    private let storage: KeyValueStorage
     private let userManager: UserManager
+    let platformManager: PlatformManager
     private let disposeBag = DisposeBag()
     
     let state: BasketState
@@ -16,20 +17,22 @@ final class BasketManager {
         return userManager.user != nil
     }
     
-    init(with apiService: ApiService, emarsysService: EmarsysService, storageManager: StorageManager, userManager: UserManager) {
+    init(with apiService: ApiService, emarsysService: EmarsysService, storage: KeyValueStorage, userManager: UserManager, platformManager: PlatformManager) {
         self.apiService = apiService
         self.emarsysService = emarsysService
-        self.storageManager = storageManager
+        self.storage = storage
         self.userManager = userManager
+        self.platformManager = platformManager
         
         //if it will be a problem we will need to think about loading it in background
-        var basketState: BasketState? = nil
-        do {
-            basketState = try storageManager.load(Constants.Persistent.basketStateId)
-        } catch {
-            logError("Error while loading basket state from cache \(error)")
-        }
+        let basketState: BasketState? = storage.load(forKey: Constants.Persistent.basketStateId, type: .Persistent)
         self.state = basketState ?? BasketState()
+
+        platformManager.platformObservable.subscribeNext { [weak self] platform in
+            guard let `self` = self else { return }
+            logInfo("platform changed: \(platform)")
+            self.state.clear()
+        }.addDisposableTo(disposeBag)
     }
     
     func validate() {
@@ -60,7 +63,7 @@ final class BasketManager {
                 return strongSelf.state
             }
             .observeOn(ConcurrentDispatchQueueScheduler(globalConcurrentQueueQOS: .Background))
-            .save(Constants.Persistent.basketStateId, storageManager: storageManager)
+            .save(forKey: Constants.Persistent.basketStateId, storage: storage, type: .Persistent)
             .observeOn(MainScheduler.instance)
             .subscribe { [weak self](event: Event<BasketState>) in
                 guard let `self` = self else { return }
@@ -120,10 +123,8 @@ final class BasketManager {
     func clearBasket() {
         logInfo("Clearing basket")
         state.clear()
-        do {
-            try storageManager.save(Constants.Persistent.basketStateId, object: state)
-        } catch {
-            logError("Cannot save basket while clearing \(error)")
+        if !storage.save(state, forKey: Constants.Persistent.basketStateId, type: .Persistent) {
+            logError("Cannot save basket while clearing")
         }
         validate()
     }

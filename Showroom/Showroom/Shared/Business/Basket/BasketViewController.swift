@@ -38,10 +38,18 @@ class BasketViewController: UIViewController, BasketViewDelegate {
         castView.updateData(with: manager.state.deliveryCountry, and: manager.state.deliveryCarrier)
         castView.discountCode = manager.state.discountCode
         
-        manager.state.basketObservable.subscribeNext(updateBasket).addDisposableTo(disposeBag)
-        manager.state.deliveryCarrierObservable.subscribeNext(updateCarrier).addDisposableTo(disposeBag)
-        manager.state.deliveryCountryObservable.subscribeNext(updateCountry).addDisposableTo(disposeBag)
-        manager.state.validationStateObservable.subscribeNext(updateValidating).addDisposableTo(disposeBag)
+        manager.state.basketObservable.subscribeNext { [weak self] basket in
+            self?.updateBasket(with: basket)
+            }.addDisposableTo(disposeBag)
+        manager.state.deliveryCarrierObservable.subscribeNext { [weak self] carrier in
+            self?.updateCarrier(with: carrier)
+        }.addDisposableTo(disposeBag)
+        manager.state.deliveryCountryObservable.subscribeNext { [weak self] country in
+            self?.updateCountry(with: country)
+            }.addDisposableTo(disposeBag)
+        manager.state.validationStateObservable.subscribeNext { [weak self] validating in
+            self?.updateValidating(with: validating)
+            }.addDisposableTo(disposeBag)
         manager.state.resetDiscountCodeObservable.subscribeNext { [weak self] in
             self?.castView.resetDiscountCodeValue()
         }.addDisposableTo(disposeBag)
@@ -58,7 +66,7 @@ class BasketViewController: UIViewController, BasketViewDelegate {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         castView.registerOnKeyboardEvent()
-        markHandoffUrlActivity(withPath: "/c/cart/view")
+        markHandoffUrlActivity(withPathComponent: "c/cart/view", resolver: resolver)
         castView.deselectRowsIfNeeded()
     }
     
@@ -121,6 +129,30 @@ class BasketViewController: UIViewController, BasketViewDelegate {
         }
     }
     
+    func didReceiveNewDiscountCode(discountCode: String) {
+        logInfo("Received new discount code \(discountCode)")
+        castView.discountCode = discountCode
+        didChangeDiscountCode(discountCode)
+        if isEmptyBasket(manager.state.basket) { //when empty view
+            toastManager.showMessage(tr(.BasketCouponCodeAddedToBasket(discountCode)))
+        }
+    }
+    
+    private func didChangeDiscountCode(discountCode: String?) {
+        logInfo("Did change discount code \(discountCode)")
+        guard discountCode != manager.state.discountCode else {
+            logInfo("Discount code is the same as before")
+            return
+        }
+        if let discountCode = discountCode?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()) {
+            manager.state.discountCode = discountCode.characters.isEmpty ? nil : discountCode
+            logAnalyticsEvent(.CartDiscountSubmitted(manager.state.discountCode ?? ""))
+        } else {
+            manager.state.discountCode = nil
+        }
+        manager.validate()
+    }
+    
     private func goToCheckout() {
         logInfo("Going to checkout")
         guard manager.isUserLogged else {
@@ -174,18 +206,7 @@ class BasketViewController: UIViewController, BasketViewDelegate {
     }
     
     func basketView(view: BasketView, didChangeDiscountCode discountCode: String?) {
-        logInfo("Did change discount code \(discountCode)")
-        guard discountCode != manager.state.discountCode else {
-            logInfo("Discount code is the same as before")
-            return
-        }
-        if let discountCode = discountCode?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()) {
-            manager.state.discountCode = discountCode.characters.count > 0 ? discountCode : nil
-            logAnalyticsEvent(.CartDiscountSubmitted(manager.state.discountCode ?? ""))
-        } else {
-            manager.state.discountCode = nil
-        }
-        manager.validate()
+        didChangeDiscountCode(discountCode)
     }
     
     func basketViewDidTapStartShoppingButton(view: BasketView) {
@@ -204,6 +225,15 @@ class BasketViewController: UIViewController, BasketViewDelegate {
             return
         }
         sendNavigationEvent(ShowProductDetailsEvent(context: c, retrieveCurrentImageViewTag: nil))
+    }
+    
+    func basketView(view: BasketView, widthForDeleteActionViewForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        logInfo("Width for delete actionview for row at index path: \(indexPath)")
+        let platform = self.manager.platformManager.platform!
+        switch platform {
+        case .Polish: return 72.5
+        case .German: return 109
+        }
     }
     
     func viewSwitcherDidTapRetry(view: ViewSwitcher) {

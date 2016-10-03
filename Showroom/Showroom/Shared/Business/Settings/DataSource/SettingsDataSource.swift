@@ -17,6 +17,7 @@ class SettingsDataSource: NSObject, UITableViewDataSource {
         tableView.registerClass(SettingsGenderCell.self, forCellReuseIdentifier: String(SettingsGenderCell))
         tableView.registerClass(SettingsNormalCell.self, forCellReuseIdentifier: String(SettingsNormalCell))
         tableView.registerClass(SettingsAskForNotificationsCell.self, forCellReuseIdentifier: String(SettingsAskForNotificationsCell))
+        tableView.registerClass(SettingsPlatformCell.self, forCellReuseIdentifier: String(SettingsPlatformCell))
     }
     
     func updateData(with settings: [Setting]) {
@@ -77,6 +78,12 @@ class SettingsDataSource: NSObject, UITableViewDataSource {
         case .AskForNotification:
             let cell = tableView.dequeueReusableCellWithIdentifier(String(SettingsAskForNotificationsCell), forIndexPath: indexPath) as! SettingsAskForNotificationsCell
             cell.action = setting.action
+            return cell
+            
+        case .Platform:
+            let cell = tableView.dequeueReusableCellWithIdentifier(String(SettingsPlatformCell), forIndexPath: indexPath) as! SettingsPlatformCell
+            cell.title = setting.labelString
+            cell.value = setting.secondaryLabelString
             return cell
         }
     }

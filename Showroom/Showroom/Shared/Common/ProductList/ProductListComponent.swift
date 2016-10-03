@@ -150,7 +150,12 @@ final class ProductListComponent: NSObject, UICollectionViewDataSource, UICollec
         }
         logInfo("Scrolling to product at index \(index)")
         let indexPath = NSIndexPath(forItem: index, inSection: ProductListSection.Products.toSectionIndex(headerSectionInfo != nil))
-        view.scrollToItemAtIndexPath(indexPath, atScrollPosition: .CenteredVertically, animated: animated)
+        //there were some crash releated to index path not exist. I think it may be because some race condition. Better to check it.
+        if view.hasRow(at: indexPath) {
+            view.scrollToItemAtIndexPath(indexPath, atScrollPosition: .CenteredVertically, animated: animated)
+        } else {
+            logInfo("Could not scroll to position \(index) \(animated).")
+        }
     }
     
     func imageTag(forIndex index: Int) -> Int {

@@ -64,6 +64,7 @@ class TabBarItemBadgeContainerView: UIView {
     }
     
     private func setBadgeValue(oldValue oldValue: UInt, newValue: UInt, badge: TabBarItemBadge) {
+        
         if newValue != 0 {
             
             if oldValue == 0 {
@@ -73,6 +74,7 @@ class TabBarItemBadgeContainerView: UIView {
 
                 badge.transform = CGAffineTransformMakeScale(0, 0)
                 badge.hidden = false
+                badge.layer.removeAllAnimations()
                 UIView.animateWithDuration(animationDuration, delay: 0, options: [.BeginFromCurrentState, .CurveEaseInOut], animations: {
                     badge.transform = CGAffineTransformIdentity
                     }, completion: nil)
@@ -80,7 +82,7 @@ class TabBarItemBadgeContainerView: UIView {
             } else {
                 // change width
                 badge.hidden = false
-                
+                badge.layer.removeAllAnimations()
                 UIView.transitionWithView(badge.label, duration: animationDuration, options: [.TransitionCrossDissolve], animations: {
                     badge.value = String(newValue)
                     }, completion: nil)
@@ -92,11 +94,13 @@ class TabBarItemBadgeContainerView: UIView {
                     }, completion: nil)
             }
             
-        } else {
+        } else if oldValue != 0 {
             // hide
+            badge.layer.removeAllAnimations()
             UIView.animateWithDuration(animationDuration, delay: 0, options: [.BeginFromCurrentState, .CurveEaseInOut], animations: {
                 badge.transform = CGAffineTransformMakeScale(0.01, 0.01)
                 }, completion: { finished in
+                    guard finished else { return }
                     badge.hidden = true
                     badge.transform = CGAffineTransformIdentity
                     badge.value = String(newValue)

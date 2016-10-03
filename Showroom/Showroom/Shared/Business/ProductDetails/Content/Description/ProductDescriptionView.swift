@@ -123,13 +123,17 @@ class ProductDescriptionView: UIView, UITableViewDelegate, ProductDescriptionVie
         let productAvailability: ProductAvailability = { _ in
             switch (p.available, p.onVacationDate) {
             case (true, let onVacationDate):
+                let oneSize = p.sizes.count == 1
+                let oneColor = p.colors.count == 1
+                
                 if let date = onVacationDate {
                     let formatter = NSDateFormatter()
                     formatter.dateFormat = "dd.MM"
                     let dateString = formatter.stringFromDate(date)
-                    return .AvailableAtDate(dateString: dateString)
+                    
+                    return .AvailableAtDate(dateString: dateString, oneSize: oneSize, oneColor: oneColor)
                 } else {
-                    return .Available
+                    return .Available(oneSize: oneSize, oneColor: oneColor)
                 }
             case (false, _):
                 return .SoldOut
@@ -198,7 +202,10 @@ class ProductDescriptionView: UIView, UITableViewDelegate, ProductDescriptionVie
 }
 
 enum ProductAvailability {
-    case Available, Unknown, AvailableAtDate(dateString: String), SoldOut
+    case Available(oneSize: Bool, oneColor: Bool)
+    case Unknown
+    case AvailableAtDate(dateString: String, oneSize: Bool, oneColor: Bool)
+    case SoldOut
 }
 
 class DescriptionHeaderView: UIView {
@@ -206,7 +213,7 @@ class DescriptionHeaderView: UIView {
     private let horizontalItemPadding: CGFloat = 5
     private let buttonsToNameInfoVerticalPadding: CGFloat = 13
     private let smallDropDownButtonWidth: CGFloat = 54
-    private let largeDropDownButtonWidth: CGFloat = 81
+    private let largeDropDownButtonWidth: CGFloat = 71
     
     let brandAndPriceContainerView = UIView()
     let brandNameLabel = UILabel()
@@ -215,7 +222,7 @@ class DescriptionHeaderView: UIView {
     let nameLabel = UILabel()
     let infoImageView = UIImageView(image: UIImage(asset: .Ic_info))
     let buttonsContainerView = TouchConsumingView()
-    let sizeButton = DropDownButton()
+    let sizeButton = DropDownButton(value: .Text(nil))
     let colorButton = DropDownButton(value: .Color(nil))
     let buyButton = UIButton()
     
@@ -263,17 +270,18 @@ class DescriptionHeaderView: UIView {
     
     func update(toProductAvailability newProductAvailability: ProductAvailability) {
         switch newProductAvailability {
-        case .Available:
+        
+        case .Available(let oneSize, let oneColor):
             buyButton.enabled = true
             buyButton.setTitle(tr(.ProductDetailsToBasket), forState: .Normal)
-            colorButton.enabled = true
-            sizeButton.enabled = true
+            colorButton.enabled = !oneColor
+            sizeButton.enabled = !oneSize
             
-        case .AvailableAtDate(let dateString):
+        case .AvailableAtDate(let dateString, let oneSize, let oneColor):
             buyButton.enabled = false
             buyButton.setTitle(tr(.ProductDetailsAvailableAtDate(dateString)), forState: .Normal)
-            colorButton.enabled = true
-            sizeButton.enabled = true
+            colorButton.enabled = !oneColor
+            sizeButton.enabled = !oneSize
             
         case .SoldOut:
             buyButton.enabled = false
