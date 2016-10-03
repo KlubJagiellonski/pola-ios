@@ -388,6 +388,8 @@
 		C0CBE2AA1D2D4270008B861D /* SettingsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CBE2A91D2D4270008B861D /* SettingsNavigationController.swift */; };
 		C0CBE2AC1D2D46B7008B861D /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CBE2AB1D2D46B7008B861D /* SettingsView.swift */; };
 		C0CBE2B21D2E50F7008B861D /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CBE2B11D2E50F7008B861D /* Setting.swift */; };
+		C0E791531DA263CC00BB43D6 /* ImageStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E791521DA263CC00BB43D6 /* ImageStepView.swift */; };
+		C0E791551DA3B33600BB43D6 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E791541DA3B33600BB43D6 /* Timer.swift */; };
 		C0ED7EAE1D7EE39E00CBC796 /* NSLocaleUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED7EAD1D7EE39E00CBC796 /* NSLocaleUtils.swift */; };
 		C0FE51D11D8061C500990155 /* PlatformSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FE51D01D8061C500990155 /* PlatformSelectionViewController.swift */; };
 		C0FE51D31D8061D200990155 /* PlatformSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FE51D21D8061D200990155 /* PlatformSelectionView.swift */; };
@@ -810,6 +812,8 @@
 		C0CBE2AB1D2D46B7008B861D /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		C0CBE2B11D2E50F7008B861D /* Setting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 		C0DF72781D75C7A4001BA783 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C0E791521DA263CC00BB43D6 /* ImageStepView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageStepView.swift; sourceTree = "<group>"; };
+		C0E791541DA3B33600BB43D6 /* Timer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
 		C0ED7EAD1D7EE39E00CBC796 /* NSLocaleUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSLocaleUtils.swift; sourceTree = "<group>"; };
 		C0FE51D01D8061C500990155 /* PlatformSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlatformSelectionViewController.swift; sourceTree = "<group>"; };
 		C0FE51D21D8061D200990155 /* PlatformSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlatformSelectionView.swift; sourceTree = "<group>"; };
@@ -1350,6 +1354,7 @@
 			isa = PBXGroup;
 			children = (
 				1D80F47C1D9BE5A000DFB1C3 /* ImageStepViewController.swift */,
+				C0E791521DA263CC00BB43D6 /* ImageStepView.swift */,
 			);
 			path = ImageStep;
 			sourceTree = "<group>";
@@ -1776,6 +1781,7 @@
 				1D2CAC381D421F4A00F678FA /* DeepLinkingHandler.swift */,
 				7566CE6C1D6DC6F70065DFB3 /* AlertView.swift */,
 				C05E09F91D86B71E000A9A4F /* KeyValueStorage.swift */,
+				C0E791541DA3B33600BB43D6 /* Timer.swift */,
 			);
 			name = Common;
 			path = Showroom/Shared/Common;
@@ -2246,6 +2252,7 @@
 				1D80F4781D9BE4E900DFB1C3 /* VideoStepViewController.swift in Sources */,
 				75EDE8291CFDDD2200C5F96B /* UIButtonUtils.swift in Sources */,
 				1DD1EA731CEDAE9000D99731 /* DashboardView.swift in Sources */,
+				C0E791531DA263CC00BB43D6 /* ImageStepView.swift in Sources */,
 				751A50271D1AAFD700DF7D2B /* RadioButton.swift in Sources */,
 				1DD161A41D01C0850022B5C9 /* PresenterView.swift in Sources */,
 				7566CE6D1D6DC6F70065DFB3 /* AlertView.swift in Sources */,
@@ -2512,6 +2519,7 @@
 				1DA823181D1A8F510054288D /* LoadingIndicator.swift in Sources */,
 				75EDE82B1CFDDF6D00C5F96B /* UITextFieldUtils.swift in Sources */,
 				1DF428C01D89731F00396A0D /* CashOptionHandler.swift in Sources */,
+				C0E791551DA3B33600BB43D6 /* Timer.swift in Sources */,
 				1D0F3B581D12D2C70052CFF6 /* UIViewControllerUtils.swift in Sources */,
 				1DA5CB431D2E867000A45E93 /* ShowBrandDescriptionEvent.swift in Sources */,
 				75D52EB61CFF20BA005E34B4 /* BasketCell.swift in Sources */,

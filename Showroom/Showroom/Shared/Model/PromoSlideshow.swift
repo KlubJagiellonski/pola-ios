@@ -9,7 +9,7 @@ struct PromoSlideshow {
 
 struct PromoSlideshowVideo {
     let steps: [PromoSlideshowVideoStep]
-    let duration: Double
+    let duration: Int
 }
 
 enum PromoSlideshowVideoStepType {
@@ -19,7 +19,7 @@ enum PromoSlideshowVideoStepType {
 struct PromoSlideshowVideoStep {
     let type: PromoSlideshowVideoStepType
     let link: String
-    let duration: Double
+    let duration: Int
 }
 
 struct PromoSlideshowOtherVideo {

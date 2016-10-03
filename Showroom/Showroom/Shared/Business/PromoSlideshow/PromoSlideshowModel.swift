@@ -4,7 +4,7 @@ import RxSwift
 typealias DataLink = String
 
 enum PromoSlideshowPageData {
-    case Image(DataLink)
+    case Image(link: DataLink, duration: Int)
     case Video(DataLink)
     case Product(ObjectId)
     case Summary(PromoSlideshow)
@@ -23,7 +23,7 @@ final class PromoSlideshowModel {
         let brand = Brand(id: 1234, name: "Test brand")
         //TODO: add correct test links
         let steps = [
-            PromoSlideshowVideoStep(type: .Image, link: "", duration: 2000),
+            PromoSlideshowVideoStep(type: .Image, link: "https://assets.shwrm.net/media/update_grafika.jpg?1474968323", duration: 5000),
             PromoSlideshowVideoStep(type: .Video, link: "", duration: 5000),
             PromoSlideshowVideoStep(type: .Product, link: "", duration: 3000),
         ]
@@ -64,9 +64,9 @@ extension PromoSlideshowPageData {
     private init(fromStep step: PromoSlideshowVideoStep) {
         switch step.type {
         case .Image:
-            self = .Image(step.link)
+            self = .Image(link: step.link, duration: step.duration)
         case .Video:
-            self = .Image(step.link)
+            self = .Video(step.link)
         case .Product:
             self = .Product(78854) //todo handle product link
         }

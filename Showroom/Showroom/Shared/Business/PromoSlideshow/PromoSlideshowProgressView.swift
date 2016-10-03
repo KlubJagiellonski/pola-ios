@@ -44,14 +44,23 @@ final class PromoSlideshowProgressView: UIView {
     }
     
     func update(with progress: ProgressInfoState) {
-        for i in 0..<progress.currentStep where progressViews[i].progress != 1 {
-            progressViews[i].progress = 1
+        let currentStep = progress.currentStep
+        for (index, progressView) in progressViews.enumerate() {
+            switch index {
+            case 0..<currentStep:
+                progressView.progress = 1
+                
+            case currentStep:
+                progressView.progress = progress.currentStepProgress
+                
+            default:
+                progressView.progress = 0
+            }
         }
-        progressViews[progress.currentStep].progress = progress.currentStepProgress
     }
     
     private func configureCustomConstraints(with video: PromoSlideshowVideo) {
-        let stepsRelativeDurations = video.steps.map { $0.duration / video.duration }
+        let stepsRelativeDurations = video.steps.map { Double($0.duration) / Double(video.duration) }
         logInfo("steps relative durations: \(stepsRelativeDurations)")
         
         for (index, progressView) in progressViews.enumerate() {
@@ -83,8 +92,9 @@ final class PromoSlideshowStepProgressView: UIView {
     
     var progress: Double = 0 {
         didSet {
-            setNeedsLayout()
-            layoutIfNeeded()
+            guard oldValue != progress else { return }
+            self.setNeedsLayout()
+            self.layoutIfNeeded()
         }
     }
     

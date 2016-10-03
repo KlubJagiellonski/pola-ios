@@ -172,8 +172,8 @@ extension PromoSlideshowViewController: PromoSlideshowPageHandler {
     
     private func createViewController(from data: PromoSlideshowPageData) -> UIViewController {
         switch data {
-        case .Image(let link):
-            return resolver.resolve(ImageStepViewController.self, argument: link)
+        case .Image(let link, let duration):
+            return resolver.resolve(ImageStepViewController.self, arguments: (link, duration))
         case .Video(let link):
             return resolver.resolve(VideoStepViewController.self, argument: link)
         case .Product(let productId):

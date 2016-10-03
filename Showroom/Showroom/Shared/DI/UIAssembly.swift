@@ -216,8 +216,8 @@ class UIAssembly: AssemblyType {
         container.register(PromoSlideshowModel.self) { r, slideshowId in
             return PromoSlideshowModel(slideshowId: slideshowId)
         }
-        container.register(ImageStepViewController.self) { r, link in
-            return ImageStepViewController(with: r.resolve(DiResolver.self)!, link: link)
+        container.register(ImageStepViewController.self) { r, link, duration in
+            return ImageStepViewController(with: r.resolve(DiResolver.self)!, link: link, duration: duration)
         }
         container.register(VideoStepViewController.self) { r, link in
             return VideoStepViewController(with: r.resolve(DiResolver.self)!, link: link)
