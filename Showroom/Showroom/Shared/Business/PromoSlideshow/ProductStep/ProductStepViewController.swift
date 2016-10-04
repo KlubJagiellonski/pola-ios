@@ -6,8 +6,8 @@ final class ProductStepViewController: ProductPageViewController, ProductPageVie
     
     private weak var previewOverlay: ProductPagePreviewOverlayView?
     
-    init(with resolver: DiResolver, productId: ObjectId) {
-        super.init(resolver: resolver, productId: productId, product: nil, previewMode: true)
+    init(with resolver: DiResolver, product: PromoSlideshowProduct) {
+        super.init(resolver: resolver, productId: product.id, product: Product(product: product), previewMode: true)
         delegate = self
     }
     
@@ -121,5 +121,17 @@ extension PromoPageViewState {
         case .ImageGallery:
             self = .FullScreen
         }
+    }
+}
+
+extension Product {
+    init(product: PromoSlideshowProduct) {
+        self.id = product.id
+        self.basePrice = product.basePrice
+        self.brand = product.brand.name
+        self.imageUrl = product.imageUrl
+        self.name = product.name
+        self.price = product.price
+        self.lowResImageUrl = nil
     }
 }

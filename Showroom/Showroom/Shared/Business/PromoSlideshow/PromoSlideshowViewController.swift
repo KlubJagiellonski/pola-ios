@@ -200,8 +200,8 @@ extension PromoSlideshowViewController: PromoSlideshowPageHandler {
             return resolver.resolve(ImageStepViewController.self, arguments: (link, duration))
         case .Video(let link):
             return resolver.resolve(VideoStepViewController.self, argument: link)
-        case .Product(let productId):
-            return resolver.resolve(ProductStepViewController.self, argument: productId)
+        case .Product(let product):
+            return resolver.resolve(ProductStepViewController.self, argument: product)
         case .Summary(let promoSlideshow):
             return resolver.resolve(PromoSummaryViewController.self, argument: promoSlideshow)
         }

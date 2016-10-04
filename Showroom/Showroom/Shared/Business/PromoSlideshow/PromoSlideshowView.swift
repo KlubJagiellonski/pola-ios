@@ -165,8 +165,9 @@ final class PromoSlideshowView: ViewSwitcher, UICollectionViewDelegate {
 }
 
 extension PromoSlideshowView: ViewSwitcherDataSource {
-    func viewSwitcherWantsErrorInfo(view: ViewSwitcher) -> (ErrorText, ErrorImage?) {
-        return (tr(.CommonError), UIImage(asset: .Error))
+    func viewSwitcherWantsErrorView(view: ViewSwitcher) -> UIView? {
+        return ErrorView(errorText: tr(.CommonError), errorImage: UIImage(asset: .Error))
     }
+    
     func viewSwitcherWantsEmptyView(view: ViewSwitcher) -> UIView? { return nil }
 }

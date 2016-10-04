@@ -33,6 +33,13 @@ extension UIButton {
         titleLabel!.font = UIFont(fontType: .NormalBold)
     }
     
+    func applyBlackPlainBoldStyle() {
+        titleLabel!.font = UIFont(fontType: .Button)
+        setTitleColor(UIColor(named: .Black), forState: .Normal)
+        setTitleColor(UIColor(named: .DarkGray), forState: .Highlighted)
+        imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 24)
+    }
+    
     func applyDropDownStyle() {
         setTitleColor(UIColor.blackColor(), forState: .Normal)
         titleLabel!.font = UIFont(fontType: .FormNormal)
@@ -85,5 +92,12 @@ extension UIButton {
         setBackgroundImage(UIImage.fromColor(UIColor(named: .White)), forState: .Normal)
         setBackgroundImage(UIImage.fromColor(UIColor(named: .Blue)), forState: .Highlighted)
         titleLabel!.font = UIFont(fontType: .GhostButton)
+    }
+    
+    func applyMediaControlStyle() {
+        layer.cornerRadius = Dimensions.mediaControlButtonDiameter * 0.5
+        self.clipsToBounds = true
+        let color = UIColor(named: .White).colorWithAlphaComponent(0.8)
+        setBackgroundImage(UIImage.fromColor(color), forState: .Normal)
     }
 }

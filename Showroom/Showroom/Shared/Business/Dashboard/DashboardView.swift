@@ -94,13 +94,14 @@ class DashboardView: ViewSwitcher, ContentInsetHandler, UITableViewDelegate, UIC
 }
 
 extension DashboardView: ViewSwitcherDataSource {
-    func viewSwitcherWantsErrorInfo(view: ViewSwitcher) -> (ErrorText, ErrorImage?) {
+    func viewSwitcherWantsErrorView(view: ViewSwitcher) -> UIView? {
         if view == self {
-            return (tr(.CommonError), UIImage(asset: .Error))
+            return ErrorView(errorText: tr(.CommonError), errorImage: UIImage(asset: .Error))
         } else {
-            return (tr(.CommonError), nil)
+            return ErrorView(errorText: tr(.CommonError), errorImage: nil)
         }
     }
+    
     func viewSwitcherWantsEmptyView(view: ViewSwitcher) -> UIView? { return nil }
 }
 

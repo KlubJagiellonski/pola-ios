@@ -272,6 +272,10 @@
 		1DF796851CEB477B00C7A7F4 /* NetworkAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF796841CEB477B00C7A7F4 /* NetworkAssembly.swift */; };
 		1DF796871CEB49E200C7A7F4 /* CoreAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF796861CEB49E200C7A7F4 /* CoreAssembly.swift */; };
 		1DF796891CEB4AC000C7A7F4 /* UIAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF796881CEB4AC000C7A7F4 /* UIAssembly.swift */; };
+		1DF9DE891DA3CD0800F8585E /* PromoSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF9DE881DA3CD0800F8585E /* PromoSummaryView.swift */; };
+		1DF9DE8E1DA3CF0F00F8585E /* PromoSummaryPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF9DE8D1DA3CF0F00F8585E /* PromoSummaryPlayerView.swift */; };
+		1DF9DE901DA3CF2100F8585E /* PromoSummaryLinksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF9DE8F1DA3CF2100F8585E /* PromoSummaryLinksView.swift */; };
+		1DF9DE921DA4ED4300F8585E /* PromoSummaryVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF9DE911DA4ED4300F8585E /* PromoSummaryVideoView.swift */; };
 		1DFDDB481D92C926007DBDB6 /* UICollectionViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFDDB471D92C926007DBDB6 /* UICollectionViewUtils.swift */; };
 		751A50101D1156AE00DF7D2B /* ProductAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751A500F1D1156AE00DF7D2B /* ProductAmountViewController.swift */; };
 		751A50121D1156CB00DF7D2B /* ProductAmountHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751A50111D1156CB00DF7D2B /* ProductAmountHeaderView.swift */; };
@@ -695,6 +699,10 @@
 		1DF796841CEB477B00C7A7F4 /* NetworkAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkAssembly.swift; sourceTree = "<group>"; };
 		1DF796861CEB49E200C7A7F4 /* CoreAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreAssembly.swift; sourceTree = "<group>"; };
 		1DF796881CEB4AC000C7A7F4 /* UIAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAssembly.swift; sourceTree = "<group>"; };
+		1DF9DE881DA3CD0800F8585E /* PromoSummaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromoSummaryView.swift; sourceTree = "<group>"; };
+		1DF9DE8D1DA3CF0F00F8585E /* PromoSummaryPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromoSummaryPlayerView.swift; sourceTree = "<group>"; };
+		1DF9DE8F1DA3CF2100F8585E /* PromoSummaryLinksView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromoSummaryLinksView.swift; sourceTree = "<group>"; };
+		1DF9DE911DA4ED4300F8585E /* PromoSummaryVideoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromoSummaryVideoView.swift; sourceTree = "<group>"; };
 		1DFDDB471D92C926007DBDB6 /* UICollectionViewUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICollectionViewUtils.swift; sourceTree = "<group>"; };
 		751A500F1D1156AE00DF7D2B /* ProductAmountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductAmountViewController.swift; sourceTree = "<group>"; };
 		751A50111D1156CB00DF7D2B /* ProductAmountHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductAmountHeaderView.swift; sourceTree = "<group>"; };
@@ -1379,7 +1387,9 @@
 		1D80F4821D9BF52900DFB1C3 /* Summary */ = {
 			isa = PBXGroup;
 			children = (
+				1DF9DE8C1DA3CECF00F8585E /* Views */,
 				1D80F4831D9BF5AB00DFB1C3 /* PromoSummaryViewController.swift */,
+				1DF9DE881DA3CD0800F8585E /* PromoSummaryView.swift */,
 			);
 			path = Summary;
 			sourceTree = "<group>";
@@ -1642,6 +1652,16 @@
 				1D72ED151CFC307D007AFD2F /* ManagerAssembly.swift */,
 			);
 			path = DI;
+			sourceTree = "<group>";
+		};
+		1DF9DE8C1DA3CECF00F8585E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1DF9DE8D1DA3CF0F00F8585E /* PromoSummaryPlayerView.swift */,
+				1DF9DE8F1DA3CF2100F8585E /* PromoSummaryLinksView.swift */,
+				1DF9DE911DA4ED4300F8585E /* PromoSummaryVideoView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		751A500D1D11569200DF7D2B /* ProductAmountAction */ = {
@@ -2277,6 +2297,7 @@
 				1D470E341D265CB500677122 /* FormView.swift in Sources */,
 				C07530C71D2532F700224508 /* EditKioskView.swift in Sources */,
 				1D5F911A1D339A8F00AE66E6 /* CommonPresenterController.swift in Sources */,
+				1DF9DE901DA3CF2100F8585E /* PromoSummaryLinksView.swift in Sources */,
 				1DD161B11D01CCB20022B5C9 /* ProductDetailsCell.swift in Sources */,
 				75A92AB61D3E2EDC00EDC89D /* WishlistDataSource.swift in Sources */,
 				C09280561D0584A900350B82 /* DropUpActionAnimator.swift in Sources */,
@@ -2322,6 +2343,8 @@
 				751A50101D1156AE00DF7D2B /* ProductAmountViewController.swift in Sources */,
 				1D72ED141CFC3028007AFD2F /* User.swift in Sources */,
 				C020DA461D40F39900E6E4AE /* ShowUserInfoViewEvent.swift in Sources */,
+				1DF9DE8E1DA3CF0F00F8585E /* PromoSummaryPlayerView.swift in Sources */,
+				1DF9DE891DA3CD0800F8585E /* PromoSummaryView.swift in Sources */,
 				1DF14F2A1D2A72AB004A6A3A /* ProductErrorPageCell.swift in Sources */,
 				1D80F4631D9BCF8600DFB1C3 /* PromoSlideshowView.swift in Sources */,
 				1D5886EC1D2BF274007D0CB1 /* ProductHeaderContainerCell.swift in Sources */,
@@ -2441,6 +2464,7 @@
 				75A92AB21D3E26CB00EDC89D /* WishlistView.swift in Sources */,
 				1D1A7E1C1D253418009CCCE7 /* ProductLoadingPageCell.swift in Sources */,
 				1DDE61E81D649152007E5509 /* RateAppViewController.swift in Sources */,
+				1DF9DE921DA4ED4300F8585E /* PromoSummaryVideoView.swift in Sources */,
 				1DD1EA6B1CEC5D1700D99731 /* L10n.swift in Sources */,
 				1DD161971D01A7310022B5C9 /* ProductDetailsViewController.swift in Sources */,
 				1DD161AC1D01C8680022B5C9 /* ProductDetailsView.swift in Sources */,
