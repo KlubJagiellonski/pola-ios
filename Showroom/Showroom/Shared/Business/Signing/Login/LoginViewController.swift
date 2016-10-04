@@ -73,7 +73,7 @@ class LoginViewController: UIViewController, LoginViewDelegate {
                 toastManager.showMessage(tr(L10n.LoginErrorInvalidCredentials))
                 break
             case SigningError.FacebookError(_), SigningError.Unknown:
-                logError("Unknown login error: \(error)")
+                logInfo("Unknown login error: \(error)")
                 fallthrough
             default:
                 toastManager.showMessage(tr(L10n.LoginErrorUnknown))

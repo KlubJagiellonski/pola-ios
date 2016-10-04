@@ -149,9 +149,9 @@ final class CommonNavigationHandler: NavigationHandler {
             let entrySearchInfo = EntrySearchInfo(query: query, link: url?.absoluteString)
             return self.handleRouting(forProductListViewControllerType: SearchProductListViewController.self, entryData: entrySearchInfo)
         }
-        urlRouter.addRoute("/:host/p/:productComponent") { [weak self](parameters: [NSObject: AnyObject]!) in
+        urlRouter.addRoute("/:host/p/*") { [weak self](parameters: [NSObject: AnyObject]!) in
             guard let `self` = self else { return false }
-            guard let productComponent = parameters["productComponent"] as? String else {
+            guard let wildcardComponents = parameters[kJLRouteWildcardComponentsKey] as? [String], let productComponent = wildcardComponents.first else {
                 logError("There is no productComponent in path: \(parameters)")
                 return false
             }
