@@ -105,17 +105,17 @@ class DashboardViewController: UIViewController, DashboardViewDelegate {
     private func fetchRecommendations() {
         logInfo("Fetching recommendations")
         model.fetchRecommendations().subscribeNext { [weak self] fetchResult in
-            guard let strongSelf = self else { return }
+            guard let `self` = self else { return }
             switch fetchResult {
             case .Success(let productRecommendationResult):
                 logInfo("Fetched product recommendations: \(productRecommendationResult)")
-                strongSelf.castView.recommendationViewSwitcherState = .Success
+                self.castView.recommendationViewSwitcherState = .Success
             case .CacheError(let cacheError):
                 logError("Error during fetching product recommendations, cacheError: \(cacheError)")
             case .NetworkError(let networkError):
                 logInfo("Error during fetching product recommendations, networkError: \(networkError)")
-                if strongSelf.model.state.recommendationsResult == nil {
-                    strongSelf.castView.recommendationViewSwitcherState = .Error
+                if self.model.state.recommendationsResult == nil {
+                    self.castView.recommendationViewSwitcherState = .Error
                 }
             }
         }.addDisposableTo(disposeBag)
