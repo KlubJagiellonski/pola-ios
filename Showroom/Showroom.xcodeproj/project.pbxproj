@@ -331,6 +331,7 @@
 		75FE56C31D2BFDE900DF5356 /* CheckButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FE56C21D2BFDE900DF5356 /* CheckButton.swift */; };
 		C006F4D41D3E40CF00573316 /* ShowSettingsWebViewEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C006F4D31D3E40CF00573316 /* ShowSettingsWebViewEvent.swift */; };
 		C006F4D61D3E4A5900573316 /* SettingsWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C006F4D51D3E4A5900573316 /* SettingsWebViewController.swift */; };
+		C00755811DA5378800EA493A /* VideoStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00755801DA5378800EA493A /* VideoStepView.swift */; };
 		C007CD921D2E7F6E00700EBB /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C007CD911D2E7F6E00700EBB /* SettingsCell.swift */; };
 		C007CD951D2E92FC00700EBB /* SettingsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C007CD941D2E92FC00700EBB /* SettingsDataSource.swift */; };
 		C00BA8721D5C6A4F009A9637 /* SettingsWebViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00BA8711D5C6A4F009A9637 /* SettingsWebViewModel.swift */; };
@@ -356,6 +357,8 @@
 		C052F8981D1989A6008085E0 /* CheckoutAddressOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C052F8971D1989A6008085E0 /* CheckoutAddressOptionView.swift */; };
 		C05DAE5B1D6C429D008877BE /* OnboardingActionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05DAE5A1D6C429D008877BE /* OnboardingActionAnimator.swift */; };
 		C05E09FA1D86B71E000A9A4F /* KeyValueStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05E09F91D86B71E000A9A4F /* KeyValueStorage.swift */; };
+		C0603A311DABA48A00ACBBDB /* VIMVideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C0603A2E1DABA48A00ACBBDB /* VIMVideoPlayer.m */; };
+		C0603A321DABA48A00ACBBDB /* VIMVideoPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0603A301DABA48A00ACBBDB /* VIMVideoPlayerView.m */; };
 		C06E53561D478E62000E5B7C /* PaymentSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06E53551D478E62000E5B7C /* PaymentSuccessViewController.swift */; };
 		C06E53581D478F61000E5B7C /* PaymentFailureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06E53571D478F61000E5B7C /* PaymentFailureViewController.swift */; };
 		C06E535A1D478F96000E5B7C /* PaymentSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06E53591D478F96000E5B7C /* PaymentSuccessView.swift */; };
@@ -760,6 +763,7 @@
 		75FE56C21D2BFDE900DF5356 /* CheckButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckButton.swift; sourceTree = "<group>"; };
 		C006F4D31D3E40CF00573316 /* ShowSettingsWebViewEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowSettingsWebViewEvent.swift; sourceTree = "<group>"; };
 		C006F4D51D3E4A5900573316 /* SettingsWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsWebViewController.swift; sourceTree = "<group>"; };
+		C00755801DA5378800EA493A /* VideoStepView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoStepView.swift; sourceTree = "<group>"; };
 		C007CD911D2E7F6E00700EBB /* SettingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		C007CD941D2E92FC00700EBB /* SettingsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsDataSource.swift; sourceTree = "<group>"; };
 		C00BA8711D5C6A4F009A9637 /* SettingsWebViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsWebViewModel.swift; sourceTree = "<group>"; };
@@ -785,6 +789,10 @@
 		C052F8971D1989A6008085E0 /* CheckoutAddressOptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutAddressOptionView.swift; sourceTree = "<group>"; };
 		C05DAE5A1D6C429D008877BE /* OnboardingActionAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingActionAnimator.swift; sourceTree = "<group>"; };
 		C05E09F91D86B71E000A9A4F /* KeyValueStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyValueStorage.swift; sourceTree = "<group>"; };
+		C0603A2D1DABA48A00ACBBDB /* VIMVideoPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VIMVideoPlayer.h; sourceTree = "<group>"; };
+		C0603A2E1DABA48A00ACBBDB /* VIMVideoPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VIMVideoPlayer.m; sourceTree = "<group>"; };
+		C0603A2F1DABA48A00ACBBDB /* VIMVideoPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VIMVideoPlayerView.h; sourceTree = "<group>"; };
+		C0603A301DABA48A00ACBBDB /* VIMVideoPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VIMVideoPlayerView.m; sourceTree = "<group>"; };
 		C06E53551D478E62000E5B7C /* PaymentSuccessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentSuccessViewController.swift; sourceTree = "<group>"; };
 		C06E53571D478F61000E5B7C /* PaymentFailureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentFailureViewController.swift; sourceTree = "<group>"; };
 		C06E53591D478F96000E5B7C /* PaymentSuccessView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentSuccessView.swift; sourceTree = "<group>"; };
@@ -1063,6 +1071,7 @@
 		1D2F19AC1CEA15060099142E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C0603A2C1DABA35F00ACBBDB /* VIMVideoPlayer */,
 				1D8476201D8AA6F4009EB212 /* PayPalDataCollector.framework */,
 				1D84761E1D8AA6CA009EB212 /* PayPalUtils.framework */,
 				1D84761C1D8AA695009EB212 /* PayPalOneTouch.framework */,
@@ -1375,6 +1384,7 @@
 			isa = PBXGroup;
 			children = (
 				1D80F4771D9BE4E900DFB1C3 /* VideoStepViewController.swift */,
+				C00755801DA5378800EA493A /* VideoStepView.swift */,
 			);
 			path = VideoStep;
 			sourceTree = "<group>";
@@ -1906,6 +1916,18 @@
 			path = EditAddress;
 			sourceTree = "<group>";
 		};
+		C0603A2C1DABA35F00ACBBDB /* VIMVideoPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				C0603A2D1DABA48A00ACBBDB /* VIMVideoPlayer.h */,
+				C0603A2E1DABA48A00ACBBDB /* VIMVideoPlayer.m */,
+				C0603A2F1DABA48A00ACBBDB /* VIMVideoPlayerView.h */,
+				C0603A301DABA48A00ACBBDB /* VIMVideoPlayerView.m */,
+			);
+			name = VIMVideoPlayer;
+			path = Frameworks/VIMVideoPlayer;
+			sourceTree = "<group>";
+		};
 		C06E53541D478DF6000E5B7C /* PaymentResult */ = {
 			isa = PBXGroup;
 			children = (
@@ -2264,6 +2286,7 @@
 				1D2CAC4D1D47414300F678FA /* DimTransitionAnimation.swift in Sources */,
 				1D5F914A1D34E9AC00AE66E6 /* Filter.swift in Sources */,
 				1D2F19611CE9CED80099142E /* RootViewController.swift in Sources */,
+				C0603A321DABA48A00ACBBDB /* VIMVideoPlayerView.m in Sources */,
 				1D5E918F1D3CDE6A00A6BD55 /* SearchProductListModel.swift in Sources */,
 				C05E09FA1D86B71E000A9A4F /* KeyValueStorage.swift in Sources */,
 				1D3792721D196931001A7C47 /* ViewSwitcher.swift in Sources */,
@@ -2370,6 +2393,7 @@
 				1DD161AF1D01CB490022B5C9 /* ProductDetailsDataSource.swift in Sources */,
 				1D5F911F1D33D6B700AE66E6 /* SplashView.swift in Sources */,
 				1D69334D1D2E40DB00609BB9 /* BrandProductListModel.swift in Sources */,
+				C00755811DA5378800EA493A /* VideoStepView.swift in Sources */,
 				1D7824AC1D06F4F900E60392 /* UIImageUtils.swift in Sources */,
 				1D5E91971D3E13FB00A6BD55 /* SearchModel.swift in Sources */,
 				1DD161A81D01C43B0022B5C9 /* DashboardNavigationController.swift in Sources */,
@@ -2443,6 +2467,7 @@
 				751A50121D1156CB00DF7D2B /* ProductAmountHeaderView.swift in Sources */,
 				1DF428AE1D880D1300396A0D /* Platform.swift in Sources */,
 				1D72ED0F1CFC2F47007AFD2F /* UserManager.swift in Sources */,
+				C0603A311DABA48A00ACBBDB /* VIMVideoPlayer.m in Sources */,
 				1D1A7E121D242517009CCCE7 /* ProductListModel.swift in Sources */,
 				1DF428C61D8973F000396A0D /* GratisOptionHandler.swift in Sources */,
 				1D0453571CFF1568001CC5A2 /* ProductRecommendationDataSource.swift in Sources */,

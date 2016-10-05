@@ -30,8 +30,8 @@ final class PromoSlideshowModel {
         let product = PromoSlideshowProduct(id: 78854, brand: Brand(id: 541, name: "gego"), name: "T-shirt Nie mów", basePrice: Money(amt: 70.0), price: Money(amt: 70.0), imageUrl: "https://static.shwrm.net/images/0/4/0457e906540b2b0_500x643.jpg?1474889300")
         
         let steps = [
+            PromoSlideshowVideoStep(type: .Video, link: "https://s3-eu-west-1.amazonaws.com/shwrm-video-test/logo_1.mp4", duration: 5000, annotations: [], product: nil),
             PromoSlideshowVideoStep(type: .Image, link: "https://assets.shwrm.net/media/update_grafika.jpg?1474968323", duration: 5000, annotations: [], product: nil),
-            PromoSlideshowVideoStep(type: .Video, link: "", duration: 5000, annotations: [], product: nil),
             PromoSlideshowVideoStep(type: .Product, link: "", duration: 3000, annotations: [], product: product),
         ]
         let video = PromoSlideshowVideo(steps: steps, duration: steps.reduce(0, combine: { $0 + $1.duration }))
