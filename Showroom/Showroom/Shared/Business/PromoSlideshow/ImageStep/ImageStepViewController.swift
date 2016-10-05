@@ -35,6 +35,12 @@ final class ImageStepViewController: UIViewController, PromoPageInterface, Image
         castView.loadImage()
     }
     
+    private func pause(animationDuration animationDuration: Double?) {
+        logInfo("pause")
+        timer.pause()
+        pageDelegate?.promoPage(self, willChangePromoPageViewState: .Paused, animationDuration: animationDuration)
+    }
+    
     // MARK:- ImageStepViewDelegate
     
     func imageStepViewDidDownloadImage(view: ImageStepView) {
@@ -45,8 +51,7 @@ final class ImageStepViewController: UIViewController, PromoPageInterface, Image
     
     func imageStepViewDidTapImageView(view: ImageStepView) {
         logInfo("image step view did tap")
-        timer.pause()
-        pageDelegate?.promoPage(self, willChangePromoPageViewState: .Paused, animationDuration: 0.4)
+        pause(animationDuration: 0.4)
     }
     
     // MARK:- PromoPageInterface
@@ -61,6 +66,7 @@ final class ImageStepViewController: UIViewController, PromoPageInterface, Image
     
     func pageLostFocus() {
         logInfo("ImageStep lost focus")
+        pause(animationDuration: 0.4)
     }
     
     func pageGainedFocus() {

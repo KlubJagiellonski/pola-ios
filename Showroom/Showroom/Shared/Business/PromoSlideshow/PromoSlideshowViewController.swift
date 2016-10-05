@@ -31,6 +31,9 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
         castView.pageHandler = self
         
         fetchSlideshow()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PromoSlideshowViewController.onWillResignActive), name: UIApplicationWillResignActiveNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PromoSlideshowViewController.onDidBecomeActive), name: UIApplicationDidBecomeActiveNotification, object: nil)
     }
     
     override func prefersStatusBarHidden() -> Bool {
@@ -57,6 +60,16 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
             case .Completed: break
             }
         }.addDisposableTo(disposeBag)
+    }
+    
+    @objc private func onWillResignActive() {
+        logInfo("will resign active")
+        informCurrentChildViewController(about: { $0.pageLostFocus() })
+    }
+    
+    @objc private func onDidBecomeActive() {
+        logInfo("did become active")
+        informCurrentChildViewController(about: { $0.pageGainedFocus() })
     }
     
     private func informCurrentChildViewController(@noescape about block: PromoPageInterface -> Void) {
