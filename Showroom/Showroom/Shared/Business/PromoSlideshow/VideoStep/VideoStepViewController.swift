@@ -17,11 +17,11 @@ final class VideoStepViewController: UIViewController, PromoPageInterface {
     
     func didTapDismiss() {}
     
-    func pageLostFocus() {
-        logInfo("VideoStep lost focus")
+    func pageGainedFocus(with reason: PromoFocusChangeReason) {
+        logInfo("VideoStep gained focus")
     }
     
-    func pageGainedFocus(shouldInvalidate shouldInvalidate: Bool) {
-        logInfo("VideoStep gained focus")
+    func pageLostFocus(with reason: PromoFocusChangeReason) {
+        logInfo("VideoStep lost focus")
     }
 }

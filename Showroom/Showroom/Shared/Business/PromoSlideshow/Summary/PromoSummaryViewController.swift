@@ -45,11 +45,11 @@ final class PromoSummaryViewController: UIViewController, PromoPageInterface, Pr
     
     func didTapDismiss() {}
     
-    func pageLostFocus() {
+    func pageLostFocus(with reason: PromoFocusChangeReason) {
         logInfo("PromoSummary lost focus")
     }
     
-    func pageGainedFocus(shouldInvalidate shouldInvalidate: Bool) {
+    func pageGainedFocus(with reason: PromoFocusChangeReason) {
         logInfo("PromoSummary gained focus")
     }
 }

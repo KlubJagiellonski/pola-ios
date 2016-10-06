@@ -77,11 +77,11 @@ final class ProductStepViewController: ProductPageViewController, ProductPageVie
         dismissContentView()
     }
     
-    func pageLostFocus() {
+    func pageLostFocus(with reason: PromoFocusChangeReason) {
         logInfo("ProductStep lost focus")
     }
     
-    func pageGainedFocus(shouldInvalidate shouldInvalidate: Bool) {
+    func pageGainedFocus(with reason: PromoFocusChangeReason) {
         logInfo("ProductStep gained focus")
     }
     

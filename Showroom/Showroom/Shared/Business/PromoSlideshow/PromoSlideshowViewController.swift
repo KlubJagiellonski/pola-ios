@@ -64,12 +64,12 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
     
     @objc private func onWillResignActive() {
         logInfo("will resign active")
-        informCurrentChildViewController(about: { $0.pageLostFocus() })
+        informCurrentChildViewController(about: { $0.pageLostFocus(with: .AppForegroundChanged) })
     }
     
     @objc private func onDidBecomeActive() {
         logInfo("did become active")
-        informCurrentChildViewController(about: { $0.pageGainedFocus(shouldInvalidate: false) })
+        informCurrentChildViewController(about: { $0.pageGainedFocus(with: .AppForegroundChanged) })
     }
     
     private func informCurrentChildViewController(@noescape about block: PromoPageInterface -> Void) {
@@ -107,12 +107,12 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
     
     func promoSlideshowDidEndPageChanging(promoSlideshow: PromoSlideshowView) {
         logInfo("Did end page changing \(castView.currentPageIndex)")
-        informCurrentChildViewController() { $0.pageGainedFocus(shouldInvalidate: true) }
+        informCurrentChildViewController() { $0.pageGainedFocus(with: .PageChanged) }
     }
     
     func promoSlideshowWillBeginPageChanging(promoSlideshow: PromoSlideshowView) {
         logInfo("Will begin page changing \(castView.currentPageIndex)")
-        informCurrentChildViewController() { $0.pageLostFocus() }
+        informCurrentChildViewController() { $0.pageLostFocus(with: .PageChanged) }
     }
     
     // MARK:- ViewSwitcherDelegate
@@ -180,7 +180,7 @@ extension PromoSlideshowViewController: PromoSlideshowPageHandler {
         newViewController.didMoveToParentViewController(self)
         
         if indexedViewControllers.isEmpty {
-            (newViewController as? PromoPageInterface)?.pageGainedFocus(shouldInvalidate: true)
+            (newViewController as? PromoPageInterface)?.pageGainedFocus(with: .PageChanged)
         }
         
         if removePageIndex != nil {

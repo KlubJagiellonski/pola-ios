@@ -64,12 +64,12 @@ final class ImageStepViewController: UIViewController, PromoPageInterface, Image
     
     func didTapDismiss() { }
     
-    func pageLostFocus() {
+    func pageLostFocus(with reason: PromoFocusChangeReason) {
         logInfo("ImageStep lost focus")
         pause(animationDuration: 0.4)
     }
     
-    func pageGainedFocus(shouldInvalidate shouldInvalidate: Bool) {
+    func pageGainedFocus(with reason: PromoFocusChangeReason) {
         logInfo("ImageStep gained focus")
     }
 }
