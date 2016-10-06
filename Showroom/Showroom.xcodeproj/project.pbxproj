@@ -141,6 +141,7 @@
 		1D5F91681D36500500AE66E6 /* FilterDetailsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F91671D36500500AE66E6 /* FilterDetailsDataSource.swift */; };
 		1D5F916A1D36508000AE66E6 /* FilterDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F91691D36508000AE66E6 /* FilterDetailsViewController.swift */; };
 		1D5F916C1D36541700AE66E6 /* SelectValueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F916B1D36541700AE66E6 /* SelectValueTableViewCell.swift */; };
+		1D62CA8C1DA641AD0015169D /* PromoSummaryPlayControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D62CA8B1DA641AD0015169D /* PromoSummaryPlayControl.swift */; };
 		1D6671671D93E4BE00070502 /* Drop-In.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1D6671691D93E4BE00070502 /* Drop-In.strings */; };
 		1D66E4421D38D8190041D74D /* SearchNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D66E4411D38D8190041D74D /* SearchNavigationController.swift */; };
 		1D6933461D2D176200609BB9 /* CocoaMarkdown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D6933451D2D176200609BB9 /* CocoaMarkdown.framework */; };
@@ -565,6 +566,7 @@
 		1D5F91671D36500500AE66E6 /* FilterDetailsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterDetailsDataSource.swift; sourceTree = "<group>"; };
 		1D5F91691D36508000AE66E6 /* FilterDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterDetailsViewController.swift; sourceTree = "<group>"; };
 		1D5F916B1D36541700AE66E6 /* SelectValueTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectValueTableViewCell.swift; sourceTree = "<group>"; };
+		1D62CA8B1DA641AD0015169D /* PromoSummaryPlayControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromoSummaryPlayControl.swift; sourceTree = "<group>"; };
 		1D66716A1D93E4C300070502 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = "pl.lproj/Drop-In.strings"; sourceTree = "<group>"; };
 		1D66716B1D93E4C500070502 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = "de.lproj/Drop-In.strings"; sourceTree = "<group>"; };
 		1D66E4411D38D8190041D74D /* SearchNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchNavigationController.swift; sourceTree = "<group>"; };
@@ -1660,6 +1662,7 @@
 				1DF9DE8D1DA3CF0F00F8585E /* PromoSummaryPlayerView.swift */,
 				1DF9DE8F1DA3CF2100F8585E /* PromoSummaryLinksView.swift */,
 				1DF9DE911DA4ED4300F8585E /* PromoSummaryVideoView.swift */,
+				1D62CA8B1DA641AD0015169D /* PromoSummaryPlayControl.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2349,6 +2352,7 @@
 				1D80F4631D9BCF8600DFB1C3 /* PromoSlideshowView.swift in Sources */,
 				1D5886EC1D2BF274007D0CB1 /* ProductHeaderContainerCell.swift in Sources */,
 				1D6933541D2E411400609BB9 /* BrandDescriptionView.swift in Sources */,
+				1D62CA8C1DA641AD0015169D /* PromoSummaryPlayControl.swift in Sources */,
 				1D72ED261CFDA591007AFD2F /* StringUtils.swift in Sources */,
 				C01FF2E21D366D3B00D025AE /* HeartMaskView.swift in Sources */,
 				1D80F4841D9BF5AB00DFB1C3 /* PromoSummaryViewController.swift in Sources */,

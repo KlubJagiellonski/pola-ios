@@ -34,8 +34,8 @@ final class PromoSummaryPlayerView: UIView {
         hudView.nextButton.alpha = (otherVideos.count - 1) == currentVideoIndex ? 0 : 1
         hudView.backButton.addTarget(self, action: #selector(PromoSummaryPlayerView.didTapBack), forControlEvents: .TouchUpInside)
         hudView.nextButton.addTarget(self, action: #selector(PromoSummaryPlayerView.didTapNext), forControlEvents: .TouchUpInside)
-        hudView.playButton.addTarget(self, action: #selector(PromoSummaryPlayerView.didTapPlay), forControlEvents: .TouchUpInside)
-        
+        hudView.playControl.addTarget(self, action: #selector(PromoSummaryPlayerView.didTapPlay), forControlEvents: .TouchUpInside)
+        hudView.playControl.playerView = self
         
         addSubview(currentVideoView)
         addSubview(hudView)
@@ -52,12 +52,17 @@ final class PromoSummaryPlayerView: UIView {
         
         if !firstLayoutSubviewsPassed {
             updateVideoImageView()
+            hudView.playControl.invalidateAndStartAnimation()
             firstLayoutSubviewsPassed = true
         }
     }
     
     func didTapRetryImageDownload(with view: PromoSummaryVideoView) {
         updateVideoImageView()
+    }
+    
+    func didFinishedPlayControlAnimation(with view: PromoSummaryPlayControl) {
+        promoSummaryView?.didTap(playForVideo: videos[currentVideoIndex])
     }
     
     override func hitTest(point: CGPoint, withEvent event: UIEvent?) -> UIView? {
@@ -155,7 +160,12 @@ final class PromoSummaryPlayerView: UIView {
         
         UIView.animateWithDuration(animated ? 0.1 : 0) { [unowned self] in
             self.userInteractionEnabled = true
-            self.hudView.playButton.alpha = showPlayButton ? 1 : 0
+            self.hudView.playControl.alpha = showPlayButton ? 1 : 0
+            if showPlayButton && !self.hudView.playControl.progressVisible {
+                logInfo("updateHud, playButton")
+                self.hudView.playControl.invalidateAndStartAnimation()
+                self.hudView.playControl.progressVisible = true
+            }
         }
     }
     
@@ -166,8 +176,10 @@ final class PromoSummaryPlayerView: UIView {
         
         switch step {
         case .First:
+            logInfo("updateHud, first")
+            self.hudView.playControl.progressVisible = false
             if !cachedImageExist {
-                self.hudView.playButton.alpha = 0
+                self.hudView.playControl.alpha = 0
             }
             if !backVisibleForNewIndex {
                 self.hudView.backButton.alpha = 0
@@ -177,7 +189,10 @@ final class PromoSummaryPlayerView: UIView {
             }
         case .Second:
             if cachedImageExist {
-                self.hudView.playButton.alpha = 1
+                logInfo("updateHud, second")
+                self.hudView.playControl.alpha = 1
+                self.hudView.playControl.invalidateAndStartAnimation()
+                self.hudView.playControl.progressVisible = true
             }
             if backVisibleForNewIndex {
                 self.hudView.backButton.alpha = 1
@@ -203,7 +218,7 @@ final class PromoSummaryPlayerHudView: UIView {
     private let buttonSpacing: CGFloat = 40
     
     private let backButton = UIButton()
-    private let playButton = PromoSummaryPlayButton()
+    private let playControl = PromoSummaryPlayControl()
     private let nextButton = UIButton()
     
     init() {
@@ -216,7 +231,7 @@ final class PromoSummaryPlayerHudView: UIView {
         nextButton.setImage(UIImage(asset: .Next), forState: .Normal)
         
         addSubview(backButton)
-        addSubview(playButton)
+        addSubview(playControl)
         addSubview(nextButton)
         
         configureCustomConstraints()
@@ -227,24 +242,24 @@ final class PromoSummaryPlayerHudView: UIView {
     }
     
     private func configureCustomConstraints() {
-        playButton.snp_makeConstraints { make in
+        playControl.snp_makeConstraints { make in
             make.top.equalToSuperview()
             make.centerX.equalToSuperview()
             make.bottom.equalToSuperview()
             make.width.equalTo(Dimensions.mediaPlayButtonDiameter)
-            make.height.equalTo(playButton.snp_width)
+            make.height.equalTo(playControl.snp_width)
         }
         
         backButton.snp_makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.trailing.equalTo(playButton.snp_leading).offset(-buttonSpacing)
+            make.trailing.equalTo(playControl.snp_leading).offset(-buttonSpacing)
             make.width.equalTo(Dimensions.mediaControlButtonDiameter)
             make.height.equalTo(backButton.snp_width)
         }
         
         nextButton.snp_makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.leading.equalTo(playButton.snp_trailing).offset(buttonSpacing)
+            make.leading.equalTo(playControl.snp_trailing).offset(buttonSpacing)
             make.width.equalTo(Dimensions.mediaControlButtonDiameter)
             make.height.equalTo(backButton.snp_width)
         }
@@ -253,21 +268,5 @@ final class PromoSummaryPlayerHudView: UIView {
     override func intrinsicContentSize() -> CGSize {
         let width = 2 * Dimensions.mediaControlButtonDiameter + Dimensions.mediaPlayButtonDiameter + 2 * buttonSpacing
         return CGSize(width: width, height: Dimensions.mediaPlayButtonDiameter)
-    }
-}
-
-final class PromoSummaryPlayButton: UIButton {
-    init() {
-        super.init(frame: CGRectZero)
-        
-        layer.cornerRadius = Dimensions.mediaPlayButtonDiameter * 0.5
-        self.clipsToBounds = true
-        let color = UIColor(named: .White).colorWithAlphaComponent(0.3)
-        setBackgroundImage(UIImage.fromColor(color), forState: .Normal)
-        setImage(UIImage(asset: .Play_next), forState: .Normal)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }
