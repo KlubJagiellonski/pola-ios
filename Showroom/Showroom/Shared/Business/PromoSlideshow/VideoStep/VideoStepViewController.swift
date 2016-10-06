@@ -21,7 +21,7 @@ final class VideoStepViewController: UIViewController, PromoPageInterface {
         logInfo("VideoStep lost focus")
     }
     
-    func pageGainedFocus() {
+    func pageGainedFocus(shouldInvalidate shouldInvalidate: Bool) {
         logInfo("VideoStep gained focus")
     }
 }

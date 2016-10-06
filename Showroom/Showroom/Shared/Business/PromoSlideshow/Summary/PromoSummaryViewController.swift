@@ -49,7 +49,7 @@ final class PromoSummaryViewController: UIViewController, PromoPageInterface, Pr
         logInfo("PromoSummary lost focus")
     }
     
-    func pageGainedFocus() {
+    func pageGainedFocus(shouldInvalidate shouldInvalidate: Bool) {
         logInfo("PromoSummary gained focus")
     }
 }

@@ -69,7 +69,7 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
     
     @objc private func onDidBecomeActive() {
         logInfo("did become active")
-        informCurrentChildViewController(about: { $0.pageGainedFocus() })
+        informCurrentChildViewController(about: { $0.pageGainedFocus(shouldInvalidate: false) })
     }
     
     private func informCurrentChildViewController(@noescape about block: PromoPageInterface -> Void) {
@@ -107,7 +107,7 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
     
     func promoSlideshowDidEndPageChanging(promoSlideshow: PromoSlideshowView) {
         logInfo("Did end page changing \(castView.currentPageIndex)")
-        informCurrentChildViewController() { $0.pageGainedFocus() }
+        informCurrentChildViewController() { $0.pageGainedFocus(shouldInvalidate: true) }
     }
     
     func promoSlideshowWillBeginPageChanging(promoSlideshow: PromoSlideshowView) {
@@ -180,7 +180,7 @@ extension PromoSlideshowViewController: PromoSlideshowPageHandler {
         newViewController.didMoveToParentViewController(self)
         
         if indexedViewControllers.isEmpty {
-            (newViewController as? PromoPageInterface)?.pageGainedFocus()
+            (newViewController as? PromoPageInterface)?.pageGainedFocus(shouldInvalidate: true)
         }
         
         if removePageIndex != nil {

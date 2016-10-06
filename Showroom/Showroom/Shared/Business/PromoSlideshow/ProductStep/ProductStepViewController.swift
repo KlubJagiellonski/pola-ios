@@ -81,7 +81,7 @@ final class ProductStepViewController: ProductPageViewController, ProductPageVie
         logInfo("ProductStep lost focus")
     }
     
-    func pageGainedFocus() {
+    func pageGainedFocus(shouldInvalidate shouldInvalidate: Bool) {
         logInfo("ProductStep gained focus")
     }
     

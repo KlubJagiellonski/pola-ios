@@ -69,7 +69,7 @@ final class ImageStepViewController: UIViewController, PromoPageInterface, Image
         pause(animationDuration: 0.4)
     }
     
-    func pageGainedFocus() {
+    func pageGainedFocus(shouldInvalidate shouldInvalidate: Bool) {
         logInfo("ImageStep gained focus")
     }
 }
