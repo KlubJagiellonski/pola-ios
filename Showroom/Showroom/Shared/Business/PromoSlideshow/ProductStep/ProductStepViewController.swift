@@ -77,6 +77,14 @@ final class ProductStepViewController: ProductPageViewController, ProductPageVie
         dismissContentView()
     }
     
+    func pageLostFocus() {
+        logInfo("ProductStep lost focus")
+    }
+    
+    func pageGainedFocus() {
+        logInfo("ProductStep gained focus")
+    }
+    
     // MARK:- ProductPagePreviewOverlayViewDelegate
     
     func previewOverlayDidTapOverlay(previewOverlay: ProductPagePreviewOverlayView) {

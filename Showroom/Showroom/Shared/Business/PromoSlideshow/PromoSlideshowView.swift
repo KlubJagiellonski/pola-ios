@@ -3,6 +3,8 @@ import UIKit
 
 protocol PromoSlideshowViewDelegate: ViewSwitcherDelegate {
     func promoSlideshowDidTapClose(promoSlideshow: PromoSlideshowView)
+    func promoSlideshowWillBeginPageChanging(promoSlideshow: PromoSlideshowView)
+    func promoSlideshowDidEndPageChanging(promoSlideshow: PromoSlideshowView)
 }
 
 enum PromoSlideshowCloseButtonState {
@@ -110,6 +112,7 @@ final class PromoSlideshowView: ViewSwitcher, UICollectionViewDelegate {
     func moveToNextPage() {
         let indexPath = NSIndexPath(forItem: currentPageIndex + 1, inSection: 0)
         collectionView.scrollToItemAtIndexPath(indexPath, atScrollPosition: .Left, animated: true)
+        self.delegate?.promoSlideshowWillBeginPageChanging(self)
     }
     
     private func configureCustomConstraints() {
@@ -144,6 +147,20 @@ final class PromoSlideshowView: ViewSwitcher, UICollectionViewDelegate {
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         let size = collectionView.bounds.size
         return CGSize(width: size.width, height: size.height)
+    }
+    
+    // MARK: - UIScrollViewDelegate
+    
+    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        self.delegate?.promoSlideshowWillBeginPageChanging(self)
+    }
+    
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        self.delegate?.promoSlideshowDidEndPageChanging(self)
+    }
+    
+    func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
+        self.delegate?.promoSlideshowDidEndPageChanging(self)
     }
 }
 

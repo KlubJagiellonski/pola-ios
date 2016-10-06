@@ -16,4 +16,12 @@ final class VideoStepViewController: UIViewController, PromoPageInterface {
     func didTapPlay() {}
     
     func didTapDismiss() {}
+    
+    func pageLostFocus() {
+        logInfo("VideoStep lost focus")
+    }
+    
+    func pageGainedFocus() {
+        logInfo("VideoStep gained focus")
+    }
 }

@@ -58,6 +58,14 @@ final class ImageStepViewController: UIViewController, PromoPageInterface, Image
     }
     
     func didTapDismiss() { }
+    
+    func pageLostFocus() {
+        logInfo("ImageStep lost focus")
+    }
+    
+    func pageGainedFocus() {
+        logInfo("ImageStep gained focus")
+    }
 }
 
 extension ImageStepViewController: TimerDelegate {

@@ -17,6 +17,8 @@ protocol PromoPageDelegate: class {
 protocol PromoPageInterface: class {
     weak var pageDelegate: PromoPageDelegate? { get set }
     
+    func pageLostFocus()
+    func pageGainedFocus()
     func didTapPlay()
     func didTapDismiss()
 }

@@ -59,10 +59,19 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
         }.addDisposableTo(disposeBag)
     }
     
-    private func informChildViewControllers(@noescape about block: PromoPageInterface -> Void) {
-        for (_, viewController) in indexedViewControllers {
+    private func informCurrentChildViewController(@noescape about block: PromoPageInterface -> Void) {
+        let currentPageIndex = castView.currentPageIndex
+        informChildViewControllers() {
+            if $0 == currentPageIndex {
+                block($1)
+            }
+        }
+    }
+    
+    private func informChildViewControllers(@noescape about block: (Int, PromoPageInterface) -> Void) {
+        for (index, viewController) in indexedViewControllers {
             if let promoPageInterface = viewController as? PromoPageInterface {
-                block(promoPageInterface)
+                block(index, promoPageInterface)
             } else {
                 logError("View controller \(viewController) do not implement PromoPageInterface")
             }
@@ -72,14 +81,25 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
     // MARK:- PromoSlideshowViewDelegate
     
     func promoSlideshowDidTapClose(promoSlideshow: PromoSlideshowView) {
+        logInfo("Did tap close, state: \(castView.closeButtonState)")
         switch castView.closeButtonState {
         case .Close:
             sendNavigationEvent(SimpleNavigationEvent(type: .Close))
         case .Dismiss:
-            informChildViewControllers(about: { $0.didTapDismiss() })
+            informCurrentChildViewController() { $0.didTapDismiss() }
         case .Play:
-            informChildViewControllers(about: { $0.didTapPlay() })
+            informCurrentChildViewController() { $0.didTapPlay() }
         }
+    }
+    
+    func promoSlideshowDidEndPageChanging(promoSlideshow: PromoSlideshowView) {
+        logInfo("Did end page changing \(castView.currentPageIndex)")
+        informCurrentChildViewController() { $0.pageGainedFocus() }
+    }
+    
+    func promoSlideshowWillBeginPageChanging(promoSlideshow: PromoSlideshowView) {
+        logInfo("Will begin page changing \(castView.currentPageIndex)")
+        informCurrentChildViewController() { $0.pageLostFocus() }
     }
     
     // MARK:- ViewSwitcherDelegate
@@ -145,6 +165,10 @@ extension PromoSlideshowViewController: PromoSlideshowPageHandler {
         
         currentViewController?.removeFromParentViewController()
         newViewController.didMoveToParentViewController(self)
+        
+        if indexedViewControllers.isEmpty {
+            (newViewController as? PromoPageInterface)?.pageGainedFocus()
+        }
         
         if removePageIndex != nil {
             indexedViewControllers[removePageIndex!] = nil

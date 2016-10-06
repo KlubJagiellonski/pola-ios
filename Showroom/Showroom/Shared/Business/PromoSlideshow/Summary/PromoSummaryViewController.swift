@@ -16,4 +16,12 @@ final class PromoSummaryViewController: UIViewController, PromoPageInterface {
     func didTapPlay() {}
     
     func didTapDismiss() {}
+    
+    func pageLostFocus() {
+        logInfo("PromoSummary lost focus")
+    }
+    
+    func pageGainedFocus() {
+        logInfo("PromoSummary gained focus")
+    }
 }
