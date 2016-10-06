@@ -29,14 +29,17 @@ final class PromoSummaryViewController: UIViewController, PromoPageInterface, Pr
     
     func promoSummaryDidTapRepeat(promoSummary: PromoSummaryView) {
         logInfo("Did tap repeat")
+        sendNavigationEvent(ShowVideoEvent(id: promoSlideshow.otherVideos[0].id))
     }
     
     func promoSummary(promoSummary: PromoSummaryView, didTapLink link: PromoSlideshowLink) {
         logInfo("Did tap link \(link)")
+        sendNavigationEvent(ShowItemForLinkEvent(link: link.link, title: link.text, productDetailsFromType: .Video))
     }
     
     func promoSummary(promoSummary: PromoSummaryView, didTapPlayForVideo video: PromoSlideshowOtherVideo) {
         logInfo("Did tap play video \(video)")
+        sendNavigationEvent(ShowVideoEvent(id: video.id))
     }
 
     // MARK:- PromoPageInterface

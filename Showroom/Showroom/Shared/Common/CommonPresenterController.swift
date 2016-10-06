@@ -68,7 +68,7 @@ class CommonPresenterController: PresenterViewController, NavigationHandler {
     
     private func showPromoSlideshow(with event: ShowPromoSlideshowEvent) {
         if let promoSlideshowViewController = currentModalViewController as? PromoSlideshowViewController {
-            promoSlideshowViewController.updateData(with: event.slideshowId)
+            promoSlideshowViewController.updateData(withSlideshowId: event.slideshowId)
             return
         }
         closeModal() { [weak self] _ in
@@ -77,6 +77,20 @@ class CommonPresenterController: PresenterViewController, NavigationHandler {
             let viewController = self.resolver.resolve(PromoSlideshowViewController.self, argument: event.slideshowId)
             let animation = DimTransitionAnimation(animationDuration: 0.3)
             self.showModal(viewController, hideContentView: true, animation: animation, completion: nil)
+        }
+    }
+    
+    private func closeModalAndPropagateToContent(with event: NavigationEvent) {
+        closeModal() { [weak self] _ in
+            guard let `self` = self else { return }
+            
+            var eventHandled = false
+            if let navigationHandler = self.contentViewController as? NavigationHandler {
+                eventHandled = navigationHandler.handleNavigationEvent(event)
+            }
+            if !eventHandled {
+                logError("Couldn not handle event \(self.contentViewController) \(event)")
+            }
         }
     }
     
@@ -89,17 +103,10 @@ class CommonPresenterController: PresenterViewController, NavigationHandler {
             showProductDetails(with: showProductDetailsEvent)
             return true
         case let brandProductListEvent as ShowBrandProductListEvent:
-            closeModal() { [weak self] _ in
-                guard let `self` = self else { return }
-                
-                var eventHandled = false
-                if let navigationHandler = self.contentViewController as? NavigationHandler {
-                    eventHandled = navigationHandler.handleNavigationEvent(brandProductListEvent)
-                }
-                if !eventHandled {
-                    logError("Couldn not handle brand product list event \(self.contentViewController) \(brandProductListEvent)")
-                }
-            }
+            closeModalAndPropagateToContent(with: brandProductListEvent)
+            return true
+        case let showItemForLinkEvent as ShowItemForLinkEvent:
+            closeModalAndPropagateToContent(with: showItemForLinkEvent)
             return true
         case let simpleEvent as SimpleNavigationEvent:
             switch simpleEvent.type {

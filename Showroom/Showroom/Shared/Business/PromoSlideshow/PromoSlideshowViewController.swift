@@ -31,17 +31,36 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
         castView.pageHandler = self
         
         fetchSlideshow()
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PromoSlideshowViewController.onWillResignActive), name: UIApplicationWillResignActiveNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PromoSlideshowViewController.onDidBecomeActive), name: UIApplicationDidBecomeActiveNotification, object: nil)
     }
     
     override func prefersStatusBarHidden() -> Bool {
         return castView.viewState == .Close && !castView.progressEnded
     }
     
-    func updateData(with slideshowId: Int) {
-        // TODO: updating data
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PromoSlideshowViewController.onWillResignActive), name: UIApplicationWillResignActiveNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PromoSlideshowViewController.onDidBecomeActive), name: UIApplicationDidBecomeActiveNotification, object: nil)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    func updateData(withSlideshowId slideshowId: Int) {
+        castView.changeSwitcherState(.Loading)
+        UIView.animateWithDuration(castView.viewSwitcherAnimationDuration) { [unowned self] in
+            self.castView.progressEnded = false
+            self.castView.viewState = .Close
+            self.setNeedsStatusBarAppearanceUpdate()
+        }
+        
+        informCurrentChildViewController() {
+            $0.pageLostFocus(with: .PageChanged)
+        }
+        model.update(withSlideshowId: slideshowId)
+        fetchSlideshow()
     }
     
     private func fetchSlideshow() {
@@ -53,6 +72,7 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
             case .Next(let result):
                 logInfo("Fetched slideshow \(result)")
                 self.castView.changeSwitcherState(.Success, animated: true)
+                self.removeAllViewControllers()
                 self.castView.update(with: result)
             case .Error(let error):
                 logInfo("Cannot fetch slideshow \(error)")
@@ -226,5 +246,20 @@ extension PromoSlideshowViewController: PromoSlideshowPageHandler {
             return resolver.resolve(PromoSummaryViewController.self, argument: promoSlideshow)
         }
     }
- 
+}
+
+extension PromoSlideshowViewController: NavigationHandler {
+    func handleNavigationEvent(event: NavigationEvent) -> EventHandled {
+        if let videoEvent = event as? ShowVideoEvent {
+            updateData(withSlideshowId: videoEvent.id)
+            return true
+        }
+        return false
+    }
+}
+
+extension PromoSlideshowViewController: StatusBarAppearanceHandling {
+    var wantsHandleStatusBarAppearance: Bool {
+        return true
+    }
 }

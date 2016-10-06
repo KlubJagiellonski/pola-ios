@@ -81,10 +81,11 @@ class PresenterViewController: UIViewController {
         }
         
         animation?.additionalAnimationBlock = { [weak self] in
-            self?.forceContentForControllingBarHiddenStates = true
-            self?.setNeedsStatusBarAppearanceUpdate()
-            self?.setNeedsTabBarAppearanceUpdate()
-            self?.forceContentForControllingBarHiddenStates = false
+            guard let `self` = self else { return }
+            self.forceContentForControllingBarHiddenStates = true
+            self.setNeedsStatusBarAppearanceUpdate()
+            self.setNeedsTabBarAppearanceUpdate()
+            self.forceContentForControllingBarHiddenStates = false
         }
         
         currentModalViewController.willMoveToParentViewController(nil)
@@ -95,7 +96,12 @@ class PresenterViewController: UIViewController {
         if forceContentForControllingBarHiddenStates {
             return contentViewController
         }
-        return currentModalViewController ?? contentViewController
+        //we want to get status bar info only from view controller that wants to handle it
+        if let statusBarHandler = currentModalViewController as? StatusBarAppearanceHandling
+            where statusBarHandler.wantsHandleStatusBarAppearance {
+            return currentModalViewController
+        }
+        return contentViewController
     }
 }
 

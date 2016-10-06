@@ -66,6 +66,12 @@ extension UIResponder {
     }
 }
 
+// MARK:- Status bar handling
+
+protocol StatusBarAppearanceHandling {
+    var wantsHandleStatusBarAppearance: Bool { get }
+}
+
 // MARK:- Tab bar handling
 
 protocol TabBarStateDataSource: class {

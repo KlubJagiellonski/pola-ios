@@ -13,7 +13,7 @@ enum PromoSlideshowCloseButtonState {
     case Play
 }
 
-final class PromoSlideshowView: ViewSwitcher, UICollectionViewDelegate {
+final class PromoSlideshowView: UIView, UICollectionViewDelegate {
     private let closeButton = UIButton(type: .Custom)
     private let viewSwitcher: ViewSwitcher
     private let contentView = UIView()
@@ -58,18 +58,19 @@ final class PromoSlideshowView: ViewSwitcher, UICollectionViewDelegate {
         }
     }
     var pageCount: Int { return dataSource.pageCount }
+    var viewSwitcherAnimationDuration: Double { return viewSwitcher.animationDuration }
     weak var delegate: PromoSlideshowViewDelegate? {
         didSet {
-            switcherDelegate = delegate
+            viewSwitcher.switcherDelegate = delegate
         }
     }
     
     init() {
         viewSwitcher = ViewSwitcher(successView: contentView)
         dataSource = PromoSlideshowDataSource(with: collectionView)
-        super.init(successView: contentView)
+        super.init(frame: CGRectZero)
         
-        switcherDataSource = self
+        viewSwitcher.switcherDataSource = self
         
         backgroundColor = UIColor(named: .White)
         
@@ -85,7 +86,7 @@ final class PromoSlideshowView: ViewSwitcher, UICollectionViewDelegate {
         contentView.addSubview(collectionView)
         contentView.addSubview(progressView)
         
-        addSubview(contentView)
+        addSubview(viewSwitcher)
         addSubview(closeButton)
         
         configureCustomConstraints()
@@ -95,7 +96,12 @@ final class PromoSlideshowView: ViewSwitcher, UICollectionViewDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func changeSwitcherState(switcherState: ViewSwitcherState, animated: Bool = true) {
+        viewSwitcher.changeSwitcherState(switcherState, animated: animated)
+    }
+    
     func update(with promoSlideshow: PromoSlideshow) {
+        collectionView.contentOffset = CGPoint(x: 0, y: 0)
         dataSource.pageCount = promoSlideshow.video.steps.count + 1
         progressView.update(with: promoSlideshow.video)
     }
@@ -128,7 +134,7 @@ final class PromoSlideshowView: ViewSwitcher, UICollectionViewDelegate {
             make.height.equalTo(closeButton.snp_width)
         }
         
-        contentView.snp_makeConstraints { make in
+        viewSwitcher.snp_makeConstraints { make in
             make.edges.equalToSuperview()
         }
         

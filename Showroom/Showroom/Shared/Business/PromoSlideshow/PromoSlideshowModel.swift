@@ -11,11 +11,16 @@ enum PromoSlideshowPageData {
 }
 
 final class PromoSlideshowModel {
-    private let slideshowId: Int
+    private var slideshowId: Int
     private(set) var promoSlideshow: PromoSlideshow?
     
     init(slideshowId: Int) {
         self.slideshowId = slideshowId
+    }
+    
+    func update(withSlideshowId slideshowId: ObjectId) {
+        self.slideshowId = slideshowId
+        self.promoSlideshow = nil
     }
     
     func fetchPromoSlideshow() -> Observable<PromoSlideshow> {
@@ -37,8 +42,8 @@ final class PromoSlideshowModel {
             PromoSlideshowOtherVideo(id: 12345, imageUrl: "https://assets.shwrm.net/images/q/r/qr576aa8fe20413_500x643.jpg?1466607870", caption: PromoSlideshowOtherVideoCaption(title: "Testowy film 3", subtitle: "Testowy opis 3", color: .Black)),
         ]
         let links = [
-            PromoSlideshowLink(text: "My link 1", link: ""),
-            PromoSlideshowLink(text: "My link 2", link: "")
+            PromoSlideshowLink(text: "My link 1", link: "https://www.showroom.pl/tag/ona"),
+            PromoSlideshowLink(text: "My link 2", link: "https://www.showroom.pl/tag/on")
         ]
         let promoSlideshow = PromoSlideshow(brand: brand, video: video, otherVideos: otherVideos, links: links)
         return Observable.just(promoSlideshow).doOnNext { [weak self] result in

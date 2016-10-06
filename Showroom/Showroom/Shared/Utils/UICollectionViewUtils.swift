@@ -3,6 +3,8 @@ import Foundation
 extension UICollectionView {
     var currentPageIndex: Int {
         let pageWidth = frame.width
+        guard pageWidth > 0 else { return 0 } //we don't want to divide by 0
+        
         let contentOffsetX = contentOffset.x
         if fmodf(Float(contentOffsetX), 1.0) > 0.9999 {
             return Int(ceil(contentOffsetX) / pageWidth)

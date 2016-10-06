@@ -26,6 +26,7 @@ enum ProductDetailsFromType: String {
     case HomeContentPromo = "home_content_promo"
     case HomeRecommendation = "home_recommendation"
     case DeepLink = "deeplink"
+    case Video = "video"
 }
 
 protocol ProductDetailsContext: class {

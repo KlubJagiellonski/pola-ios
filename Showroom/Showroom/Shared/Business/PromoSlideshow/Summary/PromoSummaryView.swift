@@ -7,8 +7,6 @@ protocol PromoSummaryViewDelegate: class {
 }
 
 final class PromoSummaryView: UIView {
-    private let playerRatio: CGFloat = 0.84
-    
     private let playerView: PromoSummaryPlayerView
     private let repeatButton = UIButton()
     private let separatorView = UIView()
@@ -30,6 +28,7 @@ final class PromoSummaryView: UIView {
         repeatButton.applyBlackPlainBoldStyle()
         
         playerView.promoSummaryView = self
+        linksView.promoSummaryView = self
         
         addSubview(playerView)
         addSubview(repeatButton)

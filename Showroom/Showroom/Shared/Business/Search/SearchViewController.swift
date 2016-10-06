@@ -45,11 +45,14 @@ final class SearchViewController: UIViewController, SearchViewDelegate {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         markHandoffUrlActivity(withPathComponent: "", resolver: resolver)
+        // We need to update content inset on didAppear in case when app starts with video deep link, that hides status bar.
+        // Than when returning back we don't get viewDidLayoutSubviews when status bar is again shown.
+        updateContentInset()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        castView.contentInset = UIEdgeInsets(top: topLayoutGuide.length, left: 0, bottom: bottomLayoutGuide.length, right: 0)
+        updateContentInset()
     }
     
     private func fetchSearchItems() {
@@ -79,6 +82,10 @@ final class SearchViewController: UIViewController, SearchViewDelegate {
         let gender = model.userGender
         guard let selectedIndex = rootItems.indexOf({ $0.gender == gender }) else { return }
         castView.selectedTab = selectedIndex
+    }
+    
+    private func updateContentInset() {
+        castView.contentInset = UIEdgeInsets(top: topLayoutGuide.length, left: 0, bottom: bottomLayoutGuide.length, right: 0)
     }
     
     //MARK:- SearchViewDelegate
