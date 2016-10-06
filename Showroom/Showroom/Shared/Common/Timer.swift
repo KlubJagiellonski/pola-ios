@@ -17,6 +17,10 @@ final class Timer {
         }
     }
     
+    var paused: Bool {
+        return timer == nil && currentStep > 0
+    }
+    
     weak var delegate: TimerDelegate?
     
     init(duration: Int, stepInterval: Int) {

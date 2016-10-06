@@ -12,6 +12,7 @@ final class PromoSlideshowProgressView: UIView {
     
     private let gradientLayer = CAGradientLayer()
     private var progressViews: [PromoSlideshowStepProgressView] = []
+    private var stepsRelativeDurations: [Double] = []
     
     init() {
         super.init(frame: CGRectZero)
@@ -25,7 +26,20 @@ final class PromoSlideshowProgressView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        
         gradientLayer.frame = self.bounds
+        
+        let horizontalOffset = (progressViewsInsets.left + progressViewsInsets.right)
+        let interOffset = CGFloat(progressViews.count - 1) * interProgressViewHorizontalMargin
+        let offset = horizontalOffset + interOffset
+        
+        var point = CGPointMake(progressViewsInsets.left, progressViewsInsets.top)
+        for (index, progressView) in progressViews.enumerate() {
+            let width = (bounds.width - offset) * CGFloat(stepsRelativeDurations[index])
+            progressView.frame = CGRectMake(point.x, point.y, width, PromoSlideshowStepProgressView.height)
+            
+            point.x += progressView.bounds.width + interProgressViewHorizontalMargin
+        }
     }
     
     func update(with video: PromoSlideshowVideo) {
@@ -40,7 +54,11 @@ final class PromoSlideshowProgressView: UIView {
         for _ in 0..<stepsCount { progressViews.append(PromoSlideshowStepProgressView()) }
         progressViews.forEach { addSubview($0) }
         
-        configureCustomConstraints(with: video)
+        stepsRelativeDurations = video.steps.map { Double($0.duration) / Double(video.duration) }
+        logInfo("steps relative durations: \(stepsRelativeDurations)")
+        
+        setNeedsLayout()
+        layoutSubviews()
     }
     
     func update(with progress: ProgressInfoState) {
@@ -55,26 +73,6 @@ final class PromoSlideshowProgressView: UIView {
                 
             default:
                 progressView.progress = 0
-            }
-        }
-    }
-    
-    private func configureCustomConstraints(with video: PromoSlideshowVideo) {
-        let stepsRelativeDurations = video.steps.map { Double($0.duration) / Double(video.duration) }
-        logInfo("steps relative durations: \(stepsRelativeDurations)")
-        
-        for (index, progressView) in progressViews.enumerate() {
-            progressView.snp_makeConstraints { make in
-                make.top.equalToSuperview().inset(progressViewsInsets)
-                make.height.equalTo(PromoSlideshowStepProgressView.height)
-                
-                if index == 0 {
-                    make.leading.equalToSuperview().inset(progressViewsInsets)
-                } else {
-                    make.leading.equalTo(progressViews[index-1].snp_trailing).offset(interProgressViewHorizontalMargin)
-                }
-                
-                make.width.equalToSuperview().offset(-CGFloat(video.steps.count-1) * interProgressViewHorizontalMargin).multipliedBy(CGFloat(stepsRelativeDurations[index]))
             }
         }
     }

@@ -6,7 +6,7 @@ final class ImageStepViewController: UIViewController, PromoPageInterface, Image
     private let duration: Int
 
     private lazy var timer: Timer = {
-        let timer = Timer(duration: self.duration, stepInterval: 10)
+        let timer = Timer(duration: self.duration, stepInterval: Constants.promoSlideshowTimerStepInterval)
         timer.delegate = self
         return timer
     }()
@@ -35,12 +35,6 @@ final class ImageStepViewController: UIViewController, PromoPageInterface, Image
         castView.loadImage()
     }
     
-    private func pause(animationDuration animationDuration: Double?) {
-        logInfo("pause")
-        timer.pause()
-        pageDelegate?.promoPage(self, willChangePromoPageViewState: .Paused, animationDuration: animationDuration)
-    }
-    
     // MARK:- ImageStepViewDelegate
     
     func imageStepViewDidDownloadImage(view: ImageStepView) {
@@ -51,7 +45,13 @@ final class ImageStepViewController: UIViewController, PromoPageInterface, Image
     
     func imageStepViewDidTapImageView(view: ImageStepView) {
         logInfo("image step view did tap")
-        pause(animationDuration: 0.4)
+        if timer.paused {
+            timer.play()
+            pageDelegate?.promoPage(self, willChangePromoPageViewState: .Close, animationDuration: Constants.promoSlideshowStateChangedAnimationDuration)
+        } else {
+            timer.pause()
+            pageDelegate?.promoPage(self, willChangePromoPageViewState: .Paused, animationDuration: Constants.promoSlideshowStateChangedAnimationDuration)
+        }
     }
     
     // MARK:- PromoPageInterface
@@ -59,18 +59,25 @@ final class ImageStepViewController: UIViewController, PromoPageInterface, Image
     func didTapPlay() {
         logInfo("did tap play")
         timer.play()
-        pageDelegate?.promoPage(self, willChangePromoPageViewState: .Close, animationDuration: 0.4)
+        pageDelegate?.promoPage(self, willChangePromoPageViewState: .Close, animationDuration: Constants.promoSlideshowStateChangedAnimationDuration)
     }
     
     func didTapDismiss() { }
     
     func pageLostFocus(with reason: PromoFocusChangeReason) {
         logInfo("ImageStep lost focus")
-        pause(animationDuration: 0.4)
+        if reason == .AppForegroundChanged {
+            pageDelegate?.promoPage(self, willChangePromoPageViewState: .Paused, animationDuration: Constants.promoSlideshowStateChangedAnimationDuration)
+        }
+        timer.pause()
     }
     
     func pageGainedFocus(with reason: PromoFocusChangeReason) {
-        logInfo("ImageStep gained focus")
+        logInfo("ImageStep gained focus \(reason)")
+        if reason == .AppForegroundChanged {
+            pageDelegate?.promoPage(self, willChangePromoPageViewState: .Close, animationDuration: Constants.promoSlideshowStateChangedAnimationDuration)
+        }
+        timer.play()
     }
 }
 

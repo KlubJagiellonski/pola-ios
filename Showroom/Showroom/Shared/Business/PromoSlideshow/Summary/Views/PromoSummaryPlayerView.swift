@@ -18,6 +18,7 @@ final class PromoSummaryPlayerView: UIView {
     private let videos: [PromoSlideshowOtherVideo]
     private var currentVideoIndex: Int
     private var firstLayoutSubviewsPassed = false
+    private var shouldStartPlayAnimation = false
     
     init(otherVideos: [PromoSlideshowOtherVideo]) {
         self.currentVideoIndex = otherVideos.count > 1 ? 1 : 0
@@ -36,6 +37,7 @@ final class PromoSummaryPlayerView: UIView {
         hudView.nextButton.addTarget(self, action: #selector(PromoSummaryPlayerView.didTapNext), forControlEvents: .TouchUpInside)
         hudView.playControl.addTarget(self, action: #selector(PromoSummaryPlayerView.didTapPlay), forControlEvents: .TouchUpInside)
         hudView.playControl.playerView = self
+        hudView.playControl.enabled = false
         
         addSubview(currentVideoView)
         addSubview(hudView)
@@ -57,14 +59,6 @@ final class PromoSummaryPlayerView: UIView {
         }
     }
     
-    func didTapRetryImageDownload(with view: PromoSummaryVideoView) {
-        updateVideoImageView()
-    }
-    
-    func didFinishedPlayControlAnimation(with view: PromoSummaryPlayControl) {
-        promoSummaryView?.didTap(playForVideo: videos[currentVideoIndex])
-    }
-    
     override func hitTest(point: CGPoint, withEvent event: UIEvent?) -> UIView? {
         let view = super.hitTest(point, withEvent: event)
         //it is because hud is above current video view. So when there was an error while retrieving image, without it it wouldn't be possible to hit retry
@@ -72,6 +66,24 @@ final class PromoSummaryPlayerView: UIView {
             return currentVideoView.hitTest(point, withEvent: event)
         }
         return view
+    }
+    
+    func startPlayAnimation() {
+        hudView.playControl.enabled = true
+        hudView.playControl.invalidateAndStartAnimation()
+    }
+    
+    func stopPlayAnimation() {
+        hudView.playControl.invalidate()
+        hudView.playControl.enabled = false
+    }
+    
+    func didTapRetryImageDownload(with view: PromoSummaryVideoView) {
+        updateVideoImageView()
+    }
+    
+    func didFinishedPlayControlAnimation(with view: PromoSummaryPlayControl) {
+        promoSummaryView?.didTap(playForVideo: videos[currentVideoIndex])
     }
     
     @objc private func didTapBack() {

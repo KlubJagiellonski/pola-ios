@@ -47,9 +47,11 @@ final class PromoSummaryViewController: UIViewController, PromoPageInterface, Pr
     
     func pageLostFocus(with reason: PromoFocusChangeReason) {
         logInfo("PromoSummary lost focus")
+        castView.stopActions()
     }
     
     func pageGainedFocus(with reason: PromoFocusChangeReason) {
         logInfo("PromoSummary gained focus")
+        castView.startActions()
     }
 }

@@ -37,7 +37,7 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
     }
     
     override func prefersStatusBarHidden() -> Bool {
-        return castView.viewState == .Close
+        return castView.viewState == .Close && !castView.progressEnded
     }
     
     func updateData(with slideshowId: Int) {
@@ -106,7 +106,14 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
     }
     
     func promoSlideshowDidEndPageChanging(promoSlideshow: PromoSlideshowView) {
-        logInfo("Did end page changing \(castView.currentPageIndex)")
+        logInfo("Did end page changing")
+        if castView.currentPageIndex == castView.pageCount - 1 {
+            UIView.animateWithDuration(Constants.promoSlideshowStateChangedAnimationDuration) { [unowned self] in
+                self.castView.progressEnded = true
+                self.setNeedsStatusBarAppearanceUpdate()
+            }
+        }
+        
         informCurrentChildViewController() { $0.pageGainedFocus(with: .PageChanged) }
     }
     
@@ -213,8 +220,8 @@ extension PromoSlideshowViewController: PromoSlideshowPageHandler {
             return resolver.resolve(ImageStepViewController.self, arguments: (link, duration))
         case .Video(let link):
             return resolver.resolve(VideoStepViewController.self, argument: link)
-        case .Product(let product):
-            return resolver.resolve(ProductStepViewController.self, argument: product)
+        case .Product(let product, let duration):
+            return resolver.resolve(ProductStepViewController.self, arguments: (product, duration))
         case .Summary(let promoSlideshow):
             return resolver.resolve(PromoSummaryViewController.self, argument: promoSlideshow)
         }

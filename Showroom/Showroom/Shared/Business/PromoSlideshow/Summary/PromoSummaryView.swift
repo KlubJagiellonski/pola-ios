@@ -29,6 +29,8 @@ final class PromoSummaryView: UIView {
         repeatButton.setTitle(repeatTitle, forState: .Normal)
         repeatButton.applyBlackPlainBoldStyle()
         
+        playerView.promoSummaryView = self
+        
         addSubview(playerView)
         addSubview(repeatButton)
         addSubview(separatorView)
@@ -39,6 +41,14 @@ final class PromoSummaryView: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func startActions() {
+        playerView.startPlayAnimation()
+    }
+    
+    func stopActions() {
+        playerView.stopPlayAnimation()
     }
     
     func didTap(playForVideo video: PromoSlideshowOtherVideo) {

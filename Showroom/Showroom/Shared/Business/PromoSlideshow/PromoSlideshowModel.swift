@@ -6,13 +6,13 @@ typealias DataLink = String
 enum PromoSlideshowPageData {
     case Image(link: DataLink, duration: Int)
     case Video(DataLink)
-    case Product(PromoSlideshowProduct)
+    case Product(product: PromoSlideshowProduct, duration: Int)
     case Summary(PromoSlideshow)
 }
 
 final class PromoSlideshowModel {
     private let slideshowId: Int
-    private var promoSlideshow: PromoSlideshow?
+    private(set) var promoSlideshow: PromoSlideshow?
     
     init(slideshowId: Int) {
         self.slideshowId = slideshowId
@@ -71,7 +71,7 @@ extension PromoSlideshowPageData {
         case .Video:
             self = .Video(step.link!)
         case .Product:
-            self = .Product(step.product!)
+            self = .Product(product: step.product!, duration: step.duration)
         }
     }
 }

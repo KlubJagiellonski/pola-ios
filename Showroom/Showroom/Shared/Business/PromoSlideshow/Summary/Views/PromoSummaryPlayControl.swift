@@ -61,8 +61,9 @@ final class PromoSummaryPlayControl: UIControl {
     }
     
     func invalidateAndStartAnimation() {
-        self.animationInProgressTimestamp = nil
-        progressLayer.removeAllAnimations()
+        guard enabled else { return }
+        
+        invalidate()
         
         CATransaction.begin()
         
@@ -83,6 +84,11 @@ final class PromoSummaryPlayControl: UIControl {
         progressLayer.addAnimation(animation, forKey: "test")
         
         CATransaction.commit()
+    }
+    
+    func invalidate() {
+        self.animationInProgressTimestamp = nil
+        progressLayer.removeAllAnimations()
     }
     
     private func createProgressPath() -> CGPathRef {

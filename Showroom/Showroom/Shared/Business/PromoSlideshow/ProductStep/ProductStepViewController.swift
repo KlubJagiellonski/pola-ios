@@ -5,10 +5,14 @@ final class ProductStepViewController: ProductPageViewController, ProductPageVie
     weak var pageDelegate: PromoPageDelegate?
     
     private weak var previewOverlay: ProductPagePreviewOverlayView?
+    private let timer: Timer
     
-    init(with resolver: DiResolver, product: PromoSlideshowProduct) {
+    init(with resolver: DiResolver, product: PromoSlideshowProduct, duration: Int) {
+        self.timer = Timer(duration: duration, stepInterval: Constants.promoSlideshowTimerStepInterval)
         super.init(resolver: resolver, productId: product.id, product: Product(product: product), previewMode: true)
+        
         delegate = self
+        timer.delegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -23,11 +27,6 @@ final class ProductStepViewController: ProductPageViewController, ProductPageVie
         model.state.productDetailsObservable.subscribeNext { [weak self] _ in
             self?.tryToInformAboutAllDataDownloaded(triggeredByImageDownloaded: false)
         }.addDisposableTo(disposeBag)
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        pageDelegate?.promoPage(self, didChangeCurrentProgress: 0)
     }
     
     override func pageView(pageView: ProductPageView, didDownloadFirstImageWithSuccess success: Bool) {
@@ -45,12 +44,17 @@ final class ProductStepViewController: ProductPageViewController, ProductPageVie
         return view
     }
     
-    private func update(withProductDetailsVisible visible: Bool) {
-        let animationDuration = 0.4
+    private func update(withPreviewModeEnabled enabled: Bool) {
+        let animationDuration = Constants.promoSlideshowStateChangedAnimationDuration
         
-        castView.update(withPreviewModeEnabled: visible, animationDuration: animationDuration)
-        previewOverlay?.update(withEnabled: visible, animationDuration: animationDuration)
-        pageDelegate?.promoPage(self, willChangePromoPageViewState: visible ? .Close : .Paused, animationDuration: animationDuration)
+        castView.update(withPreviewModeEnabled: enabled, animationDuration: animationDuration)
+        previewOverlay?.update(withEnabled: enabled, animationDuration: animationDuration)
+        pageDelegate?.promoPage(self, willChangePromoPageViewState: enabled ? .Close : .Paused, animationDuration: animationDuration)
+        if enabled {
+            timer.play()
+        } else {
+            timer.pause()
+        }
     }
     
     private func tryToInformAboutAllDataDownloaded(triggeredByImageDownloaded triggeredByImageDownloaded: Bool) {
@@ -69,7 +73,7 @@ final class ProductStepViewController: ProductPageViewController, ProductPageVie
     
     func didTapPlay() {
         logInfo("Did tap play, previewOverlay \(previewOverlay)")
-        update(withProductDetailsVisible: true)
+        update(withPreviewModeEnabled: true)
     }
     
     func didTapDismiss() {
@@ -79,22 +83,30 @@ final class ProductStepViewController: ProductPageViewController, ProductPageVie
     
     func pageLostFocus(with reason: PromoFocusChangeReason) {
         logInfo("ProductStep lost focus")
+        if reason == .AppForegroundChanged {
+            pageDelegate?.promoPage(self, willChangePromoPageViewState: .Paused, animationDuration: Constants.promoSlideshowStateChangedAnimationDuration)
+        }
+        timer.pause()
     }
     
     func pageGainedFocus(with reason: PromoFocusChangeReason) {
-        logInfo("ProductStep gained focus")
+        logInfo("ProductStep gained focus \(reason)")
+        if reason == .AppForegroundChanged {
+            pageDelegate?.promoPage(self, willChangePromoPageViewState: .Close, animationDuration: Constants.promoSlideshowStateChangedAnimationDuration)
+        }
+        timer.play()
     }
     
     // MARK:- ProductPagePreviewOverlayViewDelegate
     
     func previewOverlayDidTapOverlay(previewOverlay: ProductPagePreviewOverlayView) {
         logInfo("Did tap overlay")
-        update(withProductDetailsVisible: false)
+        update(withPreviewModeEnabled: false)
     }
     
     func previewOverlayDidTapInfoButton(previewOverlay: ProductPagePreviewOverlayView) {
         logInfo("Did tap info button")
-        update(withProductDetailsVisible: false)
+        update(withPreviewModeEnabled: false)
     }
     
     func previewOverlayDidTapWishlistButton(previewOverlay: ProductPagePreviewOverlayView) {
@@ -108,6 +120,16 @@ final class ProductStepViewController: ProductPageViewController, ProductPageVie
     func productPage(page: ProductPageViewController, willChangeProductPageViewState newViewState: ProductPageViewState, animationDuration: Double?) {
         let promoViewState = PromoPageViewState(with: newViewState, overlayEnabled: previewOverlay?.enabled ?? true)
         pageDelegate?.promoPage(self, willChangePromoPageViewState: promoViewState, animationDuration: animationDuration)
+    }
+}
+
+extension ProductStepViewController: TimerDelegate {
+    func timerDidEnd(timer: Timer) {
+        pageDelegate?.promoPageDidFinished(self)
+    }
+    
+    func timer(timer: Timer, didChangeProgress progress: Double) {
+        pageDelegate?.promoPage(self, didChangeCurrentProgress: progress)
     }
 }
 

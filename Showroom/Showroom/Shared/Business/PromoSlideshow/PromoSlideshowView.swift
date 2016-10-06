@@ -25,9 +25,7 @@ final class PromoSlideshowView: ViewSwitcher, UICollectionViewDelegate {
         set { dataSource.pageHandler = newValue }
         get { return dataSource.pageHandler }
     }
-    var currentPageIndex: Int {
-        return collectionView.currentPageIndex
-    }
+    var currentPageIndex: Int { return collectionView.currentPageIndex }
     private(set) var closeButtonState: PromoSlideshowCloseButtonState = .Close {
         didSet {
             switch closeButtonState {
@@ -40,6 +38,12 @@ final class PromoSlideshowView: ViewSwitcher, UICollectionViewDelegate {
             }
         }
     }
+    var progressEnded = false {
+        didSet {
+            progressView.alpha = (!progressEnded && viewState == .Close) ? 1 : 0
+            collectionView.scrollEnabled = (!progressEnded && viewState == .Close)
+        }
+    }
     var viewState: PromoPageViewState = .Close {
         didSet {
             if viewState == .Close || viewState == .Dismiss {
@@ -49,10 +53,11 @@ final class PromoSlideshowView: ViewSwitcher, UICollectionViewDelegate {
             }
             
             closeButton.alpha = viewState == .FullScreen ? 0 : 1
-            progressView.alpha = viewState == .Close ? 1 : 0
-            collectionView.scrollEnabled = viewState == .Close
+            progressView.alpha = (!progressEnded && viewState == .Close) ? 1 : 0
+            collectionView.scrollEnabled = (!progressEnded && viewState == .Close)
         }
     }
+    var pageCount: Int { return dataSource.pageCount }
     weak var delegate: PromoSlideshowViewDelegate? {
         didSet {
             switcherDelegate = delegate

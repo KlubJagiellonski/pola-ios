@@ -43,9 +43,12 @@ struct Constants {
     static let deEmarsysMerchantId = "1B0C17B93E151CAA"
     static let deEmarsysPushPassword = "NjG06NhkAPQvxmi7UFonQZnF6Aip1dv6"
     static let dePushWooshAppId = "1B9C1-3FA16"
+    
     static let basketProductAmountLimit: Int = 10
     static let productListPageSize: Int = 20
     static let productListPageSizeForLargeScreen: Int = 27
+    static let promoSlideshowTimerStepInterval: Int = 10
+    static let promoSlideshowStateChangedAnimationDuration: NSTimeInterval = 0.3
     
     struct Cache {
         static let contentPromoId = "ContentPromoId"
