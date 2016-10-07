@@ -3,6 +3,11 @@ import RxSwift
 
 typealias DataLink = String
 
+struct PromoSlideshowPageDataContainer {
+    let pageData: PromoSlideshowPageData
+    let additionalData: AnyObject?
+}
+
 enum PromoSlideshowPageData {
     case Image(link: DataLink, duration: Int)
     case Video(DataLink)
@@ -13,6 +18,8 @@ enum PromoSlideshowPageData {
 final class PromoSlideshowModel {
     private var slideshowId: Int
     private(set) var promoSlideshow: PromoSlideshow?
+    private let prefetcher = PromoSlideshowPrefetcher()
+    private let disposeBag = DisposeBag()
     
     init(slideshowId: Int) {
         self.slideshowId = slideshowId
@@ -27,7 +34,7 @@ final class PromoSlideshowModel {
         //TODO: real api
         let brand = Brand(id: 1234, name: "Test brand")
         //TODO: add correct test links
-        let product = PromoSlideshowProduct(id: 78854, brand: Brand(id: 541, name: "gego"), name: "T-shirt Nie mów", basePrice: Money(amt: 70.0), price: Money(amt: 70.0), imageUrl: "https://static.shwrm.net/images/0/4/0457e906540b2b0_500x643.jpg?1474889300")
+        let product = PromoSlideshowProduct(id: 78854, brand: Brand(id: 541, name: "gego"), name: "T-shirt Nie mów", basePrice: Money(amt: 70.0), price: Money(amt: 70.0), imageUrl: "https://assets.shwrm.net/images/0/4/0457e906540b2b0_500x643.jpg?1474889300")
         
         let steps = [
             PromoSlideshowVideoStep(type: .Video, link: "https://s3-eu-west-1.amazonaws.com/shwrm-video-test/logo_1.mp4", duration: 5000, annotations: [], product: nil),
@@ -46,20 +53,45 @@ final class PromoSlideshowModel {
             PromoSlideshowLink(text: "My link 2", link: "https://www.showroom.pl/tag/on")
         ]
         let promoSlideshow = PromoSlideshow(brand: brand, video: video, otherVideos: otherVideos, links: links)
-        return Observable.just(promoSlideshow).doOnNext { [weak self] result in
-            self?.promoSlideshow = result
+        
+        return Observable.just(promoSlideshow)
+            .doOnNext { [unowned self] result in
+                self.promoSlideshow = result
+        }
+            .flatMap { [unowned self] (promoSlideshow: PromoSlideshow) -> Observable<PromoSlideshow> in
+                let index = 0
+                let pageData = self.createPageData(forPageAtIndex: index)!
+                let prefetchObservable = self.prefetcher.prefetch(forPageIndex: index, withData: pageData)
+                return prefetchObservable.flatMap { (value: AnyObject?) -> Observable<PromoSlideshow> in
+                    return Observable.just(promoSlideshow)
+                }
         }
     }
     
     func prefetchData(forPageAtIndex index: Int) {
-        //TODO: prefetch
+        guard let pageData = createPageData(forPageAtIndex: index) else {
+            logError("Cannot create page data at index \(index)")
+            return
+        }
+        prefetcher.prefetch(forPageIndex: index, withData: pageData)
+            .subscribe()
+            .addDisposableTo(disposeBag)
     }
     
-    func data(forPageIndex index: Int) -> PromoSlideshowPageData? {
-        guard let slideshow = promoSlideshow else {
-            logError("No slideshow while retrieving data \(promoSlideshow)")
+    func data(forPageIndex index: Int) -> PromoSlideshowPageDataContainer? {
+        guard let pageData = createPageData(forPageAtIndex: index) else {
+            logError("Cannot create page data at index \(index)")
             return nil
         }
+        let additionalData = prefetcher.additionalData(atPageIndex: index)
+        return PromoSlideshowPageDataContainer(pageData: pageData, additionalData: additionalData)
+    }
+    
+    private func createPageData(forPageAtIndex index: Int) -> PromoSlideshowPageData? {
+        guard let slideshow = promoSlideshow else {
+            return nil
+        }
+        
         if let step = slideshow.video.steps[safe: index] {
             return PromoSlideshowPageData(fromStep: step)
         } else {

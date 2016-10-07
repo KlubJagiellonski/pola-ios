@@ -10,6 +10,7 @@ final class ImageStepViewController: UIViewController, PromoPageInterface, Image
         timer.delegate = self
         return timer
     }()
+    private var firstLayoutSubviewsPassed = false
     
     private var castView: ImageStepView { return view as! ImageStepView }
     
@@ -32,7 +33,14 @@ final class ImageStepViewController: UIViewController, PromoPageInterface, Image
     override func viewDidLoad() {
         super.viewDidLoad()
         castView.delegate = self
-        castView.loadImage()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if !firstLayoutSubviewsPassed {
+            firstLayoutSubviewsPassed = true
+            castView.loadImage()
+        }
     }
     
     // MARK:- ImageStepViewDelegate

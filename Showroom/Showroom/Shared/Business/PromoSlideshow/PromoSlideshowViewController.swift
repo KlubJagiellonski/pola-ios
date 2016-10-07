@@ -152,7 +152,15 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
     // MARK:- PromoStepDelegate
     
     func promoPageDidDownloadAllData(promoPage: PromoPageInterface) {
-        model.prefetchData(forPageAtIndex: castView.currentPageIndex + 1)
+        guard let viewController = promoPage as? UIViewController else {
+            logError("Promo page (\(promoPage))should be an UIViewController")
+            return
+        }
+        guard let pageIndex = castView.pageIndex(forView: viewController.view) else {
+            logError("Could not find page index for view controller \(viewController)")
+            return
+        }
+        model.prefetchData(forPageAtIndex: pageIndex + 1)
     }
     
     func promoPage(promoPage: PromoPageInterface, didChangeCurrentProgress currentProgress: Double) {
@@ -234,8 +242,8 @@ extension PromoSlideshowViewController: PromoSlideshowPageHandler {
         return UIEdgeInsets(top: topLayoutGuide.length, left: 0, bottom: bottomInset, right: 0)
     }
     
-    private func createViewController(from data: PromoSlideshowPageData) -> UIViewController {
-        switch data {
+    private func createViewController(from dataContainer: PromoSlideshowPageDataContainer) -> UIViewController {
+        switch dataContainer.pageData {
         case .Image(let link, let duration):
             return resolver.resolve(ImageStepViewController.self, arguments: (link, duration))
         case .Video(let link):

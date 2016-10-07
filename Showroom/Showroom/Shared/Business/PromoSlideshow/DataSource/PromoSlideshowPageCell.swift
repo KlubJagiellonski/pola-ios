@@ -12,7 +12,6 @@ final class PromoSlideshowPageCell: UICollectionViewCell {
                 make.edges.equalToSuperview()
             }
             setNeedsLayout()
-            layoutIfNeeded()
         }
     }
     

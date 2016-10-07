@@ -23,15 +23,13 @@ final class ProductStepViewController: ProductPageViewController, ProductPageVie
         super.viewDidLoad()
         castView.previewOverlayView = createAndConfigureOverlayView()
         castView.previewMode = true
-        
-        model.state.productDetailsObservable.subscribeNext { [weak self] _ in
-            self?.tryToInformAboutAllDataDownloaded(triggeredByImageDownloaded: false)
-        }.addDisposableTo(disposeBag)
     }
     
     override func pageView(pageView: ProductPageView, didDownloadFirstImageWithSuccess success: Bool) {
         super.pageView(pageView, didDownloadFirstImageWithSuccess: success)
-        tryToInformAboutAllDataDownloaded(triggeredByImageDownloaded: true)
+        if success {
+            pageDelegate?.promoPageDidDownloadAllData(self)
+        }
     }
     
     private func createAndConfigureOverlayView() -> UIView {
@@ -54,18 +52,6 @@ final class ProductStepViewController: ProductPageViewController, ProductPageVie
             timer.play()
         } else {
             timer.pause()
-        }
-    }
-    
-    private func tryToInformAboutAllDataDownloaded(triggeredByImageDownloaded triggeredByImageDownloaded: Bool) {
-        var shouldInform = false
-        if triggeredByImageDownloaded {
-            shouldInform = model.state.productDetails != nil
-        } else {
-            shouldInform = castView.firstImageDownloaded && model.state.productDetails != nil
-        }
-        if shouldInform {
-            pageDelegate?.promoPageDidDownloadAllData(self)
         }
     }
     

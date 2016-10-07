@@ -126,6 +126,10 @@ final class PromoSlideshowView: UIView, UICollectionViewDelegate {
         self.delegate?.promoSlideshowWillBeginPageChanging(self)
     }
     
+    func pageIndex(forView view: UIView) -> Int? {
+        return dataSource.pageIndex(forView: view)
+    }
+    
     private func configureCustomConstraints() {
         closeButton.snp_makeConstraints { make in
             make.leading.equalToSuperview().offset(Dimensions.defaultMargin)

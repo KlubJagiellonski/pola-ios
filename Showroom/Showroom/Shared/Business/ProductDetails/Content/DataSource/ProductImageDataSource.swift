@@ -75,11 +75,6 @@ final class ProductImageDataSource: NSObject, UICollectionViewDataSource {
             }
         }
     }
-    var firstImageDownloaded: Bool {
-        guard let collectionView = collectionView else { return false }
-        guard let cell = collectionView.cellForItemAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as? ProductImageCell else { return false }
-        return cell.imageView.image != nil
-    }
     weak var productPageView: ProductPageView?
     
     init(collectionView: UICollectionView) {

@@ -143,6 +143,7 @@
 		1D5F916C1D36541700AE66E6 /* SelectValueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F916B1D36541700AE66E6 /* SelectValueTableViewCell.swift */; };
 		1D62CA8C1DA641AD0015169D /* PromoSummaryPlayControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D62CA8B1DA641AD0015169D /* PromoSummaryPlayControl.swift */; };
 		1D62CA8E1DA77C9A0015169D /* ShowVideoEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D62CA8D1DA77C9A0015169D /* ShowVideoEvent.swift */; };
+		1D62CA901DA7C1250015169D /* PromoSlideshowPrefetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D62CA8F1DA7C1250015169D /* PromoSlideshowPrefetcher.swift */; };
 		1D6671671D93E4BE00070502 /* Drop-In.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1D6671691D93E4BE00070502 /* Drop-In.strings */; };
 		1D66E4421D38D8190041D74D /* SearchNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D66E4411D38D8190041D74D /* SearchNavigationController.swift */; };
 		1D6933461D2D176200609BB9 /* CocoaMarkdown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D6933451D2D176200609BB9 /* CocoaMarkdown.framework */; };
@@ -245,6 +246,10 @@
 		1DD1EA9B1CF2ED6400D99731 /* SimpleNavigationEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD1EA9A1CF2ED6400D99731 /* SimpleNavigationEvent.swift */; };
 		1DD1EA9D1CF2F58E00D99731 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DD1EA9C1CF2F58E00D99731 /* SnapKit.framework */; };
 		1DDBCD1C1DA23DA700BC93B8 /* ProductPagePreviewOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDBCD1B1DA23DA700BC93B8 /* ProductPagePreviewOverlayView.swift */; };
+		1DDCD2B61DA7CCC90045BB4A /* ImageStepPrefetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDCD2B51DA7CCC90045BB4A /* ImageStepPrefetcher.swift */; };
+		1DDCD2BA1DA7DA3A0045BB4A /* VideoStepPrefetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDCD2B91DA7DA3A0045BB4A /* VideoStepPrefetcher.swift */; };
+		1DDCD2BC1DA7DA530045BB4A /* ProductStepPrefetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDCD2BB1DA7DA530045BB4A /* ProductStepPrefetcher.swift */; };
+		1DDCD2BE1DA7DA700045BB4A /* PromoSummaryPrefetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDCD2BD1DA7DA700045BB4A /* PromoSummaryPrefetcher.swift */; };
 		1DDE61E81D649152007E5509 /* RateAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDE61E71D649152007E5509 /* RateAppViewController.swift */; };
 		1DDE61EC1D649910007E5509 /* RateAppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDE61EB1D649910007E5509 /* RateAppManager.swift */; };
 		1DDE61F01D649C6F007E5509 /* NSDateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDE61EF1D649C6F007E5509 /* NSDateUtils.swift */; };
@@ -572,6 +577,7 @@
 		1D5F916B1D36541700AE66E6 /* SelectValueTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectValueTableViewCell.swift; sourceTree = "<group>"; };
 		1D62CA8B1DA641AD0015169D /* PromoSummaryPlayControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromoSummaryPlayControl.swift; sourceTree = "<group>"; };
 		1D62CA8D1DA77C9A0015169D /* ShowVideoEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowVideoEvent.swift; sourceTree = "<group>"; };
+		1D62CA8F1DA7C1250015169D /* PromoSlideshowPrefetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromoSlideshowPrefetcher.swift; sourceTree = "<group>"; };
 		1D66716A1D93E4C300070502 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = "pl.lproj/Drop-In.strings"; sourceTree = "<group>"; };
 		1D66716B1D93E4C500070502 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = "de.lproj/Drop-In.strings"; sourceTree = "<group>"; };
 		1D66E4411D38D8190041D74D /* SearchNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchNavigationController.swift; sourceTree = "<group>"; };
@@ -675,6 +681,10 @@
 		1DD1EA9A1CF2ED6400D99731 /* SimpleNavigationEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleNavigationEvent.swift; sourceTree = "<group>"; };
 		1DD1EA9C1CF2F58E00D99731 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/iOS/SnapKit.framework; sourceTree = "<group>"; };
 		1DDBCD1B1DA23DA700BC93B8 /* ProductPagePreviewOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProductPagePreviewOverlayView.swift; path = ../../ProductDetails/Content/ProductPagePreviewOverlayView.swift; sourceTree = "<group>"; };
+		1DDCD2B51DA7CCC90045BB4A /* ImageStepPrefetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageStepPrefetcher.swift; sourceTree = "<group>"; };
+		1DDCD2B91DA7DA3A0045BB4A /* VideoStepPrefetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoStepPrefetcher.swift; sourceTree = "<group>"; };
+		1DDCD2BB1DA7DA530045BB4A /* ProductStepPrefetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductStepPrefetcher.swift; sourceTree = "<group>"; };
+		1DDCD2BD1DA7DA700045BB4A /* PromoSummaryPrefetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromoSummaryPrefetcher.swift; sourceTree = "<group>"; };
 		1DDE61E71D649152007E5509 /* RateAppViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateAppViewController.swift; sourceTree = "<group>"; };
 		1DDE61EB1D649910007E5509 /* RateAppManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateAppManager.swift; sourceTree = "<group>"; };
 		1DDE61EF1D649C6F007E5509 /* NSDateUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateUtils.swift; sourceTree = "<group>"; };
@@ -1357,6 +1367,7 @@
 				1D80F4621D9BCF8600DFB1C3 /* PromoSlideshowView.swift */,
 				1D80F46D1D9BDBA000DFB1C3 /* PromoSlideshowModel.swift */,
 				1D80F4641D9BD01300DFB1C3 /* PromoSlideshowProgressView.swift */,
+				1D62CA8F1DA7C1250015169D /* PromoSlideshowPrefetcher.swift */,
 				1D80F4801D9BEA1100DFB1C3 /* PromoPageInterface.swift */,
 			);
 			path = PromoSlideshow;
@@ -1376,6 +1387,7 @@
 			children = (
 				1D80F47C1D9BE5A000DFB1C3 /* ImageStepViewController.swift */,
 				C0E791521DA263CC00BB43D6 /* ImageStepView.swift */,
+				1DDCD2B51DA7CCC90045BB4A /* ImageStepPrefetcher.swift */,
 			);
 			path = ImageStep;
 			sourceTree = "<group>";
@@ -1385,6 +1397,7 @@
 			children = (
 				1D80F4771D9BE4E900DFB1C3 /* VideoStepViewController.swift */,
 				C00755801DA5378800EA493A /* VideoStepView.swift */,
+				1DDCD2B91DA7DA3A0045BB4A /* VideoStepPrefetcher.swift */,
 			);
 			path = VideoStep;
 			sourceTree = "<group>";
@@ -1394,6 +1407,7 @@
 			children = (
 				1D80F47E1D9BE5D500DFB1C3 /* ProductStepViewController.swift */,
 				1DDBCD1B1DA23DA700BC93B8 /* ProductPagePreviewOverlayView.swift */,
+				1DDCD2BB1DA7DA530045BB4A /* ProductStepPrefetcher.swift */,
 			);
 			path = ProductStep;
 			sourceTree = "<group>";
@@ -1404,6 +1418,7 @@
 				1DF9DE8C1DA3CECF00F8585E /* Views */,
 				1D80F4831D9BF5AB00DFB1C3 /* PromoSummaryViewController.swift */,
 				1DF9DE881DA3CD0800F8585E /* PromoSummaryView.swift */,
+				1DDCD2BD1DA7DA700045BB4A /* PromoSummaryPrefetcher.swift */,
 			);
 			path = Summary;
 			sourceTree = "<group>";
@@ -2336,11 +2351,13 @@
 				1D0F3B5F1D12DC200052CFF6 /* BasketCountryCell.swift in Sources */,
 				1D0F3B661D13DDF20052CFF6 /* NSURLUtils.swift in Sources */,
 				1DD1EA831CF2E46C00D99731 /* MainTabViewController.swift in Sources */,
+				1D62CA901DA7C1250015169D /* PromoSlideshowPrefetcher.swift in Sources */,
 				1D0F3B511D1282CC0052CFF6 /* BasketDeliveryView.swift in Sources */,
 				1DD1EA8E1CF2E5EB00D99731 /* WishlistViewController.swift in Sources */,
 				1DA846F51D191D5E00BA090A /* KeyboardHelper.swift in Sources */,
 				1DD161B31D01CF790022B5C9 /* ProductDetailsModel.swift in Sources */,
 				1D1A7E201D254904009CCCE7 /* CategoryProductListModel.swift in Sources */,
+				1DDCD2BE1DA7DA700045BB4A /* PromoSummaryPrefetcher.swift in Sources */,
 				C0A9977F1D67376C00DBF558 /* OnboardingPhotosPagingAnimation.swift in Sources */,
 				1D2CAC431D46094B00F678FA /* UIView+Genie.m in Sources */,
 				1D5F91681D36500500AE66E6 /* FilterDetailsDataSource.swift in Sources */,
@@ -2350,6 +2367,7 @@
 				1D5F91661D364FBA00AE66E6 /* FilterDetailsView.swift in Sources */,
 				1D0AAF9D1D59B836008E40C0 /* Wishlist.swift in Sources */,
 				1D5E91991D3E2C0400A6BD55 /* SearchContentNavigationController.swift in Sources */,
+				1DDCD2B61DA7CCC90045BB4A /* ImageStepPrefetcher.swift in Sources */,
 				C0A997761D66FA3B00DBF558 /* PagingInAppOnboardingView.swift in Sources */,
 				1D5E91951D3E133C00A6BD55 /* Search.swift in Sources */,
 				7520AD8C1D34DE37003FC38B /* SigningNavigationController.swift in Sources */,
@@ -2561,6 +2579,7 @@
 				1D5F91611D3537BA00AE66E6 /* UITableViewUtils.swift in Sources */,
 				C00BA8741D5CD334009A9637 /* WishlistInAppOnboardingViewController.swift in Sources */,
 				1DD1EA8B1CF2E59E00D99731 /* BasketViewController.swift in Sources */,
+				1DDCD2BA1DA7DA3A0045BB4A /* VideoStepPrefetcher.swift in Sources */,
 				1DF428C21D89737D00396A0D /* CreditCardOptionHandler.swift in Sources */,
 				1DF428B41D894B5B00396A0D /* CheckoutSummaryPaymentCell.swift in Sources */,
 				1DF796791CEB369B00C7A7F4 /* NetworkClient.swift in Sources */,
@@ -2591,6 +2610,7 @@
 				C0A997791D6701C000DBF558 /* InAppOnboardingProductPagingCell.swift in Sources */,
 				1D0F3B641D13D3710052CFF6 /* BasketCountryDataSource.swift in Sources */,
 				753D865B1D4A240F001BF7EB /* ResetPasswordViewController.swift in Sources */,
+				1DDCD2BC1DA7DA530045BB4A /* ProductStepPrefetcher.swift in Sources */,
 				1D0F3B4E1D12819B0052CFF6 /* BasketDeliveryNavigationController.swift in Sources */,
 				1DA5CB491D2F7B2E00A45E93 /* Checkout.swift in Sources */,
 				1DFDDB481D92C926007DBDB6 /* UICollectionViewUtils.swift in Sources */,

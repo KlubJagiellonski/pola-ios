@@ -95,9 +95,6 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
     weak var delegate: ProductPageViewDelegate? {
         didSet { switcherDelegate = delegate }
     }
-    var firstImageDownloaded: Bool {
-        return imageDataSource.firstImageDownloaded
-    }
     
     init(contentView: UIView, contentInset: UIEdgeInsets?) {
         imageDataSource = ProductImageDataSource(collectionView: imageCollectionView)

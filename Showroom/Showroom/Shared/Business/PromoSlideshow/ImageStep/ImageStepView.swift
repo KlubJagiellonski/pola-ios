@@ -32,15 +32,12 @@ final class ImageStepView: ViewSwitcher {
     }
 
     func loadImage() {
-        let screenWidth = UIScreen.mainScreen().bounds.width
-        
-        imageView.loadImageFromUrl(link, width: screenWidth,
+        imageView.loadImageFromUrl(link, width: bounds.width,
             onRetrievedFromCache: { [weak self] image in
                 guard let `self` = self else { return }
                 if let image = image {
                     self.imageView.image = image
                     self.changeSwitcherState(.Success, animated: false)
-                    self.delegate?.imageStepViewDidDownloadImage(self)
                 } else {
                     logInfo("Failed to retrieve image from cache")
                     self.changeSwitcherState(.Loading, animated: false)
