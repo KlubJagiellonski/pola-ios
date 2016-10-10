@@ -8,7 +8,7 @@ final class PromoSummaryVideoView: UIView, ViewSwitcherDataSource, ViewSwitcherD
     private let imageView = UIImageView()
     private let textContainerView = PromoSummaryVideoTextContainerView()
     
-    init(caption: PromoSlideshowOtherVideoCaption) {
+    init(caption: PromoSlideshowPlaylistItemCaption) {
         self.viewSwitcher = ViewSwitcher(successView: imageView)
         
         super.init(frame: CGRectZero)
@@ -170,7 +170,7 @@ private class PromoSummaryVideoTextContainerView: UIView {
     }
 }
 
-extension PromoSlideshowOtherVideoCaptionColor {
+extension PromoSlideshowPlaylistItemCaptionColor {
     func gradientColors() -> [CGColor] {
         switch self {
         case .Black:

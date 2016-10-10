@@ -127,7 +127,7 @@ class DashboardViewController: UIViewController, DashboardViewDelegate {
         logInfo("Did select content promo \(contentPromo)")
         logAnalyticsEvent(AnalyticsEventId.DashboardContentPromoClicked(contentPromo.link, model.state.contentPromoResult?.contentPromos.indexOf(contentPromo) ?? 0))
         //TODO: change it when server will return link for video
-        sendNavigationEvent(ShowItemForLinkEvent(link: "https://www.showroom.pl/video/12", title: nil, productDetailsFromType: .HomeContentPromo))
+        sendNavigationEvent(ShowItemForLinkEvent(link: "https://www.showroom.pl/video/1", title: nil, productDetailsFromType: .HomeContentPromo))
 //        sendNavigationEvent(ShowItemForLinkEvent(link: contentPromo.link, title: nil, productDetailsFromType: .HomeContentPromo))
     }
     

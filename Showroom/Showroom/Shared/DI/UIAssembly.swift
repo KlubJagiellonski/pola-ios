@@ -214,7 +214,7 @@ class UIAssembly: AssemblyType {
             return PromoSlideshowViewController(resolver: r.resolve(DiResolver.self)!, slideshowId: slideshowId)
         }
         container.register(PromoSlideshowModel.self) { r, slideshowId in
-            return PromoSlideshowModel(slideshowId: slideshowId)
+            return PromoSlideshowModel(apiService: r.resolve(ApiService.self)!, storage: r.resolve(KeyValueStorage.self)!, slideshowId: slideshowId)
         }
         container.register(ImageStepViewController.self) { r, link, duration in
             return ImageStepViewController(with: r.resolve(DiResolver.self)!, link: link, duration: duration)

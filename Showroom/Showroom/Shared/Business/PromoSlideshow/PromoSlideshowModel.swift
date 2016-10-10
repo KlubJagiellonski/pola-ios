@@ -16,54 +16,64 @@ enum PromoSlideshowPageData {
 }
 
 final class PromoSlideshowModel {
+    private let apiService: ApiService
+    private let storage: KeyValueStorage
     private var slideshowId: Int
     private(set) var promoSlideshow: PromoSlideshow?
-    private let prefetcher = PromoSlideshowPrefetcher()
+    private var prefetcher = PromoSlideshowPrefetcher()
     private let disposeBag = DisposeBag()
     
-    init(slideshowId: Int) {
+    init(apiService: ApiService, storage: KeyValueStorage, slideshowId: Int) {
+        self.apiService = apiService
         self.slideshowId = slideshowId
+        self.storage = storage
     }
     
     func update(withSlideshowId slideshowId: ObjectId) {
         self.slideshowId = slideshowId
+        self.prefetcher = PromoSlideshowPrefetcher()
         self.promoSlideshow = nil
     }
     
-    func fetchPromoSlideshow() -> Observable<PromoSlideshow> {
-        //TODO: real api
-        let brand = Brand(id: 1234, name: "Test brand")
-        //TODO: add correct test links
-        let product = PromoSlideshowProduct(id: 78854, brand: Brand(id: 541, name: "gego"), name: "T-shirt Nie mów", basePrice: Money(amt: 70.0), price: Money(amt: 70.0), imageUrl: "https://assets.shwrm.net/images/0/4/0457e906540b2b0_500x643.jpg?1474889300")
+    func fetchPromoSlideshow() -> Observable<FetchCacheResult<PromoSlideshow>> {
+        let cacheId = Constants.Cache.video + String(slideshowId)
         
-        let steps = [
-            PromoSlideshowVideoStep(type: .Video, link: "https://s3-eu-west-1.amazonaws.com/shwrm-video-test/logo_1.mp4", duration: 5000, annotations: [], product: nil),
-            PromoSlideshowVideoStep(type: .Image, link: "https://assets.shwrm.net/media/update_grafika.jpg?1474968323", duration: 5000, annotations: [], product: nil),
-            PromoSlideshowVideoStep(type: .Product, link: "", duration: 3000, annotations: [], product: product),
-        ]
-        let video = PromoSlideshowVideo(steps: steps, duration: steps.reduce(0, combine: { $0 + $1.duration }))
+        let existingResult = promoSlideshow
+        let memoryCache: Observable<PromoSlideshow> = existingResult == nil ? Observable.empty() : Observable.just(existingResult!)
         
-        let otherVideos = [
-            PromoSlideshowOtherVideo(id: 123, imageUrl: "https://assets.shwrm.net/images/f/p/fp57c59e14baf5f.jpg?1472568852000", caption: PromoSlideshowOtherVideoCaption(title: "RÖCKE", subtitle: "Mini, Midi, Maxi", color: .Black)),
-            PromoSlideshowOtherVideo(id: 1234, imageUrl: "https://assets.shwrm.net/images/e/g/eg57c52bac90415_500x643.jpg?1474358416", caption: PromoSlideshowOtherVideoCaption(title: "Testowy film 2", subtitle: "Testowy opis 2", color: .White)),
-            PromoSlideshowOtherVideo(id: 12345, imageUrl: "https://assets.shwrm.net/images/q/r/qr576aa8fe20413_500x643.jpg?1466607870", caption: PromoSlideshowOtherVideoCaption(title: "Testowy film 3", subtitle: "Testowy opis 3", color: .Black)),
-        ]
-        let links = [
-            PromoSlideshowLink(text: "My link 1", link: "https://www.showroom.pl/tag/ona"),
-            PromoSlideshowLink(text: "My link 2", link: "https://www.showroom.pl/tag/on")
-        ]
-        let promoSlideshow = PromoSlideshow(brand: brand, video: video, otherVideos: otherVideos, links: links)
+        let diskCache: Observable<PromoSlideshow> = Observable.load(forKey: cacheId, storage: storage, type: .Cache)
+            .subscribeOn(ConcurrentDispatchQueueScheduler(globalConcurrentQueueQOS: .Background))
         
-        return Observable.just(promoSlideshow)
-            .doOnNext { [unowned self] result in
-                self.promoSlideshow = result
-        }
-            .flatMap { [unowned self] (promoSlideshow: PromoSlideshow) -> Observable<PromoSlideshow> in
+        let cacheCompose = Observable.of(memoryCache, diskCache)
+            .concat().take(1)
+            .map { FetchCacheResult.Success($0) }
+            .catchError { Observable.just(FetchCacheResult.CacheError($0)) }
+        
+        let network = apiService.fetchVideo(withVideoId: slideshowId)
+            .save(forKey: cacheId, storage: storage, type: .Cache)
+            .map { FetchCacheResult.Success($0) }
+            .catchError { Observable.just(FetchCacheResult.NetworkError($0)) }
+        
+        return Observable.of(cacheCompose, network)
+            .observeOn(ConcurrentDispatchQueueScheduler(globalConcurrentQueueQOS: .Background))
+            .concat().distinctUntilChanged( ==)
+            .observeOn(MainScheduler.instance)
+            .doOnNext { [weak self] result in
+                if let result = result.result() {
+                    self?.promoSlideshow = result
+                }
+        }.flatMap { [weak self] result -> Observable<FetchCacheResult<PromoSlideshow>> in
+                guard let `self` = self else {
+                    return Observable.just(result)
+                }
+                guard self.promoSlideshow != nil else {
+                    return Observable.just(result)
+                }
                 let index = 0
                 let pageData = self.createPageData(forPageAtIndex: index)!
                 let prefetchObservable = self.prefetcher.prefetch(forPageIndex: index, withData: pageData)
-                return prefetchObservable.flatMap { (value: AnyObject?) -> Observable<PromoSlideshow> in
-                    return Observable.just(promoSlideshow)
+                return prefetchObservable.flatMap { (value: AnyObject?) -> Observable<FetchCacheResult<PromoSlideshow>> in
+                    return Observable.just(result)
                 }
         }
     }

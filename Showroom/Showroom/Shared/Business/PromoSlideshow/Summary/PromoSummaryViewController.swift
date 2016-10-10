@@ -29,7 +29,7 @@ final class PromoSummaryViewController: UIViewController, PromoPageInterface, Pr
     
     func promoSummaryDidTapRepeat(promoSummary: PromoSummaryView) {
         logInfo("Did tap repeat")
-        sendNavigationEvent(ShowVideoEvent(id: promoSlideshow.otherVideos[0].id))
+        sendNavigationEvent(ShowVideoEvent(id: promoSlideshow.playlist[0].id))
     }
     
     func promoSummary(promoSummary: PromoSummaryView, didTapLink link: PromoSlideshowLink) {
@@ -37,7 +37,7 @@ final class PromoSummaryViewController: UIViewController, PromoPageInterface, Pr
         sendNavigationEvent(ShowItemForLinkEvent(link: link.link, title: link.text, productDetailsFromType: .Video))
     }
     
-    func promoSummary(promoSummary: PromoSummaryView, didTapPlayForVideo video: PromoSlideshowOtherVideo) {
+    func promoSummary(promoSummary: PromoSummaryView, didTapPlayForVideo video: PromoSlideshowPlaylistItem) {
         logInfo("Did tap play video \(video)")
         sendNavigationEvent(ShowVideoEvent(id: video.id))
     }

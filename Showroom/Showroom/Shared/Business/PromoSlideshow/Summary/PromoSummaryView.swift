@@ -1,7 +1,7 @@
 import Foundation
 
 protocol PromoSummaryViewDelegate: class {
-    func promoSummary(promoSummary: PromoSummaryView, didTapPlayForVideo video: PromoSlideshowOtherVideo)
+    func promoSummary(promoSummary: PromoSummaryView, didTapPlayForVideo video: PromoSlideshowPlaylistItem)
     func promoSummaryDidTapRepeat(promoSummary: PromoSummaryView)
     func promoSummary(promoSummary: PromoSummaryView, didTapLink link: PromoSlideshowLink)
 }
@@ -15,13 +15,13 @@ final class PromoSummaryView: UIView {
     weak var delegate: PromoSummaryViewDelegate?
     
     init(promoSlideshow: PromoSlideshow) {
-        playerView = PromoSummaryPlayerView(otherVideos: promoSlideshow.otherVideos)
+        playerView = PromoSummaryPlayerView(playlistItems: promoSlideshow.playlist)
         linksView = PromoSummaryLinksView(links: promoSlideshow.links)
         super.init(frame: CGRectZero)
         
         separatorView.backgroundColor = UIColor(named: .Separator)
         
-        let repeatTitle = promoSlideshow.otherVideos.count > 1 ? tr(.PromoVideoSummaryRepeatPrevious) : tr(.PromoVideoSummaryRepeat)
+        let repeatTitle = promoSlideshow.playlist.count > 1 ? tr(.PromoVideoSummaryRepeatPrevious) : tr(.PromoVideoSummaryRepeat)
         repeatButton.addTarget(self, action: #selector(PromoSummaryView.didTapRepeatButton), forControlEvents: .TouchUpInside)
         repeatButton.setImage(UIImage(asset: .Repeat), forState: .Normal)
         repeatButton.setTitle(repeatTitle, forState: .Normal)
@@ -50,7 +50,7 @@ final class PromoSummaryView: UIView {
         playerView.stopPlayAnimation()
     }
     
-    func didTap(playForVideo video: PromoSlideshowOtherVideo) {
+    func didTap(playForVideo video: PromoSlideshowPlaylistItem) {
         delegate?.promoSummary(self, didTapPlayForVideo: video)
     }
     

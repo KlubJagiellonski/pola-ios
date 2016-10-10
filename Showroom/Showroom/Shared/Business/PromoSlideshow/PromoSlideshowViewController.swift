@@ -65,19 +65,22 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
     
     private func fetchSlideshow() {
         logInfo("Fetching slideshow")
-        model.fetchPromoSlideshow().subscribe { [weak self] (event: Event<PromoSlideshow>) in
+        model.fetchPromoSlideshow().subscribeNext { [weak self] fetchResult in
             guard let `self` = self else { return }
             
-            switch event {
-            case .Next(let result):
+            switch fetchResult {
+            case .Success(let result):
                 logInfo("Fetched slideshow \(result)")
                 self.castView.changeSwitcherState(.Success, animated: true)
                 self.removeAllViewControllers()
                 self.castView.update(with: result)
-            case .Error(let error):
+            case .CacheError(let error):
+                logInfo("Cannot take cache for slideshow \(error)")
+            case .NetworkError(let error):
                 logInfo("Cannot fetch slideshow \(error)")
-                self.castView.changeSwitcherState(.Error, animated: true)
-            case .Completed: break
+                if self.model.promoSlideshow == nil {
+                    self.castView.changeSwitcherState(.Error, animated: true)
+                }
             }
         }.addDisposableTo(disposeBag)
     }

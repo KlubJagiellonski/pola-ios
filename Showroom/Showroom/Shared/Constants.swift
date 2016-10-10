@@ -54,7 +54,8 @@ struct Constants {
         static let contentPromoId = "ContentPromoId"
         static let productDetails = "ProductDetails"
         static let productRecommendationsId = "productRecommendationsId"
-        static let searchCatalogueId = "searchCatalogueId" 
+        static let searchCatalogueId = "searchCatalogueId"
+        static let video = "video"
     }
     
     struct Persistent {

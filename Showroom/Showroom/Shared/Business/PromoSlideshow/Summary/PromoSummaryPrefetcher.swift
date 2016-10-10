@@ -14,8 +14,8 @@ final class PromoSummaryPrefetcher: PromoSlideshowPagePrefetcher {
     func prefetch() -> Observable<AnyObject?> {
         let imageWidth = UIScreen.mainScreen().bounds.width
         var urls: [NSURL] = []
-        for otherVideo in promoSlideshow.otherVideos {
-            let url = NSURL.createImageUrl(otherVideo.imageUrl, width: UIImageView.scaledImageSize(imageWidth) as Int)
+        for playlistItem in promoSlideshow.playlist {
+            let url = NSURL.createImageUrl(playlistItem.imageUrl, width: UIImageView.scaledImageSize(imageWidth) as Int)
             urls.append(url)
         }
         return ObservableUtils.prefetchImages(forUrls: urls).flatMap { Observable.just(nil) }

@@ -240,6 +240,17 @@ extension ApiService {
         }
     }
     
+    func fetchVideo(withVideoId id: Int) -> Observable<PromoSlideshow> {
+        let call = ApiServiceCall(
+            pathComponent: "videos/\(id)",
+            params: nil,
+            httpMethod: .Get,
+            authenticationType: .NotRequired,
+            jsonData: nil
+        )
+        return makeCall(with: call).decode { try PromoSlideshow.decode($0) }
+    }
+    
     func deleteFromWishlist(with param: SingleWishlistRequest) -> Observable<WishlistResult> {
         return wishlistRequest(with: param, method: .Delete)
     }

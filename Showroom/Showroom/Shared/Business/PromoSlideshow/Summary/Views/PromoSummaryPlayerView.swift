@@ -15,15 +15,15 @@ final class PromoSummaryPlayerView: UIView {
         }
     }
     
-    private let videos: [PromoSlideshowOtherVideo]
+    private let videos: [PromoSlideshowPlaylistItem]
     private var currentVideoIndex: Int
     private var firstLayoutSubviewsPassed = false
     private var shouldStartPlayAnimation = false
     
-    init(otherVideos: [PromoSlideshowOtherVideo]) {
-        self.currentVideoIndex = otherVideos.count > 1 ? 1 : 0
-        let video = otherVideos[currentVideoIndex]
-        self.videos = otherVideos
+    init(playlistItems: [PromoSlideshowPlaylistItem]) {
+        self.currentVideoIndex = playlistItems.count > 1 ? 1 : 0
+        let video = playlistItems[currentVideoIndex]
+        self.videos = playlistItems
         self.currentVideoView = PromoSummaryVideoView(caption: video.caption)
         super.init(frame: CGRectZero)
         
@@ -32,7 +32,7 @@ final class PromoSummaryPlayerView: UIView {
         backgroundColor = UIColor(named: .ProductPageBackground)
         
         hudView.hidden = self.videos.count < 2
-        hudView.nextButton.alpha = (otherVideos.count - 1) == currentVideoIndex ? 0 : 1
+        hudView.nextButton.alpha = (playlistItems.count - 1) == currentVideoIndex ? 0 : 1
         hudView.backButton.addTarget(self, action: #selector(PromoSummaryPlayerView.didTapBack), forControlEvents: .TouchUpInside)
         hudView.nextButton.addTarget(self, action: #selector(PromoSummaryPlayerView.didTapNext), forControlEvents: .TouchUpInside)
         hudView.playControl.addTarget(self, action: #selector(PromoSummaryPlayerView.didTapPlay), forControlEvents: .TouchUpInside)
