@@ -26,6 +26,15 @@ extension Platform {
         case German: return "EUR"
         }
     }
+    
+    private var feedbackEmail: String {
+        switch self {
+        case .Polish:
+            return "ios@showroom.pl"
+        case .German:
+            return "ios@showroom.de"
+        }
+    }
 }
 
 final class PlatformManager {
@@ -105,12 +114,7 @@ extension PlatformManager {
     
     var reportEmail: String? {
         guard let platform = platform else { return nil }
-        
-        if Constants.isAppStore {
-            return "iosv\(NSBundle.appVersionNumber)@showroom.\(platform.code)"
-        } else {
-            return "iosv1.1@showroom.\(platform.code)"
-        }
+        return platform.feedbackEmail
     }
     
     func initializePlatformWithDeviceLanguage() {
