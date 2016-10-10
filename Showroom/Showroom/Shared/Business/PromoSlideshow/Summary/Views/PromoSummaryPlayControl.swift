@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 
 final class PromoSummaryPlayControl: UIControl {
-    private let animationDuration: NSTimeInterval = 5
+    private let animationDuration: NSTimeInterval = 10
     
     weak var playerView: PromoSummaryPlayerView?
     var progressVisible = true {
@@ -20,7 +20,7 @@ final class PromoSummaryPlayControl: UIControl {
     private let progressLayer = CAShapeLayer()
     
     init() {
-        startAngle = CGFloat(M_PI)
+        startAngle = CGFloat(M_PI * 1.5)
         endAngle = startAngle + CGFloat(M_PI * 2)
         
         super.init(frame: CGRectZero)
@@ -54,6 +54,7 @@ final class PromoSummaryPlayControl: UIControl {
         super.layoutSubviews()
         
         progressLayer.path = createProgressPath()
+        progressLayer.strokeEnd = 0
     }
     
     override func addTarget(target: AnyObject?, action: Selector, forControlEvents controlEvents: UIControlEvents) {
@@ -77,8 +78,8 @@ final class PromoSummaryPlayControl: UIControl {
         
         let animation = CABasicAnimation(keyPath: "strokeEnd")
         animation.duration = animationDuration
-        animation.fromValue = 1
-        animation.toValue = 0
+        animation.fromValue = 0
+        animation.toValue = 1
         animation.fillMode = kCAFillModeForwards
         animation.removedOnCompletion = false
         progressLayer.addAnimation(animation, forKey: "test")
