@@ -228,5 +228,8 @@ class UIAssembly: AssemblyType {
         container.register(PromoSummaryViewController.self) { r, promoSlideshow in
             return PromoSummaryViewController(with: r.resolve(DiResolver.self)!, promoSlideshow: promoSlideshow)
         }
+        container.register(WebContentViewController.self) { r, url in
+            return WebContentViewController(url: url)
+        }
     }
 }

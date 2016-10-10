@@ -250,6 +250,8 @@
 		1DDCD2BA1DA7DA3A0045BB4A /* VideoStepPrefetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDCD2B91DA7DA3A0045BB4A /* VideoStepPrefetcher.swift */; };
 		1DDCD2BC1DA7DA530045BB4A /* ProductStepPrefetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDCD2BB1DA7DA530045BB4A /* ProductStepPrefetcher.swift */; };
 		1DDCD2BE1DA7DA700045BB4A /* PromoSummaryPrefetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDCD2BD1DA7DA700045BB4A /* PromoSummaryPrefetcher.swift */; };
+		1DDCD2C51DABDDCC0045BB4A /* WebContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDCD2C41DABDDCC0045BB4A /* WebContentViewController.swift */; };
+		1DDCD2C71DABDE290045BB4A /* WebContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDCD2C61DABDE290045BB4A /* WebContentView.swift */; };
 		1DDE61E81D649152007E5509 /* RateAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDE61E71D649152007E5509 /* RateAppViewController.swift */; };
 		1DDE61EC1D649910007E5509 /* RateAppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDE61EB1D649910007E5509 /* RateAppManager.swift */; };
 		1DDE61F01D649C6F007E5509 /* NSDateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDE61EF1D649C6F007E5509 /* NSDateUtils.swift */; };
@@ -685,6 +687,8 @@
 		1DDCD2B91DA7DA3A0045BB4A /* VideoStepPrefetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoStepPrefetcher.swift; sourceTree = "<group>"; };
 		1DDCD2BB1DA7DA530045BB4A /* ProductStepPrefetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductStepPrefetcher.swift; sourceTree = "<group>"; };
 		1DDCD2BD1DA7DA700045BB4A /* PromoSummaryPrefetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromoSummaryPrefetcher.swift; sourceTree = "<group>"; };
+		1DDCD2C41DABDDCC0045BB4A /* WebContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebContentViewController.swift; sourceTree = "<group>"; };
+		1DDCD2C61DABDE290045BB4A /* WebContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebContentView.swift; sourceTree = "<group>"; };
 		1DDE61E71D649152007E5509 /* RateAppViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateAppViewController.swift; sourceTree = "<group>"; };
 		1DDE61EB1D649910007E5509 /* RateAppManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateAppManager.swift; sourceTree = "<group>"; };
 		1DDE61EF1D649C6F007E5509 /* NSDateUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateUtils.swift; sourceTree = "<group>"; };
@@ -692,9 +696,9 @@
 		1DE025291D48D52000324178 /* ProductDescriptionNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDescriptionNavigationController.swift; sourceTree = "<group>"; };
 		1DF14F291D2A72AB004A6A3A /* ProductErrorPageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductErrorPageCell.swift; sourceTree = "<group>"; };
 		1DF14F2B1D2AA21A004A6A3A /* ProductListEmptyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductListEmptyView.swift; sourceTree = "<group>"; };
+		1DF3A5851D9D65D5009B5BC8 /* UICollectionViewUtilsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICollectionViewUtilsTests.swift; sourceTree = "<group>"; };
 		1DF3A5871D9E3E8D009B5BC8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1DF3A5881D9E3EF9009B5BC8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = "en.lproj/Drop-In.strings"; sourceTree = "<group>"; };
-		1DF3A5851D9D65D5009B5BC8 /* UICollectionViewUtilsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICollectionViewUtilsTests.swift; sourceTree = "<group>"; };
 		1DF428AB1D87FAA000396A0D /* ApiServiceCalls.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiServiceCalls.swift; sourceTree = "<group>"; };
 		1DF428AD1D880D1300396A0D /* Platform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Platform.swift; sourceTree = "<group>"; };
 		1DF428AF1D894AEE00396A0D /* CheckoutSummaryBrandCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutSummaryBrandCell.swift; sourceTree = "<group>"; };
@@ -1052,6 +1056,7 @@
 		1D2F195F1CE9CEBA0099142E /* Business */ = {
 			isa = PBXGroup;
 			children = (
+				1DDCD2C11DABDD9F0045BB4A /* WebContent */,
 				1D80F45F1D9BCF3200DFB1C3 /* PromoSlideshow */,
 				7566CE721D6ED9E40065DFB3 /* Alerts */,
 				7520AD841D34DE37003FC38B /* Signing */,
@@ -1629,6 +1634,15 @@
 				1D62CA8D1DA77C9A0015169D /* ShowVideoEvent.swift */,
 			);
 			path = Event;
+			sourceTree = "<group>";
+		};
+		1DDCD2C11DABDD9F0045BB4A /* WebContent */ = {
+			isa = PBXGroup;
+			children = (
+				1DDCD2C41DABDDCC0045BB4A /* WebContentViewController.swift */,
+				1DDCD2C61DABDE290045BB4A /* WebContentView.swift */,
+			);
+			path = WebContent;
 			sourceTree = "<group>";
 		};
 		1DF3A5841D9D65BA009B5BC8 /* Utils */ = {
@@ -2523,6 +2537,7 @@
 				1D0F3B4A1D1172E10052CFF6 /* FormSheetAnimator.swift in Sources */,
 				1D8476271D8AE72E009EB212 /* PrefetchingManager.swift in Sources */,
 				1D372E2E1D6C7B05004F3155 /* ShowEditKioskEvent.swift in Sources */,
+				1DDCD2C51DABDDCC0045BB4A /* WebContentViewController.swift in Sources */,
 				1DF428BE1D8971ED00396A0D /* PaymentHandler.swift in Sources */,
 				1D80F47D1D9BE5A000DFB1C3 /* ImageStepViewController.swift in Sources */,
 				1D7824B71D0709D200E60392 /* Utils.swift in Sources */,
@@ -2550,6 +2565,7 @@
 				1D80F4681D9BD1DF00DFB1C3 /* PromoSlideshowDataSource.swift in Sources */,
 				1DD1EA761CEDB2A300D99731 /* ContentPromoDataSource.swift in Sources */,
 				1D80F4811D9BEA1100DFB1C3 /* PromoPageInterface.swift in Sources */,
+				1DDCD2C71DABDE290045BB4A /* WebContentView.swift in Sources */,
 				1DA6FA2F1CFF265E004BF10B /* ContentPromoRecommendationsHeaderCell.swift in Sources */,
 				7566CE711D6DEFB70065DFB3 /* AppVersion.swift in Sources */,
 				1DA5CB451D2E86C200A45E93 /* Brand.swift in Sources */,
