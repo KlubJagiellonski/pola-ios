@@ -41,6 +41,7 @@
 - (void)videoPlayerViewPlaybackBufferEmpty:(VIMVideoPlayerView *)videoPlayerView;
 - (void)videoPlayerViewPlaybackLikelyToKeepUp:(VIMVideoPlayerView *)videoPlayerView;
 - (void)videoPlayerView:(VIMVideoPlayerView *)videoPlayerView didFailWithError:(NSError *)error;
+- (void)videoPlayerView:(VIMVideoPlayerView *)videoPlayerView didChangeRate:(double)rate;
 
 @end
 

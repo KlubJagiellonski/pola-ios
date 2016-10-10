@@ -679,6 +679,12 @@ static void *VideoPlayer_PlayerItemLoadedTimeRangesContext = &VideoPlayer_Player
 {
     if (context == VideoPlayer_PlayerRateChangedContext)
     {
+        double rate = self.player.rate;
+        if ([self.delegate respondsToSelector:@selector(videoPlayer:didChangeRate:)])
+        {
+            [self.delegate videoPlayer:self didChangeRate:rate];
+        }
+        
         if (self.isScrubbing == NO && self.isPlaying && self.player.rate == 0.0f)
         {
             // TODO: Show loading indicator
@@ -695,7 +701,6 @@ static void *VideoPlayer_PlayerItemLoadedTimeRangesContext = &VideoPlayer_Player
             {
                 case AVPlayerItemStatusUnknown:
                 {
-                    NSLog(@"Video player Status Unknown");
                     break;
                 }
                 case AVPlayerItemStatusReadyToPlay:
@@ -757,10 +762,9 @@ static void *VideoPlayer_PlayerItemLoadedTimeRangesContext = &VideoPlayer_Player
     }
     else if (context == VideoPlayer_PlayerItemPlaybackBufferEmpty)
     {
-        if (self.player.currentItem.playbackBufferEmpty)
+        AVPlayerItem *playerItem = object;
+        if (playerItem.playbackBufferEmpty)
         {
-            if (self.isPlaying)
-            {
                 dispatch_async(dispatch_get_main_queue(), ^
                 {
                     if ([self.delegate respondsToSelector:@selector(videoPlayerPlaybackBufferEmpty:)])
@@ -768,18 +772,21 @@ static void *VideoPlayer_PlayerItemLoadedTimeRangesContext = &VideoPlayer_Player
                         [self.delegate videoPlayerPlaybackBufferEmpty:self];
                     }
                 });
-            }
         }
     }
     else if (context == VideoPlayer_PlayerItemPlaybackLikelyToKeepUp)
     {
-        if (self.player.currentItem.playbackLikelyToKeepUp)
+        AVPlayerItem *playerItem = object;
+        if (playerItem.playbackLikelyToKeepUp)
         {
-            // TODO: Hide loading indicator
-
             if (self.isScrubbing == NO && self.isPlaying && self.player.rate == 0.0f)
             {
                 [self play];
+            }
+            
+            if ([self.delegate respondsToSelector:@selector(videoPlayerPlaybackLikelyToKeepUp:)])
+            {
+                [self.delegate videoPlayerPlaybackLikelyToKeepUp:self];
             }
         }
     }

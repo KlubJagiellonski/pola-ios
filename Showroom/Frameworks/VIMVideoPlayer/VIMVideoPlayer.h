@@ -39,6 +39,7 @@
 - (void)videoPlayerPlaybackBufferEmpty:(VIMVideoPlayer *)videoPlayer;
 - (void)videoPlayerPlaybackLikelyToKeepUp:(VIMVideoPlayer *)videoPlayer;
 - (void)videoPlayer:(VIMVideoPlayer *)videoPlayer didFailWithError:(NSError *)error;
+- (void)videoPlayer:(VIMVideoPlayer *)videoPlayer didChangeRate:(double)rate;
 
 @end
 

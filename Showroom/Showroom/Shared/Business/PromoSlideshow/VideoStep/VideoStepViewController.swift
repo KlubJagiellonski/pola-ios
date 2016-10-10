@@ -41,8 +41,12 @@ final class VideoStepViewController: UIViewController, PromoPageInterface, Video
     
     func videoStepViewDidTapPlayerView(view: VideoStepView) {
         logInfo("did tap player view")
-        let newPromoPageState: PromoPageViewState = castView.playing ? .Paused : .Close
-        pageDelegate?.promoPage(self, willChangePromoPageViewState: newPromoPageState, animationDuration: 0.4)
+        switch castView.state {
+        case .PlayedByUser: pageDelegate?.promoPage(self, willChangePromoPageViewState: .Close, animationDuration: 0.4)
+        case .PausedByUser: pageDelegate?.promoPage(self, willChangePromoPageViewState: .Paused, animationDuration: 0.4)
+        default:
+            logError("Unexpected video step state: \(castView.state)")
+        }
     }
     
     func videoStepView(view: VideoStepView, timeDidChange cmTime: CMTime) {
@@ -67,7 +71,7 @@ final class VideoStepViewController: UIViewController, PromoPageInterface, Video
     // MARK:- PromoPageInterface
     
     func didTapPlay() {
-        castView.playing = true
+        castView.play()
         pageDelegate?.promoPage(self, willChangePromoPageViewState: .Close, animationDuration: 0.4)
     }
     
@@ -75,7 +79,7 @@ final class VideoStepViewController: UIViewController, PromoPageInterface, Video
     
     func pageGainedFocus(with reason: PromoFocusChangeReason) {
         logInfo("VideoStep gained focus")
-        castView.playing = true
+        castView.play()
         if reason == .AppForegroundChanged {
             pageDelegate?.promoPage(self, willChangePromoPageViewState: .Close, animationDuration: Constants.promoSlideshowStateChangedAnimationDuration)
         }
@@ -83,7 +87,7 @@ final class VideoStepViewController: UIViewController, PromoPageInterface, Video
     
     func pageLostFocus(with reason: PromoFocusChangeReason) {
         logInfo("VideoStep lost focus")
-        castView.playing = false
+        castView.pause()
         if reason == .AppForegroundChanged {
             pageDelegate?.promoPage(self, willChangePromoPageViewState: .Paused, animationDuration: 0.4)
         }

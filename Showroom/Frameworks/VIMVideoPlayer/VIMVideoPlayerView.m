@@ -176,4 +176,12 @@
     }
 }
 
+- (void)videoPlayer:(VIMVideoPlayer *)videoPlayer didChangeRate:(double)rate
+{
+    if ([self.delegate respondsToSelector:@selector(videoPlayerView:didChangeRate:)])
+    {
+        [self.delegate videoPlayerView:self didChangeRate:rate];
+    }
+}
+
 @end
