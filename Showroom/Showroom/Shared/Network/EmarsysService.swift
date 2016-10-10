@@ -69,7 +69,7 @@ extension EmarsysService {
         let transaction = EMTransaction()
         transaction.setView(String(id))
         session.sendTransaction(transaction) { error in
-            logInfo("Could not send sendViewEvent for id \(id), error \(error)")
+            logInfo("Could not send sendViewEvent, error \(error)")
         }
     }
     
@@ -87,7 +87,7 @@ extension EmarsysService {
         
         transaction.setCart(cartItems)
         session.sendTransaction(transaction) { error in
-            logInfo("Could not send sendCartEvent for basket \(basket), error \(error)")
+            logInfo("Could not send sendCartEvent, error \(error)")
         }
     }
     
@@ -97,7 +97,7 @@ extension EmarsysService {
         let transaction = EMTransaction()
         transaction.setSearchTerm(query)
         session.sendTransaction(transaction) { error in
-            logInfo("Could not send sendSearchEvent for query \(query), error \(error)")
+            logInfo("Could not send sendSearchEvent, error \(error)")
         }
     }
     
@@ -107,7 +107,7 @@ extension EmarsysService {
         let transaction = EMTransaction()
         transaction.setKeyword(name)
         session.sendTransaction(transaction) { error in
-            logInfo("Could not send sendBrandViewEvent for name \(name), error \(error)")
+            logInfo("Could not send sendBrandViewEvent, error \(error)")
         }
     }
     
@@ -121,7 +121,7 @@ extension EmarsysService {
         let transaction = EMTransaction()
         transaction.setPurchase(orderId, ofItems: cartItems)
         session.sendTransaction(transaction) { error in
-            logInfo("Could not send purchase event for orderId \(orderId), error \(error)")
+            logInfo("Could not send purchase event, error \(error)")
         }
     }
     
@@ -131,7 +131,7 @@ extension EmarsysService {
         let transaction = EMTransaction()
         transaction.setCategory(category)
         session.sendTransaction(transaction) { error in
-            logInfo("Could not send category event for category \(category), error \(error)")
+            logInfo("Could not send category event, error \(error)")
         }
     }
     
