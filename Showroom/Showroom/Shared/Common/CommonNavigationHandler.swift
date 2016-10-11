@@ -170,7 +170,7 @@ final class CommonNavigationHandler: NavigationHandler {
             return true
         }
         
-        urlRouter.addRoute("/:host/video/:videoComponent") { [weak self](parameters: [NSObject: AnyObject]!) in
+        urlRouter.addRoute("/:host/videos/:videoComponent") { [weak self](parameters: [NSObject: AnyObject]!) in
             guard let `self` = self else { return false }
             guard let videoComponent = parameters["videoComponent"] as? String else {
                 logError("There is no videoComponent in path: \(parameters)")
