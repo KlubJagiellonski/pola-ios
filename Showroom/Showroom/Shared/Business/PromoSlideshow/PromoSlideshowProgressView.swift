@@ -58,7 +58,7 @@ final class PromoSlideshowProgressView: UIView {
         logInfo("steps relative durations: \(stepsRelativeDurations)")
         
         setNeedsLayout()
-        layoutSubviews()
+        layoutIfNeeded()
     }
     
     func update(with progress: ProgressInfoState) {
