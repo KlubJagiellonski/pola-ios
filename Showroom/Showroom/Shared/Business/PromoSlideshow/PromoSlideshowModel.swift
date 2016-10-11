@@ -10,7 +10,7 @@ struct PromoSlideshowPageDataContainer {
 
 enum PromoSlideshowPageData {
     case Image(link: DataLink, duration: Int)
-    case Video(DataLink)
+    case Video(link: DataLink, annotations: [PromoSlideshowVideoAnnotation])
     case Product(product: PromoSlideshowProduct, duration: Int)
     case Summary(PromoSlideshow)
 }
@@ -116,7 +116,7 @@ extension PromoSlideshowPageData {
         case .Image:
             self = .Image(link: step.link!, duration: step.duration)
         case .Video:
-            self = .Video(step.link!)
+            self = .Video(link: step.link!, annotations: step.annotations)
         case .Product:
             self = .Product(product: step.product!, duration: step.duration)
         }

@@ -8,13 +8,15 @@ final class VideoStepViewController: UIViewController, PromoPageInterface, Video
     
     private var castView: VideoStepView { return view as! VideoStepView }
     private let link: String
+    private let annotations: [PromoSlideshowVideoAnnotation]
     private var duration: Int?
     private var timeObserver: AnyObject?
     
     weak var pageDelegate: PromoPageDelegate?
     
-    init(with resolver: DiResolver, link: String) {
+    init(with resolver: DiResolver, link: String, annotations: [PromoSlideshowVideoAnnotation]) {
         self.link = link
+        self.annotations = annotations
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -23,7 +25,7 @@ final class VideoStepViewController: UIViewController, PromoPageInterface, Video
     }
     
     override func loadView() {
-        view = VideoStepView(link: link)
+        view = VideoStepView(link: link, annotations: annotations)
     }
     
     override func viewDidLoad() {

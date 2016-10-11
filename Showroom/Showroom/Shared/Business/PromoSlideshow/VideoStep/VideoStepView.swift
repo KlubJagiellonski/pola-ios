@@ -19,6 +19,7 @@ protocol VideoStepViewDelegate: class {
 
 final class VideoStepView: ViewSwitcher, VIMVideoPlayerViewDelegate {
     private var playerView = VIMVideoPlayerView()
+    private let annotationsView: VideoStepAnnotationsView
     
     private(set) var state: VideoStepViewState = .PausedByPlayer {
         didSet {
@@ -50,10 +51,12 @@ final class VideoStepView: ViewSwitcher, VIMVideoPlayerViewDelegate {
     weak var delegate: VideoStepViewDelegate?
     
     private var url: NSURL
-    
-    init(link: String) {
+
+    init(link: String, annotations: [PromoSlideshowVideoAnnotation]) {
+        annotationsView = VideoStepAnnotationsView(annotations: annotations)
         self.url = NSURL(string: link)!
-        super.init(successView: playerView, initialState: .ModalLoading)
+        super.init(successView: playerView, initialState: .Loading)
+
         switcherDataSource = self
         switcherDelegate = self
         
@@ -64,6 +67,10 @@ final class VideoStepView: ViewSwitcher, VIMVideoPlayerViewDelegate {
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(VideoStepView.didTapPlayerView))
         playerView.addGestureRecognizer(tap)
+        
+        playerView.addSubview(annotationsView)
+        
+        configureCustomConstraints()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -76,6 +83,12 @@ final class VideoStepView: ViewSwitcher, VIMVideoPlayerViewDelegate {
     
     func pause() {
         state = .PausedByUser
+    }
+
+    private func configureCustomConstraints() {
+        annotationsView.snp_makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
     }
     
     @objc private func didTapPlayerView() {
@@ -101,6 +114,7 @@ final class VideoStepView: ViewSwitcher, VIMVideoPlayerViewDelegate {
     }
     
     func videoPlayerView(videoPlayerView: VIMVideoPlayerView!, timeDidChange cmTime: CMTime) {
+        annotationsView.playbackTimeChanged(Int(cmTime.seconds * 1000))
         delegate?.videoStepView(self, timeDidChange: cmTime)
     }
     

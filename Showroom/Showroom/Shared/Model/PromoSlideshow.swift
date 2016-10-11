@@ -49,14 +49,14 @@ enum PromoSlideshowPlaylistItemCaptionColor: String {
 }
 
 struct PromoSlideshowVideoAnnotation {
-    let style: PromoSlideshowVideAnnotationType
+    let style: PromoSlideshowVideoAnnotationStyle
     let text: String
     let verticalPosition: Double
-    let startTime: Double
-    let duration: Double
+    let startTime: Int
+    let duration: Int
 }
 
-enum PromoSlideshowVideAnnotationType: String {
+enum PromoSlideshowVideoAnnotationStyle: String {
     case White = "white"
     case Black = "black"
 }
@@ -197,9 +197,9 @@ extension PromoSlideshowVideoAnnotation: Decodable, Encodable {
     }
 }
 
-extension PromoSlideshowVideAnnotationType: Decodable {
-    static func decode(json: AnyObject) throws -> PromoSlideshowVideAnnotationType {
-        return PromoSlideshowVideAnnotationType(rawValue: json as! String)!
+extension PromoSlideshowVideoAnnotationStyle: Decodable {
+    static func decode(json: AnyObject) throws -> PromoSlideshowVideoAnnotationStyle {
+        return PromoSlideshowVideoAnnotationStyle(rawValue: json as! String)!
     }
 }
 
@@ -272,7 +272,7 @@ extension PromoSlideshowLink: Equatable {}
 extension PromoSlideshowPlaylistItemCaption: Equatable {}
 extension PromoSlideshowPlaylistItemCaptionColor: Equatable {}
 extension PromoSlideshowVideoAnnotation: Equatable {}
-extension PromoSlideshowVideAnnotationType: Equatable {}
+extension PromoSlideshowVideoAnnotationStyle: Equatable {}
 extension PromoSlideshowProduct: Equatable {}
 
 func ==(lhs: PromoSlideshow, rhs: PromoSlideshow) -> Bool {
@@ -311,7 +311,7 @@ func ==(lhs: PromoSlideshowVideoAnnotation, rhs: PromoSlideshowVideoAnnotation) 
     return lhs.duration == rhs.duration && lhs.startTime == rhs.startTime && lhs.style == rhs.style && lhs.text == rhs.text && lhs.verticalPosition == rhs.verticalPosition
 }
 
-func ==(lhs: PromoSlideshowVideAnnotationType, rhs: PromoSlideshowVideAnnotationType) -> Bool {
+func ==(lhs: PromoSlideshowVideoAnnotationStyle, rhs: PromoSlideshowVideoAnnotationStyle) -> Bool {
     return lhs.rawValue == rhs.rawValue
 }
 

@@ -252,6 +252,7 @@
 		1DDCD2BE1DA7DA700045BB4A /* PromoSummaryPrefetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDCD2BD1DA7DA700045BB4A /* PromoSummaryPrefetcher.swift */; };
 		1DDCD2C51DABDDCC0045BB4A /* WebContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDCD2C41DABDDCC0045BB4A /* WebContentViewController.swift */; };
 		1DDCD2C71DABDE290045BB4A /* WebContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDCD2C61DABDE290045BB4A /* WebContentView.swift */; };
+		1DDCD2CB1DAD2F340045BB4A /* VideoStepAnnotationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDCD2CA1DAD2F340045BB4A /* VideoStepAnnotationsView.swift */; };
 		1DDE61E81D649152007E5509 /* RateAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDE61E71D649152007E5509 /* RateAppViewController.swift */; };
 		1DDE61EC1D649910007E5509 /* RateAppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDE61EB1D649910007E5509 /* RateAppManager.swift */; };
 		1DDE61F01D649C6F007E5509 /* NSDateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDE61EF1D649C6F007E5509 /* NSDateUtils.swift */; };
@@ -689,6 +690,7 @@
 		1DDCD2BD1DA7DA700045BB4A /* PromoSummaryPrefetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromoSummaryPrefetcher.swift; sourceTree = "<group>"; };
 		1DDCD2C41DABDDCC0045BB4A /* WebContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebContentViewController.swift; sourceTree = "<group>"; };
 		1DDCD2C61DABDE290045BB4A /* WebContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebContentView.swift; sourceTree = "<group>"; };
+		1DDCD2CA1DAD2F340045BB4A /* VideoStepAnnotationsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoStepAnnotationsView.swift; sourceTree = "<group>"; };
 		1DDE61E71D649152007E5509 /* RateAppViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateAppViewController.swift; sourceTree = "<group>"; };
 		1DDE61EB1D649910007E5509 /* RateAppManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RateAppManager.swift; sourceTree = "<group>"; };
 		1DDE61EF1D649C6F007E5509 /* NSDateUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateUtils.swift; sourceTree = "<group>"; };
@@ -1402,6 +1404,7 @@
 			children = (
 				1D80F4771D9BE4E900DFB1C3 /* VideoStepViewController.swift */,
 				C00755801DA5378800EA493A /* VideoStepView.swift */,
+				1DDCD2CA1DAD2F340045BB4A /* VideoStepAnnotationsView.swift */,
 				1DDCD2B91DA7DA3A0045BB4A /* VideoStepPrefetcher.swift */,
 			);
 			path = VideoStep;
@@ -2627,6 +2630,7 @@
 				1D0F3B641D13D3710052CFF6 /* BasketCountryDataSource.swift in Sources */,
 				753D865B1D4A240F001BF7EB /* ResetPasswordViewController.swift in Sources */,
 				1DDCD2BC1DA7DA530045BB4A /* ProductStepPrefetcher.swift in Sources */,
+				1DDCD2CB1DAD2F340045BB4A /* VideoStepAnnotationsView.swift in Sources */,
 				1D0F3B4E1D12819B0052CFF6 /* BasketDeliveryNavigationController.swift in Sources */,
 				1DA5CB491D2F7B2E00A45E93 /* Checkout.swift in Sources */,
 				1DFDDB481D92C926007DBDB6 /* UICollectionViewUtils.swift in Sources */,
