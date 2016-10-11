@@ -10,7 +10,6 @@ struct PromoSlideshow {
 
 struct PromoSlideshowVideo {
     let steps: [PromoSlideshowVideoStep]
-    let duration: Int
 }
 
 enum PromoSlideshowVideoStepType: String {
@@ -71,6 +70,14 @@ struct PromoSlideshowProduct {
     let imageUrl: String
 }
 
+// MARK:- Utils
+
+extension PromoSlideshowVideo {
+    var duration: Int {
+        return steps.reduce(0) { $0 + $1.duration }
+    }
+}
+
 // MARK:- Decodable, Encodable
 
 extension PromoSlideshow: Decodable, Encodable {
@@ -98,15 +105,13 @@ extension PromoSlideshow: Decodable, Encodable {
 extension PromoSlideshowVideo: Decodable, Encodable {
     static func decode(json: AnyObject) throws -> PromoSlideshowVideo {
         return try PromoSlideshowVideo(
-            steps: json => "steps",
-            duration: json => "duration"
+            steps: json => "steps"
         )
     }
     
     func encode() -> AnyObject {
         return [
-            "steps": steps.map { $0.encode() } as NSArray,
-            "duration": duration
+            "steps": steps.map { $0.encode() } as NSArray
         ] as NSDictionary
     }
 }
