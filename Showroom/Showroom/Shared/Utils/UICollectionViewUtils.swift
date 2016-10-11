@@ -20,6 +20,7 @@ extension UICollectionView {
     func configureForPaging(withDirection direction: UICollectionViewScrollDirection) {
         pagingEnabled = true
         showsHorizontalScrollIndicator = false
+        showsVerticalScrollIndicator = false
         guard let flowLayout = collectionViewLayout as? UICollectionViewFlowLayout else {
             fatalError("If you want to configure for horizontal paging the collectionViewLayout must be of type UICollectionViewFlowLayout")
         }

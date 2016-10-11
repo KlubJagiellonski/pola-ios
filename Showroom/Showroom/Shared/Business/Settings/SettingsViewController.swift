@@ -91,7 +91,7 @@ class SettingsViewController: UIViewController {
             settings.append(Setting(type: .Login, action: { [weak self] in self?.loginButtonPressed() }, secondaryAction: { [weak self] in self?.createAccountButtonPressed() }, cellClickable: false))
         }
         
-        if platformManager.platform!.isFemaleOnly == false {
+        if platformManager.platform?.isFemaleOnly == false ?? false {
             settings.append(Setting(type: .Gender, action: { [weak self] in self?.femaleButtonPressed() }, secondaryAction: { [weak self] in self?.maleButtonPressed() }, cellClickable: false, value: self.userManager.gender))
         }
                 
