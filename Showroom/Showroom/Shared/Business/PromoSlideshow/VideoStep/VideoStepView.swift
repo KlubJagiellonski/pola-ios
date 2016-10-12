@@ -10,7 +10,6 @@ enum VideoStepViewState {
 }
 
 protocol VideoStepViewDelegate: class {
-    func videoStepIsReadyToPlay(view: VideoStepView)
     func videoStepViewDidTapPlayerView(view: VideoStepView)
     func videoStepView(view: VideoStepView, timeDidChange cmTime: CMTime)
     func videoStepViewDidReachedEnd(view: VideoStepView)
@@ -18,7 +17,7 @@ protocol VideoStepViewDelegate: class {
 }
 
 final class VideoStepView: ViewSwitcher, VIMVideoPlayerViewDelegate {
-    private var playerView = VIMVideoPlayerView()
+    private let playerView: VIMVideoPlayerView
     private let annotationsView: VideoStepAnnotationsView
     
     private(set) var state: VideoStepViewState = .PausedByPlayer {
@@ -38,31 +37,36 @@ final class VideoStepView: ViewSwitcher, VIMVideoPlayerViewDelegate {
         }
         get { return playerView.player.playing }
     }
-    var duration: Int? {
-        guard let durationSeconds = durationSeconds else { return nil }
-        return Int(durationSeconds * 1000)
+    var playbackDuration: Int? {
+        return playerView.playbackDurationMillis
     }
-    private var durationSeconds: Double? {
-        guard let cmTime = playerView.player.player.currentItem?.asset.duration else { return nil }
-        return cmTime.seconds
-    }
+    
     private var lastLoadedDuration: Double?
     
     weak var delegate: VideoStepViewDelegate?
     
     private var url: NSURL
 
-    init(link: String, annotations: [PromoSlideshowVideoAnnotation]) {
+    init(link: String, annotations: [PromoSlideshowVideoAnnotation], additionalData: AnyObject?) {
         annotationsView = VideoStepAnnotationsView(annotations: annotations)
         self.url = NSURL(string: link)!
-        super.init(successView: playerView, initialState: .Loading)
+        var prefetchedPlayerExist: Bool
+        if let prefetchedPlayerView = additionalData as? VIMVideoPlayerView {
+            self.playerView = prefetchedPlayerView
+            prefetchedPlayerExist = true
+        } else {
+            self.playerView = VIMVideoPlayerView()
+            prefetchedPlayerExist = false
+        }
+        super.init(successView: playerView, initialState: prefetchedPlayerExist ? .Success : .Loading)
 
         switcherDataSource = self
         switcherDelegate = self
         
-        playerView.player.setURL(url)
-        playerView.player.looping = false
-        playerView.player.disableAirplay()
+        if !prefetchedPlayerExist {
+            playerView.player.setURL(url)
+            playerView.applyDefaultConfiguration()
+        }
         playerView.delegate = self
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(VideoStepView.didTapPlayerView))
@@ -102,7 +106,6 @@ final class VideoStepView: ViewSwitcher, VIMVideoPlayerViewDelegate {
 
     func videoPlayerViewIsReadyToPlayVideo(videoPlayerView: VIMVideoPlayerView!) {
         logInfo("ready to play video")
-        delegate?.videoStepIsReadyToPlay(self)
         changeSwitcherState(.Success, animated: true)
         playerPlaying = true
         state = .PlayedByPlayer
@@ -121,16 +124,16 @@ final class VideoStepView: ViewSwitcher, VIMVideoPlayerViewDelegate {
     func videoPlayerView(videoPlayerView: VIMVideoPlayerView!, didFailWithError error: NSError!) {
         logInfo("did fail with error: \(error)")
         state = .PausedByPlayer
-        changeSwitcherState(.ModalError, animated: true)
+        changeSwitcherState(.Error, animated: true)
     }
     
     func videoPlayerView(videoPlayerView: VIMVideoPlayerView!, loadedTimeRangeDidChange loadedDurationSeconds: Double) {
-        guard let durationSeconds = durationSeconds else {
+        guard let durationSeconds = playerView.playbackDurationSeconds else {
             logError("Unable to determine if video finished loading: duration unknown")
             return
         }
         logInfo("loaded time range: \(loadedDurationSeconds)/\(durationSeconds)")
-        if loadedDurationSeconds == self.durationSeconds && loadedDurationSeconds != lastLoadedDuration {
+        if loadedDurationSeconds == durationSeconds && loadedDurationSeconds != lastLoadedDuration {
             delegate?.videoStepViewDidLoadVideo(self)
         }
         lastLoadedDuration = loadedDurationSeconds
@@ -139,11 +142,15 @@ final class VideoStepView: ViewSwitcher, VIMVideoPlayerViewDelegate {
     func videoPlayerView(videoPlayerView: VIMVideoPlayerView!, didChangeRate rate: Double) {
         logInfo("video player view did change rate: \(rate)")
 
+        guard lastLoadedDuration != playerView.playbackDurationSeconds else {
+            return
+        }
+        
         if rate == 0.0 {
             switch state {
             case .PlayedByUser, .PlayedByPlayer:
                 state = .PausedByPlayer
-                changeSwitcherState(.ModalLoading, animated: true)
+                changeSwitcherState(.Loading, animated: true)
             case .PausedByUser, .PausedByPlayer:
                 break
             }
@@ -164,7 +171,7 @@ extension VideoStepView: ViewSwitcherDelegate, ViewSwitcherDataSource {
     func viewSwitcherDidTapRetry(view: ViewSwitcher) {
         logInfo("view switcher retry")
 
-        changeSwitcherState(.ModalLoading, animated: false)
+        changeSwitcherState(.Loading, animated: false)
         playerView.player.setURL(url)
     }
     

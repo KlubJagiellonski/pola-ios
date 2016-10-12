@@ -132,8 +132,7 @@ extension PromoSlideshowVideoStep: Decodable, Encodable {
         let dict = [
             "type": type.rawValue,
             "duration": duration,
-            
-            "annodations": annotations.map { $0.encode() } as NSArray
+            "annotations": annotations.map { $0.encode() } as NSArray
         ] as NSMutableDictionary
         if link != nil { dict.setObject(link!, forKey: "link") }
         if product != nil { dict.setObject(product!.encode(), forKey: "product") }

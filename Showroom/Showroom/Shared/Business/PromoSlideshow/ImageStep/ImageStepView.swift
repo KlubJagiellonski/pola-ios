@@ -10,6 +10,9 @@ final class ImageStepView: ViewSwitcher {
     private let link: String
     
     weak var delegate: ImageStepViewDelegate?
+    var isImageDownloaded: Bool {
+        return imageView.image != nil
+    }
     
     init(link: String) {
         self.link = link

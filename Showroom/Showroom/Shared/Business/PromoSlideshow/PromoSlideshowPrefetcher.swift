@@ -2,33 +2,60 @@ import Foundation
 import RxSwift
 
 protocol PromoSlideshowPagePrefetcher {
+    var additionalData: AnyObject? { get }
+    
     init(data: PromoSlideshowPageData)
     
     func prefetch() -> Observable<AnyObject?>
 }
 
+private struct OngoingPrefetchersInfo {
+    let prefetcher: PromoSlideshowPagePrefetcher
+    let disposable: Disposable
+}
+
+enum PromoSlideshowPrefetchResult {
+    case Success
+    case AlreadyFetched
+    case Error(ErrorType)
+}
+
 final class PromoSlideshowPrefetcher {
     private var pageAlreadyPrefetched: [Int] = []
     private var additionalPrefetchedData: [Int: AnyObject] = [:]
+    private var currentPrefetchersToPageMap: [Int: OngoingPrefetchersInfo] = [:]
     
-    func prefetch(forPageIndex index: Int, withData data: PromoSlideshowPageData) -> Observable<AnyObject?>{
+    deinit {
+        currentPrefetchersToPageMap.forEach { $1.disposable.dispose() }
+        currentPrefetchersToPageMap.removeAll()
+    }
+    
+    func prefetch(forPageIndex index: Int, withData data: PromoSlideshowPageData, resultHandler: (PromoSlideshowPrefetchResult -> Void)?) {
         guard !pageAlreadyPrefetched.contains(index) else {
             logInfo("Page already prefetched \(index)")
-            return Observable.just(nil)
+            resultHandler?(.AlreadyFetched)
+            return
         }
         
         pageAlreadyPrefetched.append(index)
         
-        return createAndStartPrefetcher(forPageIndex: index, data: data)
+        createAndStartPrefetcher(forPageIndex: index, data: data, resultHandler: resultHandler)
     }
     
-    func additionalData(atPageIndex index: Int) -> AnyObject? {
-        return additionalPrefetchedData[index]
+    func takeAdditionalData(atPageIndex index: Int) -> AnyObject? {
+        return additionalPrefetchedData.removeValueForKey(index) ?? currentPrefetchersToPageMap[index]?.prefetcher.additionalData
     }
     
-    private func createAndStartPrefetcher(forPageIndex page: Int, data: PromoSlideshowPageData) -> Observable<AnyObject?> {
+    func stopPrefetcher(atPageIndex index: Int) {
+        if let info = currentPrefetchersToPageMap[index] {
+            info.disposable.dispose()
+        }
+        currentPrefetchersToPageMap.removeValueForKey(index)
+    }
+    
+    private func createAndStartPrefetcher(forPageIndex page: Int, data: PromoSlideshowPageData, resultHandler: (PromoSlideshowPrefetchResult -> Void)?) {
         let prefetcher = data.createPrefetcher()
-        return prefetcher.prefetch().doOn { [weak self] (event: Event<AnyObject?>) in
+        let disposable = prefetcher.prefetch().subscribe { [weak self] (event: Event<AnyObject?>) in
             guard let `self` = self else { return }
             
             switch event {
@@ -37,11 +64,15 @@ final class PromoSlideshowPrefetcher {
                 if let additionalData = additionalData {
                     self.additionalPrefetchedData[page] = additionalData
                 }
-            case .Error(_):
-                logInfo("Could not prefetch data \(page), \(data)")
-            default: break
+                resultHandler?(.Success)
+            case .Error(let error):
+                logInfo("Could not prefetch data \(page), \(data), \(error)")
+                resultHandler?(.Error(error))
+            case .Completed:
+                self.currentPrefetchersToPageMap.removeValueForKey(page)
             }
         }
+        currentPrefetchersToPageMap[page] = OngoingPrefetchersInfo(prefetcher: prefetcher, disposable: disposable)
     }
 }
 

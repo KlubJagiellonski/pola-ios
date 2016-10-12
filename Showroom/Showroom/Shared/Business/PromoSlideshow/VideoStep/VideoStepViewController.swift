@@ -3,20 +3,26 @@ import AVKit
 import AVFoundation
 
 final class VideoStepViewController: UIViewController, PromoPageInterface, VideoStepViewDelegate {
-    private let timeObserverInterval: Int = 100
-    private var passedInitialReadyToPlay: Bool = false
-    
     private var castView: VideoStepView { return view as! VideoStepView }
     private let link: String
     private let annotations: [PromoSlideshowVideoAnnotation]
-    private var duration: Int?
-    private var timeObserver: AnyObject?
+    private var additionalData: AnyObject?
     
     weak var pageDelegate: PromoPageDelegate?
+    var focused: Bool = false {
+        didSet {
+            if focused {
+                castView.play()
+            } else {
+                castView.pause()
+            }
+        }
+    }
     
-    init(with resolver: DiResolver, link: String, annotations: [PromoSlideshowVideoAnnotation]) {
+    init(with resolver: DiResolver, link: String, annotations: [PromoSlideshowVideoAnnotation], additionalData: AnyObject?) {
         self.link = link
         self.annotations = annotations
+        self.additionalData = additionalData
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -25,7 +31,7 @@ final class VideoStepViewController: UIViewController, PromoPageInterface, Video
     }
     
     override func loadView() {
-        view = VideoStepView(link: link, annotations: annotations)
+        view = VideoStepView(link: link, annotations: annotations, additionalData: additionalData)
     }
     
     override func viewDidLoad() {
@@ -33,13 +39,7 @@ final class VideoStepViewController: UIViewController, PromoPageInterface, Video
         castView.delegate = self
     }
     
-    // TODO: begin prefetching after view creation
-    
     // MARK:- VideoStepViewDelegate
-    
-    func videoStepIsReadyToPlay(view: VideoStepView) {
-        duration = castView.duration
-    }
     
     func videoStepViewDidTapPlayerView(view: VideoStepView) {
         logInfo("did tap player view")
@@ -52,12 +52,12 @@ final class VideoStepViewController: UIViewController, PromoPageInterface, Video
     }
     
     func videoStepView(view: VideoStepView, timeDidChange cmTime: CMTime) {
-        guard let duration = duration else {
+        guard let duration = castView.playbackDuration else {
             logInfo("Duration not set")
             return
         }
         let currentSeconds = cmTime.seconds
-        let currentProgress = (currentSeconds * 1000) / Double(duration)
+        let currentProgress = duration == 0 ? 0.0 : (currentSeconds * 1000) / Double(duration)
         pageDelegate?.promoPage(self, didChangeCurrentProgress: currentProgress)
     }
     
@@ -78,21 +78,4 @@ final class VideoStepViewController: UIViewController, PromoPageInterface, Video
     }
     
     func didTapDismiss() { }
-    
-    func pageGainedFocus(with reason: PromoFocusChangeReason) {
-        logInfo("VideoStep gained focus")
-        castView.play()
-        if reason == .AppForegroundChanged {
-            pageDelegate?.promoPage(self, willChangePromoPageViewState: .Close, animationDuration: Constants.promoSlideshowStateChangedAnimationDuration)
-        }
-    }
-    
-    func pageLostFocus(with reason: PromoFocusChangeReason) {
-        logInfo("VideoStep lost focus")
-        castView.pause()
-        if reason == .AppForegroundChanged {
-            pageDelegate?.promoPage(self, willChangePromoPageViewState: .Paused, animationDuration: 0.4)
-        }
-        
-    }
 }

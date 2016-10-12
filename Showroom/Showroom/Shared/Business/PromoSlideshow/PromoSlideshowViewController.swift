@@ -57,7 +57,7 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
         }
         
         informCurrentChildViewController() {
-            $0.pageLostFocus(with: .PageChanged)
+            $0.focused = false
         }
         model.update(withSlideshowId: slideshowId)
         fetchSlideshow()
@@ -87,12 +87,14 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
     
     @objc private func onWillResignActive() {
         logInfo("will resign active")
-        informCurrentChildViewController(about: { $0.pageLostFocus(with: .AppForegroundChanged) })
+        update(with: .Paused, animationDuration: Constants.promoSlideshowStateChangedAnimationDuration)
+        informCurrentChildViewController(about: { $0.focused = false })
     }
     
     @objc private func onDidBecomeActive() {
         logInfo("did become active")
-        informCurrentChildViewController(about: { $0.pageGainedFocus(with: .AppForegroundChanged) })
+        update(with: .Close, animationDuration: Constants.promoSlideshowStateChangedAnimationDuration)
+        informCurrentChildViewController(about: { $0.focused = true })
     }
     
     private func informCurrentChildViewController(@noescape about block: PromoPageInterface -> Void) {
@@ -137,12 +139,19 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
             }
         }
         
-        informCurrentChildViewController() { $0.pageGainedFocus(with: .PageChanged) }
+        informCurrentChildViewController() { $0.focused = true }
     }
     
     func promoSlideshowWillBeginPageChanging(promoSlideshow: PromoSlideshowView) {
         logInfo("Will begin page changing \(castView.currentPageIndex)")
-        informCurrentChildViewController() { $0.pageLostFocus(with: .PageChanged) }
+        informCurrentChildViewController() { $0.focused = false }
+    }
+    
+    private func update(with viewState: PromoPageViewState, animationDuration: Double?) {
+        castView.update(with: viewState, animationDuration: animationDuration)
+        UIView.animateWithDuration(animationDuration ?? 0) { [unowned self] in
+            self.setNeedsStatusBarAppearanceUpdate()
+        }
     }
     
     // MARK:- ViewSwitcherDelegate
@@ -155,6 +164,7 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
     // MARK:- PromoStepDelegate
     
     func promoPageDidDownloadAllData(promoPage: PromoPageInterface) {
+        logInfo("Did download all data for page \(promoPage)")
         guard let viewController = promoPage as? UIViewController else {
             logError("Promo page (\(promoPage))should be an UIViewController")
             return
@@ -167,18 +177,22 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
     }
     
     func promoPage(promoPage: PromoPageInterface, didChangeCurrentProgress currentProgress: Double) {
+        guard promoPage.focused else {
+            //take progress only from focused pages
+            logInfo("Cannot update progress, page not focused")
+            return
+        }
         let progressState = ProgressInfoState(currentStep: castView.currentPageIndex, currentStepProgress: currentProgress)
         castView.update(with: progressState)
     }
     
-    func promoPage(promoStep: PromoPageInterface, willChangePromoPageViewState newViewState: PromoPageViewState, animationDuration: Double?) {
-        castView.update(with: newViewState, animationDuration: animationDuration)
-        UIView.animateWithDuration(animationDuration ?? 0) { [unowned self] in
-            self.setNeedsStatusBarAppearanceUpdate()
-        }
+    func promoPage(promoPage: PromoPageInterface, willChangePromoPageViewState newViewState: PromoPageViewState, animationDuration: Double?) {
+        logInfo("Will change promo page view state \(newViewState), aniamtionDuration \(animationDuration), for page \(promoPage)")
+        update(with: newViewState, animationDuration: animationDuration)
     }
     
     func promoPageDidFinished(promoStep: PromoPageInterface) {
+        logInfo("Did finished \(promoStep)")
         castView.moveToNextPage()
     }
 }
@@ -218,7 +232,7 @@ extension PromoSlideshowViewController: PromoSlideshowPageHandler {
         newViewController.didMoveToParentViewController(self)
         
         if indexedViewControllers.isEmpty {
-            (newViewController as? PromoPageInterface)?.pageGainedFocus(with: .PageChanged)
+            (newViewController as? PromoPageInterface)?.focused = true
         }
         
         if removePageIndex != nil {
@@ -239,18 +253,13 @@ extension PromoSlideshowViewController: PromoSlideshowPageHandler {
         indexedViewControllers.removeAll()
     }
     
-    //perfectly parent should set content inset, but it would be too much work and too much complications
-    private func createChildViewContentInset() -> UIEdgeInsets {
-        let bottomInset = bottomLayoutGuide.length == 0 ? Dimensions.tabViewHeight : bottomLayoutGuide.length
-        return UIEdgeInsets(top: topLayoutGuide.length, left: 0, bottom: bottomInset, right: 0)
-    }
-    
     private func createViewController(from dataContainer: PromoSlideshowPageDataContainer) -> UIViewController {
+        logInfo("Creating view controller with dataContainer: \(dataContainer)")
         switch dataContainer.pageData {
         case .Image(let link, let duration):
             return resolver.resolve(ImageStepViewController.self, arguments: (link, duration))
         case .Video(let link, let annotations):
-            return resolver.resolve(VideoStepViewController.self, arguments: (link, annotations))
+            return resolver.resolve(VideoStepViewController.self, arguments: (link, annotations, dataContainer.additionalData))
         case .Product(let product, let duration):
             return resolver.resolve(ProductStepViewController.self, arguments: (product, duration))
         case .Summary(let promoSlideshow):

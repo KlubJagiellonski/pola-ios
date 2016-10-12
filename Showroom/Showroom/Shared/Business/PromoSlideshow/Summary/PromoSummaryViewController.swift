@@ -2,6 +2,15 @@ import Foundation
 
 final class PromoSummaryViewController: UIViewController, PromoPageInterface, PromoSummaryViewDelegate {
     weak var pageDelegate: PromoPageDelegate?
+    var focused: Bool = false {
+        didSet {
+            if focused {
+                castView.startActions()
+            } else {
+                castView.stopActions()
+            }
+        }
+    }
     
     private var castView: PromoSummaryView { return view as! PromoSummaryView }
     private let promoSlideshow: PromoSlideshow
@@ -47,14 +56,4 @@ final class PromoSummaryViewController: UIViewController, PromoPageInterface, Pr
     func didTapPlay() {}
     
     func didTapDismiss() {}
-    
-    func pageLostFocus(with reason: PromoFocusChangeReason) {
-        logInfo("PromoSummary lost focus")
-        castView.stopActions()
-    }
-    
-    func pageGainedFocus(with reason: PromoFocusChangeReason) {
-        logInfo("PromoSummary gained focus")
-        castView.startActions()
-    }
 }

@@ -71,9 +71,18 @@ final class PromoSlideshowModel {
                 }
                 let index = 0
                 let pageData = self.createPageData(forPageAtIndex: index)!
-                let prefetchObservable = self.prefetcher.prefetch(forPageIndex: index, withData: pageData)
-                return prefetchObservable.flatMap { (value: AnyObject?) -> Observable<FetchCacheResult<PromoSlideshow>> in
-                    return Observable.just(result)
+                return Observable.create { [unowned self] observer in
+                    self.prefetcher.prefetch(forPageIndex: index, withData: pageData) { prefetchResult in
+                        switch prefetchResult {
+                        case .Success, .Error(_):
+                            observer.onNext(result)
+                            observer.onCompleted()
+                        case .AlreadyFetched: break
+                        }
+                    }
+                    return AnonymousDisposable { [weak self] in
+                        self?.prefetcher.stopPrefetcher(atPageIndex: index)
+                    }
                 }
         }
     }
@@ -83,9 +92,7 @@ final class PromoSlideshowModel {
             logError("Cannot create page data at index \(index)")
             return
         }
-        prefetcher.prefetch(forPageIndex: index, withData: pageData)
-            .subscribe()
-            .addDisposableTo(disposeBag)
+        prefetcher.prefetch(forPageIndex: index, withData: pageData, resultHandler: nil)
     }
     
     func data(forPageIndex index: Int) -> PromoSlideshowPageDataContainer? {
@@ -93,7 +100,8 @@ final class PromoSlideshowModel {
             logError("Cannot create page data at index \(index)")
             return nil
         }
-        let additionalData = prefetcher.additionalData(atPageIndex: index)
+        let additionalData = prefetcher.takeAdditionalData(atPageIndex: index)
+        prefetcher.stopPrefetcher(atPageIndex: index)
         return PromoSlideshowPageDataContainer(pageData: pageData, additionalData: additionalData)
     }
     

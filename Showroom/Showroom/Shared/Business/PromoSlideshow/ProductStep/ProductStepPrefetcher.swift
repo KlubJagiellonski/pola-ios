@@ -3,6 +3,7 @@ import RxSwift
 import Kingfisher
 
 final class ProductStepPrefetcher: PromoSlideshowPagePrefetcher {
+    var additionalData: AnyObject? = nil
     private let product: PromoSlideshowProduct
     
     init(data: PromoSlideshowPageData) {

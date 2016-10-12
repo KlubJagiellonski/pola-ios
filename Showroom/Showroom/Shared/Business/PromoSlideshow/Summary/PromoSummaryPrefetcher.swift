@@ -2,6 +2,7 @@ import Foundation
 import RxSwift
 
 final class PromoSummaryPrefetcher: PromoSlideshowPagePrefetcher {
+    var additionalData: AnyObject? = nil
     private let promoSlideshow: PromoSlideshow
     
     init(data: PromoSlideshowPageData) {

@@ -3,6 +3,15 @@ import UIKit
 
 final class ProductStepViewController: ProductPageViewController, ProductPageViewControllerDelegate, ProductPagePreviewOverlayViewDelegate, PromoPageInterface {
     weak var pageDelegate: PromoPageDelegate?
+    var focused: Bool = false {
+        didSet {
+            if focused && (previewOverlay?.enabled ?? false) {
+                timer.play()
+            } else if !focused {
+                timer.pause()
+            }
+        }
+    }
     
     private weak var previewOverlay: ProductPagePreviewOverlayView?
     private let timer: Timer
@@ -65,22 +74,6 @@ final class ProductStepViewController: ProductPageViewController, ProductPageVie
     func didTapDismiss() {
         logInfo("Did tap dismiss")
         dismissContentView()
-    }
-    
-    func pageLostFocus(with reason: PromoFocusChangeReason) {
-        logInfo("ProductStep lost focus")
-        if reason == .AppForegroundChanged {
-            pageDelegate?.promoPage(self, willChangePromoPageViewState: .Paused, animationDuration: Constants.promoSlideshowStateChangedAnimationDuration)
-        }
-        timer.pause()
-    }
-    
-    func pageGainedFocus(with reason: PromoFocusChangeReason) {
-        logInfo("ProductStep gained focus \(reason)")
-        if reason == .AppForegroundChanged {
-            pageDelegate?.promoPage(self, willChangePromoPageViewState: .Close, animationDuration: Constants.promoSlideshowStateChangedAnimationDuration)
-        }
-        timer.play()
     }
     
     // MARK:- ProductPagePreviewOverlayViewDelegate

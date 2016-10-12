@@ -3,6 +3,7 @@ import RxSwift
 import Kingfisher
 
 final class ImageStepPrefetcher: PromoSlideshowPagePrefetcher {
+    var additionalData: AnyObject? = nil
     private let link: String
     
     init(data: PromoSlideshowPageData) {

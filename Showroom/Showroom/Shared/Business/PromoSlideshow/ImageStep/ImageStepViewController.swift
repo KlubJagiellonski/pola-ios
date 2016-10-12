@@ -4,15 +4,22 @@ import UIKit
 final class ImageStepViewController: UIViewController, PromoPageInterface, ImageStepViewDelegate {
     private let link: String
     private let duration: Int
-
     private lazy var timer: Timer = {
         let timer = Timer(duration: self.duration, stepInterval: Constants.promoSlideshowTimerStepInterval)
         timer.delegate = self
         return timer
     }()
-    private var firstLayoutSubviewsPassed = false
-    
     private var castView: ImageStepView { return view as! ImageStepView }
+    private var firstLayoutSubviewsPassed = false
+    var focused: Bool = false {
+        didSet {
+            if focused && castView.isImageDownloaded {
+                timer.play()
+            } else {
+                timer.pause()
+            }
+        }
+    }
     
     weak var pageDelegate: PromoPageDelegate?
     
@@ -48,7 +55,9 @@ final class ImageStepViewController: UIViewController, PromoPageInterface, Image
     func imageStepViewDidDownloadImage(view: ImageStepView) {
         logInfo("image step view did download image")
         pageDelegate?.promoPageDidDownloadAllData(self)
-        timer.play()
+        if focused {
+            timer.play()
+        }
     }
     
     func imageStepViewDidTapImageView(view: ImageStepView) {
@@ -71,22 +80,6 @@ final class ImageStepViewController: UIViewController, PromoPageInterface, Image
     }
     
     func didTapDismiss() { }
-    
-    func pageLostFocus(with reason: PromoFocusChangeReason) {
-        logInfo("ImageStep lost focus")
-        if reason == .AppForegroundChanged {
-            pageDelegate?.promoPage(self, willChangePromoPageViewState: .Paused, animationDuration: Constants.promoSlideshowStateChangedAnimationDuration)
-        }
-        timer.pause()
-    }
-    
-    func pageGainedFocus(with reason: PromoFocusChangeReason) {
-        logInfo("ImageStep gained focus \(reason)")
-        if reason == .AppForegroundChanged {
-            pageDelegate?.promoPage(self, willChangePromoPageViewState: .Close, animationDuration: Constants.promoSlideshowStateChangedAnimationDuration)
-        }
-        timer.play()
-    }
 }
 
 extension ImageStepViewController: TimerDelegate {

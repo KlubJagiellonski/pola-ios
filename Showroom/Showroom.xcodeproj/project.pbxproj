@@ -358,6 +358,8 @@
 		C0237D131D22652F0009F2FC /* EditAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0237D121D22652F0009F2FC /* EditAddressView.swift */; };
 		C0237D191D23EA4C0009F2FC /* Kiosk.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0237D181D23EA4C0009F2FC /* Kiosk.swift */; };
 		C026E5701D3F95E20003DA8B /* SettingsWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C026E56F1D3F95E20003DA8B /* SettingsWebView.swift */; };
+		C032E6E61DAE38AA000220CD /* VIMVideoPlayerViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C032E6E51DAE38AA000220CD /* VIMVideoPlayerViewUtils.swift */; };
+		C032E6E81DAE3C94000220CD /* CommonError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C032E6E71DAE3C94000220CD /* CommonError.swift */; };
 		C0456D2D1D4A2174006A3F8F /* QuickActionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0456D2C1D4A2174006A3F8F /* QuickActionManager.swift */; };
 		C049D8CF1D33F0930043F60F /* InitialOnboardingInfiniteScrollingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C049D8CE1D33F0930043F60F /* InitialOnboardingInfiniteScrollingCell.swift */; };
 		C049D8D51D33F1010043F60F /* InitialOnboardingNotificationsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C049D8D41D33F1010043F60F /* InitialOnboardingNotificationsCell.swift */; };
@@ -798,6 +800,8 @@
 		C0237D121D22652F0009F2FC /* EditAddressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAddressView.swift; sourceTree = "<group>"; };
 		C0237D181D23EA4C0009F2FC /* Kiosk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Kiosk.swift; sourceTree = "<group>"; };
 		C026E56F1D3F95E20003DA8B /* SettingsWebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsWebView.swift; sourceTree = "<group>"; };
+		C032E6E51DAE38AA000220CD /* VIMVideoPlayerViewUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VIMVideoPlayerViewUtils.swift; sourceTree = "<group>"; };
+		C032E6E71DAE3C94000220CD /* CommonError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonError.swift; sourceTree = "<group>"; };
 		C0456D2C1D4A2174006A3F8F /* QuickActionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickActionManager.swift; sourceTree = "<group>"; };
 		C049D8CE1D33F0930043F60F /* InitialOnboardingInfiniteScrollingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialOnboardingInfiniteScrollingCell.swift; sourceTree = "<group>"; };
 		C049D8D41D33F1010043F60F /* InitialOnboardingNotificationsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialOnboardingNotificationsCell.swift; sourceTree = "<group>"; };
@@ -1216,6 +1220,7 @@
 				1DDE61EF1D649C6F007E5509 /* NSDateUtils.swift */,
 				C0ED7EAD1D7EE39E00CBC796 /* NSLocaleUtils.swift */,
 				1DFDDB471D92C926007DBDB6 /* UICollectionViewUtils.swift */,
+				C032E6E51DAE38AA000220CD /* VIMVideoPlayerViewUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1850,6 +1855,7 @@
 				7566CE6C1D6DC6F70065DFB3 /* AlertView.swift */,
 				C05E09F91D86B71E000A9A4F /* KeyValueStorage.swift */,
 				C0E791541DA3B33600BB43D6 /* Timer.swift */,
+				C032E6E71DAE3C94000220CD /* CommonError.swift */,
 			);
 			name = Common;
 			path = Showroom/Shared/Common;
@@ -2329,6 +2335,7 @@
 				C0A9977B1D6701DB00DBF558 /* InAppOnboardingPhotosPagingCell.swift in Sources */,
 				1D5886E01D2BBE26007D0CB1 /* TrendProductListViewController.swift in Sources */,
 				C007CD921D2E7F6E00700EBB /* SettingsCell.swift in Sources */,
+				C032E6E81DAE3C94000220CD /* CommonError.swift in Sources */,
 				1DAA7C671D099A9200545BB9 /* ProductDescriptionViewController.swift in Sources */,
 				1D80F4781D9BE4E900DFB1C3 /* VideoStepViewController.swift in Sources */,
 				75EDE8291CFDDD2200C5F96B /* UIButtonUtils.swift in Sources */,
@@ -2640,6 +2647,7 @@
 				1D80F4861D9BF9F800DFB1C3 /* ShowPromoSlideshowEvent.swift in Sources */,
 				1D80F47F1D9BE5D500DFB1C3 /* ProductStepViewController.swift in Sources */,
 				1DD1EA9B1CF2ED6400D99731 /* SimpleNavigationEvent.swift in Sources */,
+				C032E6E61DAE38AA000220CD /* VIMVideoPlayerViewUtils.swift in Sources */,
 				C02220851D12D4AD004411A7 /* TabBarItemBadgeContainerView.swift in Sources */,
 				75A92ABA1D3E435500EDC89D /* WishlistManager.swift in Sources */,
 				C007CD951D2E92FC00700EBB /* SettingsDataSource.swift in Sources */,

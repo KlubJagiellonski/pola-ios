@@ -77,7 +77,7 @@ class ApiService {
             .logNetworkError()
             .handleAppNotSupportedError(self)
         
-        if call.authenticationType == .Required {
+        if call.authenticationType == .Required || call.authenticationType == .Optional {
             return requestObservable.catchError { [unowned self] error -> Observable<NSData> in
                 return try self.catchNotAuthorizedError(error, shouldRetry: retryOnNotLoggedIn) { [unowned self] Void -> Observable<NSData> in
                     return self.makeCall(with: call, retryOnNotLoggedIn: false)

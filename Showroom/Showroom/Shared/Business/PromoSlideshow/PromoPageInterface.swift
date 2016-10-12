@@ -14,16 +14,10 @@ protocol PromoPageDelegate: class {
     func promoPage(promoPage: PromoPageInterface, willChangePromoPageViewState newViewState: PromoPageViewState, animationDuration: Double?)
 }
 
-enum PromoFocusChangeReason {
-    case PageChanged
-    case AppForegroundChanged
-}
-
 protocol PromoPageInterface: class {
+    var focused: Bool { get set }
     weak var pageDelegate: PromoPageDelegate? { get set }
     
-    func pageLostFocus(with reason: PromoFocusChangeReason)
-    func pageGainedFocus(with reason: PromoFocusChangeReason)
     func didTapPlay()
     func didTapDismiss()
 }
