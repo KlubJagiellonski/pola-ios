@@ -1,18 +1,19 @@
 import UIKit
 
-public extension UIDevice {
+enum ScreenType: String {
+    case iPhone4
+    case iPhone5
+    case iPhone6
+    case iPhone6Plus
+    case Unknown
+}
+
+extension UIDevice {
     
     var iPhone: Bool {
         return UIDevice().userInterfaceIdiom == .Phone
     }
-    
-    enum ScreenType: String {
-        case iPhone4
-        case iPhone5
-        case iPhone6
-        case iPhone6Plus
-        case Unknown
-    }
+
     var screenType: ScreenType {
         guard iPhone else { return .Unknown}
         switch UIScreen.mainScreen().nativeBounds.height {
