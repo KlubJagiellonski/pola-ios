@@ -1,9 +1,8 @@
 //
-//  GoogleAnalytics.h
+// GoogleAnalytics.h
 //
-//  Copyright (c) 2015 Adrian Kashivskyy. All rights reserved.
-//
-//  Licensed under the MIT License.
+// Copyright © 2015-2016 Adrian Kashivskyy. All rights reserved.
+// Licensed under the MIT License.
 //
 
 #import <GoogleAnalytics/GAI.h>
@@ -16,3 +15,9 @@
 #import <GoogleAnalytics/GAILogger.h>
 #import <GoogleAnalytics/GAITrackedViewController.h>
 #import <GoogleAnalytics/GAITracker.h>
+
+#import <GoogleAnalytics/TAGContainer.h>
+#import <GoogleAnalytics/TAGContainerOpener.h>
+#import <GoogleAnalytics/TAGDataLayer.h>
+#import <GoogleAnalytics/TAGLogger.h>
+#import <GoogleAnalytics/TAGManager.h>

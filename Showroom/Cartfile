@@ -10,5 +10,5 @@ github "SnapKit/SnapKit" == 0.21.0
 github "scarabresearch/EmarsysPredictSDK" == 1.0.30
 github "indragiek/CocoaMarkdown" "0d8541a796101e0a6c55a04cd9a3279fc5997bbe"
 github "TomThorpe/TTRangeSlider" "f7a45aecad33c29047f140c5c4850d8de9e4468a"
-github "akashivskyy/GoogleAnalytics-Framework" == 3.15
+github "akashivskyy/GoogleAnalytics-Framework" == 3.17
 github "braintree/braintree_ios" == 4.5.0
