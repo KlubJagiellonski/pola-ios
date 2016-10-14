@@ -5,6 +5,7 @@ final class ProductStepViewController: ProductPageViewController, ProductPageVie
     weak var pageDelegate: PromoPageDelegate?
     var focused: Bool = false {
         didSet {
+            logInfo("focused did set: \(focused)")
             if focused && (previewOverlay?.enabled ?? false) {
                 timer.play()
             } else if !focused {

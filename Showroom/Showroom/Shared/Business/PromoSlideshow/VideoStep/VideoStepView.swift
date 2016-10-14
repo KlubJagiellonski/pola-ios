@@ -79,10 +79,12 @@ final class VideoStepView: ViewSwitcher, VIMVideoPlayerViewDelegate {
     }
     
     func play() {
+        logInfo("play")
         state = .PlayedByUser
     }
     
     func pause() {
+        logInfo("pause")
         state = .PausedByUser
     }
 
@@ -98,6 +100,7 @@ final class VideoStepView: ViewSwitcher, VIMVideoPlayerViewDelegate {
         case .PausedByUser: state = .PlayedByUser
         default: break
         }
+        logInfo("delegate: \(delegate)")
         delegate?.videoStepViewDidTapPlayerView(self)
     }
 

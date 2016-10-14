@@ -13,6 +13,7 @@ final class ImageStepViewController: UIViewController, PromoPageInterface, Image
     private var firstLayoutSubviewsPassed = false
     var focused: Bool = false {
         didSet {
+            logInfo("focused did set: \(focused)")
             if focused && castView.isImageDownloaded {
                 timer.play()
             } else {
@@ -62,7 +63,7 @@ final class ImageStepViewController: UIViewController, PromoPageInterface, Image
     }
     
     func imageStepViewDidTapImageView(view: ImageStepView) {
-        logInfo("image step view did tap")
+        logInfo("image step view did tap, timer.paused: \(timer.paused)")
         if timer.paused {
             timer.play()
             pageDelegate?.promoPage(self, willChangePromoPageViewState: .Close, animationDuration: Constants.promoSlideshowStateChangedAnimationDuration)

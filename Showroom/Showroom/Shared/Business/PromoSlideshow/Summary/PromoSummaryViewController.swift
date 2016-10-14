@@ -4,6 +4,7 @@ final class PromoSummaryViewController: UIViewController, PromoPageInterface, Pr
     weak var pageDelegate: PromoPageDelegate?
     var focused: Bool = false {
         didSet {
+            logInfo("focused did set: \(focused)")
             if focused {
                 castView.startActions()
             } else {

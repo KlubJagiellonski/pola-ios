@@ -138,9 +138,11 @@ final class PromoSlideshowView: UIView, UICollectionViewDelegate, ModalPanDismis
     }
     
     func moveToNextPage() {
+        logInfo("move to next page")
+        userInteractionEnabled = false
+        self.delegate?.promoSlideshowWillBeginPageChanging(self)
         let indexPath = NSIndexPath(forItem: currentPageIndex + 1, inSection: 0)
         collectionView.scrollToItemAtIndexPath(indexPath, atScrollPosition: .Left, animated: true)
-        self.delegate?.promoSlideshowWillBeginPageChanging(self)
     }
     
     func pageIndex(forView view: UIView) -> Int? {
@@ -190,15 +192,21 @@ final class PromoSlideshowView: UIView, UICollectionViewDelegate, ModalPanDismis
     // MARK: - UIScrollViewDelegate
     
     func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        logInfo("scroll view will begin dragging")
+        userInteractionEnabled = false
         self.delegate?.promoSlideshowWillBeginPageChanging(self)
     }
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        logInfo("scroll view did end decelerating")
         self.delegate?.promoSlideshowDidEndPageChanging(self)
+        userInteractionEnabled = true
     }
     
     func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
+        logInfo("scoll view did end scrolling animation")
         self.delegate?.promoSlideshowDidEndPageChanging(self)
+        userInteractionEnabled = true
     }
 }
 

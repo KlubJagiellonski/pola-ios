@@ -17,6 +17,7 @@ final class VideoStepViewController: UIViewController, PromoPageInterface, Video
     weak var pageDelegate: PromoPageDelegate?
     var focused: Bool = false {
         didSet {
+            logInfo("focused did set: \(focused)")
             if focused {
                 castView.play()
             } else {
@@ -91,6 +92,7 @@ final class VideoStepViewController: UIViewController, PromoPageInterface, Video
     // MARK:- PromoPageInterface
     
     func didTapPlay() {
+        logInfo("did tap play")
         castView.play()
         pageDelegate?.promoPage(self, willChangePromoPageViewState: .Close, animationDuration: 0.4)
     }

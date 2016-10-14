@@ -159,7 +159,7 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
     }
     
     func promoSlideshowWillBeginPageChanging(promoSlideshow: PromoSlideshowView) {
-        logInfo("Will begin page changing \(castView.currentPageIndex)")
+        logInfo("Will begin page changing, current page index: \(castView.currentPageIndex)")
         informCurrentChildViewController() { $0.focused = false }
     }
     
@@ -195,7 +195,7 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
     func promoPage(promoPage: PromoPageInterface, didChangeCurrentProgress currentProgress: Double) {
         guard promoPage.focused else {
             //take progress only from focused pages
-            logInfo("Cannot update progress, page not focused")
+            logInfo("Cannot update progress, page not focused, promoPage: \(promoPage)")
             return
         }
         let progressState = ProgressInfoState(currentStep: castView.currentPageIndex, currentStepProgress: currentProgress)
