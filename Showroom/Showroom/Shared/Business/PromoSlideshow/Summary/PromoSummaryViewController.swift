@@ -11,6 +11,7 @@ final class PromoSummaryViewController: UIViewController, PromoPageInterface, Pr
             }
         }
     }
+    var shouldShowProgressViewInPauseState: Bool { return false }
     
     private var castView: PromoSummaryView { return view as! PromoSummaryView }
     private let promoSlideshow: PromoSlideshow

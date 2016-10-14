@@ -12,6 +12,7 @@ final class ProductStepViewController: ProductPageViewController, ProductPageVie
             }
         }
     }
+    var shouldShowProgressViewInPauseState: Bool { return false }
     
     private weak var previewOverlay: ProductPagePreviewOverlayView?
     private let timer: Timer
@@ -56,7 +57,7 @@ final class ProductStepViewController: ProductPageViewController, ProductPageVie
         
         castView.update(withPreviewModeEnabled: enabled, animationDuration: animationDuration)
         previewOverlay?.update(withEnabled: enabled, animationDuration: animationDuration)
-        pageDelegate?.promoPage(self, willChangePromoPageViewState: enabled ? .Close : .Paused, animationDuration: animationDuration)
+        pageDelegate?.promoPage(self, willChangePromoPageViewState: enabled ? .Close : .Paused(shouldShowProgressViewInPauseState), animationDuration: animationDuration)
         if enabled {
             timer.play()
         } else {
@@ -97,7 +98,7 @@ final class ProductStepViewController: ProductPageViewController, ProductPageVie
     // MARK:- ProductPageViewControllerDelegate
     
     func productPage(page: ProductPageViewController, willChangeProductPageViewState newViewState: ProductPageViewState, animationDuration: Double?) {
-        let promoViewState = PromoPageViewState(with: newViewState, overlayEnabled: previewOverlay?.enabled ?? true)
+        let promoViewState = PromoPageViewState(with: newViewState, overlayEnabled: previewOverlay?.enabled ?? true, shouldShowStatusBarInPauseState: shouldShowProgressViewInPauseState)
         pageDelegate?.promoPage(self, willChangePromoPageViewState: promoViewState, animationDuration: animationDuration)
     }
 }
@@ -113,10 +114,10 @@ extension ProductStepViewController: TimerDelegate {
 }
 
 extension PromoPageViewState {
-    init(with state: ProductPageViewState, overlayEnabled: Bool) {
+    init(with state: ProductPageViewState, overlayEnabled: Bool, shouldShowStatusBarInPauseState: Bool) {
         switch state {
         case .Default, .ContentHidden:
-            self = overlayEnabled ? .Close : .Paused
+            self = overlayEnabled ? .Close : .Paused(shouldShowStatusBarInPauseState)
         case .ContentExpanded:
             self = .Dismiss
         case .ImageGallery:

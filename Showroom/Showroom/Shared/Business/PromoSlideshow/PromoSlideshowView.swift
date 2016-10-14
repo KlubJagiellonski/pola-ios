@@ -40,7 +40,7 @@ final class PromoSlideshowView: UIView, UICollectionViewDelegate {
     }
     var progressEnded = false {
         didSet {
-            progressView.alpha = (!progressEnded && viewState == .Close) ? 1 : 0
+            progressView.alpha = shouldProgressBeVisible ? 1 : 0
             collectionView.scrollEnabled = (!progressEnded && viewState == .Close)
         }
     }
@@ -48,12 +48,12 @@ final class PromoSlideshowView: UIView, UICollectionViewDelegate {
         didSet {
             if viewState == .Close || viewState == .Dismiss {
                 closeButtonState = viewState == .Close ? .Close : .Dismiss
-            } else if viewState == .Paused {
+            } else if viewState.isPausedState {
                 closeButtonState = .Play
             }
             
             closeButton.alpha = viewState == .FullScreen ? 0 : 1
-            progressView.alpha = (!progressEnded && viewState == .Close) ? 1 : 0
+            progressView.alpha = shouldProgressBeVisible ? 1 : 0
             collectionView.scrollEnabled = (!progressEnded && viewState == .Close)
         }
     }
@@ -62,6 +62,15 @@ final class PromoSlideshowView: UIView, UICollectionViewDelegate {
     weak var delegate: PromoSlideshowViewDelegate? {
         didSet {
             viewSwitcher.switcherDelegate = delegate
+        }
+    }
+    var shouldProgressBeVisible: Bool {
+        if progressEnded {
+            return false
+        } else if let pausedProgressViewVisible = viewState.isPausedProgressViewVisible {
+            return pausedProgressViewVisible
+        } else {
+            return viewState == .Close
         }
     }
     

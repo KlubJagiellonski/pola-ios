@@ -20,6 +20,7 @@ final class ImageStepViewController: UIViewController, PromoPageInterface, Image
             }
         }
     }
+    var shouldShowProgressViewInPauseState: Bool { return true }
     
     weak var pageDelegate: PromoPageDelegate?
     
@@ -67,7 +68,7 @@ final class ImageStepViewController: UIViewController, PromoPageInterface, Image
             pageDelegate?.promoPage(self, willChangePromoPageViewState: .Close, animationDuration: Constants.promoSlideshowStateChangedAnimationDuration)
         } else {
             timer.pause()
-            pageDelegate?.promoPage(self, willChangePromoPageViewState: .Paused, animationDuration: Constants.promoSlideshowStateChangedAnimationDuration)
+            pageDelegate?.promoPage(self, willChangePromoPageViewState: .Paused(shouldShowProgressViewInPauseState), animationDuration: Constants.promoSlideshowStateChangedAnimationDuration)
         }
     }
     

@@ -18,6 +18,7 @@ final class VideoStepViewController: UIViewController, PromoPageInterface, Video
             }
         }
     }
+    var shouldShowProgressViewInPauseState: Bool { return true }
     
     init(with resolver: DiResolver, link: String, annotations: [PromoSlideshowVideoAnnotation], additionalData: AnyObject?) {
         self.link = link
@@ -45,7 +46,7 @@ final class VideoStepViewController: UIViewController, PromoPageInterface, Video
         logInfo("did tap player view")
         switch castView.state {
         case .PlayedByUser: pageDelegate?.promoPage(self, willChangePromoPageViewState: .Close, animationDuration: 0.4)
-        case .PausedByUser: pageDelegate?.promoPage(self, willChangePromoPageViewState: .Paused, animationDuration: 0.4)
+        case .PausedByUser: pageDelegate?.promoPage(self, willChangePromoPageViewState: .Paused(shouldShowProgressViewInPauseState), animationDuration: 0.4)
         default:
             logError("Unexpected video step state: \(castView.state)")
         }

@@ -6,6 +6,18 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
     private let model: PromoSlideshowModel
     private var castView: PromoSlideshowView { return view as! PromoSlideshowView }
     private var indexedViewControllers: [Int: UIViewController] = [:]
+    private var currentChildViewController: PromoPageInterface? {
+        let currentPageIndex = castView.currentPageIndex
+        for (index, viewController) in indexedViewControllers {
+            guard currentPageIndex == index else { continue }
+            if let promoPageInterface = viewController as? PromoPageInterface {
+                return promoPageInterface
+            } else {
+                logError("View controller \(viewController) do not implement PromoPageInterface")
+            }
+        }
+        return nil
+    }
     
     private let resolver: DiResolver
     private let disposeBag = DisposeBag()
@@ -34,7 +46,7 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
     }
     
     override func prefersStatusBarHidden() -> Bool {
-        return castView.viewState == .Close && !castView.progressEnded
+        return castView.shouldProgressBeVisible
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -87,7 +99,11 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
     
     @objc private func onWillResignActive() {
         logInfo("will resign active")
-        update(with: .Paused, animationDuration: Constants.promoSlideshowStateChangedAnimationDuration)
+        guard let currentPage = currentChildViewController else {
+            logError("There is not current child view controller for indexed: \(indexedViewControllers)")
+            return
+        }
+        update(with: .Paused(currentPage.shouldShowProgressViewInPauseState), animationDuration: Constants.promoSlideshowStateChangedAnimationDuration)
         informCurrentChildViewController(about: { $0.focused = false })
     }
     
