@@ -40,31 +40,28 @@ final class VideoStepView: ViewSwitcher, VIMVideoPlayerViewDelegate {
     var playbackDuration: Int? {
         return playerView.playbackDurationMillis
     }
+    var playerItem: AVPlayerItem? {
+        return playerView.player.player.currentItem
+    }
     
     private var lastLoadedDuration: Double?
     
     weak var delegate: VideoStepViewDelegate?
     
-    private var url: NSURL
+    private var asset: AVAsset
 
-    init(link: String, annotations: [PromoSlideshowVideoAnnotation], additionalData: AnyObject?) {
+    init(asset: AVAsset, annotations: [PromoSlideshowVideoAnnotation], prefetchedPlayerView: VIMVideoPlayerView?) {
         annotationsView = VideoStepAnnotationsView(annotations: annotations)
-        self.url = NSURL(string: link)!
-        var prefetchedPlayerExist: Bool
-        if let prefetchedPlayerView = additionalData as? VIMVideoPlayerView {
-            self.playerView = prefetchedPlayerView
-            prefetchedPlayerExist = true
-        } else {
-            self.playerView = VIMVideoPlayerView()
-            prefetchedPlayerExist = false
-        }
-        super.init(successView: playerView, initialState: prefetchedPlayerExist ? .Success : .Loading)
+        self.asset = asset
+        self.playerView = prefetchedPlayerView ?? VIMVideoPlayerView()
+        let prefetchedPlayerExist = (prefetchedPlayerView != nil)
+        super.init(successView: playerView, initialState: (prefetchedPlayerExist || asset.isCached) ? .Success : .Loading)
 
         switcherDataSource = self
         switcherDelegate = self
         
         if !prefetchedPlayerExist {
-            playerView.player.setURL(url)
+            playerView.player.setAsset(asset)
             playerView.applyDefaultConfiguration()
         }
         playerView.delegate = self
@@ -172,7 +169,7 @@ extension VideoStepView: ViewSwitcherDelegate, ViewSwitcherDataSource {
         logInfo("view switcher retry")
 
         changeSwitcherState(.Loading, animated: false)
-        playerView.player.setURL(url)
+        playerView.player.setAsset(asset)
     }
     
     func viewSwitcherWantsEmptyView(view: ViewSwitcher) -> UIView? {
@@ -181,5 +178,12 @@ extension VideoStepView: ViewSwitcherDelegate, ViewSwitcherDataSource {
     
     func viewSwitcherWantsErrorView(view: ViewSwitcher) -> UIView? {
         return ErrorView(errorText: tr(.CommonError), errorImage: nil)
+    }
+}
+
+extension AVAsset {
+    var isCached: Bool {
+        guard let urlAsset = self as? AVURLAsset else { return false }
+        return urlAsset.URL.scheme == "file"
     }
 }

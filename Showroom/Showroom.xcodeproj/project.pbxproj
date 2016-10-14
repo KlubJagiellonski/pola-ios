@@ -258,6 +258,8 @@
 		1DDE61F01D649C6F007E5509 /* NSDateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDE61EF1D649C6F007E5509 /* NSDateUtils.swift */; };
 		1DDE61F21D670566007E5509 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DDE61F11D670566007E5509 /* Kingfisher.framework */; };
 		1DE0252A1D48D52000324178 /* ProductDescriptionNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE025291D48D52000324178 /* ProductDescriptionNavigationController.swift */; };
+		1DE51F371DB0CC4A0004C93E /* VideoStepCacheHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE51F361DB0CC4A0004C93E /* VideoStepCacheHelper.swift */; };
+		1DE51F391DB0D1910004C93E /* NSFileManagerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE51F381DB0D1910004C93E /* NSFileManagerUtils.swift */; };
 		1DF14F2A1D2A72AB004A6A3A /* ProductErrorPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF14F291D2A72AB004A6A3A /* ProductErrorPageCell.swift */; };
 		1DF14F2C1D2AA21A004A6A3A /* ProductListEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF14F2B1D2AA21A004A6A3A /* ProductListEmptyView.swift */; };
 		1DF3A5861D9D65D5009B5BC8 /* UICollectionViewUtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF3A5851D9D65D5009B5BC8 /* UICollectionViewUtilsTests.swift */; };
@@ -698,6 +700,8 @@
 		1DDE61EF1D649C6F007E5509 /* NSDateUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateUtils.swift; sourceTree = "<group>"; };
 		1DDE61F11D670566007E5509 /* Kingfisher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kingfisher.framework; path = Carthage/Build/iOS/Kingfisher.framework; sourceTree = "<group>"; };
 		1DE025291D48D52000324178 /* ProductDescriptionNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDescriptionNavigationController.swift; sourceTree = "<group>"; };
+		1DE51F361DB0CC4A0004C93E /* VideoStepCacheHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoStepCacheHelper.swift; sourceTree = "<group>"; };
+		1DE51F381DB0D1910004C93E /* NSFileManagerUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSFileManagerUtils.swift; sourceTree = "<group>"; };
 		1DF14F291D2A72AB004A6A3A /* ProductErrorPageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductErrorPageCell.swift; sourceTree = "<group>"; };
 		1DF14F2B1D2AA21A004A6A3A /* ProductListEmptyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductListEmptyView.swift; sourceTree = "<group>"; };
 		1DF3A5851D9D65D5009B5BC8 /* UICollectionViewUtilsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICollectionViewUtilsTests.swift; sourceTree = "<group>"; };
@@ -1221,6 +1225,7 @@
 				C0ED7EAD1D7EE39E00CBC796 /* NSLocaleUtils.swift */,
 				1DFDDB471D92C926007DBDB6 /* UICollectionViewUtils.swift */,
 				C032E6E51DAE38AA000220CD /* VIMVideoPlayerViewUtils.swift */,
+				1DE51F381DB0D1910004C93E /* NSFileManagerUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1411,6 +1416,7 @@
 				C00755801DA5378800EA493A /* VideoStepView.swift */,
 				1DDCD2CA1DAD2F340045BB4A /* VideoStepAnnotationsView.swift */,
 				1DDCD2B91DA7DA3A0045BB4A /* VideoStepPrefetcher.swift */,
+				1DE51F361DB0CC4A0004C93E /* VideoStepCacheHelper.swift */,
 			);
 			path = VideoStep;
 			sourceTree = "<group>";
@@ -2423,6 +2429,7 @@
 				1D62CA8C1DA641AD0015169D /* PromoSummaryPlayControl.swift in Sources */,
 				1D72ED261CFDA591007AFD2F /* StringUtils.swift in Sources */,
 				C01FF2E21D366D3B00D025AE /* HeartMaskView.swift in Sources */,
+				1DE51F391DB0D1910004C93E /* NSFileManagerUtils.swift in Sources */,
 				1D80F4841D9BF5AB00DFB1C3 /* PromoSummaryViewController.swift in Sources */,
 				1DF428B01D894AEE00396A0D /* CheckoutSummaryBrandCell.swift in Sources */,
 				C06E53581D478F61000E5B7C /* PaymentFailureViewController.swift in Sources */,
@@ -2491,6 +2498,7 @@
 				C0237D0A1D2131C80009F2FC /* FormInputTextField.swift in Sources */,
 				1D7824AE1D06F67500E60392 /* UIColorUtils.swift in Sources */,
 				C092806A1D080ECD00350B82 /* ProductColorViewController.swift in Sources */,
+				1DE51F371DB0CC4A0004C93E /* VideoStepCacheHelper.swift in Sources */,
 				1DD1EA781CEDB47B00D99731 /* DashboardModel.swift in Sources */,
 				1D5F914C1D34EF9B00AE66E6 /* ProductFilterModel.swift in Sources */,
 				1D2F193F1CE9CE250099142E /* AppDelegate.swift in Sources */,

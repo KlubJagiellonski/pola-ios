@@ -114,7 +114,7 @@ private final class DriveStorageHandler: StorageHandler {
         let fileManager = NSFileManager.defaultManager()
         do {
             let path = type.retrieveDirectoryPath()
-            try createDirectoriesForPathIfNeeded(path)
+            try fileManager.createDirectoriesForPathIfNeeded(path)
             for file in try fileManager.contentsOfDirectoryAtPath(path) {
                 do {
                     try fileManager.removeItemAtPath(retrievePath(forFilename: file, type: type))
@@ -160,15 +160,8 @@ private final class DriveStorageHandler: StorageHandler {
     
     private func retrievePath(forFilename filename: String, type: StorageType) throws -> String {
         let directoryPath = type.retrieveDirectoryPath()
-        try createDirectoriesForPathIfNeeded(directoryPath)
+        try NSFileManager.defaultManager().createDirectoriesForPathIfNeeded(directoryPath)
         return directoryPath + "/" + filename
-    }
-    
-    private func createDirectoriesForPathIfNeeded(path: String) throws {
-        let fileManager = NSFileManager.defaultManager()
-        if !fileManager.fileExistsAtPath(path) {
-            try fileManager.createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil)
-        }
     }
     
     private func removeFile(atPath path: String) throws {

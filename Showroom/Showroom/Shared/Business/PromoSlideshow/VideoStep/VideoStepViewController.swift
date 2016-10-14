@@ -4,9 +4,15 @@ import AVFoundation
 
 final class VideoStepViewController: UIViewController, PromoPageInterface, VideoStepViewDelegate {
     private var castView: VideoStepView { return view as! VideoStepView }
-    private let link: String
+    private let url: NSURL
     private let annotations: [PromoSlideshowVideoAnnotation]
-    private var additionalData: AnyObject?
+    private var additionalData: VideoStepAdditionalData?
+    private lazy var asset: AVURLAsset = { [unowned self] in
+        let asset = self.retrieveOrCreateAsset()
+        asset.resourceLoader.setDelegate(self.cacheHelper, queue: dispatch_get_main_queue())
+        return asset
+    }()
+    private let cacheHelper: VideoStepCacheHelper
     
     weak var pageDelegate: PromoPageDelegate?
     var focused: Bool = false {
@@ -21,9 +27,10 @@ final class VideoStepViewController: UIViewController, PromoPageInterface, Video
     var shouldShowProgressViewInPauseState: Bool { return true }
     
     init(with resolver: DiResolver, link: String, annotations: [PromoSlideshowVideoAnnotation], additionalData: AnyObject?) {
-        self.link = link
+        self.url = NSURL(string: link)!
         self.annotations = annotations
-        self.additionalData = additionalData
+        self.additionalData = additionalData as? VideoStepAdditionalData
+        self.cacheHelper =  VideoStepCacheHelper(url: url)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -32,12 +39,21 @@ final class VideoStepViewController: UIViewController, PromoPageInterface, Video
     }
     
     override func loadView() {
-        view = VideoStepView(link: link, annotations: annotations, additionalData: additionalData)
+        view = VideoStepView(asset: asset, annotations: annotations, prefetchedPlayerView: additionalData?.playerView)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         castView.delegate = self
+    }
+    
+    private func retrieveOrCreateAsset() -> AVURLAsset {
+        if let additionalData = self.additionalData {
+            return additionalData.asset
+        } else {
+            let url = self.cacheHelper.cachedFileUrl ?? self.url
+            return AVURLAsset(URL: url)
+        }
     }
     
     // MARK:- VideoStepViewDelegate
@@ -63,6 +79,7 @@ final class VideoStepViewController: UIViewController, PromoPageInterface, Video
     }
     
     func videoStepViewDidReachedEnd(view: VideoStepView) {
+        cacheHelper.saveToCache(with: asset)
         pageDelegate?.promoPageDidFinished(self)
     }
     
