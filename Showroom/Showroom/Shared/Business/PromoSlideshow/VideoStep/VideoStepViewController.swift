@@ -80,12 +80,12 @@ final class VideoStepViewController: UIViewController, PromoPageInterface, Video
     }
     
     func videoStepViewDidReachedEnd(view: VideoStepView) {
-        cacheHelper.saveToCache(with: asset)
         pageDelegate?.promoPageDidFinished(self)
     }
     
     func videoStepViewDidLoadVideo(view: VideoStepView) {
         logInfo("did load video")
+        cacheHelper.saveToCache(with: asset)
         pageDelegate?.promoPageDidDownloadAllData(self)
     }
     
