@@ -1,6 +1,7 @@
 import Foundation
 import GoogleAnalytics
 import FBSDKCoreKit
+import Crashlytics
 
 func logAnalyticsAppStart() {
     Analytics.sharedInstance.sendAppStartEvent()
@@ -368,6 +369,8 @@ final class Analytics {
         tracker.set(kGAIScreenName, value: screenId.rawValue)
         let builder = GAIDictionaryBuilder.createScreenView()
         tracker.send(builder.build() as [NSObject: AnyObject])
+        
+        Crashlytics.sharedInstance().setObjectValue(screenId.rawValue, forKey: "current_screen")
     }
     
     func sendEvent(eventId: AnalyticsEventId) {
