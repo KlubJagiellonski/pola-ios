@@ -5,15 +5,22 @@ protocol PresenterContentChildProtocol {
     func presenterWillApear()
 }
 
-class PresenterViewController: UIViewController {
+class PresenterViewController: UIViewController, PresenterViewDelegate {
     var castView: PresenterView { return view as! PresenterView }
     private(set) var contentViewController: UIViewController?
     private(set) var currentModalViewController: UIViewController?
     
     private var forceContentForControllingBarHiddenStates = false
+    private var contentHiddenWhenModalVisible: Bool?
     
     override func loadView() {
         self.view = PresenterView()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        castView.delegate = self
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -42,6 +49,8 @@ class PresenterViewController: UIViewController {
             return
         }
         
+        contentHiddenWhenModalVisible = hideContentView
+        
         let innerCompletion: (Bool) -> () = { [weak self] _ in
             viewController.didMoveToParentViewController(self)
             if hideContentView {
@@ -67,6 +76,8 @@ class PresenterViewController: UIViewController {
             completion?(false)
             return
         }
+        
+        contentHiddenWhenModalVisible = nil
         
         if let contentViewController = self.contentViewController where castView.contentHidden {
             addChildViewController(contentViewController)
@@ -103,6 +114,36 @@ class PresenterViewController: UIViewController {
         }
         return contentViewController
     }
+    
+    // MARK:- PresenterViewDelegate
+    
+    func presenterWantsToHideModalView(view: PresenterView) {
+        logInfo("Wants hide modal view")
+        sendNavigationEvent(SimpleNavigationEvent(type: .Close))
+    }
+    
+    func presenterWillBeginHideModalPanning(view: PresenterView) {
+        logInfo("Will begin hide modal panning")
+        
+        guard let contentViewController = contentViewController else { return }
+        guard let contentHiddenWhenModalVisible = contentHiddenWhenModalVisible where contentHiddenWhenModalVisible else { return }
+        
+        addChildViewController(contentViewController)
+        castView.contentHidden = false
+        contentViewController.didMoveToParentViewController(self)
+    }
+    
+    func presenterDidEndHideModalPanning(view: PresenterView) {
+        logInfo("Did end hide modal panning")
+        
+        guard let contentViewController = contentViewController else { return }
+        guard let contentHiddenWhenModalVisible = contentHiddenWhenModalVisible where contentHiddenWhenModalVisible else { return }
+        
+        contentViewController.willMoveToParentViewController(nil)
+        castView.contentHidden = true
+        contentViewController.removeFromParentViewController()
+    }
+    
 }
 
 extension PresenterViewController: TabBarHandler, TabBarStateDataSource {

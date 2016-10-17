@@ -13,7 +13,7 @@ enum PromoSlideshowCloseButtonState {
     case Play
 }
 
-final class PromoSlideshowView: UIView, UICollectionViewDelegate {
+final class PromoSlideshowView: UIView, UICollectionViewDelegate, ModalPanDismissable {
     private let closeButton = UIButton(type: .Custom)
     private let viewSwitcher: ViewSwitcher
     private let contentView = UIView()
@@ -59,11 +59,6 @@ final class PromoSlideshowView: UIView, UICollectionViewDelegate {
     }
     var pageCount: Int { return dataSource.pageCount }
     var viewSwitcherAnimationDuration: Double { return viewSwitcher.animationDuration }
-    weak var delegate: PromoSlideshowViewDelegate? {
-        didSet {
-            viewSwitcher.switcherDelegate = delegate
-        }
-    }
     var shouldProgressBeVisible: Bool {
         if progressEnded {
             return false
@@ -73,6 +68,15 @@ final class PromoSlideshowView: UIView, UICollectionViewDelegate {
             return viewState == .Close
         }
     }
+    private var panGestureRecognizer: UIPanGestureRecognizer {
+        return gestureRecognizers!.find { $0 is UIPanGestureRecognizer } as! UIPanGestureRecognizer
+    }
+    weak var delegate: PromoSlideshowViewDelegate? {
+        didSet {
+            viewSwitcher.switcherDelegate = delegate
+        }
+    }
+    weak var modalPanDismissDelegate: ModalPanDismissDelegate?
     
     init() {
         viewSwitcher = ViewSwitcher(successView: contentView)
@@ -82,6 +86,10 @@ final class PromoSlideshowView: UIView, UICollectionViewDelegate {
         viewSwitcher.switcherDataSource = self
         
         backgroundColor = UIColor(named: .White)
+        
+        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(didReceivePanGesture))
+        panGestureRecognizer.delegate = self
+        addGestureRecognizer(panGestureRecognizer)
         
         collectionView.backgroundColor = backgroundColor
         collectionView.dataSource = dataSource
@@ -166,6 +174,12 @@ final class PromoSlideshowView: UIView, UICollectionViewDelegate {
         delegate?.promoSlideshowDidTapClose(self)
     }
     
+    @objc private func didReceivePanGesture(gestureRecognizer: UIPanGestureRecognizer) {
+        let translation = gestureRecognizer.translationInView(self)
+        let velocity = gestureRecognizer.velocityInView(self)
+        modalPanDismissDelegate?.modalPanDidMove(withTranslation: translation, velocity: velocity, state: gestureRecognizer.state)
+    }
+    
     // MARK: - UICollectionViewDelegateFlowLayout
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
@@ -194,4 +208,22 @@ extension PromoSlideshowView: ViewSwitcherDataSource {
     }
     
     func viewSwitcherWantsEmptyView(view: ViewSwitcher) -> UIView? { return nil }
+}
+
+extension PromoSlideshowView: UIGestureRecognizerDelegate {
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return gestureRecognizer == panGestureRecognizer && otherGestureRecognizer == collectionView.panGestureRecognizer
+    }
+    
+    override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+        guard gestureRecognizer.isEqual(panGestureRecognizer) else { return false }
+        guard gestureRecognizer.numberOfTouches() > 0 else { return false }
+        
+        let translation = panGestureRecognizer.velocityInView(self.collectionView)
+        return fabs(translation.y) > fabs(translation.x) && translation.y > 0
+    }
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailByGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return gestureRecognizer == panGestureRecognizer && otherGestureRecognizer == collectionView.panGestureRecognizer
+    }
 }
