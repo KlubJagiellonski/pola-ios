@@ -35,7 +35,6 @@ protocol ViewSwitcherDelegate: class {
 }
 
 class ViewSwitcher: UIView {
-    private static let dimViewAlpha: CGFloat = 0.7
     var animationDuration = 0.3
     private var animationEndBlock: (() -> ())?
     private var animatingToState: ViewSwitcherState?
@@ -219,7 +218,7 @@ final class ErrorView: UIView, ErrorViewInterface {
                 backgroundView.backgroundColor = UIColor(named: .Gray)
             case .Modal:
                 textLabel.font = UIFont(fontType: .ErrorBold)
-                backgroundView.backgroundColor = UIColor(named: .Dim).colorWithAlphaComponent(ViewSwitcher.dimViewAlpha)
+                backgroundView.backgroundColor = UIColor(named: .Dim)
             }
         }
     }
@@ -309,7 +308,7 @@ final class LoadingView: UIView {
         
         if containerType == .Modal {
             let backgroundView = UIView()
-            backgroundView.backgroundColor = UIColor(named: .Dim).colorWithAlphaComponent(ViewSwitcher.dimViewAlpha)
+            backgroundView.backgroundColor = UIColor(named: .Dim)
             addSubview(backgroundView)
             
             backgroundView.snp_makeConstraints { make in

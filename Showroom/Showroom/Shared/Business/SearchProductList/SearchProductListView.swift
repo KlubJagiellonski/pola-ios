@@ -49,7 +49,7 @@ final class SearchProductListView: UIView, ProductListViewInterface, ProductList
         searchBar.delegate = self
         
         dimView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(SearchProductListView.didTapDimView)))
-        dimView.backgroundColor = UIColor(named: .Dim).colorWithAlphaComponent(0.7)
+        dimView.backgroundColor = UIColor(named: .Dim)
         dimView.hidden = true
         
         productListComponent.delegate = self

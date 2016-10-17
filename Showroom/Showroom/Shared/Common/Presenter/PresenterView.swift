@@ -36,6 +36,17 @@ final class PresenterView: UIView, ModalPanDismissDelegate {
             oldValue?.removeFromSuperview()
         }
     }
+    private var modalDimView: UIView? {
+        didSet {
+            if let dimView = modalDimView, let modalView = modalView {
+                insertSubview(dimView, belowSubview: modalView)
+                dimView.snp_makeConstraints { make in
+                    make.edges.equalToSuperview()
+                }
+            }
+            oldValue?.removeFromSuperview()
+        }
+    }
     private var modalViewTopConstraint: Constraint?
     var contentHidden: Bool {
         set {
@@ -119,9 +130,16 @@ final class PresenterView: UIView, ModalPanDismissDelegate {
         case .Began:
             lastPanChange = CFAbsoluteTimeGetCurrent()
             self.delegate?.presenterWillBeginHideModalPanning(self)
+            
+            let dimView = UIView()
+            dimView.backgroundColor = UIColor(named: .Dim)
+            dimView.alpha = 1.0
+            self.modalDimView = dimView
         case .Changed:
             lastPanChange = CFAbsoluteTimeGetCurrent()
-            modalViewTopConstraint?.updateOffset(fabs(translation.y))
+            let offsetY = max(translation.y, 0)
+            modalViewTopConstraint?.updateOffset(offsetY)
+            self.modalDimView?.alpha = 1 - (offsetY / bounds.height)
         case .Ended:
             let timeElapseFromLastChange = CFAbsoluteTimeGetCurrent() - lastPanChange
             let shouldHideModal = velocity.y > 5 && timeElapseFromLastChange < 0.2
@@ -129,11 +147,13 @@ final class PresenterView: UIView, ModalPanDismissDelegate {
             self.layoutIfNeeded()
             self.modalViewTopConstraint?.updateOffset(shouldHideModal ? bounds.height : 0)
             UIView.animateWithDuration(0.3, animations: { [unowned self] in
+                self.modalDimView?.alpha = shouldHideModal ? 0 : 1
                 self.layoutIfNeeded()
             }) { _ in
                 if !shouldHideModal {
                     self.delegate?.presenterDidEndHideModalPanning(self)
                 }
+                self.modalDimView = nil
             }
             if shouldHideModal {
                 self.delegate?.presenterWantsToHideModalView(self)

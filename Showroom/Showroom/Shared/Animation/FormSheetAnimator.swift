@@ -46,7 +46,6 @@ class FormSheetAnimator: NSObject, UIViewControllerTransitioningDelegate, Animat
 class FormSheetAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransitioning {
     private let formSize: CGSize
     private let transitionDuration = 0.2
-    let dimViewAlpha: CGFloat = 0.7
     let dimViewColor = UIColor(named: .Dim)
     private let presenting: Bool
     private let dimViewTag = "FORM_SHEET_DIM_VIEW_TAG".hash
@@ -78,7 +77,7 @@ class FormSheetAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransiti
             presentedView.transform = CGAffineTransformIdentity
             presentedView.center = CGPoint(x: CGRectGetMidX(finalFrame), y: CGRectGetMidY(finalFrame))
             presentedView.alpha = 1
-            dimView.alpha = self.dimViewAlpha
+            dimView.alpha = 1.0
             }, completion: { finished in
             completion?(completed: finished)
         })

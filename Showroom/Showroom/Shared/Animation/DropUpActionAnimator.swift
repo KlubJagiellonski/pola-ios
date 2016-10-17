@@ -43,8 +43,7 @@ class DropUpActionAnimator: NSObject, UIViewControllerTransitioningDelegate, Ani
 
 
 class DropUpAnimatedTransitioning : NSObject, UIViewControllerAnimatedTransitioning {
-    let dimViewAlpha: CGFloat = 0.2
-    let dimViewColor = UIColor(named: .Black)
+    let dimViewColor = UIColor(named: .Dim)
     private let dimViewTag = "DIM_VIEW_TAG".hash
     let transitionDuration = 0.3
     
@@ -64,7 +63,7 @@ class DropUpAnimatedTransitioning : NSObject, UIViewControllerAnimatedTransition
         dimView.alpha = 0
         UIView.animateWithDuration(animationDuration, delay: 0, options: [.BeginFromCurrentState, .CurveEaseInOut], animations: {
             presentedView.frame.origin.y -= self.height
-            dimView.alpha = self.dimViewAlpha
+            dimView.alpha = 1.0
             }, completion: { finished in
                 completion?(completed: finished)
         })

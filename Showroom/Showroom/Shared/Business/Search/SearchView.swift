@@ -77,7 +77,7 @@ final class SearchView: ViewSwitcher, ContentInsetHandler, UICollectionViewDeleg
         collectionView.configureForPaging(withDirection: .Horizontal)
         
         dimView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(SearchView.didTapDimView)))
-        dimView.backgroundColor = UIColor(named: .Dim).colorWithAlphaComponent(0.7)
+        dimView.backgroundColor = UIColor(named: .Dim)
         dimView.hidden = true
         
         headerView.addSubview(searchBar)
