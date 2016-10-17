@@ -132,8 +132,8 @@ final class VideoStepView: ViewSwitcher, VIMVideoPlayerViewDelegate {
             logError("Unable to determine if video finished loading: duration unknown")
             return
         }
-        logInfo("loaded time range: \(loadedDurationSeconds)/\(durationSeconds)")
-        if loadedDurationSeconds == durationSeconds && loadedDurationSeconds != lastLoadedDuration {
+        logInfo("loaded time range: \(loadedDurationSeconds)/\(durationSeconds) \(lastLoadedDuration)")
+        if loadedDurationSeconds.almostEqual(to: durationSeconds) && !loadedDurationSeconds.almostEqual(to: lastLoadedDuration ?? -1.0) {
             delegate?.videoStepViewDidLoadVideo(self)
         }
         lastLoadedDuration = loadedDurationSeconds

@@ -146,6 +146,7 @@
 		1D62CA901DA7C1250015169D /* PromoSlideshowPrefetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D62CA8F1DA7C1250015169D /* PromoSlideshowPrefetcher.swift */; };
 		1D6671671D93E4BE00070502 /* Drop-In.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1D6671691D93E4BE00070502 /* Drop-In.strings */; };
 		1D66E4421D38D8190041D74D /* SearchNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D66E4411D38D8190041D74D /* SearchNavigationController.swift */; };
+		1D68E3241DB515F800AE3E56 /* DoubleUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D68E3231DB515F800AE3E56 /* DoubleUtils.swift */; };
 		1D6933461D2D176200609BB9 /* CocoaMarkdown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D6933451D2D176200609BB9 /* CocoaMarkdown.framework */; };
 		1D6933491D2E40C700609BB9 /* BrandProductListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6933481D2E40C700609BB9 /* BrandProductListViewController.swift */; };
 		1D69334B1D2E40D200609BB9 /* BrandProductListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D69334A1D2E40D200609BB9 /* BrandProductListView.swift */; };
@@ -588,6 +589,7 @@
 		1D66716A1D93E4C300070502 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = "pl.lproj/Drop-In.strings"; sourceTree = "<group>"; };
 		1D66716B1D93E4C500070502 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = "de.lproj/Drop-In.strings"; sourceTree = "<group>"; };
 		1D66E4411D38D8190041D74D /* SearchNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchNavigationController.swift; sourceTree = "<group>"; };
+		1D68E3231DB515F800AE3E56 /* DoubleUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoubleUtils.swift; sourceTree = "<group>"; };
 		1D6933451D2D176200609BB9 /* CocoaMarkdown.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaMarkdown.framework; path = Carthage/Build/iOS/CocoaMarkdown.framework; sourceTree = "<group>"; };
 		1D6933481D2E40C700609BB9 /* BrandProductListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrandProductListViewController.swift; sourceTree = "<group>"; };
 		1D69334A1D2E40D200609BB9 /* BrandProductListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrandProductListView.swift; sourceTree = "<group>"; };
@@ -1226,6 +1228,7 @@
 				1DFDDB471D92C926007DBDB6 /* UICollectionViewUtils.swift */,
 				C032E6E51DAE38AA000220CD /* VIMVideoPlayerViewUtils.swift */,
 				1DE51F381DB0D1910004C93E /* NSFileManagerUtils.swift */,
+				1D68E3231DB515F800AE3E56 /* DoubleUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -2662,6 +2665,7 @@
 				1D5F915F1D35221D00AE66E6 /* ShowFilterEvent.swift in Sources */,
 				1D7824A81D06E9CB00E60392 /* ProductDescriptionDataSource.swift in Sources */,
 				C05DAE5B1D6C429D008877BE /* OnboardingActionAnimator.swift in Sources */,
+				1D68E3241DB515F800AE3E56 /* DoubleUtils.swift in Sources */,
 				75E269AE1CFC7DA200ED3CA2 /* BasketDataSource.swift in Sources */,
 				1D5F91551D35035300AE66E6 /* ValueTableViewCell.swift in Sources */,
 				7586E27B1D22B0E70086DE94 /* CheckoutSummaryCommentViewController.swift in Sources */,
