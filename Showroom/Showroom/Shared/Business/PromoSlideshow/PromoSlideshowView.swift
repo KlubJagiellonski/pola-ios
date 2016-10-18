@@ -217,6 +217,13 @@ final class PromoSlideshowView: UIView, UICollectionViewDelegate, ModalPanDismis
         self.delegate?.promoSlideshowWillBeginPageChanging(self)
     }
     
+    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if !decelerate {
+            self.delegate?.promoSlideshowDidEndPageChanging(self)
+            userInteractionEnabled = true
+        }
+    }
+    
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         logInfo("scroll view did end decelerating")
         self.delegate?.promoSlideshowDidEndPageChanging(self)
