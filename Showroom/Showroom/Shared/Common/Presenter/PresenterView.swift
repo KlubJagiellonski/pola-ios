@@ -158,6 +158,8 @@ final class PresenterView: UIView, ModalPanDismissDelegate {
             if shouldHideModal {
                 self.delegate?.presenterWantsToHideModalView(self)
             }
+        case .Cancelled:
+            self.modalDimView = nil
         default: break
         }
     }
