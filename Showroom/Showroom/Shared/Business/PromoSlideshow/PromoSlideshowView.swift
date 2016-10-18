@@ -14,6 +14,8 @@ enum PromoSlideshowCloseButtonState {
 }
 
 final class PromoSlideshowView: UIView, UICollectionViewDelegate, ModalPanDismissable {
+    private let moveToNextPageAnimationDuration: Double = 0.75
+    
     private let closeButton = UIButton(type: .Custom)
     private let viewSwitcher: ViewSwitcher
     private let contentView = UIView()
@@ -139,10 +141,22 @@ final class PromoSlideshowView: UIView, UICollectionViewDelegate, ModalPanDismis
     
     func moveToNextPage() {
         logInfo("move to next page")
+        let pageWidth = self.collectionView.frame.width
+        let nextIndex = self.currentPageIndex + 1
+        
         userInteractionEnabled = false
         self.delegate?.promoSlideshowWillBeginPageChanging(self)
-        let indexPath = NSIndexPath(forItem: currentPageIndex + 1, inSection: 0)
-        collectionView.scrollToItemAtIndexPath(indexPath, atScrollPosition: .Left, animated: true)
+        
+        UIView.animateWithDuration(moveToNextPageAnimationDuration, animations: {
+            // setting offset to next page - 1 pixel; this way we avoid dequeuing previous cell
+            self.collectionView.setContentOffset(CGPointMake(pageWidth * CGFloat(nextIndex) - 1, 0), animated: false)
+            
+            }, completion: { _ in
+            // adjusting offset to next page
+            self.collectionView.setContentOffset(CGPointMake(pageWidth * CGFloat(nextIndex), 0), animated: false)
+            self.userInteractionEnabled = true
+            self.delegate?.promoSlideshowDidEndPageChanging(self)
+        })
     }
     
     func pageIndex(forView view: UIView) -> Int? {
@@ -199,12 +213,6 @@ final class PromoSlideshowView: UIView, UICollectionViewDelegate, ModalPanDismis
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         logInfo("scroll view did end decelerating")
-        self.delegate?.promoSlideshowDidEndPageChanging(self)
-        userInteractionEnabled = true
-    }
-    
-    func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
-        logInfo("scoll view did end scrolling animation")
         self.delegate?.promoSlideshowDidEndPageChanging(self)
         userInteractionEnabled = true
     }
