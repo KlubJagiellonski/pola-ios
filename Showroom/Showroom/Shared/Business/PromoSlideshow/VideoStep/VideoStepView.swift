@@ -43,18 +43,18 @@ final class VideoStepView: ViewSwitcher, VIMVideoPlayerViewDelegate {
     var playerItem: AVPlayerItem? {
         return playerView.player.player.currentItem
     }
-    
+    private var asset: AVAsset
     private var lastLoadedDuration: Double?
+    private var shouldChangeSwitcherStateOnRateChange: Bool
     
     weak var delegate: VideoStepViewDelegate?
-    
-    private var asset: AVAsset
 
     init(asset: AVAsset, annotations: [PromoSlideshowVideoAnnotation], prefetchedPlayerView: VIMVideoPlayerView?) {
         annotationsView = VideoStepAnnotationsView(annotations: annotations)
         self.asset = asset
         self.playerView = prefetchedPlayerView ?? VIMVideoPlayerView()
         let prefetchedPlayerExist = (prefetchedPlayerView != nil)
+        self.shouldChangeSwitcherStateOnRateChange = !(prefetchedPlayerExist || asset.isCached)
         super.init(successView: playerView, initialState: (prefetchedPlayerExist || asset.isCached) ? .Success : .Loading)
 
         switcherDataSource = self
@@ -106,6 +106,7 @@ final class VideoStepView: ViewSwitcher, VIMVideoPlayerViewDelegate {
 
     func videoPlayerViewIsReadyToPlayVideo(videoPlayerView: VIMVideoPlayerView!) {
         logInfo("ready to play video")
+        shouldChangeSwitcherStateOnRateChange = true
         changeSwitcherState(.Success, animated: true)
         playerPlaying = true
         state = .PlayedByPlayer
@@ -141,7 +142,7 @@ final class VideoStepView: ViewSwitcher, VIMVideoPlayerViewDelegate {
     
     func videoPlayerView(videoPlayerView: VIMVideoPlayerView!, didChangeRate rate: Double) {
         logInfo("video player view did change rate: \(rate)")
-
+        
         guard lastLoadedDuration != playerView.playbackDurationSeconds else {
             return
         }
@@ -150,7 +151,9 @@ final class VideoStepView: ViewSwitcher, VIMVideoPlayerViewDelegate {
             switch state {
             case .PlayedByUser, .PlayedByPlayer:
                 state = .PausedByPlayer
-                changeSwitcherState(.Loading, animated: true)
+                if shouldChangeSwitcherStateOnRateChange {
+                    changeSwitcherState(.Loading, animated: true)
+                }
             case .PausedByUser, .PausedByPlayer:
                 break
             }
@@ -158,7 +161,9 @@ final class VideoStepView: ViewSwitcher, VIMVideoPlayerViewDelegate {
             switch state {
             case .PausedByPlayer:
                 state = .PlayedByPlayer
-                changeSwitcherState(.Success, animated: true)
+                if shouldChangeSwitcherStateOnRateChange {
+                    changeSwitcherState(.Success, animated: true)
+                }
             case .PlayedByUser, .PlayedByPlayer, .PausedByUser:
                 break
             }
