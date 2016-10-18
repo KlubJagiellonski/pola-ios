@@ -62,15 +62,13 @@ struct Money: Comparable {
     
     // 0,000.00 format
     var stringAmount: String {
-        let moneyFormatter = MoneyFormatter()
-        moneyFormatter.decimalSeparator = "."
-        moneyFormatter.groupingSeparator = ","
+        let moneyFormatter = MathMoneyFormatter(showGroupingSeparator: true)
         guard let moneyFormat = moneyFormatter.stringForObjectValue(amount) else { return "" }
         return moneyFormat
     }
 }
 
-final class MoneyFormatter: NSNumberFormatter {
+class MoneyFormatter: NSNumberFormatter {
     override init() {
         super.init()
         
@@ -80,6 +78,18 @@ final class MoneyFormatter: NSNumberFormatter {
         alwaysShowsDecimalSeparator = true
         maximumFractionDigits = 2
         minimumFractionDigits = 2
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+class MathMoneyFormatter: MoneyFormatter {
+    init(showGroupingSeparator: Bool) {
+        super.init()
+        decimalSeparator = "."
+        groupingSeparator = showGroupingSeparator ? "," : ""
     }
     
     required init?(coder aDecoder: NSCoder) {

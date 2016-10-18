@@ -387,9 +387,15 @@ final class Analytics {
     }
     
     func sendAnalyticsTransactionEvent(with payment: PaymentResult, products: [BasketProduct]) {
+        let moneyFormatter = MathMoneyFormatter(showGroupingSeparator: false)
+        let paymentAmountString = moneyFormatter.stringForObjectValue(payment.amount.doubleValue) ?? String(payment.amount.doubleValue)
+        
+        // sending addword converson
+        ACTConversionReporter.reportWithConversionID("1006448960", label: "VJLuCLvF72oQwOL03wM", value: paymentAmountString, isRepeatable: true)
+        
         // sending optimise
         for product in products {
-            optimiseManager.trackEventWhereAppID(String(payment.orderId), pid: Constants.optimiseTrackSaleProductId, status: String(payment.amount.doubleValue), currency: payment.currency, ex1: "Sale", ex2: String(product.id), ex3: nil, ex4: nil, ex5: nil)
+            optimiseManager.trackEventWhereAppID(String(payment.orderId), pid: Constants.optimiseTrackSaleProductId, status: paymentAmountString, currency: payment.currency, ex1: "Sale", ex2: String(product.id), ex3: nil, ex4: nil, ex5: nil)
         }
         
         // sending facebook
@@ -430,6 +436,8 @@ final class Analytics {
     
     func sendAppStartEvent() {
         optimiseManager.trackInstallWhereAppID(nil, pid: Constants.optimiseTrackInstallProductId, deepLink: false, ex1: "Install", ex2: nil, ex3: nil, ex4: nil, ex5: nil)
+        
+        ACTConversionReporter.reportWithConversionID("1006448960", label: "sTFZCITB7WoQwOL03wM", value: "0.00", isRepeatable: false)
     }
     
     func sendRegistrationEvent() {

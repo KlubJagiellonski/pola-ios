@@ -39,8 +39,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         logAnalyticsAppStart()
         logAnalyticsEvent(AnalyticsEventId.ApplicationLaunch(launchCount))
         
-        ACTConversionReporter.reportWithConversionID("1006448960", label: "sTFZCITB7WoQwOL03wM", value: "0.00", isRepeatable: false)
-        
         configureDependencies()
         quickActionManager = assembler.resolver.resolve(QuickActionManager.self)
         quickActionManager.delegate = self
