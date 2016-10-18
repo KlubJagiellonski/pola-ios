@@ -148,7 +148,12 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
     
     func promoSlideshowDidEndPageChanging(promoSlideshow: PromoSlideshowView) {
         logInfo("Did end page changing")
-        if castView.currentPageIndex == castView.pageCount - 1 {
+        guard let promo = model.promoSlideshow else {
+            logError("No promo slideshow")
+            return
+        }
+        
+        if castView.currentPageIndex == promo.summaryPageIndex {
             UIView.animateWithDuration(Constants.promoSlideshowStateChangedAnimationDuration) { [unowned self] in
                 self.castView.progressEnded = true
                 self.setNeedsStatusBarAppearanceUpdate()
@@ -209,7 +214,9 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
     
     func promoPageDidFinished(promoStep: PromoPageInterface) {
         logInfo("Did finished \(promoStep)")
-        castView.moveToNextPage()
+        if !castView.moveToNextPage() {
+            sendNavigationEvent(SimpleNavigationEvent(type: .Close))
+        }
     }
 }
 

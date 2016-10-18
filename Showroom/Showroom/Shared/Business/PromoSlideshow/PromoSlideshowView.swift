@@ -121,7 +121,7 @@ final class PromoSlideshowView: UIView, UICollectionViewDelegate, ModalPanDismis
     
     func update(with promoSlideshow: PromoSlideshow) {
         collectionView.contentOffset = CGPoint(x: 0, y: 0)
-        dataSource.pageCount = promoSlideshow.video.steps.count + 1
+        dataSource.pageCount = promoSlideshow.pageCount
         progressView.update(with: promoSlideshow.video)
     }
     
@@ -139,8 +139,13 @@ final class PromoSlideshowView: UIView, UICollectionViewDelegate, ModalPanDismis
             }, completion: nil)
     }
     
-    func moveToNextPage() {
+    func moveToNextPage() -> Bool {
         logInfo("move to next page")
+        
+        guard currentPageIndex != (dataSource.pageCount - 1) else {
+            return false
+        }
+        
         let pageWidth = self.collectionView.frame.width
         let nextIndex = self.currentPageIndex + 1
         
@@ -157,6 +162,7 @@ final class PromoSlideshowView: UIView, UICollectionViewDelegate, ModalPanDismis
             self.userInteractionEnabled = true
             self.delegate?.promoSlideshowDidEndPageChanging(self)
         })
+        return true
     }
     
     func pageIndex(forView view: UIView) -> Int? {
@@ -241,5 +247,19 @@ extension PromoSlideshowView: UIGestureRecognizerDelegate {
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailByGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return gestureRecognizer == panGestureRecognizer && otherGestureRecognizer == collectionView.panGestureRecognizer
+    }
+}
+
+extension PromoSlideshow {
+    var containsPlaylist: Bool {
+        return !playlist.isEmpty
+    }
+    
+    var pageCount: Int {
+        return video.steps.count + (containsPlaylist ? 1 : 0)
+    }
+    
+    var summaryPageIndex: Int? {
+        return containsPlaylist ? video.steps.count : nil
     }
 }
