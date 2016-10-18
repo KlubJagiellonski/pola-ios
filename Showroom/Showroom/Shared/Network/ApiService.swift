@@ -114,6 +114,7 @@ struct ApiServiceCall {
 
 enum ApiServiceVersion: String {
     case V1 = "v1"
+    case V2 = "v2"
 }
 
 struct ApiServiceConfiguration {
@@ -126,7 +127,7 @@ struct ApiServiceConfiguration {
         return "https://\(typeComponent).showroom.\(platform.code)/ios/\(version.rawValue)"
     }
     
-    init(platform: Platform, isStagingEnv: Bool = Constants.isStagingEnv, version: ApiServiceVersion = .V1) {
+    init(platform: Platform, isStagingEnv: Bool = Constants.isStagingEnv, version: ApiServiceVersion = .V2) {
         self.isStagingEnv = isStagingEnv
         self.platform = platform
         self.version = version
