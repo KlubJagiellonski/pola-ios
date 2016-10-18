@@ -147,6 +147,10 @@
 		1D6671671D93E4BE00070502 /* Drop-In.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1D6671691D93E4BE00070502 /* Drop-In.strings */; };
 		1D66E4421D38D8190041D74D /* SearchNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D66E4411D38D8190041D74D /* SearchNavigationController.swift */; };
 		1D68E3241DB515F800AE3E56 /* DoubleUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D68E3231DB515F800AE3E56 /* DoubleUtils.swift */; };
+		1D68E32B1DB6089E00AE3E56 /* Deprecated in Resources */ = {isa = PBXBuildFile; fileRef = 1D68E3271DB6089D00AE3E56 /* Deprecated */; };
+		1D68E32C1DB6089E00AE3E56 /* DoubleClick in Resources */ = {isa = PBXBuildFile; fileRef = 1D68E3281DB6089D00AE3E56 /* DoubleClick */; };
+		1D68E32D1DB6089E00AE3E56 /* libGoogleConversionTracking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D68E3291DB6089D00AE3E56 /* libGoogleConversionTracking.a */; };
+		1D68E32E1DB6089E00AE3E56 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1D68E32A1DB6089D00AE3E56 /* README.txt */; };
 		1D6933461D2D176200609BB9 /* CocoaMarkdown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D6933451D2D176200609BB9 /* CocoaMarkdown.framework */; };
 		1D6933491D2E40C700609BB9 /* BrandProductListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D6933481D2E40C700609BB9 /* BrandProductListViewController.swift */; };
 		1D69334B1D2E40D200609BB9 /* BrandProductListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D69334A1D2E40D200609BB9 /* BrandProductListView.swift */; };
@@ -590,6 +594,12 @@
 		1D66716B1D93E4C500070502 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = "de.lproj/Drop-In.strings"; sourceTree = "<group>"; };
 		1D66E4411D38D8190041D74D /* SearchNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchNavigationController.swift; sourceTree = "<group>"; };
 		1D68E3231DB515F800AE3E56 /* DoubleUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoubleUtils.swift; sourceTree = "<group>"; };
+		1D68E3261DB6089D00AE3E56 /* ACTReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACTReporter.h; sourceTree = "<group>"; };
+		1D68E3271DB6089D00AE3E56 /* Deprecated */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Deprecated; sourceTree = "<group>"; };
+		1D68E3281DB6089D00AE3E56 /* DoubleClick */ = {isa = PBXFileReference; lastKnownFileType = folder; path = DoubleClick; sourceTree = "<group>"; };
+		1D68E3291DB6089D00AE3E56 /* libGoogleConversionTracking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleConversionTracking.a; sourceTree = "<group>"; };
+		1D68E32A1DB6089D00AE3E56 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		1D68E32F1DB608D200AE3E56 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		1D6933451D2D176200609BB9 /* CocoaMarkdown.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaMarkdown.framework; path = Carthage/Build/iOS/CocoaMarkdown.framework; sourceTree = "<group>"; };
 		1D6933481D2E40C700609BB9 /* BrandProductListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrandProductListViewController.swift; sourceTree = "<group>"; };
 		1D69334A1D2E40D200609BB9 /* BrandProductListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrandProductListView.swift; sourceTree = "<group>"; };
@@ -897,6 +907,7 @@
 				1D2CAC571D474A5500F678FA /* FBSDKCoreKit.framework in Frameworks */,
 				1DD1EA9D1CF2F58E00D99731 /* SnapKit.framework in Frameworks */,
 				1D7EE93C1D78707400046B8B /* BraintreeCard.framework in Frameworks */,
+				1D68E32D1DB6089E00AE3E56 /* libGoogleConversionTracking.a in Frameworks */,
 				1DDE61F21D670566007E5509 /* Kingfisher.framework in Frameworks */,
 				1D04534F1CFEDE74001CC5A2 /* EmarsysPredictSDK.framework in Frameworks */,
 			);
@@ -1098,6 +1109,8 @@
 		1D2F19AC1CEA15060099142E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1D68E32F1DB608D200AE3E56 /* AdSupport.framework */,
+				1D68E3251DB6086A00AE3E56 /* GoogleConversionTrackingSDK */,
 				C0603A2C1DABA35F00ACBBDB /* VIMVideoPlayer */,
 				1D8476201D8AA6F4009EB212 /* PayPalDataCollector.framework */,
 				1D84761E1D8AA6CA009EB212 /* PayPalUtils.framework */,
@@ -1273,6 +1286,19 @@
 				1D5F91691D36508000AE66E6 /* FilterDetailsViewController.swift */,
 			);
 			path = Details;
+			sourceTree = "<group>";
+		};
+		1D68E3251DB6086A00AE3E56 /* GoogleConversionTrackingSDK */ = {
+			isa = PBXGroup;
+			children = (
+				1D68E3261DB6089D00AE3E56 /* ACTReporter.h */,
+				1D68E3271DB6089D00AE3E56 /* Deprecated */,
+				1D68E3281DB6089D00AE3E56 /* DoubleClick */,
+				1D68E3291DB6089D00AE3E56 /* libGoogleConversionTracking.a */,
+				1D68E32A1DB6089D00AE3E56 /* README.txt */,
+			);
+			name = GoogleConversionTrackingSDK;
+			path = Frameworks/GoogleConversionTrackingSDK;
 			sourceTree = "<group>";
 		};
 		1D6933471D2E40A500609BB9 /* BrandProductList */ = {
@@ -2246,12 +2272,15 @@
 				1D04534D1CFDD87E001CC5A2 /* Lato-Semibold.ttf in Resources */,
 				1D04534A1CFDD87E001CC5A2 /* Lato-Bold.ttf in Resources */,
 				1D6671671D93E4BE00070502 /* Drop-In.strings in Resources */,
+				1D68E32C1DB6089E00AE3E56 /* DoubleClick in Resources */,
 				1D49FC901D4A021A00A3832F /* include in Resources */,
 				1D49FC9A1D4A307900A3832F /* SHOWROOM.entitlements in Resources */,
 				1D372E371D6ED22F004F3155 /* Localizable.strings in Resources */,
+				1D68E32B1DB6089E00AE3E56 /* Deprecated in Resources */,
 				1D04534C1CFDD87E001CC5A2 /* Lato-Regular.ttf in Resources */,
 				C093671E1D0ACAE8004C7748 /* Assets.xcassets in Resources */,
 				1D49FC961D4A023800A3832F /* PayUOneClickSDK.bundle in Resources */,
+				1D68E32E1DB6089E00AE3E56 /* README.txt in Resources */,
 				1DD1EA661CEC5D0000D99731 /* Colors.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2834,7 +2863,10 @@
 				INFOPLIST_FILE = Showroom/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Frameworks",
+					"$(PROJECT_DIR)/Frameworks/GoogleConversionTrackingSDK",
+				);
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-lPayU-iOS-SDK-Oneclick_Debug",
@@ -2872,7 +2904,10 @@
 				INFOPLIST_FILE = Showroom/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Frameworks",
+					"$(PROJECT_DIR)/Frameworks/GoogleConversionTrackingSDK",
+				);
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-lPayU-iOS-SDK-Oneclick_Release",
@@ -2986,6 +3021,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
+					"$(PROJECT_DIR)/Frameworks/GoogleConversionTrackingSDK",
 				);
 				OTHER_LDFLAGS = (
 					"-all_load",
@@ -3086,7 +3122,10 @@
 				INFOPLIST_FILE = Showroom/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Frameworks",
+					"$(PROJECT_DIR)/Frameworks/GoogleConversionTrackingSDK",
+				);
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-lPayU-iOS-SDK-Oneclick_Debug",
@@ -3180,7 +3219,10 @@
 				INFOPLIST_FILE = Showroom/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Frameworks",
+					"$(PROJECT_DIR)/Frameworks/GoogleConversionTrackingSDK",
+				);
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-lPayU-iOS-SDK-Oneclick_Release",

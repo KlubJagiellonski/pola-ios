@@ -11,3 +11,4 @@
 #import <BraintreePayPal/BraintreePayPal.h>
 #import "VIMVideoPlayer.h"
 #import "VIMVideoPlayerView.h"
+#import "ACTReporter.h"
