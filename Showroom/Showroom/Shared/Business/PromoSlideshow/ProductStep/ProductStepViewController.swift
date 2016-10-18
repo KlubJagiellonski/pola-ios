@@ -2,6 +2,8 @@ import Foundation
 import UIKit
 
 final class ProductStepViewController: ProductPageViewController, ProductPageViewControllerDelegate, ProductPagePreviewOverlayViewDelegate, PromoPageInterface {
+    private let playAfterAddToBasketDelay = 1.0
+    
     weak var pageDelegate: PromoPageDelegate?
     var focused: Bool = false {
         didSet {
@@ -20,7 +22,7 @@ final class ProductStepViewController: ProductPageViewController, ProductPageVie
     
     init(with resolver: DiResolver, product: PromoSlideshowProduct, duration: Int) {
         self.timer = Timer(duration: duration, stepInterval: Constants.promoSlideshowTimerStepInterval)
-        super.init(resolver: resolver, productId: product.id, product: Product(product: product), previewMode: true)
+        super.init(resolver: resolver, productId: product.id, product: Product(product: product))
         
         delegate = self
         timer.delegate = self
@@ -111,6 +113,16 @@ extension ProductStepViewController: TimerDelegate {
     
     func timer(timer: Timer, didChangeProgress progress: Double) {
         pageDelegate?.promoPage(self, didChangeCurrentProgress: progress)
+    }
+}
+
+extension ProductStepViewController: NavigationHandler {
+    func handleNavigationEvent(event: NavigationEvent) -> EventHandled {
+        if let simpleEvent = event as? SimpleNavigationEvent where simpleEvent.type == .ProductAddedToBasket {
+            showAddToBasketSucccess()
+            return true
+        }
+        return false
     }
 }
 

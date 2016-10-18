@@ -8,9 +8,12 @@ protocol ProductDescriptionViewInterface: class {
     var touchRequiredView: UIView { get } // view for which we want to disable uitapgesturerecognizer
     var previewMode: Bool { get set }
     var expandedProgress: CGFloat { get set }
+    weak var delegate: ProductDescriptionViewDelegate? { get set }
+    
+    func showAddToBasketSucccess()
 }
 
-protocol ProductPageViewDelegate: ViewSwitcherDelegate {
+protocol ProductPageViewDelegate: ViewSwitcherDelegate, ProductDescriptionViewDelegate {
     func pageView(pageView: ProductPageView, willChangePageViewState newPageViewState: ProductPageViewState, animationDuration: Double?)
     func pageView(pageView: ProductPageView, didChangePageViewState newPageViewState: ProductPageViewState, animationDuration: Double?)
     func pageViewDidTapShareButton(pageView: ProductPageView)
@@ -93,7 +96,10 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
         }
     }
     weak var delegate: ProductPageViewDelegate? {
-        didSet { switcherDelegate = delegate }
+        didSet {
+            switcherDelegate = delegate
+            descriptionViewInterface?.delegate = delegate
+        }
     }
     
     init(contentView: UIView, contentInset: UIEdgeInsets?) {
@@ -204,6 +210,10 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
     
     func didDownloadFirstImage(withSuccess success: Bool) {
         delegate?.pageView(self, didDownloadFirstImageWithSuccess: success)
+    }
+    
+    func showAddToBasketSucccess() {
+        descriptionViewInterface?.showAddToBasketSucccess()
     }
     
     private func configureCustomConstraints() {

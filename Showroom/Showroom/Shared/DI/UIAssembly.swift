@@ -55,7 +55,7 @@ class UIAssembly: AssemblyType {
             return ProductDetailsModel(context: context, emarsysService: r.resolve(EmarsysService.self)!)
         }
         container.register(ProductPageViewController.self) { r, productId, product in
-            return ProductPageViewController(resolver: r.resolve(DiResolver.self)!, productId: productId, product: product, previewMode: false)
+            return ProductPageViewController(resolver: r.resolve(DiResolver.self)!, productId: productId, product: product)
         }
         container.register(ProductPageModel.self) { r, productId, product in
             return ProductPageModel(api: r.resolve(ApiService.self)!, basketManager: r.resolve(BasketManager.self)!, storage: r.resolve(KeyValueStorage.self)!, wishlistManager: r.resolve(WishlistManager.self)!, productId: productId, product: product)
