@@ -16,6 +16,9 @@ final class PromoSummaryVideoView: UIView, ViewSwitcherDataSource, ViewSwitcherD
         viewSwitcher.switcherDelegate = self
         viewSwitcher.switcherDataSource = self
         
+        imageView.contentMode = .ScaleAspectFill
+        imageView.clipsToBounds = true
+        
         textContainerView.backgroundGradient.colors = caption.color.gradientColors()
         textContainerView.titleLabel.textColor = caption.color.color()
         textContainerView.subtitleLabel.textColor = caption.color.color()
