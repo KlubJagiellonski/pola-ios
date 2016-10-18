@@ -142,7 +142,7 @@ final class PresenterView: UIView, ModalPanDismissDelegate {
             self.modalDimView?.alpha = 1 - (offsetY / bounds.height)
         case .Ended:
             let timeElapseFromLastChange = CFAbsoluteTimeGetCurrent() - lastPanChange
-            let shouldHideModal = velocity.y > 5 && timeElapseFromLastChange < 0.2
+            let shouldHideModal = velocity.y > 25 && timeElapseFromLastChange < 0.2
             
             self.layoutIfNeeded()
             self.modalViewTopConstraint?.updateOffset(shouldHideModal ? bounds.height : 0)
