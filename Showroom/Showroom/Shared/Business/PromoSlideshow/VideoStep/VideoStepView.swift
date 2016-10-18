@@ -14,6 +14,8 @@ protocol VideoStepViewDelegate: class {
     func videoStepView(view: VideoStepView, timeDidChange cmTime: CMTime)
     func videoStepViewDidReachedEnd(view: VideoStepView)
     func videoStepViewDidLoadVideo(view: VideoStepView)
+    func videoStepViewFailedToLoadVideo(view: VideoStepView)
+    func videoStepViewDidTapRetry(view: VideoStepView)
 }
 
 final class VideoStepView: ViewSwitcher, VIMVideoPlayerViewDelegate {
@@ -43,7 +45,6 @@ final class VideoStepView: ViewSwitcher, VIMVideoPlayerViewDelegate {
     var playerItem: AVPlayerItem? {
         return playerView.player.player.currentItem
     }
-    private var asset: AVAsset
     private var lastLoadedDuration: Double?
     private var shouldChangeSwitcherStateOnRateChange: Bool
     
@@ -51,7 +52,6 @@ final class VideoStepView: ViewSwitcher, VIMVideoPlayerViewDelegate {
 
     init(asset: AVAsset, annotations: [PromoSlideshowVideoAnnotation], prefetchedPlayerView: VIMVideoPlayerView?) {
         annotationsView = VideoStepAnnotationsView(annotations: annotations)
-        self.asset = asset
         self.playerView = prefetchedPlayerView ?? VIMVideoPlayerView()
         let prefetchedPlayerExist = (prefetchedPlayerView != nil)
         self.shouldChangeSwitcherStateOnRateChange = !(prefetchedPlayerExist || asset.isCached)
@@ -76,6 +76,10 @@ final class VideoStepView: ViewSwitcher, VIMVideoPlayerViewDelegate {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func update(asset: AVAsset) {
+        playerView.player.setAsset(asset)
     }
     
     func play() {
@@ -124,6 +128,7 @@ final class VideoStepView: ViewSwitcher, VIMVideoPlayerViewDelegate {
     
     func videoPlayerView(videoPlayerView: VIMVideoPlayerView!, didFailWithError error: NSError!) {
         logInfo("did fail with error: \(error)")
+        delegate?.videoStepViewFailedToLoadVideo(self)
         state = .PausedByPlayer
         changeSwitcherState(.Error, animated: true)
     }
@@ -177,7 +182,7 @@ extension VideoStepView: ViewSwitcherDelegate, ViewSwitcherDataSource {
         logInfo("view switcher retry")
 
         changeSwitcherState(.Loading, animated: false)
-        playerView.player.setAsset(asset)
+        delegate?.videoStepViewDidTapRetry(self)
     }
     
     func viewSwitcherWantsEmptyView(view: ViewSwitcher) -> UIView? {

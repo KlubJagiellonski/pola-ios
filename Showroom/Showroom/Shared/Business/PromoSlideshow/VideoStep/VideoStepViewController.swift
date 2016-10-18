@@ -8,9 +8,7 @@ final class VideoStepViewController: UIViewController, PromoPageInterface, Video
     private let annotations: [PromoSlideshowVideoAnnotation]
     private var additionalData: VideoStepAdditionalData?
     private lazy var asset: AVURLAsset = { [unowned self] in
-        let asset = self.retrieveOrCreateAsset()
-        asset.resourceLoader.setDelegate(self.cacheHelper, queue: dispatch_get_main_queue())
-        return asset
+        return self.retrieveOrCreateAsset()
     }()
     private let cacheHelper: VideoStepCacheHelper
     
@@ -49,12 +47,15 @@ final class VideoStepViewController: UIViewController, PromoPageInterface, Video
     }
     
     private func retrieveOrCreateAsset() -> AVURLAsset {
+        var asset: AVURLAsset!
         if let additionalData = self.additionalData {
-            return additionalData.asset
+            asset = additionalData.asset
         } else {
             let url = self.cacheHelper.cachedFileUrl ?? self.url
-            return AVURLAsset(URL: url)
+            asset = AVURLAsset(URL: url)
         }
+        asset.resourceLoader.setDelegate(self.cacheHelper, queue: dispatch_get_main_queue())
+        return asset
     }
     
     // MARK:- VideoStepViewDelegate
@@ -80,13 +81,25 @@ final class VideoStepViewController: UIViewController, PromoPageInterface, Video
     }
     
     func videoStepViewDidReachedEnd(view: VideoStepView) {
-        cacheHelper.saveToCache(with: asset)
+        logInfo("did reach end")
         pageDelegate?.promoPageDidFinished(self)
     }
     
     func videoStepViewDidLoadVideo(view: VideoStepView) {
         logInfo("did load video")
+        cacheHelper.saveToCache(with: asset)
         pageDelegate?.promoPageDidDownloadAllData(self)
+    }
+    
+    func videoStepViewFailedToLoadVideo(view: VideoStepView) {
+        logInfo("failed to load video")
+        cacheHelper.clearCache()
+    }
+    
+    func videoStepViewDidTapRetry(view: VideoStepView) {
+        logInfo("did tap retry")
+        asset = retrieveOrCreateAsset()
+        castView.update(asset)
     }
     
     // MARK:- PromoPageInterface

@@ -38,10 +38,29 @@ final class VideoStepCacheHelper: NSObject, AVAssetResourceLoaderDelegate {
             return
         }
         
+        logInfo("Saving to url \(cachedFileUrl)")
+        
         exporter.outputURL = cachedFileUrl
         exporter.outputFileType = AVFileTypeMPEG4
         exporter.exportAsynchronouslyWithCompletionHandler {
             logError("Did end exporting vide with status \(exporter.status.rawValue), error \(exporter.error)")
+        }
+    }
+    
+    func clearCache() {
+        guard let cachedFileUrl = self.createURLForCacheFile() else {
+            logError("Cannot create cached file url \(self.url)")
+            return
+        }
+        guard let path = cachedFileUrl.path where fileManager.fileExistsAtPath(path) else {
+            logInfo("File already exist at url \(cachedFileUrl)")
+            return
+        }
+        logInfo("Removing file for path \(path)")
+        do {
+            try fileManager.removeItemAtPath(path)
+        } catch {
+            logError("Could not remove item at path \(path)")
         }
     }
     
