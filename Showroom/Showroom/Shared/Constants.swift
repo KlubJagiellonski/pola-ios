@@ -44,6 +44,13 @@ struct Constants {
     static let deEmarsysPushPassword = "NjG06NhkAPQvxmi7UFonQZnF6Aip1dv6"
     static let dePushWooshAppId = "1B9C1-3FA16"
     
+    static let conversionId = "1006448960"
+    static let conversionAppStartLabel = "sTFZCITB7WoQwOL03wM"
+    static let conversionTransactionLabel = "VJLuCLvF72oQwOL03wM"
+    static let deConversionId = "942368511"
+    static let deConversionAppStartLabel = "xIPTCOezg2sQ_82twQM"
+    static let deConversionTransactionLabel = "CRt_CJrxiGsQ_82twQM"
+    
     static let basketProductAmountLimit: Int = 10
     static let productListPageSize: Int = 20
     static let productListPageSizeForLargeScreen: Int = 27

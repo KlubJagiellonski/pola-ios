@@ -7,6 +7,10 @@ func logAnalyticsAppStart() {
     Analytics.sharedInstance.sendAppStartEvent()
 }
 
+func logAnalyticsAppStartConversion(platform: Platform) {
+    Analytics.sharedInstance.sendAppStartConversion(with: platform)
+}
+
 func logAnalyticsRegistration() {
     Analytics.sharedInstance.sendRegistrationEvent()
 }
@@ -19,8 +23,8 @@ func logAnalyticsEvent(eventId: AnalyticsEventId) {
     Analytics.sharedInstance.sendEvent(eventId)
 }
 
-func logAnalyticsTransactionEvent(with payment: PaymentResult, products: [BasketProduct]) {
-    Analytics.sharedInstance.sendAnalyticsTransactionEvent(with: payment, products: products)
+func logAnalyticsTransactionEvent(with payment: PaymentResult, products: [BasketProduct], platform: Platform) {
+    Analytics.sharedInstance.sendAnalyticsTransactionEvent(with: payment, products: products, platform: platform)
 }
 
 enum AnalyticsScreenId: String {
@@ -386,12 +390,12 @@ final class Analytics {
         
     }
     
-    func sendAnalyticsTransactionEvent(with payment: PaymentResult, products: [BasketProduct]) {
+    func sendAnalyticsTransactionEvent(with payment: PaymentResult, products: [BasketProduct], platform: Platform) {
         let moneyFormatter = MathMoneyFormatter(showGroupingSeparator: false)
         let paymentAmountString = moneyFormatter.stringForObjectValue(payment.amount.doubleValue) ?? String(payment.amount.doubleValue)
         
         // sending addword converson
-        ACTConversionReporter.reportWithConversionID("1006448960", label: "VJLuCLvF72oQwOL03wM", value: paymentAmountString, isRepeatable: true)
+        ACTConversionReporter.reportWithConversionID(platform.conversionId, label: platform.conversionTransactionLabel, value: paymentAmountString, isRepeatable: true)
         
         // sending optimise
         for product in products {
@@ -436,8 +440,10 @@ final class Analytics {
     
     func sendAppStartEvent() {
         optimiseManager.trackInstallWhereAppID(nil, pid: Constants.optimiseTrackInstallProductId, deepLink: false, ex1: "Install", ex2: nil, ex3: nil, ex4: nil, ex5: nil)
-        
-        ACTConversionReporter.reportWithConversionID("1006448960", label: "sTFZCITB7WoQwOL03wM", value: "0.00", isRepeatable: false)
+    }
+    
+    func sendAppStartConversion(with platform: Platform) {
+        ACTConversionReporter.reportWithConversionID(platform.conversionId, label: platform.conversionAppStartLabel, value: "0.00", isRepeatable: false)
     }
     
     func sendRegistrationEvent() {
@@ -445,3 +451,31 @@ final class Analytics {
     }
 }
 
+extension Platform {
+    private var conversionId: String {
+        switch self {
+        case .German:
+            return Constants.deConversionId
+        case .Polish:
+            return Constants.conversionId
+        }
+    }
+    
+    private var conversionAppStartLabel: String {
+        switch self {
+        case .German:
+            return Constants.deConversionAppStartLabel
+        case .Polish:
+            return Constants.conversionAppStartLabel
+        }
+    }
+    
+    private var conversionTransactionLabel: String {
+        switch self {
+        case .German:
+            return Constants.deConversionTransactionLabel
+        case .Polish:
+            return Constants.conversionTransactionLabel
+        }
+    }
+}

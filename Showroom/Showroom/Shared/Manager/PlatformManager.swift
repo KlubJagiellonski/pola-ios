@@ -61,6 +61,7 @@ final class PlatformManager {
         if let platform = platform {
             api.configuration = ApiServiceConfiguration(platform: platform)
             emarsysService.configure(forPlatform: platform)
+            logAnalyticsAppStartConversion(platform)
         }
     }
     
@@ -83,6 +84,7 @@ final class PlatformManager {
             }
             api.configuration = ApiServiceConfiguration(platform: newValue)
             emarsysService.configure(forPlatform: newValue)
+            logAnalyticsAppStartConversion(newValue)
             platformObservable.onNext(newValue)
         }
         get {
