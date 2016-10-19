@@ -66,7 +66,7 @@ final class ImageStepViewController: UIViewController, PromoPageInterface, Image
         logInfo("image step view did tap, timer.paused: \(timer.paused)")
         if timer.paused {
             timer.play()
-            pageDelegate?.promoPage(self, willChangePromoPageViewState: .Close, animationDuration: Constants.promoSlideshowStateChangedAnimationDuration)
+            pageDelegate?.promoPage(self, willChangePromoPageViewState: .Playing, animationDuration: Constants.promoSlideshowStateChangedAnimationDuration)
         } else {
             timer.pause()
             pageDelegate?.promoPage(self, willChangePromoPageViewState: .Paused(shouldShowProgressViewInPauseState), animationDuration: Constants.promoSlideshowStateChangedAnimationDuration)
@@ -78,7 +78,7 @@ final class ImageStepViewController: UIViewController, PromoPageInterface, Image
     func didTapPlay() {
         logInfo("did tap play")
         timer.play()
-        pageDelegate?.promoPage(self, willChangePromoPageViewState: .Close, animationDuration: Constants.promoSlideshowStateChangedAnimationDuration)
+        pageDelegate?.promoPage(self, willChangePromoPageViewState: .Playing, animationDuration: Constants.promoSlideshowStateChangedAnimationDuration)
     }
     
     func didTapDismiss() { }

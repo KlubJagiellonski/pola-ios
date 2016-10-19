@@ -1,6 +1,12 @@
 import Foundation
 import UIKit
 
+struct ProductStepDataEntry {
+    let videoId: ObjectId
+    let product: PromoSlideshowProduct
+    let duration: Int
+}
+
 final class ProductStepViewController: ProductPageViewController, ProductPageViewControllerDelegate, ProductPagePreviewOverlayViewDelegate, PromoPageInterface {
     private let playAfterAddToBasketDelay = 1.0
     
@@ -19,10 +25,12 @@ final class ProductStepViewController: ProductPageViewController, ProductPageVie
     
     private weak var previewOverlay: ProductPagePreviewOverlayView?
     private let timer: Timer
+    private let videoId: ObjectId
     
-    init(with resolver: DiResolver, product: PromoSlideshowProduct, duration: Int) {
-        self.timer = Timer(duration: duration, stepInterval: Constants.promoSlideshowTimerStepInterval)
-        super.init(resolver: resolver, productId: product.id, product: Product(product: product))
+    init(with resolver: DiResolver, dataEntry: ProductStepDataEntry) {
+        self.timer = Timer(duration: dataEntry.duration, stepInterval: Constants.promoSlideshowTimerStepInterval)
+        self.videoId = dataEntry.videoId
+        super.init(resolver: resolver, productId: dataEntry.product.id, product: Product(product: dataEntry.product))
         
         delegate = self
         timer.delegate = self
@@ -45,6 +53,10 @@ final class ProductStepViewController: ProductPageViewController, ProductPageVie
         }
     }
     
+    override func logAddToBasketAnalytics(with productDetails: ProductDetails) {
+        logAnalyticsEvent(AnalyticsEventId.ProductAddToCartClicked(model.productId, "video", productDetails.price))
+    }
+    
     private func createAndConfigureOverlayView() -> UIView {
         let bottomBarHeight = self.castView.descriptionViewInterface?.headerButtonSectionHeight ?? 0
         logInfo("Creating preview overlay view with bottom bar height \(bottomBarHeight)")
@@ -60,7 +72,7 @@ final class ProductStepViewController: ProductPageViewController, ProductPageVie
         
         castView.update(withPreviewModeEnabled: enabled, animationDuration: animationDuration)
         previewOverlay?.update(withEnabled: enabled, animationDuration: animationDuration)
-        pageDelegate?.promoPage(self, willChangePromoPageViewState: enabled ? .Close : .Paused(shouldShowProgressViewInPauseState), animationDuration: animationDuration)
+        pageDelegate?.promoPage(self, willChangePromoPageViewState: enabled ? .Playing : .Paused(shouldShowProgressViewInPauseState), animationDuration: animationDuration)
         if enabled {
             timer.play()
         } else {
@@ -84,17 +96,22 @@ final class ProductStepViewController: ProductPageViewController, ProductPageVie
     
     func previewOverlayDidTapOverlay(previewOverlay: ProductPagePreviewOverlayView) {
         logInfo("Did tap overlay")
+        logAnalyticsEvent(AnalyticsEventId.VideoProductPhotoTapped(videoId))
         update(withPreviewModeEnabled: false)
     }
     
     func previewOverlayDidTapInfoButton(previewOverlay: ProductPagePreviewOverlayView) {
         logInfo("Did tap info button")
+        logAnalyticsEvent(AnalyticsEventId.VideoProductInfoButtonTapped(videoId))
         update(withPreviewModeEnabled: false)
     }
     
     func previewOverlayDidTapWishlistButton(previewOverlay: ProductPagePreviewOverlayView) {
         let state = self.model.switchOnWishlist()
         logInfo("Did tap wishlist, switching to state \(state)")
+        if state {
+            logAnalyticsEvent(AnalyticsEventId.VideoProductAddedToWishlist(videoId))
+        }
         previewOverlay.update(withWishlistButtonSelected: state)
     }
     
@@ -130,11 +147,11 @@ extension PromoPageViewState {
     init(with state: ProductPageViewState, overlayEnabled: Bool, shouldShowStatusBarInPauseState: Bool) {
         switch state {
         case .Default, .ContentHidden:
-            self = overlayEnabled ? .Close : .Paused(shouldShowStatusBarInPauseState)
+            self = overlayEnabled ? .Playing : .Paused(shouldShowStatusBarInPauseState)
         case .ContentExpanded:
-            self = .Dismiss
+            self = .PausedWithDetailContent
         case .ImageGallery:
-            self = .FullScreen
+            self = .PausedWithFullscreenContent
         }
     }
 }

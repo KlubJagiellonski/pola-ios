@@ -2,8 +2,11 @@ import Foundation
 
 protocol PromoSummaryViewDelegate: class {
     func promoSummary(promoSummary: PromoSummaryView, didTapPlayForVideo video: PromoSlideshowPlaylistItem)
+    func promoSummaryDidAutoPlay(promoSummary: PromoSummaryView, forVideo video: PromoSlideshowPlaylistItem)
     func promoSummaryDidTapRepeat(promoSummary: PromoSummaryView)
     func promoSummary(promoSummary: PromoSummaryView, didTapLink link: PromoSlideshowLink)
+    func promoSummaryDidTapNext(promoSummary: PromoSummaryView, withCurrentVideo video: PromoSlideshowPlaylistItem)
+    func promoSummaryDidTapPrevious(promoSummary: PromoSummaryView, withCurrentVideo video: PromoSlideshowPlaylistItem)
 }
 
 final class PromoSummaryView: UIView {
@@ -50,12 +53,24 @@ final class PromoSummaryView: UIView {
         playerView.stopPlayAnimation()
     }
     
+    func didTapNext(withCurrentVideo video: PromoSlideshowPlaylistItem) {
+        delegate?.promoSummaryDidTapNext(self, withCurrentVideo: video)
+    }
+    
+    func didTapBack(withCurrentVideo video: PromoSlideshowPlaylistItem) {
+        delegate?.promoSummaryDidTapPrevious(self, withCurrentVideo: video)
+    }
+    
     func didTap(playForVideo video: PromoSlideshowPlaylistItem) {
         delegate?.promoSummary(self, didTapPlayForVideo: video)
     }
     
     func didTap(link link: PromoSlideshowLink) {
         delegate?.promoSummary(self, didTapLink: link)
+    }
+    
+    func didAutoPlay(forVideo video: PromoSlideshowPlaylistItem) {
+        delegate?.promoSummaryDidAutoPlay(self, forVideo: video)
     }
     
     @objc private func didTapRepeatButton() {

@@ -4,7 +4,7 @@ import UIKit
 protocol PromoSlideshowViewDelegate: ViewSwitcherDelegate {
     func promoSlideshowDidTapClose(promoSlideshow: PromoSlideshowView)
     func promoSlideshowWillBeginPageChanging(promoSlideshow: PromoSlideshowView)
-    func promoSlideshowDidEndPageChanging(promoSlideshow: PromoSlideshowView)
+    func promoSlideshowDidEndPageChanging(promoSlideshow: PromoSlideshowView, fromUserAction: Bool)
 }
 
 enum PromoSlideshowCloseButtonState {
@@ -43,20 +43,20 @@ final class PromoSlideshowView: UIView, UICollectionViewDelegate, ModalPanDismis
     var progressEnded = false {
         didSet {
             progressView.alpha = shouldProgressBeVisible ? 1 : 0
-            collectionView.scrollEnabled = (!progressEnded && viewState == .Close)
+            collectionView.scrollEnabled = (!progressEnded && viewState == .Playing)
         }
     }
-    var viewState: PromoPageViewState = .Close {
+    var viewState: PromoPageViewState = .Playing {
         didSet {
-            if viewState == .Close || viewState == .Dismiss {
-                closeButtonState = viewState == .Close ? .Close : .Dismiss
+            if viewState == .Playing || viewState == .PausedWithDetailContent {
+                closeButtonState = viewState == .Playing ? .Close : .Dismiss
             } else if viewState.isPausedState {
                 closeButtonState = .Play
             }
             
-            closeButton.alpha = viewState == .FullScreen ? 0 : 1
+            closeButton.alpha = viewState == .PausedWithFullscreenContent ? 0 : 1
             progressView.alpha = shouldProgressBeVisible ? 1 : 0
-            collectionView.scrollEnabled = (!progressEnded && viewState == .Close)
+            collectionView.scrollEnabled = (!progressEnded && viewState == .Playing)
         }
     }
     var pageCount: Int { return dataSource.pageCount }
@@ -67,7 +67,7 @@ final class PromoSlideshowView: UIView, UICollectionViewDelegate, ModalPanDismis
         } else if let pausedProgressViewVisible = viewState.isPausedProgressViewVisible {
             return pausedProgressViewVisible
         } else {
-            return viewState == .Close
+            return viewState == .Playing
         }
     }
     private var panGestureRecognizer: UIPanGestureRecognizer {
@@ -160,7 +160,7 @@ final class PromoSlideshowView: UIView, UICollectionViewDelegate, ModalPanDismis
             // adjusting offset to next page
             self.collectionView.setContentOffset(CGPointMake(pageWidth * CGFloat(nextIndex), 0), animated: false)
             self.userInteractionEnabled = true
-            self.delegate?.promoSlideshowDidEndPageChanging(self)
+            self.delegate?.promoSlideshowDidEndPageChanging(self, fromUserAction: false)
         })
         return true
     }
@@ -219,14 +219,14 @@ final class PromoSlideshowView: UIView, UICollectionViewDelegate, ModalPanDismis
     
     func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if !decelerate {
-            self.delegate?.promoSlideshowDidEndPageChanging(self)
+            self.delegate?.promoSlideshowDidEndPageChanging(self, fromUserAction: true)
             userInteractionEnabled = true
         }
     }
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         logInfo("scroll view did end decelerating")
-        self.delegate?.promoSlideshowDidEndPageChanging(self)
+        self.delegate?.promoSlideshowDidEndPageChanging(self, fromUserAction: true)
         userInteractionEnabled = true
     }
 }

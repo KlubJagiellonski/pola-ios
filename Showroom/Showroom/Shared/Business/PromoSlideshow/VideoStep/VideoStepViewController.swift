@@ -63,7 +63,7 @@ final class VideoStepViewController: UIViewController, PromoPageInterface, Video
     func videoStepViewDidTapPlayerView(view: VideoStepView) {
         logInfo("did tap player view")
         switch castView.state {
-        case .PlayedByUser: pageDelegate?.promoPage(self, willChangePromoPageViewState: .Close, animationDuration: 0.4)
+        case .PlayedByUser: pageDelegate?.promoPage(self, willChangePromoPageViewState: .Playing, animationDuration: 0.4)
         case .PausedByUser: pageDelegate?.promoPage(self, willChangePromoPageViewState: .Paused(shouldShowProgressViewInPauseState), animationDuration: 0.4)
         default:
             logError("Unexpected video step state: \(castView.state)")
@@ -107,7 +107,7 @@ final class VideoStepViewController: UIViewController, PromoPageInterface, Video
     func didTapPlay() {
         logInfo("did tap play")
         castView.play()
-        pageDelegate?.promoPage(self, willChangePromoPageViewState: .Close, animationDuration: 0.4)
+        pageDelegate?.promoPage(self, willChangePromoPageViewState: .Playing, animationDuration: 0.4)
     }
     
     func didTapDismiss() { }

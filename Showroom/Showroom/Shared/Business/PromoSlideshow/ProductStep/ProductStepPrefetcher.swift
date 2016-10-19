@@ -7,10 +7,10 @@ final class ProductStepPrefetcher: PromoSlideshowPagePrefetcher {
     private let product: PromoSlideshowProduct
     
     init(data: PromoSlideshowPageData) {
-        guard case let .Product(product, _) = data else {
+        guard case let .Product(dataEntry) = data else {
             fatalError("Prefetcher created with from data \(data)")
         }
-        self.product = product
+        self.product = dataEntry.product
     }
     
     func prefetch() -> Observable<AnyObject?> {

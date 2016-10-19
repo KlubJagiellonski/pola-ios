@@ -86,6 +86,14 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
         castView.showAddToBasketSucccess()
     }
     
+    func logAddToBasketAnalytics(with productDetails: ProductDetails) {
+        if castView.viewState == .Default {
+            logAnalyticsEvent(AnalyticsEventId.ProductAddToCartClicked(model.productId, "gallery", productDetails.price))
+        } else if castView.viewState == .ContentExpanded {
+            logAnalyticsEvent(AnalyticsEventId.ProductAddToCartClicked(model.productId, "details", productDetails.price))
+        }
+    }
+    
     private func fetchProductDetails() {
         logInfo("Fetching product details")
         model.fetchProductDetails().subscribeNext { [weak self] fetchResult in
@@ -131,11 +139,7 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
             return
         }
         logInfo("Adding to basket")
-        if castView.viewState == .Default {
-            logAnalyticsEvent(AnalyticsEventId.ProductAddToCartClicked(model.productId, "gallery", productDetails.price))
-        } else if castView.viewState == .ContentExpanded {
-            logAnalyticsEvent(AnalyticsEventId.ProductAddToCartClicked(model.productId, "details", productDetails.price))
-        }
+        logAddToBasketAnalytics(with: productDetails)
         model.addToBasket()
         sendNavigationEvent(SimpleNavigationEvent(type: .ProductAddedToBasket))
     }

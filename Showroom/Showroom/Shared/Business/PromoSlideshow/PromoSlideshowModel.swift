@@ -11,14 +11,14 @@ struct PromoSlideshowPageDataContainer {
 enum PromoSlideshowPageData {
     case Image(link: DataLink, duration: Int)
     case Video(link: DataLink, annotations: [PromoSlideshowVideoAnnotation])
-    case Product(product: PromoSlideshowProduct, duration: Int)
+    case Product(dataEntry: ProductStepDataEntry)
     case Summary(PromoSlideshow)
 }
 
 final class PromoSlideshowModel {
     private let apiService: ApiService
     private let storage: KeyValueStorage
-    private var slideshowId: Int
+    private(set) var slideshowId: Int
     private(set) var promoSlideshow: PromoSlideshow?
     private var prefetcher = PromoSlideshowPrefetcher()
     private let disposeBag = DisposeBag()
@@ -36,6 +36,8 @@ final class PromoSlideshowModel {
     }
     
     func fetchPromoSlideshow() -> Observable<FetchCacheResult<PromoSlideshow>> {
+        let currentTime = NSDate().timeIntervalSince1970
+        
         let cacheId = Constants.Cache.video + String(slideshowId)
         
         let existingResult = promoSlideshow
@@ -74,7 +76,15 @@ final class PromoSlideshowModel {
                 return Observable.create { [unowned self] observer in
                     self.prefetcher.prefetch(forPageIndex: index, withData: pageData) { prefetchResult in
                         switch prefetchResult {
-                        case .Success, .Error(_):
+                        case .Success:
+                            logInfo("Prefetch success")
+                            if let promoSlideshow = result.result() {
+                                let loadingTime = NSDate().timeIntervalSince1970 - currentTime
+                                logAnalyticsEvent(AnalyticsEventId.VideoFirstSlideLoaded(promoSlideshow.id, Int(loadingTime * 1000)))
+                            }
+                            observer.onNext(result)
+                        case .Error(let error):
+                            logInfo("Prefetch error \(error)")
                             observer.onNext(result)
                         case .AlreadyFetched: break
                         }
@@ -110,7 +120,7 @@ final class PromoSlideshowModel {
         }
         
         if let step = slideshow.video.steps[safe: index] {
-            return PromoSlideshowPageData(fromStep: step)
+            return PromoSlideshowPageData(fromStep: step, promoSlideshow: slideshow)
         } else {
             return .Summary(slideshow)
         }
@@ -118,14 +128,14 @@ final class PromoSlideshowModel {
 }
 
 extension PromoSlideshowPageData {
-    private init(fromStep step: PromoSlideshowVideoStep) {
+    private init(fromStep step: PromoSlideshowVideoStep, promoSlideshow: PromoSlideshow) {
         switch step.type {
         case .Image:
             self = .Image(link: step.link!, duration: step.duration)
         case .Video:
             self = .Video(link: step.link!, annotations: step.annotations)
         case .Product:
-            self = .Product(product: step.product!, duration: step.duration)
+            self = .Product(dataEntry: ProductStepDataEntry(videoId: promoSlideshow.id, product: step.product!, duration: step.duration))
         }
     }
 }

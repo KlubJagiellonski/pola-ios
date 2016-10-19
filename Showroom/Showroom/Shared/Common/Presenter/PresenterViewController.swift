@@ -5,6 +5,10 @@ protocol PresenterContentChildProtocol {
     func presenterWillApear()
 }
 
+protocol PresenterModalProtocol {
+    func presenterWillCloseModalWithPan()
+}
+
 class PresenterViewController: UIViewController, PresenterViewDelegate {
     var castView: PresenterView { return view as! PresenterView }
     private(set) var contentViewController: UIViewController?
@@ -119,6 +123,9 @@ class PresenterViewController: UIViewController, PresenterViewDelegate {
     
     func presenterWantsToHideModalView(view: PresenterView) {
         logInfo("Wants hide modal view")
+        if let modal = currentModalViewController as? PresenterModalProtocol {
+            modal.presenterWillCloseModalWithPan()
+        }
         sendNavigationEvent(SimpleNavigationEvent(type: .Close))
     }
     

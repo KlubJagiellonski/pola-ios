@@ -222,8 +222,8 @@ class UIAssembly: AssemblyType {
         container.register(VideoStepViewController.self) { r, link, annotations, additionalData in
             return VideoStepViewController(with: r.resolve(DiResolver.self)!, link: link, annotations: annotations, additionalData: additionalData)
         }
-        container.register(ProductStepViewController.self) { r, product, duration in
-            return ProductStepViewController(with: r.resolve(DiResolver.self)!, product: product, duration: duration)
+        container.register(ProductStepViewController.self) { r, dataEntry in
+            return ProductStepViewController(with: r.resolve(DiResolver.self)!, dataEntry: dataEntry)
         }
         container.register(PromoSummaryViewController.self) { r, promoSlideshow in
             return PromoSummaryViewController(with: r.resolve(DiResolver.self)!, promoSlideshow: promoSlideshow)

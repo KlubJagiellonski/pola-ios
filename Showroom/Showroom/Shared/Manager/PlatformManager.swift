@@ -59,6 +59,7 @@ final class PlatformManager {
         self.emarsysService = emarsysService
         
         if let platform = platform {
+            Analytics.sharedInstance.didChange(platform: platform)
             api.configuration = ApiServiceConfiguration(platform: platform)
             emarsysService.configure(forPlatform: platform)
             logAnalyticsAppStartConversion(platform)
@@ -82,6 +83,7 @@ final class PlatformManager {
             } else {
                 logError("Failed to set app platform \(newValue) to user defaults")
             }
+            Analytics.sharedInstance.didChange(platform: newValue)
             api.configuration = ApiServiceConfiguration(platform: newValue)
             emarsysService.configure(forPlatform: newValue)
             logAnalyticsAppStartConversion(newValue)

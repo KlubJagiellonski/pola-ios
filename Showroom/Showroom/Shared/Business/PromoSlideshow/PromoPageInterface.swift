@@ -3,9 +3,9 @@ import Foundation
 typealias ProgressViewVisible = Bool
 
 enum PromoPageViewState {
-    case Close
-    case Dismiss
-    case FullScreen
+    case Playing
+    case PausedWithDetailContent
+    case PausedWithFullscreenContent
     case Paused(ProgressViewVisible)
 }
 
@@ -45,7 +45,7 @@ extension PromoPageViewState {
 
 func ==(lhs:PromoPageViewState, rhs: PromoPageViewState) -> Bool {
     switch (lhs, rhs) {
-    case (.Close, .Close), (.Dismiss, .Dismiss), (.FullScreen, .FullScreen): return true
+    case (.Playing, .Playing), (.PausedWithDetailContent, .PausedWithDetailContent), (.PausedWithFullscreenContent, .PausedWithFullscreenContent): return true
     case (.Paused(let lhsVisible), .Paused(let rhsVisible)) where lhsVisible == rhsVisible: return true
     default: return false
     }

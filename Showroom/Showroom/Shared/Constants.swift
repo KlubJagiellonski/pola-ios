@@ -33,8 +33,10 @@ struct Constants {
     
     #if APPSTORE
     static let googleAnalyticsTrackingId = "UA-28549987-7"
+    static let deGoogleAnalyticsTrackingId = "UA-28549987-13"
     #else
     static let googleAnalyticsTrackingId = "UA-28549987-11"
+    static let deGoogleAnalyticsTrackingId = "UA-28549987-11"
     #endif
     static let emarsysMerchantId = "13CE3A05D54F66DD"
     static let emarsysRecommendationItemsLimit: Int32 = 20

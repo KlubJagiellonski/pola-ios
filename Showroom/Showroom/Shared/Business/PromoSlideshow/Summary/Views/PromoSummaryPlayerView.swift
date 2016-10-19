@@ -83,16 +83,18 @@ final class PromoSummaryPlayerView: UIView {
     }
     
     func didFinishedPlayControlAnimation(with view: PromoSummaryPlayControl) {
-        promoSummaryView?.didTap(playForVideo: videos[currentVideoIndex])
+        promoSummaryView?.didAutoPlay(forVideo: videos[currentVideoIndex])
     }
     
     @objc private func didTapBack() {
+        promoSummaryView?.didTapBack(withCurrentVideo: videos[currentVideoIndex])
         currentVideoIndex -= 1
         
         updateCurrentVideoView()
     }
     
     @objc private func didTapNext() {
+        promoSummaryView?.didTapNext(withCurrentVideo: videos[currentVideoIndex])
         currentVideoIndex += 1
         
         updateCurrentVideoView()
