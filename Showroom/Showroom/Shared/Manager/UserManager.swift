@@ -110,14 +110,16 @@ class UserManager {
             .doOnNext { [weak self] credential in self?.cachedSharedWebCredential = credential }
     }
     
-    func login(with login: Login) -> Observable<SigningResult> {
+    func login(with login: Login, updateSharedWebCredentials: Bool = true) -> Observable<SigningResult> {
         logInfo("Fetching login \(login)")
         return apiService.login(with: login)
             .observeOn(MainScheduler.instance)
             .doOnNext { [weak self] result in
                 if let `self` = self {
                     self.userSession = UserSession(user: result.user, session: result.session)
-                    self.updateSharedWebCredentialsIfNeeded(withUsername: login.username, password: login.password)
+                    if updateSharedWebCredentials {
+                        self.updateSharedWebCredentialsIfNeeded(withUsername: login.username, password: login.password)
+                    }
                     self.keychainManager.loginCredentials = login
                     logAnalyticsRegistration()
                 }
@@ -304,7 +306,7 @@ extension UserManager: ApiServiceDataSource {
             return loginWithFacebookToken(facebookToken).flatMap({ _ in return Observable.just() })
         } else if let loginCredentials = keychainManager.loginCredentials {
             logInfo("Login credentials exist")
-            return login(with: loginCredentials).flatMap({ _ in return Observable.just() })
+            return login(with: loginCredentials, updateSharedWebCredentials: false).flatMap({ _ in return Observable.just() })
         } else {
             return Observable.error(ApiError.LoginRetryFailed)
         }
