@@ -273,8 +273,6 @@ enum L10n {
   case ProductListFilterTitle
   /// POWTÓRZ
   case PromoVideoSummaryRepeat
-  /// POWTÓRZ POPRZEDNI
-  case PromoVideoSummaryRepeatPrevious
   /// CHCĘ
   case PushNotificationAllow
   /// Możemy w pierwszej kolejności informować Cię o specjalnych promocjach, wyprzedażach i nowych kolekcjach.
@@ -696,8 +694,6 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("ProductListFilter.Title")
       case .PromoVideoSummaryRepeat:
         return L10n.tr("PromoVideo.Summary.Repeat")
-      case .PromoVideoSummaryRepeatPrevious:
-        return L10n.tr("PromoVideo.Summary.RepeatPrevious")
       case .PushNotificationAllow:
         return L10n.tr("PushNotification.Allow")
       case .PushNotificationDescriptionAfterTime:
