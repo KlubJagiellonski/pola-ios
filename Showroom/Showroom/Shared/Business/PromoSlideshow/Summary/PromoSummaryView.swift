@@ -21,7 +21,7 @@ final class PromoSummaryView: UIView {
         
         separatorView.backgroundColor = UIColor(named: .Separator)
         
-        let repeatTitle = promoSlideshow.playlist.count > 1 ? tr(.PromoVideoSummaryRepeatPrevious) : tr(.PromoVideoSummaryRepeat)
+        let repeatTitle = tr(.PromoVideoSummaryRepeat)
         repeatButton.addTarget(self, action: #selector(PromoSummaryView.didTapRepeatButton), forControlEvents: .TouchUpInside)
         repeatButton.setImage(UIImage(asset: .Repeat), forState: .Normal)
         repeatButton.setTitle(repeatTitle, forState: .Normal)
