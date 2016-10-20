@@ -58,7 +58,9 @@ final class PromoSlideshowModel {
         
         return Observable.of(cacheCompose, network)
             .observeOn(ConcurrentDispatchQueueScheduler(globalConcurrentQueueQOS: .Background))
-            .concat().take(1) //we only want to take 1. For now we don't handle updating of current video state
+            .concat().distinctUntilChanged { [weak self] _, _ in
+                return self?.promoSlideshow != nil // we don't handle updating promo slideshow, so when one already exist, we filtering out next ones
+        }
             .observeOn(MainScheduler.instance)
             .doOnNext { [weak self] result in
                 if let result = result.result() {
