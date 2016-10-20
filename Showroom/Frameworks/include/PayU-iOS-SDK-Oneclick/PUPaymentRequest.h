@@ -8,35 +8,39 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
- *  PUPaymentRequest class gathers parameters needed for performing payment.
+ *  Parameters required for performing payment operation.
  */
 @interface PUPaymentRequest : NSObject
 
 /**
- *  Order identifier in merchant system
+ *  Order identifier in the merchant system
  */
-@property(nonatomic, copy) NSString *extOrderId;
+@property (nonatomic, copy) NSString *extOrderId;
 
 /**
  *  Human readable payment description
  */
-@property(nonatomic, copy) NSString *paymentDescription;
+@property (nonatomic, copy) NSString *paymentDescription;
 
 /**
- *  Payment amount
+ *  Payment amount in selected currency
  */
-@property(nonatomic, copy) NSDecimalNumber *amount;
+@property (nonatomic, copy) NSDecimalNumber *amount;
 
 /**
  *  Payment currency
  *  @see http://en.wikipedia.org/wiki/ISO_4217
  */
-@property(nonatomic, copy) NSString *currency;
+@property (nonatomic, copy) NSString *currency;
 
 /**
  *  URL that will be used to communicate payment status change
  */
-@property(nonatomic, copy) NSURL *notifyURL;
+@property (nonatomic, copy) NSURL *notifyURL;
 
 @end
+
+NS_ASSUME_NONNULL_END
