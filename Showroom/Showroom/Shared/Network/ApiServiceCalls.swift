@@ -274,6 +274,17 @@ extension ApiService {
         return makeCall(with: call).decode { try WishlistResult.decode($0) }
     }
     
+    func fetchWebContent(withWebViewId webViewId: String) -> Observable<WebContent> {
+        let call = ApiServiceCall(
+            pathComponent: "webview/\(webViewId)",
+            params: nil,
+            httpMethod: .Get,
+            authenticationType: .NotRequired,
+            jsonData: nil
+        )
+        return makeCall(with: call).decode { try WebContent.decode($0) }
+    }
+    
     private func wishlistRequest(with param: SingleWishlistRequest?, method: ApiServiceHttpMethod) -> Observable<WishlistResult> {
         let call = ApiServiceCall(
             pathComponent: "user/wishlist",

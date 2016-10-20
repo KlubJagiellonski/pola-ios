@@ -25,8 +25,8 @@ final class WebContentView: ViewSwitcher {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func loadWebPage(with request: NSURLRequest) {
-        webView.loadRequest(request)
+    func showWebContent(htmlString htmlString: String) {
+        webView.loadHTMLString(htmlString, baseURL: nil)
     }
 }
 

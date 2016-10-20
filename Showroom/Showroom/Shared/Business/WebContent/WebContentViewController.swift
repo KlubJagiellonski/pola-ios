@@ -1,13 +1,16 @@
 import Foundation
 import UIKit
 import WebKit
+import RxSwift
 
 final class WebContentViewController: UIViewController, WebContentViewDelegate {
-    private var url: NSURL
+    private let model: WebContentModel
     private var castView: WebContentView { return view as! WebContentView }
     
-    init(url: NSURL) {
-        self.url = url
+    private var disposeBag = DisposeBag()
+    
+    init(resolver: DiResolver, webViewId: String) {
+        model = resolver.resolve(WebContentModel.self, argument: webViewId)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -27,15 +30,30 @@ final class WebContentViewController: UIViewController, WebContentViewDelegate {
         loadWebPage()
     }
     
-    func updateData(with url: NSURL) {
-        self.url = url
+    func updateData(withWebViewId webViewId: String) {
+        disposeBag = DisposeBag()
+        model.update(withWebViewId: webViewId)
         castView.changeSwitcherState(.Loading)
         loadWebPage()
     }
     
     private func loadWebPage() {
-        let request = NSURLRequest(URL: url)
-        castView.loadWebPage(with: request)
+        model.fetchWebContent()
+            .subscribe { [unowned self](event: Event<WebContent>) in
+                switch event {
+                case .Next(let webContent):
+                    logInfo("on next, webContent: \(webContent)")
+                    self.castView.changeSwitcherState(.Success)
+                    self.castView.showWebContent(htmlString: webContent.content)
+                    self.title = webContent.title
+                    
+                case .Error(let error):
+                    logInfo("on error: \(error)")
+                    self.castView.changeSwitcherState(.Error)
+                    
+                default: break
+                }
+        }.addDisposableTo(disposeBag)
     }
     
     // MARK:- WebContentViewDelegate
@@ -44,26 +62,6 @@ final class WebContentViewController: UIViewController, WebContentViewDelegate {
         logInfo("viewSwitcherDidTapRetry")
         castView.changeSwitcherState(.Loading)
         loadWebPage()
-    }
-    
-    func webView(webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-        logInfo("webView didStartProvisionalNavigation")
-        castView.changeSwitcherState(.Loading)
-    }
-    
-    func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
-        logInfo("webViewDidFinishNavigation")
-        castView.changeSwitcherState(.Success)
-    }
-    
-    func webView(webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: NSError) {
-        logInfo("webView didFailProvisionalNavigation error \(error.localizedDescription)")
-        castView.changeSwitcherState(.Error)
-    }
-    
-    func webView(webView: WKWebView, didFailNavigation navigation: WKNavigation!, withError error: NSError) {
-        logInfo("webView didFailNavigation")
-        castView.changeSwitcherState(.Error)
     }
     
     func webView(webView: WKWebView, decidePolicyForNavigationAction navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> Void) {

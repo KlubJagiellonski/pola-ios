@@ -186,18 +186,18 @@ final class CommonNavigationHandler: NavigationHandler {
             return true
         }
         
-        urlRouter.addRoute("/:host/d/*") { [weak self](parameters: [NSObject: AnyObject]!) in
+        urlRouter.addRoute("/:host/d/:webViewSlug") { [weak self](parameters: [NSObject: AnyObject]!) in
             guard let `self` = self else { return false }
             
-            guard let url = parameters[kJLRouteURLKey] as? NSURL else {
-                logError("No url for parameters \(parameters)")
+            guard let webViewSlug = parameters["webViewSlug"] as? String else {
+                logError("There is no webViewSlug in path: \(parameters)")
                 return false
             }
             
             return self.handleRouting({ Void -> WebContentViewController in
-                return self.resolver.resolve(WebContentViewController.self, argument: url)
+                return self.resolver.resolve(WebContentViewController.self, argument: webViewSlug)
             }) { (viewController: WebContentViewController) in
-                viewController.updateData(with: url)
+                viewController.updateData(withWebViewId: webViewSlug)
             }
         }
         

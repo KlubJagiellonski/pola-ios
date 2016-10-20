@@ -414,6 +414,8 @@
 		C0CBE2AA1D2D4270008B861D /* SettingsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CBE2A91D2D4270008B861D /* SettingsNavigationController.swift */; };
 		C0CBE2AC1D2D46B7008B861D /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CBE2AB1D2D46B7008B861D /* SettingsView.swift */; };
 		C0CBE2B21D2E50F7008B861D /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CBE2B11D2E50F7008B861D /* Setting.swift */; };
+		C0D81B651DB8ABA3006B8DA6 /* WebContentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D81B641DB8ABA3006B8DA6 /* WebContentModel.swift */; };
+		C0D81B671DB8AC51006B8DA6 /* WebContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D81B661DB8AC51006B8DA6 /* WebContent.swift */; };
 		C0E791531DA263CC00BB43D6 /* ImageStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E791521DA263CC00BB43D6 /* ImageStepView.swift */; };
 		C0E791551DA3B33600BB43D6 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E791541DA3B33600BB43D6 /* Timer.swift */; };
 		C0ED7EAE1D7EE39E00CBC796 /* NSLocaleUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0ED7EAD1D7EE39E00CBC796 /* NSLocaleUtils.swift */; };
@@ -867,6 +869,8 @@
 		C0CBE2A91D2D4270008B861D /* SettingsNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsNavigationController.swift; sourceTree = "<group>"; };
 		C0CBE2AB1D2D46B7008B861D /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		C0CBE2B11D2E50F7008B861D /* Setting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
+		C0D81B641DB8ABA3006B8DA6 /* WebContentModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebContentModel.swift; sourceTree = "<group>"; };
+		C0D81B661DB8AC51006B8DA6 /* WebContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebContent.swift; sourceTree = "<group>"; };
 		C0DF72781D75C7A4001BA783 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C0E791521DA263CC00BB43D6 /* ImageStepView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageStepView.swift; sourceTree = "<group>"; };
 		C0E791541DA3B33600BB43D6 /* Timer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
@@ -1385,6 +1389,7 @@
 				1D49EB151D76FBAC00A2F6F2 /* PushToken.swift */,
 				1DF428AD1D880D1300396A0D /* Platform.swift */,
 				1D80F46B1D9BD5C900DFB1C3 /* PromoSlideshow.swift */,
+				C0D81B661DB8AC51006B8DA6 /* WebContent.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1682,6 +1687,7 @@
 		1DDCD2C11DABDD9F0045BB4A /* WebContent */ = {
 			isa = PBXGroup;
 			children = (
+				C0D81B641DB8ABA3006B8DA6 /* WebContentModel.swift */,
 				1DDCD2C41DABDDCC0045BB4A /* WebContentViewController.swift */,
 				1DDCD2C61DABDE290045BB4A /* WebContentView.swift */,
 			);
@@ -2635,6 +2641,7 @@
 				C0ED7EAE1D7EE39E00CBC796 /* NSLocaleUtils.swift in Sources */,
 				1D5E91881D3CD0C600A6BD55 /* SearchContentViewController.swift in Sources */,
 				1D04533E1CFDD48B001CC5A2 /* Dimensions.swift in Sources */,
+				C0D81B671DB8AC51006B8DA6 /* WebContent.swift in Sources */,
 				1D5F91481D34E97900AE66E6 /* ProductFilterNavigationController.swift in Sources */,
 				1D88AB761D5315DD005DDFBB /* NotificationsManager.swift in Sources */,
 				1DA6FA331D00120C004BF10B /* Money.swift in Sources */,
@@ -2661,6 +2668,7 @@
 				1DA823181D1A8F510054288D /* LoadingIndicator.swift in Sources */,
 				75EDE82B1CFDDF6D00C5F96B /* UITextFieldUtils.swift in Sources */,
 				1DF428C01D89731F00396A0D /* CashOptionHandler.swift in Sources */,
+				C0D81B651DB8ABA3006B8DA6 /* WebContentModel.swift in Sources */,
 				C0E791551DA3B33600BB43D6 /* Timer.swift in Sources */,
 				1D0F3B581D12D2C70052CFF6 /* UIViewControllerUtils.swift in Sources */,
 				1DA5CB431D2E867000A45E93 /* ShowBrandDescriptionEvent.swift in Sources */,
