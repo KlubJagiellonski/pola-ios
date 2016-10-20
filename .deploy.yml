@@ -1,6 +1,0 @@
-uploader: s3
-email: showroom-team@polidea.com
-
-ios:
- optimized-images: true
- randomize-manifest: true

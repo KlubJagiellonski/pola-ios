@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/EmarsysPushSDK-Swift.h</key>
 		<data>
-		RjACMUf5WUStxxCpEPdk0tEyPoM=
+		z/PmDjxcbY26NdK6rLJZ7hSZtrk=
 		</data>
 		<key>Headers/EmarsysPushSDK.h</key>
 		<data>
@@ -14,23 +14,23 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		3ZrQ6Y3GSLCT0TKd+2FmMvo4dhE=
+		d2kNXQ7yxWkVYu6qVclWF/zbmNM=
 		</data>
 		<key>Modules/EmarsysPushSDK.swiftmodule/arm.swiftdoc</key>
 		<data>
-		iihIFC7JxxCqOCmpji9zo58Ygo8=
+		l0u090jYHHR+b4UOhHq0a8eg+vk=
 		</data>
 		<key>Modules/EmarsysPushSDK.swiftmodule/arm.swiftmodule</key>
 		<data>
-		w/Wy5Nat3D6fG2ax6empS8E+Hkw=
+		oVY8Pf6IdJ2JGZTJNi3nK1xfeMY=
 		</data>
 		<key>Modules/EmarsysPushSDK.swiftmodule/arm64.swiftdoc</key>
 		<data>
-		RX3E0r/KEvHgz7i2loFtGPFdMiY=
+		IdaBk5yf+s+3A9uM6rIFINwPgXE=
 		</data>
 		<key>Modules/EmarsysPushSDK.swiftmodule/arm64.swiftmodule</key>
 		<data>
-		+Ue91JS06RVYQHwW64nGuthbrtc=
+		TGwvi7Yh7+1+6h6X1NLzRn3Jrhc=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -43,11 +43,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			RjACMUf5WUStxxCpEPdk0tEyPoM=
+			z/PmDjxcbY26NdK6rLJZ7hSZtrk=
 			</data>
 			<key>hash2</key>
 			<data>
-			nvnNAasy+zmhAzVPSEE7IjPgvflXJ3tzNhtaq7XvtsY=
+			w8XEEIOBFFkAOfq1NJ0lGT4c2ZlRttnkTob38LTTWpc=
 			</data>
 		</dict>
 		<key>Headers/EmarsysPushSDK.h</key>
@@ -65,44 +65,44 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			iihIFC7JxxCqOCmpji9zo58Ygo8=
+			l0u090jYHHR+b4UOhHq0a8eg+vk=
 			</data>
 			<key>hash2</key>
 			<data>
-			IJlURwcdkKSuTXDE++aW0pf5h8bZPHuHWEvf/jZo7Hg=
+			esl1bLQ2e+nNvTk1alrKeTBZsuWNcKAOUOOw29uX7X0=
 			</data>
 		</dict>
 		<key>Modules/EmarsysPushSDK.swiftmodule/arm.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			w/Wy5Nat3D6fG2ax6empS8E+Hkw=
+			oVY8Pf6IdJ2JGZTJNi3nK1xfeMY=
 			</data>
 			<key>hash2</key>
 			<data>
-			yBbKuYAT+X7BK2cG5cDBYQP3/jnKzGmuC2+kOUlBZKM=
+			YK4Q/+kZNbAOiS0CKgLKDBgI5jWl/VBxqenSBR4C+6s=
 			</data>
 		</dict>
 		<key>Modules/EmarsysPushSDK.swiftmodule/arm64.swiftdoc</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			RX3E0r/KEvHgz7i2loFtGPFdMiY=
+			IdaBk5yf+s+3A9uM6rIFINwPgXE=
 			</data>
 			<key>hash2</key>
 			<data>
-			C7EmpaQClvSqLPbCHfHak4LvTcU0SjxUJqkegkOPLD4=
+			Of2O3rAsTDPNguyUkejqXkT1sOGqhvhxzOrtmHzEs5s=
 			</data>
 		</dict>
 		<key>Modules/EmarsysPushSDK.swiftmodule/arm64.swiftmodule</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			+Ue91JS06RVYQHwW64nGuthbrtc=
+			TGwvi7Yh7+1+6h6X1NLzRn3Jrhc=
 			</data>
 			<key>hash2</key>
 			<data>
-			0i6QRdLKMOsrscWbtaVrzVlH5s1TxN9WdjNgZTaaL2Y=
+			wsyOyfVLmuLRXtRkSWy6VzpLLJBNpoMdTIiKTcIy9ks=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
@@ -134,6 +134,11 @@
 			<true/>
 			<key>weight</key>
 			<real>1100</real>
+		</dict>
+		<key>^Base\.lproj/</key>
+		<dict>
+			<key>weight</key>
+			<real>1010</real>
 		</dict>
 		<key>^version.plist$</key>
 		<true/>
@@ -179,6 +184,11 @@
 			<true/>
 			<key>weight</key>
 			<real>1100</real>
+		</dict>
+		<key>^Base\.lproj/</key>
+		<dict>
+			<key>weight</key>
+			<real>1010</real>
 		</dict>
 		<key>^Info\.plist$</key>
 		<dict>

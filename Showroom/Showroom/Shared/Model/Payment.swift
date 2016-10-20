@@ -88,7 +88,7 @@ extension PaymentInfo {
             return nil
         }
         
-        guard let localeCode = platformManager.platform?.locale.languageCode else {
+        guard let localeCode = platformManager.platform?.locale.appLanguageCode else {
             logError("Cannot create PaymentRequest (localeCode) from state: \(checkoutState), platform \(platformManager.platform)")
             return nil
         }

@@ -1,0 +1,1 @@
+git_url "https://gitlab-ci-token:#{ENV['CI_BUILD_TOKEN']}@gitlab2.polidea.com/showroom/certificates.git"

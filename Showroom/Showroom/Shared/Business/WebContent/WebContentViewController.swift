@@ -74,8 +74,8 @@ final class WebContentViewController: UIViewController, WebContentViewDelegate {
         }
         
         let app = UIApplication.sharedApplication()
-        if navigationAction.targetFrame?.mainFrame ?? true {
-            switch url.scheme {
+        if let scheme = url.scheme where navigationAction.targetFrame?.mainFrame ?? true {
+            switch scheme {
             case "tel", "mailto":
                 logInfo("Opening external url \(url)")
                 if app.canOpenURL(url) {
@@ -85,7 +85,8 @@ final class WebContentViewController: UIViewController, WebContentViewDelegate {
                 return
             case "https":
                 logInfo("Opening https link: \(url)")
-                let event = ShowItemForLinkEvent(link: url.absoluteString, title: nil, productDetailsFromType: .HomeContentPromo)
+                let urlString = url.absoluteString ?? url.relativeString
+                let event = ShowItemForLinkEvent(link: urlString, title: nil, productDetailsFromType: .HomeContentPromo)
                 sendNavigationEvent(event)
                 decisionHandler(.Cancel)
                 return

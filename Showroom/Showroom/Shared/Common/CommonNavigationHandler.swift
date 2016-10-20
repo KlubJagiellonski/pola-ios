@@ -95,13 +95,13 @@ final class CommonNavigationHandler: NavigationHandler {
     private func configureRouter() {
         urlRouter.addRoute("/:host/tag/*") { [weak self](parameters: [NSObject: AnyObject]) in
             guard let `self` = self else { return false }
-            guard let url = parameters[kJLRouteURLKey] as? NSURL else {
+            guard let url = parameters[kJLRouteURLKey] as? NSURL, let urlString = url.absoluteString else {
                 logError("Cannot retrieve routeURLKey for \(parameters)")
                 return false
             }
             let title = parameters["title"] as? String
             
-            let entryCategory = EntryCategory(link: url.absoluteString, name: title)
+            let entryCategory = EntryCategory(link: urlString, name: title)
             return self.handleRoutingForProductList(forProductListViewControllerType: CategoryProductListViewController.self, entryData: entryCategory)
         }
         

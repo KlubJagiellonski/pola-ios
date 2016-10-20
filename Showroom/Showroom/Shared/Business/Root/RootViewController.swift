@@ -91,7 +91,7 @@ class RootViewController: PresenterViewController, NavigationHandler {
         model.notificationManager.didShowNotificationsAccessView()
     }
     
-    private func showUpdateAlert(imageUrl imageUrl: String?) {
+    private func showUpdateAlert(withImageUrl imageUrl: String?) {
         guard shouldShowCustomAlert else {
             logInfo("Could not show update alert view")
             return
@@ -171,7 +171,7 @@ class RootViewController: PresenterViewController, NavigationHandler {
                         .subscribeNext { [weak self](appVersion: AppVersion) in
                             guard let `self` = self else { return }
                             if self.model.versionManager.shouldShowUpdateAlert {
-                                self.showUpdateAlert(imageUrl: appVersion.promoImageUrl)
+                                self.showUpdateAlert(withImageUrl: appVersion.promoImageUrl)
                             }
                     }.addDisposableTo(self.disposeBag)
                 }

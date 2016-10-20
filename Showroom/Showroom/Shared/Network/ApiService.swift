@@ -44,7 +44,7 @@ class ApiService {
         }
         
         let url = NSURL(fileURLWithPath: basePath)
-            .URLByAppendingPathComponent(call.pathComponent)
+            .URLByAppendingPathComponent(call.pathComponent)!
             .URLByAppendingParams(call.params)
         
         logInfo("Making call to url: \(url)")

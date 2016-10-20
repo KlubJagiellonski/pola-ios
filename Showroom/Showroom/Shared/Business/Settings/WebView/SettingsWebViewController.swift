@@ -81,7 +81,7 @@ extension SettingsWebViewController: SettingsWebViewDelegate {
         
         let app = UIApplication.sharedApplication()
         
-        if navigationAction.targetFrame == nil || ["tel", "mailto", "https", "http"].contains(url.scheme) {
+        if navigationAction.targetFrame == nil || ["tel", "mailto", "https", "http"].contains(url.scheme ?? "no_scheme") {
             logInfo("Opening external url \(url)")
             if app.canOpenURL(url) {
                 app.openURL(url)

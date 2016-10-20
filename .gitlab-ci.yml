@@ -1,0 +1,36 @@
+stages:
+  - test
+  - deploy
+
+showroom:
+    stage: test
+    before_script:
+        - /bin/bash $CACHE_DIR/bundlerScript.bash
+    script:
+        - bundle exec fastlane testProduction
+    tags:
+        - xcode-8.0
+    except:
+        - tags
+
+showroom_deploy_staging:
+    stage: deploy
+    before_script:
+        - /bin/bash $CACHE_DIR/bundlerScript.bash
+    script:
+        - bundle exec fastlane deployStaging
+    tags:
+        - xcode-8.0
+    only:
+        - tags
+
+showroom_deploy_production:
+    stage: deploy
+    before_script:
+        - /bin/bash $CACHE_DIR/bundlerScript.bash
+    script:
+        - bundle exec fastlane deployProduction
+    tags:
+        - xcode-8.0    
+    only:
+        - tags    

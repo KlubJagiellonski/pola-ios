@@ -80,7 +80,11 @@ final class PayPalOptionHandler: PaymentOptionHandler {
     }
     
     func handleOpenURL(url: NSURL, sourceApplication: String?) -> Bool {
-        if url.scheme.localizedCaseInsensitiveCompare(Constants.braintreePayPalUrlScheme) == .OrderedSame {
+        guard let scheme = url.scheme else {
+            logError("Trying to handle url without scheme \(url)")
+            return false
+        }
+        if scheme.localizedCaseInsensitiveCompare(Constants.braintreePayPalUrlScheme) == .OrderedSame {
             return BTAppSwitch.handleOpenURL(url, sourceApplication:sourceApplication)
         }
         return false

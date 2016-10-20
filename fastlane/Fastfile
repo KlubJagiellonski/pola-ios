@@ -1,0 +1,52 @@
+fastlane_version '1.99.0'
+
+default_platform :ios
+
+platform :ios do
+
+  desc 'Runs all the tests'
+  lane :testProduction do
+    scan(
+      project: "Showroom/Showroom.xcodeproj",
+      scheme: 'Showroom',
+      devices: ["iPhone 5s (10.0)"]
+    )
+  end
+
+  def sign(type, app_identifier)
+    match(type: type, app_identifier: app_identifier, readonly: true)
+  end
+
+  def deploy(scheme, app_identifier)    
+    sign('adhoc', app_identifier)    
+    add_prefix_schema
+    versionNumber = get_version_number(
+      xcodeproj: "Showroom/Showroom.xcodeproj"
+    )
+    gym(
+      project: "Showroom/Showroom.xcodeproj",
+      scheme: scheme,
+      include_symbols: false,
+      output_name: scheme,
+      xcargs: "DEBUG_INFORMATION_FORMAT=dwarf-with-dsym CI_BUILD_ID=#{ENV["CI_BUILD_ID"]} CI_BUILD_TAG=#{ENV["CI_BUILD_TAG"]}"
+    )
+    extract_app_name
+    extract_app_icon
+    extract_version
+    get_binary_size
+    release_notes
+    s3
+    polidea_store
+    mailgun(to: 'showroom-team@polidea.com')
+  end
+
+  desc 'Deploy to Polidea Store'
+  lane :deployStaging do
+    deploy 'ShowroomStaging', 'com.showroom.Showroom.staging'
+  end
+
+  desc 'Deploy to Polidea Store'
+  lane :deployProduction do
+    deploy 'Showroom', 'com.showroom.Showroom'
+  end
+end

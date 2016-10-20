@@ -7,7 +7,7 @@ extension UIImage {
         UIGraphicsBeginImageContextWithOptions(size, false, 0)
         color.setFill()
         UIRectFill(rect)
-        let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()
+        let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         return image
     }
@@ -18,7 +18,7 @@ extension UIImage {
         backgroundColor.setFill()
         UIRectFill(rect)
         image.drawAtPoint(CGPoint(x: rect.midX - (image.size.width / 2) + offsetX, y: rect.midY - (image.size.height / 2) + offsetY))
-        let result: UIImage = UIGraphicsGetImageFromCurrentImageContext()
+        let result: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         return result
     }
@@ -31,7 +31,7 @@ extension UIImage {
             cornerRadius: CGFloat(cornerRadius)
             ).addClip()
         drawInRect(rect)
-        let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()
+        let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         return image
     }

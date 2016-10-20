@@ -19,7 +19,8 @@ final class VideoStepCacheHelper: NSObject, AVAssetResourceLoaderDelegate {
     
     init(url: NSURL) {
         self.url = url
-        self.filename = String(url.absoluteString.hashValue) + ".mp4"
+        let urlString = url.absoluteString ?? url.relativeString
+        self.filename = String(urlString.hashValue) + ".mp4"
     }
     
     func saveToCache(with asset: AVAsset) {

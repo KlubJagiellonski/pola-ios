@@ -18,7 +18,7 @@ extension NSURL {
         guard let params = params else {
             return self
         }
-        var url = self.absoluteString
+        var url = self.absoluteString!
         url += url.containsString("?") ? "&" : "?"
         for (key, value) in params {
             url += key + "=" + value + "&"

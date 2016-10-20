@@ -123,7 +123,7 @@ extension PlatformManager {
     
     func initializePlatformWithDeviceLanguage() {
         if !shouldSkipPlatformSelection {
-            let deviceLanguageCode = NSLocale.currentLocale().languageCode
+            let deviceLanguageCode = NSLocale.currentLocale().appLanguageCode
             logInfo("Trying to find available app platform matching the device language with languageCode: \(deviceLanguageCode)")
             
             if let matchingAvailableLanguage = availablePlatforms.find({ $0.languageCode == deviceLanguageCode }) {

@@ -12,7 +12,7 @@ class DropUpActionAnimator: NSObject, UIViewControllerTransitioningDelegate, Ani
     }
     
     func presentViewController(presentedViewController: UIViewController, presentingViewController: UIViewController, completion: (() -> Void)? = nil) {
-        logInfo("Presenting \(presentedViewController.dynamicType) in \(presentingViewController.dynamicType) with drop up animation")
+        logInfo("Presenting \(presentedViewController) in \(presentingViewController) with drop up animation")
         presentedViewController.modalPresentationStyle = .Custom
         presentedViewController.modalTransitionStyle = .CoverVertical
         presentedViewController.transitioningDelegate = self
@@ -21,7 +21,7 @@ class DropUpActionAnimator: NSObject, UIViewControllerTransitioningDelegate, Ani
     }
     
     func dismissViewController(presentingViewController presentingViewController: UIViewController, animated: Bool = true, completion: (() -> Void)? = nil) {
-        logInfo("Dismissing to \(presentingViewController.dynamicType) with drop down animation")
+        logInfo("Dismissing to \(presentingViewController) with drop down animation")
         presentingViewController.dismissViewControllerAnimated(animated, completion: completion)
     }
     
@@ -56,8 +56,8 @@ class DropUpAnimatedTransitioning : NSObject, UIViewControllerAnimatedTransition
         super.init()
     }
     
-    func presentView(presentedView: UIView, presentingView: UIView, dimView: UIView, animationDuration: Double, completion: ((completed: Bool) -> Void)?) {
-        logInfo("Animating \(presentedView.dynamicType) in \(presentingView.dynamicType) to Y = \(height) with drop up animation")
+    func presentView(presentedView: UIView, presentingView: UIView, dimView: UIView, animationDuration: Double, completion: (Bool -> Void)?) {
+        logInfo("Animating \(presentedView) in \(presentingView) to Y = \(height) with drop up animation")
         presentedView.frame = CGRect(x: 0, y: presentingView.bounds.maxY, width: presentingView.bounds.width, height: height)
         presentedView.frame.origin = CGPoint(x: CGFloat(0), y: presentingView.bounds.maxY)
         dimView.alpha = 0
@@ -65,17 +65,17 @@ class DropUpAnimatedTransitioning : NSObject, UIViewControllerAnimatedTransition
             presentedView.frame.origin.y -= self.height
             dimView.alpha = 1.0
             }, completion: { finished in
-                completion?(completed: finished)
+                completion?(finished)
         })
     }
     
-    func dismissView(presentedView: UIView, presentingView: UIView, dimView: UIView, animationDuration: Double, completion: ((completed: Bool) -> Void)?) {
-        logInfo("Animating \(presentedView.dynamicType) in \(presentingView.dynamicType) with drop down animation")
+    func dismissView(presentedView: UIView, presentingView: UIView, dimView: UIView, animationDuration: Double, completion: (Bool -> Void)?) {
+        logInfo("Animating \(presentedView) in \(presentingView) with drop down animation")
         UIView.animateWithDuration(animationDuration, delay: 0, options: [.BeginFromCurrentState, .CurveEaseInOut], animations: {
             presentedView.frame.origin.y += presentedView.frame.height
             dimView.alpha = 0
             }, completion: { finished in
-                completion?(completed: finished)
+                completion?(finished)
         })
     }
     
@@ -97,20 +97,20 @@ class DropUpAnimatedTransitioning : NSObject, UIViewControllerAnimatedTransition
         toView.autoresizingMask = UIViewAutoresizing.FlexibleHeight.union(.FlexibleWidth)
         
         if presenting {
-            let dimView = UIView(frame: containerView!.bounds)
+            let dimView = UIView(frame: containerView.bounds)
             dimView.backgroundColor = dimViewColor
             let animator = toViewController.transitioningDelegate!
             let tapGesture = UITapGestureRecognizer(target: animator, action: #selector(DropUpActionAnimator.didTapDimView(_:)))
             dimView.addGestureRecognizer(tapGesture)
             dimView.tag = dimViewTag
-            containerView?.addSubview(dimView)
-            containerView?.addSubview(toView)
+            containerView.addSubview(dimView)
+            containerView.addSubview(toView)
             presentView(toView, presentingView: fromView, dimView: dimView, animationDuration: duration, completion: { _ in
                 transitionContext.completeTransition(true)
             })
             
         } else {
-            let dimView = (containerView?.viewWithTag(dimViewTag))!
+            let dimView = (containerView.viewWithTag(dimViewTag))!
             dimView.removeGestureRecognizer(dimView.gestureRecognizers![0])
             dismissView(fromView, presentingView: toView, dimView: dimView, animationDuration: duration, completion: { completed in
                 dimView.removeFromSuperview()
