@@ -211,7 +211,7 @@ extension AlertView: ViewSwitcherDelegate, ViewSwitcherDataSource {
         return nil
     }
     
-    func viewSwitcherWantsErrorInfo(view: ViewSwitcher) -> (ErrorText, ErrorImage?) {
-        return (tr(.CommonError), nil)
+    func viewSwitcherWantsErrorView(view: ViewSwitcher) -> UIView? {
+        return ErrorView(errorText: tr(.CommonError), errorImage: nil)
     }
 }

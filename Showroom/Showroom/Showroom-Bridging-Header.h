@@ -9,3 +9,6 @@
 #import <BraintreeCore/BraintreeCore.h>
 #import <BraintreeUI/BraintreeUI.h>
 #import <BraintreePayPal/BraintreePayPal.h>
+#import "VIMVideoPlayer.h"
+#import "VIMVideoPlayerView.h"
+#import "ACTReporter.h"

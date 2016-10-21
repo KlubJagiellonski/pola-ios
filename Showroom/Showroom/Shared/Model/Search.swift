@@ -50,6 +50,7 @@ extension SearchItem: Decodable, Encodable {
     
     func encode() -> AnyObject {
         let dict = [
+            "indexable": indexable,
             "name": name
         ] as NSMutableDictionary
         if link != nil { dict.setObject(link!, forKey: "link") }

@@ -2,10 +2,6 @@ import Foundation
 
 protocol ProductDescriptionNavigationControllerDelegate: class {
     func productDescription(controller: ProductDescriptionNavigationController, didChangeVisibilityOfFirstChild firstChildVisibility: Bool)
-    func productDescriptionDidTapSize(controller: ProductDescriptionNavigationController)
-    func productDescriptionDidTapColor(controller: ProductDescriptionNavigationController)
-    func productDescriptionDidTapOtherBrandProducts(controller: ProductDescriptionNavigationController)
-    func productDescriptionDidTapAddToBasket(controller: ProductDescriptionNavigationController)
 }
 
 final class ProductDescriptionNavigationController: UINavigationController {
@@ -29,7 +25,6 @@ final class ProductDescriptionNavigationController: UINavigationController {
         
         let descriptionViewController = resolver.resolve(ProductDescriptionViewController.self, argument: state)
         descriptionViewController.viewContentInset = viewContentInset
-        descriptionViewController.delegate = self
         descriptionViewController.resetBackTitle()
         viewControllers = [descriptionViewController]
     }
@@ -47,29 +42,6 @@ final class ProductDescriptionNavigationController: UINavigationController {
         let viewController = resolver.resolve(SizeChartViewController.self, argument: productDetails.sizes)
         viewController.viewContentInset = viewContentInset
         pushViewController(viewController, animated: true)
-    }
-}
-
-extension ProductDescriptionNavigationController: ProductDescriptionViewControllerDelegate {
-    func descriptionViewDidTapSize(view: ProductDescriptionView) {
-        logInfo("Did tap size")
-        productDescriptionDelegate?.productDescriptionDidTapSize(self)
-    }
-    func descriptionViewDidTapColor(view: ProductDescriptionView) {
-        logInfo("Did tap color")
-        productDescriptionDelegate?.productDescriptionDidTapColor(self)
-    }
-    func descriptionViewDidTapSizeChart(view: ProductDescriptionView) {
-        logInfo("Did tap size chart")
-        showSizeChart()
-    }
-    func descriptionViewDidTapOtherBrandProducts(view: ProductDescriptionView) {
-        logInfo("Did tap other brand products")
-        productDescriptionDelegate?.productDescriptionDidTapOtherBrandProducts(self)
-    }
-    func descriptionViewDidTapAddToBasket(view: ProductDescriptionView) {
-        logInfo("Did tap add to basket")
-        productDescriptionDelegate?.productDescriptionDidTapAddToBasket(self)
     }
 }
 

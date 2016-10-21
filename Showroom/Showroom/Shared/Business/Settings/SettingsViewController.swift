@@ -91,7 +91,7 @@ class SettingsViewController: UIViewController {
             settings.append(Setting(type: .Login, action: { [weak self] in self?.loginButtonPressed() }, secondaryAction: { [weak self] in self?.createAccountButtonPressed() }, cellClickable: false))
         }
         
-        if platformManager.platform!.isFemaleOnly == false {
+        if platformManager.platform?.isFemaleOnly == false ?? false {
             settings.append(Setting(type: .Gender, action: { [weak self] in self?.femaleButtonPressed() }, secondaryAction: { [weak self] in self?.maleButtonPressed() }, cellClickable: false, value: self.userManager.gender))
         }
                 
@@ -126,6 +126,7 @@ class SettingsViewController: UIViewController {
             settings.append(Setting(type: .Normal, labelString: "Pokaż pytanie o powiadomienia (schowek)", action: { [weak self] in self?.showNotificationsAccessAfterWishlist() }))
             settings.append(Setting(type: .Normal, labelString: "Pokaż pytanie o aktualizację", action: { [weak self] in self?.showUpdateApp() }))
             settings.append(Setting(type: .Normal, labelString: "Pokaż initial platform selection", action: { [weak self] in self?.showInitialPlatformSelection() }))
+            settings.append(Setting(type: .Normal, labelString: "Pokaż slideshow 1", action: { [weak self] in self?.showSlideshow() }))
         }
         
         castView.updateData(with: settings)
@@ -301,6 +302,10 @@ class SettingsViewController: UIViewController {
     
     func showInitialPlatformSelection() {
         sendNavigationEvent(SimpleNavigationEvent(type: .ShowInitialPlatformSelection))
+    }
+    
+    func showSlideshow() {
+        sendNavigationEvent(ShowPromoSlideshowEvent(slideshowId: 1))
     }
     
     func sendReportPressed() {

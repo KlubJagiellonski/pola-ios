@@ -2,9 +2,6 @@ import Foundation
 import UIKit
 import SnapKit
 
-typealias ErrorText = String
-typealias ErrorImage = UIImage
-
 enum ViewSwitcherState {
     case Success
     case Error
@@ -23,8 +20,13 @@ enum ViewSwitcherContainerType {
     case Modal
 }
 
+protocol ErrorViewInterface: class {
+    weak var viewSwitcher: ViewSwitcher? { get set }
+    var containerType: ViewSwitcherContainerType { get set }
+}
+
 protocol ViewSwitcherDataSource: class {
-    func viewSwitcherWantsErrorInfo(view: ViewSwitcher) -> (ErrorText, ErrorImage?)
+    func viewSwitcherWantsErrorView(view: ViewSwitcher) -> UIView?
     func viewSwitcherWantsEmptyView(view: ViewSwitcher) -> UIView?
 }
 
@@ -33,24 +35,33 @@ protocol ViewSwitcherDelegate: class {
 }
 
 class ViewSwitcher: UIView {
-    private static let dimViewAlpha: CGFloat = 0.7
     var animationDuration = 0.3
     private var animationEndBlock: (() -> ())?
     private var animatingToState: ViewSwitcherState?
     
     let successView: UIView
-    lazy var errorView: ErrorView = { [unowned self] in
+    lazy var errorView: UIView = { [unowned self] in
         guard let dataSource = self.switcherDataSource else { fatalError("You must set data source if you want to show error view") }
-        let errorInfo = dataSource.viewSwitcherWantsErrorInfo(self)
-        let errorView = ErrorView(containerType: .Normal, errorText: errorInfo.0, errorImage: errorInfo.1)
-        errorView.viewSwitcher = self
+        guard let errorView = dataSource.viewSwitcherWantsErrorView(self) else {
+            fatalError("You must return non null for method viewSwitcherWantsErrorView if you want to show error view")
+        }
+        guard let errorViewInterface = errorView as? ErrorViewInterface else {
+            fatalError("Error view must implement ErrorViewProtocol")
+        }
+        errorViewInterface.containerType = .Normal
+        errorViewInterface.viewSwitcher = self
         return errorView
     }()
-    lazy var modalErrorView: ErrorView = { [unowned self] in
+    lazy var modalErrorView: UIView = { [unowned self] in
         guard let dataSource = self.switcherDataSource else { fatalError("You must set data source if you want to show error view") }
-        let errorInfo = dataSource.viewSwitcherWantsErrorInfo(self)
-        let errorView = ErrorView(containerType: .Modal, errorText: errorInfo.0, errorImage: errorInfo.1)
-        errorView.viewSwitcher = self
+        guard let errorView = dataSource.viewSwitcherWantsErrorView(self) else {
+            fatalError("You must return non null for method viewSwitcherWantsErrorView if you want to show error view")
+        }
+        guard let errorViewInterface = errorView as? ErrorViewInterface else {
+            fatalError("Error view must implement ErrorViewProtocol")
+        }
+        errorViewInterface.containerType = .Modal
+        errorViewInterface.viewSwitcher = self
         return errorView
     }()
     lazy var loadingView: LoadingView = LoadingView(containerType: .Normal)
@@ -191,7 +202,7 @@ class ViewSwitcher: UIView {
     }
 }
 
-final class ErrorView: UIView {
+final class ErrorView: UIView, ErrorViewInterface {
     private let backgroundView = UIView()
     private let imageView: UIImageView?
     private let textLabel = UILabel()
@@ -199,19 +210,22 @@ final class ErrorView: UIView {
     private let contentView = UIView()
     
     weak var viewSwitcher: ViewSwitcher?
+    var containerType: ViewSwitcherContainerType = .Normal {
+        didSet {
+            switch containerType {
+            case .Normal:
+                textLabel.font = UIFont(fontType: .Normal)
+                backgroundView.backgroundColor = UIColor(named: .Gray)
+            case .Modal:
+                textLabel.font = UIFont(fontType: .ErrorBold)
+                backgroundView.backgroundColor = UIColor(named: .Dim)
+            }
+        }
+    }
     
-    init(containerType: ViewSwitcherContainerType, errorText: String, errorImage: UIImage?) {
+    init(errorText: String, errorImage: UIImage?) {
         imageView = errorImage == nil ? nil : UIImageView(image: errorImage!)
         super.init(frame: CGRectZero)
-        
-        switch containerType {
-        case .Normal:
-            textLabel.font = UIFont(fontType: .Normal)
-            backgroundView.backgroundColor = UIColor(named: .Gray)
-        case .Modal:
-            textLabel.font = UIFont(fontType: .ErrorBold)
-            backgroundView.backgroundColor = UIColor(named: .Dim).colorWithAlphaComponent(ViewSwitcher.dimViewAlpha)
-        }
         
         textLabel.text = errorText
         textLabel.textColor = UIColor(named: .Black)
@@ -294,7 +308,7 @@ final class LoadingView: UIView {
         
         if containerType == .Modal {
             let backgroundView = UIView()
-            backgroundView.backgroundColor = UIColor(named: .Dim).colorWithAlphaComponent(ViewSwitcher.dimViewAlpha)
+            backgroundView.backgroundColor = UIColor(named: .Dim)
             addSubview(backgroundView)
             
             backgroundView.snp_makeConstraints { make in

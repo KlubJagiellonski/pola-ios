@@ -8,6 +8,7 @@ class ToastManager {
     private var messagesQueue: [[String]] = []
     
     init() {
+        toastWindow.rootViewController = UIViewController()
         toastWindow.backgroundColor = UIColor.clearColor()
         toastWindow.windowLevel = UIWindowLevelAlert
         toastWindow.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(ToastManager.onWindowTapped)))

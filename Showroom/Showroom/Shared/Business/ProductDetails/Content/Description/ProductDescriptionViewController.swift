@@ -1,14 +1,11 @@
 import Foundation
 import UIKit
 
-protocol ProductDescriptionViewControllerDelegate: ProductDescriptionViewDelegate {}
-
 class ProductDescriptionViewController: UIViewController {
     let modelState: ProductPageModelState
     
     var castView: ProductDescriptionView { return view as! ProductDescriptionView }
     var viewContentInset: UIEdgeInsets?
-    weak var delegate: ProductDescriptionViewControllerDelegate?
     
     init(modelState: ProductPageModelState) {
         self.modelState = modelState
@@ -26,7 +23,6 @@ class ProductDescriptionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        castView.delegate = delegate
         castView.contentInset = viewContentInset
     }
 }

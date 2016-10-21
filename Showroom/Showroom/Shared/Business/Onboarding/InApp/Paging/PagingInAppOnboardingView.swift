@@ -17,8 +17,7 @@ class PagingInAppOnboardingView: UIView, UICollectionViewDelegate, UICollectionV
             collectionView.setContentOffset(CGPoint(x: contentOffsetX, y: 0.0), animated: true)
         }
         get {
-            let pageWidth = collectionView.frame.width
-            return Int(collectionView.contentOffset.x / pageWidth)
+            return collectionView.currentPageIndex
         }
     }    
 
@@ -32,13 +31,7 @@ class PagingInAppOnboardingView: UIView, UICollectionViewDelegate, UICollectionV
         collectionView.dataSource = dataSource
         collectionView.delegate = self
         collectionView.scrollEnabled = false
-        collectionView.pagingEnabled = true
-        collectionView.showsHorizontalScrollIndicator = false
-        
-        let flowLayout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
-        flowLayout.scrollDirection = .Horizontal
-        flowLayout.minimumLineSpacing = 0
-        flowLayout.minimumInteritemSpacing = 0
+        collectionView.configureForPaging(withDirection: .Horizontal)
         
         addSubview(collectionView)
         

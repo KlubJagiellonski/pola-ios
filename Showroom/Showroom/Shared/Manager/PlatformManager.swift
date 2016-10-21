@@ -26,6 +26,15 @@ extension Platform {
         case German: return "EUR"
         }
     }
+    
+    private var feedbackEmail: String {
+        switch self {
+        case .Polish:
+            return "ios@showroom.pl"
+        case .German:
+            return "ios@showroom.de"
+        }
+    }
 }
 
 final class PlatformManager {
@@ -50,8 +59,10 @@ final class PlatformManager {
         self.emarsysService = emarsysService
         
         if let platform = platform {
+            Analytics.sharedInstance.didChange(platform: platform)
             api.configuration = ApiServiceConfiguration(platform: platform)
             emarsysService.configure(forPlatform: platform)
+            logAnalyticsAppStartConversion(platform)
         }
     }
     
@@ -72,8 +83,10 @@ final class PlatformManager {
             } else {
                 logError("Failed to set app platform \(newValue) to user defaults")
             }
+            Analytics.sharedInstance.didChange(platform: newValue)
             api.configuration = ApiServiceConfiguration(platform: newValue)
             emarsysService.configure(forPlatform: newValue)
+            logAnalyticsAppStartConversion(newValue)
             platformObservable.onNext(newValue)
         }
         get {
@@ -105,12 +118,7 @@ extension PlatformManager {
     
     var reportEmail: String? {
         guard let platform = platform else { return nil }
-        
-        if Constants.isAppStore {
-            return "iosv\(NSBundle.appVersionNumber)@showroom.\(platform.code)"
-        } else {
-            return "iosv1.1@showroom.\(platform.code)"
-        }
+        return platform.feedbackEmail
     }
     
     func initializePlatformWithDeviceLanguage() {

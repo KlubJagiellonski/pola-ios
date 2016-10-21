@@ -77,7 +77,7 @@ class ApiService {
             .logNetworkError()
             .handleAppNotSupportedError(self)
         
-        if call.authenticationType == .Required {
+        if call.authenticationType == .Required || call.authenticationType == .Optional {
             return requestObservable.catchError { [unowned self] error -> Observable<NSData> in
                 return try self.catchNotAuthorizedError(error, shouldRetry: retryOnNotLoggedIn) { [unowned self] Void -> Observable<NSData> in
                     return self.makeCall(with: call, retryOnNotLoggedIn: false)
@@ -114,6 +114,7 @@ struct ApiServiceCall {
 
 enum ApiServiceVersion: String {
     case V1 = "v1"
+    case V2 = "v2"
 }
 
 struct ApiServiceConfiguration {
@@ -126,7 +127,7 @@ struct ApiServiceConfiguration {
         return "https://\(typeComponent).showroom.\(platform.code)/ios/\(version.rawValue)"
     }
     
-    init(platform: Platform, isStagingEnv: Bool = Constants.isStagingEnv, version: ApiServiceVersion = .V1) {
+    init(platform: Platform, isStagingEnv: Bool = Constants.isStagingEnv, version: ApiServiceVersion = .V2) {
         self.isStagingEnv = isStagingEnv
         self.platform = platform
         self.version = version

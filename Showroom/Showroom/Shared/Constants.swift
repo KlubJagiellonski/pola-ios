@@ -33,8 +33,10 @@ struct Constants {
     
     #if APPSTORE
     static let googleAnalyticsTrackingId = "UA-28549987-7"
+    static let deGoogleAnalyticsTrackingId = "UA-28549987-13"
     #else
     static let googleAnalyticsTrackingId = "UA-28549987-11"
+    static let deGoogleAnalyticsTrackingId = "UA-28549987-11"
     #endif
     static let emarsysMerchantId = "13CE3A05D54F66DD"
     static let emarsysRecommendationItemsLimit: Int32 = 20
@@ -43,15 +45,26 @@ struct Constants {
     static let deEmarsysMerchantId = "1B0C17B93E151CAA"
     static let deEmarsysPushPassword = "NjG06NhkAPQvxmi7UFonQZnF6Aip1dv6"
     static let dePushWooshAppId = "1B9C1-3FA16"
+    
+    static let conversionId = "1006448960"
+    static let conversionAppStartLabel = "sTFZCITB7WoQwOL03wM"
+    static let conversionTransactionLabel = "VJLuCLvF72oQwOL03wM"
+    static let deConversionId = "942368511"
+    static let deConversionAppStartLabel = "xIPTCOezg2sQ_82twQM"
+    static let deConversionTransactionLabel = "CRt_CJrxiGsQ_82twQM"
+    
     static let basketProductAmountLimit: Int = 10
     static let productListPageSize: Int = 20
     static let productListPageSizeForLargeScreen: Int = 27
+    static let promoSlideshowTimerStepInterval: Int = 10
+    static let promoSlideshowStateChangedAnimationDuration: NSTimeInterval = 0.3
     
     struct Cache {
         static let contentPromoId = "ContentPromoId"
         static let productDetails = "ProductDetails"
         static let productRecommendationsId = "productRecommendationsId"
-        static let searchCatalogueId = "searchCatalogueId" 
+        static let searchCatalogueId = "searchCatalogueId"
+        static let video = "video"
     }
     
     struct Persistent {

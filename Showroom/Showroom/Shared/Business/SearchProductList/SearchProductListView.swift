@@ -49,7 +49,7 @@ final class SearchProductListView: UIView, ProductListViewInterface, ProductList
         searchBar.delegate = self
         
         dimView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(SearchProductListView.didTapDimView)))
-        dimView.backgroundColor = UIColor(named: .Dim).colorWithAlphaComponent(0.7)
+        dimView.backgroundColor = UIColor(named: .Dim)
         dimView.hidden = true
         
         productListComponent.delegate = self
@@ -124,8 +124,8 @@ extension SearchProductListView {
 }
 
 extension SearchProductListView: ViewSwitcherDataSource {
-    func viewSwitcherWantsErrorInfo(view: ViewSwitcher) -> (ErrorText, ErrorImage?) {
-        return (tr(.CommonError), UIImage(asset: .Error))
+    func viewSwitcherWantsErrorView(view: ViewSwitcher) -> UIView? {
+        return ErrorView(errorText: tr(.CommonError), errorImage: UIImage(asset: .Error))
     }
     
     func viewSwitcherWantsEmptyView(view: ViewSwitcher) -> UIView? {

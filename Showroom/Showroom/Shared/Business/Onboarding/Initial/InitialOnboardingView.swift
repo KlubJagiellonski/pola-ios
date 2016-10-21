@@ -19,8 +19,7 @@ final class InitialOnboardingView: UIView, UICollectionViewDelegate, UICollectio
             collectionView.setContentOffset(CGPoint(x: contentOffsetX, y: 0.0), animated: true)
         }
         get {
-            let pageWidth = collectionView.frame.width
-            return Int(collectionView.contentOffset.x / pageWidth)
+            return collectionView.currentPageIndex
         }
     }
     
@@ -33,13 +32,7 @@ final class InitialOnboardingView: UIView, UICollectionViewDelegate, UICollectio
         collectionView.backgroundColor = UIColor(named: .White)
         collectionView.dataSource = dataSource
         collectionView.delegate = self
-        collectionView.pagingEnabled = true
-        collectionView.showsHorizontalScrollIndicator = false
-
-        let flowLayout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
-        flowLayout.scrollDirection = .Horizontal
-        flowLayout.minimumLineSpacing = 0
-        flowLayout.minimumInteritemSpacing = 0
+        collectionView.configureForPaging(withDirection: .Horizontal)
         
         addSubview(collectionView)
         

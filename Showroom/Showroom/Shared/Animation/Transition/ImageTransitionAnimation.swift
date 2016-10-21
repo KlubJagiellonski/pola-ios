@@ -7,12 +7,20 @@ protocol ImageAnimationTargetViewInterface: class {
     var highResImageVisible: Bool { get set }
 }
 
-struct ImageTransitionAnimation: TransitionAnimation {
+final class ImageTransitionAnimation: TransitionAnimation {
     private let mainAnimationRelativeTime = 0.6
     
     let animationDuration: NSTimeInterval
     let imageView: UIImageView
-    let alternativeAnimation: TransitionAnimation
+    var alternativeAnimation: TransitionAnimation
+    
+    var additionalAnimationBlock: (Void -> Void)?
+    
+    init(animationDuration: NSTimeInterval, imageView: UIImageView, alternativeAnimation: TransitionAnimation) {
+        self.animationDuration = animationDuration
+        self.imageView = imageView
+        self.alternativeAnimation = alternativeAnimation
+    }
     
     func show(containerView: ContainerView, presentedView: PresentedView, presentationView: PresentationView?, completion: ((Bool) -> ())?) {
         logInfo("Showing image")
@@ -20,19 +28,21 @@ struct ImageTransitionAnimation: TransitionAnimation {
             fatalError("modalView should conforms to protocol ImageAnimationTargetViewInterface")
         }
         
-        let ratio = imageView.bounds.width / imageView.bounds.height
-        let initialFrame = imageView.superview!.convertRect(imageView.frame, toView: containerView)
+        let finalImageView = imageView
+        
+        let ratio = finalImageView.bounds.width / finalImageView.bounds.height
+        let initialFrame = finalImageView.superview!.convertRect(finalImageView.frame, toView: containerView)
         let finalFrame = CGRectMake(0, 0, containerView.bounds.width, containerView.bounds.width / ratio)
         
         logInfo("Animating image from \(initialFrame) to \(finalFrame)")
         
-        let movingImageView = UIImageView(image: imageView.image)
+        let movingImageView = UIImageView(image: finalImageView.image)
         movingImageView.frame = initialFrame
         
         let scaleFactor = containerView.bounds.width / movingImageView.bounds.width
         let scaleTransform = CGAffineTransformMakeScale(scaleFactor, scaleFactor)
         
-        imageView.alpha = 0
+        finalImageView.alpha = 0
         presentedView.alpha = 0
         animationTargetModalView.viewsAboveImageVisibility = false
         animationTargetModalView.highResImageVisible = false
@@ -40,6 +50,10 @@ struct ImageTransitionAnimation: TransitionAnimation {
         
         let mainAnimationTime = animationDuration * mainAnimationRelativeTime
         let endAnimationTime = animationDuration - mainAnimationTime
+        
+        UIView.animateWithDuration(mainAnimationTime + endAnimationTime) { [unowned self] in
+            self.additionalAnimationBlock?()
+        }
         
         UIView.animateKeyframesWithDuration(mainAnimationTime, delay: 0, options: [], animations: {
             UIView.addKeyframeWithRelativeStartTime(0, relativeDuration: 1.0) {
@@ -50,7 +64,7 @@ struct ImageTransitionAnimation: TransitionAnimation {
                 presentedView.alpha = 1
             }
         }) { success in
-            self.imageView.alpha = 1
+            finalImageView.alpha = 1
             animationTargetModalView.highResImageVisible = true
             movingImageView.removeFromSuperview()
             UIView.animateWithDuration(endAnimationTime, animations: {
@@ -66,24 +80,27 @@ struct ImageTransitionAnimation: TransitionAnimation {
             fatalError("modalView should conforms to protocol ImageAnimationTargetViewInterface")
         }
         guard let targetImage = animationTargetModalView.highResImage else {
+            alternativeAnimation.additionalAnimationBlock = additionalAnimationBlock
             alternativeAnimation.hide(containerView, presentedView: presentedView, presentationView: presentationView, completion: completion)
             return
         }
         
-        let ratio = imageView.bounds.width / imageView.bounds.height
+        let finalImageView = self.imageView
+        
+        let ratio = finalImageView.bounds.width / finalImageView.bounds.height
         let initialFrame = CGRectMake(0, 0, containerView.bounds.width, containerView.bounds.width / ratio)
-        let finalFrame = imageView.superview!.convertRect(imageView.frame, toView: containerView)
+        let finalFrame = finalImageView.superview!.convertRect(finalImageView.frame, toView: containerView)
         
         logInfo("Animating image from \(initialFrame) to \(finalFrame)")
         
         let movingImageView = UIImageView(image: targetImage)
         movingImageView.frame = initialFrame
         
-        let scaleFactor = imageView.bounds.width / containerView.bounds.width
+        let scaleFactor = finalImageView.bounds.width / containerView.bounds.width
         let scaleTransform = CGAffineTransformMakeScale(scaleFactor, scaleFactor)
         
         animationTargetModalView.viewsAboveImageVisibility = true
-        imageView.alpha = 0
+        finalImageView.alpha = 0
         presentedView.alpha = 1
         movingImageView.alpha = 0
         animationTargetModalView.highResImageVisible = true
@@ -91,6 +108,10 @@ struct ImageTransitionAnimation: TransitionAnimation {
         
         let mainAnimationTime = animationDuration * mainAnimationRelativeTime
         let startAnimationTime = animationDuration - mainAnimationTime
+        
+        UIView.animateWithDuration(startAnimationTime + mainAnimationTime) { [unowned self] in
+            self.additionalAnimationBlock?()
+        }
         
         UIView.animateWithDuration(startAnimationTime, animations: {
             animationTargetModalView.viewsAboveImageVisibility = false
@@ -106,7 +127,7 @@ struct ImageTransitionAnimation: TransitionAnimation {
                     presentedView.alpha = 0
                 }
             }) { success in
-                self.imageView.alpha = 1
+                finalImageView.alpha = 1
                 movingImageView.removeFromSuperview()
                 completion?(success)
             }

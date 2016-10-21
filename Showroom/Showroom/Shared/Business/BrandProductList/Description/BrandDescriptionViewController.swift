@@ -2,11 +2,11 @@ import Foundation
 import UIKit
 
 class BrandDescriptionViewController: UIViewController {
-    private let brand: Brand
+    private let brand: BrandDetails
     
     private var castView: BrandDescriptionView { return view as! BrandDescriptionView }
     
-    init(with brand: Brand) {
+    init(with brand: BrandDetails) {
         self.brand = brand
         super.init(nibName: nil, bundle: nil)
         

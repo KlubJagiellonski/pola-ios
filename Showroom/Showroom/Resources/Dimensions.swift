@@ -15,10 +15,12 @@ struct Dimensions {
     static let defaultImageRatio = 0.7776
     static let circleButtonDiameter: CGFloat = 38
     static let bigCircleButtonDiameter: CGFloat = 52
-    static let productDetailsTopMargin: CGFloat = 24
+    static let modalTopMargin: CGFloat = 24
     static let bigButtonHeight: CGFloat = 52
     static let topBadgeSize = CGSizeMake(31, 15)
     static let bottomBadgeHeight: CGFloat = 15
     static let onboardingTextHorizontalOffset: CGFloat = 22
     static let contentPromoImageWidth: CGFloat = UIScreen.mainScreen().bounds.width
+    static let mediaPlayButtonDiameter: CGFloat = 76
+    static let mediaControlButtonDiameter: CGFloat = 38
 }

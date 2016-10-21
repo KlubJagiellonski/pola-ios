@@ -137,11 +137,9 @@ class MainTabViewController: UITabBarController, NavigationHandler {
         badgesContainerView.frame = tabBar.frame
     }
     
-    func updateTabBarAppearance(appearance: TabBarAppearance, animationDuration: Double?) {
-        logInfo("Updating tab bar appearance \(appearance) animation \(animationDuration)")
-        UIView.animateWithDuration(animationDuration ?? 0, delay: 0.0, options: [.BeginFromCurrentState, .CurveEaseInOut], animations: {
-            self.appearance = appearance
-            }, completion: nil)
+    func updateTabBarAppearance(appearance: TabBarAppearance) {
+        logInfo("Updating tab bar appearance \(appearance)")
+        self.appearance = appearance
     }
     
     func handleQuickActionShortcut(shortcut: ShortcutIdentifier) {

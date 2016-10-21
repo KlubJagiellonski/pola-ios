@@ -64,7 +64,7 @@ final class CommonNavigationHandler: NavigationHandler {
         return urlRouter.routeURL(url, withParameters: params)
     }
     
-    private func showBrandDescription(brand: Brand) {
+    private func showBrandDescription(brand: BrandDetails) {
         let viewController = resolver.resolve(BrandDescriptionViewController.self, argument: brand)
         configureChildViewController(viewController)
         navigationController?.pushViewController(viewController, animated: true)
@@ -102,7 +102,7 @@ final class CommonNavigationHandler: NavigationHandler {
             let title = parameters["title"] as? String
             
             let entryCategory = EntryCategory(link: url.absoluteString, name: title)
-            return self.handleRouting(forProductListViewControllerType: CategoryProductListViewController.self, entryData: entryCategory)
+            return self.handleRoutingForProductList(forProductListViewControllerType: CategoryProductListViewController.self, entryData: entryCategory)
         }
         
         if let brandsPathComponent = platformManager.platform?.brandPathComponent {
@@ -121,7 +121,7 @@ final class CommonNavigationHandler: NavigationHandler {
                 let url = parameters[kJLRouteURLKey] as? NSURL
                 
                 let entryProductBrand = EntryProductBrand(id: brandId, name: title, link: url?.absoluteString)
-                return self.handleRouting(forProductListViewControllerType: BrandProductListViewController.self, entryData: entryProductBrand)
+                return self.handleRoutingForProductList(forProductListViewControllerType: BrandProductListViewController.self, entryData: entryProductBrand)
             }
         } else {
             logError("Cannot create router for brand. No platform selected.")
@@ -136,7 +136,7 @@ final class CommonNavigationHandler: NavigationHandler {
             let title = parameters["title"] as? String
             
             let entryTrendInfo = EntryTrendInfo(slug: trendSlug, name: title)
-            return self.handleRouting(forProductListViewControllerType: TrendProductListViewController.self, entryData: entryTrendInfo)
+            return self.handleRoutingForProductList(forProductListViewControllerType: TrendProductListViewController.self, entryData: entryTrendInfo)
         }
         urlRouter.addRoute("/:host/search") { [weak self](parameters: [NSObject: AnyObject]!) in
             guard let `self` = self else { return false }
@@ -147,7 +147,7 @@ final class CommonNavigationHandler: NavigationHandler {
             let url = parameters[kJLRouteURLKey] as? NSURL
             
             let entrySearchInfo = EntrySearchInfo(query: query, link: url?.absoluteString)
-            return self.handleRouting(forProductListViewControllerType: SearchProductListViewController.self, entryData: entrySearchInfo)
+            return self.handleRoutingForProductList(forProductListViewControllerType: SearchProductListViewController.self, entryData: entrySearchInfo)
         }
         urlRouter.addRoute("/:host/p/*") { [weak self](parameters: [NSObject: AnyObject]!) in
             guard let `self` = self else { return false }
@@ -169,6 +169,38 @@ final class CommonNavigationHandler: NavigationHandler {
             
             return true
         }
+        
+        urlRouter.addRoute("/:host/videos/:videoComponent") { [weak self](parameters: [NSObject: AnyObject]!) in
+            guard let `self` = self else { return false }
+            guard let videoComponent = parameters["videoComponent"] as? String else {
+                logError("There is no videoComponent in path: \(parameters)")
+                return false
+            }
+            let videoComponents = videoComponent.componentsSeparatedByString(",")
+            guard let videoId = Int(videoComponents[0]) else {
+                logError("Cannot retrieve videoId for path: \(parameters)")
+                return false
+            }
+            self.navigationController?.sendNavigationEvent(ShowPromoSlideshowEvent(slideshowId: videoId))
+            
+            return true
+        }
+        
+        urlRouter.addRoute("/:host/d/:webViewSlug") { [weak self](parameters: [NSObject: AnyObject]!) in
+            guard let `self` = self else { return false }
+            
+            guard let webViewSlug = parameters["webViewSlug"] as? String else {
+                logError("There is no webViewSlug in path: \(parameters)")
+                return false
+            }
+            
+            return self.handleRouting({ Void -> WebContentViewController in
+                return self.resolver.resolve(WebContentViewController.self, argument: webViewSlug)
+            }) { (viewController: WebContentViewController) in
+                viewController.updateData(withWebViewId: webViewSlug)
+            }
+        }
+        
         urlRouter.unmatchedURLHandler = { (routes: JLRoutes, url: NSURL?, parameters: [NSObject: AnyObject]?) in
             logError("Cannot match url: \(url), parameters \(parameters)")
         }
@@ -179,7 +211,16 @@ final class CommonNavigationHandler: NavigationHandler {
     * - if there is existing view controller with that type in stack we are popping to it with no animtion and changing content
     * - if not, we are creating new view controller and pushing it to navigation stack
     */
-    private func handleRouting<T: UIViewController where T:ProductListViewControllerInterface>(forProductListViewControllerType viewControllerType: T.Type, entryData: T.EntryData) -> Bool {
+    
+    private func handleRoutingForProductList<T: UIViewController where T:ProductListViewControllerInterface>(forProductListViewControllerType viewControllerType: T.Type, entryData: T.EntryData) -> Bool {
+        return handleRouting({ Void -> T in
+            return resolver.resolve(viewControllerType, argument: entryData)
+        }) { (viewController: T) in
+            viewController.updateData(with: entryData)
+        }
+    }
+    
+    private func handleRouting<T: UIViewController>(@noescape createHandler: Void -> T, @noescape updateHandler: T -> Void) -> Bool {
         guard let navigationController = self.navigationController else { return false }
         navigationController.sendNavigationEvent(SimpleNavigationEvent(type: .CloseImmediately))
         
@@ -190,9 +231,9 @@ final class CommonNavigationHandler: NavigationHandler {
         }
         if let viewController = navigationController.viewControllers.find({ $0 is T }) as? T {
             navigationController.popToViewController(viewController, animated: false)
-            viewController.updateData(with: entryData)
+            updateHandler(viewController)
         } else {
-            let viewController = self.resolver.resolve(viewControllerType, argument: entryData)
+            let viewController = createHandler()
             self.configureChildViewController(viewController)
             self.navigationController?.pushViewController(viewController, animated: true)
         }

@@ -21,10 +21,21 @@ protocol ProductDescriptionViewDelegate: class {
     func descriptionViewDidTapAddToBasket(view: ProductDescriptionView)
 }
 
-class ProductDescriptionView: UIView, UITableViewDelegate, ProductDescriptionViewInterface {
+final class ProductDescriptionView: UIView, UITableViewDelegate, ProductDescriptionViewInterface {
     private let defaultVerticalPadding: CGFloat = 8
     private let descriptionTableViewTopMargin: CGFloat = 10
     let headerHeight: CGFloat = 158
+    let headerButtonSectionHeight: CGFloat = 60
+    var previewMode: Bool = false {
+        didSet {
+            headerView.infoImageView.alpha = previewMode ? 0 : 1
+        }
+    }
+    var expandedProgress: CGFloat = 0 {
+        didSet {
+            headerView.infoImageView.alpha = previewMode ? 0 : (1 - expandedProgress)
+        }
+    }
     
     private let headerView = DescriptionHeaderView()
     private let tableView = UITableView(frame: CGRectZero, style: .Plain)
@@ -82,6 +93,10 @@ class ProductDescriptionView: UIView, UITableViewDelegate, ProductDescriptionVie
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func showAddToBasketSucccess() {
+        headerView.showAddToBasketSucccess()
     }
     
     private func updateCurrentColor(currentColor: ProductDetailsColor?) {
@@ -208,23 +223,24 @@ enum ProductAvailability {
     case SoldOut
 }
 
-class DescriptionHeaderView: UIView {
+final class DescriptionHeaderView: UIView {
     private let defaultVerticalPadding: CGFloat = 8
     private let horizontalItemPadding: CGFloat = 5
     private let buttonsToNameInfoVerticalPadding: CGFloat = 13
     private let smallDropDownButtonWidth: CGFloat = 54
     private let largeDropDownButtonWidth: CGFloat = 71
     
-    let brandAndPriceContainerView = UIView()
-    let brandNameLabel = UILabel()
-    let priceLabel = PriceLabel()
-    let nameInfoContainerView = UIView()
-    let nameLabel = UILabel()
-    let infoImageView = UIImageView(image: UIImage(asset: .Ic_info))
-    let buttonsContainerView = TouchConsumingView()
-    let sizeButton = DropDownButton(value: .Text(nil))
-    let colorButton = DropDownButton(value: .Color(nil))
-    let buyButton = UIButton()
+    private let brandAndPriceContainerView = UIView()
+    private let brandNameLabel = UILabel()
+    private let priceLabel = PriceLabel()
+    private let nameInfoContainerView = UIView()
+    private let nameLabel = UILabel()
+    private let infoImageView = UIImageView(image: UIImage(asset: .Ic_info))
+    private let buttonsContainerView = TouchConsumingView()
+    private let sizeButton = DropDownButton(value: .Text(nil))
+    private let colorButton = DropDownButton(value: .Color(nil))
+    private let buyButton = UIButton()
+    private let buySuccessImageView = UIImageView(image: UIImage(asset: .Check_add))
     
     init() {
         super.init(frame: CGRectZero)
@@ -247,6 +263,10 @@ class DescriptionHeaderView: UIView {
         buyButton.applyBlueStyle()
         update(toProductAvailability: .Unknown)
         
+        buySuccessImageView.hidden = true
+        buySuccessImageView.backgroundColor = UIColor(named: .DarkGray)
+        buySuccessImageView.contentMode = .Center
+        
         brandAndPriceContainerView.addSubview(brandNameLabel)
         brandAndPriceContainerView.addSubview(priceLabel)
         
@@ -256,6 +276,7 @@ class DescriptionHeaderView: UIView {
         buttonsContainerView.addSubview(sizeButton)
         buttonsContainerView.addSubview(colorButton)
         buttonsContainerView.addSubview(buyButton)
+        buttonsContainerView.addSubview(buySuccessImageView)
         
         addSubview(brandAndPriceContainerView)
         addSubview(nameInfoContainerView)
@@ -300,7 +321,33 @@ class DescriptionHeaderView: UIView {
         }
     }
     
-    func configureCustomConstraints() {
+    func showAddToBasketSucccess() {
+        buySuccessImageView.alpha = 0
+        buySuccessImageView.hidden = false
+        buySuccessImageView.userInteractionEnabled = true
+        
+        let animationDuration = 0.2
+        let successDuration = 1.0
+        
+        let secondStepCompletion: Bool -> Void = { [weak self]success in
+            guard let `self` = self else { return }
+            self.buySuccessImageView.hidden = true
+            self.buySuccessImageView.userInteractionEnabled = false
+        }
+        
+        let firstStepCompletion: Bool -> Void = { [weak self]success in
+            guard let `self` = self else { return }
+            UIView.animateWithDuration(animationDuration, delay: successDuration, options: [], animations: { [unowned self] in
+                self.buySuccessImageView.alpha = 0
+                }, completion: secondStepCompletion)
+        }
+        
+        UIView.animateWithDuration(animationDuration, animations: { [unowned self] in
+            self.buySuccessImageView.alpha = 1
+            }, completion: firstStepCompletion)
+    }
+    
+    private func configureCustomConstraints() {
         //brand and price container
         brandAndPriceContainerView.snp_makeConstraints { make in
             make.top.equalToSuperview()
@@ -373,6 +420,10 @@ class DescriptionHeaderView: UIView {
             make.leading.equalTo(sizeButton.snp_trailing).offset(horizontalItemPadding)
             make.trailing.equalToSuperview()
             make.height.equalTo(Dimensions.defaultButtonHeight)
+        }
+        
+        buySuccessImageView.snp_makeConstraints { make in
+            make.edges.equalTo(buyButton)
         }
     }
 }

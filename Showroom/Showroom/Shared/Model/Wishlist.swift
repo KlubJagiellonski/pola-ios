@@ -3,7 +3,7 @@ import Decodable
 
 struct WishlistProduct {
     let id: ObjectId
-    let brand: ProductBrand
+    let brand: Brand
     let name: String
     let basePrice: Money
     let price: Money

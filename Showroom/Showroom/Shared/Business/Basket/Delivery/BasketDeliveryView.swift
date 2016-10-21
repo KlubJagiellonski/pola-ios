@@ -165,8 +165,8 @@ class BasketDeliveryView: ViewSwitcher {
 }
 
 extension BasketDeliveryView: ViewSwitcherDataSource {
-    func viewSwitcherWantsErrorInfo(view: ViewSwitcher) -> (ErrorText, ErrorImage?) {
-        return (tr(.CommonError), nil)
+    func viewSwitcherWantsErrorView(view: ViewSwitcher) -> UIView? {
+        return ErrorView(errorText: tr(.CommonError), errorImage: nil)
     }
     func viewSwitcherWantsEmptyView(view: ViewSwitcher) -> UIView? { return nil }
 }

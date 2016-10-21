@@ -30,16 +30,6 @@ extension UIViewController {
         return buttonItem
     }
     
-    func changeTabBarAppearanceIfPossible(appearance: TabBarAppearance, animationDuration: Double?) -> Bool {
-        logInfo("Change tab bar appearance \(appearance) animation \(animationDuration)")
-        guard let mainTabBarController = tabBarController as? MainTabViewController else {
-            logInfo("Not MainTabViewController")
-            return false
-        }
-        mainTabBarController.updateTabBarAppearance(appearance, animationDuration: animationDuration)
-        return true
-    }
-    
     func tryOpenURL(urlOptions urls: [String]) {
         logInfo("Try open urls \(urls)")
         let application = UIApplication.sharedApplication()
@@ -73,5 +63,44 @@ extension UIResponder {
         let userActivity = NSUserActivity(activityType: NSBundle.mainBundle().bundleIdentifier!.stringByAppendingString(".browsing"))
         userActivity.webpageURL = webpageUrl.URLByAppendingPathComponent(pathComponent)
         self.userActivity = userActivity
+    }
+}
+
+// MARK:- Status bar handling
+
+protocol StatusBarAppearanceHandling {
+    var wantsHandleStatusBarAppearance: Bool { get }
+}
+
+// MARK:- Tab bar handling
+
+protocol TabBarStateDataSource: class {
+    var prefersTabBarHidden: Bool { get }
+}
+
+protocol TabBarHandler: class {
+    func dataSourceForTabBarHidden() -> TabBarStateDataSource?
+}
+
+extension UIViewController {
+    func setNeedsTabBarAppearanceUpdate() {
+        if let tabBarHandler = self as? TabBarHandler,
+            let dataSource = tabBarHandler.dataSourceForTabBarHidden() {
+            
+            guard let mainTabBarController = tabBarController as? MainTabViewController else {
+                logInfo("Not MainTabViewController")
+                return
+            }
+            
+            mainTabBarController.updateTabBarAppearance(dataSource.prefersTabBarHidden ? .Hidden : .Visible)
+            return
+        }
+        
+        if let parentViewController = parentViewController {
+            parentViewController.setNeedsTabBarAppearanceUpdate()
+            return
+        }
+        
+        logError("setNeedsTabBarAppearanceUpdate not handled")
     }
 }

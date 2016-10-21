@@ -36,6 +36,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private var quickActionManager: QuickActionManager!
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        platformManager.initializePlatformWithDeviceLanguage()
+        
         logAnalyticsAppStart()
         logAnalyticsEvent(AnalyticsEventId.ApplicationLaunch(launchCount))
         
@@ -47,9 +49,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         BTAppSwitch.setReturnURLScheme(Constants.braintreePayPalUrlScheme)
-        
-        // has to be called before initializing RootViewController
-        platformManager.initializePlatformWithDeviceLanguage()
         
         logInfo("Configuring main window")
         

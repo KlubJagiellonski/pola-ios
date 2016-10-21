@@ -210,6 +210,29 @@ class UIAssembly: AssemblyType {
         container.register(PlatformSelectionViewController.self) { r in
             return PlatformSelectionViewController(platformManager: r.resolve(PlatformManager.self)!)
         }
-
+        container.register(PromoSlideshowViewController.self) { r, slideshowId in
+            return PromoSlideshowViewController(resolver: r.resolve(DiResolver.self)!, slideshowId: slideshowId)
+        }
+        container.register(PromoSlideshowModel.self) { r, slideshowId in
+            return PromoSlideshowModel(apiService: r.resolve(ApiService.self)!, storage: r.resolve(KeyValueStorage.self)!, slideshowId: slideshowId)
+        }
+        container.register(ImageStepViewController.self) { r, link, duration in
+            return ImageStepViewController(with: r.resolve(DiResolver.self)!, link: link, duration: duration)
+        }
+        container.register(VideoStepViewController.self) { r, link, annotations, additionalData in
+            return VideoStepViewController(with: r.resolve(DiResolver.self)!, link: link, annotations: annotations, additionalData: additionalData)
+        }
+        container.register(ProductStepViewController.self) { r, dataEntry in
+            return ProductStepViewController(with: r.resolve(DiResolver.self)!, dataEntry: dataEntry)
+        }
+        container.register(PromoSummaryViewController.self) { r, promoSlideshow in
+            return PromoSummaryViewController(with: r.resolve(DiResolver.self)!, promoSlideshow: promoSlideshow)
+        }
+        container.register(WebContentViewController.self) { r, webViewId in
+            return WebContentViewController(resolver: r.resolve(DiResolver.self)!, webViewId: webViewId)
+        }
+        container.register(WebContentModel.self) { r, webViewId in
+            return WebContentModel(apiService: r.resolve(ApiService.self)!, webViewId: webViewId)
+        }
     }
 }

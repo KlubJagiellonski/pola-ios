@@ -44,18 +44,23 @@ final class ProductDetailsDataSource: NSObject, UICollectionViewDataSource {
     }
     
     func updatePageCount(withNewProductsAmount newProductsAmount: Int) {
-        let oldValue = pageCount
-        pageCount += newProductsAmount
+        let oldValue = self.pageCount
+        let newPageCount = oldValue + newProductsAmount
         
-        if oldValue > pageCount || oldValue == 0 {
-            collectionView?.reloadData()
+        if oldValue > newPageCount || oldValue == 0 {
+            self.pageCount = newPageCount
+            self.collectionView?.reloadData()
         } else {
             var insertIndexPaths: [NSIndexPath] = []
-            for index in oldValue...(pageCount - 1) {
+            for index in oldValue...(newPageCount - 1) {
                 insertIndexPaths.append(NSIndexPath(forItem: index, inSection: 0))
             }
-            collectionView?.insertItemsAtIndexPaths(insertIndexPaths)
+            collectionView?.performBatchUpdates({ [unowned self] in
+                self.collectionView?.insertItemsAtIndexPaths(insertIndexPaths)
+                self.pageCount = newPageCount
+            }, completion: nil)
         }
+        
     }
     
     func reloadPageCount(withNewPageCount newPageCount: Int) {

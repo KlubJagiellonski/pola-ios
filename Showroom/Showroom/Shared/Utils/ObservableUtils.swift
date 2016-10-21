@@ -1,6 +1,7 @@
 import Foundation
 import RxSwift
 import Decodable
+import Kingfisher
 
 extension Observable where Element: Decodable {
     static func load(forKey key: String, storage: KeyValueStorage, type: StorageType) -> Observable<Element> {
@@ -25,4 +26,25 @@ extension ObservableType where E: Encodable {
             }
         }
     }
+}
+
+final class ObservableUtils {
+    static func prefetchImages(forUrls urls: [NSURL]) -> Observable<Void> {
+        return Observable<Void>.create { observer in
+            let completionHandler = {
+                (skippedResources: [Kingfisher.Resource], failedResources: [Kingfisher.Resource], completedResources: [Kingfisher.Resource]) -> () in
+                logInfo("Result, skipped: \(skippedResources), failed: \(failedResources), completed \(completedResources)")
+                observer.onNext()
+                observer.onCompleted()
+            }
+            
+            let imagePrefetcher = ImagePrefetcher(urls: urls, completionHandler: completionHandler)
+            imagePrefetcher.start()
+            
+            return AnonymousDisposable() {
+                imagePrefetcher.stop()
+            }
+        }
+    }
+
 }

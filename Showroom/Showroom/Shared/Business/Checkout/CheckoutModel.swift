@@ -167,7 +167,12 @@ final class CheckoutModel {
         return paymentHandler.makePayment(forPaymentType: state.selectedPayment.id, info: paymentInfo)
             .doOnNext { [weak self] result in
                 guard let `self` = self else { return }
+                guard let platform = self.platformManager.platform else {
+                    logError("No platform, something is wrong")
+                    return
+                }
                 self.emarsysService.sendPurchaseEvent(withOrderId: result.orderId, products: self.state.checkout.basket.products)
+                logAnalyticsTransactionEvent(with: result, products: self.state.checkout.basket.products, platform: platform)
             }.observeOn(MainScheduler.instance)
     }
     

@@ -74,14 +74,10 @@ final class SearchView: ViewSwitcher, ContentInsetHandler, UICollectionViewDeleg
         collectionView.backgroundColor = UIColor(named: .White)
         collectionView.dataSource = dataSource
         collectionView.delegate = self
-        collectionView.pagingEnabled = true
-        let flowLayout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
-        flowLayout.scrollDirection = .Horizontal
-        flowLayout.minimumLineSpacing = 0
-        flowLayout.minimumInteritemSpacing = 0
+        collectionView.configureForPaging(withDirection: .Horizontal)
         
         dimView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(SearchView.didTapDimView)))
-        dimView.backgroundColor = UIColor(named: .Dim).colorWithAlphaComponent(0.7)
+        dimView.backgroundColor = UIColor(named: .Dim)
         dimView.hidden = true
         
         headerView.addSubview(searchBar)
@@ -183,9 +179,10 @@ final class SearchView: ViewSwitcher, ContentInsetHandler, UICollectionViewDeleg
 }
 
 extension SearchView: ViewSwitcherDataSource {
-    func viewSwitcherWantsErrorInfo(view: ViewSwitcher) -> (ErrorText, ErrorImage?) {
-        return (tr(.CommonError), UIImage(asset: .Error))
+    func viewSwitcherWantsErrorView(view: ViewSwitcher) -> UIView? {
+        return ErrorView(errorText: tr(.CommonError), errorImage: UIImage(asset: .Error))
     }
+
     func viewSwitcherWantsEmptyView(view: ViewSwitcher) -> UIView? { return nil }
 }
 
