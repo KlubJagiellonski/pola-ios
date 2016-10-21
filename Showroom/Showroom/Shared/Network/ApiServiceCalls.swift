@@ -224,7 +224,9 @@ extension ApiService {
             authenticationType: .NotRequired,
             jsonData: ["email": email] as NSDictionary
         )
-        return makeCall(with: call).decode { try PaymentResult.decode($0) }
+        return makeCall(with: call).flatMap { data -> Observable<Void> in
+            return Observable.just()
+        }
     }
     
     func pushToken(with request: PushTokenRequest) -> Observable<Void> {
