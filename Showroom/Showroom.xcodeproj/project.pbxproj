@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D00C52F1DBE067300596BA5 /* ApplicationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D00C52E1DBE067300596BA5 /* ApplicationManager.swift */; };
+		1D00C5311DBE06D200596BA5 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D00C5301DBE06D200596BA5 /* Configuration.swift */; };
+		1D00C5331DBF67DE00596BA5 /* ConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D00C5321DBF67DE00596BA5 /* ConfigurationManager.swift */; };
 		1D04533E1CFDD48B001CC5A2 /* Dimensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D04533D1CFDD48B001CC5A2 /* Dimensions.swift */; };
 		1D04534A1CFDD87E001CC5A2 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1D0453461CFDD87E001CC5A2 /* Lato-Bold.ttf */; };
 		1D04534B1CFDD87E001CC5A2 /* Lato-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1D0453471CFDD87E001CC5A2 /* Lato-Heavy.ttf */; };
@@ -15,7 +18,6 @@
 		1D04534F1CFEDE74001CC5A2 /* EmarsysPredictSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D04534E1CFEDE74001CC5A2 /* EmarsysPredictSDK.framework */; };
 		1D0453511CFEE092001CC5A2 /* ProductRecommendation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0453501CFEE092001CC5A2 /* ProductRecommendation.swift */; };
 		1D0453531CFEF6F6001CC5A2 /* ObservableUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0453521CFEF6F6001CC5A2 /* ObservableUtils.swift */; };
-		1D0453551CFF033E001CC5A2 /* EmarsysService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0453541CFF033E001CC5A2 /* EmarsysService.swift */; };
 		1D0453571CFF1568001CC5A2 /* ProductRecommendationDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0453561CFF1568001CC5A2 /* ProductRecommendationDataSource.swift */; };
 		1D0453591CFF15FD001CC5A2 /* ProductRecommendationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0453581CFF15FD001CC5A2 /* ProductRecommendationCell.swift */; };
 		1D0AAF9B1D5888E1008E40C0 /* Pushwoosh.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D0AAF971D588459008E40C0 /* Pushwoosh.framework */; };
@@ -194,7 +196,6 @@
 		1D80F4811D9BEA1100DFB1C3 /* PromoPageInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D80F4801D9BEA1100DFB1C3 /* PromoPageInterface.swift */; };
 		1D80F4841D9BF5AB00DFB1C3 /* PromoSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D80F4831D9BF5AB00DFB1C3 /* PromoSummaryViewController.swift */; };
 		1D80F4861D9BF9F800DFB1C3 /* ShowPromoSlideshowEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D80F4851D9BF9F800DFB1C3 /* ShowPromoSlideshowEvent.swift */; };
-		1D84761B1D8A9234009EB212 /* PlatformManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D84761A1D8A9234009EB212 /* PlatformManager.swift */; };
 		1D84761D1D8AA695009EB212 /* PayPalOneTouch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D84761C1D8AA695009EB212 /* PayPalOneTouch.framework */; };
 		1D84761F1D8AA6CA009EB212 /* PayPalUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D84761E1D8AA6CA009EB212 /* PayPalUtils.framework */; };
 		1D8476211D8AA6F4009EB212 /* PayPalDataCollector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D8476201D8AA6F4009EB212 /* PayPalDataCollector.framework */; };
@@ -452,6 +453,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1D00C52E1DBE067300596BA5 /* ApplicationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationManager.swift; sourceTree = "<group>"; };
+		1D00C5301DBE06D200596BA5 /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		1D00C5321DBF67DE00596BA5 /* ConfigurationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationManager.swift; sourceTree = "<group>"; };
 		1D04533D1CFDD48B001CC5A2 /* Dimensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dimensions.swift; sourceTree = "<group>"; };
 		1D0453461CFDD87E001CC5A2 /* Lato-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Bold.ttf"; sourceTree = "<group>"; };
 		1D0453471CFDD87E001CC5A2 /* Lato-Heavy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Heavy.ttf"; sourceTree = "<group>"; };
@@ -460,7 +464,6 @@
 		1D04534E1CFEDE74001CC5A2 /* EmarsysPredictSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EmarsysPredictSDK.framework; path = Carthage/Build/iOS/EmarsysPredictSDK.framework; sourceTree = "<group>"; };
 		1D0453501CFEE092001CC5A2 /* ProductRecommendation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductRecommendation.swift; sourceTree = "<group>"; };
 		1D0453521CFEF6F6001CC5A2 /* ObservableUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObservableUtils.swift; sourceTree = "<group>"; };
-		1D0453541CFF033E001CC5A2 /* EmarsysService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmarsysService.swift; sourceTree = "<group>"; };
 		1D0453561CFF1568001CC5A2 /* ProductRecommendationDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductRecommendationDataSource.swift; sourceTree = "<group>"; };
 		1D0453581CFF15FD001CC5A2 /* ProductRecommendationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductRecommendationCell.swift; sourceTree = "<group>"; };
 		1D0AAF971D588459008E40C0 /* Pushwoosh.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pushwoosh.framework; path = Frameworks/Pushwoosh.framework; sourceTree = "<group>"; };
@@ -644,7 +647,6 @@
 		1D80F4801D9BEA1100DFB1C3 /* PromoPageInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromoPageInterface.swift; sourceTree = "<group>"; };
 		1D80F4831D9BF5AB00DFB1C3 /* PromoSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromoSummaryViewController.swift; sourceTree = "<group>"; };
 		1D80F4851D9BF9F800DFB1C3 /* ShowPromoSlideshowEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowPromoSlideshowEvent.swift; sourceTree = "<group>"; };
-		1D84761A1D8A9234009EB212 /* PlatformManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlatformManager.swift; sourceTree = "<group>"; };
 		1D84761C1D8AA695009EB212 /* PayPalOneTouch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PayPalOneTouch.framework; path = Carthage/Build/iOS/PayPalOneTouch.framework; sourceTree = "<group>"; };
 		1D84761E1D8AA6CA009EB212 /* PayPalUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PayPalUtils.framework; path = Carthage/Build/iOS/PayPalUtils.framework; sourceTree = "<group>"; };
 		1D8476201D8AA6F4009EB212 /* PayPalDataCollector.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PayPalDataCollector.framework; path = Carthage/Build/iOS/PayPalDataCollector.framework; sourceTree = "<group>"; };
@@ -1345,7 +1347,6 @@
 		1D72ED0D1CFC2F31007AFD2F /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				1D84761A1D8A9234009EB212 /* PlatformManager.swift */,
 				1D72ED0E1CFC2F47007AFD2F /* UserManager.swift */,
 				75C854611D05B7BF00E5F08F /* BasketManager.swift */,
 				C09367191D09AB9D004C7748 /* StorageManager.swift */,
@@ -1358,6 +1359,8 @@
 				7566CE6E1D6DE56C0065DFB3 /* VersionManager.swift */,
 				1D8476221D8AD48E009EB212 /* PaymentManager.swift */,
 				1D8476261D8AE72E009EB212 /* PrefetchingManager.swift */,
+				1D00C52E1DBE067300596BA5 /* ApplicationManager.swift */,
+				1D00C5321DBF67DE00596BA5 /* ConfigurationManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -1390,6 +1393,7 @@
 				1DF428AD1D880D1300396A0D /* Platform.swift */,
 				1D80F46B1D9BD5C900DFB1C3 /* PromoSlideshow.swift */,
 				C0D81B661DB8AC51006B8DA6 /* WebContent.swift */,
+				1D00C5301DBE06D200596BA5 /* Configuration.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1721,7 +1725,6 @@
 				1DF796781CEB369B00C7A7F4 /* NetworkClient.swift */,
 				1DF7967A1CEB39A100C7A7F4 /* ApiService.swift */,
 				1DF428AB1D87FAA000396A0D /* ApiServiceCalls.swift */,
-				1D0453541CFF033E001CC5A2 /* EmarsysService.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -2385,6 +2388,7 @@
 				C032E6E81DAE3C94000220CD /* CommonError.swift in Sources */,
 				1DAA7C671D099A9200545BB9 /* ProductDescriptionViewController.swift in Sources */,
 				1D80F4781D9BE4E900DFB1C3 /* VideoStepViewController.swift in Sources */,
+				1D00C5311DBE06D200596BA5 /* Configuration.swift in Sources */,
 				75EDE8291CFDDD2200C5F96B /* UIButtonUtils.swift in Sources */,
 				1DD1EA731CEDAE9000D99731 /* DashboardView.swift in Sources */,
 				C0E791531DA263CC00BB43D6 /* ImageStepView.swift in Sources */,
@@ -2441,6 +2445,7 @@
 				1DDCD2B61DA7CCC90045BB4A /* ImageStepPrefetcher.swift in Sources */,
 				C0A997761D66FA3B00DBF558 /* PagingInAppOnboardingView.swift in Sources */,
 				1D5E91951D3E133C00A6BD55 /* Search.swift in Sources */,
+				1D00C5331DBF67DE00596BA5 /* ConfigurationManager.swift in Sources */,
 				7520AD8C1D34DE37003FC38B /* SigningNavigationController.swift in Sources */,
 				75BB89721D300A9A00F9138D /* StartView.swift in Sources */,
 				1DF14F2C1D2AA21A004A6A3A /* ProductListEmptyView.swift in Sources */,
@@ -2474,6 +2479,7 @@
 				1D80F4841D9BF5AB00DFB1C3 /* PromoSummaryViewController.swift in Sources */,
 				1DF428B01D894AEE00396A0D /* CheckoutSummaryBrandCell.swift in Sources */,
 				C06E53581D478F61000E5B7C /* PaymentFailureViewController.swift in Sources */,
+				1D00C52F1DBE067300596BA5 /* ApplicationManager.swift in Sources */,
 				C0FE51D31D8061D200990155 /* PlatformSelectionView.swift in Sources */,
 				7520AD901D34DE37003FC38B /* RegistrationViewController.swift in Sources */,
 				1D5E919D1D3E2CFA00A6BD55 /* SearchContentDataSource.swift in Sources */,
@@ -2506,7 +2512,6 @@
 				75FE56A51D23C32800DF5356 /* ExtendedTextView.swift in Sources */,
 				C09280541D01DBA300350B82 /* ProductSizeHeaderView.swift in Sources */,
 				1DD1EA981CF2ECC200D99731 /* Navigation.swift in Sources */,
-				1D0453551CFF033E001CC5A2 /* EmarsysService.swift in Sources */,
 				1D66E4421D38D8190041D74D /* SearchNavigationController.swift in Sources */,
 				1D5F915B1D35120F00AE66E6 /* ProductFilterMultipleCell.swift in Sources */,
 				C07CF39D1D2409D8004578FD /* EditKioskModel.swift in Sources */,
@@ -2605,7 +2610,6 @@
 				1D1A7E021D2405AC009CCCE7 /* ProductItemCell.swift in Sources */,
 				1D5E91911D3CDE9A00A6BD55 /* SearchProductListView.swift in Sources */,
 				C0237D0E1D216ADC0009F2FC /* CheckoutDeliveryStackedView.swift in Sources */,
-				1D84761B1D8A9234009EB212 /* PlatformManager.swift in Sources */,
 				1D5F916A1D36508000AE66E6 /* FilterDetailsViewController.swift in Sources */,
 				1DD1EA931CF2E93900D99731 /* RootModel.swift in Sources */,
 				1D1A7E141D24F669009CCCE7 /* ShowItemForLinkEvent.swift in Sources */,

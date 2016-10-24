@@ -1,5 +1,6 @@
 import Foundation
 import RxSwift
+import EmarsysPredictSDK
 
 extension ApiService {
     func fetchContentPromo(withGender gender: Gender) -> Observable<ContentPromoResult> {
@@ -285,6 +286,33 @@ extension ApiService {
             jsonData: nil
         )
         return makeCall(with: call).decode { try WebContent.decode($0) }
+    }
+    
+    func fetchProductRecommendations() -> Observable<ProductRecommendationResult> {
+        return Observable<ProductRecommendationResult>.create { observer in
+            logInfo("Fetching product recommendations")
+            
+            let transaction = EMTransaction()
+            
+            let recommendationRequest = EMRecommendationRequest(logic: "HOME")
+            recommendationRequest.limit = Constants.recommendationItemsLimit
+            recommendationRequest.completionHandler = { result in
+                do {
+                    let productRecommendations = try result.products.map { item in try ProductRecommendation.decode(item.data) }
+                    let productRecommendationResult = ProductRecommendationResult(productRecommendations: productRecommendations)
+                    observer.onNext(productRecommendationResult)
+                } catch {
+                    observer.onError(error)
+                }
+                observer.onCompleted()
+            }
+            transaction.recommend(recommendationRequest)
+            EMSession.sharedSession().sendTransaction(transaction) { error in
+                observer.onError(error)
+                observer.onCompleted()
+            }
+            return NopDisposable.instance
+        }
     }
     
     private func wishlistRequest(with param: SingleWishlistRequest?, method: ApiServiceHttpMethod) -> Observable<WishlistResult> {

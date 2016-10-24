@@ -2,6 +2,7 @@ import Foundation
 
 final class RateAppManager {
     private let storage: KeyValueStorage
+    private let configurationManager: ConfigurationManager
     private let daysThresholdForShowingView = 14
     private let initialDateKey = "initial_rate_app_date"
     private let appRatedKey = "app_rated"
@@ -36,8 +37,13 @@ final class RateAppManager {
         return !appAlreadyRated && initialDate.numberOfDaysUntilDateTime(NSDate()) >= daysThresholdForShowingView
     }
     
-    init(storage: KeyValueStorage) {
+    var appStoreURL: NSURL? {
+        return configurationManager.configuration?.appStoreURL
+    }
+    
+    init(storage: KeyValueStorage, configurationManager: ConfigurationManager) {
         self.storage = storage
+        self.configurationManager = configurationManager
     }
 
     func didShowRateAppView() {

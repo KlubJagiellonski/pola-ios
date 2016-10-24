@@ -53,8 +53,8 @@ final class RateAppViewController: UIViewController, AlertViewDelegate {
         logAnalyticsEvent(AnalyticsEventId.ModalRateUs("rate"))
         
         manager.didSelectRateApp()
-        if let appStoreUrl = NSURL(string: Constants.appStoreUrl) {
-            application?.openURL(appStoreUrl)
+        if let appStoreURL = manager.appStoreURL {
+            application?.openURL(appStoreURL)
         }
         delegate?.rateAppWantsDismiss(self)
     }

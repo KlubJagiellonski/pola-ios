@@ -2,19 +2,10 @@ import Foundation
 import UIKit
 import JLRoutes
 
-extension Platform {
-    var brandPathComponent: String {
-        switch self {
-        case .Polish: return "marki"
-        case .German: return "marken"
-        }
-    }
-}
-
 final class CommonNavigationHandler: NavigationHandler {
     private weak var navigationController: UINavigationController?
     private let resolver: DiResolver
-    private let platformManager: PlatformManager
+    private let configurationManager: ConfigurationManager
     private let navigationDelegateHandler: CommonNavigationControllerDelegateHandler
     private let urlRouter = JLRoutes()
     
@@ -22,7 +13,7 @@ final class CommonNavigationHandler: NavigationHandler {
         self.navigationController = navigationController
         self.resolver = resolver
         self.navigationDelegateHandler = CommonNavigationControllerDelegateHandler(hideNavigationBarForFirstView: hideNavigationBarForFirstView)
-        self.platformManager = resolver.resolve(PlatformManager.self)
+        self.configurationManager = resolver.resolve(ConfigurationManager.self)
         
         navigationController.delegate = navigationDelegateHandler
         
@@ -105,7 +96,7 @@ final class CommonNavigationHandler: NavigationHandler {
             return self.handleRoutingForProductList(forProductListViewControllerType: CategoryProductListViewController.self, entryData: entryCategory)
         }
         
-        if let brandsPathComponent = platformManager.platform?.brandPathComponent {
+        if let brandsPathComponent = configurationManager.configuration?.deepLinkConfiguration.brandPathComponent {
             urlRouter.addRoute("/:host/\(brandsPathComponent)/:brandComponent") { [weak self](parameters: [NSObject: AnyObject]!) in
                 guard let `self` = self else { return false }
                 guard let brandComponent = parameters["brandComponent"] as? String else {
@@ -124,7 +115,7 @@ final class CommonNavigationHandler: NavigationHandler {
                 return self.handleRoutingForProductList(forProductListViewControllerType: BrandProductListViewController.self, entryData: entryProductBrand)
             }
         } else {
-            logError("Cannot create router for brand. No platform selected.")
+            logError("Cannot create router for brand. No configuration.")
         }
         
         urlRouter.addRoute("/:host/trend/:trendSlug") { [weak self](parameters: [NSObject: AnyObject]!) in

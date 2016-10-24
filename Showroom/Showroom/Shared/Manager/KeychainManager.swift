@@ -16,7 +16,7 @@ class KeychainManager: NSObject {
     private let sessionUserSecret = "showroom_token_user_secret"
     private let facebookTokenKey = "showroom_facebook_token"
     
-    private let platformManager: PlatformManager
+    private let configurationManager: ConfigurationManager
     
     private let secClassGenericPasswordValue = NSString(format: kSecClassGenericPassword)
     private let secClassValue = NSString(format: kSecClass)
@@ -60,8 +60,8 @@ class KeychainManager: NSObject {
         }
     }
     
-    init(platformManager: PlatformManager) {
-        self.platformManager = platformManager
+    init(configurationManager: ConfigurationManager) {
+        self.configurationManager = configurationManager
     }
     
     func setPasscode(identifier: String, passcode: String?) {
@@ -99,8 +99,8 @@ class KeychainManager: NSObject {
     }
     
     func fetchSharedWebCredentials() -> Observable<SharedWebCredential> {
-        guard let webpageUrl = platformManager.webpageUrl, let host = webpageUrl.host else {
-            logError("Cannot create webpageUrl \(platformManager.platform) \(Constants.isStagingEnv)")
+        guard let webpageUrl = configurationManager.configuration?.webPageURL, let host = webpageUrl.host else {
+            logError("Cannot create webpageUrl \(configurationManager.configuration) \(Constants.isStagingEnv)")
             return Observable.error(SharedWebCredentialsError.CannotCreateWebPageUrl)
         }
         logInfo("Fetching shared web credentials")
@@ -120,8 +120,8 @@ class KeychainManager: NSObject {
     }
     
     func addSharedWebCredentials(credentials: SharedWebCredential) -> Observable<Void> {
-        guard let webpageUrl = platformManager.webpageUrl, let host = webpageUrl.host else {
-            logError("Cannot create webpageUrl \(platformManager.platform) \(Constants.isStagingEnv)")
+        guard let webpageUrl = configurationManager.configuration?.webPageURL, let host = webpageUrl.host else {
+            logError("Cannot create webpageUrl \(configurationManager.configuration) \(Constants.isStagingEnv)")
             return Observable.error(SharedWebCredentialsError.CannotCreateWebPageUrl)
         }
         

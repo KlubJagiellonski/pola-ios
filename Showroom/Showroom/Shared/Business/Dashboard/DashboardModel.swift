@@ -5,7 +5,6 @@ import Decodable
 class DashboardModel {
     private let disposeBag = DisposeBag()
     private let apiService: ApiService
-    private let emarsysService: EmarsysService
     private let userManager: UserManager
     private let storage: KeyValueStorage
     private let prefetchingManager: PrefetchingManager
@@ -13,12 +12,11 @@ class DashboardModel {
     let triggerFetchContentPromoObservable: Observable<Void> = PublishSubject()
     let state = DashboardModelState()
     
-    init(apiService: ApiService, userManager: UserManager, storage: KeyValueStorage, prefetchingManager: PrefetchingManager, emarsysService: EmarsysService) {
+    init(apiService: ApiService, userManager: UserManager, storage: KeyValueStorage, prefetchingManager: PrefetchingManager) {
         self.apiService = apiService
         self.userManager = userManager
         self.storage = storage
         self.prefetchingManager = prefetchingManager
-        self.emarsysService = emarsysService
         
         let (contentPromoResult, recommendationsResult) = prefetchingManager.takeCachedDashboard(forGender: userManager.gender)
         if recommendationsResult != nil {
@@ -77,7 +75,7 @@ class DashboardModel {
             .map { FetchCacheResult.Success($0) }
             .catchError { Observable.just(FetchCacheResult.CacheError($0)) }
         
-        let network = emarsysService.fetchProductRecommendations()
+        let network = apiService.fetchProductRecommendations()
             .save(forKey: Constants.Cache.productRecommendationsId, storage: storage, type: .Persistent)
             .map { FetchCacheResult.Success($0) }
             .catchError { Observable.just(FetchCacheResult.NetworkError($0)) }

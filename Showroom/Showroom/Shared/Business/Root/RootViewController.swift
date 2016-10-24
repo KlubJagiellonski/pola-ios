@@ -206,7 +206,7 @@ class RootViewController: PresenterViewController, NavigationHandler {
 
         case .OnboardingEnd:
             logInfo("Onboarding end")
-            if model.platformManager.platform!.isFemaleOnly {
+            if model.shouldSelectGender {
                 // user must not be able to set gender
                 // gender will be set to default value: woman in UserManager
                 showDashboard()
@@ -278,10 +278,10 @@ extension RootViewController: ApiServiceDelegate {
         
         logInfo("Received app not support error. Showing alert")
         
-        let acceptAction: (UIAlertAction -> Void) = { _ in
+        let acceptAction: (UIAlertAction -> Void) = { [weak self]_ in
             logInfo("Showing app store")
-            if let appStoreUrl = NSURL(string: Constants.appStoreUrl) {
-                UIApplication.sharedApplication().openURL(appStoreUrl)
+            if let appStoreURL = self?.model.appStoreURL {
+                UIApplication.sharedApplication().openURL(appStoreURL)
             }
         }
         

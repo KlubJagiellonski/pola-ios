@@ -229,11 +229,7 @@ class BasketViewController: UIViewController, BasketViewDelegate {
     
     func basketView(view: BasketView, widthForDeleteActionViewForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         logInfo("Width for delete actionview for row at index path: \(indexPath)")
-        let platform = self.manager.platformManager.platform!
-        switch platform {
-        case .Polish: return 72.5
-        case .German: return 109
-        }
+        return manager.deleteActionWidth ?? 0
     }
     
     func viewSwitcherDidTapRetry(view: ViewSwitcher) {

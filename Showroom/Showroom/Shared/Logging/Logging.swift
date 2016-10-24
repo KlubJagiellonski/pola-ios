@@ -1,6 +1,7 @@
 import Foundation
 import XCGLogger
 import Crashlytics
+import Fabric
 
 func logInfo(text: String, functionName: StaticString = #function, fileName: StaticString = #file, lineNumber: Int = #line) {
     Logging.info(text, functionName: functionName, fileName: fileName, lineNumber: lineNumber)
@@ -32,6 +33,7 @@ final class Logging {
             fileLogLevel: nil)
 
         if !isDebug {
+            Fabric.with([Crashlytics.self])
             xcgLogger.addLogDestination(CrashlyticsLogDestination(owner: xcgLogger))
         }
     }

@@ -1,6 +1,11 @@
 import Foundation
 import Decodable
 
+enum Gender: String {
+    case Male = "Male"
+    case Female = "Female"
+}
+
 struct User {
     let id: Int
     let name: String

@@ -6,14 +6,12 @@ final class PrefetchingManager {
     private let recommendationPrefetchImageLimit = 4
     
     private let api: ApiService
-    private let emarsysService: EmarsysService
     private let storage: KeyValueStorage
     private var contentPromoPrefetcher: DataPrefetcher<ContentPromoResult>?
     private var recommendationsPrefetcher: DataPrefetcher<ProductRecommendationResult>?
     
-    init(api: ApiService, emarsysService: EmarsysService, storage: KeyValueStorage) {
+    init(api: ApiService, storage: KeyValueStorage) {
         self.api = api
-        self.emarsysService = emarsysService
         self.storage = storage
     }
     
@@ -33,7 +31,7 @@ final class PrefetchingManager {
             }
             return urls
         }
-        recommendationsPrefetcher = DataPrefetcher(storage: storage, cacheId: Constants.Cache.productRecommendationsId, dataObservable: self.emarsysService.fetchProductRecommendations()) { result in
+        recommendationsPrefetcher = DataPrefetcher(storage: storage, cacheId: Constants.Cache.productRecommendationsId, dataObservable: self.api.fetchProductRecommendations()) { result in
             var urls: [NSURL] = []
             for recommendation in result.productRecommendations {
                 let imageSize = UIImageView.scaledImageSize(Dimensions.recommendationItemSize.width)

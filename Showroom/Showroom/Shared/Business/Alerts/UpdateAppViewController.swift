@@ -40,8 +40,8 @@ final class UpdateAppViewController: UIViewController, AlertViewDelegate {
         logAnalyticsEvent(AnalyticsEventId.ModalUpdate("update"))
         
         manager.didSelectUpdate()
-        if let appStoreUrl = NSURL(string: Constants.appStoreUrl) {
-            application?.openURL(appStoreUrl)
+        if let appStoreURL = manager.appStoreURL {
+            application?.openURL(appStoreURL)
         }
         delegate?.updateAppWantsDismiss(self)
     }

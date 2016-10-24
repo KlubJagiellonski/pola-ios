@@ -2,13 +2,10 @@ import Foundation
 import GoogleAnalytics
 import FBSDKCoreKit
 import Crashlytics
+import EmarsysPredictSDK
 
 func logAnalyticsAppStart() {
     Analytics.sharedInstance.sendAppStartEvent()
-}
-
-func logAnalyticsAppStartConversion(platform: Platform) {
-    Analytics.sharedInstance.sendAppStartConversion(with: platform)
 }
 
 func logAnalyticsRegistration() {
@@ -23,8 +20,8 @@ func logAnalyticsEvent(eventId: AnalyticsEventId) {
     Analytics.sharedInstance.sendEvent(eventId)
 }
 
-func logAnalyticsTransactionEvent(with payment: PaymentResult, products: [BasketProduct], platform: Platform) {
-    Analytics.sharedInstance.sendAnalyticsTransactionEvent(with: payment, products: products, platform: platform)
+func logAnalyticsTransactionEvent(with payment: PaymentResult, products: [BasketProduct]) {
+    Analytics.sharedInstance.sendAnalyticsTransactionEvent(with: payment, products: products)
 }
 
 enum AnalyticsScreenId: String {
@@ -75,13 +72,14 @@ enum AnalyticsEventId: RawRepresentable {
     case SearchMainMenuClick(String)
     case SearchMenuTreeClick(String)
     case SearchMenuClick(String)
-    case Search(String, Bool)
+    case Search(String)
     case CartDiscountSubmitted(String)
     case CartProductDeleted(ObjectId)
     case CartQuantityChanged(ObjectId)
     case CartCountryChanged(String)
     case CartDeliveryMethodChanged(ObjectId)
     case CartGoToCheckoutClicked(Money)
+    case CartChanged(Basket)
     case WishlistProductClicked(ObjectId)
     case WishlistProductDeleted(ObjectId)
     case ProfileWebViewLinkClicked(String)
@@ -91,7 +89,9 @@ enum AnalyticsEventId: RawRepresentable {
     case ProfileGenderChoice(String)
     case ProfileLogoutClicked
     case ProfileNotifications
-    case ListBrandDetails(ObjectId)
+    case ListOpen(String)
+    case ListBrand(String)
+    case ListBrandDetails(ObjectId, String)
     case ListNextPage
     case ListProductClicked(ObjectId)
     case ListAddToWishlist(ObjectId, Money)
@@ -181,8 +181,13 @@ enum AnalyticsEventId: RawRepresentable {
             return [GoogleAnalyticsEvent(category: "browse", action: "tree_menu_click", label: label, value: nil)]
         case SearchMenuClick(let link):
             return [GoogleAnalyticsEvent(category: "browse", action: "menu_click", label: link, value: nil)]
-        case Search(let query, let isChanged):
-            return [GoogleAnalyticsEvent(category: "browse", action: "search", label: query, value: isChanged ? 1 : 0)]
+        case Search(let query):
+            let emarsysTransaction = EMTransaction()
+            emarsysTransaction.setSearchTerm(query)
+            return [
+                GoogleAnalyticsEvent(category: "browse", action: "search", label: query, value: nil),
+                EmarsysEvent(transaction: emarsysTransaction)
+            ]
         case CartDiscountSubmitted(let coupon):
             return [GoogleAnalyticsEvent(category: "cart", action: "coupon_submit", label: coupon, value: nil)]
         case CartProductDeleted(let id):
@@ -195,6 +200,18 @@ enum AnalyticsEventId: RawRepresentable {
             return [GoogleAnalyticsEvent(category: "cart", action: "delivery_changed", label: String(id), value: nil)]
         case CartGoToCheckoutClicked(let cartValue):
             return [GoogleAnalyticsEvent(category: "cart", action: "go_to_checkout", label: String(cartValue.amount), value: nil)]
+        case CartChanged(let basket):
+            let transaction = EMTransaction()
+            
+            var cartItems: [EMCartItem] = []
+            for productsByBrand in basket.productsByBrands {
+                for product in productsByBrand.products {
+                    cartItems.append(EMCartItem(itemID: String(product.id), price: Float(product.price.amount), quantity: Int32(product.amount)))
+                }
+            }
+            
+            transaction.setCart(cartItems)
+            return [EmarsysEvent(transaction: transaction)]
         case WishlistProductClicked(let id):
             return [GoogleAnalyticsEvent(category: "wishlist", action: "product_click", label: String(id), value: nil)]
         case WishlistProductDeleted(let id):
@@ -213,8 +230,16 @@ enum AnalyticsEventId: RawRepresentable {
             return [GoogleAnalyticsEvent(category: "profile", action: "logout", label: nil, value: nil)]
         case ProfileNotifications:
             return [GoogleAnalyticsEvent(category: "profile", action: "ask_notifications", label: nil, value: nil)]
+        case ListOpen(let emarsysCategory):
+            let transaction = EMTransaction()
+            transaction.setCategory(emarsysCategory)
+            return [EmarsysEvent(transaction: transaction)]
+        case ListBrand(let brandName):
+            let emarsysTransaction = EMTransaction()
+            emarsysTransaction.setKeyword(brandName)
+            return [EmarsysEvent(transaction: emarsysTransaction)]
         case ListBrandDetails(let brandId):
-            return [GoogleAnalyticsEvent(category: "listing", action: "designer_details", label: String(brandId), value: nil)]
+            return [GoogleAnalyticsEvent(category: "listing", action: "designer_details", label: String(brandId), value: nil),]
         case ListNextPage():
             return [GoogleAnalyticsEvent(category: "listing", action: "list_scroll", label: nil, value: nil)]
         case ListProductClicked(let id):
@@ -243,8 +268,11 @@ enum AnalyticsEventId: RawRepresentable {
                 FBSDKAppEventParameterNameContentType: "product",
                 FBSDKAppEventParameterNameCurrency: value.currency.eanValue
             ]
+            let emarsysTransaction = EMTransaction()
+            emarsysTransaction.setView(String(id))
             return [
-                FacebookAnalyticsEvent(id: FBSDKAppEventNameViewedContent, params: facebookParams, valueToSum: value.amount)
+                FacebookAnalyticsEvent(id: FBSDKAppEventNameViewedContent, params: facebookParams, valueToSum: value.amount),
+                EmarsysEvent(transaction: emarsysTransaction)
             ]
         case ProductAddToWishlist(let id, let value):
             let facebookParams = [
@@ -395,32 +423,48 @@ struct FacebookAnalyticsEvent: AnalyticsEvent {
     let valueToSum: NSNumber?
 }
 
+struct EmarsysEvent: AnalyticsEvent {
+    let transaction: EMTransaction
+}
+
 final class Analytics {
     static let sharedInstance = Analytics()
     
     private var tracker: GAITracker?
     private let optimiseManager = OMGSDK.sharedManager()
+    private let emarsysSession = EMSession.sharedSession()
     private let affilationKey = "affilation_key"
-    
-    var userId: String? {
-        set { tracker?.set(kGAIUserId, value: newValue) }
-        get { return tracker?.get(kGAIUserId) }
-    }
     
     var affilation: String? {
         set { NSUserDefaults.standardUserDefaults().setObject(newValue, forKey: affilationKey) }
         get { return NSUserDefaults.standardUserDefaults().objectForKey(affilationKey) as? String }
     }
     
+    var configuration: AnalyticsConfiguration? {
+        didSet {
+            guard let configuration = configuration else { return }
+            
+            tracker = GAI.sharedInstance().trackerWithTrackingId(configuration.googleTrackingId)
+            
+            optimiseManager.setApplicationKey(configuration.optimiseApiKey)
+            optimiseManager.setMID(configuration.optimiseMerchantId)
+            
+            emarsysSession.merchantID = configuration.emarsysMerchantId
+        }
+    }
+    
+    var user: User? {
+        didSet {
+            emarsysSession.customerID = user == nil ? nil : String(user!.id)
+            emarsysSession.customerEmail = user?.email
+            tracker?.set(kGAIUserId, value: user == nil ? nil : String(user!.id))
+        }
+    }
+    
     init() {
         GAI.sharedInstance().logger.logLevel = Constants.isDebug ? GAILogLevel.Info : GAILogLevel.Error
         
-        optimiseManager.setApplicationKey(Constants.optimiseApiKey)
-        optimiseManager.setMID(Constants.optimiseMerchantId)
-    }
-    
-    func didChange(platform platform: Platform) {
-        self.tracker = GAI.sharedInstance().trackerWithTrackingId(platform.googleAnalyticsTrackingId)
+        emarsysSession.logLevel = Constants.isDebug ? .Debug : .Warning
     }
     
     func sendScreenViewEvent(screenId: AnalyticsScreenId) {
@@ -438,22 +482,29 @@ final class Analytics {
                 tracker?.send(googleEvent.analyticsData)
             case let facebookEvent as FacebookAnalyticsEvent:
                 FBSDKAppEvents.logEvent(facebookEvent.id, valueToSum: facebookEvent.valueToSum, parameters: facebookEvent.params, accessToken: FBSDKAccessToken.currentAccessToken())
+            case let emarsysEvent as EmarsysEvent:
+                emarsysSession.sendTransaction(emarsysEvent.transaction) { error in logInfo("Could not send sendViewEvent, error \(error)") }
             default: continue
             }
         }
         
     }
     
-    func sendAnalyticsTransactionEvent(with payment: PaymentResult, products: [BasketProduct], platform: Platform) {
+    func sendAnalyticsTransactionEvent(with payment: PaymentResult, products: [BasketProduct]) {
+        guard let configuration = configuration else {
+            logError("Cannot log transaction event because configuration not set")
+            return
+        }
+        
         let moneyFormatter = MathMoneyFormatter(showGroupingSeparator: false)
         let paymentAmountString = moneyFormatter.stringForObjectValue(payment.amount.doubleValue) ?? String(payment.amount.doubleValue)
         
         // sending addword converson
-        ACTConversionReporter.reportWithConversionID(platform.conversionId, label: platform.conversionTransactionLabel, value: paymentAmountString, isRepeatable: true)
+        ACTConversionReporter.reportWithConversionID(configuration.googleConversionId, label: configuration.googleConversionTransactionLabel, value: paymentAmountString, isRepeatable: true)
         
         // sending optimise
         for product in products {
-            optimiseManager.trackEventWhereAppID(String(payment.orderId), pid: Constants.optimiseTrackSaleProductId, status: paymentAmountString, currency: payment.currency, ex1: "Sale", ex2: String(product.id), ex3: nil, ex4: nil, ex5: nil)
+            optimiseManager.trackEventWhereAppID(String(payment.orderId), pid: configuration.optimiseTrackSaleProductId, status: paymentAmountString, currency: payment.currency, ex1: "Sale", ex2: String(product.id), ex3: nil, ex4: nil, ex5: nil)
         }
         
         // sending facebook
@@ -489,56 +540,36 @@ final class Analytics {
             tracker?.send(item as [NSObject: AnyObject])
         }
         
+        // sending emarsys
+        
+        let cartItems: [EMCartItem] = products.map { product in
+            return EMCartItem(itemID: String(product.id), price: Float(product.sumPrice?.amount ?? 0), quantity: Int32(product.amount))
+        }
+        
+        let emarsysTransaction = EMTransaction()
+        emarsysTransaction.setPurchase(payment.orderId, ofItems: cartItems)
+        emarsysSession.sendTransaction(emarsysTransaction) { error in
+            logInfo("Could not send purchase event, error \(error)")
+        }
+        
         affilation = nil
     }
     
     func sendAppStartEvent() {
-        optimiseManager.trackInstallWhereAppID(nil, pid: Constants.optimiseTrackInstallProductId, deepLink: false, ex1: "Install", ex2: nil, ex3: nil, ex4: nil, ex5: nil)
-    }
-    
-    func sendAppStartConversion(with platform: Platform) {
-        ACTConversionReporter.reportWithConversionID(platform.conversionId, label: platform.conversionAppStartLabel, value: "0.00", isRepeatable: false)
+        guard let configuration = configuration else {
+            logError("Cannot send app start event because configuration not set")
+            return
+        }
+        optimiseManager.trackInstallWhereAppID(nil, pid: configuration.optimiseTrackInstallProductId, deepLink: false, ex1: "Install", ex2: nil, ex3: nil, ex4: nil, ex5: nil)
+        ACTConversionReporter.reportWithConversionID(configuration.googleConversionId, label: configuration.googleConversionAppStartLabel, value: "0.00", isRepeatable: false)
     }
     
     func sendRegistrationEvent() {
-        optimiseManager.trackEventWhereAppID(nil, pid: Constants.optimiseTrackRegistrationProductId, status: "1", currency: nil, ex1: "Registration", ex2: nil, ex3: nil, ex4: nil, ex5: nil)
-    }
-}
-
-extension Platform {
-    private var conversionId: String {
-        switch self {
-        case .German:
-            return Constants.deConversionId
-        case .Polish:
-            return Constants.conversionId
+        guard let configuration = configuration else {
+            logError("Cannot send registration event because configuration not set")
+            return
         }
-    }
-    
-    private var conversionAppStartLabel: String {
-        switch self {
-        case .German:
-            return Constants.deConversionAppStartLabel
-        case .Polish:
-            return Constants.conversionAppStartLabel
-        }
-    }
-    
-    private var conversionTransactionLabel: String {
-        switch self {
-        case .German:
-            return Constants.deConversionTransactionLabel
-        case .Polish:
-            return Constants.conversionTransactionLabel
-        }
-    }
-    
-    private var googleAnalyticsTrackingId: String {
-        switch self {
-        case .German:
-            return Constants.deGoogleAnalyticsTrackingId
-        case .Polish:
-            return Constants.googleAnalyticsTrackingId
-        }
+        
+        optimiseManager.trackEventWhereAppID(nil, pid: configuration.optimiseTrackRegistrationProductId, status: "1", currency: nil, ex1: "Registration", ex2: nil, ex3: nil, ex4: nil, ex5: nil)
     }
 }

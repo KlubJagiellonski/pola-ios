@@ -21,10 +21,10 @@ extension Platform {
         }
     }
     
-    var isFemaleOnly: Bool {
+    var languageCode: String {
         switch self {
-        case Polish: return false
-        case German: return true
+        case Polish: return "pl"
+        case German: return "de"
         }
     }
 }

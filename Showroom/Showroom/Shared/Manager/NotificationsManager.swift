@@ -91,46 +91,46 @@ final class NotificationsManager {
     
     weak var delegate: NotificationsManagerDelegate?
     
-    init(with api: ApiService, application: UIApplication, storage: KeyValueStorage, platformManager: PlatformManager) {
+    init(with api: ApiService, application: UIApplication, storage: KeyValueStorage, userManager: UserManager, configurationManager: ConfigurationManager) {
         self.api = api
         self.application = application
         self.storage = storage
         
         pushWooshManagerDelegateHandler.manager = self
         
-        if let platform = platformManager.platform {
-            configure(forPlatform: platform)
-        }
+        configurationManager.configurationObservable.subscribeNext { [unowned self] configuration in
+            self.configure(with: configuration)
+        }.addDisposableTo(disposeBag)
         
-        platformManager.platformObservable.subscribeNext { [weak self] platform in
-            self?.configure(forPlatform: platform, informAboutAppLaunch: true)
+        userManager.userObservable.subscribeNext { [unowned self] user in
+            self.emarsysContactUpdate(withUser: user, gender: userManager.gender)
+        }.addDisposableTo(disposeBag)
+        
+        userManager.authenticatedObservable.subscribeNext { [unowned self] isAuthenticated in
+            if !isAuthenticated {
+                self.emarsysLogout()
+            }
         }.addDisposableTo(disposeBag)
     }
     
-    private func configure(forPlatform platform: Platform, informAboutAppLaunch: Bool = false) {
-        PushNotificationManager.initializeWithAppCode(platform.pushwooshAppId, appName: NSBundle.appDisplayName)
+    private func configure(with configuration: Configuration) {
+        PushNotificationManager.initializeWithAppCode(configuration.emarsysConfiguration.pushwooshAppId, appName: NSBundle.appDisplayName)
         let pushWooshManager = PushNotificationManager.pushManager()
         pushWooshManager.delegate = pushWooshManagerDelegateHandler
         
-        EmarsysManager.setApplicationID(platform.pushwooshAppId)
-        EmarsysManager.setApplicationPassword(platform.emarsysApplicationPassword)
+        EmarsysManager.setApplicationID(configuration.emarsysConfiguration.pushwooshAppId)
+        EmarsysManager.setApplicationPassword(configuration.emarsysConfiguration.pushPassword)
         EmarsysManager.setCustomerHWID(pushWooshManager.getHWID())
         
-        if informAboutAppLaunch {
-            pushWooshManager.sendAppOpen()
-            EmarsysManager.appLaunch()
-        }
+        pushWooshManager.sendAppOpen()
+        EmarsysManager.appLaunch()
         
         self.pushWooshManager = pushWooshManager
     }
     
-    func applicationDidFinishLaunching(withLaunchOptions launchOptions: [NSObject: AnyObject]?) {
+    func didFinishAppLaunching(withLaunchOptions launchOptions: [NSObject: AnyObject]?) {
         logInfo("Did finish launching with options")
-        if let pushWooshManager = pushWooshManager {
-            EmarsysManager.appLaunch()
-            pushWooshManager.handlePushReceived(launchOptions)
-            pushWooshManager.sendAppOpen()
-        }
+        pushWooshManager?.handlePushReceived(launchOptions)
         
         if isRegistered && !userAlreadyAskedForNotificationsPermission {
             userAlreadyAskedForNotificationsPermission = true
@@ -205,6 +205,25 @@ final class NotificationsManager {
     
     func didSelectRemindLater() {
         logInfo("Did select remind later")
+    }
+    
+    private func emarsysContactUpdate(withUser user: User?, gender: Gender?) {
+        logInfo("Contact update \(user), gender \(gender)")
+        if let user = user, let gender = gender {
+            let contactData = [
+                "1": user.name,
+                "3": user.email,
+                "5": NSNumber(integer: gender.emarsysValue)
+            ]
+            EmarsysManager.contactUpdate(contactData, mergeID: 3)
+        } else {
+            EmarsysManager.contactUpdate(mergeID: nil)
+        }
+    }
+    
+    private func emarsysLogout() {
+        logInfo("EmarsysManager logout")
+        EmarsysManager.logout()
     }
 }
 
@@ -287,22 +306,13 @@ final class PushWooshManagerDelegateHandler: NSObject, PushNotificationDelegate 
     }
 }
 
-extension Platform {
-    private var pushwooshAppId: String {
+extension Gender {
+    private var emarsysValue: Int {
         switch self {
-        case .Polish:
-            return Constants.pushWooshAppId
-        case .German:
-            return Constants.dePushWooshAppId
-        }
-    }
-    
-    var emarsysApplicationPassword: String {
-        switch self {
-        case .Polish:
-            return Constants.emarsysPushPassword
-        case .German:
-            return Constants.deEmarsysPushPassword
+        case .Female:
+            return 2
+        case .Male:
+            return 1
         }
     }
 }

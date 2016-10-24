@@ -1,13 +1,13 @@
 import UIKit
 
-class PlatformSelectionViewController: UIViewController, PlatformSelectionViewDelegate {
+final class PlatformSelectionViewController: UIViewController, PlatformSelectionViewDelegate {
     
     private var castView: PlatformSelectionView { return view as! PlatformSelectionView }
     
-    let platformManager: PlatformManager
+    private let configurationManager: ConfigurationManager
     
-    init(platformManager: PlatformManager) {
-        self.platformManager = platformManager
+    init(configurationManager: ConfigurationManager) {
+        self.configurationManager = configurationManager
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -26,13 +26,13 @@ class PlatformSelectionViewController: UIViewController, PlatformSelectionViewDe
     
     func platformSelectionViewDidTapPolish(view: PlatformSelectionView) {
         logInfo("platform selection view did tap polish")
-        platformManager.platform = .Polish
+        configurationManager.platform = .Polish
         sendNavigationEvent(SimpleNavigationEvent(type: .PlatformSelectionEnd))
     }
     
     func platformSelectionViewDidTapGerman(view: PlatformSelectionView) {
         logInfo("platform selection view did tap german")
-        platformManager.platform = .German
+        configurationManager.platform = .German
         sendNavigationEvent(SimpleNavigationEvent(type: .PlatformSelectionEnd))
     }
 }

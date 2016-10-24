@@ -13,6 +13,7 @@ final class VersionManager {
     
     private let api: ApiService
     private let storage: KeyValueStorage
+    private let configurationManager: ConfigurationManager
     
     private let installedVersion: String
     private var latestVersion: String
@@ -69,11 +70,16 @@ final class VersionManager {
             && initialDate.numberOfDaysUntilDateTime(NSDate()) >= daysThresholdForShowingView
     }
     
-    init(api: ApiService, storage: KeyValueStorage) {
+    var appStoreURL: NSURL? {
+        return configurationManager.configuration?.appStoreURL
+    }
+    
+    init(api: ApiService, storage: KeyValueStorage, configurationManager: ConfigurationManager) {
         self.api = api
         self.storage = storage
         self.installedVersion = VersionManager.checkInstalledVersion()
         self.latestVersion = self.installedVersion
+        self.configurationManager = configurationManager
     }
     
     class func checkInstalledVersion() -> String {

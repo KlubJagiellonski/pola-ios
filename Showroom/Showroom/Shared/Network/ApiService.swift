@@ -21,17 +21,10 @@ class ApiService {
     private let networkClient: NetworkClient
     weak var dataSource: ApiServiceDataSource?
     weak var delegate: ApiServiceDelegate?
-    var configuration: ApiServiceConfiguration? {
+    var basePath: String? {
         didSet {
             networkClient.invalidateSession()
         }
-    }
-    
-    var basePath: String? {
-        guard let configuration = configuration else {
-            return nil
-        }
-        return configuration.path
     }
     
     init(networkClient: NetworkClient) {
@@ -108,30 +101,6 @@ struct ApiServiceCall {
     let httpMethod: ApiServiceHttpMethod
     let authenticationType: ApiServiceAuthenticationType
     let jsonData: AnyObject?
-}
-
-// MARK:- Configuration
-
-enum ApiServiceVersion: String {
-    case V1 = "v1"
-    case V2 = "v2"
-}
-
-struct ApiServiceConfiguration {
-    let isStagingEnv: Bool
-    let platform: Platform
-    let version: ApiServiceVersion
-    
-    var path: String {
-        let typeComponent = isStagingEnv ? "api-test" : "api"
-        return "https://\(typeComponent).showroom.\(platform.code)/ios/\(version.rawValue)"
-    }
-    
-    init(platform: Platform, isStagingEnv: Bool = Constants.isStagingEnv, version: ApiServiceVersion = .V2) {
-        self.isStagingEnv = isStagingEnv
-        self.platform = platform
-        self.version = version
-    }
 }
 
 // MARK:- Utilities

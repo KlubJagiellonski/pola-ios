@@ -14,12 +14,12 @@ class RootModel {
     let rateAppManager: RateAppManager
     let notificationManager: NotificationsManager
     let versionManager: VersionManager
-    let platformManager: PlatformManager
     private let prefetchingManager: PrefetchingManager
     private let storage: KeyValueStorage
+    private let configurationManager: ConfigurationManager
     
     var startChildType: RootChildType {
-        if !platformManager.shouldSkipPlatformSelection {
+        if !configurationManager.shouldSkipPlatformSelection {
             return .PlatformSelection
         } else if !shouldSkipStartScreen {
             return .Onboarding
@@ -49,15 +49,23 @@ class RootModel {
         }
     }
     
-    init(with userManager: UserManager, apiService: ApiService, rateAppManager: RateAppManager, notificationManager: NotificationsManager, versionManager: VersionManager, platformManager: PlatformManager, prefetchingManager: PrefetchingManager, storage: KeyValueStorage) {
+    var appStoreURL: NSURL? {
+        return configurationManager.configuration?.appStoreURL
+    }
+    
+    var shouldSelectGender: Bool {
+        return (configurationManager.configuration?.availableGenders.count > 1) ?? false
+    }
+    
+    init(with userManager: UserManager, apiService: ApiService, rateAppManager: RateAppManager, notificationManager: NotificationsManager, versionManager: VersionManager, prefetchingManager: PrefetchingManager, storage: KeyValueStorage, configurationManager: ConfigurationManager) {
         self.userManager = userManager
         self.apiService = apiService
         self.rateAppManager = rateAppManager
         self.notificationManager = notificationManager
         self.versionManager = versionManager
-        self.platformManager = platformManager
         self.prefetchingManager = prefetchingManager
         self.storage = storage
+        self.configurationManager = configurationManager
     }
     
     func willShowInitialOnboarding() {
