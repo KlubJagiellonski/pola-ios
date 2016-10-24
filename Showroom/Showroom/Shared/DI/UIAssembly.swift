@@ -216,17 +216,17 @@ class UIAssembly: AssemblyType {
         container.register(PromoSlideshowModel.self) { r, slideshowId in
             return PromoSlideshowModel(apiService: r.resolve(ApiService.self)!, storage: r.resolve(KeyValueStorage.self)!, slideshowId: slideshowId)
         }
-        container.register(ImageStepViewController.self) { r, link, duration in
-            return ImageStepViewController(with: r.resolve(DiResolver.self)!, link: link, duration: duration)
+        container.register(ImageStepViewController.self) { r, link, duration, pageState in
+            return ImageStepViewController(with: r.resolve(DiResolver.self)!, link: link, duration: duration, pageState: pageState)
         }
-        container.register(VideoStepViewController.self) { r, link, annotations, additionalData in
-            return VideoStepViewController(with: r.resolve(DiResolver.self)!, link: link, annotations: annotations, additionalData: additionalData)
+        container.register(VideoStepViewController.self) { r, link, annotations, additionalData, pageState in
+            return VideoStepViewController(with: r.resolve(DiResolver.self)!, link: link, annotations: annotations, additionalData: additionalData, pageState: pageState)
         }
-        container.register(ProductStepViewController.self) { r, dataEntry in
-            return ProductStepViewController(with: r.resolve(DiResolver.self)!, dataEntry: dataEntry)
+        container.register(ProductStepViewController.self) { r, dataEntry, pageState in
+            return ProductStepViewController(with: r.resolve(DiResolver.self)!, dataEntry: dataEntry, pageState: pageState)
         }
-        container.register(PromoSummaryViewController.self) { r, promoSlideshow in
-            return PromoSummaryViewController(with: r.resolve(DiResolver.self)!, promoSlideshow: promoSlideshow)
+        container.register(PromoSummaryViewController.self) { r, promoSlideshow, pageState in
+            return PromoSummaryViewController(with: r.resolve(DiResolver.self)!, promoSlideshow: promoSlideshow, pageState: pageState)
         }
         container.register(WebContentViewController.self) { r, webViewId in
             return WebContentViewController(resolver: r.resolve(DiResolver.self)!, webViewId: webViewId)

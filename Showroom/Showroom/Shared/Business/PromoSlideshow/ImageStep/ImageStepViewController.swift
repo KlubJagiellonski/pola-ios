@@ -11,23 +11,20 @@ final class ImageStepViewController: UIViewController, PromoPageInterface, Image
     }()
     private var castView: ImageStepView { return view as! ImageStepView }
     private var firstLayoutSubviewsPassed = false
-    var focused: Bool = false {
-        didSet {
-            logInfo("focused did set: \(focused)")
-            if focused && castView.isImageDownloaded {
-                timer.play()
-            } else {
-                timer.pause()
-            }
-        }
-    }
     var shouldShowProgressViewInPauseState: Bool { return true }
     
     weak var pageDelegate: PromoPageDelegate?
     
-    init(with resolver: DiResolver, link: String, duration: Int) {
+    var pageState: PromoPageState {
+        didSet {
+            set(focused: pageState.focused, playing: pageState.playing)
+        }
+    }
+    
+    init(with resolver: DiResolver, link: String, duration: Int, pageState: PromoPageState) {
         self.link = link
         self.duration = duration
+        self.pageState = pageState
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -52,12 +49,24 @@ final class ImageStepViewController: UIViewController, PromoPageInterface, Image
         }
     }
     
+    func set(focused focused: Bool, playing: Bool) {
+        logInfo("set focused: \(focused), playing: \(playing)")
+        if focused && playing && castView.isImageDownloaded {
+            timer.play()
+        } else if focused && !playing {
+            timer.pause()
+            pageDelegate?.promoPage(self, didChangeCurrentProgress: timer.progress)
+        } else if !focused || !castView.isImageDownloaded {
+            timer.pause()
+        }
+    }
+    
     // MARK:- ImageStepViewDelegate
     
     func imageStepViewDidDownloadImage(view: ImageStepView) {
         logInfo("image step view did download image")
         pageDelegate?.promoPageDidDownloadAllData(self)
-        if focused {
+        if pageState.focused {
             timer.play()
         }
     }

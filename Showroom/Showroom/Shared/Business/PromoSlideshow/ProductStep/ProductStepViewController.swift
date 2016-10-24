@@ -11,25 +11,22 @@ final class ProductStepViewController: ProductPageViewController, ProductPageVie
     private let playAfterAddToBasketDelay = 1.0
     
     weak var pageDelegate: PromoPageDelegate?
-    var focused: Bool = false {
-        didSet {
-            logInfo("focused did set: \(focused)")
-            if focused && (previewOverlay?.enabled ?? false) {
-                timer.play()
-            } else if !focused {
-                timer.pause()
-            }
-        }
-    }
-    var shouldShowProgressViewInPauseState: Bool { return false }
+    var shouldShowProgressViewInPauseState: Bool { return true }
     
     private weak var previewOverlay: ProductPagePreviewOverlayView?
     private let timer: Timer
     private let videoId: ObjectId
     
-    init(with resolver: DiResolver, dataEntry: ProductStepDataEntry) {
+    var pageState: PromoPageState {
+        didSet {
+            set(focused: pageState.focused, playing: pageState.playing)
+        }
+    }
+    
+    init(with resolver: DiResolver, dataEntry: ProductStepDataEntry, pageState: PromoPageState) {
         self.timer = Timer(duration: dataEntry.duration, stepInterval: Constants.promoSlideshowTimerStepInterval)
         self.videoId = dataEntry.videoId
+        self.pageState = pageState
         super.init(resolver: resolver, productId: dataEntry.product.id, product: Product(product: dataEntry.product))
         
         delegate = self
@@ -43,7 +40,22 @@ final class ProductStepViewController: ProductPageViewController, ProductPageVie
     override func viewDidLoad() {
         super.viewDidLoad()
         castView.previewOverlayView = createAndConfigureOverlayView()
-        castView.previewMode = true
+        castView.previewMode = pageState.playing
+    }
+    
+    private func set(focused focused: Bool, playing: Bool) {
+        logInfo("set focused: \(focused), playing: \(playing)")
+        if focused && playing {
+            timer.play()
+        } else if focused && !playing {
+            timer.pause()
+            pageDelegate?.promoPage(self, didChangeCurrentProgress: timer.progress)
+        } else {
+            timer.pause()
+        }
+
+        castView.update(withPreviewModeEnabled: playing, animationDuration: nil)
+        previewOverlay?.update(withEnabled: playing, animationDuration: nil)
     }
     
     override func pageView(pageView: ProductPageView, didDownloadFirstImageWithSuccess success: Bool) {
@@ -61,6 +73,7 @@ final class ProductStepViewController: ProductPageViewController, ProductPageVie
         let bottomBarHeight = self.castView.descriptionViewInterface?.headerButtonSectionHeight ?? 0
         logInfo("Creating preview overlay view with bottom bar height \(bottomBarHeight)")
         let view = ProductPagePreviewOverlayView(bottomBarHeight: bottomBarHeight)
+        view.update(withEnabled: pageState.playing, animationDuration: nil)
         view.update(withWishlistButtonSelected: self.model.isOnWishlist)
         view.delegate = self
         previewOverlay = view

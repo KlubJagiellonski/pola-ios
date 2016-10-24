@@ -5,6 +5,7 @@ protocol PromoSlideshowViewDelegate: ViewSwitcherDelegate {
     func promoSlideshowDidTapClose(promoSlideshow: PromoSlideshowView)
     func promoSlideshowWillBeginPageChanging(promoSlideshow: PromoSlideshowView)
     func promoSlideshowDidEndPageChanging(promoSlideshow: PromoSlideshowView, fromUserAction: Bool)
+    func promoSlideshowView(promoSlideshow: PromoSlideshowView, didChangePlayingState playing: Bool)
 }
 
 enum PromoSlideshowCloseButtonState {
@@ -43,11 +44,16 @@ final class PromoSlideshowView: UIView, UICollectionViewDelegate, ModalPanDismis
     var progressEnded = false {
         didSet {
             progressView.alpha = shouldProgressBeVisible ? 1 : 0
-            collectionView.scrollEnabled = (!progressEnded && viewState == .Playing)
+            collectionView.scrollEnabled = !progressEnded && viewState != .PausedWithDetailContent && viewState != .PausedWithFullscreenContent
         }
     }
     var viewState: PromoPageViewState = .Playing {
         didSet {
+            logInfo("view state: \(viewState)")
+            if oldValue.isPlayingState != viewState.isPlayingState {
+                delegate?.promoSlideshowView(self, didChangePlayingState: viewState.isPlayingState)
+            }
+            
             if viewState == .Playing || viewState == .PausedWithDetailContent {
                 closeButtonState = viewState == .Playing ? .Close : .Dismiss
             } else if viewState.isPausedState {
@@ -56,7 +62,7 @@ final class PromoSlideshowView: UIView, UICollectionViewDelegate, ModalPanDismis
             
             closeButton.alpha = viewState == .PausedWithFullscreenContent ? 0 : 1
             progressView.alpha = shouldProgressBeVisible ? 1 : 0
-            collectionView.scrollEnabled = (!progressEnded && viewState == .Playing)
+            collectionView.scrollEnabled = !progressEnded && viewState != .PausedWithDetailContent && viewState != .PausedWithFullscreenContent
         }
     }
     var pageCount: Int { return dataSource.pageCount }

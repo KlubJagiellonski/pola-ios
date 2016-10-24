@@ -9,6 +9,11 @@ enum PromoPageViewState {
     case Paused(ProgressViewVisible)
 }
 
+struct PromoPageState {
+    let focused: Bool
+    let playing: Bool
+}
+
 protocol PromoPageDelegate: class {
     func promoPage(promoPage: PromoPageInterface, didChangeCurrentProgress currentProgress: Double)
     func promoPageDidDownloadAllData(promoPage: PromoPageInterface)
@@ -17,7 +22,9 @@ protocol PromoPageDelegate: class {
 }
 
 protocol PromoPageInterface: class {
-    var focused: Bool { get set }
+    // setting pageState = PromoPageState(focused: false, playing: true)
+    // should update UI to playing state without playing content (pausing content might be necessary) 
+    var pageState: PromoPageState { get set }
     var shouldShowProgressViewInPauseState: Bool { get }
     weak var pageDelegate: PromoPageDelegate? { get set }
     
@@ -39,6 +46,15 @@ extension PromoPageViewState {
         switch self {
         case .Paused(let progressViewVisible): return progressViewVisible
         default: return nil
+        }
+    }
+    
+    var isPlayingState: Bool {
+        switch self {
+        case .Playing:
+            return true
+        case .PausedWithDetailContent, .PausedWithFullscreenContent, .Paused:
+            return false
         }
     }
 }

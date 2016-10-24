@@ -2,23 +2,20 @@ import Foundation
 
 final class PromoSummaryViewController: UIViewController, PromoPageInterface, PromoSummaryViewDelegate {
     weak var pageDelegate: PromoPageDelegate?
-    var focused: Bool = false {
-        didSet {
-            logInfo("focused did set: \(focused)")
-            if focused {
-                castView.startActions()
-            } else {
-                castView.stopActions()
-            }
-        }
-    }
     var shouldShowProgressViewInPauseState: Bool { return false }
     
     private var castView: PromoSummaryView { return view as! PromoSummaryView }
     private let promoSlideshow: PromoSlideshow
     
-    init(with resolver: DiResolver, promoSlideshow: PromoSlideshow) {
+    var pageState: PromoPageState {
+        didSet {
+            set(focused: pageState.focused, playing: pageState.playing)
+        }
+    }
+    
+    init(with resolver: DiResolver, promoSlideshow: PromoSlideshow, pageState: PromoPageState) {
         self.promoSlideshow = promoSlideshow
+        self.pageState = pageState
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -32,8 +29,17 @@ final class PromoSummaryViewController: UIViewController, PromoPageInterface, Pr
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         castView.delegate = self
+    }
+    
+    func set(focused focused: Bool, playing _: Bool) {
+        logInfo("set focused: \(focused)")
+        
+        if focused {
+            castView.startActions()
+        } else {
+            castView.stopActions()
+        }
     }
     
     // MARK:- PromoSummaryViewDelegate

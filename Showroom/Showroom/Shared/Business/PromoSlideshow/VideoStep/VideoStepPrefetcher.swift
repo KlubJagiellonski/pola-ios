@@ -71,7 +71,7 @@ final class VideoStepPrefetcher: PromoSlideshowPagePrefetcher {
     }
     
     private func didLoadTimeRange(withDuration duration: Double) {
-        guard let playbackDuration = currentPlayer?.playbackDurationSeconds else { return }
+        guard let playbackDuration = currentPlayer?.playerItemDurationSeconds else { return }
         
         if duration > prefetchDurationInSecondsThreshold || duration >= playbackDuration {
             logInfo("Did prefetch with duration \(duration)")
