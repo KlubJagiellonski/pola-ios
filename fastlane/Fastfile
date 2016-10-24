@@ -20,15 +20,18 @@ platform :ios do
   def deploy(scheme, app_identifier)    
     sign('adhoc', app_identifier)    
     add_prefix_schema
-    versionNumber = get_version_number(
-      xcodeproj: "Showroom/Showroom.xcodeproj"
-    )
     gym(
       project: "Showroom/Showroom.xcodeproj",
       scheme: scheme,
       include_symbols: false,
       output_name: scheme,
-      xcargs: "DEBUG_INFORMATION_FORMAT=dwarf-with-dsym CI_BUILD_ID=#{ENV["CI_BUILD_ID"]} CI_BUILD_TAG=#{ENV["CI_BUILD_TAG"]}"
+      xcargs: "DEBUG_INFORMATION_FORMAT=dwarf-with-dsym CI_BUILD_ID=#{ENV["CI_BUILD_ID"]} CI_BUILD_TAG=#{ENV["CI_BUILD_TAG"]}",
+      use_legacy_build_api: true,
+      toolchain: :swift_2_3
+    )
+    upload_symbols_to_crashlytics(
+      api_token: "#{ENV["CRASHLYTICS_API_TOKEN"]}",
+      binary_path: "upload-symbols"
     )
     extract_app_name
     extract_app_icon
