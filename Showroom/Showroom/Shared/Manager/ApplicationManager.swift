@@ -22,7 +22,6 @@ final class ApplicationManager {
     private let disposeBag = DisposeBag()
     
     weak var delegate: ApplicationManagerDelegate?
-    private var onFirstAppLaunch: (Void -> Void)?
     
     init(application: UIApplication,
          configurationManager: ConfigurationManager,
@@ -44,26 +43,16 @@ final class ApplicationManager {
         quickActionManager.delegate = self
         notificationsManager.delegate = self
         
-        onFirstAppLaunch = { [unowned self] in
+        configurationManager.configurationObservable.subscribeNext { [unowned self] info in
+            guard info.oldConfiguration == nil else { return }
             logAnalyticsAppStart()
             logAnalyticsEvent(AnalyticsEventId.ApplicationLaunch(self.incrementLaunchCount()))
-        }
+            userManager.updateUser()
+        }.addDisposableTo(disposeBag)
     }
     
     func didLaunch(withLaunchOptions launchOptions: [NSObject: AnyObject]?) {
         configurationManager.inititialize()
-        
-        if configurationManager.configuration != nil {
-            onFirstAppLaunch?()
-            onFirstAppLaunch = nil
-            
-            userManager.updateUser()
-        } else {
-            configurationManager.configurationObservable.subscribeNext { [unowned self] _ in
-                self.onFirstAppLaunch?()
-                self.onFirstAppLaunch = nil
-            }.addDisposableTo(disposeBag)
-        }
         
         Logging.configure()
         

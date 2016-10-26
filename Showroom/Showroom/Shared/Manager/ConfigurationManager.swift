@@ -1,6 +1,11 @@
 import Foundation
 import RxSwift
 
+struct ConfigurationInfo {
+    let configuration: Configuration
+    let oldConfiguration: Configuration?
+}
+
 final class ConfigurationManager {
     private static let platformCodeKey = "PlatformCodeKey"
     
@@ -8,8 +13,8 @@ final class ConfigurationManager {
     private let storage: KeyValueStorage
     private let disposeBag = DisposeBag()
     
-    let availablePlatforms: [Platform] = Platform.allValues
-    let configurationObservable = PublishSubject<Configuration>()
+    let availablePlatforms: [Platform]
+    let configurationObservable = PublishSubject<ConfigurationInfo>()
     
     private(set) var configuration: Configuration? {
         didSet {
@@ -19,7 +24,7 @@ final class ConfigurationManager {
             }
             Analytics.sharedInstance.configuration = configuration.analyticsConfiguration
             apiService.basePath = configuration.apiBasePath
-            configurationObservable.onNext(configuration)
+            configurationObservable.onNext(ConfigurationInfo(configuration: configuration, oldConfiguration: oldValue))
         }
     }
     var platform: Platform? {
@@ -64,10 +69,7 @@ final class ConfigurationManager {
     init(apiService: ApiService, keyValueStorage: KeyValueStorage) {
         self.apiService = apiService
         self.storage = keyValueStorage
-        
-        if availablePlatforms.count == 1 {
-            shouldSkipPlatformSelection = true
-        }
+        self.availablePlatforms = Constants.isWorldwideVersion ? [Platform.Worldwide] : [Platform.Polish, Platform.German]
     }
     
     func inititialize() {
@@ -76,12 +78,15 @@ final class ConfigurationManager {
         }
         
         if !shouldSkipPlatformSelection {
-            let deviceLanguageCode = NSLocale.currentLocale().appLanguageCode
-            logInfo("Trying to find available app platform matching the device language with languageCode: \(deviceLanguageCode)")
-            
-            if let matchingAvailableLanguage = availablePlatforms.find({ $0.languageCode == deviceLanguageCode }) {
-                platform = matchingAvailableLanguage
-                shouldSkipPlatformSelection = true
+            if availablePlatforms.count == 1 {
+                platform = availablePlatforms[0]
+            } else {
+                let deviceLanguageCode = NSLocale.currentLocale().appLanguageCode
+                logInfo("Trying to find available app platform matching the device language with languageCode: \(deviceLanguageCode)")
+                
+                if let matchingAvailableLanguage = availablePlatforms.find({ $0.languageCode == deviceLanguageCode }) {
+                    platform = matchingAvailableLanguage
+                }
             }
         }
     }
@@ -108,9 +113,11 @@ final class ConfigurationManager {
     private func createConfiguration(forPlatform platform: Platform) -> Configuration {
         switch platform {
         case .Polish:
-            return PLConfiguration()
+            return PlConfiguration()
         case .German:
             return DeConfiguration()
+        case .Worldwide:
+            return ComConfiguration()
         }
     }
 }

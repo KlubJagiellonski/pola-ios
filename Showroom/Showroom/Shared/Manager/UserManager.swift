@@ -90,9 +90,9 @@ class UserManager {
         let user: User? = storage.load(forKey: Constants.Persistent.currentUser, type: .PlatformPersistent)
         userSession = UserSession(user: user, session: session)
         
-        configurationManager.configurationObservable.subscribeNext { [unowned self] configuration in
-            if !configuration.availableGenders.contains(self.gender) {
-                self.gender = configuration.availableGenders[0]
+        configurationManager.configurationObservable.subscribeNext { [unowned self] info in
+            if !info.configuration.availableGenders.contains(self.gender) {
+                self.gender = info.configuration.availableGenders[0]
             }
         }.addDisposableTo(disposeBag)
     }

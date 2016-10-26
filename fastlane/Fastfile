@@ -13,6 +13,14 @@ platform :ios do
     )
   end
 
+  lane :testProductionWorldwide do
+    scan(
+      project: "Showroom/Showroom.xcodeproj",
+      scheme: 'ShowroomWorldwide',
+      devices: ["iPhone 5s (10.0)"]
+    )
+  end
+
   def sign(type, app_identifier)
     match(type: type, app_identifier: app_identifier, readonly: true)
   end

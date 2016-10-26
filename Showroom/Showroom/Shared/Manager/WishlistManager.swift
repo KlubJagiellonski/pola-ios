@@ -25,6 +25,7 @@ final class WishlistManager {
         switch platform {
         case .Polish: return 72.5
         case .German: return 109
+        case .Worldwide: return 90
         }
     }
 
@@ -48,8 +49,9 @@ final class WishlistManager {
             }
         }.addDisposableTo(disposeBag)
         
-        configurationManager.configurationObservable.subscribeNext { [unowned self] configuration in
-            logInfo("configuration changed: \(configuration)")
+        configurationManager.configurationObservable.subscribeNext { [unowned self] info in
+            guard info.oldConfiguration != nil else { return }
+            logInfo("configuration changed: \(info.configuration)")
             self.state = WishlistState()
         }.addDisposableTo(disposeBag)
     }

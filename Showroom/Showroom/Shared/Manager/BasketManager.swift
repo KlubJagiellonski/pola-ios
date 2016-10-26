@@ -20,6 +20,7 @@ final class BasketManager {
         switch platform {
         case .Polish: return 72.5
         case .German: return 109
+        case .Worldwide: return 90
         }
     }
     
@@ -33,8 +34,9 @@ final class BasketManager {
         let basketState: BasketState? = storage.load(forKey: Constants.Persistent.basketStateId, type: .Persistent)
         self.state = basketState ?? BasketState()
 
-        configurationManager.configurationObservable.subscribeNext { [unowned self] configuration in
-            logInfo("configuration changed: \(configuration)")
+        configurationManager.configurationObservable.subscribeNext { [unowned self] info in
+            guard info.oldConfiguration != nil else { return }
+            logInfo("configuration changed: \(info.configuration)")
             self.state.clear()
         }.addDisposableTo(disposeBag)
     }

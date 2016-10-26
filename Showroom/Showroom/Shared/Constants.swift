@@ -19,6 +19,12 @@ struct Constants {
         static let isStagingEnv = false
     #endif
     
+    #if WORLDWIDE
+        static let isWorldwideVersion = true
+    #else
+        static let isWorldwideVersion = false
+    #endif
+    
     static let appScheme = NSBundle.appScheme
     static let braintreePayPalUrlScheme = "\(NSBundle.mainBundle().bundleIdentifier!).payments"
     

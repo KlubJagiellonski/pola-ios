@@ -98,8 +98,8 @@ final class NotificationsManager {
         
         pushWooshManagerDelegateHandler.manager = self
         
-        configurationManager.configurationObservable.subscribeNext { [unowned self] configuration in
-            self.configure(with: configuration)
+        configurationManager.configurationObservable.subscribeNext { [unowned self] info in
+            self.configure(with: info.configuration)
         }.addDisposableTo(disposeBag)
         
         userManager.userObservable.subscribeNext { [unowned self] user in

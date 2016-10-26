@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>${BUNDLE_DISPLAY_NAME)</string>
+	<string>$(BUNDLE_DISPLAY_NAME)</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -29,8 +29,8 @@
 			<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>shwrmpl</string>
-				<string>fb230189050352725</string>
+				<string>shwrmcom</string>
+				<string>fb230189050352725worldwide</string>
 				<string>$(PRODUCT_BUNDLE_IDENTIFIER).payments</string>
 			</array>
 		</dict>
@@ -55,6 +55,8 @@
 	<string>230189050352725</string>
 	<key>FacebookDisplayName</key>
 	<string>SHOWROOM</string>
+    <key>FacebookUrlSchemeSuffix</key>
+    <string>worldwide</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSApplicationQueriesSchemes</key>

@@ -14,30 +14,20 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1D2F193A1CE9CE250099142E"
-               BuildableName = "SHOWROOM.app"
-               BlueprintName = "Showroom"
+               BlueprintIdentifier = "1D00C5341DBFA0AB00596BA5"
+               BuildableName = "SHOWROOMWorldwide.app"
+               BlueprintName = "ShowroomWorldwide"
                ReferencedContainer = "container:Showroom.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
-      buildConfiguration = "Debug"
+      buildConfiguration = "DebugStaging"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1D2F194E1CE9CE250099142E"
-               BuildableName = "ShowroomTests.xctest"
-               BlueprintName = "ShowroomTests"
-               ReferencedContainer = "container:Showroom.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
          <TestableReference
             skipped = "NO">
             <BuildableReference
@@ -52,9 +42,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1D2F193A1CE9CE250099142E"
-            BuildableName = "SHOWROOM.app"
-            BlueprintName = "Showroom"
+            BlueprintIdentifier = "1D00C5341DBFA0AB00596BA5"
+            BuildableName = "SHOWROOMWorldwide.app"
+            BlueprintName = "ShowroomWorldwide"
             ReferencedContainer = "container:Showroom.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -62,7 +52,7 @@
       </AdditionalOptions>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Debug"
+      buildConfiguration = "DebugStaging"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -75,9 +65,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1D2F193A1CE9CE250099142E"
-            BuildableName = "SHOWROOM.app"
-            BlueprintName = "Showroom"
+            BlueprintIdentifier = "1D00C5341DBFA0AB00596BA5"
+            BuildableName = "SHOWROOMWorldwide.app"
+            BlueprintName = "ShowroomWorldwide"
             ReferencedContainer = "container:Showroom.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -85,27 +75,26 @@
       </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
-      buildConfiguration = "Debug"
+      buildConfiguration = "DebugStaging"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1D2F193A1CE9CE250099142E"
-            BuildableName = "SHOWROOM.app"
-            BlueprintName = "Showroom"
+            BlueprintIdentifier = "1D00C5341DBFA0AB00596BA5"
+            BuildableName = "SHOWROOMWorldwide.app"
+            BlueprintName = "ShowroomWorldwide"
             ReferencedContainer = "container:Showroom.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
-      buildConfiguration = "Debug">
+      buildConfiguration = "DebugStaging">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "AppStore"
+      buildConfiguration = "ReleaseStaging"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

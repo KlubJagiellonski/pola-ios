@@ -51,7 +51,7 @@ extension Configuration {
 
 // MARK:- Configurations
 
-final class PLConfiguration: Configuration {
+final class PlConfiguration: Configuration {
     let appStoreURL = NSURL(string: "itms-apps://itunes.apple.com/app/id1147114961")!
     let apiBasePath: String
     let analyticsConfiguration: AnalyticsConfiguration
@@ -137,4 +137,51 @@ final class DeConfiguration: Configuration {
             webPageURL = NSURL(string: "https://www.showroom.de")!
         }
     }
+}
+
+final class ComConfiguration: Configuration {
+    let appStoreURL = NSURL(string: "itms-apps://itunes.apple.com/app/id1147114961")! // TODO:- change id
+    let apiBasePath: String
+    let analyticsConfiguration: AnalyticsConfiguration
+    let emarsysConfiguration: EmarsysConfiguration
+    let deepLinkConfiguration: DeepLinkConfiguration
+    let feedbackEmail = "ios@showroom.com" // TODO:- check if it is correct email
+    let availableGenders: [Gender] = [.Female]
+    let platformDescription = "showroom.com"
+    let webPageURL: NSURL
+    let currencyCode = "$"
+    let locale = NSLocale(localeIdentifier: "en_US")
+    
+    init() {
+        //TODO:- change all this values to com version
+        
+        analyticsConfiguration = AnalyticsConfiguration(
+            googleTrackingId: Constants.isAppStore ? "UA-28549987-7" : "UA-28549987-11",
+            googleConversionId: "1006448960",
+            googleConversionAppStartLabel: "sTFZCITB7WoQwOL03wM",
+            googleConversionTransactionLabel: "VJLuCLvF72oQwOL03wM",
+            optimiseApiKey: "72933403-B469-41FD-B6E4-635B5B44584F",
+            optimiseMerchantId: 990079,
+            optimiseTrackInstallProductId: 28575,
+            optimiseTrackSaleProductId: 28577,
+            optimiseTrackRegistrationProductId: 28576,
+            emarsysMerchantId: "13CE3A05D54F66DD"
+        )
+        emarsysConfiguration = EmarsysConfiguration(
+            pushPassword: "tkmQP+f3p3ArdsbRcTTfBGpmXawqjo+v",
+            pushwooshAppId: "63A3E-B6CDA"
+        )
+        deepLinkConfiguration = DeepLinkConfiguration(
+            brandPathComponent: "marki"
+        )
+        let versionComponent = Constants.isStagingEnv ? "api-test" : "api"
+        apiBasePath = "https://\(versionComponent).showroom.pl/ios/v2"
+        
+        if Constants.isStagingEnv {
+            webPageURL = NSURL(string: "https://pl.test.shwrm.net")!
+        } else {
+            webPageURL = NSURL(string: "https://www.showroom.pl")!
+        }
+    }
+
 }
