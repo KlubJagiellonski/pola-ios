@@ -4,7 +4,6 @@ import RxSwift
 class ProductDetailsModel {
     private var context: ProductDetailsContext
     private var disposeBag = DisposeBag()
-    private var informAboutMovedToProduct = false
     let newProductsAmountObservable = PublishSubject<NewProductsAmount>()
     private var lastProductIndex: Int?
     
@@ -32,19 +31,13 @@ class ProductDetailsModel {
     
     func didMoveToPage(atIndex index: Int) {
         logInfo("Did move to page \(index)")
+        
         if let lastProductIndex = lastProductIndex {
-            if index > lastProductIndex {
-                logAnalyticsEvent(AnalyticsEventId.ProductSwitchedWithRightSwipe(context.fromType.rawValue))
-            } else if index < lastProductIndex {
-                logAnalyticsEvent(AnalyticsEventId.ProductSwitchedWithLeftSwipe(context.fromType.rawValue))
-            }
+            informAboutMovingToPage(atIndex: index, fromIndex: lastProductIndex)
+        } else if index != initialProductIndex {
+            informAboutMovingToPage(atIndex: index, fromIndex: initialProductIndex)
         }
         lastProductIndex = index
-        
-        if informAboutMovedToProduct {
-            context.productDetailsDidMoveToProduct(atIndex: index)
-        }
-        informAboutMovedToProduct = true
     }
     
     func update(with context: ProductDetailsContext) {
@@ -52,12 +45,22 @@ class ProductDetailsModel {
         disposeBag = DisposeBag()
         self.context = context
         configureContext()
-        informAboutMovedToProduct = false
+        lastProductIndex = nil
     }
     
     private func configureContext() {
         context.newProductsObservable.subscribeNext { [weak self] newProductsAmount in
             self?.newProductsAmountObservable.onNext(newProductsAmount)
             }.addDisposableTo(disposeBag)
+    }
+    
+    private func informAboutMovingToPage(atIndex toIndex: Int, fromIndex: Int) {
+        if toIndex > fromIndex {
+            logAnalyticsEvent(AnalyticsEventId.ProductSwitchedWithRightSwipe(context.fromType.rawValue))
+        } else if toIndex < fromIndex {
+            logAnalyticsEvent(AnalyticsEventId.ProductSwitchedWithLeftSwipe(context.fromType.rawValue))
+        }
+        
+        context.productDetailsDidMoveToProduct(atIndex: toIndex)
     }
 }
