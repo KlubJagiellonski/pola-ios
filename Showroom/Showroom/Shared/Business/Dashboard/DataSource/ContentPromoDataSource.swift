@@ -58,6 +58,10 @@ class ContentPromoDataSource: NSObject, UITableViewDataSource {
         recommendationsDataSource.refreshImagesIfNeeded()
     }
     
+    func imageTag(forIndex index: Int) -> Int {
+        return "\(contentPromos[index].link) \(index)".hashValue
+    }
+    
     // MARK: - UITableViewDataSource
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return numberOfSections
@@ -79,6 +83,7 @@ class ContentPromoDataSource: NSObject, UITableViewDataSource {
             let cellIdentifier = contentPromo.caption == nil ? String(ContentPromoCell) : String(ContentPromoWithCaptionCell)
             let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! ContentPromoCell
             cell.selectionStyle = .None
+            cell.imageTag = imageTag(forIndex: contentPromoIndex)
             cell.updateData(contentPromo)
             return cell
         } else {
@@ -111,6 +116,14 @@ class ContentPromoDataSource: NSObject, UITableViewDataSource {
             return indexPath.row
         } else {
             return indexPath.row + numberOfContentPromosInFirstSection
+        }
+    }
+    
+    private func contentPromoIndexPath(withIndex index: Int) -> NSIndexPath {
+        if index < numberOfContentPromosInFirstSection {
+            return NSIndexPath(forItem: index, inSection: 0)
+        } else {
+            return NSIndexPath(forItem: index - numberOfContentPromosInFirstSection, inSection: 2)
         }
     }
 }

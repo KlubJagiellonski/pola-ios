@@ -6,6 +6,7 @@ protocol PromoSlideshowViewDelegate: ViewSwitcherDelegate {
     func promoSlideshowWillBeginPageChanging(promoSlideshow: PromoSlideshowView)
     func promoSlideshowDidEndPageChanging(promoSlideshow: PromoSlideshowView, fromUserAction: Bool)
     func promoSlideshowView(promoSlideshow: PromoSlideshowView, didChangePlayingState playing: Bool)
+    func promoSlideshowDidEndTransitionAnimation(promoSlideshow: PromoSlideshowView)
 }
 
 enum PromoSlideshowCloseButtonState {
@@ -22,6 +23,8 @@ final class PromoSlideshowView: UIView, UICollectionViewDelegate, ModalPanDismis
     private let contentView = UIView()
     private let collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: UICollectionViewFlowLayout())
     private let progressView = PromoSlideshowProgressView()
+    private var transitionLoaderView: UIView?
+    private var transitionView: UIView?
     
     private let dataSource: PromoSlideshowDataSource
     var pageHandler: PromoSlideshowPageHandler? {
@@ -67,6 +70,7 @@ final class PromoSlideshowView: UIView, UICollectionViewDelegate, ModalPanDismis
     }
     var pageCount: Int { return dataSource.pageCount }
     var viewSwitcherAnimationDuration: Double { return viewSwitcher.animationDuration }
+    var viewSwitcherState: ViewSwitcherState { return viewSwitcher.switcherState }
     var shouldProgressBeVisible: Bool {
         if progressEnded {
             return false
@@ -76,9 +80,11 @@ final class PromoSlideshowView: UIView, UICollectionViewDelegate, ModalPanDismis
             return viewState == .Playing
         }
     }
+    var transitionViewVisible: Bool { return transitionView != nil }
     private var panGestureRecognizer: UIPanGestureRecognizer {
         return gestureRecognizers!.find { $0 is UIPanGestureRecognizer } as! UIPanGestureRecognizer
     }
+    var transitionAnimationInProgress = false
     weak var delegate: PromoSlideshowViewDelegate? {
         didSet {
             viewSwitcher.switcherDelegate = delegate
@@ -179,6 +185,49 @@ final class PromoSlideshowView: UIView, UICollectionViewDelegate, ModalPanDismis
         return dataSource.pageIndex(forView: view)
     }
     
+    func showTransitionLoader() {
+        let loadingIndicator = LoadingIndicator(frame: CGRectZero)
+        
+        let transitionLoaderView = UIView()
+        transitionLoaderView.alpha = 0
+        transitionLoaderView.backgroundColor = UIColor(named: .Dim)
+        transitionLoaderView.addSubview(loadingIndicator)
+        insertSubview(transitionLoaderView, belowSubview: closeButton)
+        
+        loadingIndicator.snp_makeConstraints { make in make.center.equalToSuperview() }
+        transitionLoaderView.snp_makeConstraints { make in make.edges.equalToSuperview() }
+        
+        UIView.animateWithDuration(viewSwitcher.animationDuration) {
+            transitionLoaderView.alpha = 1
+        }
+        
+        loadingIndicator.startAnimation()
+        self.transitionLoaderView = transitionLoaderView
+    }
+    
+    func hideTransitionViewIfNeeded() {
+        guard let transitionView = transitionView else { return }
+        
+        transitionLoaderView?.layer.removeAllAnimations()
+        transitionLoaderView?.alpha = 1
+        
+        let scaleFactor: CGFloat = 2
+        let scaleTransform = CGAffineTransformMakeScale(scaleFactor, scaleFactor)
+        
+        UIView.animateWithDuration(viewSwitcher.animationDuration, delay: 0, options: [], animations: { [unowned self]in
+            transitionView.alpha = 0
+            transitionView.transform = scaleTransform
+            transitionView.center = CGPoint(x: transitionView.frame.midX, y: transitionView.frame.midY)
+            self.transitionLoaderView?.alpha = 0
+        }) { [weak self]_ in
+            guard let `self` = self else { return }
+            transitionView.removeFromSuperview()
+            self.transitionView = nil
+            self.transitionLoaderView?.removeFromSuperview()
+            self.transitionLoaderView = nil
+        }
+    }
+    
     private func configureCustomConstraints() {
         closeButton.snp_makeConstraints { make in
             make.leading.equalToSuperview().offset(Dimensions.defaultMargin)
@@ -264,6 +313,26 @@ extension PromoSlideshowView: UIGestureRecognizerDelegate {
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailByGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return gestureRecognizer == panGestureRecognizer && otherGestureRecognizer == collectionView.panGestureRecognizer
+    }
+}
+
+extension PromoSlideshowView: SlideshowImageAnimationTargetViewInterface {
+    var viewsAboveImageVisibility: Bool {
+        set {
+            closeButton.alpha = newValue ? 1 : 0
+        }
+        get {
+            return closeButton.alpha == 1
+        }
+    }
+    
+    func addTransitionView(view: UIView) {
+        transitionView = view
+        
+        insertSubview(view, belowSubview: closeButton)
+        view.snp_makeConstraints { make in make.edges.equalToSuperview() }
+        
+        delegate?.promoSlideshowDidEndTransitionAnimation(self)
     }
 }
 

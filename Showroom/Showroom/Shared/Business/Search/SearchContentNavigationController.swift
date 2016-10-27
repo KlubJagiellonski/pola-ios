@@ -50,7 +50,7 @@ class SearchContentNavigationController: UINavigationController, NavigationHandl
                     return true
                 }
                 logAnalyticsEvent(AnalyticsEventId.SearchMenuClick(searchItemEvent.searchItem.link ?? ""))
-                sendNavigationEvent(ShowItemForLinkEvent(link: link, title: searchItemEvent.searchItem.name, productDetailsFromType: nil))
+                sendNavigationEvent(ShowItemForLinkEvent(link: link, title: searchItemEvent.searchItem.name, productDetailsFromType: nil, transitionImageTag: nil))
             } else {
                 logAnalyticsEvent(AnalyticsEventId.SearchMenuTreeClick(searchItemEvent.searchItem.name))
                 let viewController = createContentViewController(with: searchItemEvent.searchItem, type: .Tree)

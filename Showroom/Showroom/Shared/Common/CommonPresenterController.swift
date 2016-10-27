@@ -75,8 +75,15 @@ class CommonPresenterController: PresenterViewController, NavigationHandler {
             guard let `self` = self else { return }
             
             let viewController = self.resolver.resolve(PromoSlideshowViewController.self, argument: event.slideshowId)
-            let animation = DimTransitionAnimation(animationDuration: 0.3)
-            self.showModal(viewController, hideContentView: true, animation: animation, completion: nil)
+            
+            let alternativeAnimation = DimTransitionAnimation(animationDuration: 0.3)
+            if let imageViewTag = event.transitionImageTag, let imageView = self.view.viewWithTag(imageViewTag) as? UIImageView
+                where imageView.image != nil {
+                let animation = SlideshowImageTransitionAnimation(animationDuration: 0.3, imageView: imageView, alternativeAnimation: alternativeAnimation)
+                self.showModal(viewController, hideContentView: false, animation: animation, completion: nil)
+            } else {
+                self.showModal(viewController, hideContentView: true, animation: alternativeAnimation, completion: nil)
+            }
         }
     }
     

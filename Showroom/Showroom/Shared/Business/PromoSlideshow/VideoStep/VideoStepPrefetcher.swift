@@ -12,7 +12,7 @@ class VideoStepAdditionalData {
 }
 
 final class VideoStepPrefetcher: PromoSlideshowPagePrefetcher {
-    private let prefetchDurationInSecondsThreshold: Double = 3
+    private let prefetchDurationInSecondsThreshold: Double = 6
     
     var additionalData: AnyObject? {
         guard let currentPlayer = currentPlayer else {
@@ -72,6 +72,8 @@ final class VideoStepPrefetcher: PromoSlideshowPagePrefetcher {
     
     private func didLoadTimeRange(withDuration duration: Double) {
         guard let playbackDuration = currentPlayer?.playerItemDurationSeconds else { return }
+        
+        logInfo("Prefetched time range \(duration)")
         
         if duration > prefetchDurationInSecondsThreshold || duration >= playbackDuration {
             logInfo("Did prefetch with duration \(duration)")

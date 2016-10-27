@@ -37,6 +37,10 @@ class ContentPromoCell: UITableViewCell {
     let footerView = UIView()
     
     var captionContainerHeightConstraint: NSLayoutConstraint?
+    var imageTag: Int {
+        set { promoImageView.tag = newValue }
+        get { return promoImageView.tag }
+    }
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: .Default, reuseIdentifier: reuseIdentifier)

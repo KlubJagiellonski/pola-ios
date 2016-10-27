@@ -86,7 +86,7 @@ final class WebContentViewController: UIViewController, WebContentViewDelegate {
             case "https":
                 logInfo("Opening https link: \(url)")
                 let urlString = url.absoluteString ?? url.relativeString
-                let event = ShowItemForLinkEvent(link: urlString, title: nil, productDetailsFromType: .HomeContentPromo)
+                let event = ShowItemForLinkEvent(link: urlString, title: nil, productDetailsFromType: .HomeContentPromo, transitionImageTag: nil)
                 sendNavigationEvent(event)
                 decisionHandler(.Cancel)
                 return

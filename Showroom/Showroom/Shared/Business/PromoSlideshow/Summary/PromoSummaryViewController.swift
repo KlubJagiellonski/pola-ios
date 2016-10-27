@@ -51,7 +51,7 @@ final class PromoSummaryViewController: UIViewController, PromoPageInterface, Pr
     func promoSummary(promoSummary: PromoSummaryView, didTapLink link: PromoSlideshowLink) {
         logInfo("Did tap link \(link)")
         logAnalyticsEvent(AnalyticsEventId.VideoSummaryLinkClick(link.link))
-        sendNavigationEvent(ShowItemForLinkEvent(link: link.link, title: link.text, productDetailsFromType: .Video))
+        sendNavigationEvent(ShowItemForLinkEvent(link: link.link, title: link.text, productDetailsFromType: .Video, transitionImageTag: nil))
     }
     
     func promoSummary(promoSummary: PromoSummaryView, didTapPlayForVideo video: PromoSlideshowPlaylistItem) {

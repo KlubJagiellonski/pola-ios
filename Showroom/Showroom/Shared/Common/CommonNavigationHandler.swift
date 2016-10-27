@@ -27,7 +27,7 @@ final class CommonNavigationHandler: NavigationHandler {
             if let url = NSURL(string: linkEvent.link) {
                 let fromType = linkEvent.productDetailsFromType
                 let additionalParams: [NSObject: AnyObject] = fromType == nil ? [:] : ["fromType": fromType!.rawValue]
-                showView(forURL: url, title: linkEvent.title, additionalParams: additionalParams)
+                showView(forURL: url, title: linkEvent.title, additionalParams: additionalParams, transitionImageTag: linkEvent.transitionImageTag)
             } else {
                 logError("Cannot create NSURL from \(linkEvent.link)")
             }
@@ -46,11 +46,14 @@ final class CommonNavigationHandler: NavigationHandler {
         }
     }
     
-    private func showView(forURL url: NSURL, title: String?, additionalParams: [NSObject: AnyObject] = [:]) -> Bool {
+    private func showView(forURL url: NSURL, title: String?, additionalParams: [NSObject: AnyObject] = [:], transitionImageTag: Int? = nil) -> Bool {
         logInfo("Showing view for URL: \(url.absoluteString)")
         var params = additionalParams
         if let title = title {
             params["title"] = title
+        }
+        if let transitionImageTag = transitionImageTag {
+            params["transitionImageTag"] = transitionImageTag
         }
         return urlRouter.routeURL(url, withParameters: params)
     }
@@ -172,7 +175,8 @@ final class CommonNavigationHandler: NavigationHandler {
                 logError("Cannot retrieve videoId for path: \(parameters)")
                 return false
             }
-            self.navigationController?.sendNavigationEvent(ShowPromoSlideshowEvent(slideshowId: videoId))
+            let transitionImageTag = parameters["transitionImageTag"] as? Int
+            self.navigationController?.sendNavigationEvent(ShowPromoSlideshowEvent(slideshowId: videoId, transitionImageTag: transitionImageTag))
             
             return true
         }

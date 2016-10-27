@@ -312,7 +312,7 @@ class SettingsViewController: UIViewController {
     }
     
     func showSlideshow() {
-        sendNavigationEvent(ShowPromoSlideshowEvent(slideshowId: 2))
+        sendNavigationEvent(ShowPromoSlideshowEvent(slideshowId: 4, transitionImageTag: nil))
     }
     
     func sendReportPressed() {

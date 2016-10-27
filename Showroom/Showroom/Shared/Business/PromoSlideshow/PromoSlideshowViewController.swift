@@ -90,7 +90,10 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
             switch fetchResult {
             case .Success(let result):
                 logInfo("Fetched slideshow \(result)")
-                self.castView.changeSwitcherState(.Success, animated: true)
+                self.castView.changeSwitcherState(.Success, animated: !self.castView.transitionViewVisible)
+                if !self.castView.transitionAnimationInProgress {
+                    self.castView.hideTransitionViewIfNeeded()
+                }
                 self.removeAllViewControllers()
                 self.castView.update(with: result)
             case .CacheError(let error):
@@ -98,10 +101,20 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
             case .NetworkError(let error):
                 logInfo("Cannot fetch slideshow \(error)")
                 if self.model.promoSlideshow == nil {
-                    self.castView.changeSwitcherState(.Error, animated: true)
+                    self.castView.changeSwitcherState(.Error, animated: !self.castView.transitionViewVisible)
+                    if !self.castView.transitionAnimationInProgress {
+                        self.castView.hideTransitionViewIfNeeded()
+                    }
                 }
             }
         }.addDisposableTo(disposeBag)
+    }
+    
+    private func update(with viewState: PromoPageViewState, animationDuration: Double?) {
+        castView.update(with: viewState, animationDuration: animationDuration)
+        UIView.animateWithDuration(animationDuration ?? 0) { [unowned self] in
+            self.setNeedsStatusBarAppearanceUpdate()
+        }
     }
     
     @objc private func onWillResignActive() {
@@ -232,10 +245,12 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
         }
     }
     
-    private func update(with viewState: PromoPageViewState, animationDuration: Double?) {
-        castView.update(with: viewState, animationDuration: animationDuration)
-        UIView.animateWithDuration(animationDuration ?? 0) { [unowned self] in
-            self.setNeedsStatusBarAppearanceUpdate()
+    func promoSlideshowDidEndTransitionAnimation(promoSlideshow: PromoSlideshowView) {
+        logInfo("Did end transition animation")
+        if castView.viewSwitcherState == .Loading {
+            castView.showTransitionLoader()
+        } else {
+            castView.hideTransitionViewIfNeeded()
         }
     }
     

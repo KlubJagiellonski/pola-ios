@@ -56,8 +56,12 @@ class DashboardView: ViewSwitcher, ContentInsetHandler, UITableViewDelegate, UIC
         fatalError("init(coder:) has not been implemented")
     }
     
-    func imageTag(forIndex index: Int) -> Int {
+    func recommendationsImageTag(forIndex index: Int) -> Int {
         return dataSource.recommendationsDataSource.imageTag(forIndex: index)
+    }
+    
+    func contentPromosImageTag(forIndex index: Int) -> Int {
+        return dataSource.imageTag(forIndex: index)
     }
     
     func refreshImagesIfNeeded() {
