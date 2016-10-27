@@ -133,7 +133,7 @@ class SettingsViewController: UIViewController {
             settings.append(Setting(type: .Normal, labelString: "Pokaż pytanie o powiadomienia (schowek)", action: { [weak self] in self?.showNotificationsAccessAfterWishlist() }))
             settings.append(Setting(type: .Normal, labelString: "Pokaż pytanie o aktualizację", action: { [weak self] in self?.showUpdateApp() }))
             settings.append(Setting(type: .Normal, labelString: "Pokaż initial platform selection", action: { [weak self] in self?.showInitialPlatformSelection() }))
-            settings.append(Setting(type: .Normal, labelString: "Pokaż slideshow 1", action: { [weak self] in self?.showSlideshow() }))
+            settings.append(Setting(type: .Normal, labelString: "Pokaż slideshow 2", action: { [weak self] in self?.showSlideshow() }))
         }
         
         castView.updateData(with: settings)
@@ -312,7 +312,7 @@ class SettingsViewController: UIViewController {
     }
     
     func showSlideshow() {
-        sendNavigationEvent(ShowPromoSlideshowEvent(slideshowId: 4))
+        sendNavigationEvent(ShowPromoSlideshowEvent(slideshowId: 2))
     }
     
     func sendReportPressed() {

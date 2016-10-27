@@ -12,6 +12,7 @@ enum PromoPageViewState {
 struct PromoPageState {
     let focused: Bool
     let playing: Bool
+    let visible: Bool
 }
 
 protocol PromoPageDelegate: class {

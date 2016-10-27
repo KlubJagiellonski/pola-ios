@@ -74,8 +74,8 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
             self.setNeedsStatusBarAppearanceUpdate()
         }
         
-        informCurrentChildViewController() {
-            $0.pageState = PromoPageState(focused: false, playing: false)
+        informCurrentChildViewController {
+            $0.pageState = PromoPageState(focused: false, playing: false, visible: true)
         }
         model.update(withSlideshowId: slideshowId)
         logAnalyticsEvent(AnalyticsEventId.VideoLaunch(slideshowId))
@@ -113,13 +113,18 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
         if castView.viewState.isPlayingState && !(currentPage is PromoSummaryViewController) {
             update(with: .Paused(currentPage.shouldShowProgressViewInPauseState), animationDuration: Constants.promoSlideshowStateChangedAnimationDuration)
         }
-        informCurrentChildViewController(about: { $0.pageState = PromoPageState(focused: false, playing: false) })
+        informCurrentChildViewController {
+            // visible have to remain true, we don't want the page to be resetted
+            $0.pageState = PromoPageState(focused: false, playing: false, visible: true)
+        }
     }
     
     @objc private func onDidBecomeActive() {
         logInfo("did become active")
         if currentPage is PromoSummaryViewController {
-            informCurrentChildViewController(about: { $0.pageState = PromoPageState(focused: true, playing: true) })
+            informCurrentChildViewController {
+                $0.pageState = PromoPageState(focused: true, playing: true, visible: true)
+            }
         }
     }
     
@@ -170,9 +175,9 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
         case .Close:
             sendCloseEvent()
         case .Dismiss:
-            informCurrentChildViewController() { $0.didTapDismiss() }
+            informCurrentChildViewController { $0.didTapDismiss() }
         case .Play:
-            informCurrentChildViewController() { $0.didTapPlay() }
+            informCurrentChildViewController { $0.didTapPlay() }
         }
     }
     
@@ -184,6 +189,7 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
         }
         
         let currentPageIndex = castView.currentPageIndex
+        logInfo("current page index: \(currentPageIndex)")
         
         if currentPageIndex == promo.summaryPageIndex {
             UIView.animateWithDuration(Constants.promoSlideshowStateChangedAnimationDuration) { [unowned self] in
@@ -203,21 +209,26 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
         
         lastPageIndex = currentPageIndex
         
-        informCurrentChildViewController() {
-            $0.pageState = PromoPageState(focused: true, playing: castView.viewState.isPlayingState)
+        informChildViewControllers() { (pageIndex, page) in
+            let isCurrentPage = pageIndex == currentPageIndex
+            page.pageState = PromoPageState(focused: isCurrentPage, playing: castView.viewState.isPlayingState, visible: isCurrentPage)
+            
+            logInfo("page index: \(pageIndex), set page state: \(page.pageState)")
         }
     }
     
     func promoSlideshowWillBeginPageChanging(promoSlideshow: PromoSlideshowView) {
         logInfo("Will begin page changing, current page index: \(castView.currentPageIndex)")
         lastAnalyticsSlideType = analyticsSlideTypeForCurrentChildViewController()
-        informCurrentChildViewController() { $0.pageState = PromoPageState(focused: false, playing: castView.viewState.isPlayingState) }
+        informCurrentChildViewController {
+            $0.pageState = PromoPageState(focused: false, playing: castView.viewState.isPlayingState, visible: true)
+        }
     }
     
     func promoSlideshowView(promoSlideshow: PromoSlideshowView, didChangePlayingState playing: Bool) {
-        let currentPageIndex = castView.currentPageIndex
         informChildViewControllers() { (pageIndex, page) in
-            page.pageState = PromoPageState(focused: pageIndex == currentPageIndex, playing: playing)
+            let isCurrentPage = pageIndex == castView.currentPageIndex
+            page.pageState = PromoPageState(focused: isCurrentPage, playing: playing, visible: isCurrentPage)
         }
     }
     
@@ -318,7 +329,7 @@ extension PromoSlideshowViewController: PromoSlideshowPageHandler {
         newViewController.didMoveToParentViewController(self)
         
         if indexedViewControllers.isEmpty {
-            (newViewController as? PromoPageInterface)?.pageState = PromoPageState(focused: true, playing: castView.viewState.isPlayingState)
+            (newViewController as? PromoPageInterface)?.pageState = PromoPageState(focused: true, playing: castView.viewState.isPlayingState, visible: true)
         }
         
         if removePageIndex != nil {
@@ -341,7 +352,7 @@ extension PromoSlideshowViewController: PromoSlideshowPageHandler {
     
     private func createViewController(from dataContainer: PromoSlideshowPageDataContainer) -> UIViewController {
         logInfo("Creating view controller with dataContainer: \(dataContainer)")
-        let newPageState = PromoPageState(focused: false, playing: castView.viewState.isPlayingState)
+        let newPageState = PromoPageState(focused: false, playing: castView.viewState.isPlayingState, visible: false)
         
         switch dataContainer.pageData {
         case .Image(let link, let duration):

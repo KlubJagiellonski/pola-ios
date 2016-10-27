@@ -19,7 +19,26 @@ final class ProductStepViewController: ProductPageViewController, ProductPageVie
     
     var pageState: PromoPageState {
         didSet {
-            set(focused: pageState.focused, playing: pageState.playing)
+            let (focused, playing, visible) = (pageState.focused, pageState.playing, pageState.visible)
+            logInfo("set focused: \(focused), playing: \(playing), visible: \(visible)")
+            
+            if focused != oldValue.focused || playing != oldValue.playing {
+                if focused && playing {
+                    timer.play()
+                } else if focused && !playing {
+                    timer.pause()
+                    pageDelegate?.promoPage(self, didChangeCurrentProgress: timer.progress)
+                } else {
+                    timer.pause()
+                }
+                
+                castView.update(withPreviewModeEnabled: playing, animationDuration: nil)
+                previewOverlay?.update(withEnabled: playing, animationDuration: nil)
+            }
+            
+            if !visible && oldValue.visible {
+                timer.invalidate()
+            }
         }
     }
     
@@ -41,21 +60,6 @@ final class ProductStepViewController: ProductPageViewController, ProductPageVie
         super.viewDidLoad()
         castView.previewOverlayView = createAndConfigureOverlayView()
         castView.previewMode = pageState.playing
-    }
-    
-    private func set(focused focused: Bool, playing: Bool) {
-        logInfo("set focused: \(focused), playing: \(playing)")
-        if focused && playing {
-            timer.play()
-        } else if focused && !playing {
-            timer.pause()
-            pageDelegate?.promoPage(self, didChangeCurrentProgress: timer.progress)
-        } else {
-            timer.pause()
-        }
-
-        castView.update(withPreviewModeEnabled: playing, animationDuration: nil)
-        previewOverlay?.update(withEnabled: playing, animationDuration: nil)
     }
     
     override func pageView(pageView: ProductPageView, didDownloadFirstImageWithSuccess success: Bool) {
@@ -86,11 +90,6 @@ final class ProductStepViewController: ProductPageViewController, ProductPageVie
         castView.update(withPreviewModeEnabled: enabled, animationDuration: animationDuration)
         previewOverlay?.update(withEnabled: enabled, animationDuration: animationDuration)
         pageDelegate?.promoPage(self, willChangePromoPageViewState: enabled ? .Playing : .Paused(shouldShowProgressViewInPauseState), animationDuration: animationDuration)
-        if enabled {
-            timer.play()
-        } else {
-            timer.pause()
-        }
     }
     
     // MARK:- PromoPageInterface

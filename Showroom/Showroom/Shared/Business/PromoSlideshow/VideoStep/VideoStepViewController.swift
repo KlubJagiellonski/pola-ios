@@ -17,7 +17,31 @@ final class VideoStepViewController: UIViewController, PromoPageInterface, Video
     
     var pageState: PromoPageState {
         didSet {
-            set(focused: pageState.focused, playing: pageState.playing)
+            let (focused, playing, visible) = (pageState.focused, pageState.playing, pageState.visible)
+            logInfo("set focused: \(focused), playing: \(playing), visible: \(visible)")
+            
+            if focused != oldValue.focused || playing != oldValue.playing {
+                if focused && playing {
+                    castView.play()
+                } else if focused && !playing {
+                    castView.pause()
+                    guard let duration = castView.playerItemDuration, let playbackTime = castView.playbackTime else {
+                        logInfo("Could not get player item duration or playback time")
+                        pageDelegate?.promoPage(self, didChangeCurrentProgress: 0.0)
+                        return
+                    }
+                    let currentProgress = playbackTime == 0 ? 0.0 : Double(playbackTime) / Double(duration)
+                    pageDelegate?.promoPage(self, didChangeCurrentProgress: currentProgress)
+                } else if !focused {
+                    castView.pause()
+                }
+            }
+            
+            if !visible && oldValue.visible {
+                castView.pause()
+                asset = retrieveOrCreateAsset()
+                castView.update(asset)
+            }
         }
     }
     
@@ -42,24 +66,6 @@ final class VideoStepViewController: UIViewController, PromoPageInterface, Video
     override func viewDidLoad() {
         super.viewDidLoad()
         castView.delegate = self
-    }
-    
-    func set(focused focused: Bool, playing: Bool) {
-        logInfo("set focused: \(focused), playing: \(playing)")
-        if focused && playing {
-            castView.play()
-        } else if focused && !playing {
-            castView.pause()
-            guard let duration = castView.playerItemDuration, let playbackTime = castView.playbackTime else {
-                logInfo("Could not get player item duration or playback time")
-                pageDelegate?.promoPage(self, didChangeCurrentProgress: 0.0)
-                return
-            }
-            let currentProgress = playbackTime == 0 ? 0.0 : Double(playbackTime) / Double(duration)
-            pageDelegate?.promoPage(self, didChangeCurrentProgress: currentProgress)
-        } else if !focused {
-            castView.pause()
-        }
     }
     
     private func retrieveOrCreateAsset() -> AVURLAsset {
@@ -121,7 +127,6 @@ final class VideoStepViewController: UIViewController, PromoPageInterface, Video
     
     func didTapPlay() {
         logInfo("did tap play")
-        castView.play()
         pageDelegate?.promoPage(self, willChangePromoPageViewState: .Playing, animationDuration: 0.4)
     }
     

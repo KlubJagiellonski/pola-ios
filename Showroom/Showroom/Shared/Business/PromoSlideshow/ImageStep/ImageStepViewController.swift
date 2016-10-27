@@ -17,7 +17,24 @@ final class ImageStepViewController: UIViewController, PromoPageInterface, Image
     
     var pageState: PromoPageState {
         didSet {
-            set(focused: pageState.focused, playing: pageState.playing)
+            let (focused, playing, visible) = (pageState.focused, pageState.playing, pageState.visible)
+            logInfo("set focused: \(focused), playing: \(playing), visible: \(visible)")
+            
+            if focused != oldValue.focused || playing != oldValue.playing {
+                if focused && playing && castView.isImageDownloaded {
+                    timer.play()
+                } else if focused && !playing {
+                    timer.pause()
+                    pageDelegate?.promoPage(self, didChangeCurrentProgress: timer.progress)
+                } else if !focused || !castView.isImageDownloaded {
+                    timer.pause()
+                }
+            }
+            
+            if !visible && oldValue.visible{
+                timer.invalidate()
+            }
+
         }
     }
     
@@ -49,18 +66,6 @@ final class ImageStepViewController: UIViewController, PromoPageInterface, Image
         }
     }
     
-    func set(focused focused: Bool, playing: Bool) {
-        logInfo("set focused: \(focused), playing: \(playing)")
-        if focused && playing && castView.isImageDownloaded {
-            timer.play()
-        } else if focused && !playing {
-            timer.pause()
-            pageDelegate?.promoPage(self, didChangeCurrentProgress: timer.progress)
-        } else if !focused || !castView.isImageDownloaded {
-            timer.pause()
-        }
-    }
-    
     // MARK:- ImageStepViewDelegate
     
     func imageStepViewDidDownloadImage(view: ImageStepView) {
@@ -74,10 +79,8 @@ final class ImageStepViewController: UIViewController, PromoPageInterface, Image
     func imageStepViewDidTapImageView(view: ImageStepView) {
         logInfo("image step view did tap, timer.paused: \(timer.paused)")
         if timer.paused {
-            timer.play()
             pageDelegate?.promoPage(self, willChangePromoPageViewState: .Playing, animationDuration: Constants.promoSlideshowStateChangedAnimationDuration)
         } else {
-            timer.pause()
             pageDelegate?.promoPage(self, willChangePromoPageViewState: .Paused(shouldShowProgressViewInPauseState), animationDuration: Constants.promoSlideshowStateChangedAnimationDuration)
         }
     }
@@ -86,7 +89,6 @@ final class ImageStepViewController: UIViewController, PromoPageInterface, Image
     
     func didTapPlay() {
         logInfo("did tap play")
-        timer.play()
         pageDelegate?.promoPage(self, willChangePromoPageViewState: .Playing, animationDuration: Constants.promoSlideshowStateChangedAnimationDuration)
     }
     

@@ -9,7 +9,14 @@ final class PromoSummaryViewController: UIViewController, PromoPageInterface, Pr
     
     var pageState: PromoPageState {
         didSet {
-            set(focused: pageState.focused, playing: pageState.playing)
+            guard pageState.focused != oldValue.focused else { return }
+            logInfo("set focused: \(pageState.focused)")
+            
+            if pageState.focused {
+                castView.startActions()
+            } else {
+                castView.stopActions()
+            }
         }
     }
     
@@ -30,16 +37,6 @@ final class PromoSummaryViewController: UIViewController, PromoPageInterface, Pr
     override func viewDidLoad() {
         super.viewDidLoad()
         castView.delegate = self
-    }
-    
-    func set(focused focused: Bool, playing _: Bool) {
-        logInfo("set focused: \(focused)")
-        
-        if focused {
-            castView.startActions()
-        } else {
-            castView.stopActions()
-        }
     }
     
     // MARK:- PromoSummaryViewDelegate
