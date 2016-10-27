@@ -173,6 +173,8 @@ enum L10n {
   case DashboardRecommendationTitleFirstPart
   /// dla Ciebie
   case DashboardRecommendationTitleSecondPart
+  /// TODO
+  case DeepLinkingWrongPlatform
   /// Błędne dane logowania. Spróbuj jeszcze raz.
   case LoginErrorInvalidCredentials
   /// Wystąpił błąd podczas logowania. Spróbuj jeszcze raz.
@@ -594,6 +596,8 @@ extension L10n: CustomStringConvertible {
         return L10n.tr("Dashboard.RecommendationTitle.FirstPart")
       case .DashboardRecommendationTitleSecondPart:
         return L10n.tr("Dashboard.RecommendationTitle.SecondPart")
+      case .DeepLinkingWrongPlatform:
+        return L10n.tr("DeepLinking.WrongPlatform")
       case .LoginErrorInvalidCredentials:
         return L10n.tr("Login.Error.InvalidCredentials")
       case .LoginErrorUnknown:

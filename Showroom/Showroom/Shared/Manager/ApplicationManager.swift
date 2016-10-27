@@ -19,6 +19,7 @@ final class ApplicationManager {
     private let notificationsManager: NotificationsManager
     private let paymentManager: PaymentManager
     private let apiService: ApiService
+    private let toastManager: ToastManager
     private let disposeBag = DisposeBag()
     
     weak var delegate: ApplicationManagerDelegate?
@@ -30,7 +31,8 @@ final class ApplicationManager {
          userManager: UserManager,
          notificationsManager: NotificationsManager,
          paymentManager: PaymentManager,
-         apiService: ApiService) {
+         apiService: ApiService,
+         toastManager: ToastManager) {
         self.application = application
         self.configurationManager = configurationManager
         self.storage = storage
@@ -39,6 +41,7 @@ final class ApplicationManager {
         self.notificationsManager = notificationsManager
         self.paymentManager = paymentManager
         self.apiService = apiService
+        self.toastManager = toastManager
         
         quickActionManager.delegate = self
         notificationsManager.delegate = self
@@ -127,6 +130,18 @@ final class ApplicationManager {
     }
     
     private func handleOpen(with url: NSURL) -> Bool {
+        guard let configuration = configurationManager.configuration else {
+            logError("Cannot open url. Configuration doesn't exist")
+            return false
+        }
+        
+        guard url.host == configuration.webPageURL.host else {
+            logInfo("URL.host (\(url)) does not equal configuraion webPageURL host \(configuration.webPageURL)")
+            toastManager.showMessage(tr(.DeepLinkingWrongPlatform))
+            logAnalyticsEvent(AnalyticsEventId.DeepLinkWrongPlatform)
+            return false
+        }
+        
         if let httpsUrl = url.changeToHTTPSchemeIfNeeded() {
             Analytics.sharedInstance.affilation = httpsUrl.retrieveUtmSource()
             return delegate?.applicationManager(self, didReceiveUrl: httpsUrl) ?? false

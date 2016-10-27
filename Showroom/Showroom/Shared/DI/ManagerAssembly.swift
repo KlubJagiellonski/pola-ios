@@ -56,7 +56,7 @@ class ManagerAssembly: AssemblyType {
         }
         
         container.register(ApplicationManager.self) { r in
-            return ApplicationManager(application: r.resolve(UIApplication.self)!, configurationManager: r.resolve(ConfigurationManager.self)!, storage: r.resolve(StorageManager.self)!, quickActionManager: r.resolve(QuickActionManager.self)!, userManager: r.resolve(UserManager.self)!, notificationsManager: r.resolve(NotificationsManager.self)!, paymentManager: r.resolve(PaymentManager.self)!, apiService: r.resolve(ApiService.self)!)
+            return ApplicationManager(application: r.resolve(UIApplication.self)!, configurationManager: r.resolve(ConfigurationManager.self)!, storage: r.resolve(StorageManager.self)!, quickActionManager: r.resolve(QuickActionManager.self)!, userManager: r.resolve(UserManager.self)!, notificationsManager: r.resolve(NotificationsManager.self)!, paymentManager: r.resolve(PaymentManager.self)!, apiService: r.resolve(ApiService.self)!, toastManager: r.resolve(ToastManager.self)!)
         }.inObjectScope(.Container)
         
         container.register(ConfigurationManager.self) { r in

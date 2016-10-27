@@ -153,6 +153,7 @@ enum AnalyticsEventId: RawRepresentable {
     case VideoSummaryAutoPlay(ObjectId)
     case VideoSummaryWatchAgain(ObjectId)
     case VideoSummaryLinkClick(String)
+    case DeepLinkWrongPlatform
     
     typealias RawValue = [AnalyticsEvent]
     var rawValue: RawValue {
@@ -396,6 +397,8 @@ enum AnalyticsEventId: RawRepresentable {
             return [GoogleAnalyticsEvent(category: "video", action: "summary_watch_again", label: String(videoId), value: nil)]
         case VideoSummaryLinkClick(let link):
             return [GoogleAnalyticsEvent(category: "video", action: "link_click", label: link, value: nil)]
+        case DeepLinkWrongPlatform:
+            return [GoogleAnalyticsEvent(category: "deeplink", action: "wrong_platform", label: nil, value: nil)]
         }
     }
     init?(rawValue: RawValue) {
