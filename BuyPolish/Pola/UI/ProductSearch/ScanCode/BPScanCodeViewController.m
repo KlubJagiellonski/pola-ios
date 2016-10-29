@@ -7,9 +7,13 @@
 #import "NSString+BPUtilities.h"
 #import "BPAnalyticsHelper.h"
 #import "BPFlashlightManager.h"
+#import "BPKeyboardViewController.h"
+
+static NSTimeInterval const kAnimationTime = 0.15;
 
 @interface BPScanCodeViewController ()
 
+@property(nonatomic) BPKeyboardViewController *keyboardViewController;
 @property(nonatomic, readonly) BPCameraSessionManager *cameraSessionManager;
 @property(nonatomic, readonly) BPFlashlightManager *flashlightManager;
 @property(nonatomic, readonly) BPTaskRunner *taskRunner;
@@ -47,6 +51,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.castView.stackView.delegate = self;
     [self.castView.menuButton addTarget:self action:@selector(didTapMenuButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self.castView.keyboardButton addTarget:self action:@selector(didTapKeyboardButton:) forControlEvents:UIControlEventTouchUpInside];
 
     if (self.flashlightManager.isAvailable) {
         [self.castView.flashButton addTarget:self action:@selector(didTapFlashlightButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -149,6 +154,15 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     [self presentViewController:aboutNavigationController animated:YES completion:nil];
 }
 
+- (void)didTapKeyboardButton:(UIButton *)button {
+
+    if (self.keyboardViewController.view.superview == nil) {
+        [self showKeyboardController];
+    } else {
+        [self hideKeyboardController];
+    }
+}
+
 - (void)didTapFlashlightButton:(UIButton *)button {
     [self.flashlightManager toggleWithCompletionBlock:^(BOOL success) {
         //TODO: Add error message after consultation with UX
@@ -164,6 +178,55 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 - (void)setAddingCardEnabled:(BOOL)addingCardEnabled {
     _addingCardEnabled = addingCardEnabled;
     [UIApplication sharedApplication].idleTimerDisabled = _addingCardEnabled;
+}
+
+#pragma mark - Keyboard Controller
+
+- (void) hideKeyboardController {
+    [self.castView.keyboardButton setSelected:NO];
+
+    [self.keyboardViewController willMoveToParentViewController:nil];
+
+    [UIView animateWithDuration:kAnimationTime animations:^{
+        self.castView.infoTextLabel.alpha = self.castView.stackView.cardCount > 0 ? 0.0 : 1.0;
+        self.castView.rectangleView.alpha = 1.0;
+        self.castView.stackView.alpha = 1.0;
+        self.keyboardViewController.view.alpha = 0.0;
+    } completion:^(BOOL finished) {
+        [self.keyboardViewController.view removeFromSuperview];
+        [self.keyboardViewController removeFromParentViewController];
+
+        [self.castView configureInfoLabelForMode:BPScanCodeViewLabelModeScan];
+        self.keyboardViewController = nil;
+        
+        if (self.castView.stackView.cardCount != 0) {
+            [self.castView setInfoTextVisible:NO];
+        }
+    }];
+}
+
+- (void)showKeyboardController {
+    self.keyboardViewController = [[BPKeyboardViewController alloc] init];
+    self.keyboardViewController.delegate = self;
+    
+    [self.castView.keyboardButton setSelected:YES];
+
+    [self addChildViewController:self.keyboardViewController];
+    self.keyboardViewController.view.frame = self.view.bounds;
+    self.keyboardViewController.view.alpha = 0.0;
+    [self.view insertSubview:self.keyboardViewController.view belowSubview:self.castView.logoImageView];
+
+    [UIView animateWithDuration:kAnimationTime animations:^{
+        self.keyboardViewController.view.alpha = 1.0;
+
+        self.castView.rectangleView.alpha = 0.0;
+        self.castView.stackView.alpha = 0.0;
+    } completion:^(BOOL finished) {
+        [self.keyboardViewController didMoveToParentViewController:self];
+    }];
+
+    [self.castView configureInfoLabelForMode:BPScanCodeViewLabelModeKeyboard];
+    [self.castView setInfoTextVisible:YES];
 }
 
 #pragma mark - UIAlertViewDelegate
@@ -192,7 +255,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 - (void)stackView:(BPStackView *)stackView willExpandWithCard:(UIView *)cardView {
     self.addingCardEnabled = NO;
 
-    [self.castView setMenuButtonVisible:NO animation:YES];
+    [self.castView setButtonsVisible:NO animation:YES];
 
     NSString *barcode = self.scannedBarcodes[(NSUInteger) cardView.tag];
     if (!barcode) {
@@ -207,7 +270,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 - (void)stackViewDidCollapse:(BPStackView *)stackView {
     self.addingCardEnabled = YES;
 
-    [self.castView setMenuButtonVisible:YES animation:YES];
+    [self.castView setButtonsVisible:YES animation:YES];
 }
 
 - (BOOL)stackView:(BPStackView *)stackView didTapCard:(UIView *)cardView {
@@ -263,6 +326,14 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 
 - (void)infoCancelled:(BPAboutNavigationController *)infoNavigationController {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - BPKeyboardViewControllerDelegate
+
+- (void)keyboardViewController:(BPKeyboardViewController *) viewController didConfirmWithCode:(NSString *) code {
+    [self hideKeyboardController];
+    
+    [self didFindBarcode:code];
 }
 
 @end
