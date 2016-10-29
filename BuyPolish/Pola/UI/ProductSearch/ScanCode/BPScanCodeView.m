@@ -128,7 +128,6 @@ const int INFO_TEXT_LABEL_BOTTOM_MARGIN = 50;
         self.infoTextLabel.text = NSLocalizedString(@"Scan barcode", nil);
     } else {
         self.infoTextLabel.text = NSLocalizedString(@"Type 13 digits", nil);
-        [self setInfoTextVisible: YES];
     }
 }
 
