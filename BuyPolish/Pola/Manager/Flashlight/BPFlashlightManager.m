@@ -16,8 +16,7 @@
 }
 
 - (BOOL)isAvailable {
-    return true;
-//    return [self.flashlight isTorchAvailable] && [self.flashlight isTorchModeSupported:AVCaptureTorchModeOn];
+    return [self.flashlight isTorchAvailable] && [self.flashlight isTorchModeSupported:AVCaptureTorchModeOn];
 }
 
 - (BOOL)isOn {
