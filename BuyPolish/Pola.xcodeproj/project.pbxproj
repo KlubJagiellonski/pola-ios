@@ -21,6 +21,7 @@
 		1D08E84719A7621A00879BD2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D08E82A19A7621A00879BD2 /* UIKit.framework */; };
 		1D08E84819A7621A00879BD2 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D08E82C19A7621A00879BD2 /* CoreData.framework */; };
 		1D08E85019A7621A00879BD2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1D08E84E19A7621A00879BD2 /* InfoPlist.strings */; };
+		1D2D50661DC54092000A8958 /* BPExtendedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D2D50651DC54092000A8958 /* BPExtendedButton.m */; };
 		1D648C131A71B483002B413D /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D648C111A71B483002B413D /* Crashlytics.framework */; };
 		1D648C141A71B483002B413D /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D648C121A71B483002B413D /* Fabric.framework */; };
 		1DEFA1BB1BD9920600938C81 /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1DEFA1B81BD9920600938C81 /* Lato-Light.ttf */; };
@@ -116,6 +117,8 @@
 		1D08E84319A7621A00879BD2 /* PolaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PolaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D08E84419A7621A00879BD2 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		1D08E84D19A7621A00879BD2 /* PolaTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PolaTests-Info.plist"; sourceTree = "<group>"; };
+		1D2D50641DC54092000A8958 /* BPExtendedButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPExtendedButton.h; sourceTree = "<group>"; };
+		1D2D50651DC54092000A8958 /* BPExtendedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPExtendedButton.m; sourceTree = "<group>"; };
 		1D648C111A71B483002B413D /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		1D648C121A71B483002B413D /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		1DEFA1B81BD9920600938C81 /* Lato-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Light.ttf"; sourceTree = "<group>"; };
@@ -469,6 +472,8 @@
 				37B641F70BCE669CF5019BB7 /* BPAnalyticsHelper.m */,
 				37B64D62D6D7E068CB4517A9 /* BPDeviceHelper.h */,
 				37B6453D6C76C627D4F7C568 /* BPDeviceHelper.m */,
+				1D2D50641DC54092000A8958 /* BPExtendedButton.h */,
+				1D2D50651DC54092000A8958 /* BPExtendedButton.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -856,6 +861,7 @@
 				37B64B04E790A7948469FA50 /* BPProductImageManager.m in Sources */,
 				375021841CC0F0F800759140 /* BPKeyboardTextView.m in Sources */,
 				37B642E8F1F16F59571A854C /* BPImageContainerView.m in Sources */,
+				1D2D50661DC54092000A8958 /* BPExtendedButton.m in Sources */,
 				37B64812B722CA03E04616F8 /* UIColor+BPAdditions.m in Sources */,
 				37B6423FEFD4E46BF69E0228 /* BPAPIAccessor+BPReport.m in Sources */,
 				37B6402EAD901CC4D954596B /* BPReportManager.m in Sources */,

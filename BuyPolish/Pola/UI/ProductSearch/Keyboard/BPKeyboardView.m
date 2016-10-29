@@ -1,6 +1,7 @@
 #import "BPKeyboardView.h"
 #import "BPTheme.h"
 #import "BPKeyboardTextView.h"
+#import "BPExtendedButton.h"
 
 @interface BPKeyboardView ()
 @property(nonatomic, strong, readonly) UIView *contentView;
@@ -29,7 +30,8 @@
             NSString *imageName = [NSString stringWithFormat:@"kb_%d", index];
             NSString *highlightedImageName = [NSString stringWithFormat:@"kb_%d_highlighted", index];
             
-            UIButton *button = [UIButton new];
+            BPExtendedButton *button = [BPExtendedButton new];
+            button.extendedTouchSize = 4;
             button.tag = index;
             [button setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
             [button setImage:[UIImage imageNamed:highlightedImageName] forState:UIControlStateHighlighted];

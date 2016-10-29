@@ -2,6 +2,7 @@
 #import "BPKeyboardView.h"
 #import "BPKeyboardTextView.h"
 #import "NSString+BPUtilities.h"
+#import <AudioToolbox/AudioToolbox.h>
 
 @interface BPKeyboardViewController () <BPKeyboardViewDelegate>
 @end
@@ -27,6 +28,7 @@
 #pragma mark - BPKeyboardViewDelegate
 
 - (void)keyboardView:(BPKeyboardView *)keyboardView didConfirmWithCode:(NSString *)code {
+    AudioServicesPlaySystemSound(1104);
     if (![code isValidBarcode]) {
         [self.castView showErrorMessage];
         return;
@@ -36,6 +38,7 @@
 
 - (void)keyboardView:(BPKeyboardView *)keyboardView didChangedCode:(NSString *)code {
     [self.castView hideErrorMessage];
+    AudioServicesPlaySystemSound(1104);
 }
 
 #pragma mark - Utitlites

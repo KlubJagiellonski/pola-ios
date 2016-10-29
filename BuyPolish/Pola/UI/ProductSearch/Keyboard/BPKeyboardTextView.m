@@ -1,5 +1,6 @@
 #import "BPKeyboardTextView.h"
 #import "BPTheme.h"
+#import <AudioToolbox/AudioToolbox.h>
 
 static CGFloat const kCornerRadious = 2.0;
 static CGFloat const kAnimationTime = 0.2;
@@ -66,7 +67,8 @@ static CGFloat const kAnimationTime = 0.2;
     self.topView.frame = rect;
     
     rect = self.removeButton.frame;
-    rect.origin = CGPointMake(width - 6 - CGRectGetWidth(self.removeButton.bounds), self.topView.bounds.size.height / 2 - rect.size.height / 2);
+    rect.origin = CGPointMake(width - 6 - CGRectGetWidth(self.removeButton.bounds) - 6, 0);
+    rect.size = CGSizeMake(CGRectGetWidth(self.removeButton.bounds) + 12, CGRectGetHeight(self.topView.bounds));
     self.removeButton.frame = rect;
     
     rect = self.codeLabel.frame;
@@ -125,6 +127,7 @@ static CGFloat const kAnimationTime = 0.2;
 }
 
 - (void)didTapRemoveButton {
+    AudioServicesPlaySystemSound(1104);
     if (self.codeLabel.text.length == 0) {
         return;
     }
