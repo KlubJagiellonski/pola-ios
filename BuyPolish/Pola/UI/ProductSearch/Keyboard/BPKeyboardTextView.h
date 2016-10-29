@@ -2,6 +2,8 @@
 
 @interface BPKeyboardTextView : UIView
 
+@property(nonatomic, readonly) NSString* code;
+
 - (void)insertValue:(NSInteger)value;
 
 - (void)showErrorMessage;

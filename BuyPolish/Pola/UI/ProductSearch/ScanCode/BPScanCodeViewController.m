@@ -53,8 +53,6 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     [self.castView.menuButton addTarget:self action:@selector(didTapMenuButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.castView.keyboardButton addTarget:self action:@selector(didTapKeyboardButton:) forControlEvents:UIControlEventTouchUpInside];
 
-    self.keyboardViewController = [[BPKeyboardViewController alloc] init];
-
     if (self.flashlightManager.isAvailable) {
         [self.castView.flashButton addTarget:self action:@selector(didTapFlashlightButton:) forControlEvents:UIControlEventTouchUpInside];
     } else {
@@ -70,7 +68,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 
     [self updateFlashlightButton];
 
-//    [self didFindBarcode:@"5900396019813"];
+    [self didFindBarcode:@"5900396019813"];
 //    [self performSelector:@selector(didFindBarcode:) withObject:@"5901234123457" afterDelay:1.5f];
 //    [self performSelector:@selector(didFindBarcode:) withObject:@"5900396019813" afterDelay:3.f];
 //    [self showReportProblem:productId:@"3123123"];
@@ -199,10 +197,14 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
         [self.keyboardViewController removeFromParentViewController];
 
         [self.castView configureInfoLabelForMode:BPScanCodeViewLabelModeScan];
+        self.keyboardViewController = nil;
     }];
 }
 
 - (void)showKeyboardController {
+    self.keyboardViewController = [[BPKeyboardViewController alloc] init];
+    self.keyboardViewController.delegate = self;
+    
     [self.castView.keyboardButton setSelected:YES];
 
     [self addChildViewController:self.keyboardViewController];
@@ -319,6 +321,14 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 
 - (void)infoCancelled:(BPAboutNavigationController *)infoNavigationController {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - BPKeyboardViewControllerDelegate
+
+- (void)keyboardViewController:(BPKeyboardViewController *) viewController didConfirmWithCode:(NSString *) code {
+    [self hideKeyboardController];
+    
+    [self didFindBarcode:code];
 }
 
 @end

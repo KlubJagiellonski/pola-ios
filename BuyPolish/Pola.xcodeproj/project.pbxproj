@@ -86,7 +86,6 @@
 		37B64FF08BF5367BF9669B33 /* BPUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64B74E1FAED6141BA2B25 /* BPUtilities.m */; };
 		37C89AA41C78682200CCE940 /* BPFlashlightManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C89AA31C78682200CCE940 /* BPFlashlightManager.m */; };
 		37F16AA51CA1BCCF00A310CF /* BPKeyboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37F16AA31CA1BCCF00A310CF /* BPKeyboardViewController.m */; };
-		37F16AA61CA1BCCF00A310CF /* BPKeyboardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37F16AA41CA1BCCF00A310CF /* BPKeyboardViewController.xib */; };
 		69518FC099FB71F3DCFF46DE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DF0AB075C622D66E92D300ED /* libPods.a */; };
 		ABCA9D8499A8FF36227B6C94 /* UIApplication+BPStatusBarHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCA997979B62F78CFCB7E19 /* UIApplication+BPStatusBarHeight.m */; };
 /* End PBXBuildFile section */
@@ -236,7 +235,6 @@
 		37C89AA31C78682200CCE940 /* BPFlashlightManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPFlashlightManager.m; path = Flashlight/BPFlashlightManager.m; sourceTree = "<group>"; };
 		37F16AA21CA1BCCF00A310CF /* BPKeyboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPKeyboardViewController.h; path = Keyboard/BPKeyboardViewController.h; sourceTree = "<group>"; };
 		37F16AA31CA1BCCF00A310CF /* BPKeyboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPKeyboardViewController.m; path = Keyboard/BPKeyboardViewController.m; sourceTree = "<group>"; };
-		37F16AA41CA1BCCF00A310CF /* BPKeyboardViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BPKeyboardViewController.xib; path = Keyboard/BPKeyboardViewController.xib; sourceTree = "<group>"; };
 		ABCA997979B62F78CFCB7E19 /* UIApplication+BPStatusBarHeight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+BPStatusBarHeight.m"; sourceTree = "<group>"; };
 		ABCA9A3E3B8A8B7C925052B6 /* UIApplication+BPStatusBarHeight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+BPStatusBarHeight.h"; sourceTree = "<group>"; };
 		DDCD565BACC4C57A8E5BD067 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -632,7 +630,6 @@
 			children = (
 				37F16AA21CA1BCCF00A310CF /* BPKeyboardViewController.h */,
 				37F16AA31CA1BCCF00A310CF /* BPKeyboardViewController.m */,
-				37F16AA41CA1BCCF00A310CF /* BPKeyboardViewController.xib */,
 				371245251CBCEC6600BD0543 /* BPKeyboardView.h */,
 				371245261CBCEC6600BD0543 /* BPKeyboardView.m */,
 				375021821CC0F0F800759140 /* BPKeyboardTextView.h */,
@@ -703,7 +700,8 @@
 				ORGANIZATIONNAME = PJMS;
 				TargetAttributes = {
 					1D08E82219A7621A00879BD2 = {
-						DevelopmentTeam = Y5332SFZ6X;
+						DevelopmentTeam = 9NBWKG2G3X;
+						ProvisioningStyle = Manual;
 					};
 					1D08E84219A7621A00879BD2 = {
 						TestTargetID = 1D08E82219A7621A00879BD2;
@@ -735,7 +733,6 @@
 			files = (
 				1D08E83319A7621A00879BD2 /* InfoPlist.strings in Resources */,
 				1D08E83E19A7621A00879BD2 /* Images.xcassets in Resources */,
-				37F16AA61CA1BCCF00A310CF /* BPKeyboardViewController.xib in Resources */,
 				1DEFA1BD1BD9920600938C81 /* Lato-Regular.ttf in Resources */,
 				37B64B7D226FBFA23FFCA1C1 /* Localizable.strings in Resources */,
 				1DEFA1BB1BD9920600938C81 /* Lato-Light.ttf in Resources */,
@@ -1010,7 +1007,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEVELOPMENT_TEAM = 9NBWKG2G3X;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1023,9 +1021,10 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = "Pola/Pola-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				PRODUCT_BUNDLE_IDENTIFIER = eu.ttmm.plebble.round;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.kj.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "e947a90e-675f-4507-a3dc-1df3d0f9659b";
+				PROVISIONING_PROFILE_SPECIFIER = "XC: *";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				WRAPPER_EXTENSION = app;
@@ -1039,7 +1038,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEVELOPMENT_TEAM = 9NBWKG2G3X;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1052,9 +1052,10 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = "Pola/Pola-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				PRODUCT_BUNDLE_IDENTIFIER = eu.ttmm.plebble.round;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.kj.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "8fef22e1-1851-42d9-8b63-a470cd52c743";
+				PROVISIONING_PROFILE_SPECIFIER = "Pola Ad-Hoc";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				WRAPPER_EXTENSION = app;

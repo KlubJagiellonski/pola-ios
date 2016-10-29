@@ -1,20 +1,21 @@
 #import "BPKeyboardViewController.h"
 #import "BPKeyboardView.h"
 #import "BPKeyboardTextView.h"
+#import "NSString+BPUtilities.h"
 
 @interface BPKeyboardViewController () <BPKeyboardViewDelegate>
-
-@property (nonatomic) IBOutlet BPKeyboardView *keyboardView;
-@property (nonatomic) IBOutlet BPKeyboardTextView *textView;
-
 @end
 
 @implementation BPKeyboardViewController
 
+- (void)loadView {
+    self.view = [BPKeyboardView new];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.keyboardView.delegate = self;
+    self.castView.delegate = self;
 
     self.view.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.7];
 }
@@ -25,12 +26,22 @@
 
 #pragma mark - BPKeyboardViewDelegate
 
-- (void)keyboardView:(BPKeyboardView *)keyboardView tappedNumber:(NSInteger)number {
-    [self.textView insertValue:number];
+- (void)keyboardView:(BPKeyboardView *)keyboardView didConfirmWithCode:(NSString *)code {
+    if (![code isValidBarcode]) {
+        [self.castView showErrorMessage];
+        return;
+    }
+    [self.delegate keyboardViewController:self didConfirmWithCode:code];
 }
 
-- (void)confirmButtonTappedInKeyboardView:(BPKeyboardView *)keyboardView {
+- (void)keyboardView:(BPKeyboardView *)keyboardView didChangedCode:(NSString *)code {
+    [self.castView hideErrorMessage];
+}
 
+#pragma mark - Utitlites
+
+- (BPKeyboardView *)castView {
+    return (BPKeyboardView *)self.view;
 }
 
 @end
