@@ -24,6 +24,9 @@ const int INFO_TEXT_LABEL_BOTTOM_MARGIN = 50;
         _rectangleView = [[UIView alloc] initWithFrame:CGRectZero];
         _rectangleView.layer.borderWidth = 1.f;
         _rectangleView.layer.borderColor = [[UIColor whiteColor] CGColor];
+        _rectangleView.accessibilityTraits = UIAccessibilityTraitNotEnabled;
+        _rectangleView.isAccessibilityElement = YES;
+        _rectangleView.accessibilityHint = NSLocalizedString(@"Accessibility.RectangleHint", @"");
         [self addSubview:_rectangleView];
 
         _logoImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LogoIcon"]];
@@ -43,17 +46,20 @@ const int INFO_TEXT_LABEL_BOTTOM_MARGIN = 50;
         [self addSubview:_stackView];
 
         _flashButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _flashButton.accessibilityLabel = NSLocalizedString(@"Accessibility.Flash", nil);
         [_flashButton setImage:[UIImage imageNamed:@"FlashIcon"] forState:UIControlStateNormal];
         [_flashButton setImage:[UIImage imageNamed:@"FlashSelectedIcon"] forState:UIControlStateSelected];
         [_flashButton sizeToFit];
         [self insertSubview:_flashButton belowSubview:_logoImageView];
 
         _menuButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _menuButton.accessibilityLabel = NSLocalizedString(@"Accessibility.Info", nil);
         [_menuButton setImage:[UIImage imageNamed:@"BurgerIcon"] forState:UIControlStateNormal];
         [_menuButton sizeToFit];
         [self addSubview:_menuButton];
 
         _keyboardButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _keyboardButton.accessibilityLabel = NSLocalizedString(@"Accessibility.WriteCode", nil);
         [_keyboardButton setImage:[UIImage imageNamed:@"KeyboardIcon"] forState:UIControlStateNormal];
         [_keyboardButton setImage:[UIImage imageNamed:@"KeyboardSelectedIcon"] forState:UIControlStateSelected];
         [_keyboardButton sizeToFit];

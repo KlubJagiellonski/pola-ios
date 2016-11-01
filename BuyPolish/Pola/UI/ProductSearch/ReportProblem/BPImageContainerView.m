@@ -28,6 +28,7 @@ const CGFloat ANIMATION_DURATION = 0.5f;
         _deleteButtonArray = [NSMutableArray arrayWithCapacity:MAX_IMAGE_COUNT];
 
         _addImageButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _addImageButton.accessibilityLabel = NSLocalizedString(@"Accessibility.Report.AddPhoto", nil);
         [_addImageButton setBackgroundColor:[UIColor colorWithHexString:@"CCCCCC"]];
         [_addImageButton addTarget:self action:@selector(didTapAddImageButton:) forControlEvents:UIControlEventTouchUpInside];
         [_addImageButton setImage:[UIImage imageNamed:@"AddIcon"] forState:UIControlStateNormal];

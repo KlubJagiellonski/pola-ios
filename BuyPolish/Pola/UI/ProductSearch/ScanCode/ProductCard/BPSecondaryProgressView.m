@@ -30,6 +30,9 @@ const int SECONDARY_PROGRESS_TITLE_MARGIN = 10;
         _percentLabel.text = @"?";
         [_percentLabel sizeToFit];
         [self addSubview:_percentLabel];
+        
+        self.isAccessibilityElement = true;
+        self.accessibilityTraits = UIAccessibilityTraitStaticText;
     }
 
     return self;
@@ -82,4 +85,9 @@ const int SECONDARY_PROGRESS_TITLE_MARGIN = 10;
 - (void)setPercentColor:(UIColor *)percentColor {
     self.percentLabel.textColor = percentColor;
 }
+
+- (NSString *)accessibilityValue {
+    return [NSString stringWithFormat:NSLocalizedString(@"Accessibility.SecondaryProgressValue", nil), self.percentLabel.text];
+}
+
 @end

@@ -45,3 +45,17 @@
 "Camer Privacy Description" = "Pola wymaga dostępu do kamery aby móc skanować kody kreskowe z produktów. Przejść do ustawień?";
 "Settings" = "Ustawienia";
 "Write code error" = "błędny kod";
+"Accessibility.CheckRow.Unknown" = "Brak informacji";
+"Accessibility.CheckRow.Selected" = "Zaznaczone";
+"Accessibility.CheckRow.NotSelected" = "Odznaczone";
+"Accessibility.RectangleHint" = "Umieść kod kreskowy produktu w tym prostokącie";
+"Accessibility.MainProgressValue" = "%@ na 100 pkt.";
+"Accessibility.SecondaryProgressValue" = "Udział polskiego kapitału %@";
+"Accessibility.WriteCode" = "Wpisz kod kreskowy";
+"Accessibility.Flash" = "Flesz";
+"Accessibility.Info" = "Informacje o aplikacji";
+"Accessibility.Keyboard.Accept" = "Zatwierdź";
+"Accessibility.Keyboard.Delete" = "Usuń ostatnią cyfrę";
+"Accessibility.Close" = "Zamknij";
+"Accessibility.CardHint" = "Otwórz lub zamknij poprzez kliknięcie";
+"Accessibility.Report.AddPhoto" = "Dodaj zdjęcie";

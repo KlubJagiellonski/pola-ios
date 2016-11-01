@@ -28,6 +28,7 @@ CGFloat const CELL_HEIGHT = 49;
 
     self.title = NSLocalizedString(@"Info", nil);
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"CloseIcon"] style:UIBarButtonItemStylePlain target:self action:@selector(didTapCloseButton:)];
+    self.navigationItem.rightBarButtonItem.accessibilityLabel = NSLocalizedString(@"Accessibility.Close", nil);
 
     _rowList = [self createRowList];
 

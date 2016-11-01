@@ -37,6 +37,7 @@ const int REPORT_DESCRIPTIONSHADOW_HEIGHT = 1;
         [self addSubview:_titleLabel];
 
         _closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _closeButton.accessibilityLabel = NSLocalizedString(@"Accessibility.Close", nil);
         [_closeButton setImage:[[UIImage imageNamed:@"CloseIcon"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
         _closeButton.tintColor = [BPTheme defaultTextColor];
         [_closeButton sizeToFit];

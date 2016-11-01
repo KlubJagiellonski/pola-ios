@@ -23,7 +23,10 @@ const int CHECK_ROW_HORIZONTAL_MARGIN = 7;
         _textLabel.font = [BPTheme normalFont];
         _textLabel.textColor = [BPTheme defaultTextColor];
         [self addSubview:_textLabel];
-
+        
+        self.accessibilityTraits = UIAccessibilityTraitStaticText;
+        self.isAccessibilityElement = true;
+        
         [self setChecked:nil];
     }
 
@@ -52,12 +55,16 @@ const int CHECK_ROW_HORIZONTAL_MARGIN = 7;
 
 - (void)setChecked:(NSNumber *)checked {
     UIImage *image;
+    NSString *accessibilityValueKey;
     if (!checked) {
         image = [UIImage imageNamed:@"NoneIcon"];
+        accessibilityValueKey = @"Accessibility.CheckRow.Unknow";
     } else {
         image = [UIImage imageNamed:checked.boolValue ? @"TrueIcon" : @"FalseIcon"];
+        accessibilityValueKey = checked.boolValue ? @"Accessibility.CheckRow.Selected" : @"Accessibility.CheckRow.NotSelected";
     }
     self.checkImageView.image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    self.checkImageView.accessibilityValue = NSLocalizedString(accessibilityValueKey, @"");
     [self.checkImageView sizeToFit];
     [self setNeedsLayout];
 }
@@ -68,5 +75,12 @@ const int CHECK_ROW_HORIZONTAL_MARGIN = 7;
     return size;
 }
 
+- (NSString *)accessibilityValue {
+    return self.checkImageView.accessibilityValue;
+}
+
+- (NSString *)accessibilityLabel {
+    return self.textLabel.text;
+}
 
 @end

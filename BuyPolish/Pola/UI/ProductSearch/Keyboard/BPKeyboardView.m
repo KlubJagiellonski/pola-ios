@@ -33,6 +33,7 @@
             BPExtendedButton *button = [BPExtendedButton new];
             button.extendedTouchSize = 4;
             button.tag = index;
+            button.accessibilityLabel = [NSString stringWithFormat:@"%d", index];
             [button setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
             [button setImage:[UIImage imageNamed:highlightedImageName] forState:UIControlStateHighlighted];
             [button sizeToFit];
@@ -42,6 +43,7 @@
         }
         
         _okButton = [UIButton new];
+        _okButton.accessibilityLabel = NSLocalizedString(@"Accessibility.Keyboard.Accept", nil);
         [self.okButton setImage:[UIImage imageNamed:@"kb_ok"] forState:UIControlStateNormal];
         [self.okButton setImage:[UIImage imageNamed:@"kb_ok_highlighted"] forState:UIControlStateNormal];
         [self.okButton addTarget:self action:@selector(confirmButtonAction:) forControlEvents:UIControlEventTouchUpInside];

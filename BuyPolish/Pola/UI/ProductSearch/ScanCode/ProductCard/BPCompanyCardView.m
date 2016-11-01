@@ -30,6 +30,8 @@ int const CARD_CONTENT_PROGRESS_IN_HEADER = 6;
         self.layer.masksToBounds = NO;
         self.layer.shadowRadius = 1.f;
         self.layer.shadowOpacity = 0.2f;
+        
+        self.accessibilityViewIsModal = true;
 
         _loadingProgressView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         [_loadingProgressView sizeToFit];
@@ -38,6 +40,8 @@ int const CARD_CONTENT_PROGRESS_IN_HEADER = 6;
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _titleLabel.font = [BPTheme titleFont];
         _titleLabel.textColor = [BPTheme defaultTextColor];
+        _titleLabel.accessibilityTraits = UIAccessibilityTraitHeader;
+        _titleLabel.accessibilityHint = NSLocalizedString(@"Accessibility.CardHint", nil);
         [self addSubview:_titleLabel];
 
         _mainProgressView = [[BPMainProggressView alloc] initWithFrame:CGRectZero];
@@ -147,6 +151,8 @@ int const CARD_CONTENT_PROGRESS_IN_HEADER = 6;
 - (void)setMainPercent:(CGFloat)mainPercent {
     self.mainProgressView.progress = mainPercent;
     [self.mainProgressView setNeedsLayout];
+    
+    self.titleLabel.accessibilityValue = self.mainProgressView.accessibilityValue;
 }
 
 - (void)setCapitalPercent:(NSNumber *)capitalPercent {

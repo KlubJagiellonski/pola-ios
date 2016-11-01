@@ -26,6 +26,9 @@ const int MAIN_PROGRESS_TITLE_MARGIN = 10;
         _percentLabel.font = [BPTheme captionFont];
         _percentLabel.textColor = [BPTheme clearColor];
         [self addSubview:_percentLabel];
+        
+        self.isAccessibilityElement = true;
+        self.accessibilityTraits = UIAccessibilityTraitStaticText;
     }
 
     return self;
@@ -51,7 +54,7 @@ const int MAIN_PROGRESS_TITLE_MARGIN = 10;
     int progressInt = (int) (progress * 100);
     self.percentLabel.text = [NSString stringWithFormat:@"%i pkt.", progressInt];
     [self.percentLabel sizeToFit];
-
+    
     [self setNeedsLayout];
     [self layoutIfNeeded];
 }
@@ -59,6 +62,10 @@ const int MAIN_PROGRESS_TITLE_MARGIN = 10;
 - (CGSize)sizeThatFits:(CGSize)size {
     size.height = MAIN_PROGRESS_HEIGHT;
     return size;
+}
+
+- (NSString *)accessibilityValue {
+    return [NSString stringWithFormat:NSLocalizedString(@"Accessibility.MainProgressValue", nil), self.percentLabel.text];
 }
 
 @end
