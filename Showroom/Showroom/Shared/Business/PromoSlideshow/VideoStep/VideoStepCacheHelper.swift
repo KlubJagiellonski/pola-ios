@@ -44,7 +44,11 @@ final class VideoStepCacheHelper: NSObject, AVAssetResourceLoaderDelegate {
         exporter.outputURL = cachedFileUrl
         exporter.outputFileType = AVFileTypeMPEG4
         exporter.exportAsynchronouslyWithCompletionHandler {
-            logError("Did end exporting vide with status \(exporter.status.rawValue), error \(exporter.error)")
+            if exporter.status == .Failed {
+                logError("Did fail exporting video with status \(exporter.status.rawValue), error \(exporter.error)")
+            } else {
+                logError("Exporting video status changed: \(exporter.status.rawValue), error \(exporter.error)")
+            }
         }
     }
     

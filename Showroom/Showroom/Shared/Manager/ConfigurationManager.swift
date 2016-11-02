@@ -46,7 +46,7 @@ final class ConfigurationManager {
         }
         get {
             guard let platformCode: String = storage.load(forKey: ConfigurationManager.platformCodeKey) else {
-                logError("Could not find language code in user defaults for key: \(ConfigurationManager.platformCodeKey)")
+                logInfo("Could not find language code in user defaults for key: \(ConfigurationManager.platformCodeKey)")
                 return nil
             }
             guard let platform = Platform(code: platformCode) else {

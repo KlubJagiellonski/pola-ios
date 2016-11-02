@@ -210,8 +210,9 @@ class CheckoutSummaryDataSource: NSObject, UITableViewDataSource, CheckoutSummar
         summaryView?.checkoutSummaryDidChangeToPaymentType(payments[indexPath.row].id)
         for row in 0...(payments.count - 1) {
             guard row != indexPath.row else { continue }
-            let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: row, inSection: indexPath.section)) as! CheckoutSummaryPaymentOptionCell
-            cell.optionSelected = false
+            let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: row, inSection: indexPath.section))
+            guard let optionCell = cell as? CheckoutSummaryPaymentOptionCell else { continue }
+            optionCell.optionSelected = false
         }
     }
 }
