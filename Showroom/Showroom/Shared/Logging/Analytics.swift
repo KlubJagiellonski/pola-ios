@@ -107,6 +107,7 @@ enum AnalyticsEventId: RawRepresentable {
     case ProductZoomIn(ObjectId)
     case ProductShowDetails(ObjectId)
     case ProductSizeTableShown(ObjectId)
+    case ProductBrandNameClicked(ObjectId)
     case ProductOtherDesignerProductsClicked(ObjectId)
     case ProductChangeColorClicked(ObjectId)
     case ProductChangeSizeClicked(ObjectId)
@@ -297,6 +298,8 @@ enum AnalyticsEventId: RawRepresentable {
             return [GoogleAnalyticsEvent(category: "product", action: "show_details", label: String(id), value: nil)]
         case ProductSizeTableShown(let id):
             return [GoogleAnalyticsEvent(category: "product", action: "size_table", label: String(id), value: nil)]
+        case ProductBrandNameClicked(let id):
+            return [GoogleAnalyticsEvent(category: "product", action: "brand_name_click", label: String(id), value: nil)]
         case ProductOtherDesignerProductsClicked(let id):
             return [GoogleAnalyticsEvent(category: "product", action: "other_products", label: String(id), value: nil)]
         case ProductChangeColorClicked(let id):

@@ -158,6 +158,16 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
         contentNavigationController?.showSizeChart()
     }
     
+    private func showBrandOtherProducts() {
+        guard let product = model.state.productDetails else {
+            logError("Cannot show other brand products. No product details.")
+            return
+        }
+        
+        let productBrand = EntryProductBrand(id: product.brand.id, name: product.brand.name, link: nil)
+        sendNavigationEvent(ShowBrandProductListEvent(productBrand: productBrand))
+    }
+    
     // MARK:- ProductPageViewDelegate
     
     func pageView(pageView: ProductPageView, willChangePageViewState newPageViewState: ProductPageViewState, animationDuration: Double?) {
@@ -260,15 +270,16 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
     
     func descriptionViewDidTapOtherBrandProducts(view: ProductDescriptionView) {
         logInfo("Did tap other brand products")
-        guard let product = model.state.productDetails else {
-            logError("Cannot show other brand products. No product details.")
-            return
-        }
         
         logAnalyticsEvent(AnalyticsEventId.ProductOtherDesignerProductsClicked(model.productId))
+        showBrandOtherProducts()
+    }
+    
+    func descriptionViewDidTapBrandName(view: ProductDescriptionView) {
+        logInfo("Did tap brand name")
         
-        let productBrand = EntryProductBrand(id: product.brand.id, name: product.brand.name, link: nil)
-        sendNavigationEvent(ShowBrandProductListEvent(productBrand: productBrand))
+        logAnalyticsEvent(AnalyticsEventId.ProductBrandNameClicked(model.productId))
+        showBrandOtherProducts()
     }
     
     // MARK:- ViewSwitcherDelegate
