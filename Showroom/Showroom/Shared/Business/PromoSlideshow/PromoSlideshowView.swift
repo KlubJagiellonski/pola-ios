@@ -104,6 +104,10 @@ final class PromoSlideshowView: UIView, UICollectionViewDelegate, ModalPanDismis
         collectionView.delegate = self
         collectionView.configureForPaging(withDirection: .Horizontal)
         
+        if #available(iOS 10.0, *) {
+            collectionView.prefetchingEnabled = false
+        }
+        
         closeButton.setImage(UIImage(asset: .Ic_close), forState: .Normal)
         closeButton.applyCircleStyle()
         closeButton.addTarget(self, action: #selector(PromoSlideshowView.onCloseButtonTapped), forControlEvents: .TouchUpInside)
