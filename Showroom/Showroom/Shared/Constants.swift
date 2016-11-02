@@ -49,6 +49,10 @@ struct Constants {
         static let wishlistState = "wishlistState"
     }
     
+    struct UserDefaults {
+        static let videoPauseStateCount = "videoPauseStateCount" 
+    }
+    
     struct ActivityType {
         static let browsing = NSBundle.mainBundle().bundleIdentifier!.stringByAppendingString(".browsing")
     }

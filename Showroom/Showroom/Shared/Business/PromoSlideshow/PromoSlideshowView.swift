@@ -34,6 +34,7 @@ final class PromoSlideshowView: UIView, UICollectionViewDelegate, ModalPanDismis
     var currentPageIndex: Int { return collectionView.currentPageIndex }
     private(set) var closeButtonState: PromoSlideshowCloseButtonState = .Close {
         didSet {
+            closeButton.imageView?.layer.removeAllAnimations()
             switch closeButtonState {
             case .Close:
                 closeButton.setImage(UIImage(asset: .Ic_close), forState: .Normal)
@@ -225,6 +226,35 @@ final class PromoSlideshowView: UIView, UICollectionViewDelegate, ModalPanDismis
             self.transitionView = nil
             self.transitionLoaderView?.removeFromSuperview()
             self.transitionLoaderView = nil
+        }
+    }
+    
+    func runPlayFeedback() {
+        guard let imageView = self.closeButton.imageView else { return }
+        
+        let animationDuration: Double = 1.2
+        let scaleFactor: CGFloat = 1.5
+        let scaledTransform = CGAffineTransformMakeScale(scaleFactor, scaleFactor)
+        let defaultTransform = CGAffineTransformIdentity
+        
+        let animations = {
+            UIView.addKeyframeWithRelativeStartTime(0, relativeDuration: 0.25) {
+                imageView.transform = scaledTransform
+            }
+            UIView.addKeyframeWithRelativeStartTime(0.25, relativeDuration: 0.25) {
+                imageView.transform = defaultTransform
+            }
+            UIView.addKeyframeWithRelativeStartTime(0.5, relativeDuration: 0.25) {
+                imageView.transform = scaledTransform
+            }
+            UIView.addKeyframeWithRelativeStartTime(0.75, relativeDuration: 0.25) {
+                imageView.transform = defaultTransform
+            }
+        }
+        
+        UIView.animateKeyframesWithDuration(animationDuration, delay: 1, options: [], animations: animations ) { success in
+            guard success else { return }
+            UIView.animateKeyframesWithDuration(animationDuration, delay: 3, options: [], animations: animations, completion: nil)
         }
     }
     

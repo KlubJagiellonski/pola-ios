@@ -22,6 +22,10 @@ final class PromoSlideshowModel {
     private(set) var promoSlideshow: PromoSlideshow?
     private var prefetcher = PromoSlideshowPrefetcher()
     private let disposeBag = DisposeBag()
+    var shouldShowPlayFeedback: Bool {
+        let videoPauseStateCount: Int = storage.load(forKey: Constants.UserDefaults.videoPauseStateCount) ?? 0
+        return videoPauseStateCount < 5 //we show play feedback only 5x first times when user goes to pause state
+    }
     
     init(apiService: ApiService, storage: KeyValueStorage, slideshowId: Int) {
         self.apiService = apiService
@@ -114,6 +118,11 @@ final class PromoSlideshowModel {
         let additionalData = prefetcher.takeAdditionalData(atPageIndex: index)
         prefetcher.stopPrefetcher(atPageIndex: index)
         return PromoSlideshowPageDataContainer(pageData: pageData, additionalData: additionalData)
+    }
+    
+    func didShowPauseState() {
+        let currentPlayFeedbackCount: Int = storage.load(forKey: Constants.UserDefaults.videoPauseStateCount) ?? 0
+        storage.save(currentPlayFeedbackCount + 1, forKey: Constants.UserDefaults.videoPauseStateCount)
     }
     
     private func createPageData(forPageAtIndex index: Int) -> PromoSlideshowPageData? {

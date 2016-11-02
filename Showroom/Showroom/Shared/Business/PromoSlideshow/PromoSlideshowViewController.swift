@@ -295,7 +295,15 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
             logAnalyticsEvent(AnalyticsEventId.VideoPlay(model.slideshowId))
         default: break
         }
+        
         update(with: newViewState, animationDuration: animationDuration)
+        
+        if newViewState.isPausedState {
+            if model.shouldShowPlayFeedback {
+                castView.runPlayFeedback()
+            }
+            model.didShowPauseState()
+        }
     }
     
     func promoPageDidFinished(promoStep: PromoPageInterface) {
