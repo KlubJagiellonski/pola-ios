@@ -23,4 +23,5 @@ struct Dimensions {
     static let contentPromoImageWidth: CGFloat = UIScreen.mainScreen().bounds.width
     static let mediaPlayButtonDiameter: CGFloat = 76
     static let mediaControlButtonDiameter: CGFloat = 38
+    static let videoImageRatio: CGFloat = 0.84
 }

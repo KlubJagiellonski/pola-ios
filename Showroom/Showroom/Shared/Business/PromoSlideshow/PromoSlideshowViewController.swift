@@ -392,8 +392,8 @@ extension PromoSlideshowViewController: PromoSlideshowPageHandler {
 
 extension PromoSlideshowViewController: NavigationHandler {
     func handleNavigationEvent(event: NavigationEvent) -> EventHandled {
-        if let videoEvent = event as? ShowVideoEvent {
-            updateData(withSlideshowId: videoEvent.id)
+        if let videoEvent = event as? ShowPromoSlideshowEvent {
+            updateData(withSlideshowId: videoEvent.slideshowId)
             return true
         }
         return false

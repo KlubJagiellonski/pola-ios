@@ -45,7 +45,7 @@ final class PromoSummaryViewController: UIViewController, PromoPageInterface, Pr
         logInfo("Did tap repeat")
         let videoId = promoSlideshow.playlist[0].id
         logAnalyticsEvent(AnalyticsEventId.VideoSummaryWatchAgain(videoId))
-        sendNavigationEvent(ShowVideoEvent(id: videoId))
+        sendNavigationEvent(ShowPromoSlideshowEvent(slideshowId: videoId, transitionImageTag: nil))
     }
     
     func promoSummary(promoSummary: PromoSummaryView, didTapLink link: PromoSlideshowLink) {
@@ -57,7 +57,7 @@ final class PromoSummaryViewController: UIViewController, PromoPageInterface, Pr
     func promoSummary(promoSummary: PromoSummaryView, didTapPlayForVideo video: PromoSlideshowPlaylistItem) {
         logInfo("Did tap play video \(video)")
         logAnalyticsEvent(AnalyticsEventId.VideoSummaryPlay(video.id))
-        sendNavigationEvent(ShowVideoEvent(id: video.id))
+        sendNavigationEvent(ShowPromoSlideshowEvent(slideshowId: video.id, transitionImageTag: nil))
     }
     
     func promoSummaryDidTapNext(promoSummary: PromoSummaryView, withCurrentVideo video: PromoSlideshowPlaylistItem) {
@@ -73,7 +73,7 @@ final class PromoSummaryViewController: UIViewController, PromoPageInterface, Pr
     func promoSummaryDidAutoPlay(promoSummary: PromoSummaryView, forVideo video: PromoSlideshowPlaylistItem) {
         logInfo("Did auto play with video \(video)")
         logAnalyticsEvent(AnalyticsEventId.VideoSummaryAutoPlay(video.id))
-        sendNavigationEvent(ShowVideoEvent(id: video.id))
+        sendNavigationEvent(ShowPromoSlideshowEvent(slideshowId: video.id, transitionImageTag: nil))
     }
 
     // MARK:- PromoPageInterface

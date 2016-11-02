@@ -82,7 +82,7 @@ final class PromoSummaryView: UIView {
             make.top.equalToSuperview()
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
-            make.height.equalTo(playerView.snp_width).dividedBy(UIDevice.currentDevice().screenType == .iPhone4 ? 0.9 : 0.84)
+            make.height.equalTo(playerView.snp_width).dividedBy(UIDevice.currentDevice().screenType == .iPhone4 ? 0.9 : Dimensions.videoImageRatio)
         }
         
         repeatButton.snp_makeConstraints { make in
