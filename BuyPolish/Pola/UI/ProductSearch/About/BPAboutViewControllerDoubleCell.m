@@ -61,6 +61,8 @@
 #pragma mark - Private
 
 - (void)applyStyleForButton:(UIButton *)button {
+    button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    button.contentEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 0);
     button.backgroundColor = [UIColor whiteColor];
     [button setTitleColor:[BPTheme defaultTextColor] forState:UIControlStateNormal];
     button.titleLabel.font = [BPTheme normalFont];

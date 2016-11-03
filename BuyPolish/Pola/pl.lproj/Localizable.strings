@@ -33,8 +33,8 @@
 "Partners" = "PARTNERZY";
 "Write to us" = "NAPISZ DO NAS";
 "Rate us" = "OCEŃ NAS";
-"Pola on Facebook" = "POLA NA FACEBOOKU";
-"Pola on Twitter" = "POLA NA TWITTERZE";
+"Pola on Facebook" = "FACEBOOK";
+"Pola on Twitter" = "TWITTER";
 "mail_title" = "Wiadomość wysłana z aplikacji Pola";
 "Scan barcode" = "Umieść kod kreskowy produktu w prostokącie powyżej aby dowiedzieć się więcej o firmie, która go wyprodukowała.";
 "Type 13 digits" = "Wpisz 13-cyfrowy kod produktu";
@@ -45,6 +45,7 @@
 "Camer Privacy Description" = "Pola wymaga dostępu do kamery aby móc skanować kody kreskowe z produktów. Przejść do ustawień?";
 "Settings" = "Ustawienia";
 "Write code error" = "błędny kod";
+"About.Info" = "Aplikacja Pola\nwersja %@\n© Klub Jagielloński";
 "Accessibility.CheckRow.Unknown" = "Brak informacji";
 "Accessibility.CheckRow.Selected" = "Zaznaczone";
 "Accessibility.CheckRow.NotSelected" = "Odznaczone";

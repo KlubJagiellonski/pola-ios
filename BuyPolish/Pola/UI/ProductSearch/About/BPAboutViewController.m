@@ -7,6 +7,7 @@
 #import "BPAnalyticsHelper.h"
 #import "BPDeviceHelper.h"
 #import "BPTheme.h"
+#import "BPAboutFooterView.h"
 
 NSString *const ABOUT_APP_STORE_APP_URL = @"itms-apps://itunes.apple.com/app/id1038401148";
 NSString *const ABOUT_FACEBOOK_URL = @"https://www.facebook.com/app.pola";
@@ -85,6 +86,8 @@ CGFloat const CELL_HEIGHT = 49;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     // Set background color
     self.tableView.backgroundColor = [BPTheme mediumBackgroundColor];
+    
+    self.tableView.tableFooterView = [[BPAboutFooterView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 70)];
 }
 
 #pragma mark - table view actions
