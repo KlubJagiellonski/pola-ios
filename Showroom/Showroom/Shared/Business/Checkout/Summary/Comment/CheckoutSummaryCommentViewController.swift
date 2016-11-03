@@ -2,11 +2,11 @@ import Foundation
 import UIKit
 
 protocol CheckoutSummaryCommentViewControllerDelegate: class {
-    func checkoutSummaryCommentWantsDismiss(viewController: CheckoutSummaryCommentViewController)
+    func checkoutSummaryCommentWantsDismiss(viewController: CheckoutSummaryCommentViewController, animated: Bool)
     func checkoutSummaryCommentWantsSaveAndDimsiss(viewController: CheckoutSummaryCommentViewController)
 }
 
-class CheckoutSummaryCommentViewController: UIViewController, CheckoutSummaryCommentViewDelegate {
+final class CheckoutSummaryCommentViewController: UIViewController, CheckoutSummaryCommentViewDelegate {
     private let resolver: DiResolver
     private var castView: CheckoutSummaryCommentView { return view as! CheckoutSummaryCommentView }
     
@@ -49,12 +49,18 @@ class CheckoutSummaryCommentViewController: UIViewController, CheckoutSummaryCom
     
     func checkoutSummaryCommentViewDidTapClose(view: CheckoutSummaryCommentView) {
         logInfo("Checkout summary view did tap close")
-        delegate?.checkoutSummaryCommentWantsDismiss(self)
+        delegate?.checkoutSummaryCommentWantsDismiss(self, animated: true)
     }
     
     func checkoutSummaryCommentViewDidTapSave(view: CheckoutSummaryCommentView) {
         logInfo("Checkout summary comment view did tap save")
         comment = view.comment
         delegate?.checkoutSummaryCommentWantsSaveAndDimsiss(self)
+    }
+}
+
+extension CheckoutSummaryCommentViewController: ExtendedModalViewController {
+    func forceCloseWithoutAnimation() {
+        delegate?.checkoutSummaryCommentWantsDismiss(self, animated: false)
     }
 }

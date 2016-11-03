@@ -2,10 +2,10 @@ import Foundation
 import UIKit
 
 protocol BasketDeliveryNavigationControllerDelegate: class {
-    func basketDeliveryWantsDismiss(viewController: BasketDeliveryNavigationController)
+    func basketDeliveryWantsDismiss(viewController: BasketDeliveryNavigationController, animated: Bool)
 }
 
-class BasketDeliveryNavigationController: UINavigationController, NavigationHandler {
+final class BasketDeliveryNavigationController: UINavigationController, NavigationHandler {
     weak var deliveryDelegate: BasketDeliveryNavigationControllerDelegate?
     
     let resolver: DiResolver
@@ -36,7 +36,7 @@ class BasketDeliveryNavigationController: UINavigationController, NavigationHand
             return true
         case .Close:
             logInfo("Closing basket delivery")
-            deliveryDelegate?.basketDeliveryWantsDismiss(self)
+            deliveryDelegate?.basketDeliveryWantsDismiss(self, animated: true)
             return true
         case .ShowCountrySelectionList:
             logInfo("Showing country selection list")
@@ -46,5 +46,11 @@ class BasketDeliveryNavigationController: UINavigationController, NavigationHand
             return true
         default: return false
         }
+    }
+}
+
+extension BasketDeliveryNavigationController: ExtendedModalViewController {
+    func forceCloseWithoutAnimation() {
+        deliveryDelegate?.basketDeliveryWantsDismiss(self, animated: false)
     }
 }

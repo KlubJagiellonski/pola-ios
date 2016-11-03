@@ -6,7 +6,7 @@ enum SigningMode {
 }
 
 protocol SigningNavigationControllerDelegate: class {
-    func signingWantsDismiss(navigationController: SigningNavigationController)
+    func signingWantsDismiss(navigationController: SigningNavigationController, animated: Bool)
     func signingDidLogIn(navigationController: SigningNavigationController)
 }
 
@@ -46,7 +46,7 @@ final class SigningNavigationController: UINavigationController, NavigationHandl
     
     func didTapCloseButton(sender: UIBarButtonItem) {
         logInfo("Did tap close button")
-        signingDelegate?.signingWantsDismiss(self)
+        signingDelegate?.signingWantsDismiss(self, animated: true)
     }
     
     func handleNavigationEvent(event: NavigationEvent) -> EventHandled {
@@ -104,5 +104,11 @@ final class SigningNavigationController: UINavigationController, NavigationHandl
             return true
         default: return false
         }
+    }
+}
+
+extension SigningNavigationController: ExtendedModalViewController {
+    func forceCloseWithoutAnimation() {
+        signingDelegate?.signingWantsDismiss(self, animated: false)
     }
 }

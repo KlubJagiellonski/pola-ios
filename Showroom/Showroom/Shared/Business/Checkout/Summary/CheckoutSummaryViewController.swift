@@ -207,8 +207,8 @@ extension CheckoutSummaryViewController: DimAnimatorDelegate {
 }
 
 extension CheckoutSummaryViewController: CheckoutSummaryCommentViewControllerDelegate {
-    func checkoutSummaryCommentWantsDismiss(viewController: CheckoutSummaryCommentViewController) {
-        commentAnimator.dismissViewController(presentingViewController: self, completion: nil)
+    func checkoutSummaryCommentWantsDismiss(viewController: CheckoutSummaryCommentViewController, animated: Bool) {
+        commentAnimator.dismissViewController(presentingViewController: self, animated: animated)
     }
     
     func checkoutSummaryCommentWantsSaveAndDimsiss(viewController: CheckoutSummaryCommentViewController) {

@@ -66,8 +66,8 @@ class StartViewController: UIViewController, StartViewDelegate {
 }
 
 extension StartViewController: SigningNavigationControllerDelegate {
-    func signingWantsDismiss(navigationController: SigningNavigationController) {
-        dismissViewControllerAnimated(true, completion: nil)
+    func signingWantsDismiss(navigationController: SigningNavigationController, animated: Bool) {
+        dismissViewControllerAnimated(animated, completion: nil)
     }
     
     func signingDidLogIn(navigationController: SigningNavigationController) {

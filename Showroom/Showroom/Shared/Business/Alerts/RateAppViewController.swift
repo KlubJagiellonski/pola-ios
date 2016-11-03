@@ -16,7 +16,7 @@ enum RateAppViewType {
 }
 
 protocol RateAppViewControllerDelegate: class {
-    func rateAppWantsDismiss(viewController: RateAppViewController)
+    func rateAppWantsDismiss(viewController: RateAppViewController, animated: Bool)
 }
 
 final class RateAppViewController: UIViewController, AlertViewDelegate {
@@ -56,20 +56,26 @@ final class RateAppViewController: UIViewController, AlertViewDelegate {
         if let appStoreURL = manager.appStoreURL {
             application?.openURL(appStoreURL)
         }
-        delegate?.rateAppWantsDismiss(self)
+        delegate?.rateAppWantsDismiss(self, animated: true)
     }
     
     func alertViewDidTapDecline(view: AlertView) {
         logAnalyticsEvent(AnalyticsEventId.ModalRateUs("decline"))
         
         manager.didSelectDeclineRateApp()
-        delegate?.rateAppWantsDismiss(self)
+        delegate?.rateAppWantsDismiss(self, animated: true)
     }
     
     func alertViewDidTapRemind(view: AlertView) {
         logAnalyticsEvent(AnalyticsEventId.ModalRateUs("later"))
         
         manager.didSelectRemindLater()
-        delegate?.rateAppWantsDismiss(self)
+        delegate?.rateAppWantsDismiss(self, animated: true)
+    }
+}
+
+extension RateAppViewController: ExtendedModalViewController {
+    func forceCloseWithoutAnimation() {
+        delegate?.rateAppWantsDismiss(self, animated: false)
     }
 }

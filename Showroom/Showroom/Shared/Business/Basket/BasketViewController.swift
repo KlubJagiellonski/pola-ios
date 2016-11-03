@@ -254,6 +254,11 @@ extension BasketViewController: ProductAmountViewControllerDelegate {
         }
         logAnalyticsEvent(AnalyticsEventId.CartQuantityChanged(product.id))
     }
+    
+    func productAmountWantsDismiss(viewController: ProductAmountViewController, animated: Bool) {
+        logInfo("Dismissed product amount view controller")
+        actionAnimator.dismissViewController(presentingViewController: self, animated: animated)
+    }
 }
 
 extension BasketViewController: DimAnimatorDelegate {
@@ -264,16 +269,16 @@ extension BasketViewController: DimAnimatorDelegate {
 }
 
 extension BasketViewController: BasketDeliveryNavigationControllerDelegate {
-    func basketDeliveryWantsDismiss(viewController: BasketDeliveryNavigationController) {
+    func basketDeliveryWantsDismiss(viewController: BasketDeliveryNavigationController, animated: Bool) {
         logInfo("Delivery wants dismiss")
-        deliveryAnimator.dismissViewController(presentingViewController: self, completion: nil)
+        deliveryAnimator.dismissViewController(presentingViewController: self, animated: animated)
     }
 }
 
 extension BasketViewController: SigningNavigationControllerDelegate {
-    func signingWantsDismiss(navigationController: SigningNavigationController) {
+    func signingWantsDismiss(navigationController: SigningNavigationController, animated: Bool) {
         logInfo("Signing wants dismiss")
-        dismissViewControllerAnimated(true, completion: nil)
+        dismissViewControllerAnimated(animated, completion: nil)
     }
     
     func signingDidLogIn(navigationController: SigningNavigationController) {
@@ -290,9 +295,9 @@ extension BasketViewController: CheckoutNavigationControllerDelegate {
         dismissViewControllerAnimated(true, completion: nil)
         sendNavigationEvent(SimpleNavigationEvent(type: .ShowDashboard))
     }
-    func checkoutWantsDismiss(checkout: CheckoutNavigationController) {
+    func checkoutWantsDismiss(checkout: CheckoutNavigationController, animated: Bool) {
         logInfo("Cehckout wants to dismiss")
-        dismissViewControllerAnimated(true, completion: nil)
+        dismissViewControllerAnimated(animated, completion: nil)
     }
 }
 

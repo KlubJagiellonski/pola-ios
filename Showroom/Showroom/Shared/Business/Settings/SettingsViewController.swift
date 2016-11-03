@@ -360,9 +360,9 @@ class SettingsViewController: UIViewController {
 }
 
 extension SettingsViewController: SigningNavigationControllerDelegate {
-    func signingWantsDismiss(navigationController: SigningNavigationController) {
+    func signingWantsDismiss(navigationController: SigningNavigationController, animated: Bool) {
         logInfo("Dismissed signing")
-        dismissViewControllerAnimated(true, completion: nil)
+        dismissViewControllerAnimated(animated, completion: nil)
     }
     
     func signingDidLogIn(navigationController: SigningNavigationController) {
@@ -372,14 +372,14 @@ extension SettingsViewController: SigningNavigationControllerDelegate {
 }
 
 extension SettingsViewController: WishlistInAppOnboardingViewControllerDelegate {
-    func wishlistOnboardingViewControllerDidTapDismissButton(viewController: WishlistInAppOnboardingViewController) {
-        onboardingActionAnimator.dismissViewController(presentingViewController: self, animated: true, completion: nil)
+    func wishlistOnboardingViewControllerDidTapDismissButton(viewController: WishlistInAppOnboardingViewController, animated: Bool) {
+        onboardingActionAnimator.dismissViewController(presentingViewController: self, animated: animated, completion: nil)
     }
 }
 
 extension SettingsViewController: PagingInAppOnboardingViewControllerDelegate {
-    func pagingOnboardingViewControllerDidTapDismiss(viewController: PagingInAppOnboardingViewController) {
-        onboardingActionAnimator.dismissViewController(presentingViewController: self)
+    func pagingOnboardingViewControllerDidTapDismiss(viewController: PagingInAppOnboardingViewController, animated: Bool) {
+        onboardingActionAnimator.dismissViewController(presentingViewController: self, animated: animated)
     }
 }
 
@@ -390,20 +390,20 @@ extension SettingsViewController: DimAnimatorDelegate {
 }
 
 extension SettingsViewController: RateAppViewControllerDelegate {
-    func rateAppWantsDismiss(viewController: RateAppViewController) {
-        formSheetAnimator.dismissViewController(presentingViewController: self)
+    func rateAppWantsDismiss(viewController: RateAppViewController, animated: Bool) {
+        formSheetAnimator.dismissViewController(presentingViewController: self, animated: animated)
     }
 }
 
 extension SettingsViewController: NotificationsAccessViewControllerDelegate {
-    func notificationsAccessWantsDismiss(viewController: NotificationsAccessViewController) {
-        formSheetAnimator.dismissViewController(presentingViewController: self)
+    func notificationsAccessWantsDismiss(viewController: NotificationsAccessViewController, animated: Bool) {
+        formSheetAnimator.dismissViewController(presentingViewController: self, animated: animated)
     }
 }
 
 extension SettingsViewController: UpdateAppViewControllerDelegate {
-    func updateAppWantsDismiss(viewController: UpdateAppViewController) {
-        formSheetAnimator.dismissViewController(presentingViewController: self)
+    func updateAppWantsDismiss(viewController: UpdateAppViewController, animated: Bool) {
+        formSheetAnimator.dismissViewController(presentingViewController: self, animated: animated)
     }
 }
 

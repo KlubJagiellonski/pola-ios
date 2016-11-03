@@ -300,34 +300,34 @@ extension RootViewController: DimAnimatorDelegate {
 }
 
 extension RootViewController: RateAppViewControllerDelegate {
-    func rateAppWantsDismiss(viewController: RateAppViewController) {
+    func rateAppWantsDismiss(viewController: RateAppViewController, animated: Bool) {
         logInfo("Rate app wants dismiss")
-        formSheetAnimator.dismissViewController(presentingViewController: self)
+        formSheetAnimator.dismissViewController(presentingViewController: self, animated: animated)
     }
 }
 
 extension RootViewController: NotificationsAccessViewControllerDelegate {
-    func notificationsAccessWantsDismiss(viewController: NotificationsAccessViewController) {
+    func notificationsAccessWantsDismiss(viewController: NotificationsAccessViewController, animated: Bool) {
         logInfo("Notification access wants dismiss")
-        formSheetAnimator.dismissViewController(presentingViewController: self)
+        formSheetAnimator.dismissViewController(presentingViewController: self, animated: animated)
     }
 }
 
 extension RootViewController: UpdateAppViewControllerDelegate {
-    func updateAppWantsDismiss(viewController: UpdateAppViewController) {
+    func updateAppWantsDismiss(viewController: UpdateAppViewController, animated: Bool) {
         logInfo("Update alert wants dismiss")
-        formSheetAnimator.dismissViewController(presentingViewController: self)
+        formSheetAnimator.dismissViewController(presentingViewController: self, animated: animated)
     }
 }
 
 extension RootViewController: PagingInAppOnboardingViewControllerDelegate, WishlistInAppOnboardingViewControllerDelegate {
-    func pagingOnboardingViewControllerDidTapDismiss(viewController: PagingInAppOnboardingViewController) {
+    func pagingOnboardingViewControllerDidTapDismiss(viewController: PagingInAppOnboardingViewController, animated: Bool) {
         logInfo("Paging onboarding did tap dismiss")
-        onboardingActionAnimator.dismissViewController(presentingViewController: self)
+        onboardingActionAnimator.dismissViewController(presentingViewController: self, animated: animated)
     }
     
-    func wishlistOnboardingViewControllerDidTapDismissButton(viewController: WishlistInAppOnboardingViewController) {
+    func wishlistOnboardingViewControllerDidTapDismissButton(viewController: WishlistInAppOnboardingViewController, animated: Bool) {
         logInfo("Wishlist onboarding did tap dismiss")
-        onboardingActionAnimator.dismissViewController(presentingViewController: self)
+        onboardingActionAnimator.dismissViewController(presentingViewController: self, animated: animated)
     }
 }

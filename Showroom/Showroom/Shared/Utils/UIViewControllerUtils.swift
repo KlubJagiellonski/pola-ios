@@ -51,7 +51,7 @@ extension UIViewController {
         } else if modalViewController is UIActivityViewController {
             dismissViewControllerAnimated(false, completion: nil)
         } else {
-            fatalError("UIViewController with type \(modalViewController) is required to conform to ExtendedModalViewControllerProtocol")
+            logError("UIViewController with type \(modalViewController) is required to conform to ExtendedModalViewController")
         }
     }
 }
