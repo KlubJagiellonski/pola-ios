@@ -204,12 +204,18 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
         let currentPageIndex = castView.currentPageIndex
         logInfo("current page index: \(currentPageIndex)")
         
+        guard currentPageIndex != lastPageIndex else {
+            informCurrentChildViewController {
+                $0.pageState = PromoPageState(focused: true, playing: castView.viewState.isPlayingState, visible: true)
+            }
+            return
+        }
+        
         if currentPageIndex == promo.summaryPageIndex {
             UIView.animateWithDuration(Constants.promoSlideshowStateChangedAnimationDuration) { [unowned self] in
                 self.castView.progressEnded = true
                 self.setNeedsStatusBarAppearanceUpdate()
             }
-            update(with: .Playing, animationDuration: Constants.promoSlideshowStateChangedAnimationDuration)
         }
         
         if let lastAnalyticsSlideType = lastAnalyticsSlideType where fromUserAction {
@@ -220,14 +226,17 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
             }
         }
         
-        lastPageIndex = currentPageIndex
-        
         informChildViewControllers() { (pageIndex, page) in
             let isCurrentPage = pageIndex == currentPageIndex
-            page.pageState = PromoPageState(focused: isCurrentPage, playing: castView.viewState.isPlayingState, visible: isCurrentPage)
-            
+            page.pageState = PromoPageState(focused: isCurrentPage, playing: true, visible: isCurrentPage)
             logInfo("page index: \(pageIndex), set page state: \(page.pageState)")
         }
+        
+        if !castView.viewState.isPlayingState {
+            update(with: .Playing, animationDuration: Constants.promoSlideshowStateChangedAnimationDuration)
+        }
+        
+        lastPageIndex = currentPageIndex
     }
     
     func promoSlideshowWillBeginPageChanging(promoSlideshow: PromoSlideshowView) {
@@ -375,7 +384,8 @@ extension PromoSlideshowViewController: PromoSlideshowPageHandler {
     
     private func createViewController(from dataContainer: PromoSlideshowPageDataContainer) -> UIViewController {
         logInfo("Creating view controller with dataContainer: \(dataContainer)")
-        let newPageState = PromoPageState(focused: false, playing: castView.viewState.isPlayingState, visible: false)
+        
+        let newPageState = PromoPageState(focused: false, playing: true, visible: false)
         
         switch dataContainer.pageData {
         case .Image(let link, let duration):
