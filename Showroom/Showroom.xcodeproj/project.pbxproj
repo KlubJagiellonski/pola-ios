@@ -647,6 +647,10 @@
 		1DB166BD1D1006A8004F42DC /* SizeChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB166BC1D1006A8004F42DC /* SizeChartViewController.swift */; };
 		1DB166BF1D1006DC004F42DC /* SizeChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB166BE1D1006DC004F42DC /* SizeChartView.swift */; };
 		1DC096A71D477ED300D745DB /* ShowBrandProductListEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC096A61D477ED300D745DB /* ShowBrandProductListEvent.swift */; };
+		1DCFC3AF1DCCA4D50044D68F /* BrandHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D66DD9A1DCB7390008F8E48 /* BrandHeaderCell.swift */; };
+		1DCFC3B01DCCA4EB0044D68F /* BrandOneVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D66DD981DCB7390008F8E48 /* BrandOneVideoView.swift */; };
+		1DCFC3B11DCCA4F20044D68F /* BrandMultiVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D66DD991DCB7390008F8E48 /* BrandMultiVideoView.swift */; };
+		1DCFC3B21DCCA5530044D68F /* BrandVideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D66DD971DCB7390008F8E48 /* BrandVideoCell.swift */; };
 		1DD161971D01A7310022B5C9 /* ProductDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD161961D01A7310022B5C9 /* ProductDetailsViewController.swift */; };
 		1DD161A21D01C06F0022B5C9 /* PresenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD161A11D01C06F0022B5C9 /* PresenterViewController.swift */; };
 		1DD161A41D01C0850022B5C9 /* PresenterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD161A31D01C0850022B5C9 /* PresenterView.swift */; };
@@ -3205,6 +3209,7 @@
 				1D00C5EC1DBFA0AB00596BA5 /* DashboardModel.swift in Sources */,
 				1D00C5ED1DBFA0AB00596BA5 /* ProductFilterModel.swift in Sources */,
 				1D00C5EE1DBFA0AB00596BA5 /* AppDelegate.swift in Sources */,
+				1DCFC3AF1DCCA4D50044D68F /* BrandHeaderCell.swift in Sources */,
 				1D00C5EF1DBFA0AB00596BA5 /* InitialOnboardingInfiniteScrollingCell.swift in Sources */,
 				1D00C5F01DBFA0AB00596BA5 /* EditAddressView.swift in Sources */,
 				1D00C5F11DBFA0AB00596BA5 /* NSDateUtils.swift in Sources */,
@@ -3231,6 +3236,7 @@
 				1D00C6081DBFA0AB00596BA5 /* SearchViewController.swift in Sources */,
 				1D00C6091DBFA0AB00596BA5 /* StartViewController.swift in Sources */,
 				1D00C60A1DBFA0AB00596BA5 /* SearchContentView.swift in Sources */,
+				1DCFC3B01DCCA4EB0044D68F /* BrandOneVideoView.swift in Sources */,
 				1D00C60B1DBFA0AB00596BA5 /* ProductDetailsContext.swift in Sources */,
 				1D00C60C1DBFA0AB00596BA5 /* ProductRecommendation.swift in Sources */,
 				1D00C60D1DBFA0AB00596BA5 /* ExtendedLabel.swift in Sources */,
@@ -3337,6 +3343,7 @@
 				1D00C6721DBFA0AB00596BA5 /* BasketCell.swift in Sources */,
 				1D00C6731DBFA0AB00596BA5 /* CheckoutModel.swift in Sources */,
 				1D00C6741DBFA0AB00596BA5 /* Animator.swift in Sources */,
+				1DCFC3B11DCCA4F20044D68F /* BrandMultiVideoView.swift in Sources */,
 				1D00C6751DBFA0AB00596BA5 /* BrandDescriptionViewController.swift in Sources */,
 				1D00C6761DBFA0AB00596BA5 /* CheckoutDeliveryView.swift in Sources */,
 				1D00C6771DBFA0AB00596BA5 /* SettingsWebView.swift in Sources */,
@@ -3358,6 +3365,7 @@
 				1D00C6871DBFA0AB00596BA5 /* ProductStepViewController.swift in Sources */,
 				1D00C6881DBFA0AB00596BA5 /* SimpleNavigationEvent.swift in Sources */,
 				1D00C6891DBFA0AB00596BA5 /* VIMVideoPlayerViewUtils.swift in Sources */,
+				1DCFC3B21DCCA5530044D68F /* BrandVideoCell.swift in Sources */,
 				1D00C68A1DBFA0AB00596BA5 /* TabBarItemBadgeContainerView.swift in Sources */,
 				1D00C68B1DBFA0AB00596BA5 /* WishlistManager.swift in Sources */,
 				1D00C68C1DBFA0AB00596BA5 /* SettingsDataSource.swift in Sources */,
