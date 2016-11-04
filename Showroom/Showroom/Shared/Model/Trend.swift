@@ -4,6 +4,7 @@ import Decodable
 struct EntryTrendInfo {
     let slug: String
     let name: String?
+    let link: NSURL?
 }
 
 struct TrendInfo {

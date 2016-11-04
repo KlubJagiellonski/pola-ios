@@ -14,7 +14,7 @@ final class BrandProductListModel: ProductListModel {
     
     init(with apiService: ApiService, wishlistManager: WishlistManager, productBrand: EntryProductBrand) {
         self.productBrand = productBrand
-        super.init(with: apiService, wishlistManager: wishlistManager, link: productBrand.link, query: nil)
+        super.init(with: apiService, wishlistManager: wishlistManager, link: productBrand.link?.absoluteOrRelativeString, query: nil)
     }
 
     override func createObservable(with paginationInfo: PaginationInfo, forFilters filters: [FilterId: [FilterObjectId]]?) -> Observable<ProductListResult> {
@@ -33,6 +33,6 @@ final class BrandProductListModel: ProductListModel {
         self.productBrand = productBrand
         self.brand = nil
         self.attributedDescription = nil
-        resetOnUpdate(withLink: productBrand.link, query: nil)
+        resetOnUpdate(withLink: productBrand.link?.absoluteOrRelativeString, query: nil)
     }
 }

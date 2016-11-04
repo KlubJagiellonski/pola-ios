@@ -2,7 +2,7 @@ import Foundation
 import RxSwift
 
 class ProductDetailsModel {
-    private var context: ProductDetailsContext
+    private(set) var context: ProductDetailsContext
     private var disposeBag = DisposeBag()
     let newProductsAmountObservable = PublishSubject<NewProductsAmount>()
     private var lastProductIndex: Int?

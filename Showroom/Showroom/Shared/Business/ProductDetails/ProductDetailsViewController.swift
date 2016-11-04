@@ -40,7 +40,7 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewDelegate
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        logAnalyticsShowScreen(.ProductDetails)
+        logAnalyticsShowScreen(.ProductDetails, refferenceUrl: model.context.link)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -64,6 +64,7 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewDelegate
     
     func updateData(with context: ProductDetailsContext) {
         logInfo("Updating data with context \(context)")
+        logAnalyticsShowScreen(.ProductDetails, refferenceUrl: context.link)
         model.update(with: context)
         removeAllViewControllers()
         castView.reloadPageCount(withNewProductCount: model.productsCount)

@@ -315,7 +315,8 @@ class SettingsViewController: UIViewController {
     }
     
     func showSlideshow() {
-        sendNavigationEvent(ShowPromoSlideshowEvent(slideshowId: 4, transitionImageTag: nil))
+        let entry = PromoSlideshowEntry(id: 4, link: nil)
+        sendNavigationEvent(ShowPromoSlideshowEvent(entry: entry, transitionImageTag: nil))
     }
     
     func configureBrandVideoMock(type: Int) {

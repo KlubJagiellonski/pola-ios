@@ -487,6 +487,7 @@
 		1D2F19CC1CEB083F0099142E /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1D2F19C11CEB07D10099142E /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1D2F19CD1CEB083F0099142E /* Quick.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1D2F19C21CEB07D10099142E /* Quick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1D2F19D11CEB16120099142E /* Decodable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D2F19961CEA14FE0099142E /* Decodable.framework */; };
+		1D3593F51DCB1CE400C63ECF /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D3593F41DCB1CE400C63ECF /* iAd.framework */; };
 		1D372E2E1D6C7B05004F3155 /* ShowEditKioskEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D372E2D1D6C7B05004F3155 /* ShowEditKioskEvent.swift */; };
 		1D372E371D6ED22F004F3155 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1D372E391D6ED22F004F3155 /* Localizable.strings */; };
 		1D3763C41D7A053D000CF8C3 /* OptimiseMobileTracking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D372E3A1D701E74004F3155 /* OptimiseMobileTracking.framework */; };
@@ -511,6 +512,11 @@
 		1D5886E81D2BE440007D0CB1 /* ExtendedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5886E71D2BE440007D0CB1 /* ExtendedLabel.swift */; };
 		1D5886EA1D2BE4D0007D0CB1 /* UILabelUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5886E91D2BE4D0007D0CB1 /* UILabelUtils.swift */; };
 		1D5886EC1D2BF274007D0CB1 /* ProductHeaderContainerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5886EB1D2BF274007D0CB1 /* ProductHeaderContainerCell.swift */; };
+		1D593BCC1DCC85970078FF73 /* libAdIdAccess.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D593BCB1DCC85970078FF73 /* libAdIdAccess.a */; };
+		1D593BCD1DCC85970078FF73 /* libAdIdAccess.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D593BCB1DCC85970078FF73 /* libAdIdAccess.a */; };
+		1D593BCE1DCC859A0078FF73 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D3593F41DCB1CE400C63ECF /* iAd.framework */; };
+		1D593BCF1DCC85B30078FF73 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D68E32F1DB608D200AE3E56 /* AdSupport.framework */; };
+		1D593BD01DCC85B30078FF73 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D68E32F1DB608D200AE3E56 /* AdSupport.framework */; };
 		1D5B5E661D0197B700B74822 /* MoneyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5B5E651D0197B700B74822 /* MoneyTests.swift */; };
 		1D5E91801D391D9D00A6BD55 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5E917F1D391D9D00A6BD55 /* SearchView.swift */; };
 		1D5E91831D3CC98800A6BD55 /* SearchDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5E91821D3CC98800A6BD55 /* SearchDataSource.swift */; };
@@ -974,6 +980,7 @@
 		1D2F19A01CEA14FE0099142E /* XCGLogger.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCGLogger.framework; path = Carthage/Build/iOS/XCGLogger.framework; sourceTree = "<group>"; };
 		1D2F19C11CEB07D10099142E /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = "<group>"; };
 		1D2F19C21CEB07D10099142E /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = "<group>"; };
+		1D3593F41DCB1CE400C63ECF /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		1D372E2D1D6C7B05004F3155 /* ShowEditKioskEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowEditKioskEvent.swift; sourceTree = "<group>"; };
 		1D372E381D6ED22F004F3155 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1D372E3A1D701E74004F3155 /* OptimiseMobileTracking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OptimiseMobileTracking.framework; path = Frameworks/OptimiseMobileTracking.framework; sourceTree = "<group>"; };
@@ -999,6 +1006,7 @@
 		1D5886E71D2BE440007D0CB1 /* ExtendedLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtendedLabel.swift; sourceTree = "<group>"; };
 		1D5886E91D2BE4D0007D0CB1 /* UILabelUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UILabelUtils.swift; sourceTree = "<group>"; };
 		1D5886EB1D2BF274007D0CB1 /* ProductHeaderContainerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductHeaderContainerCell.swift; sourceTree = "<group>"; };
+		1D593BCB1DCC85970078FF73 /* libAdIdAccess.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAdIdAccess.a; path = Frameworks/libAdIdAccess.a; sourceTree = "<group>"; };
 		1D5B5E651D0197B700B74822 /* MoneyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneyTests.swift; sourceTree = "<group>"; };
 		1D5E917F1D391D9D00A6BD55 /* SearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		1D5E91821D3CC98800A6BD55 /* SearchDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchDataSource.swift; sourceTree = "<group>"; };
@@ -1340,6 +1348,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D593BCE1DCC859A0078FF73 /* iAd.framework in Frameworks */,
 				1D00C69D1DBFA0AB00596BA5 /* EmarsysPushSDK.framework in Frameworks */,
 				1D00C69E1DBFA0AB00596BA5 /* OptimiseMobileTracking.framework in Frameworks */,
 				1D00C69F1DBFA0AB00596BA5 /* BraintreePayPal.framework in Frameworks */,
@@ -1356,9 +1365,11 @@
 				1D00C6AA1DBFA0AB00596BA5 /* XCGLogger.framework in Frameworks */,
 				1D00C6AB1DBFA0AB00596BA5 /* Bolts.framework in Frameworks */,
 				1D00C6AC1DBFA0AB00596BA5 /* Decodable.framework in Frameworks */,
+				1D593BD01DCC85B30078FF73 /* AdSupport.framework in Frameworks */,
 				1D00C6AD1DBFA0AB00596BA5 /* CocoaMarkdown.framework in Frameworks */,
 				1D00C6AE1DBFA0AB00596BA5 /* BraintreeUI.framework in Frameworks */,
 				1D00C6AF1DBFA0AB00596BA5 /* GoogleAnalytics.framework in Frameworks */,
+				1D593BCD1DCC85970078FF73 /* libAdIdAccess.a in Frameworks */,
 				1D00C6B01DBFA0AB00596BA5 /* Fabric.framework in Frameworks */,
 				1D00C6B11DBFA0AB00596BA5 /* TTRangeSlider.framework in Frameworks */,
 				1D00C6B21DBFA0AB00596BA5 /* BraintreeCore.framework in Frameworks */,
@@ -1387,12 +1398,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D3593F51DCB1CE400C63ECF /* iAd.framework in Frameworks */,
 				1D3763C51D7A0544000CF8C3 /* EmarsysPushSDK.framework in Frameworks */,
 				1D3763C41D7A053D000CF8C3 /* OptimiseMobileTracking.framework in Frameworks */,
 				1DF428CA1D898A1300396A0D /* BraintreePayPal.framework in Frameworks */,
 				1D0AAF9B1D5888E1008E40C0 /* Pushwoosh.framework in Frameworks */,
 				1D84761D1D8AA695009EB212 /* PayPalOneTouch.framework in Frameworks */,
 				1D8476211D8AA6F4009EB212 /* PayPalDataCollector.framework in Frameworks */,
+				1D593BCC1DCC85970078FF73 /* libAdIdAccess.a in Frameworks */,
 				1D2CAC581D474A5500F678FA /* FBSDKLoginKit.framework in Frameworks */,
 				1D2F19A31CEA14FE0099142E /* JLRoutes.framework in Frameworks */,
 				1D2F19A61CEA14FE0099142E /* RxCocoa.framework in Frameworks */,
@@ -1402,6 +1415,7 @@
 				1D84761F1D8AA6CA009EB212 /* PayPalUtils.framework in Frameworks */,
 				1D2F19AB1CEA14FE0099142E /* XCGLogger.framework in Frameworks */,
 				1D2CAC541D474A5500F678FA /* Bolts.framework in Frameworks */,
+				1D593BCF1DCC85B30078FF73 /* AdSupport.framework in Frameworks */,
 				1D2F19D11CEB16120099142E /* Decodable.framework in Frameworks */,
 				1D6933461D2D176200609BB9 /* CocoaMarkdown.framework in Frameworks */,
 				1D7EE9381D786FAC00046B8B /* BraintreeUI.framework in Frameworks */,
@@ -1621,6 +1635,8 @@
 		1D2F19AC1CEA15060099142E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1D593BCB1DCC85970078FF73 /* libAdIdAccess.a */,
+				1D3593F41DCB1CE400C63ECF /* iAd.framework */,
 				1D68E32F1DB608D200AE3E56 /* AdSupport.framework */,
 				1D68E3251DB6086A00AE3E56 /* GoogleConversionTrackingSDK */,
 				C0603A2C1DABA35F00ACBBDB /* VIMVideoPlayer */,

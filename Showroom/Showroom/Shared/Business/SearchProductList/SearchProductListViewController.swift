@@ -41,7 +41,7 @@ class SearchProductListViewController: UIViewController, ProductListViewControll
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        logAnalyticsShowScreen(.SearchProducts)
+        logAnalyticsShowScreen(.SearchProducts, refferenceUrl: model.entrySearchInfo.link)
     }
     
     override func viewDidLayoutSubviews() {
@@ -51,6 +51,7 @@ class SearchProductListViewController: UIViewController, ProductListViewControll
     
     func updateData(with data: EntrySearchInfo) {
         logInfo("Update data with data: \(data)")
+        logAnalyticsShowScreen(.SearchProducts, refferenceUrl: data.link)
         disposeBag = DisposeBag()
         model.update(with: data)
         castView.queryText = model.query

@@ -89,13 +89,13 @@ final class CommonNavigationHandler: NavigationHandler {
     private func configureRouter() {
         urlRouter.addRoute("/:host/tag/*") { [weak self](parameters: [NSObject: AnyObject]) in
             guard let `self` = self else { return false }
-            guard let url = parameters[kJLRouteURLKey] as? NSURL, let urlString = url.absoluteString else {
+            guard let url = parameters[kJLRouteURLKey] as? NSURL else {
                 logError("Cannot retrieve routeURLKey for \(parameters)")
                 return false
             }
             let title = parameters["title"] as? String
             
-            let entryCategory = EntryCategory(link: urlString, name: title)
+            let entryCategory = EntryCategory(link: url, name: title)
             return self.handleRoutingForProductList(forProductListViewControllerType: CategoryProductListViewController.self, entryData: entryCategory)
         }
         
@@ -114,7 +114,7 @@ final class CommonNavigationHandler: NavigationHandler {
                 let title = parameters["title"] as? String
                 let url = parameters[kJLRouteURLKey] as? NSURL
                 
-                let entryProductBrand = EntryProductBrand(id: brandId, name: title, link: url?.absoluteString)
+                let entryProductBrand = EntryProductBrand(id: brandId, name: title, link: url)
                 return self.handleRoutingForProductList(forProductListViewControllerType: BrandProductListViewController.self, entryData: entryProductBrand)
             }
         } else {
@@ -128,8 +128,9 @@ final class CommonNavigationHandler: NavigationHandler {
                 return false
             }
             let title = parameters["title"] as? String
+            let url = parameters[kJLRouteURLKey] as? NSURL
             
-            let entryTrendInfo = EntryTrendInfo(slug: trendSlug, name: title)
+            let entryTrendInfo = EntryTrendInfo(slug: trendSlug, name: title, link: url)
             return self.handleRoutingForProductList(forProductListViewControllerType: TrendProductListViewController.self, entryData: entryTrendInfo)
         }
         urlRouter.addRoute("/:host/search") { [weak self](parameters: [NSObject: AnyObject]!) in
@@ -140,7 +141,7 @@ final class CommonNavigationHandler: NavigationHandler {
             }
             let url = parameters[kJLRouteURLKey] as? NSURL
             
-            let entrySearchInfo = EntrySearchInfo(query: query, link: url?.absoluteString)
+            let entrySearchInfo = EntrySearchInfo(query: query, link: url)
             return self.handleRoutingForProductList(forProductListViewControllerType: SearchProductListViewController.self, entryData: entrySearchInfo)
         }
         urlRouter.addRoute("/:host/p/*") { [weak self](parameters: [NSObject: AnyObject]!) in
@@ -154,11 +155,12 @@ final class CommonNavigationHandler: NavigationHandler {
                 logError("Cannot retrieve productId for path: \(parameters)")
                 return false
             }
+            let url = parameters[kJLRouteURLKey] as? NSURL
             
             let fromTypeParam = ProductDetailsFromType(rawValue: (parameters["fromType"] as? String) ?? "")
             let fromType = fromTypeParam ?? .DeepLink
             
-            let context = OneProductDetailsContext(productInfo: ProductInfo.Id(productId), fromType: fromType)
+            let context = OneProductDetailsContext(productInfo: ProductInfo.Id(productId), fromType: fromType, link: url)
             self.navigationController?.sendNavigationEvent(ShowProductDetailsEvent(context: context, retrieveCurrentImageViewTag: nil))
             
             return true
@@ -176,7 +178,10 @@ final class CommonNavigationHandler: NavigationHandler {
                 return false
             }
             let transitionImageTag = parameters["transitionImageTag"] as? Int
-            self.navigationController?.sendNavigationEvent(ShowPromoSlideshowEvent(slideshowId: videoId, transitionImageTag: transitionImageTag))
+            let url = parameters[kJLRouteURLKey] as? NSURL
+            
+            let entry = PromoSlideshowEntry(id: videoId, link: url)
+            self.navigationController?.sendNavigationEvent(ShowPromoSlideshowEvent(entry: entry, transitionImageTag: transitionImageTag))
             
             return true
         }
@@ -188,11 +193,13 @@ final class CommonNavigationHandler: NavigationHandler {
                 logError("There is no webViewSlug in path: \(parameters)")
                 return false
             }
+            let url = parameters[kJLRouteURLKey] as? NSURL
             
+            let entry = WebContentEntry(id: webViewSlug, link: url)
             return self.handleRouting({ Void -> WebContentViewController in
-                return self.resolver.resolve(WebContentViewController.self, argument: webViewSlug)
+                return self.resolver.resolve(WebContentViewController.self, argument: entry)
             }) { (viewController: WebContentViewController) in
-                viewController.updateData(withWebViewId: webViewSlug)
+                viewController.updateData(with: entry)
             }
         }
         

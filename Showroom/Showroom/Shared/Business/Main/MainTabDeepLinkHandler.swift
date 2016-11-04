@@ -23,11 +23,12 @@ final class MainTabDeepLinkHandler: DeepLinkingHandler {
             
             guard let `self` = self, let mainTabViewController = self.mainTabViewController else { return false }
             let discountCode = parameters["coupon"] as? String
+            let url = parameters[kJLRouteURLKey] as? NSURL
             
             mainTabViewController.updateSelectedIndex(forControllerType: MainTabChildControllerType.Basket)
             if let commonPresenterController = mainTabViewController.selectedViewController as? CommonPresenterController,
                 let basketNavigationController = commonPresenterController.contentViewController as? BasketNavigationController {
-                basketNavigationController.didReceiveCartLink(withNewDiscountCode: discountCode)
+                basketNavigationController.didReceiveCartLink(withNewDiscountCode: discountCode, link: url)
             } else {
                 logError("Selected view controller should be of type `BasketNavigationController` and is of type \(self.mainTabViewController?.selectedViewController) with main tab \(self.mainTabViewController)")
             }

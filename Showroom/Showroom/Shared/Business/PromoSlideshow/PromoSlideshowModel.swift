@@ -18,7 +18,7 @@ enum PromoSlideshowPageData {
 final class PromoSlideshowModel {
     private let apiService: ApiService
     private let storage: KeyValueStorage
-    private(set) var slideshowId: Int
+    private(set) var entry: PromoSlideshowEntry
     private(set) var promoSlideshow: PromoSlideshow?
     private var prefetcher = PromoSlideshowPrefetcher()
     private let disposeBag = DisposeBag()
@@ -27,14 +27,14 @@ final class PromoSlideshowModel {
         return videoPauseStateCount < 5 //we show play feedback only 5x first times when user goes to pause state
     }
     
-    init(apiService: ApiService, storage: KeyValueStorage, slideshowId: Int) {
+    init(apiService: ApiService, storage: KeyValueStorage, entry: PromoSlideshowEntry) {
         self.apiService = apiService
-        self.slideshowId = slideshowId
+        self.entry = entry
         self.storage = storage
     }
     
-    func update(withSlideshowId slideshowId: ObjectId) {
-        self.slideshowId = slideshowId
+    func update(with entry: PromoSlideshowEntry) {
+        self.entry = entry
         self.prefetcher = PromoSlideshowPrefetcher()
         self.promoSlideshow = nil
     }
@@ -42,7 +42,7 @@ final class PromoSlideshowModel {
     func fetchPromoSlideshow() -> Observable<FetchCacheResult<PromoSlideshow>> {
         let currentTime = NSDate().timeIntervalSince1970
         
-        let cacheId = Constants.Cache.video + String(slideshowId)
+        let cacheId = Constants.Cache.video + String(entry.id)
         
         let existingResult = promoSlideshow
         let memoryCache: Observable<PromoSlideshow> = existingResult == nil ? Observable.empty() : Observable.just(existingResult!)
@@ -55,7 +55,7 @@ final class PromoSlideshowModel {
             .map { FetchCacheResult.Success($0) }
             .catchError { Observable.just(FetchCacheResult.CacheError($0)) }
         
-        let network = apiService.fetchVideo(withVideoId: slideshowId)
+        let network = apiService.fetchVideo(withVideoId: entry.id)
             .save(forKey: cacheId, storage: storage, type: .Cache)
             .map { FetchCacheResult.Success($0) }
             .catchError { Observable.just(FetchCacheResult.NetworkError($0)) }

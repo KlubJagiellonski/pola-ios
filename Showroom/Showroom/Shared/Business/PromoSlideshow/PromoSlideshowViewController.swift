@@ -19,9 +19,9 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
     private let resolver: DiResolver
     private var disposeBag = DisposeBag()
     
-    init(resolver: DiResolver, slideshowId: Int) {
+    init(resolver: DiResolver, entry: PromoSlideshowEntry) {
         self.resolver = resolver
-        self.model = resolver.resolve(PromoSlideshowModel.self, argument: slideshowId)
+        self.model = resolver.resolve(PromoSlideshowModel.self, argument: entry)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -41,7 +41,7 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
         
         fetchSlideshow()
         
-        logAnalyticsEvent(AnalyticsEventId.VideoLaunch(model.slideshowId))
+        logAnalyticsEvent(AnalyticsEventId.VideoLaunch(model.entry.id))
     }
     
     override func prefersStatusBarHidden() -> Bool {
@@ -50,7 +50,7 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        logAnalyticsShowScreen(AnalyticsScreenId.Video)
+        logAnalyticsShowScreen(AnalyticsScreenId.Video, refferenceUrl: model.entry.link)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -64,7 +64,8 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
-    func updateData(withSlideshowId slideshowId: Int) {
+    func updateData(with entry: PromoSlideshowEntry) {
+        logAnalyticsShowScreen(AnalyticsScreenId.Video, refferenceUrl: entry.link)
         disposeBag = DisposeBag()
         lastPageIndex = 0
         castView.changeSwitcherState(.Loading)
@@ -77,8 +78,8 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
         informCurrentChildViewController {
             $0.pageState = PromoPageState(focused: false, playing: false, visible: true)
         }
-        model.update(withSlideshowId: slideshowId)
-        logAnalyticsEvent(AnalyticsEventId.VideoLaunch(slideshowId))
+        model.update(with: entry)
+        logAnalyticsEvent(AnalyticsEventId.VideoLaunch(entry.id))
         fetchSlideshow()
     }
     
@@ -176,7 +177,7 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
     }
     
     private func sendCloseEvent() {
-        logAnalyticsEvent(AnalyticsEventId.VideoClose(model.slideshowId))
+        logAnalyticsEvent(AnalyticsEventId.VideoClose(model.entry.id))
         sendNavigationEvent(SimpleNavigationEvent(type: .Close))
     }
     
@@ -299,9 +300,9 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
         logInfo("Will change promo page view state \(newViewState), aniamtionDuration \(animationDuration), for page \(promoPage)")
         switch newViewState {
         case .Paused where castView.viewState == .Playing:
-            logAnalyticsEvent(AnalyticsEventId.VideoPause(model.slideshowId))
+            logAnalyticsEvent(AnalyticsEventId.VideoPause(model.entry.id))
         case .Playing:
-            logAnalyticsEvent(AnalyticsEventId.VideoPlay(model.slideshowId))
+            logAnalyticsEvent(AnalyticsEventId.VideoPlay(model.entry.id))
         default: break
         }
         
@@ -403,7 +404,7 @@ extension PromoSlideshowViewController: PromoSlideshowPageHandler {
 extension PromoSlideshowViewController: NavigationHandler {
     func handleNavigationEvent(event: NavigationEvent) -> EventHandled {
         if let videoEvent = event as? ShowPromoSlideshowEvent {
-            updateData(withSlideshowId: videoEvent.slideshowId)
+            updateData(with: videoEvent.entry)
             return true
         }
         return false
@@ -418,6 +419,6 @@ extension PromoSlideshowViewController: StatusBarAppearanceHandling {
 
 extension PromoSlideshowViewController: PresenterModalProtocol {
     func presenterWillCloseModalWithPan() {
-        logAnalyticsEvent(AnalyticsEventId.VideoClose(model.slideshowId))
+        logAnalyticsEvent(AnalyticsEventId.VideoClose(model.entry.id))
     }
 }

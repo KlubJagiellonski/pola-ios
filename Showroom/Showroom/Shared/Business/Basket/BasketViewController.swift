@@ -129,8 +129,9 @@ class BasketViewController: UIViewController, BasketViewDelegate {
         }
     }
     
-    func didReceiveNewDiscountCode(discountCode: String) {
+    func didReceiveNewDiscountCode(discountCode: String, link: NSURL?) {
         logInfo("Received new discount code \(discountCode)")
+        logAnalyticsShowScreen(.Basket, refferenceUrl: link)
         castView.discountCode = discountCode
         didChangeDiscountCode(discountCode)
         if isEmptyBasket(manager.state.basket) { //when empty view

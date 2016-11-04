@@ -12,8 +12,8 @@ func logAnalyticsRegistration() {
     Analytics.sharedInstance.sendRegistrationEvent()
 }
 
-func logAnalyticsShowScreen(screenId: AnalyticsScreenId) {
-    Analytics.sharedInstance.sendScreenViewEvent(screenId)
+func logAnalyticsShowScreen(screenId: AnalyticsScreenId, refferenceUrl: NSURL? = nil) {
+    Analytics.sharedInstance.sendScreenViewEvent(screenId, refferenceUrl: refferenceUrl)
 }
 
 func logAnalyticsEvent(eventId: AnalyticsEventId) {
@@ -57,6 +57,7 @@ enum AnalyticsScreenId: String {
     case Rules = "Rules"
     case Contact = "Contact"
     case Video = "Video"
+    case WebContent = "WebContent"
 }
 
 enum AnalyticsEventId: RawRepresentable {
@@ -451,6 +452,7 @@ final class Analytics {
             guard let configuration = configuration else { return }
             
             tracker = GAI.sharedInstance().trackerWithTrackingId(configuration.googleTrackingId)
+            tracker?.allowIDFACollection = true
             
             optimiseManager.setApplicationKey(configuration.optimiseApiKey)
             optimiseManager.setMID(configuration.optimiseMerchantId)
@@ -473,9 +475,20 @@ final class Analytics {
         emarsysSession.logLevel = Constants.isDebug ? .Debug : .Warning
     }
     
-    func sendScreenViewEvent(screenId: AnalyticsScreenId) {
+    func sendScreenViewEvent(screenId: AnalyticsScreenId, refferenceUrl: NSURL?) {
         tracker?.set(kGAIScreenName, value: screenId.rawValue)
-        let builder = GAIDictionaryBuilder.createScreenView()
+        
+        var builder = GAIDictionaryBuilder.createScreenView()
+        if let url = refferenceUrl, let urlString = url.absoluteString {
+            let hitParams = GAIDictionaryBuilder()
+            hitParams.setCampaignParametersFromUrl(urlString)
+            if hitParams.get(kGAICampaignSource) == nil && !(url.host ?? "").isEmpty {
+                hitParams.set("referrer", forKey: kGAICampaignMedium)
+                hitParams.set(url.host!, forKey: kGAICampaignSource)
+            }
+            let hitParamsDict = hitParams.build() as [NSObject: AnyObject]
+            builder = builder.setAll(hitParamsDict)
+        }
         tracker?.send(builder.build() as [NSObject: AnyObject])
         
         Crashlytics.sharedInstance().setObjectValue(screenId.rawValue, forKey: "current_screen")

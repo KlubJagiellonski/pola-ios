@@ -1,6 +1,11 @@
 import Foundation
 import Decodable
 
+struct WebContentEntry {
+    let id: String
+    let link: NSURL?
+}
+
 struct WebContent {
     let title: String
     let content: String

@@ -41,7 +41,7 @@ class BrandProductListViewController: UIViewController, ProductListViewControlle
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        logAnalyticsShowScreen(.Brand)
+        logAnalyticsShowScreen(.Brand, refferenceUrl: model.productBrand.link)
     }
     
     override func viewDidLayoutSubviews() {
@@ -54,6 +54,7 @@ class BrandProductListViewController: UIViewController, ProductListViewControlle
             logInfo("Tried to update same brand info view")
             return
         }
+        logAnalyticsShowScreen(.Brand, refferenceUrl: entryProductBrand.link)
         title = entryProductBrand.name
         disposeBag = DisposeBag()
         model.update(with: entryProductBrand)
@@ -105,7 +106,8 @@ class BrandProductListViewController: UIViewController, ProductListViewControlle
         }
         
         let imageTag = castView.videoImageTag(forIndex: index)
-        sendNavigationEvent(ShowPromoSlideshowEvent(slideshowId: video.id, transitionImageTag: imageTag))
+        let entry = PromoSlideshowEntry(id: video.id, link: nil)
+        sendNavigationEvent(ShowPromoSlideshowEvent(entry: entry, transitionImageTag: imageTag))
     }
     
     // MARK:- ProductListViewDelegate

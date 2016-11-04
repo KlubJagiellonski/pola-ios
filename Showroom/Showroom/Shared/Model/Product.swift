@@ -59,7 +59,7 @@ struct ProductDetails {
 struct EntryProductBrand {
     let id: ObjectId
     let name: String?
-    let link: String?
+    let link: NSURL?
 }
 
 struct ProductDetailsImage {

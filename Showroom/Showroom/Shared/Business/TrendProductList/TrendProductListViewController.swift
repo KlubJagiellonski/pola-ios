@@ -38,7 +38,7 @@ class TrendProductListViewController: UIViewController, ProductListViewControlle
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        logAnalyticsShowScreen(.Trend)
+        logAnalyticsShowScreen(.Trend, refferenceUrl: model.entryTrendInfo.link)
     }
     
     override func viewDidLayoutSubviews() {
@@ -52,6 +52,7 @@ class TrendProductListViewController: UIViewController, ProductListViewControlle
             logInfo("Tried to update same trend info view")
             return
         }
+        logAnalyticsShowScreen(.Trend, refferenceUrl: data.link)
         title = data.name
         disposeBag = DisposeBag()
         model.update(with: data)

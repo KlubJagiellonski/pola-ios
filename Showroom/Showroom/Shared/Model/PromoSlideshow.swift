@@ -1,6 +1,11 @@
 import Foundation
 import Decodable
 
+struct PromoSlideshowEntry {
+    let id: ObjectId
+    let link: NSURL?
+}
+
 struct PromoSlideshow {
     let id: ObjectId
     let video: PromoSlideshowVideo

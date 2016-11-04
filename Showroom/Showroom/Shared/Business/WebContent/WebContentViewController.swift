@@ -9,8 +9,8 @@ final class WebContentViewController: UIViewController, WebContentViewDelegate {
     
     private var disposeBag = DisposeBag()
     
-    init(resolver: DiResolver, webViewId: String) {
-        model = resolver.resolve(WebContentModel.self, argument: webViewId)
+    init(resolver: DiResolver, entry: WebContentEntry) {
+        model = resolver.resolve(WebContentModel.self, argument: entry)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -30,9 +30,15 @@ final class WebContentViewController: UIViewController, WebContentViewDelegate {
         loadWebPage()
     }
     
-    func updateData(withWebViewId webViewId: String) {
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        logAnalyticsShowScreen(AnalyticsScreenId.WebContent, refferenceUrl: model.entry.link)
+    }
+    
+    func updateData(with entry: WebContentEntry) {
+        logAnalyticsShowScreen(AnalyticsScreenId.WebContent, refferenceUrl: entry.link)
         disposeBag = DisposeBag()
-        model.update(withWebViewId: webViewId)
+        model.update(with: entry)
         castView.changeSwitcherState(.Loading)
         loadWebPage()
     }

@@ -210,11 +210,11 @@ class UIAssembly: AssemblyType {
         container.register(PlatformSelectionViewController.self) { r in
             return PlatformSelectionViewController(configurationManager: r.resolve(ConfigurationManager.self)!)
         }
-        container.register(PromoSlideshowViewController.self) { r, slideshowId in
-            return PromoSlideshowViewController(resolver: r.resolve(DiResolver.self)!, slideshowId: slideshowId)
+        container.register(PromoSlideshowViewController.self) { r, entry in
+            return PromoSlideshowViewController(resolver: r.resolve(DiResolver.self)!, entry: entry)
         }
-        container.register(PromoSlideshowModel.self) { r, slideshowId in
-            return PromoSlideshowModel(apiService: r.resolve(ApiService.self)!, storage: r.resolve(KeyValueStorage.self)!, slideshowId: slideshowId)
+        container.register(PromoSlideshowModel.self) { r, entry in
+            return PromoSlideshowModel(apiService: r.resolve(ApiService.self)!, storage: r.resolve(KeyValueStorage.self)!, entry: entry)
         }
         container.register(ImageStepViewController.self) { r, link, duration, pageState in
             return ImageStepViewController(with: r.resolve(DiResolver.self)!, link: link, duration: duration, pageState: pageState)
@@ -228,11 +228,11 @@ class UIAssembly: AssemblyType {
         container.register(PromoSummaryViewController.self) { r, promoSlideshow, pageState in
             return PromoSummaryViewController(with: r.resolve(DiResolver.self)!, promoSlideshow: promoSlideshow, pageState: pageState)
         }
-        container.register(WebContentViewController.self) { r, webViewId in
-            return WebContentViewController(resolver: r.resolve(DiResolver.self)!, webViewId: webViewId)
+        container.register(WebContentViewController.self) { r, entry in
+            return WebContentViewController(resolver: r.resolve(DiResolver.self)!, entry: entry)
         }
-        container.register(WebContentModel.self) { r, webViewId in
-            return WebContentModel(apiService: r.resolve(ApiService.self)!, webViewId: webViewId)
+        container.register(WebContentModel.self) { r, entry in
+            return WebContentModel(apiService: r.resolve(ApiService.self)!, entry: entry)
         }
     }
 }
