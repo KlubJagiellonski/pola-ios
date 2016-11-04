@@ -120,6 +120,14 @@ final class PresenterView: UIView, ModalPanDismissDelegate {
         }
     }
     
+    override func hitTest(point: CGPoint, withEvent event: UIEvent?) -> UIView? {
+        guard let view = super.hitTest(point, withEvent: event) else { return nil }
+        if let modalView = modalView where !view.isDescendantOfView(modalView) {
+            return modalView //if modalView exist it should always receive touch
+        }
+        return view
+    }
+    
     // MARK:- ModalPanDismissDelegate
     
     // It is needed to know when user stopped panning for a while. In that case, when he end panning it won't close
