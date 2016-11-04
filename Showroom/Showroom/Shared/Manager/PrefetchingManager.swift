@@ -3,7 +3,7 @@ import RxSwift
 import Kingfisher
 
 final class PrefetchingManager {
-    private let recommendationPrefetchImageLimit = 4
+    private let contentPromoPrefetchImageLimit = 4
     
     private let api: ApiService
     private let storage: KeyValueStorage
@@ -22,7 +22,7 @@ final class PrefetchingManager {
             
             var urls: [NSURL] = []
             for (index, contentPromo) in result.contentPromos.enumerate() {
-                if index > self.recommendationPrefetchImageLimit {
+                if index >= self.contentPromoPrefetchImageLimit {
                     break
                 }
                 let imageSize = UIImageView.scaledImageSize(Dimensions.contentPromoImageWidth)
@@ -46,14 +46,16 @@ final class PrefetchingManager {
     }
     
     func takeCachedDashboard(forGender gender: Gender) -> (ContentPromoResult?, ProductRecommendationResult?) {
-        let contentPromoResult = contentPromoPrefetcher?.takeResult()
-        let recommendationsResult = recommendationsPrefetcher?.takeResult()
+        let shouldTakeContentPromoResult = gender == .Female
+        
+        let contentPromoResult = contentPromoPrefetcher?.takeResult(stopImageDownloading: !shouldTakeContentPromoResult)
+        let recommendationsResult = recommendationsPrefetcher?.takeResult(stopImageDownloading: false)
         contentPromoPrefetcher = nil
         recommendationsPrefetcher = nil
         
         logInfo("Taking dashboard result. Exist? \(contentPromoResult != nil) \(recommendationsResult != nil)")
         
-        if gender == .Female { // for now we are caching only for female
+        if shouldTakeContentPromoResult { // for now we are caching only for female
             return (contentPromoResult, recommendationsResult)
         } else {
             if !storage.remove(forKey: Constants.Cache.contentPromoId, type: .Cache) {
@@ -73,6 +75,8 @@ private class DataPrefetcher<T: Encodable> {
     private var disposable: Disposable?
     private var result: T?
     private var imagePrefetcher: ImagePrefetcher?
+    
+    private var stopImageDownloading = false
     
     init(storage: KeyValueStorage, cacheId: String, dataObservable: Observable<T>, retrieveUrlsBlock: T -> [NSURL]) {
         self.storage = storage
@@ -101,7 +105,9 @@ private class DataPrefetcher<T: Encodable> {
             return AnonymousDisposable { [weak self] in
                 logInfo("Disposing prefetching content promo")
                 disposable.dispose()
-                self?.imagePrefetcher?.stop()
+                if self?.stopImageDownloading ?? true {
+                    self?.imagePrefetcher?.stop()
+                }
                 self?.imagePrefetcher = nil
             }
         }.subscribeNext { [weak self] in
@@ -109,7 +115,8 @@ private class DataPrefetcher<T: Encodable> {
         }
     }
     
-    func takeResult() -> T? {
+    func takeResult(stopImageDownloading stopImageDownloading: Bool) -> T? {
+        self.stopImageDownloading = stopImageDownloading
         disposable?.dispose()
         disposable = nil
         return result

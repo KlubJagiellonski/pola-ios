@@ -207,13 +207,13 @@ class RootViewController: PresenterViewController, NavigationHandler {
         case .OnboardingEnd:
             logInfo("Onboarding end")
             if model.shouldSelectGender {
+                guard !(contentViewController is StartViewController) else { return true }
+                showContent(resolver.resolve(StartViewController), animation: DimTransitionAnimation(animationDuration: 0.3), completion: nil)
+                return true
+            } else {
                 // user must not be able to set gender
                 // gender will be set to default value: woman in UserManager
                 showDashboard()
-                return true
-            } else {
-                guard !(contentViewController is StartViewController) else { return true }
-                showContent(resolver.resolve(StartViewController), animation: DimTransitionAnimation(animationDuration: 0.3), completion: nil)
                 return true
             }
             
