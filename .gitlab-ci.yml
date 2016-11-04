@@ -45,3 +45,25 @@ showroom_deploy_production:
         - xcode-8.0    
     only:
         - tags    
+
+showroom_worldwide_deploy_staging:
+    stage: deploy
+    before_script:
+        - /bin/bash $CACHE_DIR/bundlerScript.bash
+    script:
+        - bundle exec fastlane deployStagingWorldwide
+    tags:
+        - xcode-8.0
+    only:
+        - tags
+
+showroom_worldwide_deploy_production:
+    stage: deploy
+    before_script:
+        - /bin/bash $CACHE_DIR/bundlerScript.bash
+    script:
+        - bundle exec fastlane deployProductionWorldwide
+    tags:
+        - xcode-8.0    
+    only:
+        - tags

@@ -60,4 +60,14 @@ platform :ios do
   lane :deployProduction do
     deploy 'Showroom', 'com.showroom.Showroom'
   end
+
+  desc 'Deploy to Polidea Store'
+  lane :deployStagingWorldwide do
+    deploy 'ShowroomWorldwideStaging', 'com.showroom.ShowroomWorldwide.staging'
+  end
+
+  desc 'Deploy to Polidea Store'
+  lane :deployProductionWorldwide do
+    deploy 'ShowroomWorldwide', 'com.showroom.ShowroomWorldwide'
+  end
 end

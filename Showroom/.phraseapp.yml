@@ -1,8 +1,0 @@
-phraseapp:
-  project_id: "453e338d5d67e7c502d0e57781832878"
-  file_format: "strings"
-  pull:
-    targets:
-    - file: "Showroom/Resources/<locale_code>.lproj/Localizable.strings"
-      params:
-        convert_emoji: true
