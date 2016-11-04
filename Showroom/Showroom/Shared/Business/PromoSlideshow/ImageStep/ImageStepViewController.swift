@@ -17,8 +17,8 @@ final class ImageStepViewController: UIViewController, PromoPageInterface, Image
     
     var pageState: PromoPageState {
         didSet {
-            let (focused, playing, visible) = (pageState.focused, pageState.playing, pageState.visible)
-            logInfo("set focused: \(focused), playing: \(playing), visible: \(visible)")
+            let (focused, playing) = (pageState.focused, pageState.playing)
+            logInfo("set focused: \(focused), playing: \(playing)")
             
             if focused != oldValue.focused || playing != oldValue.playing {
                 if focused && playing && castView.isImageDownloaded {
@@ -30,11 +30,6 @@ final class ImageStepViewController: UIViewController, PromoPageInterface, Image
                     timer.pause()
                 }
             }
-            
-            if !visible && oldValue.visible{
-                timer.invalidate()
-            }
-
         }
     }
     
@@ -93,6 +88,11 @@ final class ImageStepViewController: UIViewController, PromoPageInterface, Image
     }
     
     func didTapDismiss() { }
+    
+    func resetProgressState() {
+        logInfo("reset progress state")
+        timer.invalidate()
+    }
 }
 
 extension ImageStepViewController: TimerDelegate {

@@ -12,7 +12,6 @@ enum PromoPageViewState {
 struct PromoPageState {
     let focused: Bool
     let playing: Bool
-    let visible: Bool
 }
 
 protocol PromoPageDelegate: class {
@@ -31,6 +30,7 @@ protocol PromoPageInterface: class {
     
     func didTapPlay()
     func didTapDismiss()
+    func resetProgressState()
 }
 
 // MARK:- Utilities

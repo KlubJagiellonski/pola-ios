@@ -4,7 +4,7 @@ import UIKit
 protocol PromoSlideshowViewDelegate: ViewSwitcherDelegate {
     func promoSlideshowDidTapClose(promoSlideshow: PromoSlideshowView)
     func promoSlideshowWillBeginPageChanging(promoSlideshow: PromoSlideshowView)
-    func promoSlideshowDidEndPageChanging(promoSlideshow: PromoSlideshowView, fromUserAction: Bool)
+    func promoSlideshowDidEndPageChanging(promoSlideshow: PromoSlideshowView, fromUserAction: Bool, afterLeftBounce: Bool)
     func promoSlideshowView(promoSlideshow: PromoSlideshowView, didChangePlayingState playing: Bool)
     func promoSlideshowDidEndTransitionAnimation(promoSlideshow: PromoSlideshowView)
 }
@@ -177,7 +177,7 @@ final class PromoSlideshowView: UIView, UICollectionViewDelegate, ModalPanDismis
             // adjusting offset to next page
             self.collectionView.setContentOffset(CGPointMake(pageWidth * CGFloat(nextIndex), 0), animated: false)
             self.userInteractionEnabled = true
-            self.delegate?.promoSlideshowDidEndPageChanging(self, fromUserAction: false)
+            self.delegate?.promoSlideshowDidEndPageChanging(self, fromUserAction: false, afterLeftBounce: false)
         })
         return true
     }
@@ -306,16 +306,21 @@ final class PromoSlideshowView: UIView, UICollectionViewDelegate, ModalPanDismis
         self.delegate?.promoSlideshowWillBeginPageChanging(self)
     }
     
+    private var scrollViewWillLeftBounce: Bool = false
+    
     func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if !decelerate {
-            self.delegate?.promoSlideshowDidEndPageChanging(self, fromUserAction: true)
+        if decelerate {
+            scrollViewWillLeftBounce = scrollView.contentOffset.x < 0
+        } else {
+            self.delegate?.promoSlideshowDidEndPageChanging(self, fromUserAction: true, afterLeftBounce: false)
             userInteractionEnabled = true
         }
     }
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         logInfo("scroll view did end decelerating")
-        self.delegate?.promoSlideshowDidEndPageChanging(self, fromUserAction: true)
+        self.delegate?.promoSlideshowDidEndPageChanging(self, fromUserAction: true, afterLeftBounce: scrollViewWillLeftBounce)
+        scrollViewWillLeftBounce = false
         userInteractionEnabled = true
     }
 }

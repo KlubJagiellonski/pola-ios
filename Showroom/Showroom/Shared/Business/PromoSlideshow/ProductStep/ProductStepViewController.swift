@@ -19,8 +19,8 @@ final class ProductStepViewController: ProductPageViewController, ProductPageVie
     
     var pageState: PromoPageState {
         didSet {
-            let (focused, playing, visible) = (pageState.focused, pageState.playing, pageState.visible)
-            logInfo("set focused: \(focused), playing: \(playing), visible: \(visible)")
+            let (focused, playing) = (pageState.focused, pageState.playing)
+            logInfo("set focused: \(focused), playing: \(playing)")
             
             if focused != oldValue.focused || playing != oldValue.playing {
                 if focused && playing {
@@ -34,10 +34,6 @@ final class ProductStepViewController: ProductPageViewController, ProductPageVie
                 
                 castView.update(withPreviewModeEnabled: playing, animationDuration: nil)
                 previewOverlay?.update(withEnabled: playing, animationDuration: nil)
-            }
-            
-            if !visible && oldValue.visible {
-                timer.invalidate()
             }
         }
     }
@@ -102,6 +98,11 @@ final class ProductStepViewController: ProductPageViewController, ProductPageVie
     func didTapDismiss() {
         logInfo("Did tap dismiss")
         dismissContentView()
+    }
+    
+    func resetProgressState() {
+        logInfo("reset progress state")
+        timer.invalidate()
     }
     
     // MARK:- ProductPagePreviewOverlayViewDelegate

@@ -95,6 +95,12 @@ final class VideoStepView: ViewSwitcher, VIMVideoPlayerViewDelegate {
         logInfo("pause")
         state = .PausedByUser
     }
+    
+    func stop() {
+        logInfo("stop")
+        state = .PausedByUser
+        playerView.player.player.seekToTime(kCMTimeZero)
+    }
 
     private func configureCustomConstraints() {
         annotationsView.snp_makeConstraints { (make) in

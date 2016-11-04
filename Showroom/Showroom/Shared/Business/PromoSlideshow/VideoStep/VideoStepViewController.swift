@@ -17,8 +17,8 @@ final class VideoStepViewController: UIViewController, PromoPageInterface, Video
     
     var pageState: PromoPageState {
         didSet {
-            let (focused, playing, visible) = (pageState.focused, pageState.playing, pageState.visible)
-            logInfo("set focused: \(focused), playing: \(playing), visible: \(visible)")
+            let (focused, playing) = (pageState.focused, pageState.playing)
+            logInfo("set focused: \(focused), playing: \(playing)")
             
             if focused != oldValue.focused || playing != oldValue.playing {
                 if focused && playing {
@@ -35,12 +35,6 @@ final class VideoStepViewController: UIViewController, PromoPageInterface, Video
                 } else if !focused {
                     castView.pause()
                 }
-            }
-            
-            if !visible && oldValue.visible {
-                castView.pause()
-                asset = retrieveOrCreateAsset()
-                castView.update(asset)
             }
         }
     }
@@ -130,5 +124,9 @@ final class VideoStepViewController: UIViewController, PromoPageInterface, Video
         pageDelegate?.promoPage(self, willChangePromoPageViewState: .Playing, animationDuration: 0.4)
     }
     
-    func didTapDismiss() { }
+    func didTapDismiss() {}
+    
+    func resetProgressState() {
+        castView.stop()
+    }
 }

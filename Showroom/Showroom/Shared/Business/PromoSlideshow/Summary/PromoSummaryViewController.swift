@@ -84,4 +84,6 @@ final class PromoSummaryViewController: UIViewController, PromoPageInterface, Pr
     func didTapPlay() {}
     
     func didTapDismiss() {}
+    
+    func resetProgressState() {}
 }
