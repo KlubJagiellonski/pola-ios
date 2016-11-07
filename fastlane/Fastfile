@@ -25,9 +25,16 @@ platform :ios do
     match(type: type, app_identifier: app_identifier, readonly: true)
   end
 
-  def deploy(scheme, app_identifier)    
+  def deploy(scheme, badge, app_identifier)    
     sign('adhoc', app_identifier)    
     add_prefix_schema
+
+    badge(
+      shield: "#{badge}-#{ENV["CI_BUILD_ID"]}-blue",
+      shield_no_resize: true,
+      no_badge: true
+    )
+
     gym(
       project: "Showroom/Showroom.xcodeproj",
       scheme: scheme,
@@ -53,21 +60,21 @@ platform :ios do
 
   desc 'Deploy to Polidea Store'
   lane :deployStaging do
-    deploy 'ShowroomStaging', 'com.showroom.Showroom.staging'
+    deploy 'ShowroomStaging', 'Stag', 'com.showroom.Showroom.staging'
   end
 
   desc 'Deploy to Polidea Store'
   lane :deployProduction do
-    deploy 'Showroom', 'com.showroom.Showroom'
+    deploy 'Showroom', 'Prod', 'com.showroom.Showroom'
   end
 
   desc 'Deploy to Polidea Store'
   lane :deployStagingWorldwide do
-    deploy 'ShowroomWorldwideStaging', 'com.showroom.ShowroomWorldwide.staging'
+    deploy 'ShowroomWorldwideStaging', 'Com Stag', 'com.showroom.ShowroomWorldwide.staging'
   end
 
   desc 'Deploy to Polidea Store'
   lane :deployProductionWorldwide do
-    deploy 'ShowroomWorldwide', 'com.showroom.ShowroomWorldwide'
+    deploy 'ShowroomWorldwide', 'Com Prod', 'com.showroom.ShowroomWorldwide'
   end
 end
