@@ -232,7 +232,7 @@ final class PromoSlideshowView: UIView, UICollectionViewDelegate, ModalPanDismis
     func runPlayFeedback() {
         guard let imageView = self.closeButton.imageView else { return }
         
-        let animationDuration: Double = 1.2
+        let animationDuration: Double = 0.8
         let scaleFactor: CGFloat = 1.5
         let scaledTransform = CGAffineTransformMakeScale(scaleFactor, scaleFactor)
         let defaultTransform = CGAffineTransformIdentity
@@ -254,7 +254,7 @@ final class PromoSlideshowView: UIView, UICollectionViewDelegate, ModalPanDismis
         
         UIView.animateKeyframesWithDuration(animationDuration, delay: 1, options: [], animations: animations ) { success in
             guard success else { return }
-            UIView.animateKeyframesWithDuration(animationDuration, delay: 3, options: [], animations: animations, completion: nil)
+            UIView.animateKeyframesWithDuration(animationDuration, delay: 2, options: [], animations: animations, completion: nil)
         }
     }
     
