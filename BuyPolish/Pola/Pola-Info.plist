@@ -32,7 +32,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>43</string>
+	<string>44</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -64,6 +64,25 @@
 		<string>Lato-Regular.ttf</string>
 		<string>Lato-Semibold.ttf</string>
 	</array>
+	<key>UIApplicationShortcutItems</key>
+	<array>
+		<dict>
+			<key>UIApplicationShortcutItemIconType</key>
+			<string>UIApplicationShortcutIconTypeCapturePhoto</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Zeskanuj kod kreskowy</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>$(PRODUCT_BUNDLE_IDENTIFIER).ScanCode</string>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemIconType</key>
+			<string>UIApplicationShortcutItemTypeSearch</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Wpisz kod kreskowy</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>$(PRODUCT_BUNDLE_IDENTIFIER).WriteCode</string>
+		</dict>
+	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
@@ -83,24 +102,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
-	<key>UIApplicationShortcutItems</key>
-	<array>
-        <dict>
-            <key>UIApplicationShortcutItemIconType</key>
-            <string>UIApplicationShortcutIconTypeCapturePhoto</string>
-            <key>UIApplicationShortcutItemTitle</key>
-            <string>Zeskanuj kod kreskowy</string>
-            <key>UIApplicationShortcutItemType</key>
-            <string>$(PRODUCT_BUNDLE_IDENTIFIER).ScanCode</string>
-        </dict>
-		<dict>
-			<key>UIApplicationShortcutItemIconType</key>
-			<string>UIApplicationShortcutItemTypeSearch</string>
-			<key>UIApplicationShortcutItemTitle</key>
-			<string>Wpisz kod kreskowy</string>
-			<key>UIApplicationShortcutItemType</key>
-			<string>$(PRODUCT_BUNDLE_IDENTIFIER).WriteCode</string>
-		</dict>
-	</array>
 </dict>
 </plist>
