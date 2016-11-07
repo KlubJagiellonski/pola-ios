@@ -82,11 +82,6 @@ final class ImageStepViewController: UIViewController, PromoPageInterface, Image
     
     // MARK:- PromoPageInterface
     
-    func didTapPlay() {
-        logInfo("did tap play")
-        pageDelegate?.promoPage(self, willChangePromoPageViewState: .Playing, animationDuration: Constants.promoSlideshowStateChangedAnimationDuration)
-    }
-    
     func didTapDismiss() { }
     
     func resetProgressState() {

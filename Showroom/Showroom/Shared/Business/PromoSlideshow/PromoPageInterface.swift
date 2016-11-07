@@ -28,7 +28,6 @@ protocol PromoPageInterface: class {
     var shouldShowProgressViewInPauseState: Bool { get }
     weak var pageDelegate: PromoPageDelegate? { get set }
     
-    func didTapPlay()
     func didTapDismiss()
     func resetProgressState()
 }

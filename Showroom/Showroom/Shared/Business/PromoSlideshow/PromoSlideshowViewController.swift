@@ -111,10 +111,27 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
         }.addDisposableTo(disposeBag)
     }
     
-    private func update(with viewState: PromoPageViewState, animationDuration: Double?) {
+    private func update(with viewState: PromoPageViewState, animationDuration: Double?, fromUserAction: Bool) {
+        if fromUserAction {
+            switch viewState {
+            case .Paused where castView.viewState == .Playing:
+                logAnalyticsEvent(AnalyticsEventId.VideoPause(model.entry.id))
+            case .Playing:
+                logAnalyticsEvent(AnalyticsEventId.VideoPlay(model.entry.id))
+            default: break
+            }
+        }
+        
         castView.update(with: viewState, animationDuration: animationDuration)
         UIView.animateWithDuration(animationDuration ?? 0) { [unowned self] in
             self.setNeedsStatusBarAppearanceUpdate()
+        }
+        
+        if fromUserAction && viewState.isPausedState {
+            if model.shouldShowPlayFeedback {
+                castView.runPlayFeedback()
+            }
+            model.didShowPauseState()
         }
     }
     
@@ -125,7 +142,7 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
             return
         }
         if castView.viewState.isPlayingState && !(currentPage is PromoSummaryViewController) {
-            update(with: .Paused(currentPage.shouldShowProgressViewInPauseState), animationDuration: Constants.promoSlideshowStateChangedAnimationDuration)
+            update(with: .Paused(currentPage.shouldShowProgressViewInPauseState), animationDuration: Constants.promoSlideshowStateChangedAnimationDuration, fromUserAction: false)
         }
         informCurrentChildViewController {
             $0.pageState = PromoPageState(focused: false, playing: false)
@@ -190,7 +207,7 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
         case .Dismiss:
             informCurrentChildViewController { $0.didTapDismiss() }
         case .Play:
-            informCurrentChildViewController { $0.didTapPlay() }
+            update(with: .Playing, animationDuration: Constants.promoSlideshowStateChangedAnimationDuration, fromUserAction: true)
         }
     }
     
@@ -208,7 +225,7 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
             informCurrentChildViewController {
                 if afterLeftBounce {
                     $0.resetProgressState()
-                    update(with: .Playing, animationDuration: Constants.promoSlideshowStateChangedAnimationDuration)
+                    update(with: .Playing, animationDuration: Constants.promoSlideshowStateChangedAnimationDuration, fromUserAction: true)
                 }
                 $0.pageState = PromoPageState(focused: true, playing: castView.viewState.isPlayingState)
             }
@@ -241,7 +258,7 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
             logInfo("page index: \(pageIndex), set page state: \(page.pageState)")
         }
         
-        update(with: .Playing, animationDuration: Constants.promoSlideshowStateChangedAnimationDuration)
+        update(with: .Playing, animationDuration: Constants.promoSlideshowStateChangedAnimationDuration, fromUserAction: true)
         
         lastPageIndex = currentPageIndex
     }
@@ -304,22 +321,7 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
     
     func promoPage(promoPage: PromoPageInterface, willChangePromoPageViewState newViewState: PromoPageViewState, animationDuration: Double?) {
         logInfo("Will change promo page view state \(newViewState), aniamtionDuration \(animationDuration), for page \(promoPage)")
-        switch newViewState {
-        case .Paused where castView.viewState == .Playing:
-            logAnalyticsEvent(AnalyticsEventId.VideoPause(model.entry.id))
-        case .Playing:
-            logAnalyticsEvent(AnalyticsEventId.VideoPlay(model.entry.id))
-        default: break
-        }
-        
-        update(with: newViewState, animationDuration: animationDuration)
-        
-        if newViewState.isPausedState {
-            if model.shouldShowPlayFeedback {
-                castView.runPlayFeedback()
-            }
-            model.didShowPauseState()
-        }
+        update(with: newViewState, animationDuration: animationDuration, fromUserAction: true)
     }
     
     func promoPageDidFinished(promoStep: PromoPageInterface) {

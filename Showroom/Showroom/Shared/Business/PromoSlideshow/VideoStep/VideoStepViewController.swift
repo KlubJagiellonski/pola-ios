@@ -119,11 +119,6 @@ final class VideoStepViewController: UIViewController, PromoPageInterface, Video
     
     // MARK:- PromoPageInterface
     
-    func didTapPlay() {
-        logInfo("did tap play")
-        pageDelegate?.promoPage(self, willChangePromoPageViewState: .Playing, animationDuration: 0.4)
-    }
-    
     func didTapDismiss() {}
     
     func resetProgressState() {

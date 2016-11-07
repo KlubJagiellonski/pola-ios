@@ -253,7 +253,7 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
     
     func descriptionViewDidTapSizeChart(view: ProductDescriptionView) {
         logInfo("Did tap size chart")
-        contentNavigationController?.showSizeChart()
+        showSizeChart()
     }
     
     func descriptionViewDidTapAddToBasket(view: ProductDescriptionView) {

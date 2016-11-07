@@ -44,6 +44,8 @@ final class ProductStepViewController: ProductPageViewController, ProductPageVie
         self.pageState = pageState
         super.init(resolver: resolver, productId: dataEntry.product.id, product: Product(product: dataEntry.product))
         
+        viewContentInset = UIEdgeInsets(top: 0, left: 0, bottom: Dimensions.tabViewHeight, right: 0)
+        
         delegate = self
         timer.delegate = self
     }
@@ -70,7 +72,8 @@ final class ProductStepViewController: ProductPageViewController, ProductPageVie
     }
     
     private func createAndConfigureOverlayView() -> UIView {
-        let bottomBarHeight = self.castView.descriptionViewInterface?.headerButtonSectionHeight ?? 0
+        let buttonHeight = self.castView.descriptionViewInterface?.headerButtonSectionHeight ?? 0
+        let bottomBarHeight = buttonHeight + Dimensions.tabViewHeight
         logInfo("Creating preview overlay view with bottom bar height \(bottomBarHeight)")
         let view = ProductPagePreviewOverlayView(bottomBarHeight: bottomBarHeight)
         view.update(withEnabled: pageState.playing, animationDuration: nil)
@@ -80,20 +83,7 @@ final class ProductStepViewController: ProductPageViewController, ProductPageVie
         return view
     }
     
-    private func update(withPreviewModeEnabled enabled: Bool) {
-        let animationDuration = Constants.promoSlideshowStateChangedAnimationDuration
-        
-        castView.update(withPreviewModeEnabled: enabled, animationDuration: animationDuration)
-        previewOverlay?.update(withEnabled: enabled, animationDuration: animationDuration)
-        pageDelegate?.promoPage(self, willChangePromoPageViewState: enabled ? .Playing : .Paused(shouldShowProgressViewInPauseState), animationDuration: animationDuration)
-    }
-    
     // MARK:- PromoPageInterface
-    
-    func didTapPlay() {
-        logInfo("Did tap play, previewOverlay \(previewOverlay)")
-        update(withPreviewModeEnabled: true)
-    }
     
     func didTapDismiss() {
         logInfo("Did tap dismiss")
@@ -110,13 +100,13 @@ final class ProductStepViewController: ProductPageViewController, ProductPageVie
     func previewOverlayDidTapOverlay(previewOverlay: ProductPagePreviewOverlayView) {
         logInfo("Did tap overlay")
         logAnalyticsEvent(AnalyticsEventId.VideoProductPhotoTapped(videoId))
-        update(withPreviewModeEnabled: false)
+        pageDelegate?.promoPage(self, willChangePromoPageViewState: .Paused(shouldShowProgressViewInPauseState), animationDuration: Constants.promoSlideshowStateChangedAnimationDuration)
     }
     
     func previewOverlayDidTapInfoButton(previewOverlay: ProductPagePreviewOverlayView) {
         logInfo("Did tap info button")
         logAnalyticsEvent(AnalyticsEventId.VideoProductInfoButtonTapped(videoId))
-        update(withPreviewModeEnabled: false)
+        pageDelegate?.promoPage(self, willChangePromoPageViewState: .Paused(shouldShowProgressViewInPauseState), animationDuration: Constants.promoSlideshowStateChangedAnimationDuration)
     }
     
     func previewOverlayDidTapWishlistButton(previewOverlay: ProductPagePreviewOverlayView) {
