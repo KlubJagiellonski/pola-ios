@@ -157,9 +157,8 @@ final class VideoStepView: ViewSwitcher, VIMVideoPlayerViewDelegate {
     func videoPlayerView(videoPlayerView: VIMVideoPlayerView!, didChangeRate rate: Double) {
         logInfo("video player view did change rate: \(rate)")
         
-        guard lastLoadedDuration != playerView.playerItemDurationSeconds else {
-            return
-        }
+        //we don't won't to update state when we reached end of video
+        guard playbackTime != playerItemDuration else { return }
         
         if rate == 0.0 {
             switch state {
