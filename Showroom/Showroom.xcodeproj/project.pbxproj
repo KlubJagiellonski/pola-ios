@@ -1795,7 +1795,7 @@
 				1D5F911C1D33D69C00AE66E6 /* SplashViewController.swift */,
 				1D5F911E1D33D6B700AE66E6 /* SplashView.swift */,
 			);
-			name = Splash;
+			path = Splash;
 			sourceTree = "<group>";
 		};
 		1D5F91441D34E93500AE66E6 /* ProductFilter */ = {
@@ -2715,7 +2715,7 @@
 				C0FE51D21D8061D200990155 /* PlatformSelectionView.swift */,
 				C0FE51D41D81C20300990155 /* PlatformButton.swift */,
 			);
-			name = PlatformSelection;
+			path = PlatformSelection;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
