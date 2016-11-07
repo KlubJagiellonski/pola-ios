@@ -32,7 +32,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>44</string>
+	<string>46</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -70,15 +70,15 @@
 			<key>UIApplicationShortcutItemIconType</key>
 			<string>UIApplicationShortcutIconTypeCapturePhoto</string>
 			<key>UIApplicationShortcutItemTitle</key>
-			<string>Zeskanuj kod kreskowy</string>
+			<string>Zeskanuj kod</string>
 			<key>UIApplicationShortcutItemType</key>
 			<string>$(PRODUCT_BUNDLE_IDENTIFIER).ScanCode</string>
 		</dict>
 		<dict>
 			<key>UIApplicationShortcutItemIconType</key>
-			<string>UIApplicationShortcutItemTypeSearch</string>
+			<string>UIApplicationShortcutIconTypeSearch</string>
 			<key>UIApplicationShortcutItemTitle</key>
-			<string>Wpisz kod kreskowy</string>
+			<string>Wpisz kod</string>
 			<key>UIApplicationShortcutItemType</key>
 			<string>$(PRODUCT_BUNDLE_IDENTIFIER).WriteCode</string>
 		</dict>

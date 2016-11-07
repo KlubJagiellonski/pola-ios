@@ -79,6 +79,12 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     [self.cameraSessionManager stop];
 }
 
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    
+    self.keyboardViewController.view.frame = self.view.bounds;
+}
+
 #pragma mark - Actions
 
 - (void)showScanCodeView {
