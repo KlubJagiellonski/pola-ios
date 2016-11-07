@@ -18,6 +18,7 @@
 @interface BPCompanyCardView : UIView <BPStackViewCardProtocol>
 
 @property(nonatomic) CGFloat titleHeight;
+@property(nonatomic, readonly) UILabel *titleLabel;
 
 @property(weak, nonatomic) id <BPCompanyCardViewDelegate> delegate;
 

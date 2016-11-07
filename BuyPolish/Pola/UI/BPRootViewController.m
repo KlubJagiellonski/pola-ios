@@ -18,4 +18,14 @@
     return self;
 }
 
+- (void)showScanCodeView {
+    BPScanCodeViewController *scanCodeViewController = (BPScanCodeViewController *) self.viewControllers.firstObject;
+    [scanCodeViewController showScanCodeView];
+}
+
+- (void)showWriteCodeView {
+    BPScanCodeViewController *scanCodeViewController = (BPScanCodeViewController *) self.viewControllers.firstObject;
+    [scanCodeViewController showWriteCodeView];
+}
+
 @end

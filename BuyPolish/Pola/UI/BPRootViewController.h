@@ -2,4 +2,6 @@
 
 
 @interface BPRootViewController : UINavigationController
+- (void)showScanCodeView;
+- (void)showWriteCodeView;
 @end

@@ -5,7 +5,7 @@
 
 @interface BPAnalyticsHelper : NSObject
 
-+ (void)barcodeScanned:(NSString *)barcode;
++ (void)barcodeScanned:(NSString *)barcode type:(NSString *)type;
 + (void)receivedProductResult:(BPScanResult *)productResult;
 + (void)opensCard:(BPScanResult *)productResult;
 + (void)reportShown:(NSString *)barcode;

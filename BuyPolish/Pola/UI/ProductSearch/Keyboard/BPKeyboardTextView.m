@@ -39,6 +39,7 @@ static CGFloat const kAnimationTime = 0.2;
         _removeButton.accessibilityLabel = NSLocalizedString(@"Accessibility.Keyboard.Delete", nil);
         [self.removeButton addTarget:self action:@selector(didTapRemoveButton) forControlEvents:UIControlEventTouchUpInside];
         [self.removeButton setImage:[UIImage imageNamed:@"kb_delete"] forState:UIControlStateNormal];
+        [self.removeButton setImage:[UIImage imageNamed:@"kb_delete_highlighted"] forState:UIControlStateHighlighted];
         [self.removeButton sizeToFit];
         [self.topView addSubview:self.removeButton];
         

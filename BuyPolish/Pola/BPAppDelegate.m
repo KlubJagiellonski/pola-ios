@@ -25,6 +25,12 @@
     self.window.rootViewController = injector[[BPRootViewController class]];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    UIApplicationShortcutItem *shortcutItem = [launchOptions objectForKey:UIApplicationLaunchOptionsShortcutItemKey];
+    if (shortcutItem) {
+        [self handleShortcutItem:shortcutItem];
+    }
+    
     return YES;
 }
 
@@ -52,6 +58,25 @@
                                                   otherButtonTitles:NSLocalizedString(@"Settings", nil), nil];
         [alertView show];
     }
+}
+
+- (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
+    completionHandler([self handleShortcutItem:shortcutItem]);
+}
+
+- (BOOL)handleShortcutItem:(UIApplicationShortcutItem *)item {
+    NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
+    NSString *scanType = [NSString stringWithFormat:@"%@.ScanCode", bundleIdentifier];
+    NSString *writeType = [NSString stringWithFormat:@"%@.WriteCode", bundleIdentifier];
+    BPRootViewController *rootViewController = (BPRootViewController *) self.window.rootViewController;
+    if ([item.type isEqualToString:scanType]) {
+        [rootViewController showScanCodeView];
+        return YES;
+    } else if ([item.type isEqualToString:writeType]) {
+        [rootViewController showWriteCodeView];
+        return YES;
+    }
+    return NO;
 }
 
 #pragma mark - UIAlertViewDelegate

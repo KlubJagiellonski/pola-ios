@@ -81,6 +81,16 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 
 #pragma mark - Actions
 
+- (void)showScanCodeView {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [self hideKeyboardController];
+}
+
+- (void)showWriteCodeView {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [self showKeyboardController];
+}
+
 - (BOOL)addCardAndDownloadDetails:(NSString *)barcode {
     BPCompanyCardView *cardView = [[BPCompanyCardView alloc] initWithFrame:CGRectZero];
     [cardView setContentType:CompanyContentTypeLoading];
@@ -134,6 +144,9 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     [cardView setReportButtonText:productResult.reportButtonText];
     [cardView setReportText:productResult.reportText];
     [cardView setTitleText:productResult.name];
+    
+    UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification,
+                                    cardView.titleLabel);
 }
 
 - (void)showReportProblem:(NSString *)barcode productId:(NSNumber *)productId {
@@ -180,9 +193,38 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     [UIApplication sharedApplication].idleTimerDisabled = _addingCardEnabled;
 }
 
+- (void)didFindBarcode:(NSString *)barcode sourceType:(NSString *)sourceType {
+    if (!self.addingCardEnabled) {
+        return;
+    }
+    
+    if (![barcode isValidBarcode]) {
+        self.addingCardEnabled = NO;
+        
+        UIAlertView *alertView = [UIAlertView showErrorAlert:NSLocalizedString(@"Not valid barcode. Please try again.", nil)];
+        [alertView setDelegate:self];
+        return;
+    }
+    
+    if ([barcode isEqualToString:self.lastBardcodeScanned]) {
+        return;
+    }
+    
+    if ([self addCardAndDownloadDetails:barcode]) {
+        [BPAnalyticsHelper barcodeScanned:barcode type:sourceType];
+        [self.castView setInfoTextVisible:NO];
+        AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
+        self.lastBardcodeScanned = barcode;
+    }
+}
+
 #pragma mark - Keyboard Controller
 
 - (void) hideKeyboardController {
+    if (self.keyboardViewController == nil) {
+        return;
+    }
+    
     [self.castView.keyboardButton setSelected:NO];
 
     [self.keyboardViewController willMoveToParentViewController:nil];
@@ -206,6 +248,10 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 }
 
 - (void)showKeyboardController {
+    if (self.keyboardViewController != nil) {
+        return;
+    }
+    
     self.keyboardViewController = [[BPKeyboardViewController alloc] init];
     self.keyboardViewController.delegate = self;
     
@@ -280,28 +326,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 #pragma mark - BPCameraSessionManagerDelegate
 
 - (void)didFindBarcode:(NSString *)barcode {
-    if (!self.addingCardEnabled) {
-        return;
-    }
-
-    if (![barcode isValidBarcode]) {
-        self.addingCardEnabled = NO;
-
-        UIAlertView *alertView = [UIAlertView showErrorAlert:NSLocalizedString(@"Not valid barcode. Please try again.", nil)];
-        [alertView setDelegate:self];
-        return;
-    }
-
-    if ([barcode isEqualToString:self.lastBardcodeScanned]) {
-        return;
-    }
-
-    if ([self addCardAndDownloadDetails:barcode]) {
-        [BPAnalyticsHelper barcodeScanned:barcode];
-        [self.castView setInfoTextVisible:NO];
-        AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
-        self.lastBardcodeScanned = barcode;
-    }
+    [self didFindBarcode:barcode sourceType:@"Camera"];
 }
 
 #pragma mark - BPProductCardViewDelegate
@@ -333,7 +358,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 - (void)keyboardViewController:(BPKeyboardViewController *) viewController didConfirmWithCode:(NSString *) code {
     [self hideKeyboardController];
     
-    [self didFindBarcode:code];
+    [self didFindBarcode:code sourceType: @"Keyboard"];
 }
 
 @end

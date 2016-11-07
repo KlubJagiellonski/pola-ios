@@ -10,7 +10,6 @@ int const CARD_REPORT_BUTTON_HEIGHT = 30;
 int const CARD_CONTENT_PROGRESS_IN_HEADER = 6;
 
 @interface BPCompanyCardView ()
-@property(nonatomic, readonly) UILabel *titleLabel;
 @property(nonatomic, readonly) UIActivityIndicatorView *loadingProgressView;
 @property(nonatomic, readonly) BPMainProggressView *mainProgressView;
 @property(nonatomic, readonly) BPCompanyContentView *contentView;

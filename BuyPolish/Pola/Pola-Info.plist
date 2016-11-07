@@ -83,5 +83,24 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+	<key>UIApplicationShortcutItems</key>
+	<array>
+        <dict>
+            <key>UIApplicationShortcutItemIconType</key>
+            <string>UIApplicationShortcutIconTypeCapturePhoto</string>
+            <key>UIApplicationShortcutItemTitle</key>
+            <string>Zeskanuj kod kreskowy</string>
+            <key>UIApplicationShortcutItemType</key>
+            <string>$(PRODUCT_BUNDLE_IDENTIFIER).ScanCode</string>
+        </dict>
+		<dict>
+			<key>UIApplicationShortcutItemIconType</key>
+			<string>UIApplicationShortcutItemTypeSearch</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Wpisz kod kreskowy</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>$(PRODUCT_BUNDLE_IDENTIFIER).WriteCode</string>
+		</dict>
+	</array>
 </dict>
 </plist>

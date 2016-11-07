@@ -12,5 +12,6 @@
 @class BPScanResult;
 
 @interface BPScanCodeViewController : UIViewController <AVCaptureMetadataOutputObjectsDelegate, UIAlertViewDelegate, BPStackViewDelegate, BPCameraSessionManagerDelegate, BPCompanyCardViewDelegate, BPReportProblemViewControllerDelegate, BPInfoNavigationControllerDelegate, BPKeyboardViewControllerDelegate>
-
+- (void)showScanCodeView;
+- (void)showWriteCodeView;
 @end

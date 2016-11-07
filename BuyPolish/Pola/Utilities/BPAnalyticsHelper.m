@@ -6,8 +6,11 @@
 
 @implementation BPAnalyticsHelper
 
-+ (void)barcodeScanned:(NSString *)barcode {
-    NSDictionary *attributes = @{@"DeviceId" : [BPDeviceHelper deviceId]};
++ (void)barcodeScanned:(NSString *)barcode type:(NSString *)type {
+    NSDictionary *attributes = @{
+        @"DeviceId": [BPDeviceHelper deviceId],
+        @"CodeSource": type
+    };
     [Answers logSearchWithQuery:barcode customAttributes:attributes];
 }
 
