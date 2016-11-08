@@ -95,6 +95,7 @@ enum Asset: String {
   case Profile_logo = "profile_logo"
   case Refresh = "refresh"
   case Repeat = "repeat"
+  case Repeat_white = "repeat_white"
   case Slider = "slider"
   case SplashImage4s = "SplashImage4s"
   case SplashImage5s = "SplashImage5s"

@@ -20,11 +20,14 @@ final class PromoSummaryPlayerView: UIView {
     private var firstLayoutSubviewsPassed = false
     private var shouldStartPlayAnimation = false
     
-    init(playlistItems: [PromoSlideshowPlaylistItem]) {
+    private let withRepeatButton: Bool
+    
+    init(playlistItems: [PromoSlideshowPlaylistItem], withRepeatButton: Bool) {
         self.currentVideoIndex = playlistItems.count > 1 ? 1 : 0
         let video = playlistItems[currentVideoIndex]
         self.videos = playlistItems
-        self.currentVideoView = PromoSummaryVideoView(caption: video.caption)
+        self.currentVideoView = PromoSummaryVideoView(caption: video.caption, withRepeatButton: withRepeatButton)
+        self.withRepeatButton = withRepeatButton
         super.init(frame: CGRectZero)
         
         self.currentVideoView.playerView = self
@@ -104,13 +107,17 @@ final class PromoSummaryPlayerView: UIView {
         promoSummaryView?.didTap(playForVideo: videos[currentVideoIndex])
     }
     
+    func didTapRepeatButton() {
+        promoSummaryView?.didTapRepeatButton()
+    }
+    
     private func updateCurrentVideoView() {
         userInteractionEnabled = false
         
         let video = videos[currentVideoIndex]
         
         let currentVideoView = self.currentVideoView
-        let newVideoView = PromoSummaryVideoView(caption: video.caption)
+        let newVideoView = PromoSummaryVideoView(caption: video.caption, withRepeatButton: self.withRepeatButton)
         addSubview(newVideoView)
         bringSubviewToFront(hudView)
         newVideoView.snp_makeConstraints { make in

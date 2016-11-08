@@ -4,8 +4,11 @@ import UIKit
 final class PromoSummaryLinksView: UIView {
     weak var promoSummaryView: PromoSummaryView?
     
-    private let linkButtons: [UIButton]
     private let links: [PromoSlideshowLink]
+    
+    private let repeatButton = UIButton()
+    private let separatorView = UIView()
+    private let linkButtons: [UIButton]
     
     init(links: [PromoSlideshowLink]) {
         self.links = links
@@ -20,6 +23,16 @@ final class PromoSummaryLinksView: UIView {
         
         super.init(frame: CGRectZero)
         
+        repeatButton.addTarget(self, action: #selector(PromoSummaryLinksView.didTapRepeatButton), forControlEvents: .TouchUpInside)
+        repeatButton.setImage(UIImage(asset: .Repeat), forState: .Normal)
+        repeatButton.setTitle(tr(.PromoVideoSummaryRepeat), forState: .Normal)
+        repeatButton.applyBlackPlainBoldStyle()
+        
+        separatorView.backgroundColor = UIColor(named: .Separator)
+        
+        addSubview(repeatButton)
+        addSubview(separatorView)
+        
         linkButtons.forEach {
             $0.addTarget(self, action: #selector(PromoSummaryLinksView.didTapLinkButton), forControlEvents: .TouchUpInside)
             addSubview($0)
@@ -33,15 +46,28 @@ final class PromoSummaryLinksView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        let repeatButtonHeight: CGFloat = UIDevice.currentDevice().screenType == .iPhone4 ? 40 : 46
+        
+        repeatButton.frame = CGRect(x: 0, y: 0, width: bounds.width, height: repeatButtonHeight)
+        
         let horizontalMargin = Dimensions.defaultMargin
-        let linkWidth = bounds.width - 2 * horizontalMargin
+        let widthWithoutMargins = bounds.width - 2 * horizontalMargin
+        let separatorHeight: CGFloat = Dimensions.boldSeparatorThickness
+
+        separatorView.frame = CGRect(x: horizontalMargin, y: CGRectGetMaxY(repeatButton.frame), width: widthWithoutMargins, height: separatorHeight)
+        
         let linkHeight: CGFloat = linkButtons.first?.bounds.height ?? 0
-        let space = (bounds.height - CGFloat(linkButtons.count) * linkHeight) / CGFloat(linkButtons.count + 1)
-        var y = space
+        let space = (bounds.height - CGRectGetMaxY(separatorView.frame) - CGFloat(linkButtons.count) * linkHeight) / CGFloat(linkButtons.count + 1)
+        
+        var y = CGRectGetMaxY(separatorView.frame) + space
         for linkButton in linkButtons {
-            linkButton.frame = CGRect(x: horizontalMargin, y: y, width: linkWidth, height: linkHeight)
+            linkButton.frame = CGRect(x: horizontalMargin, y: y, width: widthWithoutMargins, height: linkHeight)
             y += linkHeight + space
         }
+    }
+    
+    @objc private func didTapRepeatButton() {
+        promoSummaryView?.didTapRepeatButton()
     }
     
     @objc private func didTapLinkButton(button: UIButton) {
@@ -51,5 +77,4 @@ final class PromoSummaryLinksView: UIView {
         }
         promoSummaryView?.didTap(link: links[index])
     }
-
 }
