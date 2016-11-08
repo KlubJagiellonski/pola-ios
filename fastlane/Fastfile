@@ -60,21 +60,21 @@ platform :ios do
 
   desc 'Deploy to Polidea Store'
   lane :deployStaging do
-    deploy 'ShowroomStaging', 'Stag', 'com.showroom.Showroom.staging'
+    deploy 'ShowroomStaging', 'PlStag', 'com.showroom.Showroom.staging'
   end
 
   desc 'Deploy to Polidea Store'
   lane :deployProduction do
-    deploy 'Showroom', 'Prod', 'com.showroom.Showroom'
+    deploy 'Showroom', 'PlProd', 'com.showroom.Showroom'
   end
 
   desc 'Deploy to Polidea Store'
   lane :deployStagingWorldwide do
-    deploy 'ShowroomWorldwideStaging', 'Com Stag', 'com.showroom.ShowroomWorldwide.staging'
+    deploy 'ShowroomWorldwideStaging', 'ComStag', 'com.showroom.ShowroomWorldwide.staging'
   end
 
   desc 'Deploy to Polidea Store'
   lane :deployProductionWorldwide do
-    deploy 'ShowroomWorldwide', 'Com Prod', 'com.showroom.ShowroomWorldwide'
+    deploy 'ShowroomWorldwide', 'ComProd', 'com.showroom.ShowroomWorldwide'
   end
 end
