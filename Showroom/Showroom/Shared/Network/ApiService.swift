@@ -55,13 +55,15 @@ class ApiService {
         }
         
         if let jsonData = call.jsonData {
+            let jsonDataString = call.anonimizeJsonData ? "***" : "\(jsonData)"
+            
             urlRequest.applyJsonContentTypeHeader()
-            logInfo("Making call \(url) with data \(jsonData)")
+            logInfo("Making call \(url) with data \(jsonDataString)")
             do {
                 let data = try NSJSONSerialization.dataWithJSONObject(jsonData, options: [])
                 urlRequest.HTTPBody = data
             } catch {
-                logError("Cannot parse to json \(jsonData) for url \(url)")
+                logError("Cannot parse to json \(jsonDataString) for url \(url)")
                 return Observable.error(error)
             }
             
@@ -101,6 +103,7 @@ struct ApiServiceCall {
     let httpMethod: ApiServiceHttpMethod
     let authenticationType: ApiServiceAuthenticationType
     let jsonData: AnyObject?
+    let anonimizeJsonData: Bool
 }
 
 // MARK:- Utilities

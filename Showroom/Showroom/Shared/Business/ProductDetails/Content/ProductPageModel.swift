@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-class ProductPageModel {
+final class ProductPageModel {
     typealias IsOnWishlist = Bool
     
     let api: ApiService
@@ -186,7 +186,15 @@ class ProductPageModelState {
     
     var product: Product?
     var productDetails: ProductDetails? {
-        didSet { productDetailsObservable.onNext(productDetails) }
+        didSet {
+            if let productDetails = productDetails {
+                let urls = productDetails.videos.map { NSURL(string: $0.url)! }
+                videoCacheHelper = VideoCacheHelper(urls: urls)
+            } else {
+                videoCacheHelper = nil
+            }
+            productDetailsObservable.onNext(productDetails)
+        }
     }
     var currentSize: ProductDetailsSize? {
         didSet { currentSizeObservable.onNext(currentSize) }
@@ -194,6 +202,7 @@ class ProductPageModelState {
     var currentColor: ProductDetailsColor? {
         didSet { currentColorObservable.onNext(currentColor) }
     }
+    var videoCacheHelper: VideoCacheHelper?
 
     init(product: Product?) {
         self.product = product

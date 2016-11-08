@@ -201,10 +201,3 @@ extension VideoStepView: ViewSwitcherDelegate, ViewSwitcherDataSource {
         return ErrorView(errorText: tr(.CommonError), errorImage: nil)
     }
 }
-
-extension AVAsset {
-    var isCached: Bool {
-        guard let urlAsset = self as? AVURLAsset else { return false }
-        return urlAsset.URL.scheme == "file"
-    }
-}

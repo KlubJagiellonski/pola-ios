@@ -6,87 +6,106 @@ enum ProductImageDataSourceState {
     case FullScreen
 }
 
-final class ProductImageDataSource: NSObject, UICollectionViewDataSource {
+protocol ProductImageCellInterface: class {
+    var fullScreenMode: Bool { get set }
+    var screenInset: UIEdgeInsets? { get set }
+    var fullScreenInset: UIEdgeInsets? { get set }
+    func didEndDisplaying()
+}
+
+final class ProductImageDataSource: NSObject, UICollectionViewDataSource, ProductImageCellDelegate, ProductImageVideoCellDelegate {
     private weak var collectionView: UICollectionView?
+    
+    private var imageUrls: [String] = []
+    private var videos: [ProductDetailsVideo] = []
+    private let assetsFactory: Int -> AVAsset
     var lowResImageUrl: String?
-    var imageUrls: [String] = [] {
-        didSet {
-            guard oldValue.count != 0 else {
-                collectionView?.reloadData()
-                return
-            }
-            if let cell = collectionView?.cellForItemAtIndexPath(NSIndexPath(forItem: 0, inSection: 0)) as? ProductImageCell where oldValue[0] != imageUrls[0] {
-                loadImageForFirstItem(imageUrls[0], forCell: cell)
-            }
-            
-            guard imageUrls.count > 1 else { return }
-            
-            var reloadIndexPaths: [NSIndexPath] = []
-            var deleteIndexPaths: [NSIndexPath] = []
-            var insertIndexPaths: [NSIndexPath] = []
-            
-            let maxCommonCount = min(oldValue.count, imageUrls.count)
-            if maxCommonCount > 1 {
-                for index in 1...(maxCommonCount - 1) {
-                    if oldValue[index] != imageUrls[index] {
-                        reloadIndexPaths.append(NSIndexPath(forItem: index, inSection: 0))
-                    }
-                }
-            }
-            
-            if imageUrls.count > oldValue.count {
-                for index in oldValue.count...(imageUrls.count - 1) {
-                    insertIndexPaths.append(NSIndexPath(forItem: index, inSection: 0))
-                }
-            } else if imageUrls.count < oldValue.count {
-                for index in imageUrls.count...(oldValue.count - 1) {
-                    deleteIndexPaths.append(NSIndexPath(forItem: index, inSection: 0))
-                }
-            }
-            
-            if reloadIndexPaths.isEmpty && deleteIndexPaths.isEmpty && insertIndexPaths.isEmpty {
-                return
-            }
-            
-            collectionView?.performBatchUpdates({
-                self.collectionView?.insertItemsAtIndexPaths(insertIndexPaths)
-                self.collectionView?.reloadItemsAtIndexPaths(reloadIndexPaths)
-                self.collectionView?.deleteItemsAtIndexPaths(deleteIndexPaths)
-                }, completion: nil)
-            
-        }
-    }
     var state: ProductImageDataSourceState = .Default {
         didSet {
-            guard let collectionView = collectionView else { return }
-            let visibleCells = collectionView.visibleCells() as! [ProductImageCell]
-            for cell in visibleCells {
+            informVisibleCells { (cell: ProductImageCellInterface) in
                 cell.fullScreenMode = state == .FullScreen
             }
         }
     }
     var highResImageVisible: Bool = true {
         didSet {
-            guard let collectionView = collectionView else { return }
-            for cell in collectionView.visibleCells() {
-                if let cell = cell as? ProductImageCell {
-                    cell.imageView.alpha = highResImageVisible ? 1 : 0
-                }
+            informVisibleCells { (cell: ProductImageCell) in
+                cell.imageVisible = highResImageVisible
             }
         }
     }
+    var pageCount: Int {
+        return imageUrls.count + videos.count
+    }
+    var fullScreenInset = UIEdgeInsets()
+    var screenInset = UIEdgeInsets()
     weak var productPageView: ProductPageView?
     
-    init(collectionView: UICollectionView) {
+    init(collectionView: UICollectionView, assetsFactory: Int -> AVAsset) {
+        self.assetsFactory = assetsFactory
         super.init()
         
         self.collectionView = collectionView
         collectionView.registerClass(ProductImageCell.self, forCellWithReuseIdentifier: String(ProductImageCell))
+        collectionView.registerClass(ProductImageVideoCell.self, forCellWithReuseIdentifier: String(ProductImageVideoCell))
+    }
+    
+    func update(withImageUrls imageUrls: [String], videos: [ProductDetailsVideo]) {
+        guard let collectionView = collectionView else { return }
+        
+        let oldImageUrls = self.imageUrls
+        let oldVideos = self.videos
+        self.videos = videos
+        self.imageUrls = imageUrls
+        
+        guard oldImageUrls.count != 0 else {
+            collectionView.reloadData()
+            return
+        }
+        if let cell = collectionView.cellForItemAtIndexPath(NSIndexPath(forItem: 0, inSection: 0)) as? ProductImageCell where oldImageUrls[0] != imageUrls[0] {
+            cell.update(withImageUrl: imageUrls[0], lowResImageUrl: lowResImageUrl)
+        }
+        
+        guard imageUrls.count > 1 || !videos.isEmpty else { return }
+        
+        var reloadIndexPaths: [NSIndexPath] = []
+        var deleteIndexPaths: [NSIndexPath] = []
+        var insertIndexPaths: [NSIndexPath] = []
+        
+        let oldCount = oldImageUrls.count + oldVideos.count
+        let newCount = imageUrls.count + videos.count
+        
+        let maxCommonCount = min(oldCount, newCount)
+        if maxCommonCount > 1 {
+            for index in 1...(maxCommonCount - 1) {
+                reloadIndexPaths.append(NSIndexPath(forItem: index, inSection: 0))
+            }
+        }
+        
+        if newCount > oldCount {
+            for index in oldCount...(newCount - 1) {
+                insertIndexPaths.append(NSIndexPath(forItem: index, inSection: 0))
+            }
+        } else if newCount < oldCount {
+            for index in newCount...(oldCount - 1) {
+                deleteIndexPaths.append(NSIndexPath(forItem: index, inSection: 0))
+            }
+        }
+        
+        if reloadIndexPaths.isEmpty && deleteIndexPaths.isEmpty && insertIndexPaths.isEmpty {
+            return
+        }
+        
+        collectionView.performBatchUpdates({
+            collectionView.insertItemsAtIndexPaths(insertIndexPaths)
+            collectionView.reloadItemsAtIndexPaths(reloadIndexPaths)
+            collectionView.deleteItemsAtIndexPaths(deleteIndexPaths)
+            }, completion: nil)
     }
     
     func highResImage(forIndex index: Int) -> UIImage? {
         if let cell = collectionView?.cellForItemAtIndexPath(NSIndexPath(forItem: index, inSection: 0)) as? ProductImageCell {
-            return cell.imageView.image
+            return cell.image
         }
         return nil
     }
@@ -95,47 +114,79 @@ final class ProductImageDataSource: NSObject, UICollectionViewDataSource {
         collectionView?.scrollToItemAtIndexPath(NSIndexPath(forItem: index, inSection: 0), atScrollPosition: .Top, animated: true)
     }
     
-    private func loadImageForFirstItem(imageUrl: String, forCell cell: ProductImageCell) {
-        let onRetrieveFromCache: (UIImage?) -> () = { image in
-            cell.contentViewSwitcher.changeSwitcherState(image == nil ? .Loading : .Success, animated: false)
+    func didEndDisplayingCell(cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
+        if let imageCell = cell as? ProductImageCellInterface {
+            imageCell.didEndDisplaying()
         }
-        
-        let onFailure: (NSError?) -> () = { [weak self] error in
-            logInfo("Failed to download image \(error)")
-            self?.productPageView?.didDownloadFirstImage(withSuccess: false)
+    }
+    
+    private func videoIndex(forCell cell: ProductImageVideoCell) -> Int? {
+        guard let indexPath = collectionView?.indexPathForCell(cell) else { return nil }
+        return indexPath.item - imageUrls.count
+    }
+    
+    private func informVisibleCells<T>(@noescape about: T -> Void) {
+        guard let collectionView = collectionView else { return }
+        for cell in collectionView.visibleCells() {
+            if let cell = cell as? T {
+                about(cell)
+            }
         }
-        
-        let onSuccess: (UIImage) -> () = { [weak self] image in
-            self?.productPageView?.didDownloadFirstImage(withSuccess: true)
-            cell.contentViewSwitcher.changeSwitcherState(.Success)
+    }
+    
+    // MARK:- ProductImageCellDelegate
+    
+    func productImageCell(cell: ProductImageCell, didDownloadImageWithSuccess success: Bool) {
+        if let indexPath = collectionView?.indexPathForCell(cell) where indexPath.item == 0 {
+            productPageView?.didDownloadFirstImage(withSuccess: success)
         }
-        
-        cell.imageView.loadImageWithLowResImage(imageUrl, lowResUrl: lowResImageUrl, width: cell.bounds.width, onRetrievedFromCache: onRetrieveFromCache, failure: onFailure, success: onSuccess)
+    }
+    
+    // MARK:- ProductImageVideoCellDelegate
+    
+    func productImageVideoCellDidLoadVideo(cell: ProductImageVideoCell, asset: AVAsset) {
+        guard let index = videoIndex(forCell: cell) else { return }
+        productPageView?.didLoadVideo(atIndex: index, asset: asset)
+    }
+    
+    func productImageVideoCellDidFinishVideo(cell: ProductImageVideoCell) {
+        guard let index = videoIndex(forCell: cell) else { return }
+        productPageView?.didFinishVideo(atIndex: index)
+    }
+    
+    func productImageVideoCellFailedToLoadVideo(cell: ProductImageVideoCell) {
+        guard let index = videoIndex(forCell: cell) else { return }
+        productPageView?.didFailedToLoadVideo(atIndex: index)
     }
     
     // MARK:- UICollectionViewDataSource
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return imageUrls.count
+        return pageCount
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let imageUrl = imageUrls[indexPath.row]
-        
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(String(ProductImageCell), forIndexPath: indexPath) as! ProductImageCell
-        cell.fullScreenMode = state == .FullScreen
-        cell.imageView.image = nil
-        cell.imageView.alpha = highResImageVisible ? 1 : 0
-        if indexPath.row == 0 {
-            loadImageForFirstItem(imageUrl, forCell: cell)
-        } else {
-            cell.imageView.loadImageFromUrl(imageUrl, width: cell.bounds.width, onRetrievedFromCache: { (image: UIImage?) in
-                cell.contentViewSwitcher.changeSwitcherState(image == nil ? .Loading : .Success, animated: false)
-            }) { (image: UIImage) in
-                cell.contentViewSwitcher.changeSwitcherState(.Success)
+        let videoIndex = indexPath.row - imageUrls.count
+        if let imageUrl = imageUrls[safe: indexPath.row] {
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(String(ProductImageCell), forIndexPath: indexPath) as! ProductImageCell
+            cell.delegate = self
+            cell.screenInset = screenInset
+            cell.fullScreenInset = fullScreenInset
+            cell.fullScreenMode = state == .FullScreen
+            cell.update(withImageUrl: imageUrl, lowResImageUrl: indexPath.row == 0 ? lowResImageUrl : nil)
+            return cell
+        } else if let video = videos[safe: videoIndex] {
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(String(ProductImageVideoCell), forIndexPath: indexPath) as! ProductImageVideoCell
+            cell.delegate = self
+            cell.screenInset = screenInset
+            cell.fullScreenInset = fullScreenInset
+            cell.fullScreenMode = state == .FullScreen
+            cell.update(with: video) { [unowned self]in
+                self.assetsFactory(videoIndex)
             }
+            return cell
+        } else {
+            fatalError("Tried to retrieve cell for wrong index, indexPath: \(indexPath), videos: \(videos), imageUrls \(imageUrls)")
         }
-        
-        return cell
     }
 }

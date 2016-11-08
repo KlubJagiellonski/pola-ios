@@ -89,6 +89,7 @@ enum Asset: String {
   case Platform_6p = "platform_6p"
   case Play_back = "play_back"
   case Play_next = "play_next"
+  case Play_product = "play_product"
   case Previous = "previous"
   case Profile_header = "profile_header"
   case Profile_logo = "profile_logo"

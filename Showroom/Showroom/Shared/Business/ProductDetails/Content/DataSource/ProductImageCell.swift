@@ -2,19 +2,25 @@ import Foundation
 import UIKit
 import SnapKit
 
-class ProductImageCell: UICollectionViewCell, UIScrollViewDelegate {
+protocol ProductImageCellDelegate: class {
+    func productImageCell(cell: ProductImageCell, didDownloadImageWithSuccess success: Bool)
+}
+
+final class ProductImageCell: UICollectionViewCell, ProductImageCellInterface, UIScrollViewDelegate {
     private let minImageZoom: CGFloat = 1.0
     private let maxImageZoom: CGFloat = 3.0
     private let doubleTapZoom: CGFloat = 2.0
     
-    let contentViewSwitcher: ViewSwitcher
+    private let contentViewSwitcher: ViewSwitcher
     private let contentScrollView = UIScrollView()
-    let imageView = UIImageView()
+    private let imageView = UIImageView()
     
     private weak var doubleTapGestureRecognizer: UITapGestureRecognizer?
     private var topOffset: CGFloat = 0
     var fullScreenMode: Bool = false {
         didSet {
+            updateLoadingTopContentOffset()
+            
             guard fullScreenMode != oldValue else { return }
             
             let imageHeight = ceil(bounds.width / CGFloat(Dimensions.defaultImageRatio))
@@ -26,12 +32,18 @@ class ProductImageCell: UICollectionViewCell, UIScrollViewDelegate {
             
             topOffset = fullScreenMode ? bounds.height * 0.5 - imageHeight * 0.5: 0
             
-            updateLoadingTopContentOffset()
-            
             setNeedsLayout()
             layoutIfNeeded()
         }
     }
+    var imageVisible: Bool {
+        set { imageView.alpha = newValue ? 1 : 0 }
+        get { return imageView.alpha == 1 }
+    }
+    var image: UIImage? { return imageView.image }
+    var screenInset: UIEdgeInsets?
+    var fullScreenInset: UIEdgeInsets?
+    weak var delegate: ProductImageCellDelegate?
     
     override init(frame: CGRect) {
         contentViewSwitcher = ViewSwitcher(successView: contentScrollView, initialState: .Success)
@@ -68,6 +80,30 @@ class ProductImageCell: UICollectionViewCell, UIScrollViewDelegate {
         let zoomRect = zoomRectForScale(zoom, withCenter: tapGestureRecognizer.locationInView(tapGestureRecognizer.view))
         contentScrollView.zoomToRect(zoomRect, animated: true)
     }
+    
+    func update(withImageUrl imageUrl: String, lowResImageUrl: String?) {
+        imageView.image = nil
+        
+        let onRetrieveFromCache: (UIImage?) -> () = { [weak self]image in
+            self?.contentViewSwitcher.changeSwitcherState(image == nil ? .Loading : .Success, animated: false)
+        }
+        
+        let onFailure: (NSError?) -> () = { [weak self] error in
+            guard let `self` = self else { return }
+            logInfo("Failed to download image \(error)")
+            self.delegate?.productImageCell(self, didDownloadImageWithSuccess: false)
+        }
+        
+        let onSuccess: (UIImage) -> () = { [weak self] image in
+            guard let `self` = self else { return }
+            self.delegate?.productImageCell(self, didDownloadImageWithSuccess: true)
+            self.contentViewSwitcher.changeSwitcherState(.Success)
+        }
+        
+        imageView.loadImageWithLowResImage(imageUrl, lowResUrl: lowResImageUrl, width: bounds.width, onRetrievedFromCache: onRetrieveFromCache, failure: onFailure, success: onSuccess)
+    }
+    
+    func didEndDisplaying() {}
     
     // doing it on frame because there were 1000 of problems with autolayout here
     override func layoutSubviews() {
@@ -112,8 +148,9 @@ class ProductImageCell: UICollectionViewCell, UIScrollViewDelegate {
     }
     
     private func updateLoadingTopContentOffset() {
-        let imageHeight = ceil(bounds.width / CGFloat(Dimensions.defaultImageRatio))
-        let topContentOffset: CGFloat = fullScreenMode ? 0 : -(bounds.height * 0.5 - imageHeight * 0.5)
-        contentViewSwitcher.loadingView.contentOffset = UIEdgeInsets(top: topContentOffset, left: 0, bottom: 0, right: 0)
+        let screenBottomInset = screenInset?.bottom ?? 0
+        let fullScreenBottomInset = fullScreenInset?.bottom ?? 0
+        let loadingContentInset = fullScreenMode ? -fullScreenBottomInset / 2 : -screenBottomInset / 2
+        contentViewSwitcher.loadingView.indicatorCenterYOffset = loadingContentInset
     }
 }

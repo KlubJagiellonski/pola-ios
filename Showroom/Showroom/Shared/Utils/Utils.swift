@@ -126,6 +126,13 @@ func perform(withDelay delay: Double, action: Void -> Void) {
     }
 }
 
+extension AVAsset {
+    var isCached: Bool {
+        guard let urlAsset = self as? AVURLAsset else { return false }
+        return urlAsset.URL.scheme == "file"
+    }
+}
+
 // MARK: - UIEdgeInsets operators
 
 func +(left: UIEdgeInsets, right: UIEdgeInsets) -> UIEdgeInsets {

@@ -45,6 +45,7 @@ struct ProductDetails {
     let basePrice: Money
     let price: Money
     let images: [ProductDetailsImage]
+    let videos: [ProductDetailsVideo]
     let colors: [ProductDetailsColor]
     let sizes: [ProductDetailsSize]
     let waitTime: TimeInDays
@@ -85,6 +86,11 @@ struct ProductDetailsSize {
     let name: String
     let colors: [ObjectId]
     let measurements: [MeasurementName: String]
+}
+
+struct ProductDetailsVideo {
+    let url: String
+    let previewImageUrl: String
 }
 
 // MARK: - Utilities
@@ -181,6 +187,8 @@ extension ProductDetails: Decodable, Encodable {
         if let seconds = onVacationSeconds where seconds != 0 {
             onVacationDate = NSDate(timeIntervalSince1970: seconds)
         }
+        //TODO: - remove in future
+        let videos = try ProductDetails.mockVideos(j)
         return try ProductDetails(
             id: j => "id",
             brand: j => "store",
@@ -188,6 +196,7 @@ extension ProductDetails: Decodable, Encodable {
             basePrice: j => "msrp",
             price: j => "price",
             images: j => "images" => "available",
+            videos: videos,
             colors: j => "colors",
             sizes: j => "sizes",
             waitTime: j => "wait_time",
@@ -200,6 +209,24 @@ extension ProductDetails: Decodable, Encodable {
         )
     }
     
+    static func mockVideos(json: AnyObject) throws -> [ProductDetailsVideo] {
+        let type = NSUserDefaults.standardUserDefaults().integerForKey("video_product_mock")
+        switch type {
+        case 1:
+            return [
+                ProductDetailsVideo(url: "https://storage.shwrm.net/prod/video/kupisz/unisexi_1.mp4", previewImageUrl: "https://storage.shwrm.net/prod/video/kupisz/unisex.jpg")
+            ]
+        case 2:
+            return [
+                ProductDetailsVideo(url: "https://storage.shwrm.net/prod/video/kupisz/unisexi_1.mp4", previewImageUrl: "https://storage.shwrm.net/prod/video/kupisz/unisex.jpg"),
+                ProductDetailsVideo(url: "https://storage.shwrm.net/prod/video/risk/p1_czerwona_kolekcja.mp4", previewImageUrl: "https://storage.shwrm.net/prod/video/risk/gfx/p4_marynarka.jpg"),
+                ProductDetailsVideo(url: "https://storage.shwrm.net/prod/video/kupisz/unisexi_1.mp4", previewImageUrl: "https://storage.shwrm.net/prod/video/kupisz/unisex.jpg")
+            ]
+        default:
+            return (try json =>? "videos") ?? []
+        }
+    }
+    
     func encode() -> AnyObject {
         let dict: NSMutableDictionary = [
             "id": id,
@@ -208,6 +235,7 @@ extension ProductDetails: Decodable, Encodable {
             "msrp": basePrice.amount,
             "price": price.amount,
             "images": ["available": images.map { $0.encode() } as NSArray] as NSDictionary,
+            "videos": videos.map { $0.encode() } as NSArray,
             "colors": colors.map { $0.encode() } as NSArray,
             "sizes": sizes.map { $0.encode() } as NSArray,
             "wait_time": waitTime,
@@ -289,6 +317,22 @@ extension ProductDetailsSize: Decodable, Encodable {
     }
 }
 
+extension ProductDetailsVideo: Decodable, Encodable {
+    static func decode(json: AnyObject) throws -> ProductDetailsVideo {
+        return try ProductDetailsVideo(
+            url: json => "url",
+            previewImageUrl: json => "previewImageUrl"
+        )
+    }
+    
+    func encode() -> AnyObject {
+        return [
+            "url": url,
+            "previewImageUrl": previewImageUrl
+        ] as NSDictionary
+    }
+}
+
 // MARK: - Equatable
 
 extension ProductListResult: Equatable {}
@@ -298,6 +342,7 @@ extension ProductDetailsImage: Equatable {}
 extension ProductDetailsColor: Equatable {}
 extension ProductDetailsColorType: Equatable {}
 extension ProductDetailsSize: Equatable {}
+extension ProductDetailsVideo: Equatable {}
 
 func ==(lhs: ProductListResult, rhs: ProductListResult) -> Bool {
     return lhs.products == rhs.products && lhs.isLastPage == rhs.isLastPage
@@ -308,7 +353,7 @@ func ==(lhs: ListProduct, rhs: ListProduct) -> Bool {
 }
 
 func ==(lhs: ProductDetails, rhs: ProductDetails) -> Bool {
-    return lhs.id == rhs.id && lhs.brand == rhs.brand && lhs.name == rhs.name && lhs.basePrice == rhs.basePrice && lhs.price == rhs.price && lhs.images == rhs.images && lhs.colors == rhs.colors && lhs.sizes == rhs.sizes && lhs.waitTime == rhs.waitTime && lhs.description == rhs.description && lhs.freeDelivery == rhs.freeDelivery && lhs.available == rhs.available && lhs.onVacationDate == rhs.onVacationDate
+    return lhs.id == rhs.id && lhs.brand == rhs.brand && lhs.name == rhs.name && lhs.basePrice == rhs.basePrice && lhs.price == rhs.price && lhs.images == rhs.images && lhs.colors == rhs.colors && lhs.sizes == rhs.sizes && lhs.waitTime == rhs.waitTime && lhs.description == rhs.description && lhs.freeDelivery == rhs.freeDelivery && lhs.available == rhs.available && lhs.onVacationDate == rhs.onVacationDate && lhs.videos == rhs.videos
 }
 
 func ==(lhs: ProductDetailsImage, rhs: ProductDetailsImage) -> Bool {
@@ -321,4 +366,8 @@ func ==(lhs: ProductDetailsColor, rhs: ProductDetailsColor) -> Bool {
 
 func ==(lhs: ProductDetailsSize, rhs: ProductDetailsSize) -> Bool {
     return lhs.id == rhs.id && lhs.name == rhs.name && lhs.colors == rhs.colors && lhs.measurements == rhs.measurements
+}
+
+func ==(lhs: ProductDetailsVideo, rhs: ProductDetailsVideo) -> Bool {
+    return lhs.url == rhs.url && lhs.previewImageUrl == rhs.previewImageUrl
 }

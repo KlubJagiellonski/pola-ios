@@ -9,7 +9,8 @@ extension ApiService {
             params: ["gender": gender.rawValue],
             httpMethod: .Get,
             authenticationType: .NotRequired,
-            jsonData: nil
+            jsonData: nil,
+            anonimizeJsonData: false
         )
         return makeCall(with: call).decode { try ContentPromoResult.decode($0) }
     }
@@ -20,7 +21,8 @@ extension ApiService {
             params: nil,
             httpMethod: .Get,
             authenticationType: .NotRequired,
-            jsonData: nil
+            jsonData: nil,
+            anonimizeJsonData: false
         )
         return makeCall(with: call).decode { try ProductDetails.decode($0) }
     }
@@ -31,7 +33,8 @@ extension ApiService {
             params: nil,
             httpMethod: .Get,
             authenticationType: .NotRequired,
-            jsonData: nil
+            jsonData: nil,
+            anonimizeJsonData: false
         )
         return makeCall(with: call).decode { try SearchResult.decode($0) }
     }
@@ -42,7 +45,8 @@ extension ApiService {
             params: nil,
             httpMethod: .Get,
             authenticationType: .NotRequired,
-            jsonData: nil
+            jsonData: nil,
+            anonimizeJsonData: false
         )
         return makeCall(with: call).decode { try AppVersion.decode($0) }
     }
@@ -53,7 +57,8 @@ extension ApiService {
             params: nil,
             httpMethod: .Post,
             authenticationType: .Optional,
-            jsonData: basketRequest.encode()
+            jsonData: basketRequest.encode(),
+            anonimizeJsonData: false
         )
         return makeCall(with: call).decode { try Basket.decode($0) }
     }
@@ -64,7 +69,8 @@ extension ApiService {
             params: nil,
             httpMethod: .Post,
             authenticationType: .NotRequired,
-            jsonData: request.encode()
+            jsonData: request.encode(),
+            anonimizeJsonData: false
         )
         return makeCall(with: call).decode { try ProductListResult.decode($0) }
     }
@@ -75,7 +81,8 @@ extension ApiService {
             params: nil,
             httpMethod: .Get,
             authenticationType: .NotRequired,
-            jsonData: nil
+            jsonData: nil,
+            anonimizeJsonData: false
         )
         return makeCall(with: call).decode { try ProductListResult.decode($0) }
     }
@@ -86,7 +93,8 @@ extension ApiService {
             params: nil,
             httpMethod: .Post,
             authenticationType: .NotRequired,
-            jsonData: request.encode()
+            jsonData: request.encode(),
+            anonimizeJsonData: false
         )
         return makeCall(with: call).decode { try ProductListResult.decode($0) }
     }
@@ -97,7 +105,8 @@ extension ApiService {
             params: ["limit": String(limit)],
             httpMethod: .Post,
             authenticationType: .NotRequired,
-            jsonData: ["lat": latitude, "lng": longitude] as NSDictionary
+            jsonData: ["lat": latitude, "lng": longitude] as NSDictionary,
+            anonimizeJsonData: false
         )
         return makeCall(with: call).decode { try KioskResult.decode($0) }
     }
@@ -108,7 +117,8 @@ extension ApiService {
             params: nil,
             httpMethod: .Get,
             authenticationType: settingsWebType.requiresSession ? .Required : .NotRequired,
-            jsonData: nil
+            jsonData: nil,
+            anonimizeJsonData: false
         )
         return makeCall(with: call).flatMap { data -> Observable<WebContentResult> in
             let result = String(data: data, encoding: NSUTF8StringEncoding)
@@ -122,7 +132,8 @@ extension ApiService {
             params: nil,
             httpMethod: .Get,
             authenticationType: .Required,
-            jsonData: nil
+            jsonData: nil,
+            anonimizeJsonData: false
         )
         return makeCall(with: call).decode { try User.decode($0) }
     }
@@ -133,7 +144,8 @@ extension ApiService {
             params: nil,
             httpMethod: .Put,
             authenticationType: .Required,
-            jsonData: address.encode()
+            jsonData: address.encode(),
+            anonimizeJsonData: false
         )
         return makeCall(with: call).decode { try UserAddress.decode($0) }
     }
@@ -144,7 +156,8 @@ extension ApiService {
             params: nil,
             httpMethod: .Post,
             authenticationType: .Required,
-            jsonData: address.encode()
+            jsonData: address.encode(),
+            anonimizeJsonData: false
         )
         return makeCall(with: call).decode { try UserAddress.decode($0) }
     }
@@ -155,7 +168,8 @@ extension ApiService {
             params: nil,
             httpMethod: .Post,
             authenticationType: .NotRequired,
-            jsonData: login.encode()
+            jsonData: login.encode(),
+            anonimizeJsonData: true
         )
         return makeCall(with: call).decode { try SigningResult.decode($0) }
     }
@@ -166,7 +180,8 @@ extension ApiService {
             params: nil,
             httpMethod: .Post,
             authenticationType: .NotRequired,
-            jsonData: registration.encode()
+            jsonData: registration.encode(),
+            anonimizeJsonData: true
         )
         return makeCall(with: call).decode { try SigningResult.decode($0) }
     }
@@ -177,7 +192,8 @@ extension ApiService {
             params: nil,
             httpMethod: .Post,
             authenticationType: .NotRequired,
-            jsonData: facebookLogin.encode()
+            jsonData: facebookLogin.encode(),
+            anonimizeJsonData: true
         )
         return makeCall(with: call).decode { try SigningResult.decode($0) }
     }
@@ -188,7 +204,8 @@ extension ApiService {
             params: nil,
             httpMethod: .Get,
             authenticationType: .Required,
-            jsonData: nil
+            jsonData: nil,
+            anonimizeJsonData: false
         )
         return makeCall(with: call).decode { try PaymentAuthorizeResult.decode($0) }
     }
@@ -199,7 +216,8 @@ extension ApiService {
             params: nil,
             httpMethod: .Put,
             authenticationType: .Required,
-            jsonData: param.encode()
+            jsonData: param.encode(),
+            anonimizeJsonData: param.nonce != nil
         )
         return makeCall(with: call).decode { try PaymentResult.decode($0) }
     }
@@ -210,7 +228,8 @@ extension ApiService {
             params: nil,
             httpMethod: .Delete,
             authenticationType: .Required,
-            jsonData: nil
+            jsonData: nil,
+            anonimizeJsonData: false
         )
         return makeCall(with: call).flatMap { data -> Observable<Void> in
             return Observable.just()
@@ -223,7 +242,8 @@ extension ApiService {
             params: nil,
             httpMethod: .Post,
             authenticationType: .NotRequired,
-            jsonData: ["email": email] as NSDictionary
+            jsonData: ["email": email] as NSDictionary,
+            anonimizeJsonData: false
         )
         return makeCall(with: call).flatMap { data -> Observable<Void> in
             return Observable.just()
@@ -236,7 +256,8 @@ extension ApiService {
             params: nil,
             httpMethod: .Post,
             authenticationType: .Optional,
-            jsonData: request.encode()
+            jsonData: request.encode(),
+            anonimizeJsonData: false
         )
         return makeCall(with: call).flatMap { data -> Observable<Void> in
             return Observable.just()
@@ -249,7 +270,8 @@ extension ApiService {
             params: nil,
             httpMethod: .Get,
             authenticationType: .NotRequired,
-            jsonData: nil
+            jsonData: nil,
+            anonimizeJsonData: false
         )
         return makeCall(with: call).decode { try PromoSlideshow.decode($0) }
     }
@@ -272,7 +294,8 @@ extension ApiService {
             params: nil,
             httpMethod: .Post,
             authenticationType: .Required,
-            jsonData: param.encode()
+            jsonData: param.encode(),
+            anonimizeJsonData: false
         )
         return makeCall(with: call).decode { try WishlistResult.decode($0) }
     }
@@ -283,7 +306,8 @@ extension ApiService {
             params: nil,
             httpMethod: .Get,
             authenticationType: .NotRequired,
-            jsonData: nil
+            jsonData: nil,
+            anonimizeJsonData: false
         )
         return makeCall(with: call).decode { try WebContent.decode($0) }
     }
@@ -321,7 +345,8 @@ extension ApiService {
             params: nil,
             httpMethod: method,
             authenticationType: .Required,
-            jsonData: param?.encode()
+            jsonData: param?.encode(),
+            anonimizeJsonData: false
         )
         return makeCall(with: call).decode { try WishlistResult.decode($0) }
     }

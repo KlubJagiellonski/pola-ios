@@ -30,10 +30,18 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
     }
     
     override func loadView() {
+        let videoAssetsFactory: Int -> AVAsset = { [weak self]index in
+            guard let `self` = self, let cacheHelper = self.model.state.videoCacheHelper else {
+                logError("No video cache helper")
+                return AVAsset()
+            }
+            return cacheHelper.createAsset(forVideoAtIndex: index)
+        }
+        
         let descriptionNavigationController = resolver.resolve(ProductDescriptionNavigationController.self, arguments: (model.state, viewContentInset))
         descriptionNavigationController.productDescriptionDelegate = self
         addChildViewController(descriptionNavigationController)
-        view = ProductPageView(contentView: descriptionNavigationController.view, contentInset: viewContentInset)
+        view = ProductPageView(contentView: descriptionNavigationController.view, contentInset: viewContentInset, videoAssetsFactory: videoAssetsFactory)
         descriptionNavigationController.didMoveToParentViewController(self)
         
         self.contentNavigationController = descriptionNavigationController
@@ -229,6 +237,21 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
         logInfo("Did download first image with success: \(success)")
     }
 
+    func pageViewDidFinishVideo(pageView: ProductPageView, atIndex index: Int) {
+        logInfo("Did finish video with index \(index)")
+        castView.changeViewState(.Default)
+    }
+    
+    func pageViewDidFailedToLoadVideo(pageView: ProductPageView, atIndex index: Int) {
+        logInfo("Did failed to load video with index \(index)")
+        model.state.videoCacheHelper?.clearCache(forVideoAtIndex: index)
+    }
+    
+    func pageViewDidLoadVideo(pageView: ProductPageView, atIndex index: Int, asset: AVAsset) {
+        logInfo("Did load video with index \(index)")
+        model.state.videoCacheHelper?.saveToCache(with: asset, forVideoAtIndex: index)
+    }
+    
     // MARK:- ProductDescriptionViewDelegate
     
     func descriptionViewDidTapSize(view: ProductDescriptionView) {

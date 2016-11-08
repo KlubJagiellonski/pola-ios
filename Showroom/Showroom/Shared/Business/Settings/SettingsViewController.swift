@@ -137,6 +137,9 @@ class SettingsViewController: UIViewController {
             settings.append(Setting(type: .Normal, labelString: "Mock video marki 0", action: { [weak self] in self?.configureBrandVideoMock(0) }))
             settings.append(Setting(type: .Normal, labelString: "Mock video marki 1", action: { [weak self] in self?.configureBrandVideoMock(1) }))
             settings.append(Setting(type: .Normal, labelString: "Mock video marki > 1", action: { [weak self] in self?.configureBrandVideoMock(2) }))
+            settings.append(Setting(type: .Normal, labelString: "Mock video produkty 0", action: { [weak self] in self?.configureProductVideoMock(0) }))
+            settings.append(Setting(type: .Normal, labelString: "Mock video produkty 1", action: { [weak self] in self?.configureProductVideoMock(1) }))
+            settings.append(Setting(type: .Normal, labelString: "Mock video produkty > 1", action: { [weak self] in self?.configureProductVideoMock(2) }))
         }
         
         castView.updateData(with: settings)
@@ -321,6 +324,11 @@ class SettingsViewController: UIViewController {
     
     func configureBrandVideoMock(type: Int) {
         NSUserDefaults.standardUserDefaults().setInteger(type, forKey: "video_brand_mock")
+        NSUserDefaults.standardUserDefaults().synchronize()
+    }
+    
+    func configureProductVideoMock(type: Int) {
+        NSUserDefaults.standardUserDefaults().setInteger(type, forKey: "video_product_mock")
         NSUserDefaults.standardUserDefaults().synchronize()
     }
     

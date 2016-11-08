@@ -20,6 +20,9 @@ protocol ProductPageViewDelegate: ViewSwitcherDelegate, ProductDescriptionViewDe
     func pageViewDidTapWishlistButton(pageView: ProductPageView)
     func pageViewDidSwitchedImage(pageView: ProductPageView)
     func pageView(pageView: ProductPageView, didDownloadFirstImageWithSuccess success: Bool)
+    func pageViewDidLoadVideo(pageView: ProductPageView, atIndex index: Int, asset: AVAsset)
+    func pageViewDidFinishVideo(pageView: ProductPageView, atIndex index: Int)
+    func pageViewDidFailedToLoadVideo(pageView: ProductPageView, atIndex index: Int)
 }
 
 enum ProductPageViewState {
@@ -83,6 +86,8 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
         didSet {
             currentTopContentOffset = calculateTopContentOffset(forViewState: .Default)
             contentTopConstraint?.updateOffset(currentTopContentOffset)
+            imageDataSource.screenInset = UIEdgeInsets(top: 0, left: 0, bottom: -calculateTopContentOffset(forViewState: .Default), right: 0)
+            imageDataSource.fullScreenInset = UIEdgeInsets(top: 0, left: 0, bottom: -calculateTopContentOffset(forViewState: .ImageGallery), right: 0)
         }
     }
     
@@ -102,8 +107,8 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
         }
     }
     
-    init(contentView: UIView, contentInset: UIEdgeInsets?) {
-        imageDataSource = ProductImageDataSource(collectionView: imageCollectionView)
+    init(contentView: UIView, contentInset: UIEdgeInsets?, videoAssetsFactory: Int -> AVAsset) {
+        imageDataSource = ProductImageDataSource(collectionView: imageCollectionView, assetsFactory: videoAssetsFactory)
         
         super.init(successView: containerView)
         
@@ -123,6 +128,9 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
         imageCollectionView.delegate = self
         imageCollectionView.configureForPaging(withDirection: .Vertical)
         imageCollectionView.addGestureRecognizer(imageCollectionTapGestureRecognizer)
+        if #available(iOS 10.0, *) {
+            imageCollectionView.prefetchingEnabled = false
+        }
         
         pageControl.currentPage = 0
         
@@ -165,14 +173,14 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
     func update(with product: Product?) {
         guard let p = product else { return }
         imageDataSource.lowResImageUrl = p.lowResImageUrl
-        imageDataSource.imageUrls = [p.imageUrl]
+        imageDataSource.update(withImageUrls: [p.imageUrl], videos: [])
     }
     
     func update(with productDetails: ProductDetails?) {
         guard let p = productDetails else { return }
         
-        imageDataSource.imageUrls = p.images.map { $0.url }
-        pageControl.numberOfPages = imageDataSource.imageUrls.count
+        imageDataSource.update(withImageUrls: p.images.map { $0.url }, videos: p.videos)
+        pageControl.numberOfPages = imageDataSource.pageCount
         pageControl.invalidateIntrinsicContentSize()
     }
     
@@ -212,6 +220,18 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
         delegate?.pageView(self, didDownloadFirstImageWithSuccess: success)
     }
     
+    func didLoadVideo(atIndex index: Int, asset: AVAsset) {
+        delegate?.pageViewDidLoadVideo(self, atIndex: index, asset: asset)
+    }
+    
+    func didFinishVideo(atIndex index: Int) {
+        delegate?.pageViewDidFinishVideo(self, atIndex: index)
+    }
+    
+    func didFailedToLoadVideo(atIndex index: Int) {
+        delegate?.pageViewDidFailedToLoadVideo(self, atIndex: index)
+    }
+
     func showAddToBasketSucccess() {
         descriptionViewInterface?.showAddToBasketSucccess()
     }
@@ -283,6 +303,10 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         return self.bounds.size
+    }
+    
+    func collectionView(collectionView: UICollectionView, didEndDisplayingCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
+        imageDataSource.didEndDisplayingCell(cell, forItemAtIndexPath: indexPath)
     }
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {

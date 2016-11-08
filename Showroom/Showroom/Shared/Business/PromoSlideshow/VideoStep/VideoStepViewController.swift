@@ -7,10 +7,10 @@ final class VideoStepViewController: UIViewController, PromoPageInterface, Video
     private let url: NSURL
     private let annotations: [PromoSlideshowVideoAnnotation]
     private var additionalData: VideoStepAdditionalData?
-    private lazy var asset: AVURLAsset = { [unowned self] in
+    private lazy var asset: AVAsset = { [unowned self] in
         return self.retrieveOrCreateAsset()
     }()
-    private let cacheHelper: VideoStepCacheHelper
+    private let cacheHelper: VideoCacheHelper
     
     weak var pageDelegate: PromoPageDelegate?
     var shouldShowProgressViewInPauseState: Bool { return true }
@@ -45,7 +45,7 @@ final class VideoStepViewController: UIViewController, PromoPageInterface, Video
         self.pageState = pageState
         self.additionalData = additionalData as? VideoStepAdditionalData
         
-        self.cacheHelper =  VideoStepCacheHelper(url: url)
+        self.cacheHelper = VideoCacheHelper(url: url)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -66,11 +66,10 @@ final class VideoStepViewController: UIViewController, PromoPageInterface, Video
         var asset: AVURLAsset!
         if let additionalData = self.additionalData {
             asset = additionalData.asset
+            asset.resourceLoader.setDelegate(self.cacheHelper, queue: dispatch_get_main_queue())
         } else {
-            let url = self.cacheHelper.cachedFileUrl ?? self.url
-            asset = AVURLAsset(URL: url)
+            asset = cacheHelper.createAsset(forVideoAtIndex: 0)
         }
-        asset.resourceLoader.setDelegate(self.cacheHelper, queue: dispatch_get_main_queue())
         return asset
     }
     
@@ -102,13 +101,13 @@ final class VideoStepViewController: UIViewController, PromoPageInterface, Video
     
     func videoStepViewDidLoadVideo(view: VideoStepView) {
         logInfo("did load video")
-        cacheHelper.saveToCache(with: asset)
+        cacheHelper.saveToCache(with: asset, forVideoAtIndex: 0)
         pageDelegate?.promoPageDidDownloadAllData(self)
     }
     
     func videoStepViewFailedToLoadVideo(view: VideoStepView) {
         logInfo("failed to load video")
-        cacheHelper.clearCache()
+        cacheHelper.clearCache(forVideoAtIndex: 0)
     }
     
     func videoStepViewDidTapRetry(view: VideoStepView) {

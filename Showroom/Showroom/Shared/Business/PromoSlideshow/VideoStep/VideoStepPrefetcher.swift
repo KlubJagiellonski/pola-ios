@@ -15,34 +15,27 @@ final class VideoStepPrefetcher: PromoSlideshowPagePrefetcher {
     private let prefetchDurationInSecondsThreshold: Double = 6
     
     var additionalData: AnyObject? {
-        guard let currentPlayer = currentPlayer else {
+        guard let currentPlayer = currentPlayer, let asset = currentPlayer.player.currentAsset as? AVURLAsset else {
             return nil
         }
         return VideoStepAdditionalData(asset: asset, playerView: currentPlayer)
     }
-    private let url: NSURL
     private let playerDelegate = VIMVideoPlayerViewDelegateHandler()
     private var currentPlayer: VIMVideoPlayerView?
     private var currentPrefetchObserver: AnyObserver<AnyObject?>?
-    private let cacheHelper: VideoStepCacheHelper
-    private lazy var asset: AVURLAsset = { [unowned self] in
-        let asset = AVURLAsset(URL: self.url)
-        asset.resourceLoader.setDelegate(self.cacheHelper, queue: dispatch_get_main_queue())
-        return asset
-    }()
+    private let cacheHelper: VideoCacheHelper
     
     init(data: PromoSlideshowPageData) {
         guard case let .Video(link, _) = data else {
             fatalError("Prefetcher created with from data \(data)")
         }
-        self.url = NSURL(string: link)!
-        self.cacheHelper = VideoStepCacheHelper(url: self.url)
+        self.cacheHelper = VideoCacheHelper(url: NSURL(string: link)!)
         self.playerDelegate.prefetcher = self
     }
     
     func prefetch() -> Observable<AnyObject?> {
         return Observable.create { [unowned self] observer in
-            if self.cacheHelper.cachedFileUrl != nil {
+            if self.cacheHelper.cacheExist(forVideoAtIndex: 0) {
                 //if there is already cached file we don't want to create player. Just send next and completed
                 observer.onNext(nil)
                 observer.onCompleted()
@@ -58,7 +51,7 @@ final class VideoStepPrefetcher: PromoSlideshowPagePrefetcher {
     
     private func startPlayer(with observer: AnyObserver<AnyObject?>) {
         let playerView = VIMVideoPlayerView()
-        playerView.player.setAsset(asset)
+        playerView.player.setAsset(cacheHelper.createAsset(forVideoAtIndex: 0))
         playerView.applyDefaultConfiguration()
         playerView.delegate = playerDelegate
         self.currentPlayer = playerView
