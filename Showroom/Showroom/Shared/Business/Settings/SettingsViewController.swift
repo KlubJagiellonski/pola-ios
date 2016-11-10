@@ -140,6 +140,7 @@ class SettingsViewController: UIViewController {
             settings.append(Setting(type: .Normal, labelString: "Mock video produkty 0", action: { [weak self] in self?.configureProductVideoMock(0) }))
             settings.append(Setting(type: .Normal, labelString: "Mock video produkty 1", action: { [weak self] in self?.configureProductVideoMock(1) }))
             settings.append(Setting(type: .Normal, labelString: "Mock video produkty > 1", action: { [weak self] in self?.configureProductVideoMock(2) }))
+            settings.append(Setting(type: .Normal, labelString: "Mock/Unmock play content promo icon", action: { [weak self] in self?.configurePlayContentPromoMock() }))
         }
         
         castView.updateData(with: settings)
@@ -318,7 +319,7 @@ class SettingsViewController: UIViewController {
     }
     
     func showSlideshow() {
-        let entry = PromoSlideshowEntry(id: 4, link: nil)
+        let entry = PromoSlideshowEntry(id: 11, link: nil)
         sendNavigationEvent(ShowPromoSlideshowEvent(entry: entry, transitionImageTag: nil))
     }
     
@@ -330,6 +331,11 @@ class SettingsViewController: UIViewController {
     func configureProductVideoMock(type: Int) {
         NSUserDefaults.standardUserDefaults().setInteger(type, forKey: "video_product_mock")
         NSUserDefaults.standardUserDefaults().synchronize()
+    }
+    
+    func configurePlayContentPromoMock() {
+        let enabled = NSUserDefaults.standardUserDefaults().boolForKey("play_content_promo_mock")
+        NSUserDefaults.standardUserDefaults().setBool(!enabled, forKey: "play_content_promo_mock")
     }
     
     func sendReportPressed() {

@@ -49,7 +49,7 @@ extension ContentPromoResult: Decodable, Encodable {
 
 extension ContentPromo: Decodable, Encodable {
     static func decode(j: AnyObject) throws -> ContentPromo {
-        let showPlayOverlay: Bool = (try j =>? "show_play_overlay") ?? false
+        let showPlayOverlay: Bool = (try j =>? "show_play_overlay") ?? NSUserDefaults.standardUserDefaults().boolForKey("play_content_promo_mock")
         return try ContentPromo(
             image: j => "image",
             caption: j =>? "caption",
