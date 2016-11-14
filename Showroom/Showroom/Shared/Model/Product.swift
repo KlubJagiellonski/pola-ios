@@ -214,13 +214,13 @@ extension ProductDetails: Decodable, Encodable {
         switch type {
         case 1:
             return [
-                ProductDetailsVideo(url: "https://storage.shwrm.net/prod/video/kupisz/unisexi_1.mp4", previewImageUrl: "https://storage.shwrm.net/prod/video/kupisz/unisex.jpg")
+                ProductDetailsVideo(url: "https://storage.shwrm.net/prod/video/risk/p6_vesper.mp4", previewImageUrl: "https://assets.shwrm.net/images/a/r/ar576a7f9cca87d_500x643.jpg?1466597295")
             ]
         case 2:
             return [
-                ProductDetailsVideo(url: "https://storage.shwrm.net/prod/video/kupisz/unisexi_1.mp4", previewImageUrl: "https://storage.shwrm.net/prod/video/kupisz/unisex.jpg"),
-                ProductDetailsVideo(url: "https://storage.shwrm.net/prod/video/risk/p1_czerwona_kolekcja.mp4", previewImageUrl: "https://storage.shwrm.net/prod/video/risk/gfx/p4_marynarka.jpg"),
-                ProductDetailsVideo(url: "https://storage.shwrm.net/prod/video/kupisz/unisexi_1.mp4", previewImageUrl: "https://storage.shwrm.net/prod/video/kupisz/unisex.jpg")
+                ProductDetailsVideo(url: "https://storage.shwrm.net/prod/video/risk/p6_vesper.mp4", previewImageUrl: "https://assets.shwrm.net/images/a/r/ar576a7f9cca87d_500x643.jpg?1466597295"),
+                ProductDetailsVideo(url: "https://storage.shwrm.net/prod/video/risk/p1_czerwona_kolekcja.mp4", previewImageUrl: "https://assets.shwrm.net/images/a/r/ar576a7f9cca87d_500x643.jpg?1466597295"),
+                ProductDetailsVideo(url: "https://storage.shwrm.net/prod/video/risk/p6_vesper.mp4", previewImageUrl: "https://assets.shwrm.net/images/a/r/ar576a7f9cca87d_500x643.jpg?1466597295")
             ]
         default:
             return (try json =>? "videos") ?? []

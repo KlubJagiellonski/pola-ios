@@ -133,7 +133,9 @@ class SettingsViewController: UIViewController {
             settings.append(Setting(type: .Normal, labelString: "Pokaż pytanie o powiadomienia (schowek)", action: { [weak self] in self?.showNotificationsAccessAfterWishlist() }))
             settings.append(Setting(type: .Normal, labelString: "Pokaż pytanie o aktualizację", action: { [weak self] in self?.showUpdateApp() }))
             settings.append(Setting(type: .Normal, labelString: "Pokaż initial platform selection", action: { [weak self] in self?.showInitialPlatformSelection() }))
-            settings.append(Setting(type: .Normal, labelString: "Pokaż slideshow 2", action: { [weak self] in self?.showSlideshow() }))
+            settings.append(Setting(type: .Normal, labelString: "Pokaż slideshow 11", action: { [weak self] in self?.showSlideshow() }))
+            settings.append(Setting(type: .Normal, labelString: "Mock slideshow ze zdjęciami typ 1", action: { [weak self] in self?.configureSlideshowsWithImagesMock(1) }))
+            settings.append(Setting(type: .Normal, labelString: "Mock slideshow ze zdjęciami typ 2", action: { [weak self] in self?.configureSlideshowsWithImagesMock(2) }))
             settings.append(Setting(type: .Normal, labelString: "Mock video marki 0", action: { [weak self] in self?.configureBrandVideoMock(0) }))
             settings.append(Setting(type: .Normal, labelString: "Mock video marki 1", action: { [weak self] in self?.configureBrandVideoMock(1) }))
             settings.append(Setting(type: .Normal, labelString: "Mock video marki > 1", action: { [weak self] in self?.configureBrandVideoMock(2) }))
@@ -321,6 +323,11 @@ class SettingsViewController: UIViewController {
     func showSlideshow() {
         let entry = PromoSlideshowEntry(id: 11, link: nil)
         sendNavigationEvent(ShowPromoSlideshowEvent(entry: entry, transitionImageTag: nil))
+    }
+    
+    func configureSlideshowsWithImagesMock(type: Int) {
+        NSUserDefaults.standardUserDefaults().setInteger(type, forKey: "slideshow_with_images_mock")
+        NSUserDefaults.standardUserDefaults().synchronize()
     }
     
     func configureBrandVideoMock(type: Int) {
