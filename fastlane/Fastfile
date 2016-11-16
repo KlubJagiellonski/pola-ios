@@ -21,6 +21,14 @@ platform :ios do
     )
   end
 
+  lane :testProductionKids do
+    scan(
+      project: "Showroom/Showroom.xcodeproj",
+      scheme: 'ShowroomKids',
+      devices: ["iPhone 5s (10.0)"]
+    )
+  end
+
   def sign(type, app_identifier)
     match(type: type, app_identifier: app_identifier, readonly: true)
   end
@@ -76,5 +84,15 @@ platform :ios do
   desc 'Deploy to Polidea Store'
   lane :deployProductionWorldwide do
     deploy 'ShowroomWorldwide', 'ComProd', 'com.showroom.ShowroomWorldwide'
+  end
+
+  desc 'Deploy to Polidea Store'
+  lane :deployStagingKids do
+    deploy 'ShowroomKidsStaging', 'KidsStag', 'com.showroom.ShowroomKids.staging'
+  end
+
+  desc 'Deploy to Polidea Store'
+  lane :deployProductionKids do
+    deploy 'ShowroomKids', 'KidsProd', 'com.showroom.ShowroomKids'
   end
 end

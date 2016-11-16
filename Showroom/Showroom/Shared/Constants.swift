@@ -1,5 +1,9 @@
 import Foundation
 
+enum AppTarget {
+    case Default, Worldwide, Kids
+}
+
 struct Constants {
     #if DEBUG
         static let isDebug = true
@@ -20,9 +24,11 @@ struct Constants {
     #endif
     
     #if WORLDWIDE
-        static let isWorldwideVersion = true
+        static let appTarget = AppTarget.Worldwide
+    #elseif KIDS
+        static let appTarget = AppTarget.Kids
     #else
-        static let isWorldwideVersion = false
+        static let appTarget = AppTarget.Default
     #endif
     
     static let appScheme = NSBundle.appScheme

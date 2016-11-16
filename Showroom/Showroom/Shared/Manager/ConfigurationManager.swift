@@ -6,6 +6,16 @@ struct ConfigurationInfo {
     let oldConfiguration: Configuration?
 }
 
+extension AppTarget {
+    var platforms: [Platform] {
+        switch self {
+        case .Default: return [Platform.Polish, Platform.German]
+        case .Worldwide: return [Platform.Worldwide]
+        case .Kids: return [Platform.Kids]
+        }
+    }
+}
+
 final class ConfigurationManager {
     private static let platformCodeKey = "PlatformCodeKey"
     
@@ -69,7 +79,7 @@ final class ConfigurationManager {
     init(apiService: ApiService, keyValueStorage: KeyValueStorage) {
         self.apiService = apiService
         self.storage = keyValueStorage
-        self.availablePlatforms = Constants.isWorldwideVersion ? [Platform.Worldwide] : [Platform.Polish, Platform.German]
+        self.availablePlatforms = Constants.appTarget.platforms
     }
     
     func inititialize() {
@@ -118,6 +128,8 @@ final class ConfigurationManager {
             return DeConfiguration()
         case .Worldwide:
             return ComConfiguration()
+        case .Kids:
+            return KidsConfiguration()
         }
     }
 }

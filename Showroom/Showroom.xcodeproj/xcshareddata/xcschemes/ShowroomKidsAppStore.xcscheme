@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1D2F193A1CE9CE250099142E"
-               BuildableName = "SHOWROOM.app"
-               BlueprintName = "Showroom"
+               BlueprintIdentifier = "C0CDF79A1DDC88350036F12F"
+               BuildableName = "ShowroomKids.app"
+               BlueprintName = "ShowroomKids"
                ReferencedContainer = "container:Showroom.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,26 +32,6 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1D2F194E1CE9CE250099142E"
-               BuildableName = "ShowroomTests.xctest"
-               BlueprintName = "ShowroomTests"
-               ReferencedContainer = "container:Showroom.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1D00C6D41DC0CCF200596BA5"
-               BuildableName = "ShowroomWorldwideTests.xctest"
-               BlueprintName = "ShowroomWorldwideTests"
-               ReferencedContainer = "container:Showroom.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "C0CDF9401DDC8DB90036F12F"
                BuildableName = "ShowroomKidsTests.xctest"
                BlueprintName = "ShowroomKidsTests"
@@ -62,9 +42,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1D2F193A1CE9CE250099142E"
-            BuildableName = "SHOWROOM.app"
-            BlueprintName = "Showroom"
+            BlueprintIdentifier = "C0CDF79A1DDC88350036F12F"
+            BuildableName = "ShowroomKids.app"
+            BlueprintName = "ShowroomKids"
             ReferencedContainer = "container:Showroom.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -85,9 +65,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1D2F193A1CE9CE250099142E"
-            BuildableName = "SHOWROOM.app"
-            BlueprintName = "Showroom"
+            BlueprintIdentifier = "C0CDF79A1DDC88350036F12F"
+            BuildableName = "ShowroomKids.app"
+            BlueprintName = "ShowroomKids"
             ReferencedContainer = "container:Showroom.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -100,16 +80,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1D2F193A1CE9CE250099142E"
-            BuildableName = "SHOWROOM.app"
-            BlueprintName = "Showroom"
+            BlueprintIdentifier = "C0CDF79A1DDC88350036F12F"
+            BuildableName = "ShowroomKids.app"
+            BlueprintName = "ShowroomKids"
             ReferencedContainer = "container:Showroom.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

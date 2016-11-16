@@ -18,7 +18,7 @@ final class BasketManager {
     var deleteActionWidth: CGFloat? {
         guard let platform = configurationManager.platform else { return nil }
         switch platform {
-        case .Polish: return 72.5
+        case .Polish, .Kids: return 72.5
         case .German: return 109
         case .Worldwide: return 90
         }

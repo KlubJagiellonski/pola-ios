@@ -24,6 +24,17 @@ showroom_worldwide:
     except:
         - tags
 
+showroom_kids:
+    stage: test
+    before_script:
+        - /bin/bash $CACHE_DIR/bundlerScript.bash
+    script:
+        - bundle exec fastlane testProductionKids
+    tags:
+        - xcode-8.0
+    except:
+        - tags
+
 showroom_deploy_staging:
     stage: deploy
     before_script:

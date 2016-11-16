@@ -1,11 +1,11 @@
 import Foundation
 
 enum Platform {
-    case Polish, German, Worldwide
+    case Polish, German, Worldwide, Kids
 }
 
 extension Platform {
-    static private let allValues: [Platform] = [Polish, German, Worldwide]
+    static private let allValues: [Platform] = [Polish, German, Worldwide, Kids]
     
     init?(code: String) {
         guard let platformToInitialize = Platform.allValues.find({ $0.code == code }) else {
@@ -19,6 +19,7 @@ extension Platform {
         case Polish: return "pl"
         case German: return "de"
         case Worldwide: return "en"
+        case Kids: return "pl"
         }
     }
     
@@ -27,6 +28,7 @@ extension Platform {
         case Polish: return "pl"
         case German: return "de"
         case Worldwide: return "en"
+        case Kids: return "pl"
         }
     }
 }
