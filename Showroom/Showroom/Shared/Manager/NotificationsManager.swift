@@ -135,6 +135,10 @@ final class NotificationsManager {
         if isRegistered && !userAlreadyAskedForNotificationsPermission {
             userAlreadyAskedForNotificationsPermission = true
         }
+        
+        if userAlreadyAskedForNotificationsPermission {
+            registerForRemoteNotifications()
+        }
     }
     
     /*
@@ -154,10 +158,14 @@ final class NotificationsManager {
     private func registerForRemoteNotifications() {
         logInfo("Registering for push notifications")
         
-        let settings = UIUserNotificationSettings(forTypes: .Alert, categories: nil)
+        let settings = UIUserNotificationSettings(forTypes: [.Alert, .Sound], categories: nil)
         application.registerUserNotificationSettings(settings)
-        
-        application.registerForRemoteNotifications()
+    }
+    
+    func didRegisterUserNotificationSettings(notificationSettings: UIUserNotificationSettings) {
+        if notificationSettings.types != .None {
+            application.registerForRemoteNotifications()
+        }
     }
     
     func didRegisterForRemoteNotifications(withDeviceToken deviceToken: NSData) {

@@ -41,6 +41,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return applicationManager.didReceiveContinueActivity(with: userActivity)
     }
     
+    func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
+        applicationManager.didRegisterUserNotificationSettings(notificationSettings)
+    }
+    
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
         applicationManager.didRegisterForRemoteNotifications(withDeviceToken: deviceToken)
     }

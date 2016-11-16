@@ -87,6 +87,10 @@ final class ApplicationManager {
         return false
     }
     
+    func didRegisterUserNotificationSettings(notificationSettings: UIUserNotificationSettings) {
+        notificationsManager.didRegisterUserNotificationSettings(notificationSettings)
+    }
+    
     func didRegisterForRemoteNotifications(withDeviceToken deviceToken: NSData) {
         notificationsManager.didRegisterForRemoteNotifications(withDeviceToken: deviceToken)
     }
