@@ -53,7 +53,6 @@
 		1D00C55E1DBFA0AB00596BA5 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F911C1D33D69C00AE66E6 /* SplashViewController.swift */; };
 		1D00C55F1DBFA0AB00596BA5 /* ShowProductDetailsEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD161A51D01C3B90022B5C9 /* ShowProductDetailsEvent.swift */; };
 		1D00C5601DBFA0AB00596BA5 /* UISearchBarUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5E91891D3CDDB600A6BD55 /* UISearchBarUtils.swift */; };
-		1D00C5611DBFA0AB00596BA5 /* UIColorAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD1EA691CEC5D1700D99731 /* UIColorAssets.swift */; };
 		1D00C5621DBFA0AB00596BA5 /* CategoryProductListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1A7DFA1D240065009CCCE7 /* CategoryProductListViewController.swift */; };
 		1D00C5631DBFA0AB00596BA5 /* InitialOnboardingNotificationsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C049D8D41D33F1010043F60F /* InitialOnboardingNotificationsCell.swift */; };
 		1D00C5641DBFA0AB00596BA5 /* BasketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E269AA1CFC7B8700ED3CA2 /* BasketView.swift */; };
@@ -100,7 +99,6 @@
 		1D00C58D1DBFA0AB00596BA5 /* ContentPromo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D72ED111CFC3028007AFD2F /* ContentPromo.swift */; };
 		1D00C58E1DBFA0AB00596BA5 /* TouchHandlingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAA7C721D0E9E8E00545BB9 /* TouchHandlingDelegate.swift */; };
 		1D00C58F1DBFA0AB00596BA5 /* PushToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D49EB151D76FBAC00A2F6F2 /* PushToken.swift */; };
-		1D00C5901DBFA0AB00596BA5 /* UIImageAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09367151D09AB46004C7748 /* UIImageAssets.swift */; };
 		1D00C5911DBFA0AB00596BA5 /* TransitionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2CAC481D47405500F678FA /* TransitionAnimation.swift */; };
 		1D00C5921DBFA0AB00596BA5 /* CommonNavigationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F91151D3388DA00AE66E6 /* CommonNavigationHandler.swift */; };
 		1D00C5931DBFA0AB00596BA5 /* StateTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA846F61D19474B00BA090A /* StateTextField.swift */; };
@@ -238,7 +236,6 @@
 		1D00C61A1DBFA0AB00596BA5 /* ProductLoadingPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1A7E1B1D253418009CCCE7 /* ProductLoadingPageCell.swift */; };
 		1D00C61B1DBFA0AB00596BA5 /* RateAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDE61E71D649152007E5509 /* RateAppViewController.swift */; };
 		1D00C61C1DBFA0AB00596BA5 /* PromoSummaryVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF9DE911DA4ED4300F8585E /* PromoSummaryVideoView.swift */; };
-		1D00C61D1DBFA0AB00596BA5 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD1EA681CEC5D1700D99731 /* L10n.swift */; };
 		1D00C61E1DBFA0AB00596BA5 /* ProductDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD161961D01A7310022B5C9 /* ProductDetailsViewController.swift */; };
 		1D00C61F1DBFA0AB00596BA5 /* ProductDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD161AB1D01C8680022B5C9 /* ProductDetailsView.swift */; };
 		1D00C6201DBFA0AB00596BA5 /* SizeChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB166BC1D1006A8004F42DC /* SizeChartViewController.swift */; };
@@ -666,8 +663,6 @@
 		1DD161B81D01D0C10022B5C9 /* ProductPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD161B71D01D0C10022B5C9 /* ProductPageViewController.swift */; };
 		1DD1ADDD1D5CA63D008B5485 /* Payment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD1ADDC1D5CA63D008B5485 /* Payment.swift */; };
 		1DD1EA661CEC5D0000D99731 /* Colors.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1DD1EA631CEC5D0000D99731 /* Colors.txt */; };
-		1DD1EA6B1CEC5D1700D99731 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD1EA681CEC5D1700D99731 /* L10n.swift */; };
-		1DD1EA6C1CEC5D1700D99731 /* UIColorAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD1EA691CEC5D1700D99731 /* UIColorAssets.swift */; };
 		1DD1EA711CEDA00B00D99731 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD1EA701CEDA00B00D99731 /* DashboardViewController.swift */; };
 		1DD1EA731CEDAE9000D99731 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD1EA721CEDAE9000D99731 /* DashboardView.swift */; };
 		1DD1EA761CEDB2A300D99731 /* ContentPromoDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD1EA751CEDB2A300D99731 /* ContentPromoDataSource.swift */; };
@@ -782,6 +777,24 @@
 		C00BA8721D5C6A4F009A9637 /* SettingsWebViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00BA8711D5C6A4F009A9637 /* SettingsWebViewModel.swift */; };
 		C00BA8741D5CD334009A9637 /* WishlistInAppOnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00BA8731D5CD334009A9637 /* WishlistInAppOnboardingViewController.swift */; };
 		C00BA8761D5CD53E009A9637 /* WishlistInAppOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00BA8751D5CD53E009A9637 /* WishlistInAppOnboardingView.swift */; };
+		C01513AE1DDDCA170015DC43 /* UIColorAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01513AC1DDDCA170015DC43 /* UIColorAssets.swift */; };
+		C01513AF1DDDCA170015DC43 /* UIColorAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01513AC1DDDCA170015DC43 /* UIColorAssets.swift */; };
+		C01513B01DDDCA170015DC43 /* UIColorAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01513AC1DDDCA170015DC43 /* UIColorAssets.swift */; };
+		C01513B11DDDCA170015DC43 /* UIColorAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01513AC1DDDCA170015DC43 /* UIColorAssets.swift */; };
+		C01513B21DDDCA170015DC43 /* UIColorAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01513AC1DDDCA170015DC43 /* UIColorAssets.swift */; };
+		C01513B31DDDCA170015DC43 /* UIColorAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01513AC1DDDCA170015DC43 /* UIColorAssets.swift */; };
+		C01513B41DDDCA170015DC43 /* UIImageAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01513AD1DDDCA170015DC43 /* UIImageAssets.swift */; };
+		C01513B51DDDCA170015DC43 /* UIImageAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01513AD1DDDCA170015DC43 /* UIImageAssets.swift */; };
+		C01513B61DDDCA170015DC43 /* UIImageAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01513AD1DDDCA170015DC43 /* UIImageAssets.swift */; };
+		C01513B71DDDCA170015DC43 /* UIImageAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01513AD1DDDCA170015DC43 /* UIImageAssets.swift */; };
+		C01513B81DDDCA170015DC43 /* UIImageAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01513AD1DDDCA170015DC43 /* UIImageAssets.swift */; };
+		C01513B91DDDCA170015DC43 /* UIImageAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01513AD1DDDCA170015DC43 /* UIImageAssets.swift */; };
+		C01513BB1DDDCA460015DC43 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01513BA1DDDCA460015DC43 /* L10n.swift */; };
+		C01513BC1DDDCA460015DC43 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01513BA1DDDCA460015DC43 /* L10n.swift */; };
+		C01513BD1DDDCA460015DC43 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01513BA1DDDCA460015DC43 /* L10n.swift */; };
+		C01513BE1DDDCA460015DC43 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01513BA1DDDCA460015DC43 /* L10n.swift */; };
+		C01513BF1DDDCA460015DC43 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01513BA1DDDCA460015DC43 /* L10n.swift */; };
+		C01513C01DDDCA460015DC43 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01513BA1DDDCA460015DC43 /* L10n.swift */; };
 		C01FF2E21D366D3B00D025AE /* HeartMaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01FF2E11D366D3B00D025AE /* HeartMaskView.swift */; };
 		C01FF2E61D36771D00D025AE /* TouchIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01FF2E51D36771D00D025AE /* TouchIndicatorView.swift */; };
 		C020DA461D40F39900E6E4AE /* ShowUserInfoViewEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C020DA451D40F39900E6E4AE /* ShowUserInfoViewEvent.swift */; };
@@ -825,7 +838,6 @@
 		C09280721D08453000350B82 /* ProductColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09280711D08453000350B82 /* ProductColorView.swift */; };
 		C09280741D08468500350B82 /* ProductColorHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09280731D08468500350B82 /* ProductColorHeaderView.swift */; };
 		C09280761D08514F00350B82 /* ProductColorDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09280751D08514F00350B82 /* ProductColorDataSource.swift */; };
-		C09367161D09AB46004C7748 /* UIImageAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09367151D09AB46004C7748 /* UIImageAssets.swift */; };
 		C09367181D09AB79004C7748 /* UIFontAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09367171D09AB79004C7748 /* UIFontAssets.swift */; };
 		C093671A1D09AB9D004C7748 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09367191D09AB9D004C7748 /* StorageManager.swift */; };
 		C093671E1D0ACAE8004C7748 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C093671D1D0ACAE8004C7748 /* Assets.xcassets */; };
@@ -888,7 +900,6 @@
 		C0CDF7C51DDC88350036F12F /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F911C1D33D69C00AE66E6 /* SplashViewController.swift */; };
 		C0CDF7C61DDC88350036F12F /* ShowProductDetailsEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD161A51D01C3B90022B5C9 /* ShowProductDetailsEvent.swift */; };
 		C0CDF7C71DDC88350036F12F /* UISearchBarUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5E91891D3CDDB600A6BD55 /* UISearchBarUtils.swift */; };
-		C0CDF7C81DDC88350036F12F /* UIColorAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD1EA691CEC5D1700D99731 /* UIColorAssets.swift */; };
 		C0CDF7C91DDC88350036F12F /* CategoryProductListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1A7DFA1D240065009CCCE7 /* CategoryProductListViewController.swift */; };
 		C0CDF7CA1DDC88350036F12F /* InitialOnboardingNotificationsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C049D8D41D33F1010043F60F /* InitialOnboardingNotificationsCell.swift */; };
 		C0CDF7CB1DDC88350036F12F /* BasketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75E269AA1CFC7B8700ED3CA2 /* BasketView.swift */; };
@@ -935,7 +946,6 @@
 		C0CDF7F41DDC88350036F12F /* ContentPromo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D72ED111CFC3028007AFD2F /* ContentPromo.swift */; };
 		C0CDF7F51DDC88350036F12F /* TouchHandlingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAA7C721D0E9E8E00545BB9 /* TouchHandlingDelegate.swift */; };
 		C0CDF7F61DDC88350036F12F /* PushToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D49EB151D76FBAC00A2F6F2 /* PushToken.swift */; };
-		C0CDF7F71DDC88350036F12F /* UIImageAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09367151D09AB46004C7748 /* UIImageAssets.swift */; };
 		C0CDF7F81DDC88350036F12F /* TransitionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2CAC481D47405500F678FA /* TransitionAnimation.swift */; };
 		C0CDF7F91DDC88350036F12F /* CommonNavigationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F91151D3388DA00AE66E6 /* CommonNavigationHandler.swift */; };
 		C0CDF7FA1DDC88350036F12F /* StateTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA846F61D19474B00BA090A /* StateTextField.swift */; };
@@ -1076,7 +1086,6 @@
 		C0CDF8811DDC88350036F12F /* ProductLoadingPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D1A7E1B1D253418009CCCE7 /* ProductLoadingPageCell.swift */; };
 		C0CDF8821DDC88350036F12F /* RateAppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDE61E71D649152007E5509 /* RateAppViewController.swift */; };
 		C0CDF8831DDC88350036F12F /* PromoSummaryVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF9DE911DA4ED4300F8585E /* PromoSummaryVideoView.swift */; };
-		C0CDF8841DDC88350036F12F /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD1EA681CEC5D1700D99731 /* L10n.swift */; };
 		C0CDF8851DDC88350036F12F /* ProductDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD161961D01A7310022B5C9 /* ProductDetailsViewController.swift */; };
 		C0CDF8861DDC88350036F12F /* ProductDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DD161AB1D01C8680022B5C9 /* ProductDetailsView.swift */; };
 		C0CDF8871DDC88350036F12F /* SizeChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB166BC1D1006A8004F42DC /* SizeChartViewController.swift */; };
@@ -1266,6 +1275,7 @@
 		C0CDF9551DDC8DB90036F12F /* RxTests.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1D2F199D1CEA14FE0099142E /* RxTests.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C0CDF9561DDC8DB90036F12F /* RxBlocking.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1D2F199A1CEA14FE0099142E /* RxBlocking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C0CDF9571DDC8DB90036F12F /* RxSwift.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1D2F199C1CEA14FE0099142E /* RxSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C0CDF9651DDCAB470036F12F /* KidsColors.txt in Resources */ = {isa = PBXBuildFile; fileRef = C0CDF9641DDCAB470036F12F /* KidsColors.txt */; };
 		C0D81B651DB8ABA3006B8DA6 /* WebContentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D81B641DB8ABA3006B8DA6 /* WebContentModel.swift */; };
 		C0D81B671DB8AC51006B8DA6 /* WebContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D81B661DB8AC51006B8DA6 /* WebContent.swift */; };
 		C0E791531DA263CC00BB43D6 /* ImageStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E791521DA263CC00BB43D6 /* ImageStepView.swift */; };
@@ -1616,8 +1626,6 @@
 		1DD161B71D01D0C10022B5C9 /* ProductPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductPageViewController.swift; sourceTree = "<group>"; };
 		1DD1ADDC1D5CA63D008B5485 /* Payment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Payment.swift; sourceTree = "<group>"; };
 		1DD1EA631CEC5D0000D99731 /* Colors.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Colors.txt; sourceTree = "<group>"; };
-		1DD1EA681CEC5D1700D99731 /* L10n.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = L10n.swift; sourceTree = "<group>"; };
-		1DD1EA691CEC5D1700D99731 /* UIColorAssets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorAssets.swift; sourceTree = "<group>"; };
 		1DD1EA701CEDA00B00D99731 /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 		1DD1EA721CEDAE9000D99731 /* DashboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		1DD1EA751CEDB2A300D99731 /* ContentPromoDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentPromoDataSource.swift; sourceTree = "<group>"; };
@@ -1734,6 +1742,9 @@
 		C00BA8711D5C6A4F009A9637 /* SettingsWebViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsWebViewModel.swift; sourceTree = "<group>"; };
 		C00BA8731D5CD334009A9637 /* WishlistInAppOnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WishlistInAppOnboardingViewController.swift; sourceTree = "<group>"; };
 		C00BA8751D5CD53E009A9637 /* WishlistInAppOnboardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WishlistInAppOnboardingView.swift; sourceTree = "<group>"; };
+		C01513AC1DDDCA170015DC43 /* UIColorAssets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorAssets.swift; sourceTree = "<group>"; };
+		C01513AD1DDDCA170015DC43 /* UIImageAssets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageAssets.swift; sourceTree = "<group>"; };
+		C01513BA1DDDCA460015DC43 /* L10n.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = L10n.swift; sourceTree = "<group>"; };
 		C01FF2E11D366D3B00D025AE /* HeartMaskView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeartMaskView.swift; sourceTree = "<group>"; };
 		C01FF2E51D36771D00D025AE /* TouchIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchIndicatorView.swift; sourceTree = "<group>"; };
 		C020DA451D40F39900E6E4AE /* ShowUserInfoViewEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowUserInfoViewEvent.swift; sourceTree = "<group>"; };
@@ -1779,7 +1790,6 @@
 		C09280711D08453000350B82 /* ProductColorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductColorView.swift; sourceTree = "<group>"; };
 		C09280731D08468500350B82 /* ProductColorHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductColorHeaderView.swift; sourceTree = "<group>"; };
 		C09280751D08514F00350B82 /* ProductColorDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductColorDataSource.swift; sourceTree = "<group>"; };
-		C09367151D09AB46004C7748 /* UIImageAssets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageAssets.swift; sourceTree = "<group>"; };
 		C09367171D09AB79004C7748 /* UIFontAssets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIFontAssets.swift; sourceTree = "<group>"; };
 		C09367191D09AB9D004C7748 /* StorageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		C093671D1D0ACAE8004C7748 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -1801,6 +1811,7 @@
 		C0CDF93D1DDC88350036F12F /* ShowroomKids.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShowroomKids.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0CDF93F1DDC8CC50036F12F /* SHOWROOMKids.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = SHOWROOMKids.entitlements; sourceTree = "<group>"; };
 		C0CDF95E1DDC8DB90036F12F /* ShowroomKidsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShowroomKidsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C0CDF9641DDCAB470036F12F /* KidsColors.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = KidsColors.txt; sourceTree = "<group>"; };
 		C0D81B641DB8ABA3006B8DA6 /* WebContentModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebContentModel.swift; sourceTree = "<group>"; };
 		C0D81B661DB8AC51006B8DA6 /* WebContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebContent.swift; sourceTree = "<group>"; };
 		C0DF72781D75C7A4001BA783 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -2606,12 +2617,13 @@
 				1D5960001D93E22500F3727D /* Braintree */,
 				1D49FC951D4A023700A3832F /* PayUOneClickSDK.bundle */,
 				1D0453411CFDD728001CC5A2 /* Fonts */,
-				1DD1EA681CEC5D1700D99731 /* L10n.swift */,
-				1DD1EA691CEC5D1700D99731 /* UIColorAssets.swift */,
 				1DD1EA631CEC5D0000D99731 /* Colors.txt */,
+				C0CDF9641DDCAB470036F12F /* KidsColors.txt */,
 				1D04533D1CFDD48B001CC5A2 /* Dimensions.swift */,
 				C093671D1D0ACAE8004C7748 /* Assets.xcassets */,
-				C09367151D09AB46004C7748 /* UIImageAssets.swift */,
+				C01513BA1DDDCA460015DC43 /* L10n.swift */,
+				C01513AC1DDDCA170015DC43 /* UIColorAssets.swift */,
+				C01513AD1DDDCA170015DC43 /* UIImageAssets.swift */,
 				C09367171D09AB79004C7748 /* UIFontAssets.swift */,
 				1D372E391D6ED22F004F3155 /* Localizable.strings */,
 				1D6671691D93E4BE00070502 /* Drop-In.strings */,
@@ -3246,6 +3258,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1D00C6CB1DBFA0AB00596BA5 /* Build configuration list for PBXNativeTarget "ShowroomWorldwide" */;
 			buildPhases = (
+				C01513AA1DDD9BB20015DC43 /* Swiftgen */,
 				1D00C5351DBFA0AB00596BA5 /* Sources */,
 				1D00C69C1DBFA0AB00596BA5 /* Frameworks */,
 				1D00C6BA1DBFA0AB00596BA5 /* Resources */,
@@ -3285,6 +3298,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1D2F19581CE9CE250099142E /* Build configuration list for PBXNativeTarget "Showroom" */;
 			buildPhases = (
+				C0CDF9631DDCA8C20036F12F /* Swiftgen */,
 				1D2F19371CE9CE250099142E /* Sources */,
 				1D2F19381CE9CE250099142E /* Frameworks */,
 				1D2F19391CE9CE250099142E /* Resources */,
@@ -3323,6 +3337,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C0CDF9371DDC88350036F12F /* Build configuration list for PBXNativeTarget "ShowroomKids" */;
 			buildPhases = (
+				C01513AB1DDD9BEF0015DC43 /* Swiftgen */,
 				C0CDF79B1DDC88350036F12F /* Sources */,
 				C0CDF9061DDC88350036F12F /* Frameworks */,
 				C0CDF9271DDC88350036F12F /* Resources */,
@@ -3466,6 +3481,7 @@
 				1D04534A1CFDD87E001CC5A2 /* Lato-Bold.ttf in Resources */,
 				1D6671671D93E4BE00070502 /* Drop-In.strings in Resources */,
 				1D68E32C1DB6089E00AE3E56 /* DoubleClick in Resources */,
+				C0CDF9651DDCAB470036F12F /* KidsColors.txt in Resources */,
 				1D49FC901D4A021A00A3832F /* include in Resources */,
 				1D49FC9A1D4A307900A3832F /* SHOWROOM.entitlements in Resources */,
 				1D372E371D6ED22F004F3155 /* Localizable.strings in Resources */,
@@ -3613,6 +3629,34 @@
 			shellPath = /bin/sh;
 			shellScript = "./Frameworks/Fabric.framework/run 6703bbd1e7cbb2becfc87ab8869adeee94fb6352 bf98e48e146e7a0899234244a61e7a4e45aeb2aef02d73a009217b396ec464dd";
 		};
+		C01513AA1DDD9BB20015DC43 /* Swiftgen */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Swiftgen;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "$PROJECT_DIR/swiftgen.sh $TARGET_NAME";
+		};
+		C01513AB1DDD9BEF0015DC43 /* Swiftgen */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Swiftgen;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "$PROJECT_DIR/swiftgen.sh $TARGET_NAME";
+		};
 		C0CDF9351DDC88350036F12F /* Carthage Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3661,6 +3705,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "./Frameworks/Fabric.framework/run 6703bbd1e7cbb2becfc87ab8869adeee94fb6352 bf98e48e146e7a0899234244a61e7a4e45aeb2aef02d73a009217b396ec464dd";
+		};
+		C0CDF9631DDCA8C20036F12F /* Swiftgen */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Swiftgen;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "$PROJECT_DIR/swiftgen.sh $TARGET_NAME";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -3713,7 +3771,6 @@
 				1D00C55E1DBFA0AB00596BA5 /* SplashViewController.swift in Sources */,
 				1D00C55F1DBFA0AB00596BA5 /* ShowProductDetailsEvent.swift in Sources */,
 				1D00C5601DBFA0AB00596BA5 /* UISearchBarUtils.swift in Sources */,
-				1D00C5611DBFA0AB00596BA5 /* UIColorAssets.swift in Sources */,
 				1D00C5621DBFA0AB00596BA5 /* CategoryProductListViewController.swift in Sources */,
 				1D00C5631DBFA0AB00596BA5 /* InitialOnboardingNotificationsCell.swift in Sources */,
 				1D00C5641DBFA0AB00596BA5 /* BasketView.swift in Sources */,
@@ -3760,7 +3817,6 @@
 				1D00C58D1DBFA0AB00596BA5 /* ContentPromo.swift in Sources */,
 				1D00C58E1DBFA0AB00596BA5 /* TouchHandlingDelegate.swift in Sources */,
 				1D00C58F1DBFA0AB00596BA5 /* PushToken.swift in Sources */,
-				1D00C5901DBFA0AB00596BA5 /* UIImageAssets.swift in Sources */,
 				1D00C5911DBFA0AB00596BA5 /* TransitionAnimation.swift in Sources */,
 				1D00C5921DBFA0AB00596BA5 /* CommonNavigationHandler.swift in Sources */,
 				1D00C5931DBFA0AB00596BA5 /* StateTextField.swift in Sources */,
@@ -3869,6 +3925,7 @@
 				1D00C5FA1DBFA0AB00596BA5 /* Constants.swift in Sources */,
 				1D00C5FB1DBFA0AB00596BA5 /* ProductAmountHeaderView.swift in Sources */,
 				1D00C5FC1DBFA0AB00596BA5 /* Platform.swift in Sources */,
+				C01513AF1DDDCA170015DC43 /* UIColorAssets.swift in Sources */,
 				1D00C5FD1DBFA0AB00596BA5 /* UserManager.swift in Sources */,
 				1D00C5FE1DBFA0AB00596BA5 /* VIMVideoPlayer.m in Sources */,
 				1D00C5FF1DBFA0AB00596BA5 /* ProductListModel.swift in Sources */,
@@ -3901,10 +3958,10 @@
 				1D00C61A1DBFA0AB00596BA5 /* ProductLoadingPageCell.swift in Sources */,
 				1D00C61B1DBFA0AB00596BA5 /* RateAppViewController.swift in Sources */,
 				1D00C61C1DBFA0AB00596BA5 /* PromoSummaryVideoView.swift in Sources */,
-				1D00C61D1DBFA0AB00596BA5 /* L10n.swift in Sources */,
 				1D00C61E1DBFA0AB00596BA5 /* ProductDetailsViewController.swift in Sources */,
 				1D00C61F1DBFA0AB00596BA5 /* ProductDetailsView.swift in Sources */,
 				1D00C6201DBFA0AB00596BA5 /* SizeChartViewController.swift in Sources */,
+				C01513B51DDDCA170015DC43 /* UIImageAssets.swift in Sources */,
 				1D00C6211DBFA0AB00596BA5 /* FormSheetAnimator.swift in Sources */,
 				1D00C6221DBFA0AB00596BA5 /* PrefetchingManager.swift in Sources */,
 				1D00C6231DBFA0AB00596BA5 /* ShowEditKioskEvent.swift in Sources */,
@@ -4008,6 +4065,7 @@
 				1D00C6831DBFA0AB00596BA5 /* ShowSettingsWebViewEvent.swift in Sources */,
 				1D00C6841DBFA0AB00596BA5 /* EditKioskViewController.swift in Sources */,
 				1D00C6851DBFA0AB00596BA5 /* SettingsViewController.swift in Sources */,
+				C01513BC1DDDCA460015DC43 /* L10n.swift in Sources */,
 				1D00C6861DBFA0AB00596BA5 /* ShowPromoSlideshowEvent.swift in Sources */,
 				1D00C6871DBFA0AB00596BA5 /* ProductStepViewController.swift in Sources */,
 				1D00C6881DBFA0AB00596BA5 /* SimpleNavigationEvent.swift in Sources */,
@@ -4040,10 +4098,13 @@
 			files = (
 				1D00C6D81DC0CCF200596BA5 /* UICollectionViewUtilsTests.swift in Sources */,
 				1D00C6D91DC0CCF200596BA5 /* NetworkTests.swift in Sources */,
+				C01513BF1DDDCA460015DC43 /* L10n.swift in Sources */,
+				C01513B81DDDCA170015DC43 /* UIImageAssets.swift in Sources */,
 				1D00C6DA1DC0CCF200596BA5 /* ValidatorTests.swift in Sources */,
 				1D00C6DB1DC0CCF200596BA5 /* ShowroomTests.swift in Sources */,
 				1D00C6DC1DC0CCF200596BA5 /* MoneyTests.swift in Sources */,
 				1D00C6DD1DC0CCF200596BA5 /* NavigationTests.swift in Sources */,
+				C01513B21DDDCA170015DC43 /* UIColorAssets.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4095,7 +4156,6 @@
 				1D5F911D1D33D69C00AE66E6 /* SplashViewController.swift in Sources */,
 				1DD161A61D01C3B90022B5C9 /* ShowProductDetailsEvent.swift in Sources */,
 				1D5E918A1D3CDDB600A6BD55 /* UISearchBarUtils.swift in Sources */,
-				1DD1EA6C1CEC5D1700D99731 /* UIColorAssets.swift in Sources */,
 				1D1A7DFB1D240065009CCCE7 /* CategoryProductListViewController.swift in Sources */,
 				C049D8D51D33F1010043F60F /* InitialOnboardingNotificationsCell.swift in Sources */,
 				75E269AB1CFC7B8700ED3CA2 /* BasketView.swift in Sources */,
@@ -4142,7 +4202,6 @@
 				1D72ED131CFC3028007AFD2F /* ContentPromo.swift in Sources */,
 				1DAA7C731D0E9E8E00545BB9 /* TouchHandlingDelegate.swift in Sources */,
 				1D49EB161D76FBAC00A2F6F2 /* PushToken.swift in Sources */,
-				C09367161D09AB46004C7748 /* UIImageAssets.swift in Sources */,
 				1D2CAC491D47405500F678FA /* TransitionAnimation.swift in Sources */,
 				1D5F91161D3388DA00AE66E6 /* CommonNavigationHandler.swift in Sources */,
 				1DA846F71D19474B00BA090A /* StateTextField.swift in Sources */,
@@ -4251,6 +4310,7 @@
 				1DF796801CEB3C4000C7A7F4 /* Constants.swift in Sources */,
 				751A50121D1156CB00DF7D2B /* ProductAmountHeaderView.swift in Sources */,
 				1DF428AE1D880D1300396A0D /* Platform.swift in Sources */,
+				C01513AE1DDDCA170015DC43 /* UIColorAssets.swift in Sources */,
 				1D72ED0F1CFC2F47007AFD2F /* UserManager.swift in Sources */,
 				C0603A311DABA48A00ACBBDB /* VIMVideoPlayer.m in Sources */,
 				1D1A7E121D242517009CCCE7 /* ProductListModel.swift in Sources */,
@@ -4283,10 +4343,10 @@
 				1D1A7E1C1D253418009CCCE7 /* ProductLoadingPageCell.swift in Sources */,
 				1DDE61E81D649152007E5509 /* RateAppViewController.swift in Sources */,
 				1DF9DE921DA4ED4300F8585E /* PromoSummaryVideoView.swift in Sources */,
-				1DD1EA6B1CEC5D1700D99731 /* L10n.swift in Sources */,
 				1DD161971D01A7310022B5C9 /* ProductDetailsViewController.swift in Sources */,
 				1D66DD9E1DCB7390008F8E48 /* BrandHeaderCell.swift in Sources */,
 				1DD161AC1D01C8680022B5C9 /* ProductDetailsView.swift in Sources */,
+				C01513B41DDDCA170015DC43 /* UIImageAssets.swift in Sources */,
 				1DB166BD1D1006A8004F42DC /* SizeChartViewController.swift in Sources */,
 				1D0F3B4A1D1172E10052CFF6 /* FormSheetAnimator.swift in Sources */,
 				1D8476271D8AE72E009EB212 /* PrefetchingManager.swift in Sources */,
@@ -4390,6 +4450,7 @@
 				1DFDDB481D92C926007DBDB6 /* UICollectionViewUtils.swift in Sources */,
 				C006F4D41D3E40CF00573316 /* ShowSettingsWebViewEvent.swift in Sources */,
 				C07CF39B1D2407DD004578FD /* EditKioskViewController.swift in Sources */,
+				C01513BB1DDDCA460015DC43 /* L10n.swift in Sources */,
 				1DD1EA911CF2E61800D99731 /* SettingsViewController.swift in Sources */,
 				1D80F4861D9BF9F800DFB1C3 /* ShowPromoSlideshowEvent.swift in Sources */,
 				1D80F47F1D9BE5D500DFB1C3 /* ProductStepViewController.swift in Sources */,
@@ -4422,10 +4483,13 @@
 			files = (
 				1DF3A5861D9D65D5009B5BC8 /* UICollectionViewUtilsTests.swift in Sources */,
 				1D72ED0C1CFC22FD007AFD2F /* NetworkTests.swift in Sources */,
+				C01513BE1DDDCA460015DC43 /* L10n.swift in Sources */,
+				C01513B71DDDCA170015DC43 /* UIImageAssets.swift in Sources */,
 				1D470E3B1D26AA7400677122 /* ValidatorTests.swift in Sources */,
 				1D2F19541CE9CE250099142E /* ShowroomTests.swift in Sources */,
 				1D5B5E661D0197B700B74822 /* MoneyTests.swift in Sources */,
 				1D72ECFE1CF456DA007AFD2F /* NavigationTests.swift in Sources */,
+				C01513B11DDDCA170015DC43 /* UIColorAssets.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4477,7 +4541,6 @@
 				C0CDF7C51DDC88350036F12F /* SplashViewController.swift in Sources */,
 				C0CDF7C61DDC88350036F12F /* ShowProductDetailsEvent.swift in Sources */,
 				C0CDF7C71DDC88350036F12F /* UISearchBarUtils.swift in Sources */,
-				C0CDF7C81DDC88350036F12F /* UIColorAssets.swift in Sources */,
 				C0CDF7C91DDC88350036F12F /* CategoryProductListViewController.swift in Sources */,
 				C0CDF7CA1DDC88350036F12F /* InitialOnboardingNotificationsCell.swift in Sources */,
 				C0CDF7CB1DDC88350036F12F /* BasketView.swift in Sources */,
@@ -4524,7 +4587,6 @@
 				C0CDF7F41DDC88350036F12F /* ContentPromo.swift in Sources */,
 				C0CDF7F51DDC88350036F12F /* TouchHandlingDelegate.swift in Sources */,
 				C0CDF7F61DDC88350036F12F /* PushToken.swift in Sources */,
-				C0CDF7F71DDC88350036F12F /* UIImageAssets.swift in Sources */,
 				C0CDF7F81DDC88350036F12F /* TransitionAnimation.swift in Sources */,
 				C0CDF7F91DDC88350036F12F /* CommonNavigationHandler.swift in Sources */,
 				C0CDF7FA1DDC88350036F12F /* StateTextField.swift in Sources */,
@@ -4633,6 +4695,7 @@
 				C0CDF8611DDC88350036F12F /* Constants.swift in Sources */,
 				C0CDF8621DDC88350036F12F /* ProductAmountHeaderView.swift in Sources */,
 				C0CDF8631DDC88350036F12F /* Platform.swift in Sources */,
+				C01513B01DDDCA170015DC43 /* UIColorAssets.swift in Sources */,
 				C0CDF8641DDC88350036F12F /* UserManager.swift in Sources */,
 				C0CDF8651DDC88350036F12F /* VIMVideoPlayer.m in Sources */,
 				C0CDF8661DDC88350036F12F /* ProductListModel.swift in Sources */,
@@ -4665,10 +4728,10 @@
 				C0CDF8811DDC88350036F12F /* ProductLoadingPageCell.swift in Sources */,
 				C0CDF8821DDC88350036F12F /* RateAppViewController.swift in Sources */,
 				C0CDF8831DDC88350036F12F /* PromoSummaryVideoView.swift in Sources */,
-				C0CDF8841DDC88350036F12F /* L10n.swift in Sources */,
 				C0CDF8851DDC88350036F12F /* ProductDetailsViewController.swift in Sources */,
 				C0CDF8861DDC88350036F12F /* ProductDetailsView.swift in Sources */,
 				C0CDF8871DDC88350036F12F /* SizeChartViewController.swift in Sources */,
+				C01513B61DDDCA170015DC43 /* UIImageAssets.swift in Sources */,
 				C0CDF8881DDC88350036F12F /* FormSheetAnimator.swift in Sources */,
 				C0CDF8891DDC88350036F12F /* PrefetchingManager.swift in Sources */,
 				C0CDF88A1DDC88350036F12F /* ShowEditKioskEvent.swift in Sources */,
@@ -4772,6 +4835,7 @@
 				C0CDF8EC1DDC88350036F12F /* ShowSettingsWebViewEvent.swift in Sources */,
 				C0CDF8ED1DDC88350036F12F /* EditKioskViewController.swift in Sources */,
 				C0CDF8EE1DDC88350036F12F /* SettingsViewController.swift in Sources */,
+				C01513BD1DDDCA460015DC43 /* L10n.swift in Sources */,
 				C0CDF8EF1DDC88350036F12F /* ShowPromoSlideshowEvent.swift in Sources */,
 				C0CDF8F01DDC88350036F12F /* ProductStepViewController.swift in Sources */,
 				C0CDF8F11DDC88350036F12F /* SimpleNavigationEvent.swift in Sources */,
@@ -4804,10 +4868,13 @@
 			files = (
 				C0CDF9461DDC8DB90036F12F /* UICollectionViewUtilsTests.swift in Sources */,
 				C0CDF9471DDC8DB90036F12F /* NetworkTests.swift in Sources */,
+				C01513C01DDDCA460015DC43 /* L10n.swift in Sources */,
+				C01513B91DDDCA170015DC43 /* UIImageAssets.swift in Sources */,
 				C0CDF9481DDC8DB90036F12F /* ValidatorTests.swift in Sources */,
 				C0CDF9491DDC8DB90036F12F /* ShowroomTests.swift in Sources */,
 				C0CDF94A1DDC8DB90036F12F /* MoneyTests.swift in Sources */,
 				C0CDF94B1DDC8DB90036F12F /* NavigationTests.swift in Sources */,
+				C01513B31DDDCA170015DC43 /* UIColorAssets.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
