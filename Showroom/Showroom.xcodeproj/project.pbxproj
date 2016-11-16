@@ -1602,6 +1602,8 @@
 		1DB166BE1D1006DC004F42DC /* SizeChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SizeChartView.swift; sourceTree = "<group>"; };
 		1DB957CD1D522E1D003EE120 /* EmarsysPushSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EmarsysPushSDK.framework; path = Frameworks/EmarsysPushSDK.framework; sourceTree = "<group>"; };
 		1DC096A61D477ED300D745DB /* ShowBrandProductListEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowBrandProductListEvent.swift; sourceTree = "<group>"; };
+		1DC605F11DDCABE100698190 /* KidsInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = KidsInfo.plist; sourceTree = "<group>"; };
+		1DC605F31DDCABFB00698190 /* KidsInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = KidsInfo.plist; sourceTree = "<group>"; };
 		1DD161961D01A7310022B5C9 /* ProductDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewController.swift; sourceTree = "<group>"; };
 		1DD161A11D01C06F0022B5C9 /* PresenterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresenterViewController.swift; sourceTree = "<group>"; };
 		1DD161A31D01C0850022B5C9 /* PresenterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresenterView.swift; sourceTree = "<group>"; };
@@ -1797,10 +1799,8 @@
 		C0CBE2AB1D2D46B7008B861D /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		C0CBE2B11D2E50F7008B861D /* Setting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 		C0CDF93D1DDC88350036F12F /* ShowroomKids.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShowroomKids.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C0CDF93E1DDC88360036F12F /* KidsInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = KidsInfo.plist; path = /Users/jerzy/ios/showroom/Showroom/Showroom/KidsInfo.plist; sourceTree = "<absolute>"; };
 		C0CDF93F1DDC8CC50036F12F /* SHOWROOMKids.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = SHOWROOMKids.entitlements; sourceTree = "<group>"; };
 		C0CDF95E1DDC8DB90036F12F /* ShowroomKidsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShowroomKidsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C0CDF95F1DDC8DBA0036F12F /* KidsInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = KidsInfo.plist; path = /Users/jerzy/ios/showroom/Showroom/ShowroomTests/KidsInfo.plist; sourceTree = "<absolute>"; };
 		C0D81B641DB8ABA3006B8DA6 /* WebContentModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebContentModel.swift; sourceTree = "<group>"; };
 		C0D81B661DB8AC51006B8DA6 /* WebContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebContent.swift; sourceTree = "<group>"; };
 		C0DF72781D75C7A4001BA783 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -2087,7 +2087,7 @@
 				1D2F193E1CE9CE250099142E /* AppDelegate.swift */,
 				1D2F194A1CE9CE250099142E /* Info.plist */,
 				1D8585A71DC0D27A00B9FF6B /* WorldwideInfo.plist */,
-				C0CDF93E1DDC88360036F12F /* KidsInfo.plist */,
+				1DC605F11DDCABE100698190 /* KidsInfo.plist */,
 			);
 			path = Showroom;
 			sourceTree = "<group>";
@@ -2103,7 +2103,7 @@
 				1D2F19531CE9CE250099142E /* ShowroomTests.swift */,
 				1D2F19551CE9CE250099142E /* Info.plist */,
 				1D8585A91DC0D28700B9FF6B /* WolrdwideInfo.plist */,
-				C0CDF95F1DDC8DBA0036F12F /* KidsInfo.plist */,
+				1DC605F31DDCABFB00698190 /* KidsInfo.plist */,
 			);
 			path = ShowroomTests;
 			sourceTree = "<group>";

@@ -29,7 +29,7 @@
 			<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>shwrmcom</string>
+				<string>shwrmkids</string>
 				<string>fb230189050352725worldwide</string>
 				<string>$(PRODUCT_BUNDLE_IDENTIFIER).payments</string>
 			</array>
