@@ -87,8 +87,7 @@ final class CommonNavigationHandler: NavigationHandler {
     }
     
     private func configureRouter() {
-        urlRouter.addRoute("/:host/tag/*") { [weak self](parameters: [NSObject: AnyObject]) in
-            guard let `self` = self else { return false }
+        urlRouter.addRoute("/:host/tag/*") { [unowned self](parameters: [NSObject: AnyObject]) in
             guard let url = parameters[kJLRouteURLKey] as? NSURL else {
                 logError("Cannot retrieve routeURLKey for \(parameters)")
                 return false
@@ -100,14 +99,12 @@ final class CommonNavigationHandler: NavigationHandler {
         }
         
         if let brandsPathComponent = configurationManager.configuration?.deepLinkConfiguration.brandPathComponent {
-            urlRouter.addRoute("/:host/\(brandsPathComponent)/:brandComponent") { [weak self](parameters: [NSObject: AnyObject]!) in
-                guard let `self` = self else { return false }
+            urlRouter.addRoute("/:host/\(brandsPathComponent)/:brandComponent") { [unowned self](parameters: [NSObject: AnyObject]!) in
                 guard let brandComponent = parameters["brandComponent"] as? String else {
                     logError("There is no brandComponent in path: \(parameters)")
                     return false
                 }
-                let brandComponents = brandComponent.componentsSeparatedByString(",")
-                guard let brandId = Int(brandComponents[0]) else {
+                guard let brandId = Int(brandComponent.valueForUrlComponent) else {
                     logError("Cannot retrieve brandId for path: \(parameters)")
                     return false
                 }
@@ -121,8 +118,7 @@ final class CommonNavigationHandler: NavigationHandler {
             logError("Cannot create router for brand. No configuration.")
         }
         
-        urlRouter.addRoute("/:host/trend/:trendSlug") { [weak self](parameters: [NSObject: AnyObject]!) in
-            guard let `self` = self else { return false }
+        urlRouter.addRoute("/:host/trend/:trendSlug") { [unowned self](parameters: [NSObject: AnyObject]!) in
             guard let trendSlug = parameters["trendSlug"] as? String else {
                 logError("There is no trendSlug in path: \(parameters)")
                 return false
@@ -133,8 +129,7 @@ final class CommonNavigationHandler: NavigationHandler {
             let entryTrendInfo = EntryTrendInfo(slug: trendSlug, name: title, link: url)
             return self.handleRoutingForProductList(forProductListViewControllerType: TrendProductListViewController.self, entryData: entryTrendInfo)
         }
-        urlRouter.addRoute("/:host/search") { [weak self](parameters: [NSObject: AnyObject]!) in
-            guard let `self` = self else { return false }
+        urlRouter.addRoute("/:host/search") { [unowned self](parameters: [NSObject: AnyObject]!) in
             guard let query = parameters["s"] as? String else {
                 logError("There is no query parameter in path: \(parameters)")
                 return false
@@ -144,14 +139,12 @@ final class CommonNavigationHandler: NavigationHandler {
             let entrySearchInfo = EntrySearchInfo(query: query, link: url)
             return self.handleRoutingForProductList(forProductListViewControllerType: SearchProductListViewController.self, entryData: entrySearchInfo)
         }
-        urlRouter.addRoute("/:host/p/*") { [weak self](parameters: [NSObject: AnyObject]!) in
-            guard let `self` = self else { return false }
+        urlRouter.addRoute("/:host/p/*") { [unowned self](parameters: [NSObject: AnyObject]!) in
             guard let wildcardComponents = parameters[kJLRouteWildcardComponentsKey] as? [String], let productComponent = wildcardComponents.first else {
                 logError("There is no productComponent in path: \(parameters)")
                 return false
             }
-            let productComponents = productComponent.componentsSeparatedByString(",")
-            guard let productId = Int(productComponents[0]) else {
+            guard let productId = Int(productComponent.valueForUrlComponent) else {
                 logError("Cannot retrieve productId for path: \(parameters)")
                 return false
             }
@@ -166,14 +159,12 @@ final class CommonNavigationHandler: NavigationHandler {
             return true
         }
         
-        urlRouter.addRoute("/:host/videos/:videoComponent") { [weak self](parameters: [NSObject: AnyObject]!) in
-            guard let `self` = self else { return false }
+        urlRouter.addRoute("/:host/videos/:videoComponent") { [unowned self](parameters: [NSObject: AnyObject]!) in
             guard let videoComponent = parameters["videoComponent"] as? String else {
                 logError("There is no videoComponent in path: \(parameters)")
                 return false
             }
-            let videoComponents = videoComponent.componentsSeparatedByString(",")
-            guard let videoId = Int(videoComponents[0]) else {
+            guard let videoId = Int(videoComponent.valueForUrlComponent) else {
                 logError("Cannot retrieve videoId for path: \(parameters)")
                 return false
             }
@@ -186,9 +177,7 @@ final class CommonNavigationHandler: NavigationHandler {
             return true
         }
         
-        urlRouter.addRoute("/:host/d/:webViewSlug") { [weak self](parameters: [NSObject: AnyObject]!) in
-            guard let `self` = self else { return false }
-            
+        urlRouter.addRoute("/:host/d/:webViewSlug") { [unowned self](parameters: [NSObject: AnyObject]!) in
             guard let webViewSlug = parameters["webViewSlug"] as? String else {
                 logError("There is no webViewSlug in path: \(parameters)")
                 return false

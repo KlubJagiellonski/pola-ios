@@ -73,4 +73,8 @@ extension String {
             return attributedString
         }
     }
+    
+    var valueForUrlComponent: String {
+        return componentsSeparatedByString(",")[0]
+    }
 }

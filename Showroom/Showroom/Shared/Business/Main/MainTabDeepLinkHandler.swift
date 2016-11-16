@@ -18,10 +18,10 @@ final class MainTabDeepLinkHandler: DeepLinkingHandler {
     }
     
     private func configureRouter() {
-        urlRouter.addRoute("/:host/c/cart/view", priority: 1) { [weak self](parameters: [NSObject: AnyObject]!) in
+        urlRouter.addRoute("/:host/c/cart/view", priority: 1) { [unowned self](parameters: [NSObject: AnyObject]!) in
             logInfo("Handling cart route \(parameters)")
             
-            guard let `self` = self, let mainTabViewController = self.mainTabViewController else { return false }
+            guard let mainTabViewController = self.mainTabViewController else { return false }
             let discountCode = parameters["coupon"] as? String
             let url = parameters[kJLRouteURLKey] as? NSURL
             
@@ -35,10 +35,10 @@ final class MainTabDeepLinkHandler: DeepLinkingHandler {
             return true
         }
         
-        urlRouter.addRoute("*", priority: 0) { [weak self](parameters: [NSObject: AnyObject]!) in
+        urlRouter.addRoute("*", priority: 0) { [unowned self](parameters: [NSObject: AnyObject]!) in
             logInfo("Handling * route \(parameters)")
             
-            guard let `self` = self, let mainTabViewController = self.mainTabViewController else { return false }
+            guard let mainTabViewController = self.mainTabViewController else { return false }
             guard let url = parameters[kJLRouteURLKey] as? NSURL else {
                 logError("Url without route url key")
                 return false

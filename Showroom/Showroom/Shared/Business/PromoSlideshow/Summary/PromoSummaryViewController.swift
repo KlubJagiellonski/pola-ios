@@ -1,4 +1,5 @@
 import Foundation
+import JLRoutes
 
 final class PromoSummaryViewController: UIViewController, PromoPageInterface, PromoSummaryViewDelegate {
     weak var pageDelegate: PromoPageDelegate?
@@ -6,6 +7,8 @@ final class PromoSummaryViewController: UIViewController, PromoPageInterface, Pr
     
     private var castView: PromoSummaryView { return view as! PromoSummaryView }
     private let promoSlideshow: PromoSlideshow
+    
+    private let urlRouter = JLRoutes()
     
     var pageState: PromoPageState {
         didSet {
@@ -24,6 +27,8 @@ final class PromoSummaryViewController: UIViewController, PromoPageInterface, Pr
         self.promoSlideshow = promoSlideshow
         self.pageState = pageState
         super.init(nibName: nil, bundle: nil)
+        
+        configureRouter()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -39,6 +44,23 @@ final class PromoSummaryViewController: UIViewController, PromoPageInterface, Pr
         castView.delegate = self
     }
     
+    func configureRouter() {
+        urlRouter.addRoute("/:host/videos/:videoComponent") { [unowned self](parameters: [NSObject: AnyObject]!) in
+            guard let videoComponent = parameters["videoComponent"] as? String else {
+                logError("There is no videoComponent in path: \(parameters)")
+                return false
+            }
+            guard let videoId = Int(videoComponent.valueForUrlComponent) else {
+                logError("Cannot retrieve videoId for path: \(parameters)")
+                return false
+            }
+            let url = parameters[kJLRouteURLKey] as? NSURL
+            let entry = PromoSlideshowEntry(id: videoId, link: url)
+            self.sendNavigationEvent(ShowPromoSlideshowEvent(entry: entry, transitionImageTag: nil))
+            return true
+        }
+    }
+    
     // MARK:- PromoSummaryViewDelegate
     
     func promoSummaryDidTapRepeat(promoSummary: PromoSummaryView) {
@@ -52,7 +74,10 @@ final class PromoSummaryViewController: UIViewController, PromoPageInterface, Pr
     func promoSummary(promoSummary: PromoSummaryView, didTapLink link: PromoSlideshowLink) {
         logInfo("Did tap link \(link)")
         logAnalyticsEvent(AnalyticsEventId.VideoSummaryLinkClick(link.link))
-        sendNavigationEvent(ShowItemForLinkEvent(link: link.link, title: link.text, productDetailsFromType: .Video, transitionImageTag: nil))
+        let linkHandled = urlRouter.routeURL(NSURL(string: link.link))
+        if !linkHandled {
+            sendNavigationEvent(ShowItemForLinkEvent(link: link.link, title: link.text, productDetailsFromType: .Video, transitionImageTag: nil))
+        }
     }
     
     func promoSummary(promoSummary: PromoSummaryView, didTapPlayForVideo video: PromoSlideshowPlaylistItem) {
