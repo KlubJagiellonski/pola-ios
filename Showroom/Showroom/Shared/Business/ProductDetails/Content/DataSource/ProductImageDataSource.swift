@@ -9,7 +9,6 @@ enum ProductImageDataSourceState {
 protocol ProductImageCellInterface: class {
     var fullScreenMode: Bool { get set }
     var screenInset: UIEdgeInsets? { get set }
-    var fullScreenInset: UIEdgeInsets? { get set }
     func didEndDisplaying()
 }
 
@@ -37,7 +36,6 @@ final class ProductImageDataSource: NSObject, UICollectionViewDataSource, Produc
     var pageCount: Int {
         return imageUrls.count + videos.count
     }
-    var fullScreenInset = UIEdgeInsets()
     var screenInset = UIEdgeInsets()
     weak var productPageView: ProductPageView?
     
@@ -159,6 +157,11 @@ final class ProductImageDataSource: NSObject, UICollectionViewDataSource, Produc
         productPageView?.didFailedToLoadVideo(atIndex: index)
     }
     
+    func productImageVideoCellDidTapPlay(cell: ProductImageVideoCell) {
+        guard let index = videoIndex(forCell: cell) else { return }
+        productPageView?.didStartVideo(atIndex: index)
+    }
+    
     // MARK:- UICollectionViewDataSource
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -171,7 +174,6 @@ final class ProductImageDataSource: NSObject, UICollectionViewDataSource, Produc
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier(String(ProductImageCell), forIndexPath: indexPath) as! ProductImageCell
             cell.delegate = self
             cell.screenInset = screenInset
-            cell.fullScreenInset = fullScreenInset
             cell.fullScreenMode = state == .FullScreen
             cell.update(withImageUrl: imageUrl, lowResImageUrl: indexPath.row == 0 ? lowResImageUrl : nil)
             return cell
@@ -179,7 +181,6 @@ final class ProductImageDataSource: NSObject, UICollectionViewDataSource, Produc
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier(String(ProductImageVideoCell), forIndexPath: indexPath) as! ProductImageVideoCell
             cell.delegate = self
             cell.screenInset = screenInset
-            cell.fullScreenInset = fullScreenInset
             cell.fullScreenMode = state == .FullScreen
             cell.update(with: video) { [unowned self]in
                 self.assetsFactory(videoIndex)

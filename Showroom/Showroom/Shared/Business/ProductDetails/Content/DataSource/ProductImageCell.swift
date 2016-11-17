@@ -42,7 +42,6 @@ final class ProductImageCell: UICollectionViewCell, ProductImageCellInterface, U
     }
     var image: UIImage? { return imageView.image }
     var screenInset: UIEdgeInsets?
-    var fullScreenInset: UIEdgeInsets?
     weak var delegate: ProductImageCellDelegate?
     
     override init(frame: CGRect) {
@@ -149,8 +148,7 @@ final class ProductImageCell: UICollectionViewCell, ProductImageCellInterface, U
     
     private func updateLoadingTopContentOffset() {
         let screenBottomInset = screenInset?.bottom ?? 0
-        let fullScreenBottomInset = fullScreenInset?.bottom ?? 0
-        let loadingContentInset = fullScreenMode ? -fullScreenBottomInset / 2 : -screenBottomInset / 2
+        let loadingContentInset = fullScreenMode ? 0 : -screenBottomInset / 2
         contentViewSwitcher.loadingView.indicatorCenterYOffset = loadingContentInset
     }
 }

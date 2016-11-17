@@ -23,6 +23,7 @@ protocol ProductPageViewDelegate: ViewSwitcherDelegate, ProductDescriptionViewDe
     func pageViewDidLoadVideo(pageView: ProductPageView, atIndex index: Int, asset: AVAsset)
     func pageViewDidFinishVideo(pageView: ProductPageView, atIndex index: Int)
     func pageViewDidFailedToLoadVideo(pageView: ProductPageView, atIndex index: Int)
+    func pageViewDidStartVideo(pageView: ProductPageView, atIndex index: Int)
 }
 
 enum ProductPageViewState {
@@ -87,7 +88,6 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
             currentTopContentOffset = calculateTopContentOffset(forViewState: .Default)
             contentTopConstraint?.updateOffset(currentTopContentOffset)
             imageDataSource.screenInset = UIEdgeInsets(top: 0, left: 0, bottom: -calculateTopContentOffset(forViewState: .Default), right: 0)
-            imageDataSource.fullScreenInset = UIEdgeInsets(top: 0, left: 0, bottom: -calculateTopContentOffset(forViewState: .ImageGallery), right: 0)
         }
     }
     
@@ -232,6 +232,10 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
         delegate?.pageViewDidFailedToLoadVideo(self, atIndex: index)
     }
 
+    func didStartVideo(atIndex index: Int) {
+        delegate?.pageViewDidStartVideo(self, atIndex: index)
+    }
+    
     func showAddToBasketSucccess() {
         descriptionViewInterface?.showAddToBasketSucccess()
     }

@@ -252,6 +252,11 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
         model.state.videoCacheHelper?.saveToCache(with: asset, forVideoAtIndex: index)
     }
     
+    func pageViewDidStartVideo(pageView: ProductPageView, atIndex index: Int) {
+        logInfo("Video started with index \(index)")
+        castView.changeViewState(.ImageGallery)
+    }
+    
     // MARK:- ProductDescriptionViewDelegate
     
     func descriptionViewDidTapSize(view: ProductDescriptionView) {

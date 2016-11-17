@@ -6,6 +6,7 @@ protocol ProductImageVideoCellDelegate: class {
     func productImageVideoCellDidFinishVideo(cell: ProductImageVideoCell)
     func productImageVideoCellDidLoadVideo(cell: ProductImageVideoCell, asset: AVAsset)
     func productImageVideoCellFailedToLoadVideo(cell: ProductImageVideoCell)
+    func productImageVideoCellDidTapPlay(cell: ProductImageVideoCell)
 }
 
 final class ProductImageVideoCell: UICollectionViewCell, ProductImageCellInterface, VIMVideoPlayerViewDelegate {
@@ -24,13 +25,14 @@ final class ProductImageVideoCell: UICollectionViewCell, ProductImageCellInterfa
         }
     }
     var screenInset: UIEdgeInsets?
-    var fullScreenInset: UIEdgeInsets?
     private var lastVideoLoadedDuration: Double?
     weak var delegate: ProductImageVideoCellDelegate?
     
     override init(frame: CGRect) {
         contentViewSwitcher = ViewSwitcher(successView: successContentView)
         super.init(frame: frame)
+        
+        previewView.playButton.addTarget(self, action: #selector(ProductImageVideoCell.didTapPlay), forControlEvents: .TouchUpInside)
         
         successContentView.addSubview(previewView)
         
@@ -50,16 +52,21 @@ final class ProductImageVideoCell: UICollectionViewCell, ProductImageCellInterfa
     func update(with video: ProductDetailsVideo, assetFactory: Void -> AVAsset) {
         self.currentVideo = video
         self.currentVideoAssetFactory = assetFactory
-        configureForCurrentVideo()
+        if fullScreenMode {
+            showPreviewView()
+        }
+        configurePreviewView(animated: false)
     }
     
     func didEndDisplaying() {
         playerView?.player.reset()
     }
     
-    private func configureForCurrentVideo() {
-        configurePreviewView(animated: false)
-        configurePlayerView(animated: false)
+    @objc private func didTapPlay() {
+        delegate?.productImageVideoCellDidTapPlay(self)
+        
+        showPlayerView()
+        configurePlayerView(animated: true)
     }
     
     private func configureCustomConstraints() {
@@ -73,22 +80,8 @@ final class ProductImageVideoCell: UICollectionViewCell, ProductImageCellInterfa
     }
     
     private func configureViewsForCurrentFullScreenMode() {
-        if fullScreenMode {
-            self.playerView?.removeFromSuperview()
-            
-            let playerView = VIMVideoPlayerView(frame: bounds)
-            playerView.delegate = self
-            successContentView.insertSubview(playerView, atIndex: 0)
-            self.playerView = playerView
-            
-            playerView.snp_makeConstraints { make in make.edges.equalToSuperview() }
-            
-            configurePlayerView(animated: false)
-        } else {
-            self.previewView.alpha = 1
-            self.playerView?.player.pause()
-            self.playerView?.delegate = nil
-            
+        if !fullScreenMode {
+            showPreviewView()
             configurePreviewView(animated: false)
         }
     }
@@ -109,23 +102,45 @@ final class ProductImageVideoCell: UICollectionViewCell, ProductImageCellInterfa
         previewView.imageView.image = nil
         let onRetrieveFromCache: UIImage? -> Void = { [weak self]image in
             guard let `self` = self else { return }
-            guard !self.fullScreenMode else { return }
+            guard self.previewView.alpha == 1 else { return }
             self.contentViewSwitcher.changeSwitcherState(image == nil ? .Loading : .Success, animated: animated)
         }
         let onSuccess: (UIImage) -> () = { [weak self] image in
             guard let `self` = self else { return }
-            guard !self.fullScreenMode else { return }
+            guard self.previewView.alpha == 1 else { return }
             self.contentViewSwitcher.changeSwitcherState(.Success)
         }
         previewView.imageView.loadImageFromUrl(video.previewImageUrl, width: self.bounds.width, onRetrievedFromCache: onRetrieveFromCache, success: onSuccess)
     }
     
+    private func showPreviewView() {
+        self.previewView.playButton.enabled = true
+        
+        self.previewView.alpha = 1
+        self.playerView?.player.pause()
+        self.playerView?.delegate = nil
+    }
+    
+    private func showPlayerView() {
+        self.previewView.playButton.enabled = false
+        
+        self.playerView?.removeFromSuperview()
+        
+        let playerView = VIMVideoPlayerView(frame: bounds)
+        playerView.delegate = self
+        successContentView.insertSubview(playerView, atIndex: 0)
+        self.playerView = playerView
+        
+        playerView.snp_makeConstraints { make in make.edges.equalToSuperview() }
+    }
+    
     private func configureContentInsets() {
         let screenBottomInset = screenInset?.bottom ?? 0
-        let fullScreenBottomInset = fullScreenInset?.bottom ?? 0
-        previewView.playImageCenterYConstraint?.updateOffset(-screenBottomInset / 2)
-        let loadingContentInset = fullScreenMode ? -fullScreenBottomInset / 2 : -screenBottomInset / 2
-        contentViewSwitcher.loadingView.indicatorCenterYOffset = loadingContentInset
+        let contentInset = fullScreenMode ? 0 : -screenBottomInset / 2
+        previewView.playImageCenterYConstraint?.updateOffset(contentInset)
+        contentViewSwitcher.loadingView.indicatorCenterYOffset = contentInset
+        
+        previewView.layoutIfNeeded()
     }
     
     // MARK:- VIMVideoPlayerViewDelegate
@@ -193,24 +208,24 @@ extension ProductImageVideoCell: ViewSwitcherDelegate {
 
 final private class ProductImageVideoPreviewView: UIView {
     private let imageView: UIImageView
-    private let playImageView: UIImageView
+    private let playButton = UIButton()
     private var playImageCenterYConstraint: Constraint?
     
     override init(frame: CGRect) {
         imageView = UIImageView(frame: frame)
-        playImageView = UIImageView(image: UIImage(asset: .Play_product))
         
         super.init(frame: frame)
         
         imageView.contentMode = .ScaleAspectFill
+        playButton.setImage(UIImage(asset: .Play_product), forState: .Normal)
         
         addSubview(imageView)
-        addSubview(playImageView)
+        addSubview(playButton)
         
         imageView.snp_makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        playImageView.snp_makeConstraints { make in
+        playButton.snp_makeConstraints { make in
             make.centerX.equalToSuperview()
             playImageCenterYConstraint = make.centerY.equalToSuperview().constraint
         }
