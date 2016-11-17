@@ -786,7 +786,6 @@
 		C01513BB1DDDCA460015DC43 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01513BA1DDDCA460015DC43 /* L10n.swift */; };
 		C01513BC1DDDCA460015DC43 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01513BA1DDDCA460015DC43 /* L10n.swift */; };
 		C01513BD1DDDCA460015DC43 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01513BA1DDDCA460015DC43 /* L10n.swift */; };
-		C01513C01DDDCA460015DC43 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01513BA1DDDCA460015DC43 /* L10n.swift */; };
 		C01FF2E21D366D3B00D025AE /* HeartMaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01FF2E11D366D3B00D025AE /* HeartMaskView.swift */; };
 		C01FF2E61D36771D00D025AE /* TouchIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01FF2E51D36771D00D025AE /* TouchIndicatorView.swift */; };
 		C020DA461D40F39900E6E4AE /* ShowUserInfoViewEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C020DA451D40F39900E6E4AE /* ShowUserInfoViewEvent.swift */; };
@@ -1279,13 +1278,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		1D00C6D61DC0CCF200596BA5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1D2F19331CE9CE250099142E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 1D2F193A1CE9CE250099142E;
-			remoteInfo = Showroom;
-		};
 		1D00C6F21DC0CCFD00596BA5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1D2F19331CE9CE250099142E /* Project object */;
@@ -1299,20 +1291,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 1D2F193A1CE9CE250099142E;
 			remoteInfo = Showroom;
-		};
-		C0CDF9421DDC8DB90036F12F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1D2F19331CE9CE250099142E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 1D2F193A1CE9CE250099142E;
-			remoteInfo = Showroom;
-		};
-		C0CDF9441DDC8DB90036F12F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1D2F19331CE9CE250099142E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 1D00C5341DBFA0AB00596BA5;
-			remoteInfo = ShowroomWorldwide;
 		};
 		C0CDF9601DDC8E8C0036F12F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -3278,7 +3256,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				1D00C6D51DC0CCF200596BA5 /* PBXTargetDependency */,
 				1D00C6F31DC0CCFD00596BA5 /* PBXTargetDependency */,
 			);
 			name = ShowroomWorldwideTests;
@@ -3357,8 +3334,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				C0CDF9411DDC8DB90036F12F /* PBXTargetDependency */,
-				C0CDF9431DDC8DB90036F12F /* PBXTargetDependency */,
 				C0CDF9611DDC8E8C0036F12F /* PBXTargetDependency */,
 			);
 			name = ShowroomKidsTests;
@@ -4854,7 +4829,6 @@
 			files = (
 				C0CDF9461DDC8DB90036F12F /* UICollectionViewUtilsTests.swift in Sources */,
 				C0CDF9471DDC8DB90036F12F /* NetworkTests.swift in Sources */,
-				C01513C01DDDCA460015DC43 /* L10n.swift in Sources */,
 				C0CDF9481DDC8DB90036F12F /* ValidatorTests.swift in Sources */,
 				C0CDF9491DDC8DB90036F12F /* ShowroomTests.swift in Sources */,
 				C0CDF94A1DDC8DB90036F12F /* MoneyTests.swift in Sources */,
@@ -4865,11 +4839,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		1D00C6D51DC0CCF200596BA5 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 1D2F193A1CE9CE250099142E /* Showroom */;
-			targetProxy = 1D00C6D61DC0CCF200596BA5 /* PBXContainerItemProxy */;
-		};
 		1D00C6F31DC0CCFD00596BA5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 1D00C5341DBFA0AB00596BA5 /* ShowroomWorldwide */;
@@ -4879,16 +4848,6 @@
 			isa = PBXTargetDependency;
 			target = 1D2F193A1CE9CE250099142E /* Showroom */;
 			targetProxy = 1D2F19501CE9CE250099142E /* PBXContainerItemProxy */;
-		};
-		C0CDF9411DDC8DB90036F12F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 1D2F193A1CE9CE250099142E /* Showroom */;
-			targetProxy = C0CDF9421DDC8DB90036F12F /* PBXContainerItemProxy */;
-		};
-		C0CDF9431DDC8DB90036F12F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 1D00C5341DBFA0AB00596BA5 /* ShowroomWorldwide */;
-			targetProxy = C0CDF9441DDC8DB90036F12F /* PBXContainerItemProxy */;
 		};
 		C0CDF9611DDC8E8C0036F12F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -5158,7 +5117,7 @@
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks/**";
 				INFOPLIST_FILE = ShowroomTests/WolrdwideInfo.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.showroom.ShowroomTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.showroom.ShowroomWorldwideTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 2.3;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SHOWROOMWorldwide.app/SHOWROOMWorldwide";
@@ -5178,7 +5137,7 @@
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks/**";
 				INFOPLIST_FILE = ShowroomTests/WolrdwideInfo.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.showroom.ShowroomTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.showroom.ShowroomWorldwideTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 2.3;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SHOWROOMWorldwide.app/SHOWROOMWorldwide";
@@ -5198,7 +5157,7 @@
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks/**";
 				INFOPLIST_FILE = ShowroomTests/WolrdwideInfo.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.showroom.ShowroomTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.showroom.ShowroomWorldwideTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 2.3;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SHOWROOMWorldwide.app/SHOWROOMWorldwide";
@@ -5218,7 +5177,7 @@
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks/**";
 				INFOPLIST_FILE = ShowroomTests/WolrdwideInfo.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.showroom.ShowroomTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.showroom.ShowroomWorldwideTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 2.3;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SHOWROOMWorldwide.app/SHOWROOMWorldwide";
@@ -5238,7 +5197,7 @@
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks/**";
 				INFOPLIST_FILE = ShowroomTests/WolrdwideInfo.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.showroom.ShowroomTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.showroom.ShowroomWorldwideTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 2.3;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SHOWROOMWorldwide.app/SHOWROOMWorldwide";
@@ -6021,7 +5980,7 @@
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks/**";
 				INFOPLIST_FILE = ShowroomTests/KidsInfo.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.showroom.ShowroomTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.showroom.ShowroomKidsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 2.3;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ShowroomKids.app/ShowroomKids";
@@ -6041,7 +6000,7 @@
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks/**";
 				INFOPLIST_FILE = ShowroomTests/KidsInfo.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.showroom.ShowroomTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.showroom.ShowroomKidsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 2.3;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ShowroomKids.app/ShowroomKids";
@@ -6061,7 +6020,7 @@
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks/**";
 				INFOPLIST_FILE = ShowroomTests/KidsInfo.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.showroom.ShowroomTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.showroom.ShowroomKidsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 2.3;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ShowroomKids.app/ShowroomKids";
@@ -6081,7 +6040,7 @@
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks/**";
 				INFOPLIST_FILE = ShowroomTests/KidsInfo.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.showroom.ShowroomTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.showroom.ShowroomKidsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 2.3;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ShowroomKids.app/ShowroomKids";
@@ -6101,7 +6060,7 @@
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Frameworks/**";
 				INFOPLIST_FILE = ShowroomTests/KidsInfo.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.showroom.ShowroomTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.showroom.ShowroomKidsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 2.3;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ShowroomKids.app/ShowroomKids";
