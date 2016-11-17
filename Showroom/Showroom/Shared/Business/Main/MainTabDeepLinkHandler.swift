@@ -3,9 +3,11 @@ import JLRoutes
 
 final class MainTabDeepLinkHandler: DeepLinkingHandler {
     private let urlRouter = JLRoutes()
+    private let configurationManager: ConfigurationManager
     weak var mainTabViewController: MainTabViewController?
     
-    init() {
+    init(resolver: DiResolver) {
+        self.configurationManager = resolver.resolve(ConfigurationManager.self)
         configureRouter()
     }
     
@@ -18,7 +20,12 @@ final class MainTabDeepLinkHandler: DeepLinkingHandler {
     }
     
     private func configureRouter() {
-        urlRouter.addRoute("/:host/c/cart/view", priority: 1) { [unowned self](parameters: [NSObject: AnyObject]!) in
+        guard let configuration = configurationManager.configuration?.deepLinkConfiguration else {
+            logError("Cannot configure router, no configuration")
+            return
+        }
+        
+        urlRouter.addRoute("/:host/\(configuration.cartPathComponent)", priority: 1) { [unowned self](parameters: [NSObject: AnyObject]!) in
             logInfo("Handling cart route \(parameters)")
             
             guard let mainTabViewController = self.mainTabViewController else { return false }

@@ -77,7 +77,7 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        markHandoffUrlActivity(withPathComponent: "p/\(model.productId)", resolver: resolver)
+        markHandoffUrlActivity(withPath: HandoffPath(type: .Product, additionalPath: "\(model.productId)"), resolver: resolver)
     }
     
     func dismissContentView() {

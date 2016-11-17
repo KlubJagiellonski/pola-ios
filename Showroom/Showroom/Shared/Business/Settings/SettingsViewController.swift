@@ -74,7 +74,7 @@ class SettingsViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        markHandoffUrlActivity(withPathComponent: "/", resolver: resolver)
+        markHandoffUrlActivity(withType: .Home, resolver: resolver)
         castView.deselectRowsIfNeeded()
     }
 

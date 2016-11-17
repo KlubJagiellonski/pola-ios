@@ -18,8 +18,8 @@ extension Platform {
         switch self {
         case Polish: return "pl"
         case German: return "de"
-        case Worldwide: return "en"
-        case Kids: return "pl"
+        case Worldwide: return "worldwide"
+        case Kids: return "kids"
         }
     }
     

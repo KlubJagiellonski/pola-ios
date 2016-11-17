@@ -68,7 +68,7 @@ class DashboardViewController: UIViewController, DashboardViewDelegate {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        markHandoffUrlActivity(withPathComponent: "", resolver: resolver)
+        markHandoffUrlActivity(withType: .Home, resolver: resolver)
         castView.refreshImagesIfNeeded()
     }
     

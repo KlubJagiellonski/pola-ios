@@ -9,6 +9,7 @@ final class PromoSummaryViewController: UIViewController, PromoPageInterface, Pr
     private let promoSlideshow: PromoSlideshow
     
     private let urlRouter = JLRoutes()
+    private let configurationManager: ConfigurationManager
     
     var pageState: PromoPageState {
         didSet {
@@ -26,6 +27,7 @@ final class PromoSummaryViewController: UIViewController, PromoPageInterface, Pr
     init(with resolver: DiResolver, promoSlideshow: PromoSlideshow, pageState: PromoPageState) {
         self.promoSlideshow = promoSlideshow
         self.pageState = pageState
+        self.configurationManager = resolver.resolve(ConfigurationManager.self)
         super.init(nibName: nil, bundle: nil)
         
         configureRouter()
@@ -45,7 +47,11 @@ final class PromoSummaryViewController: UIViewController, PromoPageInterface, Pr
     }
     
     func configureRouter() {
-        urlRouter.addRoute("/:host/videos/:videoComponent") { [unowned self](parameters: [NSObject: AnyObject]!) in
+        guard let configuration = configurationManager.configuration?.deepLinkConfiguration else {
+            logError("Cannot configure router, no configuration")
+            return
+        }
+        urlRouter.addRoute("/:host/\(configuration.videosPathComponent)/:videoComponent") { [unowned self](parameters: [NSObject: AnyObject]!) in
             guard let videoComponent = parameters["videoComponent"] as? String else {
                 logError("There is no videoComponent in path: \(parameters)")
                 return false

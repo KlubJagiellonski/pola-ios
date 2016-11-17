@@ -85,12 +85,13 @@ class MainTabViewController: UITabBarController, NavigationHandler {
     private let basketManager: BasketManager
     private let wishlistManager: WishlistManager
     private let disposeBag = DisposeBag()
-    private let deepLinkHandler = MainTabDeepLinkHandler()
+    private let deepLinkHandler: MainTabDeepLinkHandler
     
     init(resolver: DiResolver, basketManager: BasketManager, wishlistManager: WishlistManager) {
         self.resolver = resolver
         self.basketManager = basketManager
         self.wishlistManager = wishlistManager
+        self.deepLinkHandler = MainTabDeepLinkHandler(resolver: resolver)
         appearance = .Visible
         
         super.init(nibName: nil, bundle: nil)

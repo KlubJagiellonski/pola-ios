@@ -24,6 +24,14 @@ struct AnalyticsConfiguration {
 
 struct DeepLinkConfiguration {
     let brandPathComponent: String
+    let productPathComponent: String
+    let productListPathComponent: String
+    let cartPathComponent: String
+    let searchPathComponent: String
+    let trendPathComponent: String
+    let videosPathComponent: String
+    let staticWebPagePathComponent: String
+    let wishlistPathComponent: String
 }
 
 protocol Configuration {
@@ -82,7 +90,15 @@ final class PlConfiguration: Configuration {
             pushwooshAppId: "63A3E-B6CDA"
         )
         deepLinkConfiguration = DeepLinkConfiguration(
-            brandPathComponent: "marki"
+            brandPathComponent: "marki",
+            productPathComponent: "p",
+            productListPathComponent: "tag",
+            cartPathComponent: "c/cart/view",
+            searchPathComponent: "search",
+            trendPathComponent: "trend",
+            videosPathComponent: "videos",
+            staticWebPagePathComponent: "d",
+            wishlistPathComponent: "c/wishlist"
         )
         let versionComponent = Constants.isStagingEnv ? "api-test" : "api"
         apiBasePath = "https://\(versionComponent).showroom.pl/ios/v2"
@@ -126,7 +142,15 @@ final class DeConfiguration: Configuration {
             pushwooshAppId: "1B9C1-3FA16"
         )
         deepLinkConfiguration = DeepLinkConfiguration(
-            brandPathComponent: "marken"
+            brandPathComponent: "marken",
+            productPathComponent: "p",
+            productListPathComponent: "tag",
+            cartPathComponent: "c/cart/view",
+            searchPathComponent: "search",
+            trendPathComponent: "trend",
+            videosPathComponent: "videos",
+            staticWebPagePathComponent: "d",
+            wishlistPathComponent: "c/wishlist"
         )
         let versionComponent = Constants.isStagingEnv ? "api-test" : "api"
         apiBasePath = "https://\(versionComponent).showroom.de/ios/v2"
@@ -172,7 +196,15 @@ final class ComConfiguration: Configuration {
             pushwooshAppId: "63A3E-B6CDA"
         )
         deepLinkConfiguration = DeepLinkConfiguration(
-            brandPathComponent: "marki"
+            brandPathComponent: "designers",
+            productPathComponent: "p",
+            productListPathComponent: "tag",
+            cartPathComponent: "c/cart/view",
+            searchPathComponent: "search",
+            trendPathComponent: "trend",
+            videosPathComponent: "videos",
+            staticWebPagePathComponent: "d",
+            wishlistPathComponent: "c/wishlist"
         )
         let versionComponent = Constants.isStagingEnv ? "api-test" : "api"
         apiBasePath = "https://\(versionComponent).showroom.pl/ios/v2"
@@ -219,7 +251,15 @@ final class KidsConfiguration: Configuration {
             pushwooshAppId: "63A3E-B6CDA"
         )
         deepLinkConfiguration = DeepLinkConfiguration(
-            brandPathComponent: "marki"
+            brandPathComponent: "marki",
+            productPathComponent: "dziecko",
+            productListPathComponent: "dzieci",
+            cartPathComponent: "c/cart/view",
+            searchPathComponent: "search",
+            trendPathComponent: "trend",
+            videosPathComponent: "videos",
+            staticWebPagePathComponent: "d",
+            wishlistPathComponent: "c/wishlist"
         )
         let versionComponent = Constants.isStagingEnv ? "api-kids-test" : "api-kids"
         apiBasePath = "https://\(versionComponent).showroom.pl/ios/v2"

@@ -56,16 +56,6 @@ extension UIViewController {
     }
 }
 
-extension UIResponder {
-    func markHandoffUrlActivity(withPathComponent pathComponent: String, resolver: DiResolver) {
-        let configurationManager = resolver.resolve(ConfigurationManager.self)
-        guard let webpageURL = configurationManager.configuration?.webPageURL else { return }
-        let userActivity = NSUserActivity(activityType: NSBundle.mainBundle().bundleIdentifier!.stringByAppendingString(".browsing"))
-        userActivity.webpageURL = webpageURL.URLByAppendingPathComponent(pathComponent)
-        self.userActivity = userActivity
-    }
-}
-
 // MARK:- Status bar handling
 
 protocol StatusBarAppearanceHandling {
