@@ -780,20 +780,12 @@
 		C01513AE1DDDCA170015DC43 /* UIColorAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01513AC1DDDCA170015DC43 /* UIColorAssets.swift */; };
 		C01513AF1DDDCA170015DC43 /* UIColorAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01513AC1DDDCA170015DC43 /* UIColorAssets.swift */; };
 		C01513B01DDDCA170015DC43 /* UIColorAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01513AC1DDDCA170015DC43 /* UIColorAssets.swift */; };
-		C01513B11DDDCA170015DC43 /* UIColorAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01513AC1DDDCA170015DC43 /* UIColorAssets.swift */; };
-		C01513B21DDDCA170015DC43 /* UIColorAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01513AC1DDDCA170015DC43 /* UIColorAssets.swift */; };
-		C01513B31DDDCA170015DC43 /* UIColorAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01513AC1DDDCA170015DC43 /* UIColorAssets.swift */; };
 		C01513B41DDDCA170015DC43 /* UIImageAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01513AD1DDDCA170015DC43 /* UIImageAssets.swift */; };
 		C01513B51DDDCA170015DC43 /* UIImageAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01513AD1DDDCA170015DC43 /* UIImageAssets.swift */; };
 		C01513B61DDDCA170015DC43 /* UIImageAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01513AD1DDDCA170015DC43 /* UIImageAssets.swift */; };
-		C01513B71DDDCA170015DC43 /* UIImageAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01513AD1DDDCA170015DC43 /* UIImageAssets.swift */; };
-		C01513B81DDDCA170015DC43 /* UIImageAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01513AD1DDDCA170015DC43 /* UIImageAssets.swift */; };
-		C01513B91DDDCA170015DC43 /* UIImageAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01513AD1DDDCA170015DC43 /* UIImageAssets.swift */; };
 		C01513BB1DDDCA460015DC43 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01513BA1DDDCA460015DC43 /* L10n.swift */; };
 		C01513BC1DDDCA460015DC43 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01513BA1DDDCA460015DC43 /* L10n.swift */; };
 		C01513BD1DDDCA460015DC43 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01513BA1DDDCA460015DC43 /* L10n.swift */; };
-		C01513BE1DDDCA460015DC43 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01513BA1DDDCA460015DC43 /* L10n.swift */; };
-		C01513BF1DDDCA460015DC43 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01513BA1DDDCA460015DC43 /* L10n.swift */; };
 		C01513C01DDDCA460015DC43 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01513BA1DDDCA460015DC43 /* L10n.swift */; };
 		C01FF2E21D366D3B00D025AE /* HeartMaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01FF2E11D366D3B00D025AE /* HeartMaskView.swift */; };
 		C01FF2E61D36771D00D025AE /* TouchIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01FF2E51D36771D00D025AE /* TouchIndicatorView.swift */; };
@@ -4098,13 +4090,10 @@
 			files = (
 				1D00C6D81DC0CCF200596BA5 /* UICollectionViewUtilsTests.swift in Sources */,
 				1D00C6D91DC0CCF200596BA5 /* NetworkTests.swift in Sources */,
-				C01513BF1DDDCA460015DC43 /* L10n.swift in Sources */,
-				C01513B81DDDCA170015DC43 /* UIImageAssets.swift in Sources */,
 				1D00C6DA1DC0CCF200596BA5 /* ValidatorTests.swift in Sources */,
 				1D00C6DB1DC0CCF200596BA5 /* ShowroomTests.swift in Sources */,
 				1D00C6DC1DC0CCF200596BA5 /* MoneyTests.swift in Sources */,
 				1D00C6DD1DC0CCF200596BA5 /* NavigationTests.swift in Sources */,
-				C01513B21DDDCA170015DC43 /* UIColorAssets.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4483,13 +4472,10 @@
 			files = (
 				1DF3A5861D9D65D5009B5BC8 /* UICollectionViewUtilsTests.swift in Sources */,
 				1D72ED0C1CFC22FD007AFD2F /* NetworkTests.swift in Sources */,
-				C01513BE1DDDCA460015DC43 /* L10n.swift in Sources */,
-				C01513B71DDDCA170015DC43 /* UIImageAssets.swift in Sources */,
 				1D470E3B1D26AA7400677122 /* ValidatorTests.swift in Sources */,
 				1D2F19541CE9CE250099142E /* ShowroomTests.swift in Sources */,
 				1D5B5E661D0197B700B74822 /* MoneyTests.swift in Sources */,
 				1D72ECFE1CF456DA007AFD2F /* NavigationTests.swift in Sources */,
-				C01513B11DDDCA170015DC43 /* UIColorAssets.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4869,12 +4855,10 @@
 				C0CDF9461DDC8DB90036F12F /* UICollectionViewUtilsTests.swift in Sources */,
 				C0CDF9471DDC8DB90036F12F /* NetworkTests.swift in Sources */,
 				C01513C01DDDCA460015DC43 /* L10n.swift in Sources */,
-				C01513B91DDDCA170015DC43 /* UIImageAssets.swift in Sources */,
 				C0CDF9481DDC8DB90036F12F /* ValidatorTests.swift in Sources */,
 				C0CDF9491DDC8DB90036F12F /* ShowroomTests.swift in Sources */,
 				C0CDF94A1DDC8DB90036F12F /* MoneyTests.swift in Sources */,
 				C0CDF94B1DDC8DB90036F12F /* NavigationTests.swift in Sources */,
-				C01513B31DDDCA170015DC43 /* UIColorAssets.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
