@@ -224,13 +224,9 @@ final class ComConfiguration: Configuration {
             howToMeasureText: nil
         )
         let versionComponent = Constants.isStagingEnv ? "api-test" : "api"
-        apiBasePath = "https://\(versionComponent).showroom.pl/ios/v2"
+        apiBasePath = "https://\(versionComponent).shwrm.com/ios/v2"
         
-        if Constants.isStagingEnv {
-            webPageURL = NSURL(string: "https://pl.test.shwrm.net")!
-        } else {
-            webPageURL = NSURL(string: "https://www.showroom.pl")!
-        }
+        webPageURL = NSURL(string: "https://www.shwrm.com")!
     }
 
 }
