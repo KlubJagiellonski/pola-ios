@@ -34,6 +34,10 @@ struct DeepLinkConfiguration {
     let wishlistPathComponent: String
 }
 
+struct SettingsConfiguration {
+    let howToMeasureText: L10n?
+}
+
 protocol Configuration {
     var appStoreURL: NSURL { get }
     var apiBasePath: String { get }
@@ -47,6 +51,7 @@ protocol Configuration {
     var emarsysConfiguration: EmarsysConfiguration { get }
     var braintreeConfiguration: BraintreeConfiguration { get }
     var deepLinkConfiguration: DeepLinkConfiguration { get }
+    var settingsConfiguration: SettingsConfiguration { get }
 }
 
 extension Configuration {
@@ -65,6 +70,7 @@ final class PlConfiguration: Configuration {
     let analyticsConfiguration: AnalyticsConfiguration
     let emarsysConfiguration: EmarsysConfiguration
     let deepLinkConfiguration: DeepLinkConfiguration
+    let settingsConfiguration: SettingsConfiguration
     let feedbackEmail = "ios@showroom.pl"
     let availableGenders: [Gender] = [.Male, .Female]
     let platformDescription = "showroom.pl"
@@ -100,6 +106,9 @@ final class PlConfiguration: Configuration {
             staticWebPagePathComponent: "d",
             wishlistPathComponent: "c/wishlist"
         )
+        settingsConfiguration = SettingsConfiguration(
+            howToMeasureText: .SettingsHowToMeasure
+        )
         let versionComponent = Constants.isStagingEnv ? "api-test" : "api"
         apiBasePath = "https://\(versionComponent).showroom.pl/ios/v2"
         
@@ -117,6 +126,7 @@ final class DeConfiguration: Configuration {
     let analyticsConfiguration: AnalyticsConfiguration
     let emarsysConfiguration: EmarsysConfiguration
     let deepLinkConfiguration: DeepLinkConfiguration
+    let settingsConfiguration: SettingsConfiguration
     let feedbackEmail = "ios@showroom.de"
     let availableGenders: [Gender] = [.Female]
     let platformDescription = "showroom.de"
@@ -152,6 +162,9 @@ final class DeConfiguration: Configuration {
             staticWebPagePathComponent: "d",
             wishlistPathComponent: "c/wishlist"
         )
+        settingsConfiguration = SettingsConfiguration(
+            howToMeasureText: .SettingsHowToMeasure
+        )
         let versionComponent = Constants.isStagingEnv ? "api-test" : "api"
         apiBasePath = "https://\(versionComponent).showroom.de/ios/v2"
         
@@ -169,6 +182,7 @@ final class ComConfiguration: Configuration {
     let analyticsConfiguration: AnalyticsConfiguration
     let emarsysConfiguration: EmarsysConfiguration
     let deepLinkConfiguration: DeepLinkConfiguration
+    let settingsConfiguration: SettingsConfiguration
     let feedbackEmail = "ios@showroom.com" // TODO:- check if it is correct email
     let availableGenders: [Gender] = [.Female]
     let platformDescription = "showroom.com"
@@ -206,6 +220,9 @@ final class ComConfiguration: Configuration {
             staticWebPagePathComponent: "d",
             wishlistPathComponent: "c/wishlist"
         )
+        settingsConfiguration = SettingsConfiguration(
+            howToMeasureText: nil
+        )
         let versionComponent = Constants.isStagingEnv ? "api-test" : "api"
         apiBasePath = "https://\(versionComponent).showroom.pl/ios/v2"
         
@@ -224,6 +241,7 @@ final class KidsConfiguration: Configuration {
     let analyticsConfiguration: AnalyticsConfiguration
     let emarsysConfiguration: EmarsysConfiguration
     let deepLinkConfiguration: DeepLinkConfiguration
+    let settingsConfiguration: SettingsConfiguration
     let feedbackEmail = "ios@showroom.com" // TODO:- change
     let availableGenders: [Gender] = [.Female] // TODO: check it
     let platformDescription = "kids.showroom.com"
@@ -260,6 +278,9 @@ final class KidsConfiguration: Configuration {
             videosPathComponent: "videos",
             staticWebPagePathComponent: "d",
             wishlistPathComponent: "c/wishlist"
+        )
+        settingsConfiguration = SettingsConfiguration(
+            howToMeasureText: .SettingsHowToMeasureKids
         )
         let versionComponent = Constants.isStagingEnv ? "api-kids-test" : "api-kids"
         apiBasePath = "https://\(versionComponent).showroom.pl/ios/v2"

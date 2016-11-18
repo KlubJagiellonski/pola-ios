@@ -79,6 +79,11 @@ class SettingsViewController: UIViewController {
     }
 
     private func updateSettings(with user: User?) {
+        guard let configuration = configurationManager.configuration else {
+            logError("Cannot update settings. No configuration")
+            return
+        }
+        
         logInfo("Updating settings with user exist \(user != nil)")
         
         var settings = [
@@ -91,7 +96,7 @@ class SettingsViewController: UIViewController {
             settings.append(Setting(type: .Login, action: { [weak self] in self?.loginButtonPressed() }, secondaryAction: { [weak self] in self?.createAccountButtonPressed() }, cellClickable: false))
         }
         
-        if (configurationManager.configuration?.availableGenders.count > 1) ?? false {
+        if configuration.availableGenders.count > 1 {
             settings.append(Setting(type: .Gender, action: { [weak self] in self?.femaleButtonPressed() }, secondaryAction: { [weak self] in self?.maleButtonPressed() }, cellClickable: false, value: self.userManager.gender))
         }
                 
@@ -108,8 +113,16 @@ class SettingsViewController: UIViewController {
         
         settings.appendContentsOf([
             Setting(type: .Normal, labelString: tr(.SettingsSendReport), action: { [weak self] in self?.sendReportPressed() }),
-            Setting(type: .Normal, labelString: tr(.SettingsFrequentQuestions), action: { [weak self] in self?.frequentQuestionsRowPressed() }),
-            Setting(type: .Normal, labelString: tr(.SettingsHowToMeasure), action: { [weak self] in self?.howToMeasureRowPressed() }),
+            Setting(type: .Normal, labelString: tr(.SettingsFrequentQuestions), action: { [weak self] in self?.frequentQuestionsRowPressed() })
+        ])
+        
+        if let howToMeasureText = configuration.settingsConfiguration.howToMeasureText {
+            settings.append(
+                Setting(type: .Normal, labelString: tr(howToMeasureText), action: { [weak self] in self?.howToMeasureRowPressed() })
+            )
+        }
+        
+        settings.appendContentsOf([
             Setting(type: .Normal, labelString: tr(.SettingsContact), action: { [weak self] in self?.contactRowPressed() }),
             Setting(type: .Normal, labelString: tr(.SettingsRules), action: { [weak self] in self?.rulesRowPressed() }),
             Setting(type: .Normal, labelString: tr(.SettingsPrivacyPolicy), action: { [weak self] in self?.privacyPolicyRowPressed() })
