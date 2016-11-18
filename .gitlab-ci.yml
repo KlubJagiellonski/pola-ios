@@ -85,3 +85,27 @@ showroom_worldwide_deploy_production:
         - xcode-8.0    
     only:
         - tags
+
+showroom_kids_deploy_staging:
+    stage: deploy
+    before_script:
+        - /bin/bash $CACHE_DIR/bundlerScript.bash
+        - brew install swiftgen
+    script:
+        - bundle exec fastlane deployStagingKids
+    tags:
+        - xcode-8.0
+    only:
+        - tags
+
+showroom_kids_deploy_production:
+    stage: deploy
+    before_script:
+        - /bin/bash $CACHE_DIR/bundlerScript.bash
+        - brew install swiftgen
+    script:
+        - bundle exec fastlane deployProductionKids
+    tags:
+        - xcode-8.0    
+    only:
+        - tags
