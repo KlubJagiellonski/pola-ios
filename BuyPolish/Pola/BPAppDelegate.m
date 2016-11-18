@@ -26,9 +26,11 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
-    UIApplicationShortcutItem *shortcutItem = [launchOptions objectForKey:UIApplicationLaunchOptionsShortcutItemKey];
-    if (shortcutItem) {
-        [self handleShortcutItem:shortcutItem];
+    if ([UIApplicationShortcutItem class]) {
+        UIApplicationShortcutItem *shortcutItem = [launchOptions objectForKey:UIApplicationLaunchOptionsShortcutItemKey];
+        if (shortcutItem) {
+            [self handleShortcutItem:shortcutItem];
+        }
     }
     
     return YES;
