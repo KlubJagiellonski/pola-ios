@@ -313,6 +313,10 @@ class ProductPageView: ViewSwitcher, UICollectionViewDelegateFlowLayout {
         imageDataSource.didEndDisplayingCell(cell, forItemAtIndexPath: indexPath)
     }
     
+    func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
+        imageDataSource.willDisplayCell(cell, forItemAtIndexPath: indexPath)
+    }
+    
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         didChangeImage()
     }

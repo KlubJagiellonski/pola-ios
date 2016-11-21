@@ -10,6 +10,7 @@ protocol ProductImageCellInterface: class {
     var fullScreenMode: Bool { get set }
     var screenInset: UIEdgeInsets? { get set }
     func didEndDisplaying()
+    func willBeDisplaying()
 }
 
 final class ProductImageDataSource: NSObject, UICollectionViewDataSource, ProductImageCellDelegate, ProductImageVideoCellDelegate {
@@ -115,6 +116,12 @@ final class ProductImageDataSource: NSObject, UICollectionViewDataSource, Produc
     func didEndDisplayingCell(cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
         if let imageCell = cell as? ProductImageCellInterface {
             imageCell.didEndDisplaying()
+        }
+    }
+    
+    func willDisplayCell(cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
+        if let imageCell = cell as? ProductImageCellInterface {
+            imageCell.willBeDisplaying()
         }
     }
     

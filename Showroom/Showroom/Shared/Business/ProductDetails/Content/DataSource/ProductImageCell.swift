@@ -104,6 +104,10 @@ final class ProductImageCell: UICollectionViewCell, ProductImageCellInterface, U
     
     func didEndDisplaying() {}
     
+    func willBeDisplaying() {
+        contentViewSwitcher.loadingView.startAnimation()
+    }
+    
     // doing it on frame because there were 1000 of problems with autolayout here
     override func layoutSubviews() {
         super.layoutSubviews()

@@ -62,6 +62,10 @@ final class ProductImageVideoCell: UICollectionViewCell, ProductImageCellInterfa
         playerView?.player.reset()
     }
     
+    func willBeDisplaying() {
+        contentViewSwitcher.loadingView.startAnimation()
+    }
+    
     @objc private func didTapPlay() {
         delegate?.productImageVideoCellDidTapPlay(self)
         

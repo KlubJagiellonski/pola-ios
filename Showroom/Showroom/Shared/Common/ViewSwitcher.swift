@@ -329,6 +329,11 @@ final class LoadingView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func startAnimation() {
+        guard window != nil else { return }
+        indicatorView.startAnimation()
+    }
+    
     override func didMoveToWindow() {
         super.didMoveToWindow()
         window != nil ? indicatorView.startAnimation() : indicatorView.stopAnimation()
