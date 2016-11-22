@@ -107,7 +107,7 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
         model.fetchProductDetails().subscribeNext { [weak self] fetchResult in
             guard let `self` = self else { return }
             switch fetchResult {
-            case .Success(let productDetails):
+            case .Success(let productDetails, _):
                 logInfo("Successfuly fetched product details: \(productDetails)")
                 self.castView.changeSwitcherState(.Success)
                 logAnalyticsEvent(AnalyticsEventId.ProductOpen(productDetails.id, productDetails.price))

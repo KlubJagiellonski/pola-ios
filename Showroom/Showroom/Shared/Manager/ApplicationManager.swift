@@ -4,6 +4,7 @@ import Crashlytics
 import XCGLogger
 import FBSDKCoreKit
 import RxSwift
+import CoreSpotlight
 
 protocol ApplicationManagerDelegate: class {
     func applicationManager(manager: ApplicationManager, didReceiveShortcutEvent identifier: ShortcutIdentifier)
@@ -83,6 +84,10 @@ final class ApplicationManager {
         logInfo("Received continueUserActivity \(userActivity)")
         if let webPageUrl = userActivity.webpageURL where userActivity.activityType == NSUserActivityTypeBrowsingWeb {
             return delegate?.applicationManager(self, didReceiveUrl: webPageUrl) ?? false
+        }
+        if let itemUrl = userActivity.userInfo?[CSSearchableItemActivityIdentifier] as? String, let linkURL = NSURL(string: itemUrl)
+            where userActivity.activityType == CSSearchableItemActionType {
+            return delegate?.applicationManager(self, didReceiveUrl: linkURL) ?? false
         }
         return false
     }

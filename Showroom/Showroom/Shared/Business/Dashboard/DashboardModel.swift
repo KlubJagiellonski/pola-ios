@@ -44,12 +44,12 @@ class DashboardModel {
         
         let cacheCompose = Observable.of(memoryCache, diskCache)
             .concat().take(1)
-            .map { FetchCacheResult.Success($0) }
+            .map { FetchCacheResult.Success($0, .Cache) }
             .catchError { Observable.just(FetchCacheResult.CacheError($0)) }
         
         let network = apiService.fetchContentPromo(withGender: userManager.gender)
             .save(forKey: Constants.Cache.contentPromoId, storage: storage, type: .Persistent)
-            .map { FetchCacheResult.Success($0) }
+            .map { FetchCacheResult.Success($0, .Network) }
             .catchError { Observable.just(FetchCacheResult.NetworkError($0)) }
         
         return Observable.of(cacheCompose, network)
@@ -72,12 +72,12 @@ class DashboardModel {
         
         let cacheCompose = Observable.of(memoryCache, diskCache)
             .concat().take(1)
-            .map { FetchCacheResult.Success($0) }
+            .map { FetchCacheResult.Success($0, .Cache) }
             .catchError { Observable.just(FetchCacheResult.CacheError($0)) }
         
         let network = apiService.fetchProductRecommendations()
             .save(forKey: Constants.Cache.productRecommendationsId, storage: storage, type: .Persistent)
-            .map { FetchCacheResult.Success($0) }
+            .map { FetchCacheResult.Success($0, .Network) }
             .catchError { Observable.just(FetchCacheResult.NetworkError($0)) }
         let observable = takeOnlyCachedRecommendations ? Observable.of(cacheCompose) : Observable.of(cacheCompose, network)
         takeOnlyCachedRecommendations = false

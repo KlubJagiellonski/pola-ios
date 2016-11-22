@@ -59,7 +59,7 @@ final class SearchViewController: UIViewController, SearchViewDelegate {
         model.fetchSearchItems().subscribeNext { [weak self] (cacheResult: FetchCacheResult<SearchResult>) in
             guard let `self` = self else { return }
             switch cacheResult {
-            case .Success(let result):
+            case .Success(let result, _):
                 self.removeAllViewControllers()
                 self.castView.changeSwitcherState(.Success)
                 self.castView.updateData(with: result.rootItems)

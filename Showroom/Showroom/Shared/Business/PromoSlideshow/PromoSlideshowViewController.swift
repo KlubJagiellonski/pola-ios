@@ -89,7 +89,7 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
             guard let `self` = self else { return }
             
             switch fetchResult {
-            case .Success(let result):
+            case .Success(let result, _):
                 logInfo("Fetched slideshow \(result)")
                 self.castView.changeSwitcherState(.Success, animated: !self.castView.transitionViewVisible)
                 if !self.castView.transitionAnimationInProgress {

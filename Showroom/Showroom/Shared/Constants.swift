@@ -56,7 +56,8 @@ struct Constants {
     }
     
     struct UserDefaults {
-        static let videoPauseStateCount = "videoPauseStateCount" 
+        static let videoPauseStateCount = "videoPauseStateCount"
+        static let searchableItemsAlreadyIndexed = "searchableItemsAlreadyIndexed"
     }
     
     struct ActivityType {

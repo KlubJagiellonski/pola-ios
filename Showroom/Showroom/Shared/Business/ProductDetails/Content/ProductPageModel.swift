@@ -62,12 +62,12 @@ final class ProductPageModel {
         
         let cacheCompose = Observable.of(memoryCache, diskCache)
             .concat().take(1)
-            .map { FetchCacheResult.Success($0) }
+            .map { FetchCacheResult.Success($0, .Cache) }
             .catchError { Observable.just(FetchCacheResult.CacheError($0)) }
         
         let network = api.fetchProductDetails(withProductId: productId)
             .save(forKey: cacheId, storage: storage, type: .Cache)
-            .map { FetchCacheResult.Success($0) }
+            .map { FetchCacheResult.Success($0, .Network) }
             .catchError { Observable.just(FetchCacheResult.NetworkError($0)) }
         
         return Observable.of(cacheCompose, network)

@@ -3,14 +3,18 @@ import UIKit
 
 typealias ObjectId = Int
 
+enum DataSourceType {
+    case Cache, Network
+}
+
 enum FetchCacheResult<T: Equatable> {
-    case Success(T)
+    case Success(T, DataSourceType)
     case CacheError(ErrorType)
     case NetworkError(ErrorType)
     
     func result() -> T? {
         switch self {
-        case .Success(let result): return result
+        case .Success(let result, _): return result
         default: return nil
         }
     }
@@ -19,8 +23,8 @@ enum FetchCacheResult<T: Equatable> {
 extension FetchCacheResult: Equatable {}
 
 func ==<T: Equatable>(lhs: FetchCacheResult<T>, rhs: FetchCacheResult<T>) -> Bool {
-    if case let FetchCacheResult.Success(lhsResult) = lhs {
-        if case let FetchCacheResult.Success(rhsResult) = rhs {
+    if case let FetchCacheResult.Success(lhsResult, _) = lhs {
+        if case let FetchCacheResult.Success(rhsResult, _) = rhs {
             return lhsResult == rhsResult
         }
     }
