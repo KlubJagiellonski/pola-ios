@@ -19,6 +19,7 @@ struct AnalyticsConfiguration {
     let optimiseTrackInstallProductId: Int
     let optimiseTrackSaleProductId: Int
     let optimiseTrackRegistrationProductId: Int
+    let optimiseCategory: String
     let emarsysMerchantId: String
 }
 
@@ -89,6 +90,7 @@ final class PlConfiguration: Configuration {
             optimiseTrackInstallProductId: 28575,
             optimiseTrackSaleProductId: 28577,
             optimiseTrackRegistrationProductId: 28576,
+            optimiseCategory: "PL",
             emarsysMerchantId: "13CE3A05D54F66DD"
         )
         emarsysConfiguration = EmarsysConfiguration(
@@ -145,6 +147,7 @@ final class DeConfiguration: Configuration {
             optimiseTrackInstallProductId: 28575,
             optimiseTrackSaleProductId: 28577,
             optimiseTrackRegistrationProductId: 28576,
+            optimiseCategory: "DE",
             emarsysMerchantId: "1B0C17B93E151CAA"
         )
         emarsysConfiguration = EmarsysConfiguration(
@@ -203,6 +206,7 @@ final class ComConfiguration: Configuration {
             optimiseTrackInstallProductId: 28575,
             optimiseTrackSaleProductId: 28577,
             optimiseTrackRegistrationProductId: 28576,
+            optimiseCategory: "COM",
             emarsysMerchantId: "13CE3A05D54F66DD"
         )
         emarsysConfiguration = EmarsysConfiguration(
@@ -258,6 +262,7 @@ final class KidsConfiguration: Configuration {
             optimiseTrackInstallProductId: 28575,
             optimiseTrackSaleProductId: 28577,
             optimiseTrackRegistrationProductId: 28576,
+            optimiseCategory: "KIDS",
             emarsysMerchantId: "13CE3A05D54F66DD"
         )
         emarsysConfiguration = EmarsysConfiguration(
