@@ -115,6 +115,7 @@ enum AnalyticsEventId: RawRepresentable {
     case ProductAddToCartClicked(ObjectId, String, Money)
     case ProductSwitchedWithLeftSwipe(String) // category/trend/designer
     case ProductSwitchedWithRightSwipe(String) // category/trend/designer
+    case ProductPlayVideo(String)
     case LoginFacebookClicked
     case LoginClicked
     case RegisterFacebookClicked
@@ -156,6 +157,8 @@ enum AnalyticsEventId: RawRepresentable {
     case VideoSummaryWatchAgain(ObjectId)
     case VideoSummaryLinkClick(String)
     case DeepLinkWrongPlatform
+    case ContinuityFromWebBrowsing(String)
+    case ContinuityFromSpotlightSearch(String)
     
     typealias RawValue = [AnalyticsEvent]
     var rawValue: RawValue {
@@ -321,6 +324,8 @@ enum AnalyticsEventId: RawRepresentable {
             return [GoogleAnalyticsEvent(category: "product", action: "switch_product_left", label: type, value: nil)]
         case ProductSwitchedWithRightSwipe(let type):
             return [GoogleAnalyticsEvent(category: "product", action: "switch_product_right", label: type, value: nil)]
+        case ProductPlayVideo(let link):
+            return [GoogleAnalyticsEvent(category: "product", action: "play_video", label: link, value: nil)]
         case LoginFacebookClicked:
             return [GoogleAnalyticsEvent(category: "login", action: "facebook_button_click", label: nil, value: nil)]
         case LoginClicked:
@@ -403,6 +408,10 @@ enum AnalyticsEventId: RawRepresentable {
             return [GoogleAnalyticsEvent(category: "video", action: "link_click", label: link, value: nil)]
         case DeepLinkWrongPlatform:
             return [GoogleAnalyticsEvent(category: "deeplink", action: "wrong_platform", label: nil, value: nil)]
+        case ContinuityFromWebBrowsing(let link):
+            return [GoogleAnalyticsEvent(category: "continuity", action: "from_web_browsing", label: link, value: nil)]
+        case ContinuityFromSpotlightSearch(let link):
+            return [GoogleAnalyticsEvent(category: "continuity", action: "from_spotlight_search", label: link, value: nil)]
         }
     }
     init?(rawValue: RawValue) {

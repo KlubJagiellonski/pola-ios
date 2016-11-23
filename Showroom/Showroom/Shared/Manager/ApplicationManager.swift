@@ -83,10 +83,12 @@ final class ApplicationManager {
     func didReceiveContinueActivity(with userActivity: NSUserActivity) -> Bool {
         logInfo("Received continueUserActivity \(userActivity)")
         if let webPageUrl = userActivity.webpageURL where userActivity.activityType == NSUserActivityTypeBrowsingWeb {
+            logAnalyticsEvent(AnalyticsEventId.ContinuityFromWebBrowsing(webPageUrl.absoluteOrRelativeString))
             return delegate?.applicationManager(self, didReceiveUrl: webPageUrl) ?? false
         }
         if let itemUrl = userActivity.userInfo?[CSSearchableItemActivityIdentifier] as? String, let linkURL = NSURL(string: itemUrl)
             where userActivity.activityType == CSSearchableItemActionType {
+            logAnalyticsEvent(AnalyticsEventId.ContinuityFromSpotlightSearch(linkURL.absoluteOrRelativeString))
             return delegate?.applicationManager(self, didReceiveUrl: linkURL) ?? false
         }
         return false

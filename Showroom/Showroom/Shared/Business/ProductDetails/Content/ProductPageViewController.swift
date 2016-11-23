@@ -254,6 +254,7 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
     
     func pageViewDidStartVideo(pageView: ProductPageView, atIndex index: Int) {
         logInfo("Video started with index \(index)")
+        logAnalyticsEvent(AnalyticsEventId.ProductPlayVideo(model.state.productDetails?.videos[safe: index]?.url ?? "no-link"))
         castView.changeViewState(.ImageGallery)
     }
     
