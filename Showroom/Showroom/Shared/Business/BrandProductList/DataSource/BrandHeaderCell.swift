@@ -4,6 +4,7 @@ import UIKit
 final class BrandHeaderCell: UIView {
     private let topContentHeight: CGFloat = 84
     private let bottomContentHeight: CGFloat = 172
+    private let imageRatio: CGFloat = 0.7433
     
     weak var productListView: BrandProductListView?
     
@@ -98,7 +99,8 @@ final class BrandHeaderCell: UIView {
     }
     
     private func loadImage(forUrl url: String) {
-        imageView.loadImageFromUrl(url, width: imageView.bounds.width) { [weak self](image: UIImage) in
+        let imageWidth = round(topContentHeight * imageRatio * 2) / 2 //UIKIt rounds to half, we want that
+        imageView.loadImageFromUrl(url, width: imageWidth) { [weak self](image: UIImage) in
             guard let `self` = self else { return }
             
             UIView.transitionWithView(self.blurredImageView, duration: 0.2, options: .TransitionCrossDissolve, animations: {
@@ -149,7 +151,7 @@ final class BrandHeaderCell: UIView {
             make.top.equalToSuperview()
             make.leading.equalToSuperview()
             make.bottom.equalToSuperview()
-            make.width.equalTo(imageView.snp_height).multipliedBy(0.7433)
+            make.width.equalTo(imageView.snp_height).multipliedBy(imageRatio)
         }
         
         descriptionTextView.snp_makeConstraints { make in

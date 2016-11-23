@@ -62,7 +62,7 @@ final class ProductImageDataSource: NSObject, UICollectionViewDataSource, Produc
             return
         }
         if let cell = collectionView.cellForItemAtIndexPath(NSIndexPath(forItem: 0, inSection: 0)) as? ProductImageCell where oldImageUrls[0] != imageUrls[0] {
-            cell.update(withImageUrl: imageUrls[0], lowResImageUrl: lowResImageUrl)
+            cell.update(withImageUrl: imageUrls[0], lowResImageUrl: lowResImageUrl, resetCurrentImage: false)
         }
         
         guard imageUrls.count > 1 || !videos.isEmpty else { return }

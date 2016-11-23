@@ -80,8 +80,8 @@ final class ProductImageCell: UICollectionViewCell, ProductImageCellInterface, U
         contentScrollView.zoomToRect(zoomRect, animated: true)
     }
     
-    func update(withImageUrl imageUrl: String, lowResImageUrl: String?) {
-        imageView.image = nil
+    func update(withImageUrl imageUrl: String, lowResImageUrl: String?, resetCurrentImage: Bool = true) {
+        imageView.image = resetCurrentImage ? nil : imageView.image
         
         let onRetrieveFromCache: (UIImage?) -> () = { [weak self]image in
             self?.contentViewSwitcher.changeSwitcherState(image == nil ? .Loading : .Success, animated: false)
