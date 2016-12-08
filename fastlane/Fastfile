@@ -63,6 +63,8 @@ platform :ios do
     release_notes
     s3
     polidea_store
+    shuttle
+    shuttle(environment: :testing)
     mailgun(to: 'showroom-team@polidea.com')
   end
 
