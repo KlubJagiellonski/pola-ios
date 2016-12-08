@@ -56,10 +56,8 @@ platform :ios do
       api_token: "#{ENV["CRASHLYTICS_API_TOKEN"]}",
       binary_path: "upload-symbols"
     )
-    extract_app_name
-    extract_app_icon
-    extract_version
-    get_binary_size
+    
+    extract_app_info
     release_notes
     s3
     polidea_store
