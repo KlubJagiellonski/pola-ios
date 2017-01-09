@@ -9,17 +9,23 @@ struct BraintreeConfiguration {
     let payPalUrlScheme: String
 }
 
+enum OptimiseAnalyticsType: String {
+    case Kids = "Kids"
+    case NonKids = "Non-Kids"
+}
+
 struct AnalyticsConfiguration {
     let googleTrackingId: String
     let googleConversionId: String
     let googleConversionAppStartLabel: String
     let googleConversionTransactionLabel: String
-    let optimiseApiKey: String
-    let optimiseMerchantId: Int
-    let optimiseTrackInstallProductId: Int
-    let optimiseTrackSaleProductId: Int
-    let optimiseTrackRegistrationProductId: Int
+    let optimiseApiKey = "72933403-B469-41FD-B6E4-635B5B44584F"
+    let optimiseMerchantId = 990079
+    let optimiseTrackInstallProductId = 28575
+    let optimiseTrackSaleProductId = 28577
+    let optimiseTrackRegistrationProductId = 28576
     let optimiseCategory: String
+    let optimiseType: OptimiseAnalyticsType
     let emarsysMerchantId: String
 }
 
@@ -85,12 +91,8 @@ final class PlConfiguration: Configuration {
             googleConversionId: "1006448960",
             googleConversionAppStartLabel: "sTFZCITB7WoQwOL03wM",
             googleConversionTransactionLabel: "VJLuCLvF72oQwOL03wM",
-            optimiseApiKey: "72933403-B469-41FD-B6E4-635B5B44584F",
-            optimiseMerchantId: 990079,
-            optimiseTrackInstallProductId: 28575,
-            optimiseTrackSaleProductId: 28577,
-            optimiseTrackRegistrationProductId: 28576,
             optimiseCategory: "PL",
+            optimiseType: .NonKids,
             emarsysMerchantId: "13CE3A05D54F66DD"
         )
         emarsysConfiguration = EmarsysConfiguration(
@@ -142,12 +144,8 @@ final class DeConfiguration: Configuration {
             googleConversionId: "942368511",
             googleConversionAppStartLabel: "xIPTCOezg2sQ_82twQM",
             googleConversionTransactionLabel: "CRt_CJrxiGsQ_82twQM",
-            optimiseApiKey: "72933403-B469-41FD-B6E4-635B5B44584F",
-            optimiseMerchantId: 990079,
-            optimiseTrackInstallProductId: 28575,
-            optimiseTrackSaleProductId: 28577,
-            optimiseTrackRegistrationProductId: 28576,
             optimiseCategory: "DE",
+            optimiseType: .NonKids,
             emarsysMerchantId: "1B0C17B93E151CAA"
         )
         emarsysConfiguration = EmarsysConfiguration(
@@ -180,13 +178,13 @@ final class DeConfiguration: Configuration {
 }
 
 final class ComConfiguration: Configuration {
-    let appStoreURL = NSURL(string: "itms-apps://itunes.apple.com/app/id1147114961")! // TODO:- change id
+    let appStoreURL = NSURL(string: "itms-apps://itunes.apple.com/app/id1193182446")!
     let apiBasePath: String
     let analyticsConfiguration: AnalyticsConfiguration
     let emarsysConfiguration: EmarsysConfiguration
     let deepLinkConfiguration: DeepLinkConfiguration
     let settingsConfiguration: SettingsConfiguration
-    let feedbackEmail = "ios@showroom.com" // TODO:- check if it is correct email
+    let feedbackEmail = "ios@shwrm.com"
     let availableGenders: [Gender] = [.Female]
     let platformDescription = "showroom.com"
     let webPageURL: NSURL
@@ -197,17 +195,13 @@ final class ComConfiguration: Configuration {
         //TODO:- change all this values to com version
         
         analyticsConfiguration = AnalyticsConfiguration(
-            googleTrackingId: Constants.isAppStore ? "UA-28549987-7" : "UA-28549987-11",
-            googleConversionId: "1006448960",
-            googleConversionAppStartLabel: "sTFZCITB7WoQwOL03wM",
-            googleConversionTransactionLabel: "VJLuCLvF72oQwOL03wM",
-            optimiseApiKey: "72933403-B469-41FD-B6E4-635B5B44584F",
-            optimiseMerchantId: 990079,
-            optimiseTrackInstallProductId: 28575,
-            optimiseTrackSaleProductId: 28577,
-            optimiseTrackRegistrationProductId: 28576,
-            optimiseCategory: "COM",
-            emarsysMerchantId: "13CE3A05D54F66DD"
+            googleTrackingId: Constants.isAppStore ? "UA-28549987-15" : "UA-28549987-11",
+            googleConversionId: "863441612",
+            googleConversionAppStartLabel: "o5iqCMuwn20QzKXcmwM",
+            googleConversionTransactionLabel: "u3kzCNewn20QzKXcmwM",
+            optimiseCategory: "EU",
+            optimiseType: .NonKids,
+            emarsysMerchantId: "17A231B6D96E15F4"
         )
         emarsysConfiguration = EmarsysConfiguration(
             pushPassword: "tkmQP+f3p3ArdsbRcTTfBGpmXawqjo+v",
@@ -236,13 +230,13 @@ final class ComConfiguration: Configuration {
 }
 
 final class KidsConfiguration: Configuration {
-    let appStoreURL = NSURL(string: "itms-apps://itunes.apple.com/app/id1147114961")! // TODO:- change id
+    let appStoreURL = NSURL(string: "itms-apps://itunes.apple.com/app/id1193174056")!
     let apiBasePath: String
     let analyticsConfiguration: AnalyticsConfiguration
     let emarsysConfiguration: EmarsysConfiguration
     let deepLinkConfiguration: DeepLinkConfiguration
     let settingsConfiguration: SettingsConfiguration
-    let feedbackEmail = "ios@showroom.com" // TODO:- change
+    let feedbackEmail = "ios@kids.showroom.pl"
     let availableGenders: [Gender] = [.Female] // TODO: check it
     let platformDescription = "kids.showroom.com"
     let webPageURL: NSURL
@@ -253,17 +247,13 @@ final class KidsConfiguration: Configuration {
         //TODO:- change all this values to kids version
         
         analyticsConfiguration = AnalyticsConfiguration(
-            googleTrackingId: Constants.isAppStore ? "UA-28549987-7" : "UA-28549987-11",
-            googleConversionId: "1006448960",
-            googleConversionAppStartLabel: "sTFZCITB7WoQwOL03wM",
-            googleConversionTransactionLabel: "VJLuCLvF72oQwOL03wM",
-            optimiseApiKey: "72933403-B469-41FD-B6E4-635B5B44584F",
-            optimiseMerchantId: 990079,
-            optimiseTrackInstallProductId: 28575,
-            optimiseTrackSaleProductId: 28577,
-            optimiseTrackRegistrationProductId: 28576,
-            optimiseCategory: "KIDS",
-            emarsysMerchantId: "13CE3A05D54F66DD"
+            googleTrackingId: Constants.isAppStore ? "UA-28549987-14" : "UA-28549987-11",
+            googleConversionId: "997811776",
+            googleConversionAppStartLabel: "bVJtCPKamm0QwMzl2wM",
+            googleConversionTransactionLabel: "mDSNCIvIhm0QwMzl2wM",
+            optimiseCategory: "PL",
+            optimiseType: .Kids,
+            emarsysMerchantId: "10E41903ECB6DC9E"
         )
         emarsysConfiguration = EmarsysConfiguration(
             pushPassword: "tkmQP+f3p3ArdsbRcTTfBGpmXawqjo+v",

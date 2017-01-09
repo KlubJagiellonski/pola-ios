@@ -532,7 +532,7 @@ final class Analytics {
         
         // sending optimise
         for product in products {
-            optimiseManager.trackEventWhereAppID(String(payment.orderId), pid: configuration.optimiseTrackSaleProductId, status: paymentAmountString, currency: payment.currency, ex1: "Sale", ex2: String(product.id), ex3: configuration.optimiseCategory, ex4: nil, ex5: nil)
+            optimiseManager.trackEventWhereAppID(String(payment.orderId), pid: configuration.optimiseTrackSaleProductId, status: paymentAmountString, currency: payment.currency, ex1: "Sale", ex2: String(product.id), ex3: configuration.optimiseCategory, ex4: configuration.optimiseType.rawValue, ex5: nil)
         }
         
         // sending facebook
@@ -588,7 +588,7 @@ final class Analytics {
             logError("Cannot send app start event because configuration not set")
             return
         }
-        optimiseManager.trackInstallWhereAppID(nil, pid: configuration.optimiseTrackInstallProductId, deepLink: false, ex1: "Install", ex2: nil, ex3: configuration.optimiseCategory, ex4: nil, ex5: nil)
+        optimiseManager.trackInstallWhereAppID(nil, pid: configuration.optimiseTrackInstallProductId, deepLink: false, ex1: "Install", ex2: nil, ex3: configuration.optimiseCategory, ex4: configuration.optimiseType.rawValue, ex5: nil)
         ACTConversionReporter.reportWithConversionID(configuration.googleConversionId, label: configuration.googleConversionAppStartLabel, value: "0.00", isRepeatable: false)
     }
     
@@ -598,6 +598,6 @@ final class Analytics {
             return
         }
         
-        optimiseManager.trackEventWhereAppID(nil, pid: configuration.optimiseTrackRegistrationProductId, status: "1", currency: nil, ex1: "Registration", ex2: nil, ex3: configuration.optimiseCategory, ex4: nil, ex5: nil)
+        optimiseManager.trackEventWhereAppID(nil, pid: configuration.optimiseTrackRegistrationProductId, status: "1", currency: nil, ex1: "Registration", ex2: nil, ex3: configuration.optimiseCategory, ex4: configuration.optimiseType.rawValue, ex5: nil)
     }
 }
