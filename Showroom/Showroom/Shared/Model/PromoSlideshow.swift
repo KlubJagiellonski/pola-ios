@@ -110,7 +110,6 @@ extension PromoSlideshow: Decodable, Encodable {
 extension PromoSlideshowVideo: Decodable, Encodable {
     static func decode(json: AnyObject) throws -> PromoSlideshowVideo {
         
-        // TODO: remove in future
         if let mockedSteps = PromoSlideshowVideo.getMockedSteps() {
             return PromoSlideshowVideo(steps: mockedSteps)
         }

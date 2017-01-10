@@ -192,8 +192,6 @@ final class ComConfiguration: Configuration {
     let locale = NSLocale(localeIdentifier: "en_US")
     
     init() {
-        //TODO:- change all this values to com version
-        
         analyticsConfiguration = AnalyticsConfiguration(
             googleTrackingId: Constants.isAppStore ? "UA-28549987-15" : "UA-28549987-11",
             googleConversionId: "863441612",
@@ -237,15 +235,13 @@ final class KidsConfiguration: Configuration {
     let deepLinkConfiguration: DeepLinkConfiguration
     let settingsConfiguration: SettingsConfiguration
     let feedbackEmail = "ios@kids.showroom.pl"
-    let availableGenders: [Gender] = [.Female] // TODO: check it
-    let platformDescription = "kids.showroom.com"
+    let availableGenders: [Gender] = [.Female]
+    let platformDescription = "kids.showroom.pl"
     let webPageURL: NSURL
     let currencyCode = "PLN"
     let locale = NSLocale(localeIdentifier: "pl")
     
     init() {
-        //TODO:- change all this values to kids version
-        
         analyticsConfiguration = AnalyticsConfiguration(
             googleTrackingId: Constants.isAppStore ? "UA-28549987-14" : "UA-28549987-11",
             googleConversionId: "997811776",

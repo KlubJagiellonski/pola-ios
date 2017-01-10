@@ -1,5 +1,5 @@
 White : #ffffff
-Blue: #33d5ad
+Blue: #00b9b4
 DarkGray: #a4aab3
 Black : #000000
 Separator: #dddddd

@@ -187,7 +187,7 @@ extension ProductDetails: Decodable, Encodable {
         if let seconds = onVacationSeconds where seconds != 0 {
             onVacationDate = NSDate(timeIntervalSince1970: seconds)
         }
-        //TODO: - remove in future
+
         let videos = try ProductDetails.mockVideos(j)
         return try ProductDetails(
             id: j => "id",

@@ -37,7 +37,6 @@ extension BrandDetails {
 
 extension BrandDetails: Decodable {
     static func decode(json: AnyObject) throws -> BrandDetails {
-        //TODO: - remove in future
         let videos = try BrandDetails.mockVideos(json)
         return try BrandDetails(
             id: json => "id",
