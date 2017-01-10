@@ -204,8 +204,8 @@ final class ComConfiguration: Configuration {
             emarsysMerchantId: "17A231B6D96E15F4"
         )
         emarsysConfiguration = EmarsysConfiguration(
-            pushPassword: "tkmQP+f3p3ArdsbRcTTfBGpmXawqjo+v",
-            pushwooshAppId: "63A3E-B6CDA"
+            pushPassword: "QAK7Asy2LsQ3O1huA5qzxP40zQEpMEhG",
+            pushwooshAppId: "0F483-4A155"
         )
         deepLinkConfiguration = DeepLinkConfiguration(
             brandPathComponent: "designers",
@@ -256,8 +256,8 @@ final class KidsConfiguration: Configuration {
             emarsysMerchantId: "10E41903ECB6DC9E"
         )
         emarsysConfiguration = EmarsysConfiguration(
-            pushPassword: "tkmQP+f3p3ArdsbRcTTfBGpmXawqjo+v",
-            pushwooshAppId: "63A3E-B6CDA"
+            pushPassword: "WoiOHvMAwav8LU82F/sctaWplz6jRbQh",
+            pushwooshAppId: "835D9-CFACC"
         )
         deepLinkConfiguration = DeepLinkConfiguration(
             brandPathComponent: "marki",
