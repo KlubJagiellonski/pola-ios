@@ -9,6 +9,7 @@ enum FilterType: String {
     case Choice = "choice"
     case Select = "select"
     case Range = "range"
+    case Hidden = "hidden"
     case Unknown = "unknown"
 }
 

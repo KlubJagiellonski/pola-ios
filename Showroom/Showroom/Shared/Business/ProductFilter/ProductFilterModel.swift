@@ -103,7 +103,7 @@ final class ProductFilterModel {
             }
             selectedFilterItemsIds = filter.data
             mode = .Tree
-        case .Unknown, .Range, .Select:
+        case .Unknown, .Hidden, .Range, .Select:
             logError("Cannot create filterInfo for filter \(filter)")
             return nil
         }
