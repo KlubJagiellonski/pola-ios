@@ -46,11 +46,11 @@ final class PaymentHandler {
         var handlers: [PaymentOptionHandler] = []
         for payment in payments {
             switch payment.id {
-            case .Cash: handlers.append(CashOptionHandler())
-            case .CreditCard, .CreditCardDe: handlers.append(CreditCardOptionHandler(api: api))
-            case .Gratis, .GratisDe: handlers.append(GratisOptionHandler())
-            case .PayPal, .PayPalDe: handlers.append(PayPalOptionHandler(api: api))
-            case .PayU, .PayUDe: handlers.append(PayUOptionHandler(api: api))
+            case .Cash, .CashKids: handlers.append(CashOptionHandler())
+            case .CreditCard, .CreditCardDe, .CreditCardKids: handlers.append(CreditCardOptionHandler(api: api))
+            case .Gratis, .GratisDe, .GratisKids: handlers.append(GratisOptionHandler())
+            case .PayPal, .PayPalDe, .PayPalKids, .PayPalCom: handlers.append(PayPalOptionHandler(api: api))
+            case .PayU, .PayUDe, .PayUKids: handlers.append(PayUOptionHandler(api: api))
             case .Unknown:
                 logError("Cannot create payment handler for unknown payment type")
                 continue

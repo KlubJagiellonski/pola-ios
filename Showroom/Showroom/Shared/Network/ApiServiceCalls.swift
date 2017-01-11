@@ -2,6 +2,10 @@ import Foundation
 import RxSwift
 import EmarsysPredictSDK
 
+enum EmarsysError: ErrorType {
+    case Unknown(String)
+}
+
 extension ApiService {
     func fetchContentPromo(withGender gender: Gender) -> Observable<ContentPromoResult> {
         let call = ApiServiceCall(
@@ -332,7 +336,7 @@ extension ApiService {
             }
             transaction.recommend(recommendationRequest)
             EMSession.sharedSession().sendTransaction(transaction) { error in
-                observer.onError(error)
+                observer.onError(EmarsysError.Unknown("Failed to fetch recommendations, error code \(error.code)"))
                 observer.onCompleted()
             }
             return NopDisposable.instance

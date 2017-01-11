@@ -511,7 +511,7 @@ final class Analytics {
             case let facebookEvent as FacebookAnalyticsEvent:
                 FBSDKAppEvents.logEvent(facebookEvent.id, valueToSum: facebookEvent.valueToSum, parameters: facebookEvent.params, accessToken: FBSDKAccessToken.currentAccessToken())
             case let emarsysEvent as EmarsysEvent:
-                emarsysSession.sendTransaction(emarsysEvent.transaction) { error in logInfo("Could not send sendViewEvent, error \(error)") }
+                emarsysSession.sendTransaction(emarsysEvent.transaction) { error in logInfo("Could not send sendViewEvent, error \(error.code)") }
             default: continue
             }
         }
@@ -577,7 +577,7 @@ final class Analytics {
         let emarsysTransaction = EMTransaction()
         emarsysTransaction.setPurchase(payment.orderId, ofItems: cartItems)
         emarsysSession.sendTransaction(emarsysTransaction) { error in
-            logInfo("Could not send purchase event, error \(error)")
+            logInfo("Could not send purchase event, error \(error.code)")
         }
         
         affilation = nil

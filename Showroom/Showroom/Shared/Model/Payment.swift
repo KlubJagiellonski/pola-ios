@@ -73,7 +73,7 @@ extension PaymentInfo {
         }
         
         let deliveryPop = checkoutState.selectedKiosk?.id
-        if deliveryPop == nil && checkoutState.checkout.deliveryCarrier.id == .RUCH {
+        if deliveryPop == nil && checkoutState.checkout.deliveryCarrier.id.isRuch {
             logError("Cannot create PaymentRequest (deliveryPop) from state: \(checkoutState)")
             return nil
         }

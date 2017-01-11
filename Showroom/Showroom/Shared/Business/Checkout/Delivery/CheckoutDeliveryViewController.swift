@@ -49,7 +49,7 @@ class CheckoutDeliveryViewController: UIViewController, CheckoutDeliveryViewDele
     }
     
     private func showSummaryIfPossible() {
-        if checkoutModel.state.checkout.deliveryCarrier.id == .RUCH && checkoutModel.state.selectedKiosk == nil {
+        if checkoutModel.state.checkout.deliveryCarrier.id.isRuch && checkoutModel.state.selectedKiosk == nil {
             sendShowEditKioskEvent()
             return
         }
@@ -156,7 +156,7 @@ class CheckoutDeliveryViewController: UIViewController, CheckoutDeliveryViewDele
     }
     
     func checkoutDeliveryViewDidReachFormEnd(view: CheckoutDeliveryView) {
-        guard checkoutModel.state.checkout.deliveryCarrier.id == .RUCH && checkoutModel.state.selectedKiosk == nil else {
+        guard checkoutModel.state.checkout.deliveryCarrier.id.isRuch && checkoutModel.state.selectedKiosk == nil else {
             return
         }
         sendShowEditKioskEvent()

@@ -2,42 +2,55 @@ import Foundation
 import Decodable
 
 enum DeliveryType: Int {
+    case UPSKids = 1
     case UPS = 2
     case UPSDe = 3
+    case RUCHKids = 6
     case RUCH = 7
+    case UPSCom = 8
     case Unknown = 100
     
     var isUps: Bool {
-        return self == .UPS || self == .UPSDe
+        return self == .UPS || self == .UPSDe || self == .UPSKids || self == .UPSCom
+    }
+    
+    var isRuch: Bool {
+        return self == .RUCHKids || self == .RUCH
     }
 }
 
 enum PaymentType: Int {
+    case PayUKids = 1
+    case CashKids = 2
+    case GratisKids = 3
     case PayU = 4
     case PayUDe = 7
     case Cash = 5
     case Gratis = 6
     case GratisDe = 8
+    case PayPalKids = 10
     case PayPal = 11
     case PayPalDe = 12
     case CreditCard = 13
+    case CreditCardKids = 14
     case CreditCardDe = 15
+    case PayPalCom = 18
     case Unknown = 100
     
     var isPayU: Bool {
-        return self == .PayU || self == .PayUDe
+        return self == .PayU || self == .PayUDe || self == .PayUKids
     }
     
     var isGratis: Bool {
-        return self == .Gratis || self == .GratisDe
+        return self == .Gratis || self == .GratisDe || self == .GratisKids
     }
     
     var isPayPal: Bool {
-        return self == .PayPal || self == .PayPalDe
+        return self == .PayPal || self == .PayPalDe || self == .PayPalKids || self == .PayPalCom
     }
     
     var isCreditCard: Bool {
-        return self == .CreditCard || self == .CreditCardDe
+        return self == .CreditCard || self == .CreditCardDe || self == .CreditCardKids
     }
 }
 

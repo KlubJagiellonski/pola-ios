@@ -76,8 +76,8 @@ class BasketDeliveryViewController: UIViewController, BasketDeliveryViewDelegate
     
     func deliveryViewDidTapRuchOption(view: BasketDeliveryView) {
         logInfo("Did tap ruch option")
-        logAnalyticsEvent(AnalyticsEventId.CartDeliveryMethodChanged(DeliveryType.RUCH.rawValue))
-        basketManager.state.deliveryCarrier = basketManager.state.basket?.deliveryInfo.carriers.find { $0.id == DeliveryType.RUCH }
+        logAnalyticsEvent(AnalyticsEventId.CartDeliveryMethodChanged(basketManager.state.deliveryCarrier?.id.rawValue ?? 0))
+        basketManager.state.deliveryCarrier = basketManager.state.basket?.deliveryInfo.carriers.find { $0.id.isRuch }
         basketManager.validate()
     }
     
