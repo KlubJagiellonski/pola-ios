@@ -30,7 +30,7 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>shwrmkids</string>
-				<string>fb230189050352725worldwide</string>
+				<string>fb230189050352725kids</string>
 				<string>$(PRODUCT_BUNDLE_IDENTIFIER).payments</string>
 			</array>
 		</dict>
@@ -56,7 +56,7 @@
 	<key>FacebookDisplayName</key>
 	<string>SHOWROOM</string>
 	<key>FacebookUrlSchemeSuffix</key>
-	<string>worldwide</string>
+	<string>kids</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSApplicationQueriesSchemes</key>
