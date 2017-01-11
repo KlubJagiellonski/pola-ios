@@ -188,7 +188,7 @@ final class ComConfiguration: Configuration {
     let availableGenders: [Gender] = [.Female]
     let platformDescription = "showroom.com"
     let webPageURL: NSURL
-    let currencyCode = "$"
+    let currencyCode = "EUR"
     let locale = NSLocale(localeIdentifier: "en_US")
     
     init() {
