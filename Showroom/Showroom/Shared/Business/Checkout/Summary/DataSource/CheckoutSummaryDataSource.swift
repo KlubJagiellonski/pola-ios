@@ -70,7 +70,7 @@ class CheckoutSummaryDataSource: NSObject, UITableViewDataSource, CheckoutSummar
             let payment = payments[indexPath.row]
             
             var cell: CheckoutSummaryPaymentOptionCell!
-            if payment.id == PaymentType.PayU {
+            if payment.id.isPayU {
                 let payUCell = tableView.dequeueReusableCellWithIdentifier(String(CheckoutSummaryPayuOptionCell)) as! CheckoutSummaryPayuOptionCell
                 if payUCell.payUButton == nil {
                     payUCell.payUButton = createPayUButton(CGRectMake(0, 0, payUCell.bounds.width, CheckoutSummaryPayuOptionCell.payUButtonHeight))
@@ -117,7 +117,7 @@ class CheckoutSummaryDataSource: NSObject, UITableViewDataSource, CheckoutSummar
             return CheckoutSummaryPaymentCell.getHeight(withDiscount: discountCode != nil && discount != nil)
         } else if isPaymentOptionsSection(indexPath.section) {
             let payment = payments[indexPath.row]
-            if payment.id == PaymentType.PayU {
+            if payment.id.isPayU {
                 return CheckoutSummaryPayuOptionCell.payUOptionCellHeight
             } else {
                 return CheckoutSummaryPaymentOptionCell.height
