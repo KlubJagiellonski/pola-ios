@@ -2,7 +2,7 @@ import Foundation
 import RxSwift
 
 final class PayUOptionHandler: PaymentOptionHandler {
-    let paymentTypes = [PaymentType.PayU, PaymentType.PayUDe]
+    let paymentTypes = [PaymentType.PayU, PaymentType.PayUDe, PaymentType.PayUKids]
 
     private let disposeBag = DisposeBag()
     private let dataSource = PayUAuthorizationDataSource()

@@ -2,7 +2,7 @@ import Foundation
 import RxSwift
 
 final class CashOptionHandler: PaymentOptionHandler {
-    let paymentTypes = [PaymentType.Cash]
+    let paymentTypes = [PaymentType.Cash, PaymentType.CashKids]
     weak var delegate: PaymentHandlerDelegate?
     var isPayMethodSelected: Bool { return true }
     

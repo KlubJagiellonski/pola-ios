@@ -4,7 +4,7 @@ import RxSwift
 final class CreditCardOptionHandler: PaymentOptionHandler {
     private let api: ApiService
     private var dropInDelegateHandler: DropInViewControllerDelegateHandler?
-    let paymentTypes = [PaymentType.CreditCard, PaymentType.CreditCardDe]
+    let paymentTypes = [PaymentType.CreditCard, PaymentType.CreditCardDe, PaymentType.CreditCardKids]
     weak var delegate: PaymentHandlerDelegate?
     var isPayMethodSelected: Bool {
         return true
