@@ -91,7 +91,7 @@ class RootViewController: PresenterViewController, NavigationHandler {
         model.notificationManager.didShowNotificationsAccessView()
     }
     
-    private func showUpdateAlert(imageUrl imageUrl: String?) {
+    private func showUpdateAlert(withImageUrl imageUrl: String?) {
         guard shouldShowCustomAlert else {
             logInfo("Could not show update alert view")
             return
@@ -171,7 +171,7 @@ class RootViewController: PresenterViewController, NavigationHandler {
                         .subscribeNext { [weak self](appVersion: AppVersion) in
                             guard let `self` = self else { return }
                             if self.model.versionManager.shouldShowUpdateAlert {
-                                self.showUpdateAlert(imageUrl: appVersion.promoImageUrl)
+                                self.showUpdateAlert(withImageUrl: appVersion.promoImageUrl)
                             }
                     }.addDisposableTo(self.disposeBag)
                 }
@@ -206,14 +206,14 @@ class RootViewController: PresenterViewController, NavigationHandler {
 
         case .OnboardingEnd:
             logInfo("Onboarding end")
-            if model.platformManager.platform!.isFemaleOnly {
+            if model.shouldSelectGender {
+                guard !(contentViewController is StartViewController) else { return true }
+                showContent(resolver.resolve(StartViewController), animation: DimTransitionAnimation(animationDuration: 0.3), completion: nil)
+                return true
+            } else {
                 // user must not be able to set gender
                 // gender will be set to default value: woman in UserManager
                 showDashboard()
-                return true
-            } else {
-                guard !(contentViewController is StartViewController) else { return true }
-                showContent(resolver.resolve(StartViewController), animation: DimTransitionAnimation(animationDuration: 0.3), completion: nil)
                 return true
             }
             
@@ -278,10 +278,10 @@ extension RootViewController: ApiServiceDelegate {
         
         logInfo("Received app not support error. Showing alert")
         
-        let acceptAction: (UIAlertAction -> Void) = { _ in
+        let acceptAction: (UIAlertAction -> Void) = { [weak self]_ in
             logInfo("Showing app store")
-            if let appStoreUrl = NSURL(string: Constants.appStoreUrl) {
-                UIApplication.sharedApplication().openURL(appStoreUrl)
+            if let appStoreURL = self?.model.appStoreURL {
+                UIApplication.sharedApplication().openURL(appStoreURL)
             }
         }
         
@@ -300,34 +300,34 @@ extension RootViewController: DimAnimatorDelegate {
 }
 
 extension RootViewController: RateAppViewControllerDelegate {
-    func rateAppWantsDismiss(viewController: RateAppViewController) {
+    func rateAppWantsDismiss(viewController: RateAppViewController, animated: Bool) {
         logInfo("Rate app wants dismiss")
-        formSheetAnimator.dismissViewController(presentingViewController: self)
+        formSheetAnimator.dismissViewController(presentingViewController: self, animated: animated)
     }
 }
 
 extension RootViewController: NotificationsAccessViewControllerDelegate {
-    func notificationsAccessWantsDismiss(viewController: NotificationsAccessViewController) {
+    func notificationsAccessWantsDismiss(viewController: NotificationsAccessViewController, animated: Bool) {
         logInfo("Notification access wants dismiss")
-        formSheetAnimator.dismissViewController(presentingViewController: self)
+        formSheetAnimator.dismissViewController(presentingViewController: self, animated: animated)
     }
 }
 
 extension RootViewController: UpdateAppViewControllerDelegate {
-    func updateAppWantsDismiss(viewController: UpdateAppViewController) {
+    func updateAppWantsDismiss(viewController: UpdateAppViewController, animated: Bool) {
         logInfo("Update alert wants dismiss")
-        formSheetAnimator.dismissViewController(presentingViewController: self)
+        formSheetAnimator.dismissViewController(presentingViewController: self, animated: animated)
     }
 }
 
 extension RootViewController: PagingInAppOnboardingViewControllerDelegate, WishlistInAppOnboardingViewControllerDelegate {
-    func pagingOnboardingViewControllerDidTapDismiss(viewController: PagingInAppOnboardingViewController) {
+    func pagingOnboardingViewControllerDidTapDismiss(viewController: PagingInAppOnboardingViewController, animated: Bool) {
         logInfo("Paging onboarding did tap dismiss")
-        onboardingActionAnimator.dismissViewController(presentingViewController: self)
+        onboardingActionAnimator.dismissViewController(presentingViewController: self, animated: animated)
     }
     
-    func wishlistOnboardingViewControllerDidTapDismissButton(viewController: WishlistInAppOnboardingViewController) {
+    func wishlistOnboardingViewControllerDidTapDismissButton(viewController: WishlistInAppOnboardingViewController, animated: Bool) {
         logInfo("Wishlist onboarding did tap dismiss")
-        onboardingActionAnimator.dismissViewController(presentingViewController: self)
+        onboardingActionAnimator.dismissViewController(presentingViewController: self, animated: animated)
     }
 }

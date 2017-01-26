@@ -12,14 +12,14 @@ class FormSheetAnimator: NSObject, UIViewControllerTransitioningDelegate, Animat
     }
     
     func presentViewController(presentedViewController: UIViewController, presentingViewController: UIViewController, completion: (() -> Void)? = nil) {
-        logInfo("Presenting \(presentedViewController.dynamicType) in \(presentingViewController.dynamicType) with form sheet animation")
+        logInfo("Presenting \(presentedViewController) in \(presentingViewController) with form sheet animation")
         presentedViewController.modalPresentationStyle = .Custom
         presentedViewController.transitioningDelegate = self        
         presentingViewController.presentViewController(presentedViewController, animated: true, completion: completion)
     }
     
     func dismissViewController(presentingViewController presentingViewController: UIViewController, animated: Bool = true, completion: (() -> Void)? = nil) {
-        logInfo("Dismissing to \(presentingViewController.dynamicType) with form sheet animation")
+        logInfo("Dismissing to \(presentingViewController) with form sheet animation")
         presentingViewController.dismissViewControllerAnimated(true, completion: completion)
     }
     
@@ -56,12 +56,12 @@ class FormSheetAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransiti
         super.init()
     }
     
-    func presentView(presentedView: UIView, presentingView: UIView, dimView: UIView, animationDuration: Double, containerView: UIView, completion: ((completed: Bool) -> Void)?) {
+    func presentView(presentedView: UIView, presentingView: UIView, dimView: UIView, animationDuration: Double, containerView: UIView, completion: (Bool -> Void)?) {
         let initialFrame = calculateInitialFrame(containerView.bounds)
         let finalFrame = calculateFinalFrame(containerView.bounds)
         let scaleFactor = initialFrame.width / finalFrame.width
         
-        logInfo("Animating \(presentedView.dynamicType) in \(presentingView.dynamicType) from \(initialFrame) to \(finalFrame)")
+        logInfo("Animating \(presentedView) in \(presentingView) from \(initialFrame) to \(finalFrame)")
         
         presentedView.frame = finalFrame
         
@@ -79,17 +79,17 @@ class FormSheetAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransiti
             presentedView.alpha = 1
             dimView.alpha = 1.0
             }, completion: { finished in
-            completion?(completed: finished)
+            completion?(finished)
         })
     }
     
-    func dismissView(presentedView: UIView, presentingView: UIView, dimView: UIView, animationDuration: Double, containerView: UIView, completion: ((completed: Bool) -> Void)?) {
+    func dismissView(presentedView: UIView, presentingView: UIView, dimView: UIView, animationDuration: Double, containerView: UIView, completion: (Bool -> Void)?) {
         let initialFrame = calculateFinalFrame(containerView.bounds)
         let finalFrame = calculateInitialFrame(containerView.bounds)
         let scaleFactor = finalFrame.width / initialFrame.width
         let scaleTransform = CGAffineTransformMakeScale(scaleFactor, scaleFactor)
         
-        logInfo("Animating \(presentedView.dynamicType) in \(presentingView.dynamicType) from \(initialFrame) to \(finalFrame)")
+        logInfo("Animating \(presentedView) in \(presentingView) from \(initialFrame) to \(finalFrame)")
         
         UIView.animateWithDuration(animationDuration, delay: 0, options: [.BeginFromCurrentState, .CurveEaseIn], animations: {
             presentedView.transform = scaleTransform
@@ -97,7 +97,7 @@ class FormSheetAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransiti
             presentedView.alpha = 0
             dimView.alpha = 0
             }, completion: { finished in
-                completion?(completed: finished)
+                completion?(finished)
         })
     }
     
@@ -121,7 +121,7 @@ class FormSheetAnimatedTransitioning: NSObject, UIViewControllerAnimatedTransiti
     }
     
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-        let containerView = transitionContext.containerView()!
+        let containerView = transitionContext.containerView()
         let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
         let fromView = fromViewController.view
         let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!

@@ -21,17 +21,10 @@ class ApiService {
     private let networkClient: NetworkClient
     weak var dataSource: ApiServiceDataSource?
     weak var delegate: ApiServiceDelegate?
-    var configuration: ApiServiceConfiguration? {
+    var basePath: String? {
         didSet {
             networkClient.invalidateSession()
         }
-    }
-    
-    var basePath: String? {
-        guard let configuration = configuration else {
-            return nil
-        }
-        return configuration.path
     }
     
     init(networkClient: NetworkClient) {
@@ -44,7 +37,7 @@ class ApiService {
         }
         
         let url = NSURL(fileURLWithPath: basePath)
-            .URLByAppendingPathComponent(call.pathComponent)
+            .URLByAppendingPathComponent(call.pathComponent)!
             .URLByAppendingParams(call.params)
         
         logInfo("Making call to url: \(url)")
@@ -62,13 +55,15 @@ class ApiService {
         }
         
         if let jsonData = call.jsonData {
+            let jsonDataString = call.anonimizeJsonData ? "***" : "\(jsonData)"
+            
             urlRequest.applyJsonContentTypeHeader()
-            logInfo("Making call \(url) with data \(jsonData)")
+            logInfo("Making call \(url) with data \(jsonDataString)")
             do {
                 let data = try NSJSONSerialization.dataWithJSONObject(jsonData, options: [])
                 urlRequest.HTTPBody = data
             } catch {
-                logError("Cannot parse to json \(jsonData) for url \(url)")
+                logError("Cannot parse to json \(jsonDataString) for url \(url)")
                 return Observable.error(error)
             }
             
@@ -108,30 +103,7 @@ struct ApiServiceCall {
     let httpMethod: ApiServiceHttpMethod
     let authenticationType: ApiServiceAuthenticationType
     let jsonData: AnyObject?
-}
-
-// MARK:- Configuration
-
-enum ApiServiceVersion: String {
-    case V1 = "v1"
-    case V2 = "v2"
-}
-
-struct ApiServiceConfiguration {
-    let isStagingEnv: Bool
-    let platform: Platform
-    let version: ApiServiceVersion
-    
-    var path: String {
-        let typeComponent = isStagingEnv ? "api-test" : "api"
-        return "https://\(typeComponent).showroom.\(platform.code)/ios/\(version.rawValue)"
-    }
-    
-    init(platform: Platform, isStagingEnv: Bool = Constants.isStagingEnv, version: ApiServiceVersion = .V2) {
-        self.isStagingEnv = isStagingEnv
-        self.platform = platform
-        self.version = version
-    }
+    let anonimizeJsonData: Bool
 }
 
 // MARK:- Utilities

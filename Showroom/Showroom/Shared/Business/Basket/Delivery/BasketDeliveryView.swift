@@ -84,7 +84,7 @@ class BasketDeliveryView: ViewSwitcher {
         upsDeliveryOptionView.priceLabel.text = upsCarrier?.deliveryCost?.stringValue
         upsDeliveryOptionView.titleLabel.text = upsCarrier?.name
         
-        let ruchCarrier = basket.deliveryInfo.carriers.find { $0.id == DeliveryType.RUCH }
+        let ruchCarrier = basket.deliveryInfo.carriers.find { $0.id.isRuch }
         ruchDeliveryOptionView.hidden = ruchCarrier == nil
         ruchDeliveryOptionView.enabled = ruchCarrier?.available ?? false
         ruchDeliveryOptionView.priceLabel.text = ruchCarrier?.deliveryCost?.stringValue
@@ -97,7 +97,7 @@ class BasketDeliveryView: ViewSwitcher {
     
     func updateData(with selectedCarrier: DeliveryCarrier?) {
         upsDeliveryOptionView.selected = selectedCarrier?.id.isUps ?? false
-        ruchDeliveryOptionView.selected = selectedCarrier?.id == DeliveryType.RUCH
+        ruchDeliveryOptionView.selected = selectedCarrier?.id.isRuch ?? false
     }
     
     private func configureCustomConstraints() {

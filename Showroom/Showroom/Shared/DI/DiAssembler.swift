@@ -30,4 +30,8 @@ struct DiResolver {
     func resolve<Service, Arg1, Arg2, Arg3>(serviceType: Service.Type, arguments: (Arg1, Arg2, Arg3)) -> Service {
         return resolvable.resolve(serviceType, arguments: arguments)!
     }
+    
+    func resolve<Service, Arg1, Arg2, Arg3, Arg4>(serviceType: Service.Type, arguments: (Arg1, Arg2, Arg3, Arg4)) -> Service {
+        return resolvable.resolve(serviceType, arguments: arguments)!
+    }
 }

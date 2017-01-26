@@ -1,0 +1,5 @@
+if FastlaneCore::Helper.ci?
+    git_url "https://gitlab-ci-token:#{ENV['CI_BUILD_TOKEN']}@gitlab2.polidea.com/showroom/certificates.git"
+else
+    git_url 'ssh://git@gitlab2.polidea.com:23/showroom/certificates.git'
+end

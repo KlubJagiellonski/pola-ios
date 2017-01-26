@@ -71,7 +71,7 @@ class RegistrationViewController: UIViewController, RegistrationViewDelegate {
                 }
                 break
             case SigningError.FacebookError(_), SigningError.Unknown:
-                logError("Unknown registration error: \(error)")
+                logInfo("Unknown registration error: \(error)")
                 fallthrough
             default:
                 toastManager.showMessage(tr(L10n.RegistrationErrorUnknown))

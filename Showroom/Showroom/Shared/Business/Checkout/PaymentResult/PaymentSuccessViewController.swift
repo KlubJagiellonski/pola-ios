@@ -77,8 +77,8 @@ extension PaymentSuccessViewController: DimAnimatorDelegate {
 }
 
 extension PaymentSuccessViewController: RateAppViewControllerDelegate {
-    func rateAppWantsDismiss(viewController: RateAppViewController) {
+    func rateAppWantsDismiss(viewController: RateAppViewController, animated: Bool) {
         logInfo("Rate app view controller wants dismiss")
-        formSheetAnimator.dismissViewController(presentingViewController: self)
+        formSheetAnimator.dismissViewController(presentingViewController: self, animated: animated)
     }
 }

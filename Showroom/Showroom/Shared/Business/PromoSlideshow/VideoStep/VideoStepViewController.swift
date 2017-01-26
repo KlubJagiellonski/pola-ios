@@ -7,29 +7,45 @@ final class VideoStepViewController: UIViewController, PromoPageInterface, Video
     private let url: NSURL
     private let annotations: [PromoSlideshowVideoAnnotation]
     private var additionalData: VideoStepAdditionalData?
-    private lazy var asset: AVURLAsset = { [unowned self] in
+    private lazy var asset: AVAsset = { [unowned self] in
         return self.retrieveOrCreateAsset()
     }()
-    private let cacheHelper: VideoStepCacheHelper
+    private let cacheHelper: VideoCacheHelper
     
     weak var pageDelegate: PromoPageDelegate?
-    var focused: Bool = false {
+    var shouldShowProgressViewInPauseState: Bool { return true }
+    
+    var pageState: PromoPageState {
         didSet {
-            logInfo("focused did set: \(focused)")
-            if focused {
-                castView.play()
-            } else {
-                castView.pause()
+            let (focused, playing) = (pageState.focused, pageState.playing)
+            logInfo("set focused: \(focused), playing: \(playing)")
+            
+            if focused != oldValue.focused || playing != oldValue.playing {
+                if focused && playing {
+                    castView.play()
+                } else if focused && !playing {
+                    castView.pause()
+                    guard let duration = castView.playerItemDuration, let playbackTime = castView.playbackTime else {
+                        logInfo("Could not get player item duration or playback time")
+                        pageDelegate?.promoPage(self, didChangeCurrentProgress: 0.0)
+                        return
+                    }
+                    let currentProgress = playbackTime == 0 ? 0.0 : Double(playbackTime) / Double(duration)
+                    pageDelegate?.promoPage(self, didChangeCurrentProgress: currentProgress)
+                } else if !focused {
+                    castView.pause()
+                }
             }
         }
     }
-    var shouldShowProgressViewInPauseState: Bool { return true }
     
-    init(with resolver: DiResolver, link: String, annotations: [PromoSlideshowVideoAnnotation], additionalData: AnyObject?) {
+    init(with resolver: DiResolver, link: String, annotations: [PromoSlideshowVideoAnnotation], additionalData: AnyObject?, pageState: PromoPageState) {
         self.url = NSURL(string: link)!
         self.annotations = annotations
+        self.pageState = pageState
         self.additionalData = additionalData as? VideoStepAdditionalData
-        self.cacheHelper =  VideoStepCacheHelper(url: url)
+        
+        self.cacheHelper = VideoCacheHelper(url: url)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -50,11 +66,10 @@ final class VideoStepViewController: UIViewController, PromoPageInterface, Video
         var asset: AVURLAsset!
         if let additionalData = self.additionalData {
             asset = additionalData.asset
+            asset.resourceLoader.setDelegate(self.cacheHelper, queue: dispatch_get_main_queue())
         } else {
-            let url = self.cacheHelper.cachedFileUrl ?? self.url
-            asset = AVURLAsset(URL: url)
+            asset = cacheHelper.createAsset(forVideoAtIndex: 0)
         }
-        asset.resourceLoader.setDelegate(self.cacheHelper, queue: dispatch_get_main_queue())
         return asset
     }
     
@@ -70,13 +85,12 @@ final class VideoStepViewController: UIViewController, PromoPageInterface, Video
         }
     }
     
-    func videoStepView(view: VideoStepView, timeDidChange cmTime: CMTime) {
-        guard let duration = castView.playbackDuration else {
-            logInfo("Duration not set")
+    func videoStepView(view: VideoStepView, didChangePlaybackTime playbackTime: Int) {
+        guard let duration = castView.playerItemDuration else {
+            logInfo("Could not get final duration")
             return
         }
-        let currentSeconds = cmTime.seconds
-        let currentProgress = duration == 0 ? 0.0 : (currentSeconds * 1000) / Double(duration)
+        let currentProgress = playbackTime == 0 ? 0.0 : Double(playbackTime) / Double(duration)
         pageDelegate?.promoPage(self, didChangeCurrentProgress: currentProgress)
     }
     
@@ -87,13 +101,13 @@ final class VideoStepViewController: UIViewController, PromoPageInterface, Video
     
     func videoStepViewDidLoadVideo(view: VideoStepView) {
         logInfo("did load video")
-        cacheHelper.saveToCache(with: asset)
+        cacheHelper.saveToCache(with: asset, forVideoAtIndex: 0)
         pageDelegate?.promoPageDidDownloadAllData(self)
     }
     
     func videoStepViewFailedToLoadVideo(view: VideoStepView) {
         logInfo("failed to load video")
-        cacheHelper.clearCache()
+        cacheHelper.clearCache(forVideoAtIndex: 0)
     }
     
     func videoStepViewDidTapRetry(view: VideoStepView) {
@@ -104,11 +118,9 @@ final class VideoStepViewController: UIViewController, PromoPageInterface, Video
     
     // MARK:- PromoPageInterface
     
-    func didTapPlay() {
-        logInfo("did tap play")
-        castView.play()
-        pageDelegate?.promoPage(self, willChangePromoPageViewState: .Playing, animationDuration: 0.4)
-    }
+    func didTapDismiss() {}
     
-    func didTapDismiss() { }
+    func resetProgressState() {
+        castView.stop()
+    }
 }

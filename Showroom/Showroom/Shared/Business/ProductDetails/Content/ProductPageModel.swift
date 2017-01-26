@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-class ProductPageModel {
+final class ProductPageModel {
     typealias IsOnWishlist = Bool
     
     let api: ApiService
@@ -62,12 +62,12 @@ class ProductPageModel {
         
         let cacheCompose = Observable.of(memoryCache, diskCache)
             .concat().take(1)
-            .map { FetchCacheResult.Success($0) }
+            .map { FetchCacheResult.Success($0, .Cache) }
             .catchError { Observable.just(FetchCacheResult.CacheError($0)) }
         
         let network = api.fetchProductDetails(withProductId: productId)
             .save(forKey: cacheId, storage: storage, type: .Cache)
-            .map { FetchCacheResult.Success($0) }
+            .map { FetchCacheResult.Success($0, .Network) }
             .catchError { Observable.just(FetchCacheResult.NetworkError($0)) }
         
         return Observable.of(cacheCompose, network)
@@ -186,7 +186,15 @@ class ProductPageModelState {
     
     var product: Product?
     var productDetails: ProductDetails? {
-        didSet { productDetailsObservable.onNext(productDetails) }
+        didSet {
+            if let productDetails = productDetails {
+                let urls = productDetails.videos.map { NSURL(string: $0.url)! }
+                videoCacheHelper = VideoCacheHelper(urls: urls)
+            } else {
+                videoCacheHelper = nil
+            }
+            productDetailsObservable.onNext(productDetails)
+        }
     }
     var currentSize: ProductDetailsSize? {
         didSet { currentSizeObservable.onNext(currentSize) }
@@ -194,6 +202,7 @@ class ProductPageModelState {
     var currentColor: ProductDetailsColor? {
         didSet { currentColorObservable.onNext(currentColor) }
     }
+    var videoCacheHelper: VideoCacheHelper?
 
     init(product: Product?) {
         self.product = product

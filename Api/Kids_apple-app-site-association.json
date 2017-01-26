@@ -1,0 +1,21 @@
+{
+	"applinks": {
+		"apps": [],
+		"details": [
+			{
+				"appID": "73PWPNSU5Y.com.showroom.ShowroomKids",
+				"paths": [ "/dzieci/*", "/marki/*", "/trend/*", "/search", "/dziecko/*", "/c/cart/view" ]
+			}
+		]
+	},
+	"activitycontinuation": {
+		"apps": [    
+			"73PWPNSU5Y.com.showroom.ShowroomKids"
+		]
+	},
+	"webcredentials": {
+		"apps": [
+			"73PWPNSU5Y.com.showroom.ShowroomKids"
+		]
+	}
+}

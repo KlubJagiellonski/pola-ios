@@ -30,10 +30,18 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
     }
     
     override func loadView() {
+        let videoAssetsFactory: Int -> AVAsset = { [weak self]index in
+            guard let `self` = self, let cacheHelper = self.model.state.videoCacheHelper else {
+                logError("No video cache helper")
+                return AVAsset()
+            }
+            return cacheHelper.createAsset(forVideoAtIndex: index)
+        }
+        
         let descriptionNavigationController = resolver.resolve(ProductDescriptionNavigationController.self, arguments: (model.state, viewContentInset))
         descriptionNavigationController.productDescriptionDelegate = self
         addChildViewController(descriptionNavigationController)
-        view = ProductPageView(contentView: descriptionNavigationController.view, contentInset: viewContentInset)
+        view = ProductPageView(contentView: descriptionNavigationController.view, contentInset: viewContentInset, videoAssetsFactory: videoAssetsFactory)
         descriptionNavigationController.didMoveToParentViewController(self)
         
         self.contentNavigationController = descriptionNavigationController
@@ -69,7 +77,7 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        markHandoffUrlActivity(withPathComponent: "p/\(model.productId)", resolver: resolver)
+        markHandoffUrlActivity(withPath: HandoffPath(type: .Product, additionalPath: "\(model.productId)"), resolver: resolver)
     }
     
     func dismissContentView() {
@@ -99,7 +107,7 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
         model.fetchProductDetails().subscribeNext { [weak self] fetchResult in
             guard let `self` = self else { return }
             switch fetchResult {
-            case .Success(let productDetails):
+            case .Success(let productDetails, _):
                 logInfo("Successfuly fetched product details: \(productDetails)")
                 self.castView.changeSwitcherState(.Success)
                 logAnalyticsEvent(AnalyticsEventId.ProductOpen(productDetails.id, productDetails.price))
@@ -156,6 +164,16 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
         }
         
         contentNavigationController?.showSizeChart()
+    }
+    
+    private func showBrandOtherProducts() {
+        guard let product = model.state.productDetails else {
+            logError("Cannot show other brand products. No product details.")
+            return
+        }
+        
+        let productBrand = EntryProductBrand(id: product.brand.id, name: product.brand.name, link: nil)
+        sendNavigationEvent(ShowBrandProductListEvent(productBrand: productBrand))
     }
     
     // MARK:- ProductPageViewDelegate
@@ -219,6 +237,27 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
         logInfo("Did download first image with success: \(success)")
     }
 
+    func pageViewDidFinishVideo(pageView: ProductPageView, atIndex index: Int) {
+        logInfo("Did finish video with index \(index)")
+        castView.changeViewState(.Default)
+    }
+    
+    func pageViewDidFailedToLoadVideo(pageView: ProductPageView, atIndex index: Int) {
+        logInfo("Did failed to load video with index \(index)")
+        model.state.videoCacheHelper?.clearCache(forVideoAtIndex: index)
+    }
+    
+    func pageViewDidLoadVideo(pageView: ProductPageView, atIndex index: Int, asset: AVAsset) {
+        logInfo("Did load video with index \(index)")
+        model.state.videoCacheHelper?.saveToCache(with: asset, forVideoAtIndex: index)
+    }
+    
+    func pageViewDidStartVideo(pageView: ProductPageView, atIndex index: Int) {
+        logInfo("Video started with index \(index)")
+        logAnalyticsEvent(AnalyticsEventId.ProductPlayVideo(model.state.productDetails?.videos[safe: index]?.url ?? "no-link"))
+        castView.changeViewState(.ImageGallery)
+    }
+    
     // MARK:- ProductDescriptionViewDelegate
     
     func descriptionViewDidTapSize(view: ProductDescriptionView) {
@@ -243,7 +282,7 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
     
     func descriptionViewDidTapSizeChart(view: ProductDescriptionView) {
         logInfo("Did tap size chart")
-        contentNavigationController?.showSizeChart()
+        showSizeChart()
     }
     
     func descriptionViewDidTapAddToBasket(view: ProductDescriptionView) {
@@ -260,15 +299,16 @@ class ProductPageViewController: UIViewController, ProductPageViewDelegate {
     
     func descriptionViewDidTapOtherBrandProducts(view: ProductDescriptionView) {
         logInfo("Did tap other brand products")
-        guard let product = model.state.productDetails else {
-            logError("Cannot show other brand products. No product details.")
-            return
-        }
         
         logAnalyticsEvent(AnalyticsEventId.ProductOtherDesignerProductsClicked(model.productId))
+        showBrandOtherProducts()
+    }
+    
+    func descriptionViewDidTapBrandName(view: ProductDescriptionView) {
+        logInfo("Did tap brand name")
         
-        let productBrand = EntryProductBrand(id: product.brand.id, name: product.brand.name, link: nil)
-        sendNavigationEvent(ShowBrandProductListEvent(productBrand: productBrand))
+        logAnalyticsEvent(AnalyticsEventId.ProductBrandNameClicked(model.productId))
+        showBrandOtherProducts()
     }
     
     // MARK:- ViewSwitcherDelegate

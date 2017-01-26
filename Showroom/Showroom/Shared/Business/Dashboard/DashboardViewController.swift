@@ -68,7 +68,7 @@ class DashboardViewController: UIViewController, DashboardViewDelegate {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        markHandoffUrlActivity(withPathComponent: "", resolver: resolver)
+        markHandoffUrlActivity(withType: .Home, resolver: resolver)
         castView.refreshImagesIfNeeded()
     }
     
@@ -126,7 +126,11 @@ class DashboardViewController: UIViewController, DashboardViewDelegate {
     func dashboardView(dashboardView: DashboardView, didSelectContentPromo contentPromo: ContentPromo) {
         logInfo("Did select content promo \(contentPromo)")
         logAnalyticsEvent(AnalyticsEventId.DashboardContentPromoClicked(contentPromo.link, model.state.contentPromoResult?.contentPromos.indexOf(contentPromo) ?? 0))
-        sendNavigationEvent(ShowItemForLinkEvent(link: contentPromo.link, title: nil, productDetailsFromType: .HomeContentPromo))
+        var transitionImageTag: Int? = nil
+        if let contentPromoIndex = model.state.contentPromoResult?.contentPromos.indexOf(contentPromo) {
+            transitionImageTag = self.castView.contentPromosImageTag(forIndex: contentPromoIndex)
+        }
+        sendNavigationEvent(ShowItemForLinkEvent(link: contentPromo.link, title: nil, productDetailsFromType: .HomeContentPromo, transitionImageTag: transitionImageTag))
     }
     
     func dashboardView(dashboardView: DashboardView, didSelectRecommendation productRecommendation: ProductRecommendation) {
@@ -139,7 +143,7 @@ class DashboardViewController: UIViewController, DashboardViewDelegate {
             guard let `self` = self else { return nil }
             guard let index = self.model.state.recommendationsIndex else { return nil }
             logInfo("Retrieving current image view tag for index \(index)")
-            return self.castView.imageTag(forIndex: index)
+            return self.castView.recommendationsImageTag(forIndex: index)
         }
         sendNavigationEvent(ShowProductDetailsEvent(context: context, retrieveCurrentImageViewTag: retrieveCurrentImageViewTag))
     }

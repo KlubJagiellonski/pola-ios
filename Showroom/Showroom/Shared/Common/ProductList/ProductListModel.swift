@@ -4,7 +4,6 @@ import UIKit
 
 class ProductListModel {
     let apiService: ApiService
-    let emarsysService: EmarsysService
     private let wishlistManager: WishlistManager
     private var page = 1
     private(set) var products: [ListProduct] = []
@@ -27,9 +26,8 @@ class ProductListModel {
         return .Category
     }
     
-    init(with apiService: ApiService, emarsysService: EmarsysService, wishlistManager: WishlistManager, link: String?, query: String?) {
+    init(with apiService: ApiService, wishlistManager: WishlistManager, link: String?, query: String?) {
         self.apiService = apiService
-        self.emarsysService = emarsysService
         self.wishlistManager = wishlistManager
         self.link = link
         self.query = query
@@ -55,7 +53,7 @@ class ProductListModel {
                 self.products.appendContentsOf(result.products)
                 self.totalProductsAmount = result.totalResults
                 if let emarsysCategory = result.emarsysCategory {
-                    self.emarsysService.sendCategoryEvent(withCategory: emarsysCategory)
+                    logAnalyticsEvent(AnalyticsEventId.ListOpen(emarsysCategory))
                 }
                 logInfo("Fetched \(result.products.count) products for first page")
         }
@@ -120,7 +118,7 @@ class ProductListModel {
         
         logInfo("Changed filter with total \(totalProductsAmount) products")
         if let emarsysCategory = productListResult.emarsysCategory {
-            self.emarsysService.sendCategoryEvent(withCategory: emarsysCategory)
+            logAnalyticsEvent(AnalyticsEventId.ListOpen(emarsysCategory))
         }
     }
 

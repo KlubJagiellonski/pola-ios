@@ -2,21 +2,33 @@ import Foundation
 import Decodable
 import Foundation
 
-struct Login {
+struct Login: CustomStringConvertible{
     let username: String
     let password: String
+    
+    var description: String {
+        return "Login(username: \(username))"
+    }
 }
 
-struct FacebookLogin {
+struct FacebookLogin: CustomStringConvertible {
     let accessToken: String
+    
+    var description: String {
+        return "FacebookLogin()"
+    }
 }
 
-struct Registration {
+struct Registration: CustomStringConvertible {
     let name: String
     let username: String
     let password: String
     let newsletter: Bool
     let gender: Gender
+    
+    var description: String {
+        return "Registration(name: \(name), username: \(username), newsletter: \(newsletter), gender: \(gender))"
+    }
 }
 
 struct SigningResult {
@@ -35,12 +47,16 @@ struct UserSession {
     }
  }
 
-struct Session {
+struct Session: CustomStringConvertible {
     let userKey: String
     let userSecret: String
+ 
+    var description: String {
+        return "Session()"
+    }
 }
 
-struct SharedWebCredential {
+struct SharedWebCredential: CustomStringConvertible {
     let domain: String?
     let account: String
     let password: String?
@@ -61,6 +77,10 @@ struct SharedWebCredential {
         self.domain = domain
         self.account = account
         self.password = password
+    }
+    
+    var description: String {
+        return "SharedWebCredential(domain: \(domain), account: \(account))"
     }
 }
 

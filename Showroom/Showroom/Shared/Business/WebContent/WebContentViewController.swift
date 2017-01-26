@@ -9,8 +9,8 @@ final class WebContentViewController: UIViewController, WebContentViewDelegate {
     
     private var disposeBag = DisposeBag()
     
-    init(resolver: DiResolver, webViewId: String) {
-        model = resolver.resolve(WebContentModel.self, argument: webViewId)
+    init(resolver: DiResolver, entry: WebContentEntry) {
+        model = resolver.resolve(WebContentModel.self, argument: entry)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -30,9 +30,15 @@ final class WebContentViewController: UIViewController, WebContentViewDelegate {
         loadWebPage()
     }
     
-    func updateData(withWebViewId webViewId: String) {
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        logAnalyticsShowScreen(AnalyticsScreenId.WebContent, refferenceUrl: model.entry.link)
+    }
+    
+    func updateData(with entry: WebContentEntry) {
+        logAnalyticsShowScreen(AnalyticsScreenId.WebContent, refferenceUrl: entry.link)
         disposeBag = DisposeBag()
-        model.update(withWebViewId: webViewId)
+        model.update(with: entry)
         castView.changeSwitcherState(.Loading)
         loadWebPage()
     }
@@ -74,8 +80,8 @@ final class WebContentViewController: UIViewController, WebContentViewDelegate {
         }
         
         let app = UIApplication.sharedApplication()
-        if navigationAction.targetFrame?.mainFrame ?? true {
-            switch url.scheme {
+        if let scheme = url.scheme where navigationAction.targetFrame?.mainFrame ?? true {
+            switch scheme {
             case "tel", "mailto":
                 logInfo("Opening external url \(url)")
                 if app.canOpenURL(url) {
@@ -85,7 +91,8 @@ final class WebContentViewController: UIViewController, WebContentViewDelegate {
                 return
             case "https":
                 logInfo("Opening https link: \(url)")
-                let event = ShowItemForLinkEvent(link: url.absoluteString, title: nil, productDetailsFromType: .HomeContentPromo)
+                let urlString = url.absoluteString ?? url.relativeString
+                let event = ShowItemForLinkEvent(link: urlString, title: nil, productDetailsFromType: .HomeContentPromo, transitionImageTag: nil)
                 sendNavigationEvent(event)
                 decisionHandler(.Cancel)
                 return

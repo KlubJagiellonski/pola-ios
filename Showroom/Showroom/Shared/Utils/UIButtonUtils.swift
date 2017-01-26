@@ -40,6 +40,13 @@ extension UIButton {
         imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 24)
     }
     
+    func applyWhitePlainBoldStyle() {
+        titleLabel!.font = UIFont(fontType: .Button)
+        setTitleColor(UIColor(named: .White), forState: .Normal)
+        setTitleColor(UIColor(named: .DarkGray), forState: .Highlighted)
+        imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 24)
+    }
+    
     func applyDropDownStyle() {
         setTitleColor(UIColor.blackColor(), forState: .Normal)
         titleLabel!.font = UIFont(fontType: .FormNormal)

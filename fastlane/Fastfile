@@ -1,0 +1,98 @@
+fastlane_version '1.99.0'
+
+default_platform :ios
+
+platform :ios do
+
+  desc 'Runs all the tests'
+  lane :testProduction do
+    scan(
+      project: "Showroom/Showroom.xcodeproj",
+      scheme: 'Showroom',
+      devices: ["iPhone 5s (10.0)"]
+    )
+  end
+
+  lane :testProductionWorldwide do
+    scan(
+      project: "Showroom/Showroom.xcodeproj",
+      scheme: 'ShowroomWorldwide',
+      devices: ["iPhone 5s (10.0)"]
+    )
+  end
+
+  lane :testProductionKids do
+    scan(
+      project: "Showroom/Showroom.xcodeproj",
+      scheme: 'ShowroomKids',
+      devices: ["iPhone 5s (10.0)"]
+    )
+  end
+
+  def sign(type, app_identifier)
+    match(type: type, app_identifier: app_identifier, readonly: true)
+  end
+
+  def deploy(scheme, badge, app_identifier)    
+    sign('adhoc', app_identifier)    
+    add_prefix_schema
+
+    badge(
+      shield: "#{badge}-#{ENV["CI_BUILD_ID"]}-blue",
+      shield_no_resize: true,
+      no_badge: true
+    )
+
+    gym(
+      project: "Showroom/Showroom.xcodeproj",
+      scheme: scheme,
+      include_symbols: false,
+      output_name: scheme,
+      xcargs: "DEBUG_INFORMATION_FORMAT=dwarf-with-dsym CI_BUILD_ID=#{ENV["CI_BUILD_ID"]} CI_BUILD_TAG=#{ENV["CI_BUILD_TAG"]}",
+      use_legacy_build_api: true,
+      toolchain: :swift_2_3
+    )
+    upload_symbols_to_crashlytics(
+      api_token: "#{ENV["CRASHLYTICS_API_TOKEN"]}",
+      binary_path: "upload-symbols"
+    )
+    
+    extract_app_info
+    release_notes
+    s3
+    polidea_store
+    shuttle
+    shuttle(environment: :testing)
+    mailgun(to: 'showroom-team@polidea.com')
+  end
+
+  desc 'Deploy to Polidea Store'
+  lane :deployStaging do
+    deploy 'ShowroomStaging', 'PlStag', 'com.showroom.Showroom.staging'
+  end
+
+  desc 'Deploy to Polidea Store'
+  lane :deployProduction do
+    deploy 'Showroom', 'PlProd', 'com.showroom.Showroom'
+  end
+
+  desc 'Deploy to Polidea Store'
+  lane :deployStagingWorldwide do
+    deploy 'ShowroomWorldwideStaging', 'ComStag', 'com.showroom.ShowroomWorldwide.staging'
+  end
+
+  desc 'Deploy to Polidea Store'
+  lane :deployProductionWorldwide do
+    deploy 'ShowroomWorldwide', 'ComProd', 'com.showroom.ShowroomWorldwide'
+  end
+
+  desc 'Deploy to Polidea Store'
+  lane :deployStagingKids do
+    deploy 'ShowroomKidsStaging', 'KidsStag', 'com.showroom.ShowroomKids.staging'
+  end
+
+  desc 'Deploy to Polidea Store'
+  lane :deployProductionKids do
+    deploy 'ShowroomKids', 'KidsProd', 'com.showroom.ShowroomKids'
+  end
+end

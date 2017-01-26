@@ -11,7 +11,7 @@ enum VideoStepViewState {
 
 protocol VideoStepViewDelegate: class {
     func videoStepViewDidTapPlayerView(view: VideoStepView)
-    func videoStepView(view: VideoStepView, timeDidChange cmTime: CMTime)
+    func videoStepView(view: VideoStepView, didChangePlaybackTime playbackTime: Int)
     func videoStepViewDidReachedEnd(view: VideoStepView)
     func videoStepViewDidLoadVideo(view: VideoStepView)
     func videoStepViewFailedToLoadVideo(view: VideoStepView)
@@ -39,8 +39,11 @@ final class VideoStepView: ViewSwitcher, VIMVideoPlayerViewDelegate {
         }
         get { return playerView.player.playing }
     }
-    var playbackDuration: Int? {
-        return playerView.playbackDurationMillis
+    var playerItemDuration: Int? {
+        return playerView.playerItemDurationMillis
+    }
+    var playbackTime: Int? {
+        return playerView.playbackTimeMillis
     }
     var playerItem: AVPlayerItem? {
         return playerView.player.player.currentItem
@@ -64,6 +67,7 @@ final class VideoStepView: ViewSwitcher, VIMVideoPlayerViewDelegate {
             playerView.player.setAsset(asset)
             playerView.applyDefaultConfiguration()
         }
+        playerView.player.pause()
         playerView.delegate = self
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(VideoStepView.didTapPlayerView))
@@ -91,6 +95,12 @@ final class VideoStepView: ViewSwitcher, VIMVideoPlayerViewDelegate {
         logInfo("pause")
         state = .PausedByUser
     }
+    
+    func stop() {
+        logInfo("stop")
+        state = .PausedByUser
+        playerView.player.player.seekToTime(kCMTimeZero)
+    }
 
     private func configureCustomConstraints() {
         annotationsView.snp_makeConstraints { (make) in
@@ -112,8 +122,6 @@ final class VideoStepView: ViewSwitcher, VIMVideoPlayerViewDelegate {
         logInfo("ready to play video")
         shouldChangeSwitcherStateOnRateChange = true
         changeSwitcherState(.Success, animated: true)
-        playerPlaying = true
-        state = .PlayedByPlayer
     }
     
     func videoPlayerViewDidReachEnd(videoPlayerView: VIMVideoPlayerView!) {
@@ -122,8 +130,9 @@ final class VideoStepView: ViewSwitcher, VIMVideoPlayerViewDelegate {
     }
     
     func videoPlayerView(videoPlayerView: VIMVideoPlayerView!, timeDidChange cmTime: CMTime) {
-        annotationsView.playbackTimeChanged(Int(cmTime.seconds * 1000))
-        delegate?.videoStepView(self, timeDidChange: cmTime)
+        let playbackTime = Int(cmTime.seconds * Double(1000))
+        annotationsView.playbackTimeChanged(playbackTime)
+        delegate?.videoStepView(self, didChangePlaybackTime: playbackTime)
     }
     
     func videoPlayerView(videoPlayerView: VIMVideoPlayerView!, didFailWithError error: NSError!) {
@@ -134,7 +143,7 @@ final class VideoStepView: ViewSwitcher, VIMVideoPlayerViewDelegate {
     }
     
     func videoPlayerView(videoPlayerView: VIMVideoPlayerView!, loadedTimeRangeDidChange loadedDurationSeconds: Double) {
-        guard let durationSeconds = playerView.playbackDurationSeconds else {
+        guard let durationSeconds = playerView.playerItemDurationSeconds else {
             logError("Unable to determine if video finished loading: duration unknown")
             return
         }
@@ -148,9 +157,8 @@ final class VideoStepView: ViewSwitcher, VIMVideoPlayerViewDelegate {
     func videoPlayerView(videoPlayerView: VIMVideoPlayerView!, didChangeRate rate: Double) {
         logInfo("video player view did change rate: \(rate)")
         
-        guard lastLoadedDuration != playerView.playbackDurationSeconds else {
-            return
-        }
+        //we don't won't to update state when we reached end of video
+        guard playbackTime != playerItemDuration else { return }
         
         if rate == 0.0 {
             switch state {
@@ -191,12 +199,5 @@ extension VideoStepView: ViewSwitcherDelegate, ViewSwitcherDataSource {
     
     func viewSwitcherWantsErrorView(view: ViewSwitcher) -> UIView? {
         return ErrorView(errorText: tr(.CommonError), errorImage: nil)
-    }
-}
-
-extension AVAsset {
-    var isCached: Bool {
-        guard let urlAsset = self as? AVURLAsset else { return false }
-        return urlAsset.URL.scheme == "file"
     }
 }

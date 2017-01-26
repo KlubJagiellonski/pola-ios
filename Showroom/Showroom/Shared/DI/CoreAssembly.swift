@@ -6,13 +6,8 @@ class CoreAssembly: AssemblyType {
         container.register(UIApplication.self) { r in
             return UIApplication.sharedApplication()
         }
-        
         container.register(DiResolver.self) { r in
             return DiResolver(resolvable: r)
         }.inObjectScope(.Container)
-        
-        container.register(UIApplication.self) { r in
-            return UIApplication.sharedApplication()
-        }
     }
 }

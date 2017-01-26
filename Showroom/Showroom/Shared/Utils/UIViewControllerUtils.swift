@@ -51,18 +51,8 @@ extension UIViewController {
         } else if modalViewController is UIActivityViewController {
             dismissViewControllerAnimated(false, completion: nil)
         } else {
-            fatalError("UIViewController with type \(modalViewController) is required to conform to ExtendedModalViewControllerProtocol")
+            logError("UIViewController with type \(modalViewController) is required to conform to ExtendedModalViewController")
         }
-    }
-}
-
-extension UIResponder {
-    func markHandoffUrlActivity(withPathComponent pathComponent: String, resolver: DiResolver) {
-        let platformManager = resolver.resolve(PlatformManager.self)
-        guard let webpageUrl = platformManager.webpageUrl else { return }
-        let userActivity = NSUserActivity(activityType: NSBundle.mainBundle().bundleIdentifier!.stringByAppendingString(".browsing"))
-        userActivity.webpageURL = webpageUrl.URLByAppendingPathComponent(pathComponent)
-        self.userActivity = userActivity
     }
 }
 

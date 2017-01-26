@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 
 protocol UpdateAppViewControllerDelegate: class {
-    func updateAppWantsDismiss(viewController: UpdateAppViewController)
+    func updateAppWantsDismiss(viewController: UpdateAppViewController, animated: Bool)
 }
 
 final class UpdateAppViewController: UIViewController, AlertViewDelegate {
@@ -40,23 +40,29 @@ final class UpdateAppViewController: UIViewController, AlertViewDelegate {
         logAnalyticsEvent(AnalyticsEventId.ModalUpdate("update"))
         
         manager.didSelectUpdate()
-        if let appStoreUrl = NSURL(string: Constants.appStoreUrl) {
-            application?.openURL(appStoreUrl)
+        if let appStoreURL = manager.appStoreURL {
+            application?.openURL(appStoreURL)
         }
-        delegate?.updateAppWantsDismiss(self)
+        delegate?.updateAppWantsDismiss(self, animated: true)
     }
     
     func alertViewDidTapDecline(view: AlertView) {
         logAnalyticsEvent(AnalyticsEventId.ModalUpdate("decline"))
         
         manager.didSelectDecline()
-        delegate?.updateAppWantsDismiss(self)
+        delegate?.updateAppWantsDismiss(self, animated: true)
     }
     
     func alertViewDidTapRemind(view: AlertView) {
         logAnalyticsEvent(AnalyticsEventId.ModalUpdate("later"))
         
         manager.didSelectRemindLater()
-        delegate?.updateAppWantsDismiss(self)
+        delegate?.updateAppWantsDismiss(self, animated: true)
+    }
+}
+
+extension UpdateAppViewController: ExtendedModalViewController {
+    func forceCloseWithoutAnimation() {
+        delegate?.updateAppWantsDismiss(self, animated: false)
     }
 }

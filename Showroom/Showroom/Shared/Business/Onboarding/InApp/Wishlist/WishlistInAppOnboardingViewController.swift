@@ -1,10 +1,10 @@
 import UIKit
 
 protocol WishlistInAppOnboardingViewControllerDelegate: class {
-    func wishlistOnboardingViewControllerDidTapDismissButton(viewController: WishlistInAppOnboardingViewController)
+    func wishlistOnboardingViewControllerDidTapDismissButton(viewController: WishlistInAppOnboardingViewController, animated: Bool)
 }
 
-class WishlistInAppOnboardingViewController: UIViewController, WishlistInAppOnboardingViewDelegate {
+final class WishlistInAppOnboardingViewController: UIViewController, WishlistInAppOnboardingViewDelegate {
     
     private var castView: WishlistInAppOnboardingView { return view as! WishlistInAppOnboardingView }
     
@@ -20,7 +20,13 @@ class WishlistInAppOnboardingViewController: UIViewController, WishlistInAppOnbo
     
     func wishlistOnboardingViewDidTapDismissButton(view: WishlistInAppOnboardingView) {
         logInfo("Wishlist onboarding view did tap dismiss button")
-        delegate?.wishlistOnboardingViewControllerDidTapDismissButton(self)
+        delegate?.wishlistOnboardingViewControllerDidTapDismissButton(self, animated: true)
     }
     
+}
+
+extension WishlistInAppOnboardingViewController: ExtendedModalViewController {
+    func forceCloseWithoutAnimation() {
+        delegate?.wishlistOnboardingViewControllerDidTapDismissButton(self, animated: false)
+    }
 }

@@ -51,6 +51,9 @@ final class PromoSlideshowPrefetcher {
             info.disposable.dispose()
         }
         currentPrefetchersToPageMap.removeValueForKey(index)
+        if !pageAlreadyPrefetched.contains(index) {
+            pageAlreadyPrefetched.append(index)
+        }
     }
     
     private func createAndStartPrefetcher(forPageIndex page: Int, data: PromoSlideshowPageData, resultHandler: (PromoSlideshowPrefetchResult -> Void)?) {

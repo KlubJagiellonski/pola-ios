@@ -34,6 +34,10 @@ final class InitialOnboardingView: UIView, UICollectionViewDelegate, UICollectio
         collectionView.delegate = self
         collectionView.configureForPaging(withDirection: .Horizontal)
         
+        if #available(iOS 10.0, *) {
+            collectionView.prefetchingEnabled = false
+        }
+        
         addSubview(collectionView)
         
         configureCustomConstraits()

@@ -15,7 +15,7 @@ struct SearchItem {
 
 struct EntrySearchInfo {
     let query: String
-    let link: String?
+    let link: NSURL?
 }
 
 //MARK:- Decodable, Encodable

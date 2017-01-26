@@ -316,9 +316,9 @@ extension CheckoutDeliveryView: KeyboardHelperDelegate, KeyboardHandler {
 extension DeliveryCarrier {
     private var checkoutHeaderText: String {
         switch id {
-        case .RUCH:
+        case .RUCH, .RUCHKids:
             return tr(.CheckoutDeliveryRUCHHeader)
-        case .UPS, .UPSDe:
+        case .UPS, .UPSDe, .UPSKids, .UPSCom:
             return tr(.CheckoutDeliveryCourierHeader)
         case .Unknown:
             logError("Unknown carrier type \(id)")

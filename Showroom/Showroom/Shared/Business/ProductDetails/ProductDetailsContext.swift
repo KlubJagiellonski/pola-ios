@@ -34,6 +34,7 @@ protocol ProductDetailsContext: class {
     var productsCount: Int { get }
     var initialProductIndex: Int { get }
     var fromType: ProductDetailsFromType { get }
+    var link: NSURL? { get }
     
     func productInfo(forIndex index: Int) -> ProductInfo
     func productDetailsDidMoveToProduct(atIndex index: Int)
@@ -51,6 +52,7 @@ class MultiPageProductDetailsContext: ProductDetailsContext {
     let onChanged: Int -> ()
     let onRetrieveProductInfo: Int -> ProductInfo
     let fromType: ProductDetailsFromType
+    let link: NSURL? = nil
     
     init(productsCount: Int, initialProductIndex: Int, fromType: ProductDetailsFromType, onChanged: Int -> (), onRetrieveProductInfo: Int -> ProductInfo) {
         self.productsCount = productsCount
@@ -76,6 +78,7 @@ class OnePageProductDetailsContext: ProductDetailsContext {
     let onChanged: Int -> Void
     let onRetrieveProductInfo: Int -> ProductInfo
     let fromType: ProductDetailsFromType
+    let link: NSURL? = nil
     
     init(productsCount: Int, initialProductIndex: Int, fromType: ProductDetailsFromType, onChanged: Int -> (), onRetrieveProductInfo: Int -> ProductInfo) {
         self.productsCount = productsCount
@@ -100,10 +103,12 @@ class OneProductDetailsContext: ProductDetailsContext {
     let initialProductIndex = 0
     let productInfo: ProductInfo
     let fromType: ProductDetailsFromType
+    let link: NSURL?
     
-    init(productInfo: ProductInfo, fromType: ProductDetailsFromType) {
+    init(productInfo: ProductInfo, fromType: ProductDetailsFromType, link: NSURL?) {
         self.productInfo = productInfo
         self.fromType = fromType
+        self.link = link
     }
     
     func productDetailsDidMoveToProduct(atIndex index: Int) {}

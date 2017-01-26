@@ -52,6 +52,7 @@
 @property (nonatomic, assign, getter=isPlaying, readonly) BOOL playing;
 @property (nonatomic, assign, getter=isLooping) BOOL looping;
 @property (nonatomic, assign, getter=isMuted) BOOL muted;
+@property (nonatomic, strong, readonly) AVAsset *currentAsset;
 
 - (void)setURL:(NSURL *)URL;
 - (void)setPlayerItem:(AVPlayerItem *)playerItem;

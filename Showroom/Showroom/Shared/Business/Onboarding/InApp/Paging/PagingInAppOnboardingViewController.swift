@@ -1,10 +1,10 @@
 import UIKit
 
 protocol PagingInAppOnboardingViewControllerDelegate: class {
-    func pagingOnboardingViewControllerDidTapDismiss(viewController: PagingInAppOnboardingViewController)
+    func pagingOnboardingViewControllerDidTapDismiss(viewController: PagingInAppOnboardingViewController, animated: Bool)
 }
 
-class PagingInAppOnboardingViewController: UIViewController, PagingInAppOnboardingViewDelegate {
+final class PagingInAppOnboardingViewController: UIViewController, PagingInAppOnboardingViewDelegate {
     
     private var castView: PagingInAppOnboardingView { return view as! PagingInAppOnboardingView }
     
@@ -20,6 +20,12 @@ class PagingInAppOnboardingViewController: UIViewController, PagingInAppOnboardi
     }
     
     func pagingOnboardingDidTapDismiss(view: PagingInAppOnboardingView) {
-        delegate?.pagingOnboardingViewControllerDidTapDismiss(self)
+        delegate?.pagingOnboardingViewControllerDidTapDismiss(self, animated: true)
+    }
+}
+
+extension PagingInAppOnboardingViewController: ExtendedModalViewController {
+    func forceCloseWithoutAnimation() {
+        delegate?.pagingOnboardingViewControllerDidTapDismiss(self, animated: false)
     }
 }

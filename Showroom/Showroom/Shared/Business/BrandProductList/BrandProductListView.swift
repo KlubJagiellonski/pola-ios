@@ -1,7 +1,8 @@
 import UIKit
 
 protocol BrandProductListViewDelegate: ProductListViewDelegate, ViewSwitcherDelegate {
-    func brandProductListDidTapHeader(view: BrandProductListView)
+    func brandProductListDidTapBrandInfo(view: BrandProductListView)
+    func brandProductList(view: BrandProductListView, didTapVideoAtIndex index: Int)
 }
 
 class BrandProductListView: ViewSwitcher, ProductListViewInterface, ProductListComponentDelegate {
@@ -19,7 +20,6 @@ class BrandProductListView: ViewSwitcher, ProductListViewInterface, ProductListC
         return headerCell?.imageWidth ?? 0
     }
     private weak var headerCell: BrandHeaderCell?
-    private var currentHeaderDescription: NSAttributedString?
     
     init() {
         productListComponent = ProductListComponent(withCollectionView: collectionView)
@@ -30,10 +30,11 @@ class BrandProductListView: ViewSwitcher, ProductListViewInterface, ProductListC
         switcherDataSource = self
         
         let headerCell = BrandHeaderCell()
-        headerCell.addTarget(self, action: #selector(BrandProductListView.didTapHeaderCell), forControlEvents: .TouchUpInside)
-        
+        headerCell.productListView = self
         productListComponent.delegate = self
-        productListComponent.headerSectionInfo = HeaderSectionInfo(view: headerCell, wantsToReceiveScrollEvents: false) { 86 }
+        productListComponent.headerSectionInfo = HeaderSectionInfo(view: headerCell, wantsToReceiveScrollEvents: false) { [weak self] in
+            return self?.headerCell?.intrinsicContentSize().height ?? 0
+        }
         self.headerCell = headerCell
         
         collectionView.applyProductListConfiguration()
@@ -45,13 +46,20 @@ class BrandProductListView: ViewSwitcher, ProductListViewInterface, ProductListC
         fatalError("init(coder:) has not been implemented")
     }
     
-    func updateBrandInfo(imageUrl: String, description: NSAttributedString) {
-        currentHeaderDescription = description
-        headerCell?.updateData(withImageUrl: imageUrl, description: description)
+    func updateBrandInfo(with brand: BrandDetails, description: NSAttributedString) {
+        headerCell?.updateData(with: brand, description: description)
     }
     
-    func didTapHeaderCell() {
-        brandListDelegate?.brandProductListDidTapHeader(self)
+    func videoImageTag(forIndex index: Int) -> Int? {
+        return headerCell?.videoImageTag(forIndex: index)
+    }
+
+    func didTapBrandInfo() {
+        brandListDelegate?.brandProductListDidTapBrandInfo(self)
+    }
+
+    func didTapVideo(atIndex index: Int) {
+        brandListDelegate?.brandProductList(self, didTapVideoAtIndex: index)
     }
 }
 

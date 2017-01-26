@@ -44,7 +44,7 @@ final class SearchViewController: UIViewController, SearchViewDelegate {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        markHandoffUrlActivity(withPathComponent: "", resolver: resolver)
+        markHandoffUrlActivity(withType: .Home, resolver: resolver)
         // We need to update content inset on didAppear in case when app starts with video deep link, that hides status bar.
         // Than when returning back we don't get viewDidLayoutSubviews when status bar is again shown.
         updateContentInset()
@@ -59,7 +59,7 @@ final class SearchViewController: UIViewController, SearchViewDelegate {
         model.fetchSearchItems().subscribeNext { [weak self] (cacheResult: FetchCacheResult<SearchResult>) in
             guard let `self` = self else { return }
             switch cacheResult {
-            case .Success(let result):
+            case .Success(let result, _):
                 self.removeAllViewControllers()
                 self.castView.changeSwitcherState(.Success)
                 self.castView.updateData(with: result.rootItems)
@@ -91,7 +91,7 @@ final class SearchViewController: UIViewController, SearchViewDelegate {
     //MARK:- SearchViewDelegate
     
     func search(view: SearchView, didTapSearchWithQuery query: String) {
-        logAnalyticsEvent(AnalyticsEventId.Search(query, false))
+        logAnalyticsEvent(AnalyticsEventId.Search(query))
         sendNavigationEvent(ShowProductSearchEvent(query: query))
     }
     

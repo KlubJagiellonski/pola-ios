@@ -1,5 +1,9 @@
 import Foundation
 
+enum AppTarget {
+    case Default, Worldwide, Kids
+}
+
 struct Constants {
     #if DEBUG
         static let isDebug = true
@@ -19,40 +23,18 @@ struct Constants {
         static let isStagingEnv = false
     #endif
     
+    #if WORLDWIDE
+        static let appTarget = AppTarget.Worldwide
+    #elseif KIDS
+        static let appTarget = AppTarget.Kids
+    #else
+        static let appTarget = AppTarget.Default
+    #endif
+    
     static let appScheme = NSBundle.appScheme
-    
-    static let appStoreUrl = "itms-apps://itunes.apple.com/app/id1147114961"
-    
-    static let optimiseApiKey = "72933403-B469-41FD-B6E4-635B5B44584F"
-    static let optimiseMerchantId = 990079
-    static let optimiseTrackInstallProductId = 28575
-    static let optimiseTrackSaleProductId = 28577
-    static let optimiseTrackRegistrationProductId = 28576
-    
     static let braintreePayPalUrlScheme = "\(NSBundle.mainBundle().bundleIdentifier!).payments"
     
-    #if APPSTORE
-    static let googleAnalyticsTrackingId = "UA-28549987-7"
-    static let deGoogleAnalyticsTrackingId = "UA-28549987-13"
-    #else
-    static let googleAnalyticsTrackingId = "UA-28549987-11"
-    static let deGoogleAnalyticsTrackingId = "UA-28549987-11"
-    #endif
-    static let emarsysMerchantId = "13CE3A05D54F66DD"
-    static let emarsysRecommendationItemsLimit: Int32 = 20
-    static let emarsysPushPassword = "tkmQP+f3p3ArdsbRcTTfBGpmXawqjo+v"
-    static let pushWooshAppId = "63A3E-B6CDA"
-    static let deEmarsysMerchantId = "1B0C17B93E151CAA"
-    static let deEmarsysPushPassword = "NjG06NhkAPQvxmi7UFonQZnF6Aip1dv6"
-    static let dePushWooshAppId = "1B9C1-3FA16"
-    
-    static let conversionId = "1006448960"
-    static let conversionAppStartLabel = "sTFZCITB7WoQwOL03wM"
-    static let conversionTransactionLabel = "VJLuCLvF72oQwOL03wM"
-    static let deConversionId = "942368511"
-    static let deConversionAppStartLabel = "xIPTCOezg2sQ_82twQM"
-    static let deConversionTransactionLabel = "CRt_CJrxiGsQ_82twQM"
-    
+    static let recommendationItemsLimit: Int32 = 20
     static let basketProductAmountLimit: Int = 10
     static let productListPageSize: Int = 20
     static let productListPageSizeForLargeScreen: Int = 27
@@ -71,6 +53,11 @@ struct Constants {
         static let basketStateId = "basketStateId"
         static let currentUser = "currentUser"
         static let wishlistState = "wishlistState"
+    }
+    
+    struct UserDefaults {
+        static let videoPauseStateCount = "videoPauseStateCount"
+        static let searchableItemsAlreadyIndexed = "searchableItemsAlreadyIndexed"
     }
     
     struct ActivityType {

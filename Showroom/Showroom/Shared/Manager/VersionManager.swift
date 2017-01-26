@@ -13,6 +13,7 @@ final class VersionManager {
     
     private let api: ApiService
     private let storage: KeyValueStorage
+    private let configurationManager: ConfigurationManager
     
     private let installedVersion: String
     private var latestVersion: String
@@ -58,22 +59,30 @@ final class VersionManager {
         // - The new version is different that the saved one
         // - The new version is different that the installed one, user did not decline the alert and it is more than 7 days after the last update alert
         
+        guard installedVersion != latestVersion else {
+            return false
+        }
+        
         if latestVersion != savedVersion {
             savedVersion = latestVersion
             dontUpdateToTheSavedVersion = false
             return true
         }
         
-        return latestVersion != installedVersion
-            && !dontUpdateToTheSavedVersion
+        return !dontUpdateToTheSavedVersion
             && initialDate.numberOfDaysUntilDateTime(NSDate()) >= daysThresholdForShowingView
     }
     
-    init(api: ApiService, storage: KeyValueStorage) {
+    var appStoreURL: NSURL? {
+        return configurationManager.configuration?.appStoreURL
+    }
+    
+    init(api: ApiService, storage: KeyValueStorage, configurationManager: ConfigurationManager) {
         self.api = api
         self.storage = storage
         self.installedVersion = VersionManager.checkInstalledVersion()
         self.latestVersion = self.installedVersion
+        self.configurationManager = configurationManager
     }
     
     class func checkInstalledVersion() -> String {

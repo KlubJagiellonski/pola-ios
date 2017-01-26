@@ -1,25 +1,36 @@
 import Foundation
+import JLRoutes
 
 final class PromoSummaryViewController: UIViewController, PromoPageInterface, PromoSummaryViewDelegate {
     weak var pageDelegate: PromoPageDelegate?
-    var focused: Bool = false {
+    var shouldShowProgressViewInPauseState: Bool { return false }
+    
+    private var castView: PromoSummaryView { return view as! PromoSummaryView }
+    private let promoSlideshow: PromoSlideshow
+    
+    private let urlRouter = JLRoutes()
+    private let configurationManager: ConfigurationManager
+    
+    var pageState: PromoPageState {
         didSet {
-            logInfo("focused did set: \(focused)")
-            if focused {
+            guard pageState.focused != oldValue.focused else { return }
+            logInfo("set focused: \(pageState.focused)")
+            
+            if pageState.focused {
                 castView.startActions()
             } else {
                 castView.stopActions()
             }
         }
     }
-    var shouldShowProgressViewInPauseState: Bool { return false }
     
-    private var castView: PromoSummaryView { return view as! PromoSummaryView }
-    private let promoSlideshow: PromoSlideshow
-    
-    init(with resolver: DiResolver, promoSlideshow: PromoSlideshow) {
+    init(with resolver: DiResolver, promoSlideshow: PromoSlideshow, pageState: PromoPageState) {
         self.promoSlideshow = promoSlideshow
+        self.pageState = pageState
+        self.configurationManager = resolver.resolve(ConfigurationManager.self)
         super.init(nibName: nil, bundle: nil)
+        
+        configureRouter()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -32,8 +43,28 @@ final class PromoSummaryViewController: UIViewController, PromoPageInterface, Pr
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         castView.delegate = self
+    }
+    
+    func configureRouter() {
+        guard let configuration = configurationManager.configuration?.deepLinkConfiguration else {
+            logError("Cannot configure router, no configuration")
+            return
+        }
+        urlRouter.addRoute("/:host/\(configuration.videosPathComponent)/:videoComponent") { [unowned self](parameters: [NSObject: AnyObject]!) in
+            guard let videoComponent = parameters["videoComponent"] as? String else {
+                logError("There is no videoComponent in path: \(parameters)")
+                return false
+            }
+            guard let videoId = Int(videoComponent.valueForUrlComponent) else {
+                logError("Cannot retrieve videoId for path: \(parameters)")
+                return false
+            }
+            let url = parameters[kJLRouteURLKey] as? NSURL
+            let entry = PromoSlideshowEntry(id: videoId, link: url)
+            self.sendNavigationEvent(ShowPromoSlideshowEvent(entry: entry, transitionImageTag: nil))
+            return true
+        }
     }
     
     // MARK:- PromoSummaryViewDelegate
@@ -42,19 +73,24 @@ final class PromoSummaryViewController: UIViewController, PromoPageInterface, Pr
         logInfo("Did tap repeat")
         let videoId = promoSlideshow.playlist[0].id
         logAnalyticsEvent(AnalyticsEventId.VideoSummaryWatchAgain(videoId))
-        sendNavigationEvent(ShowVideoEvent(id: videoId))
+        let entry = PromoSlideshowEntry(id: videoId, link: nil)
+        sendNavigationEvent(ShowPromoSlideshowEvent(entry: entry, transitionImageTag: nil))
     }
     
     func promoSummary(promoSummary: PromoSummaryView, didTapLink link: PromoSlideshowLink) {
         logInfo("Did tap link \(link)")
         logAnalyticsEvent(AnalyticsEventId.VideoSummaryLinkClick(link.link))
-        sendNavigationEvent(ShowItemForLinkEvent(link: link.link, title: link.text, productDetailsFromType: .Video))
+        let linkHandled = urlRouter.routeURL(NSURL(string: link.link))
+        if !linkHandled {
+            sendNavigationEvent(ShowItemForLinkEvent(link: link.link, title: link.text, productDetailsFromType: .Video, transitionImageTag: nil))
+        }
     }
     
     func promoSummary(promoSummary: PromoSummaryView, didTapPlayForVideo video: PromoSlideshowPlaylistItem) {
         logInfo("Did tap play video \(video)")
         logAnalyticsEvent(AnalyticsEventId.VideoSummaryPlay(video.id))
-        sendNavigationEvent(ShowVideoEvent(id: video.id))
+        let entry = PromoSlideshowEntry(id: video.id, link: nil)
+        sendNavigationEvent(ShowPromoSlideshowEvent(entry: entry, transitionImageTag: nil))
     }
     
     func promoSummaryDidTapNext(promoSummary: PromoSummaryView, withCurrentVideo video: PromoSlideshowPlaylistItem) {
@@ -70,12 +106,13 @@ final class PromoSummaryViewController: UIViewController, PromoPageInterface, Pr
     func promoSummaryDidAutoPlay(promoSummary: PromoSummaryView, forVideo video: PromoSlideshowPlaylistItem) {
         logInfo("Did auto play with video \(video)")
         logAnalyticsEvent(AnalyticsEventId.VideoSummaryAutoPlay(video.id))
-        sendNavigationEvent(ShowVideoEvent(id: video.id))
+        let entry = PromoSlideshowEntry(id: video.id, link: nil)
+        sendNavigationEvent(ShowPromoSlideshowEvent(entry: entry, transitionImageTag: nil))
     }
 
     // MARK:- PromoPageInterface
     
-    func didTapPlay() {}
-    
     func didTapDismiss() {}
+    
+    func resetProgressState() {}
 }

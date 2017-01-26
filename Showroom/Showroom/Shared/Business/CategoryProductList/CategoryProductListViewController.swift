@@ -41,7 +41,7 @@ class CategoryProductListViewController: UIViewController, ProductListViewContro
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        logAnalyticsShowScreen(.ProductList)
+        logAnalyticsShowScreen(.ProductList, refferenceUrl: model.category.link)
     }
     
     override func viewDidLayoutSubviews() {
@@ -51,6 +51,7 @@ class CategoryProductListViewController: UIViewController, ProductListViewContro
     
     func updateData(with entryCategory: EntryCategory) {
         logInfo("Update data with entry category: \(entryCategory)")
+        logAnalyticsShowScreen(.ProductList, refferenceUrl: entryCategory.link)
         title = entryCategory.name
         disposeBag = DisposeBag()
         model.update(with: entryCategory)

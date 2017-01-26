@@ -39,6 +39,8 @@ final class ProductPagePreviewOverlayView: UIView {
     }
     
     func update(withEnabled enabled: Bool, animationDuration: Double?) {
+        guard enabled != self.enabled else { return }
+        
         userInteractionEnabled = true
         gestureRecognizers?.forEach { $0.enabled = false }
         hidden = false

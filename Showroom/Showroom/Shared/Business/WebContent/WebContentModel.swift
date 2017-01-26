@@ -2,20 +2,20 @@ import Foundation
 import RxSwift
 
 final class WebContentModel {
-    private(set) var webViewId: String
+    private(set) var entry: WebContentEntry
     private let apiService: ApiService
     
-    init(apiService: ApiService, webViewId: String) {
+    init(apiService: ApiService, entry: WebContentEntry) {
         self.apiService = apiService
-        self.webViewId = webViewId
+        self.entry = entry
     }
     
-    func update(withWebViewId webViewId: String) {
-        self.webViewId = webViewId
+    func update(with entry: WebContentEntry) {
+        self.entry = entry
     }
     
     func fetchWebContent() -> Observable<WebContent> {
-        return apiService.fetchWebContent(withWebViewId: webViewId)
+        return apiService.fetchWebContent(withWebViewId: entry.id)
             .observeOn(MainScheduler.instance)
     }
 }

@@ -5,7 +5,6 @@ import Decodable
 class DashboardModel {
     private let disposeBag = DisposeBag()
     private let apiService: ApiService
-    private let emarsysService: EmarsysService
     private let userManager: UserManager
     private let storage: KeyValueStorage
     private let prefetchingManager: PrefetchingManager
@@ -13,12 +12,11 @@ class DashboardModel {
     let triggerFetchContentPromoObservable: Observable<Void> = PublishSubject()
     let state = DashboardModelState()
     
-    init(apiService: ApiService, userManager: UserManager, storage: KeyValueStorage, prefetchingManager: PrefetchingManager, emarsysService: EmarsysService) {
+    init(apiService: ApiService, userManager: UserManager, storage: KeyValueStorage, prefetchingManager: PrefetchingManager) {
         self.apiService = apiService
         self.userManager = userManager
         self.storage = storage
         self.prefetchingManager = prefetchingManager
-        self.emarsysService = emarsysService
         
         let (contentPromoResult, recommendationsResult) = prefetchingManager.takeCachedDashboard(forGender: userManager.gender)
         if recommendationsResult != nil {
@@ -46,12 +44,12 @@ class DashboardModel {
         
         let cacheCompose = Observable.of(memoryCache, diskCache)
             .concat().take(1)
-            .map { FetchCacheResult.Success($0) }
+            .map { FetchCacheResult.Success($0, .Cache) }
             .catchError { Observable.just(FetchCacheResult.CacheError($0)) }
         
         let network = apiService.fetchContentPromo(withGender: userManager.gender)
             .save(forKey: Constants.Cache.contentPromoId, storage: storage, type: .Persistent)
-            .map { FetchCacheResult.Success($0) }
+            .map { FetchCacheResult.Success($0, .Network) }
             .catchError { Observable.just(FetchCacheResult.NetworkError($0)) }
         
         return Observable.of(cacheCompose, network)
@@ -74,12 +72,12 @@ class DashboardModel {
         
         let cacheCompose = Observable.of(memoryCache, diskCache)
             .concat().take(1)
-            .map { FetchCacheResult.Success($0) }
+            .map { FetchCacheResult.Success($0, .Cache) }
             .catchError { Observable.just(FetchCacheResult.CacheError($0)) }
         
-        let network = emarsysService.fetchProductRecommendations()
+        let network = apiService.fetchProductRecommendations()
             .save(forKey: Constants.Cache.productRecommendationsId, storage: storage, type: .Persistent)
-            .map { FetchCacheResult.Success($0) }
+            .map { FetchCacheResult.Success($0, .Network) }
             .catchError { Observable.just(FetchCacheResult.NetworkError($0)) }
         let observable = takeOnlyCachedRecommendations ? Observable.of(cacheCompose) : Observable.of(cacheCompose, network)
         takeOnlyCachedRecommendations = false

@@ -175,6 +175,10 @@ static void *VideoPlayer_PlayerItemLoadedTimeRangesContext = &VideoPlayer_Player
     [self preparePlayerItem:playerItem];
 }
 
+- (AVAsset *)currentAsset {
+    return self.item.asset;
+}
+
 #pragma mark - Accessor Overrides
 
 - (void)setMuted:(BOOL)muted

@@ -4,7 +4,9 @@ import UIKit
 protocol PromoSlideshowViewDelegate: ViewSwitcherDelegate {
     func promoSlideshowDidTapClose(promoSlideshow: PromoSlideshowView)
     func promoSlideshowWillBeginPageChanging(promoSlideshow: PromoSlideshowView)
-    func promoSlideshowDidEndPageChanging(promoSlideshow: PromoSlideshowView, fromUserAction: Bool)
+    func promoSlideshowDidEndPageChanging(promoSlideshow: PromoSlideshowView, fromUserAction: Bool, afterLeftBounce: Bool)
+    func promoSlideshowView(promoSlideshow: PromoSlideshowView, didChangePlayingState playing: Bool)
+    func promoSlideshowDidEndTransitionAnimation(promoSlideshow: PromoSlideshowView)
 }
 
 enum PromoSlideshowCloseButtonState {
@@ -21,6 +23,8 @@ final class PromoSlideshowView: UIView, UICollectionViewDelegate, ModalPanDismis
     private let contentView = UIView()
     private let collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: UICollectionViewFlowLayout())
     private let progressView = PromoSlideshowProgressView()
+    private var transitionLoaderView: UIView?
+    private var transitionView: UIView?
     
     private let dataSource: PromoSlideshowDataSource
     var pageHandler: PromoSlideshowPageHandler? {
@@ -30,6 +34,7 @@ final class PromoSlideshowView: UIView, UICollectionViewDelegate, ModalPanDismis
     var currentPageIndex: Int { return collectionView.currentPageIndex }
     private(set) var closeButtonState: PromoSlideshowCloseButtonState = .Close {
         didSet {
+            closeButton.imageView?.layer.removeAllAnimations()
             switch closeButtonState {
             case .Close:
                 closeButton.setImage(UIImage(asset: .Ic_close), forState: .Normal)
@@ -43,11 +48,16 @@ final class PromoSlideshowView: UIView, UICollectionViewDelegate, ModalPanDismis
     var progressEnded = false {
         didSet {
             progressView.alpha = shouldProgressBeVisible ? 1 : 0
-            collectionView.scrollEnabled = (!progressEnded && viewState == .Playing)
+            collectionView.scrollEnabled = !progressEnded && viewState != .PausedWithDetailContent && viewState != .PausedWithFullscreenContent
         }
     }
     var viewState: PromoPageViewState = .Playing {
         didSet {
+            logInfo("view state: \(viewState)")
+            if oldValue.isPlayingState != viewState.isPlayingState {
+                delegate?.promoSlideshowView(self, didChangePlayingState: viewState.isPlayingState)
+            }
+            
             if viewState == .Playing || viewState == .PausedWithDetailContent {
                 closeButtonState = viewState == .Playing ? .Close : .Dismiss
             } else if viewState.isPausedState {
@@ -56,11 +66,12 @@ final class PromoSlideshowView: UIView, UICollectionViewDelegate, ModalPanDismis
             
             closeButton.alpha = viewState == .PausedWithFullscreenContent ? 0 : 1
             progressView.alpha = shouldProgressBeVisible ? 1 : 0
-            collectionView.scrollEnabled = (!progressEnded && viewState == .Playing)
+            collectionView.scrollEnabled = !progressEnded && viewState != .PausedWithDetailContent && viewState != .PausedWithFullscreenContent
         }
     }
     var pageCount: Int { return dataSource.pageCount }
     var viewSwitcherAnimationDuration: Double { return viewSwitcher.animationDuration }
+    var viewSwitcherState: ViewSwitcherState { return viewSwitcher.switcherState }
     var shouldProgressBeVisible: Bool {
         if progressEnded {
             return false
@@ -70,9 +81,11 @@ final class PromoSlideshowView: UIView, UICollectionViewDelegate, ModalPanDismis
             return viewState == .Playing
         }
     }
+    var transitionViewVisible: Bool { return transitionView != nil }
     private var panGestureRecognizer: UIPanGestureRecognizer {
         return gestureRecognizers!.find { $0 is UIPanGestureRecognizer } as! UIPanGestureRecognizer
     }
+    var transitionAnimationInProgress = false
     weak var delegate: PromoSlideshowViewDelegate? {
         didSet {
             viewSwitcher.switcherDelegate = delegate
@@ -97,6 +110,10 @@ final class PromoSlideshowView: UIView, UICollectionViewDelegate, ModalPanDismis
         collectionView.dataSource = dataSource
         collectionView.delegate = self
         collectionView.configureForPaging(withDirection: .Horizontal)
+        
+        if #available(iOS 10.0, *) {
+            collectionView.prefetchingEnabled = false
+        }
         
         closeButton.setImage(UIImage(asset: .Ic_close), forState: .Normal)
         closeButton.applyCircleStyle()
@@ -160,13 +177,85 @@ final class PromoSlideshowView: UIView, UICollectionViewDelegate, ModalPanDismis
             // adjusting offset to next page
             self.collectionView.setContentOffset(CGPointMake(pageWidth * CGFloat(nextIndex), 0), animated: false)
             self.userInteractionEnabled = true
-            self.delegate?.promoSlideshowDidEndPageChanging(self, fromUserAction: false)
+            self.delegate?.promoSlideshowDidEndPageChanging(self, fromUserAction: false, afterLeftBounce: false)
         })
         return true
     }
     
     func pageIndex(forView view: UIView) -> Int? {
         return dataSource.pageIndex(forView: view)
+    }
+    
+    func showTransitionLoader() {
+        let loadingIndicator = LoadingIndicator(frame: CGRectZero)
+        
+        let transitionLoaderView = UIView()
+        transitionLoaderView.alpha = 0
+        transitionLoaderView.backgroundColor = UIColor(named: .Dim)
+        transitionLoaderView.addSubview(loadingIndicator)
+        insertSubview(transitionLoaderView, belowSubview: closeButton)
+        
+        loadingIndicator.snp_makeConstraints { make in make.center.equalToSuperview() }
+        transitionLoaderView.snp_makeConstraints { make in make.edges.equalToSuperview() }
+        
+        UIView.animateWithDuration(viewSwitcher.animationDuration) {
+            transitionLoaderView.alpha = 1
+        }
+        
+        loadingIndicator.startAnimation()
+        self.transitionLoaderView = transitionLoaderView
+    }
+    
+    func hideTransitionViewIfNeeded() {
+        guard let transitionView = transitionView else { return }
+        
+        transitionLoaderView?.layer.removeAllAnimations()
+        transitionLoaderView?.alpha = 1
+        
+        let scaleFactor: CGFloat = 2
+        let scaleTransform = CGAffineTransformMakeScale(scaleFactor, scaleFactor)
+        
+        UIView.animateWithDuration(viewSwitcher.animationDuration, delay: 0, options: [], animations: { [unowned self]in
+            transitionView.alpha = 0
+            transitionView.transform = scaleTransform
+            transitionView.center = CGPoint(x: transitionView.frame.midX, y: transitionView.frame.midY)
+            self.transitionLoaderView?.alpha = 0
+        }) { [weak self]_ in
+            guard let `self` = self else { return }
+            transitionView.removeFromSuperview()
+            self.transitionView = nil
+            self.transitionLoaderView?.removeFromSuperview()
+            self.transitionLoaderView = nil
+        }
+    }
+    
+    func runPlayFeedback() {
+        guard let imageView = self.closeButton.imageView else { return }
+        
+        let animationDuration: Double = 0.8
+        let scaleFactor: CGFloat = 1.5
+        let scaledTransform = CGAffineTransformMakeScale(scaleFactor, scaleFactor)
+        let defaultTransform = CGAffineTransformIdentity
+        
+        let animations = {
+            UIView.addKeyframeWithRelativeStartTime(0, relativeDuration: 0.25) {
+                imageView.transform = scaledTransform
+            }
+            UIView.addKeyframeWithRelativeStartTime(0.25, relativeDuration: 0.25) {
+                imageView.transform = defaultTransform
+            }
+            UIView.addKeyframeWithRelativeStartTime(0.5, relativeDuration: 0.25) {
+                imageView.transform = scaledTransform
+            }
+            UIView.addKeyframeWithRelativeStartTime(0.75, relativeDuration: 0.25) {
+                imageView.transform = defaultTransform
+            }
+        }
+        
+        UIView.animateKeyframesWithDuration(animationDuration, delay: 1, options: [], animations: animations ) { success in
+            guard success else { return }
+            UIView.animateKeyframesWithDuration(animationDuration, delay: 2, options: [], animations: animations, completion: nil)
+        }
     }
     
     private func configureCustomConstraints() {
@@ -217,16 +306,21 @@ final class PromoSlideshowView: UIView, UICollectionViewDelegate, ModalPanDismis
         self.delegate?.promoSlideshowWillBeginPageChanging(self)
     }
     
+    private var scrollViewWillLeftBounce: Bool = false
+    
     func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if !decelerate {
-            self.delegate?.promoSlideshowDidEndPageChanging(self, fromUserAction: true)
+        if decelerate {
+            scrollViewWillLeftBounce = scrollView.contentOffset.x < 0
+        } else {
+            self.delegate?.promoSlideshowDidEndPageChanging(self, fromUserAction: true, afterLeftBounce: false)
             userInteractionEnabled = true
         }
     }
     
     func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
         logInfo("scroll view did end decelerating")
-        self.delegate?.promoSlideshowDidEndPageChanging(self, fromUserAction: true)
+        self.delegate?.promoSlideshowDidEndPageChanging(self, fromUserAction: true, afterLeftBounce: scrollViewWillLeftBounce)
+        scrollViewWillLeftBounce = false
         userInteractionEnabled = true
     }
 }
@@ -254,6 +348,26 @@ extension PromoSlideshowView: UIGestureRecognizerDelegate {
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailByGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return gestureRecognizer == panGestureRecognizer && otherGestureRecognizer == collectionView.panGestureRecognizer
+    }
+}
+
+extension PromoSlideshowView: SlideshowImageAnimationTargetViewInterface {
+    var viewsAboveImageVisibility: Bool {
+        set {
+            closeButton.alpha = newValue ? 1 : 0
+        }
+        get {
+            return closeButton.alpha == 1
+        }
+    }
+    
+    func addTransitionView(view: UIView) {
+        transitionView = view
+        
+        insertSubview(view, belowSubview: closeButton)
+        view.snp_makeConstraints { make in make.edges.equalToSuperview() }
+        
+        delegate?.promoSlideshowDidEndTransitionAnimation(self)
     }
 }
 

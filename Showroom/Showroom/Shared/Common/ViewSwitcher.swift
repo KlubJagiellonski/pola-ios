@@ -296,10 +296,11 @@ final class ErrorView: UIView, ErrorViewInterface {
 
 final class LoadingView: UIView {
     private let indicatorView = LoadingIndicator()
-    private var contentEdgeConstraint: Constraint?
-    var contentOffset: UIEdgeInsets = UIEdgeInsetsZero {
+    private var indicatorCenterYConstraint: Constraint?
+    var indicatorCenterYOffset: CGFloat = 0 {
         didSet {
-            contentEdgeConstraint?.updateOffset(contentOffset)
+            indicatorCenterYConstraint?.updateOffset(indicatorCenterYOffset)
+            layoutIfNeeded()
         }
     }
     
@@ -319,12 +320,18 @@ final class LoadingView: UIView {
         addSubview(indicatorView)
         
         indicatorView.snp_makeConstraints { make in
-            contentEdgeConstraint = make.center.equalToSuperview().constraint
+            make.centerX.equalToSuperview()
+            indicatorCenterYConstraint = make.centerY.equalToSuperview().constraint
         }
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func startAnimation() {
+        guard window != nil else { return }
+        indicatorView.startAnimation()
     }
     
     override func didMoveToWindow() {

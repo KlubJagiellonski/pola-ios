@@ -66,7 +66,7 @@ class BasketViewController: UIViewController, BasketViewDelegate {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         castView.registerOnKeyboardEvent()
-        markHandoffUrlActivity(withPathComponent: "c/cart/view", resolver: resolver)
+        markHandoffUrlActivity(withType: .Cart, resolver: resolver)
         castView.deselectRowsIfNeeded()
     }
     
@@ -129,8 +129,9 @@ class BasketViewController: UIViewController, BasketViewDelegate {
         }
     }
     
-    func didReceiveNewDiscountCode(discountCode: String) {
+    func didReceiveNewDiscountCode(discountCode: String, link: NSURL?) {
         logInfo("Received new discount code \(discountCode)")
+        logAnalyticsShowScreen(.Basket, refferenceUrl: link)
         castView.discountCode = discountCode
         didChangeDiscountCode(discountCode)
         if isEmptyBasket(manager.state.basket) { //when empty view
@@ -229,11 +230,7 @@ class BasketViewController: UIViewController, BasketViewDelegate {
     
     func basketView(view: BasketView, widthForDeleteActionViewForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         logInfo("Width for delete actionview for row at index path: \(indexPath)")
-        let platform = self.manager.platformManager.platform!
-        switch platform {
-        case .Polish: return 72.5
-        case .German: return 109
-        }
+        return manager.deleteActionWidth ?? 0
     }
     
     func viewSwitcherDidTapRetry(view: ViewSwitcher) {
@@ -258,6 +255,11 @@ extension BasketViewController: ProductAmountViewControllerDelegate {
         }
         logAnalyticsEvent(AnalyticsEventId.CartQuantityChanged(product.id))
     }
+    
+    func productAmountWantsDismiss(viewController: ProductAmountViewController, animated: Bool) {
+        logInfo("Dismissed product amount view controller")
+        actionAnimator.dismissViewController(presentingViewController: self, animated: animated)
+    }
 }
 
 extension BasketViewController: DimAnimatorDelegate {
@@ -268,16 +270,16 @@ extension BasketViewController: DimAnimatorDelegate {
 }
 
 extension BasketViewController: BasketDeliveryNavigationControllerDelegate {
-    func basketDeliveryWantsDismiss(viewController: BasketDeliveryNavigationController) {
+    func basketDeliveryWantsDismiss(viewController: BasketDeliveryNavigationController, animated: Bool) {
         logInfo("Delivery wants dismiss")
-        deliveryAnimator.dismissViewController(presentingViewController: self, completion: nil)
+        deliveryAnimator.dismissViewController(presentingViewController: self, animated: animated)
     }
 }
 
 extension BasketViewController: SigningNavigationControllerDelegate {
-    func signingWantsDismiss(navigationController: SigningNavigationController) {
+    func signingWantsDismiss(navigationController: SigningNavigationController, animated: Bool) {
         logInfo("Signing wants dismiss")
-        dismissViewControllerAnimated(true, completion: nil)
+        dismissViewControllerAnimated(animated, completion: nil)
     }
     
     func signingDidLogIn(navigationController: SigningNavigationController) {
@@ -294,9 +296,9 @@ extension BasketViewController: CheckoutNavigationControllerDelegate {
         dismissViewControllerAnimated(true, completion: nil)
         sendNavigationEvent(SimpleNavigationEvent(type: .ShowDashboard))
     }
-    func checkoutWantsDismiss(checkout: CheckoutNavigationController) {
+    func checkoutWantsDismiss(checkout: CheckoutNavigationController, animated: Bool) {
         logInfo("Cehckout wants to dismiss")
-        dismissViewControllerAnimated(true, completion: nil)
+        dismissViewControllerAnimated(animated, completion: nil)
     }
 }
 

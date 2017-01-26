@@ -85,6 +85,7 @@ class ProductFilterDataSource: NSObject, UITableViewDataSource {
             return 80
         case .Tree:
             return ProductFilterMultipleCell.height(forWidth: tableView!.bounds.width, andValue: filter.selectedBranchLabels)
+        case .Hidden: return 0
         case .Unknown:
             logError("Received unknown type for filter \(filter)")
             return 0
@@ -133,6 +134,8 @@ class ProductFilterDataSource: NSObject, UITableViewDataSource {
             cell.title = filter.label
             cell.value = filter.selectedBranchLabels
             return cell
+        case .Hidden:
+            return UITableViewCell(style: .Default, reuseIdentifier: "HiddenCell")
         case .Unknown:
             logError("Received unknown type for filter \(filter)")
             return UITableViewCell(style: .Default, reuseIdentifier: "UnknownCell")

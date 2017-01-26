@@ -12,9 +12,9 @@ final class BrandProductListModel: ProductListModel {
     
     var attributedDescription: NSAttributedString?
     
-    init(with apiService: ApiService, wishlistManager: WishlistManager, emarsysService: EmarsysService, productBrand: EntryProductBrand) {
+    init(with apiService: ApiService, wishlistManager: WishlistManager, productBrand: EntryProductBrand) {
         self.productBrand = productBrand
-        super.init(with: apiService, emarsysService: emarsysService, wishlistManager: wishlistManager, link: productBrand.link, query: nil)
+        super.init(with: apiService, wishlistManager: wishlistManager, link: productBrand.link?.absoluteOrRelativeString, query: nil)
     }
 
     override func createObservable(with paginationInfo: PaginationInfo, forFilters filters: [FilterId: [FilterObjectId]]?) -> Observable<ProductListResult> {
@@ -24,7 +24,7 @@ final class BrandProductListModel: ProductListModel {
                 guard let `self` = self, let brand = result.brand else { return }
                 self.attributedDescription = brand.description.markdownToAttributedString()
                 self.brand = brand
-                self.emarsysService.sendBrandViewEvent(withName: brand.name)
+                logAnalyticsEvent(AnalyticsEventId.ListBrand(brand.name))
         }
     }
     
@@ -33,6 +33,6 @@ final class BrandProductListModel: ProductListModel {
         self.productBrand = productBrand
         self.brand = nil
         self.attributedDescription = nil
-        resetOnUpdate(withLink: productBrand.link, query: nil)
+        resetOnUpdate(withLink: productBrand.link?.absoluteOrRelativeString, query: nil)
     }
 }

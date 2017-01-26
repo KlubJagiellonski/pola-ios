@@ -9,6 +9,7 @@ struct ContentPromo {
     let image: ContentPromoImage
     let caption: ContentPromoCaption?
     let link: String
+    let showPlayOverlay: Bool
 }
 
 enum ContentPromoTextType: String {
@@ -48,17 +49,20 @@ extension ContentPromoResult: Decodable, Encodable {
 
 extension ContentPromo: Decodable, Encodable {
     static func decode(j: AnyObject) throws -> ContentPromo {
+        let showPlayOverlay: Bool = (try j =>? "show_play_overlay") ?? NSUserDefaults.standardUserDefaults().boolForKey("play_content_promo_mock")
         return try ContentPromo(
             image: j => "image",
             caption: j =>? "caption",
-            link: j => "link"
+            link: j => "link",
+            showPlayOverlay: showPlayOverlay
         )
     }
     
     func encode() -> AnyObject {
         let dict: NSMutableDictionary = [
             "image": image.encode(),
-            "link": link
+            "link": link,
+            "show_play_overlay": showPlayOverlay
         ]
         if caption != nil { dict.setObject(caption!.encode(), forKey: "caption") }
         return dict
@@ -121,7 +125,7 @@ func ==(lhs: ContentPromoResult, rhs: ContentPromoResult) -> Bool
 
 func ==(lhs: ContentPromo, rhs: ContentPromo) -> Bool
 {
-    return lhs.image == rhs.image && lhs.caption == rhs.caption && lhs.link == rhs.link
+    return lhs.image == rhs.image && lhs.caption == rhs.caption && lhs.link == rhs.link && lhs.showPlayOverlay == rhs.showPlayOverlay
 }
 
 func ==(lhs: ContentPromoImage, rhs: ContentPromoImage) -> Bool

@@ -3,14 +3,18 @@ import UIKit
 
 typealias ObjectId = Int
 
+enum DataSourceType {
+    case Cache, Network
+}
+
 enum FetchCacheResult<T: Equatable> {
-    case Success(T)
+    case Success(T, DataSourceType)
     case CacheError(ErrorType)
     case NetworkError(ErrorType)
     
     func result() -> T? {
         switch self {
-        case .Success(let result): return result
+        case .Success(let result, _): return result
         default: return nil
         }
     }
@@ -19,8 +23,8 @@ enum FetchCacheResult<T: Equatable> {
 extension FetchCacheResult: Equatable {}
 
 func ==<T: Equatable>(lhs: FetchCacheResult<T>, rhs: FetchCacheResult<T>) -> Bool {
-    if case let FetchCacheResult.Success(lhsResult) = lhs {
-        if case let FetchCacheResult.Success(rhsResult) = rhs {
+    if case let FetchCacheResult.Success(lhsResult, _) = lhs {
+        if case let FetchCacheResult.Success(rhsResult, _) = rhs {
             return lhsResult == rhsResult
         }
     }
@@ -123,6 +127,13 @@ func perform(withDelay delay: Double, action: Void -> Void) {
     let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
     dispatch_after(time, dispatch_get_main_queue()) {
         action()
+    }
+}
+
+extension AVAsset {
+    var isCached: Bool {
+        guard let urlAsset = self as? AVURLAsset else { return false }
+        return urlAsset.URL.scheme == "file"
     }
 }
 

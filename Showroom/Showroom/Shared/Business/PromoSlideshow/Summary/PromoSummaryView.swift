@@ -11,32 +11,28 @@ protocol PromoSummaryViewDelegate: class {
 
 final class PromoSummaryView: UIView {
     private let playerView: PromoSummaryPlayerView
-    private let repeatButton = UIButton()
-    private let separatorView = UIView()
-    private let linksView: PromoSummaryLinksView
+    private let linksView: PromoSummaryLinksView?
     
     weak var delegate: PromoSummaryViewDelegate?
     
     init(promoSlideshow: PromoSlideshow) {
-        playerView = PromoSummaryPlayerView(playlistItems: promoSlideshow.playlist)
-        linksView = PromoSummaryLinksView(links: promoSlideshow.links)
+        if promoSlideshow.links.isEmpty {
+            playerView = PromoSummaryPlayerView(playlistItems: promoSlideshow.playlist, withRepeatButton: true)
+            linksView = nil
+        } else {
+            playerView = PromoSummaryPlayerView(playlistItems: promoSlideshow.playlist, withRepeatButton: false)
+            linksView = PromoSummaryLinksView(links: promoSlideshow.links)
+        }
+        
         super.init(frame: CGRectZero)
         
-        separatorView.backgroundColor = UIColor(named: .Separator)
-        
-        let repeatTitle = tr(.PromoVideoSummaryRepeat)
-        repeatButton.addTarget(self, action: #selector(PromoSummaryView.didTapRepeatButton), forControlEvents: .TouchUpInside)
-        repeatButton.setImage(UIImage(asset: .Repeat), forState: .Normal)
-        repeatButton.setTitle(repeatTitle, forState: .Normal)
-        repeatButton.applyBlackPlainBoldStyle()
-        
         playerView.promoSummaryView = self
-        linksView.promoSummaryView = self
-        
         addSubview(playerView)
-        addSubview(repeatButton)
-        addSubview(separatorView)
-        addSubview(linksView)
+        
+        if let linksView = linksView {
+            linksView.promoSummaryView = self
+            addSubview(linksView)
+        }
         
         configureCustomConstraints()
     }
@@ -73,7 +69,7 @@ final class PromoSummaryView: UIView {
         delegate?.promoSummaryDidAutoPlay(self, forVideo: video)
     }
     
-    @objc private func didTapRepeatButton() {
+    func didTapRepeatButton() {
         delegate?.promoSummaryDidTapRepeat(self)
     }
     
@@ -82,25 +78,15 @@ final class PromoSummaryView: UIView {
             make.top.equalToSuperview()
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
-            make.height.equalTo(playerView.snp_width).dividedBy(UIDevice.currentDevice().screenType == .iPhone4 ? 0.9 : 0.84)
+            if linksView == nil {
+                make.bottom.equalToSuperview()
+            } else {
+                make.height.equalTo(playerView.snp_width).dividedBy(UIDevice.currentDevice().screenType == .iPhone4 ? 0.9 : Dimensions.videoImageRatio)
+            }
         }
         
-        repeatButton.snp_makeConstraints { make in
+        linksView?.snp_makeConstraints { make in
             make.top.equalTo(playerView.snp_bottom)
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
-            make.height.equalTo(UIDevice.currentDevice().screenType == .iPhone4 ? 40 : 46)
-        }
-        
-        separatorView.snp_makeConstraints { make in
-            make.top.equalTo(repeatButton.snp_bottom)
-            make.leading.equalToSuperview().offset(Dimensions.defaultMargin)
-            make.trailing.equalToSuperview().offset(-Dimensions.defaultMargin)
-            make.height.equalTo(Dimensions.boldSeparatorThickness)
-        }
-        
-        linksView.snp_makeConstraints { make in
-            make.top.equalTo(separatorView.snp_bottom)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
             make.bottom.equalToSuperview()

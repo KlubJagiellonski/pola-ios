@@ -19,6 +19,7 @@ protocol ProductDescriptionViewDelegate: class {
     func descriptionViewDidTapSizeChart(view: ProductDescriptionView)
     func descriptionViewDidTapOtherBrandProducts(view: ProductDescriptionView)
     func descriptionViewDidTapAddToBasket(view: ProductDescriptionView)
+    func descriptionViewDidTapBrandName(view: ProductDescriptionView)
 }
 
 final class ProductDescriptionView: UIView, UITableViewDelegate, ProductDescriptionViewInterface {
@@ -34,6 +35,14 @@ final class ProductDescriptionView: UIView, UITableViewDelegate, ProductDescript
     var expandedProgress: CGFloat = 0 {
         didSet {
             headerView.infoImageView.alpha = previewMode ? 0 : (1 - expandedProgress)
+            headerView.brandDisclosureButton.alpha = expandedProgress
+            brandTappable = expandedProgress == 1
+        }
+    }
+    var brandTappable: Bool = false {
+        didSet {
+            headerView.brandNameLabel.userInteractionEnabled = brandTappable
+            headerView.brandDisclosureButton.userInteractionEnabled = brandTappable
         }
     }
     
@@ -81,6 +90,8 @@ final class ProductDescriptionView: UIView, UITableViewDelegate, ProductDescript
         headerView.sizeButton.addTarget(self, action: #selector(ProductDescriptionView.didTapSizeButton), forControlEvents: .TouchUpInside)
         headerView.colorButton.addTarget(self, action: #selector(ProductDescriptionView.didTapColorButton), forControlEvents: .TouchUpInside)
         headerView.buyButton.addTarget(self, action: #selector(ProductDescriptionView.didTapAddToBasketButton), forControlEvents: .TouchUpInside)
+        headerView.brandNameLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(ProductDescriptionView.didTapBrandName)))
+        headerView.brandDisclosureButton.addTarget(self, action: #selector(ProductDescriptionView.didTapBrandName), forControlEvents: .TouchUpInside)
         
         separatorView.backgroundColor = UIColor(named: .Separator)
         
@@ -125,9 +136,9 @@ final class ProductDescriptionView: UIView, UITableViewDelegate, ProductDescript
     
     private func updateProductDetails(productDetails: ProductDetails?) {
         guard let p = productDetails else { return }
-        
-        headerView.brandNameLabel.text = productDetails?.brand.name
-        headerView.nameLabel.text = productDetails?.name
+
+        headerView.brandNameLabel.text = p.brand.name
+        headerView.nameLabel.text = p.name
         headerView.priceLabel.basePrice = p.basePrice
         if p.basePrice != p.price {
             headerView.priceLabel.discountPrice = p.price
@@ -162,16 +173,20 @@ final class ProductDescriptionView: UIView, UITableViewDelegate, ProductDescript
         headerView.invalidateIntrinsicContentSize()
     }
     
-    func didTapSizeButton(button: UIButton) {
+    @objc private func didTapSizeButton(button: UIButton) {
         delegate?.descriptionViewDidTapSize(self)
     }
     
-    func didTapColorButton(button: UIButton) {
+    @objc private func didTapColorButton(button: UIButton) {
         delegate?.descriptionViewDidTapColor(self)
     }
     
-    func didTapAddToBasketButton(button: UIButton) {
+    @objc private func didTapAddToBasketButton(button: UIButton) {
         delegate?.descriptionViewDidTapAddToBasket(self)
+    }
+    
+    @objc private func didTapBrandName() {
+        delegate?.descriptionViewDidTapBrandName(self)
     }
     
     private func configureCustomConstraints() {
@@ -232,6 +247,7 @@ final class DescriptionHeaderView: UIView {
     
     private let brandAndPriceContainerView = UIView()
     private let brandNameLabel = UILabel()
+    private let brandDisclosureButton = UIButton()
     private let priceLabel = PriceLabel()
     private let nameInfoContainerView = UIView()
     private let nameLabel = UILabel()
@@ -248,6 +264,9 @@ final class DescriptionHeaderView: UIView {
         brandNameLabel.font = UIFont(fontType: .Bold)
         brandNameLabel.numberOfLines = 2
         brandNameLabel.textColor = UIColor(named: .Black)
+        
+        brandDisclosureButton.setImage(UIImage(asset: .Ic_chevron_right), forState: .Normal)
+        brandDisclosureButton.alpha = 0
         
         priceLabel.normalPriceLabel.font = UIFont(fontType: .PriceNormal)
         priceLabel.strikedPriceLabel.font = UIFont(fontType: .FormNormal)
@@ -268,6 +287,7 @@ final class DescriptionHeaderView: UIView {
         buySuccessImageView.contentMode = .Center
         
         brandAndPriceContainerView.addSubview(brandNameLabel)
+        brandAndPriceContainerView.addSubview(brandDisclosureButton)
         brandAndPriceContainerView.addSubview(priceLabel)
         
         nameInfoContainerView.addSubview(nameLabel)
@@ -362,10 +382,17 @@ final class DescriptionHeaderView: UIView {
             make.bottom.lessThanOrEqualToSuperview()
         }
         
+        brandDisclosureButton.setContentCompressionResistancePriority(UILayoutPriorityRequired, forAxis: .Horizontal)
+        brandDisclosureButton.snp_makeConstraints { make in
+            make.centerY.equalTo(brandNameLabel)
+            make.leading.equalTo(brandNameLabel.snp_trailing).offset(4)
+        }
+        
         priceLabel.setContentCompressionResistancePriority(UILayoutPriorityDefaultHigh, forAxis: .Horizontal)
+        priceLabel.setContentHuggingPriority(UILayoutPriorityDefaultLow, forAxis: .Horizontal)
         priceLabel.snp_makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.leading.equalTo(brandNameLabel.snp_trailing).offset(horizontalItemPadding)
+            make.leading.greaterThanOrEqualTo(brandDisclosureButton.snp_trailing).offset(horizontalItemPadding)
             make.trailing.equalToSuperview()
         }
         

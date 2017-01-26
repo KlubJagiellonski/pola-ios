@@ -41,7 +41,7 @@ class BrandProductListViewController: UIViewController, ProductListViewControlle
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        logAnalyticsShowScreen(.Brand)
+        logAnalyticsShowScreen(.Brand, refferenceUrl: model.productBrand.link)
     }
     
     override func viewDidLayoutSubviews() {
@@ -54,6 +54,7 @@ class BrandProductListViewController: UIViewController, ProductListViewControlle
             logInfo("Tried to update same brand info view")
             return
         }
+        logAnalyticsShowScreen(.Brand, refferenceUrl: entryProductBrand.link)
         title = entryProductBrand.name
         disposeBag = DisposeBag()
         model.update(with: entryProductBrand)
@@ -81,7 +82,7 @@ class BrandProductListViewController: UIViewController, ProductListViewControlle
         logInfo("Fetched page with index: \(pageIndex)")
         if let brand = productListResult.brand, let description = model.attributedDescription where pageIndex == 0 {
             title = brand.name
-            castView.updateBrandInfo(brand.imageUrl, description: description)
+            castView.updateBrandInfo(with: brand, description: description)
         } else if pageIndex == 0 {
             logError("Didn't received brand info in result: \(productListResult)")
         }
@@ -89,13 +90,24 @@ class BrandProductListViewController: UIViewController, ProductListViewControlle
     
     // MARK:- BrandProductListViewDelegate
     
-    func brandProductListDidTapHeader(view: BrandProductListView) {
+    func brandProductListDidTapBrandInfo(view: BrandProductListView) {
         logInfo("Brand product list did tap header")
         guard let brand = model.brand else { return }
-        logAnalyticsEvent(AnalyticsEventId.ListBrandDetails(brand.id))
+        logAnalyticsEvent(AnalyticsEventId.ListBrandDetails(brand.id, brand.name))
         let imageWidth = castView.headerImageWidth
         let lowResImageUrl = NSURL.createImageUrl(brand.imageUrl, width: imageWidth, height: nil)
         sendNavigationEvent(ShowBrandDescriptionEvent(brand: brand.appendLowResImageUrl(lowResImageUrl.absoluteString)))
+    }
+    
+    func brandProductList(view: BrandProductListView, didTapVideoAtIndex index: Int) {
+        guard let video = model.brand?.videos[safe: index] else {
+            logError("Cannot get video for index \(index) with brand details \(model.brand)")
+            return
+        }
+        
+        let imageTag = castView.videoImageTag(forIndex: index)
+        let entry = PromoSlideshowEntry(id: video.id, link: nil)
+        sendNavigationEvent(ShowPromoSlideshowEvent(entry: entry, transitionImageTag: imageTag))
     }
     
     // MARK:- ProductListViewDelegate

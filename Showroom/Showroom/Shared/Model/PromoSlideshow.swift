@@ -1,6 +1,11 @@
 import Foundation
 import Decodable
 
+struct PromoSlideshowEntry {
+    let id: ObjectId
+    let link: NSURL?
+}
+
 struct PromoSlideshow {
     let id: ObjectId
     let video: PromoSlideshowVideo
@@ -104,6 +109,11 @@ extension PromoSlideshow: Decodable, Encodable {
 
 extension PromoSlideshowVideo: Decodable, Encodable {
     static func decode(json: AnyObject) throws -> PromoSlideshowVideo {
+        
+        if let mockedSteps = PromoSlideshowVideo.getMockedSteps() {
+            return PromoSlideshowVideo(steps: mockedSteps)
+        }
+        
         return try PromoSlideshowVideo(
             steps: json => "steps"
         )
@@ -113,6 +123,40 @@ extension PromoSlideshowVideo: Decodable, Encodable {
         return [
             "steps": steps.map { $0.encode() } as NSArray
         ] as NSDictionary
+    }
+    
+    static func getMockedSteps() -> [PromoSlideshowVideoStep]? {
+        // returns 0 if the key does not exist
+        let type = NSUserDefaults.standardUserDefaults().integerForKey("slideshow_with_images_mock")
+        switch type {
+        case 1:
+            return [
+                PromoSlideshowVideoStep(type: .Video, link: "https://storage.shwrm.net/prod/video/risk/p6_vesper.mp4", duration: 44000, annotations: [], product: nil),
+                PromoSlideshowVideoStep(type: .Image, link: "https://assets.shwrm.net/images/a/r/ar576a7f9cca87d_500x643.jpg?1466597295", duration: 1800, annotations: [], product: nil),
+                PromoSlideshowVideoStep(type: .Product, link: nil, duration: 1800, annotations: [], product: PromoSlideshowProduct(id: 76377, brand: Brand(id: 135, name: "RISK made in warsaw"), name: "Sukienka maxi Vesper red", basePrice: Money(amt: 529.0, currency: Currency.Zl), price: Money(amt: 529.0, currency: Currency.Zl), imageUrl: "https://assets.shwrm.net/images/e/7/e757d2c420192e8_500x643.jpg?1473430560")),
+                PromoSlideshowVideoStep(type: .Image, link: "https://assets.shwrm.net/images/a/r/ar576a7f9cca87d_500x643.jpg?1466597295", duration: 2500, annotations: [], product: nil),
+                PromoSlideshowVideoStep(type: .Video, link: "https://storage.shwrm.net/prod/video/risk/p6_vesper.mp4", duration: 44000, annotations: [], product: nil),
+                PromoSlideshowVideoStep(type: .Product, link: nil, duration: 1800, annotations: [], product: PromoSlideshowProduct(id: 76377, brand: Brand(id: 135, name: "RISK made in warsaw"), name: "Sukienka maxi Vesper red", basePrice: Money(amt: 529.0, currency: Currency.Zl), price: Money(amt: 529.0, currency: Currency.Zl), imageUrl: "https://assets.shwrm.net/images/e/7/e757d2c420192e8_500x643.jpg?1473430560")),
+                PromoSlideshowVideoStep(type: .Image, link: "https://assets.shwrm.net/images/a/r/ar576a7f9cca87d_500x643.jpg?1466597295", duration: 1800, annotations: [], product: nil),
+                PromoSlideshowVideoStep(type: .Image, link: "https://assets.shwrm.net/images/a/r/ar576a7f9cca87d_500x643.jpg?1466597295", duration: 2000, annotations: [], product: nil),
+                PromoSlideshowVideoStep(type: .Product, link: nil, duration: 1800, annotations: [], product: PromoSlideshowProduct(id: 69374, brand: Brand(id: 135, name: "RISK made in warsaw"), name: "sukienka Vesper white", basePrice: Money(amt: 529.0, currency: Currency.Zl), price: Money(amt: 529.0, currency: Currency.Zl), imageUrl: "https://assets.shwrm.net/images/a/r/ar576a7f9cca87d_500x643.jpg?1466597295"))
+            ]
+        case 2:
+            return [
+                PromoSlideshowVideoStep(type: .Image, link: "https://assets.shwrm.net/images/a/r/ar576a7f9cca87d_500x643.jpg?1466597295", duration: 1800, annotations: [], product: nil),
+                PromoSlideshowVideoStep(type: .Video, link: "https://storage.shwrm.net/prod/video/risk/p6_vesper.mp4", duration: 44000, annotations: [], product: nil),
+                PromoSlideshowVideoStep(type: .Image, link: "https://assets.shwrm.net/images/a/r/ar576a7f9cca87d_500x643.jpg?1466597295", duration: 1800, annotations: [], product: nil),
+                PromoSlideshowVideoStep(type: .Product, link: "https://storage.shwrm.net/prod/video/risk/p6_vesper.mp4", duration: 1800, annotations: [], product: PromoSlideshowProduct(id: 76377, brand: Brand(id: 135, name: "RISK made in warsaw"), name: "Sukienka maxi Vesper red", basePrice: Money(amt: 529.0, currency: Currency.Zl), price: Money(amt: 529.0, currency: Currency.Zl), imageUrl: "https://assets.shwrm.net/images/e/7/e757d2c420192e8_500x643.jpg?1473430560")),
+                PromoSlideshowVideoStep(type: .Image, link: "https://assets.shwrm.net/images/a/r/ar576a7f9cca87d_500x643.jpg?1466597295", duration: 2500, annotations: [], product: nil),
+                PromoSlideshowVideoStep(type: .Video, link: "https://storage.shwrm.net/prod/video/risk/p6_vesper.mp4", duration: 44000, annotations: [], product: nil),
+                PromoSlideshowVideoStep(type: .Product, link: nil, duration: 1800, annotations: [], product: PromoSlideshowProduct(id: 76377, brand: Brand(id: 135, name: "RISK made in warsaw"), name: "Sukienka maxi Vesper red", basePrice: Money(amt: 529.0, currency: Currency.Zl), price: Money(amt: 529.0, currency: Currency.Zl), imageUrl: "https://assets.shwrm.net/images/e/7/e757d2c420192e8_500x643.jpg?1473430560")),
+                PromoSlideshowVideoStep(type: .Image, link: "https://assets.shwrm.net/images/a/r/ar576a7f9cca87d_500x643.jpg?1466597295", duration: 1800, annotations: [], product: nil),
+                PromoSlideshowVideoStep(type: .Image, link: "https://assets.shwrm.net/images/a/r/ar576a7f9cca87d_500x643.jpg?1466597295", duration: 2000, annotations: [], product: nil)
+            ]
+        default:
+            return nil
+        }
+
     }
 }
 

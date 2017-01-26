@@ -11,26 +11,40 @@ final class ProductStepViewController: ProductPageViewController, ProductPageVie
     private let playAfterAddToBasketDelay = 1.0
     
     weak var pageDelegate: PromoPageDelegate?
-    var focused: Bool = false {
-        didSet {
-            logInfo("focused did set: \(focused)")
-            if focused && (previewOverlay?.enabled ?? false) {
-                timer.play()
-            } else if !focused {
-                timer.pause()
-            }
-        }
-    }
-    var shouldShowProgressViewInPauseState: Bool { return false }
+    var shouldShowProgressViewInPauseState: Bool { return true }
     
     private weak var previewOverlay: ProductPagePreviewOverlayView?
     private let timer: Timer
     private let videoId: ObjectId
     
-    init(with resolver: DiResolver, dataEntry: ProductStepDataEntry) {
+    var pageState: PromoPageState {
+        didSet {
+            let (focused, playing) = (pageState.focused, pageState.playing)
+            logInfo("set focused: \(focused), playing: \(playing)")
+            
+            if focused != oldValue.focused || playing != oldValue.playing {
+                if focused && playing {
+                    timer.play()
+                } else if focused && !playing {
+                    timer.pause()
+                    pageDelegate?.promoPage(self, didChangeCurrentProgress: timer.progress)
+                } else {
+                    timer.pause()
+                }
+                
+                castView.update(withPreviewModeEnabled: playing, animationDuration: nil)
+                previewOverlay?.update(withEnabled: playing, animationDuration: nil)
+            }
+        }
+    }
+    
+    init(with resolver: DiResolver, dataEntry: ProductStepDataEntry, pageState: PromoPageState) {
         self.timer = Timer(duration: dataEntry.duration, stepInterval: Constants.promoSlideshowTimerStepInterval)
         self.videoId = dataEntry.videoId
+        self.pageState = pageState
         super.init(resolver: resolver, productId: dataEntry.product.id, product: Product(product: dataEntry.product))
+        
+        viewContentInset = UIEdgeInsets(top: 0, left: 0, bottom: Dimensions.tabViewHeight, right: 0)
         
         delegate = self
         timer.delegate = self
@@ -43,7 +57,7 @@ final class ProductStepViewController: ProductPageViewController, ProductPageVie
     override func viewDidLoad() {
         super.viewDidLoad()
         castView.previewOverlayView = createAndConfigureOverlayView()
-        castView.previewMode = true
+        castView.previewMode = pageState.playing
     }
     
     override func pageView(pageView: ProductPageView, didDownloadFirstImageWithSuccess success: Bool) {
@@ -58,38 +72,27 @@ final class ProductStepViewController: ProductPageViewController, ProductPageVie
     }
     
     private func createAndConfigureOverlayView() -> UIView {
-        let bottomBarHeight = self.castView.descriptionViewInterface?.headerButtonSectionHeight ?? 0
+        let buttonHeight = self.castView.descriptionViewInterface?.headerButtonSectionHeight ?? 0
+        let bottomBarHeight = buttonHeight + Dimensions.tabViewHeight
         logInfo("Creating preview overlay view with bottom bar height \(bottomBarHeight)")
         let view = ProductPagePreviewOverlayView(bottomBarHeight: bottomBarHeight)
+        view.update(withEnabled: pageState.playing, animationDuration: nil)
         view.update(withWishlistButtonSelected: self.model.isOnWishlist)
         view.delegate = self
         previewOverlay = view
         return view
     }
     
-    private func update(withPreviewModeEnabled enabled: Bool) {
-        let animationDuration = Constants.promoSlideshowStateChangedAnimationDuration
-        
-        castView.update(withPreviewModeEnabled: enabled, animationDuration: animationDuration)
-        previewOverlay?.update(withEnabled: enabled, animationDuration: animationDuration)
-        pageDelegate?.promoPage(self, willChangePromoPageViewState: enabled ? .Playing : .Paused(shouldShowProgressViewInPauseState), animationDuration: animationDuration)
-        if enabled {
-            timer.play()
-        } else {
-            timer.pause()
-        }
-    }
-    
     // MARK:- PromoPageInterface
-    
-    func didTapPlay() {
-        logInfo("Did tap play, previewOverlay \(previewOverlay)")
-        update(withPreviewModeEnabled: true)
-    }
     
     func didTapDismiss() {
         logInfo("Did tap dismiss")
         dismissContentView()
+    }
+    
+    func resetProgressState() {
+        logInfo("reset progress state")
+        timer.invalidate()
     }
     
     // MARK:- ProductPagePreviewOverlayViewDelegate
@@ -97,13 +100,13 @@ final class ProductStepViewController: ProductPageViewController, ProductPageVie
     func previewOverlayDidTapOverlay(previewOverlay: ProductPagePreviewOverlayView) {
         logInfo("Did tap overlay")
         logAnalyticsEvent(AnalyticsEventId.VideoProductPhotoTapped(videoId))
-        update(withPreviewModeEnabled: false)
+        pageDelegate?.promoPage(self, willChangePromoPageViewState: .Paused(shouldShowProgressViewInPauseState), animationDuration: Constants.promoSlideshowStateChangedAnimationDuration)
     }
     
     func previewOverlayDidTapInfoButton(previewOverlay: ProductPagePreviewOverlayView) {
         logInfo("Did tap info button")
         logAnalyticsEvent(AnalyticsEventId.VideoProductInfoButtonTapped(videoId))
-        update(withPreviewModeEnabled: false)
+        pageDelegate?.promoPage(self, willChangePromoPageViewState: .Paused(shouldShowProgressViewInPauseState), animationDuration: Constants.promoSlideshowStateChangedAnimationDuration)
     }
     
     func previewOverlayDidTapWishlistButton(previewOverlay: ProductPagePreviewOverlayView) {

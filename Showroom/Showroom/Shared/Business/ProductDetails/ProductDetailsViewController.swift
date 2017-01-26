@@ -40,7 +40,7 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewDelegate
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        logAnalyticsShowScreen(.ProductDetails)
+        logAnalyticsShowScreen(.ProductDetails, refferenceUrl: model.context.link)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -64,13 +64,14 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewDelegate
     
     func updateData(with context: ProductDetailsContext) {
         logInfo("Updating data with context \(context)")
+        logAnalyticsShowScreen(.ProductDetails, refferenceUrl: context.link)
         model.update(with: context)
         removeAllViewControllers()
         castView.reloadPageCount(withNewProductCount: model.productsCount)
         castView.scrollToPage(atIndex: model.initialProductIndex, animated: false)
     }
     
-    // MARK: - ProductDetailsViewDelegate
+    // MARK:- ProductDetailsViewDelegate
     
     func productDetailsDidTapClose(view: ProductDetailsView) {
         guard castView.viewState != .FullScreen else {
@@ -88,7 +89,12 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewDelegate
         }
     }
     
-    // MARKL - ProductPageViewControllerDelegate
+    func productDetails(view: ProductDetailsView, didMoveToProductAtIndex index: Int) {
+        logInfo("Did move to product at index \(index)")
+        model.didMoveToPage(atIndex: index)
+    }
+    
+    // MARK:- ProductPageViewControllerDelegate
     
     func productPage(page: ProductPageViewController, willChangeProductPageViewState newViewState: ProductPageViewState, animationDuration: Double?) {
         guard castView.viewsAboveImageVisibility else {
@@ -136,7 +142,6 @@ extension ProductDetailsViewController: ProductDetailsPageHandler {
             indexedViewControllers[removePageIndex!] = nil
         }
         indexedViewControllers[index] = newViewController
-        model.didMoveToPage(atIndex: index)
         logInfo("Indexed view controllers \(indexedViewControllers)")
     }
     

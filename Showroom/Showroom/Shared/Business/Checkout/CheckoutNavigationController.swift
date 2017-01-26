@@ -2,10 +2,10 @@ import UIKit
 
 protocol CheckoutNavigationControllerDelegate: class {
     func checkoutWantsGoToMainScreen(checkout: CheckoutNavigationController)
-    func checkoutWantsDismiss(checkout: CheckoutNavigationController)
+    func checkoutWantsDismiss(checkout: CheckoutNavigationController, animated: Bool)
 }
 
-class CheckoutNavigationController: UINavigationController, NavigationHandler {
+final class CheckoutNavigationController: UINavigationController, NavigationHandler {
     private let resolver: DiResolver
     private let model: CheckoutModel
     
@@ -73,7 +73,7 @@ class CheckoutNavigationController: UINavigationController, NavigationHandler {
     func didTapCloseButton(sender: UIBarButtonItem) {
         logInfo("Did tap close button")
         logAnalyticsEvent(AnalyticsEventId.CheckoutCancelClicked)
-        checkoutDelegate?.checkoutWantsDismiss(self)
+        checkoutDelegate?.checkoutWantsDismiss(self, animated: true)
     }
     
     func handleNavigationEvent(event: NavigationEvent) -> EventHandled {
@@ -96,7 +96,7 @@ class CheckoutNavigationController: UINavigationController, NavigationHandler {
                 checkoutDelegate?.checkoutWantsGoToMainScreen(self)
                 return true
             case .Close:
-                checkoutDelegate?.checkoutWantsDismiss(self)
+                checkoutDelegate?.checkoutWantsDismiss(self, animated: true)
                 return true
             case .ShowEditAddress:
                 showEditAddressView()
@@ -124,5 +124,11 @@ extension CheckoutNavigationController: EditAddressViewControllerDelegate {
             deliveryViewController.markLastAddressOptionAsSelected()
         }
         popViewControllerAnimated(true)
+    }
+}
+
+extension CheckoutNavigationController: ExtendedModalViewController {
+    func forceCloseWithoutAnimation() {
+        checkoutDelegate?.checkoutWantsDismiss(self, animated: false)
     }
 }

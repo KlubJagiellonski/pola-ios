@@ -5,10 +5,9 @@ import RxCocoa
 
 final class BasketManager {
     private let apiService: ApiService
-    private let emarsysService: EmarsysService
     private let storage: KeyValueStorage
     private let userManager: UserManager
-    let platformManager: PlatformManager
+    private let configurationManager: ConfigurationManager
     private let disposeBag = DisposeBag()
     
     let state: BasketState
@@ -16,21 +15,28 @@ final class BasketManager {
     var isUserLogged: Bool {
         return userManager.user != nil
     }
+    var deleteActionWidth: CGFloat? {
+        guard let platform = configurationManager.platform else { return nil }
+        switch platform {
+        case .Polish, .Kids: return 72.5
+        case .German: return 109
+        case .Worldwide: return 90
+        }
+    }
     
-    init(with apiService: ApiService, emarsysService: EmarsysService, storage: KeyValueStorage, userManager: UserManager, platformManager: PlatformManager) {
+    init(with apiService: ApiService, storage: KeyValueStorage, userManager: UserManager, configurationManager: ConfigurationManager) {
         self.apiService = apiService
-        self.emarsysService = emarsysService
         self.storage = storage
         self.userManager = userManager
-        self.platformManager = platformManager
+        self.configurationManager = configurationManager
         
         //if it will be a problem we will need to think about loading it in background
         let basketState: BasketState? = storage.load(forKey: Constants.Persistent.basketStateId, type: .Persistent)
         self.state = basketState ?? BasketState()
 
-        platformManager.platformObservable.subscribeNext { [weak self] platform in
-            guard let `self` = self else { return }
-            logInfo("platform changed: \(platform)")
+        configurationManager.configurationObservable.subscribeNext { [unowned self] info in
+            guard info.oldConfiguration != nil else { return }
+            logInfo("configuration changed: \(info.configuration)")
             self.state.clear()
         }.addDisposableTo(disposeBag)
     }
@@ -42,9 +48,6 @@ final class BasketManager {
         
         state.validationState = BasketValidationState(validating: true, validated: state.validationState.validated)
         apiService.validateBasket(with: request)
-            .doOnNext { [weak self] basket in
-                self?.emarsysService.sendCartEvent(with: basket)
-            }
             .observeOn(MainScheduler.instance)
             .map { [weak self] (basket: Basket) -> BasketState in
                 guard let strongSelf = self else { return BasketState() }
@@ -52,6 +55,7 @@ final class BasketManager {
                     logInfo("Basket state is the same")
                     return strongSelf.state
                 }
+                logAnalyticsEvent(AnalyticsEventId.CartChanged(basket))
                 logInfo("Mapping basket to basket state")
                 strongSelf.state.basket = basket
                 if strongSelf.state.deliveryCountry == nil || !basket.deliveryInfo.availableCountries.contains({ $0.id == strongSelf.state.deliveryCountry!.id }){

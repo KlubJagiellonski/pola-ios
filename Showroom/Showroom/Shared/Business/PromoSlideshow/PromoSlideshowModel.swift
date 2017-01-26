@@ -18,19 +18,23 @@ enum PromoSlideshowPageData {
 final class PromoSlideshowModel {
     private let apiService: ApiService
     private let storage: KeyValueStorage
-    private(set) var slideshowId: Int
+    private(set) var entry: PromoSlideshowEntry
     private(set) var promoSlideshow: PromoSlideshow?
     private var prefetcher = PromoSlideshowPrefetcher()
     private let disposeBag = DisposeBag()
+    var shouldShowPlayFeedback: Bool {
+        let videoPauseStateCount: Int = storage.load(forKey: Constants.UserDefaults.videoPauseStateCount) ?? 0
+        return videoPauseStateCount < 5 //we show play feedback only 5x first times when user goes to pause state
+    }
     
-    init(apiService: ApiService, storage: KeyValueStorage, slideshowId: Int) {
+    init(apiService: ApiService, storage: KeyValueStorage, entry: PromoSlideshowEntry) {
         self.apiService = apiService
-        self.slideshowId = slideshowId
+        self.entry = entry
         self.storage = storage
     }
     
-    func update(withSlideshowId slideshowId: ObjectId) {
-        self.slideshowId = slideshowId
+    func update(with entry: PromoSlideshowEntry) {
+        self.entry = entry
         self.prefetcher = PromoSlideshowPrefetcher()
         self.promoSlideshow = nil
     }
@@ -38,7 +42,7 @@ final class PromoSlideshowModel {
     func fetchPromoSlideshow() -> Observable<FetchCacheResult<PromoSlideshow>> {
         let currentTime = NSDate().timeIntervalSince1970
         
-        let cacheId = Constants.Cache.video + String(slideshowId)
+        let cacheId = Constants.Cache.video + String(entry.id)
         
         let existingResult = promoSlideshow
         let memoryCache: Observable<PromoSlideshow> = existingResult == nil ? Observable.empty() : Observable.just(existingResult!)
@@ -48,12 +52,12 @@ final class PromoSlideshowModel {
         
         let cacheCompose = Observable.of(memoryCache, diskCache)
             .concat().take(1)
-            .map { FetchCacheResult.Success($0) }
+            .map { FetchCacheResult.Success($0, .Cache) }
             .catchError { Observable.just(FetchCacheResult.CacheError($0)) }
         
-        let network = apiService.fetchVideo(withVideoId: slideshowId)
+        let network = apiService.fetchVideo(withVideoId: entry.id)
             .save(forKey: cacheId, storage: storage, type: .Cache)
-            .map { FetchCacheResult.Success($0) }
+            .map { FetchCacheResult.Success($0, .Network) }
             .catchError { Observable.just(FetchCacheResult.NetworkError($0)) }
         
         return Observable.of(cacheCompose, network)
@@ -114,6 +118,11 @@ final class PromoSlideshowModel {
         let additionalData = prefetcher.takeAdditionalData(atPageIndex: index)
         prefetcher.stopPrefetcher(atPageIndex: index)
         return PromoSlideshowPageDataContainer(pageData: pageData, additionalData: additionalData)
+    }
+    
+    func didShowPauseState() {
+        let currentPlayFeedbackCount: Int = storage.load(forKey: Constants.UserDefaults.videoPauseStateCount) ?? 0
+        storage.save(currentPlayFeedbackCount + 1, forKey: Constants.UserDefaults.videoPauseStateCount)
     }
     
     private func createPageData(forPageAtIndex index: Int) -> PromoSlideshowPageData? {

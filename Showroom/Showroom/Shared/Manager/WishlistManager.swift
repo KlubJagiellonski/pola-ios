@@ -17,14 +17,22 @@ final class WishlistManager {
     private let disposeBag = DisposeBag()
     private var contextWishlist: [WishlistProduct] = []
     private var synchronizationDisposable: Disposable?
-    let platformManager: PlatformManager
+    private let configurationManager: ConfigurationManager
     
     private(set) var state: WishlistState
+    var deleteActionWidth: CGFloat? {
+        guard let platform = configurationManager.platform else { return nil }
+        switch platform {
+        case .Polish, .Kids: return 72.5
+        case .German: return 109
+        case .Worldwide: return 90
+        }
+    }
 
-    init(with storage: KeyValueStorage, and userManager: UserManager, and platformManager: PlatformManager, and api: ApiService) {
+    init(with storage: KeyValueStorage, and userManager: UserManager, and configurationManager: ConfigurationManager, and api: ApiService) {
         self.storage = storage
         self.userManager = userManager
-        self.platformManager = platformManager
+        self.configurationManager = configurationManager
         self.api = api
         
         let wishlistState: WishlistState? = storage.load(forKey: Constants.Persistent.wishlistState, type: .Persistent)
@@ -41,9 +49,9 @@ final class WishlistManager {
             }
         }.addDisposableTo(disposeBag)
         
-        platformManager.platformObservable.subscribeNext { [weak self] platform in
-            guard let `self` = self else { return }
-            logInfo("platform changed: \(platform)")
+        configurationManager.configurationObservable.subscribeNext { [unowned self] info in
+            guard info.oldConfiguration != nil else { return }
+            logInfo("configuration changed: \(info.configuration)")
             self.state = WishlistState()
         }.addDisposableTo(disposeBag)
     }

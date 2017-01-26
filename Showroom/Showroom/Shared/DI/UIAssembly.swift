@@ -7,7 +7,7 @@ class UIAssembly: AssemblyType {
             return RootViewController(resolver: r.resolve(DiResolver.self)!)!
         }
         container.register(RootModel.self) { r in
-            return RootModel(with: r.resolve(UserManager.self)!, apiService: r.resolve(ApiService.self)!, rateAppManager: r.resolve(RateAppManager.self)!, notificationManager: r.resolve(NotificationsManager.self)!, versionManager: r.resolve(VersionManager.self)!, platformManager: r.resolve(PlatformManager.self)!, prefetchingManager: r.resolve(PrefetchingManager.self)!, storage: r.resolve(KeyValueStorage.self)!)
+            return RootModel(with: r.resolve(UserManager.self)!, apiService: r.resolve(ApiService.self)!, rateAppManager: r.resolve(RateAppManager.self)!, notificationManager: r.resolve(NotificationsManager.self)!, versionManager: r.resolve(VersionManager.self)!, prefetchingManager: r.resolve(PrefetchingManager.self)!, storage: r.resolve(KeyValueStorage.self)!, configurationManager: r.resolve(ConfigurationManager.self)!)
         }
         container.register(StartViewController.self) { r in
             return StartViewController(resolver: r.resolve(DiResolver.self)!)
@@ -25,7 +25,7 @@ class UIAssembly: AssemblyType {
             return DashboardViewController(resolver: r.resolve(DiResolver.self)!)
         }
         container.register(DashboardModel.self) { r in
-            return DashboardModel(apiService: r.resolve(ApiService.self)!, userManager: r.resolve(UserManager.self)!, storage: r.resolve(KeyValueStorage.self)!, prefetchingManager: r.resolve(PrefetchingManager.self)!, emarsysService: r.resolve(EmarsysService.self)!)
+            return DashboardModel(apiService: r.resolve(ApiService.self)!, userManager: r.resolve(UserManager.self)!, storage: r.resolve(KeyValueStorage.self)!, prefetchingManager: r.resolve(PrefetchingManager.self)!)
         }
         container.register(SearchViewController.self) { r in
             return SearchViewController(with: r.resolve(DiResolver.self)!)
@@ -52,7 +52,7 @@ class UIAssembly: AssemblyType {
             return ProductDetailsViewController(resolver: r.resolve(DiResolver.self)!, context: context)
         }
         container.register(ProductDetailsModel.self) { r, context in
-            return ProductDetailsModel(context: context, emarsysService: r.resolve(EmarsysService.self)!)
+            return ProductDetailsModel(context: context)
         }
         container.register(ProductPageViewController.self) { r, productId, product in
             return ProductPageViewController(resolver: r.resolve(DiResolver.self)!, productId: productId, product: product)
@@ -103,13 +103,13 @@ class UIAssembly: AssemblyType {
             return CheckoutSummaryCommentViewController(resolver: r.resolve(DiResolver.self)!, comment: comment, index: index)
         }
         container.register(CheckoutModel.self) { r, checkout in
-            return CheckoutModel(with: checkout, userManager: r.resolve(UserManager.self)!, platformManager: r.resolve(PlatformManager.self)!, paymentManager: r.resolve(PaymentManager.self)!, api: r.resolve(ApiService.self)!, basketManager: r.resolve(BasketManager.self)!, emarsysService: r.resolve(EmarsysService.self)!)
+            return CheckoutModel(with: checkout, userManager: r.resolve(UserManager.self)!, configurationManager: r.resolve(ConfigurationManager.self)!, paymentManager: r.resolve(PaymentManager.self)!, api: r.resolve(ApiService.self)!, basketManager: r.resolve(BasketManager.self)!)
         }
         container.register(CategoryProductListViewController.self) { r, category in
             return CategoryProductListViewController(withResolver: r.resolve(DiResolver.self)!, category: category)
         }
         container.register(CategoryProductListModel.self) { r, category in
-            return CategoryProductListModel(with: category, apiService: r.resolve(ApiService.self)!, emarsysService: r.resolve(EmarsysService.self)!, wishlistManager: r.resolve(WishlistManager.self)!)
+            return CategoryProductListModel(with: category, apiService: r.resolve(ApiService.self)!, wishlistManager: r.resolve(WishlistManager.self)!)
         }
         container.register(SigningNavigationController.self) { r, mode in
             return SigningNavigationController(resolver: r.resolve(DiResolver.self)!, mode: mode)
@@ -136,13 +136,13 @@ class UIAssembly: AssemblyType {
             return TrendProductListViewController(with: r.resolve(DiResolver.self)!, and: trendInfo)
         }
         container.register(TrendProductListModel.self) { r, trendInfo in
-            return TrendProductListModel(with: r.resolve(ApiService.self)!, emarsysService: r.resolve(EmarsysService.self)!, wishlistManager: r.resolve(WishlistManager.self)!, trendInfo: trendInfo)
+            return TrendProductListModel(with: r.resolve(ApiService.self)!, wishlistManager: r.resolve(WishlistManager.self)!, trendInfo: trendInfo)
         }
         container.register(BrandProductListViewController.self) { r, brand in
             return BrandProductListViewController(with: r.resolve(DiResolver.self)!, and: brand)
         }
         container.register(BrandProductListModel.self) { r, brand in
-            return BrandProductListModel(with: r.resolve(ApiService.self)!, wishlistManager: r.resolve(WishlistManager.self)!, emarsysService: r.resolve(EmarsysService.self)!, productBrand: brand)
+            return BrandProductListModel(with: r.resolve(ApiService.self)!, wishlistManager: r.resolve(WishlistManager.self)!, productBrand: brand)
         }
         container.register(BrandDescriptionViewController.self) { r, brand in
             return BrandDescriptionViewController(with: brand)
@@ -184,7 +184,7 @@ class UIAssembly: AssemblyType {
             return SearchProductListViewController(with: r.resolve(DiResolver.self)!, entryData: data)
         }
         container.register(SearchProductListModel.self) { r, data in
-            return SearchProductListModel(with: data, apiService: r.resolve(ApiService.self)!, wishlistManager: r.resolve(WishlistManager.self)!, emarsysService: r.resolve(EmarsysService.self)!)
+            return SearchProductListModel(with: data, apiService: r.resolve(ApiService.self)!, wishlistManager: r.resolve(WishlistManager.self)!)
         }
         container.register(SearchContentViewController.self) { r, searchItem, contentType in
             return SearchContentViewController(mainSearchItem: searchItem, type: contentType)
@@ -208,31 +208,31 @@ class UIAssembly: AssemblyType {
             return UpdateAppViewController(manager: r.resolve(VersionManager.self)!, application: r.resolve(UIApplication.self)!, imageUrl: imageUrl)
         }
         container.register(PlatformSelectionViewController.self) { r in
-            return PlatformSelectionViewController(platformManager: r.resolve(PlatformManager.self)!)
+            return PlatformSelectionViewController(configurationManager: r.resolve(ConfigurationManager.self)!)
         }
-        container.register(PromoSlideshowViewController.self) { r, slideshowId in
-            return PromoSlideshowViewController(resolver: r.resolve(DiResolver.self)!, slideshowId: slideshowId)
+        container.register(PromoSlideshowViewController.self) { r, entry in
+            return PromoSlideshowViewController(resolver: r.resolve(DiResolver.self)!, entry: entry)
         }
-        container.register(PromoSlideshowModel.self) { r, slideshowId in
-            return PromoSlideshowModel(apiService: r.resolve(ApiService.self)!, storage: r.resolve(KeyValueStorage.self)!, slideshowId: slideshowId)
+        container.register(PromoSlideshowModel.self) { r, entry in
+            return PromoSlideshowModel(apiService: r.resolve(ApiService.self)!, storage: r.resolve(KeyValueStorage.self)!, entry: entry)
         }
-        container.register(ImageStepViewController.self) { r, link, duration in
-            return ImageStepViewController(with: r.resolve(DiResolver.self)!, link: link, duration: duration)
+        container.register(ImageStepViewController.self) { r, link, duration, pageState in
+            return ImageStepViewController(with: r.resolve(DiResolver.self)!, link: link, duration: duration, pageState: pageState)
         }
-        container.register(VideoStepViewController.self) { r, link, annotations, additionalData in
-            return VideoStepViewController(with: r.resolve(DiResolver.self)!, link: link, annotations: annotations, additionalData: additionalData)
+        container.register(VideoStepViewController.self) { r, link, annotations, additionalData, pageState in
+            return VideoStepViewController(with: r.resolve(DiResolver.self)!, link: link, annotations: annotations, additionalData: additionalData, pageState: pageState)
         }
-        container.register(ProductStepViewController.self) { r, dataEntry in
-            return ProductStepViewController(with: r.resolve(DiResolver.self)!, dataEntry: dataEntry)
+        container.register(ProductStepViewController.self) { r, dataEntry, pageState in
+            return ProductStepViewController(with: r.resolve(DiResolver.self)!, dataEntry: dataEntry, pageState: pageState)
         }
-        container.register(PromoSummaryViewController.self) { r, promoSlideshow in
-            return PromoSummaryViewController(with: r.resolve(DiResolver.self)!, promoSlideshow: promoSlideshow)
+        container.register(PromoSummaryViewController.self) { r, promoSlideshow, pageState in
+            return PromoSummaryViewController(with: r.resolve(DiResolver.self)!, promoSlideshow: promoSlideshow, pageState: pageState)
         }
-        container.register(WebContentViewController.self) { r, webViewId in
-            return WebContentViewController(resolver: r.resolve(DiResolver.self)!, webViewId: webViewId)
+        container.register(WebContentViewController.self) { r, entry in
+            return WebContentViewController(resolver: r.resolve(DiResolver.self)!, entry: entry)
         }
-        container.register(WebContentModel.self) { r, webViewId in
-            return WebContentModel(apiService: r.resolve(ApiService.self)!, webViewId: webViewId)
+        container.register(WebContentModel.self) { r, entry in
+            return WebContentModel(apiService: r.resolve(ApiService.self)!, entry: entry)
         }
     }
 }

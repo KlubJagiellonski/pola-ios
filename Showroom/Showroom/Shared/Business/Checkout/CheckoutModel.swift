@@ -19,23 +19,21 @@ final class CheckoutModel {
     private let disposeBag = DisposeBag()
     private let userManager: UserManager
     private let basketManager: BasketManager
-    private let platformManager: PlatformManager
+    private let configurationManager: ConfigurationManager
     private let paymentManager: PaymentManager
     private let api: ApiService
-    private let emarsysService: EmarsysService
     let state: CheckoutState
     weak var paymentDelegate: PaymentHandlerDelegate? {
         set { paymentManager.currentPaymentHandler?.delegate = newValue }
         get { return paymentManager.currentPaymentHandler?.delegate }
     }
     
-    init(with checkout: Checkout, userManager: UserManager, platformManager: PlatformManager, paymentManager: PaymentManager, api: ApiService, basketManager: BasketManager, emarsysService: EmarsysService) {
+    init(with checkout: Checkout, userManager: UserManager, configurationManager: ConfigurationManager, paymentManager: PaymentManager, api: ApiService, basketManager: BasketManager) {
         self.userManager = userManager
-        self.platformManager = platformManager
+        self.configurationManager = configurationManager
         self.paymentManager = paymentManager
         self.api = api
         self.basketManager = basketManager
-        self.emarsysService = emarsysService
         
         let comments = [String?](count: checkout.basket.productsByBrands.count, repeatedValue: nil)
         let userAddresses = checkout.user.userAddresses
@@ -160,19 +158,14 @@ final class CheckoutModel {
             logError("No payment handler")
             return Observable.error(PaymentHandlerError.NoPaymentHandler)
         }
-        guard let paymentInfo = PaymentInfo(with: state, platformManager: platformManager) else {
-            logError("Cannot create payment info \(state), \(platformManager.platform)")
+        guard let paymentInfo = PaymentInfo(with: state, configurationManager: configurationManager) else {
+            logError("Cannot create payment info \(state), \(configurationManager.configuration)")
             return Observable.error(PaymentHandlerError.CannotCreatePayment)
         }
         return paymentHandler.makePayment(forPaymentType: state.selectedPayment.id, info: paymentInfo)
             .doOnNext { [weak self] result in
                 guard let `self` = self else { return }
-                guard let platform = self.platformManager.platform else {
-                    logError("No platform, something is wrong")
-                    return
-                }
-                self.emarsysService.sendPurchaseEvent(withOrderId: result.orderId, products: self.state.checkout.basket.products)
-                logAnalyticsTransactionEvent(with: result, products: self.state.checkout.basket.products, platform: platform)
+                logAnalyticsTransactionEvent(with: result, products: self.state.checkout.basket.products)
             }.observeOn(MainScheduler.instance)
     }
     

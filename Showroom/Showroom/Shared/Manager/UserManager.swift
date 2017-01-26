@@ -16,10 +16,8 @@ class UserManager {
     private static let defaultGender: Gender = .Female
     
     private let apiService: ApiService
-    private let emarsysService: EmarsysService
     private let keychainManager: KeychainManager
     private let storage: KeyValueStorage
-    private let platformManager: PlatformManager
     private let disposeBag = DisposeBag()
     private let fbLoginManager = FBSDKLoginManager()
     private var cachedSharedWebCredential: SharedWebCredential?
@@ -27,21 +25,16 @@ class UserManager {
     let userObservable = PublishSubject<User?>()
     let sessionObservable = PublishSubject<Session?>()
     let genderObservable = PublishSubject<Gender>()
+    let authenticatedObservable = PublishSubject<Bool>()
     private var userSession: UserSession? {
         didSet {
             logInfo("Did set user session \(userSession)")
-            if let userId = userSession?.user.id {
-                Analytics.sharedInstance.userId = String(userId)
-            } else {
-                Analytics.sharedInstance.userId = nil
-            }
             
             if userSession == nil {
                 PayUOptionHandler.resetUserCache()
             }
             
-            emarsysService.contactUpdate(withUser: user, gender: gender)
-            emarsysService.configureUser(String(userSession?.user.id), customerEmail: userSession?.user.email)
+            Analytics.sharedInstance.user = user
             keychainManager.session = userSession?.session
             
             if !storage.save(userSession?.user, forKey: Constants.Persistent.currentUser, type: .PlatformPersistent) {
@@ -49,6 +42,11 @@ class UserManager {
             }
             userObservable.onNext(userSession?.user)
             sessionObservable.onNext(userSession?.session)
+            if userSession == nil && oldValue != nil {
+                authenticatedObservable.onNext(false)
+            } else if userSession != nil && oldValue == nil {
+                authenticatedObservable.onNext(true)
+            }
         }
     }
     var user: User? { return userSession?.user }
@@ -81,12 +79,10 @@ class UserManager {
     
     let shouldSkipStartScreenObservable = PublishSubject<Bool>()
     
-    init(apiService: ApiService, emarsysService: EmarsysService, keychainManager: KeychainManager, storage: KeyValueStorage, platformManager: PlatformManager) {
+    init(apiService: ApiService, keychainManager: KeychainManager, storage: KeyValueStorage, configurationManager: ConfigurationManager) {
         self.apiService = apiService
-        self.emarsysService = emarsysService
         self.keychainManager = keychainManager
         self.storage = storage
-        self.platformManager = platformManager
         
         apiService.dataSource = self
         
@@ -94,11 +90,9 @@ class UserManager {
         let user: User? = storage.load(forKey: Constants.Persistent.currentUser, type: .PlatformPersistent)
         userSession = UserSession(user: user, session: session)
         
-        platformManager.platformObservable.subscribeNext { [weak self] platform in
-            guard let `self` = self else { return }
-            logInfo("Platform changed: \(platform)")
-            if platform.isFemaleOnly {
-                self.gender = .Female
+        configurationManager.configurationObservable.subscribeNext { [unowned self] info in
+            if !info.configuration.availableGenders.contains(self.gender) {
+                self.gender = info.configuration.availableGenders[0]
             }
         }.addDisposableTo(disposeBag)
     }
@@ -257,7 +251,6 @@ class UserManager {
         self.userSession = nil
         keychainManager.facebookToken = nil
         keychainManager.loginCredentials = nil
-        emarsysService.logout()
     }
     
     private func loginWithFacebookToken(token: String) -> Observable<SigningResult> {
@@ -311,9 +304,4 @@ extension UserManager: ApiServiceDataSource {
             return Observable.error(ApiError.LoginRetryFailed)
         }
     }
-}
-
-enum Gender: String {
-    case Male = "Male"
-    case Female = "Female"
 }

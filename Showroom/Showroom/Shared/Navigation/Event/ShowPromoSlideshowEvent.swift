@@ -1,5 +1,6 @@
 import Foundation
 
 struct ShowPromoSlideshowEvent: NavigationEvent {
-    let slideshowId: ObjectId
+    let entry: PromoSlideshowEntry
+    let transitionImageTag: Int?
 }

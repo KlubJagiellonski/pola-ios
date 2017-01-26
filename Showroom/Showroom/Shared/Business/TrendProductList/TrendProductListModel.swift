@@ -11,9 +11,9 @@ final class TrendProductListModel: ProductListModel {
         return .Trend
     }
     
-    init(with apiService: ApiService, emarsysService: EmarsysService, wishlistManager: WishlistManager, trendInfo: EntryTrendInfo) {
+    init(with apiService: ApiService, wishlistManager: WishlistManager, trendInfo: EntryTrendInfo) {
         self.entryTrendInfo = trendInfo
-        super.init(with: apiService, emarsysService: emarsysService, wishlistManager: wishlistManager, link: nil, query: nil)
+        super.init(with: apiService, wishlistManager: wishlistManager, link: nil, query: nil)
     }
     
     override func createObservable(with paginationInfo: PaginationInfo, forFilters filters: [FilterId: [FilterObjectId]]?) -> Observable<ProductListResult> {

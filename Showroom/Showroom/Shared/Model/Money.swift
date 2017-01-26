@@ -116,6 +116,7 @@ extension Money: Decodable {
 
 extension Money {
     func calculateDiscountPercent(fromMoney originalMoney: Money) -> Int {
+        guard originalMoney.amount != 0 else { return 0 }
         let discount = originalMoney - self
         return Int(round((discount * 100.0 / originalMoney).amount))
     }

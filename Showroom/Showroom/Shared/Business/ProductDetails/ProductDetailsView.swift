@@ -4,6 +4,7 @@ import SnapKit
 
 protocol ProductDetailsViewDelegate: class {
     func productDetailsDidTapClose(view: ProductDetailsView)
+    func productDetails(view: ProductDetailsView, didMoveToProductAtIndex index: Int)
 }
 
 enum ProductDetailsViewState {
@@ -124,6 +125,16 @@ class ProductDetailsView: UIView, UICollectionViewDelegateFlowLayout {
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         return self.bounds.size
+    }
+    
+    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if !decelerate {
+            self.delegate?.productDetails(self, didMoveToProductAtIndex: currentPageIndex)
+        }
+    }
+    
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        self.delegate?.productDetails(self, didMoveToProductAtIndex: currentPageIndex)
     }
 }
 

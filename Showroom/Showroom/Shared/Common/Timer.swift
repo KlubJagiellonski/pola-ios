@@ -21,6 +21,10 @@ final class Timer {
         return timer == nil && currentStep > 0
     }
     
+    var progress: Double {
+        return Double(currentStep) / Double(finalStep)
+    }
+    
     weak var delegate: TimerDelegate?
     
     init(duration: Int, stepInterval: Int) {
@@ -35,7 +39,6 @@ final class Timer {
             delegate?.timerDidEnd(self)
             invalidate()
         } else {
-            let progress = Double(currentStep) / Double(finalStep)
             delegate?.timer(self, didChangeProgress: progress)
         }
     }

@@ -6,7 +6,7 @@ import MessageUI
 class SettingsViewController: UIViewController {
     private let userManager: UserManager
     private let notificationsManager: NotificationsManager
-    private let platformManager: PlatformManager
+    private let configurationManager: ConfigurationManager
     private let disposeBag = DisposeBag()
     private let toastManager: ToastManager
     private let versionManager: VersionManager
@@ -30,7 +30,7 @@ class SettingsViewController: UIViewController {
         self.userManager = resolver.resolve(UserManager.self)
         self.notificationsManager = resolver.resolve(NotificationsManager.self)
         self.toastManager = resolver.resolve(ToastManager.self)
-        self.platformManager = resolver.resolve(PlatformManager.self)
+        self.configurationManager = resolver.resolve(ConfigurationManager.self)
         self.versionManager = resolver.resolve(VersionManager.self)
         
         super.init(nibName: nil, bundle: nil)
@@ -74,11 +74,16 @@ class SettingsViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        markHandoffUrlActivity(withPathComponent: "/", resolver: resolver)
+        markHandoffUrlActivity(withType: .Home, resolver: resolver)
         castView.deselectRowsIfNeeded()
     }
 
     private func updateSettings(with user: User?) {
+        guard let configuration = configurationManager.configuration else {
+            logError("Cannot update settings. No configuration")
+            return
+        }
+        
         logInfo("Updating settings with user exist \(user != nil)")
         
         var settings = [
@@ -91,7 +96,7 @@ class SettingsViewController: UIViewController {
             settings.append(Setting(type: .Login, action: { [weak self] in self?.loginButtonPressed() }, secondaryAction: { [weak self] in self?.createAccountButtonPressed() }, cellClickable: false))
         }
         
-        if platformManager.platform?.isFemaleOnly == false ?? false {
+        if configuration.availableGenders.count > 1 {
             settings.append(Setting(type: .Gender, action: { [weak self] in self?.femaleButtonPressed() }, secondaryAction: { [weak self] in self?.maleButtonPressed() }, cellClickable: false, value: self.userManager.gender))
         }
                 
@@ -108,13 +113,28 @@ class SettingsViewController: UIViewController {
         
         settings.appendContentsOf([
             Setting(type: .Normal, labelString: tr(.SettingsSendReport), action: { [weak self] in self?.sendReportPressed() }),
-            Setting(type: .Normal, labelString: tr(.SettingsFrequentQuestions), action: { [weak self] in self?.frequentQuestionsRowPressed() }),
-            Setting(type: .Normal, labelString: tr(.SettingsHowToMeasure), action: { [weak self] in self?.howToMeasureRowPressed() }),
+            Setting(type: .Normal, labelString: tr(.SettingsFrequentQuestions), action: { [weak self] in self?.frequentQuestionsRowPressed() })
+        ])
+        
+        if let howToMeasureText = configuration.settingsConfiguration.howToMeasureText {
+            settings.append(
+                Setting(type: .Normal, labelString: tr(howToMeasureText), action: { [weak self] in self?.howToMeasureRowPressed() })
+            )
+        }
+        
+        settings.appendContentsOf([
             Setting(type: .Normal, labelString: tr(.SettingsContact), action: { [weak self] in self?.contactRowPressed() }),
             Setting(type: .Normal, labelString: tr(.SettingsRules), action: { [weak self] in self?.rulesRowPressed() }),
-            Setting(type: .Normal, labelString: tr(.SettingsPrivacyPolicy), action: { [weak self] in self?.privacyPolicyRowPressed() }),
-            Setting(type: .Platform, labelString: tr(.SettingsPlatform), secondaryLabelString: platformManager.platform?.platformString, action: { [weak self] in self?.platformRowPressed() })
-            ])
+            Setting(type: .Normal, labelString: tr(.SettingsPrivacyPolicy), action: { [weak self] in self?.privacyPolicyRowPressed() })
+        ])
+        
+        if configurationManager.availablePlatforms.count > 1 {
+            settings.append(
+                Setting(type: .Platform, labelString: tr(.SettingsPlatform), secondaryLabelString: configurationManager.configuration?.platformDescription, action: {
+                    [weak self] in self?.platformRowPressed()
+                })
+            )
+        }
         
         if !Constants.isAppStore {
             settings.append(Setting(type: .Normal, labelString: "Pokaż onboarding", action: { [weak self] in self?.showOnboarding() }))
@@ -126,7 +146,16 @@ class SettingsViewController: UIViewController {
             settings.append(Setting(type: .Normal, labelString: "Pokaż pytanie o powiadomienia (schowek)", action: { [weak self] in self?.showNotificationsAccessAfterWishlist() }))
             settings.append(Setting(type: .Normal, labelString: "Pokaż pytanie o aktualizację", action: { [weak self] in self?.showUpdateApp() }))
             settings.append(Setting(type: .Normal, labelString: "Pokaż initial platform selection", action: { [weak self] in self?.showInitialPlatformSelection() }))
-            settings.append(Setting(type: .Normal, labelString: "Pokaż slideshow 1", action: { [weak self] in self?.showSlideshow() }))
+            settings.append(Setting(type: .Normal, labelString: "Pokaż slideshow 11", action: { [weak self] in self?.showSlideshow() }))
+            settings.append(Setting(type: .Normal, labelString: "Mock slideshow ze zdjęciami typ 1", action: { [weak self] in self?.configureSlideshowsWithImagesMock(1) }))
+            settings.append(Setting(type: .Normal, labelString: "Mock slideshow ze zdjęciami typ 2", action: { [weak self] in self?.configureSlideshowsWithImagesMock(2) }))
+            settings.append(Setting(type: .Normal, labelString: "Mock video marki 0", action: { [weak self] in self?.configureBrandVideoMock(0) }))
+            settings.append(Setting(type: .Normal, labelString: "Mock video marki 1", action: { [weak self] in self?.configureBrandVideoMock(1) }))
+            settings.append(Setting(type: .Normal, labelString: "Mock video marki > 1", action: { [weak self] in self?.configureBrandVideoMock(2) }))
+            settings.append(Setting(type: .Normal, labelString: "Mock video produkty 0", action: { [weak self] in self?.configureProductVideoMock(0) }))
+            settings.append(Setting(type: .Normal, labelString: "Mock video produkty 1", action: { [weak self] in self?.configureProductVideoMock(1) }))
+            settings.append(Setting(type: .Normal, labelString: "Mock video produkty > 1", action: { [weak self] in self?.configureProductVideoMock(2) }))
+            settings.append(Setting(type: .Normal, labelString: "Mock/Unmock play content promo icon", action: { [weak self] in self?.configurePlayContentPromoMock() }))
         }
         
         castView.updateData(with: settings)
@@ -305,7 +334,28 @@ class SettingsViewController: UIViewController {
     }
     
     func showSlideshow() {
-        sendNavigationEvent(ShowPromoSlideshowEvent(slideshowId: 1))
+        let entry = PromoSlideshowEntry(id: 11, link: nil)
+        sendNavigationEvent(ShowPromoSlideshowEvent(entry: entry, transitionImageTag: nil))
+    }
+    
+    func configureSlideshowsWithImagesMock(type: Int) {
+        NSUserDefaults.standardUserDefaults().setInteger(type, forKey: "slideshow_with_images_mock")
+        NSUserDefaults.standardUserDefaults().synchronize()
+    }
+    
+    func configureBrandVideoMock(type: Int) {
+        NSUserDefaults.standardUserDefaults().setInteger(type, forKey: "video_brand_mock")
+        NSUserDefaults.standardUserDefaults().synchronize()
+    }
+    
+    func configureProductVideoMock(type: Int) {
+        NSUserDefaults.standardUserDefaults().setInteger(type, forKey: "video_product_mock")
+        NSUserDefaults.standardUserDefaults().synchronize()
+    }
+    
+    func configurePlayContentPromoMock() {
+        let enabled = NSUserDefaults.standardUserDefaults().boolForKey("play_content_promo_mock")
+        NSUserDefaults.standardUserDefaults().setBool(!enabled, forKey: "play_content_promo_mock")
     }
     
     func sendReportPressed() {
@@ -318,8 +368,8 @@ class SettingsViewController: UIViewController {
             return
         }
         
-        guard let reportEmail = platformManager.reportEmail else {
-            logError("Cannot report email with platform \(platformManager.platform)")
+        guard let reportEmail = configurationManager.configuration?.feedbackEmail else {
+            logError("Cannot report email with configuration \(configurationManager.configuration)")
             return
         }
         
@@ -343,7 +393,7 @@ class SettingsViewController: UIViewController {
         let device = UIDevice.currentDevice()
         
         var deviceInfo = ""
-        deviceInfo += "platform: \(platformManager.platform)"
+        deviceInfo += "configuration: \(configurationManager.configuration)"
         deviceInfo += "systemInfo: \(device.systemName), \(device.systemVersion)\n"
         deviceInfo += "deviceInfo: \(device.name), \(device.model), \(device.screenType.rawValue), \(device.modelName)\n"
         deviceInfo += "appInfo: \(NSBundle.appVersionNumber), \(NSBundle.appBuildNumber)\n"
@@ -353,9 +403,9 @@ class SettingsViewController: UIViewController {
 }
 
 extension SettingsViewController: SigningNavigationControllerDelegate {
-    func signingWantsDismiss(navigationController: SigningNavigationController) {
+    func signingWantsDismiss(navigationController: SigningNavigationController, animated: Bool) {
         logInfo("Dismissed signing")
-        dismissViewControllerAnimated(true, completion: nil)
+        dismissViewControllerAnimated(animated, completion: nil)
     }
     
     func signingDidLogIn(navigationController: SigningNavigationController) {
@@ -365,14 +415,14 @@ extension SettingsViewController: SigningNavigationControllerDelegate {
 }
 
 extension SettingsViewController: WishlistInAppOnboardingViewControllerDelegate {
-    func wishlistOnboardingViewControllerDidTapDismissButton(viewController: WishlistInAppOnboardingViewController) {
-        onboardingActionAnimator.dismissViewController(presentingViewController: self, animated: true, completion: nil)
+    func wishlistOnboardingViewControllerDidTapDismissButton(viewController: WishlistInAppOnboardingViewController, animated: Bool) {
+        onboardingActionAnimator.dismissViewController(presentingViewController: self, animated: animated, completion: nil)
     }
 }
 
 extension SettingsViewController: PagingInAppOnboardingViewControllerDelegate {
-    func pagingOnboardingViewControllerDidTapDismiss(viewController: PagingInAppOnboardingViewController) {
-        onboardingActionAnimator.dismissViewController(presentingViewController: self)
+    func pagingOnboardingViewControllerDidTapDismiss(viewController: PagingInAppOnboardingViewController, animated: Bool) {
+        onboardingActionAnimator.dismissViewController(presentingViewController: self, animated: animated)
     }
 }
 
@@ -383,20 +433,20 @@ extension SettingsViewController: DimAnimatorDelegate {
 }
 
 extension SettingsViewController: RateAppViewControllerDelegate {
-    func rateAppWantsDismiss(viewController: RateAppViewController) {
-        formSheetAnimator.dismissViewController(presentingViewController: self)
+    func rateAppWantsDismiss(viewController: RateAppViewController, animated: Bool) {
+        formSheetAnimator.dismissViewController(presentingViewController: self, animated: animated)
     }
 }
 
 extension SettingsViewController: NotificationsAccessViewControllerDelegate {
-    func notificationsAccessWantsDismiss(viewController: NotificationsAccessViewController) {
-        formSheetAnimator.dismissViewController(presentingViewController: self)
+    func notificationsAccessWantsDismiss(viewController: NotificationsAccessViewController, animated: Bool) {
+        formSheetAnimator.dismissViewController(presentingViewController: self, animated: animated)
     }
 }
 
 extension SettingsViewController: UpdateAppViewControllerDelegate {
-    func updateAppWantsDismiss(viewController: UpdateAppViewController) {
-        formSheetAnimator.dismissViewController(presentingViewController: self)
+    func updateAppWantsDismiss(viewController: UpdateAppViewController, animated: Bool) {
+        formSheetAnimator.dismissViewController(presentingViewController: self, animated: animated)
     }
 }
 
@@ -404,14 +454,5 @@ extension SettingsViewController: MFMailComposeViewControllerDelegate {
     func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
         logInfo("Did finish mail composing \(result)")
         dismissViewControllerAnimated(true, completion: nil)
-    }
-}
-
-extension Platform {
-    private var platformString: String {
-        switch self {
-        case Polish: return "showroom.pl"
-        case German: return "showroom.de"
-        }
     }
 }

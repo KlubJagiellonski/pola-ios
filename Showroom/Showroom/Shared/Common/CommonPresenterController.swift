@@ -68,15 +68,22 @@ class CommonPresenterController: PresenterViewController, NavigationHandler {
     
     private func showPromoSlideshow(with event: ShowPromoSlideshowEvent) {
         if let promoSlideshowViewController = currentModalViewController as? PromoSlideshowViewController {
-            promoSlideshowViewController.updateData(withSlideshowId: event.slideshowId)
+            promoSlideshowViewController.updateData(with: event.entry)
             return
         }
         closeModal() { [weak self] _ in
             guard let `self` = self else { return }
             
-            let viewController = self.resolver.resolve(PromoSlideshowViewController.self, argument: event.slideshowId)
-            let animation = DimTransitionAnimation(animationDuration: 0.3)
-            self.showModal(viewController, hideContentView: true, animation: animation, completion: nil)
+            let viewController = self.resolver.resolve(PromoSlideshowViewController.self, argument: event.entry)
+            
+            let alternativeAnimation = DimTransitionAnimation(animationDuration: 0.3)
+            if let imageViewTag = event.transitionImageTag, let imageView = self.view.viewWithTag(imageViewTag) as? UIImageView
+                where imageView.image != nil {
+                let animation = SlideshowImageTransitionAnimation(animationDuration: 0.3, imageView: imageView, alternativeAnimation: alternativeAnimation)
+                self.showModal(viewController, hideContentView: false, animation: animation, completion: nil)
+            } else {
+                self.showModal(viewController, hideContentView: true, animation: alternativeAnimation, completion: nil)
+            }
         }
     }
     

@@ -33,7 +33,7 @@ extension UIFont {
         case Onboarding
         case NavigationBarButton
     }
-    
+        
     convenience init!(fontType: FontType) {
         switch fontType {
         case .Bold:

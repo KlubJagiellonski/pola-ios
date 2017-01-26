@@ -2,6 +2,7 @@ import UIKit
 
 protocol ProductAmountViewControllerDelegate: class {
     func productAmount(viewController: ProductAmountViewController, didChangeAmountOf product: BasketProduct)
+    func productAmountWantsDismiss(viewController: ProductAmountViewController, animated: Bool)
 }
 
 final class ProductAmountViewController: UIViewController, ProductAmountViewDelegate {
@@ -37,5 +38,11 @@ final class ProductAmountViewController: UIViewController, ProductAmountViewDele
         logInfo("Changing product amount \(amount) for product \(product)")
         product.amount = amount
         delegate?.productAmount(self, didChangeAmountOf: product)
+    }
+}
+
+extension ProductAmountViewController: ExtendedModalViewController {
+    func forceCloseWithoutAnimation() {
+        delegate?.productAmountWantsDismiss(self, animated: false)
     }
 }

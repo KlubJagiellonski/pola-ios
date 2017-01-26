@@ -1,16 +1,17 @@
 import Foundation
 import XCGLogger
 import Crashlytics
+import Fabric
 
-func logInfo(text: String, functionName: String = #function, fileName: String = #file, lineNumber: Int = #line) {
+func logInfo(text: String, functionName: StaticString = #function, fileName: StaticString = #file, lineNumber: Int = #line) {
     Logging.info(text, functionName: functionName, fileName: fileName, lineNumber: lineNumber)
 }
 
-func logDebug(text: String, functionName: String = #function, fileName: String = #file, lineNumber: Int = #line) {
+func logDebug(text: String, functionName: StaticString = #function, fileName: StaticString = #file, lineNumber: Int = #line) {
     Logging.debug(text, functionName: functionName, fileName: fileName, lineNumber: lineNumber)
 }
 
-func logError(text: String, functionName: String = #function, fileName: String = #file, lineNumber: Int = #line) {
+func logError(text: String, functionName: StaticString = #function, fileName: StaticString = #file, lineNumber: Int = #line) {
     Logging.error(text, functionName: functionName, fileName: fileName, lineNumber: lineNumber)
 }
 
@@ -32,19 +33,20 @@ final class Logging {
             fileLogLevel: nil)
 
         if !isDebug {
+            Fabric.with([Crashlytics.self])
             xcgLogger.addLogDestination(CrashlyticsLogDestination(owner: xcgLogger))
         }
     }
 
-    static func info(text: String, functionName: String = #function, fileName: String = #file, lineNumber: Int = #line) {
+    static func info(text: String, functionName: StaticString = #function, fileName: StaticString = #file, lineNumber: Int = #line) {
         xcgLogger.info(text, functionName: functionName, fileName: fileName, lineNumber: lineNumber)
     }
 
-    static func debug(text: String, functionName: String = #function, fileName: String = #file, lineNumber: Int = #line) {
+    static func debug(text: String, functionName: StaticString = #function, fileName: StaticString = #file, lineNumber: Int = #line) {
         xcgLogger.debug(text, functionName: functionName, fileName: fileName, lineNumber: lineNumber)
     }
 
-    static func error(text: String, functionName: String = #function, fileName: String = #file, lineNumber: Int = #line) {
+    static func error(text: String, functionName: StaticString = #function, fileName: StaticString = #file, lineNumber: Int = #line) {
         xcgLogger.error(text, functionName: functionName, fileName: fileName, lineNumber: lineNumber)
     }
 }

@@ -54,7 +54,7 @@ struct PaymentResult {
 //MARK:- Utiliteies
 
 extension PaymentInfo {
-    init?(with checkoutState: CheckoutState, platformManager: PlatformManager) {
+    init?(with checkoutState: CheckoutState, configurationManager: ConfigurationManager) {
         guard checkoutState.checkout.deliveryCarrier.id != .Unknown && checkoutState.selectedPayment.id != .Unknown else {
             logError("Cannot create PaymentRequest (carrier, selectedPayment) from state: \(checkoutState)")
             return nil
@@ -73,7 +73,7 @@ extension PaymentInfo {
         }
         
         let deliveryPop = checkoutState.selectedKiosk?.id
-        if deliveryPop == nil && checkoutState.checkout.deliveryCarrier.id == .RUCH {
+        if deliveryPop == nil && checkoutState.checkout.deliveryCarrier.id.isRuch {
             logError("Cannot create PaymentRequest (deliveryPop) from state: \(checkoutState)")
             return nil
         }
@@ -83,13 +83,13 @@ extension PaymentInfo {
             return nil
         }
         
-        guard let currencyCode = platformManager.platform?.currencyCode else {
+        guard let currencyCode = configurationManager.configuration?.currencyCode else {
             logError("Cannot create PaymentRequest (currencyCode) from state: \(checkoutState)")
             return nil
         }
         
-        guard let localeCode = platformManager.platform?.locale.languageCode else {
-            logError("Cannot create PaymentRequest (localeCode) from state: \(checkoutState), platform \(platformManager.platform)")
+        guard let localeCode = configurationManager.configuration?.locale.appLanguageCode else {
+            logError("Cannot create PaymentRequest (localeCode) from state: \(checkoutState), configuration \(configurationManager.configuration)")
             return nil
         }
         

@@ -2,19 +2,10 @@ import Foundation
 import UIKit
 import JLRoutes
 
-extension Platform {
-    var brandPathComponent: String {
-        switch self {
-        case .Polish: return "marki"
-        case .German: return "marken"
-        }
-    }
-}
-
 final class CommonNavigationHandler: NavigationHandler {
     private weak var navigationController: UINavigationController?
     private let resolver: DiResolver
-    private let platformManager: PlatformManager
+    private let configurationManager: ConfigurationManager
     private let navigationDelegateHandler: CommonNavigationControllerDelegateHandler
     private let urlRouter = JLRoutes()
     
@@ -22,7 +13,7 @@ final class CommonNavigationHandler: NavigationHandler {
         self.navigationController = navigationController
         self.resolver = resolver
         self.navigationDelegateHandler = CommonNavigationControllerDelegateHandler(hideNavigationBarForFirstView: hideNavigationBarForFirstView)
-        self.platformManager = resolver.resolve(PlatformManager.self)
+        self.configurationManager = resolver.resolve(ConfigurationManager.self)
         
         navigationController.delegate = navigationDelegateHandler
         
@@ -36,7 +27,7 @@ final class CommonNavigationHandler: NavigationHandler {
             if let url = NSURL(string: linkEvent.link) {
                 let fromType = linkEvent.productDetailsFromType
                 let additionalParams: [NSObject: AnyObject] = fromType == nil ? [:] : ["fromType": fromType!.rawValue]
-                showView(forURL: url, title: linkEvent.title, additionalParams: additionalParams)
+                showView(forURL: url, title: linkEvent.title, additionalParams: additionalParams, transitionImageTag: linkEvent.transitionImageTag)
             } else {
                 logError("Cannot create NSURL from \(linkEvent.link)")
             }
@@ -55,11 +46,14 @@ final class CommonNavigationHandler: NavigationHandler {
         }
     }
     
-    private func showView(forURL url: NSURL, title: String?, additionalParams: [NSObject: AnyObject] = [:]) -> Bool {
+    private func showView(forURL url: NSURL, title: String?, additionalParams: [NSObject: AnyObject] = [:], transitionImageTag: Int? = nil) -> Bool {
         logInfo("Showing view for URL: \(url.absoluteString)")
         var params = additionalParams
         if let title = title {
             params["title"] = title
+        }
+        if let transitionImageTag = transitionImageTag {
+            params["transitionImageTag"] = transitionImageTag
         }
         return urlRouter.routeURL(url, withParameters: params)
     }
@@ -93,111 +87,109 @@ final class CommonNavigationHandler: NavigationHandler {
     }
     
     private func configureRouter() {
-        urlRouter.addRoute("/:host/tag/*") { [weak self](parameters: [NSObject: AnyObject]) in
-            guard let `self` = self else { return false }
+        guard let configuration = configurationManager.configuration?.deepLinkConfiguration else {
+            logError("Cannot configure router, no configuration")
+            return
+        }
+        
+        urlRouter.addRoute("/:host/\(configuration.productListPathComponent)/*") { [unowned self](parameters: [NSObject: AnyObject]) in
             guard let url = parameters[kJLRouteURLKey] as? NSURL else {
                 logError("Cannot retrieve routeURLKey for \(parameters)")
                 return false
             }
             let title = parameters["title"] as? String
             
-            let entryCategory = EntryCategory(link: url.absoluteString, name: title)
+            let entryCategory = EntryCategory(link: url, name: title)
             return self.handleRoutingForProductList(forProductListViewControllerType: CategoryProductListViewController.self, entryData: entryCategory)
         }
         
-        if let brandsPathComponent = platformManager.platform?.brandPathComponent {
-            urlRouter.addRoute("/:host/\(brandsPathComponent)/:brandComponent") { [weak self](parameters: [NSObject: AnyObject]!) in
-                guard let `self` = self else { return false }
-                guard let brandComponent = parameters["brandComponent"] as? String else {
-                    logError("There is no brandComponent in path: \(parameters)")
-                    return false
-                }
-                let brandComponents = brandComponent.componentsSeparatedByString(",")
-                guard let brandId = Int(brandComponents[0]) else {
-                    logError("Cannot retrieve brandId for path: \(parameters)")
-                    return false
-                }
-                let title = parameters["title"] as? String
-                let url = parameters[kJLRouteURLKey] as? NSURL
-                
-                let entryProductBrand = EntryProductBrand(id: brandId, name: title, link: url?.absoluteString)
-                return self.handleRoutingForProductList(forProductListViewControllerType: BrandProductListViewController.self, entryData: entryProductBrand)
+        urlRouter.addRoute("/:host/\(configuration.brandPathComponent)/:brandComponent") { [unowned self](parameters: [NSObject: AnyObject]!) in
+            guard let brandComponent = parameters["brandComponent"] as? String else {
+                logError("There is no brandComponent in path: \(parameters)")
+                return false
             }
-        } else {
-            logError("Cannot create router for brand. No platform selected.")
+            guard let brandId = Int(brandComponent.valueForUrlComponent) else {
+                logError("Cannot retrieve brandId for path: \(parameters)")
+                return false
+            }
+            let title = parameters["title"] as? String
+            let url = parameters[kJLRouteURLKey] as? NSURL
+                
+            let entryProductBrand = EntryProductBrand(id: brandId, name: title, link: url)
+            return self.handleRoutingForProductList(forProductListViewControllerType: BrandProductListViewController.self, entryData: entryProductBrand)
         }
         
-        urlRouter.addRoute("/:host/trend/:trendSlug") { [weak self](parameters: [NSObject: AnyObject]!) in
-            guard let `self` = self else { return false }
+        urlRouter.addRoute("/:host/\(configuration.trendPathComponent)/:trendSlug") { [unowned self](parameters: [NSObject: AnyObject]!) in
             guard let trendSlug = parameters["trendSlug"] as? String else {
                 logError("There is no trendSlug in path: \(parameters)")
                 return false
             }
             let title = parameters["title"] as? String
+            let url = parameters[kJLRouteURLKey] as? NSURL
             
-            let entryTrendInfo = EntryTrendInfo(slug: trendSlug, name: title)
+            let entryTrendInfo = EntryTrendInfo(slug: trendSlug, name: title, link: url)
             return self.handleRoutingForProductList(forProductListViewControllerType: TrendProductListViewController.self, entryData: entryTrendInfo)
         }
-        urlRouter.addRoute("/:host/search") { [weak self](parameters: [NSObject: AnyObject]!) in
-            guard let `self` = self else { return false }
+        urlRouter.addRoute("/:host/\(configuration.searchPathComponent)") { [unowned self](parameters: [NSObject: AnyObject]!) in
             guard let query = parameters["s"] as? String else {
                 logError("There is no query parameter in path: \(parameters)")
                 return false
             }
             let url = parameters[kJLRouteURLKey] as? NSURL
             
-            let entrySearchInfo = EntrySearchInfo(query: query, link: url?.absoluteString)
+            let entrySearchInfo = EntrySearchInfo(query: query, link: url)
             return self.handleRoutingForProductList(forProductListViewControllerType: SearchProductListViewController.self, entryData: entrySearchInfo)
         }
-        urlRouter.addRoute("/:host/p/*") { [weak self](parameters: [NSObject: AnyObject]!) in
-            guard let `self` = self else { return false }
+        urlRouter.addRoute("/:host/\(configuration.productPathComponent)/*") { [unowned self](parameters: [NSObject: AnyObject]!) in
             guard let wildcardComponents = parameters[kJLRouteWildcardComponentsKey] as? [String], let productComponent = wildcardComponents.first else {
                 logError("There is no productComponent in path: \(parameters)")
                 return false
             }
-            let productComponents = productComponent.componentsSeparatedByString(",")
-            guard let productId = Int(productComponents[0]) else {
+            guard let productId = Int(productComponent.valueForUrlComponent) else {
                 logError("Cannot retrieve productId for path: \(parameters)")
                 return false
             }
+            let url = parameters[kJLRouteURLKey] as? NSURL
             
             let fromTypeParam = ProductDetailsFromType(rawValue: (parameters["fromType"] as? String) ?? "")
             let fromType = fromTypeParam ?? .DeepLink
             
-            let context = OneProductDetailsContext(productInfo: ProductInfo.Id(productId), fromType: fromType)
+            let context = OneProductDetailsContext(productInfo: ProductInfo.Id(productId), fromType: fromType, link: url)
             self.navigationController?.sendNavigationEvent(ShowProductDetailsEvent(context: context, retrieveCurrentImageViewTag: nil))
             
             return true
         }
         
-        urlRouter.addRoute("/:host/videos/:videoComponent") { [weak self](parameters: [NSObject: AnyObject]!) in
-            guard let `self` = self else { return false }
+        urlRouter.addRoute("/:host/\(configuration.videosPathComponent)/:videoComponent") { [unowned self](parameters: [NSObject: AnyObject]!) in
             guard let videoComponent = parameters["videoComponent"] as? String else {
                 logError("There is no videoComponent in path: \(parameters)")
                 return false
             }
-            let videoComponents = videoComponent.componentsSeparatedByString(",")
-            guard let videoId = Int(videoComponents[0]) else {
+            guard let videoId = Int(videoComponent.valueForUrlComponent) else {
                 logError("Cannot retrieve videoId for path: \(parameters)")
                 return false
             }
-            self.navigationController?.sendNavigationEvent(ShowPromoSlideshowEvent(slideshowId: videoId))
+            let transitionImageTag = parameters["transitionImageTag"] as? Int
+            let url = parameters[kJLRouteURLKey] as? NSURL
+            
+            let entry = PromoSlideshowEntry(id: videoId, link: url)
+            self.navigationController?.sendNavigationEvent(ShowPromoSlideshowEvent(entry: entry, transitionImageTag: transitionImageTag))
             
             return true
         }
         
-        urlRouter.addRoute("/:host/d/:webViewSlug") { [weak self](parameters: [NSObject: AnyObject]!) in
-            guard let `self` = self else { return false }
-            
+        urlRouter.addRoute("/:host/\(configuration.staticWebPagePathComponent)/:webViewSlug") { [unowned self](parameters: [NSObject: AnyObject]!) in
             guard let webViewSlug = parameters["webViewSlug"] as? String else {
                 logError("There is no webViewSlug in path: \(parameters)")
                 return false
             }
+            let url = parameters[kJLRouteURLKey] as? NSURL
             
+            let entry = WebContentEntry(id: webViewSlug, link: url)
             return self.handleRouting({ Void -> WebContentViewController in
-                return self.resolver.resolve(WebContentViewController.self, argument: webViewSlug)
+                return self.resolver.resolve(WebContentViewController.self, argument: entry)
             }) { (viewController: WebContentViewController) in
-                viewController.updateData(withWebViewId: webViewSlug)
+                viewController.updateData(with: entry)
             }
         }
         

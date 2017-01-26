@@ -19,9 +19,9 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
     private let resolver: DiResolver
     private var disposeBag = DisposeBag()
     
-    init(resolver: DiResolver, slideshowId: Int) {
+    init(resolver: DiResolver, entry: PromoSlideshowEntry) {
         self.resolver = resolver
-        self.model = resolver.resolve(PromoSlideshowModel.self, argument: slideshowId)
+        self.model = resolver.resolve(PromoSlideshowModel.self, argument: entry)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -41,7 +41,7 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
         
         fetchSlideshow()
         
-        logAnalyticsEvent(AnalyticsEventId.VideoLaunch(model.slideshowId))
+        logAnalyticsEvent(AnalyticsEventId.VideoLaunch(model.entry.id))
     }
     
     override func prefersStatusBarHidden() -> Bool {
@@ -50,7 +50,7 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        logAnalyticsShowScreen(AnalyticsScreenId.Video)
+        logAnalyticsShowScreen(AnalyticsScreenId.Video, refferenceUrl: model.entry.link)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -64,7 +64,8 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
-    func updateData(withSlideshowId slideshowId: Int) {
+    func updateData(with entry: PromoSlideshowEntry) {
+        logAnalyticsShowScreen(AnalyticsScreenId.Video, refferenceUrl: entry.link)
         disposeBag = DisposeBag()
         lastPageIndex = 0
         castView.changeSwitcherState(.Loading)
@@ -74,11 +75,11 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
             self.setNeedsStatusBarAppearanceUpdate()
         }
         
-        informCurrentChildViewController() {
-            $0.focused = false
+        informCurrentChildViewController {
+            $0.pageState = PromoPageState(focused: false, playing: false)
         }
-        model.update(withSlideshowId: slideshowId)
-        logAnalyticsEvent(AnalyticsEventId.VideoLaunch(slideshowId))
+        model.update(with: entry)
+        logAnalyticsEvent(AnalyticsEventId.VideoLaunch(entry.id))
         fetchSlideshow()
     }
     
@@ -88,9 +89,12 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
             guard let `self` = self else { return }
             
             switch fetchResult {
-            case .Success(let result):
+            case .Success(let result, _):
                 logInfo("Fetched slideshow \(result)")
-                self.castView.changeSwitcherState(.Success, animated: true)
+                self.castView.changeSwitcherState(.Success, animated: !self.castView.transitionViewVisible)
+                if !self.castView.transitionAnimationInProgress {
+                    self.castView.hideTransitionViewIfNeeded()
+                }
                 self.removeAllViewControllers()
                 self.castView.update(with: result)
             case .CacheError(let error):
@@ -98,10 +102,37 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
             case .NetworkError(let error):
                 logInfo("Cannot fetch slideshow \(error)")
                 if self.model.promoSlideshow == nil {
-                    self.castView.changeSwitcherState(.Error, animated: true)
+                    self.castView.changeSwitcherState(.Error, animated: !self.castView.transitionViewVisible)
+                    if !self.castView.transitionAnimationInProgress {
+                        self.castView.hideTransitionViewIfNeeded()
+                    }
                 }
             }
         }.addDisposableTo(disposeBag)
+    }
+    
+    private func update(with viewState: PromoPageViewState, animationDuration: Double?, fromUserAction: Bool) {
+        if fromUserAction {
+            switch viewState {
+            case .Paused where castView.viewState == .Playing:
+                logAnalyticsEvent(AnalyticsEventId.VideoPause(model.entry.id))
+            case .Playing:
+                logAnalyticsEvent(AnalyticsEventId.VideoPlay(model.entry.id))
+            default: break
+            }
+        }
+        
+        castView.update(with: viewState, animationDuration: animationDuration)
+        UIView.animateWithDuration(animationDuration ?? 0) { [unowned self] in
+            self.setNeedsStatusBarAppearanceUpdate()
+        }
+        
+        if fromUserAction && viewState.isPausedState {
+            if model.shouldShowPlayFeedback {
+                castView.runPlayFeedback()
+            }
+            model.didShowPauseState()
+        }
     }
     
     @objc private func onWillResignActive() {
@@ -110,14 +141,21 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
             logError("There is not current child view controller for indexed: \(indexedViewControllers)")
             return
         }
-        update(with: .Paused(currentPage.shouldShowProgressViewInPauseState), animationDuration: Constants.promoSlideshowStateChangedAnimationDuration)
-        informCurrentChildViewController(about: { $0.focused = false })
+        if castView.viewState.isPlayingState && !(currentPage is PromoSummaryViewController) {
+            update(with: .Paused(currentPage.shouldShowProgressViewInPauseState), animationDuration: Constants.promoSlideshowStateChangedAnimationDuration, fromUserAction: false)
+        }
+        informCurrentChildViewController {
+            $0.pageState = PromoPageState(focused: false, playing: false)
+        }
     }
     
     @objc private func onDidBecomeActive() {
         logInfo("did become active")
-        update(with: .Playing, animationDuration: Constants.promoSlideshowStateChangedAnimationDuration)
-        informCurrentChildViewController(about: { $0.focused = true })
+        if currentPage is PromoSummaryViewController {
+            informCurrentChildViewController {
+                $0.pageState = PromoPageState(focused: true, playing: true)
+            }
+        }
     }
     
     private func informCurrentChildViewController(@noescape about block: PromoPageInterface -> Void) {
@@ -155,7 +193,7 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
     }
     
     private func sendCloseEvent() {
-        logAnalyticsEvent(AnalyticsEventId.VideoClose(model.slideshowId))
+        logAnalyticsEvent(AnalyticsEventId.VideoClose(model.entry.id))
         sendNavigationEvent(SimpleNavigationEvent(type: .Close))
     }
     
@@ -167,13 +205,13 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
         case .Close:
             sendCloseEvent()
         case .Dismiss:
-            informCurrentChildViewController() { $0.didTapDismiss() }
+            informCurrentChildViewController { $0.didTapDismiss() }
         case .Play:
-            informCurrentChildViewController() { $0.didTapPlay() }
+            update(with: .Playing, animationDuration: Constants.promoSlideshowStateChangedAnimationDuration, fromUserAction: true)
         }
     }
     
-    func promoSlideshowDidEndPageChanging(promoSlideshow: PromoSlideshowView, fromUserAction: Bool) {
+    func promoSlideshowDidEndPageChanging(promoSlideshow: PromoSlideshowView, fromUserAction: Bool, afterLeftBounce: Bool) {
         logInfo("Did end page changing")
         guard let promo = model.promoSlideshow else {
             logError("No promo slideshow")
@@ -181,6 +219,18 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
         }
         
         let currentPageIndex = castView.currentPageIndex
+        logInfo("current page index: \(currentPageIndex)")
+        
+        guard currentPageIndex != lastPageIndex else {
+            informCurrentChildViewController {
+                if afterLeftBounce {
+                    $0.resetProgressState()
+                    update(with: .Playing, animationDuration: Constants.promoSlideshowStateChangedAnimationDuration, fromUserAction: true)
+                }
+                $0.pageState = PromoPageState(focused: true, playing: castView.viewState.isPlayingState)
+            }
+            return
+        }
         
         if currentPageIndex == promo.summaryPageIndex {
             UIView.animateWithDuration(Constants.promoSlideshowStateChangedAnimationDuration) { [unowned self] in
@@ -197,21 +247,43 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
             }
         }
         
-        lastPageIndex = currentPageIndex
+        informChildViewControllers() { (pageIndex, page) in
+            if pageIndex == currentPageIndex {
+                page.pageState = PromoPageState(focused: true, playing: true)
+            } else {
+                page.pageState = PromoPageState(focused: false, playing: true)
+                page.resetProgressState()
+            }
+            
+            logInfo("page index: \(pageIndex), set page state: \(page.pageState)")
+        }
         
-        informCurrentChildViewController() { $0.focused = true }
+        update(with: .Playing, animationDuration: Constants.promoSlideshowStateChangedAnimationDuration, fromUserAction: true)
+        
+        lastPageIndex = currentPageIndex
     }
     
     func promoSlideshowWillBeginPageChanging(promoSlideshow: PromoSlideshowView) {
         logInfo("Will begin page changing, current page index: \(castView.currentPageIndex)")
         lastAnalyticsSlideType = analyticsSlideTypeForCurrentChildViewController()
-        informCurrentChildViewController() { $0.focused = false }
+        informCurrentChildViewController {
+            $0.pageState = PromoPageState(focused: false, playing: castView.viewState.isPlayingState)
+        }
     }
     
-    private func update(with viewState: PromoPageViewState, animationDuration: Double?) {
-        castView.update(with: viewState, animationDuration: animationDuration)
-        UIView.animateWithDuration(animationDuration ?? 0) { [unowned self] in
-            self.setNeedsStatusBarAppearanceUpdate()
+    func promoSlideshowView(promoSlideshow: PromoSlideshowView, didChangePlayingState playing: Bool) {
+        informChildViewControllers() { (pageIndex, page) in
+            let isCurrentPage = pageIndex == castView.currentPageIndex
+            page.pageState = PromoPageState(focused: isCurrentPage, playing: playing)
+        }
+    }
+    
+    func promoSlideshowDidEndTransitionAnimation(promoSlideshow: PromoSlideshowView) {
+        logInfo("Did end transition animation")
+        if castView.viewSwitcherState == .Loading {
+            castView.showTransitionLoader()
+        } else {
+            castView.hideTransitionViewIfNeeded()
         }
     }
     
@@ -238,7 +310,7 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
     }
     
     func promoPage(promoPage: PromoPageInterface, didChangeCurrentProgress currentProgress: Double) {
-        guard promoPage.focused else {
+        guard let currentPage = currentPage where currentPage.pageState.focused else {
             //take progress only from focused pages
             logInfo("Cannot update progress, page not focused, promoPage: \(promoPage)")
             return
@@ -249,14 +321,7 @@ final class PromoSlideshowViewController: UIViewController, PromoSlideshowViewDe
     
     func promoPage(promoPage: PromoPageInterface, willChangePromoPageViewState newViewState: PromoPageViewState, animationDuration: Double?) {
         logInfo("Will change promo page view state \(newViewState), aniamtionDuration \(animationDuration), for page \(promoPage)")
-        switch newViewState {
-        case .Paused where castView.viewState == .Playing:
-            logAnalyticsEvent(AnalyticsEventId.VideoPause(model.slideshowId))
-        case .Playing:
-            logAnalyticsEvent(AnalyticsEventId.VideoPlay(model.slideshowId))
-        default: break
-        }
-        update(with: newViewState, animationDuration: animationDuration)
+        update(with: newViewState, animationDuration: animationDuration, fromUserAction: true)
     }
     
     func promoPageDidFinished(promoStep: PromoPageInterface) {
@@ -305,7 +370,7 @@ extension PromoSlideshowViewController: PromoSlideshowPageHandler {
         newViewController.didMoveToParentViewController(self)
         
         if indexedViewControllers.isEmpty {
-            (newViewController as? PromoPageInterface)?.focused = true
+            (newViewController as? PromoPageInterface)?.pageState = PromoPageState(focused: true, playing: castView.viewState.isPlayingState)
         }
         
         if removePageIndex != nil {
@@ -328,23 +393,26 @@ extension PromoSlideshowViewController: PromoSlideshowPageHandler {
     
     private func createViewController(from dataContainer: PromoSlideshowPageDataContainer) -> UIViewController {
         logInfo("Creating view controller with dataContainer: \(dataContainer)")
+        
+        let newPageState = PromoPageState(focused: false, playing: true)
+        
         switch dataContainer.pageData {
         case .Image(let link, let duration):
-            return resolver.resolve(ImageStepViewController.self, arguments: (link, duration))
+            return resolver.resolve(ImageStepViewController.self, arguments: (link, duration, newPageState))
         case .Video(let link, let annotations):
-            return resolver.resolve(VideoStepViewController.self, arguments: (link, annotations, dataContainer.additionalData))
+            return resolver.resolve(VideoStepViewController.self, arguments: (link, annotations, dataContainer.additionalData, newPageState))
         case .Product(let dataEntry):
-            return resolver.resolve(ProductStepViewController.self, argument: dataEntry)
+            return resolver.resolve(ProductStepViewController.self, arguments: (dataEntry, newPageState))
         case .Summary(let promoSlideshow):
-            return resolver.resolve(PromoSummaryViewController.self, argument: promoSlideshow)
+            return resolver.resolve(PromoSummaryViewController.self, arguments: (promoSlideshow, newPageState))
         }
     }
 }
 
 extension PromoSlideshowViewController: NavigationHandler {
     func handleNavigationEvent(event: NavigationEvent) -> EventHandled {
-        if let videoEvent = event as? ShowVideoEvent {
-            updateData(withSlideshowId: videoEvent.id)
+        if let videoEvent = event as? ShowPromoSlideshowEvent {
+            updateData(with: videoEvent.entry)
             return true
         }
         return false
@@ -359,6 +427,6 @@ extension PromoSlideshowViewController: StatusBarAppearanceHandling {
 
 extension PromoSlideshowViewController: PresenterModalProtocol {
     func presenterWillCloseModalWithPan() {
-        logAnalyticsEvent(AnalyticsEventId.VideoClose(model.slideshowId))
+        logAnalyticsEvent(AnalyticsEventId.VideoClose(model.entry.id))
     }
 }

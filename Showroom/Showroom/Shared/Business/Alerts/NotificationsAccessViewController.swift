@@ -16,7 +16,7 @@ enum NotificationsAccessViewType {
 }
 
 protocol NotificationsAccessViewControllerDelegate: class {
-    func notificationsAccessWantsDismiss(viewController: NotificationsAccessViewController)
+    func notificationsAccessWantsDismiss(viewController: NotificationsAccessViewController, animated: Bool)
 }
 
 final class NotificationsAccessViewController: UIViewController, AlertViewDelegate {
@@ -53,18 +53,24 @@ final class NotificationsAccessViewController: UIViewController, AlertViewDelega
     func alertViewDidTapAccept(view: AlertView) {
         logAnalyticsEvent(AnalyticsEventId.ModalPush("accept"))
         manager.registerForRemoteNotificationsIfNeeded()
-        delegate?.notificationsAccessWantsDismiss(self)
+        delegate?.notificationsAccessWantsDismiss(self, animated: true)
     }
     
     func alertViewDidTapDecline(view: AlertView) {
         logAnalyticsEvent(AnalyticsEventId.ModalPush("decline"))
         manager.didSelectDecline()
-        delegate?.notificationsAccessWantsDismiss(self)
+        delegate?.notificationsAccessWantsDismiss(self, animated: true)
     }
     
     func alertViewDidTapRemind(view: AlertView) {
         logAnalyticsEvent(AnalyticsEventId.ModalPush("later"))
         manager.didSelectRemindLater()
-        delegate?.notificationsAccessWantsDismiss(self)
+        delegate?.notificationsAccessWantsDismiss(self, animated: true)
+    }
+}
+
+extension NotificationsAccessViewController: ExtendedModalViewController {
+    func forceCloseWithoutAnimation() {
+        delegate?.notificationsAccessWantsDismiss(self, animated: false)
     }
 }

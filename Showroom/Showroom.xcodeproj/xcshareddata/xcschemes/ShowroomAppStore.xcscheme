@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0730"
+   LastUpgradeVersion = "0800"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -35,6 +35,26 @@
                BlueprintIdentifier = "1D2F194E1CE9CE250099142E"
                BuildableName = "ShowroomTests.xctest"
                BlueprintName = "ShowroomTests"
+               ReferencedContainer = "container:Showroom.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "1D00C6D41DC0CCF200596BA5"
+               BuildableName = "ShowroomWorldwideTests.xctest"
+               BlueprintName = "ShowroomWorldwideTests"
+               ReferencedContainer = "container:Showroom.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C0CDF9401DDC8DB90036F12F"
+               BuildableName = "ShowroomKidsTests.xctest"
+               BlueprintName = "ShowroomKidsTests"
                ReferencedContainer = "container:Showroom.xcodeproj">
             </BuildableReference>
          </TestableReference>

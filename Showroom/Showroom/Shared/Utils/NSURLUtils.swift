@@ -2,6 +2,10 @@ import Foundation
 import UIKit
 
 extension NSURL {
+    var absoluteOrRelativeString: String {
+        return absoluteString ?? relativeString
+    }
+    
     static func createImageUrl(url: String, width: Int? = nil, height: Int? = nil) -> NSURL {
         var url = NSURL(string: url)!
         
@@ -18,7 +22,7 @@ extension NSURL {
         guard let params = params else {
             return self
         }
-        var url = self.absoluteString
+        var url = self.absoluteString!
         url += url.containsString("?") ? "&" : "?"
         for (key, value) in params {
             url += key + "=" + value + "&"

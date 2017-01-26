@@ -2,27 +2,36 @@ import Foundation
 import UIKit
 
 extension ContentPromoTextType {
-    func gradientColors() -> [CGColor] {
+    private func gradientColors() -> [CGColor] {
         switch self {
         case .Black:
             return [UIColor.whiteColor().colorWithAlphaComponent(0).CGColor, UIColor.whiteColor().CGColor]
-        default:
+        case .White:
             return [UIColor.blackColor().colorWithAlphaComponent(0).CGColor, UIColor.blackColor().CGColor]
         }
     }
     
-    func color() -> UIColor {
+    private func color() -> UIColor {
         switch self {
         case .Black:
             return UIColor.blackColor()
-        default:
+        case .White:
             return UIColor.whiteColor()
+        }
+    }
+    
+    private func playImage() -> UIImage {
+        switch self {
+        case .Black:
+            return UIImage(asset: .Play_main_light)
+        case .White:
+            return UIImage(asset: .Play_main_dark)
         }
     }
 }
 
 extension ContentPromoImage {
-    var ratio: Double {
+    private var ratio: Double {
         return Double(width) / Double(height)
     }
 }
@@ -32,11 +41,15 @@ extension ContentPromoImage {
 class ContentPromoCell: UITableViewCell {
     static let textContainerHeight: CGFloat = 161
     
-    let promoImageView = UIImageView()
-    let textContainerView = ContentPromoTextContainerView()
-    let footerView = UIView()
-    
-    var captionContainerHeightConstraint: NSLayoutConstraint?
+    private let promoImageView = UIImageView()
+    private let textContainerView = ContentPromoTextContainerView()
+    private let footerView = UIView()
+    private let playImageView = UIImageView()
+
+    var imageTag: Int {
+        set { promoImageView.tag = newValue }
+        get { return promoImageView.tag }
+    }
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: .Default, reuseIdentifier: reuseIdentifier)
@@ -47,10 +60,13 @@ class ContentPromoCell: UITableViewCell {
         promoImageView.layer.masksToBounds = true
         promoImageView.contentMode = .ScaleAspectFill
         
+        playImageView.contentMode = .Center
+        
         footerView.backgroundColor = backgroundColor
         
         contentView.addSubview(promoImageView)
         contentView.addSubview(textContainerView)
+        contentView.addSubview(playImageView)
         contentView.addSubview(footerView)
         
         configureCustomConstraints()
@@ -69,6 +85,7 @@ class ContentPromoCell: UITableViewCell {
         promoImageView.image = nil
         promoImageView.loadImageFromUrl(image.url, width: Dimensions.contentPromoImageWidth)
         
+        let previousTextContainerHiddenState = textContainerView.hidden
         if let title = image.title, let subtitle = image.subtitle, let textColor = image.color {
             textContainerView.hidden = false
             textContainerView.backgroundGradient.colors = textColor.gradientColors()
@@ -78,6 +95,16 @@ class ContentPromoCell: UITableViewCell {
             textContainerView.subtitleLabel.textColor = textColor.color()
         } else {
             textContainerView.hidden = true
+        }
+        
+        if contentPromo.showPlayOverlay {
+            if previousTextContainerHiddenState != textContainerView.hidden {
+                configurePlayConstraints()
+            }
+            playImageView.hidden = false
+            playImageView.image = image.color?.playImage() ?? UIImage(asset: .Play_main_light)
+        } else {
+            playImageView.hidden = true
         }
     }
     
@@ -101,6 +128,8 @@ class ContentPromoCell: UITableViewCell {
             make.trailing.equalTo(promoImageView)
         }
         
+        configurePlayConstraints()
+        
         footerView.snp_makeConstraints { make in
             make.top.equalTo(promoImageView.snp_bottom)
             make.leading.equalToSuperview()
@@ -108,10 +137,24 @@ class ContentPromoCell: UITableViewCell {
             make.bottom.equalToSuperview().offset(-Dimensions.defaultMargin)
         }
     }
+    
+    private func configurePlayConstraints() {
+        playImageView.snp_remakeConstraints { make in
+            make.top.equalToSuperview()
+            if textContainerView.hidden {
+                make.bottom.equalTo(promoImageView.snp_bottom)
+            } else { 
+                let offset = ContentPromoTextContainerView.bottomMargin + textContainerView.titleLabel.font.lineHeight + textContainerView.subtitleLabel.font.lineHeight
+                make.bottom.equalTo(promoImageView.snp_bottom).offset(-offset)
+            }
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+        }
+    }
 }
 
-class ContentPromoWithCaptionCell: ContentPromoCell {
-    let captionContainerView = ContentPromoCaptionContainerView()
+final class ContentPromoWithCaptionCell: ContentPromoCell {
+    private let captionContainerView = ContentPromoCaptionContainerView()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -138,7 +181,7 @@ class ContentPromoWithCaptionCell: ContentPromoCell {
         captionContainerView.subtitleLabel.text = caption.subtitle
     }
     
-    func configureCaptionCustomConstraints() {
+    private func configureCaptionCustomConstraints() {
         captionContainerView.snp_makeConstraints { make in
             make.edges.equalToSuperview()
         }
@@ -147,12 +190,12 @@ class ContentPromoWithCaptionCell: ContentPromoCell {
 
 // MARK: - Subviews
 
-class ContentPromoTextContainerView: UIView {
+final class ContentPromoTextContainerView: UIView {
     static let bottomMargin:CGFloat = 19
     
-    let titleLabel = UILabel()
-    let subtitleLabel = UILabel()
-    let backgroundGradient = CAGradientLayer()
+    private let titleLabel = UILabel()
+    private let subtitleLabel = UILabel()
+    private let backgroundGradient = CAGradientLayer()
     
     init() {
         super.init(frame: CGRectZero)
@@ -197,13 +240,13 @@ class ContentPromoTextContainerView: UIView {
     }
 }
 
-class ContentPromoCaptionContainerView: UIView {
+final class ContentPromoCaptionContainerView: UIView {
     static let topMargin:CGFloat = 3
     static let titleFont = UIFont(fontType: .Bold)
     static let subtitleFont = UIFont(fontType: .Italic)
     
-    let titleLabel = UILabel()
-    let subtitleLabel = UILabel()
+    private let titleLabel = UILabel()
+    private let subtitleLabel = UILabel()
     
     init() {
         super.init(frame: CGRectZero)

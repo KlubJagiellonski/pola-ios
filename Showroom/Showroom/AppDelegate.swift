@@ -1,157 +1,83 @@
 import UIKit
-import Fabric
-import Crashlytics
-import XCGLogger
-import FBSDKCoreKit
+import Swinject
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     
-    let assembler = try! DiAssembler()
-    private lazy var userManager: UserManager = { [unowned self] in
-        return self.assembler.resolver.resolve(UserManager.self)!
+    private(set) lazy var resolver: ResolverType = {
+        return try! DiAssembler().resolver
     }()
-    private lazy var notificationsManager: NotificationsManager = { [unowned self] in
-        let manager = self.assembler.resolver.resolve(NotificationsManager.self)!
-        manager.delegate = self
-        return manager
+    
+    private lazy var applicationManager: ApplicationManager = { [unowned self]in
+        let applicationManager = self.resolver.resolve(ApplicationManager.self)!
+        applicationManager.delegate = self
+        return applicationManager
     }()
-    private lazy var platformManager: PlatformManager = { [unowned self] in
-        return self.assembler.resolver.resolve(PlatformManager.self)!
-    }()
-    private lazy var paymentManager: PaymentManager = { [unowned self] in
-        return self.assembler.resolver.resolve(PaymentManager.self)!
-    }()
-    private lazy var storage: KeyValueStorage = { [unowned self] in
-        return self.assembler.resolver.resolve(KeyValueStorage.self)!
-    }()
-    private var launchCount: Int {
-        let launchCountKey = "launch_count"
-        let count = (storage.load(forKey: launchCountKey) ?? 0) + 1
-        storage.save(count, forKey: launchCountKey)
-        return count
-    }
-    private var quickActionManager: QuickActionManager!
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        platformManager.initializePlatformWithDeviceLanguage()
-        
-        logAnalyticsAppStart()
-        logAnalyticsEvent(AnalyticsEventId.ApplicationLaunch(launchCount))
-        
-        configureDependencies()
-        quickActionManager = assembler.resolver.resolve(QuickActionManager.self)
-        quickActionManager.delegate = self
-        
-        userManager.updateUser()
-        
-        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
-        BTAppSwitch.setReturnURLScheme(Constants.braintreePayPalUrlScheme)
+        applicationManager.didLaunch(withLaunchOptions: launchOptions)
         
         logInfo("Configuring main window")
         
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         window?.backgroundColor = UIColor.whiteColor()
-        window?.rootViewController = assembler.resolver.resolve(RootViewController.self)
+        window?.rootViewController = resolver.resolve(RootViewController.self)
         window?.makeKeyAndVisible()
         
         logInfo("Main window configured")
         
-        notificationsManager.applicationDidFinishLaunching(withLaunchOptions: launchOptions)
+        applicationManager.didAddMainWindow(withLaunchOptions: launchOptions)
         
         return true
     }
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
-        if FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation) {
-            return true
-        }
-        if paymentManager.currentPaymentHandler?.handleOpenURL(url, sourceApplication: sourceApplication) ?? false {
-            return true
-        }
-        logInfo("Received url \(url) with options: \(sourceApplication)")
-        
-        return handle(url: url)
+        return applicationManager.didReceiveOpen(with: url, sourceApplication: sourceApplication, annotation: annotation)
     }
     
     func application(application: UIApplication, continueUserActivity userActivity: NSUserActivity, restorationHandler: ([AnyObject]?) -> Void) -> Bool {
-        logInfo("Received continueUserActivity \(userActivity)")
-        if let webPageUrl = userActivity.webpageURL where userActivity.activityType == NSUserActivityTypeBrowsingWeb {
-            return handleOpen(withURL: webPageUrl)
-        }
-        return false
+        return applicationManager.didReceiveContinueActivity(with: userActivity)
+    }
+    
+    func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
+        applicationManager.didRegisterUserNotificationSettings(notificationSettings)
     }
     
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
-        notificationsManager.didRegisterForRemoteNotifications(withDeviceToken: deviceToken)
+        applicationManager.didRegisterForRemoteNotifications(withDeviceToken: deviceToken)
     }
     
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
-        notificationsManager.didFailToRegisterForRemoteNotifications(with: error)
+        applicationManager.didFailToRegisterForRemoteNotifications(withError: error)
     }
     
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
-        notificationsManager.didReceiveRemoteNotification(userInfo: userInfo)
+        applicationManager.didReceiveRemoteNotification(withUserInfo: userInfo)
     }
     
     func applicationWillEnterForeground(application: UIApplication) {
-        userManager.updateUser()
+        applicationManager.willEnterForeground()
     }
     
     func applicationDidBecomeActive(application: UIApplication) {
-        FBSDKAppEvents.activateApp()
-        
-        FBSDKAppLinkUtility.fetchDeferredAppLink { [weak self] url, error in
-            if url != nil && error == nil {
-                self?.handle(url: url)
-            } else {
-                logInfo("Cannot fetch deferred app link \(url) \(error)")
-            }
-        }
-
-        logInfo("app did become active")
-    }
-    
-    private func configureDependencies() {
-        Logging.configure()
-        
-        if !Constants.isDebug {
-            Fabric.with([Crashlytics.self])
-        }
+        applicationManager.didBecomeActive()
     }
     
     func application(application: UIApplication, performActionForShortcutItem shortcutItem: UIApplicationShortcutItem, completionHandler: (Bool) -> Void) {
-        completionHandler(quickActionManager.handleShortcutItem(shortcutItem))
-    }
-    
-    private func handle(url url: NSURL) -> Bool {
-        if let httpsUrl = url.changeToHTTPSchemeIfNeeded() {
-            Analytics.sharedInstance.affilation = httpsUrl.retrieveUtmSource()
-            return handleOpen(withURL: httpsUrl)
-        } else {
-            return false
-        }
+        completionHandler(applicationManager.performAction(forItem: shortcutItem))
     }
 }
 
-extension AppDelegate: DeepLinkingHandler {
-    func handleOpen(withURL url: NSURL) -> Bool {
+extension AppDelegate: ApplicationManagerDelegate {
+    func applicationManager(manager: ApplicationManager, didReceiveUrl url: NSURL) -> Bool {
         guard let deepLinkingHandler = window?.rootViewController as? DeepLinkingHandler else { return false }
         return deepLinkingHandler.handleOpen(withURL: url)
     }
-}
-
-extension AppDelegate: QuickActionManagerDelegate {
-    func quickActionManager(manager: QuickActionManager, didTapShortcut shortcut: ShortcutIdentifier) {
+    
+    func applicationManager(manager: ApplicationManager, didReceiveShortcutEvent identifier: ShortcutIdentifier) {
         let rootViewController = window?.rootViewController as! RootViewController
-        rootViewController.handleQuickActionShortcut(shortcut)
-    }
-}
-
-extension AppDelegate: NotificationsManagerDelegate {
-    func notificationManager(manager: NotificationsManager, didReceiveUrl url: NSURL) {
-        handleOpen(withURL: url)
+        rootViewController.handleQuickActionShortcut(identifier)
     }
 }
