@@ -50,6 +50,7 @@ class ContentPromoCell: UITableViewCell {
         set { promoImageView.tag = newValue }
         get { return promoImageView.tag }
     }
+    var footerHeight: CGFloat { return 0 }
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: .Default, reuseIdentifier: reuseIdentifier)
@@ -142,10 +143,10 @@ class ContentPromoCell: UITableViewCell {
         playImageView.snp_remakeConstraints { make in
             make.top.equalToSuperview()
             if textContainerView.hidden {
-                make.bottom.equalTo(promoImageView.snp_bottom)
+                make.bottom.equalToSuperview().offset(-footerHeight)
             } else { 
-                let offset = ContentPromoTextContainerView.bottomMargin + textContainerView.titleLabel.font.lineHeight + textContainerView.subtitleLabel.font.lineHeight
-                make.bottom.equalTo(promoImageView.snp_bottom).offset(-offset)
+                let offset = footerHeight + ContentPromoTextContainerView.bottomMargin + textContainerView.titleLabel.font.lineHeight + textContainerView.subtitleLabel.font.lineHeight
+                make.bottom.equalToSuperview().offset(-offset)
             }
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
@@ -155,6 +156,10 @@ class ContentPromoCell: UITableViewCell {
 
 final class ContentPromoWithCaptionCell: ContentPromoCell {
     private let captionContainerView = ContentPromoCaptionContainerView()
+    
+    override var footerHeight: CGFloat {
+        return ContentPromoCaptionContainerView.topMargin + captionContainerView.titleLabel.font.lineHeight + captionContainerView.subtitleLabel.font.lineHeight
+    }
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
