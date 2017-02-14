@@ -43,6 +43,8 @@ struct DeepLinkConfiguration {
 
 struct SettingsConfiguration {
     let howToMeasureText: L10n?
+    let facebookUrlOptions: [String]
+    let instagramUrlOptions: [String]
 }
 
 protocol Configuration {
@@ -111,7 +113,9 @@ final class PlConfiguration: Configuration {
             wishlistPathComponent: "c/wishlist"
         )
         settingsConfiguration = SettingsConfiguration(
-            howToMeasureText: .SettingsHowToMeasure
+            howToMeasureText: .SettingsHowToMeasure,
+            facebookUrlOptions: ["fb://profile/159930354087746", "https://www.facebook.com/shwrm"],
+            instagramUrlOptions: ["instagram://user?username=shwrm", "https://www.instagram.com/shwrm"]
         )
         let versionComponent = Constants.isStagingEnv ? "api-test" : "api"
         apiBasePath = "https://\(versionComponent).showroom.pl/ios/v2"
@@ -164,7 +168,9 @@ final class DeConfiguration: Configuration {
             wishlistPathComponent: "c/wishlist"
         )
         settingsConfiguration = SettingsConfiguration(
-            howToMeasureText: .SettingsHowToMeasure
+            howToMeasureText: .SettingsHowToMeasure,
+            facebookUrlOptions: ["fb://profile/159930354087746", "https://www.facebook.com/shwrm"],
+            instagramUrlOptions: ["instagram://user?username=shwrm", "https://www.instagram.com/shwrm"]
         )
         let versionComponent = Constants.isStagingEnv ? "api-test" : "api"
         apiBasePath = "https://\(versionComponent).showroom.de/ios/v2"
@@ -217,7 +223,9 @@ final class ComConfiguration: Configuration {
             wishlistPathComponent: "c/wishlist"
         )
         settingsConfiguration = SettingsConfiguration(
-            howToMeasureText: nil
+            howToMeasureText: nil,
+            facebookUrlOptions: ["fb://profile/159930354087746", "https://www.facebook.com/shwrm"],
+            instagramUrlOptions: ["instagram://user?username=shwrm", "https://www.instagram.com/shwrm"]
         )
         let versionComponent = Constants.isStagingEnv ? "api-test" : "api"
         apiBasePath = "https://\(versionComponent).shwrm.com/ios/v2"
@@ -267,7 +275,9 @@ final class KidsConfiguration: Configuration {
             wishlistPathComponent: "c/wishlist"
         )
         settingsConfiguration = SettingsConfiguration(
-            howToMeasureText: .SettingsHowToMeasureKids
+            howToMeasureText: .SettingsHowToMeasureKids,
+            facebookUrlOptions: ["fb://profile/415940401850189", "https://www.facebook.com/kids.showroom"],
+            instagramUrlOptions: ["instagram://user?username=showroom_kids", "https://www.instagram.com/showroom_kids"]
         )
         let versionComponent = Constants.isStagingEnv ? "api-kids-test" : "api-kids"
         apiBasePath = "https://\(versionComponent).showroom.pl/ios/v2"
