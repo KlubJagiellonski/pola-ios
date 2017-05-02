@@ -30,11 +30,11 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewDelegate
         
         castView.delegate = self
         castView.pageHandler = self
-        castView.updatePageCount(withNewProductsAmount: model.productsCount)
+        castView.updatePageCount(with: model.productsCount)
         
-        model.newProductsAmountObservable.subscribeNext { [weak self] newProductsAmount in
-            logInfo("Updating products amount \(newProductsAmount)")
-            self?.castView.updatePageCount(withNewProductsAmount: newProductsAmount)
+        model.productsCountObservable.subscribeNext { [weak self] productsCount in
+            logInfo("Updating products count \(productsCount)")
+            self?.castView.updatePageCount(with: productsCount)
             }.addDisposableTo(disposeBag)
     }
     

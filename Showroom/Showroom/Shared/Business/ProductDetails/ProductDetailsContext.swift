@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-typealias NewProductsAmount = Int
+typealias ProductsCount = Int
 
 enum ProductInfo {
     case Object(Product)
@@ -30,7 +30,7 @@ enum ProductDetailsFromType: String {
 }
 
 protocol ProductDetailsContext: class {
-    var newProductsObservable: Observable<NewProductsAmount> { get }
+    var productsCountObservable: Observable<ProductsCount> { get }
     var productsCount: Int { get }
     var initialProductIndex: Int { get }
     var fromType: ProductDetailsFromType { get }
@@ -41,11 +41,11 @@ protocol ProductDetailsContext: class {
 }
 
 class MultiPageProductDetailsContext: ProductDetailsContext {
-    let newProductsObservable: Observable<NewProductsAmount> = PublishSubject()
+    let productsCountObservable: Observable<ProductsCount> = PublishSubject()
     var productsCount: Int {
         didSet {
-            let newProductsSubject = newProductsObservable as! PublishSubject
-            newProductsSubject.onNext(productsCount - oldValue)
+            let newProductsSubject = productsCountObservable as! PublishSubject
+            newProductsSubject.onNext(productsCount)
         }
     }
     let initialProductIndex: Int
@@ -72,7 +72,7 @@ class MultiPageProductDetailsContext: ProductDetailsContext {
 }
 
 class OnePageProductDetailsContext: ProductDetailsContext {
-    let newProductsObservable: Observable<NewProductsAmount> = PublishSubject.empty()
+    let productsCountObservable: Observable<ProductsCount> = PublishSubject.empty()
     let productsCount: Int
     let initialProductIndex: Int
     let onChanged: Int -> Void
@@ -99,7 +99,7 @@ class OnePageProductDetailsContext: ProductDetailsContext {
 
 class OneProductDetailsContext: ProductDetailsContext {
     let productsCount = 1
-    let newProductsObservable: Observable<NewProductsAmount> = PublishSubject.empty()
+    let productsCountObservable: Observable<ProductsCount> = PublishSubject.empty()
     let initialProductIndex = 0
     let productInfo: ProductInfo
     let fromType: ProductDetailsFromType
