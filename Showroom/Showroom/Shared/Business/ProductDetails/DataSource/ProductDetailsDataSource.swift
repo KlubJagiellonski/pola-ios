@@ -47,6 +47,10 @@ final class ProductDetailsDataSource: NSObject, UICollectionViewDataSource {
         let oldValue = self.pageCount
         let newPageCount = pageCount
         
+        guard newPageCount != oldValue else {
+            return
+        }
+        
         if oldValue > newPageCount || oldValue == 0 {
             self.pageCount = newPageCount
             self.collectionView?.reloadData()
