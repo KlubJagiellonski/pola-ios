@@ -169,7 +169,14 @@ class BasketDataSource: NSObject, UITableViewDataSource, BasketProductCellDelega
             tableView?.insertRowsAtIndexPaths(addedProducts, withRowAnimation: .Automatic)
         }
         
-        tableView?.endUpdates()
+        do {
+            try CatchExceptions.catchException { [unowned self] in
+                self.tableView?.endUpdates()
+            }
+        }
+        catch {
+            self.tableView?.reloadData()
+        }
     }
     
     func refreshImagesIfNeeded() {
