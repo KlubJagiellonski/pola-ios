@@ -80,8 +80,8 @@ class ProductListModel {
             self.updateProductIndexWithNotyfingObserver(with: index)
         }
         
-        let onRetrieveProductInfo = { [unowned self](index: Int) -> ProductInfo in
-            let product = self.products[index]
+        let onRetrieveProductInfo = { [unowned self](index: Int) -> ProductInfo? in
+            guard let product = self.products[safe: index] else { return nil }
             let lowResImageUrl = NSURL.createImageUrl(product.imageUrl, width: imageWidth, height: nil)
             return ProductInfo.Object(product.toProduct(withLowResImageUrl: lowResImageUrl.absoluteString))
         }

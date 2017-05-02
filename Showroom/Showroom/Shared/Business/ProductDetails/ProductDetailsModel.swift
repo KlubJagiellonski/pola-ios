@@ -25,7 +25,7 @@ class ProductDetailsModel {
         configureContext()
     }
     
-    func productInfo(forIndex index: Int) -> ProductInfo {
+    func productInfo(forIndex index: Int) -> ProductInfo? {
         return context.productInfo(forIndex: index)
     }
     

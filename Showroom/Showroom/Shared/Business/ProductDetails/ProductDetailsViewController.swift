@@ -81,7 +81,9 @@ class ProductDetailsViewController: UIViewController, ProductDetailsViewDelegate
         logInfo("Did tap close with current state \(castView.closeButtonState)")
         switch castView.closeButtonState {
         case .Close:
-            logAnalyticsEvent(AnalyticsEventId.ProductClose(model.productInfo(forIndex: castView.currentPageIndex).toTuple().0))
+            if let productInfo = model.productInfo(forIndex: castView.currentPageIndex) {
+                logAnalyticsEvent(AnalyticsEventId.ProductClose(productInfo.toTuple().0))
+            }
             sendNavigationEvent(SimpleNavigationEvent(type: .Close))
         case .Dismiss:
             let productPageViewController = indexedViewControllers[view.currentPageIndex] as! ProductPageViewController
@@ -119,7 +121,7 @@ extension ProductDetailsViewController: TabBarStateDataSource {
 extension ProductDetailsViewController: ProductDetailsPageHandler {
     func page(forIndex index: Int, removePageIndex: Int?) -> UIView {
         logInfo("Creating page for index \(index), removePageIndex \(removePageIndex)")
-        let productInfoTuple = model.productInfo(forIndex: index).toTuple()
+        let productInfoTuple = model.productInfo(forIndex: index)!.toTuple()
         let currentViewController = removePageIndex == nil ? nil : indexedViewControllers[removePageIndex!]
         let newViewController = resolver.resolve(ProductPageViewController.self, arguments: productInfoTuple)
         newViewController.viewContentInset = createChildViewContentInset()

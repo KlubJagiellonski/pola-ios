@@ -36,7 +36,7 @@ protocol ProductDetailsContext: class {
     var fromType: ProductDetailsFromType { get }
     var link: NSURL? { get }
     
-    func productInfo(forIndex index: Int) -> ProductInfo
+    func productInfo(forIndex index: Int) -> ProductInfo?
     func productDetailsDidMoveToProduct(atIndex index: Int)
 }
 
@@ -50,11 +50,11 @@ class MultiPageProductDetailsContext: ProductDetailsContext {
     }
     let initialProductIndex: Int
     let onChanged: Int -> ()
-    let onRetrieveProductInfo: Int -> ProductInfo
+    let onRetrieveProductInfo: Int -> ProductInfo?
     let fromType: ProductDetailsFromType
     let link: NSURL? = nil
     
-    init(productsCount: Int, initialProductIndex: Int, fromType: ProductDetailsFromType, onChanged: Int -> (), onRetrieveProductInfo: Int -> ProductInfo) {
+    init(productsCount: Int, initialProductIndex: Int, fromType: ProductDetailsFromType, onChanged: Int -> (), onRetrieveProductInfo: Int -> ProductInfo?) {
         self.productsCount = productsCount
         self.initialProductIndex = initialProductIndex
         self.onChanged = onChanged
@@ -66,7 +66,7 @@ class MultiPageProductDetailsContext: ProductDetailsContext {
         onChanged(index)
     }
     
-    func productInfo(forIndex index: Int) -> ProductInfo {
+    func productInfo(forIndex index: Int) -> ProductInfo? {
         return onRetrieveProductInfo(index)
     }
 }
@@ -76,11 +76,11 @@ class OnePageProductDetailsContext: ProductDetailsContext {
     let productsCount: Int
     let initialProductIndex: Int
     let onChanged: Int -> Void
-    let onRetrieveProductInfo: Int -> ProductInfo
+    let onRetrieveProductInfo: Int -> ProductInfo?
     let fromType: ProductDetailsFromType
     let link: NSURL? = nil
     
-    init(productsCount: Int, initialProductIndex: Int, fromType: ProductDetailsFromType, onChanged: Int -> (), onRetrieveProductInfo: Int -> ProductInfo) {
+    init(productsCount: Int, initialProductIndex: Int, fromType: ProductDetailsFromType, onChanged: Int -> (), onRetrieveProductInfo: Int -> ProductInfo?) {
         self.productsCount = productsCount
         self.initialProductIndex = initialProductIndex
         self.onChanged = onChanged
@@ -92,7 +92,7 @@ class OnePageProductDetailsContext: ProductDetailsContext {
         onChanged(index)
     }
     
-    func productInfo(forIndex index: Int) -> ProductInfo {
+    func productInfo(forIndex index: Int) -> ProductInfo? {
         return onRetrieveProductInfo(index)
     }
 }
@@ -113,7 +113,7 @@ class OneProductDetailsContext: ProductDetailsContext {
     
     func productDetailsDidMoveToProduct(atIndex index: Int) {}
     
-    func productInfo(forIndex index: Int) -> ProductInfo {
+    func productInfo(forIndex index: Int) -> ProductInfo? {
         return productInfo
     }
 }

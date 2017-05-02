@@ -169,6 +169,11 @@ final class ProductListComponent: NSObject, UICollectionViewDataSource, UICollec
         
         logInfo("Changed next page state from \(oldValue) to \(nextPageState)")
         
+        if oldValue == .LastPage && nextPageState == .Error {
+            logError("Corner Case. Cannot change state from LastPage to Error")
+            return
+        }
+
         let nextPageSectionIndex = ProductListSection.NextPage.toSectionIndex(headerSectionInfo != nil)
         let nextPageIndexPath = [NSIndexPath(forItem: 0, inSection: nextPageSectionIndex)]
         let nextPageSection = NSIndexSet(index: nextPageSectionIndex)

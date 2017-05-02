@@ -102,11 +102,11 @@ class DashboardModel {
             self.state.updateRecommendationsIndexWithNotyfingObserver(with: index)
         }
         
-        let onRetrieveProductInfo = { [unowned self] (index: Int) -> ProductInfo in
+        let onRetrieveProductInfo = { [unowned self] (index: Int) -> ProductInfo? in
             guard let recommendations = self.state.recommendationsResult?.productRecommendations else {
                 fatalError("Cannot create product info when there is no product recommendations")
             }
-            let productRecommendation = recommendations[index]
+            guard let productRecommendation = recommendations[safe: index] else { return nil }
             let lowResImageUrl = NSURL.createImageUrl(productRecommendation.imageUrl, width: imageWidth, height: nil)
             let info = ProductInfo.Object(productRecommendation.toProduct(withLowResImageUrl: lowResImageUrl.absoluteString))
             logInfo("Retrieve product info \(info)")
