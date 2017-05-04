@@ -12,3 +12,4 @@
 #import "VIMVideoPlayer.h"
 #import "VIMVideoPlayerView.h"
 #import "ACTReporter.h"
+#import "CatchExceptions.h"

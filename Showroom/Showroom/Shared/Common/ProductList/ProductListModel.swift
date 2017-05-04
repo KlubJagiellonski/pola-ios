@@ -63,17 +63,15 @@ class ProductListModel {
     final func fetchNextProductPage() -> Observable<ProductListResult> {
         let paginationInfo = PaginationInfo(page: page + 1, pageSize: defaultPageSize)
         return createObservable(with: paginationInfo, forFilters: createRequestFilters(filters))
+            .observeOn(MainScheduler.instance)
             .doOnNext { [weak self](result: ProductListResult) in
                 self?.products.appendContentsOf(result.products)
                 logInfo("Fetched \(result.products.count) products for next page")
         }
-            .observeOn(MainScheduler.instance)
             .doOnNext { [weak self](result: ProductListResult) in
                 self?.currentProductDetailsContext?.productsCount += result.products.count
         }
-            .observeOn(ConcurrentDispatchQueueScheduler(globalConcurrentQueueQOS: .Background))
             .doOnNext { [weak self] _ in self?.page += 1 }
-            .observeOn(MainScheduler.instance)
     }
     
     final func createProductDetailsContext(withProductIndex index: Int, withImageWidth imageWidth: Int) -> ProductDetailsContext {
@@ -82,8 +80,8 @@ class ProductListModel {
             self.updateProductIndexWithNotyfingObserver(with: index)
         }
         
-        let onRetrieveProductInfo = { [unowned self](index: Int) -> ProductInfo in
-            let product = self.products[index]
+        let onRetrieveProductInfo = { [unowned self](index: Int) -> ProductInfo? in
+            guard let product = self.products[safe: index] else { return nil }
             let lowResImageUrl = NSURL.createImageUrl(product.imageUrl, width: imageWidth, height: nil)
             return ProductInfo.Object(product.toProduct(withLowResImageUrl: lowResImageUrl.absoluteString))
         }

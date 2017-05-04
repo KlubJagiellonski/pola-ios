@@ -1,7 +1,7 @@
 import Foundation
 import RxSwift
 
-typealias NewProductsAmount = Int
+typealias ProductsCount = Int
 
 enum ProductInfo {
     case Object(Product)
@@ -30,31 +30,31 @@ enum ProductDetailsFromType: String {
 }
 
 protocol ProductDetailsContext: class {
-    var newProductsObservable: Observable<NewProductsAmount> { get }
+    var productsCountObservable: Observable<ProductsCount> { get }
     var productsCount: Int { get }
     var initialProductIndex: Int { get }
     var fromType: ProductDetailsFromType { get }
     var link: NSURL? { get }
     
-    func productInfo(forIndex index: Int) -> ProductInfo
+    func productInfo(forIndex index: Int) -> ProductInfo?
     func productDetailsDidMoveToProduct(atIndex index: Int)
 }
 
 class MultiPageProductDetailsContext: ProductDetailsContext {
-    let newProductsObservable: Observable<NewProductsAmount> = PublishSubject()
+    let productsCountObservable: Observable<ProductsCount> = PublishSubject()
     var productsCount: Int {
         didSet {
-            let newProductsSubject = newProductsObservable as! PublishSubject
-            newProductsSubject.onNext(productsCount - oldValue)
+            let newProductsSubject = productsCountObservable as! PublishSubject
+            newProductsSubject.onNext(productsCount)
         }
     }
     let initialProductIndex: Int
     let onChanged: Int -> ()
-    let onRetrieveProductInfo: Int -> ProductInfo
+    let onRetrieveProductInfo: Int -> ProductInfo?
     let fromType: ProductDetailsFromType
     let link: NSURL? = nil
     
-    init(productsCount: Int, initialProductIndex: Int, fromType: ProductDetailsFromType, onChanged: Int -> (), onRetrieveProductInfo: Int -> ProductInfo) {
+    init(productsCount: Int, initialProductIndex: Int, fromType: ProductDetailsFromType, onChanged: Int -> (), onRetrieveProductInfo: Int -> ProductInfo?) {
         self.productsCount = productsCount
         self.initialProductIndex = initialProductIndex
         self.onChanged = onChanged
@@ -66,21 +66,21 @@ class MultiPageProductDetailsContext: ProductDetailsContext {
         onChanged(index)
     }
     
-    func productInfo(forIndex index: Int) -> ProductInfo {
+    func productInfo(forIndex index: Int) -> ProductInfo? {
         return onRetrieveProductInfo(index)
     }
 }
 
 class OnePageProductDetailsContext: ProductDetailsContext {
-    let newProductsObservable: Observable<NewProductsAmount> = PublishSubject.empty()
+    let productsCountObservable: Observable<ProductsCount> = PublishSubject.empty()
     let productsCount: Int
     let initialProductIndex: Int
     let onChanged: Int -> Void
-    let onRetrieveProductInfo: Int -> ProductInfo
+    let onRetrieveProductInfo: Int -> ProductInfo?
     let fromType: ProductDetailsFromType
     let link: NSURL? = nil
     
-    init(productsCount: Int, initialProductIndex: Int, fromType: ProductDetailsFromType, onChanged: Int -> (), onRetrieveProductInfo: Int -> ProductInfo) {
+    init(productsCount: Int, initialProductIndex: Int, fromType: ProductDetailsFromType, onChanged: Int -> (), onRetrieveProductInfo: Int -> ProductInfo?) {
         self.productsCount = productsCount
         self.initialProductIndex = initialProductIndex
         self.onChanged = onChanged
@@ -92,14 +92,14 @@ class OnePageProductDetailsContext: ProductDetailsContext {
         onChanged(index)
     }
     
-    func productInfo(forIndex index: Int) -> ProductInfo {
+    func productInfo(forIndex index: Int) -> ProductInfo? {
         return onRetrieveProductInfo(index)
     }
 }
 
 class OneProductDetailsContext: ProductDetailsContext {
     let productsCount = 1
-    let newProductsObservable: Observable<NewProductsAmount> = PublishSubject.empty()
+    let productsCountObservable: Observable<ProductsCount> = PublishSubject.empty()
     let initialProductIndex = 0
     let productInfo: ProductInfo
     let fromType: ProductDetailsFromType
@@ -113,7 +113,7 @@ class OneProductDetailsContext: ProductDetailsContext {
     
     func productDetailsDidMoveToProduct(atIndex index: Int) {}
     
-    func productInfo(forIndex index: Int) -> ProductInfo {
+    func productInfo(forIndex index: Int) -> ProductInfo? {
         return productInfo
     }
 }

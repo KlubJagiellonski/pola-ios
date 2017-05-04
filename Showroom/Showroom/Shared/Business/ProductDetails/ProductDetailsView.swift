@@ -94,8 +94,8 @@ class ProductDetailsView: UIView, UICollectionViewDelegateFlowLayout {
         }
     }
     
-    func updatePageCount(withNewProductsAmount newProductsAmount: Int) {
-        dataSource.updatePageCount(withNewProductsAmount: newProductsAmount)
+    func updatePageCount(with pageCount: Int) {
+        dataSource.updatePageCount(with: pageCount)
     }
     
     func reloadPageCount(withNewProductCount newProductsCount: Int) {

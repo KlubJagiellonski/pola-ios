@@ -43,9 +43,13 @@ final class ProductDetailsDataSource: NSObject, UICollectionViewDataSource {
         collectionView.registerClass(ProductDetailsCell.self, forCellWithReuseIdentifier: String(ProductDetailsCell))
     }
     
-    func updatePageCount(withNewProductsAmount newProductsAmount: Int) {
+    func updatePageCount(with pageCount: Int) {
         let oldValue = self.pageCount
-        let newPageCount = oldValue + newProductsAmount
+        let newPageCount = pageCount
+        
+        guard newPageCount != oldValue else {
+            return
+        }
         
         if oldValue > newPageCount || oldValue == 0 {
             self.pageCount = newPageCount

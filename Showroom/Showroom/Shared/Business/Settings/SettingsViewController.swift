@@ -173,13 +173,25 @@ class SettingsViewController: UIViewController {
     func facebookButtonPressed() {
         logInfo("facebookButtonPressed")
         logAnalyticsEvent(AnalyticsEventId.ProfileSocialMediaClicked("fb"))
-        tryOpenURL(urlOptions: ["fb://profile/159930354087746", "https://www.facebook.com/shwrm"])
+        
+        guard let configuration = self.configurationManager.configuration?.settingsConfiguration else {
+            logError("No configuration on facebook tapped")
+            return
+        }
+        
+        tryOpenURL(urlOptions: configuration.facebookUrlOptions)
     }
     
     func instagramButtonPressed() {
         logInfo("instagramButtonPressed")
         logAnalyticsEvent(AnalyticsEventId.ProfileSocialMediaClicked("insta"))
-        tryOpenURL(urlOptions: ["instagram://user?username=shwrm", "https://www.instagram.com/shwrm"])
+        
+        guard let configuration = self.configurationManager.configuration?.settingsConfiguration else {
+            logError("No configuration on instagram tapped")
+            return
+        }
+        
+        tryOpenURL(urlOptions: configuration.instagramUrlOptions)
     }
     
     func loginButtonPressed() {

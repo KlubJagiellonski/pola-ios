@@ -487,6 +487,9 @@
 		1D372E371D6ED22F004F3155 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1D372E391D6ED22F004F3155 /* Localizable.strings */; };
 		1D3763C41D7A053D000CF8C3 /* OptimiseMobileTracking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D372E3A1D701E74004F3155 /* OptimiseMobileTracking.framework */; };
 		1D3763C51D7A0544000CF8C3 /* EmarsysPushSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DB957CD1D522E1D003EE120 /* EmarsysPushSDK.framework */; };
+		1D3791A01EB8BC9E00E805A9 /* CatchExceptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D37919F1EB8BC9E00E805A9 /* CatchExceptions.m */; };
+		1D3791A11EB8BC9E00E805A9 /* CatchExceptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D37919F1EB8BC9E00E805A9 /* CatchExceptions.m */; };
+		1D3791A21EB8BC9E00E805A9 /* CatchExceptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D37919F1EB8BC9E00E805A9 /* CatchExceptions.m */; };
 		1D3792721D196931001A7C47 /* ViewSwitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3792711D196931001A7C47 /* ViewSwitcher.swift */; };
 		1D3EC6551D5C81B4004413F9 /* ResetPasswordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3EC6541D5C81B4004413F9 /* ResetPasswordModel.swift */; };
 		1D3EEA1A1D143C1100F67B69 /* BasketRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3EEA191D143C1100F67B69 /* BasketRequest.swift */; };
@@ -1430,6 +1433,8 @@
 		1D372E2D1D6C7B05004F3155 /* ShowEditKioskEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowEditKioskEvent.swift; sourceTree = "<group>"; };
 		1D372E381D6ED22F004F3155 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1D372E3A1D701E74004F3155 /* OptimiseMobileTracking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OptimiseMobileTracking.framework; path = Frameworks/OptimiseMobileTracking.framework; sourceTree = "<group>"; };
+		1D37919F1EB8BC9E00E805A9 /* CatchExceptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CatchExceptions.m; sourceTree = "<group>"; };
+		1D3791A31EB8BCB400E805A9 /* CatchExceptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CatchExceptions.h; sourceTree = "<group>"; };
 		1D3792711D196931001A7C47 /* ViewSwitcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewSwitcher.swift; sourceTree = "<group>"; };
 		1D3EC6541D5C81B4004413F9 /* ResetPasswordModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetPasswordModel.swift; sourceTree = "<group>"; };
 		1D3EEA191D143C1100F67B69 /* BasketRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasketRequest.swift; sourceTree = "<group>"; };
@@ -2292,6 +2297,8 @@
 				1DE51F381DB0D1910004C93E /* NSFileManagerUtils.swift */,
 				1D68E3231DB515F800AE3E56 /* DoubleUtils.swift */,
 				1DC605F51DDDCF3200698190 /* HandoffUtils.swift */,
+				1D3791A31EB8BCB400E805A9 /* CatchExceptions.h */,
+				1D37919F1EB8BC9E00E805A9 /* CatchExceptions.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -3950,6 +3957,7 @@
 				1D00C62B1DBFA0AB00596BA5 /* SearchProductListView.swift in Sources */,
 				1D00C62C1DBFA0AB00596BA5 /* CheckoutDeliveryStackedView.swift in Sources */,
 				1D00C62D1DBFA0AB00596BA5 /* FilterDetailsViewController.swift in Sources */,
+				1D3791A11EB8BC9E00E805A9 /* CatchExceptions.m in Sources */,
 				1D00C62E1DBFA0AB00596BA5 /* RootModel.swift in Sources */,
 				1D00C62F1DBFA0AB00596BA5 /* ShowItemForLinkEvent.swift in Sources */,
 				1D00C6301DBFA0AB00596BA5 /* SettingsWebViewModel.swift in Sources */,
@@ -4333,6 +4341,7 @@
 				1D1A7E021D2405AC009CCCE7 /* ProductItemCell.swift in Sources */,
 				1D5E91911D3CDE9A00A6BD55 /* SearchProductListView.swift in Sources */,
 				C0237D0E1D216ADC0009F2FC /* CheckoutDeliveryStackedView.swift in Sources */,
+				1D3791A01EB8BC9E00E805A9 /* CatchExceptions.m in Sources */,
 				1D5F916A1D36508000AE66E6 /* FilterDetailsViewController.swift in Sources */,
 				1DD1EA931CF2E93900D99731 /* RootModel.swift in Sources */,
 				1D1A7E141D24F669009CCCE7 /* ShowItemForLinkEvent.swift in Sources */,
@@ -4716,6 +4725,7 @@
 				C0CDF8921DDC88350036F12F /* SearchProductListView.swift in Sources */,
 				C0CDF8931DDC88350036F12F /* CheckoutDeliveryStackedView.swift in Sources */,
 				C0CDF8941DDC88350036F12F /* FilterDetailsViewController.swift in Sources */,
+				1D3791A21EB8BC9E00E805A9 /* CatchExceptions.m in Sources */,
 				C0CDF8951DDC88350036F12F /* RootModel.swift in Sources */,
 				C0CDF8961DDC88350036F12F /* ShowItemForLinkEvent.swift in Sources */,
 				C0CDF8971DDC88350036F12F /* SettingsWebViewModel.swift in Sources */,
@@ -5311,7 +5321,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				BUNDLE_DISPLAY_NAME = SHOWROOM;
 				CI_BUILD_ID = 1;
-				CI_BUILD_TAG = 1.3;
+				CI_BUILD_TAG = 1.3.1;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Showroom/SHOWROOM.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -5356,7 +5366,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				BUNDLE_DISPLAY_NAME = SHOWROOM;
 				CI_BUILD_ID = 1;
-				CI_BUILD_TAG = 1.3;
+				CI_BUILD_TAG = 1.3.1;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Showroom/SHOWROOM.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
@@ -5477,8 +5487,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				BUNDLE_DISPLAY_NAME = SHOWROOM;
-				CI_BUILD_ID = 131;
-				CI_BUILD_TAG = 1.3;
+				CI_BUILD_ID = 134;
+				CI_BUILD_TAG = 1.3.1;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Showroom/SHOWROOM.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
@@ -5591,7 +5601,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				BUNDLE_DISPLAY_NAME = SHOWROOM;
 				CI_BUILD_ID = 1;
-				CI_BUILD_TAG = 1.3;
+				CI_BUILD_TAG = 1.3.1;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Showroom/SHOWROOM.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -5697,7 +5707,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				BUNDLE_DISPLAY_NAME = SHOWROOM;
 				CI_BUILD_ID = 1;
-				CI_BUILD_TAG = 1.3;
+				CI_BUILD_TAG = 1.3.1;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Showroom/SHOWROOM.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
@@ -5760,7 +5770,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				BUNDLE_DISPLAY_NAME = Kids;
 				CI_BUILD_ID = 1;
-				CI_BUILD_TAG = 1.0;
+				CI_BUILD_TAG = 1.0.1;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Showroom/SHOWROOMKids.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -5805,7 +5815,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				BUNDLE_DISPLAY_NAME = Kids;
 				CI_BUILD_ID = 1;
-				CI_BUILD_TAG = 1.0;
+				CI_BUILD_TAG = 1.0.1;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Showroom/SHOWROOMKids.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -5850,7 +5860,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				BUNDLE_DISPLAY_NAME = Kids;
 				CI_BUILD_ID = 1;
-				CI_BUILD_TAG = 1.0;
+				CI_BUILD_TAG = 1.0.1;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Showroom/SHOWROOMKids.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
@@ -5894,7 +5904,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				BUNDLE_DISPLAY_NAME = Kids;
 				CI_BUILD_ID = 1;
-				CI_BUILD_TAG = 1.0;
+				CI_BUILD_TAG = 1.0.1;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Showroom/SHOWROOMKids.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
@@ -5937,8 +5947,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				BUNDLE_DISPLAY_NAME = Kids;
-				CI_BUILD_ID = 1001;
-				CI_BUILD_TAG = 1.0;
+				CI_BUILD_ID = 1002;
+				CI_BUILD_TAG = 1.0.1;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Showroom/SHOWROOMKids.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";

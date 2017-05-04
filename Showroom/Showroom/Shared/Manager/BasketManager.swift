@@ -177,9 +177,9 @@ final class BasketManager {
             return nil
         }
         
-        let onRetrieveProductInfo: Int -> ProductInfo = { index in
+        let onRetrieveProductInfo: Int -> ProductInfo? = { index in
             logInfo("Retreving productTuple for index \(index)")
-            let productTuple = productTuples[index]
+            guard let productTuple = productTuples[safe: index] else { return nil }
             return ProductInfo.Object(productTuple.product.toProduct(productTuple.brand))
         }
         

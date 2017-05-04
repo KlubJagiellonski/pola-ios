@@ -117,14 +117,22 @@ class BasketDataSource: NSObject, UITableViewDataSource, BasketProductCellDelega
             removedBrands.contains(self.productsByBrands.count - 1) &&
             !newProductsByBrands.isEmpty {
             // Last section has been removed, so the one before the removed last is the new last
-            updatedProducts.append(NSIndexPath(forRow: newProductsByBrands.last!.products.count, inSection: newProductsByBrands.count - 1))
+            let updateIndexPath = NSIndexPath(forRow: newProductsByBrands.last!.products.count, inSection: newProductsByBrands.count - 1)
+            // If it will be removed we don't want to update
+            if !removedProducts.contains(updateIndexPath) {
+                updatedProducts.append(updateIndexPath)
+            }
         }
         
         if !addedBrands.isEmpty &&
             addedBrands.contains(newProductsByBrands.count - 1) &&
             !self.productsByBrands.isEmpty {
             // There is a new section at the end, so the previous last section is no longer the last one
-            updatedProducts.append(NSIndexPath(forRow: self.productsByBrands.last!.products.count, inSection: self.productsByBrands.count - 1))
+            let updateIndexPath = NSIndexPath(forRow: self.productsByBrands.last!.products.count, inSection: self.productsByBrands.count - 1)
+            // If it will be removed we don't want to update
+            if (!removedProducts.contains(updateIndexPath)) {
+                updatedProducts.append(updateIndexPath)
+            }
         }
         
         self.productsByBrands = newProductsByBrands
@@ -161,7 +169,14 @@ class BasketDataSource: NSObject, UITableViewDataSource, BasketProductCellDelega
             tableView?.insertRowsAtIndexPaths(addedProducts, withRowAnimation: .Automatic)
         }
         
-        tableView?.endUpdates()
+        do {
+            try CatchExceptions.catchException { [unowned self] in
+                self.tableView?.endUpdates()
+            }
+        }
+        catch {
+            self.tableView?.reloadData()
+        }
     }
     
     func refreshImagesIfNeeded() {

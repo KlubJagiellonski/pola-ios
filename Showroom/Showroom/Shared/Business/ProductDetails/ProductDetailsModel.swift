@@ -4,7 +4,7 @@ import RxSwift
 class ProductDetailsModel {
     private(set) var context: ProductDetailsContext
     private var disposeBag = DisposeBag()
-    let newProductsAmountObservable = PublishSubject<NewProductsAmount>()
+    let productsCountObservable = PublishSubject<ProductsCount>()
     private var lastProductIndex: Int?
     
     var initialProductIndex: Int {
@@ -25,7 +25,7 @@ class ProductDetailsModel {
         configureContext()
     }
     
-    func productInfo(forIndex index: Int) -> ProductInfo {
+    func productInfo(forIndex index: Int) -> ProductInfo? {
         return context.productInfo(forIndex: index)
     }
     
@@ -49,8 +49,8 @@ class ProductDetailsModel {
     }
     
     private func configureContext() {
-        context.newProductsObservable.subscribeNext { [weak self] newProductsAmount in
-            self?.newProductsAmountObservable.onNext(newProductsAmount)
+        context.productsCountObservable.subscribeNext { [weak self] productsCount in
+            self?.productsCountObservable.onNext(productsCount)
             }.addDisposableTo(disposeBag)
     }
     
