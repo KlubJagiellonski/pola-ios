@@ -144,7 +144,15 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
         [cardView setContentType:CompanyContentTypeAlt];
         [cardView setAltText:productResult.altText];
     }
-
+    
+    if (productResult.askForPics) {
+        [cardView setTeachButtonText:productResult.askForPicsPreview];
+        BPLog(@"display teach pola button with text: %@", productResult.askForPicsPreview);
+    } else {
+        [cardView setTeachButtonText:nil];
+        BPLog(@"DONT display teach pola button");
+    }
+    
     [cardView setCardType:productResult.cardType];
     [cardView setReportButtonType:productResult.reportButtonType];
     [cardView setReportButtonText:productResult.reportButtonText];
@@ -341,6 +349,12 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     NSString *barcode = self.scannedBarcodes[(NSUInteger) productCardView.tag];
     BPScanResult *scanResult = self.barcodeToProductResult[barcode];
     [self showReportProblem:barcode productId:scanResult.productId];
+}
+
+- (void)didTapTeach:(BPCompanyCardView *)productCardView {
+//    NSString *barcode = self.scannedBarcodes[(NSUInteger) productCardView.tag];
+//    BPScanResult *scanResult = self.barcodeToProductResult[barcode];
+    //TODO: show capture video modal
 }
 
 #pragma mark - BPReportProblemViewControllerDelegate

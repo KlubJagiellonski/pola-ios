@@ -7,12 +7,16 @@ NSInteger const CARD_PADDING = 10;
 int const CARD_SEPARATOR_HEIGHT = 1;
 int const CARD_REPORT_MARGIN = 14;
 int const CARD_REPORT_BUTTON_HEIGHT = 30;
+int const CARD_TEACH_MARGIN = 14;
+int const CARD_TEACH_BUTTON_HEIGHT = 30;
 int const CARD_CONTENT_PROGRESS_IN_HEADER = 6;
 
 @interface BPCompanyCardView ()
 @property(nonatomic, readonly) UIActivityIndicatorView *loadingProgressView;
 @property(nonatomic, readonly) BPMainProggressView *mainProgressView;
 @property(nonatomic, readonly) BPCompanyContentView *contentView;
+@property(nonatomic) BOOL teachButtonVisible;
+@property(nonatomic, readonly) UIButton *teachButton;
 @property(nonatomic, readonly) UIButton *reportProblemButton;
 @property(nonatomic, readonly) UILabel *reportInfoLabel;
 @property(nonatomic, readonly) UIView *separatorView;
@@ -50,6 +54,13 @@ int const CARD_CONTENT_PROGRESS_IN_HEADER = 6;
         _contentView = [[BPCompanyContentView alloc] initWithFrame:CGRectZero];
         _contentView.padding = CARD_PADDING;
         [self addSubview:_contentView];
+        
+        _teachButtonVisible = NO;
+        _teachButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_teachButton addTarget:self action:@selector(didTapTeach) forControlEvents:UIControlEventTouchUpInside];
+        _teachButton.titleLabel.font = [BPTheme buttonFont];
+        [_teachButton sizeToFit];
+        [self addSubview:_teachButton];
 
         _reportProblemButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_reportProblemButton addTarget:self action:@selector(didTapReportProblem) forControlEvents:UIControlEventTouchUpInside];
@@ -74,6 +85,10 @@ int const CARD_CONTENT_PROGRESS_IN_HEADER = 6;
 
 - (void)didTapReportProblem {
     [self.delegate didTapReportProblem:self];
+}
+
+- (void)didTapTeach {
+    [self.delegate didTapTeach:self]
 }
 
 - (void)layoutSubviews {
@@ -113,10 +128,30 @@ int const CARD_CONTENT_PROGRESS_IN_HEADER = 6;
     rect.origin.y = CGRectGetMinY(self.reportProblemButton.frame) - CARD_REPORT_MARGIN - CGRectGetHeight(rect);
     self.reportInfoLabel.frame = rect;
 
+    if (self.teachButtonVisible) {
+        rect = self.teachButton.frame;
+        rect.size.height = CARD_TEACH_BUTTON_HEIGHT;
+        rect.size.width = widthWithPadding;
+        rect.origin.x = CARD_PADDING;
+        rect.origin.y = CGRectGetMinY(self.reportInfoLabel.frame) - CARD_TEACH_MARGIN - CGRectGetHeight(rect);
+        self.teachButton.frame = rect;
+        self.teachButton.layer.borderColor = [[BPTheme actionColor] CGColor];
+        self.teachButton.layer.borderWidth = 1;
+        [self.teachButton setTitleColor:[BPTheme actionColor] forState:UIControlStateNormal];
+        [self.teachButton setTitleColor:[BPTheme clearColor] forState:UIControlStateHighlighted];
+        [self.teachButton setBackgroundImage:[BPUtilities imageWithColor:[UIColor clearColor]] forState:UIControlStateNormal];
+        [self.teachButton setBackgroundImage:[BPUtilities imageWithColor:[BPTheme actionColor]] forState:UIControlStateHighlighted];
+    } else {
+        rect = self.teachButton.frame;
+        rect.size = CGSizeZero;
+        rect.origin.y = CGRectGetMinY(self.reportInfoLabel.frame);
+        self.teachButton.frame = rect;
+    }
+    
     rect = self.separatorView.frame;
     rect.size.width = CGRectGetWidth(self.bounds);
     rect.origin.x = 0;
-    rect.origin.y = CGRectGetMinY(self.reportInfoLabel.frame) - 15 - CGRectGetHeight(rect);
+    rect.origin.y = CGRectGetMinY(self.teachButton.frame) - 15 - CGRectGetHeight(rect);
     self.separatorView.frame = rect;
 
     rect = self.contentView.frame;
@@ -192,6 +227,17 @@ int const CARD_CONTENT_PROGRESS_IN_HEADER = 6;
     }
 
     [self.contentView setCardType:type];
+}
+
+- (void)setTeachButtonText:(NSString *)teachButtonText {
+    if (teachButtonText != nil && teachButtonText.length != 0) {
+        [self.teachButton setTitle:teachButtonText forState:UIControlStateNormal];
+        self.teachButtonVisible = YES;
+        [self setNeedsLayout];
+    } else {
+        self.teachButtonVisible = NO;
+        [self setNeedsLayout];
+    }
 }
 
 - (void)setReportButtonType:(ReportButtonType)type {
