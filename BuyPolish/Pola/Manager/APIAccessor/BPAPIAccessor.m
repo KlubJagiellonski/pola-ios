@@ -6,7 +6,8 @@
 #import "BPDeviceHelper.h"
 
 //NSString *const BPAPIAccessorAPIServerUrl = @"https://www.pola-app.pl/a";
-NSString *const BPAPIAccessorAPIServerUrl = @"https://www.pola-app.pl/a/v2";
+//NSString *const BPAPIAccessorAPIServerUrl = @"https://www.pola-app.pl/a/v2";
+NSString *const BPAPIAccessorAPIServerUrl = @"https://www.pola-app.pl/a/v3";
 //NSString *const BPAPIAccessorAPIServerUrl = @"https://pola-staging.herokuapp.com/a/v2";
 //NSString *const BPAPIAccessorAPIServerUrl = @"http://localhost:8888";
 NSString *const BPAPIAccessorAPIDeviceId = @"device_id";
