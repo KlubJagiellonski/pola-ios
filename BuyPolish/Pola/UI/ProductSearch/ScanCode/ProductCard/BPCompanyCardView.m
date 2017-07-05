@@ -88,7 +88,7 @@ int const CARD_CONTENT_PROGRESS_IN_HEADER = 6;
 }
 
 - (void)didTapTeach {
-    [self.delegate didTapTeach:self]
+    [self.delegate didTapTeach:self];
 }
 
 - (void)layoutSubviews {

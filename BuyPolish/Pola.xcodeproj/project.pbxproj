@@ -89,6 +89,9 @@
 		37C89AA41C78682200CCE940 /* BPFlashlightManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C89AA31C78682200CCE940 /* BPFlashlightManager.m */; };
 		37F16AA51CA1BCCF00A310CF /* BPKeyboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37F16AA31CA1BCCF00A310CF /* BPKeyboardViewController.m */; };
 		69518FC099FB71F3DCFF46DE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DF0AB075C622D66E92D300ED /* libPods.a */; };
+		83AFDE8E1F0D415C00608235 /* BPCaptureVideoNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AFDE8D1F0D415C00608235 /* BPCaptureVideoNavigationController.m */; };
+		83AFDE971F0D4CE200608235 /* BPCaptureVideoInstructionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AFDE961F0D4CE200608235 /* BPCaptureVideoInstructionViewController.m */; };
+		83AFDE9A1F0D4E9300608235 /* BPCaptureVideoInstructionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AFDE991F0D4E9300608235 /* BPCaptureVideoInstructionView.m */; };
 		ABCA9D8499A8FF36227B6C94 /* UIApplication+BPStatusBarHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCA997979B62F78CFCB7E19 /* UIApplication+BPStatusBarHeight.m */; };
 /* End PBXBuildFile section */
 
@@ -241,6 +244,12 @@
 		37C89AA31C78682200CCE940 /* BPFlashlightManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPFlashlightManager.m; path = Flashlight/BPFlashlightManager.m; sourceTree = "<group>"; };
 		37F16AA21CA1BCCF00A310CF /* BPKeyboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPKeyboardViewController.h; path = Keyboard/BPKeyboardViewController.h; sourceTree = "<group>"; };
 		37F16AA31CA1BCCF00A310CF /* BPKeyboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPKeyboardViewController.m; path = Keyboard/BPKeyboardViewController.m; sourceTree = "<group>"; };
+		83AFDE8D1F0D415C00608235 /* BPCaptureVideoNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPCaptureVideoNavigationController.m; path = CaptureVideo/BPCaptureVideoNavigationController.m; sourceTree = "<group>"; };
+		83AFDE911F0D420300608235 /* BPCaptureVideoNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BPCaptureVideoNavigationController.h; sourceTree = "<group>"; };
+		83AFDE941F0D4CBC00608235 /* BPCaptureVideoInstructionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BPCaptureVideoInstructionViewController.h; path = CaptureVideo/Instruction/BPCaptureVideoInstructionViewController.h; sourceTree = "<group>"; };
+		83AFDE961F0D4CE200608235 /* BPCaptureVideoInstructionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPCaptureVideoInstructionViewController.m; path = CaptureVideo/Instruction/BPCaptureVideoInstructionViewController.m; sourceTree = "<group>"; };
+		83AFDE981F0D4E7F00608235 /* BPCaptureVideoInstructionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BPCaptureVideoInstructionView.h; path = CaptureVideo/Instruction/BPCaptureVideoInstructionView.h; sourceTree = "<group>"; };
+		83AFDE991F0D4E9300608235 /* BPCaptureVideoInstructionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPCaptureVideoInstructionView.m; path = CaptureVideo/Instruction/BPCaptureVideoInstructionView.m; sourceTree = "<group>"; };
 		ABCA997979B62F78CFCB7E19 /* UIApplication+BPStatusBarHeight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+BPStatusBarHeight.m"; sourceTree = "<group>"; };
 		ABCA9A3E3B8A8B7C925052B6 /* UIApplication+BPStatusBarHeight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+BPStatusBarHeight.h"; sourceTree = "<group>"; };
 		DDCD565BACC4C57A8E5BD067 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -445,6 +454,7 @@
 			children = (
 				37F16AA11CA1BCA300A310CF /* Keyboard */,
 				37B64F458C8BF4C8D672DAE5 /* ScanCode */,
+				83AFDE8C1F0D40E300608235 /* CaptureVideo */,
 				37B644A42C57261C707CF0B4 /* ReportProblem */,
 				37B642BE060B4E64D7FB7575 /* About */,
 			);
@@ -648,6 +658,35 @@
 			name = Keyboard;
 			sourceTree = "<group>";
 		};
+		83AFDE8C1F0D40E300608235 /* CaptureVideo */ = {
+			isa = PBXGroup;
+			children = (
+				83AFDE8D1F0D415C00608235 /* BPCaptureVideoNavigationController.m */,
+				83AFDE911F0D420300608235 /* BPCaptureVideoNavigationController.h */,
+				83AFDE921F0D4C0800608235 /* Instruction */,
+				83AFDE951F0D4CC200608235 /* Capture */,
+			);
+			name = CaptureVideo;
+			sourceTree = "<group>";
+		};
+		83AFDE921F0D4C0800608235 /* Instruction */ = {
+			isa = PBXGroup;
+			children = (
+				83AFDE941F0D4CBC00608235 /* BPCaptureVideoInstructionViewController.h */,
+				83AFDE961F0D4CE200608235 /* BPCaptureVideoInstructionViewController.m */,
+				83AFDE981F0D4E7F00608235 /* BPCaptureVideoInstructionView.h */,
+				83AFDE991F0D4E9300608235 /* BPCaptureVideoInstructionView.m */,
+			);
+			name = Instruction;
+			sourceTree = "<group>";
+		};
+		83AFDE951F0D4CC200608235 /* Capture */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Capture;
+			sourceTree = "<group>";
+		};
 		8905DA657634882F5C28E503 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -843,6 +882,7 @@
 				37B647E20B1B2E3F5F0ECFA3 /* BPAPIAccessor.m in Sources */,
 				37B64D4617BA6760E8B4101F /* BPAPIAccessor+BPScan.m in Sources */,
 				374B5B8D1C71C15D00E74BBB /* NSDictionary+Parsing.m in Sources */,
+				83AFDE9A1F0D4E9300608235 /* BPCaptureVideoInstructionView.m in Sources */,
 				37B64FF08BF5367BF9669B33 /* BPUtilities.m in Sources */,
 				37B64E4A4C23A423A7B102CB /* BPScanResult+Utilities.m in Sources */,
 				37B64F7816B23819A90C0456 /* BPLogger.m in Sources */,
@@ -877,12 +917,14 @@
 				37B64E4E58C1CE8446137CD1 /* BPCompanyCardView.m in Sources */,
 				37B641B5D6F386E7E2A67DF8 /* BPMainProggressView.m in Sources */,
 				37B648D280BBB1A95E85962E /* BPSecondaryProgressView.m in Sources */,
+				83AFDE8E1F0D415C00608235 /* BPCaptureVideoNavigationController.m in Sources */,
 				37B64EBEB659B5811A9540AA /* BPCheckRow.m in Sources */,
 				37B6405B2B77BAAD1DC986CF /* UILabel+BPAdditions.m in Sources */,
 				37B64BC4371E659752F34583 /* BPTheme.m in Sources */,
 				37B643DED9D7D3BF35EFF857 /* BPAboutNavigationController.m in Sources */,
 				37B6408A3F64660D26DE0B13 /* BPAboutViewController.m in Sources */,
 				37B649F994C9AC9767A6AE8B /* BPWebAboutRow.m in Sources */,
+				83AFDE971F0D4CE200608235 /* BPCaptureVideoInstructionViewController.m in Sources */,
 				37B647FB39C0F80116FD674D /* BPAboutRow.m in Sources */,
 				37B6498E15B68A84069DD3A5 /* BPAnalyticsHelper.m in Sources */,
 				37B64D38E60651D383A2F8F7 /* BPDeviceHelper.m in Sources */,

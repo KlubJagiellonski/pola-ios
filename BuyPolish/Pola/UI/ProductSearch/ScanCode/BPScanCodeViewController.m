@@ -8,6 +8,7 @@
 #import "BPAnalyticsHelper.h"
 #import "BPFlashlightManager.h"
 #import "BPKeyboardViewController.h"
+#import "BPCaptureVideoNavigationController.h"
 
 static NSTimeInterval const kAnimationTime = 0.15;
 
@@ -170,6 +171,14 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     BPReportProblemViewController *reportProblemViewController = [injector getObject:[BPReportProblemViewController class] argumentList:@[productId, barcode]];
     reportProblemViewController.delegate = self;
     [self presentViewController:reportProblemViewController animated:YES completion:nil];
+}
+
+- (void)showCaptureVideo:(NSNumber *)productId {
+    // TODO: analytics event: capture video navigation controller shown (or seperate events: instruction view shown, capture view shown)
+    
+    BPCaptureVideoNavigationController *captureVideoNavigationController = [BPCaptureVideoNavigationController new];
+    captureVideoNavigationController.captureDelegate = self;
+    [self presentViewController:captureVideoNavigationController animated:YES completion:nil];
 }
 
 - (void)didTapMenuButton:(UIButton *)button {
@@ -352,9 +361,15 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 }
 
 - (void)didTapTeach:(BPCompanyCardView *)productCardView {
-//    NSString *barcode = self.scannedBarcodes[(NSUInteger) productCardView.tag];
-//    BPScanResult *scanResult = self.barcodeToProductResult[barcode];
-    //TODO: show capture video modal
+    NSString *barcode = self.scannedBarcodes[(NSUInteger) productCardView.tag];
+    BPScanResult *scanResult = self.barcodeToProductResult[barcode];
+    [self showCaptureVideo:scanResult.productId];
+}
+
+#pragma mark - BPCaptureVideoNavigationControllerDelegate
+
+- (void)captureVideoWantsDismiss:(BPCaptureVideoNavigationController *)viewController {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - BPReportProblemViewControllerDelegate
