@@ -11,6 +11,5 @@
 
 
 @property(weak, nonatomic) id <BPCaptureVideoInstructionViewDelegate> delegate;
-@property(nonatomic, readonly) UILabel *testLabel;
 
 @end
