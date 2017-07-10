@@ -1,17 +1,19 @@
 #import "BPCaptureVideoInstructionView.h"
 #import "BPTheme.h"
 #import "UIApplication+BPStatusBarHeight.h"
+#import "BPVideoPlayerView.h"
 
 const int CAPTURE_TITLE_PADDING = 16;
 const int CAPTURE_VERTICAL_MARGIN = 25;
 const int CAPTURE_MAX_INSTRUCTION_LABEL_HEIGHT = 120;
+const int CAPTURE_INSTRUCTION_VIDEO_PADDING = 10;
 const int CAPTURE_BUTTON_HEIGHT = 30;
 
 @interface BPCaptureVideoInstructionView ()
 @property(nonatomic, readonly) UILabel *titleLabel;
 @property(nonatomic, readonly) UIButton *closeButton;
 @property(nonatomic, readonly) UILabel *instructionLabel;
-
+@property(nonatomic, readonly) BPVideoPlayerView *instructionVideoView;
 @property(nonatomic, readonly) UIButton *sendButton;
 
 
@@ -46,6 +48,11 @@ const int CAPTURE_BUTTON_HEIGHT = 30;
         [_instructionLabel sizeToFit];
         [self addSubview:_instructionLabel];
         
+        _instructionVideoView = [[BPVideoPlayerView alloc] initWithFrame:CGRectZero];
+        _instructionVideoView.layer.borderColor = UIColor.blackColor.CGColor;
+        _instructionVideoView.layer.borderWidth = 2;
+        [self addSubview:_instructionVideoView];
+                
         _sendButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _sendButton.titleLabel.font = [BPTheme buttonFont];
         [_sendButton setTitle:[NSLocalizedString(@"Send", nil) uppercaseString] forState:UIControlStateNormal];
@@ -81,7 +88,17 @@ const int CAPTURE_BUTTON_HEIGHT = 30;
     rect.origin.x = CAPTURE_TITLE_PADDING;
     rect.origin.y = CGRectGetHeight(self.bounds) - CAPTURE_TITLE_PADDING - CGRectGetHeight(rect);
     self.sendButton.frame = rect;
+    
+    rect = self.instructionVideoView.frame;
+    rect.size.width = CGRectGetWidth(self.bounds) - 2 * CAPTURE_TITLE_PADDING;
+    rect.size.height =  CGRectGetMaxX(self.instructionLabel.frame) - CGRectGetMinX(self.sendButton.frame);
+    rect.origin.x = CAPTURE_TITLE_PADDING;
+    rect.origin.y = CGRectGetMaxY(self.instructionLabel.frame) + CAPTURE_INSTRUCTION_VIDEO_PADDING;
+    self.instructionVideoView.frame = rect;
+}
 
+-(void) playVideoWithURL:(NSURL*)URL {
+    [self.instructionVideoView playInLoopURL:URL];
 }
 
 @end

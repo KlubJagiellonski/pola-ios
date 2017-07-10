@@ -22,6 +22,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.castView.delegate = self;
+    NSURL *instructionVideoURL = [[NSURL alloc]initWithString:@"https://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"];
+    [self.castView playVideoWithURL:instructionVideoURL];
 }
 
 #pragma mark - BPCaptureVideoInstructionViewDelegate

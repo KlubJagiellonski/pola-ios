@@ -9,7 +9,8 @@
 
 @interface BPCaptureVideoInstructionView : UIView
 
-
 @property(weak, nonatomic) id <BPCaptureVideoInstructionViewDelegate> delegate;
+
+-(void) playVideoWithURL:(NSURL*)URL;
 
 @end
