@@ -2,6 +2,7 @@
 #import "BPTheme.h"
 #import "UIApplication+BPStatusBarHeight.h"
 #import "BPVideoPlayerView.h"
+#import "UILabel+BPAdditions.h"
 
 const int CAPTURE_TITLE_PADDING = 16;
 const int CAPTURE_VERTICAL_MARGIN = 25;
@@ -43,6 +44,7 @@ const int CAPTURE_BUTTON_HEIGHT = 30;
         _instructionLabel.font = [BPTheme normalFont];
         _instructionLabel.textColor = [BPTheme defaultTextColor];
         _instructionLabel.numberOfLines = 0;
+        _instructionLabel.lineBreakMode = NSLineBreakByWordWrapping;
         _instructionLabel.text = instruction;
         [_instructionLabel sizeToFit];
         [self addSubview:_instructionLabel];
@@ -79,7 +81,7 @@ const int CAPTURE_BUTTON_HEIGHT = 30;
     
     rect = self.instructionLabel.frame;
     rect.size.width = CGRectGetWidth(self.bounds) - 2 * CAPTURE_TITLE_PADDING;
-    rect.size.height = CAPTURE_MAX_INSTRUCTION_LABEL_HEIGHT;
+    rect.size.height = [self.instructionLabel heightForWidth:rect.size.width];
     rect.origin.x = CAPTURE_TITLE_PADDING;
     rect.origin.y = CGRectGetMaxY(self.closeButton.frame) + CAPTURE_VERTICAL_MARGIN;
     self.instructionLabel.frame = rect;
@@ -91,16 +93,15 @@ const int CAPTURE_BUTTON_HEIGHT = 30;
     
     rect = self.instructionVideoView.frame;
     rect.size.width = CGRectGetWidth(self.bounds) - 2 * CAPTURE_TITLE_PADDING;
-    rect.size.height =  CGRectGetMaxX(self.instructionLabel.frame) - CGRectGetMinX(self.captureButton.frame);
+    rect.size.height = CGRectGetMinY(self.captureButton.frame) - CGRectGetMaxY(self.instructionLabel.frame) - (2*CAPTURE_VERTICAL_MARGIN);
     rect.origin.x = CAPTURE_TITLE_PADDING;
-    rect.origin.y = CGRectGetMaxY(self.instructionLabel.frame) + CAPTURE_INSTRUCTION_VIDEO_PADDING;
+    rect.origin.y = CGRectGetMaxY(self.instructionLabel.frame) + CAPTURE_VERTICAL_MARGIN;
     self.instructionVideoView.frame = rect;
 }
 
 - (void)closeButtonTapped:(UIButton*)sender {
     [self.delegate captureVideoInstructionViewDidTapClose:self];
 }
-
 
 - (void)captureButtonTapped:(UIButton*)sender {
     [self.delegate captureVideoInstructionViewDidTapCapture:self];
