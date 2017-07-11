@@ -2,15 +2,17 @@
 #import "BPCaptureVideoInstructionViewController.h"
 
 @interface BPCaptureVideoNavigationController ()
-
+@property(nonatomic, readonly) BPScanResult *scanResult;
 @end
 
 @implementation BPCaptureVideoNavigationController
 
-- (instancetype)init {
+- (instancetype)initWithScanResult:(BPScanResult*)scanResult {
     self = [super init];
     if (self) {
-        BPCaptureVideoInstructionViewController *instructionViewController = [BPCaptureVideoInstructionViewController new];
+        _scanResult = scanResult;
+        
+        BPCaptureVideoInstructionViewController *instructionViewController = [[BPCaptureVideoInstructionViewController alloc] initWithScanResult:scanResult];
         instructionViewController.delegate = self;
         self.viewControllers = @[instructionViewController];
     }
@@ -37,8 +39,11 @@
 #pragma mark - BPCaptureVideoNavigationControllerDelegate
 
 - (void)captureVideoInstructionViewControllerWantsCaptureVideo:(BPCaptureVideoInstructionViewController *) viewController {
-    
     [self showCaptureVideoViewController];
+}
+
+- (void)captureVideoInstructionViewControllerWantsDismiss:(BPCaptureVideoInstructionViewController *) viewController {
+    [self.captureDelegate captureVideoNavigationControllerWantsDismiss:self];
 }
 
 @end

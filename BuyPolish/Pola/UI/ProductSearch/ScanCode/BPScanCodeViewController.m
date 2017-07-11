@@ -9,6 +9,7 @@
 #import "BPFlashlightManager.h"
 #import "BPKeyboardViewController.h"
 #import "BPCaptureVideoNavigationController.h"
+#import "BPScanResult.h"
 
 static NSTimeInterval const kAnimationTime = 0.15;
 
@@ -148,10 +149,8 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     
     if (productResult.askForPics) {
         [cardView setTeachButtonText:productResult.askForPicsPreview];
-        BPLog(@"display teach pola button with text: %@", productResult.askForPicsPreview);
     } else {
         [cardView setTeachButtonText:nil];
-        BPLog(@"DONT display teach pola button");
     }
     
     [cardView setCardType:productResult.cardType];
@@ -173,10 +172,10 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     [self presentViewController:reportProblemViewController animated:YES completion:nil];
 }
 
-- (void)showCaptureVideo:(NSNumber *)productId {
+- (void)showCaptureVideoWithScanResult:(BPScanResult *)scanResult {
     // TODO: analytics event: capture video navigation controller shown (or seperate events: instruction view shown, capture view shown)
     
-    BPCaptureVideoNavigationController *captureVideoNavigationController = [BPCaptureVideoNavigationController new];
+    BPCaptureVideoNavigationController *captureVideoNavigationController = [[BPCaptureVideoNavigationController alloc] initWithScanResult: scanResult];
     captureVideoNavigationController.captureDelegate = self;
     [self presentViewController:captureVideoNavigationController animated:YES completion:nil];
 }
@@ -363,12 +362,12 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 - (void)didTapTeach:(BPCompanyCardView *)productCardView {
     NSString *barcode = self.scannedBarcodes[(NSUInteger) productCardView.tag];
     BPScanResult *scanResult = self.barcodeToProductResult[barcode];
-    [self showCaptureVideo:scanResult.productId];
+    [self showCaptureVideoWithScanResult:scanResult];
 }
 
 #pragma mark - BPCaptureVideoNavigationControllerDelegate
 
-- (void)captureVideoWantsDismiss:(BPCaptureVideoNavigationController *)viewController {
+- (void)captureVideoNavigationControllerWantsDismiss:(BPCaptureVideoNavigationController *)viewController {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

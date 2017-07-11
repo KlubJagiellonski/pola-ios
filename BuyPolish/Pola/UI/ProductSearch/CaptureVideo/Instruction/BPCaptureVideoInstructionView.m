@@ -14,14 +14,12 @@ const int CAPTURE_BUTTON_HEIGHT = 30;
 @property(nonatomic, readonly) UIButton *closeButton;
 @property(nonatomic, readonly) UILabel *instructionLabel;
 @property(nonatomic, readonly) BPVideoPlayerView *instructionVideoView;
-@property(nonatomic, readonly) UIButton *sendButton;
-
-
+@property(nonatomic, readonly) UIButton *captureButton;
 @end
 
 @implementation BPCaptureVideoInstructionView
 
-- (instancetype)initWithFrame:(CGRect)frame {
+- (instancetype)initWithFrame:(CGRect)frame title:(NSString*)title instruction:(NSString*)instruction captureButtonText:(NSString*)captureButtonText {
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [BPTheme mediumBackgroundColor];
@@ -29,7 +27,7 @@ const int CAPTURE_BUTTON_HEIGHT = 30;
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _titleLabel.font = [BPTheme titleFont];
         _titleLabel.textColor = [BPTheme defaultTextColor];
-        _titleLabel.text = NSLocalizedString(@"Report", nil);
+        _titleLabel.text = title;
         [_titleLabel sizeToFit];
         [self addSubview:_titleLabel];
         
@@ -38,13 +36,14 @@ const int CAPTURE_BUTTON_HEIGHT = 30;
         [_closeButton setImage:[[UIImage imageNamed:@"CloseIcon"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
         _closeButton.tintColor = [BPTheme defaultTextColor];
         [_closeButton sizeToFit];
+        [_closeButton addTarget:self action:@selector(closeButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_closeButton];
         
         _instructionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _instructionLabel.font = [BPTheme normalFont];
         _instructionLabel.textColor = [BPTheme defaultTextColor];
-        _instructionLabel.text = NSLocalizedString(@"Report help", nil);
         _instructionLabel.numberOfLines = 0;
+        _instructionLabel.text = instruction;
         [_instructionLabel sizeToFit];
         [self addSubview:_instructionLabel];
         
@@ -53,12 +52,13 @@ const int CAPTURE_BUTTON_HEIGHT = 30;
         _instructionVideoView.layer.borderWidth = 2;
         [self addSubview:_instructionVideoView];
                 
-        _sendButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _sendButton.titleLabel.font = [BPTheme buttonFont];
-        [_sendButton setTitle:[NSLocalizedString(@"Send", nil) uppercaseString] forState:UIControlStateNormal];
-        [_sendButton setBackgroundImage:[BPUtilities imageWithColor:[BPTheme actionColor]] forState:UIControlStateNormal];
-        [_sendButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [self addSubview:_sendButton];
+        _captureButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _captureButton.titleLabel.font = [BPTheme buttonFont];
+        [_captureButton setBackgroundImage:[BPUtilities imageWithColor:[BPTheme actionColor]] forState:UIControlStateNormal];
+        [_captureButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_captureButton setTitle:captureButtonText forState:UIControlStateNormal];
+        [_captureButton addTarget:self action:@selector(captureButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_captureButton];
     }
     
     return self;
@@ -87,17 +87,26 @@ const int CAPTURE_BUTTON_HEIGHT = 30;
     rect.size = CGSizeMake(CGRectGetWidth(self.bounds) - 2 * CAPTURE_TITLE_PADDING, CAPTURE_BUTTON_HEIGHT);
     rect.origin.x = CAPTURE_TITLE_PADDING;
     rect.origin.y = CGRectGetHeight(self.bounds) - CAPTURE_TITLE_PADDING - CGRectGetHeight(rect);
-    self.sendButton.frame = rect;
+    self.captureButton.frame = rect;
     
     rect = self.instructionVideoView.frame;
     rect.size.width = CGRectGetWidth(self.bounds) - 2 * CAPTURE_TITLE_PADDING;
-    rect.size.height =  CGRectGetMaxX(self.instructionLabel.frame) - CGRectGetMinX(self.sendButton.frame);
+    rect.size.height =  CGRectGetMaxX(self.instructionLabel.frame) - CGRectGetMinX(self.captureButton.frame);
     rect.origin.x = CAPTURE_TITLE_PADDING;
     rect.origin.y = CGRectGetMaxY(self.instructionLabel.frame) + CAPTURE_INSTRUCTION_VIDEO_PADDING;
     self.instructionVideoView.frame = rect;
 }
 
--(void) playVideoWithURL:(NSURL*)URL {
+- (void)closeButtonTapped:(UIButton*)sender {
+    [self.delegate captureVideoInstructionViewDidTapClose:self];
+}
+
+
+- (void)captureButtonTapped:(UIButton*)sender {
+    [self.delegate captureVideoInstructionViewDidTapCapture:self];
+}
+
+- (void)playVideoWithURL:(NSURL*)URL {
     [self.instructionVideoView playInLoopURL:URL];
 }
 
