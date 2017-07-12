@@ -1,3 +1,4 @@
+#import <Objection/Objection.h>
 #import "BPCaptureVideoNavigationController.h"
 #import "BPCaptureVideoInstructionViewController.h"
 
@@ -29,20 +30,25 @@
 #pragma mark - Actions
 
 -(void)showCaptureVideoViewController {
-    // TODO: implement
+    JSObjectionInjector *injector = [JSObjection defaultInjector];
+    BPCaptureVideoViewController *captureVideoController = [injector getObject:[BPCaptureVideoViewController class] argumentList:@[self.scanResult]];
+    captureVideoController.delegate = self;
+    [self pushViewController:captureVideoController animated:YES];
 }
 
--(void)popCaptureVideoViewController {
-    // TODO: implement
-}
-
-#pragma mark - BPCaptureVideoNavigationControllerDelegate
+#pragma mark - BPCaptureVideoInstructionViewControllerDelegate
 
 - (void)captureVideoInstructionViewControllerWantsCaptureVideo:(BPCaptureVideoInstructionViewController *) viewController {
     [self showCaptureVideoViewController];
 }
 
 - (void)captureVideoInstructionViewControllerWantsDismiss:(BPCaptureVideoInstructionViewController *) viewController {
+    [self.captureDelegate captureVideoNavigationControllerWantsDismiss:self];
+}
+
+#pragma mark - BPCaptureVideoViewControllerDelegate
+
+- (void)captureVideoViewControllerWantsDismiss:(BPCaptureVideoViewController *)viewController {
     [self.captureDelegate captureVideoNavigationControllerWantsDismiss:self];
 }
 

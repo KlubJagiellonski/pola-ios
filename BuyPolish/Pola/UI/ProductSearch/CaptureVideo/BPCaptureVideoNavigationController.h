@@ -1,5 +1,6 @@
 #import <Foundation/Foundation.h>
 #import "BPCaptureVideoInstructionViewController.h"
+#import "BPCaptureVideoViewController.h"
 #import "BPScanResult.h"
 
 @class BPCaptureVideoNavigationController;
@@ -8,7 +9,7 @@
 - (void)captureVideoNavigationControllerWantsDismiss:(BPCaptureVideoNavigationController *)viewController;
 @end
 
-@interface BPCaptureVideoNavigationController : UINavigationController <BPCaptureVideoInstructionViewControllerDelegate>
+@interface BPCaptureVideoNavigationController : UINavigationController <BPCaptureVideoInstructionViewControllerDelegate, BPCaptureVideoViewControllerDelegate>
 
 @property(weak, nonatomic) id <BPCaptureVideoNavigationControllerDelegate> captureDelegate;
 

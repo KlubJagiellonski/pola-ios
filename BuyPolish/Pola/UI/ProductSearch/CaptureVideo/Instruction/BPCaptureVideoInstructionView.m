@@ -86,6 +86,7 @@ const int CAPTURE_BUTTON_HEIGHT = 30;
     rect.origin.y = CGRectGetMaxY(self.closeButton.frame) + CAPTURE_VERTICAL_MARGIN;
     self.instructionLabel.frame = rect;
     
+    rect = self.captureButton.frame;
     rect.size = CGSizeMake(CGRectGetWidth(self.bounds) - 2 * CAPTURE_TITLE_PADDING, CAPTURE_BUTTON_HEIGHT);
     rect.origin.x = CAPTURE_TITLE_PADDING;
     rect.origin.y = CGRectGetHeight(self.bounds) - CAPTURE_TITLE_PADDING - CGRectGetHeight(rect);

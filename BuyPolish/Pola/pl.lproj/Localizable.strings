@@ -60,3 +60,5 @@
 "Accessibility.Close" = "Zamknij";
 "Accessibility.CardHint" = "Otwórz lub zamknij poprzez kliknięcie";
 "Accessibility.Report.AddPhoto" = "Dodaj zdjęcie";
+"CaptureVideo.Timer.Seconds" = "sek.";
+"CaptureVideo.Start" = "START";
