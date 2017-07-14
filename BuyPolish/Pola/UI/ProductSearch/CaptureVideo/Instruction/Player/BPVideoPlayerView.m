@@ -2,8 +2,7 @@
 #import <AVFoundation/AVFoundation.h>
 
 @interface BPVideoPlayerView ()
-
-
+@property(nonatomic) AVPlayer *player;
 @end
 
 @implementation BPVideoPlayerView
@@ -19,16 +18,16 @@
 }
 
 - (void)playInLoopURL:(NSURL*)url {
-    AVPlayer *player = [[AVPlayer alloc] initWithURL:url];
-    self.playerLayer.player = player;
+    self.player = [[AVPlayer alloc] initWithURL:url];
+    self.playerLayer.player = self.player;
     
-    player.actionAtItemEnd = AVPlayerActionAtItemEndNone;
+    self.player.actionAtItemEnd = AVPlayerActionAtItemEndNone;
     
     // TODO: remove previous observer
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(playerItemDidReachEnd:)
                                                  name:AVPlayerItemDidPlayToEndTimeNotification
-                                               object:[player currentItem]];
+                                               object:[self.player currentItem]];
 
     [self.playerLayer.player play];
 }
@@ -36,6 +35,11 @@
 - (void)playerItemDidReachEnd:(NSNotification *)notification {
     AVPlayerItem *p = [notification object];
     [p seekToTime:kCMTimeZero];
+}
+
+- (void)stop {
+    [self.player pause];
+    
 }
 
 #pragma mark helper methods

@@ -6,5 +6,6 @@
 @interface BPVideoPlayerView : UIView
 
 - (void)playInLoopURL:(NSURL*)URL;
+- (void)stop;
 
 @end

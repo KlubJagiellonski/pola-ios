@@ -112,4 +112,7 @@ const int CAPTURE_BUTTON_HEIGHT = 30;
     [self.instructionVideoView playInLoopURL:URL];
 }
 
+- (void)stopVideo {
+    [self.instructionVideoView stop];
+}
 @end

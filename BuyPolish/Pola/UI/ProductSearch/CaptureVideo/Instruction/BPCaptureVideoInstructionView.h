@@ -14,5 +14,6 @@
 - (instancetype)initWithFrame:(CGRect)frame title:(NSString*)title instruction:(NSString*)instruction captureButtonText:(NSString*)captureButtonText;
 
 -(void)playVideoWithURL:(NSURL*)URL;
+-(void)stopVideo;
 
 @end
