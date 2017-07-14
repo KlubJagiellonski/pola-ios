@@ -40,10 +40,11 @@ objection_initializer_sel(@selector(initWithScanResult:))
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.castView.delegate = self;
+    self.cameraSessionManager.delegate = self;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
     self.castView.videoLayer = self.cameraSessionManager.videoPreviewLayer;
     [self.cameraSessionManager start];
 }
@@ -87,6 +88,11 @@ objection_initializer_sel(@selector(initWithScanResult:))
     // start capturing
 }
 
+#pragma mark - BPCameraSessionManagerDelegate
+
+- (void)didFindBarcode:(NSString *)barcode {
+    
+}
 
 #pragma mark - Helpers
 

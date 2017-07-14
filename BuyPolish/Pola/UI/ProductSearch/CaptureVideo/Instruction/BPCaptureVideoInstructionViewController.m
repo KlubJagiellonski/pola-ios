@@ -32,8 +32,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.castView.delegate = self;
-    
-   
 }
 
 - (void)viewWillAppear:(BOOL)animated {

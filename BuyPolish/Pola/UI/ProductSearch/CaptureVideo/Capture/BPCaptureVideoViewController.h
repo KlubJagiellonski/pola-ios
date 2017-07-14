@@ -11,7 +11,7 @@
 
 @end
 
-@interface BPCaptureVideoViewController : UIViewController <BPCaptureVideoViewDelegate>
+@interface BPCaptureVideoViewController : UIViewController <BPCaptureVideoViewDelegate, BPCameraSessionManagerDelegate>
 
 @property(weak, nonatomic) id <BPCaptureVideoViewControllerDelegate> delegate;
 

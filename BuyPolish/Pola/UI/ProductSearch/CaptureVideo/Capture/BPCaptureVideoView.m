@@ -14,7 +14,7 @@ const int CAPTURE_START_BUTTON_HEIGHT = 30;
 - (instancetype)initWithFrame:(CGRect)frame initialTimerSec:(int)initialTimerSec {
     self = [super initWithFrame:frame];
     if (self) {
-//        self.backgroundColor = [BPTheme mediumBackgroundColor];
+        self.backgroundColor = [UIColor clearColor];
         
         _timeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _timeLabel.font = [BPTheme titleFont];
