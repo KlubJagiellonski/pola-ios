@@ -52,4 +52,9 @@
     [self.captureDelegate captureVideoNavigationControllerWantsDismiss:self];
 }
 
+- (void)captureVideoViewController:(BPCaptureVideoViewController *)viewController didFinishCapturingImages:(NSArray<UIImage *> *)images {
+    [self.captureDelegate captureVideoNavigationController: self didCaptureImages:images];
+    [self.captureDelegate captureVideoNavigationControllerWantsDismiss:self];
+}
+
 @end

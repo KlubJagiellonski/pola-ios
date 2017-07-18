@@ -371,6 +371,13 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void)captureVideoNavigationController:(BPCaptureVideoNavigationController *)viewController didCaptureImages:(NSArray<UIImage *> *)images {
+    // TODO: init upload by BPImageUploadManager
+    for (UIImage *image in images) {
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+    }
+}
+
 #pragma mark - BPReportProblemViewControllerDelegate
 
 - (void)reportProblemWantsDismiss:(BPReportProblemViewController *)viewController {

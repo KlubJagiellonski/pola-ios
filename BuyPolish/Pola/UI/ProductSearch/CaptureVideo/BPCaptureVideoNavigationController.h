@@ -7,6 +7,7 @@
 
 @protocol BPCaptureVideoNavigationControllerDelegate <NSObject>
 - (void)captureVideoNavigationControllerWantsDismiss:(BPCaptureVideoNavigationController *)viewController;
+- (void)captureVideoNavigationController:(BPCaptureVideoNavigationController *)viewController didCaptureImages:(NSArray<UIImage*> *)images;
 @end
 
 @interface BPCaptureVideoNavigationController : UINavigationController <BPCaptureVideoInstructionViewControllerDelegate, BPCaptureVideoViewControllerDelegate>

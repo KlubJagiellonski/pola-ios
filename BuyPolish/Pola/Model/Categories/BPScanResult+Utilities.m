@@ -19,12 +19,16 @@
     self.reportText = [dictionary nilOrStringForKey:@"report_text"];
     self.reportButtonText = [dictionary nilOrStringForKey:@"report_button_text"];
     self.reportButtonType = [self parseReportButtonType:[dictionary nilOrStringForKey:@"report_button_type"]];
-    self.askForPics = [[dictionary objectForKey:@"ask_for_pics"] boolValue];
-    self.askForPicsPreview = [dictionary nilOrStringForKey:@"ask_for_pics_preview"];
-    self.askForPicsTitle = [dictionary nilOrStringForKey:@"ask_for_pics_title"];
-    self.askForPicsText = [dictionary nilOrStringForKey:@"ask_for_pics_text"];
-    self.askForPicsButtonStart = [dictionary nilOrStringForKey:@"ask_for_pics_button_start"];
-    self.maxPicSize = [dictionary nilOrNumberForKey:@"max_pic_size"];
+    
+    NSDictionary *aiDict = [dictionary nilOrDictionaryForKey:@"ai"];
+    if (aiDict != nil) {
+        self.askForPics = [[aiDict objectForKey:@"ask_for_pics"] boolValue];
+        self.askForPicsPreview = [aiDict nilOrStringForKey:@"ask_for_pics_preview"];
+        self.askForPicsTitle = [aiDict nilOrStringForKey:@"ask_for_pics_title"];
+        self.askForPicsText = [aiDict nilOrStringForKey:@"ask_for_pics_text"];
+        self.askForPicsButtonStart = [aiDict nilOrStringForKey:@"ask_for_pics_button_start"];
+        self.maxPicSize = [aiDict nilOrNumberForKey:@"max_pic_size"];
+    }
 }
 
 - (CardType)parseCardType:(NSString *)cardType {
