@@ -53,6 +53,7 @@
 }
 
 - (void)captureImageWithCompletion:(void (^)(UIImage*, NSError*))completion {
+    
     dispatch_async(self.captureSessionQueue, ^{        
         AVCaptureConnection *connection = [self.stillCameraOutput connectionWithMediaType:AVMediaTypeVideo];
         connection.videoOrientation = (AVCaptureVideoOrientation) UIDevice.currentDevice.orientation;

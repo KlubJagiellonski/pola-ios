@@ -1,5 +1,7 @@
 #import <Objection/Objection.h>
 #import "BPCaptureVideoViewController.h"
+#import "BPCapturedImageManager.h"
+#import "UIImage+Scaling.h"
 
 const int INITIAL_TIMER_SEC = 6;
 
@@ -8,14 +10,16 @@ const int INITIAL_TIMER_SEC = 6;
 @property(nonatomic) BPScanResult *scanResult;
 @property(nonatomic) int timerSeconds;
 @property(nonatomic) NSTimer *timer;
-@property(nonatomic, readonly) BPCaptureVideoManager *captureVideoManager;
-@property(nonatomic, readonly) NSMutableArray<UIImage*> *capturedImages;
+@property(nonatomic, readonly) BPCaptureVideoManager *videoManager;
+@property(nonatomic) int sessionTimestamp;      // seconds since 1970
+@property(nonatomic, readonly) BPCapturedImageManager *imageManager;
+@property(nonatomic) int savedImagesCount;
 
 @end
 
 @implementation BPCaptureVideoViewController
 
-objection_requires_sel(@selector(captureVideoManager))
+objection_requires_sel(@selector(videoManager), @selector(imageManager))
 objection_initializer_sel(@selector(initWithScanResult:))
 
 - (instancetype)initWithScanResult:(BPScanResult*)scanResult {
@@ -23,7 +27,8 @@ objection_initializer_sel(@selector(initWithScanResult:))
     if (self) {
         _scanResult = scanResult;
         _timerSeconds = INITIAL_TIMER_SEC;
-        _capturedImages = [[NSMutableArray<UIImage*> alloc] init];
+        _savedImagesCount = 0;
+        _sessionTimestamp = 0;
     }
     
     return self;
@@ -48,14 +53,17 @@ objection_initializer_sel(@selector(initWithScanResult:))
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    self.castView.videoLayer = self.captureVideoManager.videoPreviewLayer;
-    [self.captureVideoManager startCameraPreview];
+    self.castView.videoLayer = self.videoManager.videoPreviewLayer;
+    [self.videoManager startCameraPreview];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [self.captureVideoManager stopCameraPreview];
+    [self.videoManager stopCameraPreview];
     [self invalidateTimer];
+    if ( (self.sessionTimestamp != 0) && (self.savedImagesCount != INITIAL_TIMER_SEC) ) {
+        [self.imageManager removeImagesDataForCaptureSessionTimestamp:self.sessionTimestamp imageCount:self.savedImagesCount];
+    }
 }
 
 - (void)timerAction {
@@ -63,19 +71,26 @@ objection_initializer_sel(@selector(initWithScanResult:))
     [self.castView setTimeLabelSec:self.timerSeconds];
     if (self.timerSeconds == 0) {
         [self invalidateTimer];
+        return;
     }
     
     [self captureImageAndFinishIfNeeded];
 }
 
 - (void)captureImageAndFinishIfNeeded {
-    [self.captureVideoManager captureImageWithCompletion:^(UIImage *image, NSError *error) {
+    [self.videoManager captureImageWithCompletion:^(UIImage *image, NSError *error) {
         if (error == nil) {
             
-            [self.capturedImages addObject:image];
+            UIImage *scaledImage = [self scaledImage:image withMaxSide:self.scanResult.maxPicSize.doubleValue];
+            NSData *imageData = UIImageJPEGRepresentation(scaledImage, 0.5);
+            [self.imageManager saveImageData:imageData captureSessionTimestamp:self.sessionTimestamp index:self.savedImagesCount];
             
-            if (self.capturedImages.count == INITIAL_TIMER_SEC) {
-                [self.delegate captureVideoViewController:self didFinishCapturingImages:self.capturedImages];
+            // TODO: save image completion block - begin
+            self.savedImagesCount += 1;
+            
+            if (self.savedImagesCount == INITIAL_TIMER_SEC) {
+            
+                [self.delegate captureVideoViewController:self didFinishCapturingWithSessionTimestamp:self.sessionTimestamp imageCount:self.savedImagesCount];
             }
             
         } else {
@@ -100,6 +115,7 @@ objection_initializer_sel(@selector(initWithScanResult:))
 
 - (void)captureVideoViewDidTapStart:(BPCaptureVideoView *)view {
     [self.castView.startButton setHidden:YES];
+    self.sessionTimestamp = [[NSDate date] timeIntervalSince1970];
     [self captureImageAndFinishIfNeeded];
     self.timer = [NSTimer timerWithTimeInterval:1.0f target:self selector:@selector(timerAction) userInfo:nil repeats:YES];
     [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
@@ -111,4 +127,12 @@ objection_initializer_sel(@selector(initWithScanResult:))
     return (BPCaptureVideoView *) self.view;
 }
 
+- (UIImage *)scaledImage:(UIImage*)originalImage withMaxSide:(double)maxSide {
+    if (originalImage.size.height > originalImage.size.width) {
+        return [originalImage scaledToHeight:maxSide];
+    } else {
+        return [originalImage scaledToWidth:maxSide];
+    }
+}
+        
 @end

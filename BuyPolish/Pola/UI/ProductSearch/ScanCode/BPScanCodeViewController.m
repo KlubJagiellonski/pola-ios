@@ -10,6 +10,7 @@
 #import "BPKeyboardViewController.h"
 #import "BPCaptureVideoNavigationController.h"
 #import "BPScanResult.h"
+#import "BPCapturedImageManager.h"
 
 static NSTimeInterval const kAnimationTime = 0.15;
 
@@ -371,11 +372,17 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)captureVideoNavigationController:(BPCaptureVideoNavigationController *)viewController didCaptureImages:(NSArray<UIImage *> *)images {
+- (void)captureVideoNavigationController:(BPCaptureVideoNavigationController *)viewController didCaptureImagesWithTimestamp:(int)timestamp imageCount:(int)imageCount {
     // TODO: init upload by BPImageUploadManager
-    for (UIImage *image in images) {
+    BPCapturedImageManager *imageManager = [[BPCapturedImageManager alloc] init];
+    NSArray<NSData*> *imagesDataArray = [imageManager retrieveImagesDataForCaptureSessionTimestamp:timestamp imageCount:imageCount];
+    
+    for (NSData *imageData in imagesDataArray) {
+        UIImage *image = [[UIImage alloc] initWithData:imageData];
         UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
     }
+    
+    [imageManager removeImagesDataForCaptureSessionTimestamp:timestamp imageCount:imageCount];
 }
 
 #pragma mark - BPReportProblemViewControllerDelegate

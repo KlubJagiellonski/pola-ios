@@ -52,8 +52,8 @@
     [self.captureDelegate captureVideoNavigationControllerWantsDismiss:self];
 }
 
-- (void)captureVideoViewController:(BPCaptureVideoViewController *)viewController didFinishCapturingImages:(NSArray<UIImage *> *)images {
-    [self.captureDelegate captureVideoNavigationController: self didCaptureImages:images];
+- (void)captureVideoViewController:(BPCaptureVideoViewController *)viewController didFinishCapturingWithSessionTimestamp:(int)timestamp imageCount:(int)imageCount {
+    [self.captureDelegate captureVideoNavigationController:self didCaptureImagesWithTimestamp:timestamp imageCount:imageCount];
     [self.captureDelegate captureVideoNavigationControllerWantsDismiss:self];
 }
 

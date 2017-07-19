@@ -95,6 +95,8 @@
 		83AFDE971F0D4CE200608235 /* BPCaptureVideoInstructionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AFDE961F0D4CE200608235 /* BPCaptureVideoInstructionViewController.m */; };
 		83AFDE9A1F0D4E9300608235 /* BPCaptureVideoInstructionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AFDE991F0D4E9300608235 /* BPCaptureVideoInstructionView.m */; };
 		ABCA9D8499A8FF36227B6C94 /* UIApplication+BPStatusBarHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCA997979B62F78CFCB7E19 /* UIApplication+BPStatusBarHeight.m */; };
+		C092CF391F1F809E003174D1 /* BPCapturedImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C092CF381F1F809E003174D1 /* BPCapturedImageManager.m */; };
+		C092CF3C1F1F88EE003174D1 /* UIImage+Scaling.m in Sources */ = {isa = PBXBuildFile; fileRef = C092CF3B1F1F88EE003174D1 /* UIImage+Scaling.m */; };
 		C0DD0EBF1F1B3B1A00BF4B20 /* BPCaptureVideoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C0DD0EBE1F1B3B1A00BF4B20 /* BPCaptureVideoManager.m */; };
 		C0E6B7331F1396430047D960 /* BPVideoPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0E6B7321F1396430047D960 /* BPVideoPlayerView.m */; };
 /* End PBXBuildFile section */
@@ -260,6 +262,10 @@
 		83AFDE991F0D4E9300608235 /* BPCaptureVideoInstructionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPCaptureVideoInstructionView.m; path = CaptureVideo/Instruction/BPCaptureVideoInstructionView.m; sourceTree = "<group>"; };
 		ABCA997979B62F78CFCB7E19 /* UIApplication+BPStatusBarHeight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+BPStatusBarHeight.m"; sourceTree = "<group>"; };
 		ABCA9A3E3B8A8B7C925052B6 /* UIApplication+BPStatusBarHeight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+BPStatusBarHeight.h"; sourceTree = "<group>"; };
+		C092CF371F1F8086003174D1 /* BPCapturedImageManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BPCapturedImageManager.h; path = BPCapturedImageManager/BPCapturedImageManager.h; sourceTree = "<group>"; };
+		C092CF381F1F809E003174D1 /* BPCapturedImageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPCapturedImageManager.m; path = BPCapturedImageManager/BPCapturedImageManager.m; sourceTree = "<group>"; };
+		C092CF3A1F1F88BD003174D1 /* UIImage+Scaling.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Scaling.h"; sourceTree = "<group>"; };
+		C092CF3B1F1F88EE003174D1 /* UIImage+Scaling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Scaling.m"; sourceTree = "<group>"; };
 		C0DD0EBD1F1B3A1500BF4B20 /* BPCaptureVideoManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BPCaptureVideoManager.h; sourceTree = "<group>"; };
 		C0DD0EBE1F1B3B1A00BF4B20 /* BPCaptureVideoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPCaptureVideoManager.m; sourceTree = "<group>"; };
 		C0E6B7321F1396430047D960 /* BPVideoPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPVideoPlayerView.m; path = CaptureVideo/Instruction/Player/BPVideoPlayerView.m; sourceTree = "<group>"; };
@@ -537,6 +543,8 @@
 				37B64858CB60EB44C530A2FD /* UIColor+BPAdditions.h */,
 				37B64B4F653A9EE90A4C985E /* UILabel+BPAdditions.m */,
 				37B64436419438CB2D3553FF /* UILabel+BPAdditions.h */,
+				C092CF3A1F1F88BD003174D1 /* UIImage+Scaling.h */,
+				C092CF3B1F1F88EE003174D1 /* UIImage+Scaling.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -621,6 +629,7 @@
 		37B64DD9591909AF06832339 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				C092CF351F1F8007003174D1 /* BPCapturedImageManager */,
 				C0DD0EBB1F1B399D00BF4B20 /* CaptureVideoManager */,
 				37B64977613F0A577613F7E4 /* ProductManager */,
 				37B641361E13BB0824D5828D /* ReportManager */,
@@ -713,6 +722,15 @@
 				3113702D8B8D1BEF39F1B926 /* Pods.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		C092CF351F1F8007003174D1 /* BPCapturedImageManager */ = {
+			isa = PBXGroup;
+			children = (
+				C092CF371F1F8086003174D1 /* BPCapturedImageManager.h */,
+				C092CF381F1F809E003174D1 /* BPCapturedImageManager.m */,
+			);
+			name = BPCapturedImageManager;
 			sourceTree = "<group>";
 		};
 		C0DD0EBB1F1B399D00BF4B20 /* CaptureVideoManager */ = {
@@ -956,6 +974,7 @@
 				37B641B5D6F386E7E2A67DF8 /* BPMainProggressView.m in Sources */,
 				37B648D280BBB1A95E85962E /* BPSecondaryProgressView.m in Sources */,
 				83AFDE8E1F0D415C00608235 /* BPCaptureVideoNavigationController.m in Sources */,
+				C092CF3C1F1F88EE003174D1 /* UIImage+Scaling.m in Sources */,
 				37B64EBEB659B5811A9540AA /* BPCheckRow.m in Sources */,
 				37B6405B2B77BAAD1DC986CF /* UILabel+BPAdditions.m in Sources */,
 				37B64BC4371E659752F34583 /* BPTheme.m in Sources */,
@@ -966,6 +985,7 @@
 				83AFDE971F0D4CE200608235 /* BPCaptureVideoInstructionViewController.m in Sources */,
 				837E6B911F1619FA001A6A9B /* BPCaptureVideoViewController.m in Sources */,
 				37B647FB39C0F80116FD674D /* BPAboutRow.m in Sources */,
+				C092CF391F1F809E003174D1 /* BPCapturedImageManager.m in Sources */,
 				37B6498E15B68A84069DD3A5 /* BPAnalyticsHelper.m in Sources */,
 				37B64D38E60651D383A2F8F7 /* BPDeviceHelper.m in Sources */,
 				37B64A095B01FB6355E7E21E /* BPAboutWebViewController.m in Sources */,
