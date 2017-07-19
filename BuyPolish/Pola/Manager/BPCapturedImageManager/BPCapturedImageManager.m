@@ -33,7 +33,7 @@
 - (NSString *)imagePathForSessionTimestamp:(int)timestamp index:(int)index {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     NSString *directory = paths[0];
-    NSString *filename = [NSString stringWithFormat:@"%d_%d", timestamp, index];
+    NSString *filename = [NSString stringWithFormat:@"%d_%d.jpg", timestamp, index];
     return [directory stringByAppendingPathComponent:filename];
 }
 

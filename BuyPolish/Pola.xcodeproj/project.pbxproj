@@ -97,6 +97,7 @@
 		ABCA9D8499A8FF36227B6C94 /* UIApplication+BPStatusBarHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCA997979B62F78CFCB7E19 /* UIApplication+BPStatusBarHeight.m */; };
 		C092CF391F1F809E003174D1 /* BPCapturedImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C092CF381F1F809E003174D1 /* BPCapturedImageManager.m */; };
 		C092CF3C1F1F88EE003174D1 /* UIImage+Scaling.m in Sources */ = {isa = PBXBuildFile; fileRef = C092CF3B1F1F88EE003174D1 /* UIImage+Scaling.m */; };
+		C0AF272F1F20046A00A89126 /* BPCapturedImagesData.m in Sources */ = {isa = PBXBuildFile; fileRef = C0AF272E1F20046A00A89126 /* BPCapturedImagesData.m */; };
 		C0DD0EBF1F1B3B1A00BF4B20 /* BPCaptureVideoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C0DD0EBE1F1B3B1A00BF4B20 /* BPCaptureVideoManager.m */; };
 		C0E6B7331F1396430047D960 /* BPVideoPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0E6B7321F1396430047D960 /* BPVideoPlayerView.m */; };
 /* End PBXBuildFile section */
@@ -266,6 +267,8 @@
 		C092CF381F1F809E003174D1 /* BPCapturedImageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPCapturedImageManager.m; path = BPCapturedImageManager/BPCapturedImageManager.m; sourceTree = "<group>"; };
 		C092CF3A1F1F88BD003174D1 /* UIImage+Scaling.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Scaling.h"; sourceTree = "<group>"; };
 		C092CF3B1F1F88EE003174D1 /* UIImage+Scaling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Scaling.m"; sourceTree = "<group>"; };
+		C0AF272D1F20045800A89126 /* BPCapturedImagesData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BPCapturedImagesData.h; sourceTree = "<group>"; };
+		C0AF272E1F20046A00A89126 /* BPCapturedImagesData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPCapturedImagesData.m; sourceTree = "<group>"; };
 		C0DD0EBD1F1B3A1500BF4B20 /* BPCaptureVideoManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BPCaptureVideoManager.h; sourceTree = "<group>"; };
 		C0DD0EBE1F1B3B1A00BF4B20 /* BPCaptureVideoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPCaptureVideoManager.m; sourceTree = "<group>"; };
 		C0E6B7321F1396430047D960 /* BPVideoPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPVideoPlayerView.m; path = CaptureVideo/Instruction/Player/BPVideoPlayerView.m; sourceTree = "<group>"; };
@@ -600,6 +603,8 @@
 				37B644C120825EFA9AF52B8A /* Categories */,
 				37B649F01069BA6A92B49C15 /* BPScanResult.h */,
 				37B6413AB46D8FAC81D1E72B /* BPScanResult.m */,
+				C0AF272D1F20045800A89126 /* BPCapturedImagesData.h */,
+				C0AF272E1F20046A00A89126 /* BPCapturedImagesData.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -959,6 +964,7 @@
 				37B64B07EFEFFFDCC225AF5E /* BPCameraSessionManager.m in Sources */,
 				837E6B941F161E31001A6A9B /* BPCaptureVideoView.m in Sources */,
 				37B648580AB2106E285B58C2 /* BPReportProblemViewController.m in Sources */,
+				C0AF272F1F20046A00A89126 /* BPCapturedImagesData.m in Sources */,
 				37B6482F8EF3F11BE5ECEAAB /* BPReportProblemView.m in Sources */,
 				37B64B04E790A7948469FA50 /* BPProductImageManager.m in Sources */,
 				375021841CC0F0F800759140 /* BPKeyboardTextView.m in Sources */,

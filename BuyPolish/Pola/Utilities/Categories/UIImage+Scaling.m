@@ -30,5 +30,12 @@
     return newImage;
 }
 
+- (int)heightInPixels {
+    return self.size.height * self.scale;
+}
+
+- (int)widthInPixels {
+    return self.size.width * self.scale;
+}
 
 @end

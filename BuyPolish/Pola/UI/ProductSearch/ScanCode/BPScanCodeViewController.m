@@ -372,17 +372,18 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)captureVideoNavigationController:(BPCaptureVideoNavigationController *)viewController didCaptureImagesWithTimestamp:(int)timestamp imageCount:(int)imageCount {
+- (void)captureVideoNavigationController:(BPCaptureVideoNavigationController *)viewController didCaptureImagesWithTimestamp:(int)timestamp imagesData:(BPCapturedImagesData *)imagesData {
     // TODO: init upload by BPImageUploadManager
+    NSLog(@"did capture video with imagesData\nproductID: %@\nfilesCount: %@\nfileExt: %@\nmimeType: %@\noriginalWidth: %@\noriginalHeight: %@\nwidth: %@\nheight: %@\ndeviceName: %@", imagesData.productID, imagesData.filesCount, imagesData.fileExtension, imagesData.mimeType, imagesData.originalWidth, imagesData.originalHeight, imagesData.width, imagesData.height, imagesData.deviceName);
     BPCapturedImageManager *imageManager = [[BPCapturedImageManager alloc] init];
-    NSArray<NSData*> *imagesDataArray = [imageManager retrieveImagesDataForCaptureSessionTimestamp:timestamp imageCount:imageCount];
+    NSArray<NSData*> *imagesDataArray = [imageManager retrieveImagesDataForCaptureSessionTimestamp:timestamp imageCount:imagesData.filesCount.intValue];
     
     for (NSData *imageData in imagesDataArray) {
         UIImage *image = [[UIImage alloc] initWithData:imageData];
         UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
     }
     
-    [imageManager removeImagesDataForCaptureSessionTimestamp:timestamp imageCount:imageCount];
+    [imageManager removeImagesDataForCaptureSessionTimestamp:timestamp imageCount:imagesData.filesCount.intValue];
 }
 
 #pragma mark - BPReportProblemViewControllerDelegate

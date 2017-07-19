@@ -2,6 +2,7 @@
 #import "BPCaptureVideoViewController.h"
 #import "BPCapturedImageManager.h"
 #import "UIImage+Scaling.h"
+#import <sys/utsname.h>
 
 const int INITIAL_TIMER_SEC = 6;
 
@@ -64,6 +65,8 @@ objection_initializer_sel(@selector(initWithScanResult:))
     if ( (self.sessionTimestamp != 0) && (self.savedImagesCount != INITIAL_TIMER_SEC) ) {
         [self.imageManager removeImagesDataForCaptureSessionTimestamp:self.sessionTimestamp imageCount:self.savedImagesCount];
     }
+    self.sessionTimestamp = 0;
+    self.savedImagesCount = 0;
 }
 
 - (void)timerAction {
@@ -78,19 +81,27 @@ objection_initializer_sel(@selector(initWithScanResult:))
 }
 
 - (void)captureImageAndFinishIfNeeded {
-    [self.videoManager captureImageWithCompletion:^(UIImage *image, NSError *error) {
+    [self.videoManager captureImageWithCompletion:^(UIImage *originalImage, NSError *error) {
         if (error == nil) {
             
-            UIImage *scaledImage = [self scaledImage:image withMaxSide:self.scanResult.maxPicSize.doubleValue];
+            UIImage *scaledImage = [self scaledImage:originalImage withMaxSide:self.scanResult.maxPicSize.doubleValue];
             NSData *imageData = UIImageJPEGRepresentation(scaledImage, 0.5);
             [self.imageManager saveImageData:imageData captureSessionTimestamp:self.sessionTimestamp index:self.savedImagesCount];
             
-            // TODO: save image completion block - begin
             self.savedImagesCount += 1;
             
             if (self.savedImagesCount == INITIAL_TIMER_SEC) {
-            
-                [self.delegate captureVideoViewController:self didFinishCapturingWithSessionTimestamp:self.sessionTimestamp imageCount:self.savedImagesCount];
+                BPCapturedImagesData *capturedImagesData = [[BPCapturedImagesData alloc] initWithProductID:self.scanResult.productId
+                                                                                                filesCount:[[NSNumber alloc] initWithInt: self.savedImagesCount]
+                                                                                             fileExtension:@"jpg"
+                                                                                                  mimeType:@"image/jpeg"
+                                                                                             originalWidth:[[NSNumber alloc] initWithInt: [originalImage widthInPixels]]
+                                                                                            originalHeight:[[NSNumber alloc] initWithInt: [originalImage heightInPixels]]
+                                                                                                     width:[[NSNumber alloc] initWithInt: [scaledImage widthInPixels]]
+                                                                                                    height:[[NSNumber alloc] initWithInt: [scaledImage heightInPixels]]
+                                                                                                deviceName:[self deviceName]];
+                
+                [self.delegate captureVideoViewController:self didFinishCapturingWithSessionTimestamp:self.sessionTimestamp imagesData:capturedImagesData];
             }
             
         } else {
@@ -128,11 +139,21 @@ objection_initializer_sel(@selector(initWithScanResult:))
 }
 
 - (UIImage *)scaledImage:(UIImage*)originalImage withMaxSide:(double)maxSide {
-    if (originalImage.size.height > originalImage.size.width) {
+    CGImageRef cgImage = originalImage.CGImage;
+    if ( CGImageGetHeight(cgImage) > CGImageGetWidth(cgImage) ) {
         return [originalImage scaledToHeight:maxSide];
     } else {
         return [originalImage scaledToWidth:maxSide];
     }
 }
+            
+            
+- (NSString*)deviceName {
+    struct utsname systemInfo;
+    uname(&systemInfo);
+    
+    return [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
+}
+
         
 @end

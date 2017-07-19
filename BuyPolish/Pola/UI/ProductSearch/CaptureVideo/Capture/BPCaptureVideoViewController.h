@@ -2,12 +2,13 @@
 #import "BPCaptureVideoView.h"
 #import "BPScanResult.h"
 #import "BPCaptureVideoManager.h"
+#import "BPCapturedImagesData.h"
 
 @class BPCaptureVideoViewController;
 
 @protocol BPCaptureVideoViewControllerDelegate <NSObject>
 
-- (void)captureVideoViewController:(BPCaptureVideoViewController *)viewController didFinishCapturingWithSessionTimestamp:(int)timestamp imageCount:(int)imageCount;
+- (void)captureVideoViewController:(BPCaptureVideoViewController *)viewController didFinishCapturingWithSessionTimestamp:(int)timestamp imagesData:(BPCapturedImagesData *)imagesData;
 - (void)captureVideoViewControllerWantsDismiss:(BPCaptureVideoViewController *)viewController;
 
 @end
