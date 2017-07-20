@@ -21,8 +21,8 @@
     return result;
 }
 
-- (NSDictionary *)uploadImage:(NSData *)imageData toUrl:(NSString *)uploadUrl error:(NSError **)error {
-    BPAPIResponse *response = [self putAmazonMultipart:uploadUrl data:imageData error:error];
+- (NSDictionary *)uploadImage:(NSData *)imageData toUrl:(NSString *)uploadUrl mimeType:(NSString *)mimeType error:(NSError **)error {
+    BPAPIResponse *response = [self putAmazonMultipart:uploadUrl data:imageData mimeType:mimeType error:error];
     NSDictionary *result = response.responseObject;
     return result;
 }

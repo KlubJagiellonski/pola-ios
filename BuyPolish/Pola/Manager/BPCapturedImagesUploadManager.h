@@ -3,9 +3,10 @@
 #import "BPAPIAccessor+BPCapturedImagesData.h"
 #import "BPCapturedImagesData.h"
 #import "BPCapturedImageManager.h"
-//#import "BPCapturedImagesResult.h"
+#import "BPCapturedImageResult.h"
 
 @interface BPCapturedImagesUploadManager: NSObject
 
-- (void)sendImagesWithData:(BPCapturedImagesData *)imagesData captureSessionTimestamp:(int)timestamp singleUploadCompletion:(void (^)(NSError *))completion completionQueue:(NSOperationQueue *)completionQueue;
+- (void)sendImagesWithData:(BPCapturedImagesData *)imagesData captureSessionTimestamp:(int)timestamp completion:(void (^)(BPCapturedImageResult *, NSError *))completion completionQueue:(NSOperationQueue *)completionQueue;
+
 @end

@@ -11,6 +11,8 @@
 #import "BPCaptureVideoNavigationController.h"
 #import "BPScanResult.h"
 #import "BPCapturedImageManager.h"
+#import "BPCapturedImagesUploadManager.h"
+#import "BPCapturedImageResult.h"
 
 static NSTimeInterval const kAnimationTime = 0.15;
 
@@ -21,6 +23,8 @@ static NSTimeInterval const kAnimationTime = 0.15;
 @property(nonatomic, readonly) BPFlashlightManager *flashlightManager;
 @property(nonatomic, readonly) BPTaskRunner *taskRunner;
 @property(nonatomic, readonly) BPProductManager *productManager;
+@property(nonatomic, readonly) BPCapturedImagesUploadManager *uploadManager;
+@property(nonatomic, readonly) BPCapturedImageManager *capturedImageManager;
 @property(copy, nonatomic) NSString *lastBardcodeScanned;
 @property(nonatomic, readonly) NSMutableArray *scannedBarcodes;
 @property(nonatomic, readonly) NSMutableDictionary *barcodeToProductResult;
@@ -31,7 +35,7 @@ static NSTimeInterval const kAnimationTime = 0.15;
 
 @implementation BPScanCodeViewController
 
-objection_requires_sel(@selector(taskRunner), @selector(productManager), @selector(cameraSessionManager), @selector(flashlightManager))
+objection_requires_sel(@selector(taskRunner), @selector(productManager), @selector(cameraSessionManager), @selector(flashlightManager), @selector(uploadManager), @selector(capturedImageManager))
 
 - (void)loadView {
     self.view = [[BPScanCodeView alloc] initWithFrame:CGRectZero];
@@ -373,17 +377,25 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 }
 
 - (void)captureVideoNavigationController:(BPCaptureVideoNavigationController *)viewController didCaptureImagesWithTimestamp:(int)timestamp imagesData:(BPCapturedImagesData *)imagesData {
-    // TODO: init upload by BPImageUploadManager
-    NSLog(@"did capture video with imagesData\nproductID: %@\nfilesCount: %@\nfileExt: %@\nmimeType: %@\noriginalWidth: %@\noriginalHeight: %@\nwidth: %@\nheight: %@\ndeviceName: %@", imagesData.productID, imagesData.filesCount, imagesData.fileExtension, imagesData.mimeType, imagesData.originalWidth, imagesData.originalHeight, imagesData.width, imagesData.height, imagesData.deviceName);
-    BPCapturedImageManager *imageManager = [[BPCapturedImageManager alloc] init];
-    NSArray<NSData*> *imagesDataArray = [imageManager retrieveImagesDataForCaptureSessionTimestamp:timestamp imageCount:imagesData.filesCount.intValue];
     
-    for (NSData *imageData in imagesDataArray) {
-        UIImage *image = [[UIImage alloc] initWithData:imageData];
-        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
-    }
-    
-    [imageManager removeImagesDataForCaptureSessionTimestamp:timestamp imageCount:imagesData.filesCount.intValue];
+    [self.uploadManager sendImagesWithData:imagesData captureSessionTimestamp:timestamp completion:^(BPCapturedImageResult *result, NSError *error) {
+        if (error != nil) {
+            if (result.state == CAPTURED_IMAGE_STATE_ADDING) {
+                BPLog(@"Failed to get urls for uploading captured images for productID: %@, error: %@", imagesData.productID, error);
+                [self.capturedImageManager removeImageDataForCaptureSessionTimestamp:timestamp imageIndex:(int)result.imageIndex];
+                
+            } else if (result.state == CAPTURED_IMAGE_STATE_UPLOADING) {
+                BPLog(@"Failed to upload captured image for productID: %@, imageIndex: %d, error: %@", imagesData.productID, result.imageIndex, error);
+                [self.capturedImageManager removeImageDataForCaptureSessionTimestamp:timestamp imageIndex:(int)result.imageIndex];
+
+            }
+            
+        } else if (result.state == CAPTURED_IMAGE_STATE_FINISHED) {
+            BPLog(@"Uploaded captured image for productID: %@, imageIndex: %d", imagesData.productID, result.imageIndex);
+            [self.capturedImageManager removeImageDataForCaptureSessionTimestamp:timestamp imageIndex:(int)result.imageIndex];
+        }
+
+    } completionQueue:[NSOperationQueue mainQueue]];
 }
 
 #pragma mark - BPReportProblemViewControllerDelegate

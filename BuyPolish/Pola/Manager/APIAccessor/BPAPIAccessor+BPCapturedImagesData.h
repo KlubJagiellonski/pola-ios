@@ -6,6 +6,6 @@
 
 - (NSDictionary *)addAiPicsWithCapturedImagesData:(BPCapturedImagesData *)imagesData error:(NSError **)error;
 
-- (NSDictionary *)uploadImage:(NSData *)imageData toUrl:(NSString *)uploadUrl error:(NSError **)error;
+- (NSDictionary *)uploadImage:(NSData *)imageData toUrl:(NSString *)uploadUrl mimeType:(NSString *)mimeType error:(NSError **)error;
 
 @end
