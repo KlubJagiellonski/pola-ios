@@ -43,7 +43,7 @@ objection_initializer_sel(@selector(initWithScanResult:))
 
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleDefault;
+    return UIStatusBarStyleLightContent;
 }
 
 

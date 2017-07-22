@@ -4,9 +4,10 @@
 
 const int CAPTURE_PADDING = 16;
 const int CAPTURE_START_BUTTON_HEIGHT = 30;
+const int DIM_MARGIN = 30;
 
 @interface BPCaptureVideoView ()
-
+@property(nonatomic, readonly) CAGradientLayer *dimLayer;
 @end
 
 @implementation BPCaptureVideoView
@@ -16,9 +17,14 @@ const int CAPTURE_START_BUTTON_HEIGHT = 30;
     if (self) {
         self.backgroundColor = [UIColor clearColor];
         
+        _dimLayer = [CAGradientLayer layer];
+        _dimLayer.colors = @[(id)[UIColor blackColor].CGColor, (id)[UIColor clearColor].CGColor];
+        [self.layer insertSublayer:_dimLayer atIndex:0];
+
+        
         _timeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _timeLabel.font = [BPTheme titleFont];
-        _timeLabel.textColor = [BPTheme defaultTextColor];
+        _timeLabel.textColor = [UIColor whiteColor];
         _timeLabel.text = [self timeLabelStringWithSeconds:initialTimerSec];
         [_timeLabel sizeToFit];
         [self addSubview:_timeLabel];
@@ -26,7 +32,7 @@ const int CAPTURE_START_BUTTON_HEIGHT = 30;
         _closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _closeButton.accessibilityLabel = NSLocalizedString(@"Accessibility.Close", nil);
         [_closeButton setImage:[[UIImage imageNamed:@"CloseIcon"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
-        _closeButton.tintColor = [BPTheme defaultTextColor];
+        _closeButton.tintColor = [UIColor whiteColor];
         [_closeButton sizeToFit];
         [_closeButton addTarget:self action:@selector(closeButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_closeButton];
@@ -50,6 +56,9 @@ const int CAPTURE_START_BUTTON_HEIGHT = 30;
     rect.origin.x = CGRectGetWidth(self.bounds) - CAPTURE_PADDING - CGRectGetWidth(rect);
     rect.origin.y = [UIApplication statusBarHeight] + CAPTURE_PADDING;
     self.closeButton.frame = rect;
+    
+    CGFloat dimHeight = CGRectGetMaxY(self.closeButton.frame) - self.bounds.origin.x + DIM_MARGIN;
+    self.dimLayer.frame = CGRectMake(self.bounds.origin.x, self.bounds.origin.y, self.bounds.size.width, dimHeight);
     
     self.timeLabel.center = CGPointMake(self.bounds.size.width/2, CGRectGetMidY(self.closeButton.frame));
     
