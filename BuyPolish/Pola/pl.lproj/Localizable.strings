@@ -63,3 +63,7 @@
 "Accessibility.Report.AddPhoto" = "Dodaj zdjęcie";
 "CaptureVideo.Timer.Seconds" = "sek.";
 "CaptureVideo.Start" = "START";
+"CaptureVideo.SendConfirmation.Title" = "Wyślij film";
+"CaptureVideo.SendConfirmation.Message" = "Twój film pomoże nam nauczyć Polę rozpoznawać produkty po wyglądzie.";
+"CaptureVideo.SendConfirmation.Cancel" = "Usuń";
+"CaptureVideo.SendConfirmation.Send" = "Wyślij";
