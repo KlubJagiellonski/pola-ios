@@ -42,6 +42,10 @@
     [self showCaptureVideoViewController];
 }
 
+- (void)captureVideoViewControllerWantsBack:(BPCaptureVideoViewController *)viewController {
+    [self popViewControllerAnimated:true];
+}
+
 - (void)captureVideoInstructionViewControllerWantsDismiss:(BPCaptureVideoInstructionViewController *) viewController {
     [self.captureDelegate captureVideoNavigationControllerWantsDismiss:self];
 }

@@ -106,7 +106,6 @@ objection_initializer_sel(@selector(initWithScanResult:))
             
         } else {
             NSLog(@"error while capturing image: %@", error);
-            // TODO: present error alert
         }
     }];
 }
@@ -119,6 +118,10 @@ objection_initializer_sel(@selector(initWithScanResult:))
 }
 
 #pragma mark - BPCaptureVideoViewDelegate
+
+- (void)captureVideoViewDidTapBack:(BPCaptureVideoView *)view {
+    [self.delegate captureVideoViewControllerWantsBack:self];
+}
 
 - (void)captureVideoViewDidTapClose:(BPCaptureVideoView *)view {
     [self.delegate captureVideoViewControllerWantsDismiss:self];

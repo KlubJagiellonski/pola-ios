@@ -3,6 +3,7 @@
 #import "UIApplication+BPStatusBarHeight.h"
 
 const int CAPTURE_PADDING = 16;
+const int CAPTURE_BACK_ICON_TO_BUTTON_INSET = 7;
 const int CAPTURE_START_BUTTON_HEIGHT = 30;
 const int DIM_MARGIN = 30;
 
@@ -20,7 +21,16 @@ const int DIM_MARGIN = 30;
         _dimLayer = [CAGradientLayer layer];
         _dimLayer.colors = @[(id)[UIColor blackColor].CGColor, (id)[UIColor clearColor].CGColor];
         [self.layer insertSublayer:_dimLayer atIndex:0];
-
+        
+        _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _backButton.accessibilityLabel = NSLocalizedString(@"Accessibility.Back", nil);
+        [[_backButton imageView] setContentMode: UIViewContentModeCenter];
+        [_backButton setImage:[[UIImage imageNamed:@"BackIcon"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
+        _backButton.tintColor = [UIColor whiteColor];
+        [_backButton sizeToFit];
+        [_backButton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_backButton];
+        
         
         _timeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _timeLabel.font = [BPTheme titleFont];
@@ -57,6 +67,13 @@ const int DIM_MARGIN = 30;
     rect.origin.y = [UIApplication statusBarHeight] + CAPTURE_PADDING;
     self.closeButton.frame = rect;
     
+    rect = self.backButton.frame;
+    rect.size.height += CAPTURE_BACK_ICON_TO_BUTTON_INSET*2;
+    rect.size.width += CAPTURE_BACK_ICON_TO_BUTTON_INSET*2;
+    rect.origin.x = self.bounds.origin.x;
+    rect.origin.y = CGRectGetMidY(self.closeButton.frame) - (rect.size.height/2);
+    self.backButton.frame = rect;
+    
     CGFloat dimHeight = CGRectGetMaxY(self.closeButton.frame) - self.bounds.origin.x + DIM_MARGIN;
     self.dimLayer.frame = CGRectMake(self.bounds.origin.x, self.bounds.origin.y, self.bounds.size.width, dimHeight);
     
@@ -67,6 +84,10 @@ const int DIM_MARGIN = 30;
     rect.origin.x = CAPTURE_PADDING;
     rect.origin.y = CGRectGetHeight(self.bounds) - CAPTURE_PADDING - CGRectGetHeight(rect);
     self.startButton.frame = rect;
+}
+
+- (void)backButtonTapped:(UIButton *)sender {
+    [self.delegate captureVideoViewDidTapBack:self];
 }
 
 - (void)closeButtonTapped:(UIButton*)sender {

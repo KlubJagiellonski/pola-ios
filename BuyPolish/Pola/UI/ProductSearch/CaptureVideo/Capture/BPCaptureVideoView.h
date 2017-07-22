@@ -5,6 +5,7 @@
 @class BPCaptureVideoView;
 
 @protocol BPCaptureVideoViewDelegate <NSObject>
+- (void)captureVideoViewDidTapBack:(BPCaptureVideoView *)view;
 - (void)captureVideoViewDidTapClose:(BPCaptureVideoView *)view;
 - (void)captureVideoViewDidTapStart:(BPCaptureVideoView *)view;
 @end
@@ -15,6 +16,7 @@
 
 @property(nonatomic) AVCaptureVideoPreviewLayer *videoLayer;
 
+@property(nonatomic, readonly) UIButton *backButton;
 @property(nonatomic, readonly) UILabel *timeLabel;
 @property(nonatomic, readonly) UIButton *closeButton;
 @property(nonatomic, readonly) UIButton *startButton;

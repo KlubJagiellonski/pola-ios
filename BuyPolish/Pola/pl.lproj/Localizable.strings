@@ -58,6 +58,7 @@
 "Accessibility.Keyboard.Accept" = "Zatwierdź";
 "Accessibility.Keyboard.Delete" = "Usuń ostatnią cyfrę";
 "Accessibility.Close" = "Zamknij";
+"Accessibility.Back" = "Wstecz";
 "Accessibility.CardHint" = "Otwórz lub zamknij poprzez kliknięcie";
 "Accessibility.Report.AddPhoto" = "Dodaj zdjęcie";
 "CaptureVideo.Timer.Seconds" = "sek.";
