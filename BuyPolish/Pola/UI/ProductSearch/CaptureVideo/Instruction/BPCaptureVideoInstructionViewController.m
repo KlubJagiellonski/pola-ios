@@ -35,9 +35,18 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    NSURL *instructionVideoURL = [[NSURL alloc]initWithString:@"https://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"];
-    [self.castView playVideoWithURL:instructionVideoURL];
+    [super viewWillAppear:animated];
+    
+    NSString *videoFileName = @"capture_video_instruction";
+    NSString *videoFileExt = @"mov";
+    NSString *videoPath = [[NSBundle mainBundle] pathForResource:videoFileName ofType:videoFileExt];
+    if (videoPath != nil) {
+        NSURL *videoUrl = [NSURL fileURLWithPath:videoPath];
+        [self.castView playVideoWithURL:videoUrl];
+        
+    } else {
+        BPLog(@"Failed to play instruction video, no file at bundle: %@.%@", videoFileName, videoFileExt);
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated {

@@ -51,7 +51,6 @@ const int CAPTURE_BUTTON_HEIGHT = 30;
         
         _instructionVideoView = [[BPVideoPlayerView alloc] initWithFrame:CGRectZero];
         _instructionVideoView.layer.borderColor = UIColor.blackColor.CGColor;
-        _instructionVideoView.layer.borderWidth = 2;
         [self addSubview:_instructionVideoView];
                 
         _captureButton = [UIButton buttonWithType:UIButtonTypeCustom];

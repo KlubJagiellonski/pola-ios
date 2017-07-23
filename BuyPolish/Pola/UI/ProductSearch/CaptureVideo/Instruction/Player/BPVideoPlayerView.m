@@ -7,23 +7,12 @@
 
 @implementation BPVideoPlayerView
 
-- (instancetype)initWithframe:(CGRect)frame {
-    self = [super initWithFrame:frame];
-    if (self) {
-//        self.backgroundColor = UIColor.clearColor;
-        
-    }
-    
-    return self;
-}
-
 - (void)playInLoopURL:(NSURL*)url {
     self.player = [[AVPlayer alloc] initWithURL:url];
     self.playerLayer.player = self.player;
     
     self.player.actionAtItemEnd = AVPlayerActionAtItemEndNone;
     
-    // TODO: remove previous observer
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(playerItemDidReachEnd:)
                                                  name:AVPlayerItemDidPlayToEndTimeNotification

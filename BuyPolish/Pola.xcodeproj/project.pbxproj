@@ -95,6 +95,7 @@
 		83AFDE971F0D4CE200608235 /* BPCaptureVideoInstructionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AFDE961F0D4CE200608235 /* BPCaptureVideoInstructionViewController.m */; };
 		83AFDE9A1F0D4E9300608235 /* BPCaptureVideoInstructionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AFDE991F0D4E9300608235 /* BPCaptureVideoInstructionView.m */; };
 		ABCA9D8499A8FF36227B6C94 /* UIApplication+BPStatusBarHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCA997979B62F78CFCB7E19 /* UIApplication+BPStatusBarHeight.m */; };
+		C057C4BB1F24A9C800AA10AC /* capture_video_instruction.mov in Resources */ = {isa = PBXBuildFile; fileRef = C057C4BA1F24A9C800AA10AC /* capture_video_instruction.mov */; };
 		C06EE3351F20D24E005B2B57 /* BPAPIAccessor+BPCapturedImagesData.m in Sources */ = {isa = PBXBuildFile; fileRef = C06EE3341F20D24E005B2B57 /* BPAPIAccessor+BPCapturedImagesData.m */; };
 		C06EE3391F20D6F5005B2B57 /* BPCapturedImagesUploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C06EE3381F20D6F5005B2B57 /* BPCapturedImagesUploadManager.m */; };
 		C082C8B51F22ACBA0026AE11 /* BPCapturedImageResult.m in Sources */ = {isa = PBXBuildFile; fileRef = C082C8B41F22ACBA0026AE11 /* BPCapturedImageResult.m */; };
@@ -266,6 +267,7 @@
 		83AFDE991F0D4E9300608235 /* BPCaptureVideoInstructionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPCaptureVideoInstructionView.m; path = CaptureVideo/Instruction/BPCaptureVideoInstructionView.m; sourceTree = "<group>"; };
 		ABCA997979B62F78CFCB7E19 /* UIApplication+BPStatusBarHeight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+BPStatusBarHeight.m"; sourceTree = "<group>"; };
 		ABCA9A3E3B8A8B7C925052B6 /* UIApplication+BPStatusBarHeight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+BPStatusBarHeight.h"; sourceTree = "<group>"; };
+		C057C4BA1F24A9C800AA10AC /* capture_video_instruction.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = capture_video_instruction.mov; sourceTree = "<group>"; };
 		C06EE3331F20D230005B2B57 /* BPAPIAccessor+BPCapturedImagesData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BPAPIAccessor+BPCapturedImagesData.h"; sourceTree = "<group>"; };
 		C06EE3341F20D24E005B2B57 /* BPAPIAccessor+BPCapturedImagesData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BPAPIAccessor+BPCapturedImagesData.m"; sourceTree = "<group>"; };
 		C06EE3371F20D6E7005B2B57 /* BPCapturedImagesUploadManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BPCapturedImagesUploadManager.h; sourceTree = "<group>"; };
@@ -379,6 +381,7 @@
 				1D08E83419A7621A00879BD2 /* main.m */,
 				1D08E83619A7621A00879BD2 /* Pola-Prefix.pch */,
 				37B645C93F848A6F598F96E2 /* Localizable.strings */,
+				C057C4BA1F24A9C800AA10AC /* capture_video_instruction.mov */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -870,6 +873,7 @@
 				37B64B7D226FBFA23FFCA1C1 /* Localizable.strings in Resources */,
 				1DEFA1BB1BD9920600938C81 /* Lato-Light.ttf in Resources */,
 				1DEFA1BF1BD9920600938C81 /* Lato-Semibold.ttf in Resources */,
+				C057C4BB1F24A9C800AA10AC /* capture_video_instruction.mov in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
