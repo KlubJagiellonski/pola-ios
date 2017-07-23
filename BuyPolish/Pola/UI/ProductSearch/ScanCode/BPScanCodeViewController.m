@@ -382,11 +382,11 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
         if (error != nil) {
             if (result.state == CAPTURED_IMAGE_STATE_ADDING) {
                 BPLog(@"Failed to get urls for uploading captured images for productID: %@, error: %@", imagesData.productID, error);
-                [self.capturedImageManager removeImageDataForCaptureSessionTimestamp:timestamp imageIndex:(int)result.imageIndex];
+                [self.capturedImageManager removeImagesDataForCaptureSessionTimestamp:timestamp imageCount:(int)imagesData.filesCount.integerValue];
                 
             } else if (result.state == CAPTURED_IMAGE_STATE_UPLOADING) {
                 BPLog(@"Failed to upload captured image for productID: %@, imageIndex: %d, error: %@", imagesData.productID, result.imageIndex, error);
-                [self.capturedImageManager removeImageDataForCaptureSessionTimestamp:timestamp imageIndex:(int)result.imageIndex];
+                [self.capturedImageManager removeImageDataForCaptureSessionTimestamp:timestamp imageIndex:result.imageIndex];
 
             }
             
