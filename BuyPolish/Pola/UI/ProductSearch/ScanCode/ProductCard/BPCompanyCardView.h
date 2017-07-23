@@ -11,8 +11,8 @@
 
 @protocol BPCompanyCardViewDelegate <NSObject>
 
-- (void)didTapReportProblem:(BPCompanyCardView *)productCardView;
-- (void)didTapTeach:(BPCompanyCardView *)productCardView;
+- (void)productCardViewDidTapReportProblem:(BPCompanyCardView *)productCardView;
+- (void)productCardViewDidTapTeach:(BPCompanyCardView *)productCardView;
 
 @end
 

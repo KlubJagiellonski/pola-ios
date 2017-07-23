@@ -59,6 +59,12 @@ int const CARD_CONTENT_PROGRESS_IN_HEADER = 6;
         _teachButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_teachButton addTarget:self action:@selector(didTapTeach) forControlEvents:UIControlEventTouchUpInside];
         _teachButton.titleLabel.font = [BPTheme buttonFont];
+        _teachButton.layer.borderColor = [[BPTheme actionColor] CGColor];
+        _teachButton.layer.borderWidth = 1;
+        [_teachButton setTitleColor:[BPTheme actionColor] forState:UIControlStateNormal];
+        [_teachButton setTitleColor:[BPTheme clearColor] forState:UIControlStateHighlighted];
+        [_teachButton setBackgroundImage:[BPUtilities imageWithColor:[UIColor clearColor]] forState:UIControlStateNormal];
+        [_teachButton setBackgroundImage:[BPUtilities imageWithColor:[BPTheme actionColor]] forState:UIControlStateHighlighted];
         [_teachButton sizeToFit];
         [self addSubview:_teachButton];
 
@@ -84,11 +90,11 @@ int const CARD_CONTENT_PROGRESS_IN_HEADER = 6;
 }
 
 - (void)didTapReportProblem {
-    [self.delegate didTapReportProblem:self];
+    [self.delegate productCardViewDidTapReportProblem:self];
 }
 
 - (void)didTapTeach {
-    [self.delegate didTapTeach:self];
+    [self.delegate productCardViewDidTapTeach:self];
 }
 
 - (void)layoutSubviews {
@@ -135,12 +141,6 @@ int const CARD_CONTENT_PROGRESS_IN_HEADER = 6;
         rect.origin.x = CARD_PADDING;
         rect.origin.y = CGRectGetMinY(self.reportInfoLabel.frame) - CARD_TEACH_MARGIN - CGRectGetHeight(rect);
         self.teachButton.frame = rect;
-        self.teachButton.layer.borderColor = [[BPTheme actionColor] CGColor];
-        self.teachButton.layer.borderWidth = 1;
-        [self.teachButton setTitleColor:[BPTheme actionColor] forState:UIControlStateNormal];
-        [self.teachButton setTitleColor:[BPTheme clearColor] forState:UIControlStateHighlighted];
-        [self.teachButton setBackgroundImage:[BPUtilities imageWithColor:[UIColor clearColor]] forState:UIControlStateNormal];
-        [self.teachButton setBackgroundImage:[BPUtilities imageWithColor:[BPTheme actionColor]] forState:UIControlStateHighlighted];
     } else {
         rect = self.teachButton.frame;
         rect.size = CGSizeZero;

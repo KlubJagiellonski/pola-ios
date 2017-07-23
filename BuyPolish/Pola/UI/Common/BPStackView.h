@@ -1,7 +1,7 @@
 #import <Foundation/Foundation.h>
 
 @class BPStackView;
-
+extern NSInteger const kBPStackViewDefaultCardCountLimit;
 
 @protocol BPStackViewDelegate <NSObject>
 

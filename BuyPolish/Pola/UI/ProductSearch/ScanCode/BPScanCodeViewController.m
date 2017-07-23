@@ -59,6 +59,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     self.castView.stackView.delegate = self;
     [self.castView.menuButton addTarget:self action:@selector(didTapMenuButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.castView.keyboardButton addTarget:self action:@selector(didTapKeyboardButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self.castView.teachButton addTarget:self action:@selector(didTapTeachButton:) forControlEvents:UIControlEventTouchUpInside];
 
     if (self.flashlightManager.isAvailable) {
         [self.castView.flashButton addTarget:self action:@selector(didTapFlashlightButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -166,6 +167,13 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     
     UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification,
                                     cardView.titleLabel);
+    
+    int cardsCount = (int)MIN(self.scannedBarcodes.count, kBPStackViewDefaultCardCountLimit);
+    [self updateTeachButtonWithLastScanResult: productResult cardsStackHeight:cardsCount*cardView.titleHeight];
+}
+
+- (void)updateTeachButtonWithLastScanResult:(BPScanResult *)scanResult cardsStackHeight:(CGFloat)cardsHeight {
+    [self.castView updateTeachButtonWithVisible: (scanResult.askForPics) title: scanResult.askForPicsPreview cardsHeight: cardsHeight];
 }
 
 - (void)showReportProblem:(NSString *)barcode productId:(NSNumber *)productId {
@@ -201,6 +209,11 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     } else {
         [self hideKeyboardController];
     }
+}
+
+- (void)didTapTeachButton:(UIButton *)button {
+    BPScanResult *scanResult = self.barcodeToProductResult[self.lastBardcodeScanned];
+    [self showCaptureVideoWithScanResult:scanResult];
 }
 
 - (void)didTapFlashlightButton:(UIButton *)button {
@@ -318,7 +331,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 #pragma mark - BPStackViewDelegate
 
 - (void)stackView:(BPStackView *)stackView willAddCard:(UIView *)cardView {
-
+    [self.castView.teachButton setHidden:YES];
 }
 
 - (void)stackView:(BPStackView *)stackView didRemoveCard:(UIView *)cardView {
@@ -358,13 +371,13 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 
 #pragma mark - BPProductCardViewDelegate
 
-- (void)didTapReportProblem:(BPCompanyCardView *)productCardView {
+- (void)productCardViewDidTapReportProblem:(BPCompanyCardView *)productCardView {
     NSString *barcode = self.scannedBarcodes[(NSUInteger) productCardView.tag];
     BPScanResult *scanResult = self.barcodeToProductResult[barcode];
     [self showReportProblem:barcode productId:scanResult.productId];
 }
 
-- (void)didTapTeach:(BPCompanyCardView *)productCardView {
+- (void)productCardViewDidTapTeach:(BPCompanyCardView *)productCardView {
     NSString *barcode = self.scannedBarcodes[(NSUInteger) productCardView.tag];
     BPScanResult *scanResult = self.barcodeToProductResult[barcode];
     [self showCaptureVideoWithScanResult:scanResult];

@@ -19,6 +19,7 @@ typedef NS_ENUM(NSInteger, BPScanCodeViewLabelMode) {
 @property(nonatomic, readonly) UIButton *menuButton;
 @property(nonatomic, readonly) UIButton *flashButton;
 @property(nonatomic, readonly) UIButton *keyboardButton;
+@property(nonatomic, readonly) UIButton *teachButton;
 
 @property(nonatomic, getter=isFlashlightButtonHidden) BOOL flashlightButtonHidden;
 
@@ -26,5 +27,6 @@ typedef NS_ENUM(NSInteger, BPScanCodeViewLabelMode) {
 - (void)configureInfoLabelForMode:(BPScanCodeViewLabelMode)mode;
 
 - (void)setButtonsVisible:(BOOL)visible animation:(BOOL)animation;
+- (void)updateTeachButtonWithVisible:(BOOL)visible title:(NSString *)title cardsHeight:(CGFloat)cardsHeight;
 
 @end

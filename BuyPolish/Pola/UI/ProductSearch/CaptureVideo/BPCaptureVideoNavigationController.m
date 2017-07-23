@@ -38,7 +38,7 @@
 
 #pragma mark - BPCaptureVideoInstructionViewControllerDelegate
 
-- (void)captureVideoInstructionViewControllerWantsCaptureVideo:(BPCaptureVideoInstructionViewController *) viewController {
+- (void)captureVideoInstructionViewControllerWantsCaptureVideo:(BPCaptureVideoInstructionViewController *)viewController {
     [self showCaptureVideoViewController];
 }
 
@@ -46,7 +46,7 @@
     [self popViewControllerAnimated:true];
 }
 
-- (void)captureVideoInstructionViewControllerWantsDismiss:(BPCaptureVideoInstructionViewController *) viewController {
+- (void)captureVideoInstructionViewControllerWantsDismiss:(BPCaptureVideoInstructionViewController *)viewController {
     [self.captureDelegate captureVideoNavigationControllerWantsDismiss:self];
 }
 

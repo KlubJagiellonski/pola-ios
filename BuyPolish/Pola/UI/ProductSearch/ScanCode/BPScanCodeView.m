@@ -7,6 +7,8 @@
 
 const int SCAN_CODE_MARGIN = 15;
 const int INFO_TEXT_LABEL_BOTTOM_MARGIN = 50;
+const int SCAN_CODE_TEACH_BUTTON_OFFSET = 10;
+const int SCAN_CODE_TEACH_BUTTON_HEIGHT = 35;
 
 @interface BPScanCodeView ()
 @property(nonatomic, readonly) UIView *dimView;
@@ -64,6 +66,18 @@ const int INFO_TEXT_LABEL_BOTTOM_MARGIN = 50;
         [_keyboardButton setImage:[UIImage imageNamed:@"KeyboardSelectedIcon"] forState:UIControlStateSelected];
         [_keyboardButton sizeToFit];
         [self addSubview:_keyboardButton];
+        
+        _teachButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _teachButton.accessibilityLabel = NSLocalizedString(@"Accessibility.TeachPola", nil);
+        _teachButton.titleLabel.font = [BPTheme buttonFont];
+        _teachButton.layer.borderColor = [[BPTheme defaultTextColor] CGColor];
+        _teachButton.layer.borderWidth = 1;
+        [_teachButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [_teachButton setBackgroundImage:[BPUtilities imageWithColor:[[UIColor whiteColor] colorWithAlphaComponent:0.7]] forState:UIControlStateNormal];
+        [_teachButton setBackgroundImage:[BPUtilities imageWithColor:[UIColor whiteColor]] forState:UIControlStateHighlighted];
+        [_teachButton sizeToFit];
+        [_teachButton setHidden:YES];
+        [self addSubview:_teachButton];
     }
 
     return self;
@@ -109,6 +123,12 @@ const int INFO_TEXT_LABEL_BOTTOM_MARGIN = 50;
     rect.origin.x = SCAN_CODE_MARGIN;
     rect.origin.y = CGRectGetHeight(self.bounds) - INFO_TEXT_LABEL_BOTTOM_MARGIN - CGRectGetHeight(rect);
     self.infoTextLabel.frame = rect;
+    
+    rect = self.teachButton.frame;
+    rect.size.height = SCAN_CODE_TEACH_BUTTON_HEIGHT;
+    rect.size.width = CGRectGetWidth(self.bounds) - (SCAN_CODE_MARGIN*2);
+    rect.origin.x = SCAN_CODE_MARGIN;
+    self.teachButton.frame = rect;
 }
 
 
@@ -138,12 +158,19 @@ const int INFO_TEXT_LABEL_BOTTOM_MARGIN = 50;
 }
 
 - (void)setButtonsVisible:(BOOL)visible animation:(BOOL)animation {
+    CGFloat alpha = visible ? 1.f : 0.f;
     [UIView animateWithDuration:animation ? 0.2f : 0.f animations:^{
-        CGFloat alpha = visible ? 1.f : 0.f;
         self.menuButton.alpha = alpha;
         self.flashButton.alpha = alpha;
         self.keyboardButton.alpha = alpha;
+        if (visible) {
+            self.teachButton.alpha = alpha;
+        }
     }];
+    
+    if (!visible) {
+        self.teachButton.alpha = alpha;
+    }
 }
 
 - (BOOL)isFlashlightButtonHidden {
@@ -153,6 +180,18 @@ const int INFO_TEXT_LABEL_BOTTOM_MARGIN = 50;
 - (void)setFlashlightButtonHidden:(BOOL)flashlightButtonHidden {
     _flashlightButtonHidden = flashlightButtonHidden;
     self.flashButton.hidden = flashlightButtonHidden;
+}
+
+- (void)updateTeachButtonWithVisible:(BOOL)visible title:(NSString *)title cardsHeight:(CGFloat)cardsHeight {
+    if (visible) {
+        [self.teachButton setTitle:title forState:UIControlStateNormal];
+        CGRect rect = self.teachButton.frame;
+        rect.origin.y = CGRectGetHeight(self.bounds) - cardsHeight - SCAN_CODE_TEACH_BUTTON_HEIGHT - SCAN_CODE_TEACH_BUTTON_OFFSET;
+        self.teachButton.frame = rect;
+    }
+    [self.teachButton setHidden:!visible];
+    [self.teachButton setNeedsLayout];
+    [self.teachButton layoutIfNeeded];
 }
 
 @end

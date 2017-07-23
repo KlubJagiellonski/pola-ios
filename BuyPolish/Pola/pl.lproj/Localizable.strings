@@ -53,6 +53,7 @@
 "Accessibility.MainProgressValue" = "%@ na 100 pkt.";
 "Accessibility.SecondaryProgressValue" = "Udział polskiego kapitału %@";
 "Accessibility.WriteCode" = "Wpisz kod kreskowy";
+"Accessibility.TeachPola" = "Naucz Polę tego produktu";
 "Accessibility.Flash" = "Flesz";
 "Accessibility.Info" = "Informacje o aplikacji";
 "Accessibility.Keyboard.Accept" = "Zatwierdź";
