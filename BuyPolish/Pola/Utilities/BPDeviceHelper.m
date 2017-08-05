@@ -1,5 +1,5 @@
 #import "BPDeviceHelper.h"
-
+#import <sys/utsname.h>
 
 @implementation BPDeviceHelper
 
@@ -16,4 +16,11 @@
     [deviceInfo appendString:@"-------End-------"];
     return deviceInfo;
 }
+
++ (NSString*)deviceName {
+    struct utsname systemInfo;
+    uname(&systemInfo);
+    return [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
+}
+
 @end

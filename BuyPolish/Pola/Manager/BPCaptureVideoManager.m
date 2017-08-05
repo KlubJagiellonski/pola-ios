@@ -5,7 +5,7 @@
 
 @interface BPCaptureVideoManager ()
 @property(nonatomic) AVCaptureStillImageOutput *stillCameraOutput;
-@property(nonatomic) dispatch_queue_t captureSessionQueue;  // TODO: check proper way to reference dispatch queue
+@property(nonatomic) dispatch_queue_t captureSessionQueue;
 @end
 
 @implementation BPCaptureVideoManager
@@ -49,22 +49,28 @@
 }
 
 - (void)stopCameraPreview {
+    
     [self.captureSession stopRunning];
 }
 
 - (void)captureImageWithCompletion:(void (^)(UIImage*, NSError*))completion {
-    
-    dispatch_async(self.captureSessionQueue, ^{        
-        AVCaptureConnection *connection = [self.stillCameraOutput connectionWithMediaType:AVMediaTypeVideo];
+    weakify()
+    dispatch_async(self.captureSessionQueue, ^{
+        strongify()
+        AVCaptureConnection *connection = [strongSelf.stillCameraOutput connectionWithMediaType:AVMediaTypeVideo];
         connection.videoOrientation = (AVCaptureVideoOrientation) UIDevice.currentDevice.orientation;
         
-        [self.stillCameraOutput captureStillImageAsynchronouslyFromConnection:connection completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
+        [strongSelf.stillCameraOutput captureStillImageAsynchronouslyFromConnection:connection completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
             if (error == nil) {
                 NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
                 UIImage *image = [[UIImage alloc] initWithData:imageData];
-                completion(image, nil);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    completion(image, nil);
+                });
             } else {
-                completion(nil, error);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    completion(nil, error);
+                });
             }
         }];
     });

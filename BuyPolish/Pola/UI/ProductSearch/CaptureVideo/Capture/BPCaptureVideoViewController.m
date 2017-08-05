@@ -2,7 +2,8 @@
 #import "BPCaptureVideoViewController.h"
 #import "BPCapturedImageManager.h"
 #import "UIImage+Scaling.h"
-#import <sys/utsname.h>
+#import "BPWeakTimerTarget.h"
+#import "BPDeviceHelper.h"
 
 const int INITIAL_TIMER_SEC = 6;
 
@@ -49,10 +50,14 @@ objection_initializer_sel(@selector(initWithScanResult:))
     self.castView.delegate = self;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.videoManager startCameraPreview];
+}
+
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     self.castView.videoLayer = self.videoManager.videoPreviewLayer;
-    [self.videoManager startCameraPreview];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -99,7 +104,7 @@ objection_initializer_sel(@selector(initWithScanResult:))
             }
             
         } else {
-            NSLog(@"error while capturing image: %@", error);
+            BPLog(@"error while capturing image: %@", error);
         }
     }];
 }
@@ -113,7 +118,7 @@ objection_initializer_sel(@selector(initWithScanResult:))
                                                                                 originalHeight:[[NSNumber alloc] initWithInt: [originalImage heightInPixels]]
                                                                                          width:[[NSNumber alloc] initWithInt: [scaledImage widthInPixels]]
                                                                                         height:[[NSNumber alloc] initWithInt: [scaledImage heightInPixels]]
-                                                                                    deviceName:[self deviceName]];
+                                                                                    deviceName:[BPDeviceHelper deviceName]];
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"CaptureVideo.SendConfirmation.Title", nil) message:NSLocalizedString(@"CaptureVideo.SendConfirmation.Message", nil) preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"CaptureVideo.SendConfirmation.Cancel", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
@@ -150,7 +155,8 @@ objection_initializer_sel(@selector(initWithScanResult:))
     [self.castView.startButton setHidden:YES];
     self.sessionTimestamp = [[NSDate date] timeIntervalSince1970];
     [self captureImageAndFinishIfNeeded];
-    self.timer = [NSTimer timerWithTimeInterval:1.0f target:self selector:@selector(timerAction) userInfo:nil repeats:YES];
+    BPWeakTimerTarget *target = [[BPWeakTimerTarget alloc] initWithTarget:self selector:@selector(timerAction)];
+    self.timer = [NSTimer timerWithTimeInterval:1.0f target:target selector:@selector(timerDidFire:) userInfo:nil repeats:YES];
     [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
 }
 
@@ -167,13 +173,6 @@ objection_initializer_sel(@selector(initWithScanResult:))
     } else {
         return [originalImage scaledToWidth:maxSide];
     }
-}
-
-- (NSString*)deviceName {
-    struct utsname systemInfo;
-    uname(&systemInfo);
-    
-    return [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
 }
 
         

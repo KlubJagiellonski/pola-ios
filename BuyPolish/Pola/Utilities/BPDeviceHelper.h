@@ -7,4 +7,6 @@
 
 + (NSString *)deviceInfo;
 
++ (NSString*)deviceName;
+
 @end

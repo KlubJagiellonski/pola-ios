@@ -228,6 +228,11 @@ NSInteger const kBPStackViewCardTitleHeight = 50;
     return _cards.count;
 }
 
+- (CGFloat)cardsHeight {
+    int visibleCardsCount = (int)MIN(self.cardCount, kBPStackViewDefaultCardCountLimit);
+    return visibleCardsCount * kBPStackViewCardTitleHeight;
+}
+
 /* Ignore touches on transparent background */
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
 

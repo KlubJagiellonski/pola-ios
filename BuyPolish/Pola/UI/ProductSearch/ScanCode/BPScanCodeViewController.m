@@ -76,9 +76,9 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 
     [self updateFlashlightButton];
 
-//    [self didFindBarcode:@"5900396019813"];
-//    [self performSelector:@selector(didFindBarcode:) withObject:@"5901234123457" afterDelay:1.5f];
-//    [self performSelector:@selector(didFindBarcode:) withObject:@"5900396019813" afterDelay:3.f];
+    [self didFindBarcode:@"5900396019813"];
+    [self performSelector:@selector(didFindBarcode:) withObject:@"5901234123457" afterDelay:1.5f];
+    [self performSelector:@selector(didFindBarcode:) withObject:@"5900396019813" afterDelay:3.f];
 //    [self showReportProblem:productId:@"3123123"];
 }
 
@@ -168,8 +168,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification,
                                     cardView.titleLabel);
     
-    int cardsCount = (int)MIN(self.scannedBarcodes.count, kBPStackViewDefaultCardCountLimit);
-    [self updateTeachButtonWithLastScanResult: productResult cardsStackHeight:cardsCount*cardView.titleHeight];
+    [self updateTeachButtonWithLastScanResult: productResult cardsStackHeight:self.castView.cardsHeight];
 }
 
 - (void)updateTeachButtonWithLastScanResult:(BPScanResult *)scanResult cardsStackHeight:(CGFloat)cardsHeight {
@@ -331,6 +330,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 #pragma mark - BPStackViewDelegate
 
 - (void)stackView:(BPStackView *)stackView willAddCard:(UIView *)cardView {
+    [self.castView updateTeachButtonWithVisible:NO title:nil cardsHeight:0.0];
     [self.castView.teachButton setHidden:YES];
 }
 

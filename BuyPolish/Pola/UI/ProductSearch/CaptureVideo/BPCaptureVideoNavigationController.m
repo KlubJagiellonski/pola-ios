@@ -13,7 +13,8 @@
     if (self) {
         _scanResult = scanResult;
         
-        BPCaptureVideoInstructionViewController *instructionViewController = [[BPCaptureVideoInstructionViewController alloc] initWithScanResult:scanResult];
+        JSObjectionInjector *injector = [JSObjection defaultInjector];
+        BPCaptureVideoInstructionViewController *instructionViewController = [injector getObject:[BPCaptureVideoInstructionViewController class] argumentList:@[scanResult]];
         instructionViewController.delegate = self;
         self.viewControllers = @[instructionViewController];
     }
@@ -42,10 +43,6 @@
     [self showCaptureVideoViewController];
 }
 
-- (void)captureVideoViewControllerWantsBack:(BPCaptureVideoViewController *)viewController {
-    [self popViewControllerAnimated:true];
-}
-
 - (void)captureVideoInstructionViewControllerWantsDismiss:(BPCaptureVideoInstructionViewController *)viewController {
     [self.captureDelegate captureVideoNavigationControllerWantsDismiss:self];
 }
@@ -54,6 +51,10 @@
 
 - (void)captureVideoViewControllerWantsDismiss:(BPCaptureVideoViewController *)viewController {
     [self.captureDelegate captureVideoNavigationControllerWantsDismiss:self];
+}
+
+- (void)captureVideoViewControllerWantsBack:(BPCaptureVideoViewController *)viewController {
+    [self popViewControllerAnimated:true];
 }
 
 - (void)captureVideoViewController:(BPCaptureVideoViewController *)viewController didFinishCapturingWithSessionTimestamp:(int)timestamp imagesData:(BPCapturedImagesData *)imagesData {
