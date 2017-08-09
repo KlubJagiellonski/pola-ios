@@ -27,6 +27,7 @@
         self.askForPicsTitle = [aiDict nilOrStringForKey:@"ask_for_pics_title"];
         self.askForPicsText = [aiDict nilOrStringForKey:@"ask_for_pics_text"];
         self.askForPicsButtonStart = [aiDict nilOrStringForKey:@"ask_for_pics_button_start"];
+        self.askForPicsProduct = [aiDict nilOrStringForKey:@"ask_for_pics_product"];
         self.maxPicSize = [aiDict nilOrNumberForKey:@"max_pic_size"];
     }
 }

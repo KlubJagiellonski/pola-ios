@@ -32,6 +32,7 @@ typedef enum {
 @property(nonatomic, copy) NSString *askForPicsTitle;
 @property(nonatomic, copy) NSString *askForPicsText;
 @property(nonatomic, copy) NSString *askForPicsButtonStart;
+@property(nonatomic, copy) NSString *askForPicsProduct;
 @property(nonatomic, copy) NSNumber *maxPicSize;
 
 - (instancetype)initWithCode:(NSString *)code;

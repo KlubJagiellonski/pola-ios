@@ -53,10 +53,6 @@
     [self.captureDelegate captureVideoNavigationControllerWantsDismiss:self];
 }
 
-- (void)captureVideoViewControllerWantsBack:(BPCaptureVideoViewController *)viewController {
-    [self popViewControllerAnimated:true];
-}
-
 - (void)captureVideoViewController:(BPCaptureVideoViewController *)viewController didFinishCapturingWithSessionTimestamp:(int)timestamp imagesData:(BPCapturedImagesData *)imagesData {
     [self.captureDelegate captureVideoNavigationController:self didCaptureImagesWithTimestamp:timestamp imagesData:imagesData];
     [self.captureDelegate captureVideoNavigationControllerWantsDismiss:self];

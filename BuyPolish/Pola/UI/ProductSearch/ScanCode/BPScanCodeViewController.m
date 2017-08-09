@@ -391,16 +391,23 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 
 - (void)captureVideoNavigationController:(BPCaptureVideoNavigationController *)viewController didCaptureImagesWithTimestamp:(int)timestamp imagesData:(BPCapturedImagesData *)imagesData {
     
+    UIBackgroundTaskIdentifier __block taskId = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+        [self.capturedImageManager removeImagesDataForCaptureSessionTimestamp:timestamp imageCount:(int)imagesData.filesCount.integerValue];
+        [[UIApplication sharedApplication] endBackgroundTask:taskId];
+        taskId = UIBackgroundTaskInvalid;
+    }];
+    
     [self.uploadManager sendImagesWithData:imagesData captureSessionTimestamp:timestamp completion:^(BPCapturedImageResult *result, NSError *error) {
         if (error != nil) {
             if (result.state == CAPTURED_IMAGE_STATE_ADDING) {
                 BPLog(@"Failed to get urls for uploading captured images for productID: %@, error: %@", imagesData.productID, error);
                 [self.capturedImageManager removeImagesDataForCaptureSessionTimestamp:timestamp imageCount:(int)imagesData.filesCount.integerValue];
+                UIAlertView *alertView = [UIAlertView showErrorAlert:NSLocalizedString(@"Failed to upload data. Please try again.", nil)];
+                alertView.delegate = self;
                 
             } else if (result.state == CAPTURED_IMAGE_STATE_UPLOADING) {
                 BPLog(@"Failed to upload captured image for productID: %@, imageIndex: %d, error: %@", imagesData.productID, result.imageIndex, error);
                 [self.capturedImageManager removeImageDataForCaptureSessionTimestamp:timestamp imageIndex:result.imageIndex];
-
             }
             
         } else if (result.state == CAPTURED_IMAGE_STATE_FINISHED) {

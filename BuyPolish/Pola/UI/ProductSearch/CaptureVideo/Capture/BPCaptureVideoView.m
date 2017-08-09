@@ -1,9 +1,9 @@
 #import "BPCaptureVideoView.h"
 #import "BPTheme.h"
 #import "UIApplication+BPStatusBarHeight.h"
+#import "UILabel+BPAdditions.h"
 
 const int CAPTURE_PADDING = 16;
-const int CAPTURE_BACK_ICON_TO_BUTTON_INSET = 7;
 const int CAPTURE_START_BUTTON_HEIGHT = 30;
 const int DIM_MARGIN = 30;
 
@@ -13,7 +13,7 @@ const int DIM_MARGIN = 30;
 
 @implementation BPCaptureVideoView
 
-- (instancetype)initWithFrame:(CGRect)frame initialTimerSec:(int)initialTimerSec {
+- (instancetype)initWithFrame:(CGRect)frame productLabelText:(NSString *)productLabelText initialTimerSeconds:(int)initialTimerSeconds {
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
@@ -22,21 +22,21 @@ const int DIM_MARGIN = 30;
         _dimLayer.colors = @[(id)[UIColor blackColor].CGColor, (id)[UIColor clearColor].CGColor];
         [self.layer insertSublayer:_dimLayer atIndex:0];
         
-        _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _backButton.accessibilityLabel = NSLocalizedString(@"Accessibility.Back", nil);
-        [[_backButton imageView] setContentMode: UIViewContentModeCenter];
-        [_backButton setImage:[[UIImage imageNamed:@"BackIcon"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
-        _backButton.tintColor = [UIColor whiteColor];
-        [_backButton sizeToFit];
-        [_backButton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:_backButton];
-        
+        _productLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _productLabel.font = [BPTheme titleFont];
+        _productLabel.textColor = [UIColor whiteColor];
+        _productLabel.text = productLabelText;
+        _productLabel.numberOfLines = 0;
+        _productLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        [_productLabel sizeToFit];
+        [self addSubview:_productLabel];
         
         _timeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _timeLabel.font = [BPTheme titleFont];
         _timeLabel.textColor = [UIColor whiteColor];
-        _timeLabel.text = [self timeLabelStringWithSeconds:initialTimerSec];
+        _timeLabel.text = [self timeLabelStringWithSeconds:initialTimerSeconds];
         [_timeLabel sizeToFit];
+        [_timeLabel setHidden:YES];
         [self addSubview:_timeLabel];
         
         _closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -67,14 +67,14 @@ const int DIM_MARGIN = 30;
     rect.origin.y = [UIApplication statusBarHeight] + CAPTURE_PADDING;
     self.closeButton.frame = rect;
     
-    rect = self.backButton.frame;
-    rect.size.height += CAPTURE_BACK_ICON_TO_BUTTON_INSET*2;
-    rect.size.width += CAPTURE_BACK_ICON_TO_BUTTON_INSET*2;
-    rect.origin.x = self.bounds.origin.x;
-    rect.origin.y = CGRectGetMidY(self.closeButton.frame) - (rect.size.height/2);
-    self.backButton.frame = rect;
+    rect = self.productLabel.frame;
+    rect.origin.x = CAPTURE_PADDING;
+    rect.origin.y = [UIApplication statusBarHeight] + CAPTURE_PADDING;
+    rect.size.width = CGRectGetWidth(self.bounds) - 3*CAPTURE_PADDING - CGRectGetWidth(self.closeButton.frame);
+    rect.size.height = [self.productLabel heightForWidth:rect.size.width];
+    self.productLabel.frame = rect;
     
-    CGFloat dimHeight = CGRectGetMaxY(self.closeButton.frame) - self.bounds.origin.x + DIM_MARGIN;
+    CGFloat dimHeight = CGRectGetMaxY(self.productLabel.frame) - self.bounds.origin.x + DIM_MARGIN;
     self.dimLayer.frame = CGRectMake(self.bounds.origin.x, self.bounds.origin.y, self.bounds.size.width, dimHeight);
     
     self.timeLabel.center = CGPointMake(self.bounds.size.width/2, CGRectGetMidY(self.closeButton.frame));
@@ -84,10 +84,6 @@ const int DIM_MARGIN = 30;
     rect.origin.x = CAPTURE_PADDING;
     rect.origin.y = CGRectGetHeight(self.bounds) - CAPTURE_PADDING - CGRectGetHeight(rect);
     self.startButton.frame = rect;
-}
-
-- (void)backButtonTapped:(UIButton *)sender {
-    [self.delegate captureVideoViewDidTapBack:self];
 }
 
 - (void)closeButtonTapped:(UIButton*)sender {
@@ -107,6 +103,11 @@ const int DIM_MARGIN = 30;
     _videoLayer = videoLayer;
     [videoLayer setFrame:self.layer.bounds];
     [self.layer insertSublayer:videoLayer atIndex:0];
+}
+
+- (void)updateProductAndTimeLabelsWithCapturing:(BOOL)capturing {
+    [self.productLabel setHidden:capturing];
+    [self.timeLabel setHidden:!capturing];
 }
 
 - (void)setTimeLabelSec:(int)seconds {

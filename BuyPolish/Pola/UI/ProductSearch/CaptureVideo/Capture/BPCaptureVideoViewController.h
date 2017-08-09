@@ -9,12 +9,11 @@
 @protocol BPCaptureVideoViewControllerDelegate <NSObject>
 
 - (void)captureVideoViewController:(BPCaptureVideoViewController *)viewController didFinishCapturingWithSessionTimestamp:(int)timestamp imagesData:(BPCapturedImagesData *)imagesData;
-- (void)captureVideoViewControllerWantsBack:(BPCaptureVideoViewController *)viewController;
 - (void)captureVideoViewControllerWantsDismiss:(BPCaptureVideoViewController *)viewController;
 
 @end
 
-@interface BPCaptureVideoViewController : UIViewController <BPCaptureVideoViewDelegate>
+@interface BPCaptureVideoViewController : UIViewController <BPCaptureVideoViewDelegate, UIAlertViewDelegate>
 
 @property(weak, nonatomic) id <BPCaptureVideoViewControllerDelegate> delegate;
 
