@@ -165,8 +165,7 @@ objection_initializer_sel(@selector(initWithScanResult:))
 }
 
 - (UIImage *)scaledImage:(UIImage*)originalImage withMaxSide:(double)maxSide {
-    CGImageRef cgImage = originalImage.CGImage;
-    if ( CGImageGetHeight(cgImage) > CGImageGetWidth(cgImage) ) {
+    if ( originalImage.size.height > originalImage.size.width ) {
         return [originalImage scaledToHeight:maxSide];
     } else {
         return [originalImage scaledToWidth:maxSide];
