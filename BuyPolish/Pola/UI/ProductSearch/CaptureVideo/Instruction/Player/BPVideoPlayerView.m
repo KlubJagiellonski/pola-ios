@@ -9,6 +9,7 @@
 
 - (void)playInLoopURL:(NSURL*)url {
     self.player = [[AVPlayer alloc] initWithURL:url];
+    self.player.muted = YES;
     self.playerLayer.player = self.player;
     
     self.player.actionAtItemEnd = AVPlayerActionAtItemEndNone;
