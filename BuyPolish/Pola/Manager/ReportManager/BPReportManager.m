@@ -69,7 +69,7 @@ objection_requires_sel(@selector(taskRunner), @selector(apiAccessor))
         strongify()
 
         NSString *imagePath = imagePathArray[index];
-        NSString *requestUrl = signedRequestArray[index][0];
+        NSString *requestUrl = signedRequestArray[index];
         [strongSelf sendImageAtPath:imagePath forUrl:requestUrl forReportId:reportId completion:^(NSError *error) {
             if (error) {
                 completion(index, error);
