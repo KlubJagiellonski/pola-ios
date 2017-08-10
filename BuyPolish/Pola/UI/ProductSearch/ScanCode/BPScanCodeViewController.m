@@ -168,11 +168,14 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification,
                                     cardView.titleLabel);
     
-    [self updateTeachButtonWithLastScanResult: productResult cardsStackHeight:self.castView.cardsHeight];
+    [self updateTeachPolaButton];
 }
 
-- (void)updateTeachButtonWithLastScanResult:(BPScanResult *)scanResult cardsStackHeight:(CGFloat)cardsHeight {
-    [self.castView updateTeachButtonWithVisible: (scanResult.askForPics) title: scanResult.askForPicsPreview cardsHeight: cardsHeight];
+- (void)updateTeachPolaButton {
+    BPScanResult *lastScanResult = self.barcodeToProductResult[self.lastBardcodeScanned];
+    BOOL uploaded = [self uploadedImagesForProductID:lastScanResult.productId];
+    BOOL visible = lastScanResult.askForPics && !uploaded;
+    [self.castView updateTeachButtonWithVisible: visible title: lastScanResult.askForPicsPreview cardsHeight: self.castView.cardsHeight];
 }
 
 - (void)showReportProblem:(NSString *)barcode productId:(NSNumber *)productId {
@@ -327,6 +330,8 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     return (BPScanCodeView *) self.view;
 }
 
+
+
 #pragma mark - BPStackViewDelegate
 
 - (void)stackView:(BPStackView *)stackView willAddCard:(UIView *)cardView {
@@ -390,6 +395,8 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 }
 
 - (void)captureVideoNavigationController:(BPCaptureVideoNavigationController *)viewController didCaptureImagesWithTimestamp:(int)timestamp imagesData:(BPCapturedImagesData *)imagesData {
+    [self setUploadedImagesForProductID:imagesData.productID uploaded:YES];
+    [self updateTeachPolaButton];
     
     UIBackgroundTaskIdentifier __block taskId = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
         [self.capturedImageManager removeImagesDataForCaptureSessionTimestamp:timestamp imageCount:(int)imagesData.filesCount.integerValue];
@@ -401,6 +408,9 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
         if (error != nil) {
             if (result.state == CAPTURED_IMAGE_STATE_ADDING) {
                 BPLog(@"Failed to get urls for uploading captured images for productID: %@, error: %@", imagesData.productID, error);
+                [self setUploadedImagesForProductID:imagesData.productID uploaded:NO];
+                [self updateTeachPolaButton];
+                
                 [self.capturedImageManager removeImagesDataForCaptureSessionTimestamp:timestamp imageCount:(int)imagesData.filesCount.integerValue];
                 UIAlertView *alertView = [UIAlertView showErrorAlert:NSLocalizedString(@"Failed to upload data. Please try again.", nil)];
                 alertView.delegate = self;
@@ -440,6 +450,24 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     [self hideKeyboardController];
     
     [self didFindBarcode:code sourceType: @"Keyboard"];
+}
+
+#pragma mark - NSUserDefaults
+
+- (NSString *)userDefaultsKeyForProductID:(NSNumber *)productID {
+    return productID.stringValue;
+}
+
+- (void)setUploadedImagesForProductID:(NSNumber *)productID uploaded:(BOOL)uploaded {
+    if (uploaded) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:[self userDefaultsKeyForProductID:productID]];
+    } else {
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:[self userDefaultsKeyForProductID:productID]];
+    }
+}
+
+- (BOOL)uploadedImagesForProductID:(NSNumber *)productID {
+    return [[NSUserDefaults standardUserDefaults] boolForKey: [self userDefaultsKeyForProductID:productID]];
 }
 
 @end
