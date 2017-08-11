@@ -85,7 +85,7 @@ objection_initializer_sel(@selector(initWithScanResult:))
         return;
     }
     
-    [self captureImageAndFinishIfNeeded];
+    [self captureImage];
 }
 
 - (void)reset {
@@ -101,24 +101,8 @@ objection_initializer_sel(@selector(initWithScanResult:))
     [self.castView.startButton setHidden:NO];
 }
 
-- (void)captureImageAndFinishIfNeeded {
-    [self.videoManager captureImageWithCompletion:^(UIImage *originalImage, NSError *error) {
-        if (error == nil) {
-            
-            UIImage *scaledImage = [self scaledImage:originalImage withMaxSide:self.scanResult.maxPicSize.doubleValue];
-            NSData *imageData = UIImageJPEGRepresentation(scaledImage, 0.5);
-            [self.imageManager saveImageData:imageData captureSessionTimestamp:self.sessionTimestamp index:self.savedImagesCount];
-            
-            self.savedImagesCount += 1;
-            
-            if (self.savedImagesCount == INITIAL_TIMER_SEC) {
-                [self handleScaledLastImage:scaledImage originalImage:originalImage];
-            }
-            
-        } else {
-            BPLog(@"error while capturing image: %@", error);
-        }
-    }];
+- (void)captureImage {
+    [self.videoManager requestCaptureImage];
 }
 
 - (void)handleScaledLastImage:(UIImage *)scaledImage originalImage:(UIImage *)originalImage {
@@ -152,10 +136,32 @@ objection_initializer_sel(@selector(initWithScanResult:))
     [self.castView.startButton setHidden:YES];
     [self.castView updateProductAndTimeLabelsWithCapturing:YES];
     self.sessionTimestamp = [[NSDate date] timeIntervalSince1970];
-    [self captureImageAndFinishIfNeeded];
+    [self captureImage];
     BPWeakTimerTarget *target = [[BPWeakTimerTarget alloc] initWithTarget:self selector:@selector(timerAction)];
     self.timer = [NSTimer timerWithTimeInterval:1.0f target:target selector:@selector(timerDidFire:) userInfo:nil repeats:YES];
     [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
+}
+
+#pragma mark - BPCaptureVideoManagerDelegate
+
+- (void)captureVideoManager:(BPCaptureVideoManager *)captureManager didCaptureImage:(UIImage *)originalImage {
+    UIImage *scaledImage = [self scaledImage:originalImage withMaxSide:self.scanResult.maxPicSize.doubleValue];
+    NSData *imageData = UIImageJPEGRepresentation(scaledImage, 0.5);
+    [self.imageManager saveImageData:imageData captureSessionTimestamp:self.sessionTimestamp index:self.savedImagesCount];
+    
+    self.savedImagesCount += 1;
+    
+    if (self.savedImagesCount == INITIAL_TIMER_SEC) {
+        [self handleScaledLastImage:scaledImage originalImage:originalImage];
+    }
+}
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (alertView.cancelButtonIndex != buttonIndex) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+    }
 }
 
 #pragma mark - Helpers
@@ -169,14 +175,6 @@ objection_initializer_sel(@selector(initWithScanResult:))
         return [originalImage scaledToHeight:maxSide];
     } else {
         return [originalImage scaledToWidth:maxSide];
-    }
-}
-
-#pragma mark - UIAlertViewDelegate
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (alertView.cancelButtonIndex != buttonIndex) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
     }
 }
 
