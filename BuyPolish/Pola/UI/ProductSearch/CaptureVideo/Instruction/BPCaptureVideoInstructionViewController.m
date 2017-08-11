@@ -10,6 +10,8 @@
 
 @implementation BPCaptureVideoInstructionViewController
 
+objection_initializer_sel(@selector(initWithScanResult:))
+
 - (instancetype)initWithScanResult:(BPScanResult*)scanResult {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
