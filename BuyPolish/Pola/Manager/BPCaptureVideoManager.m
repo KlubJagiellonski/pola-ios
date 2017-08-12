@@ -71,9 +71,12 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
        fromConnection:(AVCaptureConnection *)connection {
     if (self.wantsCaptureImage) {
         self.wantsCaptureImage = NO;
-        NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:sampleBuffer];
-        UIImage *image = [[UIImage alloc] initWithData:imageData];
-        [self.delegate captureVideoManager:self didCaptureImage:image];
+        CVPixelBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
+        CIImage *ciImage = [CIImage imageWithCVPixelBuffer:pixelBuffer];
+        CIContext *context = [CIContext contextWithOptions:nil];
+        CGImageRef myImage = [context createCGImage:ciImage fromRect:CGRectMake(0, 0, CVPixelBufferGetWidth(pixelBuffer), CVPixelBufferGetHeight(pixelBuffer))];
+        UIImage *uiImage = [UIImage imageWithCGImage:myImage];
+        [self.delegate captureVideoManager:self didCaptureImage:uiImage];
     }
 }
 
