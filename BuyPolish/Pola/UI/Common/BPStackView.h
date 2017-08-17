@@ -1,7 +1,7 @@
 #import <Foundation/Foundation.h>
 
 @class BPStackView;
-
+extern NSInteger const kBPStackViewDefaultCardCountLimit;
 
 @protocol BPStackViewDelegate <NSObject>
 
@@ -29,6 +29,7 @@
 
 @property(weak, nonatomic) id <BPStackViewDelegate> delegate;
 @property(nonatomic, readonly) NSInteger cardCount;
+@property(nonatomic, readonly) CGFloat cardsHeight;
 
 - (BOOL)addCard:(UIView *)cardView;
 

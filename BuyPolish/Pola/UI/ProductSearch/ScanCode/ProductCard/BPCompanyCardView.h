@@ -11,7 +11,8 @@
 
 @protocol BPCompanyCardViewDelegate <NSObject>
 
-- (void)didTapReportProblem:(BPCompanyCardView *)productCardView;
+- (void)productCardViewDidTapReportProblem:(BPCompanyCardView *)productCardView;
+- (void)productCardViewDidTapTeach:(BPCompanyCardView *)productCardView;
 
 @end
 
@@ -39,6 +40,8 @@
 - (void)setNotGlobal:(NSNumber *)notGlobal;
 
 - (void)setCardType:(CardType)type;
+
+- (void)setTeachButtonText:(NSString *)teachButtonText;
 
 - (void)setReportButtonType:(ReportButtonType)type;
 

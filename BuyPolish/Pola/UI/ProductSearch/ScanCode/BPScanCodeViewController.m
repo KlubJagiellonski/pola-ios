@@ -8,6 +8,11 @@
 #import "BPAnalyticsHelper.h"
 #import "BPFlashlightManager.h"
 #import "BPKeyboardViewController.h"
+#import "BPCaptureVideoNavigationController.h"
+#import "BPScanResult.h"
+#import "BPCapturedImageManager.h"
+#import "BPCapturedImagesUploadManager.h"
+#import "BPCapturedImageResult.h"
 
 static NSTimeInterval const kAnimationTime = 0.15;
 
@@ -18,6 +23,8 @@ static NSTimeInterval const kAnimationTime = 0.15;
 @property(nonatomic, readonly) BPFlashlightManager *flashlightManager;
 @property(nonatomic, readonly) BPTaskRunner *taskRunner;
 @property(nonatomic, readonly) BPProductManager *productManager;
+@property(nonatomic, readonly) BPCapturedImagesUploadManager *uploadManager;
+@property(nonatomic, readonly) BPCapturedImageManager *capturedImageManager;
 @property(copy, nonatomic) NSString *lastBardcodeScanned;
 @property(nonatomic, readonly) NSMutableArray *scannedBarcodes;
 @property(nonatomic, readonly) NSMutableDictionary *barcodeToProductResult;
@@ -28,7 +35,7 @@ static NSTimeInterval const kAnimationTime = 0.15;
 
 @implementation BPScanCodeViewController
 
-objection_requires_sel(@selector(taskRunner), @selector(productManager), @selector(cameraSessionManager), @selector(flashlightManager))
+objection_requires_sel(@selector(taskRunner), @selector(productManager), @selector(cameraSessionManager), @selector(flashlightManager), @selector(uploadManager), @selector(capturedImageManager))
 
 - (void)loadView {
     self.view = [[BPScanCodeView alloc] initWithFrame:CGRectZero];
@@ -52,6 +59,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     self.castView.stackView.delegate = self;
     [self.castView.menuButton addTarget:self action:@selector(didTapMenuButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.castView.keyboardButton addTarget:self action:@selector(didTapKeyboardButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self.castView.teachButton addTarget:self action:@selector(didTapTeachButton:) forControlEvents:UIControlEventTouchUpInside];
 
     if (self.flashlightManager.isAvailable) {
         [self.castView.flashButton addTarget:self action:@selector(didTapFlashlightButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -144,7 +152,13 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
         [cardView setContentType:CompanyContentTypeAlt];
         [cardView setAltText:productResult.altText];
     }
-
+    
+    if (productResult.askForPics) {
+        [cardView setTeachButtonText:productResult.askForPicsPreview];
+    } else {
+        [cardView setTeachButtonText:nil];
+    }
+    
     [cardView setCardType:productResult.cardType];
     [cardView setReportButtonType:productResult.reportButtonType];
     [cardView setReportButtonText:productResult.reportButtonText];
@@ -153,6 +167,15 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     
     UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification,
                                     cardView.titleLabel);
+    
+    [self updateTeachPolaButton];
+}
+
+- (void)updateTeachPolaButton {
+    BPScanResult *lastScanResult = self.barcodeToProductResult[self.lastBardcodeScanned];
+    BOOL uploaded = [self uploadedImagesForProductID:lastScanResult.productId];
+    BOOL visible = lastScanResult.askForPics && !uploaded;
+    [self.castView updateTeachButtonWithVisible: visible title: lastScanResult.askForPicsPreview cardsHeight: self.castView.cardsHeight];
 }
 
 - (void)showReportProblem:(NSString *)barcode productId:(NSNumber *)productId {
@@ -162,6 +185,14 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     BPReportProblemViewController *reportProblemViewController = [injector getObject:[BPReportProblemViewController class] argumentList:@[productId, barcode]];
     reportProblemViewController.delegate = self;
     [self presentViewController:reportProblemViewController animated:YES completion:nil];
+}
+
+- (void)showCaptureVideoWithScanResult:(BPScanResult *)scanResult {
+    // TODO: analytics event: capture video navigation controller shown (or seperate events: instruction view shown, capture view shown)
+    
+    BPCaptureVideoNavigationController *captureVideoNavigationController = [[BPCaptureVideoNavigationController alloc] initWithScanResult: scanResult];
+    captureVideoNavigationController.captureDelegate = self;
+    [self presentViewController:captureVideoNavigationController animated:YES completion:nil];
 }
 
 - (void)didTapMenuButton:(UIButton *)button {
@@ -180,6 +211,11 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     } else {
         [self hideKeyboardController];
     }
+}
+
+- (void)didTapTeachButton:(UIButton *)button {
+    BPScanResult *scanResult = self.barcodeToProductResult[self.lastBardcodeScanned];
+    [self showCaptureVideoWithScanResult:scanResult];
 }
 
 - (void)didTapFlashlightButton:(UIButton *)button {
@@ -294,10 +330,13 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     return (BPScanCodeView *) self.view;
 }
 
+
+
 #pragma mark - BPStackViewDelegate
 
 - (void)stackView:(BPStackView *)stackView willAddCard:(UIView *)cardView {
-
+    [self.castView updateTeachButtonWithVisible:NO title:nil cardsHeight:0.0];
+    [self.castView.teachButton setHidden:YES];
 }
 
 - (void)stackView:(BPStackView *)stackView didRemoveCard:(UIView *)cardView {
@@ -337,10 +376,56 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 
 #pragma mark - BPProductCardViewDelegate
 
-- (void)didTapReportProblem:(BPCompanyCardView *)productCardView {
+- (void)productCardViewDidTapReportProblem:(BPCompanyCardView *)productCardView {
     NSString *barcode = self.scannedBarcodes[(NSUInteger) productCardView.tag];
     BPScanResult *scanResult = self.barcodeToProductResult[barcode];
     [self showReportProblem:barcode productId:scanResult.productId];
+}
+
+- (void)productCardViewDidTapTeach:(BPCompanyCardView *)productCardView {
+    NSString *barcode = self.scannedBarcodes[(NSUInteger) productCardView.tag];
+    BPScanResult *scanResult = self.barcodeToProductResult[barcode];
+    [self showCaptureVideoWithScanResult:scanResult];
+}
+
+#pragma mark - BPCaptureVideoNavigationControllerDelegate
+
+- (void)captureVideoNavigationControllerWantsDismiss:(BPCaptureVideoNavigationController *)viewController {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)captureVideoNavigationController:(BPCaptureVideoNavigationController *)viewController didCaptureImagesWithTimestamp:(int)timestamp imagesData:(BPCapturedImagesData *)imagesData {
+    [self setUploadedImagesForProductID:imagesData.productID uploaded:YES];
+    [self updateTeachPolaButton];
+    
+    UIBackgroundTaskIdentifier __block taskId = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+        [self.capturedImageManager removeImagesDataForCaptureSessionTimestamp:timestamp imageCount:(int)imagesData.filesCount.integerValue];
+        [[UIApplication sharedApplication] endBackgroundTask:taskId];
+        taskId = UIBackgroundTaskInvalid;
+    }];
+    
+    [self.uploadManager sendImagesWithData:imagesData captureSessionTimestamp:timestamp completion:^(BPCapturedImageResult *result, NSError *error) {
+        if (error != nil) {
+            if (result.state == CAPTURED_IMAGE_STATE_ADDING) {
+                BPLog(@"Failed to get urls for uploading captured images for productID: %@, error: %@", imagesData.productID, error);
+                [self setUploadedImagesForProductID:imagesData.productID uploaded:NO];
+                [self updateTeachPolaButton];
+                
+                [self.capturedImageManager removeImagesDataForCaptureSessionTimestamp:timestamp imageCount:(int)imagesData.filesCount.integerValue];
+                UIAlertView *alertView = [UIAlertView showErrorAlert:NSLocalizedString(@"Failed to upload data. Please try again.", nil)];
+                alertView.delegate = self;
+                
+            } else if (result.state == CAPTURED_IMAGE_STATE_UPLOADING) {
+                BPLog(@"Failed to upload captured image for productID: %@, imageIndex: %d, error: %@", imagesData.productID, result.imageIndex, error);
+                [self.capturedImageManager removeImageDataForCaptureSessionTimestamp:timestamp imageIndex:result.imageIndex];
+            }
+            
+        } else if (result.state == CAPTURED_IMAGE_STATE_FINISHED) {
+            BPLog(@"Uploaded captured image for productID: %@, imageIndex: %d", imagesData.productID, result.imageIndex);
+            [self.capturedImageManager removeImageDataForCaptureSessionTimestamp:timestamp imageIndex:(int)result.imageIndex];
+        }
+
+    } completionQueue:[NSOperationQueue mainQueue]];
 }
 
 #pragma mark - BPReportProblemViewControllerDelegate
@@ -365,6 +450,24 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     [self hideKeyboardController];
     
     [self didFindBarcode:code sourceType: @"Keyboard"];
+}
+
+#pragma mark - NSUserDefaults
+
+- (NSString *)userDefaultsKeyForProductID:(NSNumber *)productID {
+    return productID.stringValue;
+}
+
+- (void)setUploadedImagesForProductID:(NSNumber *)productID uploaded:(BOOL)uploaded {
+    if (uploaded) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:[self userDefaultsKeyForProductID:productID]];
+    } else {
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:[self userDefaultsKeyForProductID:productID]];
+    }
+}
+
+- (BOOL)uploadedImagesForProductID:(NSNumber *)productID {
+    return [[NSUserDefaults standardUserDefaults] boolForKey: [self userDefaultsKeyForProductID:productID]];
 }
 
 @end

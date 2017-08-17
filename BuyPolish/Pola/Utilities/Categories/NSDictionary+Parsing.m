@@ -13,6 +13,10 @@
     return [self validateObjectForKey:key andClass:[NSNumber class]];
 }
 
+- (NSDictionary *)nilOrDictionaryForKey:(NSString *)key{
+    return [self validateObjectForKey:key andClass:[NSDictionary class]];
+}
+
 #pragma mark - Private
 
 - (id)validateObjectForKey:(NSString *)key andClass:(Class)class {

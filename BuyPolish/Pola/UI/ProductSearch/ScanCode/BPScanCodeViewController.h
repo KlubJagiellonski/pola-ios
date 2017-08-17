@@ -6,12 +6,13 @@
 #import "BPReportProblemViewController.h"
 #import "BPAboutNavigationController.h"
 #import "BPKeyboardViewController.h"
+#import "BPCaptureVideoNavigationController.h"
 
 
 @class BPScanCodeViewController;
 @class BPScanResult;
 
-@interface BPScanCodeViewController : UIViewController <AVCaptureMetadataOutputObjectsDelegate, UIAlertViewDelegate, BPStackViewDelegate, BPCameraSessionManagerDelegate, BPCompanyCardViewDelegate, BPReportProblemViewControllerDelegate, BPInfoNavigationControllerDelegate, BPKeyboardViewControllerDelegate>
+@interface BPScanCodeViewController : UIViewController <AVCaptureMetadataOutputObjectsDelegate, UIAlertViewDelegate, BPStackViewDelegate, BPCameraSessionManagerDelegate, BPCompanyCardViewDelegate, BPCaptureVideoNavigationControllerDelegate, BPReportProblemViewControllerDelegate, BPInfoNavigationControllerDelegate, BPKeyboardViewControllerDelegate>
 - (void)showScanCodeView;
 - (void)showWriteCodeView;
 @end

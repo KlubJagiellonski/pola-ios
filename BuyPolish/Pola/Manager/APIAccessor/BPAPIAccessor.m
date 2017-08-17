@@ -6,7 +6,8 @@
 #import "BPDeviceHelper.h"
 
 //NSString *const BPAPIAccessorAPIServerUrl = @"https://www.pola-app.pl/a";
-NSString *const BPAPIAccessorAPIServerUrl = @"https://www.pola-app.pl/a/v2";
+//NSString *const BPAPIAccessorAPIServerUrl = @"https://www.pola-app.pl/a/v2";
+NSString *const BPAPIAccessorAPIServerUrl = @"https://www.pola-app.pl/a/v3";
 //NSString *const BPAPIAccessorAPIServerUrl = @"https://pola-staging.herokuapp.com/a/v2";
 //NSString *const BPAPIAccessorAPIServerUrl = @"http://localhost:8888";
 NSString *const BPAPIAccessorAPIDeviceId = @"device_id";
@@ -75,10 +76,10 @@ NSString *const BPAPIAccessorAPIDeviceId = @"device_id";
     return [self performRequest:request error:error];
 }
 
-- (BPAPIResponse *)putAmazonMultipart:(NSString *)url data:(NSData *)data error:(NSError **)error {
+- (BPAPIResponse *)putAmazonMultipart:(NSString *)url data:(NSData *)data mimeType:(NSString *)mimeType error:(NSError **)error {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[[NSURL alloc] initWithString:url]];
     [request addValue:@"public-read" forHTTPHeaderField:@"x-amz-acl"];
-    [request addValue:@"image/png" forHTTPHeaderField:@"Content-Type"];
+    [request addValue:mimeType forHTTPHeaderField:@"Content-Type"];
     [request setHTTPMethod:@"PUT"];
     [request setHTTPBody:[NSData dataWithData:data]];
 

@@ -20,7 +20,7 @@
 
 - (NSDictionary *)addImageAtPath:(NSString *)imageAtPath forUrl:(NSString *)requestUrl error:(NSError **)error {
     NSData *data = [NSData dataWithContentsOfFile:imageAtPath];
-    BPAPIResponse *response = [self putAmazonMultipart:requestUrl data:data error:error];
+    BPAPIResponse *response = [self putAmazonMultipart:requestUrl data:data mimeType:@"image/png" error:error];
     NSDictionary *result = response.responseObject;
     return result;
 }

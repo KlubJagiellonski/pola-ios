@@ -54,7 +54,7 @@
 
     if ([AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo] == AVAuthorizationStatusDenied) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Camera Privacy Title", nil)
-                                                            message:NSLocalizedString(@"Camer Privacy Description", nil)
+                                                            message:NSLocalizedString(@"Camera Privacy Scan Barcode Description", nil)
                                                            delegate:self
                                                   cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
                                                   otherButtonTitles:NSLocalizedString(@"Settings", nil), nil];
