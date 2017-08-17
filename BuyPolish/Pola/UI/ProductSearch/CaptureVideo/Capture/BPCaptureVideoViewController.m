@@ -47,6 +47,7 @@ objection_initializer_sel(@selector(initWithScanResult:))
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.castView.delegate = self;
+    self.videoManager.delegate = self;
 }
 
 - (void)viewWillAppear:(BOOL)animated {

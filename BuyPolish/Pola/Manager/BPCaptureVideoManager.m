@@ -2,7 +2,6 @@
 #import "BPCaptureVideoManager.h"
 
 @interface BPCaptureVideoManager ()
-@property(nonatomic) AVCaptureVideoDataOutput *videoDataOutput;
 @property(nonatomic) dispatch_queue_t videoDataOutputQueue;
 @property(nonatomic) BOOL wantsCaptureImage;
 @end
@@ -12,6 +11,7 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
+        _videoDataOutputQueue = dispatch_queue_create("VideoDataOutputQueue", DISPATCH_QUEUE_SERIAL);
         [self setupCaptureSession];
         [self setupVideoLayer];
     }
@@ -30,23 +30,30 @@
         _captureSession = [[AVCaptureSession alloc] init];
         [_captureSession addInput:input];
         
-        _videoDataOutput = [AVCaptureVideoDataOutput new];
+        AVCaptureVideoDataOutput *videoDataOutput = [self createVideoDataOutput];
         
-        NSDictionary *rgbOutputSettings = [NSDictionary
-                                           dictionaryWithObject:[NSNumber numberWithInt:kCMPixelFormat_32BGRA]
-                                           forKey:(id)kCVPixelBufferPixelFormatTypeKey];
-        [_videoDataOutput setVideoSettings:rgbOutputSettings];
-        [_videoDataOutput setAlwaysDiscardsLateVideoFrames:YES];
-        _videoDataOutputQueue =
-        dispatch_queue_create("VideoDataOutputQueue", DISPATCH_QUEUE_SERIAL);
-        [_videoDataOutput setSampleBufferDelegate:self queue:_videoDataOutputQueue];
+        if ([_captureSession canAddOutput:videoDataOutput]){
+            [_captureSession addOutput:videoDataOutput];
+        }
         
-        if ([_captureSession canAddOutput:_videoDataOutput])
-            [_captureSession addOutput:_videoDataOutput];
-        [[_videoDataOutput connectionWithMediaType:AVMediaTypeVideo] setEnabled:YES];
+        AVCaptureConnection *connection = [videoDataOutput connectionWithMediaType:AVMediaTypeVideo];
+        [connection setVideoOrientation:AVCaptureVideoOrientationPortrait];
+        [connection setEnabled:YES];
         
         self.captureSession.sessionPreset = AVCaptureSessionPresetPhoto;
     }
+}
+
+- (AVCaptureVideoDataOutput *)createVideoDataOutput {
+    AVCaptureVideoDataOutput *videoDataOutput = [AVCaptureVideoDataOutput new];
+    
+    NSDictionary *rgbOutputSettings = [NSDictionary
+                                       dictionaryWithObject:[NSNumber numberWithInt:kCMPixelFormat_32BGRA]
+                                       forKey:(id)kCVPixelBufferPixelFormatTypeKey];
+    [videoDataOutput setVideoSettings:rgbOutputSettings];
+    [videoDataOutput setAlwaysDiscardsLateVideoFrames:YES];
+    [videoDataOutput setSampleBufferDelegate:self queue:_videoDataOutputQueue];
+    return videoDataOutput;
 }
 
 - (void)setupVideoLayer {
@@ -76,7 +83,13 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         CIContext *context = [CIContext contextWithOptions:nil];
         CGImageRef myImage = [context createCGImage:ciImage fromRect:CGRectMake(0, 0, CVPixelBufferGetWidth(pixelBuffer), CVPixelBufferGetHeight(pixelBuffer))];
         UIImage *uiImage = [UIImage imageWithCGImage:myImage];
-        [self.delegate captureVideoManager:self didCaptureImage:uiImage];
+        
+        weakify()
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            strongify()
+            [strongSelf.delegate captureVideoManager:strongSelf didCaptureImage:uiImage];
+        }];
+        
     }
 }
 
