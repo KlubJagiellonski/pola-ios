@@ -8,7 +8,6 @@
 
 @protocol BPCaptureVideoViewControllerDelegate <NSObject>
 
-- (void)captureVideoViewController:(BPCaptureVideoViewController *)viewController didFinishCapturingWithSessionTimestamp:(int)timestamp imagesData:(BPCapturedImagesData *)imagesData;
 - (void)captureVideoViewControllerWantsDismiss:(BPCaptureVideoViewController *)viewController;
 
 @end

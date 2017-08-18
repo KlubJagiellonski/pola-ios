@@ -65,3 +65,6 @@
 "Accessibility.Report.AddPhoto" = "Dodaj zdjęcie";
 "CaptureVideo.Timer.Seconds" = "sek.";
 "CaptureVideo.Start" = "START";
+"CaptureVideo.Sending" = "Wysyłanie zdjęć";
+"CaptureVideo.Thanks" = "Dziękujemy";
+"CaptureVideo.Failed" = "Wystąpił błąd";

@@ -9,6 +9,7 @@
 @property(nonatomic) BPTaskRunner *taskRunner;
 @property(nonatomic, readonly) BPAPIAccessor *apiAccessor;
 @property(nonatomic, readonly) BPCapturedImageManager *imageManager;
+@property(nonatomic) UIBackgroundTaskIdentifier backgroundTaskIdentifier;
 
 @end
 
@@ -16,38 +17,67 @@
 
 objection_requires_sel(@selector(taskRunner), @selector(apiAccessor), @selector(imageManager))
 
-- (void)sendImagesWithData:(BPCapturedImagesData *)imagesData captureSessionTimestamp:(int)timestamp completion:(void (^)(BPCapturedImageResult *, NSError *))completion completionQueue:(NSOperationQueue *)completionQueue {
+- (void)sendImagesWithData:(BPCapturedImagesData *)imagesData
+   captureSessionTimestamp:(int)timestamp
+                  progress:(void (^)(BPCapturedImageResult *, NSError *))progress
+                completion:(void (^)(NSError *))completion
+             dispatchQueue:(NSOperationQueue *)dispatchQueue {
+    // first mark iamges for that product id as uploaded
+    [self setUploadedImagesForProductID:imagesData.productID uploaded:YES];
+    
+    [self beginBackgroundUpdateTaskForTimestamp:timestamp imagesCount:imagesData.filesCount.intValue];
+    
     __block NSError *error;
     
     weakify()
+    void (^onCompletion)(NSError *) = ^void(NSError *error) {
+        strongify();
+        
+        if (error) {
+            [strongSelf.imageManager removeImagesDataForCaptureSessionTimestamp:timestamp imageCount:imagesData.filesCount.intValue];
+            [strongSelf setUploadedImagesForProductID:imagesData.productID uploaded:NO];
+        }
+        
+        completion(error);
+        [strongSelf endBackgroundUpdateTastForTimestamp:timestamp imagesCount:imagesData.filesCount.intValue];
+    };
+    
     void (^block)() = ^{
         strongify()
         
         NSDictionary *result = [strongSelf.apiAccessor addAiPicsWithCapturedImagesData:imagesData error:&error];
         
         if (error) {
-            [completionQueue addOperationWithBlock:^{
-                completion([[BPCapturedImageResult alloc] initWithState:CAPTURED_IMAGE_STATE_ADDING capturedImagesData:imagesData imageIndex:-1], error);
+            [dispatchQueue addOperationWithBlock:^{
+                progress([[BPCapturedImageResult alloc] initWithState:CAPTURED_IMAGE_STATE_ADDING capturedImagesData:imagesData imageIndex:-1], error);
+                onCompletion(error);
             }];
             return;
         }
         
         NSArray *signedRequestArray = result[@"signed_requests"];
         
-        [completionQueue addOperationWithBlock:^{
-            completion([[BPCapturedImageResult alloc] initWithState:CAPTURED_IMAGE_STATE_ADDING capturedImagesData:imagesData imageIndex:-1], error);
+        [dispatchQueue addOperationWithBlock:^{
+            progress([[BPCapturedImageResult alloc] initWithState:CAPTURED_IMAGE_STATE_ADDING capturedImagesData:imagesData imageIndex:-1], error);
         }];
 
         int imageCount = (int)imagesData.filesCount.integerValue;
         NSArray<NSData *> *imageDataArray = [strongSelf.imageManager retrieveImagesDataForCaptureSessionTimestamp:timestamp imageCount:imageCount];
         
+        __block int amountOfFinishedUploads = 0;
         for (int i=0; i<imageCount; i++) {
             [strongSelf uploadImageData:imageDataArray[i] toUrl:signedRequestArray[i] mimeType:imagesData.mimeType completion:^(NSError *imageUploadError) {
-                [completionQueue addOperationWithBlock:^{
+                [dispatchQueue addOperationWithBlock:^{
                     if (imageUploadError) {
-                        completion([[BPCapturedImageResult alloc] initWithState:CAPTURED_IMAGE_STATE_UPLOADING capturedImagesData:imagesData imageIndex:i], imageUploadError);
+                        progress([[BPCapturedImageResult alloc] initWithState:CAPTURED_IMAGE_STATE_UPLOADING capturedImagesData:imagesData imageIndex:i], imageUploadError);
                     } else {
-                        completion([[BPCapturedImageResult alloc] initWithState:CAPTURED_IMAGE_STATE_FINISHED capturedImagesData:imagesData imageIndex:i], imageUploadError);
+                        progress([[BPCapturedImageResult alloc] initWithState:CAPTURED_IMAGE_STATE_FINISHED capturedImagesData:imagesData imageIndex:i], imageUploadError);
+                    }
+                    [self.imageManager removeImageDataForCaptureSessionTimestamp:timestamp imageIndex:i];
+                    
+                    amountOfFinishedUploads++;
+                    if (amountOfFinishedUploads == imageCount) {
+                        onCompletion(NULL);
                     }
                 }];
             }];
@@ -69,6 +99,43 @@ objection_requires_sel(@selector(taskRunner), @selector(apiAccessor), @selector(
     };
     BPTask *task = [BPTask taskWithlock:block completion:nil];
     [self.taskRunner runImmediateTask:task];
+}
+
+#pragma mark - Background task
+
+- (void)beginBackgroundUpdateTaskForTimestamp:(int)timestamp imagesCount:(int)imagesCount {
+    weakify()
+    self.backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+        strongify()
+        [strongSelf endBackgroundUpdateTastForTimestamp:timestamp imagesCount:imagesCount];
+    }];
+}
+
+- (void)endBackgroundUpdateTastForTimestamp:(int)timestamp imagesCount:(int)imagesCount {
+    if (self.backgroundTaskIdentifier != UIBackgroundTaskInvalid) {
+        [self.imageManager removeImagesDataForCaptureSessionTimestamp:timestamp imageCount:imagesCount];
+        [[UIApplication sharedApplication] endBackgroundTask:self.backgroundTaskIdentifier];
+        
+        self.backgroundTaskIdentifier = UIBackgroundTaskInvalid;
+    }
+}
+
+#pragma mark - NSUserDefaults
+
+- (NSString *)userDefaultsKeyForProductID:(NSNumber *)productID {
+    return productID.stringValue;
+}
+
+- (void)setUploadedImagesForProductID:(NSNumber *)productID uploaded:(BOOL)uploaded {
+    if (uploaded) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:[self userDefaultsKeyForProductID:productID]];
+    } else {
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:[self userDefaultsKeyForProductID:productID]];
+    }
+}
+
+- (BOOL)didUploadImagesForProductID:(NSNumber *)productID {
+    return [[NSUserDefaults standardUserDefaults] boolForKey: [self userDefaultsKeyForProductID:productID]];
 }
 
 @end

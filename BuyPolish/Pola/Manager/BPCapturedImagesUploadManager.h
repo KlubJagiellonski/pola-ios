@@ -7,6 +7,12 @@
 
 @interface BPCapturedImagesUploadManager: NSObject
 
-- (void)sendImagesWithData:(BPCapturedImagesData *)imagesData captureSessionTimestamp:(int)timestamp completion:(void (^)(BPCapturedImageResult *, NSError *))completion completionQueue:(NSOperationQueue *)completionQueue;
+- (void)sendImagesWithData:(BPCapturedImagesData *)imagesData
+   captureSessionTimestamp:(int)timestamp
+                  progress:(void (^)(BPCapturedImageResult *, NSError *))progress
+                completion:(void (^)(NSError *))completion
+             dispatchQueue:(NSOperationQueue *)dispatchQueue;
+
+- (BOOL)didUploadImagesForProductID:(NSNumber *)productID;
 
 @end

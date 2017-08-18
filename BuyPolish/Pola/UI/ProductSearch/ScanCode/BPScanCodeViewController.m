@@ -10,7 +10,6 @@
 #import "BPKeyboardViewController.h"
 #import "BPCaptureVideoNavigationController.h"
 #import "BPScanResult.h"
-#import "BPCapturedImageManager.h"
 #import "BPCapturedImagesUploadManager.h"
 #import "BPCapturedImageResult.h"
 
@@ -24,7 +23,6 @@ static NSTimeInterval const kAnimationTime = 0.15;
 @property(nonatomic, readonly) BPTaskRunner *taskRunner;
 @property(nonatomic, readonly) BPProductManager *productManager;
 @property(nonatomic, readonly) BPCapturedImagesUploadManager *uploadManager;
-@property(nonatomic, readonly) BPCapturedImageManager *capturedImageManager;
 @property(copy, nonatomic) NSString *lastBardcodeScanned;
 @property(nonatomic, readonly) NSMutableArray *scannedBarcodes;
 @property(nonatomic, readonly) NSMutableDictionary *barcodeToProductResult;
@@ -35,7 +33,7 @@ static NSTimeInterval const kAnimationTime = 0.15;
 
 @implementation BPScanCodeViewController
 
-objection_requires_sel(@selector(taskRunner), @selector(productManager), @selector(cameraSessionManager), @selector(flashlightManager), @selector(uploadManager), @selector(capturedImageManager))
+objection_requires_sel(@selector(taskRunner), @selector(productManager), @selector(cameraSessionManager), @selector(flashlightManager), @selector(uploadManager))
 
 - (void)loadView {
     self.view = [[BPScanCodeView alloc] initWithFrame:CGRectZero];
@@ -76,7 +74,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 
     [self updateFlashlightButton];
 
-//    [self didFindBarcode:@"5900396019813"];
+    [self didFindBarcode:@"5900396019813"];
 //    [self performSelector:@selector(didFindBarcode:) withObject:@"5901234123457" afterDelay:1.5f];
 //    [self performSelector:@selector(didFindBarcode:) withObject:@"5900396019813" afterDelay:3.f];
 //    [self showReportProblem:productId:@"3123123"];
@@ -173,7 +171,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 
 - (void)updateTeachPolaButton {
     BPScanResult *lastScanResult = self.barcodeToProductResult[self.lastBardcodeScanned];
-    BOOL uploaded = [self uploadedImagesForProductID:lastScanResult.productId];
+    BOOL uploaded = [self.uploadManager didUploadImagesForProductID:lastScanResult.productId];
     BOOL visible = lastScanResult.askForPics && !uploaded;
     [self.castView updateTeachButtonWithVisible: visible title: lastScanResult.askForPicsPreview cardsHeight: self.castView.cardsHeight];
 }
@@ -391,41 +389,8 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 #pragma mark - BPCaptureVideoNavigationControllerDelegate
 
 - (void)captureVideoNavigationControllerWantsDismiss:(BPCaptureVideoNavigationController *)viewController {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)captureVideoNavigationController:(BPCaptureVideoNavigationController *)viewController didCaptureImagesWithTimestamp:(int)timestamp imagesData:(BPCapturedImagesData *)imagesData {
-    [self setUploadedImagesForProductID:imagesData.productID uploaded:YES];
     [self updateTeachPolaButton];
-    
-    UIBackgroundTaskIdentifier __block taskId = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
-        [self.capturedImageManager removeImagesDataForCaptureSessionTimestamp:timestamp imageCount:(int)imagesData.filesCount.integerValue];
-        [[UIApplication sharedApplication] endBackgroundTask:taskId];
-        taskId = UIBackgroundTaskInvalid;
-    }];
-    
-    [self.uploadManager sendImagesWithData:imagesData captureSessionTimestamp:timestamp completion:^(BPCapturedImageResult *result, NSError *error) {
-        if (error != nil) {
-            if (result.state == CAPTURED_IMAGE_STATE_ADDING) {
-                BPLog(@"Failed to get urls for uploading captured images for productID: %@, error: %@", imagesData.productID, error);
-                [self setUploadedImagesForProductID:imagesData.productID uploaded:NO];
-                [self updateTeachPolaButton];
-                
-                [self.capturedImageManager removeImagesDataForCaptureSessionTimestamp:timestamp imageCount:(int)imagesData.filesCount.integerValue];
-                UIAlertView *alertView = [UIAlertView showErrorAlert:NSLocalizedString(@"Failed to upload data. Please try again.", nil)];
-                alertView.delegate = self;
-                
-            } else if (result.state == CAPTURED_IMAGE_STATE_UPLOADING) {
-                BPLog(@"Failed to upload captured image for productID: %@, imageIndex: %d, error: %@", imagesData.productID, result.imageIndex, error);
-                [self.capturedImageManager removeImageDataForCaptureSessionTimestamp:timestamp imageIndex:result.imageIndex];
-            }
-            
-        } else if (result.state == CAPTURED_IMAGE_STATE_FINISHED) {
-            BPLog(@"Uploaded captured image for productID: %@, imageIndex: %d", imagesData.productID, result.imageIndex);
-            [self.capturedImageManager removeImageDataForCaptureSessionTimestamp:timestamp imageIndex:(int)result.imageIndex];
-        }
-
-    } completionQueue:[NSOperationQueue mainQueue]];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - BPReportProblemViewControllerDelegate
@@ -450,24 +415,6 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     [self hideKeyboardController];
     
     [self didFindBarcode:code sourceType: @"Keyboard"];
-}
-
-#pragma mark - NSUserDefaults
-
-- (NSString *)userDefaultsKeyForProductID:(NSNumber *)productID {
-    return productID.stringValue;
-}
-
-- (void)setUploadedImagesForProductID:(NSNumber *)productID uploaded:(BOOL)uploaded {
-    if (uploaded) {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:[self userDefaultsKeyForProductID:productID]];
-    } else {
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:[self userDefaultsKeyForProductID:productID]];
-    }
-}
-
-- (BOOL)uploadedImagesForProductID:(NSNumber *)productID {
-    return [[NSUserDefaults standardUserDefaults] boolForKey: [self userDefaultsKeyForProductID:productID]];
 }
 
 @end

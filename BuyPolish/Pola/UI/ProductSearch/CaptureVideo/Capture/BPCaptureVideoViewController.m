@@ -4,6 +4,8 @@
 #import "UIImage+Scaling.h"
 #import "BPWeakTimerTarget.h"
 #import "BPDeviceHelper.h"
+#import "BPCapturedImagesUploadManager.h"
+#import "KVNProgress.h"
 
 const int INITIAL_TIMER_SEC = 6;
 
@@ -15,13 +17,14 @@ const int INITIAL_TIMER_SEC = 6;
 @property(nonatomic, readonly) BPCaptureVideoManager *videoManager;
 @property(nonatomic) int sessionTimestamp;      // seconds since 1970
 @property(nonatomic, readonly) BPCapturedImageManager *imageManager;
+@property(nonatomic, readonly) BPCapturedImagesUploadManager *uploadManager;
 @property(nonatomic) int savedImagesCount;
 
 @end
 
 @implementation BPCaptureVideoViewController
 
-objection_requires_sel(@selector(videoManager), @selector(imageManager))
+objection_requires_sel(@selector(videoManager), @selector(imageManager), @selector(uploadManager))
 objection_initializer_sel(@selector(initWithScanResult:))
 
 - (instancetype)initWithScanResult:(BPScanResult*)scanResult {
@@ -106,25 +109,44 @@ objection_initializer_sel(@selector(initWithScanResult:))
     [self.videoManager requestCaptureImage];
 }
 
-- (void)handleScaledLastImage:(UIImage *)scaledImage originalImage:(UIImage *)originalImage {
-    BPCapturedImagesData *capturedImagesData = [[BPCapturedImagesData alloc] initWithProductID:self.scanResult.productId
-                                                                                    filesCount:[[NSNumber alloc] initWithInt: self.savedImagesCount]
-                                                                                 fileExtension:@"jpg"
-                                                                                      mimeType:@"image/jpeg"
-                                                                                 originalWidth:[[NSNumber alloc] initWithInt: [originalImage widthInPixels]]
-                                                                                originalHeight:[[NSNumber alloc] initWithInt: [originalImage heightInPixels]]
-                                                                                         width:[[NSNumber alloc] initWithInt: [scaledImage widthInPixels]]
-                                                                                        height:[[NSNumber alloc] initWithInt: [scaledImage heightInPixels]]
-                                                                                    deviceName:[BPDeviceHelper deviceName]];
-    
-    [self.delegate captureVideoViewController:self didFinishCapturingWithSessionTimestamp:self.sessionTimestamp imagesData:capturedImagesData];
-}
-
 - (void)invalidateTimer {
     if (self.timer != nil) {
         [self.timer invalidate];
         self.timer = nil;
     }
+}
+
+- (void)sendImagesWithScaledLastImage:(UIImage *)scaledImage originalImage:(UIImage *)originalImage {
+    BPCapturedImagesData *imagesData = [[BPCapturedImagesData alloc]
+                                        initWithProductID:self.scanResult.productId
+                                        filesCount:[[NSNumber alloc] initWithInt: self.savedImagesCount]
+                                        fileExtension:@"jpg"
+                                        mimeType:@"image/jpeg"
+                                        originalWidth:[[NSNumber alloc] initWithInt: [originalImage widthInPixels]]
+                                        originalHeight:[[NSNumber alloc] initWithInt: [originalImage heightInPixels]]
+                                        width:[[NSNumber alloc] initWithInt: [scaledImage widthInPixels]]
+                                        height:[[NSNumber alloc] initWithInt: [scaledImage heightInPixels]]
+                                        deviceName:[BPDeviceHelper deviceName]];
+    
+    [KVNProgress showWithStatus:NSLocalizedString(@"CaptureVideo.Sending", nil)];
+    
+    weakify();
+    void (^progress)(BPCapturedImageResult *, NSError*) = ^void(BPCapturedImageResult *result, NSError *error) {
+        BPLog(@"[CaputerVideoUpload] progress, state: %i, imageIndex: %i, error: %@", result.state, result.imageIndex, error);
+    };
+    
+    void (^completion)(NSError*) = ^void(NSError *error) {
+        strongify();
+        BPLog(@"[CaputerVideoUpload] completed, error: %@", error);
+        if (error) {
+            [KVNProgress showErrorWithStatus:NSLocalizedString(@"CaptureVideo.Failed", nil)];
+        } else {
+            [KVNProgress showSuccessWithStatus:NSLocalizedString(@"CaptureVideo.Thanks", nil)];
+        }
+        [strongSelf.delegate captureVideoViewControllerWantsDismiss:strongSelf];
+    };
+    
+    [self.uploadManager sendImagesWithData:imagesData captureSessionTimestamp:self.sessionTimestamp progress:progress completion:completion dispatchQueue:[NSOperationQueue mainQueue]];
 }
 
 #pragma mark - BPCaptureVideoViewDelegate
@@ -147,13 +169,13 @@ objection_initializer_sel(@selector(initWithScanResult:))
 
 - (void)captureVideoManager:(BPCaptureVideoManager *)captureManager didCaptureImage:(UIImage *)originalImage {
     UIImage *scaledImage = [self scaledImage:originalImage withMaxSide:self.scanResult.maxPicSize.doubleValue];
-    NSData *imageData = UIImageJPEGRepresentation(scaledImage, 0.5);
+    NSData *imageData = UIImageJPEGRepresentation(scaledImage, 0.9);
     [self.imageManager saveImageData:imageData captureSessionTimestamp:self.sessionTimestamp index:self.savedImagesCount];
     
     self.savedImagesCount += 1;
     
     if (self.savedImagesCount == INITIAL_TIMER_SEC) {
-        [self handleScaledLastImage:scaledImage originalImage:originalImage];
+        [self sendImagesWithScaledLastImage:scaledImage originalImage:originalImage];
     }
 }
 
