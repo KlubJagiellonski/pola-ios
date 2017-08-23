@@ -25,7 +25,7 @@ Oznacza to, że branch na którym pracujesz powinien mieć jak najmniej commitó
 
 Gdy już masz to gotowe [stwórz PR](https://help.github.com/articles/creating-a-pull-request)
 
-### 9. Merge PR (tylko opiekunowie)
+### 5. Merge PR (tylko opiekunowie)
 
 PR może być tylko zmergowany gdy:
 
