@@ -1,6 +1,8 @@
+target 'Pola'
+
 source 'https://github.com/CocoaPods/Specs.git'
 
-platform :ios, '7.0'
+platform :ios, '8.0'
 pod 'AFNetworking', '2.3.1'
 pod 'Objection', '1.4'
 pod 'iOS-Hierarchy-Viewer', '1.4.7'
@@ -10,3 +12,4 @@ pod 'Fabric', '~> 1.5.5'
 pod 'Crashlytics', '~> 3.3.4'
 pod 'UITextView+Placeholder'
 pod 'KVNProgress'
+pod 'TensorFlow-experimental'
