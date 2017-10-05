@@ -11,6 +11,7 @@ const int SCAN_CODE_TEACH_BUTTON_OFFSET = 10;
 const int SCAN_CODE_TEACH_BUTTON_HEIGHT = 35;
 
 @interface BPScanCodeView ()
+@property(nonatomic, readonly) NSMutableArray *labelLayers;
 @property(nonatomic, readonly) UIView *dimView;
 @end
 
@@ -20,6 +21,8 @@ const int SCAN_CODE_TEACH_BUTTON_HEIGHT = 35;
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        _labelLayers = [NSMutableArray array];
+        
         _dimView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"GradientImage"]];
         [self addSubview:_dimView];
 
@@ -131,7 +134,6 @@ const int SCAN_CODE_TEACH_BUTTON_HEIGHT = 35;
     self.teachButton.frame = rect;
 }
 
-
 - (void)setVideoLayer:(AVCaptureVideoPreviewLayer *)videoLayer {
     if (_videoLayer == videoLayer) {
         return;
@@ -198,4 +200,106 @@ const int SCAN_CODE_TEACH_BUTTON_HEIGHT = 35;
     return self.stackView.cardsHeight;
 }
 
+#pragma mark - Image Recognition Labels methods
+
+- (void)updateImageRecognitionLabelsWithNames:(NSArray<NSString *> *)names predictionValues:(NSArray<NSNumber *> *)values {
+    
+    const float leftMargin = 10.0f;
+    const float topMargin = 10.0f;
+    
+    const float valueWidth = 48.0f;
+    const float valueHeight = 26.0f;
+    
+    const float labelWidth = 246.0f;
+    const float labelHeight = 26.0f;
+    
+    const float labelMarginX = 5.0f;
+    const float labelMarginY = 5.0f;
+    
+    [self removeAllLabelLayers];
+    
+    int labelCount = 0;
+    for (int i=0; i<names.count; ++i) {
+        NSString *label = names[i];
+        NSNumber *valueObject = values[i];
+        const float value = [valueObject floatValue];
+        
+        const float originY =
+        (topMargin + ((labelHeight + labelMarginY) * labelCount));
+        
+        const int valuePercentage = (int)roundf(value * 100.0f);
+        
+        const float valueOriginX = leftMargin;
+        NSString *valueText = [NSString stringWithFormat:@"%d%%", valuePercentage];
+        
+        [self addLabelLayerWithText:valueText
+                            originX:valueOriginX
+                            originY:originY
+                              width:valueWidth
+                             height:valueHeight
+                          alignment:kCAAlignmentRight];
+        
+        const float labelOriginX = (leftMargin + valueWidth + labelMarginX);
+        
+        [self addLabelLayerWithText:[label capitalizedString]
+                            originX:labelOriginX
+                            originY:originY
+                              width:labelWidth
+                             height:labelHeight
+                          alignment:kCAAlignmentLeft];
+        
+        labelCount += 1;
+        if (labelCount >= 10) {
+            break;
+        }
+    }
+}
+
+- (void)removeAllLabelLayers {
+    for (CATextLayer *labelLayer in self.labelLayers) {
+        [labelLayer removeFromSuperlayer];
+    }
+    [self.labelLayers removeAllObjects];
+}
+
+- (void)addLabelLayerWithText:(NSString *)text
+                      originX:(float)originX
+                      originY:(float)originY
+                        width:(float)width
+                       height:(float)height
+                    alignment:(NSString *)alignment {
+    CFTypeRef font = (CFTypeRef) @"Menlo-Regular";
+    const float fontSize = 20.0f;
+    
+    const float marginSizeX = 5.0f;
+    const float marginSizeY = 2.0f;
+    
+    const CGRect backgroundBounds = CGRectMake(originX, originY, width, height);
+    
+    const CGRect textBounds =
+    CGRectMake((originX + marginSizeX), (originY + marginSizeY),
+               (width - (marginSizeX * 2)), (height - (marginSizeY * 2)));
+    
+    CATextLayer *background = [CATextLayer layer];
+    [background setBackgroundColor:[UIColor blackColor].CGColor];
+    [background setOpacity:0.5f];
+    [background setFrame:backgroundBounds];
+    background.cornerRadius = 5.0f;
+    
+    [self.layer addSublayer:background];
+    [self.labelLayers addObject:background];
+    
+    CATextLayer *layer = [CATextLayer layer];
+    [layer setForegroundColor:[UIColor whiteColor].CGColor];
+    [layer setFrame:textBounds];
+    [layer setAlignmentMode:alignment];
+    [layer setWrapped:YES];
+    [layer setFont:font];
+    [layer setFontSize:fontSize];
+    layer.contentsScale = [[UIScreen mainScreen] scale];
+    [layer setString:text];
+    
+    [self.layer addSublayer:layer];
+    [self.labelLayers addObject:layer];
+}
 @end

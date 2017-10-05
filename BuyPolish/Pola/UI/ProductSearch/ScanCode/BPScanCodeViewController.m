@@ -28,12 +28,14 @@ static NSTimeInterval const kAnimationTime = 0.15;
 @property(nonatomic, readonly) NSMutableDictionary *barcodeToProductResult;
 @property(nonatomic) BOOL addingCardEnabled;
 
+@property(nonatomic, readonly) BPImageRecognitionManager *imageRecognitionManager;
+
 @end
 
 
 @implementation BPScanCodeViewController
 
-objection_requires_sel(@selector(taskRunner), @selector(productManager), @selector(cameraSessionManager), @selector(flashlightManager), @selector(uploadManager))
+objection_requires_sel(@selector(taskRunner), @selector(productManager), @selector(cameraSessionManager), @selector(flashlightManager), @selector(uploadManager), @selector(imageRecognitionManager))
 
 - (void)loadView {
     self.view = [[BPScanCodeView alloc] initWithFrame:CGRectZero];
@@ -51,6 +53,9 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     _barcodeToProductResult = [NSMutableDictionary dictionary];
 
     self.cameraSessionManager.delegate = self;
+
+    self.imageRecognitionManager.delegate = self;
+    [self.imageRecognitionManager setupWithCaptureSession:self.cameraSessionManager.captureSession];
 
     self.addingCardEnabled = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -370,6 +375,15 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 
 - (void)didFindBarcode:(NSString *)barcode {
     [self didFindBarcode:barcode sourceType:@"Camera"];
+}
+
+#pragma mark - BPImageRecognitionManagerDelegate
+
+- (void)imageRecognitionManagerCandidateLabels:(NSArray<NSString *> *)labels withPredictionValues:(NSArray<NSNumber *> *)values {
+    for(int i=0; i<labels.count; ++i) {
+        NSLog(@"label: %@, value: %@", labels[i], values[i]);
+    }
+    [self.castView updateImageRecognitionLabelsWithNames:labels predictionValues:values];
 }
 
 #pragma mark - BPProductCardViewDelegate

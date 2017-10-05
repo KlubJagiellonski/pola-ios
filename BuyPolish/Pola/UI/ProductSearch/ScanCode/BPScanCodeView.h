@@ -30,4 +30,6 @@ typedef NS_ENUM(NSInteger, BPScanCodeViewLabelMode) {
 - (void)setButtonsVisible:(BOOL)visible animation:(BOOL)animation;
 - (void)updateTeachButtonWithVisible:(BOOL)visible title:(NSString *)title cardsHeight:(CGFloat)cardsHeight;
 
+- (void)updateImageRecognitionLabelsWithNames:(NSArray<NSString *> *)names predictionValues:(NSArray<NSNumber *> *)values;
+
 @end

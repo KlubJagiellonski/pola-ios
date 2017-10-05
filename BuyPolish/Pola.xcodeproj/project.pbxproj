@@ -102,9 +102,13 @@
 		C092CF391F1F809E003174D1 /* BPCapturedImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C092CF381F1F809E003174D1 /* BPCapturedImageManager.m */; };
 		C092CF3C1F1F88EE003174D1 /* UIImage+Scaling.m in Sources */ = {isa = PBXBuildFile; fileRef = C092CF3B1F1F88EE003174D1 /* UIImage+Scaling.m */; };
 		C0AF272F1F20046A00A89126 /* BPCapturedImagesData.m in Sources */ = {isa = PBXBuildFile; fileRef = C0AF272E1F20046A00A89126 /* BPCapturedImagesData.m */; };
+		C0BC88B61F8A60DD0014787C /* tensorflow_utils.mm in Sources */ = {isa = PBXBuildFile; fileRef = C0BC88B51F8A60DD0014787C /* tensorflow_utils.mm */; };
+		C0BC88B91F8ADCFA0014787C /* pola_retrained_labels.txt in Resources */ = {isa = PBXBuildFile; fileRef = C0BC88B71F8ADCFA0014787C /* pola_retrained_labels.txt */; };
+		C0BC88BA1F8ADCFA0014787C /* q_stripped_pola_retrained.pb in Resources */ = {isa = PBXBuildFile; fileRef = C0BC88B81F8ADCFA0014787C /* q_stripped_pola_retrained.pb */; };
 		C0D829791F3D11A600902F79 /* capture_video_instruction.mov in Resources */ = {isa = PBXBuildFile; fileRef = C0D829781F3D11A600902F79 /* capture_video_instruction.mov */; };
 		C0DD0EBF1F1B3B1A00BF4B20 /* BPCaptureVideoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C0DD0EBE1F1B3B1A00BF4B20 /* BPCaptureVideoManager.m */; };
 		C0E6B7331F1396430047D960 /* BPVideoPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = C0E6B7321F1396430047D960 /* BPVideoPlayerView.m */; };
+		C0EFE6AB1F895F0600003580 /* BPImageRecognitionManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = C0EFE6AA1F895F0600003580 /* BPImageRecognitionManager.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -282,11 +286,17 @@
 		C092CF3B1F1F88EE003174D1 /* UIImage+Scaling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Scaling.m"; sourceTree = "<group>"; };
 		C0AF272D1F20045800A89126 /* BPCapturedImagesData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BPCapturedImagesData.h; sourceTree = "<group>"; };
 		C0AF272E1F20046A00A89126 /* BPCapturedImagesData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPCapturedImagesData.m; sourceTree = "<group>"; };
+		C0BC88B41F8A60DD0014787C /* tensorflow_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tensorflow_utils.h; sourceTree = "<group>"; };
+		C0BC88B51F8A60DD0014787C /* tensorflow_utils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = tensorflow_utils.mm; sourceTree = "<group>"; };
+		C0BC88B71F8ADCFA0014787C /* pola_retrained_labels.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = pola_retrained_labels.txt; sourceTree = "<group>"; };
+		C0BC88B81F8ADCFA0014787C /* q_stripped_pola_retrained.pb */ = {isa = PBXFileReference; lastKnownFileType = file; path = q_stripped_pola_retrained.pb; sourceTree = "<group>"; };
+		C0D7CFC81F86E12A00CE7D46 /* BPImageRecognitionManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BPImageRecognitionManager.h; path = ImageRecognitionManager/BPImageRecognitionManager.h; sourceTree = "<group>"; };
 		C0D829781F3D11A600902F79 /* capture_video_instruction.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = capture_video_instruction.mov; sourceTree = "<group>"; };
 		C0DD0EBD1F1B3A1500BF4B20 /* BPCaptureVideoManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BPCaptureVideoManager.h; sourceTree = "<group>"; };
 		C0DD0EBE1F1B3B1A00BF4B20 /* BPCaptureVideoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPCaptureVideoManager.m; sourceTree = "<group>"; };
 		C0E6B7321F1396430047D960 /* BPVideoPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPVideoPlayerView.m; path = CaptureVideo/Instruction/Player/BPVideoPlayerView.m; sourceTree = "<group>"; };
 		C0E6B7341F13A0470047D960 /* BPVideoPlayerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BPVideoPlayerView.h; path = CaptureVideo/Instruction/Player/BPVideoPlayerView.h; sourceTree = "<group>"; };
+		C0EFE6AA1F895F0600003580 /* BPImageRecognitionManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = BPImageRecognitionManager.mm; path = ImageRecognitionManager/BPImageRecognitionManager.mm; sourceTree = "<group>"; };
 		C8096810DA08287E0900FFFC /* Pods-Pola.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pola/Pods-Pola.debug.xcconfig"; sourceTree = "<group>"; };
 		F68D8527368AB49962549AA3 /* libPods-Pola.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Pola.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -385,6 +395,8 @@
 				1D08E83619A7621A00879BD2 /* Pola-Prefix.pch */,
 				37B645C93F848A6F598F96E2 /* Localizable.strings */,
 				C0D829781F3D11A600902F79 /* capture_video_instruction.mov */,
+				C0BC88B71F8ADCFA0014787C /* pola_retrained_labels.txt */,
+				C0BC88B81F8ADCFA0014787C /* q_stripped_pola_retrained.pb */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -527,6 +539,8 @@
 				1D2D50651DC54092000A8958 /* BPExtendedButton.m */,
 				C09015801F367C6100E8CC38 /* BPWeakTimerTarget.h */,
 				C09015811F367C7000E8CC38 /* BPWeakTimerTarget.m */,
+				C0BC88B41F8A60DD0014787C /* tensorflow_utils.h */,
+				C0BC88B51F8A60DD0014787C /* tensorflow_utils.mm */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -653,6 +667,7 @@
 		37B64DD9591909AF06832339 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				C0D7CFC01F86DF4100CE7D46 /* ImageRecognitionManager */,
 				C06EE3361F20D6C0005B2B57 /* CapturedImagesUploadManager */,
 				C092CF351F1F8007003174D1 /* CapturedImageManager */,
 				C0DD0EBB1F1B399D00BF4B20 /* CaptureVideoManager */,
@@ -759,6 +774,15 @@
 			);
 			name = CapturedImageManager;
 			path = BPCapturedImageManager;
+			sourceTree = "<group>";
+		};
+		C0D7CFC01F86DF4100CE7D46 /* ImageRecognitionManager */ = {
+			isa = PBXGroup;
+			children = (
+				C0D7CFC81F86E12A00CE7D46 /* BPImageRecognitionManager.h */,
+				C0EFE6AA1F895F0600003580 /* BPImageRecognitionManager.mm */,
+			);
+			name = ImageRecognitionManager;
 			sourceTree = "<group>";
 		};
 		C0DD0EBB1F1B399D00BF4B20 /* CaptureVideoManager */ = {
@@ -874,6 +898,8 @@
 			files = (
 				1D08E83319A7621A00879BD2 /* InfoPlist.strings in Resources */,
 				1D08E83E19A7621A00879BD2 /* Images.xcassets in Resources */,
+				C0BC88BA1F8ADCFA0014787C /* q_stripped_pola_retrained.pb in Resources */,
+				C0BC88B91F8ADCFA0014787C /* pola_retrained_labels.txt in Resources */,
 				1DEFA1BD1BD9920600938C81 /* Lato-Regular.ttf in Resources */,
 				C0D829791F3D11A600902F79 /* capture_video_instruction.mov in Resources */,
 				37B64B7D226FBFA23FFCA1C1 /* Localizable.strings in Resources */,
@@ -998,6 +1024,7 @@
 				37B644D57E5398A17DFA806D /* UIAlertView+BPUtilities.m in Sources */,
 				37B6480CB8E9273EAC35EDA6 /* NSString+BPUtilities.m in Sources */,
 				37B64A4DC0F7F5F1DAC9D791 /* BPStackView.m in Sources */,
+				C0BC88B61F8A60DD0014787C /* tensorflow_utils.mm in Sources */,
 				C06EE3351F20D24E005B2B57 /* BPAPIAccessor+BPCapturedImagesData.m in Sources */,
 				1D2D506C1DCBEDC5000A8958 /* BPAboutFooterView.m in Sources */,
 				37C89AA41C78682200CCE940 /* BPFlashlightManager.m in Sources */,
@@ -1022,6 +1049,7 @@
 				C06EE3391F20D6F5005B2B57 /* BPCapturedImagesUploadManager.m in Sources */,
 				37B648D280BBB1A95E85962E /* BPSecondaryProgressView.m in Sources */,
 				83AFDE8E1F0D415C00608235 /* BPCaptureVideoNavigationController.m in Sources */,
+				C0EFE6AB1F895F0600003580 /* BPImageRecognitionManager.mm in Sources */,
 				C092CF3C1F1F88EE003174D1 /* UIImage+Scaling.m in Sources */,
 				37B64EBEB659B5811A9540AA /* BPCheckRow.m in Sources */,
 				37B6405B2B77BAAD1DC986CF /* UILabel+BPAdditions.m in Sources */,
@@ -1116,6 +1144,7 @@
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_INPUT_FILETYPE = automatic;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1123,7 +1152,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -1160,8 +1189,9 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_INPUT_FILETYPE = automatic;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -1195,6 +1225,7 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = "Pola/Pola-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kj.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "bce93960-c432-4866-97a1-d6021b8d13e9";
@@ -1226,6 +1257,7 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = "Pola/Pola-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kj.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "11650f5b-2426-4072-b3e3-857e6e5267e1";
