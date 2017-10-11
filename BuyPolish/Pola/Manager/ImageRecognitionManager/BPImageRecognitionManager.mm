@@ -65,13 +65,13 @@ const std::string output_layer_name = "final_result";
         load_status = LoadModel(model_file_name, model_file_type, &tf_session);
     }
     if (!load_status.ok()) {
-        LOG(FATAL) << "Couldn't load model: " << load_status;
+        BPLog(@"Failed to load model, status: %s", load_status.ToString().c_str());
     }
     
     tensorflow::Status labels_status =
     LoadLabels(labels_file_name, labels_file_type, &labels);
     if (!labels_status.ok()) {
-        LOG(FATAL) << "Couldn't load labels: " << labels_status;
+        BPLog(@"Failed to load labels, status: %s", labels_status.ToString().c_str());
     }
 }
 
@@ -94,17 +94,6 @@ const std::string output_layer_name = "final_result";
     [session startRunning];
 }
 
-- (AVCaptureVideoOrientation)avOrientationForDeviceOrientation:
-(UIDeviceOrientation)deviceOrientation {
-    AVCaptureVideoOrientation result =
-    (AVCaptureVideoOrientation)(deviceOrientation);
-    if (deviceOrientation == UIDeviceOrientationLandscapeLeft)
-        result = AVCaptureVideoOrientationLandscapeRight;
-    else if (deviceOrientation == UIDeviceOrientationLandscapeRight)
-        result = AVCaptureVideoOrientationLandscapeLeft;
-    return result;
-}
-
 - (void)captureOutput:(AVCaptureOutput *)captureOutput
 didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
        fromConnection:(AVCaptureConnection *)connection {
@@ -115,7 +104,10 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 }
 
 - (void)runCNNOnFrame:(CVPixelBufferRef)pixelBuffer {
-    assert(pixelBuffer != NULL);
+    if (pixelBuffer == NULL) {
+        BPLog(@"Failed to run convolutional neural network on frame, the pixel buffer ref is NULL");
+        return;
+    }
     
     OSType sourcePixelFormat = CVPixelBufferGetPixelFormatType(pixelBuffer);
     int doReverseChannels;
@@ -124,7 +116,8 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     } else if (kCVPixelFormatType_32BGRA == sourcePixelFormat) {
         doReverseChannels = 0;
     } else {
-        assert(false);  // Unknown source format
+        BPLog(@"Failed to run convolutional neural network on frame, unknown pixel buffer format");
+        return;
     }
     
     const int sourceRowBytes = (int)CVPixelBufferGetBytesPerRow(pixelBuffer);
@@ -148,7 +141,10 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     }
     const int image_channels = 4;
     
-    assert(image_channels >= wanted_input_channels);
+    if (image_channels < wanted_input_channels) {
+        BPLog(@"Failed to run convolutional neural network on frame, number of image channels: %d is smaller than number of wanted input channels: %d", image_channels, wanted_input_channels);
+        return;
+    }
     tensorflow::Tensor image_tensor(
                                     tensorflow::DT_FLOAT,
                                     tensorflow::TensorShape(
@@ -177,7 +173,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         tensorflow::Status run_status = tf_session->Run(
                                                         {{input_layer_name, image_tensor}}, {output_layer_name}, {}, &outputs);
         if (!run_status.ok()) {
-            LOG(ERROR) << "Running model failed:" << run_status;
+            BPLog(@"Running model failed, status: %s", run_status.ToString().c_str());
         } else {
             tensorflow::Tensor *output = &outputs[0];
             auto predictions = output->flat<float>();
@@ -198,15 +194,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         }
     }
     CVPixelBufferUnlockBaseAddress(pixelBuffer, 0);
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:
-(UIInterfaceOrientation)interfaceOrientation {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-- (BOOL)prefersStatusBarHidden {
-    return YES;
 }
 
 - (void)setPredictionValues:(NSDictionary *)newValues {

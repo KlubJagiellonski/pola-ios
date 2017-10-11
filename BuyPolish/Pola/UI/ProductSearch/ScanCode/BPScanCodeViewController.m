@@ -380,9 +380,6 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 #pragma mark - BPImageRecognitionManagerDelegate
 
 - (void)imageRecognitionManagerCandidateLabels:(NSArray<NSString *> *)labels withPredictionValues:(NSArray<NSNumber *> *)values {
-    for(int i=0; i<labels.count; ++i) {
-        NSLog(@"label: %@, value: %@", labels[i], values[i]);
-    }
     [self.castView updateImageRecognitionLabelsWithNames:labels predictionValues:values];
 }
 
