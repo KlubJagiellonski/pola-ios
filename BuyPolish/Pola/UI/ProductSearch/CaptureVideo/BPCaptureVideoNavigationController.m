@@ -44,13 +44,13 @@
 }
 
 - (void)captureVideoInstructionViewControllerWantsDismiss:(BPCaptureVideoInstructionViewController *)viewController {
-    [self.captureDelegate captureVideoNavigationControllerWantsDismiss:self];
+    [self.captureDelegate captureVideoNavigationController:self wantsDismissWithSuccess:false];
 }
 
 #pragma mark - BPCaptureVideoViewControllerDelegate
 
-- (void)captureVideoViewControllerWantsDismiss:(BPCaptureVideoViewController *)viewController {
-    [self.captureDelegate captureVideoNavigationControllerWantsDismiss:self];
+- (void)captureVideoViewController:(BPCaptureVideoViewController *)viewController wantsDismissWithSuccess:(BOOL)success {
+    [self.captureDelegate captureVideoNavigationController:self wantsDismissWithSuccess:success];
 }
 
 @end

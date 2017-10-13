@@ -13,6 +13,4 @@
                 completion:(void (^)(NSError *))completion
              dispatchQueue:(NSOperationQueue *)dispatchQueue;
 
-- (BOOL)didUploadImagesForProductID:(NSNumber *)productID;
-
 @end
