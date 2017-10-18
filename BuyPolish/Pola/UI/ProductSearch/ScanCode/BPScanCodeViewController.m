@@ -166,14 +166,8 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification,
                                     cardView.titleLabel);
     
-    [self updateTeachPolaButton];
-}
-
-- (void)updateTeachPolaButton {
-    BPScanResult *lastScanResult = self.barcodeToProductResult[self.lastBardcodeScanned];
-    BOOL uploaded = [self.uploadManager didUploadImagesForProductID:lastScanResult.productId];
-    BOOL visible = lastScanResult.askForPics && !uploaded;
-    [self.castView updateTeachButtonWithVisible: visible title: lastScanResult.askForPicsPreview cardsHeight: self.castView.cardsHeight];
+    BOOL visible = productResult.askForPics;
+    [self.castView updateTeachButtonWithVisible:visible title:productResult.askForPicsPreview cardsHeight: self.castView.cardsHeight];
 }
 
 - (void)showReportProblem:(NSString *)barcode productId:(NSNumber *)productId {
@@ -334,7 +328,6 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 
 - (void)stackView:(BPStackView *)stackView willAddCard:(UIView *)cardView {
     [self.castView updateTeachButtonWithVisible:NO title:nil cardsHeight:0.0];
-    [self.castView.teachButton setHidden:YES];
 }
 
 - (void)stackView:(BPStackView *)stackView didRemoveCard:(UIView *)cardView {
@@ -388,8 +381,10 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 
 #pragma mark - BPCaptureVideoNavigationControllerDelegate
 
-- (void)captureVideoNavigationControllerWantsDismiss:(BPCaptureVideoNavigationController *)viewController {
-    [self updateTeachPolaButton];
+- (void)captureVideoNavigationController:(BPCaptureVideoNavigationController *)controller wantsDismissWithSuccess:(BOOL)success {
+    if (success) {
+        [self.castView updateTeachButtonWithVisible:NO title:nil cardsHeight:0.0];
+    }
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

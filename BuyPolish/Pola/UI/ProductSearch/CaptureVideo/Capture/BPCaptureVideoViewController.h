@@ -8,7 +8,7 @@
 
 @protocol BPCaptureVideoViewControllerDelegate <NSObject>
 
-- (void)captureVideoViewControllerWantsDismiss:(BPCaptureVideoViewController *)viewController;
+- (void)captureVideoViewController:(BPCaptureVideoViewController *)viewController wantsDismissWithSuccess:(BOOL)success;
 
 @end
 

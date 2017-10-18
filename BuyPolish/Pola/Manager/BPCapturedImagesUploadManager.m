@@ -22,8 +22,6 @@ objection_requires_sel(@selector(taskRunner), @selector(apiAccessor), @selector(
                   progress:(void (^)(BPCapturedImageResult *, NSError *))progress
                 completion:(void (^)(NSError *))completion
              dispatchQueue:(NSOperationQueue *)dispatchQueue {
-    // first mark iamges for that product id as uploaded
-    [self setUploadedImagesForProductID:imagesData.productID uploaded:YES];
     
     [self beginBackgroundUpdateTaskForTimestamp:timestamp imagesCount:imagesData.filesCount.intValue];
     
@@ -35,7 +33,6 @@ objection_requires_sel(@selector(taskRunner), @selector(apiAccessor), @selector(
         
         if (error) {
             [strongSelf.imageManager removeImagesDataForCaptureSessionTimestamp:timestamp imageCount:imagesData.filesCount.intValue];
-            [strongSelf setUploadedImagesForProductID:imagesData.productID uploaded:NO];
         }
         
         completion(error);
@@ -118,24 +115,6 @@ objection_requires_sel(@selector(taskRunner), @selector(apiAccessor), @selector(
         
         self.backgroundTaskIdentifier = UIBackgroundTaskInvalid;
     }
-}
-
-#pragma mark - NSUserDefaults
-
-- (NSString *)userDefaultsKeyForProductID:(NSNumber *)productID {
-    return productID.stringValue;
-}
-
-- (void)setUploadedImagesForProductID:(NSNumber *)productID uploaded:(BOOL)uploaded {
-    if (uploaded) {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:[self userDefaultsKeyForProductID:productID]];
-    } else {
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:[self userDefaultsKeyForProductID:productID]];
-    }
-}
-
-- (BOOL)didUploadImagesForProductID:(NSNumber *)productID {
-    return [[NSUserDefaults standardUserDefaults] boolForKey: [self userDefaultsKeyForProductID:productID]];
 }
 
 @end

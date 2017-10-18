@@ -143,7 +143,7 @@ objection_initializer_sel(@selector(initWithScanResult:))
         } else {
             [KVNProgress showSuccessWithStatus:NSLocalizedString(@"CaptureVideo.Thanks", nil)];
         }
-        [strongSelf.delegate captureVideoViewControllerWantsDismiss:strongSelf];
+        [strongSelf.delegate captureVideoViewController:strongSelf wantsDismissWithSuccess:true];
     };
     
     [self.uploadManager sendImagesWithData:imagesData captureSessionTimestamp:self.sessionTimestamp progress:progress completion:completion dispatchQueue:[NSOperationQueue mainQueue]];
@@ -152,7 +152,7 @@ objection_initializer_sel(@selector(initWithScanResult:))
 #pragma mark - BPCaptureVideoViewDelegate
 
 - (void)captureVideoViewDidTapClose:(BPCaptureVideoView *)view {
-    [self.delegate captureVideoViewControllerWantsDismiss:self];
+    [self.delegate captureVideoViewController:self wantsDismissWithSuccess:false];
 }
 
 - (void)captureVideoViewDidTapStart:(BPCaptureVideoView *)view {
