@@ -19,6 +19,13 @@
     return [self.flashlight isTorchAvailable] && [self.flashlight isTorchModeSupported:AVCaptureTorchModeOn];
 }
 
++ (NSSet<NSString *> *)keyPathsForValuesAffectingIsOn {
+    NSString *flashlightSel = NSStringFromSelector(@selector(flashlight));
+    NSString *torchModeSel = NSStringFromSelector(@selector(torchMode));
+    NSString *compoundSel = [NSString stringWithFormat:@"%@.%@", flashlightSel, torchModeSel];
+    return [NSSet setWithObject:compoundSel];
+}
+
 - (BOOL)isOn {
     return self.flashlight.torchMode == AVCaptureTorchModeOn;
 }

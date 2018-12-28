@@ -71,8 +71,11 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 
     self.castView.videoLayer = self.cameraSessionManager.videoPreviewLayer;
     [self.cameraSessionManager start];
-
-    [self updateFlashlightButton];
+    
+    [self.flashlightManager addObserver:self
+                             forKeyPath:NSStringFromSelector(@selector(isOn))
+                                options:NSKeyValueObservingOptionInitial
+                                context:nil];
 
 //    [self didFindBarcode:@"5900396019813"];
 //    [self performSelector:@selector(didFindBarcode:) withObject:@"5901234123457" afterDelay:1.5f];
@@ -83,6 +86,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [self.cameraSessionManager stop];
+    [self.flashlightManager removeObserver:self forKeyPath:NSStringFromSelector(@selector(isOn))];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -214,8 +218,6 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     [self.flashlightManager toggleWithCompletionBlock:^(BOOL success) {
         //TODO: Add error message after consultation with UX
     }];
-
-    [self updateFlashlightButton];
 }
 
 - (void)updateFlashlightButton {
@@ -249,6 +251,17 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
         [self.castView setInfoTextVisible:NO];
         AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
         self.lastBardcodeScanned = barcode;
+    }
+}
+
+#pragma mark - Key-Value Observing
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary<NSKeyValueChangeKey,id> *)change
+                       context:(void *)context {
+    if (object == self.flashlightManager && keyPath == NSStringFromSelector(@selector(isOn))) {
+        [self updateFlashlightButton];
     }
 }
 
