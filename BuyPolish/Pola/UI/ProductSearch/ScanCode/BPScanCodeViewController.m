@@ -267,6 +267,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
         self.castView.infoTextLabel.alpha = self.castView.stackView.cardCount > 0 ? 0.0 : 1.0;
         self.castView.rectangleView.alpha = 1.0;
         self.castView.stackView.alpha = 1.0;
+        self.castView.teachButton.alpha = 1.0;
         self.keyboardViewController.view.alpha = 0.0;
     } completion:^(BOOL finished) {
         [self.keyboardViewController.view removeFromSuperview];
@@ -301,6 +302,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 
         self.castView.rectangleView.alpha = 0.0;
         self.castView.stackView.alpha = 0.0;
+        self.castView.teachButton.alpha = 0.0;
     } completion:^(BOOL finished) {
         [self.keyboardViewController didMoveToParentViewController:self];
     }];
