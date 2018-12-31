@@ -12,7 +12,7 @@
 NSString *const ABOUT_APP_STORE_APP_URL = @"itms-apps://itunes.apple.com/app/id1038401148";
 NSString *const ABOUT_FACEBOOK_URL = @"https://www.facebook.com/app.pola";
 NSString *const ABOUT_TWITTER_URL = @"https://twitter.com/pola_app";
-NSString *const ABOUT_MAIL = @"kontakt@pola-app.pl";
+NSString *const ABOUT_MAIL = @"aplikacja.pola@gmail.com";
 
 CGFloat const TABLE_HEADER_HEIGHT = 16.0f;
 CGFloat const CELL_HEIGHT = 49;
