@@ -6,6 +6,7 @@
 #import "BPDeviceHelper.h"
 #import "BPCapturedImagesUploadManager.h"
 #import "KVNProgress.h"
+#import <Pola-Swift.h>
 
 const int INITIAL_TIMER_SEC = 6;
 
@@ -142,6 +143,7 @@ objection_initializer_sel(@selector(initWithScanResult:))
             [KVNProgress showErrorWithStatus:NSLocalizedString(@"CaptureVideo.Failed", nil)];
         } else {
             [KVNProgress showSuccessWithStatus:NSLocalizedString(@"CaptureVideo.Thanks", nil)];
+            [BPAnalyticsHelper teachReportSent:self.scanResult.code];
         }
         [strongSelf.delegate captureVideoViewController:strongSelf wantsDismissWithSuccess:true];
     };

@@ -5,13 +5,13 @@
 #import "BPTaskRunner.h"
 #import "UIAlertView+BPUtilities.h"
 #import "NSString+BPUtilities.h"
-#import "BPAnalyticsHelper.h"
 #import "BPFlashlightManager.h"
 #import "BPKeyboardViewController.h"
 #import "BPCaptureVideoNavigationController.h"
 #import "BPScanResult.h"
 #import "BPCapturedImagesUploadManager.h"
 #import "BPCapturedImageResult.h"
+#import <Pola-Swift.h>
 
 static NSTimeInterval const kAnimationTime = 0.15;
 
@@ -180,8 +180,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 }
 
 - (void)showCaptureVideoWithScanResult:(BPScanResult *)scanResult {
-    // TODO: analytics event: capture video navigation controller shown (or seperate events: instruction view shown, capture view shown)
-    
+    [BPAnalyticsHelper teachReportShow:self.lastBardcodeScanned];
     BPCaptureVideoNavigationController *captureVideoNavigationController = [[BPCaptureVideoNavigationController alloc] initWithScanResult: scanResult];
     captureVideoNavigationController.captureDelegate = self;
     [self presentViewController:captureVideoNavigationController animated:YES completion:nil];

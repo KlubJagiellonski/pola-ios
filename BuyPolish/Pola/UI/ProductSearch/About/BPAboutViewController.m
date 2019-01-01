@@ -4,10 +4,10 @@
 #import "BPAboutViewControllerDoubleCell.h"
 #import "BPWebAboutRow.h"
 #import "BPDoubleAboutRow.h"
-#import "BPAnalyticsHelper.h"
 #import "BPDeviceHelper.h"
 #import "BPTheme.h"
 #import "BPAboutFooterView.h"
+#import <Pola-Swift.h>
 
 NSString *const ABOUT_APP_STORE_APP_URL = @"itms-apps://itunes.apple.com/app/id1038401148";
 NSString *const ABOUT_FACEBOOK_URL = @"https://www.facebook.com/app.pola";
