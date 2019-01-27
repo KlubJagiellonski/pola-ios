@@ -1,9 +1,8 @@
-#import <Objection/JSObjectionInjector.h>
 #import "BPAboutNavigationController.h"
-#import "JSObjection.h"
 #import "BPAboutViewController.h"
 #import "BPAboutWebViewController.h"
 
+@import Objection;
 
 @implementation BPAboutNavigationController
 

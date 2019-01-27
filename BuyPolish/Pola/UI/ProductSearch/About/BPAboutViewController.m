@@ -1,4 +1,3 @@
-#import <Objection/JSObjection.h>
 #import "BPAboutViewController.h"
 #import "BPAboutViewControllerSingleCell.h"
 #import "BPAboutViewControllerDoubleCell.h"
@@ -8,6 +7,8 @@
 #import "BPDeviceHelper.h"
 #import "BPTheme.h"
 #import "BPAboutFooterView.h"
+
+@import Objection;
 
 NSString *const ABOUT_APP_STORE_APP_URL = @"itms-apps://itunes.apple.com/app/id1038401148";
 NSString *const ABOUT_FACEBOOK_URL = @"https://www.facebook.com/app.pola";

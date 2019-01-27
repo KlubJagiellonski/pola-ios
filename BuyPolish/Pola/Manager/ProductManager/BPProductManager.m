@@ -1,4 +1,3 @@
-#import "Objection.h"
 #import "BPProductManager.h"
 #import "BPScanResult.h"
 #import "BPTaskRunner.h"
@@ -7,6 +6,7 @@
 #import "BPScanResult+Utilities.h"
 #import "BPAPIAccessor+BPScan.h"
 
+@import Objection;
 
 @interface BPProductManager ()
 

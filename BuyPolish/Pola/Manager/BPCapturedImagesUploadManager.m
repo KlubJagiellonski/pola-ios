@@ -1,8 +1,9 @@
-#import <Objection/Objection.h>
 #import "BPCapturedImagesUploadManager.h"
 #import "BPAPIAccessor+BPCapturedImagesData.h"
 #import "BPTaskRunner.h"
 #import "BPTask.h"
+
+@import Objection;
 
 @interface BPCapturedImagesUploadManager ()
 
