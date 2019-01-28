@@ -32,3 +32,4 @@ PR może być tylko zmergowany gdy:
 * Został zaakceptowany przez opiekuna.
 * Wszystkie komentarze zostały zamknięte/zakończone.
 * Branch odchodzi od najnowszego master.
+* Zmiany zostały pomyślnie zbudowane i przetestowane przez serwer [CI](https://travis-ci.org/KlubJagiellonski/pola-ios).
