@@ -1,4 +1,3 @@
-#import <Objection/Objection.h>
 #import "BPReportManager.h"
 #import "BPTaskRunner.h"
 #import "BPAPIAccessor.h"
@@ -6,6 +5,8 @@
 #import "BPReport.h"
 #import "BPTask.h"
 #import "BPReportResult.h"
+
+@import Objection;
 
 @interface BPReportManager ()
 

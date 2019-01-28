@@ -1,4 +1,3 @@
-#import <Objection/Objection.h>
 #import "BPScanCodeViewController.h"
 #import "BPScanCodeView.h"
 #import "BPProductManager.h"
@@ -12,6 +11,8 @@
 #import "BPScanResult.h"
 #import "BPCapturedImagesUploadManager.h"
 #import "BPCapturedImageResult.h"
+
+@import Objection;
 
 static NSTimeInterval const kAnimationTime = 0.15;
 

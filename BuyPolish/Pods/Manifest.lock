@@ -34,7 +34,7 @@ PODS:
   - KVNProgress (2.2.2)
   - Objection (1.4)
   - PLVisualAttributeConstraints (1.0.1)
-  - UITextView+Placeholder (1.1.1)
+  - "UITextView+Placeholder (1.1.1)"
 
 DEPENDENCIES:
   - AFNetworking (= 2.3.1)
@@ -45,7 +45,19 @@ DEPENDENCIES:
   - KVNProgress
   - Objection (= 1.4)
   - PLVisualAttributeConstraints (= 1.0.1)
-  - UITextView+Placeholder
+  - "UITextView+Placeholder"
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - AFNetworking
+    - BNRDynamicTypeManager
+    - Crashlytics
+    - Fabric
+    - iOS-Hierarchy-Viewer
+    - KVNProgress
+    - Objection
+    - PLVisualAttributeConstraints
+    - "UITextView+Placeholder"
 
 SPEC CHECKSUMS:
   AFNetworking: 05b9f6e3aa5ac45bc383b4bb108ef338080a26c7
@@ -56,6 +68,8 @@ SPEC CHECKSUMS:
   KVNProgress: 4697347e21e37fdaa5264ebc24e377c205a50328
   Objection: aa9875dbf1b121a077f7e13d504a6ed01816a7f1
   PLVisualAttributeConstraints: 9ab247e576b464335f32587ad6c20adfaf7e6d5d
-  UITextView+Placeholder: a6fc3e0378f3870036ec562a7537cbf6dbae4bf6
+  "UITextView+Placeholder": a6fc3e0378f3870036ec562a7537cbf6dbae4bf6
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: 9ab6c1f2459910d25a8efacdf1ee46f14426f337
+
+COCOAPODS: 1.5.3

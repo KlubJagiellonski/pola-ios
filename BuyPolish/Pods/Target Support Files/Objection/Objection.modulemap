@@ -1,0 +1,6 @@
+framework module Objection {
+  umbrella header "Objection-umbrella.h"
+
+  export *
+  module * { export * }
+}

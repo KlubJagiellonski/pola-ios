@@ -1,7 +1,7 @@
-#import <Objection/JSObjection.h>
 #import "BPRootViewController.h"
 #import "BPScanCodeViewController.h"
 
+@import Objection;
 
 @implementation BPRootViewController
 
