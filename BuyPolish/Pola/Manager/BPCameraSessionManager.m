@@ -1,8 +1,8 @@
-#import <AVFoundation/AVFoundation.h>
-#import <Objection/Objection.h>
 #import "BPCameraSessionManager.h"
 #import "BPProductImageManager.h"
 
+@import AVFoundation;
+@import Objection;
 
 @interface BPCameraSessionManager ()
 @property(nonatomic, readonly) BPProductImageManager *imageManager;

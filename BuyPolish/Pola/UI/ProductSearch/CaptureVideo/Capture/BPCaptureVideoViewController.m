@@ -1,4 +1,3 @@
-#import <Objection/Objection.h>
 #import "BPCaptureVideoViewController.h"
 #import "BPCapturedImageManager.h"
 #import "UIImage+Scaling.h"
@@ -7,6 +6,8 @@
 #import "BPCapturedImagesUploadManager.h"
 #import "KVNProgress.h"
 #import <Pola-Swift.h>
+
+@import Objection;
 
 const int INITIAL_TIMER_SEC = 6;
 

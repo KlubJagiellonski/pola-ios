@@ -1,5 +1,6 @@
-#import <Objection/Objection.h>
 #import "BPCaptureVideoManager.h"
+
+@import Objection;
 
 @interface BPCaptureVideoManager ()
 @property(nonatomic) dispatch_queue_t videoDataOutputQueue;

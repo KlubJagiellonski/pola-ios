@@ -1,4 +1,3 @@
-#import <Objection/Objection.h>
 #import "BPScanCodeViewController.h"
 #import "BPScanCodeView.h"
 #import "BPProductManager.h"
@@ -12,6 +11,8 @@
 #import "BPCapturedImagesUploadManager.h"
 #import "BPCapturedImageResult.h"
 #import <Pola-Swift.h>
+
+@import Objection;
 
 static NSTimeInterval const kAnimationTime = 0.15;
 
@@ -71,8 +72,11 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 
     self.castView.videoLayer = self.cameraSessionManager.videoPreviewLayer;
     [self.cameraSessionManager start];
-
-    [self updateFlashlightButton];
+    
+    [self.flashlightManager addObserver:self
+                             forKeyPath:NSStringFromSelector(@selector(isOn))
+                                options:NSKeyValueObservingOptionInitial
+                                context:nil];
 
 //    [self didFindBarcode:@"5900396019813"];
 //    [self performSelector:@selector(didFindBarcode:) withObject:@"5901234123457" afterDelay:1.5f];
@@ -83,6 +87,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [self.cameraSessionManager stop];
+    [self.flashlightManager removeObserver:self forKeyPath:NSStringFromSelector(@selector(isOn))];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -213,8 +218,6 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     [self.flashlightManager toggleWithCompletionBlock:^(BOOL success) {
         //TODO: Add error message after consultation with UX
     }];
-
-    [self updateFlashlightButton];
 }
 
 - (void)updateFlashlightButton {
@@ -251,6 +254,17 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     }
 }
 
+#pragma mark - Key-Value Observing
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary<NSKeyValueChangeKey,id> *)change
+                       context:(void *)context {
+    if (object == self.flashlightManager && keyPath == NSStringFromSelector(@selector(isOn))) {
+        [self updateFlashlightButton];
+    }
+}
+
 #pragma mark - Keyboard Controller
 
 - (void) hideKeyboardController {
@@ -266,6 +280,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
         self.castView.infoTextLabel.alpha = self.castView.stackView.cardCount > 0 ? 0.0 : 1.0;
         self.castView.rectangleView.alpha = 1.0;
         self.castView.stackView.alpha = 1.0;
+        self.castView.teachButton.alpha = 1.0;
         self.keyboardViewController.view.alpha = 0.0;
     } completion:^(BOOL finished) {
         [self.keyboardViewController.view removeFromSuperview];
@@ -300,6 +315,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 
         self.castView.rectangleView.alpha = 0.0;
         self.castView.stackView.alpha = 0.0;
+        self.castView.teachButton.alpha = 0.0;
     } completion:^(BOOL finished) {
         [self.keyboardViewController didMoveToParentViewController:self];
     }];

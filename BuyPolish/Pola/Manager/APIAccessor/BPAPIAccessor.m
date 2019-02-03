@@ -1,9 +1,10 @@
-#import <Objection/Objection.h>
 #import "BPAPIAccessor.h"
 #import "AFHTTPRequestOperation.h"
 #import "BPAPIResponse.h"
 #import "NSDictionary+BPJSON.h"
 #import "BPDeviceHelper.h"
+
+@import Objection;
 
 //NSString *const BPAPIAccessorAPIServerUrl = @"https://www.pola-app.pl/a";
 //NSString *const BPAPIAccessorAPIServerUrl = @"https://www.pola-app.pl/a/v2";

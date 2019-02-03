@@ -1,6 +1,7 @@
-#import <Objection/Objection.h>
 #import "BPCaptureVideoNavigationController.h"
 #import "BPCaptureVideoInstructionViewController.h"
+
+@import Objection;
 
 @interface BPCaptureVideoNavigationController ()
 @property(nonatomic, readonly) BPScanResult *scanResult;

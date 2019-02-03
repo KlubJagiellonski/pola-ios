@@ -56,6 +56,11 @@
       "idiom" : "iphone",
       "filename" : "Pola_ic_app_180 (1).png",
       "scale" : "3x"
+    },
+    {
+      "idiom" : "ios-marketing",
+      "size" : "1024x1024",
+      "scale" : "1x"
     }
   ],
   "info" : {

@@ -1,4 +1,3 @@
-#import <Objection/Objection.h>
 #import "BPReportProblemViewController.h"
 #import "BPProductImageManager.h"
 #import "BPReportProblemView.h"
@@ -7,6 +6,8 @@
 #import "BPReportResult.h"
 #import "KVNProgress.h"
 #import <Pola-Swift.h>
+
+@import Objection;
 
 @interface BPReportProblemViewController ()
 @property(nonatomic) BPProductImageManager *productImageManager;

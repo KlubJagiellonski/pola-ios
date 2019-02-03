@@ -1,6 +1,7 @@
-#import <Objection/Objection.h>
 #import "BPCaptureVideoInstructionViewController.h"
 #import "BPCaptureVideoInstructionView.h"
+
+@import Objection;
 
 @interface BPCaptureVideoInstructionViewController ()
 
