@@ -821,7 +821,8 @@
 				1D08E81F19A7621A00879BD2 /* Sources */,
 				1D08E82019A7621A00879BD2 /* Frameworks */,
 				1D08E82119A7621A00879BD2 /* Resources */,
-				1D648C101A71B46D002B413D /* Run Script */,
+				1D648C101A71B46D002B413D /* Fabric */,
+				9E561AA022079124009E661A /* Check GoogleService-Info.plist */,
 				B8E951CAEAFD050F490B8BB7 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
@@ -919,19 +920,37 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1D648C101A71B46D002B413D /* Run Script */ = {
+		1D648C101A71B46D002B413D /* Fabric */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Run Script";
+			name = Fabric;
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" 6a4f6710db1c4c62907f73a43eb5e68675cd2c7a $POLA_FABRIC_PRIVATE_KEY\n";
+		};
+		9E561AA022079124009E661A /* Check GoogleService-Info.plist */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Check GoogleService-Info.plist";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \"${CONFIGURATION}\" = \"Release\" ]; then\n    if [ ! -f \"${PROJECT_DIR}/Pola/GoogleService-Info.plist\" ]; then\n        echo \"error: Add GoogleService-Info.plist to project before release!\" >&2\n        exit 1\n    fi\nfi\n";
 		};
 		B8E951CAEAFD050F490B8BB7 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
