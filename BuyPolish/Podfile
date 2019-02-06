@@ -10,8 +10,9 @@ target :Pola do
     pod 'iOS-Hierarchy-Viewer', '1.4.7'
     pod 'PLVisualAttributeConstraints', '1.0.1'
     pod 'BNRDynamicTypeManager', '0.1.0'
-    pod 'Fabric', '~> 1.5.5'
-    pod 'Crashlytics', '~> 3.3.4'
+    pod 'Fabric', '~> 1.9.0'
+    pod 'Crashlytics', '~> 3.12.0'
+    pod 'Firebase/Core'
     pod 'UITextView+Placeholder'
     pod 'KVNProgress'
 end

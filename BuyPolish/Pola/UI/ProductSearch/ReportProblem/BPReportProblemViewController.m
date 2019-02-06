@@ -5,7 +5,7 @@
 #import "BPReport.h"
 #import "BPReportResult.h"
 #import "KVNProgress.h"
-#import "BPAnalyticsHelper.h"
+#import <Pola-Swift.h>
 
 @import Objection;
 
@@ -97,7 +97,7 @@ objection_requires_sel(@selector(productImageManager), @selector(reportManager),
         strongify()
         if (result.state == REPORT_STATE_FINSIHED && error == nil) {
             [KVNProgress showSuccessWithStatus:NSLocalizedString(@"Report sent", nil)];
-            [BPAnalyticsHelper reportSent:self.barcode success:YES];
+            [BPAnalyticsHelper reportSent:self.barcode];
             [strongSelf.delegate reportProblem:strongSelf finishedWithResult:YES];
         } else if (error != nil) {
             [KVNProgress showErrorWithStatus:NSLocalizedString(@"Error occured", nil)];

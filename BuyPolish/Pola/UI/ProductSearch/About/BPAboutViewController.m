@@ -3,10 +3,10 @@
 #import "BPAboutViewControllerDoubleCell.h"
 #import "BPWebAboutRow.h"
 #import "BPDoubleAboutRow.h"
-#import "BPAnalyticsHelper.h"
 #import "BPDeviceHelper.h"
 #import "BPTheme.h"
 #import "BPAboutFooterView.h"
+#import <Pola-Swift.h>
 
 @import Objection;
 

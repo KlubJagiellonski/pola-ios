@@ -5,16 +5,15 @@
 #import "BPRootViewController.h"
 #import "BPTheme.h"
 #import "iOSHierarchyViewer.h"
-#import <Fabric/Fabric.h>
-#import <Crashlytics/Crashlytics.h>
 #import <AVFoundation/AVFoundation.h>
+#import <Pola-Swift.h>
 
 
 @implementation BPAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [Fabric with:@[CrashlyticsKit]];
 
+    [BPAnalyticsHelper configure];
     [self configureObjection];
 
     [self applyAppearance];

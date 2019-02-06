@@ -66,7 +66,6 @@
 		37B648580AB2106E285B58C2 /* BPReportProblemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B644E893F9831BEB40A125 /* BPReportProblemViewController.m */; };
 		37B648D280BBB1A95E85962E /* BPSecondaryProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64C3D23F4E691A0CDACA0 /* BPSecondaryProgressView.m */; };
 		37B6498848E97978409489A6 /* NSDictionary+BPJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64059D45CBC595213920F /* NSDictionary+BPJSON.m */; };
-		37B6498E15B68A84069DD3A5 /* BPAnalyticsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B641F70BCE669CF5019BB7 /* BPAnalyticsHelper.m */; };
 		37B649B3937D6158B554F509 /* BPObjectionModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64DFDBDE3A5CEE19D6FDB /* BPObjectionModule.m */; };
 		37B649B71B7F59A1741CD9B7 /* BPScanResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6413AB46D8FAC81D1E72B /* BPScanResult.m */; };
 		37B649CC5A32714DBC4E9751 /* BPCompanyContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64D7A776137D18AFDB329 /* BPCompanyContentView.m */; };
@@ -93,9 +92,13 @@
 		83AFDE8E1F0D415C00608235 /* BPCaptureVideoNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AFDE8D1F0D415C00608235 /* BPCaptureVideoNavigationController.m */; };
 		83AFDE971F0D4CE200608235 /* BPCaptureVideoInstructionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AFDE961F0D4CE200608235 /* BPCaptureVideoInstructionViewController.m */; };
 		83AFDE9A1F0D4E9300608235 /* BPCaptureVideoInstructionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AFDE991F0D4E9300608235 /* BPCaptureVideoInstructionView.m */; };
-		9C0DC2E5130F6083E52EF185 /* Pods_Pola.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 114A2C8693B0815B783B846F /* Pods_Pola.framework */; };
+		952A03CA6AD72648FFC902C3 /* Pods_Pola.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B15F0FD326ED5D11627C5ED8 /* Pods_Pola.framework */; };
 		ABCA9D8499A8FF36227B6C94 /* UIApplication+BPStatusBarHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCA997979B62F78CFCB7E19 /* UIApplication+BPStatusBarHeight.m */; };
-		BDA76B3521D7BB3E003E9FD6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BDA76B3421D7BB3E003E9FD6 /* LaunchScreen.storyboard */; };
+		BDA76B5121DCD718003E9FD6 /* Encodable+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA76B5021DCD718003E9FD6 /* Encodable+Utilities.swift */; };
+		BDA76B5A21DE6248003E9FD6 /* AnalyticsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA76B5921DE6248003E9FD6 /* AnalyticsHelper.swift */; };
+		BDA76B5C21DE64AB003E9FD6 /* AnalyticsEventName.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA76B5B21DE64AB003E9FD6 /* AnalyticsEventName.swift */; };
+		BDA76B5E21DE64FD003E9FD6 /* AnalyticsParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA76B5D21DE64FD003E9FD6 /* AnalyticsParameters.swift */; };
+		BDA76B6621DFDD04003E9FD6 /* Encodable_DictionaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA76B6521DFDD04003E9FD6 /* Encodable_DictionaryTests.swift */; };
 		C06EE3351F20D24E005B2B57 /* BPAPIAccessor+BPCapturedImagesData.m in Sources */ = {isa = PBXBuildFile; fileRef = C06EE3341F20D24E005B2B57 /* BPAPIAccessor+BPCapturedImagesData.m */; };
 		C06EE3391F20D6F5005B2B57 /* BPCapturedImagesUploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C06EE3381F20D6F5005B2B57 /* BPCapturedImagesUploadManager.m */; };
 		C082C8B51F22ACBA0026AE11 /* BPCapturedImageResult.m in Sources */ = {isa = PBXBuildFile; fileRef = C082C8B41F22ACBA0026AE11 /* BPCapturedImageResult.m */; };
@@ -119,8 +122,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		090327C3542032C51D3ABF57 /* Pods-Pola.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pola/Pods-Pola.release.xcconfig"; sourceTree = "<group>"; };
-		114A2C8693B0815B783B846F /* Pods_Pola.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pola.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D08E82319A7621A00879BD2 /* Pola.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pola.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D08E82619A7621A00879BD2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D08E82819A7621A00879BD2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -163,6 +164,7 @@
 		3784331D1C739035008E392B /* BPAboutViewControllerDoubleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPAboutViewControllerDoubleCell.m; sourceTree = "<group>"; };
 		3784331F1C7398C0008E392B /* BPAboutViewControllerBaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPAboutViewControllerBaseCell.h; sourceTree = "<group>"; };
 		378433201C7398C0008E392B /* BPAboutViewControllerBaseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPAboutViewControllerBaseCell.m; sourceTree = "<group>"; };
+		3785987405128CA0B1DA9512 /* Pods-Pola.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pola/Pods-Pola.release.xcconfig"; sourceTree = "<group>"; };
 		37B640107A226F2F1B7CAA9D /* BPAboutWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPAboutWebViewController.m; sourceTree = "<group>"; };
 		37B6403303FCD733D9C39863 /* BPKeyboardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPKeyboardManager.h; sourceTree = "<group>"; };
 		37B6403F99127A3C286EA24E /* BPReportProblemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPReportProblemView.m; sourceTree = "<group>"; };
@@ -176,7 +178,6 @@
 		37B64109D5EC518C82C8EA7C /* BPActivityIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPActivityIndicatorView.m; sourceTree = "<group>"; };
 		37B6413AB46D8FAC81D1E72B /* BPScanResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPScanResult.m; sourceTree = "<group>"; };
 		37B641909EEB29EA6575A880 /* BPCompanyContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPCompanyContentView.h; sourceTree = "<group>"; };
-		37B641F70BCE669CF5019BB7 /* BPAnalyticsHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPAnalyticsHelper.m; sourceTree = "<group>"; };
 		37B6424C5D970C2E8F298AAB /* BPCameraSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPCameraSessionManager.h; sourceTree = "<group>"; };
 		37B6429D71F43AB163A1A626 /* BPProductImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPProductImageManager.h; sourceTree = "<group>"; };
 		37B642B56DC862C60A6F3CE2 /* BPProductManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPProductManager.m; sourceTree = "<group>"; };
@@ -185,7 +186,6 @@
 		37B642D7D5DAFE42076722C5 /* BPAboutRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPAboutRow.h; sourceTree = "<group>"; };
 		37B642E167318B93DB25452C /* NSLayoutConstraint+BPAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLayoutConstraint+BPAdditions.h"; sourceTree = "<group>"; };
 		37B6435C9D1C6649FDEECDB4 /* BPImageContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPImageContainerView.h; sourceTree = "<group>"; };
-		37B6437B106C442B853F8859 /* BPAnalyticsHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPAnalyticsHelper.h; sourceTree = "<group>"; };
 		37B643918AB6D1110984DE93 /* BPImageContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPImageContainerView.m; sourceTree = "<group>"; };
 		37B643AFD35745CD11E280DC /* BPWebAboutRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPWebAboutRow.m; sourceTree = "<group>"; };
 		37B643CE26D1B8399F9EBE5B /* BPObjectionModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPObjectionModule.h; sourceTree = "<group>"; };
@@ -258,7 +258,7 @@
 		37C89AA31C78682200CCE940 /* BPFlashlightManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPFlashlightManager.m; path = Flashlight/BPFlashlightManager.m; sourceTree = "<group>"; };
 		37F16AA21CA1BCCF00A310CF /* BPKeyboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPKeyboardViewController.h; path = Keyboard/BPKeyboardViewController.h; sourceTree = "<group>"; };
 		37F16AA31CA1BCCF00A310CF /* BPKeyboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPKeyboardViewController.m; path = Keyboard/BPKeyboardViewController.m; sourceTree = "<group>"; };
-		568E408E918BBCBB67221064 /* Pods-Pola.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pola/Pods-Pola.debug.xcconfig"; sourceTree = "<group>"; };
+		5310C93A6052FC9BA4E8C020 /* Pods-Pola.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pola/Pods-Pola.debug.xcconfig"; sourceTree = "<group>"; };
 		837E6B8F1F161928001A6A9B /* BPCaptureVideoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BPCaptureVideoViewController.h; sourceTree = "<group>"; };
 		837E6B901F1619FA001A6A9B /* BPCaptureVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPCaptureVideoViewController.m; sourceTree = "<group>"; };
 		837E6B921F161D95001A6A9B /* BPCaptureVideoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BPCaptureVideoView.h; sourceTree = "<group>"; };
@@ -271,7 +271,14 @@
 		83AFDE991F0D4E9300608235 /* BPCaptureVideoInstructionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPCaptureVideoInstructionView.m; path = CaptureVideo/Instruction/BPCaptureVideoInstructionView.m; sourceTree = "<group>"; };
 		ABCA997979B62F78CFCB7E19 /* UIApplication+BPStatusBarHeight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+BPStatusBarHeight.m"; sourceTree = "<group>"; };
 		ABCA9A3E3B8A8B7C925052B6 /* UIApplication+BPStatusBarHeight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+BPStatusBarHeight.h"; sourceTree = "<group>"; };
-		BDA76B3421D7BB3E003E9FD6 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		B15F0FD326ED5D11627C5ED8 /* Pods_Pola.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pola.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BDA76B3A21DC34A3003E9FD6 /* Pola-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pola-Bridging-Header.h"; sourceTree = "<group>"; };
+		BDA76B5021DCD718003E9FD6 /* Encodable+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+Utilities.swift"; sourceTree = "<group>"; };
+		BDA76B5321DCDBD1003E9FD6 /* PolaTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PolaTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		BDA76B5921DE6248003E9FD6 /* AnalyticsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsHelper.swift; sourceTree = "<group>"; };
+		BDA76B5B21DE64AB003E9FD6 /* AnalyticsEventName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsEventName.swift; sourceTree = "<group>"; };
+		BDA76B5D21DE64FD003E9FD6 /* AnalyticsParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsParameters.swift; sourceTree = "<group>"; };
+		BDA76B6521DFDD04003E9FD6 /* Encodable_DictionaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Encodable_DictionaryTests.swift; sourceTree = "<group>"; };
 		C06EE3331F20D230005B2B57 /* BPAPIAccessor+BPCapturedImagesData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BPAPIAccessor+BPCapturedImagesData.h"; sourceTree = "<group>"; };
 		C06EE3341F20D24E005B2B57 /* BPAPIAccessor+BPCapturedImagesData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BPAPIAccessor+BPCapturedImagesData.m"; sourceTree = "<group>"; };
 		C06EE3371F20D6E7005B2B57 /* BPCapturedImagesUploadManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BPCapturedImagesUploadManager.h; sourceTree = "<group>"; };
@@ -305,7 +312,7 @@
 				1D08E82719A7621A00879BD2 /* Foundation.framework in Frameworks */,
 				37B645454FC2ACC155CB1538 /* AVFoundation.framework in Frameworks */,
 				1D648C131A71B483002B413D /* Crashlytics.framework in Frameworks */,
-				9C0DC2E5130F6083E52EF185 /* Pods_Pola.framework in Frameworks */,
+				952A03CA6AD72648FFC902C3 /* Pods_Pola.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -323,15 +330,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1B9117D34082EF1B2E675D75 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				568E408E918BBCBB67221064 /* Pods-Pola.debug.xcconfig */,
-				090327C3542032C51D3ABF57 /* Pods-Pola.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		1D08E81A19A7621A00879BD2 = {
 			isa = PBXGroup;
 			children = (
@@ -339,7 +337,7 @@
 				1D08E84B19A7621A00879BD2 /* PolaTests */,
 				1D08E82519A7621A00879BD2 /* Frameworks */,
 				1D08E82419A7621A00879BD2 /* Products */,
-				1B9117D34082EF1B2E675D75 /* Pods */,
+				7B71219F6F5A578A5DE23F85 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -363,7 +361,7 @@
 				1D08E82C19A7621A00879BD2 /* CoreData.framework */,
 				1D08E84419A7621A00879BD2 /* XCTest.framework */,
 				37B6472FF4603F63771FADE6 /* AVFoundation.framework */,
-				114A2C8693B0815B783B846F /* Pods_Pola.framework */,
+				B15F0FD326ED5D11627C5ED8 /* Pods_Pola.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -380,6 +378,7 @@
 				1D08E83D19A7621A00879BD2 /* Images.xcassets */,
 				1D08E83A19A7621A00879BD2 /* Pola.xcdatamodeld */,
 				1D08E82F19A7621A00879BD2 /* Supporting Files */,
+				BDA76B3A21DC34A3003E9FD6 /* Pola-Bridging-Header.h */,
 			);
 			path = Pola;
 			sourceTree = "<group>";
@@ -396,7 +395,6 @@
 				1D08E83619A7621A00879BD2 /* Pola-Prefix.pch */,
 				37B645C93F848A6F598F96E2 /* Localizable.strings */,
 				C0D829781F3D11A600902F79 /* capture_video_instruction.mov */,
-				BDA76B3421D7BB3E003E9FD6 /* LaunchScreen.storyboard */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -404,8 +402,10 @@
 		1D08E84B19A7621A00879BD2 /* PolaTests */ = {
 			isa = PBXGroup;
 			children = (
+				BDA76B5321DCDBD1003E9FD6 /* PolaTests-Bridging-Header.h */,
 				374B5B891C71C14100E74BBB /* NSDictionary_ParsingTests.m */,
 				1D08E84C19A7621A00879BD2 /* Supporting Files */,
+				BDA76B6521DFDD04003E9FD6 /* Encodable_DictionaryTests.swift */,
 			);
 			path = PolaTests;
 			sourceTree = "<group>";
@@ -531,8 +531,6 @@
 				37B64B74E1FAED6141BA2B25 /* BPUtilities.m */,
 				37B642C8016B2BC66A308398 /* BPLogger.h */,
 				37B6464528820E718DBABAA5 /* BPLogger.m */,
-				37B6437B106C442B853F8859 /* BPAnalyticsHelper.h */,
-				37B641F70BCE669CF5019BB7 /* BPAnalyticsHelper.m */,
 				37B64D62D6D7E068CB4517A9 /* BPDeviceHelper.h */,
 				37B6453D6C76C627D4F7C568 /* BPDeviceHelper.m */,
 				1D2D50641DC54092000A8958 /* BPExtendedButton.h */,
@@ -577,6 +575,7 @@
 				37B64436419438CB2D3553FF /* UILabel+BPAdditions.h */,
 				C092CF3A1F1F88BD003174D1 /* UIImage+Scaling.h */,
 				C092CF3B1F1F88EE003174D1 /* UIImage+Scaling.m */,
+				BDA76B5021DCD718003E9FD6 /* Encodable+Utilities.swift */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -665,6 +664,7 @@
 		37B64DD9591909AF06832339 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				BDA76B5821DE622E003E9FD6 /* Analytics */,
 				C06EE3361F20D6C0005B2B57 /* CapturedImagesUploadManager */,
 				C092CF351F1F8007003174D1 /* CapturedImageManager */,
 				C0DD0EBB1F1B399D00BF4B20 /* CaptureVideoManager */,
@@ -717,6 +717,15 @@
 			name = Keyboard;
 			sourceTree = "<group>";
 		};
+		7B71219F6F5A578A5DE23F85 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5310C93A6052FC9BA4E8C020 /* Pods-Pola.debug.xcconfig */,
+				3785987405128CA0B1DA9512 /* Pods-Pola.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		83AFDE8C1F0D40E300608235 /* CaptureVideo */ = {
 			isa = PBXGroup;
 			children = (
@@ -750,6 +759,16 @@
 			);
 			name = Capture;
 			path = CaptureVideo/Capture;
+			sourceTree = "<group>";
+		};
+		BDA76B5821DE622E003E9FD6 /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				BDA76B5921DE6248003E9FD6 /* AnalyticsHelper.swift */,
+				BDA76B5B21DE64AB003E9FD6 /* AnalyticsEventName.swift */,
+				BDA76B5D21DE64FD003E9FD6 /* AnalyticsParameters.swift */,
+			);
+			path = Analytics;
 			sourceTree = "<group>";
 		};
 		C06EE3361F20D6C0005B2B57 /* CapturedImagesUploadManager */ = {
@@ -798,12 +817,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1D08E85519A7621A00879BD2 /* Build configuration list for PBXNativeTarget "Pola" */;
 			buildPhases = (
-				0248C92BE8A4A89316614358 /* [CP] Check Pods Manifest.lock */,
+				C5EFE4574C277BC2DEB2579C /* [CP] Check Pods Manifest.lock */,
 				1D08E81F19A7621A00879BD2 /* Sources */,
 				1D08E82019A7621A00879BD2 /* Frameworks */,
 				1D08E82119A7621A00879BD2 /* Resources */,
-				1D648C101A71B46D002B413D /* Run Script */,
-				83A04F5B55E1C0D5AA28AA34 /* [CP] Embed Pods Frameworks */,
+				1D648C101A71B46D002B413D /* Fabric */,
+				9E561AA022079124009E661A /* Check GoogleService-Info.plist */,
+				B8E951CAEAFD050F490B8BB7 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -839,14 +859,16 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = BP;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = PJMS;
 				TargetAttributes = {
 					1D08E82219A7621A00879BD2 = {
 						DevelopmentTeam = 9NBWKG2G3X;
+						LastSwiftMigration = 1010;
 						ProvisioningStyle = Manual;
 					};
 					1D08E84219A7621A00879BD2 = {
+						LastSwiftMigration = 1010;
 						TestTargetID = 1D08E82219A7621A00879BD2;
 					};
 				};
@@ -876,7 +898,6 @@
 			files = (
 				1D08E83319A7621A00879BD2 /* InfoPlist.strings in Resources */,
 				1D08E83E19A7621A00879BD2 /* Images.xcassets in Resources */,
-				BDA76B3521D7BB3E003E9FD6 /* LaunchScreen.storyboard in Resources */,
 				1DEFA1BD1BD9920600938C81 /* Lato-Regular.ttf in Resources */,
 				C0D829791F3D11A600902F79 /* capture_video_instruction.mov in Resources */,
 				37B64B7D226FBFA23FFCA1C1 /* Localizable.strings in Resources */,
@@ -899,7 +920,77 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0248C92BE8A4A89316614358 /* [CP] Check Pods Manifest.lock */ = {
+		1D648C101A71B46D002B413D /* Fabric */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Fabric;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 6a4f6710db1c4c62907f73a43eb5e68675cd2c7a $POLA_FABRIC_PRIVATE_KEY\n";
+		};
+		9E561AA022079124009E661A /* Check GoogleService-Info.plist */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Check GoogleService-Info.plist";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \"${CONFIGURATION}\" = \"Release\" ]; then\n    if [ ! -f \"${PROJECT_DIR}/Pola/GoogleService-Info.plist\" ]; then\n        echo \"error: Add GoogleService-Info.plist to project before release!\" >&2\n        exit 1\n    fi\nfi\n";
+		};
+		B8E951CAEAFD050F490B8BB7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Pola/Pods-Pola-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/BNRDynamicTypeManager/BNRDynamicTypeManager.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/KVNProgress/KVNProgress.framework",
+				"${BUILT_PRODUCTS_DIR}/Objection/Objection.framework",
+				"${BUILT_PRODUCTS_DIR}/PLVisualAttributeConstraints/PLVisualAttributeConstraints.framework",
+				"${BUILT_PRODUCTS_DIR}/UITextView+Placeholder/UITextView_Placeholder.framework",
+				"${BUILT_PRODUCTS_DIR}/iOS-Hierarchy-Viewer/iOS_Hierarchy_Viewer.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BNRDynamicTypeManager.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KVNProgress.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Objection.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PLVisualAttributeConstraints.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITextView_Placeholder.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/iOS_Hierarchy_Viewer.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Pola/Pods-Pola-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C5EFE4574C277BC2DEB2579C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -921,54 +1012,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		1D648C101A71B46D002B413D /* Run Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Run Script";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/Fabric.framework/run\" 6a4f6710db1c4c62907f73a43eb5e68675cd2c7a $POLA_FABRIC_PRIVATE_KEY";
-		};
-		83A04F5B55E1C0D5AA28AA34 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Pola/Pods-Pola-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
-				"${BUILT_PRODUCTS_DIR}/BNRDynamicTypeManager/BNRDynamicTypeManager.framework",
-				"${BUILT_PRODUCTS_DIR}/KVNProgress/KVNProgress.framework",
-				"${BUILT_PRODUCTS_DIR}/Objection/Objection.framework",
-				"${BUILT_PRODUCTS_DIR}/PLVisualAttributeConstraints/PLVisualAttributeConstraints.framework",
-				"${BUILT_PRODUCTS_DIR}/UITextView+Placeholder/UITextView_Placeholder.framework",
-				"${BUILT_PRODUCTS_DIR}/iOS-Hierarchy-Viewer/iOS_Hierarchy_Viewer.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BNRDynamicTypeManager.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KVNProgress.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Objection.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PLVisualAttributeConstraints.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITextView_Placeholder.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/iOS_Hierarchy_Viewer.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Pola/Pods-Pola-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -986,6 +1029,7 @@
 				37F16AA51CA1BCCF00A310CF /* BPKeyboardViewController.m in Sources */,
 				37B646BC2546890EB330F4FD /* BPTask.m in Sources */,
 				3784331E1C739035008E392B /* BPAboutViewControllerDoubleCell.m in Sources */,
+				BDA76B5E21DE64FD003E9FD6 /* AnalyticsParameters.swift in Sources */,
 				37B647E20B1B2E3F5F0ECFA3 /* BPAPIAccessor.m in Sources */,
 				37B64D4617BA6760E8B4101F /* BPAPIAccessor+BPScan.m in Sources */,
 				374B5B8D1C71C15D00E74BBB /* NSDictionary+Parsing.m in Sources */,
@@ -993,6 +1037,7 @@
 				37B64FF08BF5367BF9669B33 /* BPUtilities.m in Sources */,
 				37B64E4A4C23A423A7B102CB /* BPScanResult+Utilities.m in Sources */,
 				37B64F7816B23819A90C0456 /* BPLogger.m in Sources */,
+				BDA76B5A21DE6248003E9FD6 /* AnalyticsHelper.swift in Sources */,
 				37B6498848E97978409489A6 /* NSDictionary+BPJSON.m in Sources */,
 				37B6416E16FEB2AD27BB3D9E /* BPAPIResponse.m in Sources */,
 				37B649B3937D6158B554F509 /* BPObjectionModule.m in Sources */,
@@ -1016,6 +1061,7 @@
 				37B6482F8EF3F11BE5ECEAAB /* BPReportProblemView.m in Sources */,
 				37B64B04E790A7948469FA50 /* BPProductImageManager.m in Sources */,
 				375021841CC0F0F800759140 /* BPKeyboardTextView.m in Sources */,
+				BDA76B5121DCD718003E9FD6 /* Encodable+Utilities.swift in Sources */,
 				C09015821F367C7000E8CC38 /* BPWeakTimerTarget.m in Sources */,
 				37B642E8F1F16F59571A854C /* BPImageContainerView.m in Sources */,
 				1D2D50661DC54092000A8958 /* BPExtendedButton.m in Sources */,
@@ -1025,6 +1071,7 @@
 				37B6403420F94515369E0F06 /* BPReport.m in Sources */,
 				37B644C091A98460F4483418 /* BPReportResult.m in Sources */,
 				37B647F36DC4A91682A0566B /* BPKeyboardManager.m in Sources */,
+				BDA76B5C21DE64AB003E9FD6 /* AnalyticsEventName.swift in Sources */,
 				37B64E4E58C1CE8446137CD1 /* BPCompanyCardView.m in Sources */,
 				37B641B5D6F386E7E2A67DF8 /* BPMainProggressView.m in Sources */,
 				C06EE3391F20D6F5005B2B57 /* BPCapturedImagesUploadManager.m in Sources */,
@@ -1043,7 +1090,6 @@
 				37B647FB39C0F80116FD674D /* BPAboutRow.m in Sources */,
 				C082C8B51F22ACBA0026AE11 /* BPCapturedImageResult.m in Sources */,
 				C092CF391F1F809E003174D1 /* BPCapturedImageManager.m in Sources */,
-				37B6498E15B68A84069DD3A5 /* BPAnalyticsHelper.m in Sources */,
 				37B64D38E60651D383A2F8F7 /* BPDeviceHelper.m in Sources */,
 				37B64A095B01FB6355E7E21E /* BPAboutWebViewController.m in Sources */,
 				371245271CBCEC6600BD0543 /* BPKeyboardView.m in Sources */,
@@ -1058,6 +1104,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				374B5B8A1C71C14100E74BBB /* NSDictionary_ParsingTests.m in Sources */,
+				BDA76B6621DFDD04003E9FD6 /* Encodable_DictionaryTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1184,9 +1231,10 @@
 		};
 		1D08E85619A7621A00879BD2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 568E408E918BBCBB67221064 /* Pods-Pola.debug.xcconfig */;
+			baseConfigurationReference = 5310C93A6052FC9BA4E8C020 /* Pods-Pola.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 9NBWKG2G3X;
@@ -1202,10 +1250,14 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = "Pola/Pola-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kj.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "bce93960-c432-4866-97a1-d6021b8d13e9";
 				PROVISIONING_PROFILE_SPECIFIER = Wildcard;
+				SWIFT_OBJC_BRIDGING_HEADER = "Pola/Pola-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				WRAPPER_EXTENSION = app;
@@ -1214,9 +1266,10 @@
 		};
 		1D08E85719A7621A00879BD2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 090327C3542032C51D3ABF57 /* Pods-Pola.release.xcconfig */;
+			baseConfigurationReference = 3785987405128CA0B1DA9512 /* Pods-Pola.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEVELOPMENT_TEAM = 9NBWKG2G3X;
@@ -1232,10 +1285,13 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = "Pola/Pola-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kj.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "11650f5b-2426-4072-b3e3-857e6e5267e1";
 				PROVISIONING_PROFILE_SPECIFIER = "Pola Ad-Hoc";
+				SWIFT_OBJC_BRIDGING_HEADER = "Pola/Pola-Bridging-Header.h";
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				WRAPPER_EXTENSION = app;
@@ -1245,7 +1301,9 @@
 		1D08E85919A7621A00879BD2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Pola.app/Pola";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -1259,8 +1317,12 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "PolaTests/PolaTests-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kj.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "PolaTests/PolaTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -1269,7 +1331,9 @@
 		1D08E85A19A7621A00879BD2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Pola.app/Pola";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Klub Jagiellonski Sp z o. o. (9NBWKG2G3X)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1280,8 +1344,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Pola/Pola-Prefix.pch";
 				INFOPLIST_FILE = "PolaTests/PolaTests-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kj.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "PolaTests/PolaTests-Bridging-Header.h";
+				SWIFT_VERSION = 4.2;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};

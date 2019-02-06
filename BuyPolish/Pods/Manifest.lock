@@ -26,12 +26,31 @@ PODS:
   - BNRDynamicTypeManager/Controls (0.1.0):
     - BNRDynamicTypeManager/Core
   - BNRDynamicTypeManager/Core (0.1.0)
-  - Crashlytics (3.3.4)
-  - Fabric (1.5.5):
-    - Fabric/Base (= 1.5.5)
-  - Fabric/Base (1.5.5)
+  - Crashlytics (3.12.0):
+    - Fabric (~> 1.9.0)
+  - Fabric (1.9.0)
+  - Firebase/Core (4.13.0):
+    - FirebaseAnalytics (= 4.2.0)
+    - FirebaseCore (= 4.0.20)
+  - FirebaseAnalytics (4.2.0):
+    - FirebaseCore (~> 4.0)
+    - FirebaseInstanceID (~> 2.0)
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+    - nanopb (~> 0.3)
+  - FirebaseCore (4.0.20):
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+  - FirebaseInstanceID (2.0.10):
+    - FirebaseCore (~> 4.0)
+  - GoogleToolboxForMac/Defines (2.1.4)
+  - "GoogleToolboxForMac/NSData+zlib (2.1.4)":
+    - GoogleToolboxForMac/Defines (= 2.1.4)
   - iOS-Hierarchy-Viewer (1.4.7)
   - KVNProgress (2.2.2)
+  - nanopb (0.3.901):
+    - nanopb/decode (= 0.3.901)
+    - nanopb/encode (= 0.3.901)
+  - nanopb/decode (0.3.901)
+  - nanopb/encode (0.3.901)
   - Objection (1.4)
   - PLVisualAttributeConstraints (1.0.1)
   - "UITextView+Placeholder (1.1.1)"
@@ -39,8 +58,9 @@ PODS:
 DEPENDENCIES:
   - AFNetworking (= 2.3.1)
   - BNRDynamicTypeManager (= 0.1.0)
-  - Crashlytics (~> 3.3.4)
-  - Fabric (~> 1.5.5)
+  - Crashlytics (~> 3.12.0)
+  - Fabric (~> 1.9.0)
+  - Firebase/Core
   - iOS-Hierarchy-Viewer (= 1.4.7)
   - KVNProgress
   - Objection (= 1.4)
@@ -53,8 +73,14 @@ SPEC REPOS:
     - BNRDynamicTypeManager
     - Crashlytics
     - Fabric
+    - Firebase
+    - FirebaseAnalytics
+    - FirebaseCore
+    - FirebaseInstanceID
+    - GoogleToolboxForMac
     - iOS-Hierarchy-Viewer
     - KVNProgress
+    - nanopb
     - Objection
     - PLVisualAttributeConstraints
     - "UITextView+Placeholder"
@@ -62,14 +88,20 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   AFNetworking: 05b9f6e3aa5ac45bc383b4bb108ef338080a26c7
   BNRDynamicTypeManager: 44ee2970cd0120cbedd3dec84da41d0381525219
-  Crashlytics: 41c082440d2e14da444186fff65e79c0b4b35d4c
-  Fabric: 190bf1a6eb65f7500de1347d027d2e59a7e53db1
+  Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
+  Fabric: f988e33c97f08930a413e08123064d2e5f68d655
+  Firebase: 5ec5e863d269d82d66b4bf56856726f8fb8f0fb3
+  FirebaseAnalytics: 7ef69e76a5142f643aeb47c780e1cdce4e23632e
+  FirebaseCore: 90cb1c53d69b556f112a1bf72b5fcfaad7650790
+  FirebaseInstanceID: 8d20d890d65c917f9f7d9950b6e10a760ad34321
+  GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
   iOS-Hierarchy-Viewer: fb8ef72b55a8915ab0575543970754ea696e9061
   KVNProgress: 4697347e21e37fdaa5264ebc24e377c205a50328
+  nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   Objection: aa9875dbf1b121a077f7e13d504a6ed01816a7f1
   PLVisualAttributeConstraints: 9ab247e576b464335f32587ad6c20adfaf7e6d5d
   "UITextView+Placeholder": a6fc3e0378f3870036ec562a7537cbf6dbae4bf6
 
-PODFILE CHECKSUM: 9ab6c1f2459910d25a8efacdf1ee46f14426f337
+PODFILE CHECKSUM: 5f36aeaad505d7724f8c175422c27b9b0744777f
 
 COCOAPODS: 1.5.3
