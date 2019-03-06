@@ -45,6 +45,11 @@ PODS:
   - "GoogleToolboxForMac/NSData+zlib (2.1.4)":
     - GoogleToolboxForMac/Defines (= 2.1.4)
   - iOS-Hierarchy-Viewer (1.4.7)
+  - iOSSnapshotTestCase (2.2.0):
+    - iOSSnapshotTestCase/SwiftSupport (= 2.2.0)
+  - iOSSnapshotTestCase/Core (2.2.0)
+  - iOSSnapshotTestCase/SwiftSupport (2.2.0):
+    - iOSSnapshotTestCase/Core
   - KVNProgress (2.2.2)
   - nanopb (0.3.901):
     - nanopb/decode (= 0.3.901)
@@ -62,6 +67,7 @@ DEPENDENCIES:
   - Fabric (~> 1.9.0)
   - Firebase/Core
   - iOS-Hierarchy-Viewer (= 1.4.7)
+  - iOSSnapshotTestCase
   - KVNProgress
   - Objection (= 1.4)
   - PLVisualAttributeConstraints (= 1.0.1)
@@ -79,6 +85,7 @@ SPEC REPOS:
     - FirebaseInstanceID
     - GoogleToolboxForMac
     - iOS-Hierarchy-Viewer
+    - iOSSnapshotTestCase
     - KVNProgress
     - nanopb
     - Objection
@@ -96,12 +103,13 @@ SPEC CHECKSUMS:
   FirebaseInstanceID: 8d20d890d65c917f9f7d9950b6e10a760ad34321
   GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
   iOS-Hierarchy-Viewer: fb8ef72b55a8915ab0575543970754ea696e9061
+  iOSSnapshotTestCase: 415bd84f9dbba4ff45fede49d800bc7332fbedac
   KVNProgress: 4697347e21e37fdaa5264ebc24e377c205a50328
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   Objection: aa9875dbf1b121a077f7e13d504a6ed01816a7f1
   PLVisualAttributeConstraints: 9ab247e576b464335f32587ad6c20adfaf7e6d5d
   "UITextView+Placeholder": a6fc3e0378f3870036ec562a7537cbf6dbae4bf6
 
-PODFILE CHECKSUM: 5f36aeaad505d7724f8c175422c27b9b0744777f
+PODFILE CHECKSUM: 845e761532205f5dcbf5424842d55cbac9cfeba7
 
 COCOAPODS: 1.5.3
