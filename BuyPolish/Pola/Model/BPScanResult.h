@@ -30,6 +30,7 @@ typedef enum {
 @property(nonatomic, nullable, copy) NSString *reportButtonText;
 @property(nonatomic) ReportButtonType reportButtonType;
 @property(nonatomic) BOOL askForPics;
+@property(nonatomic) BOOL isFriend;
 @property(nonatomic, nullable, copy) NSString *askForPicsPreview;
 @property(nonatomic, nullable, copy) NSString *askForPicsTitle;
 @property(nonatomic, nullable, copy) NSString *askForPicsText;

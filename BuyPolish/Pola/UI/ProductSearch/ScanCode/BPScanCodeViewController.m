@@ -10,6 +10,7 @@
 #import "BPScanResult.h"
 #import "BPCapturedImagesUploadManager.h"
 #import "BPCapturedImageResult.h"
+#import "BPAboutWebViewController.h"
 #import <Pola-Swift.h>
 
 @import Objection;
@@ -31,7 +32,6 @@ static NSTimeInterval const kAnimationTime = 0.15;
 
 @end
 
-
 @implementation BPScanCodeViewController
 
 objection_requires_sel(@selector(taskRunner), @selector(productManager), @selector(cameraSessionManager), @selector(flashlightManager), @selector(uploadManager))
@@ -43,7 +43,6 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
 }
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -167,6 +166,7 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     [cardView setReportButtonText:productResult.reportButtonText];
     [cardView setReportText:productResult.reportText];
     [cardView setTitleText:productResult.name];
+    [cardView setMarkAsFriend:productResult.isFriend];
     
     UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification,
                                     cardView.titleLabel);
@@ -207,6 +207,10 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     } else {
         [self hideKeyboardController];
     }
+}
+
+- (void)didTapWebViewCloseButton:(UIButton *)button {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)didTapTeachButton:(UIButton *)button {
@@ -337,8 +341,6 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     return (BPScanCodeView *) self.view;
 }
 
-
-
 #pragma mark - BPStackViewDelegate
 
 - (void)stackView:(BPStackView *)stackView willAddCard:(UIView *)cardView {
@@ -392,6 +394,21 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
     NSString *barcode = self.scannedBarcodes[(NSUInteger) productCardView.tag];
     BPScanResult *scanResult = self.barcodeToProductResult[barcode];
     [self showCaptureVideoWithScanResult:scanResult];
+}
+
+- (void)productCardViewDidTapFriendButton:(BPCompanyCardView *)productCardView {
+    BPAboutWebViewController *webViewController =
+    [[BPAboutWebViewController alloc] initWithUrl:@"https://www.pola-app.pl/m/friends" title:NSLocalizedString(@"Pola's friends", nil)];
+    webViewController.navigationItem.rightBarButtonItem =
+    [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"CloseIcon"]
+                                     style:UIBarButtonItemStylePlain
+                                    target:self
+                                    action:@selector(didTapWebViewCloseButton:)];
+    webViewController.navigationItem.rightBarButtonItem.accessibilityLabel = NSLocalizedString(@"Accessibility.Close", nil);
+
+    UINavigationController *navigationController =
+    [[UINavigationController alloc] initWithRootViewController:webViewController];
+    [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 #pragma mark - BPCaptureVideoNavigationControllerDelegate
