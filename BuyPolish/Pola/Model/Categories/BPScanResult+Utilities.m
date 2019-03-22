@@ -19,7 +19,8 @@
     self.reportText = [dictionary nilOrStringForKey:@"report_text"];
     self.reportButtonText = [dictionary nilOrStringForKey:@"report_button_text"];
     self.reportButtonType = [self parseReportButtonType:[dictionary nilOrStringForKey:@"report_button_type"]];
-    
+    self.isFriend = [[dictionary nilOrNumberForKey:@"is_friend"] boolValue];
+
     NSDictionary *aiDict = [dictionary nilOrDictionaryForKey:@"ai"];
     if (aiDict != nil) {
         self.askForPics = [[aiDict objectForKey:@"ask_for_pics"] boolValue];

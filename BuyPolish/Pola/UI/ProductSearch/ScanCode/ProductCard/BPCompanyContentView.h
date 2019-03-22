@@ -28,4 +28,9 @@ typedef enum {
 - (void)setDescr:(NSString *)description;
 
 - (void)setCardType:(CardType)type;
+
+- (void)setMarkAsFriend:(BOOL)isFriend;
+
+- (void)addTargetOnFriendButton:(id)target action:(SEL)action;
+
 @end

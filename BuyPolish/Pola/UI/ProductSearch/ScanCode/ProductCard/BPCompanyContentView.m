@@ -15,6 +15,8 @@ int const CARD_CONTENT_ROW_MARGIN = 14;
 @property(nonatomic, readonly) BPCheckRow *registeredCheckRow;
 @property(nonatomic, readonly) BPCheckRow *rndCheckRow;
 @property(nonatomic, readonly) BPCheckRow *workersCheckRow;
+@property(nonatomic) BOOL friendButtonVisible;
+@property(nonatomic, readonly) UIButton *friendButton;
 @property(nonatomic, readonly) UILabel *descriptionLabel;
 @property(nonatomic, readonly) UILabel *altTextLabel;
 @property(copy, nonatomic, readonly) NSDictionary *typeToViewsDictionary;
@@ -62,6 +64,21 @@ int const CARD_CONTENT_ROW_MARGIN = 14;
         [_workersCheckRow setText:NSLocalizedString(@"producing in PL", nil)];
         [_workersCheckRow sizeToFit];
         [self addSubview:_workersCheckRow];
+        
+        _friendButton = [[UIButton alloc] init];
+        UIImage *heartImage = [UIImage imageNamed:@"HeartFilled"];
+        [_friendButton setImage:heartImage forState:UIControlStateNormal];
+        _friendButton.tintColor = [BPTheme actionColor];
+        [_friendButton setTitle:NSLocalizedString(@"This is Pola's friend", nil)
+                       forState:UIControlStateNormal];
+        [_friendButton setTitleColor:[BPTheme actionColor] forState:UIControlStateNormal];
+        _friendButton.titleLabel.font = [BPTheme normalFont];
+        CGFloat buttontitleHorizontalMargin = 7;
+        _friendButton.titleEdgeInsets = UIEdgeInsetsMake(0, buttontitleHorizontalMargin, 0, 0);
+        _friendButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        _friendButton.adjustsImageWhenHighlighted = NO;
+        _friendButton.hidden = YES;
+        [self addSubview:_friendButton];
 
         _descriptionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _descriptionLabel.font = [BPTheme normalFont];
@@ -99,47 +116,64 @@ int const CARD_CONTENT_ROW_MARGIN = 14;
     rect.origin.x = self.padding;
     rect.origin.y = CARD_CONTENT_VERTICAL_PADDING;
     self.capitalTitleLabel.frame = rect;
+    CGFloat lastY = CGRectGetMaxY(rect);
 
     rect = self.capitalProgressView.frame;
     rect.size.width = widthWithPadding;
     rect.origin.x = self.padding;
-    rect.origin.y = CGRectGetMaxY(self.capitalTitleLabel.frame) + self.padding;
+    rect.origin.y = lastY + self.padding;
     self.capitalProgressView.frame = rect;
+    lastY = CGRectGetMaxY(rect);
 
     rect = self.workersCheckRow.frame;
     rect.size = [self.workersCheckRow sizeThatFits:CGSizeMake(widthWithPadding, 0)];
     rect.origin.x = self.padding;
-    rect.origin.y = CGRectGetMaxY(self.capitalProgressView.frame) + CARD_CONTENT_VERTICAL_PADDING;
+    rect.origin.y = lastY + CARD_CONTENT_VERTICAL_PADDING;
     self.workersCheckRow.frame = rect;
+    lastY = CGRectGetMaxY(rect);
 
     rect = self.rndCheckRow.frame;
     rect.size = [self.rndCheckRow sizeThatFits:CGSizeMake(widthWithPadding, 0)];
     rect.origin.x = self.padding;
-    rect.origin.y = CGRectGetMaxY(self.workersCheckRow.frame) + CARD_CONTENT_ROW_MARGIN;
+    rect.origin.y = lastY + CARD_CONTENT_ROW_MARGIN;
     self.rndCheckRow.frame = rect;
+    lastY = CGRectGetMaxY(rect);
 
     rect = self.registeredCheckRow.frame;
     rect.size = [self.registeredCheckRow sizeThatFits:CGSizeMake(widthWithPadding, 0)];
     rect.origin.x = self.padding;
-    rect.origin.y = CGRectGetMaxY(self.rndCheckRow.frame) + CARD_CONTENT_ROW_MARGIN;
+    rect.origin.y = lastY + CARD_CONTENT_ROW_MARGIN;
     self.registeredCheckRow.frame = rect;
+    lastY = CGRectGetMaxY(rect);
 
     rect = self.notGlobalCheckRow.frame;
     rect.size = [self.notGlobalCheckRow sizeThatFits:CGSizeMake(widthWithPadding, 0)];
     rect.origin.x = self.padding;
-    rect.origin.y = CGRectGetMaxY(self.registeredCheckRow.frame) + CARD_CONTENT_ROW_MARGIN;
+    rect.origin.y = lastY + CARD_CONTENT_ROW_MARGIN;
     self.notGlobalCheckRow.frame = rect;
+    lastY = CGRectGetMaxY(rect);
+    
+    if (self.friendButtonVisible) {
+        rect = self.friendButton.frame;
+        rect.size.width = widthWithPadding;
+        rect.size.height = [self.friendButton sizeThatFits:CGSizeMake(widthWithPadding, 0)].height;
+        rect.origin.x = self.padding;
+        rect.origin.y = lastY + CARD_CONTENT_VERTICAL_PADDING;
+        self.friendButton.frame = rect;
+        lastY = CGRectGetMaxY(rect);
+    }
 
-    rect = self.descriptionLabel.frame;
-    rect.size.width = widthWithPadding;
-    rect.size.height = [self.descriptionLabel heightForWidth:CGRectGetWidth(rect)];
-    rect.origin.x = self.padding;
-    rect.origin.y = CGRectGetMaxY(self.notGlobalCheckRow.frame) + CARD_CONTENT_VERTICAL_PADDING;
-    self.descriptionLabel.frame = rect;
+    if (self.descriptionLabel.text.length) {
+        rect = self.descriptionLabel.frame;
+        rect.size.width = widthWithPadding;
+        rect.size.height = [self.descriptionLabel heightForWidth:CGRectGetWidth(rect)];
+        rect.origin.x = self.padding;
+        rect.origin.y = lastY + CARD_CONTENT_VERTICAL_PADDING;
+        self.descriptionLabel.frame = rect;
+        lastY = CGRectGetMaxY(rect);
+    }
 
-    UIView *lastView = self.descriptionLabel.text.length ? self.descriptionLabel : self.notGlobalCheckRow;
-
-    return (int) CGRectGetMaxY(lastView.frame) + CARD_CONTENT_VERTICAL_PADDING;
+    return (int) lastY + CARD_CONTENT_VERTICAL_PADDING;
 }
 
 - (int)layoutAltSubviews:(const int)widthWithPadding {
@@ -242,5 +276,14 @@ int const CARD_CONTENT_ROW_MARGIN = 14;
     }
 }
 
+- (void)setMarkAsFriend:(BOOL)isFriend {
+    self.friendButtonVisible = isFriend;
+    self.friendButton.hidden = !isFriend;
+    [self setNeedsLayout];
+}
+
+- (void)addTargetOnFriendButton:(id)target action:(SEL)action {
+    [self.friendButton addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+}
 
 @end

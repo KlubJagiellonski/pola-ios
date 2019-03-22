@@ -57,6 +57,9 @@ CGFloat const CELL_HEIGHT = 49;
             [BPWebAboutRow rowWithTitle:NSLocalizedString(@"Partners", nil) action:@selector(didTapWebRow:) url:@"https://www.pola-app.pl/m/partners" analyticsName:@"Partnerzy"]
     ];
     [rowList addObject:
+     [BPWebAboutRow rowWithTitle:NSLocalizedString(@"Pola's friends", nil) action:@selector(didTapWebRow:) url:@"https://www.pola-app.pl/m/friends" analyticsName:@"Przyjaciele Poli"]
+     ];
+    [rowList addObject:
         [BPAboutRow rowWithTitle:NSLocalizedString(@"Report error in data", nil) action:@selector(didTapReportError:)]
     ];
     if ([MFMailComposeViewController canSendMail]) {
