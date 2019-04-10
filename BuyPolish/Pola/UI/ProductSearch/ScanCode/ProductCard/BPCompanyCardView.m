@@ -20,6 +20,9 @@ int const CARD_CONTENT_PROGRESS_IN_HEADER = 6;
 @property(nonatomic, readonly) UIButton *reportProblemButton;
 @property(nonatomic, readonly) UILabel *reportInfoLabel;
 @property(nonatomic, readonly) UIView *separatorView;
+@property(nonatomic) BOOL heartImageVisible;
+@property(nonatomic, readonly) UIImageView *heartImageView;
+
 @end
 
 @implementation BPCompanyCardView
@@ -46,6 +49,10 @@ int const CARD_CONTENT_PROGRESS_IN_HEADER = 6;
         _titleLabel.accessibilityTraits = UIAccessibilityTraitHeader;
         _titleLabel.accessibilityHint = NSLocalizedString(@"Accessibility.CardHint", nil);
         [self addSubview:_titleLabel];
+        UIImage *heartImage = [UIImage imageNamed:@"HeartFilled"];
+        _heartImageView = [[UIImageView alloc] initWithImage:heartImage];
+        _heartImageView.tintColor = [BPTheme actionColor];
+        [self addSubview:_heartImageView];
 
         _mainProgressView = [[BPMainProggressView alloc] initWithFrame:CGRectZero];
         [_mainProgressView sizeToFit];
@@ -53,6 +60,7 @@ int const CARD_CONTENT_PROGRESS_IN_HEADER = 6;
 
         _contentView = [[BPCompanyContentView alloc] initWithFrame:CGRectZero];
         _contentView.padding = CARD_PADDING;
+        [_contentView addTargetOnFriendButton:self action:@selector(didTapFriendButton)];
         [self addSubview:_contentView];
         
         _teachButtonVisible = NO;
@@ -97,6 +105,10 @@ int const CARD_CONTENT_PROGRESS_IN_HEADER = 6;
     [self.delegate productCardViewDidTapTeach:self];
 }
 
+- (void)didTapFriendButton {
+    [self.delegate productCardViewDidTapFriendButton:self];
+}
+
 - (void)layoutSubviews {
     [super layoutSubviews];
 
@@ -108,6 +120,18 @@ int const CARD_CONTENT_PROGRESS_IN_HEADER = 6;
     rect.origin.y = verticalTitleSpace / 2 - CGRectGetHeight(rect) / 2;
     rect.size.width = widthWithPadding;
     self.titleLabel.frame = rect;
+    
+    if (self.heartImageVisible) {
+        CGFloat imageWidth = CGRectGetWidth(self.heartImageView.frame);
+        rect.size.width -= imageWidth + CARD_PADDING;
+        self.titleLabel.frame = rect;
+        
+        rect.origin.y -=
+        (CGRectGetHeight(self.heartImageView.frame) - CGRectGetHeight(self.titleLabel.frame)) / 2;
+        rect.origin.x = CGRectGetMaxX(self.titleLabel.frame) + CARD_PADDING;
+        rect.size = self.heartImageView.frame.size;
+        self.heartImageView.frame = rect;
+    }
 
     rect = self.loadingProgressView.frame;
     rect.origin.x = CGRectGetWidth(self.bounds) - CARD_PADDING - CGRectGetWidth(self.loadingProgressView.bounds);
@@ -266,6 +290,13 @@ int const CARD_CONTENT_PROGRESS_IN_HEADER = 6;
 
 - (void)setFocused:(BOOL)focused {
     [self.contentView flashScrollIndicators];
+}
+
+- (void)setMarkAsFriend:(BOOL)isFriend {
+    self.heartImageVisible = isFriend;
+    self.heartImageView.hidden = !isFriend;
+    [self.contentView setMarkAsFriend:isFriend];
+    [self setNeedsLayout];
 }
 
 @end

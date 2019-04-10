@@ -13,6 +13,7 @@
 
 - (void)productCardViewDidTapReportProblem:(BPCompanyCardView *)productCardView;
 - (void)productCardViewDidTapTeach:(BPCompanyCardView *)productCardView;
+- (void)productCardViewDidTapFriendButton:(BPCompanyCardView *)productCardView;
 
 @end
 
@@ -52,5 +53,7 @@
 - (void)setDescr:(NSString *)description;
 
 - (void)setAltText:(NSString *)altText;
+
+- (void)setMarkAsFriend:(BOOL)isFriend;
 
 @end
