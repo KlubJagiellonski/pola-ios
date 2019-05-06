@@ -1,0 +1,6 @@
+framework module Pods_Pola_PolaUITests {
+  umbrella header "Pods-Pola-PolaUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

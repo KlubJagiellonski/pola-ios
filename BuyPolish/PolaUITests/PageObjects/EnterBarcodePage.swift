@@ -6,7 +6,7 @@
 //  Copyright © 2019 PJMS. All rights reserved.
 //
 
-import Foundation
+import XCTest
 
 class EnterBarcodePage: BasePage {
     
@@ -15,21 +15,33 @@ class EnterBarcodePage: BasePage {
         return ScanBarcodePage(app: app)
     }
     
+    func tapOkButton() -> EnterBarcodePage {
+        app.buttons["Zatwierdź"].tap()
+        return self
+    }
+    
+    func tapDeleteButton() -> EnterBarcodePage {
+        app.buttons["Usuń ostatnią cyfrę"].tap()
+        return self
+    }
+    
     func inputBarcode(_ barcode: String) -> EnterBarcodePage {
         barcode.forEach { character in
             app.buttons[String(character)].tap()
         }
         return self
     }
-    
-    func tapOkButton() -> EnterBarcodePage {
-        app.buttons["Zatwierdź"].tap()
-        return self
-    }
-    
+
     func waitForResultPageAndTap(companyName: String) -> CompanyPage {
         app.otherElements[companyName].tap()
         return CompanyPage(app: app)
+    }
+    
+    func waitForResultPage(companyName: String) -> ScanBarcodeWithResultsPage {
+        if !app.otherElements[companyName].waitForExistence(timeout: 3) {
+            XCTFail("No matches found for scan result:  \(companyName)")
+        }
+        return ScanBarcodeWithResultsPage(app: app)
     }
     
 }

@@ -87,6 +87,7 @@
 		37B64FF08BF5367BF9669B33 /* BPUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64B74E1FAED6141BA2B25 /* BPUtilities.m */; };
 		37C89AA41C78682200CCE940 /* BPFlashlightManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C89AA31C78682200CCE940 /* BPFlashlightManager.m */; };
 		37F16AA51CA1BCCF00A310CF /* BPKeyboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37F16AA31CA1BCCF00A310CF /* BPKeyboardViewController.m */; };
+		800FD6462A681C2E7CDE0EC1 /* Pods_Pola_PolaUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 631F09DE16AAC55C590179B7 /* Pods_Pola_PolaUITests.framework */; };
 		837E6B911F1619FA001A6A9B /* BPCaptureVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 837E6B901F1619FA001A6A9B /* BPCaptureVideoViewController.m */; };
 		837E6B941F161E31001A6A9B /* BPCaptureVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 837E6B931F161E31001A6A9B /* BPCaptureVideoView.m */; };
 		83AFDE8E1F0D415C00608235 /* BPCaptureVideoNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AFDE8D1F0D415C00608235 /* BPCaptureVideoNavigationController.m */; };
@@ -94,14 +95,23 @@
 		83AFDE9A1F0D4E9300608235 /* BPCaptureVideoInstructionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AFDE991F0D4E9300608235 /* BPCaptureVideoInstructionView.m */; };
 		8455A7EF220D527200F30845 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8455A7EE220D527200F30845 /* LaunchScreen.storyboard */; };
 		848C6922225D044300D39E90 /* LaunchScreenSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848C6921225D044300D39E90 /* LaunchScreenSnapshotTests.swift */; };
-		848F28CC225FA113004007AB /* ScanBarcodePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848F28C9225FA113004007AB /* ScanBarcodePage.swift */; };
-		848F28CD225FA113004007AB /* BasePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848F28CA225FA113004007AB /* BasePage.swift */; };
-		848F28CE225FA113004007AB /* EnterBarcodePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848F28CB225FA113004007AB /* EnterBarcodePage.swift */; };
-		84B1B365225F975A009FA909 /* PolaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B1B364225F975A009FA909 /* PolaUITests.swift */; };
+		84E708362280A40400402E26 /* InformationPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E708272280A40300402E26 /* InformationPage.swift */; };
+		84E708372280A40400402E26 /* ScanBarcodePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E708282280A40300402E26 /* ScanBarcodePage.swift */; };
+		84E708382280A40400402E26 /* BasePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E708292280A40300402E26 /* BasePage.swift */; };
+		84E708392280A40400402E26 /* ReportBugPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E7082A2280A40300402E26 /* ReportBugPage.swift */; };
+		84E7083A2280A40400402E26 /* CompanyPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E7082B2280A40300402E26 /* CompanyPage.swift */; };
+		84E7083B2280A40400402E26 /* ScanBarcodeWithResultsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E7082C2280A40300402E26 /* ScanBarcodeWithResultsPage.swift */; };
+		84E7083C2280A40400402E26 /* EnterBarcodePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E7082D2280A40300402E26 /* EnterBarcodePage.swift */; };
+		84E7083D2280A40400402E26 /* SafariPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E7082E2280A40300402E26 /* SafariPage.swift */; };
+		84E7083E2280A40400402E26 /* PolaUITestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E7082F2280A40300402E26 /* PolaUITestCase.swift */; };
+		84E7083F2280A40400402E26 /* ReportBugPageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E708302280A40300402E26 /* ReportBugPageUITests.swift */; };
+		84E708402280A40400402E26 /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E708312280A40300402E26 /* TestData.swift */; };
+		84E708412280A40400402E26 /* EnterBarcodePageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E708322280A40300402E26 /* EnterBarcodePageUITests.swift */; };
+		84E708422280A40400402E26 /* InformationPageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E708332280A40400402E26 /* InformationPageUITests.swift */; };
+		84E708432280A40400402E26 /* ScanBarcodeWithResultPageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E708342280A40400402E26 /* ScanBarcodeWithResultPageUITests.swift */; };
+		84E708442280A40400402E26 /* CompanyPagePolaFriendsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E708352280A40400402E26 /* CompanyPagePolaFriendsUITests.swift */; };
 		952A03CA6AD72648FFC902C3 /* Pods_Pola.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B15F0FD326ED5D11627C5ED8 /* Pods_Pola.framework */; };
 		9E188D93223063ED00325383 /* LaunchScreen.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E188D91223063EC00325383 /* LaunchScreen.xcassets */; };
-		9EAA68162260F00A000ED12A /* CompanyPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAA68152260F00A000ED12A /* CompanyPage.swift */; };
-		9EAA68182260F0FF000ED12A /* CompanyPagePolaFriendsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAA68172260F0FF000ED12A /* CompanyPagePolaFriendsUITests.swift */; };
 		ABCA9D8499A8FF36227B6C94 /* UIApplication+BPStatusBarHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCA997979B62F78CFCB7E19 /* UIApplication+BPStatusBarHeight.m */; };
 		BDA76B5121DCD718003E9FD6 /* Encodable+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA76B5021DCD718003E9FD6 /* Encodable+Utilities.swift */; };
 		BDA76B5A21DE6248003E9FD6 /* AnalyticsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA76B5921DE6248003E9FD6 /* AnalyticsHelper.swift */; };
@@ -167,6 +177,7 @@
 		1DEFA1C11BD99B8900938C81 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1DEFA1C21BD99B8900938C81 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1DEFA1C31BD99B8900938C81 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		353A5B3434B75B4C54FB4DBB /* Pods-Pola-PolaUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola-PolaUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pola-PolaUITests/Pods-Pola-PolaUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		371245251CBCEC6600BD0543 /* BPKeyboardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPKeyboardView.h; path = Keyboard/BPKeyboardView.h; sourceTree = "<group>"; };
 		371245261CBCEC6600BD0543 /* BPKeyboardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPKeyboardView.m; path = Keyboard/BPKeyboardView.m; sourceTree = "<group>"; };
 		373C241F1C71EF760039410C /* BPAboutViewControllerSingleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPAboutViewControllerSingleCell.h; sourceTree = "<group>"; };
@@ -277,6 +288,7 @@
 		37F16AA21CA1BCCF00A310CF /* BPKeyboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPKeyboardViewController.h; path = Keyboard/BPKeyboardViewController.h; sourceTree = "<group>"; };
 		37F16AA31CA1BCCF00A310CF /* BPKeyboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPKeyboardViewController.m; path = Keyboard/BPKeyboardViewController.m; sourceTree = "<group>"; };
 		5310C93A6052FC9BA4E8C020 /* Pods-Pola.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pola/Pods-Pola.debug.xcconfig"; sourceTree = "<group>"; };
+		631F09DE16AAC55C590179B7 /* Pods_Pola_PolaUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pola_PolaUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D7DD012073B8CCDD821A2D0 /* Pods-Pola-PolaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola-PolaTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pola-PolaTests/Pods-Pola-PolaTests.release.xcconfig"; sourceTree = "<group>"; };
 		837E6B8F1F161928001A6A9B /* BPCaptureVideoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BPCaptureVideoViewController.h; sourceTree = "<group>"; };
 		837E6B901F1619FA001A6A9B /* BPCaptureVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPCaptureVideoViewController.m; sourceTree = "<group>"; };
@@ -290,15 +302,24 @@
 		83AFDE991F0D4E9300608235 /* BPCaptureVideoInstructionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPCaptureVideoInstructionView.m; path = CaptureVideo/Instruction/BPCaptureVideoInstructionView.m; sourceTree = "<group>"; };
 		8455A7EE220D527200F30845 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		848C6921225D044300D39E90 /* LaunchScreenSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenSnapshotTests.swift; sourceTree = "<group>"; };
-		848F28C9225FA113004007AB /* ScanBarcodePage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanBarcodePage.swift; sourceTree = "<group>"; };
-		848F28CA225FA113004007AB /* BasePage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasePage.swift; sourceTree = "<group>"; };
-		848F28CB225FA113004007AB /* EnterBarcodePage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterBarcodePage.swift; sourceTree = "<group>"; };
 		84B1B362225F975A009FA909 /* PolaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PolaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		84B1B364225F975A009FA909 /* PolaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolaUITests.swift; sourceTree = "<group>"; };
 		84B1B366225F975A009FA909 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		84E708272280A40300402E26 /* InformationPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InformationPage.swift; sourceTree = "<group>"; };
+		84E708282280A40300402E26 /* ScanBarcodePage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanBarcodePage.swift; sourceTree = "<group>"; };
+		84E708292280A40300402E26 /* BasePage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasePage.swift; sourceTree = "<group>"; };
+		84E7082A2280A40300402E26 /* ReportBugPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportBugPage.swift; sourceTree = "<group>"; };
+		84E7082B2280A40300402E26 /* CompanyPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanyPage.swift; sourceTree = "<group>"; };
+		84E7082C2280A40300402E26 /* ScanBarcodeWithResultsPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanBarcodeWithResultsPage.swift; sourceTree = "<group>"; };
+		84E7082D2280A40300402E26 /* EnterBarcodePage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterBarcodePage.swift; sourceTree = "<group>"; };
+		84E7082E2280A40300402E26 /* SafariPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafariPage.swift; sourceTree = "<group>"; };
+		84E7082F2280A40300402E26 /* PolaUITestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PolaUITestCase.swift; sourceTree = "<group>"; };
+		84E708302280A40300402E26 /* ReportBugPageUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportBugPageUITests.swift; sourceTree = "<group>"; };
+		84E708312280A40300402E26 /* TestData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
+		84E708322280A40300402E26 /* EnterBarcodePageUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterBarcodePageUITests.swift; sourceTree = "<group>"; };
+		84E708332280A40400402E26 /* InformationPageUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InformationPageUITests.swift; sourceTree = "<group>"; };
+		84E708342280A40400402E26 /* ScanBarcodeWithResultPageUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanBarcodeWithResultPageUITests.swift; sourceTree = "<group>"; };
+		84E708352280A40400402E26 /* CompanyPagePolaFriendsUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanyPagePolaFriendsUITests.swift; sourceTree = "<group>"; };
 		9E188D91223063EC00325383 /* LaunchScreen.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = LaunchScreen.xcassets; sourceTree = "<group>"; };
-		9EAA68152260F00A000ED12A /* CompanyPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyPage.swift; sourceTree = "<group>"; };
-		9EAA68172260F0FF000ED12A /* CompanyPagePolaFriendsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyPagePolaFriendsUITests.swift; sourceTree = "<group>"; };
 		ABCA997979B62F78CFCB7E19 /* UIApplication+BPStatusBarHeight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+BPStatusBarHeight.m"; sourceTree = "<group>"; };
 		ABCA9A3E3B8A8B7C925052B6 /* UIApplication+BPStatusBarHeight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+BPStatusBarHeight.h"; sourceTree = "<group>"; };
 		B15F0FD326ED5D11627C5ED8 /* Pods_Pola.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pola.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -328,6 +349,7 @@
 		C0DD0EBE1F1B3B1A00BF4B20 /* BPCaptureVideoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPCaptureVideoManager.m; sourceTree = "<group>"; };
 		C0E6B7321F1396430047D960 /* BPVideoPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPVideoPlayerView.m; path = CaptureVideo/Instruction/Player/BPVideoPlayerView.m; sourceTree = "<group>"; };
 		C0E6B7341F13A0470047D960 /* BPVideoPlayerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BPVideoPlayerView.h; path = CaptureVideo/Instruction/Player/BPVideoPlayerView.h; sourceTree = "<group>"; };
+		C62ECF2EDD7295D219A497A1 /* Pods-Pola-PolaUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola-PolaUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pola-PolaUITests/Pods-Pola-PolaUITests.release.xcconfig"; sourceTree = "<group>"; };
 		E0D971BD205A9438D64EBADE /* Pods-Pola-PolaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola-PolaTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pola-PolaTests/Pods-Pola-PolaTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -363,6 +385,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				800FD6462A681C2E7CDE0EC1 /* Pods_Pola_PolaUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -404,6 +427,7 @@
 				37B6472FF4603F63771FADE6 /* AVFoundation.framework */,
 				B15F0FD326ED5D11627C5ED8 /* Pods_Pola.framework */,
 				1730F6EAFBB8B254BDA0E55A /* Pods_Pola_PolaTests.framework */,
+				631F09DE16AAC55C590179B7 /* Pods_Pola_PolaUITests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -769,6 +793,8 @@
 				3785987405128CA0B1DA9512 /* Pods-Pola.release.xcconfig */,
 				E0D971BD205A9438D64EBADE /* Pods-Pola-PolaTests.debug.xcconfig */,
 				6D7DD012073B8CCDD821A2D0 /* Pods-Pola-PolaTests.release.xcconfig */,
+				353A5B3434B75B4C54FB4DBB /* Pods-Pola-PolaUITests.debug.xcconfig */,
+				C62ECF2EDD7295D219A497A1 /* Pods-Pola-PolaUITests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -808,26 +834,35 @@
 			path = CaptureVideo/Capture;
 			sourceTree = "<group>";
 		};
-		848F28C8225FA113004007AB /* PageObjects */ = {
-			isa = PBXGroup;
-			children = (
-				848F28C9225FA113004007AB /* ScanBarcodePage.swift */,
-				848F28CA225FA113004007AB /* BasePage.swift */,
-				848F28CB225FA113004007AB /* EnterBarcodePage.swift */,
-				9EAA68152260F00A000ED12A /* CompanyPage.swift */,
-			);
-			path = PageObjects;
-			sourceTree = "<group>";
-		};
 		84B1B363225F975A009FA909 /* PolaUITests */ = {
 			isa = PBXGroup;
 			children = (
-				84B1B364225F975A009FA909 /* PolaUITests.swift */,
-				9EAA68172260F0FF000ED12A /* CompanyPagePolaFriendsUITests.swift */,
+				84E708262280A40300402E26 /* PageObjects */,
+				84E708352280A40400402E26 /* CompanyPagePolaFriendsUITests.swift */,
+				84E708322280A40300402E26 /* EnterBarcodePageUITests.swift */,
+				84E708332280A40400402E26 /* InformationPageUITests.swift */,
+				84E7082F2280A40300402E26 /* PolaUITestCase.swift */,
+				84E708302280A40300402E26 /* ReportBugPageUITests.swift */,
+				84E708342280A40400402E26 /* ScanBarcodeWithResultPageUITests.swift */,
+				84E708312280A40300402E26 /* TestData.swift */,
 				84B1B366225F975A009FA909 /* Info.plist */,
-				848F28C8225FA113004007AB /* PageObjects */,
 			);
 			path = PolaUITests;
+			sourceTree = "<group>";
+		};
+		84E708262280A40300402E26 /* PageObjects */ = {
+			isa = PBXGroup;
+			children = (
+				84E708272280A40300402E26 /* InformationPage.swift */,
+				84E708282280A40300402E26 /* ScanBarcodePage.swift */,
+				84E708292280A40300402E26 /* BasePage.swift */,
+				84E7082A2280A40300402E26 /* ReportBugPage.swift */,
+				84E7082B2280A40300402E26 /* CompanyPage.swift */,
+				84E7082C2280A40300402E26 /* ScanBarcodeWithResultsPage.swift */,
+				84E7082D2280A40300402E26 /* EnterBarcodePage.swift */,
+				84E7082E2280A40300402E26 /* SafariPage.swift */,
+			);
+			path = PageObjects;
 			sourceTree = "<group>";
 		};
 		BDA76B5821DE622E003E9FD6 /* Analytics */ = {
@@ -927,9 +962,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 84B1B36B225F975A009FA909 /* Build configuration list for PBXNativeTarget "PolaUITests" */;
 			buildPhases = (
+				2B545E8333350C0312E4C0A8 /* [CP] Check Pods Manifest.lock */,
 				84B1B35E225F975A009FA909 /* Sources */,
 				84B1B35F225F975A009FA909 /* Frameworks */,
 				84B1B360225F975A009FA909 /* Resources */,
+				5CB734D04CAE05564B60041A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -963,6 +1000,7 @@
 					};
 					84B1B361225F975A009FA909 = {
 						CreatedOnToolsVersion = 10.2;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 1D08E82219A7621A00879BD2;
 					};
@@ -1040,6 +1078,68 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" 6a4f6710db1c4c62907f73a43eb5e68675cd2c7a $POLA_FABRIC_PRIVATE_KEY\n";
 		};
+		2B545E8333350C0312E4C0A8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Pola-PolaUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5CB734D04CAE05564B60041A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Pola-PolaUITests/Pods-Pola-PolaUITests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/BNRDynamicTypeManager/BNRDynamicTypeManager.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/KVNProgress/KVNProgress.framework",
+				"${BUILT_PRODUCTS_DIR}/Objection/Objection.framework",
+				"${BUILT_PRODUCTS_DIR}/PLVisualAttributeConstraints/PLVisualAttributeConstraints.framework",
+				"${BUILT_PRODUCTS_DIR}/UITextView+Placeholder/UITextView_Placeholder.framework",
+				"${BUILT_PRODUCTS_DIR}/iOS-Hierarchy-Viewer/iOS_Hierarchy_Viewer.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+				"${BUILT_PRODUCTS_DIR}/iOSSnapshotTestCase/FBSnapshotTestCase.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BNRDynamicTypeManager.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KVNProgress.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Objection.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PLVisualAttributeConstraints.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITextView_Placeholder.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/iOS_Hierarchy_Viewer.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSnapshotTestCase.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Pola-PolaUITests/Pods-Pola-PolaUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		9E561AA022079124009E661A /* Check GoogleService-Info.plist */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1060,7 +1160,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Pola-PolaTests/Pods-Pola-PolaTests-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Pola-PolaTests/Pods-Pola-PolaTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
 				"${BUILT_PRODUCTS_DIR}/BNRDynamicTypeManager/BNRDynamicTypeManager.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
@@ -1087,7 +1187,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Pola-PolaTests/Pods-Pola-PolaTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Pola-PolaTests/Pods-Pola-PolaTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B56C0C9EBA4B21C39D72EABD /* [CP] Check Pods Manifest.lock */ = {
@@ -1114,7 +1214,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Pola/Pods-Pola-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-Pola/Pods-Pola-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
 				"${BUILT_PRODUCTS_DIR}/BNRDynamicTypeManager/BNRDynamicTypeManager.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
@@ -1139,7 +1239,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Pola/Pods-Pola-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Pola/Pods-Pola-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C5EFE4574C277BC2DEB2579C /* [CP] Check Pods Manifest.lock */ = {
@@ -1261,12 +1361,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				848F28CD225FA113004007AB /* BasePage.swift in Sources */,
-				9EAA68182260F0FF000ED12A /* CompanyPagePolaFriendsUITests.swift in Sources */,
-				848F28CE225FA113004007AB /* EnterBarcodePage.swift in Sources */,
-				848F28CC225FA113004007AB /* ScanBarcodePage.swift in Sources */,
-				9EAA68162260F00A000ED12A /* CompanyPage.swift in Sources */,
-				84B1B365225F975A009FA909 /* PolaUITests.swift in Sources */,
+				84E7083B2280A40400402E26 /* ScanBarcodeWithResultsPage.swift in Sources */,
+				84E708402280A40400402E26 /* TestData.swift in Sources */,
+				84E708372280A40400402E26 /* ScanBarcodePage.swift in Sources */,
+				84E708432280A40400402E26 /* ScanBarcodeWithResultPageUITests.swift in Sources */,
+				84E7083C2280A40400402E26 /* EnterBarcodePage.swift in Sources */,
+				84E708442280A40400402E26 /* CompanyPagePolaFriendsUITests.swift in Sources */,
+				84E708412280A40400402E26 /* EnterBarcodePageUITests.swift in Sources */,
+				84E7083E2280A40400402E26 /* PolaUITestCase.swift in Sources */,
+				84E708392280A40400402E26 /* ReportBugPage.swift in Sources */,
+				84E7083F2280A40400402E26 /* ReportBugPageUITests.swift in Sources */,
+				84E708382280A40400402E26 /* BasePage.swift in Sources */,
+				84E7083A2280A40400402E26 /* CompanyPage.swift in Sources */,
+				84E7083D2280A40400402E26 /* SafariPage.swift in Sources */,
+				84E708362280A40400402E26 /* InformationPage.swift in Sources */,
+				84E708422280A40400402E26 /* InformationPageUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1525,10 +1634,12 @@
 		};
 		84B1B369225F975A009FA909 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 353A5B3434B75B4C54FB4DBB /* Pods-Pola-PolaUITests.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_COMMA = YES;
@@ -1562,10 +1673,12 @@
 		};
 		84B1B36A225F975A009FA909 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C62ECF2EDD7295D219A497A1 /* Pods-Pola-PolaUITests.release.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_COMMA = YES;
