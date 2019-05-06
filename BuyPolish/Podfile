@@ -19,5 +19,9 @@ target :Pola do
     target :PolaTests do
         pod 'iOSSnapshotTestCase'
     end
+    
+    target :PolaUITests do
+      pod 'iOSSnapshotTestCase'
+    end
 
 end

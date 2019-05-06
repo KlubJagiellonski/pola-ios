@@ -65,6 +65,11 @@
             isEnabled = "YES">
          </EnvironmentVariable>
          <EnvironmentVariable
+            key = "FAILED_UI_TEST_DIR"
+            value = "$(SOURCE_ROOT)/$(PROJECT_NAME)UITests/SnapshotFailedTests"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
             key = "FB_REFERENCE_IMAGE_DIR"
             value = "$(SOURCE_ROOT)/$(PROJECT_NAME)Tests/ReferenceImages"
             isEnabled = "YES">

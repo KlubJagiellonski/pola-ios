@@ -15,4 +15,7 @@ class BasePage {
         self.app = app
     }
     
+    func done() {
+    }
+    
 }
