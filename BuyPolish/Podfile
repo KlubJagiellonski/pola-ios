@@ -15,4 +15,9 @@ target :Pola do
     pod 'Firebase/Core'
     pod 'UITextView+Placeholder'
     pod 'KVNProgress'
+    
+    target :PolaTests do
+        pod 'iOSSnapshotTestCase'
+    end
+
 end
