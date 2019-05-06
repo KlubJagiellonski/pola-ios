@@ -49,9 +49,11 @@ int const CARD_CONTENT_PROGRESS_IN_HEADER = 6;
         _titleLabel.accessibilityTraits = UIAccessibilityTraitHeader;
         _titleLabel.accessibilityHint = NSLocalizedString(@"Accessibility.CardHint", nil);
         [self addSubview:_titleLabel];
+        
         UIImage *heartImage = [UIImage imageNamed:@"HeartFilled"];
         _heartImageView = [[UIImageView alloc] initWithImage:heartImage];
         _heartImageView.tintColor = [BPTheme actionColor];
+        _heartImageView.hidden = YES;
         [self addSubview:_heartImageView];
 
         _mainProgressView = [[BPMainProggressView alloc] initWithFrame:CGRectZero];

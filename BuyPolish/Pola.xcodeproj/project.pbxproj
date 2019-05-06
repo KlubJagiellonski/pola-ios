@@ -94,8 +94,14 @@
 		83AFDE9A1F0D4E9300608235 /* BPCaptureVideoInstructionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AFDE991F0D4E9300608235 /* BPCaptureVideoInstructionView.m */; };
 		8455A7EF220D527200F30845 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8455A7EE220D527200F30845 /* LaunchScreen.storyboard */; };
 		848C6922225D044300D39E90 /* LaunchScreenSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848C6921225D044300D39E90 /* LaunchScreenSnapshotTests.swift */; };
+		848F28CC225FA113004007AB /* ScanBarcodePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848F28C9225FA113004007AB /* ScanBarcodePage.swift */; };
+		848F28CD225FA113004007AB /* BasePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848F28CA225FA113004007AB /* BasePage.swift */; };
+		848F28CE225FA113004007AB /* EnterBarcodePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848F28CB225FA113004007AB /* EnterBarcodePage.swift */; };
+		84B1B365225F975A009FA909 /* PolaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B1B364225F975A009FA909 /* PolaUITests.swift */; };
 		952A03CA6AD72648FFC902C3 /* Pods_Pola.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B15F0FD326ED5D11627C5ED8 /* Pods_Pola.framework */; };
 		9E188D93223063ED00325383 /* LaunchScreen.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E188D91223063EC00325383 /* LaunchScreen.xcassets */; };
+		9EAA68162260F00A000ED12A /* CompanyPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAA68152260F00A000ED12A /* CompanyPage.swift */; };
+		9EAA68182260F0FF000ED12A /* CompanyPagePolaFriendsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAA68172260F0FF000ED12A /* CompanyPagePolaFriendsUITests.swift */; };
 		ABCA9D8499A8FF36227B6C94 /* UIApplication+BPStatusBarHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCA997979B62F78CFCB7E19 /* UIApplication+BPStatusBarHeight.m */; };
 		BDA76B5121DCD718003E9FD6 /* Encodable+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA76B5021DCD718003E9FD6 /* Encodable+Utilities.swift */; };
 		BDA76B5A21DE6248003E9FD6 /* AnalyticsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA76B5921DE6248003E9FD6 /* AnalyticsHelper.swift */; };
@@ -122,6 +128,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 1D08E82219A7621A00879BD2;
 			remoteInfo = BuyPolish;
+		};
+		84B1B367225F975A009FA909 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1D08E81B19A7621A00879BD2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1D08E82219A7621A00879BD2;
+			remoteInfo = Pola;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -277,7 +290,15 @@
 		83AFDE991F0D4E9300608235 /* BPCaptureVideoInstructionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPCaptureVideoInstructionView.m; path = CaptureVideo/Instruction/BPCaptureVideoInstructionView.m; sourceTree = "<group>"; };
 		8455A7EE220D527200F30845 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		848C6921225D044300D39E90 /* LaunchScreenSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenSnapshotTests.swift; sourceTree = "<group>"; };
+		848F28C9225FA113004007AB /* ScanBarcodePage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanBarcodePage.swift; sourceTree = "<group>"; };
+		848F28CA225FA113004007AB /* BasePage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasePage.swift; sourceTree = "<group>"; };
+		848F28CB225FA113004007AB /* EnterBarcodePage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterBarcodePage.swift; sourceTree = "<group>"; };
+		84B1B362225F975A009FA909 /* PolaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PolaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		84B1B364225F975A009FA909 /* PolaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolaUITests.swift; sourceTree = "<group>"; };
+		84B1B366225F975A009FA909 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9E188D91223063EC00325383 /* LaunchScreen.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = LaunchScreen.xcassets; sourceTree = "<group>"; };
+		9EAA68152260F00A000ED12A /* CompanyPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyPage.swift; sourceTree = "<group>"; };
+		9EAA68172260F0FF000ED12A /* CompanyPagePolaFriendsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyPagePolaFriendsUITests.swift; sourceTree = "<group>"; };
 		ABCA997979B62F78CFCB7E19 /* UIApplication+BPStatusBarHeight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+BPStatusBarHeight.m"; sourceTree = "<group>"; };
 		ABCA9A3E3B8A8B7C925052B6 /* UIApplication+BPStatusBarHeight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+BPStatusBarHeight.h"; sourceTree = "<group>"; };
 		B15F0FD326ED5D11627C5ED8 /* Pods_Pola.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pola.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -338,6 +359,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		84B1B35F225F975A009FA909 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -346,6 +374,7 @@
 			children = (
 				1D08E82E19A7621A00879BD2 /* Pola */,
 				1D08E84B19A7621A00879BD2 /* PolaTests */,
+				84B1B363225F975A009FA909 /* PolaUITests */,
 				1D08E82519A7621A00879BD2 /* Frameworks */,
 				1D08E82419A7621A00879BD2 /* Products */,
 				7B71219F6F5A578A5DE23F85 /* Pods */,
@@ -357,6 +386,7 @@
 			children = (
 				1D08E82319A7621A00879BD2 /* Pola.app */,
 				1D08E84319A7621A00879BD2 /* PolaTests.xctest */,
+				84B1B362225F975A009FA909 /* PolaUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -778,6 +808,28 @@
 			path = CaptureVideo/Capture;
 			sourceTree = "<group>";
 		};
+		848F28C8225FA113004007AB /* PageObjects */ = {
+			isa = PBXGroup;
+			children = (
+				848F28C9225FA113004007AB /* ScanBarcodePage.swift */,
+				848F28CA225FA113004007AB /* BasePage.swift */,
+				848F28CB225FA113004007AB /* EnterBarcodePage.swift */,
+				9EAA68152260F00A000ED12A /* CompanyPage.swift */,
+			);
+			path = PageObjects;
+			sourceTree = "<group>";
+		};
+		84B1B363225F975A009FA909 /* PolaUITests */ = {
+			isa = PBXGroup;
+			children = (
+				84B1B364225F975A009FA909 /* PolaUITests.swift */,
+				9EAA68172260F0FF000ED12A /* CompanyPagePolaFriendsUITests.swift */,
+				84B1B366225F975A009FA909 /* Info.plist */,
+				848F28C8225FA113004007AB /* PageObjects */,
+			);
+			path = PolaUITests;
+			sourceTree = "<group>";
+		};
 		BDA76B5821DE622E003E9FD6 /* Analytics */ = {
 			isa = PBXGroup;
 			children = (
@@ -871,6 +923,24 @@
 			productReference = 1D08E84319A7621A00879BD2 /* PolaTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		84B1B361225F975A009FA909 /* PolaUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 84B1B36B225F975A009FA909 /* Build configuration list for PBXNativeTarget "PolaUITests" */;
+			buildPhases = (
+				84B1B35E225F975A009FA909 /* Sources */,
+				84B1B35F225F975A009FA909 /* Frameworks */,
+				84B1B360225F975A009FA909 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				84B1B368225F975A009FA909 /* PBXTargetDependency */,
+			);
+			name = PolaUITests;
+			productName = PolaUITests;
+			productReference = 84B1B362225F975A009FA909 /* PolaUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -878,16 +948,22 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = BP;
+				LastSwiftUpdateCheck = 1020;
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = PJMS;
 				TargetAttributes = {
 					1D08E82219A7621A00879BD2 = {
 						DevelopmentTeam = 9NBWKG2G3X;
-						LastSwiftMigration = 1010;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Manual;
 					};
 					1D08E84219A7621A00879BD2 = {
-						LastSwiftMigration = 1010;
+						LastSwiftMigration = 1020;
+						TestTargetID = 1D08E82219A7621A00879BD2;
+					};
+					84B1B361225F975A009FA909 = {
+						CreatedOnToolsVersion = 10.2;
+						ProvisioningStyle = Automatic;
 						TestTargetID = 1D08E82219A7621A00879BD2;
 					};
 				};
@@ -907,6 +983,7 @@
 			targets = (
 				1D08E82219A7621A00879BD2 /* Pola */,
 				1D08E84219A7621A00879BD2 /* PolaTests */,
+				84B1B361225F975A009FA909 /* PolaUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -936,6 +1013,13 @@
 				1DEFA1C01BD9920600938C81 /* Lato-Semibold.ttf in Resources */,
 				1DEFA1BE1BD9920600938C81 /* Lato-Regular.ttf in Resources */,
 				1DEFA1BC1BD9920600938C81 /* Lato-Light.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		84B1B360225F975A009FA909 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1173,6 +1257,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		84B1B35E225F975A009FA909 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				848F28CD225FA113004007AB /* BasePage.swift in Sources */,
+				9EAA68182260F0FF000ED12A /* CompanyPagePolaFriendsUITests.swift in Sources */,
+				848F28CE225FA113004007AB /* EnterBarcodePage.swift in Sources */,
+				848F28CC225FA113004007AB /* ScanBarcodePage.swift in Sources */,
+				9EAA68162260F00A000ED12A /* CompanyPage.swift in Sources */,
+				84B1B365225F975A009FA909 /* PolaUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1180,6 +1277,11 @@
 			isa = PBXTargetDependency;
 			target = 1D08E82219A7621A00879BD2 /* Pola */;
 			targetProxy = 1D08E84919A7621A00879BD2 /* PBXContainerItemProxy */;
+		};
+		84B1B368225F975A009FA909 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1D08E82219A7621A00879BD2 /* Pola */;
+			targetProxy = 84B1B367225F975A009FA909 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1322,7 +1424,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = Wildcard;
 				SWIFT_OBJC_BRIDGING_HEADER = "Pola/Pola-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				WRAPPER_EXTENSION = app;
@@ -1356,7 +1458,7 @@
 				PROVISIONING_PROFILE = "11650f5b-2426-4072-b3e3-857e6e5267e1";
 				PROVISIONING_PROFILE_SPECIFIER = "Pola Ad-Hoc";
 				SWIFT_OBJC_BRIDGING_HEADER = "Pola/Pola-Bridging-Header.h";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
 				WRAPPER_EXTENSION = app;
@@ -1388,7 +1490,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "PolaTests/PolaTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -1415,9 +1517,83 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kj.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "PolaTests/PolaTests-Bridging-Header.h";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+		84B1B369225F975A009FA909 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = PolaUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = pl.kj.PolaUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "11650f5b-2426-4072-b3e3-857e6e5267e1";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Pola;
+			};
+			name = Debug;
+		};
+		84B1B36A225F975A009FA909 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = PolaUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = pl.kj.PolaUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "11650f5b-2426-4072-b3e3-857e6e5267e1";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Pola;
 			};
 			name = Release;
 		};
@@ -1447,6 +1623,15 @@
 			buildConfigurations = (
 				1D08E85919A7621A00879BD2 /* Debug */,
 				1D08E85A19A7621A00879BD2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		84B1B36B225F975A009FA909 /* Build configuration list for PBXNativeTarget "PolaUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				84B1B369225F975A009FA909 /* Debug */,
+				84B1B36A225F975A009FA909 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

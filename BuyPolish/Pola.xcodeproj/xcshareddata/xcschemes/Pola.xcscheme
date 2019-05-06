@@ -38,6 +38,16 @@
                ReferencedContainer = "container:Pola.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "84B1B361225F975A009FA909"
+               BuildableName = "PolaUITests.xctest"
+               BlueprintName = "PolaUITests"
+               ReferencedContainer = "container:Pola.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
