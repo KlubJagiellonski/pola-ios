@@ -1,5 +1,5 @@
 #import "BPStackView.h"
-#import "UIApplication+BPStatusBarHeight.h"
+#import "UIView+SafeAreaInsets.h"
 
 NSInteger const kBPStackViewDefaultCardCountLimit = 4;
 NSInteger const kBPStackViewCardMargin = 3;
@@ -68,7 +68,6 @@ NSInteger const kBPStackViewCardTitleHeight = 50;
     if (self) {
         _cards = [NSMutableArray array];
         _layoutContext = [BPStackViewLayoutContext new];
-        _layoutContext.edgeInsets = UIEdgeInsetsMake([UIApplication statusBarHeight] + kBPStackViewCardMargin, kBPStackViewCardMargin, 0, kBPStackViewCardMargin);
         _layoutContext.lookAhead = kBPStackViewCardTitleHeight;
         _layoutContext.cardCountLimit = kBPStackViewDefaultCardCountLimit;
 
@@ -203,7 +202,8 @@ NSInteger const kBPStackViewCardTitleHeight = 50;
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-
+    
+    _layoutContext.edgeInsets = UIEdgeInsetsMake(self.topSafeAreaInset + kBPStackViewCardMargin, kBPStackViewCardMargin, 0, kBPStackViewCardMargin);
     _layoutContext.cardSize = CGSizeMake(
         self.bounds.size.width - _layoutContext.edgeInsets.left - _layoutContext.edgeInsets.right,
         self.bounds.size.height - _layoutContext.edgeInsets.top - _layoutContext.edgeInsets.bottom - _layoutContext.lookAhead

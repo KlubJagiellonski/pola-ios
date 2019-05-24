@@ -3,7 +3,7 @@
 #import "BPStackView.h"
 #import "BPTheme.h"
 #import "UILabel+BPAdditions.h"
-#import "UIApplication+BPStatusBarHeight.h"
+#import "UIView+SafeAreaInsets.h"
 
 const int SCAN_CODE_MARGIN = 15;
 const int INFO_TEXT_LABEL_BOTTOM_MARGIN = 50;
@@ -97,12 +97,7 @@ const int SCAN_CODE_TEACH_BUTTON_HEIGHT = 35;
     rect.origin.y = CGRectGetHeight(self.bounds) / 2 - CGRectGetHeight(rect);
     self.rectangleView.frame = rect;
 
-    CGFloat topY;
-    if (@available(iOS 11, *)) {
-        topY = self.safeAreaInsets.top + SCAN_CODE_MARGIN;
-    } else {
-        topY = [UIApplication statusBarHeight] + SCAN_CODE_MARGIN;
-    }
+    CGFloat topY = self.topSafeAreaInset + SCAN_CODE_MARGIN;
     rect = self.keyboardButton.frame;
     rect.origin.x = SCAN_CODE_MARGIN;
     rect.origin.y = topY;
