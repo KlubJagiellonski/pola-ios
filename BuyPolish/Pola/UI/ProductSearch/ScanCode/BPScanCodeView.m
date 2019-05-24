@@ -97,9 +97,15 @@ const int SCAN_CODE_TEACH_BUTTON_HEIGHT = 35;
     rect.origin.y = CGRectGetHeight(self.bounds) / 2 - CGRectGetHeight(rect);
     self.rectangleView.frame = rect;
 
+    CGFloat topY;
+    if (@available(iOS 11, *)) {
+        topY = self.safeAreaInsets.top + SCAN_CODE_MARGIN;
+    } else {
+        topY = [UIApplication statusBarHeight] + SCAN_CODE_MARGIN;
+    }
     rect = self.keyboardButton.frame;
     rect.origin.x = SCAN_CODE_MARGIN;
-    rect.origin.y = [UIApplication statusBarHeight] + SCAN_CODE_MARGIN;
+    rect.origin.y = topY;
     self.keyboardButton.frame = rect;
 
     rect = self.flashButton.frame;
@@ -109,7 +115,7 @@ const int SCAN_CODE_TEACH_BUTTON_HEIGHT = 35;
 
     rect = self.menuButton.frame;
     rect.origin.x = CGRectGetWidth(self.bounds) - SCAN_CODE_MARGIN - CGRectGetWidth(rect);
-    rect.origin.y = [UIApplication statusBarHeight] + SCAN_CODE_MARGIN;
+    rect.origin.y = topY;
     self.menuButton.frame = rect;
 
     rect = self.logoImageView.frame;
