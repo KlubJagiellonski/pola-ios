@@ -5,7 +5,7 @@
 #import "UIImage+KVNImageEffects.h"
 #import "BPTheme.h"
 #import "UILabel+BPAdditions.h"
-#import "UIApplication+BPStatusBarHeight.h"
+#import "UIView+SafeAreaInsets.h"
 
 const int REPORT_PADDING = 16;
 const int VERTICAL_MARGIN = 25;
@@ -99,7 +99,7 @@ const int REPORT_DESCRIPTIONSHADOW_HEIGHT = 1;
 
     CGRect rect = self.closeButton.frame;
     rect.origin.x = CGRectGetWidth(self.bounds) - REPORT_PADDING - CGRectGetWidth(rect);
-    rect.origin.y = [UIApplication statusBarHeight] + REPORT_PADDING - self.bottomMargin;
+    rect.origin.y = self.topSafeAreaInset + REPORT_PADDING - self.bottomMargin;
     self.closeButton.frame = rect;
 
     rect = self.titleLabel.frame;
@@ -126,7 +126,7 @@ const int REPORT_DESCRIPTIONSHADOW_HEIGHT = 1;
 
     rect = self.descriptionTitleLabel.frame;
     rect.origin.x = REPORT_PADDING;
-    rect.origin.y = MAX(CGRectGetMaxY(self.imageContainerView.frame) + VERTICAL_MARGIN - self.bottomMargin, REPORT_PADDING + [UIApplication statusBarHeight]);
+    rect.origin.y = MAX(CGRectGetMaxY(self.imageContainerView.frame) + VERTICAL_MARGIN - self.bottomMargin, REPORT_PADDING + self.topSafeAreaInset);
     self.descriptionTitleLabel.frame = rect;
 
     rect.size = CGSizeMake(CGRectGetWidth(self.bounds) - 2 * REPORT_PADDING, SEND_BUTTON_HEIGHT);

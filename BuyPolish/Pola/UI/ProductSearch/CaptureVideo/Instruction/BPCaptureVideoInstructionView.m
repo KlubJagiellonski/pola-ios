@@ -1,8 +1,8 @@
 #import "BPCaptureVideoInstructionView.h"
 #import "BPTheme.h"
-#import "UIApplication+BPStatusBarHeight.h"
 #import "BPVideoPlayerView.h"
 #import "UILabel+BPAdditions.h"
+#import "UIView+SafeAreaInsets.h"
 
 const int CAPTURE_TITLE_PADDING = 16;
 const int CAPTURE_VERTICAL_MARGIN = 25;
@@ -70,7 +70,7 @@ const int CAPTURE_BUTTON_HEIGHT = 30;
     
     CGRect rect = self.closeButton.frame;
     rect.origin.x = CGRectGetWidth(self.bounds) - CAPTURE_TITLE_PADDING - CGRectGetWidth(rect);
-    rect.origin.y = [UIApplication statusBarHeight] + CAPTURE_TITLE_PADDING;
+    rect.origin.y = self.topSafeAreaInset + CAPTURE_TITLE_PADDING;
     self.closeButton.frame = rect;
     
     rect = self.titleLabel.frame;
