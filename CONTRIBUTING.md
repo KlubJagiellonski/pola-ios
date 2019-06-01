@@ -33,3 +33,19 @@ PR może być tylko zmergowany gdy:
 * Wszystkie komentarze zostały zamknięte/zakończone.
 * Branch odchodzi od najnowszego master.
 * Zmiany zostały pomyślnie zbudowane i przetestowane przez serwer [CI](https://travis-ci.org/KlubJagiellonski/pola-ios).
+
+### 6. Wydawanie aplikacji (tylko opiekunowie)
+
+Przed zbudowaniem aplikacji do wydania należy:
+
+ * Skonfigurować Firebase:
+    * Pobieramy plik `GoogleService-Info.plist` dla projektu Pola z [konsoli Firebase](https://console.firebase.google.com).
+    * Edytujemy plik zmieniając wartość dla klucza `IS_ANALYTICS_ENABLED` na `YES`.
+    * Dodajemy plik do projektu.
+    * Pliku, ani powyższych zmian nie dodajemy do repozytorium!
+
+* Ustawić odpowiednią wersję:
+    * Ustawiamy wcześniej ustaloną z zespołem wersję aplikacji (pole `Version`).
+    * Zwiększamy o jeden numer budowania (pole `Build`). Każdorazowe wysłanie aplikacji do [App Store Connect](ttps://appstoreconnect.apple.com) powinno skutkować zwiększeniem tej liczby.
+    * Nagrywamy na nowo testy dla klasy `InformationPageUITests`.
+    * Powyższe zmiany powinny znaleźć się w repozytorium!
