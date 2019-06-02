@@ -1,6 +1,0 @@
-framework module iOS_Hierarchy_Viewer {
-  umbrella header "iOS-Hierarchy-Viewer-umbrella.h"
-
-  export *
-  module * { export * }
-}

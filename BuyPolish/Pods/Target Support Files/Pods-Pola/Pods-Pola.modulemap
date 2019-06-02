@@ -1,6 +1,0 @@
-framework module Pods_Pola {
-  umbrella header "Pods-Pola-umbrella.h"
-
-  export *
-  module * { export * }
-}
