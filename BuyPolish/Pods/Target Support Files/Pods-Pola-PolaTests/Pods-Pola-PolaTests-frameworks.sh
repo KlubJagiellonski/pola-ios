@@ -155,7 +155,7 @@ strip_invalid_archs() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/BNRDynamicTypeManager/BNRDynamicTypeManager.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/KVNProgress/KVNProgress.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Objection/Objection.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/PLVisualAttributeConstraints/PLVisualAttributeConstraints.framework"
@@ -167,7 +167,7 @@ fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/BNRDynamicTypeManager/BNRDynamicTypeManager.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/KVNProgress/KVNProgress.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Objection/Objection.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/PLVisualAttributeConstraints/PLVisualAttributeConstraints.framework"

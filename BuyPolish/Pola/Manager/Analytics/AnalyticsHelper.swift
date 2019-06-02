@@ -1,5 +1,5 @@
 import Foundation
-import FirebaseAnalytics
+import Firebase
 import Crashlytics
 
 @objc(BPAnalyticsHelper)

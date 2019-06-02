@@ -95,6 +95,7 @@
 		83AFDE9A1F0D4E9300608235 /* BPCaptureVideoInstructionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AFDE991F0D4E9300608235 /* BPCaptureVideoInstructionView.m */; };
 		8455A7EF220D527200F30845 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8455A7EE220D527200F30845 /* LaunchScreen.storyboard */; };
 		848C6922225D044300D39E90 /* LaunchScreenSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848C6921225D044300D39E90 /* LaunchScreenSnapshotTests.swift */; };
+		849BBA002298435D00347863 /* UIView+SafeAreaInsets.m in Sources */ = {isa = PBXBuildFile; fileRef = 849BB9FF2298435D00347863 /* UIView+SafeAreaInsets.m */; };
 		84E708362280A40400402E26 /* InformationPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E708272280A40300402E26 /* InformationPage.swift */; };
 		84E708372280A40400402E26 /* ScanBarcodePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E708282280A40300402E26 /* ScanBarcodePage.swift */; };
 		84E708382280A40400402E26 /* BasePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E708292280A40300402E26 /* BasePage.swift */; };
@@ -302,6 +303,8 @@
 		83AFDE991F0D4E9300608235 /* BPCaptureVideoInstructionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPCaptureVideoInstructionView.m; path = CaptureVideo/Instruction/BPCaptureVideoInstructionView.m; sourceTree = "<group>"; };
 		8455A7EE220D527200F30845 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		848C6921225D044300D39E90 /* LaunchScreenSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenSnapshotTests.swift; sourceTree = "<group>"; };
+		849BB9FE2298435D00347863 /* UIView+SafeAreaInsets.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+SafeAreaInsets.h"; sourceTree = "<group>"; };
+		849BB9FF2298435D00347863 /* UIView+SafeAreaInsets.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+SafeAreaInsets.m"; sourceTree = "<group>"; };
 		84B1B362225F975A009FA909 /* PolaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PolaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		84B1B366225F975A009FA909 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84E708272280A40300402E26 /* InformationPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InformationPage.swift; sourceTree = "<group>"; };
@@ -665,6 +668,8 @@
 				37B6499FA4AA777D1E05D4C7 /* BPStackView.m */,
 				ABCA9A3E3B8A8B7C925052B6 /* UIApplication+BPStatusBarHeight.h */,
 				ABCA997979B62F78CFCB7E19 /* UIApplication+BPStatusBarHeight.m */,
+				849BB9FE2298435D00347863 /* UIView+SafeAreaInsets.h */,
+				849BB9FF2298435D00347863 /* UIView+SafeAreaInsets.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -992,7 +997,7 @@
 					1D08E82219A7621A00879BD2 = {
 						DevelopmentTeam = 9NBWKG2G3X;
 						LastSwiftMigration = 1020;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					1D08E84219A7621A00879BD2 = {
 						LastSwiftMigration = 1020;
@@ -1111,7 +1116,7 @@
 				"${PODS_ROOT}/Target Support Files/Pods-Pola-PolaUITests/Pods-Pola-PolaUITests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
 				"${BUILT_PRODUCTS_DIR}/BNRDynamicTypeManager/BNRDynamicTypeManager.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/KVNProgress/KVNProgress.framework",
 				"${BUILT_PRODUCTS_DIR}/Objection/Objection.framework",
 				"${BUILT_PRODUCTS_DIR}/PLVisualAttributeConstraints/PLVisualAttributeConstraints.framework",
@@ -1126,7 +1131,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BNRDynamicTypeManager.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KVNProgress.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Objection.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PLVisualAttributeConstraints.framework",
@@ -1163,7 +1168,7 @@
 				"${PODS_ROOT}/Target Support Files/Pods-Pola-PolaTests/Pods-Pola-PolaTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
 				"${BUILT_PRODUCTS_DIR}/BNRDynamicTypeManager/BNRDynamicTypeManager.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/KVNProgress/KVNProgress.framework",
 				"${BUILT_PRODUCTS_DIR}/Objection/Objection.framework",
 				"${BUILT_PRODUCTS_DIR}/PLVisualAttributeConstraints/PLVisualAttributeConstraints.framework",
@@ -1176,7 +1181,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BNRDynamicTypeManager.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KVNProgress.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Objection.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PLVisualAttributeConstraints.framework",
@@ -1217,7 +1222,7 @@
 				"${PODS_ROOT}/Target Support Files/Pods-Pola/Pods-Pola-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
 				"${BUILT_PRODUCTS_DIR}/BNRDynamicTypeManager/BNRDynamicTypeManager.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/KVNProgress/KVNProgress.framework",
 				"${BUILT_PRODUCTS_DIR}/Objection/Objection.framework",
 				"${BUILT_PRODUCTS_DIR}/PLVisualAttributeConstraints/PLVisualAttributeConstraints.framework",
@@ -1229,7 +1234,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BNRDynamicTypeManager.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KVNProgress.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Objection.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PLVisualAttributeConstraints.framework",
@@ -1323,6 +1328,7 @@
 				37B64E4E58C1CE8446137CD1 /* BPCompanyCardView.m in Sources */,
 				37B641B5D6F386E7E2A67DF8 /* BPMainProggressView.m in Sources */,
 				C06EE3391F20D6F5005B2B57 /* BPCapturedImagesUploadManager.m in Sources */,
+				849BBA002298435D00347863 /* UIView+SafeAreaInsets.m in Sources */,
 				37B648D280BBB1A95E85962E /* BPSecondaryProgressView.m in Sources */,
 				83AFDE8E1F0D415C00608235 /* BPCaptureVideoNavigationController.m in Sources */,
 				C092CF3C1F1F88EE003174D1 /* UIImage+Scaling.m in Sources */,
@@ -1511,8 +1517,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9NBWKG2G3X;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1529,8 +1534,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kj.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "bce93960-c432-4866-97a1-d6021b8d13e9";
-				PROVISIONING_PROFILE_SPECIFIER = Wildcard;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Pola/Pola-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -1546,8 +1550,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9NBWKG2G3X;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1564,8 +1567,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kj.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "11650f5b-2426-4072-b3e3-857e6e5267e1";
-				PROVISIONING_PROFILE_SPECIFIER = "Pola Ad-Hoc";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Pola/Pola-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

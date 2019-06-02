@@ -1,7 +1,7 @@
 #import "BPCaptureVideoView.h"
 #import "BPTheme.h"
-#import "UIApplication+BPStatusBarHeight.h"
 #import "UILabel+BPAdditions.h"
+#import "UIView+SafeAreaInsets.h"
 
 const int CAPTURE_PADDING = 16;
 const int CAPTURE_START_BUTTON_HEIGHT = 30;
@@ -64,12 +64,12 @@ const int DIM_MARGIN = 30;
     
     CGRect rect = self.closeButton.frame;
     rect.origin.x = CGRectGetWidth(self.bounds) - CAPTURE_PADDING - CGRectGetWidth(rect);
-    rect.origin.y = [UIApplication statusBarHeight] + CAPTURE_PADDING;
+    rect.origin.y = self.topSafeAreaInset + CAPTURE_PADDING;
     self.closeButton.frame = rect;
     
     rect = self.productLabel.frame;
     rect.origin.x = CAPTURE_PADDING;
-    rect.origin.y = [UIApplication statusBarHeight] + CAPTURE_PADDING;
+    rect.origin.y = self.topSafeAreaInset + CAPTURE_PADDING;
     rect.size.width = CGRectGetWidth(self.bounds) - 3*CAPTURE_PADDING - CGRectGetWidth(self.closeButton.frame);
     rect.size.height = [self.productLabel heightForWidth:rect.size.width];
     self.productLabel.frame = rect;
