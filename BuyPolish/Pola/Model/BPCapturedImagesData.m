@@ -1,6 +1,5 @@
 #import "BPCapturedImagesData.h"
 
-
 @implementation BPCapturedImagesData
 
 - (instancetype)initWithProductID:(NSNumber *)productID

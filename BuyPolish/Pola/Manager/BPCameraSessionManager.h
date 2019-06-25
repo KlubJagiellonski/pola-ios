@@ -4,13 +4,11 @@
 @class AVCaptureSession;
 @class AVCaptureVideoPreviewLayer;
 
-
 @protocol BPCameraSessionManagerDelegate <NSObject>
 
 - (void)didFindBarcode:(NSString *)barcode;
 
 @end
-
 
 @interface BPCameraSessionManager : NSObject <AVCaptureMetadataOutputObjectsDelegate>
 

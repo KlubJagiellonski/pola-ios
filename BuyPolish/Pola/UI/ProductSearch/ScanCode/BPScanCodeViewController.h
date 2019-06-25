@@ -8,7 +8,6 @@
 #import "BPKeyboardViewController.h"
 #import "BPCaptureVideoNavigationController.h"
 
-
 @class BPScanCodeViewController;
 @class BPScanResult;
 

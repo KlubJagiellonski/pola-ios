@@ -1,6 +1,5 @@
 #import "BPAboutWebViewController.h"
 
-
 @implementation BPAboutWebViewController
 
 - (instancetype)initWithUrl:(NSString *)url title:(NSString *)title {

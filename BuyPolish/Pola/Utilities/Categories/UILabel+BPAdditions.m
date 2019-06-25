@@ -1,6 +1,5 @@
 #import "UILabel+BPAdditions.h"
 
-
 @implementation UILabel (BPAdditions)
 
 - (CGFloat)heightForWidth:(CGFloat)width {

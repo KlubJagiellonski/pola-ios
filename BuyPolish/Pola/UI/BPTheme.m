@@ -1,7 +1,6 @@
 #import "BPTheme.h"
 #import "UIColor+BPAdditions.h"
 
-
 @implementation BPTheme {
 
 }

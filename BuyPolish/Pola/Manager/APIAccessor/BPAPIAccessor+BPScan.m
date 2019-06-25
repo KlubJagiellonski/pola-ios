@@ -1,7 +1,6 @@
 #import "BPAPIAccessor+BPScan.h"
 #import "BPAPIResponse.h"
 
-
 @implementation BPAPIAccessor (BPScan)
 
 - (NSDictionary *)retrieveProductWithBarcode:(NSString *)barcode error:(NSError **)error {

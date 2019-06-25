@@ -1,6 +1,5 @@
 #import <Foundation/Foundation.h>
 
-
 @interface BPProductImageManager : NSObject
 
 - (void)saveImage:(UIImage *)image forKey:(NSNumber *)key index:(int)index;

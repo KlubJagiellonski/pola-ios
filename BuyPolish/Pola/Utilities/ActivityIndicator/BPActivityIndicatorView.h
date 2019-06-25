@@ -1,6 +1,5 @@
 #import <Foundation/Foundation.h>
 
-
 @interface BPActivityIndicatorView : UIView
 
 @property(copy, nonatomic) NSString *text;

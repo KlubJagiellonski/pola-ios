@@ -1,7 +1,6 @@
 #import "UIAlertView+BPUtilities.h"
 #import "UIAlertView+AFNetworking.h"
 
-
 @implementation UIAlertView (BPUtilities)
 
 + (UIAlertView *)showErrorAlert:(NSString *)error {

@@ -36,7 +36,6 @@
     [self.videoPreviewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
 }
 
-
 - (void)start {
     [self.captureSession startRunning];
 }

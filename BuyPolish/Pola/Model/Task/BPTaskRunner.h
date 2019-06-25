@@ -2,7 +2,6 @@
 
 @class BPTask;
 
-
 @interface BPTaskRunner : NSObject
 
 - (void)runInMainQueue:(void (^)(void))block;

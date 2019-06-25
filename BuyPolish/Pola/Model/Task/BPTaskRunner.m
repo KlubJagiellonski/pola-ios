@@ -1,13 +1,11 @@
 #import "BPTaskRunner.h"
 #import "BPTask.h"
 
-
 @interface BPTaskRunner ()
 
 @property(nonatomic, readonly) NSOperationQueue *mainOperationQueue;
 
 @end
-
 
 @implementation BPTaskRunner
 

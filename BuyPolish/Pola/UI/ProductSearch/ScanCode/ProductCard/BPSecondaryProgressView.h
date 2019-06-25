@@ -1,6 +1,5 @@
 #import <Foundation/Foundation.h>
 
-
 @interface BPSecondaryProgressView : UIView
 
 - (void)setProgress:(NSNumber *)progress;

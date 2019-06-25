@@ -3,7 +3,6 @@
 #import "BPCompanyContentView.h"
 #import "BPStackView.h"
 
-
 @class BPCompanyCardView;
 @class BPMainProggressView;
 @class BPSecondaryProgressView;

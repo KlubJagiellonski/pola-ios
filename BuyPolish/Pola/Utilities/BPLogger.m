@@ -1,6 +1,5 @@
 #import "BPLogger.h"
 
-
 @implementation BPLogger
 
 + (void)logWithLine:(NSInteger)line fileName:(NSString *)fileName method:(NSString *)method format:(NSString *)format, ... {
@@ -10,6 +9,5 @@
     NSLog(@"%@ [%@][%@][%li]", string, fileName, method, (long) line);
     va_end(args);
 }
-
 
 @end

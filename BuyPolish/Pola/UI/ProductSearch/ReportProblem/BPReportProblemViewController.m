@@ -184,7 +184,6 @@ objection_requires_sel(@selector(productImageManager), @selector(reportManager),
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
-
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     [self dismissViewControllerAnimated:YES completion:NULL];
 }

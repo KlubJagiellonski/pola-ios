@@ -1,6 +1,5 @@
 #import "BPKeyboardManager.h"
 
-
 @implementation BPKeyboardManager
 
 - (void)turnOn {
@@ -39,6 +38,5 @@
 - (void)turnOff {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
-
 
 @end

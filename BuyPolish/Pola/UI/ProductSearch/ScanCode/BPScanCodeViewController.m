@@ -326,7 +326,6 @@ objection_requires_sel(@selector(productManager), @selector(cameraSessionManager
 
 #pragma mark - UIAlertViewDelegate
 
-
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     self.addingCardEnabled = YES;
 }

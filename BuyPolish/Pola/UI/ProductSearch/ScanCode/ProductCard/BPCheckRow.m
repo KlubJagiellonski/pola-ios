@@ -1,9 +1,7 @@
 #import "BPCheckRow.h"
 #import "BPTheme.h"
 
-
 const int CHECK_ROW_HORIZONTAL_MARGIN = 7;
-
 
 @interface BPCheckRow ()
 @property(nonatomic, readonly) UIImageView *checkImageView;

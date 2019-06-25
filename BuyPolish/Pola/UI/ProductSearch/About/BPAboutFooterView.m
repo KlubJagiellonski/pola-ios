@@ -2,13 +2,11 @@
 #import "BPAboutFooterView.h"
 #import "BPTheme.h"
 
-
 @interface BPAboutFooterView ()
 
 @property(nonnull, readonly) UILabel *infoLabel;
 
 @end
-
 
 @implementation BPAboutFooterView
 

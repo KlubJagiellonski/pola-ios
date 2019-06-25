@@ -1,6 +1,5 @@
 #import "NSString+BPUtilities.h"
 
-
 @implementation NSString (BPUtilities)
 
 - (BOOL)isValidBarcode {

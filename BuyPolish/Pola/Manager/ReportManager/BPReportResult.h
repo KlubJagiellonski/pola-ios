@@ -2,11 +2,9 @@
 
 @class BPReport;
 
-
 extern const int REPORT_STATE_ADD;
 extern const int REPORT_STATE_IMAGE_ADD;
 extern const int REPORT_STATE_FINSIHED;
-
 
 @interface BPReportResult : NSObject
 
@@ -17,6 +15,5 @@ extern const int REPORT_STATE_FINSIHED;
 - (instancetype)initWithState:(int)state report:(BPReport *)report imageDownloadedIndex:(int)imageDownloadedIndex;
 
 + (instancetype)resultWithState:(int)state report:(BPReport *)report imageDownloadedIndex:(int)imageDownloadedIndex;
-
 
 @end

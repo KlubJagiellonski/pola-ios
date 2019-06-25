@@ -2,7 +2,6 @@
 #import "NSLayoutConstraint+BPAdditions.h"
 #import "NSLayoutConstraint+PLVisualAttributeConstraints.h"
 
-
 @interface BPActivityIndicatorView ()
 
 @property(nonatomic, readonly) UIActivityIndicatorView *indicatorView;
@@ -10,7 +9,6 @@
 @property(nonatomic, readonly) NSMutableArray *privateConstraints;
 
 @end
-
 
 @implementation BPActivityIndicatorView
 
@@ -70,7 +68,6 @@
 - (NSString *)text {
     return self.loadingLabel.text;
 }
-
 
 - (void)setText:(NSString *)text {
     self.loadingLabel.text = text;

@@ -14,7 +14,6 @@ class CompanyPagePolaFriendsUITests: PolaUITestCase {
         recordMode = false
     }
 
-    
     func testGustawCompanyShouldBeMarkedAsPolaFriends() {
         let isPolaFriend =
             goToCompanyPage(company: Company.Gustaw)
