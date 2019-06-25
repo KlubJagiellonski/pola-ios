@@ -1,15 +1,9 @@
 #import "BPCameraSessionManager.h"
-#import "BPProductImageManager.h"
 
 @import AVFoundation;
 @import Objection;
 
-@interface BPCameraSessionManager ()
-@property(nonatomic, readonly) BPProductImageManager *imageManager;
-@end
-
 @implementation BPCameraSessionManager
-objection_requires_sel(@selector(imageManager))
 
 - (instancetype)init {
     self = [super init];
@@ -66,6 +60,5 @@ objection_requires_sel(@selector(imageManager))
         [self.delegate didFindBarcode:barcode];
     }
 }
-
 
 @end
