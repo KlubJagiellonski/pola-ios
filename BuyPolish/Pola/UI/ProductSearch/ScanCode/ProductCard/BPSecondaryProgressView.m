@@ -1,17 +1,14 @@
 #import "BPSecondaryProgressView.h"
 #import "BPTheme.h"
 
-
 const int SECONDARY_PROGRESS_HEIGHT = 20;
 const int SECONDARY_PROGRESS_TITLE_MARGIN = 10;
-
 
 @interface BPSecondaryProgressView ()
 @property(nonatomic, readonly) UIView *filledProgressView;
 @property(nonatomic, readonly) UILabel *percentLabel;
 @property(nonatomic) CGFloat progressValue;
 @end
-
 
 @implementation BPSecondaryProgressView
 
@@ -71,7 +68,6 @@ const int SECONDARY_PROGRESS_TITLE_MARGIN = 10;
     [self setNeedsLayout];
     [self layoutIfNeeded];
 }
-
 
 - (CGSize)sizeThatFits:(CGSize)size {
     size.height = SECONDARY_PROGRESS_HEIGHT;

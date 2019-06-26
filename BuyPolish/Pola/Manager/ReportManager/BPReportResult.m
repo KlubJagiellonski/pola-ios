@@ -23,5 +23,4 @@ const int REPORT_STATE_FINSIHED = 2;
     return [[self alloc] initWithState:state report:report imageDownloadedIndex:imageDownloadedIndex];
 }
 
-
 @end

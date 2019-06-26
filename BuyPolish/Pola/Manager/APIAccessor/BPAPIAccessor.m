@@ -13,13 +13,11 @@ NSString *const BPAPIAccessorAPIServerUrl = @"https://www.pola-app.pl/a/v3";
 //NSString *const BPAPIAccessorAPIServerUrl = @"http://localhost:8888";
 NSString *const BPAPIAccessorAPIDeviceId = @"device_id";
 
-
 @interface BPAPIAccessor ()
 
 @property(nonatomic, readonly) NSOperationQueue *operationsQueue;
 
 @end
-
 
 @implementation BPAPIAccessor
 

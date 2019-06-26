@@ -1,8 +1,6 @@
 #import <Foundation/Foundation.h>
 
-
 @class BPAPIResponse;
-
 
 @interface BPAPIAccessor : NSObject
 

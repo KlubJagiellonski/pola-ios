@@ -1,7 +1,6 @@
 #import "BPAPIAccessor+BPCapturedImagesData.h"
 #import "BPAPIResponse.h"
 
-
 @implementation BPAPIAccessor (BPCapturedImagesData)
 
 - (NSDictionary *)addAiPicsWithCapturedImagesData:(BPCapturedImagesData *)imagesData error:(NSError **)error {

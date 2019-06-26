@@ -425,7 +425,6 @@ NSInteger const kBPStackViewCardTitleHeight = 50;
 
 }
 
-
 - (void)layoutCards:(NSArray<UIView *> *)cards {
     for (NSUInteger i = 0; i < cards.count; ++i) {
         UIView *card = cards[i];

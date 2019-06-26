@@ -1,6 +1,5 @@
 #import <Foundation/Foundation.h>
 
-
 @interface BPTheme : NSObject
 
 + (UIColor *)lightBackgroundColor;

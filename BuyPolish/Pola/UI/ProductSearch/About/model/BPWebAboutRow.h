@@ -1,7 +1,6 @@
 #import <Foundation/Foundation.h>
 #import "BPAboutRow.h"
 
-
 @interface BPWebAboutRow : BPAboutRow
 
 @property(copy, nonatomic) NSString *url;

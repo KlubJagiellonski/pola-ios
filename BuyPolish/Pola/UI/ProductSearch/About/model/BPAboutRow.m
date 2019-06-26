@@ -1,6 +1,5 @@
 #import "BPAboutRow.h"
 
-
 @implementation BPAboutRow
 
 - (instancetype)initWithTitle:(NSString *)title action:(SEL)action {

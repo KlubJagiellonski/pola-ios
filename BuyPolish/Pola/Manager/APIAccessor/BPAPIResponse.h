@@ -1,8 +1,6 @@
 #import <Foundation/Foundation.h>
 
-
 @class AFHTTPRequestOperation;
-
 
 @interface BPAPIResponse : NSObject
 

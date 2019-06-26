@@ -1,10 +1,8 @@
 #import "BPMainProggressView.h"
 #import "BPTheme.h"
 
-
 const int MAIN_PROGRESS_HEIGHT = 20;
 const int MAIN_PROGRESS_TITLE_MARGIN = 10;
-
 
 @interface BPMainProggressView ()
 @property(nonatomic, readonly) UIView *filledProgressView;

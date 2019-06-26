@@ -1,6 +1,5 @@
 #import "BPTask.h"
 
-
 @implementation BPTask
 
 - (instancetype)initWithBlock:(void (^)())taskBlock completion:(void (^)())completion {

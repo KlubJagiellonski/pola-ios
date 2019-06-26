@@ -26,11 +26,9 @@ objection_initializer_sel(@selector(initWithScanResult:))
     self.view = [[BPCaptureVideoInstructionView alloc] initWithFrame:CGRectZero title:self.scanResult.askForPicsTitle instruction: self.scanResult.askForPicsText captureButtonText: self.scanResult.askForPicsButtonStart];
 }
 
-
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleDefault;
 }
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -66,7 +64,6 @@ objection_initializer_sel(@selector(initWithScanResult:))
 - (void)captureVideoInstructionViewDidTapCapture:(BPCaptureVideoInstructionView *)view {
     [self.delegate captureVideoInstructionViewControllerWantsCaptureVideo:self];
 }
-
 
 #pragma mark - Helpers
 

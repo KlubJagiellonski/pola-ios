@@ -2,9 +2,7 @@
 
 @class BPImageContainerView;
 
-
 @interface BPReportProblemView : UIView
-
 
 @property(nonatomic, readonly) BPImageContainerView *imageContainerView;
 @property(nonatomic, readonly) UIButton *closeButton;

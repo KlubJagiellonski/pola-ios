@@ -2,8 +2,6 @@
 
 @interface NSString (BPUtilities)
 
-
 - (BOOL)isValidBarcode;
-
 
 @end

@@ -1,6 +1,5 @@
 #import <Foundation/Foundation.h>
 
-
 @interface NSLayoutConstraint (BPAdditions)
 
 + (NSArray *)constraintsWithVisualFormats:(NSArray *)formats views:(NSDictionary *)views;

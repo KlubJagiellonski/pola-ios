@@ -18,7 +18,6 @@ NSString *const ABOUT_MAIL = @"aplikacja.pola@gmail.com";
 CGFloat const TABLE_HEADER_HEIGHT = 16.0f;
 CGFloat const CELL_HEIGHT = 49;
 
-
 @interface BPAboutViewController ()
 @property(copy, nonatomic, readonly) NSArray *rowList;
 @end
@@ -98,7 +97,6 @@ CGFloat const CELL_HEIGHT = 49;
 
 - (void)didTapReportError:(BPAboutRow *)row {
     [BPAnalyticsHelper aboutOpened:@"Zgłoś błąd w danych"];
-
 
     JSObjectionInjector *injector = [JSObjection defaultInjector];
     BPReportProblemViewController *reportProblemViewController = [injector getObject:[BPReportProblemViewController class]];
@@ -195,6 +193,5 @@ CGFloat const CELL_HEIGHT = 49;
 - (void)reportProblem:(BPReportProblemViewController *)controller finishedWithResult:(BOOL)result {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
 
 @end

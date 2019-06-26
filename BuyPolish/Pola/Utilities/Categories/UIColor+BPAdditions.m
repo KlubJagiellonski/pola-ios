@@ -1,6 +1,5 @@
 #import "UIColor+BPAdditions.h"
 
-
 @implementation UIColor (BPAdditions)
 + (UIColor *)colorWithHexString:(NSString *)hex {
     NSString *cString = [[hex stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];

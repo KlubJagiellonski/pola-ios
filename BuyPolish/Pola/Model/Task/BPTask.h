@@ -1,6 +1,5 @@
 #import <Foundation/Foundation.h>
 
-
 @interface BPTask : NSObject
 
 @property (copy, nonatomic) void (^block)(void);

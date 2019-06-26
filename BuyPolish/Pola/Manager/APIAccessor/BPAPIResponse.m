@@ -1,7 +1,6 @@
 #import "BPAPIResponse.h"
 #import "AFHTTPRequestOperation.h"
 
-
 @implementation BPAPIResponse
 
 - (instancetype)initWithOperation:(AFHTTPRequestOperation *)operation responseObject:(id)responseObject {
@@ -20,7 +19,6 @@
 + (instancetype)responseWithOperation:(AFHTTPRequestOperation *)operation responseObject:(id)responseObject {
     return [[self alloc] initWithOperation:operation responseObject:responseObject];
 }
-
 
 + (instancetype)emptyResponse {
     return [[self alloc] initWithOperation:nil responseObject:nil];

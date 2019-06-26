@@ -1,7 +1,6 @@
 #import "BPAPIAccessor+BPReport.h"
 #import "BPAPIResponse.h"
 
-
 @implementation BPAPIAccessor (BPReport)
 
 - (NSDictionary *)addReportWithDescription:(NSString *)description productId:(NSNumber *)productId filesCount:(NSUInteger)filesCount error:(NSError **)error {

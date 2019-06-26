@@ -1,14 +1,12 @@
 #import "BPScanCodeViewController.h"
 #import "BPScanCodeView.h"
 #import "BPProductManager.h"
-#import "BPTaskRunner.h"
 #import "UIAlertView+BPUtilities.h"
 #import "NSString+BPUtilities.h"
 #import "BPFlashlightManager.h"
 #import "BPKeyboardViewController.h"
 #import "BPCaptureVideoNavigationController.h"
 #import "BPScanResult.h"
-#import "BPCapturedImagesUploadManager.h"
 #import "BPCapturedImageResult.h"
 #import "BPAboutWebViewController.h"
 #import <Pola-Swift.h>
@@ -22,9 +20,7 @@ static NSTimeInterval const kAnimationTime = 0.15;
 @property(nonatomic) BPKeyboardViewController *keyboardViewController;
 @property(nonatomic, readonly) BPCameraSessionManager *cameraSessionManager;
 @property(nonatomic, readonly) BPFlashlightManager *flashlightManager;
-@property(nonatomic, readonly) BPTaskRunner *taskRunner;
 @property(nonatomic, readonly) BPProductManager *productManager;
-@property(nonatomic, readonly) BPCapturedImagesUploadManager *uploadManager;
 @property(copy, nonatomic) NSString *lastBardcodeScanned;
 @property(nonatomic, readonly) NSMutableArray *scannedBarcodes;
 @property(nonatomic, readonly) NSMutableDictionary *barcodeToProductResult;
@@ -34,7 +30,7 @@ static NSTimeInterval const kAnimationTime = 0.15;
 
 @implementation BPScanCodeViewController
 
-objection_requires_sel(@selector(taskRunner), @selector(productManager), @selector(cameraSessionManager), @selector(flashlightManager), @selector(uploadManager))
+objection_requires_sel(@selector(productManager), @selector(cameraSessionManager), @selector(flashlightManager))
 
 - (void)loadView {
     self.view = [[BPScanCodeView alloc] initWithFrame:CGRectZero];
@@ -329,7 +325,6 @@ objection_requires_sel(@selector(taskRunner), @selector(productManager), @select
 }
 
 #pragma mark - UIAlertViewDelegate
-
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     self.addingCardEnabled = YES;

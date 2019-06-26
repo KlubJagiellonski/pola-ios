@@ -10,7 +10,6 @@
 - (void)reportProblem:(BPReportProblemViewController *)controller finishedWithResult:(BOOL)result;
 @end
 
-
 @interface BPReportProblemViewController : UIViewController <BPImageContainerViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, BPKeyboardManagerDelegate>
 
 @property(weak, nonatomic) id <BPReportProblemViewControllerDelegate> delegate;

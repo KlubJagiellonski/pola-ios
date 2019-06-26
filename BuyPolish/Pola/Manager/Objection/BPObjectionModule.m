@@ -6,7 +6,6 @@
 #import "BPProductImageManager.h"
 #import "BPReportManager.h"
 
-
 @implementation BPObjectionModule
 
 - (void)configure {

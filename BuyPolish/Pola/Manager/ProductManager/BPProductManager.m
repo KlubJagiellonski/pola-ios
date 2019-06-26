@@ -15,7 +15,6 @@
 
 @end
 
-
 @implementation BPProductManager
 
 objection_requires_sel(@selector(taskRunner), @selector(apiAccessor))

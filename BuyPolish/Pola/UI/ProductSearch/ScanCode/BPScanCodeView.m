@@ -132,7 +132,6 @@ const int SCAN_CODE_TEACH_BUTTON_HEIGHT = 35;
     self.teachButton.frame = rect;
 }
 
-
 - (void)setVideoLayer:(AVCaptureVideoPreviewLayer *)videoLayer {
     if (_videoLayer == videoLayer) {
         return;

@@ -1,6 +1,5 @@
 #import "UIApplication+BPStatusBarHeight.h"
 
-
 @implementation UIApplication (BPStatusBarHeight)
 
 + (CGFloat)statusBarHeight {

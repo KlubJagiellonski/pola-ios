@@ -100,7 +100,6 @@ int const CARD_CONTENT_ROW_MARGIN = 14;
 
     const int widthWithPadding = (const int) (CGRectGetWidth(self.bounds) - 2 * self.padding);
 
-
     int bottom = 0;
     if (self.contentType == CompanyContentTypeDefault) {
         bottom = [self layoutDefaultSubviews:widthWithPadding];
@@ -233,7 +232,6 @@ int const CARD_CONTENT_ROW_MARGIN = 14;
     }
     return _allSubviews;
 }
-
 
 - (void)setCapitalPercent:(NSNumber *)capitalPercent {
     self.capitalProgressView.progress = capitalPercent;

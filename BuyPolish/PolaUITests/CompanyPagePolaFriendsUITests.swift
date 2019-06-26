@@ -9,12 +9,18 @@ import XCTest
 
 class CompanyPagePolaFriendsUITests: PolaUITestCase {
     
+    override func setUp() {
+        super.setUp()
+        recordMode = false
+    }
+
     func testGustawCompanyShouldBeMarkedAsPolaFriends() {
         let isPolaFriend =
             goToCompanyPage(company: Company.Gustaw)
                 .isPolaFriend
         
         XCTAssertTrue(isPolaFriend)
+        snapshotVerifyView()
     }
     
     func testStaropramenCompanyShouldNotBeMarkedAsPolaFriends() {
@@ -23,6 +29,7 @@ class CompanyPagePolaFriendsUITests: PolaUITestCase {
                 .isPolaFriend
         
         XCTAssertFalse(isPolaFriend)
+        snapshotVerifyView()
     }
     
     func goToCompanyPage(company: Company) -> CompanyPage {

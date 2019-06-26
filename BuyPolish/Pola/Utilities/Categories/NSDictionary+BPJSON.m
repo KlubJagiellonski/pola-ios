@@ -1,6 +1,5 @@
 #import "NSDictionary+BPJSON.h"
 
-
 @implementation NSDictionary (BPJSON)
 
 - (NSString *)jsonString {

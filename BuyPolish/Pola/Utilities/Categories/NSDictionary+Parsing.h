@@ -7,5 +7,4 @@
 - (NSNumber *)nilOrNumberForKey:(NSString *)key;
 - (NSDictionary *)nilOrDictionaryForKey:(NSString *)key;
 
-
 @end

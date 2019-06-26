@@ -68,5 +68,4 @@
     button.titleLabel.font = [BPTheme normalFont];
 }
 
-
 @end

@@ -1,7 +1,6 @@
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
 
-
 @class BPCaptureVideoView;
 
 @protocol BPCaptureVideoViewDelegate <NSObject>

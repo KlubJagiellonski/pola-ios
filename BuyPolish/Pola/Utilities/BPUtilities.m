@@ -1,6 +1,5 @@
 #import "BPUtilities.h"
 
-
 @implementation BPUtilities
 
 + (UIImage *)imageWithColor:(UIColor *)color {

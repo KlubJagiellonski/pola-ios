@@ -47,7 +47,6 @@ const CGFloat ANIMATION_DURATION = 0.5f;
     [self.delegate didTapRemoveImage:self atIndex:(int) index];
 }
 
-
 - (void)addImage:(UIImage *)image {
     [self layoutIfNeeded];
 
@@ -63,7 +62,6 @@ const CGFloat ANIMATION_DURATION = 0.5f;
     dimImageView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.2f];
     [self addSubview:dimImageView];
     [self.dimImageViewArray addObject:dimImageView];
-
 
     UIButton *deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [deleteButton addTarget:self action:@selector(didTapDeleteButton:) forControlEvents:UIControlEventTouchUpInside];
