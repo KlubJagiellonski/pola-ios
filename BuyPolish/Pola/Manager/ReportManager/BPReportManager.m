@@ -60,7 +60,7 @@ objection_requires_sel(@selector(taskRunner), @selector(apiAccessor))
             }];
         }];
     };
-    BPTask *task = [BPTask taskWithlock:block completion:nil];
+    BPTask *task = [BPTask taskWithBlock:block completion:nil];
     [self.taskRunner runImmediateTask:task];
 }
 
@@ -85,7 +85,7 @@ objection_requires_sel(@selector(taskRunner), @selector(apiAccessor))
         }];
     };
 
-    BPTask *task = [BPTask taskWithlock:block completion:nil];
+    BPTask *task = [BPTask taskWithBlock:block completion:nil];
     [self.taskRunner runImmediateTask:task];
 }
 
@@ -104,7 +104,7 @@ objection_requires_sel(@selector(taskRunner), @selector(apiAccessor))
 
         completion(error);
     };
-    BPTask *task = [BPTask taskWithlock:block completion:nil];
+    BPTask *task = [BPTask taskWithBlock:block completion:nil];
     [self.taskRunner runImmediateTask:task];
 }
 

@@ -81,7 +81,7 @@ objection_requires_sel(@selector(taskRunner), @selector(apiAccessor), @selector(
             }];
         }
     };
-    BPTask *task = [BPTask taskWithlock:block completion:nil];
+    BPTask *task = [BPTask taskWithBlock:block completion:nil];
     [self.taskRunner runImmediateTask:task];
 
 }    
@@ -95,7 +95,7 @@ objection_requires_sel(@selector(taskRunner), @selector(apiAccessor), @selector(
         [strongSelf.apiAccessor uploadImage:imageData toUrl:uploadUrl mimeType:mimeType error:&error];
         completion(error);
     };
-    BPTask *task = [BPTask taskWithlock:block completion:nil];
+    BPTask *task = [BPTask taskWithBlock:block completion:nil];
     [self.taskRunner runImmediateTask:task];
 }
 

@@ -12,7 +12,7 @@
     return self;
 }
 
-+ (instancetype)taskWithlock:(void (^)())taskBlock completion:(void (^)())completion {
++ (instancetype)taskWithBlock:(void (^)())taskBlock completion:(void (^)())completion {
     return [[self alloc] initWithBlock:taskBlock completion:completion];
 }
 
