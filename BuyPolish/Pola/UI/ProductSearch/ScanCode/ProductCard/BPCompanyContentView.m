@@ -1,8 +1,8 @@
 #import "BPCompanyContentView.h"
-#import "BPCheckRow.h"
 #import "BPSecondaryProgressView.h"
 #import "BPTheme.h"
 #import "UILabel+BPAdditions.h"
+#import <Pola-Swift.h>
 
 int const CARD_CONTENT_VERTICAL_PADDING = 14;
 int const CARD_CONTENT_ROW_MARGIN = 14;

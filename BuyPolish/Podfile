@@ -12,6 +12,7 @@ target :Pola do
     pod 'Firebase/Analytics', '~> 6.1.0'
     pod 'UITextView+Placeholder'
     pod 'KVNProgress'
+    pod 'R.swift'
     
     target :PolaTests do
       use_frameworks!

@@ -1,4 +1,6 @@
-#import <Foundation/Foundation.h>
+@import UIKit;
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface BPTheme : NSObject
 
@@ -19,4 +21,7 @@
 + (UIFont *)buttonFont;
 
 + (UIColor *)mediumBackgroundColor;
+
 @end
+
+NS_ASSUME_NONNULL_END
