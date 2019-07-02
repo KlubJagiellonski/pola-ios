@@ -6,6 +6,6 @@
 @property (copy, nonatomic) void (^completion)(void);
 
 - (instancetype)initWithBlock:(void (^)())taskBlock completion:(void (^)())completion;
-+ (instancetype)taskWithlock:(void (^)())taskBlock completion:(void (^)())completion;
++ (instancetype)taskWithBlock:(void (^)())taskBlock completion:(void (^)())completion;
 
 @end

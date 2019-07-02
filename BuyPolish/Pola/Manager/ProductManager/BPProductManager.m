@@ -43,7 +43,7 @@ objection_requires_sel(@selector(taskRunner), @selector(apiAccessor))
             }];
         }
     };
-    BPTask *task = [BPTask taskWithlock:block completion:blockCompletion];
+    BPTask *task = [BPTask taskWithBlock:block completion:blockCompletion];
     [self.taskRunner runImmediateTask:task];
 }
 
