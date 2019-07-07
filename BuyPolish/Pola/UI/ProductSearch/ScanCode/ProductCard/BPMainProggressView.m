@@ -1,5 +1,5 @@
 #import "BPMainProggressView.h"
-#import "BPTheme.h"
+#import <Pola-Swift.h>
 
 const int MAIN_PROGRESS_HEIGHT = 20;
 const int MAIN_PROGRESS_TITLE_MARGIN = 10;

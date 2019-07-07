@@ -1,6 +1,6 @@
 #import "BPAboutViewControllerSingleCell.h"
 #import "BPAboutRow.h"
-#import "BPTheme.h"
+#import <Pola-Swift.h>
 
 CGFloat const kLabelXOffset = 20.0f;
 

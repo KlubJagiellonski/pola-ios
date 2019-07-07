@@ -1,7 +1,7 @@
 #import "BPKeyboardView.h"
 #import "BPExtendedButton.h"
 #import "BPKeyboardTextView.h"
-#import "BPTheme.h"
+#import <Pola-Swift.h>
 
 @interface BPKeyboardView ()
 @property (nonatomic, strong, readonly) UIView *contentView;

@@ -1,8 +1,8 @@
 #import "BPScanCodeView.h"
 #import "BPStackView.h"
-#import "BPTheme.h"
 #import "UILabel+BPAdditions.h"
 #import "UIView+SafeAreaInsets.h"
+#import <Pola-Swift.h>
 
 const int SCAN_CODE_MARGIN = 15;
 const int INFO_TEXT_LABEL_BOTTOM_MARGIN = 50;

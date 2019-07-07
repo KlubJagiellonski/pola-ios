@@ -1,6 +1,6 @@
 #import "BPKeyboardTextView.h"
-#import "BPTheme.h"
 #import <AudioToolbox/AudioToolbox.h>
+#import <Pola-Swift.h>
 
 static CGFloat const kCornerRadious = 2.0;
 static CGFloat const kAnimationTime = 0.2;

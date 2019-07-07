@@ -1,5 +1,5 @@
 #import "BPAboutViewControllerBaseCell.h"
-#import "BPTheme.h"
+#import <Pola-Swift.h>
 
 CGFloat const kAboutCellWhiteBackgroundHorizontalMargin = 16.0f;
 CGFloat const kAboutCellWhiteBackgroundVerticalMargin = 8.0f;

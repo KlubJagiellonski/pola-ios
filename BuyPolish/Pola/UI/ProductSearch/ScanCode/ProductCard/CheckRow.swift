@@ -9,11 +9,11 @@ class CheckRow: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        checkImageView.tintColor = BPTheme.defaultTextColor()
+        checkImageView.tintColor = Theme.defaultTextColor
         addSubview(checkImageView)
         
-        textLabel.font = BPTheme.normalFont()
-        textLabel.textColor = BPTheme.defaultTextColor()
+        textLabel.font = Theme.normalFont
+        textLabel.textColor = Theme.defaultTextColor
         addSubview(textLabel)
         
         accessibilityTraits = .staticText

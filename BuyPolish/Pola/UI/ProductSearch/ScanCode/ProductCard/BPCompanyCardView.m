@@ -1,7 +1,7 @@
 #import "BPCompanyCardView.h"
 #import "BPMainProggressView.h"
-#import "BPTheme.h"
 #import "UILabel+BPAdditions.h"
+#import <Pola-Swift.h>
 
 NSInteger const CARD_PADDING = 10;
 int const CARD_SEPARATOR_HEIGHT = 1;

@@ -1,7 +1,7 @@
 #import "BPCaptureVideoView.h"
-#import "BPTheme.h"
 #import "UILabel+BPAdditions.h"
 #import "UIView+SafeAreaInsets.h"
+#import <Pola-Swift.h>
 
 const int CAPTURE_PADDING = 16;
 const int CAPTURE_START_BUTTON_HEIGHT = 30;

@@ -4,7 +4,6 @@
 #import "BPAboutViewControllerSingleCell.h"
 #import "BPDeviceHelper.h"
 #import "BPDoubleAboutRow.h"
-#import "BPTheme.h"
 #import "BPWebAboutRow.h"
 #import <Pola-Swift.h>
 

@@ -1,5 +1,5 @@
 #import "BPAboutFooterView.h"
-#import "BPTheme.h"
+#import <Pola-Swift.h>
 #import <UIKit/UIKit.h>
 
 @interface BPAboutFooterView ()

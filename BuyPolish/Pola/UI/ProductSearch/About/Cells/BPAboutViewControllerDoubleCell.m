@@ -1,6 +1,6 @@
 #import "BPAboutViewControllerDoubleCell.h"
 #import "BPDoubleAboutRow.h"
-#import "BPTheme.h"
+#import <Pola-Swift.h>
 
 @interface BPAboutViewControllerDoubleCell ()
 @property (nonatomic) UIButton *firstButton;

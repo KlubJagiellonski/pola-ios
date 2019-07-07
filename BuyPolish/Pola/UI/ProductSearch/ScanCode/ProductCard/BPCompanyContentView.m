@@ -1,6 +1,5 @@
 #import "BPCompanyContentView.h"
 #import "BPSecondaryProgressView.h"
-#import "BPTheme.h"
 #import "UILabel+BPAdditions.h"
 #import <Pola-Swift.h>
 

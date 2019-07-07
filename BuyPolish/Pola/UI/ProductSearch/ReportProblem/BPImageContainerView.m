@@ -1,5 +1,5 @@
 #import "BPImageContainerView.h"
-#import "UIColor+BPAdditions.h"
+#import <Pola-Swift.h>
 
 const int MAX_IMAGE_COUNT = 3;
 const int IMAGE_PADDING = 6;
@@ -29,7 +29,7 @@ const CGFloat ANIMATION_DURATION = 0.5f;
 
         _addImageButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _addImageButton.accessibilityLabel = NSLocalizedString(@"Accessibility.Report.AddPhoto", nil);
-        [_addImageButton setBackgroundColor:[UIColor colorWithHexString:@"CCCCCC"]];
+        [_addImageButton setBackgroundColor:BPTheme.lightBackgroundColor];
         [_addImageButton addTarget:self
                             action:@selector(didTapAddImageButton:)
                   forControlEvents:UIControlEventTouchUpInside];

@@ -1,5 +1,5 @@
 #import "BPSecondaryProgressView.h"
-#import "BPTheme.h"
+#import <Pola-Swift.h>
 
 const int SECONDARY_PROGRESS_HEIGHT = 20;
 const int SECONDARY_PROGRESS_TITLE_MARGIN = 10;

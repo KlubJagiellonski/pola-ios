@@ -1,8 +1,8 @@
 #import "BPCaptureVideoInstructionView.h"
-#import "BPTheme.h"
 #import "BPVideoPlayerView.h"
 #import "UILabel+BPAdditions.h"
 #import "UIView+SafeAreaInsets.h"
+#import <Pola-Swift.h>
 
 const int CAPTURE_TITLE_PADDING = 16;
 const int CAPTURE_VERTICAL_MARGIN = 25;

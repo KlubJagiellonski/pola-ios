@@ -1,11 +1,10 @@
 #import "BPReportProblemView.h"
 #import "BPImageContainerView.h"
-#import "BPTheme.h"
-#import "UIColor+BPAdditions.h"
 #import "UIImage+KVNImageEffects.h"
 #import "UILabel+BPAdditions.h"
 #import "UITextView+Placeholder.h"
 #import "UIView+SafeAreaInsets.h"
+#import <Pola-Swift.h>
 
 const int REPORT_PADDING = 16;
 const int VERTICAL_MARGIN = 25;
@@ -77,12 +76,12 @@ const int REPORT_DESCRIPTIONSHADOW_HEIGHT = 1;
         _descriptionTextView.textColor = [BPTheme defaultTextColor];
         _descriptionTextView.placeholder = NSLocalizedString(@"Additional info", nil);
         _descriptionTextView.placeholderTextView.font = _descriptionTextView.font;
-        _descriptionTextView.placeholderColor = [UIColor colorWithHexString:@"C3C3C3"];
+        _descriptionTextView.placeholderColor = [[UIColor alloc] initWithRgb:0xC3C3C3];
         [self addSubview:_descriptionTextView];
 
         _descriptionBottomShadowView =
             [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, REPORT_DESCRIPTIONSHADOW_HEIGHT)];
-        _descriptionBottomShadowView.backgroundColor = [UIColor colorWithHexString:@"C3C3C3"];
+        _descriptionBottomShadowView.backgroundColor = [[UIColor alloc] initWithRgb:0xC3C3C3];
         [self addSubview:_descriptionBottomShadowView];
 
         _sendButton = [UIButton buttonWithType:UIButtonTypeCustom];
