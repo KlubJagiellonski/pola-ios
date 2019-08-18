@@ -1,11 +1,18 @@
 language: objective-c
 
 xcode_workspace: Pola.xcworkspace
-xcode_scheme: Pola
 xcode_destination: platform=iOS Simulator,OS=12.2,name=iPhone 8
 osx_image: xcode10.2
 
 before_install: cd BuyPolish
+
+jobs:
+  include:
+    - stage: test
+      name: "Unit tests"
+      xcode_scheme: Pola
+    - name:  "UI tests"
+      xcode_scheme: PolaUITests
 
 notifications:
   email: false
