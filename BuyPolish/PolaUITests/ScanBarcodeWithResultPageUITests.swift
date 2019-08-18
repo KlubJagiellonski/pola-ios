@@ -34,4 +34,15 @@ class ScanBarcodeWithResultPageUITests: PolaUITestCase {
         snapshotVerifyView(file: file, line: line)
     }
     
+    func testISBNCode() {
+        startingPageObject
+            .tapEnterBarcodeButton()
+            .inputBarcode(ISBNCode)
+            .tapOkButton()
+            .waitForISBNResultPage()
+            .done()
+        
+        snapshotVerifyView()
+    }
+
 }

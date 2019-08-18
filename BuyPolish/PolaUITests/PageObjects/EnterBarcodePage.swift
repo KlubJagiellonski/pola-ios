@@ -10,6 +10,8 @@ import XCTest
 
 class EnterBarcodePage: BasePage {
     
+    private let ISBNResultLabel = "Kod ISBN/ISSN/ISMN"
+    
     func tapEnterBarcodeButton() -> ScanBarcodePage {
         app.buttons["Wpisz kod kreskowy"].tap()
         return ScanBarcodePage(app: app)
@@ -37,11 +39,20 @@ class EnterBarcodePage: BasePage {
         return CompanyPage(app: app)
     }
     
-    func waitForResultPage(companyName: String) -> ScanBarcodeWithResultsPage {
+    func waitForResultPage(companyName: String, file: StaticString = #file, line: UInt = #line) -> ScanBarcodeWithResultsPage {
         if !app.otherElements[companyName].waitForExistence(timeout: 3) {
-            XCTFail("No matches found for scan result:  \(companyName)")
+            XCTFail("No matches found for scan result:  \(companyName)", file: file, line: line)
         }
         return ScanBarcodeWithResultsPage(app: app)
+    }
+    
+    func waitForISBNResultPage(file: StaticString = #file, line: UInt = #line) -> ScanBarcodeWithResultsPage {
+        return waitForResultPage(companyName: ISBNResultLabel , file: file, line: line)
+    }
+    
+    func waitForISBNResultPageAndTap() -> ISBNPage {
+        app.otherElements[ISBNResultLabel].tap()
+        return ISBNPage(app: app)
     }
     
 }
