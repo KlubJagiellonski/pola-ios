@@ -8,6 +8,8 @@
 
 import Foundation
 
+let ISBNCode: String = "9788328053045"
+
 struct Company {
     let name: String
     let barcode: String
