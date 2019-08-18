@@ -80,6 +80,7 @@
 		37C89AA41C78682200CCE940 /* BPFlashlightManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C89AA31C78682200CCE940 /* BPFlashlightManager.m */; };
 		37F16AA51CA1BCCF00A310CF /* BPKeyboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37F16AA31CA1BCCF00A310CF /* BPKeyboardViewController.m */; };
 		7E5F95D0F615AFDF21D077DF /* libPods-Pola.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B0B41CCDC5C08C160BD074E /* libPods-Pola.a */; };
+		8402E1D62309BB610065E850 /* CompanyAltContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402E1D52309BB610065E850 /* CompanyAltContentView.swift */; };
 		841BB98B22D133A900234946 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841BB98A22D133A900234946 /* Theme.swift */; };
 		841BB98D22D136AE00234946 /* UIColor+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841BB98C22D136AE00234946 /* UIColor+Additions.swift */; };
 		8455A7EF220D527200F30845 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8455A7EE220D527200F30845 /* LaunchScreen.storyboard */; };
@@ -300,6 +301,7 @@
 		53F3B599F258259843E2755D /* Pods_Pola_PolaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pola_PolaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B0B41CCDC5C08C160BD074E /* libPods-Pola.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Pola.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D7DD012073B8CCDD821A2D0 /* Pods-Pola-PolaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola-PolaTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pola-PolaTests/Pods-Pola-PolaTests.release.xcconfig"; sourceTree = "<group>"; };
+		8402E1D52309BB610065E850 /* CompanyAltContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyAltContentView.swift; sourceTree = "<group>"; };
 		84034B7D23CCA48000E01157 /* SnapshotFailedTests */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SnapshotFailedTests; sourceTree = "<group>"; };
 		84034B7E23CCA49600E01157 /* FailureDiffs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = FailureDiffs; sourceTree = "<group>"; };
 		840938B0231F0202003FC0E1 /* ScanBarcodePage+TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ScanBarcodePage+TestData.swift"; sourceTree = "<group>"; };
@@ -664,6 +666,7 @@
 				37B64E55920A10560E17591F /* BPSecondaryProgressView.h */,
 				37B64C3D23F4E691A0CDACA0 /* BPSecondaryProgressView.m */,
 				84F177DB22CABFF700238266 /* CheckRow.swift */,
+				8402E1D52309BB610065E850 /* CompanyAltContentView.swift */,
 			);
 			path = ProductCard;
 			sourceTree = "<group>";
@@ -1457,6 +1460,7 @@
 				375021841CC0F0F800759140 /* BPKeyboardTextView.m in Sources */,
 				9EC3BBF223CDD63200242B1E /* BPCaptureVideoInstructionViewController.m in Sources */,
 				BDA76B5121DCD718003E9FD6 /* Encodable+Utilities.swift in Sources */,
+				8402E1D62309BB610065E850 /* CompanyAltContentView.swift in Sources */,
 				C09015821F367C7000E8CC38 /* BPWeakTimerTarget.m in Sources */,
 				37B642E8F1F16F59571A854C /* BPImageContainerView.m in Sources */,
 				1D2D50661DC54092000A8958 /* BPExtendedButton.m in Sources */,

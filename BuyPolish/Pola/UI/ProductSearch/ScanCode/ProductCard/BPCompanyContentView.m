@@ -17,7 +17,7 @@ int const CARD_CONTENT_ROW_MARGIN = 14;
 @property (nonatomic) BOOL friendButtonVisible;
 @property (nonatomic, readonly) UIButton *friendButton;
 @property (nonatomic, readonly) UILabel *descriptionLabel;
-@property (nonatomic, readonly) UILabel *altTextLabel;
+@property (nonatomic, readonly) CompanyAltContentView *altView;
 @property (copy, nonatomic, readonly) NSDictionary *typeToViewsDictionary;
 @property (copy, nonatomic, readonly) NSArray *allSubviews;
 
@@ -84,11 +84,8 @@ int const CARD_CONTENT_ROW_MARGIN = 14;
         _descriptionLabel.numberOfLines = 0;
         [self addSubview:_descriptionLabel];
 
-        _altTextLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _altTextLabel.font = [BPTheme normalFont];
-        _altTextLabel.textColor = [BPTheme defaultTextColor];
-        _altTextLabel.numberOfLines = 0;
-        [self addSubview:_altTextLabel];
+        _altView = [[CompanyAltContentView alloc] initWithFrame:CGRectZero];
+        [self addSubview:_altView];
     }
     return self;
 }
@@ -174,22 +171,21 @@ int const CARD_CONTENT_ROW_MARGIN = 14;
 }
 
 - (int)layoutAltSubviews:(const int)widthWithPadding {
-    CGRect rect = self.altTextLabel.frame;
-    rect.size.width = widthWithPadding;
-    rect.size.height = [self.altTextLabel heightForWidth:CGRectGetWidth(rect)];
+    CGRect rect = self.altView.frame;
+    rect.size = [self.altView sizeThatFits:CGSizeMake(widthWithPadding, 0)];
     rect.origin.x = self.padding;
     rect.origin.y = CARD_CONTENT_VERTICAL_PADDING;
-    self.altTextLabel.frame = rect;
+    self.altView.frame = rect;
 
-    return (int)CGRectGetMaxY(self.altTextLabel.frame);
+    return (int)CGRectGetMaxY(self.altView.frame);
 }
 
 - (void)setContentType:(CompanyContentType)type {
     _contentType = type;
 
     NSArray *visibleViews = self.typeToViewsDictionary[@(type)];
-    //you cannot user self.subviews because you will hide internal UIScrollView views
-    for (UIView *subview in self.allSubviews) {
+    for (UIView *subview in self
+             .allSubviews) { //you cannot user self.subviews because you will hide internal UIScrollView views
         subview.hidden = ![visibleViews containsObject:subview];
     }
 }
@@ -207,7 +203,7 @@ int const CARD_CONTENT_ROW_MARGIN = 14;
                 self.descriptionLabel
             ],
             @(CompanyContentTypeLoading): @[],
-            @(CompanyContentTypeAlt): @[self.altTextLabel]
+            @(CompanyContentTypeAlt): @[self.altView]
         };
     }
     return _typeToViewsDictionary;
@@ -223,7 +219,7 @@ int const CARD_CONTENT_ROW_MARGIN = 14;
             self.registeredCheckRow,
             self.rndCheckRow,
             self.workersCheckRow,
-            self.altTextLabel,
+            self.altView,
         ];
     }
     return _allSubviews;
@@ -251,7 +247,7 @@ int const CARD_CONTENT_ROW_MARGIN = 14;
 }
 
 - (void)setAltText:(NSString *)simpleText {
-    self.altTextLabel.text = simpleText;
+    self.altView.textLabel.text = simpleText;
     [self setNeedsLayout];
 }
 
