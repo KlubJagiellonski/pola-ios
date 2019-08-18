@@ -18,9 +18,7 @@ class PolaUITestCase: FBSnapshotTestCase {
         super.setUp()
         continueAfterFailure = false
         app = XCUIApplication()
-        var launchArguments = app.launchArguments
-        launchArguments.append("disableAnimations")
-        app.launchArguments = launchArguments
+        app.launchArguments += ["--disableAnimations"]
         app.launch()
         startingPageObject = ScanBarcodePage(app: app)
     }

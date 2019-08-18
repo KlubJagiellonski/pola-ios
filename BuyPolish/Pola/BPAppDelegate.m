@@ -12,9 +12,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
-    if ([NSProcessInfo.processInfo.arguments containsObject:@"disableAnimations"]) {
-        [UIView setAnimationsEnabled:NO];
-    }
     [BPAnalyticsHelper configure];
     [self configureObjection];
 
@@ -26,6 +23,11 @@
     self.window.rootViewController = injector[[BPRootViewController class]];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    if ([NSProcessInfo.processInfo.arguments containsObject:@"--disableAnimations"]) {
+        self.window.layer.speed = 0.0f;
+        [UIView setAnimationsEnabled:NO];
+    }
     
     if ([UIApplicationShortcutItem class]) {
         UIApplicationShortcutItem *shortcutItem = [launchOptions objectForKey:UIApplicationLaunchOptionsShortcutItemKey];
