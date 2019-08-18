@@ -1,11 +1,3 @@
-//
-//  TestData.swift
-//  PolaUITests
-//
-//  Created by Marcin Stepnowski on 17/04/2019.
-//  Copyright © 2019 PJMS. All rights reserved.
-//
-
 import Foundation
 
 let ISBNCode: String = "9788328053045"
