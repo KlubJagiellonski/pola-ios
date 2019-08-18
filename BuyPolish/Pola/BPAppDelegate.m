@@ -12,6 +12,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
+    if ([NSProcessInfo.processInfo.arguments containsObject:@"disableAnimations"]) {
+        [UIView setAnimationsEnabled:NO];
+    }
     [BPAnalyticsHelper configure];
     [self configureObjection];
 
