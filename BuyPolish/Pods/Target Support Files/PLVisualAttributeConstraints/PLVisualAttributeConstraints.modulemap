@@ -1,6 +1,0 @@
-framework module PLVisualAttributeConstraints {
-  umbrella header "PLVisualAttributeConstraints-umbrella.h"
-
-  export *
-  module * { export * }
-}

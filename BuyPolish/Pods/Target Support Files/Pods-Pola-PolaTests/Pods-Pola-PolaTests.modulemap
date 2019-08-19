@@ -1,6 +1,0 @@
-framework module Pods_Pola_PolaTests {
-  umbrella header "Pods-Pola-PolaTests-umbrella.h"
-
-  export *
-  module * { export * }
-}
