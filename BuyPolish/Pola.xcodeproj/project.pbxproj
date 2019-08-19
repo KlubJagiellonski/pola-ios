@@ -23,8 +23,6 @@
 		1D08E85019A7621A00879BD2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1D08E84E19A7621A00879BD2 /* InfoPlist.strings */; };
 		1D2D50661DC54092000A8958 /* BPExtendedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D2D50651DC54092000A8958 /* BPExtendedButton.m */; };
 		1D2D506C1DCBEDC5000A8958 /* BPAboutFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D2D506B1DCBEDC5000A8958 /* BPAboutFooterView.m */; };
-		1D648C131A71B483002B413D /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D648C111A71B483002B413D /* Crashlytics.framework */; };
-		1D648C141A71B483002B413D /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D648C121A71B483002B413D /* Fabric.framework */; };
 		1DEFA1BB1BD9920600938C81 /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1DEFA1B81BD9920600938C81 /* Lato-Light.ttf */; };
 		1DEFA1BC1BD9920600938C81 /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1DEFA1B81BD9920600938C81 /* Lato-Light.ttf */; };
 		1DEFA1BD1BD9920600938C81 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1DEFA1B91BD9920600938C81 /* Lato-Regular.ttf */; };
@@ -172,8 +170,6 @@
 		1D2D50651DC54092000A8958 /* BPExtendedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPExtendedButton.m; sourceTree = "<group>"; };
 		1D2D506A1DCBEDC5000A8958 /* BPAboutFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPAboutFooterView.h; sourceTree = "<group>"; };
 		1D2D506B1DCBEDC5000A8958 /* BPAboutFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPAboutFooterView.m; sourceTree = "<group>"; };
-		1D648C111A71B483002B413D /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
-		1D648C121A71B483002B413D /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		1DEFA1B81BD9920600938C81 /* Lato-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Light.ttf"; sourceTree = "<group>"; };
 		1DEFA1B91BD9920600938C81 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
 		1DEFA1BA1BD9920600938C81 /* Lato-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Semibold.ttf"; sourceTree = "<group>"; };
@@ -368,10 +364,8 @@
 				1D08E82919A7621A00879BD2 /* CoreGraphics.framework in Frameworks */,
 				1D08E82D19A7621A00879BD2 /* CoreData.framework in Frameworks */,
 				1D08E82B19A7621A00879BD2 /* UIKit.framework in Frameworks */,
-				1D648C141A71B483002B413D /* Fabric.framework in Frameworks */,
 				1D08E82719A7621A00879BD2 /* Foundation.framework in Frameworks */,
 				37B645454FC2ACC155CB1538 /* AVFoundation.framework in Frameworks */,
-				1D648C131A71B483002B413D /* Crashlytics.framework in Frameworks */,
 				952A03CA6AD72648FFC902C3 /* Pods_Pola.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -424,8 +418,6 @@
 		1D08E82519A7621A00879BD2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				1D648C111A71B483002B413D /* Crashlytics.framework */,
-				1D648C121A71B483002B413D /* Fabric.framework */,
 				1D08E82619A7621A00879BD2 /* Foundation.framework */,
 				1D08E82819A7621A00879BD2 /* CoreGraphics.framework */,
 				1D08E82A19A7621A00879BD2 /* UIKit.framework */,
