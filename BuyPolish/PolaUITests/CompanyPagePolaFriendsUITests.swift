@@ -1,10 +1,3 @@
-//
-//  PolaFriendsUITests.swift
-//  PolaUITests
-//
-//  Created by Marcin Stepnowski on 12/04/2019.
-//  Copyright © 2019 PJMS. All rights reserved.
-//
 import XCTest
 
 class CompanyPagePolaFriendsUITests: PolaUITestCase {
