@@ -1,6 +1,5 @@
 #import "BPScanCodeView.h"
 #import "BPStackView.h"
-#import "UILabel+BPAdditions.h"
 #import "UIView+SafeAreaInsets.h"
 #import <Pola-Swift.h>
 

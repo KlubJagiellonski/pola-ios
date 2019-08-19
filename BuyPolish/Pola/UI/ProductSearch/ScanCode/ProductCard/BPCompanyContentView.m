@@ -1,6 +1,5 @@
 #import "BPCompanyContentView.h"
 #import "BPSecondaryProgressView.h"
-#import "UILabel+BPAdditions.h"
 #import <Pola-Swift.h>
 
 int const CARD_CONTENT_VERTICAL_PADDING = 14;

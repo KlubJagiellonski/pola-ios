@@ -1,7 +1,6 @@
 #import "BPReportProblemView.h"
 #import "BPImageContainerView.h"
 #import "UIImage+KVNImageEffects.h"
-#import "UILabel+BPAdditions.h"
 #import "UITextView+Placeholder.h"
 #import "UIView+SafeAreaInsets.h"
 #import <Pola-Swift.h>

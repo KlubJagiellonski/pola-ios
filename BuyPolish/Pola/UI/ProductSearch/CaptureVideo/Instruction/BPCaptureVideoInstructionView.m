@@ -1,6 +1,5 @@
 #import "BPCaptureVideoInstructionView.h"
 #import "BPVideoPlayerView.h"
-#import "UILabel+BPAdditions.h"
 #import "UIView+SafeAreaInsets.h"
 #import <Pola-Swift.h>
 

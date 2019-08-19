@@ -1,6 +1,5 @@
 #import "BPCompanyCardView.h"
 #import "BPMainProggressView.h"
-#import "UILabel+BPAdditions.h"
 #import <Pola-Swift.h>
 
 NSInteger const CARD_PADDING = 10;
