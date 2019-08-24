@@ -90,12 +90,17 @@
 		83AFDE8E1F0D415C00608235 /* BPCaptureVideoNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AFDE8D1F0D415C00608235 /* BPCaptureVideoNavigationController.m */; };
 		83AFDE971F0D4CE200608235 /* BPCaptureVideoInstructionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AFDE961F0D4CE200608235 /* BPCaptureVideoInstructionViewController.m */; };
 		83AFDE9A1F0D4E9300608235 /* BPCaptureVideoInstructionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AFDE991F0D4E9300608235 /* BPCaptureVideoInstructionView.m */; };
+		841DDD6F2311ECD200CB82DC /* MockServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841DDD6D2311ECD200CB82DC /* MockServer.swift */; };
+		841DDD782311F7B200CB82DC /* staropramen.json in Resources */ = {isa = PBXBuildFile; fileRef = 841DDD752311F7B200CB82DC /* staropramen.json */; };
+		841DDD792311F7B200CB82DC /* gustaw.json in Resources */ = {isa = PBXBuildFile; fileRef = 841DDD762311F7B200CB82DC /* gustaw.json */; };
+		841DDD7A2311F7B200CB82DC /* isbn.json in Resources */ = {isa = PBXBuildFile; fileRef = 841DDD772311F7B200CB82DC /* isbn.json */; };
 		8455A7EF220D527200F30845 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8455A7EE220D527200F30845 /* LaunchScreen.storyboard */; };
 		847AE94723072E9B00E645ED /* ReferenceImages_64 in Resources */ = {isa = PBXBuildFile; fileRef = 847AE94623072E9B00E645ED /* ReferenceImages_64 */; };
 		847AE94923093E7700E645ED /* ISBNPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847AE94823093E7700E645ED /* ISBNPage.swift */; };
 		847AE94B23093E7E00E645ED /* ISBNPageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847AE94A23093E7E00E645ED /* ISBNPageUITests.swift */; };
 		848C6922225D044300D39E90 /* LaunchScreenSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848C6921225D044300D39E90 /* LaunchScreenSnapshotTests.swift */; };
 		849BBA002298435D00347863 /* UIView+SafeAreaInsets.m in Sources */ = {isa = PBXBuildFile; fileRef = 849BB9FF2298435D00347863 /* UIView+SafeAreaInsets.m */; };
+		84BB7A4423172BC00043D8B0 /* MockServerRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BB7A4323172BC00043D8B0 /* MockServerRunner.swift */; };
 		84E708362280A40400402E26 /* InformationPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E708272280A40300402E26 /* InformationPage.swift */; };
 		84E708372280A40400402E26 /* ScanBarcodePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E708282280A40300402E26 /* ScanBarcodePage.swift */; };
 		84E708382280A40400402E26 /* BasePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E708292280A40300402E26 /* BasePage.swift */; };
@@ -297,6 +302,10 @@
 		83AFDE961F0D4CE200608235 /* BPCaptureVideoInstructionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPCaptureVideoInstructionViewController.m; path = CaptureVideo/Instruction/BPCaptureVideoInstructionViewController.m; sourceTree = "<group>"; };
 		83AFDE981F0D4E7F00608235 /* BPCaptureVideoInstructionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BPCaptureVideoInstructionView.h; path = CaptureVideo/Instruction/BPCaptureVideoInstructionView.h; sourceTree = "<group>"; };
 		83AFDE991F0D4E9300608235 /* BPCaptureVideoInstructionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPCaptureVideoInstructionView.m; path = CaptureVideo/Instruction/BPCaptureVideoInstructionView.m; sourceTree = "<group>"; };
+		841DDD6D2311ECD200CB82DC /* MockServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockServer.swift; sourceTree = "<group>"; };
+		841DDD752311F7B200CB82DC /* staropramen.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = staropramen.json; sourceTree = "<group>"; };
+		841DDD762311F7B200CB82DC /* gustaw.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = gustaw.json; sourceTree = "<group>"; };
+		841DDD772311F7B200CB82DC /* isbn.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = isbn.json; sourceTree = "<group>"; };
 		8455A7EE220D527200F30845 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		847AE94523072E8F00E645ED /* ReferenceImages_64 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ReferenceImages_64; sourceTree = "<group>"; };
 		847AE94623072E9B00E645ED /* ReferenceImages_64 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ReferenceImages_64; sourceTree = "<group>"; };
@@ -307,6 +316,7 @@
 		849BB9FF2298435D00347863 /* UIView+SafeAreaInsets.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+SafeAreaInsets.m"; sourceTree = "<group>"; };
 		84B1B362225F975A009FA909 /* PolaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PolaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		84B1B366225F975A009FA909 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		84BB7A4323172BC00043D8B0 /* MockServerRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockServerRunner.swift; sourceTree = "<group>"; };
 		84E708272280A40300402E26 /* InformationPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InformationPage.swift; sourceTree = "<group>"; };
 		84E708282280A40300402E26 /* ScanBarcodePage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanBarcodePage.swift; sourceTree = "<group>"; };
 		84E708292280A40300402E26 /* BasePage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasePage.swift; sourceTree = "<group>"; };
@@ -826,11 +836,32 @@
 			path = CaptureVideo/Capture;
 			sourceTree = "<group>";
 		};
+		841DDD6B2311ECD200CB82DC /* MockServer */ = {
+			isa = PBXGroup;
+			children = (
+				841DDD742311F7B200CB82DC /* Responses */,
+				841DDD6D2311ECD200CB82DC /* MockServer.swift */,
+				84BB7A4323172BC00043D8B0 /* MockServerRunner.swift */,
+			);
+			path = MockServer;
+			sourceTree = "<group>";
+		};
+		841DDD742311F7B200CB82DC /* Responses */ = {
+			isa = PBXGroup;
+			children = (
+				841DDD752311F7B200CB82DC /* staropramen.json */,
+				841DDD762311F7B200CB82DC /* gustaw.json */,
+				841DDD772311F7B200CB82DC /* isbn.json */,
+			);
+			path = Responses;
+			sourceTree = "<group>";
+		};
 		84B1B363225F975A009FA909 /* PolaUITests */ = {
 			isa = PBXGroup;
 			children = (
 				847AE94623072E9B00E645ED /* ReferenceImages_64 */,
 				84E708262280A40300402E26 /* PageObjects */,
+				841DDD6B2311ECD200CB82DC /* MockServer */,
 				84E708352280A40400402E26 /* CompanyPagePolaFriendsUITests.swift */,
 				84E708322280A40300402E26 /* EnterBarcodePageUITests.swift */,
 				84E708332280A40400402E26 /* InformationPageUITests.swift */,
@@ -1052,6 +1083,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				841DDD782311F7B200CB82DC /* staropramen.json in Resources */,
+				841DDD7A2311F7B200CB82DC /* isbn.json in Resources */,
+				841DDD792311F7B200CB82DC /* gustaw.json in Resources */,
 				847AE94723072E9B00E645ED /* ReferenceImages_64 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1111,6 +1145,7 @@
 				"${BUILT_PRODUCTS_DIR}/UITextView+Placeholder/UITextView_Placeholder.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 				"${BUILT_PRODUCTS_DIR}/iOSSnapshotTestCase/FBSnapshotTestCase.framework",
+				"${BUILT_PRODUCTS_DIR}/Swifter/Swifter.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
@@ -1123,6 +1158,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITextView_Placeholder.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSnapshotTestCase.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Swifter.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1338,9 +1374,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				841DDD6F2311ECD200CB82DC /* MockServer.swift in Sources */,
 				847AE94B23093E7E00E645ED /* ISBNPageUITests.swift in Sources */,
 				84E7083B2280A40400402E26 /* ScanBarcodeWithResultsPage.swift in Sources */,
 				84E708402280A40400402E26 /* TestData.swift in Sources */,
+				84BB7A4423172BC00043D8B0 /* MockServerRunner.swift in Sources */,
 				847AE94923093E7700E645ED /* ISBNPage.swift in Sources */,
 				84E708372280A40400402E26 /* ScanBarcodePage.swift in Sources */,
 				84E708432280A40400402E26 /* ScanBarcodeWithResultPageUITests.swift in Sources */,

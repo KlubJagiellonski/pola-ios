@@ -19,6 +19,7 @@ target :Pola do
     
     target :PolaUITests do
       pod 'iOSSnapshotTestCase'
+      pod 'Swifter', '~> 1.4.7'
     end
 
 end
