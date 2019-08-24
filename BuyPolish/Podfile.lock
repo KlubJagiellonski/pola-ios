@@ -20,12 +20,6 @@ PODS:
   - AFNetworking/UIKit (2.3.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - BNRDynamicTypeManager (0.1.0):
-    - BNRDynamicTypeManager/Controls (= 0.1.0)
-    - BNRDynamicTypeManager/Core (= 0.1.0)
-  - BNRDynamicTypeManager/Controls (0.1.0):
-    - BNRDynamicTypeManager/Core
-  - BNRDynamicTypeManager/Core (0.1.0)
   - Crashlytics (3.12.0):
     - Fabric (~> 1.9.0)
   - Fabric (1.9.0)
@@ -76,7 +70,6 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (6.2.0):
     - GoogleUtilities/Logger
-  - iOS-Hierarchy-Viewer (1.4.7)
   - iOSSnapshotTestCase (2.2.0):
     - iOSSnapshotTestCase/SwiftSupport (= 2.2.0)
   - iOSSnapshotTestCase/Core (2.2.0)
@@ -89,26 +82,21 @@ PODS:
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
   - Objection (1.4)
-  - PLVisualAttributeConstraints (1.0.1)
   - "UITextView+Placeholder (1.1.1)"
 
 DEPENDENCIES:
   - AFNetworking (= 2.3.1)
-  - BNRDynamicTypeManager (= 0.1.0)
   - Crashlytics (~> 3.12.0)
   - Fabric (~> 1.9.0)
   - Firebase/Analytics (~> 6.1.0)
-  - iOS-Hierarchy-Viewer (= 1.4.7)
   - iOSSnapshotTestCase
   - KVNProgress
   - Objection (= 1.4)
-  - PLVisualAttributeConstraints (= 1.0.1)
   - "UITextView+Placeholder"
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - AFNetworking
-    - BNRDynamicTypeManager
     - Crashlytics
     - Fabric
     - Firebase
@@ -117,17 +105,14 @@ SPEC REPOS:
     - FirebaseInstanceID
     - GoogleAppMeasurement
     - GoogleUtilities
-    - iOS-Hierarchy-Viewer
     - iOSSnapshotTestCase
     - KVNProgress
     - nanopb
     - Objection
-    - PLVisualAttributeConstraints
     - "UITextView+Placeholder"
 
 SPEC CHECKSUMS:
   AFNetworking: 05b9f6e3aa5ac45bc383b4bb108ef338080a26c7
-  BNRDynamicTypeManager: 44ee2970cd0120cbedd3dec84da41d0381525219
   Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
   Fabric: f988e33c97f08930a413e08123064d2e5f68d655
   Firebase: 8d77bb33624ae9b62d745d82ec023de5f70f7e4f
@@ -136,14 +121,12 @@ SPEC CHECKSUMS:
   FirebaseInstanceID: 27bed93a59b6685f5c3e0c028a878a764fd75c33
   GoogleAppMeasurement: 51d8d9ea48f0ca44484d29cfbdef976fbd4fc336
   GoogleUtilities: 996e0db07153674fd1b54b220fda3a3dc3547cba
-  iOS-Hierarchy-Viewer: fb8ef72b55a8915ab0575543970754ea696e9061
   iOSSnapshotTestCase: 415bd84f9dbba4ff45fede49d800bc7332fbedac
   KVNProgress: 4697347e21e37fdaa5264ebc24e377c205a50328
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   Objection: aa9875dbf1b121a077f7e13d504a6ed01816a7f1
-  PLVisualAttributeConstraints: 9ab247e576b464335f32587ad6c20adfaf7e6d5d
   "UITextView+Placeholder": a6fc3e0378f3870036ec562a7537cbf6dbae4bf6
 
-PODFILE CHECKSUM: 6068a747865cd89c65c081d2ee4af363a693a35d
+PODFILE CHECKSUM: 5427090ed5a9d1e9869bf078a39c20c0974d5dac
 
 COCOAPODS: 1.6.1

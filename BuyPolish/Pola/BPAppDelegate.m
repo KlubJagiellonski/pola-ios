@@ -4,7 +4,6 @@
 #import "BPObjectionModule.h"
 #import "BPRootViewController.h"
 #import "BPTheme.h"
-#import "iOSHierarchyViewer.h"
 #import <AVFoundation/AVFoundation.h>
 #import <Pola-Swift.h>
 
@@ -53,8 +52,6 @@
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    [iOSHierarchyViewer start];
-
     if ([AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo] == AVAuthorizationStatusDenied) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Camera Privacy Title", nil)
                                                             message:NSLocalizedString(@"Camera Privacy Scan Barcode Description", nil)
