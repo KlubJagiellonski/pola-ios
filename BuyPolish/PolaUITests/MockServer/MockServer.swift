@@ -6,7 +6,7 @@ class MockServer {
     
     func start() throws {
         configureGetCode()
-        try server.start()
+        try server.start(8888)
     }
     
     func stop() {

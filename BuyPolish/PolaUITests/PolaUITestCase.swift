@@ -11,7 +11,7 @@ class PolaUITestCase: FBSnapshotTestCase {
         continueAfterFailure = false
         
         app = XCUIApplication()
-        app.launchEnvironment = ["POLA_URL" : "http://localhost"]
+        app.launchEnvironment = ["POLA_URL" : "http://localhost:8888"]
         app.launchArguments += ["--disableAnimations"]
         app.launch()
         
