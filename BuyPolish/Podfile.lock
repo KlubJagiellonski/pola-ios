@@ -82,6 +82,7 @@ PODS:
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
   - Objection (1.4)
+  - Swifter (1.4.7)
   - "UITextView+Placeholder (1.1.1)"
 
 DEPENDENCIES:
@@ -92,6 +93,7 @@ DEPENDENCIES:
   - iOSSnapshotTestCase
   - KVNProgress
   - Objection (= 1.4)
+  - Swifter (~> 1.4.7)
   - "UITextView+Placeholder"
 
 SPEC REPOS:
@@ -109,6 +111,7 @@ SPEC REPOS:
     - KVNProgress
     - nanopb
     - Objection
+    - Swifter
     - "UITextView+Placeholder"
 
 SPEC CHECKSUMS:
@@ -125,8 +128,9 @@ SPEC CHECKSUMS:
   KVNProgress: 4697347e21e37fdaa5264ebc24e377c205a50328
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   Objection: aa9875dbf1b121a077f7e13d504a6ed01816a7f1
+  Swifter: 2327ef5d872c638aebab79646ce494af508b0c8f
   "UITextView+Placeholder": a6fc3e0378f3870036ec562a7537cbf6dbae4bf6
 
-PODFILE CHECKSUM: 5427090ed5a9d1e9869bf078a39c20c0974d5dac
+PODFILE CHECKSUM: db6c0b962ab3a236d89764aaa9451bca12c6f397
 
 COCOAPODS: 1.6.1

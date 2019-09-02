@@ -9,9 +9,12 @@ class PolaUITestCase: FBSnapshotTestCase {
     override func setUp() {
         super.setUp()
         continueAfterFailure = false
+        
         app = XCUIApplication()
+        app.launchEnvironment = ["POLA_URL" : "http://localhost:8888"]
         app.launchArguments += ["--disableAnimations"]
         app.launch()
+        
         startingPageObject = ScanBarcodePage(app: app)
     }
     

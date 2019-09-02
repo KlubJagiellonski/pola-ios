@@ -6,11 +6,7 @@
 
 @import Objection;
 
-//NSString *const BPAPIAccessorAPIServerUrl = @"https://www.pola-app.pl/a";
-//NSString *const BPAPIAccessorAPIServerUrl = @"https://www.pola-app.pl/a/v2";
 NSString *const BPAPIAccessorAPIServerUrl = @"https://www.pola-app.pl/a/v3";
-//NSString *const BPAPIAccessorAPIServerUrl = @"https://pola-staging.herokuapp.com/a/v2";
-//NSString *const BPAPIAccessorAPIServerUrl = @"http://localhost:8888";
 NSString *const BPAPIAccessorAPIDeviceId = @"device_id";
 
 @interface BPAPIAccessor ()
@@ -32,7 +28,8 @@ NSString *const BPAPIAccessorAPIDeviceId = @"device_id";
 }
 
 - (NSString *)baseUrl {
-    return BPAPIAccessorAPIServerUrl;
+    NSString *url = NSProcessInfo.processInfo.environment[@"POLA_URL"];
+    return url ?: BPAPIAccessorAPIServerUrl;
 }
 
 - (BPAPIResponse *)get:(NSString *)apiFunction error:(NSError **)error {
