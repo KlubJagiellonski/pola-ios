@@ -9,7 +9,8 @@ class CompanyPagePolaFriendsUITests: PolaUITestCase {
 
     func testGustawCompanyShouldBeMarkedAsPolaFriends() {
         let isPolaFriend =
-            goToCompanyPage(company: Company.Gustaw)
+            startingPageObject
+                .enterCodeAndOpenCompanyResult(codeData: CodeData.Gustaw)
                 .isPolaFriend
         
         XCTAssertTrue(isPolaFriend)
@@ -18,19 +19,20 @@ class CompanyPagePolaFriendsUITests: PolaUITestCase {
     
     func testStaropramenCompanyShouldNotBeMarkedAsPolaFriends() {
         let isPolaFriend =
-            goToCompanyPage(company: Company.Staropramen)
+            startingPageObject
+                .enterCodeAndOpenCompanyResult(codeData: CodeData.Staropramen)
                 .isPolaFriend
         
         XCTAssertFalse(isPolaFriend)
         snapshotVerifyView()
     }
     
-    func goToCompanyPage(company: Company) -> CompanyPage {
-        return startingPageObject
-                .tapEnterBarcodeButton()
-                .inputBarcode(company.barcode)
-                .tapOkButton()
-                .waitForResultPageAndTap(companyName: company.name)
+    func testKoralCompanyShouldShowAskForPicsButton() {
+        startingPageObject
+            .enterCodeAndOpenCompanyResult(codeData: CodeData.Koral)
+            .done()
+        
+        snapshotVerifyView()
     }
-
+    
 }

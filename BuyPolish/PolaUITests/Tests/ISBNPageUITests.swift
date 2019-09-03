@@ -9,10 +9,7 @@ class ISBNPageUITests: PolaUITestCase {
     
     func testISBNPage() {
         startingPageObject
-            .tapEnterBarcodeButton()
-            .inputBarcode(ISBNCode)
-            .tapOkButton()
-            .waitForISBNResultPageAndTap()
+            .enterCodeAndOpenISBNResult()
             .done()
 
         snapshotVerifyView()

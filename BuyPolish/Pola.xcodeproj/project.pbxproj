@@ -90,6 +90,17 @@
 		83AFDE8E1F0D415C00608235 /* BPCaptureVideoNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AFDE8D1F0D415C00608235 /* BPCaptureVideoNavigationController.m */; };
 		83AFDE971F0D4CE200608235 /* BPCaptureVideoInstructionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AFDE961F0D4CE200608235 /* BPCaptureVideoInstructionViewController.m */; };
 		83AFDE9A1F0D4E9300608235 /* BPCaptureVideoInstructionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AFDE991F0D4E9300608235 /* BPCaptureVideoInstructionView.m */; };
+		840938A0231EE687003FC0E1 /* lomza.json in Resources */ = {isa = PBXBuildFile; fileRef = 8409389D231EE687003FC0E1 /* lomza.json */; };
+		840938A1231EE687003FC0E1 /* tymbark.json in Resources */ = {isa = PBXBuildFile; fileRef = 8409389E231EE687003FC0E1 /* tymbark.json */; };
+		840938A2231EE687003FC0E1 /* koral.json in Resources */ = {isa = PBXBuildFile; fileRef = 8409389F231EE687003FC0E1 /* koral.json */; };
+		840938AA231F0183003FC0E1 /* InformationPageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840938A4231F0183003FC0E1 /* InformationPageUITests.swift */; };
+		840938AB231F0183003FC0E1 /* EnterBarcodePageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840938A5231F0183003FC0E1 /* EnterBarcodePageUITests.swift */; };
+		840938AC231F0183003FC0E1 /* ScanBarcodeWithResultPageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840938A6231F0183003FC0E1 /* ScanBarcodeWithResultPageUITests.swift */; };
+		840938AD231F0183003FC0E1 /* ReportBugPageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840938A7231F0183003FC0E1 /* ReportBugPageUITests.swift */; };
+		840938AE231F0183003FC0E1 /* ISBNPageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840938A8231F0183003FC0E1 /* ISBNPageUITests.swift */; };
+		840938AF231F0183003FC0E1 /* CompanyPagePolaFriendsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840938A9231F0183003FC0E1 /* CompanyPagePolaFriendsUITests.swift */; };
+		840938B1231F0202003FC0E1 /* ScanBarcodePage+TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840938B0231F0202003FC0E1 /* ScanBarcodePage+TestData.swift */; };
+		840938B3231F0890003FC0E1 /* ResultPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840938B2231F088F003FC0E1 /* ResultPage.swift */; };
 		841DDD6F2311ECD200CB82DC /* MockServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841DDD6D2311ECD200CB82DC /* MockServer.swift */; };
 		841DDD782311F7B200CB82DC /* staropramen.json in Resources */ = {isa = PBXBuildFile; fileRef = 841DDD752311F7B200CB82DC /* staropramen.json */; };
 		841DDD792311F7B200CB82DC /* gustaw.json in Resources */ = {isa = PBXBuildFile; fileRef = 841DDD762311F7B200CB82DC /* gustaw.json */; };
@@ -97,7 +108,6 @@
 		8455A7EF220D527200F30845 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8455A7EE220D527200F30845 /* LaunchScreen.storyboard */; };
 		847AE94723072E9B00E645ED /* ReferenceImages_64 in Resources */ = {isa = PBXBuildFile; fileRef = 847AE94623072E9B00E645ED /* ReferenceImages_64 */; };
 		847AE94923093E7700E645ED /* ISBNPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847AE94823093E7700E645ED /* ISBNPage.swift */; };
-		847AE94B23093E7E00E645ED /* ISBNPageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847AE94A23093E7E00E645ED /* ISBNPageUITests.swift */; };
 		848C6922225D044300D39E90 /* LaunchScreenSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848C6921225D044300D39E90 /* LaunchScreenSnapshotTests.swift */; };
 		849BBA002298435D00347863 /* UIView+SafeAreaInsets.m in Sources */ = {isa = PBXBuildFile; fileRef = 849BB9FF2298435D00347863 /* UIView+SafeAreaInsets.m */; };
 		84BB7A4423172BC00043D8B0 /* MockServerRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BB7A4323172BC00043D8B0 /* MockServerRunner.swift */; };
@@ -110,12 +120,7 @@
 		84E7083C2280A40400402E26 /* EnterBarcodePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E7082D2280A40300402E26 /* EnterBarcodePage.swift */; };
 		84E7083D2280A40400402E26 /* SafariPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E7082E2280A40300402E26 /* SafariPage.swift */; };
 		84E7083E2280A40400402E26 /* PolaUITestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E7082F2280A40300402E26 /* PolaUITestCase.swift */; };
-		84E7083F2280A40400402E26 /* ReportBugPageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E708302280A40300402E26 /* ReportBugPageUITests.swift */; };
 		84E708402280A40400402E26 /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E708312280A40300402E26 /* TestData.swift */; };
-		84E708412280A40400402E26 /* EnterBarcodePageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E708322280A40300402E26 /* EnterBarcodePageUITests.swift */; };
-		84E708422280A40400402E26 /* InformationPageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E708332280A40400402E26 /* InformationPageUITests.swift */; };
-		84E708432280A40400402E26 /* ScanBarcodeWithResultPageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E708342280A40400402E26 /* ScanBarcodeWithResultPageUITests.swift */; };
-		84E708442280A40400402E26 /* CompanyPagePolaFriendsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E708352280A40400402E26 /* CompanyPagePolaFriendsUITests.swift */; };
 		952A03CA6AD72648FFC902C3 /* Pods_Pola.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B15F0FD326ED5D11627C5ED8 /* Pods_Pola.framework */; };
 		9E188D93223063ED00325383 /* LaunchScreen.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E188D91223063EC00325383 /* LaunchScreen.xcassets */; };
 		ABCA9D8499A8FF36227B6C94 /* UIApplication+BPStatusBarHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCA997979B62F78CFCB7E19 /* UIApplication+BPStatusBarHeight.m */; };
@@ -302,6 +307,17 @@
 		83AFDE961F0D4CE200608235 /* BPCaptureVideoInstructionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPCaptureVideoInstructionViewController.m; path = CaptureVideo/Instruction/BPCaptureVideoInstructionViewController.m; sourceTree = "<group>"; };
 		83AFDE981F0D4E7F00608235 /* BPCaptureVideoInstructionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BPCaptureVideoInstructionView.h; path = CaptureVideo/Instruction/BPCaptureVideoInstructionView.h; sourceTree = "<group>"; };
 		83AFDE991F0D4E9300608235 /* BPCaptureVideoInstructionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPCaptureVideoInstructionView.m; path = CaptureVideo/Instruction/BPCaptureVideoInstructionView.m; sourceTree = "<group>"; };
+		8409389D231EE687003FC0E1 /* lomza.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lomza.json; sourceTree = "<group>"; };
+		8409389E231EE687003FC0E1 /* tymbark.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = tymbark.json; sourceTree = "<group>"; };
+		8409389F231EE687003FC0E1 /* koral.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = koral.json; sourceTree = "<group>"; };
+		840938A4231F0183003FC0E1 /* InformationPageUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InformationPageUITests.swift; sourceTree = "<group>"; };
+		840938A5231F0183003FC0E1 /* EnterBarcodePageUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterBarcodePageUITests.swift; sourceTree = "<group>"; };
+		840938A6231F0183003FC0E1 /* ScanBarcodeWithResultPageUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanBarcodeWithResultPageUITests.swift; sourceTree = "<group>"; };
+		840938A7231F0183003FC0E1 /* ReportBugPageUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportBugPageUITests.swift; sourceTree = "<group>"; };
+		840938A8231F0183003FC0E1 /* ISBNPageUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ISBNPageUITests.swift; sourceTree = "<group>"; };
+		840938A9231F0183003FC0E1 /* CompanyPagePolaFriendsUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanyPagePolaFriendsUITests.swift; sourceTree = "<group>"; };
+		840938B0231F0202003FC0E1 /* ScanBarcodePage+TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ScanBarcodePage+TestData.swift"; sourceTree = "<group>"; };
+		840938B2231F088F003FC0E1 /* ResultPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultPage.swift; sourceTree = "<group>"; };
 		841DDD6D2311ECD200CB82DC /* MockServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockServer.swift; sourceTree = "<group>"; };
 		841DDD752311F7B200CB82DC /* staropramen.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = staropramen.json; sourceTree = "<group>"; };
 		841DDD762311F7B200CB82DC /* gustaw.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = gustaw.json; sourceTree = "<group>"; };
@@ -310,7 +326,6 @@
 		847AE94523072E8F00E645ED /* ReferenceImages_64 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ReferenceImages_64; sourceTree = "<group>"; };
 		847AE94623072E9B00E645ED /* ReferenceImages_64 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ReferenceImages_64; sourceTree = "<group>"; };
 		847AE94823093E7700E645ED /* ISBNPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ISBNPage.swift; sourceTree = "<group>"; };
-		847AE94A23093E7E00E645ED /* ISBNPageUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ISBNPageUITests.swift; sourceTree = "<group>"; };
 		848C6921225D044300D39E90 /* LaunchScreenSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenSnapshotTests.swift; sourceTree = "<group>"; };
 		849BB9FE2298435D00347863 /* UIView+SafeAreaInsets.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+SafeAreaInsets.h"; sourceTree = "<group>"; };
 		849BB9FF2298435D00347863 /* UIView+SafeAreaInsets.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+SafeAreaInsets.m"; sourceTree = "<group>"; };
@@ -326,12 +341,7 @@
 		84E7082D2280A40300402E26 /* EnterBarcodePage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterBarcodePage.swift; sourceTree = "<group>"; };
 		84E7082E2280A40300402E26 /* SafariPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafariPage.swift; sourceTree = "<group>"; };
 		84E7082F2280A40300402E26 /* PolaUITestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PolaUITestCase.swift; sourceTree = "<group>"; };
-		84E708302280A40300402E26 /* ReportBugPageUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportBugPageUITests.swift; sourceTree = "<group>"; };
 		84E708312280A40300402E26 /* TestData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
-		84E708322280A40300402E26 /* EnterBarcodePageUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterBarcodePageUITests.swift; sourceTree = "<group>"; };
-		84E708332280A40400402E26 /* InformationPageUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InformationPageUITests.swift; sourceTree = "<group>"; };
-		84E708342280A40400402E26 /* ScanBarcodeWithResultPageUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanBarcodeWithResultPageUITests.swift; sourceTree = "<group>"; };
-		84E708352280A40400402E26 /* CompanyPagePolaFriendsUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanyPagePolaFriendsUITests.swift; sourceTree = "<group>"; };
 		9E188D91223063EC00325383 /* LaunchScreen.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = LaunchScreen.xcassets; sourceTree = "<group>"; };
 		ABCA997979B62F78CFCB7E19 /* UIApplication+BPStatusBarHeight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+BPStatusBarHeight.m"; sourceTree = "<group>"; };
 		ABCA9A3E3B8A8B7C925052B6 /* UIApplication+BPStatusBarHeight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+BPStatusBarHeight.h"; sourceTree = "<group>"; };
@@ -836,6 +846,19 @@
 			path = CaptureVideo/Capture;
 			sourceTree = "<group>";
 		};
+		840938A3231F0183003FC0E1 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				840938A4231F0183003FC0E1 /* InformationPageUITests.swift */,
+				840938A5231F0183003FC0E1 /* EnterBarcodePageUITests.swift */,
+				840938A6231F0183003FC0E1 /* ScanBarcodeWithResultPageUITests.swift */,
+				840938A7231F0183003FC0E1 /* ReportBugPageUITests.swift */,
+				840938A8231F0183003FC0E1 /* ISBNPageUITests.swift */,
+				840938A9231F0183003FC0E1 /* CompanyPagePolaFriendsUITests.swift */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
 		841DDD6B2311ECD200CB82DC /* MockServer */ = {
 			isa = PBXGroup;
 			children = (
@@ -849,6 +872,9 @@
 		841DDD742311F7B200CB82DC /* Responses */ = {
 			isa = PBXGroup;
 			children = (
+				8409389F231EE687003FC0E1 /* koral.json */,
+				8409389D231EE687003FC0E1 /* lomza.json */,
+				8409389E231EE687003FC0E1 /* tymbark.json */,
 				841DDD752311F7B200CB82DC /* staropramen.json */,
 				841DDD762311F7B200CB82DC /* gustaw.json */,
 				841DDD772311F7B200CB82DC /* isbn.json */,
@@ -862,13 +888,8 @@
 				847AE94623072E9B00E645ED /* ReferenceImages_64 */,
 				84E708262280A40300402E26 /* PageObjects */,
 				841DDD6B2311ECD200CB82DC /* MockServer */,
-				84E708352280A40400402E26 /* CompanyPagePolaFriendsUITests.swift */,
-				84E708322280A40300402E26 /* EnterBarcodePageUITests.swift */,
-				84E708332280A40400402E26 /* InformationPageUITests.swift */,
-				847AE94A23093E7E00E645ED /* ISBNPageUITests.swift */,
+				840938A3231F0183003FC0E1 /* Tests */,
 				84E7082F2280A40300402E26 /* PolaUITestCase.swift */,
-				84E708302280A40300402E26 /* ReportBugPageUITests.swift */,
-				84E708342280A40400402E26 /* ScanBarcodeWithResultPageUITests.swift */,
 				84E708312280A40300402E26 /* TestData.swift */,
 				84B1B366225F975A009FA909 /* Info.plist */,
 			);
@@ -887,6 +908,8 @@
 				84E7082C2280A40300402E26 /* ScanBarcodeWithResultsPage.swift */,
 				84E7082D2280A40300402E26 /* EnterBarcodePage.swift */,
 				84E7082E2280A40300402E26 /* SafariPage.swift */,
+				840938B0231F0202003FC0E1 /* ScanBarcodePage+TestData.swift */,
+				840938B2231F088F003FC0E1 /* ResultPage.swift */,
 			);
 			path = PageObjects;
 			sourceTree = "<group>";
@@ -1037,6 +1060,7 @@
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				en,
 				pl,
 			);
 			mainGroup = 1D08E81A19A7621A00879BD2;
@@ -1083,8 +1107,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				840938A2231EE687003FC0E1 /* koral.json in Resources */,
+				840938A1231EE687003FC0E1 /* tymbark.json in Resources */,
 				841DDD782311F7B200CB82DC /* staropramen.json in Resources */,
 				841DDD7A2311F7B200CB82DC /* isbn.json in Resources */,
+				840938A0231EE687003FC0E1 /* lomza.json in Resources */,
 				841DDD792311F7B200CB82DC /* gustaw.json in Resources */,
 				847AE94723072E9B00E645ED /* ReferenceImages_64 in Resources */,
 			);
@@ -1375,24 +1402,26 @@
 			buildActionMask = 2147483647;
 			files = (
 				841DDD6F2311ECD200CB82DC /* MockServer.swift in Sources */,
-				847AE94B23093E7E00E645ED /* ISBNPageUITests.swift in Sources */,
+				840938B3231F0890003FC0E1 /* ResultPage.swift in Sources */,
 				84E7083B2280A40400402E26 /* ScanBarcodeWithResultsPage.swift in Sources */,
 				84E708402280A40400402E26 /* TestData.swift in Sources */,
+				840938AA231F0183003FC0E1 /* InformationPageUITests.swift in Sources */,
+				840938AE231F0183003FC0E1 /* ISBNPageUITests.swift in Sources */,
 				84BB7A4423172BC00043D8B0 /* MockServerRunner.swift in Sources */,
 				847AE94923093E7700E645ED /* ISBNPage.swift in Sources */,
 				84E708372280A40400402E26 /* ScanBarcodePage.swift in Sources */,
-				84E708432280A40400402E26 /* ScanBarcodeWithResultPageUITests.swift in Sources */,
 				84E7083C2280A40400402E26 /* EnterBarcodePage.swift in Sources */,
-				84E708442280A40400402E26 /* CompanyPagePolaFriendsUITests.swift in Sources */,
-				84E708412280A40400402E26 /* EnterBarcodePageUITests.swift in Sources */,
 				84E7083E2280A40400402E26 /* PolaUITestCase.swift in Sources */,
 				84E708392280A40400402E26 /* ReportBugPage.swift in Sources */,
-				84E7083F2280A40400402E26 /* ReportBugPageUITests.swift in Sources */,
+				840938AF231F0183003FC0E1 /* CompanyPagePolaFriendsUITests.swift in Sources */,
 				84E708382280A40400402E26 /* BasePage.swift in Sources */,
 				84E7083A2280A40400402E26 /* CompanyPage.swift in Sources */,
 				84E7083D2280A40400402E26 /* SafariPage.swift in Sources */,
+				840938AB231F0183003FC0E1 /* EnterBarcodePageUITests.swift in Sources */,
+				840938B1231F0202003FC0E1 /* ScanBarcodePage+TestData.swift in Sources */,
 				84E708362280A40400402E26 /* InformationPage.swift in Sources */,
-				84E708422280A40400402E26 /* InformationPageUITests.swift in Sources */,
+				840938AC231F0183003FC0E1 /* ScanBarcodeWithResultPageUITests.swift in Sources */,
+				840938AD231F0183003FC0E1 /* ReportBugPageUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
