@@ -2,8 +2,6 @@ import XCTest
 
 class EnterBarcodePage: BasePage {
     
-    private let ISBNResultLabel = "Kod ISBN/ISSN/ISMN"
-    
     func tapEnterBarcodeButton() -> ScanBarcodePage {
         app.buttons["Wpisz kod kreskowy"].tap()
         return ScanBarcodePage(app: app)
@@ -26,25 +24,16 @@ class EnterBarcodePage: BasePage {
         return self
     }
 
-    func waitForResultPageAndTap(companyName: String) -> CompanyPage {
-        app.otherElements[companyName].tap()
-        return CompanyPage(app: app)
+    func waitForResultPageAndTap<T: ResultPage>(expectedResult: String, expectedResultType: T.Type) -> T {
+        app.otherElements[expectedResult].tap()
+        return T(app: app)
     }
     
-    func waitForResultPage(companyName: String, file: StaticString = #file, line: UInt = #line) -> ScanBarcodeWithResultsPage {
-        if !app.otherElements[companyName].waitForExistence(timeout: 3) {
-            XCTFail("No matches found for scan result:  \(companyName)", file: file, line: line)
+    func waitForResultPage(expectedResult: String, file: StaticString = #file, line: UInt = #line) -> ScanBarcodeWithResultsPage {
+        if !app.otherElements[expectedResult].waitForExistence(timeout: 3) {
+            XCTFail("No matches found for scan result:  \(expectedResult)", file: file, line: line)
         }
         return ScanBarcodeWithResultsPage(app: app)
-    }
-    
-    func waitForISBNResultPage(file: StaticString = #file, line: UInt = #line) -> ScanBarcodeWithResultsPage {
-        return waitForResultPage(companyName: ISBNResultLabel , file: file, line: line)
-    }
-    
-    func waitForISBNResultPageAndTap() -> ISBNPage {
-        app.otherElements[ISBNResultLabel].tap()
-        return ISBNPage(app: app)
     }
     
 }

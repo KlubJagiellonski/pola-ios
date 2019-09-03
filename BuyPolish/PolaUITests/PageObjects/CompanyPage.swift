@@ -1,6 +1,6 @@
 import Foundation
 
-class CompanyPage: ScanBarcodePage {
+class CompanyPage: ResultPage {
     
     var isPolaFriend: Bool {
         return app.buttons["To jest przyjaciel Poli"].waitForExistence(timeout: 1)

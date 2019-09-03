@@ -13,22 +13,32 @@ class MockServer {
         server.stop()
     }
     
+    private let codeDatas = [
+        CodeData.Gustaw,
+        CodeData.ISBN,
+        CodeData.Koral,
+        CodeData.Lomza,
+        CodeData.Staropramen,
+        CodeData.Tymbark
+    ]
+    
     private func configureGetCode() {
-        let codeToResponse = [
-            Company.Staropramen.barcode : "staropramen",
-            Company.Gustaw.barcode : "gustaw",
-            ISBNCode : "isbn"
-        ]
-        
         server["/get_by_code"] =
             { request in
-                let code = request.queryParams.first(where: { (key, value) -> Bool in
-                    return key == "code"
-                })!.1
-                let responseFilename = codeToResponse[code]!
+                let code = self.code(from: request)
+                let responseFilename = self.responseFilename(for: code)
                 return self.response(from: responseFilename)
         }
-        
+    }
+    
+    private func code(from request: HttpRequest) -> String {
+        return request.queryParams.first(where: { (key, value) -> Bool in
+            return key == "code"
+        })!.1
+    }
+    
+    private func responseFilename(for code: String) -> String {
+        return codeDatas.first(where: {$0.barcode == code})!.responseFile
     }
     
     private func response(from filename: String) -> HttpResponse {
