@@ -1641,7 +1641,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E0D971BD205A9438D64EBADE /* Pods-Pola-PolaTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Pola.app/Pola";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1672,7 +1671,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6D7DD012073B8CCDD821A2D0 /* Pods-Pola-PolaTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Pola.app/Pola";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
