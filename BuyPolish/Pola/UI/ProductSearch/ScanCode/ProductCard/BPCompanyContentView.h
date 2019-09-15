@@ -9,7 +9,7 @@ typedef enum {
 
 @interface BPCompanyContentView : UIScrollView
 
-@property (nonatomic) int padding;
+@property (nonatomic) CGFloat padding;
 
 @property (nonatomic) CompanyContentType contentType;
 

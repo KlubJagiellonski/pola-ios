@@ -2,7 +2,7 @@
 
 @interface BPSecondaryProgressView : UIView
 
-- (void)setProgress:(NSNumber *)progress;
+@property (nonatomic) NSNumber *progress;
 
 - (void)setFillColor:(UIColor *)fillColor;
 

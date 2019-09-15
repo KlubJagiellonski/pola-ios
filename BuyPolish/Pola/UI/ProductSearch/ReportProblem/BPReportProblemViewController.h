@@ -2,6 +2,8 @@
 #import "BPKeyboardManager.h"
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class BPReportProblemViewController;
 
 @protocol BPReportProblemViewControllerDelegate <NSObject>
@@ -16,7 +18,7 @@
                                                              UINavigationControllerDelegate,
                                                              BPKeyboardManagerDelegate>
 
-@property (weak, nonatomic) id<BPReportProblemViewControllerDelegate> delegate;
+@property (weak, nonatomic, nullable) id<BPReportProblemViewControllerDelegate> delegate;
 
 @property (nonatomic, readonly) NSNumber *productId;
 
@@ -25,3 +27,5 @@
 - (instancetype)initWithProductId:(NSNumber *)productId barcode:(NSString *)barcode;
 
 @end
+
+NS_ASSUME_NONNULL_END

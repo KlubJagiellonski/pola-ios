@@ -15,7 +15,7 @@
 
 static NSTimeInterval const kAnimationTime = 0.15;
 
-@interface BPScanCodeViewController ()
+@interface BPScanCodeViewController () <ResultCardViewControllerDelegate>
 
 @property (nonatomic) BPKeyboardViewController *keyboardViewController;
 @property (nonatomic, readonly) BPCameraSessionManager *cameraSessionManager;
@@ -30,9 +30,9 @@ static NSTimeInterval const kAnimationTime = 0.15;
 
 @implementation BPScanCodeViewController
 
-objection_requires_sel(@selector(productManager), @selector(cameraSessionManager), @selector(flashlightManager));
+objection_requires_sel(@selector(productManager), @selector(cameraSessionManager), @selector(flashlightManager))
 
-- (void)loadView {
+    - (void)loadView {
     self.view = [[BPScanCodeView alloc] initWithFrame:CGRectZero];
 }
 
@@ -80,6 +80,11 @@ objection_requires_sel(@selector(productManager), @selector(cameraSessionManager
                              forKeyPath:NSStringFromSelector(@selector(isOn))
                                 options:NSKeyValueObservingOptionInitial
                                 context:nil];
+
+    //    [self didFindBarcode:@"5900396019813"];
+    //    [self performSelector:@selector(didFindBarcode:) withObject:@"5901234123457" afterDelay:1.5f];
+    //    [self performSelector:@selector(didFindBarcode:) withObject:@"5900396019813" afterDelay:3.f];
+    //    [self showReportProblem:productId:@"3123123"];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -107,39 +112,12 @@ objection_requires_sel(@selector(productManager), @selector(cameraSessionManager
 }
 
 - (BOOL)addCardAndDownloadDetails:(NSString *)barcode {
-    BPCompanyCardView *cardView = [[BPCompanyCardView alloc] initWithFrame:CGRectZero];
-    [cardView setContentType:CompanyContentTypeLoading];
-    [cardView setTitleText:NSLocalizedString(@"Loading...", nil)];
-    BOOL cardAdded = [self.castView.stackView addCard:cardView];
-    if (!cardAdded) {
-        return NO;
-    }
-
-    cardView.delegate = self;
-    cardView.tag = [self.scannedBarcodes count];
-    [self.scannedBarcodes addObject:barcode];
-
-    [self.productManager
-        retrieveProductWithBarcode:barcode
-                        completion:^(BPScanResult *productResult, NSError *error) {
-                            if (!error) {
-                                [BPAnalyticsHelper receivedProductResult:productResult];
-
-                                self.barcodeToProductResult[barcode] = productResult;
-                                [self fillCard:cardView withData:productResult];
-                            } else {
-                                self.lastBardcodeScanned = nil;
-                                self.addingCardEnabled = NO;
-                                UIAlertView *alertView = [UIAlertView
-                                    showErrorAlert:NSLocalizedString(@"Cannot fetch product info from server. "
-                                                                     @"Please try again.",
-                                                                     nil)];
-                                alertView.delegate = self;
-                                [self.castView.stackView removeCard:cardView];
-                            }
-                        }
-                   completionQueue:[NSOperationQueue mainQueue]];
-
+    ResultCardViewController *cardViewController =
+        [[ResultCardViewController alloc] initWithBarcode:barcode productManager:self.productManager];
+    cardViewController.delegate = self;
+    [self addChildViewController:cardViewController];
+    [self.castView.stackView addCard:cardViewController.view];
+    [cardViewController didMoveToParentViewController:self];
     return YES;
 }
 
@@ -209,6 +187,7 @@ objection_requires_sel(@selector(productManager), @selector(cameraSessionManager
 }
 
 - (void)didTapKeyboardButton:(UIButton *)button {
+
     if (self.keyboardViewController.view.superview == nil) {
         [self showKeyboardController];
     } else {
@@ -221,13 +200,14 @@ objection_requires_sel(@selector(productManager), @selector(cameraSessionManager
 }
 
 - (void)didTapTeachButton:(UIButton *)button {
+    // TODO
     BPScanResult *scanResult = self.barcodeToProductResult[self.lastBardcodeScanned];
     [self showCaptureVideoWithScanResult:scanResult];
 }
 
 - (void)didTapFlashlightButton:(UIButton *)button {
     [self.flashlightManager toggleWithCompletionBlock:^(BOOL success){
-        // TODO: Add error message after consultation with UX
+        //TODO: Add error message after consultation with UX
     }];
 }
 
@@ -365,15 +345,15 @@ objection_requires_sel(@selector(productManager), @selector(cameraSessionManager
     self.addingCardEnabled = NO;
 
     [self.castView setButtonsVisible:NO animation:YES];
-
-    NSString *barcode = self.scannedBarcodes[(NSUInteger)cardView.tag];
-    if (!barcode) {
-        return;
-    }
-    BPScanResult *productResult = self.barcodeToProductResult[barcode];
-    if (productResult) {
-        [BPAnalyticsHelper opensCard:productResult];
-    }
+    //
+    //    NSString *barcode = self.scannedBarcodes[(NSUInteger) cardView.tag];
+    //    if (!barcode) {
+    //        return;
+    //    }
+    //    BPScanResult *productResult = self.barcodeToProductResult[barcode];
+    //    if (productResult) {
+    //        [BPAnalyticsHelper opensCard:productResult];
+    //    }
 }
 
 - (void)stackViewDidCollapse:(BPStackView *)stackView {
@@ -455,6 +435,26 @@ objection_requires_sel(@selector(productManager), @selector(cameraSessionManager
     [self hideKeyboardController];
 
     [self didFindBarcode:code sourceType:@"Keyboard"];
+}
+
+#pragma mark - ResultCardViewControllerDelegate
+
+- (void)resultCardViewController:(ResultCardViewController *)vc didFailFetchingScanResultWithError:(NSError *)error {
+    UIAlertView *alertView = [UIAlertView
+        showErrorAlert:NSLocalizedString(@"Cannot fetch product info from server. Please try again.", nil)];
+    alertView.delegate = self;
+    [self.castView.stackView removeCard:vc.view];
+}
+
+- (void)resultCardViewController:(ResultCardViewController *)vc didFetchResult:(BPScanResult *)result {
+    BOOL visible = result.askForPics;
+    [self.castView updateTeachButtonWithVisible:visible
+                                          title:result.askForPicsPreview
+                                    cardsHeight:self.castView.cardsHeight];
+}
+
+- (void)resultCardViewControllerDidSentTeachReport:(ResultCardViewController *)vc {
+    [self.castView updateTeachButtonWithVisible:NO title:nil cardsHeight:0.0];
 }
 
 @end

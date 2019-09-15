@@ -10,7 +10,7 @@ class CompanyContentDefaultView: UIView {
     @objc let workersCheckRow = CheckRow()
     @objc let friendButton = UIButton()
     @objc let descriptionLabel = UILabel()
-    let padding = CGFloat(14)
+    @objc let padding = CGFloat(14)
 
     override init(frame: CGRect) {
         super.init(frame: frame)

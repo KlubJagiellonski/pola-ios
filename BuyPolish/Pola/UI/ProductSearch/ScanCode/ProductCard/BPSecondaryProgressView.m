@@ -71,6 +71,10 @@ const int SECONDARY_PROGRESS_TITLE_MARGIN = 10;
     [self layoutIfNeeded];
 }
 
+- (NSNumber *)progress {
+    return @(self.progressValue);
+}
+
 - (CGSize)sizeThatFits:(CGSize)size {
     size.height = SECONDARY_PROGRESS_HEIGHT;
     return size;
