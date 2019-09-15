@@ -4,3 +4,4 @@
 
 #import "BPDeviceHelper.h"
 #import "BPScanResult.h"
+#import "BPSecondaryProgressView.h"

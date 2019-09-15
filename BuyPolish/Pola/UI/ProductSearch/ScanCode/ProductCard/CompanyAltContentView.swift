@@ -2,14 +2,14 @@ import UIKit
 
 class CompanyAltContentView: UIView {
 
-    @objc
-    let textLabel = UILabel()
+    @objc let textLabel = UILabel()
     
     override init(frame: CGRect) {
+        super.init(frame: frame)
+
         textLabel.font = Theme.normalFont
         textLabel.textColor = Theme.defaultTextColor
         textLabel.numberOfLines = 0
-        super.init(frame: frame)
         addSubview(textLabel)
     }
     

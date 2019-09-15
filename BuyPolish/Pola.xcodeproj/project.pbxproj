@@ -86,6 +86,7 @@
 		846036ED2418542B00982FC6 /* RecordVideoPageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846036EC2418542B00982FC6 /* RecordVideoPageUITests.swift */; };
 		847AE94723072E9B00E645ED /* ReferenceImages_64 in Resources */ = {isa = PBXBuildFile; fileRef = 847AE94623072E9B00E645ED /* ReferenceImages_64 */; };
 		848C6922225D044300D39E90 /* LaunchScreenSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848C6921225D044300D39E90 /* LaunchScreenSnapshotTests.swift */; };
+		849577D4230B53FC00FC9591 /* CompanyContentDefaultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849577D3230B53FC00FC9591 /* CompanyContentDefaultView.swift */; };
 		849BBA002298435D00347863 /* UIView+SafeAreaInsets.m in Sources */ = {isa = PBXBuildFile; fileRef = 849BB9FF2298435D00347863 /* UIView+SafeAreaInsets.m */; };
 		849E40D72415204C006E1B76 /* TeachPolaPageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849E40D52415204C006E1B76 /* TeachPolaPageUITests.swift */; };
 		849E40D82415204C006E1B76 /* ScanBarcodePageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849E40D62415204C006E1B76 /* ScanBarcodePageUITests.swift */; };
@@ -314,6 +315,7 @@
 		847AE94623072E9B00E645ED /* ReferenceImages_64 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ReferenceImages_64; sourceTree = "<group>"; };
 		847AE94823093E7700E645ED /* ISBNPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ISBNPage.swift; sourceTree = "<group>"; };
 		848C6921225D044300D39E90 /* LaunchScreenSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenSnapshotTests.swift; sourceTree = "<group>"; };
+		849577D3230B53FC00FC9591 /* CompanyContentDefaultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyContentDefaultView.swift; sourceTree = "<group>"; };
 		849BB9FE2298435D00347863 /* UIView+SafeAreaInsets.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+SafeAreaInsets.h"; sourceTree = "<group>"; };
 		849BB9FF2298435D00347863 /* UIView+SafeAreaInsets.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+SafeAreaInsets.m"; sourceTree = "<group>"; };
 		849E40D52415204C006E1B76 /* TeachPolaPageUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeachPolaPageUITests.swift; sourceTree = "<group>"; };
@@ -666,6 +668,7 @@
 				37B64C3D23F4E691A0CDACA0 /* BPSecondaryProgressView.m */,
 				84F177DB22CABFF700238266 /* CheckRow.swift */,
 				8402E1D52309BB610065E850 /* CompanyAltContentView.swift */,
+				849577D3230B53FC00FC9591 /* CompanyContentDefaultView.swift */,
 			);
 			path = ProductCard;
 			sourceTree = "<group>";
@@ -1458,6 +1461,7 @@
 				841BB98D22D136AE00234946 /* UIColor+Additions.swift in Sources */,
 				375021841CC0F0F800759140 /* BPKeyboardTextView.m in Sources */,
 				9EC3BBF223CDD63200242B1E /* BPCaptureVideoInstructionViewController.m in Sources */,
+				849577D4230B53FC00FC9591 /* CompanyContentDefaultView.swift in Sources */,
 				BDA76B5121DCD718003E9FD6 /* Encodable+Utilities.swift in Sources */,
 				8402E1D62309BB610065E850 /* CompanyAltContentView.swift in Sources */,
 				C09015821F367C7000E8CC38 /* BPWeakTimerTarget.m in Sources */,
