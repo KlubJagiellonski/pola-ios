@@ -1,6 +1,6 @@
 import XCTest
 
-class CompanyPagePolaFriendsUITests: PolaUITestCase {
+class CompanyPageUITests: PolaUITestCase {
     
     override func setUp() {
         super.setUp()
