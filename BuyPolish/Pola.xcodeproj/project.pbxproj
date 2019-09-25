@@ -61,7 +61,6 @@
 		37B6498848E97978409489A6 /* NSDictionary+BPJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64059D45CBC595213920F /* NSDictionary+BPJSON.m */; };
 		37B649B3937D6158B554F509 /* BPObjectionModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64DFDBDE3A5CEE19D6FDB /* BPObjectionModule.m */; };
 		37B649B71B7F59A1741CD9B7 /* BPScanResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6413AB46D8FAC81D1E72B /* BPScanResult.m */; };
-		37B649CC5A32714DBC4E9751 /* BPCompanyContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64D7A776137D18AFDB329 /* BPCompanyContentView.m */; };
 		37B649F994C9AC9767A6AE8B /* BPWebAboutRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B643AFD35745CD11E280DC /* BPWebAboutRow.m */; };
 		37B64A095B01FB6355E7E21E /* BPAboutWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B640107A226F2F1B7CAA9D /* BPAboutWebViewController.m */; };
 		37B64A4DC0F7F5F1DAC9D791 /* BPStackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6499FA4AA777D1E05D4C7 /* BPStackView.m */; };
@@ -73,7 +72,6 @@
 		37B64D38E60651D383A2F8F7 /* BPDeviceHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6453D6C76C627D4F7C568 /* BPDeviceHelper.m */; };
 		37B64D4617BA6760E8B4101F /* BPAPIAccessor+BPScan.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64A5E17F2E5888839150C /* BPAPIAccessor+BPScan.m */; };
 		37B64E4A4C23A423A7B102CB /* BPScanResult+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6473D93970F5113F3AAB3 /* BPScanResult+Utilities.m */; };
-		37B64E4E58C1CE8446137CD1 /* BPCompanyCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64CC5D0DF5C45420F13CA /* BPCompanyCardView.m */; };
 		37B64F7816B23819A90C0456 /* BPLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6464528820E718DBABAA5 /* BPLogger.m */; };
 		37B64FF08BF5367BF9669B33 /* BPUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64B74E1FAED6141BA2B25 /* BPUtilities.m */; };
 		37C89AA41C78682200CCE940 /* BPFlashlightManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C89AA31C78682200CCE940 /* BPFlashlightManager.m */; };
@@ -231,7 +229,6 @@
 		37B640F75A0AFD8BE0258183 /* BPTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPTask.h; sourceTree = "<group>"; };
 		37B64100135F7EACD7C8E7E3 /* BPTaskRunner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPTaskRunner.h; sourceTree = "<group>"; };
 		37B6413AB46D8FAC81D1E72B /* BPScanResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPScanResult.m; sourceTree = "<group>"; };
-		37B641909EEB29EA6575A880 /* BPCompanyContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPCompanyContentView.h; sourceTree = "<group>"; };
 		37B6424C5D970C2E8F298AAB /* BPCameraSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPCameraSessionManager.h; sourceTree = "<group>"; };
 		37B6429D71F43AB163A1A626 /* BPProductImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPProductImageManager.h; sourceTree = "<group>"; };
 		37B642B56DC862C60A6F3CE2 /* BPProductManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPProductManager.m; sourceTree = "<group>"; };
@@ -253,7 +250,6 @@
 		37B645654D3B84690AEA4C0D /* BPUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPUtilities.h; sourceTree = "<group>"; };
 		37B64583B2E03DD7AAB57ACC /* BPStackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPStackView.h; sourceTree = "<group>"; };
 		37B6464528820E718DBABAA5 /* BPLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPLogger.m; sourceTree = "<group>"; };
-		37B646858232F35A15FF2F1C /* BPCompanyCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPCompanyCardView.h; sourceTree = "<group>"; };
 		37B6468E5905EC7102613DAB /* BPAPIResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPAPIResponse.m; sourceTree = "<group>"; };
 		37B646C0316F49D1FC593647 /* BPReport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPReport.m; sourceTree = "<group>"; };
 		37B64728A5FC383EB464DA9F /* BPScanCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPScanCodeViewController.m; sourceTree = "<group>"; };
@@ -283,10 +279,8 @@
 		37B64B74E1FAED6141BA2B25 /* BPUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPUtilities.m; sourceTree = "<group>"; };
 		37B64BE65625A6DB4C22E8F0 /* BPAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPAboutViewController.m; sourceTree = "<group>"; };
 		37B64C3D23F4E691A0CDACA0 /* BPSecondaryProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPSecondaryProgressView.m; sourceTree = "<group>"; };
-		37B64CC5D0DF5C45420F13CA /* BPCompanyCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPCompanyCardView.m; sourceTree = "<group>"; };
 		37B64D1B6193C0AD0D440566 /* BPScanCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPScanCodeViewController.h; sourceTree = "<group>"; };
 		37B64D62D6D7E068CB4517A9 /* BPDeviceHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPDeviceHelper.h; sourceTree = "<group>"; };
-		37B64D7A776137D18AFDB329 /* BPCompanyContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPCompanyContentView.m; sourceTree = "<group>"; };
 		37B64DFDBDE3A5CEE19D6FDB /* BPObjectionModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPObjectionModule.m; sourceTree = "<group>"; };
 		37B64E26EDB5C48277AE74AE /* UIAlertView+BPUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+BPUtilities.h"; sourceTree = "<group>"; };
 		37B64E55920A10560E17591F /* BPSecondaryProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPSecondaryProgressView.h; sourceTree = "<group>"; };
@@ -331,13 +325,6 @@
 		84AAEDDF230B49DD006CA7EB /* UILabel+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Additions.swift"; sourceTree = "<group>"; };
 		84B1B362225F975A009FA909 /* PolaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PolaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		84B1B366225F975A009FA909 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		84B87FAD23440204007A6BFF /* staropramen.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = staropramen.json; sourceTree = "<group>"; };
-		84B87FAE23440204007A6BFF /* radziemska.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = radziemska.json; sourceTree = "<group>"; };
-		84B87FAF23440204007A6BFF /* isbn.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = isbn.json; sourceTree = "<group>"; };
-		84B87FB023440204007A6BFF /* gustaw.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = gustaw.json; sourceTree = "<group>"; };
-		84B87FB123440205007A6BFF /* lomza.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lomza.json; sourceTree = "<group>"; };
-		84B87FB223440205007A6BFF /* koral.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = koral.json; sourceTree = "<group>"; };
-		84B87FB323440205007A6BFF /* tymbark.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = tymbark.json; sourceTree = "<group>"; };
 		84D8879E2336601700681C64 /* CompanyAltContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyAltContentViewController.swift; sourceTree = "<group>"; };
 		84D887A0233669D800681C64 /* CompanyContentDefaultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyContentDefaultViewController.swift; sourceTree = "<group>"; };
 		84D887A42337A4B300681C64 /* ResultContentViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultContentViewControllerFactory.swift; sourceTree = "<group>"; };
@@ -464,7 +451,6 @@
 				1D08E84B19A7621A00879BD2 /* PolaTests */,
 				84B1B363225F975A009FA909 /* PolaUITests */,
 				1D08E82419A7621A00879BD2 /* Products */,
-				9EC3BC2F23CDDEF400242B1E /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -676,10 +662,6 @@
 		37B64697C3925583CD36B426 /* ProductCard */ = {
 			isa = PBXGroup;
 			children = (
-				37B646858232F35A15FF2F1C /* BPCompanyCardView.h */,
-				37B64CC5D0DF5C45420F13CA /* BPCompanyCardView.m */,
-				37B641909EEB29EA6575A880 /* BPCompanyContentView.h */,
-				37B64D7A776137D18AFDB329 /* BPCompanyContentView.m */,
 				37B648B37FCA824C6F065D43 /* BPMainProggressView.h */,
 				37B6475C7B46DB08C451363C /* BPMainProggressView.m */,
 				37B64E55920A10560E17591F /* BPSecondaryProgressView.h */,
@@ -1027,21 +1009,6 @@
 				9EC3BC0C23CDD76C00242B1E /* tymbark.json */,
 			);
 			path = Responses;
-			sourceTree = "<group>";
-		};
-		9EC3BC2F23CDDEF400242B1E /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				84B87FB023440204007A6BFF /* gustaw.json */,
-				84B87FAF23440204007A6BFF /* isbn.json */,
-				84B87FB223440205007A6BFF /* koral.json */,
-				84B87FB123440205007A6BFF /* lomza.json */,
-				84B87FAE23440204007A6BFF /* radziemska.json */,
-				84B87FAD23440204007A6BFF /* staropramen.json */,
-				84B87FB323440205007A6BFF /* tymbark.json */,
-			);
-			name = "Recovered References";
-			path = "Recovered References";
 			sourceTree = "<group>";
 		};
 		BDA76B5821DE622E003E9FD6 /* Analytics */ = {
@@ -1516,7 +1483,6 @@
 				37B647F36DC4A91682A0566B /* BPKeyboardManager.m in Sources */,
 				BDA76B5C21DE64AB003E9FD6 /* AnalyticsEventName.swift in Sources */,
 				84D887A1233669D800681C64 /* CompanyContentDefaultViewController.swift in Sources */,
-				37B64E4E58C1CE8446137CD1 /* BPCompanyCardView.m in Sources */,
 				37B641B5D6F386E7E2A67DF8 /* BPMainProggressView.m in Sources */,
 				C06EE3391F20D6F5005B2B57 /* BPCapturedImagesUploadManager.m in Sources */,
 				849BBA002298435D00347863 /* UIView+SafeAreaInsets.m in Sources */,
@@ -1535,7 +1501,6 @@
 				37B64A095B01FB6355E7E21E /* BPAboutWebViewController.m in Sources */,
 				371245271CBCEC6600BD0543 /* BPKeyboardView.m in Sources */,
 				9EC3BBEF23CDD63100242B1E /* BPCaptureVideoView.m in Sources */,
-				37B649CC5A32714DBC4E9751 /* BPCompanyContentView.m in Sources */,
 				ABCA9D8499A8FF36227B6C94 /* UIApplication+BPStatusBarHeight.m in Sources */,
 				9EC3BBF123CDD63200242B1E /* BPCaptureVideoInstructionView.m in Sources */,
 				84F177DC22CABFF700238266 /* CheckRow.swift in Sources */,

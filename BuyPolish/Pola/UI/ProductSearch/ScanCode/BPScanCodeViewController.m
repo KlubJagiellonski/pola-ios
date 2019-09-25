@@ -22,8 +22,6 @@ static NSTimeInterval const kAnimationTime = 0.15;
 @property (nonatomic, readonly) BPFlashlightManager *flashlightManager;
 @property (nonatomic, readonly) BPProductManager *productManager;
 @property (copy, nonatomic) NSString *lastBardcodeScanned;
-@property (nonatomic, readonly) NSMutableArray *scannedBarcodes;
-@property (nonatomic, readonly) NSMutableDictionary *barcodeToProductResult;
 @property (nonatomic) BOOL addingCardEnabled;
 
 @end
@@ -42,9 +40,6 @@ objection_requires_sel(@selector(productManager), @selector(cameraSessionManager
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    _scannedBarcodes = [NSMutableArray array];
-    _barcodeToProductResult = [NSMutableDictionary dictionary];
 
     self.cameraSessionManager.delegate = self;
 
@@ -121,62 +116,6 @@ objection_requires_sel(@selector(productManager), @selector(cameraSessionManager
     return YES;
 }
 
-- (void)fillCard:(BPCompanyCardView *)cardView withData:(BPScanResult *)productResult {
-    if (productResult.altText.length == 0) {
-        [cardView setContentType:CompanyContentTypeDefault];
-        if (productResult.plScore) {
-            [cardView setMainPercent:productResult.plScore.intValue / 100.f];
-        }
-        [cardView setCapitalPercent:productResult.plCapital];
-        [cardView setNotGlobal:productResult.plNotGlobEnt];
-        [cardView setWorkers:productResult.plWorkers];
-        [cardView setRegistered:productResult.plRegistered];
-        [cardView setRnd:productResult.plRnD];
-        [cardView setDescr:productResult.descr];
-    } else {
-        [cardView setContentType:CompanyContentTypeAlt];
-        [cardView setAltText:productResult.altText];
-    }
-
-    if (productResult.askForPics) {
-        [cardView setTeachButtonText:productResult.askForPicsPreview];
-    } else {
-        [cardView setTeachButtonText:nil];
-    }
-
-    [cardView setCardType:productResult.cardType];
-    [cardView setReportButtonType:productResult.reportButtonType];
-    [cardView setReportButtonText:productResult.reportButtonText];
-    [cardView setReportText:productResult.reportText];
-    [cardView setTitleText:productResult.name];
-    [cardView setMarkAsFriend:productResult.isFriend];
-
-    UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, cardView.titleLabel);
-
-    BOOL visible = productResult.askForPics;
-    [self.castView updateTeachButtonWithVisible:visible
-                                          title:productResult.askForPicsPreview
-                                    cardsHeight:self.castView.cardsHeight];
-}
-
-- (void)showReportProblem:(NSString *)barcode productId:(NSNumber *)productId {
-    [BPAnalyticsHelper reportShown:barcode];
-
-    JSObjectionInjector *injector = [JSObjection defaultInjector];
-    BPReportProblemViewController *reportProblemViewController =
-        [injector getObject:[BPReportProblemViewController class] argumentList:@[productId, barcode]];
-    reportProblemViewController.delegate = self;
-    [self presentViewController:reportProblemViewController animated:YES completion:nil];
-}
-
-- (void)showCaptureVideoWithScanResult:(BPScanResult *)scanResult {
-    [BPAnalyticsHelper teachReportShow:self.lastBardcodeScanned];
-    BPCaptureVideoNavigationController *captureVideoNavigationController =
-        [[BPCaptureVideoNavigationController alloc] initWithScanResult:scanResult];
-    captureVideoNavigationController.captureDelegate = self;
-    [self presentViewController:captureVideoNavigationController animated:YES completion:nil];
-}
-
 - (void)didTapMenuButton:(UIButton *)button {
     [BPAnalyticsHelper aboutOpened:@"About Menu"];
 
@@ -200,9 +139,7 @@ objection_requires_sel(@selector(productManager), @selector(cameraSessionManager
 }
 
 - (void)didTapTeachButton:(UIButton *)button {
-    // TODO
-    BPScanResult *scanResult = self.barcodeToProductResult[self.lastBardcodeScanned];
-    [self showCaptureVideoWithScanResult:scanResult];
+    //TODO: Use last ResultCardViewController to show teach
 }
 
 - (void)didTapFlashlightButton:(UIButton *)button {
@@ -345,15 +282,8 @@ objection_requires_sel(@selector(productManager), @selector(cameraSessionManager
     self.addingCardEnabled = NO;
 
     [self.castView setButtonsVisible:NO animation:YES];
-    //
-    //    NSString *barcode = self.scannedBarcodes[(NSUInteger) cardView.tag];
-    //    if (!barcode) {
-    //        return;
-    //    }
-    //    BPScanResult *productResult = self.barcodeToProductResult[barcode];
-    //    if (productResult) {
-    //        [BPAnalyticsHelper opensCard:productResult];
-    //    }
+
+    // TODO [BPAnalyticsHelper opensCard:productResult]
 }
 
 - (void)stackViewDidCollapse:(BPStackView *)stackView {
@@ -370,57 +300,6 @@ objection_requires_sel(@selector(productManager), @selector(cameraSessionManager
 
 - (void)didFindBarcode:(NSString *)barcode {
     [self didFindBarcode:barcode sourceType:@"Camera"];
-}
-
-#pragma mark - BPProductCardViewDelegate
-
-- (void)productCardViewDidTapReportProblem:(BPCompanyCardView *)productCardView {
-    NSString *barcode = self.scannedBarcodes[(NSUInteger)productCardView.tag];
-    BPScanResult *scanResult = self.barcodeToProductResult[barcode];
-    [self showReportProblem:barcode productId:scanResult.productId];
-}
-
-- (void)productCardViewDidTapTeach:(BPCompanyCardView *)productCardView {
-    NSString *barcode = self.scannedBarcodes[(NSUInteger)productCardView.tag];
-    BPScanResult *scanResult = self.barcodeToProductResult[barcode];
-    [self showCaptureVideoWithScanResult:scanResult];
-}
-
-- (void)productCardViewDidTapFriendButton:(BPCompanyCardView *)productCardView {
-    BPAboutWebViewController *webViewController =
-        [[BPAboutWebViewController alloc] initWithUrl:@"https://www.pola-app.pl/m/friends"
-                                                title:NSLocalizedString(@"Pola's friends", nil)];
-    webViewController.navigationItem.rightBarButtonItem =
-        [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"CloseIcon"]
-                                         style:UIBarButtonItemStylePlain
-                                        target:self
-                                        action:@selector(didTapWebViewCloseButton:)];
-    webViewController.navigationItem.rightBarButtonItem.accessibilityLabel =
-        NSLocalizedString(@"Accessibility.Close", nil);
-
-    UINavigationController *navigationController =
-        [[UINavigationController alloc] initWithRootViewController:webViewController];
-    [self presentViewController:navigationController animated:YES completion:nil];
-}
-
-#pragma mark - BPCaptureVideoNavigationControllerDelegate
-
-- (void)captureVideoNavigationController:(BPCaptureVideoNavigationController *)controller
-                 wantsDismissWithSuccess:(BOOL)success {
-    if (success) {
-        [self.castView updateTeachButtonWithVisible:NO title:nil cardsHeight:0.0];
-    }
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-#pragma mark - BPReportProblemViewControllerDelegate
-
-- (void)reportProblemWantsDismiss:(BPReportProblemViewController *)viewController {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)reportProblem:(BPReportProblemViewController *)controller finishedWithResult:(BOOL)result {
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - BPInfoNavigationControllerDelegate
