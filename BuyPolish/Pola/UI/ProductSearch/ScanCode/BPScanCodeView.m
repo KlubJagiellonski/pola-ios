@@ -1,6 +1,7 @@
 #import "BPScanCodeView.h"
 #import "BPStackView.h"
 #import "UIView+SafeAreaInsets.h"
+#import <AVFoundation/AVFoundation.h>
 #import <Pola-Swift.h>
 
 const int SCAN_CODE_MARGIN = 15;
@@ -71,9 +72,9 @@ const int SCAN_CODE_TEACH_BUTTON_HEIGHT = 35;
         _teachButton.layer.borderColor = [[BPTheme defaultTextColor] CGColor];
         _teachButton.layer.borderWidth = 1;
         [_teachButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [_teachButton setBackgroundImage:[BPUtilities imageWithColor:[[UIColor whiteColor] colorWithAlphaComponent:0.7]]
+        [_teachButton setBackgroundImage:[UIImage imageWithColor:[[UIColor whiteColor] colorWithAlphaComponent:0.7]]
                                 forState:UIControlStateNormal];
-        [_teachButton setBackgroundImage:[BPUtilities imageWithColor:[UIColor whiteColor]]
+        [_teachButton setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor]]
                                 forState:UIControlStateHighlighted];
         [_teachButton sizeToFit];
         [_teachButton setHidden:YES];

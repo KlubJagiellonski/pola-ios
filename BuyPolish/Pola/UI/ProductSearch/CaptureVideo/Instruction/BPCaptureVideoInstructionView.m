@@ -59,7 +59,7 @@ const int CAPTURE_BUTTON_HEIGHT = 30;
 
         _captureButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _captureButton.titleLabel.font = [BPTheme buttonFont];
-        [_captureButton setBackgroundImage:[BPUtilities imageWithColor:[BPTheme actionColor]]
+        [_captureButton setBackgroundImage:[UIImage imageWithColor:[BPTheme actionColor]]
                                   forState:UIControlStateNormal];
         [_captureButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_captureButton setTitle:captureButtonText forState:UIControlStateNormal];

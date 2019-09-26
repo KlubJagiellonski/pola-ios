@@ -86,8 +86,7 @@ const int REPORT_DESCRIPTIONSHADOW_HEIGHT = 1;
         _sendButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _sendButton.titleLabel.font = [BPTheme buttonFont];
         [_sendButton setTitle:[NSLocalizedString(@"Send", nil) uppercaseString] forState:UIControlStateNormal];
-        [_sendButton setBackgroundImage:[BPUtilities imageWithColor:[BPTheme actionColor]]
-                               forState:UIControlStateNormal];
+        [_sendButton setBackgroundImage:[UIImage imageWithColor:[BPTheme actionColor]] forState:UIControlStateNormal];
         [_sendButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self addSubview:_sendButton];
     }

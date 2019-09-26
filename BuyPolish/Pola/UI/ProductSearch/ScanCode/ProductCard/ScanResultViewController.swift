@@ -99,14 +99,14 @@ class ScanResultViewController: UIViewController {
         switch scanResult.reportButtonType {
         case ReportButtonTypeRed:
             castedView.reportProblemButton.setTitleColor(Theme.clearColor, for: .normal)
-            castedView.reportProblemButton.setBackgroundImage(BPUtilities.image(with: Theme.actionColor), for: .normal)
+            castedView.reportProblemButton.setBackgroundImage(UIImage.image(color: Theme.actionColor), for: .normal)
         case ReportButtonTypeWhite:
             castedView.reportProblemButton.layer.borderColor = Theme.actionColor.cgColor
             castedView.reportProblemButton.layer.borderWidth = 1
             castedView.reportProblemButton.setTitleColor(Theme.actionColor, for: .normal)
             castedView.reportProblemButton.setTitleColor(Theme.clearColor, for: .highlighted)
-            castedView.reportProblemButton.setBackgroundImage(BPUtilities.image(with: UIColor.clear), for: .normal)
-            castedView.reportProblemButton.setBackgroundImage(BPUtilities.image(with: Theme.actionColor), for: .highlighted)
+            castedView.reportProblemButton.setBackgroundImage(UIImage.image(color: UIColor.clear), for: .normal)
+            castedView.reportProblemButton.setBackgroundImage(UIImage.image(color: Theme.actionColor), for: .highlighted)
         default:
             break
         }

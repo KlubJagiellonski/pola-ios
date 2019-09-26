@@ -52,8 +52,7 @@ const int DIM_MARGIN = 30;
 
         _startButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _startButton.titleLabel.font = [BPTheme buttonFont];
-        [_startButton setBackgroundImage:[BPUtilities imageWithColor:[BPTheme actionColor]]
-                                forState:UIControlStateNormal];
+        [_startButton setBackgroundImage:[UIImage imageWithColor:[BPTheme actionColor]] forState:UIControlStateNormal];
         [_startButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_startButton setTitle:NSLocalizedString(@"CaptureVideo.Start", nil) forState:UIControlStateNormal];
         [_startButton addTarget:self action:@selector(startButtonTapped:) forControlEvents:UIControlEventTouchUpInside];

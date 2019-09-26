@@ -59,8 +59,8 @@ class ScanResultView: UIView {
         teachButton.layer.borderWidth = 1
         teachButton.setTitleColor(Theme.actionColor, for: .normal)
         teachButton.setTitleColor(Theme.clearColor, for: .highlighted)
-        teachButton.setBackgroundImage(BPUtilities.image(with: UIColor.clear), for: .normal)
-        teachButton.setBackgroundImage(BPUtilities.image(with: Theme.actionColor), for: .highlighted)
+        teachButton.setBackgroundImage(UIImage.image(color: UIColor.clear), for: .normal)
+        teachButton.setBackgroundImage(UIImage.image(color: Theme.actionColor), for: .highlighted)
         teachButton.sizeToFit()
         addSubview(teachButton)
         
