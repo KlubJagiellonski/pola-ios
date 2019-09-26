@@ -4,7 +4,7 @@ class ScanResultView: UIView {
     
     let titleLabel = UILabel()
     let loadingProgressView = UIActivityIndicatorView(style: .gray)
-    let mainProgressView = BPMainProggressView()
+    let mainProgressView = MainProggressView()
     var contentView: UIView? {
         didSet {
             if let oldValue = oldValue {

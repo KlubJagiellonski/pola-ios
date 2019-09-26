@@ -20,8 +20,11 @@ class CompanyContentViewController: UIViewController {
         let companyView = view as! CompanyContentView
         
         companyView.friendButton.addTarget(self, action: #selector(friendTapped), for: .touchUpInside)
-        
-        companyView.capitalProgressView.progress = result.plCapital
+        if let plCapital = result.plCapital?.intValue {
+            companyView.capitalProgressView.progress = CGFloat(plCapital / 100)
+        } else {
+            companyView.capitalProgressView.progress = nil
+        }
         companyView.notGlobalCheckRow.checked = result.plNotGlobEnt?.boolValue
         companyView.workersCheckRow.checked = result.plWorkers?.boolValue
         companyView.registeredCheckRow.checked = result.plRegistered?.boolValue
@@ -32,13 +35,12 @@ class CompanyContentViewController: UIViewController {
         switch result.cardType {
             
         case CardTypeGrey:
-            companyView.capitalProgressView.setFill(Theme.strongBackgroundColor)
-            companyView.capitalProgressView.setPercentColor(Theme.clearColor)
+            companyView.capitalProgressView.fillColor = Theme.strongBackgroundColor
+            companyView.capitalProgressView.percentColor = Theme.clearColor
             
         case CardTypeWhite:
-            companyView.capitalProgressView.setFill(Theme.lightBackgroundColor)
-            companyView.capitalProgressView.setPercentColor(Theme.defaultTextColor)
-            
+            companyView.capitalProgressView.fillColor = Theme.lightBackgroundColor
+            companyView.capitalProgressView.percentColor = Theme.defaultTextColor
         default:
             break
         }

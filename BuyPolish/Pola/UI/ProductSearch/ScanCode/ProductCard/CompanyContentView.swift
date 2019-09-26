@@ -3,7 +3,7 @@ import UIKit
 class CompanyContentView: UIView {
 
     @objc let capitalTitleLabel = UILabel()
-    @objc let capitalProgressView = BPSecondaryProgressView()
+    @objc let capitalProgressView = SecondaryProgressView()
     @objc let notGlobalCheckRow = CheckRow()
     @objc let registeredCheckRow = CheckRow()
     @objc let rndCheckRow = CheckRow()
