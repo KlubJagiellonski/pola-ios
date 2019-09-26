@@ -15,7 +15,7 @@
 
 static NSTimeInterval const kAnimationTime = 0.15;
 
-@interface BPScanCodeViewController () <ResultCardViewControllerDelegate>
+@interface BPScanCodeViewController () <ScanResultViewControllerDelegate>
 
 @property (nonatomic) BPKeyboardViewController *keyboardViewController;
 @property (nonatomic, readonly) BPCameraSessionManager *cameraSessionManager;
@@ -107,8 +107,8 @@ objection_requires_sel(@selector(productManager), @selector(cameraSessionManager
 }
 
 - (BOOL)addCardAndDownloadDetails:(NSString *)barcode {
-    ResultCardViewController *cardViewController =
-        [[ResultCardViewController alloc] initWithBarcode:barcode productManager:self.productManager];
+    ScanResultViewController *cardViewController =
+        [[ScanResultViewController alloc] initWithBarcode:barcode productManager:self.productManager];
     cardViewController.delegate = self;
     [self addChildViewController:cardViewController];
     [self.castView.stackView addCard:cardViewController.view];
@@ -139,7 +139,7 @@ objection_requires_sel(@selector(productManager), @selector(cameraSessionManager
 }
 
 - (void)didTapTeachButton:(UIButton *)button {
-    //TODO: Use last ResultCardViewController to show teach
+    //TODO: Use last scanResultViewController to show teach
 }
 
 - (void)didTapFlashlightButton:(UIButton *)button {
@@ -316,23 +316,23 @@ objection_requires_sel(@selector(productManager), @selector(cameraSessionManager
     [self didFindBarcode:code sourceType:@"Keyboard"];
 }
 
-#pragma mark - ResultCardViewControllerDelegate
+#pragma mark - ScanResultViewControllerDelegate
 
-- (void)resultCardViewController:(ResultCardViewController *)vc didFailFetchingScanResultWithError:(NSError *)error {
+- (void)scanResultViewController:(ScanResultViewController *)vc didFailFetchingScanResultWithError:(NSError *)error {
     UIAlertView *alertView = [UIAlertView
         showErrorAlert:NSLocalizedString(@"Cannot fetch product info from server. Please try again.", nil)];
     alertView.delegate = self;
     [self.castView.stackView removeCard:vc.view];
 }
 
-- (void)resultCardViewController:(ResultCardViewController *)vc didFetchResult:(BPScanResult *)result {
+- (void)scanResultViewController:(ScanResultViewController *)vc didFetchResult:(BPScanResult *)result {
     BOOL visible = result.askForPics;
     [self.castView updateTeachButtonWithVisible:visible
                                           title:result.askForPicsPreview
                                     cardsHeight:self.castView.cardsHeight];
 }
 
-- (void)resultCardViewControllerDidSentTeachReport:(ResultCardViewController *)vc {
+- (void)scanResultViewControllerDidSentTeachReport:(ScanResultViewController *)vc {
     [self.castView updateTeachButtonWithVisible:NO title:nil cardsHeight:0.0];
 }
 

@@ -1,6 +1,6 @@
 import UIKit
 
-class CompanyContentDefaultViewController: UIViewController {
+class CompanyContentViewController: UIViewController {
     let result: BPScanResult
     
     init(result: BPScanResult) {
@@ -13,11 +13,11 @@ class CompanyContentDefaultViewController: UIViewController {
     }
     
     override func loadView() {
-        view = CompanyContentDefaultView()
+        view = CompanyContentView()
     }
     
     override func viewDidLoad() {
-        let companyView = view as! CompanyContentDefaultView
+        let companyView = view as! CompanyContentView
         
         companyView.friendButton.addTarget(self, action: #selector(friendTapped), for: .touchUpInside)
         

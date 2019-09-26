@@ -1,6 +1,6 @@
 import UIKit
 
-class CompanyContentDefaultView: UIView {
+class CompanyContentView: UIView {
 
     @objc let capitalTitleLabel = UILabel()
     @objc let capitalProgressView = BPSecondaryProgressView()

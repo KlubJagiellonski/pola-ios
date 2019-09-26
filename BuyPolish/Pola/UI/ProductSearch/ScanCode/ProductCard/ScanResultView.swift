@@ -1,6 +1,6 @@
 import UIKit
 
-class ResultCardView: UIView {
+class ScanResultView: UIView {
     
     let titleLabel = UILabel()
     let loadingProgressView = UIActivityIndicatorView(style: .gray)
@@ -175,7 +175,7 @@ class ResultCardView: UIView {
     
 }
 
-extension ResultCardView: BPStackViewCardProtocol {
+extension ScanResultView: BPStackViewCardProtocol {
     
     func setTitleHeight(_ titleHeight: CGFloat) {
         self.titleHeight = titleHeight

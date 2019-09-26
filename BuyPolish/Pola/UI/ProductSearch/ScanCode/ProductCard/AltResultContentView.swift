@@ -1,6 +1,6 @@
 import UIKit
 
-class CompanyAltContentView: UIView {
+class AltResultContentView: UIView {
 
     @objc let textLabel = UILabel()
     

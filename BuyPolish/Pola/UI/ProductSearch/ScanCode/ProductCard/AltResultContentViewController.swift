@@ -1,6 +1,6 @@
 import UIKit
 
-class CompanyAltContentViewController: UIViewController {
+class AltResultContentViewController: UIViewController {
     let result: BPScanResult
     
     init(result: BPScanResult) {
@@ -13,11 +13,11 @@ class CompanyAltContentViewController: UIViewController {
     }
     
     override func loadView() {
-        view = CompanyAltContentView()
+        view = AltResultContentView()
     }
     
     override func viewDidLoad() {
-        let altView = view as! CompanyAltContentView
+        let altView = view as! AltResultContentView
         altView.textLabel.text = result.altText
     }
 }

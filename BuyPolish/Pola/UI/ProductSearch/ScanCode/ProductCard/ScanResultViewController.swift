@@ -1,19 +1,19 @@
 import UIKit
 
 @objc
-protocol ResultCardViewControllerDelegate: class {
-    func resultCardViewController(_ vc: ResultCardViewController, didFetchResult result: BPScanResult)
-    func resultCardViewController(_ vc: ResultCardViewController, didFailFetchingScanResultWithError error: Error)
-    func resultCardViewControllerDidSentTeachReport(_ vc: ResultCardViewController)
+protocol ScanResultViewControllerDelegate: class {
+    func scanResultViewController(_ vc: ScanResultViewController, didFetchResult result: BPScanResult)
+    func scanResultViewController(_ vc: ScanResultViewController, didFailFetchingScanResultWithError error: Error)
+    func scanResultViewControllerDidSentTeachReport(_ vc: ScanResultViewController)
 }
 
-class ResultCardViewController: UIViewController {
+class ScanResultViewController: UIViewController {
     let barcode: String
     private let productManager: BPProductManager
     private(set) var scanResult: BPScanResult?
     
     @objc
-    weak var delegate: ResultCardViewControllerDelegate?
+    weak var delegate: ScanResultViewControllerDelegate?
     
     @objc
     init(barcode: String, productManager: BPProductManager) {
@@ -27,11 +27,11 @@ class ResultCardViewController: UIViewController {
     }
     
     override func loadView() {
-        view = ResultCardView()
+        view = ScanResultView()
     }
     
-    private var castedView: ResultCardView {
-        return view as! ResultCardView
+    private var castedView: ScanResultView {
+        return view as! ScanResultView
     }
 
     override func viewDidLoad() {
@@ -55,9 +55,9 @@ class ResultCardViewController: UIViewController {
                                             if let scanResult = scanResult {
                                                 AnalyticsHelper.received(productResult: scanResult)
                                                 self.fillViewWithData(scanResult: scanResult)
-                                                self.delegate?.resultCardViewController(self, didFetchResult: scanResult)
+                                                self.delegate?.scanResultViewController(self, didFetchResult: scanResult)
                                             } else if let error = error {
-                                                self.delegate?.resultCardViewController(self, didFailFetchingScanResultWithError: error)
+                                                self.delegate?.scanResultViewController(self, didFailFetchingScanResultWithError: error)
                                             }
         }, completionQueue: OperationQueue.main)
     }
@@ -142,7 +142,7 @@ class ResultCardViewController: UIViewController {
 
 }
 
-extension ResultCardViewController: BPReportProblemViewControllerDelegate {
+extension ScanResultViewController: BPReportProblemViewControllerDelegate {
     func reportProblemWantsDismiss(_ viewController: BPReportProblemViewController) {
         dismiss(animated: true, completion: nil)
     }
@@ -152,10 +152,10 @@ extension ResultCardViewController: BPReportProblemViewControllerDelegate {
     }
 }
 
-extension ResultCardViewController: BPCaptureVideoNavigationControllerDelegate {
+extension ScanResultViewController: BPCaptureVideoNavigationControllerDelegate {
     func captureVideoNavigationController(_ controller: BPCaptureVideoNavigationController, wantsDismissWithSuccess success: Bool) {
         if success {
-            delegate?.resultCardViewControllerDidSentTeachReport(self)
+            delegate?.scanResultViewControllerDidSentTeachReport(self)
         }
         dismiss(animated: true, completion: nil)
     }
