@@ -9,4 +9,3 @@
 #import "BPReportProblemViewController.h"
 #import "BPScanResult.h"
 #import "BPStackView.h"
-#import "UIAlertView+BPUtilities.h"

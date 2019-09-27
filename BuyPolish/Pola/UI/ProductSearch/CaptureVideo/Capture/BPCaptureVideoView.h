@@ -1,6 +1,6 @@
-#import <AVFoundation/AVFoundation.h>
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
+@import Foundation;
+@import AVFoundation;
+@import UIKit;
 
 @class BPCaptureVideoView;
 

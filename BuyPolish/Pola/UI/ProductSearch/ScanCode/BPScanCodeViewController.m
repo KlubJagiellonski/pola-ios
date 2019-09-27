@@ -8,7 +8,6 @@
 #import "BPScanCodeView.h"
 #import "BPScanResult.h"
 #import "NSString+BPUtilities.h"
-#import "UIAlertView+BPUtilities.h"
 #import <Pola-Swift.h>
 
 @import Objection;
