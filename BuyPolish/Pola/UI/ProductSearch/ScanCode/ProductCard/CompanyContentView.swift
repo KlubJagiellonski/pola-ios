@@ -2,15 +2,15 @@ import UIKit
 
 class CompanyContentView: UIView {
 
-    @objc let capitalTitleLabel = UILabel()
-    @objc let capitalProgressView = SecondaryProgressView()
-    @objc let notGlobalCheckRow = CheckRow()
-    @objc let registeredCheckRow = CheckRow()
-    @objc let rndCheckRow = CheckRow()
-    @objc let workersCheckRow = CheckRow()
-    @objc let friendButton = UIButton()
-    @objc let descriptionLabel = UILabel()
-    @objc let padding = CGFloat(14)
+    let capitalTitleLabel = UILabel()
+    let capitalProgressView = SecondaryProgressView()
+    let notGlobalCheckRow = CheckRow()
+    let registeredCheckRow = CheckRow()
+    let rndCheckRow = CheckRow()
+    let workersCheckRow = CheckRow()
+    let friendButton = UIButton()
+    let descriptionLabel = UILabel()
+    private let padding = CGFloat(14)
 
     override init(frame: CGRect) {
         super.init(frame: frame)

@@ -2,7 +2,7 @@ import UIKit
 
 class AltResultContentView: UIView {
 
-    @objc let textLabel = UILabel()
+    let textLabel = UILabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)

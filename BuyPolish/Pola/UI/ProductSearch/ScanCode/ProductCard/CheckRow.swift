@@ -1,6 +1,5 @@
 import UIKit
 
-@objc(BPCheckRow)
 class CheckRow: UIView {
     private let checkImageView = UIImageView()
     private let textLabel = UILabel()
@@ -27,7 +26,6 @@ class CheckRow: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc
     var text: String? {
         didSet {
             textLabel.text = text
@@ -37,7 +35,6 @@ class CheckRow: UIView {
         }
     }
     
-    @nonobjc
     var checked: Bool? {
         didSet {
             updateCheckedUI()
@@ -63,19 +60,6 @@ class CheckRow: UIView {
         checkImageView.image = image?.withRenderingMode(.alwaysTemplate)
         checkImageView.sizeToFit()
         setNeedsLayout()
-    }
-    
-    @objc(checked)
-    var _checked: NSNumber? {
-        get {
-            guard let checked = checked else {
-                return nil
-            }
-            return NSNumber(booleanLiteral: checked)
-        }
-        set {
-            checked = newValue?.boolValue
-        }
     }
     
     override func layoutSubviews() {
