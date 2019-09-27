@@ -7,10 +7,10 @@ class CompanyPageUITests: PolaUITestCase {
         recordMode = false
     }
 
-    func testGustawCompanyShouldBeMarkedAsPolaFriends() {
+    func testRadziemskaCompanyShouldBeMarkedAsPolaFriends() {
         let isPolaFriend =
             startingPageObject
-                .enterCodeAndOpenCompanyResult(codeData: CodeData.Gustaw)
+                .enterCodeAndOpenCompanyResult(codeData: CodeData.Radziemska)
                 .isPolaFriend
         
         XCTAssertTrue(isPolaFriend)

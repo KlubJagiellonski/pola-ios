@@ -74,7 +74,7 @@ const int REPORT_DESCRIPTIONSHADOW_HEIGHT = 1;
         _descriptionTextView.font = [BPTheme normalFont];
         _descriptionTextView.textColor = [BPTheme defaultTextColor];
         _descriptionTextView.placeholder = NSLocalizedString(@"Additional info", nil);
-        _descriptionTextView.placeholderLabel.font = _descriptionTextView.font;
+        _descriptionTextView.placeholderTextView.font = _descriptionTextView.font;
         _descriptionTextView.placeholderColor = [UIColor colorWithHexString:@"C3C3C3"];
         [self addSubview:_descriptionTextView];
 

@@ -14,6 +14,7 @@ class MockServer {
     }
     
     private let codeDatas = [
+        CodeData.Radziemska,
         CodeData.Gustaw,
         CodeData.ISBN,
         CodeData.Koral,

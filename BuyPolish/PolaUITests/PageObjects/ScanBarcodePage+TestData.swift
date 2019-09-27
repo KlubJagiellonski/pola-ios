@@ -12,7 +12,8 @@ extension ScanBarcodePage {
         return tapEnterBarcodeButton()
             .inputBarcode(codeData.barcode)
             .tapOkButton()
-            .waitForResultPageAndTap(expectedResult: codeData.result, expectedResultType: T.self)
+            .waitForResultPage(expectedResult: codeData.result)
+            .tapOnNewestResultCard(expectedResultType: T.self)
     }
     
     func enterCodeAndOpenCompanyResult(codeData: CodeData) -> CompanyPage {

@@ -38,16 +38,14 @@ class PolaUITestCase: FBSnapshotTestCase {
         
         let imageData = app.screenshot().image.pngData()
         if let path = failureImageDirectoryPath?
-            .appendingPathComponent("/")
-            .appendingPathComponent("\(self)_\(lineNumber)")
-            .appendingPathComponent(".png"){
+            .appendingPathComponent("\(self.classForCoder.description())_line_\(lineNumber).png") {
             
             try? imageData?.write(to: path)
         }
         
         super.recordFailure(withDescription: description, inFile: filePath, atLine: lineNumber, expected: expected)
     }
-    
+        
     private var failureImageDirectoryPath: URL? {
         let fileManager = FileManager.default
         guard let pathString = ProcessInfo.processInfo.environment["FAILED_UI_TEST_DIR"] else {

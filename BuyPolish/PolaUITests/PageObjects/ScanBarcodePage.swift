@@ -9,7 +9,7 @@ class ScanBarcodePage : BasePage {
     
     func tapInformationButton() -> InformationPage {
         app.buttons["Informacje o aplikacji"].tap()
-        _ = app.staticTexts["OCEŃ NAS"].waitForExistence(timeout: 2)
+        _ = app.staticTexts["OCEŃ NAS"].waitForExistence(timeout: waitForExistanceTimeout)
         return InformationPage(app: app)
     }
 }
