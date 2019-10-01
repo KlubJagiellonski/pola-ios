@@ -19,20 +19,4 @@ class InformationPageUITests: PolaUITestCase {
         snapshotVerifyView()
     }
     
-    func testFacebookShouldOpenPolaFacebookInSafari() {
-        let safariPage = page.tapFacebookButton()
-        let url = safariPage.url
-        safariPage.returnToApp().done()
-
-        XCTAssertTrue(url.contains("facebook.com/app.pola"))
-    }
-    
-    func testTwitterShouldOpenPolaTwitterInSafari() {
-        let safariPage = page.tapTwitterButton()
-        let url = safariPage.url
-        safariPage.returnToApp().done()
-
-        XCTAssertTrue(url.contains("twitter.com/pola_app"))
-    }
-
 }

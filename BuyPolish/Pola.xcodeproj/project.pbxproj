@@ -109,6 +109,7 @@
 		847AE94723072E9B00E645ED /* ReferenceImages_64 in Resources */ = {isa = PBXBuildFile; fileRef = 847AE94623072E9B00E645ED /* ReferenceImages_64 */; };
 		847AE94923093E7700E645ED /* ISBNPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847AE94823093E7700E645ED /* ISBNPage.swift */; };
 		848C6922225D044300D39E90 /* LaunchScreenSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848C6921225D044300D39E90 /* LaunchScreenSnapshotTests.swift */; };
+		8496142F2340E53B00929D0A /* radziemska.json in Resources */ = {isa = PBXBuildFile; fileRef = 8496142E2340E53A00929D0A /* radziemska.json */; };
 		849BBA002298435D00347863 /* UIView+SafeAreaInsets.m in Sources */ = {isa = PBXBuildFile; fileRef = 849BB9FF2298435D00347863 /* UIView+SafeAreaInsets.m */; };
 		84BB7A4423172BC00043D8B0 /* MockServerRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BB7A4323172BC00043D8B0 /* MockServerRunner.swift */; };
 		84E708362280A40400402E26 /* InformationPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E708272280A40300402E26 /* InformationPage.swift */; };
@@ -327,6 +328,7 @@
 		847AE94623072E9B00E645ED /* ReferenceImages_64 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ReferenceImages_64; sourceTree = "<group>"; };
 		847AE94823093E7700E645ED /* ISBNPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ISBNPage.swift; sourceTree = "<group>"; };
 		848C6921225D044300D39E90 /* LaunchScreenSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenSnapshotTests.swift; sourceTree = "<group>"; };
+		8496142E2340E53A00929D0A /* radziemska.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = radziemska.json; sourceTree = "<group>"; };
 		849BB9FE2298435D00347863 /* UIView+SafeAreaInsets.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+SafeAreaInsets.h"; sourceTree = "<group>"; };
 		849BB9FF2298435D00347863 /* UIView+SafeAreaInsets.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+SafeAreaInsets.m"; sourceTree = "<group>"; };
 		84B1B362225F975A009FA909 /* PolaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PolaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -872,6 +874,7 @@
 		841DDD742311F7B200CB82DC /* Responses */ = {
 			isa = PBXGroup;
 			children = (
+				8496142E2340E53A00929D0A /* radziemska.json */,
 				8409389F231EE687003FC0E1 /* koral.json */,
 				8409389D231EE687003FC0E1 /* lomza.json */,
 				8409389E231EE687003FC0E1 /* tymbark.json */,
@@ -1057,11 +1060,11 @@
 			};
 			buildConfigurationList = 1D08E81E19A7621A00879BD2 /* Build configuration list for PBXProject "Pola" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = en;
+			developmentRegion = pl;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				pl,
+				Base,
 			);
 			mainGroup = 1D08E81A19A7621A00879BD2;
 			productRefGroup = 1D08E82419A7621A00879BD2 /* Products */;
@@ -1109,6 +1112,7 @@
 			files = (
 				840938A2231EE687003FC0E1 /* koral.json in Resources */,
 				840938A1231EE687003FC0E1 /* tymbark.json in Resources */,
+				8496142F2340E53B00929D0A /* radziemska.json in Resources */,
 				841DDD782311F7B200CB82DC /* staropramen.json in Resources */,
 				841DDD7A2311F7B200CB82DC /* isbn.json in Resources */,
 				840938A0231EE687003FC0E1 /* lomza.json in Resources */,

@@ -24,16 +24,12 @@ class EnterBarcodePage: BasePage {
         return self
     }
 
-    func waitForResultPageAndTap<T: ResultPage>(expectedResult: String, expectedResultType: T.Type) -> T {
-        app.otherElements[expectedResult].tap()
-        return T(app: app)
-    }
     
     func waitForResultPage(expectedResult: String, file: StaticString = #file, line: UInt = #line) -> ScanBarcodeWithResultsPage {
-        if !app.otherElements[expectedResult].waitForExistence(timeout: 3) {
+        if !app.staticTexts[expectedResult].waitForExistence(timeout: waitForExistanceTimeout) {
             XCTFail("No matches found for scan result:  \(expectedResult)", file: file, line: line)
         }
-        return ScanBarcodeWithResultsPage(app: app)
+        return ScanBarcodeWithResultsPage(app: app, result: expectedResult)
     }
     
 }

@@ -83,7 +83,7 @@ PODS:
   - nanopb/encode (0.3.901)
   - Objection (1.4)
   - Swifter (1.4.7)
-  - "UITextView+Placeholder (1.1.1)"
+  - "UITextView+Placeholder (1.3.3)"
 
 DEPENDENCIES:
   - AFNetworking (= 2.3.1)
@@ -129,7 +129,7 @@ SPEC CHECKSUMS:
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   Objection: aa9875dbf1b121a077f7e13d504a6ed01816a7f1
   Swifter: 2327ef5d872c638aebab79646ce494af508b0c8f
-  "UITextView+Placeholder": a6fc3e0378f3870036ec562a7537cbf6dbae4bf6
+  "UITextView+Placeholder": c407b27599ea23cca425946fee3cf1db5d547008
 
 PODFILE CHECKSUM: db6c0b962ab3a236d89764aaa9451bca12c6f397
 
