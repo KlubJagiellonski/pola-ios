@@ -1,6 +1,5 @@
 #import "BPCaptureVideoInstructionView.h"
 #import "BPVideoPlayerView.h"
-#import "UIView+SafeAreaInsets.h"
 #import <Pola-Swift.h>
 
 const int CAPTURE_TITLE_PADDING = 16;

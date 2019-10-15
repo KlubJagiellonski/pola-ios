@@ -1,5 +1,5 @@
 #import "BPStackView.h"
-#import "UIView+SafeAreaInsets.h"
+#import <Pola-Swift.h>
 
 NSInteger const kBPStackViewDefaultCardCountLimit = 4;
 NSInteger const kBPStackViewCardMargin = 3;

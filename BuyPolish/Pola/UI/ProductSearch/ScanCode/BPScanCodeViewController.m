@@ -5,7 +5,6 @@
 #import "BPFlashlightManager.h"
 #import "BPKeyboardViewController.h"
 #import "BPProductManager.h"
-#import "BPScanCodeView.h"
 #import "BPScanResult.h"
 #import "NSString+BPUtilities.h"
 #import <Pola-Swift.h>
@@ -60,7 +59,7 @@ objection_requires_sel(@selector(productManager), @selector(cameraSessionManager
                                       action:@selector(didTapFlashlightButton:)
                             forControlEvents:UIControlEventTouchUpInside];
     } else {
-        self.castView.flashlightButtonHidden = YES;
+        self.castView.flashButton.hidden = YES;
     }
 }
 
@@ -216,7 +215,7 @@ objection_requires_sel(@selector(productManager), @selector(cameraSessionManager
             [self.keyboardViewController.view removeFromSuperview];
             [self.keyboardViewController removeFromParentViewController];
 
-            [self.castView configureInfoLabelForMode:BPScanCodeViewLabelModeScan];
+            self.castView.infoTextLabel.text = NSLocalizedString(@"Scan barcode", nil);
             self.keyboardViewController = nil;
 
             if (self.castView.stackView.cardCount != 0) {
@@ -252,7 +251,7 @@ objection_requires_sel(@selector(productManager), @selector(cameraSessionManager
             [self.keyboardViewController didMoveToParentViewController:self];
         }];
 
-    [self.castView configureInfoLabelForMode:BPScanCodeViewLabelModeKeyboard];
+    self.castView.infoTextLabel.text = NSLocalizedString(@"Type 13 digits", nil);
     [self.castView setInfoTextVisible:YES];
 }
 
@@ -271,7 +270,9 @@ objection_requires_sel(@selector(productManager), @selector(cameraSessionManager
 #pragma mark - BPStackViewDelegate
 
 - (void)stackView:(BPStackView *)stackView willAddCard:(UIView *)cardView {
-    [self.castView updateTeachButtonWithVisible:NO title:nil cardsHeight:0.0];
+    UIButton *teachButton = self.castView.teachButton;
+    teachButton.hidden = YES;
+    [teachButton setNeedsLayout];
 }
 
 - (void)stackView:(BPStackView *)stackView didRemoveCard:(UIView *)cardView {
@@ -279,16 +280,14 @@ objection_requires_sel(@selector(productManager), @selector(cameraSessionManager
 
 - (void)stackView:(BPStackView *)stackView willExpandWithCard:(UIView *)cardView {
     self.addingCardEnabled = NO;
-
-    [self.castView setButtonsVisible:NO animation:YES];
+    self.castView.buttonsVisible = NO;
 
     // TODO [BPAnalyticsHelper opensCard:productResult]
 }
 
 - (void)stackViewDidCollapse:(BPStackView *)stackView {
     self.addingCardEnabled = YES;
-
-    [self.castView setButtonsVisible:YES animation:YES];
+    self.castView.buttonsVisible = YES;
 }
 
 - (BOOL)stackView:(BPStackView *)stackView didTapCard:(UIView *)cardView {
@@ -326,13 +325,16 @@ objection_requires_sel(@selector(productManager), @selector(cameraSessionManager
 
 - (void)scanResultViewController:(ScanResultViewController *)vc didFetchResult:(BPScanResult *)result {
     BOOL visible = result.askForPics;
-    [self.castView updateTeachButtonWithVisible:visible
-                                          title:result.askForPicsPreview
-                                    cardsHeight:self.castView.cardsHeight];
+    UIButton *teachButton = self.castView.teachButton;
+    teachButton.hidden = !visible;
+    [teachButton setTitle:result.askForPicsPreview forState:UIControlStateNormal];
+    [teachButton setNeedsLayout];
 }
 
 - (void)scanResultViewControllerDidSentTeachReport:(ScanResultViewController *)vc {
-    [self.castView updateTeachButtonWithVisible:NO title:nil cardsHeight:0.0];
+    UIButton *teachButton = self.castView.teachButton;
+    teachButton.hidden = YES;
+    [teachButton setNeedsLayout];
 }
 
 @end

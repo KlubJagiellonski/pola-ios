@@ -2,7 +2,6 @@
 #import "BPImageContainerView.h"
 #import "UIImage+KVNImageEffects.h"
 #import "UITextView+Placeholder.h"
-#import "UIView+SafeAreaInsets.h"
 #import <Pola-Swift.h>
 
 const int REPORT_PADDING = 16;

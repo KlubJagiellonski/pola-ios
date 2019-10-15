@@ -1,5 +1,4 @@
 #import "BPCaptureVideoView.h"
-#import "UIView+SafeAreaInsets.h"
 #import <Pola-Swift.h>
 
 const int CAPTURE_PADDING = 16;
