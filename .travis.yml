@@ -7,10 +7,6 @@ osx_image: xcode11.1
 before_install: 
   - cd BuyPolish
 
-install:
-  - bundle install
-  - bundle exec pod install
-
 jobs:
   include:
     - stage: test
