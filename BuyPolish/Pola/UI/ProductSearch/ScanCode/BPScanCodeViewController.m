@@ -13,7 +13,7 @@
 
 static NSTimeInterval const kAnimationTime = 0.15;
 
-@interface BPScanCodeViewController () <ScanResultViewControllerDelegate>
+@interface BPScanCodeViewController () <ScanResultViewControllerDelegate, CardStackViewDelegate>
 
 @property (nonatomic) BPKeyboardViewController *keyboardViewController;
 @property (nonatomic, readonly) BPCameraSessionManager *cameraSessionManager;
@@ -109,9 +109,9 @@ objection_requires_sel(@selector(productManager), @selector(cameraSessionManager
         [[ScanResultViewController alloc] initWithBarcode:barcode productManager:self.productManager];
     cardViewController.delegate = self;
     [self addChildViewController:cardViewController];
-    [self.castView.stackView addCard:cardViewController.view];
+    BOOL added = [self.castView.stackView addCard:cardViewController.view];
     [cardViewController didMoveToParentViewController:self];
-    return YES;
+    return added;
 }
 
 - (void)didTapMenuButton:(UIButton *)button {
@@ -269,28 +269,28 @@ objection_requires_sel(@selector(productManager), @selector(cameraSessionManager
 
 #pragma mark - BPStackViewDelegate
 
-- (void)stackView:(BPStackView *)stackView willAddCard:(UIView *)cardView {
+- (void)stackView:(CardStackView *)stackView willAddCard:(UIView *)cardView {
     UIButton *teachButton = self.castView.teachButton;
     teachButton.hidden = YES;
     [teachButton setNeedsLayout];
 }
 
-- (void)stackView:(BPStackView *)stackView didRemoveCard:(UIView *)cardView {
+- (void)stackView:(CardStackView *)stackView didRemoveCard:(UIView *)cardView {
 }
 
-- (void)stackView:(BPStackView *)stackView willExpandWithCard:(UIView *)cardView {
+- (void)stackView:(CardStackView *)stackView willExpandWithCard:(UIView *)cardView {
     self.addingCardEnabled = NO;
     self.castView.buttonsVisible = NO;
 
     // TODO [BPAnalyticsHelper opensCard:productResult]
 }
 
-- (void)stackViewDidCollapse:(BPStackView *)stackView {
+- (void)stackViewDidCollapse:(CardStackView *)stackView {
     self.addingCardEnabled = YES;
     self.castView.buttonsVisible = YES;
 }
 
-- (BOOL)stackView:(BPStackView *)stackView didTapCard:(UIView *)cardView {
+- (BOOL)stackView:(CardStackView *)stackView didTapCard:(UIView *)cardView {
     return NO;
 }
 

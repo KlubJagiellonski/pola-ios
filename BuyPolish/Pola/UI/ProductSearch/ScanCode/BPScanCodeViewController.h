@@ -3,16 +3,13 @@
 #import "BPCaptureVideoNavigationController.h"
 #import "BPKeyboardViewController.h"
 #import "BPReportProblemViewController.h"
-#import "BPStackView.h"
 #import <AVFoundation/AVFoundation.h>
 #import <Foundation/Foundation.h>
-
-@class BPScanCodeViewController;
-@class BPScanResult;
+#import <Pola-Swift.h>
 
 @interface BPScanCodeViewController : UIViewController <AVCaptureMetadataOutputObjectsDelegate,
                                                         UIAlertViewDelegate,
-                                                        BPStackViewDelegate,
+                                                        CardStackViewDelegate,
                                                         BPCameraSessionManagerDelegate,
                                                         BPInfoNavigationControllerDelegate,
                                                         BPKeyboardViewControllerDelegate>

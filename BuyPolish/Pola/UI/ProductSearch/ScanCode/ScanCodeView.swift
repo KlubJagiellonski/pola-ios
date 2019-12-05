@@ -4,7 +4,7 @@ import UIKit
 class ScanCodeView: UIView {
     
     @objc
-    let stackView = BPStackView()
+    let stackView = CardStackView()
     
     @objc
     let infoTextLabel = UILabel()

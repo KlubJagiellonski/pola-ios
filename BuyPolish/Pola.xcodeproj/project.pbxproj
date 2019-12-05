@@ -59,7 +59,6 @@
 		37B649B71B7F59A1741CD9B7 /* BPScanResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6413AB46D8FAC81D1E72B /* BPScanResult.m */; };
 		37B649F994C9AC9767A6AE8B /* BPWebAboutRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B643AFD35745CD11E280DC /* BPWebAboutRow.m */; };
 		37B64A095B01FB6355E7E21E /* BPAboutWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B640107A226F2F1B7CAA9D /* BPAboutWebViewController.m */; };
-		37B64A4DC0F7F5F1DAC9D791 /* BPStackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6499FA4AA777D1E05D4C7 /* BPStackView.m */; };
 		37B64A5D21387F5E0613B2AA /* BPTaskRunner.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6447BFF3F65026E98D810 /* BPTaskRunner.m */; };
 		37B64B04E790A7948469FA50 /* BPProductImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6499F703E06B35CC81F50 /* BPProductImageManager.m */; };
 		37B64B07EFEFFFDCC225AF5E /* BPCameraSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64A6EE7790CE9A2DFFF7E /* BPCameraSessionManager.m */; };
@@ -80,10 +79,19 @@
 		841DDD682311583E00CB82DC /* ScanResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841DDD672311583E00CB82DC /* ScanResultViewController.swift */; };
 		841F7D9E235675A2007BE3F6 /* UIView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841F7D9D235675A2007BE3F6 /* UIView+Additions.swift */; };
 		841F7DA023567740007BE3F6 /* UIApplication+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841F7D9F23567740007BE3F6 /* UIApplication+Additions.swift */; };
+		84548BE5237DF14A00BD96D1 /* CardStackViewLayoutContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84548BE4237DF14A00BD96D1 /* CardStackViewLayoutContext.swift */; };
+		84548BE7237DF21600BD96D1 /* CardStackViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84548BE6237DF21600BD96D1 /* CardStackViewLayout.swift */; };
+		84548BE9237DF62A00BD96D1 /* CardStackViewLayoutLayoutCollapsed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84548BE8237DF62A00BD96D1 /* CardStackViewLayoutLayoutCollapsed.swift */; };
 		8455A7EF220D527200F30845 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8455A7EE220D527200F30845 /* LaunchScreen.storyboard */; };
+		845915C3237E100200C79E27 /* CardStackViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845915C2237E100200C79E27 /* CardStackViewDelegate.swift */; };
+		845915C5237E11FF00C79E27 /* CardStackViewLayoutExpanded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845915C4237E11FF00C79E27 /* CardStackViewLayoutExpanded.swift */; };
+		845915C7237E17CB00C79E27 /* CardStackViewCardProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845915C6237E17CB00C79E27 /* CardStackViewCardProtocol.swift */; };
+		845915C9237E8E0A00C79E27 /* CardStackViewLayoutPick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845915C8237E8E0A00C79E27 /* CardStackViewLayoutPick.swift */; };
 		846036ED2418542B00982FC6 /* RecordVideoPageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846036EC2418542B00982FC6 /* RecordVideoPageUITests.swift */; };
 		847AE94723072E9B00E645ED /* ReferenceImages_64 in Resources */ = {isa = PBXBuildFile; fileRef = 847AE94623072E9B00E645ED /* ReferenceImages_64 */; };
 		848C6922225D044300D39E90 /* LaunchScreenSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848C6921225D044300D39E90 /* LaunchScreenSnapshotTests.swift */; };
+		848DC66E2368F91D00608226 /* CardStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848DC66D2368F91D00608226 /* CardStackView.swift */; };
+		849577D4230B53FC00FC9591 /* CompanyContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849577D3230B53FC00FC9591 /* CompanyContentView.swift */; };
 		849E40D72415204C006E1B76 /* TeachPolaPageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849E40D52415204C006E1B76 /* TeachPolaPageUITests.swift */; };
 		849E40D82415204C006E1B76 /* ScanBarcodePageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849E40D62415204C006E1B76 /* ScanBarcodePageUITests.swift */; };
 		84A81C5023EE1DBE00464745 /* BaseGalleryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A81C4F23EE1DBE00464745 /* BaseGalleryPage.swift */; };
@@ -248,7 +256,6 @@
 		37B644EB9663F8806E287450 /* BPAPIAccessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPAPIAccessor.h; sourceTree = "<group>"; };
 		37B6453D6C76C627D4F7C568 /* BPDeviceHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPDeviceHelper.m; sourceTree = "<group>"; };
 		37B645654D3B84690AEA4C0D /* BPUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPUtilities.h; sourceTree = "<group>"; };
-		37B64583B2E03DD7AAB57ACC /* BPStackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPStackView.h; sourceTree = "<group>"; };
 		37B6464528820E718DBABAA5 /* BPLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPLogger.m; sourceTree = "<group>"; };
 		37B6468E5905EC7102613DAB /* BPAPIResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPAPIResponse.m; sourceTree = "<group>"; };
 		37B646C0316F49D1FC593647 /* BPReport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPReport.m; sourceTree = "<group>"; };
@@ -262,7 +269,6 @@
 		37B6498B4895F096369486F1 /* BPAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPAboutViewController.h; sourceTree = "<group>"; };
 		37B6499E713B6B0489703572 /* BPAboutNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPAboutNavigationController.h; sourceTree = "<group>"; };
 		37B6499F703E06B35CC81F50 /* BPProductImageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPProductImageManager.m; sourceTree = "<group>"; };
-		37B6499FA4AA777D1E05D4C7 /* BPStackView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPStackView.m; sourceTree = "<group>"; };
 		37B649A2D733B29A3B0D9BAC /* BPReport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPReport.h; sourceTree = "<group>"; };
 		37B649BF8BABC5843F94A0A9 /* BPReportResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPReportResult.m; sourceTree = "<group>"; };
 		37B649C1631E9ADBA6B66CC7 /* BPRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPRootViewController.h; sourceTree = "<group>"; };
@@ -304,12 +310,20 @@
 		841F7D9F23567740007BE3F6 /* UIApplication+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Additions.swift"; sourceTree = "<group>"; };
 		84401E1D23C0E1DE00F4D035 /* MainGalleryPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainGalleryPage.swift; sourceTree = "<group>"; };
 		84401E1F23C0E2A800F4D035 /* PhotosGalleryPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosGalleryPage.swift; sourceTree = "<group>"; };
+		84548BE4237DF14A00BD96D1 /* CardStackViewLayoutContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackViewLayoutContext.swift; sourceTree = "<group>"; };
+		84548BE6237DF21600BD96D1 /* CardStackViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackViewLayout.swift; sourceTree = "<group>"; };
+		84548BE8237DF62A00BD96D1 /* CardStackViewLayoutLayoutCollapsed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackViewLayoutLayoutCollapsed.swift; sourceTree = "<group>"; };
 		8455A7EE220D527200F30845 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		845915C2237E100200C79E27 /* CardStackViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackViewDelegate.swift; sourceTree = "<group>"; };
+		845915C4237E11FF00C79E27 /* CardStackViewLayoutExpanded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackViewLayoutExpanded.swift; sourceTree = "<group>"; };
+		845915C6237E17CB00C79E27 /* CardStackViewCardProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackViewCardProtocol.swift; sourceTree = "<group>"; };
+		845915C8237E8E0A00C79E27 /* CardStackViewLayoutPick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackViewLayoutPick.swift; sourceTree = "<group>"; };
 		846036EC2418542B00982FC6 /* RecordVideoPageUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordVideoPageUITests.swift; sourceTree = "<group>"; };
 		847AE94523072E8F00E645ED /* ReferenceImages_64 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ReferenceImages_64; sourceTree = "<group>"; };
 		847AE94623072E9B00E645ED /* ReferenceImages_64 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ReferenceImages_64; sourceTree = "<group>"; };
 		847AE94823093E7700E645ED /* ISBNPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ISBNPage.swift; sourceTree = "<group>"; };
 		848C6921225D044300D39E90 /* LaunchScreenSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenSnapshotTests.swift; sourceTree = "<group>"; };
+		848DC66D2368F91D00608226 /* CardStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardStackView.swift; sourceTree = "<group>"; };
 		849577D3230B53FC00FC9591 /* CompanyContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyContentView.swift; sourceTree = "<group>"; };
 		849E40D52415204C006E1B76 /* TeachPolaPageUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeachPolaPageUITests.swift; sourceTree = "<group>"; };
 		849E40D62415204C006E1B76 /* ScanBarcodePageUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanBarcodePageUITests.swift; sourceTree = "<group>"; };
@@ -699,15 +713,6 @@
 			path = Objection;
 			sourceTree = "<group>";
 		};
-		37B64827EDC4BBBCA2FB9BAE /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				37B64583B2E03DD7AAB57ACC /* BPStackView.h */,
-				37B6499FA4AA777D1E05D4C7 /* BPStackView.m */,
-			);
-			path = Common;
-			sourceTree = "<group>";
-		};
 		37B64977613F0A577613F7E4 /* ProductManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -750,7 +755,6 @@
 		37B64C9D505D36B4936A79BA /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				37B64827EDC4BBBCA2FB9BAE /* Common */,
 				37B64540723CF4EABBB3AC70 /* ProductSearch */,
 				37B649C1631E9ADBA6B66CC7 /* BPRootViewController.h */,
 				37B64960EF3268FB825DD2FE /* BPRootViewController.m */,
@@ -793,6 +797,8 @@
 		37B64F458C8BF4C8D672DAE5 /* ScanCode */ = {
 			isa = PBXGroup;
 			children = (
+				848DC66C2368F91D00608226 /* CardStackView */,
+				37B64697C3925583CD36B426 /* ProductCard */,
 				37B64697C3925583CD36B426 /* ProductCard */,
 				37B64FFC3FE96EFDE8398CF3 /* BPScanCodeView.h */,
 				37B64D1B6193C0AD0D440566 /* BPScanCodeViewController.h */,
@@ -826,6 +832,21 @@
 				C62ECF2EDD7295D219A497A1 /* Pods-Pola-PolaUITests.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		848DC66C2368F91D00608226 /* CardStackView */ = {
+			isa = PBXGroup;
+			children = (
+				848DC66D2368F91D00608226 /* CardStackView.swift */,
+				845915C6237E17CB00C79E27 /* CardStackViewCardProtocol.swift */,
+				845915C2237E100200C79E27 /* CardStackViewDelegate.swift */,
+				84548BE6237DF21600BD96D1 /* CardStackViewLayout.swift */,
+				84548BE4237DF14A00BD96D1 /* CardStackViewLayoutContext.swift */,
+				845915C4237E11FF00C79E27 /* CardStackViewLayoutExpanded.swift */,
+				84548BE8237DF62A00BD96D1 /* CardStackViewLayoutLayoutCollapsed.swift */,
+				845915C8237E8E0A00C79E27 /* CardStackViewLayoutPick.swift */,
+			);
+			path = CardStackView;
 			sourceTree = "<group>";
 		};
 		84B1B363225F975A009FA909 /* PolaUITests */ = {
@@ -1415,11 +1436,13 @@
 			files = (
 				84D887A52337A4B300681C64 /* ResultContentViewControllerFactory.swift in Sources */,
 				1D08E83919A7621A00879BD2 /* BPAppDelegate.m in Sources */,
+				845915C5237E11FF00C79E27 /* CardStackViewLayoutExpanded.swift in Sources */,
 				378433211C7398C0008E392B /* BPAboutViewControllerBaseCell.m in Sources */,
 				1D08E83519A7621A00879BD2 /* main.m in Sources */,
 				37B642317C6BC629AFB0394F /* BPProductManager.m in Sources */,
 				37B649B71B7F59A1741CD9B7 /* BPScanResult.m in Sources */,
 				9EC3BBF023CDD63200242B1E /* BPCaptureVideoNavigationController.m in Sources */,
+				845915C9237E8E0A00C79E27 /* CardStackViewLayoutPick.swift in Sources */,
 				37B64A5D21387F5E0613B2AA /* BPTaskRunner.m in Sources */,
 				37B646BC2546890EB330F4FD /* BPTask.m in Sources */,
 				3784331E1C739035008E392B /* BPAboutViewControllerDoubleCell.m in Sources */,
@@ -1431,7 +1454,9 @@
 				37B64D4617BA6760E8B4101F /* BPAPIAccessor+BPScan.m in Sources */,
 				9EC3BBEE23CDD63100242B1E /* BPCaptureVideoViewController.m in Sources */,
 				374B5B8D1C71C15D00E74BBB /* NSDictionary+Parsing.m in Sources */,
+				845915C3237E100200C79E27 /* CardStackViewDelegate.swift in Sources */,
 				37B64E4A4C23A423A7B102CB /* BPScanResult+Utilities.m in Sources */,
+				84548BE7237DF21600BD96D1 /* CardStackViewLayout.swift in Sources */,
 				37B64F7816B23819A90C0456 /* BPLogger.m in Sources */,
 				BDA76B5A21DE6248003E9FD6 /* AnalyticsHelper.swift in Sources */,
 				37B6498848E97978409489A6 /* NSDictionary+BPJSON.m in Sources */,
@@ -1445,8 +1470,8 @@
 				37B6480CB8E9273EAC35EDA6 /* NSString+BPUtilities.m in Sources */,
 				84AAEDE0230B49DD006CA7EB /* UILabel+Additions.swift in Sources */,
 				841BB98B22D133A900234946 /* Theme.swift in Sources */,
+				84548BE5237DF14A00BD96D1 /* CardStackViewLayoutContext.swift in Sources */,
 				84114A10233E19480081C531 /* UIAlertView+Additions.swift in Sources */,
-				37B64A4DC0F7F5F1DAC9D791 /* BPStackView.m in Sources */,
 				C06EE3351F20D24E005B2B57 /* BPAPIAccessor+BPCapturedImagesData.m in Sources */,
 				1D2D506C1DCBEDC5000A8958 /* BPAboutFooterView.m in Sources */,
 				8406E62F233D5FC000B7313C /* SecondaryProgressView.swift in Sources */,
@@ -1461,6 +1486,8 @@
 				375021841CC0F0F800759140 /* BPKeyboardTextView.m in Sources */,
 				9EC3BC3323CDE3F800242B1E /* AltResultContentViewController.swift in Sources */,
 				9EC3BBF223CDD63200242B1E /* BPCaptureVideoInstructionViewController.m in Sources */,
+				84548BE9237DF62A00BD96D1 /* CardStackViewLayoutLayoutCollapsed.swift in Sources */,
+				849577D4230B53FC00FC9591 /* CompanyContentView.swift in Sources */,
 				BDA76B5121DCD718003E9FD6 /* Encodable+Utilities.swift in Sources */,
 				9EC3BC3123CDE3D600242B1E /* ScanResultView.swift in Sources */,
 				8402E1D62309BB610065E850 /* AltResultContentView.swift in Sources */,
@@ -1472,6 +1499,7 @@
 				9EC3BBF323CDD63200242B1E /* BPVideoPlayerView.m in Sources */,
 				37B6423FEFD4E46BF69E0228 /* BPAPIAccessor+BPReport.m in Sources */,
 				37B6402EAD901CC4D954596B /* BPReportManager.m in Sources */,
+				845915C7237E17CB00C79E27 /* CardStackViewCardProtocol.swift in Sources */,
 				37B6403420F94515369E0F06 /* BPReport.m in Sources */,
 				37B644C091A98460F4483418 /* BPReportResult.m in Sources */,
 				37B647F36DC4A91682A0566B /* BPKeyboardManager.m in Sources */,
@@ -1483,6 +1511,7 @@
 				37B643DED9D7D3BF35EFF857 /* BPAboutNavigationController.m in Sources */,
 				37B6408A3F64660D26DE0B13 /* BPAboutViewController.m in Sources */,
 				37B649F994C9AC9767A6AE8B /* BPWebAboutRow.m in Sources */,
+				848DC66E2368F91D00608226 /* CardStackView.swift in Sources */,
 				37B647FB39C0F80116FD674D /* BPAboutRow.m in Sources */,
 				C082C8B51F22ACBA0026AE11 /* BPCapturedImageResult.m in Sources */,
 				C092CF391F1F809E003174D1 /* BPCapturedImageManager.m in Sources */,
