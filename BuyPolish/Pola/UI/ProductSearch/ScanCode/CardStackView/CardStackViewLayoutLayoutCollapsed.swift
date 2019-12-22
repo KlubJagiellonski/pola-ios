@@ -38,8 +38,7 @@ class CardStackViewLayoutLayoutCollapsed : CardStackViewLayout {
     }
     
     func didTap(cardView: UIView, recognizer: UITapGestureRecognizer) {
-        guard recognizer.state == .recognized,
-            !(stackView.delegate?.stackView(stackView, didTapCard: cardView) ?? false) else {
+        guard recognizer.state == .recognized else {
                 return
         }
         

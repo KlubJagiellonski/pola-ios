@@ -9,7 +9,6 @@
 
 @interface BPScanCodeViewController : UIViewController <AVCaptureMetadataOutputObjectsDelegate,
                                                         UIAlertViewDelegate,
-                                                        CardStackViewDelegate,
                                                         BPCameraSessionManagerDelegate,
                                                         BPInfoNavigationControllerDelegate,
                                                         BPKeyboardViewControllerDelegate>

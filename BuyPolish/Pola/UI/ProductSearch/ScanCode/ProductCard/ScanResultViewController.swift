@@ -7,7 +7,19 @@ protocol ScanResultViewControllerDelegate: class {
     func scanResultViewControllerDidSentTeachReport(_ vc: ScanResultViewController)
 }
 
-class ScanResultViewController: UIViewController {
+class ScanResultViewController: UIViewController, CardStackViewControllerCard {
+    var titleHeight: CGFloat {
+        get {
+            castedView.titleHeight
+        }
+        set {
+            castedView.titleHeight = newValue
+        }
+    }
+    func didBecameExpandedCard() {
+        castedView.scrollViewForContentView.flashScrollIndicators()
+    }
+    
     let barcode: String
     private let productManager: BPProductManager
     private(set) var scanResult: BPScanResult?

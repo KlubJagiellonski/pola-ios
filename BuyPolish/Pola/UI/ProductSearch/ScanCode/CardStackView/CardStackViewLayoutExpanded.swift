@@ -11,14 +11,11 @@ class CardStackViewLayoutLayoutExpanded : CardStackViewLayout {
     }
     
     private func changeSelectedCardFocus(_ focused: Bool) {
-        guard var selectedCard = selectedCard as? CardStackViewCardProtocol else {
-            return
-        }
-        selectedCard.focusedCard = focused
+        stackView.delegate?.stackView(stackView, didExpandCard: selectedCard)
     }
         
     func willBecomeActive() {
-        stackView.delegate?.stackView(stackView, willExpandWithCard: selectedCard)
+        stackView.delegate?.stackView(stackView, willExpandCard: selectedCard)
     }
     
     func didBecomeInactive() {
@@ -74,10 +71,12 @@ class CardStackViewLayoutLayoutExpanded : CardStackViewLayout {
             if (drag > 100) {
                 let newLayout = CardStackViewLayoutLayoutCollapsed()
                 stackView.setCurrentLayout(newLayout, animated: true, completionBlock: nil)
+            } else {
+                drag = 0
+                stackView.setCurrentLayout(self, animated: true, completionBlock: nil)
             }
         default:
-            drag = 0
-            stackView.setCurrentLayout(self, animated: true, completionBlock: nil)
+            break
         }
     }
 }

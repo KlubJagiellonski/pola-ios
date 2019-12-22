@@ -3,8 +3,7 @@ import UIKit
 @objc(BPScanCodeView)
 class ScanCodeView: UIView {
     
-    @objc
-    let stackView = CardStackView()
+    private let stackView: CardStackView
     
     @objc
     let infoTextLabel = UILabel()
@@ -71,7 +70,8 @@ class ScanCodeView: UIView {
     private let dimView = UIImageView(image: R.image.gradientImage())
 
     @objc
-    override init(frame: CGRect) {
+    init(frame: CGRect, stackView: CardStackView) {
+        self.stackView = stackView
         super.init(frame: frame)
         
         addSubview(dimView)

@@ -1,6 +1,6 @@
 import UIKit
 
-class ScanResultView: UIView, CardStackViewCardProtocol {
+class ScanResultView: UIView {
     
     let titleLabel = UILabel()
     let loadingProgressView = UIActivityIndicatorView(style: .gray)
@@ -25,11 +25,6 @@ class ScanResultView: UIView, CardStackViewCardProtocol {
     let scrollViewForContentView = UIScrollView()
     
     var titleHeight = CGFloat(50)
-    var focusedCard: Bool = false {
-        didSet {
-            scrollViewForContentView.flashScrollIndicators()
-        }
-    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)

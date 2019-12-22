@@ -13,7 +13,7 @@
 
 static NSTimeInterval const kAnimationTime = 0.15;
 
-@interface BPScanCodeViewController () <ScanResultViewControllerDelegate, CardStackViewDelegate>
+@interface BPScanCodeViewController () <ScanResultViewControllerDelegate, CardStackViewControllerDelegate>
 
 @property (nonatomic) BPKeyboardViewController *keyboardViewController;
 @property (nonatomic, readonly) BPCameraSessionManager *cameraSessionManager;
@@ -21,6 +21,7 @@ static NSTimeInterval const kAnimationTime = 0.15;
 @property (nonatomic, readonly) BPProductManager *productManager;
 @property (copy, nonatomic) NSString *lastBardcodeScanned;
 @property (nonatomic) BOOL addingCardEnabled;
+@property (nonatomic) CardStackViewController *stackViewController;
 
 @end
 
@@ -29,7 +30,12 @@ static NSTimeInterval const kAnimationTime = 0.15;
 objection_requires_sel(@selector(productManager), @selector(cameraSessionManager), @selector(flashlightManager))
 
     - (void)loadView {
-    self.view = [[BPScanCodeView alloc] initWithFrame:CGRectZero];
+    self.stackViewController = [[CardStackViewController alloc] init];
+    self.stackViewController.delegate = self;
+    [self addChildViewController:self.stackViewController];
+    CardStackView *stackView = (CardStackView *)self.stackViewController.view;
+    self.view = [[BPScanCodeView alloc] initWithFrame:CGRectZero stackView:stackView];
+    [self.stackViewController didMoveToParentViewController:self];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -43,7 +49,7 @@ objection_requires_sel(@selector(productManager), @selector(cameraSessionManager
 
     self.addingCardEnabled = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.castView.stackView.delegate = self;
+    self.stackViewController.delegate = self;
     [self.castView.menuButton addTarget:self
                                  action:@selector(didTapMenuButton:)
                        forControlEvents:UIControlEventTouchUpInside];
@@ -108,9 +114,7 @@ objection_requires_sel(@selector(productManager), @selector(cameraSessionManager
     ScanResultViewController *cardViewController =
         [[ScanResultViewController alloc] initWithBarcode:barcode productManager:self.productManager];
     cardViewController.delegate = self;
-    [self addChildViewController:cardViewController];
-    BOOL added = [self.castView.stackView addCard:cardViewController.view];
-    [cardViewController didMoveToParentViewController:self];
+    BOOL added = [self.stackViewController addCard:cardViewController];
     return added;
 }
 
@@ -205,20 +209,19 @@ objection_requires_sel(@selector(productManager), @selector(cameraSessionManager
 
     [UIView animateWithDuration:kAnimationTime
         animations:^{
-            self.castView.infoTextLabel.alpha = self.castView.stackView.cardCount > 0 ? 0.0 : 1.0;
+            self.castView.infoTextLabel.alpha = self.stackViewController.cardCount > 0 ? 0.0 : 1.0;
             self.castView.rectangleView.alpha = 1.0;
-            self.castView.stackView.alpha = 1.0;
+            self.stackViewController.view.alpha = 1.0;
             self.castView.teachButton.alpha = 1.0;
             self.keyboardViewController.view.alpha = 0.0;
         }
         completion:^(BOOL finished) {
             [self.keyboardViewController.view removeFromSuperview];
-            [self.keyboardViewController removeFromParentViewController];
 
             self.castView.infoTextLabel.text = NSLocalizedString(@"Scan barcode", nil);
             self.keyboardViewController = nil;
 
-            if (self.castView.stackView.cardCount != 0) {
+            if (self.stackViewController.cardCount != 0) {
                 [self.castView setInfoTextVisible:NO];
             }
         }];
@@ -244,7 +247,7 @@ objection_requires_sel(@selector(productManager), @selector(cameraSessionManager
             self.keyboardViewController.view.alpha = 1.0;
 
             self.castView.rectangleView.alpha = 0.0;
-            self.castView.stackView.alpha = 0.0;
+            self.stackViewController.view.alpha = 0.0;
             self.castView.teachButton.alpha = 0.0;
         }
         completion:^(BOOL finished) {
@@ -267,31 +270,27 @@ objection_requires_sel(@selector(productManager), @selector(cameraSessionManager
     return (BPScanCodeView *)self.view;
 }
 
-#pragma mark - BPStackViewDelegate
+#pragma mark - BPStackViewControllerDelegate
 
-- (void)stackView:(CardStackView *)stackView willAddCard:(UIView *)cardView {
+- (void)stackViewController:(CardStackViewController *)stackViewController willAddCard:(UIViewController *)card {
     UIButton *teachButton = self.castView.teachButton;
     teachButton.hidden = YES;
     [teachButton setNeedsLayout];
 }
 
-- (void)stackView:(CardStackView *)stackView didRemoveCard:(UIView *)cardView {
+- (void)stackViewController:(CardStackViewController *)stackViewController didRemoveCard:(UIViewController *)card {
 }
 
-- (void)stackView:(CardStackView *)stackView willExpandWithCard:(UIView *)cardView {
+- (void)stackViewController:(CardStackViewController *)stackViewController willExpandCard:(UIViewController *)card {
     self.addingCardEnabled = NO;
     self.castView.buttonsVisible = NO;
 
     // TODO [BPAnalyticsHelper opensCard:productResult]
 }
 
-- (void)stackViewDidCollapse:(CardStackView *)stackView {
+- (void)stackViewControllerDidCollapse:(CardStackViewController *)stackViewController {
     self.addingCardEnabled = YES;
     self.castView.buttonsVisible = YES;
-}
-
-- (BOOL)stackView:(CardStackView *)stackView didTapCard:(UIView *)cardView {
-    return NO;
 }
 
 #pragma mark - BPCameraSessionManagerDelegate
@@ -320,7 +319,7 @@ objection_requires_sel(@selector(productManager), @selector(cameraSessionManager
     UIAlertView *alertView = [UIAlertView
         showErrorAlert:NSLocalizedString(@"Cannot fetch product info from server. Please try again.", nil)];
     alertView.delegate = self;
-    [self.castView.stackView removeCard:vc.view];
+    [self.stackViewController removeCard:vc];
 }
 
 - (void)scanResultViewController:(ScanResultViewController *)vc didFetchResult:(BPScanResult *)result {

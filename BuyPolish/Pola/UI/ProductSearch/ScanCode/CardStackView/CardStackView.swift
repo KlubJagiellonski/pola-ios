@@ -1,8 +1,7 @@
 import UIKit
 
-@objc
 class CardStackView: UIView {
-    @objc weak var delegate: CardStackViewDelegate?
+    weak var delegate: CardStackViewDelegate?
     private var cards = [UIView]()
     private var layout: CardStackViewLayout
     private var layoutContext =
@@ -18,17 +17,12 @@ class CardStackView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc
     func addCard(_ card: UIView) -> Bool {
         guard !cards.contains(card) else {
             return false
         }
         
-        if var cardProtocol = card as? CardStackViewCardProtocol {
-            cardProtocol.titleHeight = layoutContext.lookAhead
-        }
-        
-        delegate?.stackView(self, willAddCard: card)
+        delegate?.stackView(self, willAddCard: card, titleHeight: layoutContext.lookAhead)
         
         cards.append(card)
         addSubview(card)
@@ -57,10 +51,8 @@ class CardStackView: UIView {
         }
         
         return true
-        
     }
     
-    @objc
     func removeCard(_ card: UIView) {
         guard cards.contains(card) else {
             return
@@ -170,12 +162,10 @@ class CardStackView: UIView {
         layout.didPan(cardView: view, recognizer: recognizer)
     }
     
-    @objc
     var cardCount: UInt {
         return UInt(cards.count)
     }
 
-    @objc
     var cardsHeight: CGFloat {
         let visibleCardsCount = min(cardCount, layoutContext.cardCountLimit)
         return CGFloat(visibleCardsCount) * layoutContext.lookAhead
