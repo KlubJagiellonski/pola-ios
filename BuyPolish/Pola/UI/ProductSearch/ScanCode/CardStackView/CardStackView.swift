@@ -74,7 +74,6 @@ class CardStackView: UIView {
         }
         self.cards.remove(at: index)
         removedCard.removeFromSuperview()
-        self.delegate?.stackView(self, didRemoveCard: removedCard)
     }
     
     func setCurrentLayout(_ currentLayout: CardStackViewLayout, animated: Bool, completionBlock: (() -> Void)?) {

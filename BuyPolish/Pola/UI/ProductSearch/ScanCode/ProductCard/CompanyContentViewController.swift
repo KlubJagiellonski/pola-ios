@@ -20,8 +20,8 @@ class CompanyContentViewController: UIViewController {
         let companyView = view as! CompanyContentView
         
         companyView.friendButton.addTarget(self, action: #selector(friendTapped), for: .touchUpInside)
-        if let plCapital = result.plCapital?.intValue {
-            companyView.capitalProgressView.progress = CGFloat(plCapital / 100)
+        if let plCapital = result.plCapital?.floatValue {
+            companyView.capitalProgressView.progress = CGFloat(plCapital / 100.0)
         } else {
             companyView.capitalProgressView.progress = nil
         }

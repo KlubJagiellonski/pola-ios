@@ -7,19 +7,7 @@ protocol ScanResultViewControllerDelegate: class {
     func scanResultViewControllerDidSentTeachReport(_ vc: ScanResultViewController)
 }
 
-class ScanResultViewController: UIViewController, CardStackViewControllerCard {
-    var titleHeight: CGFloat {
-        get {
-            castedView.titleHeight
-        }
-        set {
-            castedView.titleHeight = newValue
-        }
-    }
-    func didBecameExpandedCard() {
-        castedView.scrollViewForContentView.flashScrollIndicators()
-    }
-    
+class ScanResultViewController: UIViewController {
     let barcode: String
     private let productManager: BPProductManager
     private(set) var scanResult: BPScanResult?
@@ -83,8 +71,8 @@ class ScanResultViewController: UIViewController, CardStackViewControllerCard {
         
         castedView.titleLabel.text = scanResult.name
 
-        if let plScore = scanResult.plScore?.intValue {
-            castedView.mainProgressView.progress = CGFloat(plScore / 100)
+        if let plScore = scanResult.plScore?.floatValue {
+            castedView.mainProgressView.progress = CGFloat(plScore / 100.0)
         }
         
         if scanResult.askForPics,
@@ -172,4 +160,22 @@ extension ScanResultViewController: BPCaptureVideoNavigationControllerDelegate {
         dismiss(animated: true, completion: nil)
     }
     
+}
+
+extension ScanResultViewController: CardStackViewControllerCard {
+    var titleHeight: CGFloat {
+        get {
+            castedView.titleHeight
+        }
+        set {
+            castedView.titleHeight = newValue
+        }
+    }
+    
+    func didBecameExpandedCard() {
+        castedView.scrollViewForContentView.flashScrollIndicators()
+        if let scanResult = scanResult {
+            AnalyticsHelper.opensCard(productResult: scanResult)
+        }
+    }
 }

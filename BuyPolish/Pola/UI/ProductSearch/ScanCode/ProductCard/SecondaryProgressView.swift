@@ -35,7 +35,6 @@ class SecondaryProgressView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = Theme.lightBackgroundColor
         
         filledProgressView.backgroundColor = fillColor
         addSubview(filledProgressView)
@@ -54,9 +53,10 @@ class SecondaryProgressView: UIView {
     }
     
     override func layoutSubviews() {
-        var rect = CGRect.zero
-        rect.size.width = bounds.width * (progress ?? 1)
-        rect.size.height = bounds.height
+        var rect = CGRect(origin: .zero, size: bounds.size)
+        if let progress = progress {
+            rect.size.width = bounds.width * progress
+        }
         filledProgressView.frame = rect
         
         let titleMargin = CGFloat(10)

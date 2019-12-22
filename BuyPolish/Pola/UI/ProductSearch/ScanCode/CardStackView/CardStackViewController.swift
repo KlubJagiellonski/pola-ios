@@ -60,10 +60,6 @@ extension CardStackViewController: CardStackViewDelegate {
         delegate?.stackViewController(self, willAddCard: vc)
     }
     
-    func stackView(_ stackView: CardStackView, didRemoveCard card: UIView) {
-        delegate?.stackViewController(self, didRemoveCard: viewControllerForView(card))
-    }
-    
     func stackView(_ stackView: CardStackView, willExpandCard card: UIView) {
         delegate?.stackViewController(self, willExpandCard: viewControllerForView(card))
     }

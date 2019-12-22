@@ -278,14 +278,9 @@ objection_requires_sel(@selector(productManager), @selector(cameraSessionManager
     [teachButton setNeedsLayout];
 }
 
-- (void)stackViewController:(CardStackViewController *)stackViewController didRemoveCard:(UIViewController *)card {
-}
-
 - (void)stackViewController:(CardStackViewController *)stackViewController willExpandCard:(UIViewController *)card {
     self.addingCardEnabled = NO;
     self.castView.buttonsVisible = NO;
-
-    // TODO [BPAnalyticsHelper opensCard:productResult]
 }
 
 - (void)stackViewControllerDidCollapse:(CardStackViewController *)stackViewController {
