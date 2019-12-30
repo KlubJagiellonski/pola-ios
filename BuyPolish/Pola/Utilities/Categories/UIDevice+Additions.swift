@@ -11,10 +11,8 @@ extension UIDevice {
     var deviceInfo: String {
         var deviceInfo = "\n\n-------App & Device info--------\n"
         deviceInfo.append("- system: \(systemName), \(systemVersion)\n")
-        let bundleDictionary = Bundle.main.infoDictionary
-        let bundleVersion = bundleDictionary?["CFBundleVersion"] as? String ?? "?"
-        let bundleShortVersion = bundleDictionary?["CFBundleShortVersionString"] as? String ?? "?"
-        deviceInfo.append("- app: \(bundleVersion), \(bundleShortVersion)\n")
+        let bundle = Bundle.main
+        deviceInfo.append("- app: \(bundle.version), \(bundle.shortVersion)\n")
         deviceInfo.append("-------End-------")
         return deviceInfo
     }

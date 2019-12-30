@@ -3,5 +3,6 @@
 //
 
 #import "BPCaptureVideoNavigationController.h"
+#import "BPDoubleAboutRow.h"
 #import "BPReportProblemViewController.h"
 #import "BPScanResult.h"

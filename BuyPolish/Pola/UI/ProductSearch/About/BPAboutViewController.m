@@ -1,7 +1,4 @@
 #import "BPAboutViewController.h"
-#import "BPAboutFooterView.h"
-#import "BPAboutViewControllerDoubleCell.h"
-#import "BPAboutViewControllerSingleCell.h"
 #import "BPDoubleAboutRow.h"
 #import "BPWebAboutRow.h"
 #import <Pola-Swift.h>
