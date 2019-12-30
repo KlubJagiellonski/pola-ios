@@ -1,5 +1,4 @@
 #import "BPScanCodeViewController.h"
-#import "BPAboutWebViewController.h"
 #import "BPCaptureVideoNavigationController.h"
 #import "BPCapturedImageResult.h"
 #import "BPFlashlightManager.h"

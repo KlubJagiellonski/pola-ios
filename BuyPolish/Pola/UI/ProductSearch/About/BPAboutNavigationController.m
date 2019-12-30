@@ -1,6 +1,6 @@
 #import "BPAboutNavigationController.h"
 #import "BPAboutViewController.h"
-#import "BPAboutWebViewController.h"
+#import <Pola-Swift.h>
 
 @import Objection;
 

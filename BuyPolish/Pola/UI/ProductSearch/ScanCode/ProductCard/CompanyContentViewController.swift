@@ -47,8 +47,8 @@ class CompanyContentViewController: UIViewController {
     
     @objc
     func friendTapped() {
-        let webViewController = BPAboutWebViewController(url: "https://www.pola-app.pl/m/friends",
-                                                         title: R.string.localizable.polaSFriends())
+        let webViewController = AboutWebViewController(url: "https://www.pola-app.pl/m/friends",
+                                                       title: R.string.localizable.polaSFriends())
         let closeButtonItem =
             UIBarButtonItem(image: R.image.closeIcon(), style: .plain, target: self, action: #selector(closeWebViewTapped))
         closeButtonItem.accessibilityLabel = R.string.localizable.accessibilityClose()
