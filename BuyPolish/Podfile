@@ -13,6 +13,7 @@ target :Pola do
     pod 'UITextView+Placeholder'
     pod 'KVNProgress'
     pod 'R.swift'
+    pod 'Alamofire'
     
     target :PolaTests do
       use_frameworks!

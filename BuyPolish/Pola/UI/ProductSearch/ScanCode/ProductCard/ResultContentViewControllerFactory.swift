@@ -2,7 +2,7 @@ import UIKit
 
 class ResultContentViewControllerFactory {
     
-    static func create(scanResult: BPScanResult) -> UIViewController {
+    static func create(scanResult: ScanResult) -> UIViewController {
         if let altText = scanResult.altText,
             !altText.isEmpty {
             return AltResultContentViewController(result: scanResult)

@@ -20,6 +20,7 @@ PODS:
   - AFNetworking/UIKit (2.3.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - Alamofire (4.9.1)
   - Crashlytics (3.12.0):
     - Fabric (~> 1.9.0)
   - Fabric (1.9.0)
@@ -90,6 +91,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (= 2.3.1)
+  - Alamofire
   - Crashlytics (~> 3.12.0)
   - Fabric (~> 1.9.0)
   - Firebase/Analytics (~> 6.1.0)
@@ -103,6 +105,7 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - AFNetworking
+    - Alamofire
     - Crashlytics
     - Fabric
     - Firebase
@@ -122,6 +125,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AFNetworking: 05b9f6e3aa5ac45bc383b4bb108ef338080a26c7
+  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
   Fabric: f988e33c97f08930a413e08123064d2e5f68d655
   Firebase: 8d77bb33624ae9b62d745d82ec023de5f70f7e4f
@@ -139,6 +143,6 @@ SPEC CHECKSUMS:
   Swifter: 2327ef5d872c638aebab79646ce494af508b0c8f
   "UITextView+Placeholder": c407b27599ea23cca425946fee3cf1db5d547008
 
-PODFILE CHECKSUM: 9a29dcfe2362b572dae1ddb7546e35fe7ed5d2e8
+PODFILE CHECKSUM: 65a5b52283928dfa38b9d43ad0ec3c124d797a57
 
 COCOAPODS: 1.9.0

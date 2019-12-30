@@ -1,9 +1,9 @@
 import UIKit
 
 class CompanyContentViewController: UIViewController {
-    let result: BPScanResult
+    let result: ScanResult
     
-    init(result: BPScanResult) {
+    init(result: ScanResult) {
         self.result = result
         super.init(nibName: nil, bundle: nil)
     }
@@ -15,34 +15,33 @@ class CompanyContentViewController: UIViewController {
     override func loadView() {
         view = CompanyContentView()
     }
-    
+        
     override func viewDidLoad() {
         let companyView = view as! CompanyContentView
         
         companyView.friendButton.addTarget(self, action: #selector(friendTapped), for: .touchUpInside)
-        if let plCapital = result.plCapital?.floatValue {
-            companyView.capitalProgressView.progress = CGFloat(plCapital / 100.0)
+        if let plCapital = result.plCapital {
+            companyView.capitalProgressView.progress = CGFloat(plCapital) / 100.0
         } else {
             companyView.capitalProgressView.progress = nil
         }
-        companyView.notGlobalCheckRow.checked = result.plNotGlobEnt?.boolValue
-        companyView.workersCheckRow.checked = result.plWorkers?.boolValue
-        companyView.registeredCheckRow.checked = result.plRegistered?.boolValue
-        companyView.rndCheckRow.checked = result.plRnD?.boolValue
-        companyView.descriptionLabel.text = result.descr
-        companyView.friendButton.isHidden = !result.isFriend
+        companyView.notGlobalCheckRow.checked = bool(from: result.plNotGlobEnt)
+        companyView.workersCheckRow.checked = bool(from: result.plWorkers)
+        companyView.registeredCheckRow.checked = bool(from: result.plRegistered)
+        companyView.rndCheckRow.checked = bool(from: result.plRnD)
+        companyView.descriptionLabel.text = result.description
+        companyView.friendButton.isHidden = !(result.isFriend ?? false)
         
         switch result.cardType {
             
-        case CardTypeGrey:
+        case .grey:
             companyView.capitalProgressView.fillColor = Theme.strongBackgroundColor
             companyView.capitalProgressView.percentColor = Theme.clearColor
             
-        case CardTypeWhite:
+        case .white:
             companyView.capitalProgressView.fillColor = Theme.lightBackgroundColor
             companyView.capitalProgressView.percentColor = Theme.defaultTextColor
-        default:
-            break
+            
         }
     }
     
@@ -61,6 +60,13 @@ class CompanyContentViewController: UIViewController {
     @objc
     func closeWebViewTapped() {
         dismiss(animated: true, completion: nil)
+    }
+    
+    private func bool(from int:Int?) -> Bool? {
+        guard let int = int else {
+            return nil
+        }
+        return int != 0
     }
     
 }

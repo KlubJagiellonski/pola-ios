@@ -22,25 +22,23 @@ final class AnalyticsHelper: NSObject {
                                         source: type))
     }
 
-    @objc(receivedProductResult:)
-    class func received(productResult: BPScanResult) {
+    class func received(productResult: ScanResult) {
         logEvent(name: .company_received,
                  parameters:
             AnalyticsProductResultParameters(code: productResult.code,
-                                               company: productResult.code,
-                                               device_id: UIDevice.current.deviceId,
-                                               product_id: productResult.productId?.stringValue,
-                                               ai_requested: productResult.askForPics ? 1 : 0))
+                                            company: productResult.code,
+                                            device_id: UIDevice.current.deviceId,
+                                            product_id: "\(productResult.productId)",
+                                            ai_requested: (productResult.ai?.askForPics ?? false) ? 1 : 0))
     }
 
-    @objc(opensCard:)
-    class func opensCard(productResult: BPScanResult) {
+    class func opensCard(productResult: ScanResult) {
         logEvent(name: .card_opened,
                  parameters:
             AnalyticsProductResultParameters(code: productResult.code,
                                              company: productResult.code,
                                              device_id: UIDevice.current.deviceId,
-                                             product_id: productResult.productId?.stringValue,
+                                             product_id: "\(productResult.productId)",
                                              ai_requested: nil))
     }
 

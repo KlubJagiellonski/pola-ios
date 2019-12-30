@@ -9,17 +9,21 @@ protocol ScanResultViewControllerDelegate: class {
 
 class ScanResultViewController: UIViewController {
     let barcode: String
-    private let productManager: BPProductManager
-    private(set) var scanResult: BPScanResult?
+    private let productManager: ProductManager
+    private(set) var scanResult: ScanResult?
     
     @objc
     weak var delegate: ScanResultViewControllerDelegate?
     
-    @objc
-    init(barcode: String, productManager: BPProductManager) {
+    init(barcode: String, productManager: ProductManager) {
         self.barcode = barcode
         self.productManager = productManager
         super.init(nibName: nil, bundle: nil)
+    }
+    
+    @objc
+    convenience init(barcode: String) {
+        self.init(barcode: barcode, productManager: ProductManager())
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -46,23 +50,26 @@ class ScanResultViewController: UIViewController {
     private func downloadScanResult() {
         castedView.titleLabel.text = R.string.localizable.loading()
         castedView.loadingProgressView.startAnimating()
-        productManager.retrieveProduct(withBarcode: barcode,
-                                        completion: { [weak self] (scanResult, error) in
-                                            guard let `self` = self else {
-                                                 return
-                                            }
-                                            self.castedView.loadingProgressView.stopAnimating()
-                                            if let scanResult = scanResult {
-                                                AnalyticsHelper.received(productResult: scanResult)
-                                                self.fillViewWithData(scanResult: scanResult)
-                                                self.delegate?.scanResultViewController(self, didFetchResult: scanResult)
-                                            } else if let error = error {
-                                                self.delegate?.scanResultViewController(self, didFailFetchingScanResultWithError: error)
-                                            }
-        }, completionQueue: OperationQueue.main)
+        productManager.retrieveProduct(barcode: barcode) { [weak self] (result) in
+            guard let `self` = self else {
+                 return
+            }
+            self.castedView.loadingProgressView.stopAnimating()
+
+            switch result {
+            case .success(let scanResult):
+                AnalyticsHelper.received(productResult: scanResult)
+                self.fillViewWithData(scanResult: scanResult)
+                self.delegate?.scanResultViewController(self, didFetchResult: scanResult.bpScanResult)
+                
+            case .failure(let error):
+                self.delegate?.scanResultViewController(self, didFailFetchingScanResultWithError: error)
+            }
+
+        }
     }
     
-    private func fillViewWithData(scanResult: BPScanResult) {
+    private func fillViewWithData(scanResult: ScanResult) {
         self.scanResult = scanResult
         let contentViewController = ResultContentViewControllerFactory.create(scanResult: scanResult)
         addChild(contentViewController)
@@ -71,48 +78,44 @@ class ScanResultViewController: UIViewController {
         
         castedView.titleLabel.text = scanResult.name
 
-        if let plScore = scanResult.plScore?.floatValue {
-            castedView.mainProgressView.progress = CGFloat(plScore / 100.0)
+        if let plScore = scanResult.plScore {
+            castedView.mainProgressView.progress = CGFloat(plScore) / 100.0
         }
         
-        if scanResult.askForPics,
-            let askForPicsPreview = scanResult.askForPicsPreview,
-            !askForPicsPreview.isEmpty{
-            castedView.teachButton.setTitle(askForPicsPreview, for: .normal)
+        if let ai = scanResult.ai,
+            ai.askForPics,
+            !ai.askForPicsPreview.isEmpty {
+            castedView.teachButton.setTitle(ai.askForPicsPreview, for: .normal)
             castedView.teachButton.isHidden = false
         } else {
             castedView.teachButton.isHidden = true
         }
         
         switch scanResult.cardType {
-        case CardTypeGrey:
+        case .grey:
             view.backgroundColor = Theme.mediumBackgroundColor
             castedView.mainProgressView.backgroundColor = Theme.strongBackgroundColor
-        case CardTypeWhite:
+        case .white:
             view.backgroundColor = Theme.clearColor
             castedView.mainProgressView.backgroundColor = Theme.lightBackgroundColor
-        default:
-            break
         }
         
         castedView.reportProblemButton.setTitle(scanResult.reportButtonText?.uppercased(), for: .normal)
         switch scanResult.reportButtonType {
-        case ReportButtonTypeRed:
+        case .red:
             castedView.reportProblemButton.setTitleColor(Theme.clearColor, for: .normal)
             castedView.reportProblemButton.setBackgroundImage(UIImage.image(color: Theme.actionColor), for: .normal)
-        case ReportButtonTypeWhite:
+        case .white:
             castedView.reportProblemButton.layer.borderColor = Theme.actionColor.cgColor
             castedView.reportProblemButton.layer.borderWidth = 1
             castedView.reportProblemButton.setTitleColor(Theme.actionColor, for: .normal)
             castedView.reportProblemButton.setTitleColor(Theme.clearColor, for: .highlighted)
             castedView.reportProblemButton.setBackgroundImage(UIImage.image(color: UIColor.clear), for: .normal)
             castedView.reportProblemButton.setBackgroundImage(UIImage.image(color: Theme.actionColor), for: .highlighted)
-        default:
-            break
         }
 
         castedView.reportInfoLabel.text = scanResult.reportText
-        castedView.heartImageView.isHidden = !scanResult.isFriend
+        castedView.heartImageView.isHidden = !(scanResult.isFriend ?? false)
         
         UIAccessibility.post(notification: .screenChanged, argument: castedView.titleLabel)
 
@@ -124,7 +127,7 @@ class ScanResultViewController: UIViewController {
             return
         }
         AnalyticsHelper.reportShown(barcode: barcode)
-        let reportProblemViewController = BPReportProblemViewController(productId: productId, barcode: barcode)
+        let reportProblemViewController = BPReportProblemViewController(productId: NSNumber(value: productId), barcode: barcode)
         reportProblemViewController.delegate = self
         present(reportProblemViewController, animated: true, completion: nil)
     }
@@ -135,7 +138,7 @@ class ScanResultViewController: UIViewController {
             return
         }
         AnalyticsHelper.teachReportShow(barcode: barcode)
-        let captureVideoNavigationController = BPCaptureVideoNavigationController(scanResult: scanResult)
+        let captureVideoNavigationController = BPCaptureVideoNavigationController(scanResult: scanResult.bpScanResult)
         captureVideoNavigationController.captureDelegate = self
         present(captureVideoNavigationController, animated: true, completion: nil)
     }

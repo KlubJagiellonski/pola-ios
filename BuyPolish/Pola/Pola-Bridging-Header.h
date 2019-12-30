@@ -4,6 +4,5 @@
 
 #import "BPAboutWebViewController.h"
 #import "BPCaptureVideoNavigationController.h"
-#import "BPProductManager.h"
 #import "BPReportProblemViewController.h"
 #import "BPScanResult.h"

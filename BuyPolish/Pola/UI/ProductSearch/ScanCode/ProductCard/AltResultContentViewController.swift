@@ -1,9 +1,9 @@
 import UIKit
 
 class AltResultContentViewController: UIViewController {
-    let result: BPScanResult
+    let result: ScanResult
     
-    init(result: BPScanResult) {
+    init(result: ScanResult) {
         self.result = result
         super.init(nibName: nil, bundle: nil)
     }

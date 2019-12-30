@@ -4,7 +4,6 @@
 #import "BPCapturedImageResult.h"
 #import "BPFlashlightManager.h"
 #import "BPKeyboardViewController.h"
-#import "BPProductManager.h"
 #import "BPScanResult.h"
 #import "NSString+BPUtilities.h"
 #import <Pola-Swift.h>
@@ -18,7 +17,6 @@ static NSTimeInterval const kAnimationTime = 0.15;
 @property (nonatomic) BPKeyboardViewController *keyboardViewController;
 @property (nonatomic, readonly) BPCameraSessionManager *cameraSessionManager;
 @property (nonatomic, readonly) BPFlashlightManager *flashlightManager;
-@property (nonatomic, readonly) BPProductManager *productManager;
 @property (copy, nonatomic) NSString *lastBardcodeScanned;
 @property (nonatomic) BOOL addingCardEnabled;
 @property (nonatomic) CardStackViewController *stackViewController;
@@ -27,7 +25,7 @@ static NSTimeInterval const kAnimationTime = 0.15;
 
 @implementation BPScanCodeViewController
 
-objection_requires_sel(@selector(productManager), @selector(cameraSessionManager), @selector(flashlightManager))
+objection_requires_sel(@selector(cameraSessionManager), @selector(flashlightManager))
 
     - (void)loadView {
     self.stackViewController = [[CardStackViewController alloc] init];
@@ -111,8 +109,7 @@ objection_requires_sel(@selector(productManager), @selector(cameraSessionManager
 }
 
 - (BOOL)addCardAndDownloadDetails:(NSString *)barcode {
-    ScanResultViewController *cardViewController =
-        [[ScanResultViewController alloc] initWithBarcode:barcode productManager:self.productManager];
+    ScanResultViewController *cardViewController = [[ScanResultViewController alloc] initWithBarcode:barcode];
     cardViewController.delegate = self;
     BOOL added = [self.stackViewController addCard:cardViewController];
     return added;
