@@ -10,7 +10,7 @@ final class AnalyticsHelper: NSObject {
         if (firebaseAvailable) {
             FirebaseApp.configure()
         }
-        Crashlytics.sharedInstance().setUserIdentifier(BPDeviceHelper.deviceId)
+        Crashlytics.sharedInstance().setUserIdentifier(UIDevice.current.deviceId)
     }
 
     @objc
@@ -18,7 +18,7 @@ final class AnalyticsHelper: NSObject {
         logEvent(name: .scan_code,
                  parameters:
             AnalyticsScanCodeParameters(code: barcode,
-                                        device_id: BPDeviceHelper.deviceId,
+                                        device_id: UIDevice.current.deviceId,
                                         source: type))
     }
 
@@ -28,7 +28,7 @@ final class AnalyticsHelper: NSObject {
                  parameters:
             AnalyticsProductResultParameters(code: productResult.code,
                                                company: productResult.code,
-                                               device_id: BPDeviceHelper.deviceId,
+                                               device_id: UIDevice.current.deviceId,
                                                product_id: productResult.productId?.stringValue,
                                                ai_requested: productResult.askForPics ? 1 : 0))
     }
@@ -39,7 +39,7 @@ final class AnalyticsHelper: NSObject {
                  parameters:
             AnalyticsProductResultParameters(code: productResult.code,
                                              company: productResult.code,
-                                             device_id: BPDeviceHelper.deviceId,
+                                             device_id: UIDevice.current.deviceId,
                                              product_id: productResult.productId?.stringValue,
                                              ai_requested: nil))
     }
@@ -61,7 +61,7 @@ final class AnalyticsHelper: NSObject {
         logEvent(name: .menu_item_opened,
                  parameters:
             AnalyticsAboutParameters(item: windowName,
-                                      device_id: BPDeviceHelper.deviceId))
+                                      device_id: UIDevice.current.deviceId))
     }
 
     @objc(teachReportShow:)
@@ -78,7 +78,7 @@ final class AnalyticsHelper: NSObject {
 
     private class func reportParameters(barcode: String?) -> AnalyticsReportParameters {
         return AnalyticsReportParameters(code: barcode ?? "No Code",
-                                         device_id: BPDeviceHelper.deviceId)
+                                         device_id: UIDevice.current.deviceId)
     }
 
     private class func logEvent(name: AnalyticsEventName, parameters: AnalyticsParameters) {

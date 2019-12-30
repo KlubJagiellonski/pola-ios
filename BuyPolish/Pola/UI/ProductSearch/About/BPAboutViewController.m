@@ -2,7 +2,6 @@
 #import "BPAboutFooterView.h"
 #import "BPAboutViewControllerDoubleCell.h"
 #import "BPAboutViewControllerSingleCell.h"
-#import "BPDeviceHelper.h"
 #import "BPDoubleAboutRow.h"
 #import "BPWebAboutRow.h"
 #import <Pola-Swift.h>
@@ -134,7 +133,7 @@ CGFloat const CELL_HEIGHT = 49;
     [composeViewController setMailComposeDelegate:self];
     [composeViewController setToRecipients:@[ABOUT_MAIL]];
     [composeViewController setSubject:NSLocalizedString(@"mail_title", nil)];
-    [composeViewController setMessageBody:[BPDeviceHelper deviceInfo] isHTML:NO];
+    [composeViewController setMessageBody:UIDevice.currentDevice.deviceInfo isHTML:NO];
     [self presentViewController:composeViewController animated:YES completion:nil];
 }
 

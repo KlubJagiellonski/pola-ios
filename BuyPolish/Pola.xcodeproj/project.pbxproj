@@ -64,7 +64,6 @@
 		37B64B07EFEFFFDCC225AF5E /* BPCameraSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64A6EE7790CE9A2DFFF7E /* BPCameraSessionManager.m */; };
 		37B64B7D226FBFA23FFCA1C1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 37B645C93F848A6F598F96E2 /* Localizable.strings */; };
 		37B64BC8938BC7942D533D2F /* BPScanCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64728A5FC383EB464DA9F /* BPScanCodeViewController.m */; };
-		37B64D38E60651D383A2F8F7 /* BPDeviceHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6453D6C76C627D4F7C568 /* BPDeviceHelper.m */; };
 		37B64D4617BA6760E8B4101F /* BPAPIAccessor+BPScan.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64A5E17F2E5888839150C /* BPAPIAccessor+BPScan.m */; };
 		37B64E4A4C23A423A7B102CB /* BPScanResult+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6473D93970F5113F3AAB3 /* BPScanResult+Utilities.m */; };
 		37B64F7816B23819A90C0456 /* BPLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6464528820E718DBABAA5 /* BPLogger.m */; };
@@ -81,6 +80,7 @@
 		841F7DA023567740007BE3F6 /* UIApplication+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841F7D9F23567740007BE3F6 /* UIApplication+Additions.swift */; };
 		8455A7EF220D527200F30845 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8455A7EE220D527200F30845 /* LaunchScreen.storyboard */; };
 		846036ED2418542B00982FC6 /* RecordVideoPageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846036EC2418542B00982FC6 /* RecordVideoPageUITests.swift */; };
+		846036EF2418565A00982FC6 /* UIDevice+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846036EE2418565A00982FC6 /* UIDevice+Additions.swift */; };
 		847AE94723072E9B00E645ED /* ReferenceImages_64 in Resources */ = {isa = PBXBuildFile; fileRef = 847AE94623072E9B00E645ED /* ReferenceImages_64 */; };
 		848C6922225D044300D39E90 /* LaunchScreenSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848C6921225D044300D39E90 /* LaunchScreenSnapshotTests.swift */; };
 		849577D4230B53FC00FC9591 /* CompanyContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849577D3230B53FC00FC9591 /* CompanyContentView.swift */; };
@@ -255,7 +255,6 @@
 		37B644CFCD087DBE4C190DDC /* BPReportManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPReportManager.m; sourceTree = "<group>"; };
 		37B644E893F9831BEB40A125 /* BPReportProblemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPReportProblemViewController.m; sourceTree = "<group>"; };
 		37B644EB9663F8806E287450 /* BPAPIAccessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPAPIAccessor.h; sourceTree = "<group>"; };
-		37B6453D6C76C627D4F7C568 /* BPDeviceHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPDeviceHelper.m; sourceTree = "<group>"; };
 		37B645654D3B84690AEA4C0D /* BPUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPUtilities.h; sourceTree = "<group>"; };
 		37B6464528820E718DBABAA5 /* BPLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPLogger.m; sourceTree = "<group>"; };
 		37B6468E5905EC7102613DAB /* BPAPIResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPAPIResponse.m; sourceTree = "<group>"; };
@@ -282,7 +281,6 @@
 		37B64AB122CABBF4F99EEC94 /* BPReportManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPReportManager.h; sourceTree = "<group>"; };
 		37B64BE65625A6DB4C22E8F0 /* BPAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPAboutViewController.m; sourceTree = "<group>"; };
 		37B64D1B6193C0AD0D440566 /* BPScanCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPScanCodeViewController.h; sourceTree = "<group>"; };
-		37B64D62D6D7E068CB4517A9 /* BPDeviceHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPDeviceHelper.h; sourceTree = "<group>"; };
 		37B64DFDBDE3A5CEE19D6FDB /* BPObjectionModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPObjectionModule.m; sourceTree = "<group>"; };
 		37B64EB824D550DB209CEAA8 /* BPKeyboardManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPKeyboardManager.m; sourceTree = "<group>"; };
 		37B64F51708E3958AF727B6F /* BPProductManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPProductManager.h; sourceTree = "<group>"; };
@@ -312,6 +310,7 @@
 		84401E1F23C0E2A800F4D035 /* PhotosGalleryPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosGalleryPage.swift; sourceTree = "<group>"; };
 		8455A7EE220D527200F30845 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		846036EC2418542B00982FC6 /* RecordVideoPageUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordVideoPageUITests.swift; sourceTree = "<group>"; };
+		846036EE2418565A00982FC6 /* UIDevice+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+Additions.swift"; sourceTree = "<group>"; };
 		847AE94523072E8F00E645ED /* ReferenceImages_64 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ReferenceImages_64; sourceTree = "<group>"; };
 		847AE94623072E9B00E645ED /* ReferenceImages_64 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ReferenceImages_64; sourceTree = "<group>"; };
 		847AE94823093E7700E645ED /* ISBNPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ISBNPage.swift; sourceTree = "<group>"; };
@@ -656,8 +655,6 @@
 			isa = PBXGroup;
 			children = (
 				37B646DCA0870AD66E5EB92B /* Categories */,
-				37B64D62D6D7E068CB4517A9 /* BPDeviceHelper.h */,
-				37B6453D6C76C627D4F7C568 /* BPDeviceHelper.m */,
 				1D2D50641DC54092000A8958 /* BPExtendedButton.h */,
 				1D2D50651DC54092000A8958 /* BPExtendedButton.m */,
 				37B642C8016B2BC66A308398 /* BPLogger.h */,
@@ -697,6 +694,7 @@
 				84114A0F233E19480081C531 /* UIAlertView+Additions.swift */,
 				841F7D9F23567740007BE3F6 /* UIApplication+Additions.swift */,
 				841BB98C22D136AE00234946 /* UIColor+Additions.swift */,
+				846036EE2418565A00982FC6 /* UIDevice+Additions.swift */,
 				8406E630233D6A6C00B7313C /* UIImage+Additions.swift */,
 				C092CF3A1F1F88BD003174D1 /* UIImage+Scaling.h */,
 				C092CF3B1F1F88EE003174D1 /* UIImage+Scaling.m */,
@@ -1449,6 +1447,7 @@
 				37B6480CB8E9273EAC35EDA6 /* NSString+BPUtilities.m in Sources */,
 				84AAEDE0230B49DD006CA7EB /* UILabel+Additions.swift in Sources */,
 				841BB98B22D133A900234946 /* Theme.swift in Sources */,
+				846036EF2418565A00982FC6 /* UIDevice+Additions.swift in Sources */,
 				84114A10233E19480081C531 /* UIAlertView+Additions.swift in Sources */,
 				C06EE3351F20D24E005B2B57 /* BPAPIAccessor+BPCapturedImagesData.m in Sources */,
 				1D2D506C1DCBEDC5000A8958 /* BPAboutFooterView.m in Sources */,
@@ -1494,7 +1493,6 @@
 				C082C8B51F22ACBA0026AE11 /* BPCapturedImageResult.m in Sources */,
 				9EC3BC4623CDF4FD00242B1E /* CardStackViewLayoutContext.swift in Sources */,
 				C092CF391F1F809E003174D1 /* BPCapturedImageManager.m in Sources */,
-				37B64D38E60651D383A2F8F7 /* BPDeviceHelper.m in Sources */,
 				8406E631233D6A6C00B7313C /* UIImage+Additions.swift in Sources */,
 				84F177E122CAD3F700238266 /* R.generated.swift in Sources */,
 				37B64A095B01FB6355E7E21E /* BPAboutWebViewController.m in Sources */,

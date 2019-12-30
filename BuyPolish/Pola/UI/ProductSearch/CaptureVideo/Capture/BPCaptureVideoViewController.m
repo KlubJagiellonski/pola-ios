@@ -1,7 +1,6 @@
 #import "BPCaptureVideoViewController.h"
 #import "BPCapturedImageManager.h"
 #import "BPCapturedImagesUploadManager.h"
-#import "BPDeviceHelper.h"
 #import "BPWeakTimerTarget.h"
 #import "KVNProgress.h"
 #import "UIImage+Scaling.h"
@@ -26,10 +25,10 @@ const int INITIAL_TIMER_SEC = 6;
 
 @implementation BPCaptureVideoViewController
 
-objection_requires_sel(@selector(videoManager), @selector(imageManager), @selector(uploadManager));
-objection_initializer_sel(@selector(initWithScanResult:));
+objection_requires_sel(@selector(videoManager), @selector(imageManager), @selector(uploadManager))
+        objection_initializer_sel(@selector(initWithScanResult:))
 
-- (instancetype)initWithScanResult:(BPScanResult *)scanResult {
+    - (instancetype)initWithScanResult : (BPScanResult *)scanResult {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
         _scanResult = scanResult;
@@ -132,7 +131,7 @@ objection_initializer_sel(@selector(initWithScanResult:));
                                          originalHeight:[[NSNumber alloc] initWithInt:[originalImage heightInPixels]]
                                                   width:[[NSNumber alloc] initWithInt:[scaledImage widthInPixels]]
                                                  height:[[NSNumber alloc] initWithInt:[scaledImage heightInPixels]]
-                                             deviceName:[BPDeviceHelper deviceName]];
+                                             deviceName:UIDevice.currentDevice.deviceName];
 
     [KVNProgress showWithStatus:NSLocalizedString(@"CaptureVideo.Sending", nil)];
 

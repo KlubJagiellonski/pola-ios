@@ -1,8 +1,8 @@
 #import "BPAPIAccessor.h"
 #import "AFHTTPRequestOperation.h"
 #import "BPAPIResponse.h"
-#import "BPDeviceHelper.h"
 #import "NSDictionary+BPJSON.h"
+#import <Pola-Swift.h>
 
 @import Objection;
 
@@ -49,7 +49,7 @@ NSString *const BPAPIAccessorAPIDeviceId = @"device_id";
 
 - (NSDictionary *)addDefaultParameters:(NSDictionary *)parameters {
     NSMutableDictionary *mutableParameters = [NSMutableDictionary dictionaryWithDictionary:parameters];
-    mutableParameters[BPAPIAccessorAPIDeviceId] = [BPDeviceHelper deviceId];
+    mutableParameters[BPAPIAccessorAPIDeviceId] = UIDevice.currentDevice.deviceId;
     return mutableParameters;
 }
 
