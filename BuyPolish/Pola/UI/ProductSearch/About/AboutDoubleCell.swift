@@ -1,26 +1,25 @@
 import UIKit
 
-@objc(BPAboutViewControllerDoubleCell)
 class AboutDoubleCell: AboutBaseCell {
+    
+    enum Segment: Int {
+        case first
+        case second
+        case none
+    }
 
     private let firstButton = UIButton(type: .custom)
     private let secondButton = UIButton(type: .custom)
     
-    override var aboutRowInfo: BPAboutRow? {
-        didSet {
-            guard let doubleRow = aboutRowInfo as? BPDoubleAboutRow else {
-                return
-            }
-            firstButton.setTitle(doubleRow.title, for: .normal)
-            firstButton.addTarget(doubleRow.target, action: doubleRow.action, for: .touchUpInside)
-            
-            secondButton.setTitle(doubleRow.secondTitle, for: .normal)
-            secondButton.addTarget(doubleRow.target, action: doubleRow.action, for: .touchUpInside)
-        }
+    var selectedSegment = Segment.none
+
+    func configure(rowInfo: DoubleAboutRow) {
+        firstButton.setTitle(rowInfo.0.title, for: .normal)
+        secondButton.setTitle(rowInfo.1.title, for: .normal)
     }
     
-    override init(reuseIdentifier: String) {
-        super.init(reuseIdentifier: reuseIdentifier)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         applyStyle(for: firstButton)
         contentView.addSubview(firstButton)
         applyStyle(for: secondButton)
@@ -42,6 +41,18 @@ class AboutDoubleCell: AboutBaseCell {
         firstButton.frame = frame
         frame.origin.x += frame.maxX
         secondButton.frame = frame
+    }
+    
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        let hitted = super.hitTest(point, with: event)
+        if hitted == firstButton {
+            selectedSegment = .first
+        } else if hitted == secondButton {
+            selectedSegment = .second
+        } else {
+            selectedSegment = .none
+        }
+        return self
     }
 
     private func applyStyle(for button: UIButton) {

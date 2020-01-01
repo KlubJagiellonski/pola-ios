@@ -61,7 +61,13 @@ final class AnalyticsHelper: NSObject {
             AnalyticsAboutParameters(item: windowName,
                                       device_id: UIDevice.current.deviceId))
     }
-
+    
+    class func aboutOpenedd(windowName: AnalitycsAboutRow) {
+        logEvent(name: .menu_item_opened,
+                 parameters:
+            AnalyticsAboutParameters(item: windowName.rawValue,
+                                      device_id: UIDevice.current.deviceId))
+    }
     @objc(teachReportShow:)
     class func teachReportShow(barcode: String) {
         logEvent(name: .aipics_started,

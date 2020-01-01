@@ -1,17 +1,14 @@
 import UIKit
 
-@objc(BPAboutViewControllerSingleCell)
 class AboutSingleCell: AboutBaseCell {
     private let whiteBackgroundView = UIView()
     
-    override var aboutRowInfo: BPAboutRow? {
-        didSet {
-            textLabel?.text = aboutRowInfo?.title
-        }
+    func configure(rowInfo: AboutRow) {
+        textLabel?.text = rowInfo.title
     }
     
-    override init(reuseIdentifier: String) {
-        super.init(reuseIdentifier: reuseIdentifier)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         whiteBackgroundView.backgroundColor = .white
         contentView.insertSubview(whiteBackgroundView, belowSubview: textLabel!)

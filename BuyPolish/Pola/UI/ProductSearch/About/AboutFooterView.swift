@@ -1,6 +1,5 @@
 import UIKit
 
-@objc(BPAboutFooterView)
 class AboutFooterView: UIView {
     
     private let infoLabel = UILabel()

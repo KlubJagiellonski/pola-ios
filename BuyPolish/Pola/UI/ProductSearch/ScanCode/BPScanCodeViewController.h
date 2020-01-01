@@ -1,4 +1,3 @@
-#import "BPAboutNavigationController.h"
 #import "BPCameraSessionManager.h"
 #import "BPCaptureVideoNavigationController.h"
 #import "BPKeyboardViewController.h"
@@ -10,7 +9,6 @@
 @interface BPScanCodeViewController : UIViewController <AVCaptureMetadataOutputObjectsDelegate,
                                                         UIAlertViewDelegate,
                                                         BPCameraSessionManagerDelegate,
-                                                        BPInfoNavigationControllerDelegate,
                                                         BPKeyboardViewControllerDelegate>
 - (void)showScanCodeView;
 - (void)showWriteCodeView;

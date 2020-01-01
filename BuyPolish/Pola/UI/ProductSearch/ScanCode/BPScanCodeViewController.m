@@ -117,10 +117,9 @@ objection_requires_sel(@selector(cameraSessionManager), @selector(flashlightMana
 - (void)didTapMenuButton:(UIButton *)button {
     [BPAnalyticsHelper aboutOpened:@"About Menu"];
 
-    JSObjectionInjector *injector = [JSObjection defaultInjector];
-    BPAboutNavigationController *aboutNavigationController = [injector getObject:[BPAboutNavigationController class]];
-    aboutNavigationController.infoDelegate = self;
-    [self presentViewController:aboutNavigationController animated:YES completion:nil];
+    UIViewController *vc = [[AboutViewController alloc] init];
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
+    [self presentViewController:nvc animated:YES completion:nil];
 }
 
 - (void)didTapKeyboardButton:(UIButton *)button {
@@ -288,12 +287,6 @@ objection_requires_sel(@selector(cameraSessionManager), @selector(flashlightMana
 
 - (void)didFindBarcode:(NSString *)barcode {
     [self didFindBarcode:barcode sourceType:@"Camera"];
-}
-
-#pragma mark - BPInfoNavigationControllerDelegate
-
-- (void)infoCancelled:(BPAboutNavigationController *)infoNavigationController {
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - BPKeyboardViewControllerDelegate

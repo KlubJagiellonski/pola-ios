@@ -1,17 +1,11 @@
 import UIKit
 
-@objc(BPAboutViewControllerBaseCell)
 class AboutBaseCell: UITableViewCell {
     let backgroundHorizontalMargin = CGFloat(16.0)
     let backgroundVerticalMargin = CGFloat(8.0)
-
-    @objc
-    weak var aboutRowInfo: BPAboutRow?
-
-    @objc
-    init(reuseIdentifier: String) {
-        super.init(style: .default, reuseIdentifier: reuseIdentifier)
-        
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.backgroundColor = Theme.mediumBackgroundColor
     }
     
