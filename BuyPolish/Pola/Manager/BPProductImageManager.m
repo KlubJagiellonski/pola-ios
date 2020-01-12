@@ -14,6 +14,13 @@ const float LARGE_IMAGE_WIDTH = 800;
     [UIImagePNGRepresentation(smallImage) writeToFile:[self imagePathForKey:key index:index small:YES] atomically:NO];
 }
 
+- (void)removeImageforKey:(NSNumber *)key index:(int)index {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    [fileManager removeItemAtPath:[self imagePathForKey:key index:index small:NO] error:nil];
+    [fileManager removeItemAtPath:[self imagePathForKey:key index:index small:YES] error:nil];
+}
+
 - (BOOL)isImageExistForKey:(NSNumber *)key index:(int)index {
     NSString *imagePath = [self imagePathForKey:key index:index small:YES];
     return [[NSFileManager defaultManager] fileExistsAtPath:imagePath];

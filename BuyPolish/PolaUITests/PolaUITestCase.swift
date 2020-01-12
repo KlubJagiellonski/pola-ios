@@ -29,6 +29,16 @@ class PolaUITestCase: FBSnapshotTestCase {
         FBSnapshotVerifyView(UIImageView(image: fullscreen), file: file, line: line)
     }
     
+    func expectRequest(path: String, file: StaticString = #file, line: UInt = #line) {
+        let predicate = NSPredicate { (object, _) -> Bool in
+            let mockServer = object as! MockServer
+            return mockServer.lastRequest?.path == path
+        }
+        let requestExpectation = expectation(for: predicate, evaluatedWith: MockServer.shared, handler: nil)
+        let result = XCTWaiter().wait(for: [requestExpectation], timeout: 10.0)
+        XCTAssertEqual(result, XCTWaiter.Result.completed, "Expected request \(path) not appear", file: file, line: line)
+    }
+        
     override func recordFailure(
         withDescription description: String,
         inFile filePath: String,

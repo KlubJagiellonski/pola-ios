@@ -2,7 +2,7 @@ import XCTest
 
 @objc(MockServerRunner)
 class MockServerRunner: NSObject, XCTestObservation {
-    let mockServer = MockServer()
+    let mockServer = MockServer.shared
     
     override init() {
         super.init()

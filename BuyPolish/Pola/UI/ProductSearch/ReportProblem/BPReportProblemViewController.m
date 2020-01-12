@@ -98,11 +98,19 @@ objection_requires_sel(@selector(productImageManager), @selector(reportManager),
         if (result.state == REPORT_STATE_FINSIHED && error == nil) {
             [KVNProgress showSuccessWithStatus:NSLocalizedString(@"Report sent", nil)];
             [BPAnalyticsHelper reportSent:self.barcode];
+            [self removeSendedImages];
             [strongSelf.delegate reportProblem:strongSelf finishedWithResult:YES];
         } else if (error != nil) {
             [KVNProgress showErrorWithStatus:NSLocalizedString(@"Error occured", nil)];
         }
     }              completionQueue:[NSOperationQueue mainQueue]];
+}
+
+- (void)removeSendedImages {
+    for (int i = 0; i < self.imageCount; ++i) {
+        [self.productImageManager removeImageforKey:self.productId index:i];
+    }
+    self.imageCount = 0;
 }
 
 - (void)showImagePickerForSourceType:(enum UIImagePickerControllerSourceType)sourceType {
@@ -142,9 +150,9 @@ objection_requires_sel(@selector(productImageManager), @selector(reportManager),
 }
 
 - (void)didTapRemoveImage:(BPImageContainerView *)imageContainerView atIndex:(int)index {
+    [self.productImageManager removeImageforKey:self.productId index:index];
     [imageContainerView removeImageAtIndex:index];
     self.imageCount--;
-
     [self updateReportButtonState];
 }
 
