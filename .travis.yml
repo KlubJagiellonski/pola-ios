@@ -19,5 +19,10 @@ cache:
   directories:
   - BuyPolish/Pods
 
+after_failure:
+  - npm install imgur-upload-cli
+  - ./node_modules/.bin/imgur-upload PolaUITests/SnapshotFailedTests/*.png
+  - ./node_modules/.bin/imgur-upload PolaUITests/FailureDiffs/**/*.png
+
 notifications:
   email: false
