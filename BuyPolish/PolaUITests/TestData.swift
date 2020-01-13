@@ -12,4 +12,5 @@ struct CodeData {
     static let Tymbark = CodeData(barcode: "5901067405119", result: "MWS Sp. z o.o.", responseFile: "tymbark")
     static let Lomza = CodeData(barcode: "5900535015171", result: "VAN PUR", responseFile: "lomza")
     static let Koral = CodeData(barcode: "5902121022303", result: "Lody Koral", responseFile: "koral")
+    static let Naleczowianka = CodeData(barcode: "5900635001111", result: "NESTLE WATERS POLSKA", responseFile: "nestle_waters")
 }

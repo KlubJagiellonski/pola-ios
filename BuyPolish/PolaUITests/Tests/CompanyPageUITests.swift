@@ -35,4 +35,12 @@ class CompanyPageUITests: PolaUITestCase {
         snapshotVerifyView()
     }
     
+    func testNaleczowiankaCompanyShouldHas0PolishCapital() {
+        startingPageObject
+            .enterCodeAndOpenCompanyResult(codeData: CodeData.Naleczowianka)
+            .done()
+        
+        snapshotVerifyView()
+    }
+    
 }

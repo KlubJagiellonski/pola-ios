@@ -2,7 +2,9 @@ import Swifter
 import XCTest
 
 class MockServer {
+    static let shared = MockServer()
     private let server = HttpServer()
+    private(set) var lastRequest: HttpRequest?
     
     func start() throws {
         configureGetCode()
@@ -20,16 +22,35 @@ class MockServer {
         CodeData.Koral,
         CodeData.Lomza,
         CodeData.Staropramen,
-        CodeData.Tymbark
+        CodeData.Tymbark,
+        CodeData.Naleczowianka
     ]
     
     private func configureGetCode() {
         server["/get_by_code"] =
             { request in
+                self.record(request: request)
                 let code = self.code(from: request)
                 let responseFilename = self.responseFilename(for: code)
                 return self.response(from: responseFilename)
         }
+        server["/create_report"] = {
+            request in
+            self.record(request: request)
+            return self.response(from: "create_report")
+        }
+        
+        server["/image"] = {
+            request in
+            self.record(request: request)
+            return HttpResponse.ok(.text(""))
+        }
+
+    }
+    
+    private func record(request: HttpRequest) {
+        self.lastRequest = request
+        print("Mock server handle request \(request.path)")
     }
     
     private func code(from request: HttpRequest) -> String {

@@ -2,7 +2,7 @@ import XCTest
 
 class EnterBarcodePageUITests: PolaUITestCase {
     
-    var page: EnterBarcodePage!
+    private var page: EnterBarcodePage!
 
     override func setUp() {
         super.setUp()
