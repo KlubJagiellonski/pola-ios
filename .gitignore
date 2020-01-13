@@ -6,3 +6,7 @@ BuyPolish/BuyPolish.xcworkspace/xcuserdata
 BuyPolish/Pola.xcworkspace/xcuserdata
 BuyPolish/Pola.xcodeproj/xcuserdata
 BuyPolish/Pods
+BuyPolish/node_modules
+BuyPolish/PolaUITests/FailureDiffs
+BuyPolish/PolaUITests/SnapshotFailedTests
+BuyPolish/package-lock.json
