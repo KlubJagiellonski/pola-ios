@@ -14,6 +14,7 @@ target :Pola do
     pod 'KVNProgress'
     pod 'R.swift'
     pod 'Alamofire'
+    pod 'Swinject'
     
     target :PolaTests do
       use_frameworks!

@@ -8,30 +8,21 @@
 
 @import Objection;
 
-@interface BPReportManager ()
-
-@property (nonatomic) BPTaskRunner *taskRunner;
-@property (nonatomic) BPAPIAccessor *apiAccessor;
-
-@end
-
 @implementation BPReportManager
 
-objection_requires_sel(@selector(taskRunner), @selector(apiAccessor));
+objection_requires_sel(@selector(taskRunner), @selector(apiAccessor))
 
-- (void)sendReport:(BPReport *)report
-         completion:(void (^)(BPReportResult *, NSError *))completion
-    completionQueue:(NSOperationQueue *)completionQueue {
+    - (void)sendReport : (BPReport *)report completion
+    : (void (^)(BPReportResult *, NSError *))completion completionQueue : (NSOperationQueue *)completionQueue {
     __block NSError *error;
 
-    weakify();
-    void (^block)() = ^{
-        strongify();
+    weakify() void (^block)() = ^{
+        strongify()
 
-        NSDictionary *result = [strongSelf.apiAccessor addReportWithDescription:report.desc
-                                                                      productId:report.productId
-                                                                     filesCount:report.imagePathArray.count
-                                                                          error:&error];
+            NSDictionary *result = [strongSelf.apiAccessor addReportWithDescription:report.desc
+                                                                          productId:report.productId
+                                                                         filesCount:report.imagePathArray.count
+                                                                              error:&error];
 
         if (error) {
             BPLog(@"Error while adding report : %@ %@", report.productId, error.localizedDescription);
@@ -88,11 +79,10 @@ objection_requires_sel(@selector(taskRunner), @selector(apiAccessor));
                       reportId:(NSNumber *)reportId
                          index:(NSUInteger)index
                     completion:(void (^)(NSUInteger, NSError *))completion {
-    weakify();
-    void (^block)() = ^{
-        strongify();
+    weakify() void (^block)() = ^{
+        strongify()
 
-        NSString *imagePath = imagePathArray[index];
+            NSString *imagePath = imagePathArray[index];
         NSString *requestUrl = signedRequestArray[index];
         [strongSelf sendImageAtPath:imagePath
                              forUrl:requestUrl
@@ -125,11 +115,10 @@ objection_requires_sel(@selector(taskRunner), @selector(apiAccessor));
              completion:(void (^)(NSError *))completion {
     __block NSError *error;
 
-    weakify();
-    void (^block)() = ^{
-        strongify();
+    weakify() void (^block)() = ^{
+        strongify()
 
-        [strongSelf.apiAccessor addImageAtPath:imageAtPath forUrl:requestUrl error:&error];
+            [strongSelf.apiAccessor addImageAtPath:imageAtPath forUrl:requestUrl error:&error];
 
         if (error) {
             BPLog(@"Error while adding image : %@ %@ %@", imageAtPath, reportId, error.localizedDescription);

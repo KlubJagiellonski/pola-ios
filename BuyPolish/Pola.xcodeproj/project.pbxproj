@@ -75,6 +75,7 @@
 		8477CFC723CE137D00C72542 /* AboutRows.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477CFC423CE137D00C72542 /* AboutRows.swift */; };
 		8477CFC823CE137D00C72542 /* AboutRowsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477CFC523CE137D00C72542 /* AboutRowsFactory.swift */; };
 		8477CFC923CE137D00C72542 /* AboutRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477CFC623CE137D00C72542 /* AboutRow.swift */; };
+		8477CFCB23CE17B100C72542 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477CFCA23CE17B100C72542 /* DIContainer.swift */; };
 		847AE94723072E9B00E645ED /* ReferenceImages_64 in Resources */ = {isa = PBXBuildFile; fileRef = 847AE94623072E9B00E645ED /* ReferenceImages_64 */; };
 		848C6922225D044300D39E90 /* LaunchScreenSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848C6921225D044300D39E90 /* LaunchScreenSnapshotTests.swift */; };
 		849577D4230B53FC00FC9591 /* CompanyContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849577D3230B53FC00FC9591 /* CompanyContentView.swift */; };
@@ -292,6 +293,7 @@
 		8477CFC423CE137D00C72542 /* AboutRows.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutRows.swift; sourceTree = "<group>"; };
 		8477CFC523CE137D00C72542 /* AboutRowsFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutRowsFactory.swift; sourceTree = "<group>"; };
 		8477CFC623CE137D00C72542 /* AboutRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutRow.swift; sourceTree = "<group>"; };
+		8477CFCA23CE17B100C72542 /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
 		847AE94523072E8F00E645ED /* ReferenceImages_64 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ReferenceImages_64; sourceTree = "<group>"; };
 		847AE94623072E9B00E645ED /* ReferenceImages_64 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ReferenceImages_64; sourceTree = "<group>"; };
 		847AE94823093E7700E645ED /* ISBNPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ISBNPage.swift; sourceTree = "<group>"; };
@@ -745,6 +747,7 @@
 				9EC3BC3523CDF26F00242B1E /* BPFlashlightManager.m */,
 				37B6429D71F43AB163A1A626 /* BPProductImageManager.h */,
 				37B6499F703E06B35CC81F50 /* BPProductImageManager.m */,
+				8477CFCA23CE17B100C72542 /* DIContainer.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -1218,6 +1221,7 @@
 				"${BUILT_PRODUCTS_DIR}/KVNProgress-framework/KVNProgress.framework",
 				"${BUILT_PRODUCTS_DIR}/Objection-framework/Objection.framework",
 				"${BUILT_PRODUCTS_DIR}/R.swift.Library-framework/Rswift.framework",
+				"${BUILT_PRODUCTS_DIR}/Swinject-framework/Swinject.framework",
 				"${BUILT_PRODUCTS_DIR}/UITextView+Placeholder-framework/UITextView_Placeholder.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb-framework/nanopb.framework",
 				"${BUILT_PRODUCTS_DIR}/iOSSnapshotTestCase/FBSnapshotTestCase.framework",
@@ -1231,6 +1235,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KVNProgress.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Objection.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Swinject.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITextView_Placeholder.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSnapshotTestCase.framework",
@@ -1276,6 +1281,7 @@
 				"${BUILT_PRODUCTS_DIR}/KVNProgress-framework/KVNProgress.framework",
 				"${BUILT_PRODUCTS_DIR}/Objection-framework/Objection.framework",
 				"${BUILT_PRODUCTS_DIR}/R.swift.Library-framework/Rswift.framework",
+				"${BUILT_PRODUCTS_DIR}/Swinject-framework/Swinject.framework",
 				"${BUILT_PRODUCTS_DIR}/UITextView+Placeholder-framework/UITextView_Placeholder.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb-framework/nanopb.framework",
 				"${BUILT_PRODUCTS_DIR}/iOSSnapshotTestCase/FBSnapshotTestCase.framework",
@@ -1288,6 +1294,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KVNProgress.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Objection.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Swinject.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITextView_Placeholder.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSnapshotTestCase.framework",
@@ -1330,6 +1337,7 @@
 				"${BUILT_PRODUCTS_DIR}/KVNProgress/KVNProgress.framework",
 				"${BUILT_PRODUCTS_DIR}/Objection/Objection.framework",
 				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
+				"${BUILT_PRODUCTS_DIR}/Swinject/Swinject.framework",
 				"${BUILT_PRODUCTS_DIR}/UITextView+Placeholder/UITextView_Placeholder.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -1341,6 +1349,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KVNProgress.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Objection.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Swinject.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITextView_Placeholder.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -1407,6 +1416,7 @@
 				9EC3BC6723CDFA4E00242B1E /* BPKeyboardTextView.m in Sources */,
 				9EC3BC6623CDFA4E00242B1E /* BPKeyboardViewController.m in Sources */,
 				8477CFC723CE137D00C72542 /* AboutRows.swift in Sources */,
+				8477CFCB23CE17B100C72542 /* DIContainer.swift in Sources */,
 				84034B8023CD249400E01157 /* ResultHandler.swift in Sources */,
 				37B64F7816B23819A90C0456 /* BPLogger.m in Sources */,
 				BDA76B5A21DE6248003E9FD6 /* AnalyticsHelper.swift in Sources */,

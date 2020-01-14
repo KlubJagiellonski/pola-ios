@@ -147,7 +147,7 @@ class AboutViewController: UITableViewController {
     }
     
     private func performReportProblemAction() {
-        let vc = BPReportProblemViewController()
+        let vc = DI.container.resolve(BPReportProblemViewController.self)!
         vc.delegate = self
         present(vc, animated: true, completion: nil)
     }

@@ -10,19 +10,17 @@
 @import Objection;
 
 @interface BPReportProblemViewController ()
-@property (nonatomic) BPProductImageManager *productImageManager;
-@property (nonatomic) BPReportManager *reportManager;
-@property (nonatomic) BPKeyboardManager *keyboardManager;
+
 @property (nonatomic) int imageCount;
 @property (nonatomic) UIImagePickerController *imagePickerController;
 @end
 
 @implementation BPReportProblemViewController
-objection_initializer_sel(@selector(initWithProductId:barcode:));
+objection_initializer_sel(@selector(initWithProductId:barcode:))
 
-objection_requires_sel(@selector(productImageManager), @selector(reportManager), @selector(keyboardManager));
+        objection_requires_sel(@selector(productImageManager), @selector(reportManager), @selector(keyboardManager))
 
-- (instancetype)initWithProductId:(NSNumber *)productId barcode:(NSString *)barcode {
+    - (instancetype)initWithProductId : (NSNumber *)productId barcode : (NSString *)barcode {
     self = [super init];
     if (self) {
         _productId = productId;
@@ -99,20 +97,19 @@ objection_requires_sel(@selector(productImageManager), @selector(reportManager),
 
     [KVNProgress showWithStatus:NSLocalizedString(@"Sending...", nil)];
 
-    weakify();
-    [self.reportManager sendReport:report
-                        completion:^(BPReportResult *result, NSError *error) {
-                            strongify();
-                            if (result.state == REPORT_STATE_FINSIHED && error == nil) {
-                                [KVNProgress showSuccessWithStatus:NSLocalizedString(@"Report sent", nil)];
-                                [BPAnalyticsHelper reportSent:self.barcode];
-                                [self removeSendedImages];
-                                [strongSelf.delegate reportProblem:strongSelf finishedWithResult:YES];
-                            } else if (error != nil) {
-                                [KVNProgress showErrorWithStatus:NSLocalizedString(@"Error occured", nil)];
-                            }
-                        }
-                   completionQueue:[NSOperationQueue mainQueue]];
+    weakify()[self.reportManager sendReport:report
+                                 completion:^(BPReportResult *result, NSError *error) {
+                                     strongify() if (result.state == REPORT_STATE_FINSIHED && error == nil) {
+                                         [KVNProgress showSuccessWithStatus:NSLocalizedString(@"Report sent", nil)];
+                                         [BPAnalyticsHelper reportSent:self.barcode];
+                                         [self removeSendedImages];
+                                         [strongSelf.delegate reportProblem:strongSelf finishedWithResult:YES];
+                                     }
+                                     else if (error != nil) {
+                                         [KVNProgress showErrorWithStatus:NSLocalizedString(@"Error occured", nil)];
+                                     }
+                                 }
+                            completionQueue:[NSOperationQueue mainQueue]];
 }
 
 - (void)removeSendedImages {

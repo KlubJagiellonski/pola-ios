@@ -1,5 +1,7 @@
 #import "BPImageContainerView.h"
 #import "BPKeyboardManager.h"
+#import "BPProductImageManager.h"
+#import "BPReportManager.h"
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -17,6 +19,10 @@ NS_ASSUME_NONNULL_BEGIN
                                                              UIImagePickerControllerDelegate,
                                                              UINavigationControllerDelegate,
                                                              BPKeyboardManagerDelegate>
+
+@property (nonatomic, strong) BPProductImageManager *productImageManager;
+@property (nonatomic, strong) BPReportManager *reportManager;
+@property (nonatomic, strong) BPKeyboardManager *keyboardManager;
 
 @property (weak, nonatomic, nullable) id<BPReportProblemViewControllerDelegate> delegate;
 
