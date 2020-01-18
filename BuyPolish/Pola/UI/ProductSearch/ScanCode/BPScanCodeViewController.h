@@ -1,7 +1,6 @@
 #import "BPCameraSessionManager.h"
 #import "BPCaptureVideoNavigationController.h"
 #import "BPKeyboardViewController.h"
-#import "BPReportProblemViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import <Foundation/Foundation.h>
 #import <Pola-Swift.h>

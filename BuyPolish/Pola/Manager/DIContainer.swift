@@ -1,10 +1,10 @@
 import Swinject
 
 class DI {
-
+    
     static let container: Resolver = {
-       let container = Container()
-
+        let container = Container()
+        
         container.register(BPProductImageManager.self) { _ in
             BPProductImageManager()
         }
@@ -12,7 +12,7 @@ class DI {
         container.register(BPKeyboardManager.self) { _ in
             BPKeyboardManager()
         }
-
+        
         container.register(BPTaskRunner.self) { _ in
             BPTaskRunner()
         }
@@ -26,16 +26,18 @@ class DI {
         }.initCompleted { (resolver, reportManager) in
             reportManager.taskRunner = resolver.resolve(BPTaskRunner.self)!
             reportManager.apiAccessor = resolver.resolve(BPAPIAccessor.self)!
-
+            
         }
         
-        container.register(BPReportProblemViewController.self) { (_) in
-            BPReportProblemViewController()
-        }.initCompleted { (resolver, viewController) in
-            viewController.productImageManager = resolver.resolve(BPProductImageManager.self)!
-            viewController.reportManager = resolver.resolve(BPReportManager.self)!
-            viewController.keyboardManager = resolver.resolve(BPKeyboardManager.self)!
+        container.register(ReportProblemViewController.self) { resolver, productId, barcode in
+            ReportProblemViewController(productId: productId,
+                                        barcode: barcode,
+                                        productImageManager: resolver.resolve(BPProductImageManager.self)!,
+                                        reportManager: resolver.resolve(BPReportManager.self)!,
+                                        keyboardManager: resolver.resolve(BPKeyboardManager.self)!)
+            
         }
+        
         return container
     }()
     

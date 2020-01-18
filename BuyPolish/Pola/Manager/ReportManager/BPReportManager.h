@@ -1,9 +1,8 @@
 #import "BPAPIAccessor.h"
+#import "BPReport.h"
+#import "BPReportResult.h"
 #import "BPTaskRunner.h"
 #import <Foundation/Foundation.h>
-
-@class BPReport;
-@class BPReportResult;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -13,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BPAPIAccessor *apiAccessor;
 
 - (void)sendReport:(BPReport *)report
-         completion:(void (^)(BPReportResult *, NSError *))completion
+         completion:(void (^)(BPReportResult *_Nullable, NSError *_Nullable))completion
     completionQueue:(NSOperationQueue *)completionQueue;
 @end
 

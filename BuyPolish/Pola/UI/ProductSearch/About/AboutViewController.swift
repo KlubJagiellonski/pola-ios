@@ -54,7 +54,7 @@ class AboutViewController: UITableViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    // MARK: - Table view data source
+    // MARK: - UITableViewDataSource
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
@@ -70,6 +70,8 @@ class AboutViewController: UITableViewController {
             return 0
         }
     }
+    
+    // MARK: - UITableViewDelegate
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         49.0
@@ -147,8 +149,7 @@ class AboutViewController: UITableViewController {
     }
     
     private func performReportProblemAction() {
-        let vc = DI.container.resolve(BPReportProblemViewController.self)!
-        vc.delegate = self
+        let vc = DI.container.resolve(ReportProblemViewController.self, arguments: nil as Int?, nil as String?)!
         present(vc, animated: true, completion: nil)
     }
 }
@@ -156,17 +157,6 @@ class AboutViewController: UITableViewController {
 extension AboutViewController: MFMailComposeViewControllerDelegate {
     
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-        dismiss(animated: true, completion: nil)
-    }
-    
-}
-
-extension AboutViewController: BPReportProblemViewControllerDelegate {
-    func reportProblemWantsDismiss(_ viewController: BPReportProblemViewController) {
-        dismiss(animated: true, completion: nil)
-    }
-    
-    func reportProblem(_ controller: BPReportProblemViewController, finishedWithResult result: Bool) {
         dismiss(animated: true, completion: nil)
     }
     

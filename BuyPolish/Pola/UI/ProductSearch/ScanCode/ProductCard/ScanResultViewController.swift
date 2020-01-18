@@ -127,9 +127,8 @@ class ScanResultViewController: UIViewController {
             return
         }
         AnalyticsHelper.reportShown(barcode: barcode)
-        let reportProblemViewController = BPReportProblemViewController(productId: NSNumber(value: productId), barcode: barcode)
-        reportProblemViewController.delegate = self
-        present(reportProblemViewController, animated: true, completion: nil)
+        let vc = DI.container.resolve(ReportProblemViewController.self, arguments: productId, barcode)!
+        present(vc, animated: true, completion: nil)
     }
     
     @objc
@@ -143,16 +142,6 @@ class ScanResultViewController: UIViewController {
         present(captureVideoNavigationController, animated: true, completion: nil)
     }
 
-}
-
-extension ScanResultViewController: BPReportProblemViewControllerDelegate {
-    func reportProblemWantsDismiss(_ viewController: BPReportProblemViewController) {
-        dismiss(animated: true, completion: nil)
-    }
-    
-    func reportProblem(_ controller: BPReportProblemViewController, finishedWithResult result: Bool) {
-        dismiss(animated: true, completion: nil)
-    }
 }
 
 extension ScanResultViewController: BPCaptureVideoNavigationControllerDelegate {

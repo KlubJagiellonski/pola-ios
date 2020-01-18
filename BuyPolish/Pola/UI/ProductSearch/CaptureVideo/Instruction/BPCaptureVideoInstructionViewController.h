@@ -1,6 +1,6 @@
 #import "BPCaptureVideoInstructionView.h"
 #import "BPScanResult.h"
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @class BPCaptureVideoInstructionViewController;
 

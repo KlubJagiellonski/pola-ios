@@ -13,6 +13,8 @@ class Theme: NSObject {
     @objc static let defaultTextColor = UIColor(rgb: 0x333333)
 
     @objc static let mediumBackgroundColor = UIColor(rgb: 0xE9E8E7)
+    
+    static let placeholderTextColor = UIColor(rgb: 0xC3C3C3)
 
     @objc static let titleFont = R.font.latoRegular(size: 16)
 
