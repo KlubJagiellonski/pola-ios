@@ -22,6 +22,12 @@ class ReportBugPageUITests: PolaUITestCase {
         snapshotVerifyView()
     }
     
+    func testCloseReportBugPage() {
+        page.tapCloseButton().done()
+        
+        snapshotVerifyView()
+    }
+    
     func testAddImage() {
         page.addPhoto().done()
         
