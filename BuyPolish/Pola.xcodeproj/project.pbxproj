@@ -14,7 +14,6 @@
 		1D08E83319A7621A00879BD2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1D08E83119A7621A00879BD2 /* InfoPlist.strings */; };
 		1D08E83519A7621A00879BD2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D08E83419A7621A00879BD2 /* main.m */; };
 		1D08E83919A7621A00879BD2 /* BPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D08E83819A7621A00879BD2 /* BPAppDelegate.m */; };
-		1D08E83C19A7621A00879BD2 /* Pola.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1D08E83A19A7621A00879BD2 /* Pola.xcdatamodeld */; };
 		1D08E83E19A7621A00879BD2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1D08E83D19A7621A00879BD2 /* Images.xcassets */; };
 		1D08E84519A7621A00879BD2 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D08E84419A7621A00879BD2 /* XCTest.framework */; };
 		1D08E84619A7621A00879BD2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D08E82619A7621A00879BD2 /* Foundation.framework */; };
@@ -175,7 +174,6 @@
 		1D08E83619A7621A00879BD2 /* Pola-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pola-Prefix.pch"; sourceTree = "<group>"; };
 		1D08E83719A7621A00879BD2 /* BPAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BPAppDelegate.h; sourceTree = "<group>"; };
 		1D08E83819A7621A00879BD2 /* BPAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BPAppDelegate.m; sourceTree = "<group>"; };
-		1D08E83B19A7621A00879BD2 /* Pola.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Pola.xcdatamodel; sourceTree = "<group>"; };
 		1D08E83D19A7621A00879BD2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		1D08E84319A7621A00879BD2 /* PolaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PolaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D08E84419A7621A00879BD2 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -474,7 +472,6 @@
 				8455A7EE220D527200F30845 /* LaunchScreen.storyboard */,
 				9E188D91223063EC00325383 /* LaunchScreen.xcassets */,
 				BDA76B3A21DC34A3003E9FD6 /* Pola-Bridging-Header.h */,
-				1D08E83A19A7621A00879BD2 /* Pola.xcdatamodeld */,
 			);
 			path = Pola;
 			sourceTree = "<group>";
@@ -1336,7 +1333,6 @@
 				1D08E83919A7621A00879BD2 /* BPAppDelegate.m in Sources */,
 				378433211C7398C0008E392B /* BPAboutViewControllerBaseCell.m in Sources */,
 				1D08E83519A7621A00879BD2 /* main.m in Sources */,
-				1D08E83C19A7621A00879BD2 /* Pola.xcdatamodeld in Sources */,
 				37B642317C6BC629AFB0394F /* BPProductManager.m in Sources */,
 				37B649B71B7F59A1741CD9B7 /* BPScanResult.m in Sources */,
 				37B64A5D21387F5E0613B2AA /* BPTaskRunner.m in Sources */,
@@ -1841,19 +1837,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		1D08E83A19A7621A00879BD2 /* Pola.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				1D08E83B19A7621A00879BD2 /* Pola.xcdatamodel */,
-			);
-			currentVersion = 1D08E83B19A7621A00879BD2 /* Pola.xcdatamodel */;
-			path = Pola.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 1D08E81B19A7621A00879BD2 /* Project object */;
 }
