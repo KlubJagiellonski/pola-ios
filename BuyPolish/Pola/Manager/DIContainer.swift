@@ -4,11 +4,7 @@ class DI {
     
     static let container: Resolver = {
         let container = Container()
-        
-        container.register(BPProductImageManager.self) { _ in
-            BPProductImageManager()
-        }
-        
+                
         container.register(BPKeyboardManager.self) { _ in
             BPKeyboardManager()
         }
@@ -29,10 +25,17 @@ class DI {
             
         }
         
-        container.register(ReportProblemViewController.self) { resolver, productId, barcode in
-            ReportProblemViewController(productId: productId,
-                                        barcode: barcode,
-                                        productImageManager: resolver.resolve(BPProductImageManager.self)!,
+        container.register(FileManager.self) { _ in
+            FileManager.default
+        }
+        
+        container.register(ProductImageManager.self) { resolver in
+            LocalDocumentsProductImageManager(fileManager: resolver.resolve(FileManager.self)!)
+        }
+        
+        container.register(ReportProblemViewController.self) { resolver, reason in
+            ReportProblemViewController(reason: reason,
+                                        productImageManager: resolver.resolve(ProductImageManager.self)!,
                                         reportManager: resolver.resolve(BPReportManager.self)!,
                                         keyboardManager: resolver.resolve(BPKeyboardManager.self)!)
             

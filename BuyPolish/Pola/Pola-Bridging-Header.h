@@ -4,6 +4,6 @@
 
 #import "BPCaptureVideoNavigationController.h"
 #import "BPKeyboardManager.h"
-#import "BPProductImageManager.h"
 #import "BPReportManager.h"
 #import "BPScanResult.h"
+#import "UIImage+Scaling.h"

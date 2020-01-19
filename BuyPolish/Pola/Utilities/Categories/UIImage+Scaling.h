@@ -1,8 +1,8 @@
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface UIImage (Scaling)
-- (UIImage *)scaledToWidth:(float)width;
-- (UIImage *)scaledToHeight:(float)height;
+- (UIImage *)scaledToWidth:(CGFloat)width;
+- (UIImage *)scaledToHeight:(CGFloat)height;
 - (int)heightInPixels;
 - (int)widthInPixels;
 @end

@@ -1,37 +1,47 @@
 import UIKit
 import KVNProgress
 
+enum RaportProblemReason {
+    case general
+    case product(Int, String)
+}
+
 class ReportProblemViewController: UIViewController {
     
-    private let productImageManager: BPProductImageManager
+    private let productImageManager: ProductImageManager
     private let reportManager: BPReportManager
     private let keyboardManager: BPKeyboardManager
-    
-    private let productId: Int?
-    private let barcode: String?
-    
-    private var imageCount: Int32 = 0
+    private let reason: RaportProblemReason
+    private var imageCount: Int = 0
     
     private var castedView: ReportProblemView {
         view as! ReportProblemView
     }
     
     private var productIdNumber: NSNumber? {
-        if let productId = productId {
-            return NSNumber(integerLiteral: productId)
-        } else {
+        switch reason {
+        case .general:
             return nil
+        case .product(let productId, _):
+            return NSNumber(integerLiteral: productId)
         }
     }
     
-    init(productId: Int?,
-         barcode: String?,
-         productImageManager: BPProductImageManager,
+    private var barcode: String? {
+        switch reason {
+        case .general:
+            return nil
+        case .product(_, let barcode):
+            return barcode
+        }
+    }
+    
+    init(reason: RaportProblemReason,
+         productImageManager: ProductImageManager,
          reportManager: BPReportManager,
          keyboardManager: BPKeyboardManager) {
         
-        self.productId = productId
-        self.barcode = barcode
+        self.reason = reason
         self.productImageManager = productImageManager
         self.reportManager = reportManager
         self.keyboardManager = keyboardManager
@@ -74,11 +84,9 @@ class ReportProblemViewController: UIViewController {
     }
     
     private func initializeImages() {
-        imageCount = productImageManager.isImageExist(forKey: productIdNumber, index: 0) ? 1 : 0
-        if imageCount == 1 {
-            let image  = productImageManager.retrieveImage(forKey: productIdNumber, index: 0, small: true)
-            castedView.imagesContainer.images = [image]
-        }
+        let images = productImageManager.retrieveThumbnails(for: reason)
+        castedView.imagesContainer.images = images
+        imageCount = images.count
     }
     
     private func updateReportButtonState() {
@@ -88,7 +96,7 @@ class ReportProblemViewController: UIViewController {
     @objc
     private func sendRaport() {
         view.endEditing(true)
-        let imagePathArray = productImageManager.createImagePathArray(forKey: productIdNumber, imageCount: imageCount)
+        let imagePathArray = productImageManager.pathsForImages(for: reason)
         let report = BPReport(productId: productIdNumber,
                               description: castedView.descriptionTextView.text,
                               imagePathArray: imagePathArray)!
@@ -106,16 +114,9 @@ class ReportProblemViewController: UIViewController {
             }
             KVNProgress.showSuccess(withStatus: R.string.localizable.reportSent())
             AnalyticsHelper.reportSent(barcode: self.barcode)
-            self.removeSendedImage()
+            _ = self.productImageManager.removeImages(for: self.reason)
             self.close()
             }, completionQueue: OperationQueue.main)
-    }
-    
-    private func removeSendedImage() {
-        (0..<imageCount).forEach { i in
-            productImageManager.removeImageforKey(productIdNumber, index: i)
-        }
-        imageCount = 0
     }
     
     @objc
@@ -126,7 +127,10 @@ class ReportProblemViewController: UIViewController {
 
 extension ReportProblemViewController : ReportImagesContainerViewDelegate {
     func imagesContainerTapDeleteButton(at index: Int) {
-        productImageManager.removeImageforKey(productIdNumber, index: Int32(index))
+        guard productImageManager.removeImage(for: reason, index: index) else {
+            KVNProgress.showError(withStatus: R.string.localizable.errorOccured())
+            return
+        }
         castedView.imagesContainer.removeImage(at: index)
         imageCount -= 1
         updateReportButtonState()
@@ -175,13 +179,14 @@ extension ReportProblemViewController: UIImagePickerControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        guard let image = info[.originalImage] as? UIImage else {
-            dismiss(animated: true, completion: nil)
-            return
+        guard let image = info[.originalImage] as? UIImage,
+            productImageManager.saveImage(image, for: reason, index: imageCount),
+            let smallImage = productImageManager.retrieveThumbnail(for: reason, index: imageCount) else {
+                KVNProgress.showError(withStatus: R.string.localizable.errorOccured())
+                dismiss(animated: true, completion: nil)
+                return
         }
         
-        productImageManager.save(image, forKey: productIdNumber, index: imageCount)
-        let smallImage = productImageManager.retrieveImage(forKey: productIdNumber, index: imageCount, small: true)
         castedView.imagesContainer.addImage(smallImage)
         imageCount += 1
         updateReportButtonState()

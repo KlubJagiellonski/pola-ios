@@ -2,12 +2,12 @@
 
 @implementation UIImage (Scaling)
 
-- (UIImage *)scaledToWidth:(float)width {
-    float oldWidth = self.size.width;
-    float scaleFactor = width / oldWidth;
+- (UIImage *)scaledToWidth:(CGFloat)width {
+    CGFloat oldWidth = self.size.width;
+    CGFloat scaleFactor = width / oldWidth;
 
-    float newHeight = self.size.height * scaleFactor;
-    float newWidth = oldWidth * scaleFactor;
+    CGFloat newHeight = self.size.height * scaleFactor;
+    CGFloat newWidth = oldWidth * scaleFactor;
 
     UIGraphicsBeginImageContext(CGSizeMake(newWidth, newHeight));
     [self drawInRect:CGRectMake(0, 0, newWidth, newHeight)];
@@ -16,12 +16,12 @@
     return newImage;
 }
 
-- (UIImage *)scaledToHeight:(float)height {
-    float oldHeight = self.size.height;
-    float scaleFactor = height / oldHeight;
+- (UIImage *)scaledToHeight:(CGFloat)height {
+    CGFloat oldHeight = self.size.height;
+    CGFloat scaleFactor = height / oldHeight;
 
-    float newWidth = self.size.width * scaleFactor;
-    float newHeight = oldHeight * scaleFactor;
+    CGFloat newWidth = self.size.width * scaleFactor;
+    CGFloat newHeight = oldHeight * scaleFactor;
 
     UIGraphicsBeginImageContext(CGSizeMake(newWidth, newHeight));
     [self drawInRect:CGRectMake(0, 0, newWidth, newHeight)];

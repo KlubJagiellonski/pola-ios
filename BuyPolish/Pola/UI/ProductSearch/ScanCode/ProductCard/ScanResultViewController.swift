@@ -127,7 +127,7 @@ class ScanResultViewController: UIViewController {
             return
         }
         AnalyticsHelper.reportShown(barcode: barcode)
-        let vc = DI.container.resolve(ReportProblemViewController.self, arguments: productId, barcode)!
+        let vc = DI.container.resolve(ReportProblemViewController.self, argument: RaportProblemReason.product(productId, barcode))!
         present(vc, animated: true, completion: nil)
     }
     
