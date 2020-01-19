@@ -6,7 +6,7 @@ class CompanyPageUITests: PolaUITestCase {
         super.setUp()
         recordMode = false
     }
-
+    
     func testRadziemskaCompanyShouldBeMarkedAsPolaFriends() {
         let isPolaFriend =
             startingPageObject
@@ -38,6 +38,15 @@ class CompanyPageUITests: PolaUITestCase {
     func testNaleczowiankaCompanyShouldHas0PolishCapital() {
         startingPageObject
             .enterCodeAndOpenCompanyResult(codeData: CodeData.Naleczowianka)
+            .done()
+        
+        snapshotVerifyView()
+    }
+    
+    func testTapReportButton() {
+        startingPageObject
+            .enterCodeAndOpenCompanyResult(codeData: CodeData.Koral)
+            .tapReportButton()
             .done()
         
         snapshotVerifyView()
