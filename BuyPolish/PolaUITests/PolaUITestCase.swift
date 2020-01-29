@@ -21,6 +21,7 @@ class PolaUITestCase: FBSnapshotTestCase {
     override func tearDown() {
         startingPageObject = nil
         app = nil
+        MockServer.shared.clearLogs()
         super.tearDown()
     }
     
@@ -32,7 +33,7 @@ class PolaUITestCase: FBSnapshotTestCase {
     func expectRequest(path: String, file: StaticString = #file, line: UInt = #line) {
         let predicate = NSPredicate { (object, _) -> Bool in
             let mockServer = object as! MockServer
-            return mockServer.lastRequest?.path == path
+            return mockServer.loggedRequest.contains(where: {$0.path == path})
         }
         let requestExpectation = expectation(for: predicate, evaluatedWith: MockServer.shared, handler: nil)
         let result = XCTWaiter().wait(for: [requestExpectation], timeout: 10.0)
