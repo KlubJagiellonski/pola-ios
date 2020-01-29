@@ -4,15 +4,19 @@ import XCTest
 class MockServer {
     static let shared = MockServer()
     private let server = HttpServer()
-    private(set) var lastRequest: HttpRequest?
+    private(set) var loggedRequest = [HttpRequest]()
     
     func start() throws {
-        configureGetCode()
+        configureResponses()
         try server.start(8888)
     }
     
     func stop() {
         server.stop()
+    }
+    
+    func clearLogs() {
+        loggedRequest.removeAll()
     }
     
     private let codeDatas = [
@@ -26,7 +30,7 @@ class MockServer {
         CodeData.Naleczowianka
     ]
     
-    private func configureGetCode() {
+    private func configureResponses() {
         server["/get_by_code"] =
             { request in
                 self.record(request: request)
@@ -49,7 +53,7 @@ class MockServer {
     }
     
     private func record(request: HttpRequest) {
-        self.lastRequest = request
+        loggedRequest.append(request)
         print("Mock server handle request \(request.path)")
     }
     
