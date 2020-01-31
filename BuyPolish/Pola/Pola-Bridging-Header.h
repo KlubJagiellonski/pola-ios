@@ -3,6 +3,5 @@
 //
 
 #import "BPCaptureVideoNavigationController.h"
-#import "BPKeyboardManager.h"
 #import "BPReportManager.h"
 #import "BPScanResult.h"

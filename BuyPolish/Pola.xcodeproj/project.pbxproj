@@ -37,7 +37,6 @@
 		37B645454FC2ACC155CB1538 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B6472FF4603F63771FADE6 /* AVFoundation.framework */; };
 		37B646BC2546890EB330F4FD /* BPTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64A4E6D2911A1145CB104 /* BPTask.m */; };
 		37B647E20B1B2E3F5F0ECFA3 /* BPAPIAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B648A1A89B376DE62E2133 /* BPAPIAccessor.m */; };
-		37B647F36DC4A91682A0566B /* BPKeyboardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64EB824D550DB209CEAA8 /* BPKeyboardManager.m */; };
 		37B6480CB8E9273EAC35EDA6 /* NSString+BPUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B644631C60E8DE444885DD /* NSString+BPUtilities.m */; };
 		37B6498848E97978409489A6 /* NSDictionary+BPJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64059D45CBC595213920F /* NSDictionary+BPJSON.m */; };
 		37B649B3937D6158B554F509 /* BPObjectionModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64DFDBDE3A5CEE19D6FDB /* BPObjectionModule.m */; };
@@ -61,6 +60,7 @@
 		841F7DA023567740007BE3F6 /* UIApplication+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841F7D9F23567740007BE3F6 /* UIApplication+Additions.swift */; };
 		842E762C23E0CDA500A5534B /* LocalDocumentsProductImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842E762B23E0CDA500A5534B /* LocalDocumentsProductImageManager.swift */; };
 		842E762E23E0D4CA00A5534B /* FileManager+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842E762D23E0D4CA00A5534B /* FileManager+Extension.swift */; };
+		842E763023E434CD00A5534B /* KeyboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842E762F23E434CD00A5534B /* KeyboardManager.swift */; };
 		8455A7EF220D527200F30845 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8455A7EE220D527200F30845 /* LaunchScreen.storyboard */; };
 		845F78D323BA28E2008DDFDF /* ProductManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845F78D223BA28E2008DDFDF /* ProductManager.swift */; };
 		845F78D523BA28F8008DDFDF /* ScanResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845F78D423BA28F8008DDFDF /* ScanResult.swift */; };
@@ -217,7 +217,6 @@
 		353A5B3434B75B4C54FB4DBB /* Pods-Pola-PolaUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola-PolaUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pola-PolaUITests/Pods-Pola-PolaUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		374B5B891C71C14100E74BBB /* NSDictionary_ParsingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDictionary_ParsingTests.m; sourceTree = "<group>"; };
 		3785987405128CA0B1DA9512 /* Pods-Pola.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pola/Pods-Pola.release.xcconfig"; sourceTree = "<group>"; };
-		37B6403303FCD733D9C39863 /* BPKeyboardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPKeyboardManager.h; sourceTree = "<group>"; };
 		37B64052976ED2E84E372027 /* BPAPIAccessor+BPReport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BPAPIAccessor+BPReport.h"; sourceTree = "<group>"; };
 		37B64059D45CBC595213920F /* NSDictionary+BPJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+BPJSON.m"; sourceTree = "<group>"; };
 		37B6409BC5602C24443D14E4 /* NSDictionary+BPJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+BPJSON.h"; sourceTree = "<group>"; };
@@ -250,7 +249,6 @@
 		37B64AB122CABBF4F99EEC94 /* BPReportManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPReportManager.h; sourceTree = "<group>"; };
 		37B64D1B6193C0AD0D440566 /* BPScanCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPScanCodeViewController.h; sourceTree = "<group>"; };
 		37B64DFDBDE3A5CEE19D6FDB /* BPObjectionModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPObjectionModule.m; sourceTree = "<group>"; };
-		37B64EB824D550DB209CEAA8 /* BPKeyboardManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPKeyboardManager.m; sourceTree = "<group>"; };
 		37B64F8179FD0A037B3E2B49 /* BPReportResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPReportResult.h; sourceTree = "<group>"; };
 		37B64F8C2171D2BB76F878FB /* NSString+BPUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+BPUtilities.h"; sourceTree = "<group>"; };
 		5310C93A6052FC9BA4E8C020 /* Pods-Pola.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pola/Pods-Pola.debug.xcconfig"; sourceTree = "<group>"; };
@@ -275,6 +273,7 @@
 		841F7D9F23567740007BE3F6 /* UIApplication+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Additions.swift"; sourceTree = "<group>"; };
 		842E762B23E0CDA500A5534B /* LocalDocumentsProductImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDocumentsProductImageManager.swift; sourceTree = "<group>"; };
 		842E762D23E0D4CA00A5534B /* FileManager+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Extension.swift"; sourceTree = "<group>"; };
+		842E762F23E434CD00A5534B /* KeyboardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardManager.swift; sourceTree = "<group>"; };
 		84401E1D23C0E1DE00F4D035 /* MainGalleryPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainGalleryPage.swift; sourceTree = "<group>"; };
 		84401E1F23C0E2A800F4D035 /* PhotosGalleryPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosGalleryPage.swift; sourceTree = "<group>"; };
 		8455A7EE220D527200F30845 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -715,15 +714,6 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
-		37B64CFFB4D4FEF0B14B3566 /* KeyboardManager */ = {
-			isa = PBXGroup;
-			children = (
-				37B6403303FCD733D9C39863 /* BPKeyboardManager.h */,
-				37B64EB824D550DB209CEAA8 /* BPKeyboardManager.m */,
-			);
-			path = KeyboardManager;
-			sourceTree = "<group>";
-		};
 		37B64DD9591909AF06832339 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
@@ -732,7 +722,6 @@
 				C0DD0EBB1F1B399D00BF4B20 /* CaptureVideoManager */,
 				C092CF351F1F8007003174D1 /* CapturedImageManager */,
 				C06EE3361F20D6C0005B2B57 /* CapturedImagesUploadManager */,
-				37B64CFFB4D4FEF0B14B3566 /* KeyboardManager */,
 				37B647422EF95F37E48D11B2 /* Objection */,
 				37B64977613F0A577613F7E4 /* ProductManager */,
 				37B641361E13BB0824D5828D /* ReportManager */,
@@ -742,6 +731,7 @@
 				9EC3BC3523CDF26F00242B1E /* BPFlashlightManager.m */,
 				8477CFCA23CE17B100C72542 /* DIContainer.swift */,
 				842E762D23E0D4CA00A5534B /* FileManager+Extension.swift */,
+				842E762F23E434CD00A5534B /* KeyboardManager.swift */,
 				842E762B23E0CDA500A5534B /* LocalDocumentsProductImageManager.swift */,
 				9EC3BC6823D50BD000242B1E /* ProductImageManager.swift */,
 			);
@@ -1427,6 +1417,7 @@
 				9EC3BC4823CDF4FD00242B1E /* CardStackViewLayoutPick.swift in Sources */,
 				9EC3BC4E23CDF4FD00242B1E /* CardStackViewLayoutExpanded.swift in Sources */,
 				842E762C23E0CDA500A5534B /* LocalDocumentsProductImageManager.swift in Sources */,
+				842E763023E434CD00A5534B /* KeyboardManager.swift in Sources */,
 				9EC3BC6523CDFA4E00242B1E /* BPKeyboardView.m in Sources */,
 				9EC3BC4D23CDF4FD00242B1E /* CardStackViewController.swift in Sources */,
 				9EC3BC3723CDF26F00242B1E /* BPFlashlightManager.m in Sources */,
@@ -1468,7 +1459,6 @@
 				37B6403420F94515369E0F06 /* BPReport.m in Sources */,
 				37B644C091A98460F4483418 /* BPReportResult.m in Sources */,
 				9EC3BC5C23CDFA2500242B1E /* AboutDoubleCell.swift in Sources */,
-				37B647F36DC4A91682A0566B /* BPKeyboardManager.m in Sources */,
 				8477CFC823CE137D00C72542 /* AboutRowsFactory.swift in Sources */,
 				8477CFC923CE137D00C72542 /* AboutRow.swift in Sources */,
 				BDA76B5C21DE64AB003E9FD6 /* AnalyticsEventName.swift in Sources */,

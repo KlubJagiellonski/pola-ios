@@ -10,7 +10,7 @@ class ReportProblemViewController: UIViewController {
     
     private let productImageManager: ProductImageManager
     private let reportManager: BPReportManager
-    private let keyboardManager: BPKeyboardManager
+    private let keyboardManager: KeyboardManager
     private let reason: RaportProblemReason
     private var imageCount: Int = 0
     
@@ -39,7 +39,7 @@ class ReportProblemViewController: UIViewController {
     init(reason: RaportProblemReason,
          productImageManager: ProductImageManager,
          reportManager: BPReportManager,
-         keyboardManager: BPKeyboardManager) {
+         keyboardManager: KeyboardManager) {
         
         self.reason = reason
         self.productImageManager = productImageManager
@@ -73,8 +73,8 @@ class ReportProblemViewController: UIViewController {
         keyboardManager.turnOn()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         keyboardManager.turnOff()
     }
     

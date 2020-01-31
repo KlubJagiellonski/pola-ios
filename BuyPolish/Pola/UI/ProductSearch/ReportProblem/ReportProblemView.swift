@@ -145,26 +145,22 @@ class ReportProblemView: UIView {
     
 }
 
-extension ReportProblemView : BPKeyboardManagerDelegate {
-    
-    func keyboardWillShow(withHeight height: CGFloat, animationDuration: Double, animationCurve: UInt) {
+extension ReportProblemView : KeyboardManagerDelegate {
+    func keyboardWillShow(height: CGFloat, animationDuration: TimeInterval, animationOptions: UIView.AnimationOptions) {
         bottomMargin = height
-        animateForKeyboard(duration: animationDuration, curve: animationCurve, imageAlpha: 0.0)
+        animateForKeyboard(duration: animationDuration, curve: animationOptions, imageAlpha: 0.0)
     }
     
-    func keyboardWillHide(withAnimationDuration animationDuration: Double, animationCurve: UInt) {
+    func keyboardWillHide(animationDuration: TimeInterval, animationOptions: UIView.AnimationOptions) {
         bottomMargin = .zero
-        animateForKeyboard(duration: animationDuration, curve: animationCurve, imageAlpha: 1.0)
-
+        animateForKeyboard(duration: animationDuration, curve: animationOptions, imageAlpha: 1.0)
     }
     
-    private func animateForKeyboard(duration: Double, curve: UInt, imageAlpha: CGFloat) {
+    private func animateForKeyboard(duration: TimeInterval, curve: UIView.AnimationOptions, imageAlpha: CGFloat) {
         UIView.animate(withDuration: duration,
                        delay: .zero,
-                       options: .init(rawValue: curve), animations: { [weak self] in
-                        guard let `self` = self else {
-                            return
-                        }
+                       options: curve,
+                       animations: {
                         self.imagesContainer.alpha = imageAlpha
                         self.setNeedsLayout()
                         self.layoutIfNeeded()

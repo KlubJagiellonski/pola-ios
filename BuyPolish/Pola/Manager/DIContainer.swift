@@ -4,9 +4,13 @@ class DI {
     
     static let container: Resolver = {
         let container = Container()
-                
-        container.register(BPKeyboardManager.self) { _ in
-            BPKeyboardManager()
+        
+        container.register(NotificationCenter.self) { _ in
+            NotificationCenter.default
+        }
+        
+        container.register(KeyboardManager.self) { resolver in
+            KeyboardManager(notificationCenter: resolver.resolve(NotificationCenter.self)!)
         }
         
         container.register(BPTaskRunner.self) { _ in
@@ -37,7 +41,7 @@ class DI {
             ReportProblemViewController(reason: reason,
                                         productImageManager: resolver.resolve(ProductImageManager.self)!,
                                         reportManager: resolver.resolve(BPReportManager.self)!,
-                                        keyboardManager: resolver.resolve(BPKeyboardManager.self)!)
+                                        keyboardManager: resolver.resolve(KeyboardManager.self)!)
             
         }
         
