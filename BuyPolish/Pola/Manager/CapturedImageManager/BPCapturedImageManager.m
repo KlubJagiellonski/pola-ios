@@ -1,5 +1,5 @@
 #import "BPCapturedImageManager.h"
-#import "UIImage+Scaling.h"
+#import <Pola-Swift.h>
 
 @implementation BPCapturedImageManager
 

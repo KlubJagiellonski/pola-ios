@@ -3,7 +3,6 @@
 #import "BPCapturedImagesUploadManager.h"
 #import "BPWeakTimerTarget.h"
 #import "KVNProgress.h"
-#import "UIImage+Scaling.h"
 #import <Pola-Swift.h>
 
 @import Objection;

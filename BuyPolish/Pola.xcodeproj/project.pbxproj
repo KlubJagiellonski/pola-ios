@@ -168,7 +168,6 @@
 		C082C8B51F22ACBA0026AE11 /* BPCapturedImageResult.m in Sources */ = {isa = PBXBuildFile; fileRef = C082C8B41F22ACBA0026AE11 /* BPCapturedImageResult.m */; };
 		C09015821F367C7000E8CC38 /* BPWeakTimerTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = C09015811F367C7000E8CC38 /* BPWeakTimerTarget.m */; };
 		C092CF391F1F809E003174D1 /* BPCapturedImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C092CF381F1F809E003174D1 /* BPCapturedImageManager.m */; };
-		C092CF3C1F1F88EE003174D1 /* UIImage+Scaling.m in Sources */ = {isa = PBXBuildFile; fileRef = C092CF3B1F1F88EE003174D1 /* UIImage+Scaling.m */; };
 		C0AF272F1F20046A00A89126 /* BPCapturedImagesData.m in Sources */ = {isa = PBXBuildFile; fileRef = C0AF272E1F20046A00A89126 /* BPCapturedImagesData.m */; };
 		C0D829791F3D11A600902F79 /* capture_video_instruction.mov in Resources */ = {isa = PBXBuildFile; fileRef = C0D829781F3D11A600902F79 /* capture_video_instruction.mov */; };
 		C0DD0EBF1F1B3B1A00BF4B20 /* BPCaptureVideoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C0DD0EBE1F1B3B1A00BF4B20 /* BPCaptureVideoManager.m */; };
@@ -400,8 +399,6 @@
 		C09015811F367C7000E8CC38 /* BPWeakTimerTarget.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPWeakTimerTarget.m; sourceTree = "<group>"; };
 		C092CF371F1F8086003174D1 /* BPCapturedImageManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BPCapturedImageManager.h; sourceTree = "<group>"; };
 		C092CF381F1F809E003174D1 /* BPCapturedImageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPCapturedImageManager.m; sourceTree = "<group>"; };
-		C092CF3A1F1F88BD003174D1 /* UIImage+Scaling.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Scaling.h"; sourceTree = "<group>"; };
-		C092CF3B1F1F88EE003174D1 /* UIImage+Scaling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Scaling.m"; sourceTree = "<group>"; };
 		C0AF272D1F20045800A89126 /* BPCapturedImagesData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BPCapturedImagesData.h; sourceTree = "<group>"; };
 		C0AF272E1F20046A00A89126 /* BPCapturedImagesData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPCapturedImagesData.m; sourceTree = "<group>"; };
 		C0D829781F3D11A600902F79 /* capture_video_instruction.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = capture_video_instruction.mov; sourceTree = "<group>"; };
@@ -652,8 +649,6 @@
 				841BB98C22D136AE00234946 /* UIColor+Additions.swift */,
 				846036F0241856DB00982FC6 /* UIDevice+Additions.swift */,
 				8406E630233D6A6C00B7313C /* UIImage+Additions.swift */,
-				C092CF3A1F1F88BD003174D1 /* UIImage+Scaling.h */,
-				C092CF3B1F1F88EE003174D1 /* UIImage+Scaling.m */,
 				84AAEDDF230B49DD006CA7EB /* UILabel+Additions.swift */,
 				841F7D9D235675A2007BE3F6 /* UIView+Additions.swift */,
 			);
@@ -1481,7 +1476,6 @@
 				84D887A1233669D800681C64 /* CompanyContentViewController.swift in Sources */,
 				C06EE3391F20D6F5005B2B57 /* BPCapturedImagesUploadManager.m in Sources */,
 				84CE3E6023BA895100FE8D66 /* AboutWebViewController.swift in Sources */,
-				C092CF3C1F1F88EE003174D1 /* UIImage+Scaling.m in Sources */,
 				C0DD0EBF1F1B3B1A00BF4B20 /* BPCaptureVideoManager.m in Sources */,
 				9EC3BC5B23CDFA2500242B1E /* AboutBaseCell.swift in Sources */,
 				9EC3BC4723CDF4FD00242B1E /* CardStackViewLayoutLayoutCollapsed.swift in Sources */,

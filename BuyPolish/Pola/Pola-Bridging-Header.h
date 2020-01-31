@@ -6,4 +6,3 @@
 #import "BPKeyboardManager.h"
 #import "BPReportManager.h"
 #import "BPScanResult.h"
-#import "UIImage+Scaling.h"
