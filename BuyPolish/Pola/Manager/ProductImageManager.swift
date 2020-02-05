@@ -6,10 +6,10 @@ enum ProductImageManagerError : Error {
 }
 
 protocol ProductImageManager {
-    func saveImage(_ image: UIImage, for key: RaportProblemReason, index: Int) -> Bool
-    func removeImage(for key: RaportProblemReason, index: Int) -> Bool
-    func removeImages(for key: RaportProblemReason) -> Bool
-    func retrieveThumbnail(for key: RaportProblemReason, index: Int) -> UIImage?
-    func retrieveThumbnails(for key: RaportProblemReason) -> [UIImage]
-    func pathsForImages(for key: RaportProblemReason) -> [String]
+    func saveImage(_ image: UIImage, for key: ReportProblemReason, index: Int) -> Bool
+    func removeImage(for key: ReportProblemReason, index: Int) -> Bool
+    func removeImages(for key: ReportProblemReason) -> Bool
+    func retrieveThumbnail(for key: ReportProblemReason, index: Int) -> UIImage?
+    func retrieveThumbnails(for key: ReportProblemReason) -> [UIImage]
+    func pathsForImages(for key: ReportProblemReason) -> [String]
 }

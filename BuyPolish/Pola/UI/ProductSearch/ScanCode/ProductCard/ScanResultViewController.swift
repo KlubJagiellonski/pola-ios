@@ -1,4 +1,5 @@
 import UIKit
+import PromiseKit
 
 @objc
 protocol ScanResultViewControllerDelegate: class {
@@ -23,7 +24,7 @@ class ScanResultViewController: UIViewController {
     
     @objc
     convenience init(barcode: String) {
-        self.init(barcode: barcode, productManager: ProductManager())
+        self.init(barcode: barcode, productManager: DI.container.resolve(ProductManager.self)!)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -37,35 +38,33 @@ class ScanResultViewController: UIViewController {
     private var castedView: ScanResultView {
         return view as! ScanResultView
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         castedView.reportProblemButton.addTarget(self, action: #selector(reportProblemTapped), for: .touchUpInside)
         castedView.teachButton.addTarget(self, action: #selector(teachTapped), for: .touchUpInside)
-
+        
         downloadScanResult()
     }
     
     private func downloadScanResult() {
         castedView.titleLabel.text = R.string.localizable.loading()
         castedView.loadingProgressView.startAnimating()
-        productManager.retrieveProduct(barcode: barcode) { [weak self] (result) in
-            guard let `self` = self else {
-                 return
-            }
-            self.castedView.loadingProgressView.stopAnimating()
-
-            switch result {
-            case .success(let scanResult):
-                AnalyticsHelper.received(productResult: scanResult)
+        firstly {
+            productManager.retrieveProduct(barcode: barcode)
+        }.done{ [weak self] scanResult in
+            AnalyticsHelper.received(productResult: scanResult)
+            if let `self` = self {
                 self.fillViewWithData(scanResult: scanResult)
                 self.delegate?.scanResultViewController(self, didFetchResult: scanResult.bpScanResult)
-                
-            case .failure(let error):
+            }
+        }.ensure{ [castedView] in
+            castedView.loadingProgressView.stopAnimating()
+        }.catch{ [weak self] error in
+            if let `self` = self {
                 self.delegate?.scanResultViewController(self, didFailFetchingScanResultWithError: error)
             }
-
         }
     }
     
@@ -77,7 +76,7 @@ class ScanResultViewController: UIViewController {
         contentViewController.didMove(toParent: self)
         
         castedView.titleLabel.text = scanResult.name
-
+        
         if let plScore = scanResult.plScore {
             castedView.mainProgressView.progress = CGFloat(plScore) / 100.0
         }
@@ -113,12 +112,12 @@ class ScanResultViewController: UIViewController {
             castedView.reportProblemButton.setBackgroundImage(UIImage.image(color: UIColor.clear), for: .normal)
             castedView.reportProblemButton.setBackgroundImage(UIImage.image(color: Theme.actionColor), for: .highlighted)
         }
-
+        
         castedView.reportInfoLabel.text = scanResult.reportText
         castedView.heartImageView.isHidden = !(scanResult.isFriend ?? false)
         
         UIAccessibility.post(notification: .screenChanged, argument: castedView.titleLabel)
-
+        
     }
     
     @objc
@@ -127,7 +126,8 @@ class ScanResultViewController: UIViewController {
             return
         }
         AnalyticsHelper.reportShown(barcode: barcode)
-        let vc = DI.container.resolve(ReportProblemViewController.self, argument: RaportProblemReason.product(productId, barcode))!
+        let vc = DI.container.resolve(ReportProblemViewController.self,
+                                      argument: ReportProblemReason.product(productId, barcode))!
         present(vc, animated: true, completion: nil)
     }
     
@@ -141,7 +141,7 @@ class ScanResultViewController: UIViewController {
         captureVideoNavigationController.captureDelegate = self
         present(captureVideoNavigationController, animated: true, completion: nil)
     }
-
+    
 }
 
 extension ScanResultViewController: BPCaptureVideoNavigationControllerDelegate {

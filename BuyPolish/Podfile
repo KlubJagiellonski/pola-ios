@@ -15,6 +15,7 @@ target :Pola do
     pod 'R.swift'
     pod 'Alamofire'
     pod 'Swinject'
+    pod 'PromiseKit/Alamofire'
     
     target :PolaTests do
       use_frameworks!

@@ -83,6 +83,10 @@ PODS:
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
   - Objection (1.4)
+  - PromiseKit/Alamofire (6.12.0):
+    - Alamofire (~> 4.0)
+    - PromiseKit/CorePromise
+  - PromiseKit/CorePromise (6.12.0)
   - R.swift (5.0.3):
     - R.swift.Library (~> 5.0.0)
   - R.swift.Library (5.0.1)
@@ -99,6 +103,7 @@ DEPENDENCIES:
   - iOSSnapshotTestCase
   - KVNProgress
   - Objection (= 1.4)
+  - PromiseKit/Alamofire
   - R.swift
   - Swifter (~> 1.4.7)
   - Swinject
@@ -120,6 +125,7 @@ SPEC REPOS:
     - KVNProgress
     - nanopb
     - Objection
+    - PromiseKit
     - R.swift
     - R.swift.Library
     - Swifter
@@ -141,12 +147,13 @@ SPEC CHECKSUMS:
   KVNProgress: 4697347e21e37fdaa5264ebc24e377c205a50328
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   Objection: aa9875dbf1b121a077f7e13d504a6ed01816a7f1
+  PromiseKit: c06835ba442ce5454ce3cdde470232804a6e4ff8
   R.swift: f5a87643b91ea569d23d6afb3eee9c743edde239
   R.swift.Library: cfe85d569d9bae6cb262922db130e7c3a7a5fad1
   Swifter: 2327ef5d872c638aebab79646ce494af508b0c8f
   Swinject: ddf78b8486dd9b71a667b852cad919ab4484478e
   "UITextView+Placeholder": c407b27599ea23cca425946fee3cf1db5d547008
 
-PODFILE CHECKSUM: 34bcf5c04a29f3c7f57d30612825243d9631f6fb
+PODFILE CHECKSUM: 3c758d54370fe28044c7fe487ee7e6cd1a600542
 
 COCOAPODS: 1.9.0

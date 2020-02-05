@@ -1,44 +1,22 @@
 import UIKit
 import KVNProgress
-
-enum RaportProblemReason {
-    case general
-    case product(Int, String)
-}
+import PromiseKit
 
 class ReportProblemViewController: UIViewController {
     
     private let productImageManager: ProductImageManager
-    private let reportManager: BPReportManager
+    private let reportManager: ReportManager
     private let keyboardManager: KeyboardManager
-    private let reason: RaportProblemReason
+    private let reason: ReportProblemReason
     private var imageCount: Int = 0
     
     private var castedView: ReportProblemView {
         view as! ReportProblemView
     }
     
-    private var productIdNumber: NSNumber? {
-        switch reason {
-        case .general:
-            return nil
-        case .product(let productId, _):
-            return NSNumber(integerLiteral: productId)
-        }
-    }
-    
-    private var barcode: String? {
-        switch reason {
-        case .general:
-            return nil
-        case .product(_, let barcode):
-            return barcode
-        }
-    }
-    
-    init(reason: RaportProblemReason,
+    init(reason: ReportProblemReason,
          productImageManager: ProductImageManager,
-         reportManager: BPReportManager,
+         reportManager: ReportManager,
          keyboardManager: KeyboardManager) {
         
         self.reason = reason
@@ -97,26 +75,20 @@ class ReportProblemViewController: UIViewController {
     private func sendRaport() {
         view.endEditing(true)
         let imagePathArray = productImageManager.pathsForImages(for: reason)
-        let report = BPReport(productId: productIdNumber,
-                              description: castedView.descriptionTextView.text,
-                              imagePathArray: imagePathArray)!
+        let report = Report(reason: reason,
+                            description: castedView.descriptionTextView.text,
+                            imagePaths: imagePathArray)
         KVNProgress.show(withStatus: R.string.localizable.sending())
         
-        reportManager.send(report, completion: { [weak self] (result, error) in
-            guard let `self` = self,
-                let result = result,
-                result.state == REPORT_STATE_FINSIHED,
-                error == nil else {
-                    if error != nil {
-                        KVNProgress.showError(withStatus: R.string.localizable.errorOccured())
-                    }
-                    return
-            }
+        reportManager.send(report: report).done { [weak self, reason, productImageManager] _ in
             KVNProgress.showSuccess(withStatus: R.string.localizable.reportSent())
-            AnalyticsHelper.reportSent(barcode: self.barcode)
-            _ = self.productImageManager.removeImages(for: self.reason)
-            self.close()
-            }, completionQueue: OperationQueue.main)
+            AnalyticsHelper.reportSent(barcode: reason.barcode)
+            _ = productImageManager.removeImages(for: reason)
+            self?.close()
+        }.catch { error in
+            BPLog(message: "Error occured during sendind report: \(error.localizedDescription)")
+            KVNProgress.showError(withStatus: R.string.localizable.errorOccured())
+        }
     }
     
     @objc
@@ -128,6 +100,7 @@ class ReportProblemViewController: UIViewController {
 extension ReportProblemViewController : ReportImagesContainerViewDelegate {
     func imagesContainerTapDeleteButton(at index: Int) {
         guard productImageManager.removeImage(for: reason, index: index) else {
+            BPLog(message: "Error occured during removing image from report")
             KVNProgress.showError(withStatus: R.string.localizable.errorOccured())
             return
         }
@@ -182,6 +155,7 @@ extension ReportProblemViewController: UIImagePickerControllerDelegate {
         guard let image = info[.originalImage] as? UIImage,
             productImageManager.saveImage(image, for: reason, index: imageCount),
             let smallImage = productImageManager.retrieveThumbnail(for: reason, index: imageCount) else {
+                BPLog(message: "Error occured during obtaining image from image picker")
                 KVNProgress.showError(withStatus: R.string.localizable.errorOccured())
                 dismiss(animated: true, completion: nil)
                 return

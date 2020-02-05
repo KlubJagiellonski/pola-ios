@@ -9,7 +9,7 @@ class LocalDocumentsProductImageManager : ProductImageManager {
         self.fileManager = fileManager
     }
     
-    func saveImage(_ image: UIImage, for key: RaportProblemReason, index: Int) -> Bool {
+    func saveImage(_ image: UIImage, for key: ReportProblemReason, index: Int) -> Bool {
         let id = newImageId(for: key)
         guard createDirIfNeeded(path: fullPath(relativePath: key.pathToDirectoryWithImages(with: id))) else {
             return false
@@ -17,25 +17,28 @@ class LocalDocumentsProductImageManager : ProductImageManager {
         return saveImage(image, for: key, id: id, size: .big) && saveImage(image, for: key, id: id, size: .thumbnail)
     }
     
-    func removeImage(for key: RaportProblemReason, index: Int) -> Bool {
+    func removeImage(for key: ReportProblemReason, index: Int) -> Bool {
         let id = idForImage(for: key, index: index)
         let path = fullPath(relativePath: key.pathToDirectoryWithImages(with: id))
         return removeItem(atPath: path)
     }
-    func removeImages(for key: RaportProblemReason) -> Bool {
+    
+    func removeImages(for key: ReportProblemReason) -> Bool {
         removeItem(atPath: fullPath(relativePath: key.directoryName))
     }
     
-    func retrieveThumbnail(for key: RaportProblemReason, index: Int) -> UIImage? {
+    func retrieveThumbnail(for key: ReportProblemReason, index: Int) -> UIImage? {
         retrieveThumbnail(for: key, id: idForImage(for: key, index: index))
     }
     
-    func retrieveThumbnails(for key: RaportProblemReason) -> [UIImage] {
+    func retrieveThumbnails(for key: ReportProblemReason) -> [UIImage] {
         imageIds(for: key).compactMap({retrieveThumbnail(for: key, id: $0)})
     }
     
-    func pathsForImages(for key: RaportProblemReason) -> [String] {
-        imageIds(for: key).map({key.pathToImage(id: $0, size: .big)})
+    func pathsForImages(for key: ReportProblemReason) -> [String] {
+        imageIds(for: key)
+            .map({key.pathToImage(id: $0, size: .big)})
+            .map({fullPath(relativePath: $0)})
     }
     
     private func removeItem(atPath path: String) -> Bool {
@@ -47,7 +50,7 @@ class LocalDocumentsProductImageManager : ProductImageManager {
         return true
     }
     
-    private func saveImage(_ image: UIImage, for key: RaportProblemReason, id: Int, size: ProductImageSize) -> Bool {
+    private func saveImage(_ image: UIImage, for key: ReportProblemReason, id: Int, size: ProductImageSize) -> Bool {
         saveImage(image.scaled(to: size), path: fullPath(relativePath: key.pathToImage(id: id, size: size)))
     }
     
@@ -59,7 +62,7 @@ class LocalDocumentsProductImageManager : ProductImageManager {
         return fileManager.createFile(atPath: path, contents: data, attributes: nil)
     }
     
-    private func retrieveThumbnail(for key: RaportProblemReason, id: Int) -> UIImage? {
+    private func retrieveThumbnail(for key: ReportProblemReason, id: Int) -> UIImage? {
         let path = fullPath(relativePath: key.pathToImage(id: id, size: .thumbnail))
         guard let data = fileManager.contents(atPath: path),
             let image = UIImage(data: data) else {
@@ -68,7 +71,7 @@ class LocalDocumentsProductImageManager : ProductImageManager {
         return image
     }
     
-    private func imageIds(for key: RaportProblemReason) -> [Int] {
+    private func imageIds(for key: ReportProblemReason) -> [Int] {
         let path = fullPath(relativePath: key.directoryName)
         var isDir: ObjCBool = false
         guard fileManager.fileExists(atPath: path, isDirectory: &isDir),
@@ -83,14 +86,14 @@ class LocalDocumentsProductImageManager : ProductImageManager {
             .sorted()
     }
     
-    private func newImageId(for key: RaportProblemReason) -> Int {
+    private func newImageId(for key: ReportProblemReason) -> Int {
         guard let last = imageIds(for: key).last else {
             return 0
         }
         return last + 1
     }
     
-    private func idForImage(for key: RaportProblemReason, index: Int) -> Int {
+    private func idForImage(for key: ReportProblemReason, index: Int) -> Int {
         imageIds(for: key)[index]
     }
     
@@ -134,7 +137,7 @@ fileprivate enum ProductImageSize: String {
     }
 }
 
-fileprivate extension RaportProblemReason {
+fileprivate extension ReportProblemReason {
     var directoryName: String {
         switch self {
         case .general:

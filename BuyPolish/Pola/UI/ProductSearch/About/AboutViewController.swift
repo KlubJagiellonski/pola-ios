@@ -149,7 +149,7 @@ class AboutViewController: UITableViewController {
     }
     
     private func performReportProblemAction() {
-        let vc = DI.container.resolve(ReportProblemViewController.self, argument:RaportProblemReason.general)!
+        let vc = DI.container.resolve(ReportProblemViewController.self, argument:ReportProblemReason.general)!
         present(vc, animated: true, completion: nil)
     }
 }
