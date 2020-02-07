@@ -1,13 +1,6 @@
 import XCTest
 
-class MainGalleryPage: BasePage {
-    
-    let openFrom: BasePage
-    
-    init(openFrom: BasePage) {
-        self.openFrom = openFrom
-        super.init(app: openFrom.app)
-    }
+class MainGalleryPage: BaseGalleryPage {
     
     func tapAllPhotosCell(file: StaticString = #file, line: UInt = #line) -> PhotosGalleryPage {
         let photosNavigationBarExist = app.navigationBars["Photos"].waitForExistence(timeout: waitForExistanceTimeout)
