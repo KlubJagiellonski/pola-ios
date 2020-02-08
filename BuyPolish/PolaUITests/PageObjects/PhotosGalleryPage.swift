@@ -1,13 +1,6 @@
 import XCTest
 
-class PhotosGalleryPage: BasePage {
-    
-    let openFrom: BasePage
-    
-    init(openFrom: BasePage) {
-        self.openFrom = openFrom
-        super.init(app: openFrom.app)
-    }
+class PhotosGalleryPage: BaseGalleryPage {
     
     func pickFirstPhoto(file: StaticString = #file, line: UInt = #line) -> BasePage {
         let firstPhotoMatch = app.collectionViews["PhotosGridView"].cells.firstMatch

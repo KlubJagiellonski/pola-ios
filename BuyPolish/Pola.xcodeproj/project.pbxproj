@@ -113,6 +113,7 @@
 		848C6922225D044300D39E90 /* LaunchScreenSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848C6921225D044300D39E90 /* LaunchScreenSnapshotTests.swift */; };
 		8496142F2340E53B00929D0A /* radziemska.json in Resources */ = {isa = PBXBuildFile; fileRef = 8496142E2340E53A00929D0A /* radziemska.json */; };
 		849BBA002298435D00347863 /* UIView+SafeAreaInsets.m in Sources */ = {isa = PBXBuildFile; fileRef = 849BB9FF2298435D00347863 /* UIView+SafeAreaInsets.m */; };
+		84A81C5023EE1DBE00464745 /* BaseGalleryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A81C4F23EE1DBE00464745 /* BaseGalleryPage.swift */; };
 		84BB7A4423172BC00043D8B0 /* MockServerRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BB7A4323172BC00043D8B0 /* MockServerRunner.swift */; };
 		84E708362280A40400402E26 /* InformationPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E708272280A40300402E26 /* InformationPage.swift */; };
 		84E708372280A40400402E26 /* ScanBarcodePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E708282280A40300402E26 /* ScanBarcodePage.swift */; };
@@ -189,17 +190,17 @@
 		1DEFA1C21BD99B8900938C81 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1DEFA1C31BD99B8900938C81 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		353A5B3434B75B4C54FB4DBB /* Pods-Pola-PolaUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola-PolaUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pola-PolaUITests/Pods-Pola-PolaUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		371245251CBCEC6600BD0543 /* BPKeyboardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPKeyboardView.h; path = BPKeyboardView.h; sourceTree = "<group>"; };
-		371245261CBCEC6600BD0543 /* BPKeyboardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPKeyboardView.m; path = BPKeyboardView.m; sourceTree = "<group>"; };
+		371245251CBCEC6600BD0543 /* BPKeyboardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPKeyboardView.h; sourceTree = "<group>"; };
+		371245261CBCEC6600BD0543 /* BPKeyboardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPKeyboardView.m; sourceTree = "<group>"; };
 		373C241F1C71EF760039410C /* BPAboutViewControllerSingleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPAboutViewControllerSingleCell.h; sourceTree = "<group>"; };
 		373C24201C71EF760039410C /* BPAboutViewControllerSingleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPAboutViewControllerSingleCell.m; sourceTree = "<group>"; };
 		374B5B891C71C14100E74BBB /* NSDictionary_ParsingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDictionary_ParsingTests.m; sourceTree = "<group>"; };
-		374B5B8B1C71C15D00E74BBB /* NSDictionary+Parsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+Parsing.h"; path = "NSDictionary+Parsing.h"; sourceTree = "<group>"; };
-		374B5B8C1C71C15D00E74BBB /* NSDictionary+Parsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+Parsing.m"; path = "NSDictionary+Parsing.m"; sourceTree = "<group>"; };
-		375021821CC0F0F800759140 /* BPKeyboardTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPKeyboardTextView.h; path = BPKeyboardTextView.h; sourceTree = "<group>"; };
-		375021831CC0F0F800759140 /* BPKeyboardTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPKeyboardTextView.m; path = BPKeyboardTextView.m; sourceTree = "<group>"; };
-		378433181C7378AE008E392B /* BPDoubleAboutRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPDoubleAboutRow.h; path = BPDoubleAboutRow.h; sourceTree = "<group>"; };
-		378433191C7378AE008E392B /* BPDoubleAboutRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPDoubleAboutRow.m; path = BPDoubleAboutRow.m; sourceTree = "<group>"; };
+		374B5B8B1C71C15D00E74BBB /* NSDictionary+Parsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Parsing.h"; sourceTree = "<group>"; };
+		374B5B8C1C71C15D00E74BBB /* NSDictionary+Parsing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Parsing.m"; sourceTree = "<group>"; };
+		375021821CC0F0F800759140 /* BPKeyboardTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPKeyboardTextView.h; sourceTree = "<group>"; };
+		375021831CC0F0F800759140 /* BPKeyboardTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPKeyboardTextView.m; sourceTree = "<group>"; };
+		378433181C7378AE008E392B /* BPDoubleAboutRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPDoubleAboutRow.h; sourceTree = "<group>"; };
+		378433191C7378AE008E392B /* BPDoubleAboutRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPDoubleAboutRow.m; sourceTree = "<group>"; };
 		3784331C1C739035008E392B /* BPAboutViewControllerDoubleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPAboutViewControllerDoubleCell.h; sourceTree = "<group>"; };
 		3784331D1C739035008E392B /* BPAboutViewControllerDoubleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPAboutViewControllerDoubleCell.m; sourceTree = "<group>"; };
 		3784331F1C7398C0008E392B /* BPAboutViewControllerBaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPAboutViewControllerBaseCell.h; sourceTree = "<group>"; };
@@ -290,10 +291,10 @@
 		37B64F8C2171D2BB76F878FB /* NSString+BPUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+BPUtilities.h"; sourceTree = "<group>"; };
 		37B64FA405744537DB282781 /* BPAboutWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPAboutWebViewController.h; sourceTree = "<group>"; };
 		37B64FFC3FE96EFDE8398CF3 /* BPScanCodeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPScanCodeView.h; sourceTree = "<group>"; };
-		37C89AA21C78682200CCE940 /* BPFlashlightManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPFlashlightManager.h; path = BPFlashlightManager.h; sourceTree = "<group>"; };
-		37C89AA31C78682200CCE940 /* BPFlashlightManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPFlashlightManager.m; path = BPFlashlightManager.m; sourceTree = "<group>"; };
-		37F16AA21CA1BCCF00A310CF /* BPKeyboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPKeyboardViewController.h; path = BPKeyboardViewController.h; sourceTree = "<group>"; };
-		37F16AA31CA1BCCF00A310CF /* BPKeyboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPKeyboardViewController.m; path = BPKeyboardViewController.m; sourceTree = "<group>"; };
+		37C89AA21C78682200CCE940 /* BPFlashlightManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPFlashlightManager.h; sourceTree = "<group>"; };
+		37C89AA31C78682200CCE940 /* BPFlashlightManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPFlashlightManager.m; sourceTree = "<group>"; };
+		37F16AA21CA1BCCF00A310CF /* BPKeyboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPKeyboardViewController.h; sourceTree = "<group>"; };
+		37F16AA31CA1BCCF00A310CF /* BPKeyboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPKeyboardViewController.m; sourceTree = "<group>"; };
 		5310C93A6052FC9BA4E8C020 /* Pods-Pola.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pola/Pods-Pola.debug.xcconfig"; sourceTree = "<group>"; };
 		631F09DE16AAC55C590179B7 /* Pods_Pola_PolaUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pola_PolaUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D7DD012073B8CCDD821A2D0 /* Pods-Pola-PolaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola-PolaTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pola-PolaTests/Pods-Pola-PolaTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -301,12 +302,12 @@
 		837E6B901F1619FA001A6A9B /* BPCaptureVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPCaptureVideoViewController.m; sourceTree = "<group>"; };
 		837E6B921F161D95001A6A9B /* BPCaptureVideoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BPCaptureVideoView.h; sourceTree = "<group>"; };
 		837E6B931F161E31001A6A9B /* BPCaptureVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPCaptureVideoView.m; sourceTree = "<group>"; };
-		83AFDE8D1F0D415C00608235 /* BPCaptureVideoNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPCaptureVideoNavigationController.m; path = BPCaptureVideoNavigationController.m; sourceTree = "<group>"; };
-		83AFDE911F0D420300608235 /* BPCaptureVideoNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BPCaptureVideoNavigationController.h; path = BPCaptureVideoNavigationController.h; sourceTree = "<group>"; };
-		83AFDE941F0D4CBC00608235 /* BPCaptureVideoInstructionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BPCaptureVideoInstructionViewController.h; path = BPCaptureVideoInstructionViewController.h; sourceTree = "<group>"; };
-		83AFDE961F0D4CE200608235 /* BPCaptureVideoInstructionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPCaptureVideoInstructionViewController.m; path = BPCaptureVideoInstructionViewController.m; sourceTree = "<group>"; };
-		83AFDE981F0D4E7F00608235 /* BPCaptureVideoInstructionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BPCaptureVideoInstructionView.h; path = BPCaptureVideoInstructionView.h; sourceTree = "<group>"; };
-		83AFDE991F0D4E9300608235 /* BPCaptureVideoInstructionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPCaptureVideoInstructionView.m; path = BPCaptureVideoInstructionView.m; sourceTree = "<group>"; };
+		83AFDE8D1F0D415C00608235 /* BPCaptureVideoNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPCaptureVideoNavigationController.m; sourceTree = "<group>"; };
+		83AFDE911F0D420300608235 /* BPCaptureVideoNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BPCaptureVideoNavigationController.h; sourceTree = "<group>"; };
+		83AFDE941F0D4CBC00608235 /* BPCaptureVideoInstructionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BPCaptureVideoInstructionViewController.h; sourceTree = "<group>"; };
+		83AFDE961F0D4CE200608235 /* BPCaptureVideoInstructionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPCaptureVideoInstructionViewController.m; sourceTree = "<group>"; };
+		83AFDE981F0D4E7F00608235 /* BPCaptureVideoInstructionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BPCaptureVideoInstructionView.h; sourceTree = "<group>"; };
+		83AFDE991F0D4E9300608235 /* BPCaptureVideoInstructionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPCaptureVideoInstructionView.m; sourceTree = "<group>"; };
 		84034B7D23CCA48000E01157 /* SnapshotFailedTests */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SnapshotFailedTests; sourceTree = "<group>"; };
 		84034B7E23CCA49600E01157 /* FailureDiffs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = FailureDiffs; sourceTree = "<group>"; };
 		8409389D231EE687003FC0E1 /* lomza.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lomza.json; sourceTree = "<group>"; };
@@ -336,6 +337,7 @@
 		8496142E2340E53A00929D0A /* radziemska.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = radziemska.json; sourceTree = "<group>"; };
 		849BB9FE2298435D00347863 /* UIView+SafeAreaInsets.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+SafeAreaInsets.h"; sourceTree = "<group>"; };
 		849BB9FF2298435D00347863 /* UIView+SafeAreaInsets.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+SafeAreaInsets.m"; sourceTree = "<group>"; };
+		84A81C4F23EE1DBE00464745 /* BaseGalleryPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseGalleryPage.swift; sourceTree = "<group>"; };
 		84B1B362225F975A009FA909 /* PolaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PolaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		84B1B366225F975A009FA909 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84BB7A4323172BC00043D8B0 /* MockServerRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockServerRunner.swift; sourceTree = "<group>"; };
@@ -377,8 +379,8 @@
 		C0D829781F3D11A600902F79 /* capture_video_instruction.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = capture_video_instruction.mov; sourceTree = "<group>"; };
 		C0DD0EBD1F1B3A1500BF4B20 /* BPCaptureVideoManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BPCaptureVideoManager.h; sourceTree = "<group>"; };
 		C0DD0EBE1F1B3B1A00BF4B20 /* BPCaptureVideoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPCaptureVideoManager.m; sourceTree = "<group>"; };
-		C0E6B7321F1396430047D960 /* BPVideoPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPVideoPlayerView.m; path = BPVideoPlayerView.m; sourceTree = "<group>"; };
-		C0E6B7341F13A0470047D960 /* BPVideoPlayerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BPVideoPlayerView.h; path = BPVideoPlayerView.h; sourceTree = "<group>"; };
+		C0E6B7321F1396430047D960 /* BPVideoPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPVideoPlayerView.m; sourceTree = "<group>"; };
+		C0E6B7341F13A0470047D960 /* BPVideoPlayerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BPVideoPlayerView.h; sourceTree = "<group>"; };
 		C62ECF2EDD7295D219A497A1 /* Pods-Pola-PolaUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola-PolaUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pola-PolaUITests/Pods-Pola-PolaUITests.release.xcconfig"; sourceTree = "<group>"; };
 		E0D971BD205A9438D64EBADE /* Pods-Pola-PolaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola-PolaTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pola-PolaTests/Pods-Pola-PolaTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -489,7 +491,6 @@
 				C0D829781F3D11A600902F79 /* capture_video_instruction.mov */,
 				1D08E83419A7621A00879BD2 /* main.m */,
 			);
-			name = "Supporting Files";
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
@@ -512,7 +513,6 @@
 				1D08E84E19A7621A00879BD2 /* InfoPlist.strings */,
 				1D08E84D19A7621A00879BD2 /* PolaTests-Info.plist */,
 			);
-			name = "Supporting Files";
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
@@ -528,7 +528,6 @@
 				373C241F1C71EF760039410C /* BPAboutViewControllerSingleCell.h */,
 				373C24201C71EF760039410C /* BPAboutViewControllerSingleCell.m */,
 			);
-			name = Cells;
 			path = Cells;
 			sourceTree = "<group>";
 		};
@@ -802,7 +801,6 @@
 				37F16AA21CA1BCCF00A310CF /* BPKeyboardViewController.h */,
 				37F16AA31CA1BCCF00A310CF /* BPKeyboardViewController.m */,
 			);
-			name = Keyboard;
 			path = Keyboard;
 			sourceTree = "<group>";
 		};
@@ -827,7 +825,6 @@
 				83AFDE911F0D420300608235 /* BPCaptureVideoNavigationController.h */,
 				83AFDE8D1F0D415C00608235 /* BPCaptureVideoNavigationController.m */,
 			);
-			name = CaptureVideo;
 			path = CaptureVideo;
 			sourceTree = "<group>";
 		};
@@ -840,7 +837,6 @@
 				83AFDE941F0D4CBC00608235 /* BPCaptureVideoInstructionViewController.h */,
 				83AFDE961F0D4CE200608235 /* BPCaptureVideoInstructionViewController.m */,
 			);
-			name = Instruction;
 			path = Instruction;
 			sourceTree = "<group>";
 		};
@@ -852,7 +848,6 @@
 				837E6B8F1F161928001A6A9B /* BPCaptureVideoViewController.h */,
 				837E6B901F1619FA001A6A9B /* BPCaptureVideoViewController.m */,
 			);
-			name = Capture;
 			path = Capture;
 			sourceTree = "<group>";
 		};
@@ -914,6 +909,7 @@
 		84E708262280A40300402E26 /* PageObjects */ = {
 			isa = PBXGroup;
 			children = (
+				84A81C4F23EE1DBE00464745 /* BaseGalleryPage.swift */,
 				84E708292280A40300402E26 /* BasePage.swift */,
 				84E7082B2280A40300402E26 /* CompanyPage.swift */,
 				84E7082D2280A40300402E26 /* EnterBarcodePage.swift */,
@@ -949,7 +945,6 @@
 				C06EE3371F20D6E7005B2B57 /* BPCapturedImagesUploadManager.h */,
 				C06EE3381F20D6F5005B2B57 /* BPCapturedImagesUploadManager.m */,
 			);
-			name = CapturedImagesUploadManager;
 			path = CapturedImagesUploadManager;
 			sourceTree = "<group>";
 		};
@@ -959,7 +954,6 @@
 				C092CF371F1F8086003174D1 /* BPCapturedImageManager.h */,
 				C092CF381F1F809E003174D1 /* BPCapturedImageManager.m */,
 			);
-			name = CapturedImageManager;
 			path = CapturedImageManager;
 			sourceTree = "<group>";
 		};
@@ -969,7 +963,6 @@
 				C0DD0EBD1F1B3A1500BF4B20 /* BPCaptureVideoManager.h */,
 				C0DD0EBE1F1B3B1A00BF4B20 /* BPCaptureVideoManager.m */,
 			);
-			name = CaptureVideoManager;
 			path = CaptureVideoManager;
 			sourceTree = "<group>";
 		};
@@ -979,7 +972,6 @@
 				C0E6B7341F13A0470047D960 /* BPVideoPlayerView.h */,
 				C0E6B7321F1396430047D960 /* BPVideoPlayerView.m */,
 			);
-			name = Player;
 			path = Player;
 			sourceTree = "<group>";
 		};
@@ -1422,6 +1414,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84A81C5023EE1DBE00464745 /* BaseGalleryPage.swift in Sources */,
 				841DDD6F2311ECD200CB82DC /* MockServer.swift in Sources */,
 				840938B3231F0890003FC0E1 /* ResultPage.swift in Sources */,
 				84E7083B2280A40400402E26 /* ScanBarcodeWithResultsPage.swift in Sources */,
