@@ -25,6 +25,10 @@ class DI {
             FileManager.default
         }
         
+        container.register(CodeScannerManager.self) { _ in
+            CameraSessionCodeScannerManager()
+        }
+        
         container.register(ProductManager.self) { resolver in
             ProductManager(dataRequestFactory: resolver.resolve(DataRequestFactory.self)!)
         }
@@ -45,6 +49,10 @@ class DI {
         container.register(ReportManager.self) { resolver in
             ReportManager(dataRequestFactory: resolver.resolve(DataRequestFactory.self)!,
                           uploadMediaRequestFactory: resolver.resolve(MediaUploadRequestFactory.self)!)
+        }
+        
+        container.register(ScannerCodeViewController.self) { resolver in
+            ScannerCodeViewController(codeScannerManager: resolver.resolve(CodeScannerManager.self)!)
         }
         
         container.register(ReportProblemViewController.self) { resolver, reason in

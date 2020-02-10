@@ -11,10 +11,12 @@
 
 static NSTimeInterval const kAnimationTime = 0.15;
 
-@interface BPScanCodeViewController () <ScanResultViewControllerDelegate, CardStackViewControllerDelegate>
+@interface BPScanCodeViewController () <ScanResultViewControllerDelegate,
+                                        CardStackViewControllerDelegate,
+                                        CodeScannerManagerDelegate>
 
 @property (nonatomic) BPKeyboardViewController *keyboardViewController;
-@property (nonatomic, readonly) BPCameraSessionManager *cameraSessionManager;
+@property (nonatomic) ScannerCodeViewController *scannerCodeViewController;
 @property (nonatomic, readonly) BPFlashlightManager *flashlightManager;
 @property (copy, nonatomic) NSString *lastBardcodeScanned;
 @property (nonatomic) BOOL addingCardEnabled;
@@ -24,11 +26,12 @@ static NSTimeInterval const kAnimationTime = 0.15;
 
 @implementation BPScanCodeViewController
 
-objection_requires_sel(@selector(cameraSessionManager), @selector(flashlightManager))
+objection_requires_sel(@selector(flashlightManager))
 
     - (void)loadView {
     self.stackViewController = [[CardStackViewController alloc] init];
     self.stackViewController.delegate = self;
+
     [self addChildViewController:self.stackViewController];
     CardStackView *stackView = (CardStackView *)self.stackViewController.view;
     self.view = [[BPScanCodeView alloc] initWithFrame:CGRectZero stackView:stackView];
@@ -42,7 +45,12 @@ objection_requires_sel(@selector(cameraSessionManager), @selector(flashlightMana
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.cameraSessionManager.delegate = self;
+    self.scannerCodeViewController = [ScannerCodeViewController fromDiContainer];
+    [self addChildViewController:self.scannerCodeViewController];
+    ScannerCodeView *scannerView = (ScannerCodeView *)self.scannerCodeViewController.view;
+    [self.view insertSubview:scannerView atIndex:0];
+    [self.scannerCodeViewController didMoveToParentViewController:self];
+    self.scannerCodeViewController.scannerDelegate = self;
 
     self.addingCardEnabled = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -69,9 +77,6 @@ objection_requires_sel(@selector(cameraSessionManager), @selector(flashlightMana
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
-    self.castView.videoLayer = self.cameraSessionManager.videoPreviewLayer;
-    [self.cameraSessionManager start];
-
     [self.flashlightManager addObserver:self
                              forKeyPath:NSStringFromSelector(@selector(isOn))
                                 options:NSKeyValueObservingOptionInitial
@@ -85,7 +90,6 @@ objection_requires_sel(@selector(cameraSessionManager), @selector(flashlightMana
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [self.cameraSessionManager stop];
     [self.flashlightManager removeObserver:self forKeyPath:NSStringFromSelector(@selector(isOn))];
 }
 
@@ -93,6 +97,7 @@ objection_requires_sel(@selector(cameraSessionManager), @selector(flashlightMana
     [super viewDidLayoutSubviews];
 
     self.keyboardViewController.view.frame = self.view.bounds;
+    self.scannerCodeViewController.view.frame = self.view.bounds;
 }
 
 #pragma mark - Actions
@@ -205,7 +210,8 @@ objection_requires_sel(@selector(cameraSessionManager), @selector(flashlightMana
     [UIView animateWithDuration:kAnimationTime
         animations:^{
             self.castView.infoTextLabel.alpha = self.stackViewController.cardCount > 0 ? 0.0 : 1.0;
-            self.castView.rectangleView.alpha = 1.0;
+            self.stackViewController.view.alpha = 1.0;
+            self.scannerCodeViewController.hudView.alpha = 1.0;
             self.stackViewController.view.alpha = 1.0;
             self.castView.teachButton.alpha = 1.0;
             self.keyboardViewController.view.alpha = 0.0;
@@ -240,9 +246,8 @@ objection_requires_sel(@selector(cameraSessionManager), @selector(flashlightMana
     [UIView animateWithDuration:kAnimationTime
         animations:^{
             self.keyboardViewController.view.alpha = 1.0;
-
-            self.castView.rectangleView.alpha = 0.0;
             self.stackViewController.view.alpha = 0.0;
+            self.scannerCodeViewController.hudView.alpha = 0.0;
             self.castView.teachButton.alpha = 0.0;
         }
         completion:^(BOOL finished) {
@@ -283,9 +288,9 @@ objection_requires_sel(@selector(cameraSessionManager), @selector(flashlightMana
     self.castView.buttonsVisible = YES;
 }
 
-#pragma mark - BPCameraSessionManagerDelegate
+#pragma mark - CodeScannerManagerDelegate
 
-- (void)didFindBarcode:(NSString *)barcode {
+- (void)didScanBarcode:(NSString *)barcode {
     [self didFindBarcode:barcode sourceType:@"Camera"];
 }
 

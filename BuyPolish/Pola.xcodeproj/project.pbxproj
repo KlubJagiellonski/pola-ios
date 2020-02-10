@@ -39,7 +39,6 @@
 		37B649B3937D6158B554F509 /* BPObjectionModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64DFDBDE3A5CEE19D6FDB /* BPObjectionModule.m */; };
 		37B649B71B7F59A1741CD9B7 /* BPScanResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6413AB46D8FAC81D1E72B /* BPScanResult.m */; };
 		37B64A5D21387F5E0613B2AA /* BPTaskRunner.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6447BFF3F65026E98D810 /* BPTaskRunner.m */; };
-		37B64B07EFEFFFDCC225AF5E /* BPCameraSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64A6EE7790CE9A2DFFF7E /* BPCameraSessionManager.m */; };
 		37B64B7D226FBFA23FFCA1C1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 37B645C93F848A6F598F96E2 /* Localizable.strings */; };
 		37B64BC8938BC7942D533D2F /* BPScanCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64728A5FC383EB464DA9F /* BPScanCodeViewController.m */; };
 		37B64F7816B23819A90C0456 /* BPLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6464528820E718DBABAA5 /* BPLogger.m */; };
@@ -88,6 +87,10 @@
 		84A81C4E23EE11B000464745 /* PolaRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A81C4D23EE11B000464745 /* PolaRequestFactory.swift */; };
 		84A81C5023EE1DBE00464745 /* BaseGalleryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A81C4F23EE1DBE00464745 /* BaseGalleryPage.swift */; };
 		84A81C5223EE21F300464745 /* ReportProblemReason.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A81C5123EE21F300464745 /* ReportProblemReason.swift */; };
+		84A81C5423EF30CF00464745 /* ScannerCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A81C5323EF30CF00464745 /* ScannerCodeView.swift */; };
+		84A81C5623EFF2CA00464745 /* CodeScannerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A81C5523EFF2CA00464745 /* CodeScannerManager.swift */; };
+		84A81C5823EFF42200464745 /* CameraSessionCodeScannerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A81C5723EFF42200464745 /* CameraSessionCodeScannerManager.swift */; };
+		84A81C5A23EFF91300464745 /* ScannerCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A81C5923EFF91300464745 /* ScannerCodeViewController.swift */; };
 		84AAEDE0230B49DD006CA7EB /* UILabel+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AAEDDF230B49DD006CA7EB /* UILabel+Additions.swift */; };
 		84B87FCA2344084E007A6BFF /* ScanCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B87FC92344084E007A6BFF /* ScanCodeView.swift */; };
 		84BDC4A823EB774F00F462A0 /* MediaUploadRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BDC4A723EB774F00F462A0 /* MediaUploadRequestFactory.swift */; };
@@ -229,7 +232,6 @@
 		37B640F75A0AFD8BE0258183 /* BPTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPTask.h; sourceTree = "<group>"; };
 		37B64100135F7EACD7C8E7E3 /* BPTaskRunner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPTaskRunner.h; sourceTree = "<group>"; };
 		37B6413AB46D8FAC81D1E72B /* BPScanResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPScanResult.m; sourceTree = "<group>"; };
-		37B6424C5D970C2E8F298AAB /* BPCameraSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPCameraSessionManager.h; sourceTree = "<group>"; };
 		37B642C8016B2BC66A308398 /* BPLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPLogger.h; sourceTree = "<group>"; };
 		37B643CE26D1B8399F9EBE5B /* BPObjectionModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPObjectionModule.h; sourceTree = "<group>"; };
 		37B644631C60E8DE444885DD /* NSString+BPUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+BPUtilities.m"; sourceTree = "<group>"; };
@@ -247,7 +249,6 @@
 		37B649F01069BA6A92B49C15 /* BPScanResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPScanResult.h; sourceTree = "<group>"; };
 		37B64A3A16B65AB6F70F0612 /* BPAPIAccessor+BPReport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BPAPIAccessor+BPReport.m"; sourceTree = "<group>"; };
 		37B64A4E6D2911A1145CB104 /* BPTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPTask.m; sourceTree = "<group>"; };
-		37B64A6EE7790CE9A2DFFF7E /* BPCameraSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPCameraSessionManager.m; sourceTree = "<group>"; };
 		37B64D1B6193C0AD0D440566 /* BPScanCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPScanCodeViewController.h; sourceTree = "<group>"; };
 		37B64DFDBDE3A5CEE19D6FDB /* BPObjectionModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPObjectionModule.m; sourceTree = "<group>"; };
 		37B64F8C2171D2BB76F878FB /* NSString+BPUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+BPUtilities.h"; sourceTree = "<group>"; };
@@ -308,6 +309,10 @@
 		84A81C4D23EE11B000464745 /* PolaRequestFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolaRequestFactory.swift; sourceTree = "<group>"; };
 		84A81C4F23EE1DBE00464745 /* BaseGalleryPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseGalleryPage.swift; sourceTree = "<group>"; };
 		84A81C5123EE21F300464745 /* ReportProblemReason.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportProblemReason.swift; sourceTree = "<group>"; };
+		84A81C5323EF30CF00464745 /* ScannerCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerCodeView.swift; sourceTree = "<group>"; };
+		84A81C5523EFF2CA00464745 /* CodeScannerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeScannerManager.swift; sourceTree = "<group>"; };
+		84A81C5723EFF42200464745 /* CameraSessionCodeScannerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraSessionCodeScannerManager.swift; sourceTree = "<group>"; };
+		84A81C5923EFF91300464745 /* ScannerCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerCodeViewController.swift; sourceTree = "<group>"; };
 		84AAEDDF230B49DD006CA7EB /* UILabel+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Additions.swift"; sourceTree = "<group>"; };
 		84B1B362225F975A009FA909 /* PolaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PolaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		84B1B366225F975A009FA909 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -738,10 +743,10 @@
 				37B647422EF95F37E48D11B2 /* Objection */,
 				37B64977613F0A577613F7E4 /* ProductManager */,
 				37B641361E13BB0824D5828D /* ReportManager */,
-				37B6424C5D970C2E8F298AAB /* BPCameraSessionManager.h */,
-				37B64A6EE7790CE9A2DFFF7E /* BPCameraSessionManager.m */,
 				9EC3BC3623CDF26F00242B1E /* BPFlashlightManager.h */,
 				9EC3BC3523CDF26F00242B1E /* BPFlashlightManager.m */,
+				84A81C5723EFF42200464745 /* CameraSessionCodeScannerManager.swift */,
+				84A81C5523EFF2CA00464745 /* CodeScannerManager.swift */,
 				8477CFCA23CE17B100C72542 /* DIContainer.swift */,
 				842E762F23E434CD00A5534B /* KeyboardManager.swift */,
 				842E762B23E0CDA500A5534B /* LocalDocumentsProductImageManager.swift */,
@@ -758,6 +763,8 @@
 				37B64D1B6193C0AD0D440566 /* BPScanCodeViewController.h */,
 				37B64728A5FC383EB464DA9F /* BPScanCodeViewController.m */,
 				84B87FC92344084E007A6BFF /* ScanCodeView.swift */,
+				84A81C5323EF30CF00464745 /* ScannerCodeView.swift */,
+				84A81C5923EFF91300464745 /* ScannerCodeViewController.swift */,
 			);
 			path = ScanCode;
 			sourceTree = "<group>";
@@ -1430,7 +1437,9 @@
 				8477CFCB23CE17B100C72542 /* DIContainer.swift in Sources */,
 				37B64F7816B23819A90C0456 /* BPLogger.m in Sources */,
 				BDA76B5A21DE6248003E9FD6 /* AnalyticsHelper.swift in Sources */,
+				84A81C5A23EFF91300464745 /* ScannerCodeViewController.swift in Sources */,
 				842E763823E4703500A5534B /* Report.swift in Sources */,
+				84A81C5623EFF2CA00464745 /* CodeScannerManager.swift in Sources */,
 				37B6498848E97978409489A6 /* NSDictionary+BPJSON.m in Sources */,
 				9EC3BC4B23CDF4FD00242B1E /* CardStackViewDelegate.swift in Sources */,
 				9EC3BC4923CDF4FD00242B1E /* CardStackViewLayout.swift in Sources */,
@@ -1458,7 +1467,6 @@
 				8406E62F233D5FC000B7313C /* SecondaryProgressView.swift in Sources */,
 				8488E20F23D1067000817671 /* ReportProblemViewController.swift in Sources */,
 				9EC3BC4F23CDF4FD00242B1E /* CardStackViewControllerCard.swift in Sources */,
-				37B64B07EFEFFFDCC225AF5E /* BPCameraSessionManager.m in Sources */,
 				841F7DA023567740007BE3F6 /* UIApplication+Additions.swift in Sources */,
 				84CE3E6423BA982900FE8D66 /* Bundle+Additions.swift in Sources */,
 				C0AF272F1F20046A00A89126 /* BPCapturedImagesData.m in Sources */,
@@ -1480,6 +1488,7 @@
 				842E763A23E4727D00A5534B /* Logger.swift in Sources */,
 				1D2D50661DC54092000A8958 /* BPExtendedButton.m in Sources */,
 				9EC3BBF323CDD63200242B1E /* BPVideoPlayerView.m in Sources */,
+				84A81C5423EF30CF00464745 /* ScannerCodeView.swift in Sources */,
 				37B6423FEFD4E46BF69E0228 /* BPAPIAccessor+BPReport.m in Sources */,
 				9EC3BC5C23CDFA2500242B1E /* AboutDoubleCell.swift in Sources */,
 				8477CFC823CE137D00C72542 /* AboutRowsFactory.swift in Sources */,
@@ -1499,6 +1508,7 @@
 				9EC3BC5D23CDFA2500242B1E /* AboutSingleCell.swift in Sources */,
 				8406E631233D6A6C00B7313C /* UIImage+Additions.swift in Sources */,
 				84F177E122CAD3F700238266 /* R.generated.swift in Sources */,
+				84A81C5823EFF42200464745 /* CameraSessionCodeScannerManager.swift in Sources */,
 				842E763723E4703500A5534B /* ReportManager.swift in Sources */,
 				8477CFD123CF2E9B00C72542 /* ReportImagesContainerView.swift in Sources */,
 				9EC3BC5A23CDFA2500242B1E /* AboutFooterView.swift in Sources */,

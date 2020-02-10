@@ -7,10 +7,7 @@ class ScanCodeView: UIView {
     
     @objc
     let infoTextLabel = UILabel()
-    
-    @objc
-    let rectangleView = UIView()
-    
+        
     @objc
     let logoImageView = UIImageView(image: R.image.logoIcon())
     
@@ -76,13 +73,6 @@ class ScanCodeView: UIView {
         
         addSubview(dimView)
         
-        rectangleView.layer.borderWidth = 1
-        rectangleView.layer.borderColor = UIColor.white.cgColor
-        rectangleView.accessibilityTraits = .notEnabled
-        rectangleView.isAccessibilityElement = true
-        rectangleView.accessibilityHint = R.string.localizable.accessibilityRectangleHint()
-        addSubview(rectangleView)
-        
         logoImageView.sizeToFit()
         addSubview(logoImageView)
         
@@ -138,16 +128,9 @@ class ScanCodeView: UIView {
 
         stackView.frame = bounds
         dimView.frame = bounds
-        
-        var rect = rectangleView.frame
-        rect.size.width = bounds.width / 1.4
-        rect.size.height = rect.size.width / 2.0
-        rect.origin.x = (bounds.width / 2) - (rect.width / 2)
-        rect.origin.y = (bounds.height / 2) - rect.height
-        rectangleView.frame = rect
-        
+    
         let topY = topSafeAreaInset + scanCodeMargin
-        rect = keyboardButton.frame
+        var rect = keyboardButton.frame
         rect.origin.x = scanCodeMargin
         rect.origin.y = topY
         keyboardButton.frame = rect
@@ -181,6 +164,5 @@ class ScanCodeView: UIView {
         rect.origin.y = bounds.height - stackView.cardsHeight - scanCodeTechButtonHeight - scanCodeTechButtonOffset
         teachButton.frame = rect
     }
-    
 
 }
