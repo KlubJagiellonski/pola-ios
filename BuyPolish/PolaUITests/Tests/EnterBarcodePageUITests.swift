@@ -35,6 +35,24 @@ class EnterBarcodePageUITests: PolaUITestCase {
         snapshotVerifyView()
     }
     
+    func testEnterInvalidBarcodeAndConfirm(){
+        page.inputBarcode("1234567890123")
+            .tapOkButton()
+            .waitForErrorMessage()
+            .done()
+        
+        snapshotVerifyView()
+    }
+    
+    func testConfirmWithoutBarcode() {
+        page.tapOkButton()
+            .waitForErrorMessage()
+            .done()
+        
+        snapshotVerifyView()
+        
+    }
+    
     func testDeleteButtonShouldDeleteLastDigit() {
         page.inputBarcode("1234567890")
             .tapDeleteButton()
