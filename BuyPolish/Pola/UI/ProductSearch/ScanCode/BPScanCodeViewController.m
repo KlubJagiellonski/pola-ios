@@ -2,7 +2,6 @@
 #import "BPCaptureVideoNavigationController.h"
 #import "BPCapturedImageResult.h"
 #import "BPFlashlightManager.h"
-#import "BPKeyboardViewController.h"
 #import "BPScanResult.h"
 #import "NSString+BPUtilities.h"
 #import <Pola-Swift.h>

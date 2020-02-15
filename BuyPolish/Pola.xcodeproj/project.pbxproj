@@ -27,6 +27,7 @@
 		1DEFA1BE1BD9920600938C81 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1DEFA1B91BD9920600938C81 /* Lato-Regular.ttf */; };
 		1DEFA1BF1BD9920600938C81 /* Lato-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1DEFA1BA1BD9920600938C81 /* Lato-Semibold.ttf */; };
 		1DEFA1C01BD9920600938C81 /* Lato-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1DEFA1BA1BD9920600938C81 /* Lato-Semibold.ttf */; };
+		3560B0CDF331B5B648D8B830 /* Pods_Pola.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21497E85EBCABF56D8745512 /* Pods_Pola.framework */; };
 		374B5B8A1C71C14100E74BBB /* NSDictionary_ParsingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 374B5B891C71C14100E74BBB /* NSDictionary_ParsingTests.m */; };
 		37B6416E16FEB2AD27BB3D9E /* BPAPIResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6468E5905EC7102613DAB /* BPAPIResponse.m */; };
 		37B641D5FD17D93BC7B1901B /* BPRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64960EF3268FB825DD2FE /* BPRootViewController.m */; };
@@ -42,7 +43,6 @@
 		37B64B7D226FBFA23FFCA1C1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 37B645C93F848A6F598F96E2 /* Localizable.strings */; };
 		37B64BC8938BC7942D533D2F /* BPScanCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64728A5FC383EB464DA9F /* BPScanCodeViewController.m */; };
 		37B64F7816B23819A90C0456 /* BPLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6464528820E718DBABAA5 /* BPLogger.m */; };
-		7E5F95D0F615AFDF21D077DF /* libPods-Pola.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B0B41CCDC5C08C160BD074E /* libPods-Pola.a */; };
 		8402E1D62309BB610065E850 /* AltResultContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402E1D52309BB610065E850 /* AltResultContentView.swift */; };
 		8406E62D233D59A700B7313C /* MainProggressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8406E62C233D59A700B7313C /* MainProggressView.swift */; };
 		8406E62F233D5FC000B7313C /* SecondaryProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8406E62E233D5FC000B7313C /* SecondaryProgressView.swift */; };
@@ -62,12 +62,14 @@
 		842E763C23E47A3B00A5534B /* CreateReportRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842E763B23E47A3B00A5534B /* CreateReportRequestBody.swift */; };
 		842E763E23E4839B00A5534B /* CreateReportResponseBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842E763D23E4839B00A5534B /* CreateReportResponseBody.swift */; };
 		8455A7EF220D527200F30845 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8455A7EE220D527200F30845 /* LaunchScreen.storyboard */; };
+		845D354923FD93B5002C4232 /* KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845D354823FD93B5002C4232 /* KeyboardView.swift */; };
 		845F78D323BA28E2008DDFDF /* ProductManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845F78D223BA28E2008DDFDF /* ProductManager.swift */; };
 		845F78D523BA28F8008DDFDF /* ScanResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845F78D423BA28F8008DDFDF /* ScanResult.swift */; };
 		845F78D723BA307B008DDFDF /* AskForAIResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845F78D623BA307B008DDFDF /* AskForAIResult.swift */; };
 		845F78DB23BA7571008DDFDF /* ScanResult+BPScanResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845F78DA23BA7571008DDFDF /* ScanResult+BPScanResult.swift */; };
 		846036ED2418542B00982FC6 /* RecordVideoPageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846036EC2418542B00982FC6 /* RecordVideoPageUITests.swift */; };
 		846036F22418574A00982FC6 /* UIDevice+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846036F0241856DB00982FC6 /* UIDevice+Additions.swift */; };
+		84633B3423F8113F0069219C /* KeyboardTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84633B3323F8113F0069219C /* KeyboardTextView.swift */; };
 		84735A6423BB63B00053D1E5 /* AnalitycsAboutRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84735A6323BB63B00053D1E5 /* AnalitycsAboutRow.swift */; };
 		84735A6A23BB92C80053D1E5 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84735A6923BB92C80053D1E5 /* AboutViewController.swift */; };
 		8477CFC723CE137D00C72542 /* AboutRows.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477CFC423CE137D00C72542 /* AboutRows.swift */; };
@@ -102,6 +104,7 @@
 		84E7083B2280A40400402E26 /* ScanBarcodeWithResultsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E7082C2280A40300402E26 /* ScanBarcodeWithResultsPage.swift */; };
 		84E7083E2280A40400402E26 /* PolaUITestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E7082F2280A40300402E26 /* PolaUITestCase.swift */; };
 		84E708402280A40400402E26 /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E708312280A40300402E26 /* TestData.swift */; };
+		84F11A20240087D60029A1BC /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F11A1F240087D60029A1BC /* KeyboardViewController.swift */; };
 		84F177DC22CABFF700238266 /* CheckRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F177DB22CABFF700238266 /* CheckRow.swift */; };
 		84F177E122CAD3F700238266 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F177E022CAD3F700238266 /* R.generated.swift */; };
 		8C9A524C67006D5D87D36FEE /* Pods_Pola_PolaUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6C1969BFE86FEF4E186B26D /* Pods_Pola_PolaUITests.framework */; };
@@ -164,9 +167,6 @@
 		9EC3BC5B23CDFA2500242B1E /* AboutBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC3BC5723CDFA2500242B1E /* AboutBaseCell.swift */; };
 		9EC3BC5C23CDFA2500242B1E /* AboutDoubleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC3BC5823CDFA2500242B1E /* AboutDoubleCell.swift */; };
 		9EC3BC5D23CDFA2500242B1E /* AboutSingleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC3BC5923CDFA2500242B1E /* AboutSingleCell.swift */; };
-		9EC3BC6523CDFA4E00242B1E /* BPKeyboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC3BC5F23CDFA4D00242B1E /* BPKeyboardView.m */; };
-		9EC3BC6623CDFA4E00242B1E /* BPKeyboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC3BC6123CDFA4D00242B1E /* BPKeyboardViewController.m */; };
-		9EC3BC6723CDFA4E00242B1E /* BPKeyboardTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC3BC6423CDFA4D00242B1E /* BPKeyboardTextView.m */; };
 		9EC3BC6923D50BD000242B1E /* ProductImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC3BC6823D50BD000242B1E /* ProductImageManager.swift */; };
 		BDA76B5121DCD718003E9FD6 /* Encodable+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA76B5021DCD718003E9FD6 /* Encodable+Utilities.swift */; };
 		BDA76B5A21DE6248003E9FD6 /* AnalyticsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA76B5921DE6248003E9FD6 /* AnalyticsHelper.swift */; };
@@ -223,6 +223,7 @@
 		1DEFA1C11BD99B8900938C81 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1DEFA1C21BD99B8900938C81 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1DEFA1C31BD99B8900938C81 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		21497E85EBCABF56D8745512 /* Pods_Pola.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pola.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		353A5B3434B75B4C54FB4DBB /* Pods-Pola-PolaUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola-PolaUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pola-PolaUITests/Pods-Pola-PolaUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		374B5B891C71C14100E74BBB /* NSDictionary_ParsingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDictionary_ParsingTests.m; sourceTree = "<group>"; };
 		3785987405128CA0B1DA9512 /* Pods-Pola.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pola/Pods-Pola.release.xcconfig"; sourceTree = "<group>"; };
@@ -254,7 +255,6 @@
 		37B64F8C2171D2BB76F878FB /* NSString+BPUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+BPUtilities.h"; sourceTree = "<group>"; };
 		5310C93A6052FC9BA4E8C020 /* Pods-Pola.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pola/Pods-Pola.debug.xcconfig"; sourceTree = "<group>"; };
 		53F3B599F258259843E2755D /* Pods_Pola_PolaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pola_PolaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6B0B41CCDC5C08C160BD074E /* libPods-Pola.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Pola.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D7DD012073B8CCDD821A2D0 /* Pods-Pola-PolaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola-PolaTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pola-PolaTests/Pods-Pola-PolaTests.release.xcconfig"; sourceTree = "<group>"; };
 		8402E1D52309BB610065E850 /* AltResultContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AltResultContentView.swift; sourceTree = "<group>"; };
 		84034B7D23CCA48000E01157 /* SnapshotFailedTests */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SnapshotFailedTests; sourceTree = "<group>"; };
@@ -282,12 +282,14 @@
 		84401E1D23C0E1DE00F4D035 /* MainGalleryPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainGalleryPage.swift; sourceTree = "<group>"; };
 		84401E1F23C0E2A800F4D035 /* PhotosGalleryPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosGalleryPage.swift; sourceTree = "<group>"; };
 		8455A7EE220D527200F30845 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		845D354823FD93B5002C4232 /* KeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
 		845F78D223BA28E2008DDFDF /* ProductManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductManager.swift; sourceTree = "<group>"; };
 		845F78D423BA28F8008DDFDF /* ScanResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanResult.swift; sourceTree = "<group>"; };
 		845F78D623BA307B008DDFDF /* AskForAIResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskForAIResult.swift; sourceTree = "<group>"; };
 		845F78DA23BA7571008DDFDF /* ScanResult+BPScanResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ScanResult+BPScanResult.swift"; sourceTree = "<group>"; };
 		846036EC2418542B00982FC6 /* RecordVideoPageUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordVideoPageUITests.swift; sourceTree = "<group>"; };
 		846036F0241856DB00982FC6 /* UIDevice+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+Additions.swift"; sourceTree = "<group>"; };
+		84633B3323F8113F0069219C /* KeyboardTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardTextView.swift; sourceTree = "<group>"; };
 		84735A6323BB63B00053D1E5 /* AnalitycsAboutRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalitycsAboutRow.swift; sourceTree = "<group>"; };
 		84735A6923BB92C80053D1E5 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		8477CFC423CE137D00C72542 /* AboutRows.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutRows.swift; sourceTree = "<group>"; };
@@ -334,6 +336,7 @@
 		84E7082E2280A40300402E26 /* SafariPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafariPage.swift; sourceTree = "<group>"; };
 		84E7082F2280A40300402E26 /* PolaUITestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PolaUITestCase.swift; sourceTree = "<group>"; };
 		84E708312280A40300402E26 /* TestData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
+		84F11A1F240087D60029A1BC /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
 		84F177DB22CABFF700238266 /* CheckRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckRow.swift; sourceTree = "<group>"; };
 		84F177E022CAD3F700238266 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
 		9E188D91223063EC00325383 /* LaunchScreen.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = LaunchScreen.xcassets; sourceTree = "<group>"; };
@@ -389,12 +392,6 @@
 		9EC3BC5723CDFA2500242B1E /* AboutBaseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutBaseCell.swift; sourceTree = "<group>"; };
 		9EC3BC5823CDFA2500242B1E /* AboutDoubleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutDoubleCell.swift; sourceTree = "<group>"; };
 		9EC3BC5923CDFA2500242B1E /* AboutSingleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutSingleCell.swift; sourceTree = "<group>"; };
-		9EC3BC5F23CDFA4D00242B1E /* BPKeyboardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPKeyboardView.m; sourceTree = "<group>"; };
-		9EC3BC6023CDFA4D00242B1E /* BPKeyboardTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPKeyboardTextView.h; sourceTree = "<group>"; };
-		9EC3BC6123CDFA4D00242B1E /* BPKeyboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPKeyboardViewController.m; sourceTree = "<group>"; };
-		9EC3BC6223CDFA4D00242B1E /* BPKeyboardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPKeyboardView.h; sourceTree = "<group>"; };
-		9EC3BC6323CDFA4D00242B1E /* BPKeyboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPKeyboardViewController.h; sourceTree = "<group>"; };
-		9EC3BC6423CDFA4D00242B1E /* BPKeyboardTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPKeyboardTextView.m; sourceTree = "<group>"; };
 		9EC3BC6823D50BD000242B1E /* ProductImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductImageManager.swift; sourceTree = "<group>"; };
 		BDA76B3A21DC34A3003E9FD6 /* Pola-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pola-Bridging-Header.h"; sourceTree = "<group>"; };
 		BDA76B5021DCD718003E9FD6 /* Encodable+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+Utilities.swift"; sourceTree = "<group>"; };
@@ -432,7 +429,7 @@
 				1D08E82B19A7621A00879BD2 /* UIKit.framework in Frameworks */,
 				1D08E82719A7621A00879BD2 /* Foundation.framework in Frameworks */,
 				37B645454FC2ACC155CB1538 /* AVFoundation.framework in Frameworks */,
-				7E5F95D0F615AFDF21D077DF /* libPods-Pola.a in Frameworks */,
+				3560B0CDF331B5B648D8B830 /* Pods_Pola.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -490,9 +487,9 @@
 				1D08E82C19A7621A00879BD2 /* CoreData.framework */,
 				1D08E84419A7621A00879BD2 /* XCTest.framework */,
 				37B6472FF4603F63771FADE6 /* AVFoundation.framework */,
-				6B0B41CCDC5C08C160BD074E /* libPods-Pola.a */,
 				53F3B599F258259843E2755D /* Pods_Pola_PolaTests.framework */,
 				F6C1969BFE86FEF4E186B26D /* Pods_Pola_PolaUITests.framework */,
+				21497E85EBCABF56D8745512 /* Pods_Pola.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -970,12 +967,9 @@
 		9EC3BC5E23CDFA4D00242B1E /* Keyboard */ = {
 			isa = PBXGroup;
 			children = (
-				9EC3BC6023CDFA4D00242B1E /* BPKeyboardTextView.h */,
-				9EC3BC6423CDFA4D00242B1E /* BPKeyboardTextView.m */,
-				9EC3BC6223CDFA4D00242B1E /* BPKeyboardView.h */,
-				9EC3BC5F23CDFA4D00242B1E /* BPKeyboardView.m */,
-				9EC3BC6323CDFA4D00242B1E /* BPKeyboardViewController.h */,
-				9EC3BC6123CDFA4D00242B1E /* BPKeyboardViewController.m */,
+				84633B3323F8113F0069219C /* KeyboardTextView.swift */,
+				845D354823FD93B5002C4232 /* KeyboardView.swift */,
+				84F11A1F240087D60029A1BC /* KeyboardViewController.swift */,
 			);
 			path = Keyboard;
 			sourceTree = "<group>";
@@ -1034,7 +1028,7 @@
 				1D08E82119A7621A00879BD2 /* Resources */,
 				1D648C101A71B46D002B413D /* Fabric */,
 				9E561AA022079124009E661A /* Check GoogleService-Info.plist */,
-				03AA255C38B8901189A3F27E /* [CP] Copy Pods Resources */,
+				D56FE2CF84F7E8929A0B115E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1181,24 +1175,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		03AA255C38B8901189A3F27E /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Pola/Pods-Pola-resources.sh",
-				"${PODS_ROOT}/KVNProgress/KVNProgress/Resources/KVNProgressView.xib",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/KVNProgressView.nib",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Pola/Pods-Pola-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		1D648C101A71B46D002B413D /* Fabric */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1220,16 +1196,16 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Pola-PolaUITests/Pods-Pola-PolaUITests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/AFNetworking-framework/AFNetworking.framework",
-				"${BUILT_PRODUCTS_DIR}/Alamofire-framework/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleUtilities-framework/GoogleUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/KVNProgress-framework/KVNProgress.framework",
-				"${BUILT_PRODUCTS_DIR}/Objection-framework/Objection.framework",
-				"${BUILT_PRODUCTS_DIR}/PromiseKit-framework/PromiseKit.framework",
-				"${BUILT_PRODUCTS_DIR}/R.swift.Library-framework/Rswift.framework",
-				"${BUILT_PRODUCTS_DIR}/Swinject-framework/Swinject.framework",
-				"${BUILT_PRODUCTS_DIR}/UITextView+Placeholder-framework/UITextView_Placeholder.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb-framework/nanopb.framework",
+				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/KVNProgress/KVNProgress.framework",
+				"${BUILT_PRODUCTS_DIR}/Objection/Objection.framework",
+				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
+				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
+				"${BUILT_PRODUCTS_DIR}/Swinject/Swinject.framework",
+				"${BUILT_PRODUCTS_DIR}/UITextView+Placeholder/UITextView_Placeholder.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 				"${BUILT_PRODUCTS_DIR}/iOSSnapshotTestCase/FBSnapshotTestCase.framework",
 				"${BUILT_PRODUCTS_DIR}/Swifter/Swifter.framework",
 			);
@@ -1282,16 +1258,16 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Pola-PolaTests/Pods-Pola-PolaTests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/AFNetworking-framework/AFNetworking.framework",
-				"${BUILT_PRODUCTS_DIR}/Alamofire-framework/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleUtilities-framework/GoogleUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/KVNProgress-framework/KVNProgress.framework",
-				"${BUILT_PRODUCTS_DIR}/Objection-framework/Objection.framework",
-				"${BUILT_PRODUCTS_DIR}/PromiseKit-framework/PromiseKit.framework",
-				"${BUILT_PRODUCTS_DIR}/R.swift.Library-framework/Rswift.framework",
-				"${BUILT_PRODUCTS_DIR}/Swinject-framework/Swinject.framework",
-				"${BUILT_PRODUCTS_DIR}/UITextView+Placeholder-framework/UITextView_Placeholder.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb-framework/nanopb.framework",
+				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/KVNProgress/KVNProgress.framework",
+				"${BUILT_PRODUCTS_DIR}/Objection/Objection.framework",
+				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
+				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
+				"${BUILT_PRODUCTS_DIR}/Swinject/Swinject.framework",
+				"${BUILT_PRODUCTS_DIR}/UITextView+Placeholder/UITextView_Placeholder.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 				"${BUILT_PRODUCTS_DIR}/iOSSnapshotTestCase/FBSnapshotTestCase.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -1339,30 +1315,9 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Pola/Pods-Pola-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/KVNProgress/KVNProgress.framework",
-				"${BUILT_PRODUCTS_DIR}/Objection/Objection.framework",
-				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
-				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
-				"${BUILT_PRODUCTS_DIR}/Swinject/Swinject.framework",
-				"${BUILT_PRODUCTS_DIR}/UITextView+Placeholder/UITextView_Placeholder.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "Check GoogleService-Info.plist";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KVNProgress.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Objection.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Swinject.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITextView_Placeholder.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1404,6 +1359,42 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		D56FE2CF84F7E8929A0B115E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Pola/Pods-Pola-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/KVNProgress/KVNProgress.framework",
+				"${BUILT_PRODUCTS_DIR}/Objection/Objection.framework",
+				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
+				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
+				"${BUILT_PRODUCTS_DIR}/Swinject/Swinject.framework",
+				"${BUILT_PRODUCTS_DIR}/UITextView+Placeholder/UITextView_Placeholder.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KVNProgress.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Objection.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Swinject.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITextView_Placeholder.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Pola/Pods-Pola-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1431,8 +1422,6 @@
 				84A81C4C23EE118300464745 /* PutAmazonRequestFactory.swift in Sources */,
 				37B647E20B1B2E3F5F0ECFA3 /* BPAPIAccessor.m in Sources */,
 				9EC3BBEE23CDD63100242B1E /* BPCaptureVideoViewController.m in Sources */,
-				9EC3BC6723CDFA4E00242B1E /* BPKeyboardTextView.m in Sources */,
-				9EC3BC6623CDFA4E00242B1E /* BPKeyboardViewController.m in Sources */,
 				8477CFC723CE137D00C72542 /* AboutRows.swift in Sources */,
 				8477CFCB23CE17B100C72542 /* DIContainer.swift in Sources */,
 				37B64F7816B23819A90C0456 /* BPLogger.m in Sources */,
@@ -1446,10 +1435,10 @@
 				37B6416E16FEB2AD27BB3D9E /* BPAPIResponse.m in Sources */,
 				37B649B3937D6158B554F509 /* BPObjectionModule.m in Sources */,
 				9EC3BC4823CDF4FD00242B1E /* CardStackViewLayoutPick.swift in Sources */,
+				84633B3423F8113F0069219C /* KeyboardTextView.swift in Sources */,
 				9EC3BC4E23CDF4FD00242B1E /* CardStackViewLayoutExpanded.swift in Sources */,
 				842E762C23E0CDA500A5534B /* LocalDocumentsProductImageManager.swift in Sources */,
 				842E763023E434CD00A5534B /* KeyboardManager.swift in Sources */,
-				9EC3BC6523CDFA4E00242B1E /* BPKeyboardView.m in Sources */,
 				9EC3BC4D23CDF4FD00242B1E /* CardStackViewController.swift in Sources */,
 				9EC3BC3723CDF26F00242B1E /* BPFlashlightManager.m in Sources */,
 				846036F22418574A00982FC6 /* UIDevice+Additions.swift in Sources */,
@@ -1468,6 +1457,7 @@
 				8488E20F23D1067000817671 /* ReportProblemViewController.swift in Sources */,
 				9EC3BC4F23CDF4FD00242B1E /* CardStackViewControllerCard.swift in Sources */,
 				841F7DA023567740007BE3F6 /* UIApplication+Additions.swift in Sources */,
+				845D354923FD93B5002C4232 /* KeyboardView.swift in Sources */,
 				84CE3E6423BA982900FE8D66 /* Bundle+Additions.swift in Sources */,
 				C0AF272F1F20046A00A89126 /* BPCapturedImagesData.m in Sources */,
 				8406E62D233D59A700B7313C /* MainProggressView.swift in Sources */,
@@ -1486,6 +1476,7 @@
 				84B87FCA2344084E007A6BFF /* ScanCodeView.swift in Sources */,
 				841DDD682311583E00CB82DC /* ScanResultViewController.swift in Sources */,
 				842E763A23E4727D00A5534B /* Logger.swift in Sources */,
+				84F11A20240087D60029A1BC /* KeyboardViewController.swift in Sources */,
 				1D2D50661DC54092000A8958 /* BPExtendedButton.m in Sources */,
 				9EC3BBF323CDD63200242B1E /* BPVideoPlayerView.m in Sources */,
 				84A81C5423EF30CF00464745 /* ScannerCodeView.swift in Sources */,
