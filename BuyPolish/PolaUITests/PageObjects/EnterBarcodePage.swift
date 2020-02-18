@@ -23,7 +23,13 @@ class EnterBarcodePage: BasePage {
         }
         return self
     }
-
+    
+    func waitForErrorMessage(file: StaticString = #file, line: UInt = #line) -> EnterBarcodePage {
+        if !app.staticTexts["błędny kod"].waitForExistence(timeout: waitForExistanceTimeout) {
+            XCTFail("Error message not found", file: file, line: line)
+        }
+        return self
+    }
     
     func waitForResultPage(expectedResult: String, file: StaticString = #file, line: UInt = #line) -> ScanBarcodeWithResultsPage {
         if !app.staticTexts[expectedResult].waitForExistence(timeout: waitForExistanceTimeout) {
