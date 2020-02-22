@@ -3,6 +3,5 @@
 //
 
 #import "BPCaptureVideoNavigationController.h"
-#import "BPExtendedButton.h"
 #import "BPScanResult.h"
 #import "NSString+BPUtilities.h"

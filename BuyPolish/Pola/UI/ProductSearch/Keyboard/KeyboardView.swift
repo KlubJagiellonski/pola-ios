@@ -4,7 +4,7 @@ class KeyboardView: UIView {
     
     private let contentView = UIView()
     let textView = KeyboardTextView()
-    let numberButtons = (1...10).map({_ in BPExtendedButton()})
+    let numberButtons = (1...10).map({_ in ExtendedButton()})
     let okButton = UIButton()
     
     override init(frame: CGRect) {
