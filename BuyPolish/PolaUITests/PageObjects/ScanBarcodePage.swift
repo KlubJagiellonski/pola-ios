@@ -1,4 +1,4 @@
-import Foundation
+import XCTest
 
 class ScanBarcodePage : BasePage {
     
@@ -10,6 +10,6 @@ class ScanBarcodePage : BasePage {
     func tapInformationButton() -> InformationPage {
         app.buttons["Informacje o aplikacji"].tap()
         _ = app.staticTexts["OCEŃ NAS"].waitForExistence(timeout: waitForExistanceTimeout)
-        return InformationPage(app: app)
+        return InformationPage(openFrom: self)
     }
 }

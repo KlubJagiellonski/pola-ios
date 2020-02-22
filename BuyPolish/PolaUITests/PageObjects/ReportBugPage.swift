@@ -39,13 +39,13 @@ class ReportBugPage: BasePage {
     
     func tapCloseButton() -> InformationPage {
         app.buttons["Zamknij"].firstMatch.tap()
-        return InformationPage(app: app)
+        return InformationPage(openFrom: self)
     }
         
     func waitForReturnToPreviousPage(file: StaticString = #file, line: UInt = #line) -> InformationPage {
         let informationBarExist = app.navigationBars["Informacje"].waitForExistence(timeout: waitForExistanceTimeout)
         XCTAssert(informationBarExist, "No navigation bar with informations title", file: file, line: line)
-        return InformationPage(app: app)
+        return InformationPage(openFrom: self)
     }
     
     func typeDescription(_ description: String) -> ReportBugPage {
