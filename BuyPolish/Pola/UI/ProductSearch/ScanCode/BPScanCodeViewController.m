@@ -3,7 +3,6 @@
 #import "BPCapturedImageResult.h"
 #import "BPFlashlightManager.h"
 #import "BPScanResult.h"
-#import "NSString+BPUtilities.h"
 #import <Pola-Swift.h>
 
 @import Objection;
@@ -17,6 +16,7 @@ static NSTimeInterval const kAnimationTime = 0.15;
 @property (nonatomic) BPKeyboardViewController *keyboardViewController;
 @property (nonatomic) ScannerCodeViewController *scannerCodeViewController;
 @property (nonatomic, readonly) BPFlashlightManager *flashlightManager;
+@property (nonatomic, readonly) id<BarcodeValidator> barcodeValidator;
 @property (copy, nonatomic) NSString *lastBardcodeScanned;
 @property (nonatomic) BOOL addingCardEnabled;
 @property (nonatomic) CardStackViewController *stackViewController;
@@ -25,7 +25,7 @@ static NSTimeInterval const kAnimationTime = 0.15;
 
 @implementation BPScanCodeViewController
 
-objection_requires_sel(@selector(flashlightManager))
+objection_requires_sel(@selector(flashlightManager), @selector(barcodeValidator))
 
     - (void)loadView {
     self.stackViewController = [[CardStackViewController alloc] init];
@@ -163,7 +163,7 @@ objection_requires_sel(@selector(flashlightManager))
         return;
     }
 
-    if (![barcode isValidBarcode]) {
+    if (![self.barcodeValidator isValidWithBarcode:barcode]) {
         self.addingCardEnabled = NO;
 
         UIAlertView *alertView =
@@ -232,7 +232,7 @@ objection_requires_sel(@selector(flashlightManager))
         return;
     }
 
-    self.keyboardViewController = [[BPKeyboardViewController alloc] init];
+    self.keyboardViewController = [BPKeyboardViewController fromDiContainer];
     self.keyboardViewController.delegate = self;
 
     [self.castView.keyboardButton setSelected:YES];

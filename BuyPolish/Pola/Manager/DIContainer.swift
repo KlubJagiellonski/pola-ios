@@ -29,6 +29,10 @@ class DI {
             CameraSessionCodeScannerManager()
         }
         
+        container.register(BarcodeValidator.self) { _ in
+            EANBarcodeValidator()
+        }
+
         container.register(ProductManager.self) { resolver in
             ProductManager(dataRequestFactory: resolver.resolve(DataRequestFactory.self)!)
         }
@@ -53,6 +57,10 @@ class DI {
         
         container.register(ScannerCodeViewController.self) { resolver in
             ScannerCodeViewController(codeScannerManager: resolver.resolve(CodeScannerManager.self)!)
+        }
+        
+        container.register(KeyboardViewController.self) { resolver in
+            KeyboardViewController(barcodeValidator: resolver.resolve(BarcodeValidator.self)!)
         }
         
         container.register(ReportProblemViewController.self) { resolver, reason in

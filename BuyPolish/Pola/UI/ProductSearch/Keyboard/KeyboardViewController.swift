@@ -9,8 +9,24 @@ protocol KeyboardViewControllerDelegate: class {
 @objc(BPKeyboardViewController)
 class KeyboardViewController: UIViewController {
     
+    let barcodeValidator: BarcodeValidator
+    
     @objc
     weak var delegate: KeyboardViewControllerDelegate?
+    
+    @objc
+    static func fromDiContainer() -> KeyboardViewController {
+        DI.container.resolve(KeyboardViewController.self)!
+    }
+
+    init(barcodeValidator: BarcodeValidator) {
+        self.barcodeValidator = barcodeValidator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     private var castedView: KeyboardView {
         view as! KeyboardView
@@ -40,7 +56,7 @@ class KeyboardViewController: UIViewController {
     func confirm() {
         playSound()
         if let code = castedView.textView.code,
-            code.isValidBarcode() {
+            barcodeValidator.isValid(barcode: code) {
             delegate?.keyboardViewController(self, didConfirmWithCode: code)
         } else {
             castedView.textView.showErrorMessage()

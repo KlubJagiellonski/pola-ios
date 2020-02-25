@@ -34,7 +34,6 @@
 		37B645454FC2ACC155CB1538 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B6472FF4603F63771FADE6 /* AVFoundation.framework */; };
 		37B646BC2546890EB330F4FD /* BPTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64A4E6D2911A1145CB104 /* BPTask.m */; };
 		37B647E20B1B2E3F5F0ECFA3 /* BPAPIAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B648A1A89B376DE62E2133 /* BPAPIAccessor.m */; };
-		37B6480CB8E9273EAC35EDA6 /* NSString+BPUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B644631C60E8DE444885DD /* NSString+BPUtilities.m */; };
 		37B6498848E97978409489A6 /* NSDictionary+BPJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64059D45CBC595213920F /* NSDictionary+BPJSON.m */; };
 		37B649B3937D6158B554F509 /* BPObjectionModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64DFDBDE3A5CEE19D6FDB /* BPObjectionModule.m */; };
 		37B649B71B7F59A1741CD9B7 /* BPScanResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6413AB46D8FAC81D1E72B /* BPScanResult.m */; };
@@ -66,6 +65,8 @@
 		845F78D523BA28F8008DDFDF /* ScanResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845F78D423BA28F8008DDFDF /* ScanResult.swift */; };
 		845F78D723BA307B008DDFDF /* AskForAIResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845F78D623BA307B008DDFDF /* AskForAIResult.swift */; };
 		845F78DB23BA7571008DDFDF /* ScanResult+BPScanResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845F78DA23BA7571008DDFDF /* ScanResult+BPScanResult.swift */; };
+		84601A3A2405B5B900AD2A2D /* BarcodeValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84601A392405B5B900AD2A2D /* BarcodeValidator.swift */; };
+		84601A3E2405C47600AD2A2D /* EANBarcodeValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84601A3D2405C47600AD2A2D /* EANBarcodeValidatorTests.swift */; };
 		846036ED2418542B00982FC6 /* RecordVideoPageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846036EC2418542B00982FC6 /* RecordVideoPageUITests.swift */; };
 		846036F22418574A00982FC6 /* UIDevice+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846036F0241856DB00982FC6 /* UIDevice+Additions.swift */; };
 		84633B3423F8113F0069219C /* KeyboardTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84633B3323F8113F0069219C /* KeyboardTextView.swift */; };
@@ -233,7 +234,6 @@
 		37B6413AB46D8FAC81D1E72B /* BPScanResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPScanResult.m; sourceTree = "<group>"; };
 		37B642C8016B2BC66A308398 /* BPLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPLogger.h; sourceTree = "<group>"; };
 		37B643CE26D1B8399F9EBE5B /* BPObjectionModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPObjectionModule.h; sourceTree = "<group>"; };
-		37B644631C60E8DE444885DD /* NSString+BPUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+BPUtilities.m"; sourceTree = "<group>"; };
 		37B6447BFF3F65026E98D810 /* BPTaskRunner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPTaskRunner.m; sourceTree = "<group>"; };
 		37B644EB9663F8806E287450 /* BPAPIAccessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPAPIAccessor.h; sourceTree = "<group>"; };
 		37B645654D3B84690AEA4C0D /* BPUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPUtilities.h; sourceTree = "<group>"; };
@@ -250,7 +250,6 @@
 		37B64A4E6D2911A1145CB104 /* BPTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPTask.m; sourceTree = "<group>"; };
 		37B64D1B6193C0AD0D440566 /* BPScanCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPScanCodeViewController.h; sourceTree = "<group>"; };
 		37B64DFDBDE3A5CEE19D6FDB /* BPObjectionModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPObjectionModule.m; sourceTree = "<group>"; };
-		37B64F8C2171D2BB76F878FB /* NSString+BPUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+BPUtilities.h"; sourceTree = "<group>"; };
 		5310C93A6052FC9BA4E8C020 /* Pods-Pola.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pola/Pods-Pola.debug.xcconfig"; sourceTree = "<group>"; };
 		53F3B599F258259843E2755D /* Pods_Pola_PolaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pola_PolaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D7DD012073B8CCDD821A2D0 /* Pods-Pola-PolaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola-PolaTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pola-PolaTests/Pods-Pola-PolaTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -285,6 +284,8 @@
 		845F78D423BA28F8008DDFDF /* ScanResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanResult.swift; sourceTree = "<group>"; };
 		845F78D623BA307B008DDFDF /* AskForAIResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskForAIResult.swift; sourceTree = "<group>"; };
 		845F78DA23BA7571008DDFDF /* ScanResult+BPScanResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ScanResult+BPScanResult.swift"; sourceTree = "<group>"; };
+		84601A392405B5B900AD2A2D /* BarcodeValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeValidator.swift; sourceTree = "<group>"; };
+		84601A3D2405C47600AD2A2D /* EANBarcodeValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EANBarcodeValidatorTests.swift; sourceTree = "<group>"; };
 		846036EC2418542B00982FC6 /* RecordVideoPageUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordVideoPageUITests.swift; sourceTree = "<group>"; };
 		846036F0241856DB00982FC6 /* UIDevice+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+Additions.swift"; sourceTree = "<group>"; };
 		84633B3323F8113F0069219C /* KeyboardTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardTextView.swift; sourceTree = "<group>"; };
@@ -534,6 +535,7 @@
 				1D08E84C19A7621A00879BD2 /* SupportingFiles */,
 				84F177E222CB6FDC00238266 /* UI */,
 				9EC3BBF423CDD74000242B1E /* Utilities */,
+				84601A3D2405C47600AD2A2D /* EANBarcodeValidatorTests.swift */,
 				848C6921225D044300D39E90 /* LaunchScreenSnapshotTests.swift */,
 				374B5B891C71C14100E74BBB /* NSDictionary_ParsingTests.m */,
 				BDA76B5321DCDBD1003E9FD6 /* PolaTests-Bridging-Header.h */,
@@ -651,8 +653,6 @@
 				842E762D23E0D4CA00A5534B /* FileManager+Extension.swift */,
 				37B6409BC5602C24443D14E4 /* NSDictionary+BPJSON.h */,
 				37B64059D45CBC595213920F /* NSDictionary+BPJSON.m */,
-				37B64F8C2171D2BB76F878FB /* NSString+BPUtilities.h */,
-				37B644631C60E8DE444885DD /* NSString+BPUtilities.m */,
 				84114A0F233E19480081C531 /* UIAlertView+Additions.swift */,
 				841F7D9F23567740007BE3F6 /* UIApplication+Additions.swift */,
 				841BB98C22D136AE00234946 /* UIColor+Additions.swift */,
@@ -740,6 +740,7 @@
 				37B641361E13BB0824D5828D /* ReportManager */,
 				9EC3BC3623CDF26F00242B1E /* BPFlashlightManager.h */,
 				9EC3BC3523CDF26F00242B1E /* BPFlashlightManager.m */,
+				84601A392405B5B900AD2A2D /* BarcodeValidator.swift */,
 				84A81C5723EFF42200464745 /* CameraSessionCodeScannerManager.swift */,
 				84A81C5523EFF2CA00464745 /* CodeScannerManager.swift */,
 				8477CFCA23CE17B100C72542 /* DIContainer.swift */,
@@ -1409,6 +1410,7 @@
 				9EC3BC4C23CDF4FD00242B1E /* CardStackViewControllerDelegate.swift in Sources */,
 				37B64A5D21387F5E0613B2AA /* BPTaskRunner.m in Sources */,
 				9EC3BC6923D50BD000242B1E /* ProductImageManager.swift in Sources */,
+				84601A3A2405B5B900AD2A2D /* BarcodeValidator.swift in Sources */,
 				37B646BC2546890EB330F4FD /* BPTask.m in Sources */,
 				84A81C4E23EE11B000464745 /* PolaRequestFactory.swift in Sources */,
 				845F78D523BA28F8008DDFDF /* ScanResult.swift in Sources */,
@@ -1443,7 +1445,6 @@
 				845F78D323BA28E2008DDFDF /* ProductManager.swift in Sources */,
 				37B641D5FD17D93BC7B1901B /* BPRootViewController.m in Sources */,
 				37B64BC8938BC7942D533D2F /* BPScanCodeViewController.m in Sources */,
-				37B6480CB8E9273EAC35EDA6 /* NSString+BPUtilities.m in Sources */,
 				84AAEDE0230B49DD006CA7EB /* UILabel+Additions.swift in Sources */,
 				841BB98B22D133A900234946 /* Theme.swift in Sources */,
 				84114A10233E19480081C531 /* UIAlertView+Additions.swift in Sources */,
@@ -1516,6 +1517,7 @@
 				9EC3BBF823CDD74000242B1E /* UIColor_AdditionsTests.swift in Sources */,
 				9EC3BC5123CDF55F00242B1E /* CheckRowSnapshotTests.swift in Sources */,
 				848C6922225D044300D39E90 /* LaunchScreenSnapshotTests.swift in Sources */,
+				84601A3E2405C47600AD2A2D /* EANBarcodeValidatorTests.swift in Sources */,
 				9EC3BBF923CDD74000242B1E /* Encodable_DictionaryTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
