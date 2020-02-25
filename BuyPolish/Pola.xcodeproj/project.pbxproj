@@ -127,6 +127,9 @@
 		84E708402280A40400402E26 /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E708312280A40300402E26 /* TestData.swift */; };
 		952A03CA6AD72648FFC902C3 /* Pods_Pola.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B15F0FD326ED5D11627C5ED8 /* Pods_Pola.framework */; };
 		9E188D93223063ED00325383 /* LaunchScreen.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E188D91223063EC00325383 /* LaunchScreen.xcassets */; };
+		9E7BE9472401597F0070BF8D /* TeachPolaPageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7BE9462401597F0070BF8D /* TeachPolaPageUITests.swift */; };
+		9E7BE94924015B180070BF8D /* TeachPolaPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7BE94824015B180070BF8D /* TeachPolaPage.swift */; };
+		9E7BE94D240164690070BF8D /* ScanBarcodePageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7BE94C240164690070BF8D /* ScanBarcodePageUITests.swift */; };
 		ABCA9D8499A8FF36227B6C94 /* UIApplication+BPStatusBarHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCA997979B62F78CFCB7E19 /* UIApplication+BPStatusBarHeight.m */; };
 		BDA76B5121DCD718003E9FD6 /* Encodable+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA76B5021DCD718003E9FD6 /* Encodable+Utilities.swift */; };
 		BDA76B5A21DE6248003E9FD6 /* AnalyticsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA76B5921DE6248003E9FD6 /* AnalyticsHelper.swift */; };
@@ -352,6 +355,9 @@
 		84E7082F2280A40300402E26 /* PolaUITestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PolaUITestCase.swift; sourceTree = "<group>"; };
 		84E708312280A40300402E26 /* TestData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
 		9E188D91223063EC00325383 /* LaunchScreen.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = LaunchScreen.xcassets; sourceTree = "<group>"; };
+		9E7BE9462401597F0070BF8D /* TeachPolaPageUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeachPolaPageUITests.swift; sourceTree = "<group>"; };
+		9E7BE94824015B180070BF8D /* TeachPolaPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeachPolaPage.swift; sourceTree = "<group>"; };
+		9E7BE94C240164690070BF8D /* ScanBarcodePageUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanBarcodePageUITests.swift; sourceTree = "<group>"; };
 		ABCA997979B62F78CFCB7E19 /* UIApplication+BPStatusBarHeight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+BPStatusBarHeight.m"; sourceTree = "<group>"; };
 		ABCA9A3E3B8A8B7C925052B6 /* UIApplication+BPStatusBarHeight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+BPStatusBarHeight.h"; sourceTree = "<group>"; };
 		B15F0FD326ED5D11627C5ED8 /* Pods_Pola.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pola.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -859,7 +865,9 @@
 				840938A8231F0183003FC0E1 /* ISBNPageUITests.swift */,
 				840938A4231F0183003FC0E1 /* InformationPageUITests.swift */,
 				840938A7231F0183003FC0E1 /* ReportBugPageUITests.swift */,
+				9E7BE94C240164690070BF8D /* ScanBarcodePageUITests.swift */,
 				840938A6231F0183003FC0E1 /* ScanBarcodeWithResultPageUITests.swift */,
+				9E7BE9462401597F0070BF8D /* TeachPolaPageUITests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -923,6 +931,7 @@
 				840938B0231F0202003FC0E1 /* ScanBarcodePage+TestData.swift */,
 				84E708282280A40300402E26 /* ScanBarcodePage.swift */,
 				84E7082C2280A40300402E26 /* ScanBarcodeWithResultsPage.swift */,
+				9E7BE94824015B180070BF8D /* TeachPolaPage.swift */,
 			);
 			path = PageObjects;
 			sourceTree = "<group>";
@@ -1415,8 +1424,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				84A81C5023EE1DBE00464745 /* BaseGalleryPage.swift in Sources */,
+				9E7BE9472401597F0070BF8D /* TeachPolaPageUITests.swift in Sources */,
+				9E7BE94D240164690070BF8D /* ScanBarcodePageUITests.swift in Sources */,
 				841DDD6F2311ECD200CB82DC /* MockServer.swift in Sources */,
 				840938B3231F0890003FC0E1 /* ResultPage.swift in Sources */,
+				9E7BE94924015B180070BF8D /* TeachPolaPage.swift in Sources */,
 				84E7083B2280A40400402E26 /* ScanBarcodeWithResultsPage.swift in Sources */,
 				84E708402280A40400402E26 /* TestData.swift in Sources */,
 				840938AA231F0183003FC0E1 /* InformationPageUITests.swift in Sources */,

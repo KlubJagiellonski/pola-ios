@@ -19,4 +19,9 @@ class InformationPageUITests: PolaUITestCase {
         snapshotVerifyView()
     }
     
+    func testCloseInformationPage() {
+        page.tapCloseButton().done()
+        
+        snapshotVerifyView()
+    }
 }
