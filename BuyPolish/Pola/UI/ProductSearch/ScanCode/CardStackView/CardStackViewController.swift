@@ -1,9 +1,10 @@
-import Foundation
+import UIKit
 
 @objc
 class CardStackViewController: UIViewController {
     
-    private var cards = [UIViewController]()
+    @objc
+    private(set) var cards = [UIViewController]()
     private var castedView: CardStackView {
         view as! CardStackView
     }

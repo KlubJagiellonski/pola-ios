@@ -1,14 +1,26 @@
 import PromiseKit
 import Alamofire
 
+struct ReadMediaFileError: Error, LocalizedError {
+    let path: String
+    
+    var errorDescription: String? {
+        "Failed read media file at path: \(path)"
+    }
+}
+
 class ReportManager {
     
     private let dataRequestFactory: DataRequestFactory
     private let uploadMediaRequestFactory: MediaUploadRequestFactory
-    
-    init(dataRequestFactory: DataRequestFactory, uploadMediaRequestFactory: MediaUploadRequestFactory) {
+    private let fileManager: FileManager
+
+    init(dataRequestFactory: DataRequestFactory,
+         uploadMediaRequestFactory: MediaUploadRequestFactory,
+         fileManager: FileManager) {
         self.dataRequestFactory = dataRequestFactory
         self.uploadMediaRequestFactory = uploadMediaRequestFactory
+        self.fileManager = fileManager
     }
     
     func send(report: Report) -> Promise<Void>{
@@ -21,7 +33,11 @@ class ReportManager {
             .then { [uploadMediaRequestFactory](createReportResponse) -> Promise<Void>  in
                 let promises =
                     try createReportResponse.signedRequests.enumerated().map { (i, stringUrl) -> Promise<Void> in
-                        try uploadMediaRequestFactory.request(url: stringUrl, mediaPath: report.imagePaths[i])
+                        let mediaPath = report.imagePaths[i]
+                        guard let data = self.fileManager.contents(atPath: mediaPath) else {
+                            throw ReadMediaFileError(path: mediaPath)
+                        }
+                        return try uploadMediaRequestFactory.request(url: stringUrl, mediaData: data, mimeType: .png)
                             .responseData()
                             .asVoid()
                 }

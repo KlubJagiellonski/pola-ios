@@ -25,6 +25,14 @@ class DI {
             FileManager.default
         }
         
+        container.register(CaptureVideoManager.self) { _ in
+            CameraCaptureVideoManager()
+        }
+        
+        container.register(CapturedImageManager.self) { _ in
+            InMemoryCapturedImageManager()
+        }
+        
         container.register(CodeScannerManager.self) { _ in
             CameraSessionCodeScannerManager()
         }
@@ -47,14 +55,20 @@ class DI {
         }
         
         container.register(MediaUploadRequestFactory.self) { resolver in
-            PutAmazonRequestFactory(fileManager: resolver.resolve(FileManager.self)!)
+            PutAmazonRequestFactory()
         }
         
         container.register(ReportManager.self) { resolver in
             ReportManager(dataRequestFactory: resolver.resolve(DataRequestFactory.self)!,
-                          uploadMediaRequestFactory: resolver.resolve(MediaUploadRequestFactory.self)!)
+                          uploadMediaRequestFactory: resolver.resolve(MediaUploadRequestFactory.self)!,
+                          fileManager: resolver.resolve(FileManager.self)!)
         }
         
+        container.register(CapturedImagesUploadManager.self) { resolver in
+             CapturedImagesUploadManager(dataRequestFactory: resolver.resolve(DataRequestFactory.self)!,
+                                         uploadMediaRequestFactory: resolver.resolve(MediaUploadRequestFactory.self)!)
+         }
+                
         container.register(ScannerCodeViewController.self) { resolver in
             ScannerCodeViewController(codeScannerManager: resolver.resolve(CodeScannerManager.self)!)
         }
@@ -68,6 +82,18 @@ class DI {
                                         productImageManager: resolver.resolve(ProductImageManager.self)!,
                                         reportManager: resolver.resolve(ReportManager.self)!,
                                         keyboardManager: resolver.resolve(KeyboardManager.self)!)
+        }
+        
+        container.register(CaptureVideoInstructionViewController.self) {  _, scanResult in
+                 CaptureVideoInstructionViewController(scanResult: scanResult)
+        }
+        
+        container.register(CaptureVideoViewController.self) {  resolver, scanResult in
+            CaptureVideoViewController(scanResult: scanResult,
+                                       videoManager: resolver.resolve(CaptureVideoManager.self)!,
+                                       imageManager: resolver.resolve(CapturedImageManager.self)!,
+                                       uploadManager: resolver.resolve(CapturedImagesUploadManager.self)!,
+                                       device: resolver.resolve(UIDevice.self)!)
         }
         
         return container

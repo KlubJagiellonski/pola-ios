@@ -2,22 +2,15 @@ import Alamofire
 
 class PutAmazonRequestFactory: MediaUploadRequestFactory {
     
-    private let fileManager: FileManager
-    
-    init(fileManager: FileManager) {
-        self.fileManager = fileManager
-    }
-
-    func request(url: String, mediaPath: String) throws -> DataRequest {
-        guard let url = URL(string: url),
-            let data = self.fileManager.contents(atPath: mediaPath) else {
-            throw ReadMediaFileError(path: mediaPath)
+    func request(url stringUrl: String, mediaData: Data, mimeType: MediaUploadMimeType) throws -> DataRequest {
+        guard let url = URL(string: stringUrl) else {
+            throw InvalidStringUrlError(url: stringUrl)
         }
         var request = URLRequest(url: url)
-        request.addValue("public-read",forHTTPHeaderField: "x-amx-acl")
-        request.addValue("image/png",forHTTPHeaderField: "Content-Type")
+        request.addValue("public-read", forHTTPHeaderField: "x-amx-acl")
+        request.addValue(mimeType.rawValue, forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.put.rawValue
-        request.httpBody = data
+        request.httpBody = mediaData
         return Alamofire.request(request)
     }
 

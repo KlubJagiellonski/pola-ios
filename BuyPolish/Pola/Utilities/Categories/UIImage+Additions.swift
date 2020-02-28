@@ -31,6 +31,14 @@ extension UIImage {
         
         return scaled(toSize: newSize)
     }
+        
+    func scaled(toMaxSide maxSide: CGFloat) -> UIImage {
+        if size.height > size.width {
+            return scaled(toHeight: maxSide)
+        } else {
+            return scaled(toWidth: maxSide)
+        }
+    }
     
     func scaled(toSize newSize: CGSize) -> UIImage {
         UIGraphicsBeginImageContext(newSize)
@@ -38,6 +46,10 @@ extension UIImage {
         let image = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         return image
+    }
+    
+    var sizeInPixels: CGSize {
+        CGSize(width: widthInPixels, height: heightInPixels)
     }
     
     @objc

@@ -1,13 +1,18 @@
 import Alamofire
 
-protocol MediaUploadRequestFactory {
-    func request(url: String, mediaPath: String) throws -> DataRequest
+enum MediaUploadMimeType: String {
+    case png = "image/png"
+    case jpg = "image/jpeg"
 }
 
-struct ReadMediaFileError: Error, LocalizedError {
-    let path: String
+protocol MediaUploadRequestFactory {
+    func request(url: String, mediaData: Data, mimeType: MediaUploadMimeType) throws -> DataRequest
+}
+
+struct InvalidStringUrlError: Error, LocalizedError {
+    let url: String
     
     var errorDescription: String? {
-        "Failed read media file at path: \(path)"
+        "Invalid string url: \(url)"
     }
 }

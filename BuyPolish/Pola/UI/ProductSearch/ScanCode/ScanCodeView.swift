@@ -24,7 +24,7 @@ class ScanCodeView: UIView {
     let teachButton = UIButton(type: .custom)
     
     @objc
-    var videoLayer: AVCaptureVideoPreviewLayer? {
+    var videoLayer: CALayer? {
         didSet {
             if let oldValue = oldValue {
                 oldValue.removeFromSuperlayer()

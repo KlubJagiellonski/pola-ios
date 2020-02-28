@@ -80,13 +80,15 @@ class ReportProblemViewController: UIViewController {
                             imagePaths: imagePathArray)
         KVNProgress.show(withStatus: R.string.localizable.sending())
         
-        reportManager.send(report: report).done { [weak self, reason, productImageManager] _ in
-            KVNProgress.showSuccess(withStatus: R.string.localizable.reportSent())
-            AnalyticsHelper.reportSent(barcode: reason.barcode)
-            _ = productImageManager.removeImages(for: reason)
-            self?.close()
+        reportManager
+            .send(report: report)
+            .done { [weak self, reason, productImageManager] _ in
+                KVNProgress.showSuccess(withStatus: R.string.localizable.reportSent())
+                AnalyticsHelper.reportSent(barcode: reason.barcode)
+                _ = productImageManager.removeImages(for: reason)
+                self?.close()
         }.catch { error in
-            BPLog(message: "Error occured during sendind report: \(error.localizedDescription)")
+            BPLog("Error occured during sendind report: \(error.localizedDescription)")
             KVNProgress.showError(withStatus: R.string.localizable.errorOccured())
         }
     }
@@ -100,7 +102,7 @@ class ReportProblemViewController: UIViewController {
 extension ReportProblemViewController : ReportImagesContainerViewDelegate {
     func imagesContainerTapDeleteButton(at index: Int) {
         guard productImageManager.removeImage(for: reason, index: index) else {
-            BPLog(message: "Error occured during removing image from report")
+            BPLog("Error occured during removing image from report")
             KVNProgress.showError(withStatus: R.string.localizable.errorOccured())
             return
         }
@@ -155,7 +157,7 @@ extension ReportProblemViewController: UIImagePickerControllerDelegate {
         guard let image = info[.originalImage] as? UIImage,
             productImageManager.saveImage(image, for: reason, index: imageCount),
             let smallImage = productImageManager.retrieveThumbnail(for: reason, index: imageCount) else {
-                BPLog(message: "Error occured during obtaining image from image picker")
+                BPLog("Error occured during obtaining image from image picker")
                 KVNProgress.showError(withStatus: R.string.localizable.errorOccured())
                 dismiss(animated: true, completion: nil)
                 return

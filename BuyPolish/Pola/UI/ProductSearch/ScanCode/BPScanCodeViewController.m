@@ -1,6 +1,4 @@
 #import "BPScanCodeViewController.h"
-#import "BPCaptureVideoNavigationController.h"
-#import "BPCapturedImageResult.h"
 #import "BPFlashlightManager.h"
 #import "BPScanResult.h"
 #import <Pola-Swift.h>
@@ -140,7 +138,10 @@ objection_requires_sel(@selector(flashlightManager), @selector(barcodeValidator)
 }
 
 - (void)didTapTeachButton:(UIButton *)button {
-    //TODO: Use last scanResultViewController to show teach
+    ScanResultViewController *srVC = (ScanResultViewController *)self.stackViewController.cards.lastObject;
+    if (srVC) {
+        [srVC teachTapped];
+    }
 }
 
 - (void)didTapFlashlightButton:(UIButton *)button {

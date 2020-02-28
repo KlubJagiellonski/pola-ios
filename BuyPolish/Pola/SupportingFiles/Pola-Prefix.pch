@@ -11,9 +11,7 @@
 #endif
 
 #ifdef __OBJC__
-#import "BPLogger.h"
-#import "BPUtilities.h"
-#import <CoreData/CoreData.h>
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 #endif

@@ -137,19 +137,19 @@ class ScanResultViewController: UIViewController {
             return
         }
         AnalyticsHelper.teachReportShow(barcode: barcode)
-        let captureVideoNavigationController = BPCaptureVideoNavigationController(scanResult: scanResult.bpScanResult)
-        captureVideoNavigationController.captureDelegate = self
-        present(captureVideoNavigationController, animated: true, completion: nil)
+        let vc = DI.container.resolve(CaptureVideoInstructionViewController.self, argument: scanResult)!
+        vc.delegate = self
+        let navigationVC = UINavigationController(rootViewController: vc)
+        navigationVC.setNavigationBarHidden(true, animated: false)
+        present(navigationVC, animated: true, completion: nil)
     }
     
 }
 
-extension ScanResultViewController: BPCaptureVideoNavigationControllerDelegate {
-    func captureVideoNavigationController(_ controller: BPCaptureVideoNavigationController, wantsDismissWithSuccess success: Bool) {
-        if success {
-            delegate?.scanResultViewControllerDidSentTeachReport(self)
-        }
-        dismiss(animated: true, completion: nil)
+extension ScanResultViewController: CaptureVideoViewControllerDelegate {
+    
+    func captureVideoViewControllerSentImages() {
+        delegate?.scanResultViewControllerDidSentTeachReport(self)
     }
     
 }

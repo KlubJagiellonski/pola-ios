@@ -11,8 +11,8 @@ struct CreateReportRequestBody : Encodable {
         case productId = "product_id"
         case description
         case filesCount = "files_count"
-        case fileExtension = "mime_type"
-        case mimeType = "file_ext"
+        case fileExtension = "file_ext"
+        case mimeType = "mime_type"
     }
     
     enum FileExtension: String, Encodable {
