@@ -45,7 +45,7 @@
         _okButton = [UIButton new];
         _okButton.accessibilityLabel = NSLocalizedString(@"Accessibility.Keyboard.Accept", nil);
         [self.okButton setImage:[UIImage imageNamed:@"kb_ok"] forState:UIControlStateNormal];
-        [self.okButton setImage:[UIImage imageNamed:@"kb_ok_highlighted"] forState:UIControlStateNormal];
+        [self.okButton setImage:[UIImage imageNamed:@"kb_ok_highlighted"] forState:UIControlStateHighlighted];
         [self.okButton addTarget:self action:@selector(confirmButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         [self.okButton sizeToFit];
         [self.contentView addSubview:self.okButton];
