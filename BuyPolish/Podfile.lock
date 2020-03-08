@@ -97,7 +97,7 @@ DEPENDENCIES:
   - "UITextView+Placeholder"
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - AFNetworking
     - Crashlytics
     - Fabric
@@ -131,6 +131,6 @@ SPEC CHECKSUMS:
   Swifter: 2327ef5d872c638aebab79646ce494af508b0c8f
   "UITextView+Placeholder": c407b27599ea23cca425946fee3cf1db5d547008
 
-PODFILE CHECKSUM: db6c0b962ab3a236d89764aaa9451bca12c6f397
+PODFILE CHECKSUM: fb12a12fffed2a6c1f0906fc8c69eda73f211b7d
 
-COCOAPODS: 1.6.1
+COCOAPODS: 1.9.0

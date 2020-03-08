@@ -4,7 +4,7 @@ platform :ios, '8.0'
 inhibit_all_warnings!
 
 target :Pola do
-    use_frameworks!
+    use_modular_headers!
     pod 'AFNetworking', '2.3.1'
     pod 'Objection', '1.4'
     pod 'Fabric', '~> 1.9.0'
@@ -14,10 +14,12 @@ target :Pola do
     pod 'KVNProgress'
     
     target :PolaTests do
-        pod 'iOSSnapshotTestCase'
+      use_frameworks!
+      pod 'iOSSnapshotTestCase'
     end
     
     target :PolaUITests do
+      use_frameworks!
       pod 'iOSSnapshotTestCase'
       pod 'Swifter', '~> 1.4.7'
     end
