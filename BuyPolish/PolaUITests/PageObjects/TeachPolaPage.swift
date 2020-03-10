@@ -13,5 +13,10 @@ class TeachPolaPage: BasePage {
         app.buttons["Zamknij"].firstMatch.tap()
         return openFrom
     }
+    
+    func tapRecordVideoButton() -> RecordVideoPage {
+        app.buttons["Nakręć film"].firstMatch.tap()
+        return RecordVideoPage(app: app)
+    }
         
 }

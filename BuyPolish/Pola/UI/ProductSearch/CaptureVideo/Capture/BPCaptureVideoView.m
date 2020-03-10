@@ -16,7 +16,7 @@ const int DIM_MARGIN = 30;
 - (instancetype)initWithFrame:(CGRect)frame productLabelText:(NSString *)productLabelText initialTimerSeconds:(int)initialTimerSeconds {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor clearColor];
+        self.backgroundColor = [UIColor whiteColor];
         
         _dimLayer = [CAGradientLayer layer];
         _dimLayer.colors = @[(id)[UIColor blackColor].CGColor, (id)[UIColor clearColor].CGColor];

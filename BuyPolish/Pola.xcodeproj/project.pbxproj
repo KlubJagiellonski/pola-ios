@@ -129,7 +129,9 @@
 		9E188D93223063ED00325383 /* LaunchScreen.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E188D91223063EC00325383 /* LaunchScreen.xcassets */; };
 		9E7BE9472401597F0070BF8D /* TeachPolaPageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7BE9462401597F0070BF8D /* TeachPolaPageUITests.swift */; };
 		9E7BE94924015B180070BF8D /* TeachPolaPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7BE94824015B180070BF8D /* TeachPolaPage.swift */; };
+		9E7BE94B2401605F0070BF8D /* RecordVideoPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7BE94A2401605F0070BF8D /* RecordVideoPage.swift */; };
 		9E7BE94D240164690070BF8D /* ScanBarcodePageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7BE94C240164690070BF8D /* ScanBarcodePageUITests.swift */; };
+		9E7BE94F240167A50070BF8D /* RecordVideoPageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7BE94E240167A50070BF8D /* RecordVideoPageUITests.swift */; };
 		ABCA9D8499A8FF36227B6C94 /* UIApplication+BPStatusBarHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCA997979B62F78CFCB7E19 /* UIApplication+BPStatusBarHeight.m */; };
 		BDA76B5121DCD718003E9FD6 /* Encodable+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA76B5021DCD718003E9FD6 /* Encodable+Utilities.swift */; };
 		BDA76B5A21DE6248003E9FD6 /* AnalyticsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA76B5921DE6248003E9FD6 /* AnalyticsHelper.swift */; };
@@ -357,7 +359,9 @@
 		9E188D91223063EC00325383 /* LaunchScreen.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = LaunchScreen.xcassets; sourceTree = "<group>"; };
 		9E7BE9462401597F0070BF8D /* TeachPolaPageUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeachPolaPageUITests.swift; sourceTree = "<group>"; };
 		9E7BE94824015B180070BF8D /* TeachPolaPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeachPolaPage.swift; sourceTree = "<group>"; };
+		9E7BE94A2401605F0070BF8D /* RecordVideoPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordVideoPage.swift; sourceTree = "<group>"; };
 		9E7BE94C240164690070BF8D /* ScanBarcodePageUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanBarcodePageUITests.swift; sourceTree = "<group>"; };
+		9E7BE94E240167A50070BF8D /* RecordVideoPageUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordVideoPageUITests.swift; sourceTree = "<group>"; };
 		ABCA997979B62F78CFCB7E19 /* UIApplication+BPStatusBarHeight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+BPStatusBarHeight.m"; sourceTree = "<group>"; };
 		ABCA9A3E3B8A8B7C925052B6 /* UIApplication+BPStatusBarHeight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+BPStatusBarHeight.h"; sourceTree = "<group>"; };
 		BDA76B3A21DC34A3003E9FD6 /* Pola-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pola-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -864,6 +868,7 @@
 				840938A5231F0183003FC0E1 /* EnterBarcodePageUITests.swift */,
 				840938A8231F0183003FC0E1 /* ISBNPageUITests.swift */,
 				840938A4231F0183003FC0E1 /* InformationPageUITests.swift */,
+				9E7BE94E240167A50070BF8D /* RecordVideoPageUITests.swift */,
 				840938A7231F0183003FC0E1 /* ReportBugPageUITests.swift */,
 				9E7BE94C240164690070BF8D /* ScanBarcodePageUITests.swift */,
 				840938A6231F0183003FC0E1 /* ScanBarcodeWithResultPageUITests.swift */,
@@ -925,6 +930,7 @@
 				84E708272280A40300402E26 /* InformationPage.swift */,
 				84401E1D23C0E1DE00F4D035 /* MainGalleryPage.swift */,
 				84401E1F23C0E2A800F4D035 /* PhotosGalleryPage.swift */,
+				9E7BE94A2401605F0070BF8D /* RecordVideoPage.swift */,
 				84E7082A2280A40300402E26 /* ReportBugPage.swift */,
 				840938B2231F088F003FC0E1 /* ResultPage.swift */,
 				84E7082E2280A40300402E26 /* SafariPage.swift */,
@@ -1426,10 +1432,12 @@
 				84E7083E2280A40400402E26 /* PolaUITestCase.swift in Sources */,
 				84401E2023C0E2A800F4D035 /* PhotosGalleryPage.swift in Sources */,
 				84E708392280A40400402E26 /* ReportBugPage.swift in Sources */,
+				9E7BE94B2401605F0070BF8D /* RecordVideoPage.swift in Sources */,
 				840938AF231F0183003FC0E1 /* CompanyPageUITests.swift in Sources */,
 				84E708382280A40400402E26 /* BasePage.swift in Sources */,
 				84E7083A2280A40400402E26 /* CompanyPage.swift in Sources */,
 				84E7083D2280A40400402E26 /* SafariPage.swift in Sources */,
+				9E7BE94F240167A50070BF8D /* RecordVideoPageUITests.swift in Sources */,
 				840938AB231F0183003FC0E1 /* EnterBarcodePageUITests.swift in Sources */,
 				840938B1231F0202003FC0E1 /* ScanBarcodePage+TestData.swift in Sources */,
 				84E708362280A40400402E26 /* InformationPage.swift in Sources */,
