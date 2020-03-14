@@ -17,4 +17,18 @@ class RecordVideoPageUITests: PolaUITestCase {
         snapshotVerifyView()
     }
     
+    func testTapStart() {
+        page.tapStartButton().done()
+        
+        snapshotVerifyView()
+    }
+    
+    func testTimerAfterStart() {
+        page.tapStartButton()
+            .waitForTimerLabel(seconds: 4)
+            .done()
+        
+        snapshotVerifyView()
+    }
+
 }
