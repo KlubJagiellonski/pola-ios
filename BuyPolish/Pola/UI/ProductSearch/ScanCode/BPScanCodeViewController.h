@@ -3,7 +3,7 @@
 #import <Pola-Swift.h>
 
 @interface BPScanCodeViewController
-    : UIViewController <AVCaptureMetadataOutputObjectsDelegate, UIAlertViewDelegate, BPKeyboardViewControllerDelegate>
+    : UIViewController <AVCaptureMetadataOutputObjectsDelegate, BPKeyboardViewControllerDelegate>
 - (void)showScanCodeView;
 - (void)showWriteCodeView;
 @end

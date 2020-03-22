@@ -96,6 +96,15 @@ class DI {
                                        device: resolver.resolve(UIDevice.self)!)
         }
         
+        container.register(ScanResultViewController.self) { resolver, barcode in
+            ScanResultViewController(barcode: barcode,
+                                     productManager: resolver.resolve(ProductManager.self)!)
+        }
+        
+        container.register(ResultsViewController.self) { resolver in
+            ResultsViewController(barcodeValidator: resolver.resolve(BarcodeValidator.self)!)
+        }
+        
         return container
     }()
     

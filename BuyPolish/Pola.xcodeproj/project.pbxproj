@@ -30,7 +30,6 @@
 		37B641D5FD17D93BC7B1901B /* BPRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64960EF3268FB825DD2FE /* BPRootViewController.m */; };
 		37B645454FC2ACC155CB1538 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B6472FF4603F63771FADE6 /* AVFoundation.framework */; };
 		37B649B3937D6158B554F509 /* BPObjectionModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64DFDBDE3A5CEE19D6FDB /* BPObjectionModule.m */; };
-		37B649B71B7F59A1741CD9B7 /* BPScanResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B6413AB46D8FAC81D1E72B /* BPScanResult.m */; };
 		37B64B7D226FBFA23FFCA1C1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 37B645C93F848A6F598F96E2 /* Localizable.strings */; };
 		37B64BC8938BC7942D533D2F /* BPScanCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64728A5FC383EB464DA9F /* BPScanCodeViewController.m */; };
 		8402E1D62309BB610065E850 /* AltResultContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402E1D52309BB610065E850 /* AltResultContentView.swift */; };
@@ -59,7 +58,6 @@
 		845F78D323BA28E2008DDFDF /* ProductManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845F78D223BA28E2008DDFDF /* ProductManager.swift */; };
 		845F78D523BA28F8008DDFDF /* ScanResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845F78D423BA28F8008DDFDF /* ScanResult.swift */; };
 		845F78D723BA307B008DDFDF /* AskForAIResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845F78D623BA307B008DDFDF /* AskForAIResult.swift */; };
-		845F78DB23BA7571008DDFDF /* ScanResult+BPScanResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845F78DA23BA7571008DDFDF /* ScanResult+BPScanResult.swift */; };
 		84601A3A2405B5B900AD2A2D /* BarcodeValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84601A392405B5B900AD2A2D /* BarcodeValidator.swift */; };
 		84601A3E2405C47600AD2A2D /* EANBarcodeValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84601A3D2405C47600AD2A2D /* EANBarcodeValidatorTests.swift */; };
 		846036ED2418542B00982FC6 /* RecordVideoPageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846036EC2418542B00982FC6 /* RecordVideoPageUITests.swift */; };
@@ -114,6 +112,8 @@
 		84F177E122CAD3F700238266 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F177E022CAD3F700238266 /* R.generated.swift */; };
 		8C9A524C67006D5D87D36FEE /* Pods_Pola_PolaUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6C1969BFE86FEF4E186B26D /* Pods_Pola_PolaUITests.framework */; };
 		9E188D93223063ED00325383 /* LaunchScreen.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E188D91223063EC00325383 /* LaunchScreen.xcassets */; };
+		9E43AF74242798780093627B /* ResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E43AF73242798780093627B /* ResultsView.swift */; };
+		9E43AF7624279F3D0093627B /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E43AF7524279F3D0093627B /* ResultsViewController.swift */; };
 		9E7399302409059C00E3C3FC /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E73992F2409059C00E3C3FC /* VideoPlayerView.swift */; };
 		9E7BE9452401503F0070BF8D /* ExtendedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7BE9442401503F0070BF8D /* ExtendedButton.swift */; };
 		9E7BE94924015B180070BF8D /* TeachPolaPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7BE94824015B180070BF8D /* TeachPolaPage.swift */; };
@@ -217,13 +217,11 @@
 		21497E85EBCABF56D8745512 /* Pods_Pola.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pola.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		353A5B3434B75B4C54FB4DBB /* Pods-Pola-PolaUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola-PolaUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pola-PolaUITests/Pods-Pola-PolaUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		3785987405128CA0B1DA9512 /* Pods-Pola.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pola/Pods-Pola.release.xcconfig"; sourceTree = "<group>"; };
-		37B6413AB46D8FAC81D1E72B /* BPScanResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPScanResult.m; sourceTree = "<group>"; };
 		37B643CE26D1B8399F9EBE5B /* BPObjectionModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPObjectionModule.h; sourceTree = "<group>"; };
 		37B64728A5FC383EB464DA9F /* BPScanCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPScanCodeViewController.m; sourceTree = "<group>"; };
 		37B6472FF4603F63771FADE6 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		37B64960EF3268FB825DD2FE /* BPRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPRootViewController.m; sourceTree = "<group>"; };
 		37B649C1631E9ADBA6B66CC7 /* BPRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPRootViewController.h; sourceTree = "<group>"; };
-		37B649F01069BA6A92B49C15 /* BPScanResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPScanResult.h; sourceTree = "<group>"; };
 		37B64D1B6193C0AD0D440566 /* BPScanCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPScanCodeViewController.h; sourceTree = "<group>"; };
 		37B64DFDBDE3A5CEE19D6FDB /* BPObjectionModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPObjectionModule.m; sourceTree = "<group>"; };
 		5310C93A6052FC9BA4E8C020 /* Pods-Pola.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pola/Pods-Pola.debug.xcconfig"; sourceTree = "<group>"; };
@@ -262,7 +260,6 @@
 		845F78D223BA28E2008DDFDF /* ProductManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductManager.swift; sourceTree = "<group>"; };
 		845F78D423BA28F8008DDFDF /* ScanResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanResult.swift; sourceTree = "<group>"; };
 		845F78D623BA307B008DDFDF /* AskForAIResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskForAIResult.swift; sourceTree = "<group>"; };
-		845F78DA23BA7571008DDFDF /* ScanResult+BPScanResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ScanResult+BPScanResult.swift"; sourceTree = "<group>"; };
 		84601A392405B5B900AD2A2D /* BarcodeValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeValidator.swift; sourceTree = "<group>"; };
 		84601A3D2405C47600AD2A2D /* EANBarcodeValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EANBarcodeValidatorTests.swift; sourceTree = "<group>"; };
 		846036EC2418542B00982FC6 /* RecordVideoPageUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordVideoPageUITests.swift; sourceTree = "<group>"; };
@@ -328,6 +325,8 @@
 		84F177DB22CABFF700238266 /* CheckRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckRow.swift; sourceTree = "<group>"; };
 		84F177E022CAD3F700238266 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
 		9E188D91223063EC00325383 /* LaunchScreen.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = LaunchScreen.xcassets; sourceTree = "<group>"; };
+		9E43AF73242798780093627B /* ResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsView.swift; sourceTree = "<group>"; };
+		9E43AF7524279F3D0093627B /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		9E73992F2409059C00E3C3FC /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
 		9E7BE9442401503F0070BF8D /* ExtendedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedButton.swift; sourceTree = "<group>"; };
 		9E7BE94824015B180070BF8D /* TeachPolaPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeachPolaPage.swift; sourceTree = "<group>"; };
@@ -629,13 +628,10 @@
 			isa = PBXGroup;
 			children = (
 				845F78D623BA307B008DDFDF /* AskForAIResult.swift */,
-				37B649F01069BA6A92B49C15 /* BPScanResult.h */,
-				37B6413AB46D8FAC81D1E72B /* BPScanResult.m */,
 				84D8B77123EA202800CD0ECB /* DataRequestFactory.swift */,
 				84BDC4A723EB774F00F462A0 /* MediaUploadRequestFactory.swift */,
 				84A81C4D23EE11B000464745 /* PolaRequestFactory.swift */,
 				84A81C4B23EE118300464745 /* PutAmazonRequestFactory.swift */,
-				845F78DA23BA7571008DDFDF /* ScanResult+BPScanResult.swift */,
 				845F78D423BA28F8008DDFDF /* ScanResult.swift */,
 			);
 			path = Model;
@@ -682,6 +678,8 @@
 				37B64697C3925583CD36B426 /* ProductCard */,
 				37B64D1B6193C0AD0D440566 /* BPScanCodeViewController.h */,
 				37B64728A5FC383EB464DA9F /* BPScanCodeViewController.m */,
+				9E43AF73242798780093627B /* ResultsView.swift */,
+				9E43AF7524279F3D0093627B /* ResultsViewController.swift */,
 				84B87FC92344084E007A6BFF /* ScanCodeView.swift */,
 				84A81C5323EF30CF00464745 /* ScannerCodeView.swift */,
 				84A81C5923EFF91300464745 /* ScannerCodeViewController.swift */,
@@ -1307,7 +1305,6 @@
 				84D887A52337A4B300681C64 /* ResultContentViewControllerFactory.swift in Sources */,
 				1D08E83919A7621A00879BD2 /* BPAppDelegate.m in Sources */,
 				1D08E83519A7621A00879BD2 /* main.m in Sources */,
-				37B649B71B7F59A1741CD9B7 /* BPScanResult.m in Sources */,
 				9EC3BC4C23CDF4FD00242B1E /* CardStackViewControllerDelegate.swift in Sources */,
 				9EC3BC6923D50BD000242B1E /* ProductImageManager.swift in Sources */,
 				84601A3A2405B5B900AD2A2D /* BarcodeValidator.swift in Sources */,
@@ -1346,6 +1343,7 @@
 				84AAEDE0230B49DD006CA7EB /* UILabel+Additions.swift in Sources */,
 				841BB98B22D133A900234946 /* Theme.swift in Sources */,
 				84114A10233E19480081C531 /* UIAlertView+Additions.swift in Sources */,
+				9E43AF7624279F3D0093627B /* ResultsViewController.swift in Sources */,
 				84BDC4A823EB774F00F462A0 /* MediaUploadRequestFactory.swift in Sources */,
 				84A81C5223EE21F300464745 /* ReportProblemReason.swift in Sources */,
 				842E763C23E47A3B00A5534B /* CreateReportRequestBody.swift in Sources */,
@@ -1385,6 +1383,7 @@
 				84D887A1233669D800681C64 /* CompanyContentViewController.swift in Sources */,
 				84CE3E6023BA895100FE8D66 /* AboutWebViewController.swift in Sources */,
 				849E40CB24143019006E1B76 /* CapturedImages.swift in Sources */,
+				9E43AF74242798780093627B /* ResultsView.swift in Sources */,
 				9EC3BC5B23CDFA2500242B1E /* AboutBaseCell.swift in Sources */,
 				8403605C240BCBF600073F6C /* CaptureVideoInstructionViewController.swift in Sources */,
 				9EC3BC4723CDF4FD00242B1E /* CardStackViewLayoutLayoutCollapsed.swift in Sources */,
@@ -1399,7 +1398,6 @@
 				8477CFD123CF2E9B00C72542 /* ReportImagesContainerView.swift in Sources */,
 				849E40C924142FE5006E1B76 /* CapturedImagesUploadManager.swift in Sources */,
 				9EC3BC5A23CDFA2500242B1E /* AboutFooterView.swift in Sources */,
-				845F78DB23BA7571008DDFDF /* ScanResult+BPScanResult.swift in Sources */,
 				84F177DC22CABFF700238266 /* CheckRow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

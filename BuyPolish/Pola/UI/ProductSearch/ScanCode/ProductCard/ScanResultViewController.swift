@@ -1,9 +1,8 @@
 import UIKit
 import PromiseKit
 
-@objc
 protocol ScanResultViewControllerDelegate: class {
-    func scanResultViewController(_ vc: ScanResultViewController, didFetchResult result: BPScanResult)
+    func scanResultViewController(_ vc: ScanResultViewController, didFetchResult result: ScanResult)
     func scanResultViewController(_ vc: ScanResultViewController, didFailFetchingScanResultWithError error: Error)
     func scanResultViewControllerDidSentTeachReport(_ vc: ScanResultViewController)
 }
@@ -13,7 +12,6 @@ class ScanResultViewController: UIViewController {
     private let productManager: ProductManager
     private(set) var scanResult: ScanResult?
     
-    @objc
     weak var delegate: ScanResultViewControllerDelegate?
     
     init(barcode: String, productManager: ProductManager) {
@@ -57,7 +55,7 @@ class ScanResultViewController: UIViewController {
             AnalyticsHelper.received(productResult: scanResult)
             if let `self` = self {
                 self.fillViewWithData(scanResult: scanResult)
-                self.delegate?.scanResultViewController(self, didFetchResult: scanResult.bpScanResult)
+                self.delegate?.scanResultViewController(self, didFetchResult: scanResult)
             }
         }.ensure{ [castedView] in
             castedView.loadingProgressView.stopAnimating()

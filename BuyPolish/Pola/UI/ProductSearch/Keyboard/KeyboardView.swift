@@ -6,7 +6,8 @@ class KeyboardView: UIView {
     let textView = KeyboardTextView()
     let numberButtons = (1...10).map({_ in ExtendedButton()})
     let okButton = UIButton()
-    
+    let infoTextLabel = UILabel()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -30,6 +31,14 @@ class KeyboardView: UIView {
         okButton.setImage(R.image.kb_ok(), for: .normal)
         okButton.setImage(R.image.kb_ok_highlighted(), for: .highlighted)
         contentView.addSubview(okButton)
+        
+        infoTextLabel.text = R.string.localizable.type13Digits()
+        infoTextLabel.numberOfLines = 4
+        infoTextLabel.font = Theme.titleFont
+        infoTextLabel.textColor = Theme.clearColor
+        infoTextLabel.textAlignment = .center
+        infoTextLabel.sizeToFit()
+        addSubview(infoTextLabel)
     }
     
     required init?(coder: NSCoder) {
@@ -46,6 +55,8 @@ class KeyboardView: UIView {
         let buttonsInRow = 3
         let buttonRows = 4
         let verticalMargin = CGFloat(16.0)
+        let infoTextLabelBottomMargin = CGFloat(50.0)
+        let horizontalInfoTextMargin = CGFloat(15.0)
         
         textView.sizeToFit()
         let contentWidth = (buttonSize.width * CGFloat(buttonsInRow)) + (buttonMargin * CGFloat(buttonsInRow - 1))
@@ -80,6 +91,16 @@ class KeyboardView: UIView {
         
         okButton.sizeToFit()
         okButton.frameOrigin = CGPoint(x: contentWidth - okButton.frame.width, y: contentHeight - okButton.frame.height)
+        
+        let widthLabel = bounds.width - (2 * horizontalInfoTextMargin)
+        let heightLabel = infoTextLabel.height(forWidth: widthLabel)
+        infoTextLabel.frame = CGRect(
+            x: horizontalInfoTextMargin,
+            y: bounds.height - infoTextLabelBottomMargin - heightLabel,
+            width: widthLabel,
+            height: heightLabel
+        )
+
     }
     
 }

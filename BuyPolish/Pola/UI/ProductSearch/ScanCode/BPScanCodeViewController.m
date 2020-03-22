@@ -1,38 +1,26 @@
 #import "BPScanCodeViewController.h"
 #import "BPFlashlightManager.h"
-#import "BPScanResult.h"
 #import <Pola-Swift.h>
 
 @import Objection;
 
 static NSTimeInterval const kAnimationTime = 0.15;
 
-@interface BPScanCodeViewController () <ScanResultViewControllerDelegate,
-                                        CardStackViewControllerDelegate,
-                                        CodeScannerManagerDelegate>
+@interface BPScanCodeViewController () <CodeScannerManagerDelegate, ResultsViewControllerDelegate>
 
 @property (nonatomic) BPKeyboardViewController *keyboardViewController;
 @property (nonatomic) ScannerCodeViewController *scannerCodeViewController;
 @property (nonatomic, readonly) BPFlashlightManager *flashlightManager;
-@property (nonatomic, readonly) id<BarcodeValidator> barcodeValidator;
-@property (copy, nonatomic) NSString *lastBardcodeScanned;
-@property (nonatomic) BOOL addingCardEnabled;
-@property (nonatomic) CardStackViewController *stackViewController;
+@property (nonatomic) ResultsViewController *resultsViewController;
 
 @end
 
 @implementation BPScanCodeViewController
 
-objection_requires_sel(@selector(flashlightManager), @selector(barcodeValidator))
+objection_requires_sel(@selector(flashlightManager))
 
     - (void)loadView {
-    self.stackViewController = [[CardStackViewController alloc] init];
-    self.stackViewController.delegate = self;
-
-    [self addChildViewController:self.stackViewController];
-    CardStackView *stackView = (CardStackView *)self.stackViewController.view;
-    self.view = [[BPScanCodeView alloc] initWithFrame:CGRectZero stackView:stackView];
-    [self.stackViewController didMoveToParentViewController:self];
+    self.view = [[BPScanCodeView alloc] initWithFrame:CGRectZero];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -49,18 +37,19 @@ objection_requires_sel(@selector(flashlightManager), @selector(barcodeValidator)
     [self.scannerCodeViewController didMoveToParentViewController:self];
     self.scannerCodeViewController.scannerDelegate = self;
 
-    self.addingCardEnabled = YES;
+    self.resultsViewController = [ResultsViewController fromDiContainer];
+    [self addChildViewController:self.resultsViewController];
+    [self.view insertSubview:self.resultsViewController.view atIndex:4];
+    [self.resultsViewController didMoveToParentViewController:self];
+    self.resultsViewController.delegate = self;
+
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.stackViewController.delegate = self;
     [self.castView.menuButton addTarget:self
                                  action:@selector(didTapMenuButton:)
                        forControlEvents:UIControlEventTouchUpInside];
     [self.castView.keyboardButton addTarget:self
                                      action:@selector(didTapKeyboardButton:)
                            forControlEvents:UIControlEventTouchUpInside];
-    [self.castView.teachButton addTarget:self
-                                  action:@selector(didTapTeachButton:)
-                        forControlEvents:UIControlEventTouchUpInside];
 
     if (self.flashlightManager.isAvailable) {
         [self.castView.flashButton addTarget:self
@@ -78,11 +67,6 @@ objection_requires_sel(@selector(flashlightManager), @selector(barcodeValidator)
                              forKeyPath:NSStringFromSelector(@selector(isOn))
                                 options:NSKeyValueObservingOptionInitial
                                 context:nil];
-
-    //    [self didFindBarcode:@"5900396019813"];
-    //    [self performSelector:@selector(didFindBarcode:) withObject:@"5901234123457" afterDelay:1.5f];
-    //    [self performSelector:@selector(didFindBarcode:) withObject:@"5900396019813" afterDelay:3.f];
-    //    [self showReportProblem:productId:@"3123123"];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -95,6 +79,7 @@ objection_requires_sel(@selector(flashlightManager), @selector(barcodeValidator)
 
     self.keyboardViewController.view.frame = self.view.bounds;
     self.scannerCodeViewController.view.frame = self.view.bounds;
+    self.resultsViewController.view.frame = self.view.bounds;
 }
 
 #pragma mark - Actions
@@ -107,13 +92,6 @@ objection_requires_sel(@selector(flashlightManager), @selector(barcodeValidator)
 - (void)showWriteCodeView {
     [self dismissViewControllerAnimated:YES completion:nil];
     [self showKeyboardController];
-}
-
-- (BOOL)addCardAndDownloadDetails:(NSString *)barcode {
-    ScanResultViewController *cardViewController = [[ScanResultViewController alloc] initWithBarcode:barcode];
-    cardViewController.delegate = self;
-    BOOL added = [self.stackViewController addCard:cardViewController];
-    return added;
 }
 
 - (void)didTapMenuButton:(UIButton *)button {
@@ -133,17 +111,6 @@ objection_requires_sel(@selector(flashlightManager), @selector(barcodeValidator)
     }
 }
 
-- (void)didTapWebViewCloseButton:(UIButton *)button {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)didTapTeachButton:(UIButton *)button {
-    ScanResultViewController *srVC = (ScanResultViewController *)self.stackViewController.cards.lastObject;
-    if (srVC) {
-        [srVC teachTapped];
-    }
-}
-
 - (void)didTapFlashlightButton:(UIButton *)button {
     [self.flashlightManager toggleWithCompletionBlock:^(BOOL success){
         //TODO: Add error message after consultation with UX
@@ -152,37 +119,6 @@ objection_requires_sel(@selector(flashlightManager), @selector(barcodeValidator)
 
 - (void)updateFlashlightButton {
     [self.castView.flashButton setSelected:self.flashlightManager.isOn];
-}
-
-- (void)setAddingCardEnabled:(BOOL)addingCardEnabled {
-    _addingCardEnabled = addingCardEnabled;
-    [UIApplication sharedApplication].idleTimerDisabled = _addingCardEnabled;
-}
-
-- (void)didFindBarcode:(NSString *)barcode sourceType:(NSString *)sourceType {
-    if (!self.addingCardEnabled) {
-        return;
-    }
-
-    if (![self.barcodeValidator isValidWithBarcode:barcode]) {
-        self.addingCardEnabled = NO;
-
-        UIAlertView *alertView =
-            [UIAlertView showErrorAlert:NSLocalizedString(@"Not valid barcode. Please try again.", nil)];
-        [alertView setDelegate:self];
-        return;
-    }
-
-    if ([barcode isEqualToString:self.lastBardcodeScanned]) {
-        return;
-    }
-
-    if ([self addCardAndDownloadDetails:barcode]) {
-        [BPAnalyticsHelper barcodeScanned:barcode type:sourceType];
-        [self.castView setInfoTextVisible:NO];
-        AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
-        self.lastBardcodeScanned = barcode;
-    }
 }
 
 #pragma mark - Key-Value Observing
@@ -209,22 +145,13 @@ objection_requires_sel(@selector(flashlightManager), @selector(barcodeValidator)
 
     [UIView animateWithDuration:kAnimationTime
         animations:^{
-            self.castView.infoTextLabel.alpha = self.stackViewController.cardCount > 0 ? 0.0 : 1.0;
-            self.stackViewController.view.alpha = 1.0;
+            self.resultsViewController.view.alpha = 1.0;
             self.scannerCodeViewController.hudView.alpha = 1.0;
-            self.stackViewController.view.alpha = 1.0;
-            self.castView.teachButton.alpha = 1.0;
             self.keyboardViewController.view.alpha = 0.0;
         }
         completion:^(BOOL finished) {
             [self.keyboardViewController.view removeFromSuperview];
-
-            self.castView.infoTextLabel.text = NSLocalizedString(@"Scan barcode", nil);
             self.keyboardViewController = nil;
-
-            if (self.stackViewController.cardCount != 0) {
-                [self.castView setInfoTextVisible:NO];
-            }
         }];
 }
 
@@ -246,22 +173,12 @@ objection_requires_sel(@selector(flashlightManager), @selector(barcodeValidator)
     [UIView animateWithDuration:kAnimationTime
         animations:^{
             self.keyboardViewController.view.alpha = 1.0;
-            self.stackViewController.view.alpha = 0.0;
+            self.resultsViewController.view.alpha = 0.0;
             self.scannerCodeViewController.hudView.alpha = 0.0;
-            self.castView.teachButton.alpha = 0.0;
         }
         completion:^(BOOL finished) {
             [self.keyboardViewController didMoveToParentViewController:self];
         }];
-
-    self.castView.infoTextLabel.text = NSLocalizedString(@"Type 13 digits", nil);
-    [self.castView setInfoTextVisible:YES];
-}
-
-#pragma mark - UIAlertViewDelegate
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    self.addingCardEnabled = YES;
 }
 
 #pragma mark - Helpers
@@ -270,59 +187,27 @@ objection_requires_sel(@selector(flashlightManager), @selector(barcodeValidator)
     return (BPScanCodeView *)self.view;
 }
 
-#pragma mark - BPStackViewControllerDelegate
-
-- (void)stackViewController:(CardStackViewController *)stackViewController willAddCard:(UIViewController *)card {
-    UIButton *teachButton = self.castView.teachButton;
-    teachButton.hidden = YES;
-    [teachButton setNeedsLayout];
-}
-
-- (void)stackViewController:(CardStackViewController *)stackViewController willExpandCard:(UIViewController *)card {
-    self.addingCardEnabled = NO;
-    self.castView.buttonsVisible = NO;
-}
-
-- (void)stackViewControllerDidCollapse:(CardStackViewController *)stackViewController {
-    self.addingCardEnabled = YES;
-    self.castView.buttonsVisible = YES;
-}
-
 #pragma mark - CodeScannerManagerDelegate
 
 - (void)didScanBarcode:(NSString *)barcode {
-    [self didFindBarcode:barcode sourceType:@"Camera"];
+    [self.resultsViewController addWithBarcodeCard:barcode sourceType:@"Camera"];
 }
 
 #pragma mark - BPKeyboardViewControllerDelegate
 
 - (void)keyboardViewController:(BPKeyboardViewController *)viewController didConfirmWithCode:(NSString *)code {
     [self hideKeyboardController];
-
-    [self didFindBarcode:code sourceType:@"Keyboard"];
+    [self.resultsViewController addWithBarcodeCard:code sourceType:@"Keyboard"];
 }
 
-#pragma mark - ScanResultViewControllerDelegate
+#pragma mark - ResultsViewControllerDelegate
 
-- (void)scanResultViewController:(ScanResultViewController *)vc didFailFetchingScanResultWithError:(NSError *)error {
-    UIAlertView *alertView = [UIAlertView
-        showErrorAlert:NSLocalizedString(@"Cannot fetch product info from server. Please try again.", nil)];
-    alertView.delegate = self;
-    [self.stackViewController removeCard:vc];
+- (void)resultsViewControllerDidCollapse {
+    self.castView.buttonsVisible = YES;
 }
 
-- (void)scanResultViewController:(ScanResultViewController *)vc didFetchResult:(BPScanResult *)result {
-    BOOL visible = result.askForPics;
-    UIButton *teachButton = self.castView.teachButton;
-    teachButton.hidden = !visible;
-    [teachButton setTitle:result.askForPicsPreview forState:UIControlStateNormal];
-    [teachButton setNeedsLayout];
-}
-
-- (void)scanResultViewControllerDidSentTeachReport:(ScanResultViewController *)vc {
-    UIButton *teachButton = self.castView.teachButton;
-    teachButton.hidden = YES;
-    [teachButton setNeedsLayout];
+- (void)resultsViewControllerWillExpandResult {
+    self.castView.buttonsVisible = NO;
 }
 
 @end

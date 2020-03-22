@@ -3,11 +3,6 @@ import UIKit
 @objc(BPScanCodeView)
 class ScanCodeView: UIView {
     
-    private let stackView: CardStackView
-    
-    @objc
-    let infoTextLabel = UILabel()
-        
     @objc
     let logoImageView = UIImageView(image: R.image.logoIcon())
     
@@ -21,32 +16,6 @@ class ScanCodeView: UIView {
     let keyboardButton = UIButton(type: .custom)
     
     @objc
-    let teachButton = UIButton(type: .custom)
-    
-    @objc
-    var videoLayer: CALayer? {
-        didSet {
-            if let oldValue = oldValue {
-                oldValue.removeFromSuperlayer()
-            }
-            guard let videoLayer = videoLayer  else {
-                return
-            }
-            videoLayer.frame = layer.bounds
-            layer.insertSublayer(videoLayer, at: 0)
-        }
-    }
-    
-    @objc
-    var infoTextVisible = true {
-        didSet {
-            UIView.animate(withDuration: 0.3) {
-                self.infoTextLabel.alpha = self.infoTextVisible ? 1.0 : 0.0
-            }
-        }
-    }
-    
-    @objc
     var buttonsVisible = true {
         didSet {
             let alpha = CGFloat(buttonsVisible ? 1.0 : 0.0)
@@ -54,12 +23,6 @@ class ScanCodeView: UIView {
                 self.menuButton.alpha = alpha
                 self.flashButton.alpha = alpha
                 self.keyboardButton.alpha = alpha
-                if self.buttonsVisible {
-                    self.teachButton.alpha = alpha
-                }
-            }
-            if !buttonsVisible {
-                teachButton.alpha = alpha
             }
         }
     }
@@ -67,24 +30,14 @@ class ScanCodeView: UIView {
     private let dimView = UIImageView(image: R.image.gradientImage())
 
     @objc
-    init(frame: CGRect, stackView: CardStackView) {
-        self.stackView = stackView
+    override init(frame: CGRect) {
         super.init(frame: frame)
         
         addSubview(dimView)
         
         logoImageView.sizeToFit()
         addSubview(logoImageView)
-        
-        infoTextLabel.numberOfLines = 4
-        infoTextLabel.font = Theme.titleFont
-        infoTextLabel.textColor = Theme.clearColor
-        infoTextLabel.textAlignment = .center
-        infoTextLabel.sizeToFit()
-        addSubview(infoTextLabel)
-        
-        addSubview(stackView)
-        
+                        
         flashButton.accessibilityLabel = R.string.localizable.accessibilityFlash()
         flashButton.setImage(R.image.flashIcon(), for: .normal)
         flashButton.setImage(R.image.flashSelectedIcon(), for: .selected)
@@ -101,17 +54,6 @@ class ScanCodeView: UIView {
         keyboardButton.setImage(R.image.keyboardSelectedIcon(), for: .selected)
         keyboardButton.sizeToFit()
         addSubview(keyboardButton)
-
-        teachButton.accessibilityLabel = R.string.localizable.accessibilityTeachPola()
-        teachButton.titleLabel?.font = Theme.buttonFont
-        teachButton.layer.borderColor = Theme.defaultTextColor.cgColor
-        teachButton.layer.borderWidth = 1
-        teachButton.setTitleColor(UIColor.black, for: .normal)
-        teachButton.setBackgroundImage(UIImage.image(color: UIColor.white.withAlphaComponent(0.7)), for: .normal)
-        teachButton.setBackgroundImage(UIImage.image(color: UIColor.white), for: .highlighted)
-        teachButton.sizeToFit()
-        teachButton.isHidden = true
-        addSubview(teachButton)
     }
     
     required init?(coder: NSCoder) {
@@ -122,11 +64,7 @@ class ScanCodeView: UIView {
         super.layoutSubviews()
         
         let scanCodeMargin = CGFloat(15.0)
-        let infoTextLabelBottomMargin = CGFloat(50.0)
-        let scanCodeTechButtonOffset = CGFloat(10.0)
-        let scanCodeTechButtonHeight = CGFloat(35.0)
 
-        stackView.frame = bounds
         dimView.frame = bounds
     
         let topY = topSafeAreaInset + scanCodeMargin
@@ -149,20 +87,6 @@ class ScanCodeView: UIView {
         rect.origin.x = (bounds.width / 2) - (rect.width / 2)
         rect.origin.y = menuButton.frame.minY + (menuButton.bounds.height / 2) - (rect.height / 2)
         logoImageView.frame = rect
-        
-        rect = infoTextLabel.frame
-        rect.size.width = bounds.width - (2 * scanCodeMargin)
-        rect.size.height = infoTextLabel.height(forWidth: rect.size.width)
-        rect.origin.x = scanCodeMargin
-        rect.origin.y = bounds.height - infoTextLabelBottomMargin - rect.height
-        infoTextLabel.frame = rect
-        
-        rect = teachButton.frame
-        rect.size.height = scanCodeTechButtonHeight
-        rect.size.width = bounds.width - (2 * scanCodeMargin)
-        rect.origin.x = scanCodeMargin
-        rect.origin.y = bounds.height - stackView.cardsHeight - scanCodeTechButtonHeight - scanCodeTechButtonOffset
-        teachButton.frame = rect
     }
 
 }

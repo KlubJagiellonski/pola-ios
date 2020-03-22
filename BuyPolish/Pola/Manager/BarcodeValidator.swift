@@ -1,11 +1,9 @@
 import Foundation
 
-@objc
 protocol BarcodeValidator {
     func isValid(barcode: String) -> Bool
 }
 
-@objc
 class EANBarcodeValidator: NSObject, BarcodeValidator {
     
     func isValid(barcode: String) -> Bool {
