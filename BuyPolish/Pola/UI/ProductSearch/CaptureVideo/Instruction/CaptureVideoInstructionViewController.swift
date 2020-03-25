@@ -50,12 +50,12 @@ class CaptureVideoInstructionViewController: UIViewController {
     }
     
     @objc
-    func close() {
+    private func close() {
         dismiss(animated: true, completion: nil)
     }
     
     @objc
-    func captureVideo() {
+    private func captureVideo() {
         let vc = DI.container.resolve(CaptureVideoViewController.self, argument: scanResult)!
         vc.delegate = delegate
         navigationController?.pushViewController(vc, animated: true)

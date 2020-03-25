@@ -41,5 +41,7 @@ class ScannerCodeView: UIView {
         rect.origin.x = (bounds.width / 2) - (rect.width / 2)
         rect.origin.y = (bounds.height / 2) - rect.height
         rectangleView.frame = rect
+        
+        videoLayer?.frame = layer.bounds
     }
 }

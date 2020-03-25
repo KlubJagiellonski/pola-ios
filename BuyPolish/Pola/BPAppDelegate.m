@@ -1,8 +1,5 @@
 
 #import "BPAppDelegate.h"
-#import "BPObjectionModule.h"
-#import "BPRootViewController.h"
-#import "JSObjection.h"
 #import <AVFoundation/AVFoundation.h>
 #import <Pola-Swift.h>
 
@@ -11,14 +8,11 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
     [BPAnalyticsHelper configure];
-    [self configureObjection];
 
     [self applyAppearance];
 
-    JSObjectionInjector *injector = [JSObjection defaultInjector];
-
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.rootViewController = injector [[BPRootViewController class]];
+    self.window.rootViewController = [[BPRootViewController alloc] init];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
 
@@ -36,11 +30,6 @@
     }
 
     return YES;
-}
-
-- (void)configureObjection {
-    JSObjectionInjector *defaultInjector = [JSObjection createInjectorWithModulesArray:@ [[BPObjectionModule new], ]];
-    [JSObjection setDefaultInjector:defaultInjector];
 }
 
 - (void)applyAppearance {

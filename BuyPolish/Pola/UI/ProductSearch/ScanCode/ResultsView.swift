@@ -5,7 +5,6 @@ class ResultsView: UIView {
     let infoTextLabel = UILabel()
     let teachButton = UIButton(type: .custom)
     
-    @objc
     init(frame: CGRect, stackView: CardStackView) {
         self.stackView = stackView
         super.init(frame: frame)

@@ -146,7 +146,7 @@ class CardStackView: UIView {
     }
     
     @objc
-    func didTapCard(recognizer: UITapGestureRecognizer) {
+    private func didTapCard(recognizer: UITapGestureRecognizer) {
         guard let view = recognizer.view else {
             return
         }
@@ -154,7 +154,7 @@ class CardStackView: UIView {
     }
     
     @objc
-    func didPanCard(recognizer: UIPanGestureRecognizer) {
+    private func didPanCard(recognizer: UIPanGestureRecognizer) {
         guard let view = recognizer.view else {
             return
         }

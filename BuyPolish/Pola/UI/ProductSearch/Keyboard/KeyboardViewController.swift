@@ -1,24 +1,16 @@
 import UIKit
 import AudioToolbox
 
-@objc(BPKeyboardViewControllerDelegate)
 protocol KeyboardViewControllerDelegate: class {
     func keyboardViewController(_ keyboardViewController: KeyboardViewController, didConfirmWithCode code: String)
 }
 
-@objc(BPKeyboardViewController)
 class KeyboardViewController: UIViewController {
     
     let barcodeValidator: BarcodeValidator
     
-    @objc
     weak var delegate: KeyboardViewControllerDelegate?
     
-    @objc
-    static func fromDiContainer() -> KeyboardViewController {
-        DI.container.resolve(KeyboardViewController.self)!
-    }
-
     init(barcodeValidator: BarcodeValidator) {
         self.barcodeValidator = barcodeValidator
         super.init(nibName: nil, bundle: nil)
@@ -45,7 +37,7 @@ class KeyboardViewController: UIViewController {
     }
     
     @objc
-    func enterNumber(sender: UIButton) {
+    private func enterNumber(sender: UIButton) {
         playSound()
         let number = sender.tag
         castedView.textView.insert(value: number)
@@ -53,7 +45,7 @@ class KeyboardViewController: UIViewController {
     }
     
     @objc
-    func confirm() {
+    private func confirm() {
         playSound()
         if let code = castedView.textView.code,
             barcodeValidator.isValid(barcode: code) {
@@ -64,7 +56,7 @@ class KeyboardViewController: UIViewController {
     }
     
     @objc
-    func playSoundAtRemove() {
+    private func playSoundAtRemove() {
         playSound()
     }
     

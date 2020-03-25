@@ -1,7 +1,6 @@
 import UIKit
 
 extension UIAlertView {
-    @objc
     class func showErrorAlert(_ errorMessage: String) -> UIAlertView {
         let alertView = UIAlertView(title: R.string.localizable.ouch(),
                                     message: errorMessage,

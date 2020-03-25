@@ -1,10 +1,8 @@
 import UIKit
 import AVFoundation
 
-@objc(BPVideoPlayerView)
 class VideoPlayerView: UIView {
     
-    @objc(playInLoopURL:)
     func playInLoop(url: URL) {
         let player = AVPlayer(url: url)
         player.isMuted = true
@@ -21,7 +19,6 @@ class VideoPlayerView: UIView {
         player.play()
     }
     
-    @objc
     func stop() {
         playerLayer.player?.pause()
     }

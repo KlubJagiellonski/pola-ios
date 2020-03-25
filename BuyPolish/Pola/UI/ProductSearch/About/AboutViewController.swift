@@ -1,7 +1,6 @@
 import UIKit
 import MessageUI
 
-@objc
 class AboutViewController: UITableViewController {
     
     enum Section: Int {
@@ -50,7 +49,7 @@ class AboutViewController: UITableViewController {
     }
     
     @objc
-    func close() {
+    private func close() {
         dismiss(animated: true, completion: nil)
     }
     
@@ -117,7 +116,7 @@ class AboutViewController: UITableViewController {
     // MARK: - Private
     
     private func performAction(row: AboutRow) {
-        AnalyticsHelper.aboutOpenedd(windowName: row.analitycsName)
+        AnalyticsHelper.aboutOpened(windowName: row.analitycsName)
         switch row.action {
         case .link(let url, let openInternal):
             performLinkAction(title: row.title, url: url, openInternal: openInternal)

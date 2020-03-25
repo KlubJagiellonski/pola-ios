@@ -13,17 +13,16 @@ final class AnalyticsHelper: NSObject {
         Crashlytics.sharedInstance().setUserIdentifier(UIDevice.current.deviceId)
     }
 
-    @objc
-    class func barcodeScanned(_ barcode: String, type: String) {
-        logEvent(name: .scan_code,
+    class func barcodeScanned(_ barcode: String, type: AnalyticsBarcodeSource) {
+        logEvent(name: .scanCode,
                  parameters:
             AnalyticsScanCodeParameters(code: barcode,
                                         device_id: UIDevice.current.deviceId,
-                                        source: type))
+                                        source: type.rawValue))
     }
 
     class func received(productResult: ScanResult) {
-        logEvent(name: .company_received,
+        logEvent(name: .companyReceived,
                  parameters:
             AnalyticsProductResultParameters(code: productResult.code,
                                             company: productResult.code,
@@ -33,7 +32,7 @@ final class AnalyticsHelper: NSObject {
     }
 
     class func opensCard(productResult: ScanResult) {
-        logEvent(name: .card_opened,
+        logEvent(name: .cardOpened,
                  parameters:
             AnalyticsProductResultParameters(code: productResult.code,
                                              company: productResult.code,
@@ -42,41 +41,29 @@ final class AnalyticsHelper: NSObject {
                                              ai_requested: nil))
     }
 
-    @objc(reportShown:)
     class func reportShown(barcode: String) {
-        logEvent(name: .report_started,
+        logEvent(name: .reportStarted,
                  parameters: reportParameters(barcode: barcode))
     }
 
-    @objc(reportSent:)
     class func reportSent(barcode: String?) {
-        logEvent(name: .report_finished,
+        logEvent(name: .reportFinished,
                  parameters: reportParameters(barcode: barcode))
-    }
-
-    @objc(aboutOpened:)
-    class func aboutOpened(windowName: String) {
-        logEvent(name: .menu_item_opened,
-                 parameters:
-            AnalyticsAboutParameters(item: windowName,
-                                      device_id: UIDevice.current.deviceId))
     }
     
-    class func aboutOpenedd(windowName: AnalitycsAboutRow) {
-        logEvent(name: .menu_item_opened,
+    class func aboutOpened(windowName: AnalitycsAboutRow) {
+        logEvent(name: .menuItemOpened,
                  parameters:
             AnalyticsAboutParameters(item: windowName.rawValue,
                                       device_id: UIDevice.current.deviceId))
     }
-    @objc(teachReportShow:)
     class func teachReportShow(barcode: String) {
-        logEvent(name: .aipics_started,
+        logEvent(name: .aipicsStarted,
                  parameters: reportParameters(barcode: barcode))
     }
 
-    @objc(teachReportSent:)
     class func teachReportSent(barcode: String) {
-        logEvent(name: .aipics_finished,
+        logEvent(name: .aipicsFinished,
                  parameters: reportParameters(barcode: barcode))
     }
 

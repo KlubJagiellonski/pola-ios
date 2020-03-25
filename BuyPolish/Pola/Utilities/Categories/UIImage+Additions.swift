@@ -1,7 +1,6 @@
 import UIKit
 
 extension UIImage {
-    @objc
     class func image(color: UIColor) ->  UIImage {
         let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
         UIGraphicsBeginImageContext(rect.size)
@@ -16,7 +15,6 @@ extension UIImage {
         return image
     }
     
-    @objc
     func scaled(toWidth width: CGFloat) -> UIImage {
         let scaleFactor = width / size.width
         let newSize = CGSize(width: width, height: size.height * scaleFactor)
@@ -24,7 +22,6 @@ extension UIImage {
         return scaled(toSize: newSize)
     }
     
-    @objc
     func scaled(toHeight height: CGFloat) -> UIImage {
         let scaleFactor = height / size.height
         let newSize = CGSize(width: size.width * scaleFactor, height: height)
@@ -52,12 +49,10 @@ extension UIImage {
         CGSize(width: widthInPixels, height: heightInPixels)
     }
     
-    @objc
     var widthInPixels: CGFloat {
         size.width * scale
     }
     
-    @objc
      var heightInPixels: CGFloat {
          size.height * scale
      }

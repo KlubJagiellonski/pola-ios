@@ -1,20 +1,12 @@
 import UIKit
 
-@objc
 class ScannerCodeViewController: UIViewController {
     private let codeScannerManager: CodeScannerManager
-    
-    @objc
-    static func fromDiContainer() -> ScannerCodeViewController {
-        DI.container.resolve(ScannerCodeViewController.self)!
-    }
-    
-    @objc
+        
     var hudView: UIView {
         castView.rectangleView
     }
     
-    @objc
     var scannerDelegate: CodeScannerManagerDelegate? {
         get {
             codeScannerManager.delegate
@@ -24,7 +16,6 @@ class ScannerCodeViewController: UIViewController {
         }
     }
     
-    @objc
     init(codeScannerManager: CodeScannerManager) {
         self.codeScannerManager = codeScannerManager
         super.init(nibName: nil, bundle: nil)

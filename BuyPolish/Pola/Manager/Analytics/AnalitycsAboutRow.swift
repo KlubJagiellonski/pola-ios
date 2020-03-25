@@ -1,6 +1,7 @@
 import Foundation
 
 enum AnalitycsAboutRow: String {
+    case menu = "About Menu"
     case aboutPola = "O aplikacji Pola"
     case instructionSet = "Metodologia"
     case aboutKJ = "O Klubie Jagiellońskim"

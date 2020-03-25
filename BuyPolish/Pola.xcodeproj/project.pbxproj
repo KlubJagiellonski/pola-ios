@@ -27,11 +27,8 @@
 		1DEFA1BF1BD9920600938C81 /* Lato-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1DEFA1BA1BD9920600938C81 /* Lato-Semibold.ttf */; };
 		1DEFA1C01BD9920600938C81 /* Lato-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1DEFA1BA1BD9920600938C81 /* Lato-Semibold.ttf */; };
 		3560B0CDF331B5B648D8B830 /* Pods_Pola.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21497E85EBCABF56D8745512 /* Pods_Pola.framework */; };
-		37B641D5FD17D93BC7B1901B /* BPRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64960EF3268FB825DD2FE /* BPRootViewController.m */; };
 		37B645454FC2ACC155CB1538 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B6472FF4603F63771FADE6 /* AVFoundation.framework */; };
-		37B649B3937D6158B554F509 /* BPObjectionModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64DFDBDE3A5CEE19D6FDB /* BPObjectionModule.m */; };
 		37B64B7D226FBFA23FFCA1C1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 37B645C93F848A6F598F96E2 /* Localizable.strings */; };
-		37B64BC8938BC7942D533D2F /* BPScanCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B64728A5FC383EB464DA9F /* BPScanCodeViewController.m */; };
 		8402E1D62309BB610065E850 /* AltResultContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402E1D52309BB610065E850 /* AltResultContentView.swift */; };
 		8403605A240BC1AE00073F6C /* CaptureVideoInstructionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84036059240BC1AE00073F6C /* CaptureVideoInstructionView.swift */; };
 		8403605C240BCBF600073F6C /* CaptureVideoInstructionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8403605B240BCBF600073F6C /* CaptureVideoInstructionViewController.swift */; };
@@ -114,6 +111,9 @@
 		9E188D93223063ED00325383 /* LaunchScreen.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E188D91223063EC00325383 /* LaunchScreen.xcassets */; };
 		9E43AF74242798780093627B /* ResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E43AF73242798780093627B /* ResultsView.swift */; };
 		9E43AF7624279F3D0093627B /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E43AF7524279F3D0093627B /* ResultsViewController.swift */; };
+		9E43AF78242BBC4C0093627B /* ScanCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E43AF77242BBC4C0093627B /* ScanCodeViewController.swift */; };
+		9E43AF7A242BE5FF0093627B /* AnalyticsBarcodeSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E43AF79242BE5FF0093627B /* AnalyticsBarcodeSource.swift */; };
+		9E43AF7C242BE8720093627B /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E43AF7B242BE8720093627B /* RootViewController.swift */; };
 		9E7399302409059C00E3C3FC /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E73992F2409059C00E3C3FC /* VideoPlayerView.swift */; };
 		9E7BE9452401503F0070BF8D /* ExtendedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7BE9442401503F0070BF8D /* ExtendedButton.swift */; };
 		9E7BE94924015B180070BF8D /* TeachPolaPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7BE94824015B180070BF8D /* TeachPolaPage.swift */; };
@@ -217,13 +217,7 @@
 		21497E85EBCABF56D8745512 /* Pods_Pola.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pola.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		353A5B3434B75B4C54FB4DBB /* Pods-Pola-PolaUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola-PolaUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pola-PolaUITests/Pods-Pola-PolaUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		3785987405128CA0B1DA9512 /* Pods-Pola.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pola/Pods-Pola.release.xcconfig"; sourceTree = "<group>"; };
-		37B643CE26D1B8399F9EBE5B /* BPObjectionModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPObjectionModule.h; sourceTree = "<group>"; };
-		37B64728A5FC383EB464DA9F /* BPScanCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPScanCodeViewController.m; sourceTree = "<group>"; };
 		37B6472FF4603F63771FADE6 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		37B64960EF3268FB825DD2FE /* BPRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPRootViewController.m; sourceTree = "<group>"; };
-		37B649C1631E9ADBA6B66CC7 /* BPRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPRootViewController.h; sourceTree = "<group>"; };
-		37B64D1B6193C0AD0D440566 /* BPScanCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPScanCodeViewController.h; sourceTree = "<group>"; };
-		37B64DFDBDE3A5CEE19D6FDB /* BPObjectionModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPObjectionModule.m; sourceTree = "<group>"; };
 		5310C93A6052FC9BA4E8C020 /* Pods-Pola.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pola/Pods-Pola.debug.xcconfig"; sourceTree = "<group>"; };
 		53F3B599F258259843E2755D /* Pods_Pola_PolaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pola_PolaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D7DD012073B8CCDD821A2D0 /* Pods-Pola-PolaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola-PolaTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pola-PolaTests/Pods-Pola-PolaTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -327,6 +321,9 @@
 		9E188D91223063EC00325383 /* LaunchScreen.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = LaunchScreen.xcassets; sourceTree = "<group>"; };
 		9E43AF73242798780093627B /* ResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsView.swift; sourceTree = "<group>"; };
 		9E43AF7524279F3D0093627B /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
+		9E43AF77242BBC4C0093627B /* ScanCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanCodeViewController.swift; sourceTree = "<group>"; };
+		9E43AF79242BE5FF0093627B /* AnalyticsBarcodeSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsBarcodeSource.swift; sourceTree = "<group>"; };
+		9E43AF7B242BE8720093627B /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		9E73992F2409059C00E3C3FC /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
 		9E7BE9442401503F0070BF8D /* ExtendedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedButton.swift; sourceTree = "<group>"; };
 		9E7BE94824015B180070BF8D /* TeachPolaPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeachPolaPage.swift; sourceTree = "<group>"; };
@@ -607,15 +604,6 @@
 			path = Categories;
 			sourceTree = "<group>";
 		};
-		37B647422EF95F37E48D11B2 /* Objection */ = {
-			isa = PBXGroup;
-			children = (
-				37B643CE26D1B8399F9EBE5B /* BPObjectionModule.h */,
-				37B64DFDBDE3A5CEE19D6FDB /* BPObjectionModule.m */,
-			);
-			path = Objection;
-			sourceTree = "<group>";
-		};
 		37B64977613F0A577613F7E4 /* ProductManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -641,8 +629,7 @@
 			isa = PBXGroup;
 			children = (
 				37B64540723CF4EABBB3AC70 /* ProductSearch */,
-				37B649C1631E9ADBA6B66CC7 /* BPRootViewController.h */,
-				37B64960EF3268FB825DD2FE /* BPRootViewController.m */,
+				9E43AF7B242BE8720093627B /* RootViewController.swift */,
 				841BB98A22D133A900234946 /* Theme.swift */,
 			);
 			path = UI;
@@ -655,7 +642,6 @@
 				C0DD0EBB1F1B399D00BF4B20 /* CaptureVideoManager */,
 				C092CF351F1F8007003174D1 /* CapturedImageManager */,
 				C06EE3361F20D6C0005B2B57 /* CapturedImagesUploadManager */,
-				37B647422EF95F37E48D11B2 /* Objection */,
 				37B64977613F0A577613F7E4 /* ProductManager */,
 				37B641361E13BB0824D5828D /* ReportManager */,
 				9EC3BC3623CDF26F00242B1E /* BPFlashlightManager.h */,
@@ -676,11 +662,10 @@
 			children = (
 				9EC3BC3B23CDF4FC00242B1E /* CardStackView */,
 				37B64697C3925583CD36B426 /* ProductCard */,
-				37B64D1B6193C0AD0D440566 /* BPScanCodeViewController.h */,
-				37B64728A5FC383EB464DA9F /* BPScanCodeViewController.m */,
 				9E43AF73242798780093627B /* ResultsView.swift */,
 				9E43AF7524279F3D0093627B /* ResultsViewController.swift */,
 				84B87FC92344084E007A6BFF /* ScanCodeView.swift */,
+				9E43AF77242BBC4C0093627B /* ScanCodeViewController.swift */,
 				84A81C5323EF30CF00464745 /* ScannerCodeView.swift */,
 				84A81C5923EFF91300464745 /* ScannerCodeViewController.swift */,
 			);
@@ -883,6 +868,7 @@
 			isa = PBXGroup;
 			children = (
 				84735A6323BB63B00053D1E5 /* AnalitycsAboutRow.swift */,
+				9E43AF79242BE5FF0093627B /* AnalyticsBarcodeSource.swift */,
 				BDA76B5B21DE64AB003E9FD6 /* AnalyticsEventName.swift */,
 				BDA76B5921DE6248003E9FD6 /* AnalyticsHelper.swift */,
 				BDA76B5D21DE64FD003E9FD6 /* AnalyticsParameters.swift */,
@@ -1104,7 +1090,6 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/KVNProgress/KVNProgress.framework",
-				"${BUILT_PRODUCTS_DIR}/Objection/Objection.framework",
 				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
 				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
 				"${BUILT_PRODUCTS_DIR}/Swinject/Swinject.framework",
@@ -1118,7 +1103,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KVNProgress.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Objection.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Swinject.framework",
@@ -1164,7 +1148,6 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/KVNProgress/KVNProgress.framework",
-				"${BUILT_PRODUCTS_DIR}/Objection/Objection.framework",
 				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
 				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
 				"${BUILT_PRODUCTS_DIR}/Swinject/Swinject.framework",
@@ -1177,7 +1160,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KVNProgress.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Objection.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Swinject.framework",
@@ -1270,7 +1252,6 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/KVNProgress/KVNProgress.framework",
-				"${BUILT_PRODUCTS_DIR}/Objection/Objection.framework",
 				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
 				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
 				"${BUILT_PRODUCTS_DIR}/Swinject/Swinject.framework",
@@ -1282,7 +1263,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KVNProgress.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Objection.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Swinject.framework",
@@ -1314,6 +1294,8 @@
 				845F78D523BA28F8008DDFDF /* ScanResult.swift in Sources */,
 				842E762E23E0D4CA00A5534B /* FileManager+Extension.swift in Sources */,
 				8477CFCD23CF201D00C72542 /* ReportImageView.swift in Sources */,
+				9E43AF7A242BE5FF0093627B /* AnalyticsBarcodeSource.swift in Sources */,
+				9E43AF78242BBC4C0093627B /* ScanCodeViewController.swift in Sources */,
 				BDA76B5E21DE64FD003E9FD6 /* AnalyticsParameters.swift in Sources */,
 				84D8B77223EA202800CD0ECB /* DataRequestFactory.swift in Sources */,
 				841F7D9E235675A2007BE3F6 /* UIView+Additions.swift in Sources */,
@@ -1327,7 +1309,6 @@
 				84A81C5623EFF2CA00464745 /* CodeScannerManager.swift in Sources */,
 				9EC3BC4B23CDF4FD00242B1E /* CardStackViewDelegate.swift in Sources */,
 				9EC3BC4923CDF4FD00242B1E /* CardStackViewLayout.swift in Sources */,
-				37B649B3937D6158B554F509 /* BPObjectionModule.m in Sources */,
 				9EC3BC4823CDF4FD00242B1E /* CardStackViewLayoutPick.swift in Sources */,
 				84633B3423F8113F0069219C /* KeyboardTextView.swift in Sources */,
 				9EC3BC4E23CDF4FD00242B1E /* CardStackViewLayoutExpanded.swift in Sources */,
@@ -1337,9 +1318,7 @@
 				9EC3BC3723CDF26F00242B1E /* BPFlashlightManager.m in Sources */,
 				846036F22418574A00982FC6 /* UIDevice+Additions.swift in Sources */,
 				845F78D323BA28E2008DDFDF /* ProductManager.swift in Sources */,
-				37B641D5FD17D93BC7B1901B /* BPRootViewController.m in Sources */,
 				849E40BB24119612006E1B76 /* CaptureVideoManager.swift in Sources */,
-				37B64BC8938BC7942D533D2F /* BPScanCodeViewController.m in Sources */,
 				84AAEDE0230B49DD006CA7EB /* UILabel+Additions.swift in Sources */,
 				841BB98B22D133A900234946 /* Theme.swift in Sources */,
 				84114A10233E19480081C531 /* UIAlertView+Additions.swift in Sources */,
@@ -1348,6 +1327,7 @@
 				84A81C5223EE21F300464745 /* ReportProblemReason.swift in Sources */,
 				842E763C23E47A3B00A5534B /* CreateReportRequestBody.swift in Sources */,
 				8406E62F233D5FC000B7313C /* SecondaryProgressView.swift in Sources */,
+				9E43AF7C242BE8720093627B /* RootViewController.swift in Sources */,
 				8488E20F23D1067000817671 /* ReportProblemViewController.swift in Sources */,
 				9EC3BC4F23CDF4FD00242B1E /* CardStackViewControllerCard.swift in Sources */,
 				8403605A240BC1AE00073F6C /* CaptureVideoInstructionView.swift in Sources */,

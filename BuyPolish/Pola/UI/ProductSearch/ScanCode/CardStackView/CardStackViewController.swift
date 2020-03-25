@@ -1,20 +1,16 @@
 import UIKit
 
-@objc
 class CardStackViewController: UIViewController {
     
-    @objc
     private(set) var cards = [UIViewController]()
     private var castedView: CardStackView {
         view as! CardStackView
     }
     
-    @objc
     var cardCount: Int {
         cards.count
     }
     
-    @objc
     weak var delegate: CardStackViewControllerDelegate?
     
     override func loadView() {
@@ -26,7 +22,6 @@ class CardStackViewController: UIViewController {
         castedView.delegate = self
     }
     
-    @objc(addCard:)
     func add(card: UIViewController) -> Bool {
         cards.append(card)
         addChild(card)
@@ -35,7 +30,6 @@ class CardStackViewController: UIViewController {
         return result
     }
     
-    @objc(removeCard:)
     func remove(card: UIViewController) {
         guard !cards.contains(card) else {
             return

@@ -1,21 +1,12 @@
 import UIKit
 
-@objc(BPScanCodeView)
 class ScanCodeView: UIView {
     
-    @objc
     let logoImageView = UIImageView(image: R.image.logoIcon())
-    
-    @objc
     let menuButton = UIButton(type: .custom)
-    
-    @objc
     let flashButton = UIButton(type: .custom)
-    
-    @objc
     let keyboardButton = UIButton(type: .custom)
     
-    @objc
     var buttonsVisible = true {
         didSet {
             let alpha = CGFloat(buttonsVisible ? 1.0 : 0.0)
@@ -29,7 +20,6 @@ class ScanCodeView: UIView {
     
     private let dimView = UIImageView(image: R.image.gradientImage())
 
-    @objc
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -42,8 +32,8 @@ class ScanCodeView: UIView {
         flashButton.setImage(R.image.flashIcon(), for: .normal)
         flashButton.setImage(R.image.flashSelectedIcon(), for: .selected)
         flashButton.sizeToFit()
-        insertSubview(flashButton, belowSubview: logoImageView)
-        
+        addSubview(flashButton)
+
         menuButton.accessibilityLabel = R.string.localizable.accessibilityInfo()
         menuButton.setImage(R.image.burgerIcon(), for: .normal)
         menuButton.sizeToFit()
@@ -68,25 +58,25 @@ class ScanCodeView: UIView {
         dimView.frame = bounds
     
         let topY = topSafeAreaInset + scanCodeMargin
-        var rect = keyboardButton.frame
-        rect.origin.x = scanCodeMargin
-        rect.origin.y = topY
-        keyboardButton.frame = rect
+        keyboardButton.frameOrigin = CGPoint(x: scanCodeMargin, y: topY)
         
-        rect = flashButton.frame
-        rect.origin.x = scanCodeMargin
-        rect.origin.y = scanCodeMargin + keyboardButton.frame.maxY
-        flashButton.frame = frame
+        flashButton.frameOrigin = CGPoint(
+            x: scanCodeMargin,
+            y: scanCodeMargin + keyboardButton.frame.maxY
+        )
         
-        rect = menuButton.frame
-        rect.origin.x = bounds.width - scanCodeMargin - rect.width
-        rect.origin.y = topY
-        menuButton.frame = rect
-        
-        rect = logoImageView.frame
-        rect.origin.x = (bounds.width / 2) - (rect.width / 2)
-        rect.origin.y = menuButton.frame.minY + (menuButton.bounds.height / 2) - (rect.height / 2)
-        logoImageView.frame = rect
+        menuButton.frameOrigin = CGPoint(
+            x: bounds.width - scanCodeMargin - menuButton.bounds.width,
+            y: topY
+        )
+
+        logoImageView.frameOrigin = CGPoint(
+            x: (bounds.width / 2) - (logoImageView.bounds.width / 2),
+            y: menuButton.frame.minY
+                + (menuButton.bounds.height / 2)
+                - (logoImageView.bounds.height / 2)
+        )
+
     }
 
 }

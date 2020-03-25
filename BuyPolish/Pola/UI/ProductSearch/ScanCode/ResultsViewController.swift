@@ -1,18 +1,15 @@
 import UIKit
 import AudioToolbox
 
-@objc
 protocol ResultsViewControllerDelegate: class {
     func resultsViewControllerWillExpandResult()
     func resultsViewControllerDidCollapse()
 }
 
-@objc
 class ResultsViewController: UIViewController {
     private let stackViewController = CardStackViewController()
     private let barcodeValidator: BarcodeValidator
     
-    @objc
     weak var delegate: ResultsViewControllerDelegate?
     
     fileprivate var isAddingCardEnabled: Bool = true {
@@ -24,12 +21,7 @@ class ResultsViewController: UIViewController {
     private var lastResultViewController: ScanResultViewController? {
         stackViewController.cards.last as? ScanResultViewController
     }
-    
-    @objc
-    static func fromDiContainer() -> ResultsViewController {
-        DI.container.resolve(ResultsViewController.self)!
-    }
-    
+        
     init(barcodeValidator: BarcodeValidator) {
         self.barcodeValidator = barcodeValidator
         super.init(nibName: nil, bundle: nil)
@@ -55,8 +47,7 @@ class ResultsViewController: UIViewController {
         castedView.teachButton.addTarget(self, action: #selector(teachTapped), for: .touchUpInside)
     }
     
-    @objc
-    func add(barcodeCard barcode: String, sourceType: String) {
+    func add(barcodeCard barcode: String, sourceType: AnalyticsBarcodeSource) {
         guard isAddingCardEnabled,
             lastResultViewController?.barcode != barcode else {
             return

@@ -20,7 +20,6 @@ class ScanResultViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
-    @objc
     convenience init(barcode: String) {
         self.init(barcode: barcode, productManager: DI.container.resolve(ProductManager.self)!)
     }
@@ -119,7 +118,7 @@ class ScanResultViewController: UIViewController {
     }
     
     @objc
-    func reportProblemTapped() {
+    private func reportProblemTapped() {
         guard let productId = scanResult?.productId else {
             return
         }

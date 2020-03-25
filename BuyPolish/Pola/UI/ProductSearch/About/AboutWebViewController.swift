@@ -1,11 +1,9 @@
 import UIKit
 
-@objc(BPAboutWebViewController)
 class AboutWebViewController: UIViewController {
     
     private let url: String
     
-    @objc
     init(url: String, title: String) {
         self.url = url
         super.init(nibName: nil, bundle: nil)

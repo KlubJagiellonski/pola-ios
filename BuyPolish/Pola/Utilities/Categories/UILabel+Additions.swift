@@ -2,7 +2,6 @@ import UIKit
 
 extension UILabel {
 
-    @objc
     func height(forWidth width: CGFloat) -> CGFloat {
         guard let text = text,
             let font = font else {

@@ -46,7 +46,7 @@ class CompanyContentViewController: UIViewController {
     }
     
     @objc
-    func friendTapped() {
+    private func friendTapped() {
         let webViewController = AboutWebViewController(url: "https://www.pola-app.pl/m/friends",
                                                        title: R.string.localizable.polaSFriends())
         let closeButtonItem =
@@ -58,7 +58,7 @@ class CompanyContentViewController: UIViewController {
     }
     
     @objc
-    func closeWebViewTapped() {
+    private func closeWebViewTapped() {
         dismiss(animated: true, completion: nil)
     }
     

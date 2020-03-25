@@ -41,6 +41,10 @@ class DI {
             EANBarcodeValidator()
         }
 
+        container.register(BPFlashlightManager.self) { _ in
+            BPFlashlightManager()
+        }
+
         container.register(ProductManager.self) { resolver in
             ProductManager(dataRequestFactory: resolver.resolve(DataRequestFactory.self)!)
         }
@@ -105,6 +109,10 @@ class DI {
             ResultsViewController(barcodeValidator: resolver.resolve(BarcodeValidator.self)!)
         }
         
+        container.register(ScanCodeViewController.self) { resolver in
+            ScanCodeViewController(flashlightManager: resolver.resolve(BPFlashlightManager.self)!)
+        }
+
         return container
     }()
     
