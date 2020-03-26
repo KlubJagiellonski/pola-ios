@@ -1,6 +1,5 @@
 import UIKit
 
-@objc(BPRootViewController)
 class RootViewController: UINavigationController {
     
     init() {
@@ -17,12 +16,10 @@ class RootViewController: UINavigationController {
         viewControllers.first as! ScanCodeViewController
     }
     
-    @objc
     func showScanCodeView() {
         scanCodeViewController.showScanCodeView()
     }
     
-    @objc
     func showWriteCodeView() {
         scanCodeViewController.showWriteCodeView()
     }

@@ -2,10 +2,8 @@ import Foundation
 import Firebase
 import Crashlytics
 
-@objc(BPAnalyticsHelper)
 final class AnalyticsHelper: NSObject {
 
-    @objc
     class func configure() {
         if (firebaseAvailable) {
             FirebaseApp.configure()

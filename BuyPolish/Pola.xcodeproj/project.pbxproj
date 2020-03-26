@@ -13,7 +13,6 @@
 		1D08E82D19A7621A00879BD2 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D08E82C19A7621A00879BD2 /* CoreData.framework */; };
 		1D08E83319A7621A00879BD2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1D08E83119A7621A00879BD2 /* InfoPlist.strings */; };
 		1D08E83519A7621A00879BD2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D08E83419A7621A00879BD2 /* main.m */; };
-		1D08E83919A7621A00879BD2 /* BPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D08E83819A7621A00879BD2 /* BPAppDelegate.m */; };
 		1D08E83E19A7621A00879BD2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1D08E83D19A7621A00879BD2 /* Images.xcassets */; };
 		1D08E84519A7621A00879BD2 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D08E84419A7621A00879BD2 /* XCTest.framework */; };
 		1D08E84619A7621A00879BD2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D08E82619A7621A00879BD2 /* Foundation.framework */; };
@@ -114,6 +113,7 @@
 		9E43AF78242BBC4C0093627B /* ScanCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E43AF77242BBC4C0093627B /* ScanCodeViewController.swift */; };
 		9E43AF7A242BE5FF0093627B /* AnalyticsBarcodeSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E43AF79242BE5FF0093627B /* AnalyticsBarcodeSource.swift */; };
 		9E43AF7C242BE8720093627B /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E43AF7B242BE8720093627B /* RootViewController.swift */; };
+		9E43AF7E242BEB2C0093627B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E43AF7D242BEB2C0093627B /* AppDelegate.swift */; };
 		9E7399302409059C00E3C3FC /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E73992F2409059C00E3C3FC /* VideoPlayerView.swift */; };
 		9E7BE9452401503F0070BF8D /* ExtendedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7BE9442401503F0070BF8D /* ExtendedButton.swift */; };
 		9E7BE94924015B180070BF8D /* TeachPolaPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7BE94824015B180070BF8D /* TeachPolaPage.swift */; };
@@ -202,8 +202,6 @@
 		1D08E83019A7621A00879BD2 /* Pola-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Pola-Info.plist"; sourceTree = "<group>"; };
 		1D08E83419A7621A00879BD2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1D08E83619A7621A00879BD2 /* Pola-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pola-Prefix.pch"; sourceTree = "<group>"; };
-		1D08E83719A7621A00879BD2 /* BPAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BPAppDelegate.h; sourceTree = "<group>"; };
-		1D08E83819A7621A00879BD2 /* BPAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BPAppDelegate.m; sourceTree = "<group>"; };
 		1D08E83D19A7621A00879BD2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		1D08E84319A7621A00879BD2 /* PolaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PolaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D08E84419A7621A00879BD2 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -324,6 +322,7 @@
 		9E43AF77242BBC4C0093627B /* ScanCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanCodeViewController.swift; sourceTree = "<group>"; };
 		9E43AF79242BE5FF0093627B /* AnalyticsBarcodeSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsBarcodeSource.swift; sourceTree = "<group>"; };
 		9E43AF7B242BE8720093627B /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
+		9E43AF7D242BEB2C0093627B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9E73992F2409059C00E3C3FC /* VideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
 		9E7BE9442401503F0070BF8D /* ExtendedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedButton.swift; sourceTree = "<group>"; };
 		9E7BE94824015B180070BF8D /* TeachPolaPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeachPolaPage.swift; sourceTree = "<group>"; };
@@ -460,8 +459,7 @@
 				1D08E82F19A7621A00879BD2 /* SupportingFiles */,
 				37B64C9D505D36B4936A79BA /* UI */,
 				37B6461671AB44842A0700D7 /* Utilities */,
-				1D08E83719A7621A00879BD2 /* BPAppDelegate.h */,
-				1D08E83819A7621A00879BD2 /* BPAppDelegate.m */,
+				9E43AF7D242BEB2C0093627B /* AppDelegate.swift */,
 				1D08E83D19A7621A00879BD2 /* Images.xcassets */,
 				8455A7EE220D527200F30845 /* LaunchScreen.storyboard */,
 				9E188D91223063EC00325383 /* LaunchScreen.xcassets */,
@@ -1283,7 +1281,6 @@
 			files = (
 				842E763E23E4839B00A5534B /* CreateReportResponseBody.swift in Sources */,
 				84D887A52337A4B300681C64 /* ResultContentViewControllerFactory.swift in Sources */,
-				1D08E83919A7621A00879BD2 /* BPAppDelegate.m in Sources */,
 				1D08E83519A7621A00879BD2 /* main.m in Sources */,
 				9EC3BC4C23CDF4FD00242B1E /* CardStackViewControllerDelegate.swift in Sources */,
 				9EC3BC6923D50BD000242B1E /* ProductImageManager.swift in Sources */,
@@ -1347,6 +1344,7 @@
 				9EC3BC3123CDE3D600242B1E /* ScanResultView.swift in Sources */,
 				9E7399302409059C00E3C3FC /* VideoPlayerView.swift in Sources */,
 				84735A6A23BB92C80053D1E5 /* AboutViewController.swift in Sources */,
+				9E43AF7E242BEB2C0093627B /* AppDelegate.swift in Sources */,
 				8402E1D62309BB610065E850 /* AltResultContentView.swift in Sources */,
 				84B87FCA2344084E007A6BFF /* ScanCodeView.swift in Sources */,
 				841DDD682311583E00CB82DC /* ScanResultViewController.swift in Sources */,
