@@ -12,7 +12,6 @@
 		1D08E82B19A7621A00879BD2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D08E82A19A7621A00879BD2 /* UIKit.framework */; };
 		1D08E82D19A7621A00879BD2 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D08E82C19A7621A00879BD2 /* CoreData.framework */; };
 		1D08E83319A7621A00879BD2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1D08E83119A7621A00879BD2 /* InfoPlist.strings */; };
-		1D08E83519A7621A00879BD2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D08E83419A7621A00879BD2 /* main.m */; };
 		1D08E83E19A7621A00879BD2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1D08E83D19A7621A00879BD2 /* Images.xcassets */; };
 		1D08E84519A7621A00879BD2 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D08E84419A7621A00879BD2 /* XCTest.framework */; };
 		1D08E84619A7621A00879BD2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D08E82619A7621A00879BD2 /* Foundation.framework */; };
@@ -200,7 +199,6 @@
 		1D08E82A19A7621A00879BD2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		1D08E82C19A7621A00879BD2 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		1D08E83019A7621A00879BD2 /* Pola-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Pola-Info.plist"; sourceTree = "<group>"; };
-		1D08E83419A7621A00879BD2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1D08E83619A7621A00879BD2 /* Pola-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pola-Prefix.pch"; sourceTree = "<group>"; };
 		1D08E83D19A7621A00879BD2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		1D08E84319A7621A00879BD2 /* PolaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PolaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -480,7 +478,6 @@
 				1D08E83019A7621A00879BD2 /* Pola-Info.plist */,
 				1D08E83619A7621A00879BD2 /* Pola-Prefix.pch */,
 				C0D829781F3D11A600902F79 /* capture_video_instruction.mov */,
-				1D08E83419A7621A00879BD2 /* main.m */,
 			);
 			path = SupportingFiles;
 			sourceTree = "<group>";
@@ -1184,7 +1181,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$SRCROOT/Pola/R.generated.swift",
+				$SRCROOT/Pola/R.generated.swift,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1281,7 +1278,6 @@
 			files = (
 				842E763E23E4839B00A5534B /* CreateReportResponseBody.swift in Sources */,
 				84D887A52337A4B300681C64 /* ResultContentViewControllerFactory.swift in Sources */,
-				1D08E83519A7621A00879BD2 /* main.m in Sources */,
 				9EC3BC4C23CDF4FD00242B1E /* CardStackViewControllerDelegate.swift in Sources */,
 				9EC3BC6923D50BD000242B1E /* ProductImageManager.swift in Sources */,
 				84601A3A2405B5B900AD2A2D /* BarcodeValidator.swift in Sources */,

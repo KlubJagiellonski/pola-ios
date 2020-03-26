@@ -1,7 +1,7 @@
 import UIKit
 import AVFoundation
 
-@objc(BPAppDelegate)
+@UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
