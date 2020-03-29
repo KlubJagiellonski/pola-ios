@@ -1,14 +1,15 @@
 import UIKit
+import Observable
 
 class ScanCodeViewController: UIViewController {
     private var keyboardViewController: KeyboardViewController?
-    @objc private dynamic let flashlightManager: BPFlashlightManager
+    private let flashlightManager: FlashlightManager
     private let scannerCodeViewController: ScannerCodeViewController
     fileprivate let resultsViewController: ResultsViewController
-    private var flashlightObservation: NSKeyValueObservation?
     private let animationTime = TimeInterval(0.15)
+    private var disposable: Disposable?
 
-    init(flashlightManager: BPFlashlightManager) {
+    init(flashlightManager: FlashlightManager) {
         self.flashlightManager = flashlightManager
         scannerCodeViewController = DI.container.resolve(ScannerCodeViewController.self)!
         resultsViewController = DI.container.resolve(ResultsViewController.self)!
@@ -60,18 +61,15 @@ class ScanCodeViewController: UIViewController {
         super.viewWillAppear(animated)
         
         let flashButton = castedView.flashButton
-        flashlightObservation = observe(\.flashlightManager.isOn,
-                options: [.old, .new]) { [flashButton] _, change in
-                    if let value = change.newValue {
-                        flashButton.isSelected = value
-                    }
+        disposable = flashlightManager.isOn.observe { [flashButton] (newValue, _) in
+            flashButton.isSelected = newValue
         }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        flashlightObservation?.invalidate()
-        flashlightObservation = nil
+        disposable?.dispose()
+        disposable = nil
     }
     
     override func viewDidLayoutSubviews() {

@@ -61,6 +61,7 @@ PODS:
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
+  - Observable (2.0.1)
   - PromiseKit/Alamofire (6.12.0):
     - Alamofire (~> 4.0)
     - PromiseKit/CorePromise
@@ -79,6 +80,7 @@ DEPENDENCIES:
   - Firebase/Analytics (~> 6.1.0)
   - iOSSnapshotTestCase
   - KVNProgress
+  - Observable
   - PromiseKit/Alamofire
   - R.swift
   - Swifter (~> 1.4.7)
@@ -99,6 +101,7 @@ SPEC REPOS:
     - iOSSnapshotTestCase
     - KVNProgress
     - nanopb
+    - Observable
     - PromiseKit
     - R.swift
     - R.swift.Library
@@ -119,6 +122,7 @@ SPEC CHECKSUMS:
   iOSSnapshotTestCase: 415bd84f9dbba4ff45fede49d800bc7332fbedac
   KVNProgress: 4697347e21e37fdaa5264ebc24e377c205a50328
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  Observable: c94150db5a2e43391d46a247bd395ce1a544b81a
   PromiseKit: c06835ba442ce5454ce3cdde470232804a6e4ff8
   R.swift: f5a87643b91ea569d23d6afb3eee9c743edde239
   R.swift.Library: cfe85d569d9bae6cb262922db130e7c3a7a5fad1
@@ -126,6 +130,6 @@ SPEC CHECKSUMS:
   Swinject: ddf78b8486dd9b71a667b852cad919ab4484478e
   "UITextView+Placeholder": c407b27599ea23cca425946fee3cf1db5d547008
 
-PODFILE CHECKSUM: 857352919fc840abe6fbbd17797b41ef3bb54c10
+PODFILE CHECKSUM: 0bf7e8d0b6d2b449c8715f45f4f3ed6364704004
 
 COCOAPODS: 1.9.0

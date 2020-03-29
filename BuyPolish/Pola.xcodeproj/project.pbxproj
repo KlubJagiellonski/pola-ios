@@ -150,7 +150,6 @@
 		9EC3BC2C23CDD9D100242B1E /* ScanBarcodePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E708282280A40300402E26 /* ScanBarcodePage.swift */; };
 		9EC3BC3123CDE3D600242B1E /* ScanResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841DDD652311582800CB82DC /* ScanResultView.swift */; };
 		9EC3BC3323CDE3F800242B1E /* AltResultContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D8879E2336601700681C64 /* AltResultContentViewController.swift */; };
-		9EC3BC3723CDF26F00242B1E /* BPFlashlightManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC3BC3523CDF26F00242B1E /* BPFlashlightManager.m */; };
 		9EC3BC4623CDF4FD00242B1E /* CardStackViewLayoutContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC3BC3C23CDF4FC00242B1E /* CardStackViewLayoutContext.swift */; };
 		9EC3BC4723CDF4FD00242B1E /* CardStackViewLayoutLayoutCollapsed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC3BC3D23CDF4FC00242B1E /* CardStackViewLayoutLayoutCollapsed.swift */; };
 		9EC3BC4823CDF4FD00242B1E /* CardStackViewLayoutPick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC3BC3E23CDF4FC00242B1E /* CardStackViewLayoutPick.swift */; };
@@ -167,6 +166,7 @@
 		9EC3BC5C23CDFA2500242B1E /* AboutDoubleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC3BC5823CDFA2500242B1E /* AboutDoubleCell.swift */; };
 		9EC3BC5D23CDFA2500242B1E /* AboutSingleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC3BC5923CDFA2500242B1E /* AboutSingleCell.swift */; };
 		9EC3BC6923D50BD000242B1E /* ProductImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC3BC6823D50BD000242B1E /* ProductImageManager.swift */; };
+		9EDFECF5242FB773009D8893 /* FlashlightManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDFECF4242FB773009D8893 /* FlashlightManager.swift */; };
 		BDA76B5121DCD718003E9FD6 /* Encodable+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA76B5021DCD718003E9FD6 /* Encodable+Utilities.swift */; };
 		BDA76B5A21DE6248003E9FD6 /* AnalyticsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA76B5921DE6248003E9FD6 /* AnalyticsHelper.swift */; };
 		BDA76B5C21DE64AB003E9FD6 /* AnalyticsEventName.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA76B5B21DE64AB003E9FD6 /* AnalyticsEventName.swift */; };
@@ -344,8 +344,6 @@
 		9EC3BC0B23CDD76C00242B1E /* lomza.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lomza.json; sourceTree = "<group>"; };
 		9EC3BC0C23CDD76C00242B1E /* tymbark.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = tymbark.json; sourceTree = "<group>"; };
 		9EC3BC0D23CDD76C00242B1E /* MockServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockServer.swift; sourceTree = "<group>"; };
-		9EC3BC3523CDF26F00242B1E /* BPFlashlightManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPFlashlightManager.m; sourceTree = "<group>"; };
-		9EC3BC3623CDF26F00242B1E /* BPFlashlightManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPFlashlightManager.h; sourceTree = "<group>"; };
 		9EC3BC3C23CDF4FC00242B1E /* CardStackViewLayoutContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardStackViewLayoutContext.swift; sourceTree = "<group>"; };
 		9EC3BC3D23CDF4FC00242B1E /* CardStackViewLayoutLayoutCollapsed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardStackViewLayoutLayoutCollapsed.swift; sourceTree = "<group>"; };
 		9EC3BC3E23CDF4FC00242B1E /* CardStackViewLayoutPick.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardStackViewLayoutPick.swift; sourceTree = "<group>"; };
@@ -362,9 +360,8 @@
 		9EC3BC5823CDFA2500242B1E /* AboutDoubleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutDoubleCell.swift; sourceTree = "<group>"; };
 		9EC3BC5923CDFA2500242B1E /* AboutSingleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutSingleCell.swift; sourceTree = "<group>"; };
 		9EC3BC6823D50BD000242B1E /* ProductImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductImageManager.swift; sourceTree = "<group>"; };
-		BDA76B3A21DC34A3003E9FD6 /* Pola-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pola-Bridging-Header.h"; sourceTree = "<group>"; };
+		9EDFECF4242FB773009D8893 /* FlashlightManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashlightManager.swift; sourceTree = "<group>"; };
 		BDA76B5021DCD718003E9FD6 /* Encodable+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+Utilities.swift"; sourceTree = "<group>"; };
-		BDA76B5321DCDBD1003E9FD6 /* PolaTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PolaTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		BDA76B5921DE6248003E9FD6 /* AnalyticsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsHelper.swift; sourceTree = "<group>"; };
 		BDA76B5B21DE64AB003E9FD6 /* AnalyticsEventName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsEventName.swift; sourceTree = "<group>"; };
 		BDA76B5D21DE64FD003E9FD6 /* AnalyticsParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsParameters.swift; sourceTree = "<group>"; };
@@ -461,7 +458,6 @@
 				1D08E83D19A7621A00879BD2 /* Images.xcassets */,
 				8455A7EE220D527200F30845 /* LaunchScreen.storyboard */,
 				9E188D91223063EC00325383 /* LaunchScreen.xcassets */,
-				BDA76B3A21DC34A3003E9FD6 /* Pola-Bridging-Header.h */,
 				84F177E022CAD3F700238266 /* R.generated.swift */,
 			);
 			path = Pola;
@@ -490,7 +486,6 @@
 				9EC3BBF423CDD74000242B1E /* Utilities */,
 				84601A3D2405C47600AD2A2D /* EANBarcodeValidatorTests.swift */,
 				848C6921225D044300D39E90 /* LaunchScreenSnapshotTests.swift */,
-				BDA76B5321DCDBD1003E9FD6 /* PolaTests-Bridging-Header.h */,
 				847AE94523072E8F00E645ED /* ReferenceImages_64 */,
 			);
 			path = PolaTests;
@@ -639,12 +634,11 @@
 				C06EE3361F20D6C0005B2B57 /* CapturedImagesUploadManager */,
 				37B64977613F0A577613F7E4 /* ProductManager */,
 				37B641361E13BB0824D5828D /* ReportManager */,
-				9EC3BC3623CDF26F00242B1E /* BPFlashlightManager.h */,
-				9EC3BC3523CDF26F00242B1E /* BPFlashlightManager.m */,
 				84601A392405B5B900AD2A2D /* BarcodeValidator.swift */,
 				84A81C5723EFF42200464745 /* CameraSessionCodeScannerManager.swift */,
 				84A81C5523EFF2CA00464745 /* CodeScannerManager.swift */,
 				8477CFCA23CE17B100C72542 /* DIContainer.swift */,
+				9EDFECF4242FB773009D8893 /* FlashlightManager.swift */,
 				842E762F23E434CD00A5534B /* KeyboardManager.swift */,
 				842E762B23E0CDA500A5534B /* LocalDocumentsProductImageManager.swift */,
 				9EC3BC6823D50BD000242B1E /* ProductImageManager.swift */,
@@ -1085,6 +1079,7 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/KVNProgress/KVNProgress.framework",
+				"${BUILT_PRODUCTS_DIR}/Observable/Observable.framework",
 				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
 				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
 				"${BUILT_PRODUCTS_DIR}/Swinject/Swinject.framework",
@@ -1098,6 +1093,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KVNProgress.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Observable.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Swinject.framework",
@@ -1143,6 +1139,7 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/KVNProgress/KVNProgress.framework",
+				"${BUILT_PRODUCTS_DIR}/Observable/Observable.framework",
 				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
 				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
 				"${BUILT_PRODUCTS_DIR}/Swinject/Swinject.framework",
@@ -1155,6 +1152,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KVNProgress.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Observable.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Swinject.framework",
@@ -1181,7 +1179,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				$SRCROOT/Pola/R.generated.swift,
+				"$SRCROOT/Pola/R.generated.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1247,6 +1245,7 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/KVNProgress/KVNProgress.framework",
+				"${BUILT_PRODUCTS_DIR}/Observable/Observable.framework",
 				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
 				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
 				"${BUILT_PRODUCTS_DIR}/Swinject/Swinject.framework",
@@ -1258,6 +1257,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KVNProgress.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Observable.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Swinject.framework",
@@ -1281,6 +1281,7 @@
 				9EC3BC4C23CDF4FD00242B1E /* CardStackViewControllerDelegate.swift in Sources */,
 				9EC3BC6923D50BD000242B1E /* ProductImageManager.swift in Sources */,
 				84601A3A2405B5B900AD2A2D /* BarcodeValidator.swift in Sources */,
+				9EDFECF5242FB773009D8893 /* FlashlightManager.swift in Sources */,
 				849E40C724142DE8006E1B76 /* AddAiPicsResponseBody.swift in Sources */,
 				849E40C32413F024006E1B76 /* TimerBlock.swift in Sources */,
 				84A81C4E23EE11B000464745 /* PolaRequestFactory.swift in Sources */,
@@ -1308,7 +1309,6 @@
 				842E762C23E0CDA500A5534B /* LocalDocumentsProductImageManager.swift in Sources */,
 				842E763023E434CD00A5534B /* KeyboardManager.swift in Sources */,
 				9EC3BC4D23CDF4FD00242B1E /* CardStackViewController.swift in Sources */,
-				9EC3BC3723CDF26F00242B1E /* BPFlashlightManager.m in Sources */,
 				846036F22418574A00982FC6 /* UIDevice+Additions.swift in Sources */,
 				845F78D323BA28E2008DDFDF /* ProductManager.swift in Sources */,
 				849E40BB24119612006E1B76 /* CaptureVideoManager.swift in Sources */,
@@ -1597,7 +1597,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kj.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "Pola/Pola-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1631,7 +1630,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kj.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "Pola/Pola-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/Pods\"/**";
@@ -1661,7 +1659,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kj.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "PolaTests/PolaTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUNDLE_LOADER)";
@@ -1688,7 +1685,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kj.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "PolaTests/PolaTests-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
