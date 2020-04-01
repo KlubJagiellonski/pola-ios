@@ -1,6 +1,6 @@
 import UIKit
 
-class CaptureVideoInstructionViewController: UIViewController {
+final class CaptureVideoInstructionViewController: UIViewController {
     let scanResult: ScanResult
     weak var delegate: CaptureVideoViewControllerDelegate?
 

@@ -1,6 +1,6 @@
 import UIKit
 
-class CheckRow: UIView {
+final class CheckRow: UIView {
     private let checkImageView = UIImageView()
     private let textLabel = UILabel()
     private let horizontalMargin = CGFloat(7)

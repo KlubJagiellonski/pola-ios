@@ -1,6 +1,6 @@
 import UIKit
 
-class CaptureVideoInstructionView: UIView {
+final class CaptureVideoInstructionView: UIView {
     let titleLabel = UILabel()
     let closeButton = UIButton(type: .custom)
     let instructionLabel = UILabel()

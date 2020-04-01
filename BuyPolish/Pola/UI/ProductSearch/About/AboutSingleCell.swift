@@ -1,6 +1,6 @@
 import UIKit
 
-class AboutSingleCell: AboutBaseCell {
+final class AboutSingleCell: AboutBaseCell {
     private let whiteBackgroundView = UIView()
     
     func configure(rowInfo: AboutRow) {

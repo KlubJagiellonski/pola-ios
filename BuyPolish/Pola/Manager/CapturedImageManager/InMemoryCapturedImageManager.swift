@@ -1,6 +1,6 @@
 import UIKit
 
-class InMemoryCapturedImageManager: CapturedImageManager {
+final class InMemoryCapturedImageManager: CapturedImageManager {
     private var dataArray = [Data]()
     
     func addImage(_ image: UIImage) {

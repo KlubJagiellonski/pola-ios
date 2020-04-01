@@ -1,6 +1,6 @@
 import UIKit
 
-class AboutDoubleCell: AboutBaseCell {
+final class AboutDoubleCell: AboutBaseCell {
     
     enum Segment: Int {
         case first

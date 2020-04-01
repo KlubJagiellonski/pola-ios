@@ -1,6 +1,6 @@
 import UIKit
 
-class CardStackViewController: UIViewController {
+final class CardStackViewController: UIViewController {
     
     private(set) var cards = [UIViewController]()
     private var castedView: CardStackView {

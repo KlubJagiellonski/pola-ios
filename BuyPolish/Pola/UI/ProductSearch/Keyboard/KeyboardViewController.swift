@@ -5,7 +5,7 @@ protocol KeyboardViewControllerDelegate: class {
     func keyboardViewController(_ keyboardViewController: KeyboardViewController, didConfirmWithCode code: String)
 }
 
-class KeyboardViewController: UIViewController {
+final class KeyboardViewController: UIViewController {
     
     let barcodeValidator: BarcodeValidator
     

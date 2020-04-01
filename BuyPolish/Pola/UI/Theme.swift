@@ -1,6 +1,6 @@
 import UIKit
 
-class Theme: NSObject {
+final class Theme {
     static let lightBackgroundColor = UIColor(rgb: 0xCCCCCC)
     static let actionColor = UIColor(rgb: 0xD8002F)
     static let strongBackgroundColor = UIColor(rgb: 0x666666)

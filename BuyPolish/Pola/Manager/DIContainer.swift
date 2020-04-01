@@ -1,6 +1,6 @@
 import Swinject
 
-class DI {
+final class DI {
     
     static let container: Resolver = {
         let container = Container()

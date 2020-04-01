@@ -1,6 +1,6 @@
 import UIKit
 
-class MainProggressView: UIView {
+final class MainProggressView: UIView {
     
     private let filledProgressView = UIView()
     private let percentLabel = UILabel()

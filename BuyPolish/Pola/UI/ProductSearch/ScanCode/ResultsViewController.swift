@@ -6,7 +6,7 @@ protocol ResultsViewControllerDelegate: class {
     func resultsViewControllerDidCollapse()
 }
 
-class ResultsViewController: UIViewController {
+final class ResultsViewController: UIViewController {
     private let stackViewController = CardStackViewController()
     private let barcodeValidator: BarcodeValidator
     

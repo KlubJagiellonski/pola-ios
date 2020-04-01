@@ -1,6 +1,6 @@
 import Alamofire
 
-class PolaRequestFactory: DataRequestFactory {
+final class PolaRequestFactory: DataRequestFactory {
     let processInfo: ProcessInfo
     let device: UIDevice
     

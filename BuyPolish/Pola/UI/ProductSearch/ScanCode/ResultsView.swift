@@ -1,6 +1,6 @@
 import UIKit
 
-class ResultsView: UIView {
+final class ResultsView: UIView {
     private let stackView: CardStackView
     let infoTextLabel = UILabel()
     let teachButton = UIButton(type: .custom)

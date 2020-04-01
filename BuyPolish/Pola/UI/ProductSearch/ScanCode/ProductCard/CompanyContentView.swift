@@ -1,6 +1,6 @@
 import UIKit
 
-class CompanyContentView: UIView {
+final class CompanyContentView: UIView {
 
     let capitalTitleLabel = UILabel()
     let capitalProgressView = SecondaryProgressView()

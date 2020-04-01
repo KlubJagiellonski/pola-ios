@@ -4,7 +4,7 @@ protocol BarcodeValidator {
     func isValid(barcode: String) -> Bool
 }
 
-class EANBarcodeValidator: NSObject, BarcodeValidator {
+final class EANBarcodeValidator: BarcodeValidator {
     
     func isValid(barcode: String) -> Bool {
         let characters = Array(barcode)

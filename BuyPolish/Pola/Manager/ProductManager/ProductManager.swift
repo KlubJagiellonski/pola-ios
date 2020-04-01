@@ -5,7 +5,7 @@ struct GetScanResultRequestBody : Encodable {
     let code: String
 }
 
-class ProductManager {
+final class ProductManager {
     private let dataRequestFactory: DataRequestFactory
     
     init(dataRequestFactory: DataRequestFactory) {

@@ -1,7 +1,7 @@
 import Foundation
 import MessageUI
 
-class AboutRowsFactory {
+final class AboutRowsFactory {
     
     class func create() -> AboutRows {
         let strings = R.string.localizable.self

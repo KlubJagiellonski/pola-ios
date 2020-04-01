@@ -1,6 +1,6 @@
 import UIKit
 
-class AboutWebViewController: UIViewController {
+final class AboutWebViewController: UIViewController {
     
     private let url: String
     

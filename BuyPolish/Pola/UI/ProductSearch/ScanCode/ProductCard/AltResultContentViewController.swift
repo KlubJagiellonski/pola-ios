@@ -1,6 +1,6 @@
 import UIKit
 
-class AltResultContentViewController: UIViewController {
+final class AltResultContentViewController: UIViewController {
     let result: ScanResult
     
     init(result: ScanResult) {

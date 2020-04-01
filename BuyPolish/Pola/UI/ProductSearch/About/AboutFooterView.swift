@@ -1,6 +1,6 @@
 import UIKit
 
-class AboutFooterView: UIView {
+final class AboutFooterView: UIView {
     
     private let infoLabel = UILabel()
     

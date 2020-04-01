@@ -2,7 +2,7 @@ import Foundation
 import Observable
 import AVFoundation
 
-class FlashlightManager: NSObject {
+final class FlashlightManager: NSObject {
     @objc private dynamic let flashlightDevice = AVCaptureDevice.default(for: .video)
     private var flashlightObservation: NSKeyValueObservation?
     private let isOnSubject = MutableObservable(false)

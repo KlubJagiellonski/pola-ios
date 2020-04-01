@@ -1,6 +1,6 @@
 import UIKit
 
-class SecondaryProgressView: UIView {
+final class SecondaryProgressView: UIView {
     private let filledProgressView = UIView()
     private let percentLabel = UILabel()
     

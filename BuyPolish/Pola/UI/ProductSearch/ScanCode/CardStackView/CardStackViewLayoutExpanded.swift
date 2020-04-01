@@ -1,6 +1,6 @@
 import UIKit
 
-class CardStackViewLayoutLayoutExpanded : CardStackViewLayout {
+final class CardStackViewLayoutLayoutExpanded : CardStackViewLayout {
     var stackView: CardStackView!
     var layoutContext: CardStackViewLayoutContext!
     private let selectedCard: UIView

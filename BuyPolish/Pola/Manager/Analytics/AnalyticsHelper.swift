@@ -2,7 +2,7 @@ import Foundation
 import Firebase
 import Crashlytics
 
-final class AnalyticsHelper: NSObject {
+final class AnalyticsHelper {
 
     class func configure() {
         if (firebaseAvailable) {

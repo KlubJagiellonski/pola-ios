@@ -1,6 +1,6 @@
 import UIKit
 
-class ResultContentViewControllerFactory {
+final class ResultContentViewControllerFactory {
     
     static func create(scanResult: ScanResult) -> UIViewController {
         if let altText = scanResult.altText,

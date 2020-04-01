@@ -7,7 +7,7 @@ protocol CaptureVideoViewControllerDelegate: class {
     func captureVideoViewControllerSentImages()
 }
 
-class CaptureVideoViewController: UIViewController {
+final class CaptureVideoViewController: UIViewController {
     
     private let scanResult: ScanResult
     private let videoManager: CaptureVideoManager

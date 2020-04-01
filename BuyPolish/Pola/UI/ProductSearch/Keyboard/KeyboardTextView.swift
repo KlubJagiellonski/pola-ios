@@ -1,6 +1,6 @@
 import UIKit
 
-class KeyboardTextView: UIView {
+final class KeyboardTextView: UIView {
     
     private let topView = UIView()
     let codeLabel = UILabel()

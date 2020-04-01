@@ -1,6 +1,6 @@
 import UIKit
 
-class CardStackView: UIView {
+final class CardStackView: UIView {
     weak var delegate: CardStackViewDelegate?
     private var cards = [UIView]()
     private var layout: CardStackViewLayout

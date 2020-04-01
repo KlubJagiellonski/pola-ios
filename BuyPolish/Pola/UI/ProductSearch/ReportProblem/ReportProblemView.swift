@@ -1,7 +1,7 @@
 import UIKit
 import UITextView_Placeholder
 
-class ReportProblemView: UIView {
+final class ReportProblemView: UIView {
     
     private let titleLabel = UILabel()
     let closeButton = UIButton(type: .custom)

@@ -1,6 +1,6 @@
 import UIKit
 
-class ScannerCodeViewController: UIViewController {
+final class ScannerCodeViewController: UIViewController {
     private let codeScannerManager: CodeScannerManager
         
     var hudView: UIView {

@@ -1,6 +1,6 @@
 import UIKit
 
-class ReportImageView: UIView {
+final class ReportImageView: UIView {
     
     private let imageView = UIImageView()
     private let dimImageView = UIImageView()

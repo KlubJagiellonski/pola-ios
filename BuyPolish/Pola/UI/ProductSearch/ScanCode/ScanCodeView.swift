@@ -1,6 +1,6 @@
 import UIKit
 
-class ScanCodeView: UIView {
+final class ScanCodeView: UIView {
     
     let logoImageView = UIImageView(image: R.image.logoIcon())
     let menuButton = UIButton(type: .custom)

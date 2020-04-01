@@ -1,6 +1,6 @@
 import UIKit
 
-class KeyboardView: UIView {
+final class KeyboardView: UIView {
     
     private let contentView = UIView()
     let textView = KeyboardTextView()

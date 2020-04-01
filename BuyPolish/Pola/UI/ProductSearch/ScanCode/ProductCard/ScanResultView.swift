@@ -1,6 +1,6 @@
 import UIKit
 
-class ScanResultView: UIView {
+final class ScanResultView: UIView {
     
     let titleLabel = UILabel()
     let loadingProgressView = UIActivityIndicatorView(style: .gray)

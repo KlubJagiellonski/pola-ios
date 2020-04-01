@@ -2,7 +2,7 @@ import Foundation
 import PromiseKit
 import AVFoundation
 
-class CameraCaptureVideoManager: NSObject, CaptureVideoManager {
+final class CameraCaptureVideoManager: NSObject, CaptureVideoManager {
     
     private let captureSession = AVCaptureSession()
     private let sessionQueue = DispatchQueue(label: "CameraCaptureVideoManager")

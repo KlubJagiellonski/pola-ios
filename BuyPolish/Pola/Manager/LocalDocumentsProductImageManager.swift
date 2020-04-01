@@ -1,6 +1,6 @@
 import UIKit
 
-class LocalDocumentsProductImageManager : ProductImageManager {
+final class LocalDocumentsProductImageManager : ProductImageManager {
     
     private let mainDirectory = "LocalFilesProductImageManager"
     private let fileManager: FileManager

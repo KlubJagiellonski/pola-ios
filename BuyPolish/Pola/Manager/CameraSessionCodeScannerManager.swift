@@ -1,6 +1,6 @@
 import AVFoundation
 
-class CameraSessionCodeScannerManager: NSObject, CodeScannerManager {
+final class CameraSessionCodeScannerManager: NSObject, CodeScannerManager {
     
     var delegate: CodeScannerManagerDelegate?
     private let captureSession = AVCaptureSession()

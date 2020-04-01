@@ -5,11 +5,10 @@ protocol KeyboardManagerDelegate: class {
     func keyboardWillHide(animationDuration: TimeInterval, animationOptions: UIView.AnimationOptions)
 }
 
-class KeyboardManager {
+final class KeyboardManager {
     weak var delegate: KeyboardManagerDelegate?
     private let notificationCenter: NotificationCenter
     private var notificationTokens = [NSObjectProtocol]()
-    
     
     init(notificationCenter: NotificationCenter) {
         self.notificationCenter = notificationCenter

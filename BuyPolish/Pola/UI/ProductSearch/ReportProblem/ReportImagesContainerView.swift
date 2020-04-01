@@ -5,7 +5,7 @@ protocol ReportImagesContainerViewDelegate: class {
     func imagesContainerTapAddButton()
 }
 
-class ReportImagesContainerView: UIView {
+final class ReportImagesContainerView: UIView {
     
     private let maxImageViewsCount = 3
     private var imageViews = [ReportImageView]()

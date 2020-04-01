@@ -2,7 +2,7 @@ import UIKit
 import KVNProgress
 import PromiseKit
 
-class ReportProblemViewController: UIViewController {
+final class ReportProblemViewController: UIViewController {
     
     private let productImageManager: ProductImageManager
     private let reportManager: ReportManager

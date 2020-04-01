@@ -1,6 +1,6 @@
 import UIKit
 
-class CompanyContentViewController: UIViewController {
+final class CompanyContentViewController: UIViewController {
     let result: ScanResult
     
     init(result: ScanResult) {

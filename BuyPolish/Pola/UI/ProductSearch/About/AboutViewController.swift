@@ -1,7 +1,7 @@
 import UIKit
 import MessageUI
 
-class AboutViewController: UITableViewController {
+final class AboutViewController: UITableViewController {
     
     enum Section: Int {
         case single

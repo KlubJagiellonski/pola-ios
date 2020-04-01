@@ -1,6 +1,6 @@
 import UIKit
 
-class AltResultContentView: UIView {
+final class AltResultContentView: UIView {
 
     let textLabel = UILabel()
     

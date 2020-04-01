@@ -1,7 +1,7 @@
 import UIKit
 import AVFoundation
 
-class VideoPlayerView: UIView {
+final class VideoPlayerView: UIView {
     
     func playInLoop(url: URL) {
         let player = AVPlayer(url: url)

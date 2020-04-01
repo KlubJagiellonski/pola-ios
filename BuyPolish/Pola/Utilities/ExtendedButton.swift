@@ -1,6 +1,6 @@
 import UIKit
 
-class ExtendedButton: UIButton {
+final class ExtendedButton: UIButton {
     
     var extendedTouchSize = CGFloat.zero
     

@@ -1,6 +1,6 @@
 import UIKit
 
-class RootViewController: UINavigationController {
+final class RootViewController: UINavigationController {
     
     init() {
         super.init(rootViewController: DI.container.resolve(ScanCodeViewController.self)!)

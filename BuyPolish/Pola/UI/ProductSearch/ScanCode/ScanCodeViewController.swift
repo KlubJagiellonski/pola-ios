@@ -1,7 +1,7 @@
 import UIKit
 import Observable
 
-class ScanCodeViewController: UIViewController {
+final class ScanCodeViewController: UIViewController {
     private var keyboardViewController: KeyboardViewController?
     private let flashlightManager: FlashlightManager
     private let scannerCodeViewController: ScannerCodeViewController

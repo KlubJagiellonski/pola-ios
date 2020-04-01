@@ -1,6 +1,6 @@
 import UIKit
 
-class ScannerCodeView: UIView {
+final class ScannerCodeView: UIView {
     
     var videoLayer: CALayer? {
         didSet {

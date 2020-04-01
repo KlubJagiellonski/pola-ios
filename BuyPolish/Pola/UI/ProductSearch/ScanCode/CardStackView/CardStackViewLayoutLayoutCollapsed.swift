@@ -1,6 +1,6 @@
 import UIKit
 
-class CardStackViewLayoutLayoutCollapsed : CardStackViewLayout {
+final class CardStackViewLayoutLayoutCollapsed : CardStackViewLayout {
     var stackView: CardStackView!
     var layoutContext: CardStackViewLayoutContext!
     private let offScreenCard: UIView?

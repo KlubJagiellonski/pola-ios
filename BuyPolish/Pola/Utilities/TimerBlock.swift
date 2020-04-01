@@ -1,6 +1,6 @@
 import Foundation
 
-class TimerBlock: NSObject {
+final class TimerBlock: NSObject {
     fileprivate let timer: Timer
     private let blockHandler: TimerBlockHandler
     
@@ -22,7 +22,7 @@ class TimerBlock: NSObject {
     }
 }
 
-class TimerBlockHandler: NSObject {
+final class TimerBlockHandler: NSObject {
     let block: (Timer) -> Void
     init(_ block: @escaping (Timer) -> Void) {
         self.block = block
