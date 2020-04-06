@@ -1,6 +1,6 @@
 import XCTest
 
-class ScanBarcodeWithResultPageUITests: PolaUITestCase {
+final class ScanBarcodeWithResultPageUITests: PolaUITestCase {
     
     override func setUp() {
         super.setUp()

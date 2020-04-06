@@ -1,6 +1,6 @@
 import XCTest
 
-class ScanBarcodeWithResultsPage: ScanBarcodePage {
+final class ScanBarcodeWithResultsPage: ScanBarcodePage {
     let newestResult: String
     
     init(app: XCUIApplication, result: String) {

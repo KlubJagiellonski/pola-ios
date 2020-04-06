@@ -1,6 +1,6 @@
 import Foundation
 
-class CompanyPage: ResultPage {
+final class CompanyPage: ResultPage {
     
     var isPolaFriend: Bool {
         return app.buttons["To jest przyjaciel Poli"].waitForExistence(timeout: waitForExistanceTimeout)

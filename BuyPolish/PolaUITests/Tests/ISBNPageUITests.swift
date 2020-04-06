@@ -1,6 +1,6 @@
 import XCTest
 
-class ISBNPageUITests: PolaUITestCase {
+final class ISBNPageUITests: PolaUITestCase {
 
     override func setUp() {
         super.setUp()

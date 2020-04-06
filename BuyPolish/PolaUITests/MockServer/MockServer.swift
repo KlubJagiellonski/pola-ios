@@ -1,7 +1,7 @@
 import Swifter
 import XCTest
 
-class MockServer {
+final class MockServer {
     static let shared = MockServer()
     private let server = HttpServer()
     private(set) var loggedRequest = [HttpRequest]()

@@ -1,6 +1,6 @@
 import XCTest
 
-class ReportBugPageUITests: PolaUITestCase {
+final class ReportBugPageUITests: PolaUITestCase {
     private var page: ReportBugPage!
     
     override func setUp() {

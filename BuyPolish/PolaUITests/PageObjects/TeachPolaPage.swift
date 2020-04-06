@@ -1,6 +1,6 @@
 import XCTest
 
-class TeachPolaPage: BasePage {
+final class TeachPolaPage: BasePage {
     
     let openFrom: ScanBarcodeWithResultsPage
     
