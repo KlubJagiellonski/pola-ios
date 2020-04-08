@@ -1,6 +1,6 @@
 import XCTest
 
-class RecordVideoPage : BasePage {
+final class RecordVideoPage : BasePage {
     
     func tapStartButton() -> RecordVideoPage {
         app.buttons["START"].tap()

@@ -1,6 +1,6 @@
 import XCTest
 
-class SafariPage: BasePage {
+final class SafariPage: BasePage {
     
     let openFrom: BasePage
     

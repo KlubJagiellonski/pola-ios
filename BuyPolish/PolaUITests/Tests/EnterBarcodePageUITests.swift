@@ -1,6 +1,6 @@
 import XCTest
 
-class EnterBarcodePageUITests: PolaUITestCase {
+final class EnterBarcodePageUITests: PolaUITestCase {
     
     private var page: EnterBarcodePage!
 

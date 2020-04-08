@@ -1,6 +1,6 @@
 import XCTest
 
-class ReportBugPage: BasePage {
+final class ReportBugPage: BasePage {
     
     private let deleteButtonKey = "DeleteIcon"
     

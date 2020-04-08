@@ -1,6 +1,6 @@
 import XCTest
 
-class EnterBarcodePage: BasePage {
+final class EnterBarcodePage: BasePage {
     
     func tapEnterBarcodeButton() -> ScanBarcodePage {
         app.buttons["Wpisz kod kreskowy"].tap()

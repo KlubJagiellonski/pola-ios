@@ -1,6 +1,6 @@
 import XCTest
 
-class RecordVideoPageUITests: PolaUITestCase {
+final class RecordVideoPageUITests: PolaUITestCase {
     var page: RecordVideoPage!
     
     override func setUp() {

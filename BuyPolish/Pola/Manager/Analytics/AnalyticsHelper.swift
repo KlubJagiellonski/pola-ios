@@ -3,7 +3,7 @@ import Firebase
 import Crashlytics
 
 @objc(BPAnalyticsHelper)
-class AnalyticsHelper: NSObject {
+final class AnalyticsHelper: NSObject {
 
     @objc
     class func configure() {

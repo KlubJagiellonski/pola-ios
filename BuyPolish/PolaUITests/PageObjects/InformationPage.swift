@@ -1,6 +1,6 @@
 import Foundation
 
-class InformationPage: BasePage {
+final class InformationPage: BasePage {
     
     let openFrom: BasePage
     

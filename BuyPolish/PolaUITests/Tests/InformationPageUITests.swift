@@ -1,6 +1,6 @@
 import XCTest
 
-class InformationPageUITests: PolaUITestCase {
+final class InformationPageUITests: PolaUITestCase {
     
     var page: InformationPage!
 

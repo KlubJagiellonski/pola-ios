@@ -1,6 +1,6 @@
 import FBSnapshotTestCase
 
-class LaunchScreenSnapshotTests: FBSnapshotTestCase {
+final class LaunchScreenSnapshotTests: FBSnapshotTestCase {
     
     var sut: UIViewController!
     

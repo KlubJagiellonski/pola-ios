@@ -1,7 +1,7 @@
 import XCTest
 @testable import Pola
 
-class Encodable_DictionaryTests: XCTestCase {
+final class Encodable_DictionaryTests: XCTestCase {
 
     private struct TestObject: Encodable {
         let question: String?

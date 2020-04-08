@@ -1,5 +1,5 @@
 import Foundation
 
-class ISBNPage: ResultPage {
+final class ISBNPage: ResultPage {
 
 }
