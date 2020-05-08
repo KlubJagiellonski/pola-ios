@@ -3,15 +3,7 @@ osx_image: xcode11.3
 podfile: BuyPolish/Podfile
 
 before_script: cd BuyPolish
-
-jobs:
-  include:
-    - stage: test
-      name: "Unit tests"
-      script: fastlane unit_tests
-    - name:  "UI tests"
-      script: fastlane ui_tests
-
+script: fastlane tests
 after_script: cd ..
 
 cache:
