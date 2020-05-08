@@ -2,6 +2,7 @@ default_platform(:ios)
 
 platform :ios do
   lane :tests do
+    check_project_structure
     unit_tests
     ui_tests
   end
@@ -13,4 +14,18 @@ platform :ios do
   lane :ui_tests do
     scan(scheme:"PolaUITests")
   end
+
+  lane :check_project_structure do
+    synx
+		ensure_no_changes(
+			path: "Pola.xcodeproj",
+			show_diff: false,
+			error_message: "Project structure is different than synx output. Run `fastlane ios format` to synchronize project with file structure."
+		)
+  end
+
+  lane :format do
+    synx
+  end
+
 end

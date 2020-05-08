@@ -1,0 +1,2 @@
+gem 'fastlane-plugin-menigit'
+gem 'fastlane-plugin-synx'
