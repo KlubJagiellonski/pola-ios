@@ -1,17 +1,10 @@
 language: objective-c
-
-xcode_workspace: BuyPolish/Pola.xcworkspace
-xcode_destination: platform=iOS Simulator,OS=13.3,name=iPhone 8
 osx_image: xcode11.3
 podfile: BuyPolish/Podfile
 
-jobs:
-  include:
-    - stage: test
-      name: "Unit tests"
-      xcode_scheme: Pola
-    - name:  "UI tests"
-      xcode_scheme: PolaUITests
+before_script: cd BuyPolish
+script: fastlane tests
+after_script: cd ..
 
 cache:
   bundler: true
