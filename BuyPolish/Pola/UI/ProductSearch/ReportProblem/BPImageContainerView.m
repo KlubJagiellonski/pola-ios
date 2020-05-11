@@ -9,10 +9,10 @@ const int REMOVE_ITEM_MARGIN = 6;
 const CGFloat ANIMATION_DURATION = 0.5f;
 
 @interface BPImageContainerView ()
-@property(nonatomic, readonly) NSMutableArray *imageViewArray;
-@property(nonatomic, readonly) NSMutableArray *dimImageViewArray;
-@property(nonatomic, readonly) NSMutableArray *deleteButtonArray;
-@property(nonatomic, readonly) UIButton *addImageButton;
+@property (nonatomic, readonly) NSMutableArray *imageViewArray;
+@property (nonatomic, readonly) NSMutableArray *dimImageViewArray;
+@property (nonatomic, readonly) NSMutableArray *deleteButtonArray;
+@property (nonatomic, readonly) UIButton *addImageButton;
 @end
 
 @implementation BPImageContainerView
@@ -30,7 +30,9 @@ const CGFloat ANIMATION_DURATION = 0.5f;
         _addImageButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _addImageButton.accessibilityLabel = NSLocalizedString(@"Accessibility.Report.AddPhoto", nil);
         [_addImageButton setBackgroundColor:[UIColor colorWithHexString:@"CCCCCC"]];
-        [_addImageButton addTarget:self action:@selector(didTapAddImageButton:) forControlEvents:UIControlEventTouchUpInside];
+        [_addImageButton addTarget:self
+                            action:@selector(didTapAddImageButton:)
+                  forControlEvents:UIControlEventTouchUpInside];
         [_addImageButton setImage:[UIImage imageNamed:@"AddIcon"] forState:UIControlStateNormal];
         [self addSubview:_addImageButton];
     }
@@ -44,7 +46,7 @@ const CGFloat ANIMATION_DURATION = 0.5f;
 
 - (void)didTapDeleteButton:(UIButton *)button {
     NSUInteger index = [self.deleteButtonArray indexOfObject:button];
-    [self.delegate didTapRemoveImage:self atIndex:(int) index];
+    [self.delegate didTapRemoveImage:self atIndex:(int)index];
 }
 
 - (void)addImage:(UIImage *)image {
@@ -72,17 +74,18 @@ const CGFloat ANIMATION_DURATION = 0.5f;
     [self addSubview:deleteButton];
     [self.deleteButtonArray addObject:deleteButton];
 
-    [UIView animateWithDuration:ANIMATION_DURATION animations:^{
-        imageView.alpha = 1.f;
-        deleteButton.alpha = 1.f;
+    [UIView animateWithDuration:ANIMATION_DURATION
+                     animations:^{
+                         imageView.alpha = 1.f;
+                         deleteButton.alpha = 1.f;
 
-        [self setNeedsLayout];
-        [self layoutIfNeeded];
-    }];
+                         [self setNeedsLayout];
+                         [self layoutIfNeeded];
+                     }];
 }
 
 - (void)removeImageAtIndex:(int)index {
-    NSUInteger uIndex = (NSUInteger) index;
+    NSUInteger uIndex = (NSUInteger)index;
     UIView *imageView = self.imageViewArray[uIndex];
     UIView *dimImageView = self.dimImageViewArray[uIndex];
     UIView *deleteView = self.deleteButtonArray[uIndex];
@@ -90,20 +93,21 @@ const CGFloat ANIMATION_DURATION = 0.5f;
     [self.deleteButtonArray removeObjectAtIndex:uIndex];
     [self.imageViewArray removeObjectAtIndex:uIndex];
     [self.dimImageViewArray removeObjectAtIndex:uIndex];
-    
 
-    [UIView animateWithDuration:ANIMATION_DURATION animations:^{
-        imageView.alpha = 0.f;
-        deleteView.alpha = 0.f;
-        dimImageView.alpha = 0.f;
+    [UIView animateWithDuration:ANIMATION_DURATION
+        animations:^{
+            imageView.alpha = 0.f;
+            deleteView.alpha = 0.f;
+            dimImageView.alpha = 0.f;
 
-        [self setNeedsLayout];
-        [self layoutIfNeeded];
-    } completion:^(BOOL finished) {
-        [dimImageView removeFromSuperview];
-        [imageView removeFromSuperview];
-        [deleteView removeFromSuperview];
-    }];
+            [self setNeedsLayout];
+            [self layoutIfNeeded];
+        }
+        completion:^(BOOL finished) {
+            [dimImageView removeFromSuperview];
+            [imageView removeFromSuperview];
+            [deleteView removeFromSuperview];
+        }];
 }
 
 - (void)layoutSubviews {
@@ -117,11 +121,11 @@ const CGFloat ANIMATION_DURATION = 0.5f;
     rect.origin.y = IMAGE_PADDING;
     rect.size.width = itemWidth;
     rect.size.height = itemWidth;
-    
+
     for (NSUInteger i = 0; i < [self.imageViewArray count]; i++) {
         UIView *view = self.imageViewArray[i];
         view.frame = rect;
-        
+
         UIView *dimView = self.dimImageViewArray[i];
         dimView.frame = rect;
 
@@ -143,10 +147,10 @@ const CGFloat ANIMATION_DURATION = 0.5f;
 }
 
 - (int)calculateItemWidth:(CGFloat)viewWidth {
-    return (int) ((viewWidth - 2 * IMAGE_PADDING - (MAX_IMAGE_COUNT - 1) * IMAGE_ITEM_MARGIN) / MAX_IMAGE_COUNT);
+    return (int)((viewWidth - 2 * IMAGE_PADDING - (MAX_IMAGE_COUNT - 1) * IMAGE_ITEM_MARGIN) / MAX_IMAGE_COUNT);
 }
 
-- (CGRect) calculateDeleteRect:(CGRect)deleteRect ForImageRect:(CGRect)imageRect {
+- (CGRect)calculateDeleteRect:(CGRect)deleteRect ForImageRect:(CGRect)imageRect {
     deleteRect.origin.x = CGRectGetMaxX(imageRect) - REMOVE_ITEM_MARGIN - CGRectGetWidth(deleteRect);
     deleteRect.origin.y = CGRectGetMinY(imageRect) + REMOVE_ITEM_MARGIN;
     return deleteRect;

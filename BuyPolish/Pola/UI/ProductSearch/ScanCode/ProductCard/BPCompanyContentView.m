@@ -1,6 +1,6 @@
 #import "BPCompanyContentView.h"
-#import "BPSecondaryProgressView.h"
 #import "BPCheckRow.h"
+#import "BPSecondaryProgressView.h"
 #import "BPTheme.h"
 #import "UILabel+BPAdditions.h"
 
@@ -9,18 +9,18 @@ int const CARD_CONTENT_ROW_MARGIN = 14;
 
 @interface BPCompanyContentView ()
 
-@property(nonatomic, readonly) UILabel *capitalTitleLabel;
-@property(nonatomic, readonly) BPSecondaryProgressView *capitalProgressView;
-@property(nonatomic, readonly) BPCheckRow *notGlobalCheckRow;
-@property(nonatomic, readonly) BPCheckRow *registeredCheckRow;
-@property(nonatomic, readonly) BPCheckRow *rndCheckRow;
-@property(nonatomic, readonly) BPCheckRow *workersCheckRow;
-@property(nonatomic) BOOL friendButtonVisible;
-@property(nonatomic, readonly) UIButton *friendButton;
-@property(nonatomic, readonly) UILabel *descriptionLabel;
-@property(nonatomic, readonly) UILabel *altTextLabel;
-@property(copy, nonatomic, readonly) NSDictionary *typeToViewsDictionary;
-@property(copy, nonatomic, readonly) NSArray *allSubviews;
+@property (nonatomic, readonly) UILabel *capitalTitleLabel;
+@property (nonatomic, readonly) BPSecondaryProgressView *capitalProgressView;
+@property (nonatomic, readonly) BPCheckRow *notGlobalCheckRow;
+@property (nonatomic, readonly) BPCheckRow *registeredCheckRow;
+@property (nonatomic, readonly) BPCheckRow *rndCheckRow;
+@property (nonatomic, readonly) BPCheckRow *workersCheckRow;
+@property (nonatomic) BOOL friendButtonVisible;
+@property (nonatomic, readonly) UIButton *friendButton;
+@property (nonatomic, readonly) UILabel *descriptionLabel;
+@property (nonatomic, readonly) UILabel *altTextLabel;
+@property (copy, nonatomic, readonly) NSDictionary *typeToViewsDictionary;
+@property (copy, nonatomic, readonly) NSArray *allSubviews;
 
 @end
 
@@ -64,13 +64,12 @@ int const CARD_CONTENT_ROW_MARGIN = 14;
         [_workersCheckRow setText:NSLocalizedString(@"producing in PL", nil)];
         [_workersCheckRow sizeToFit];
         [self addSubview:_workersCheckRow];
-        
+
         _friendButton = [[UIButton alloc] init];
         UIImage *heartImage = [UIImage imageNamed:@"HeartFilled"];
         [_friendButton setImage:heartImage forState:UIControlStateNormal];
         _friendButton.tintColor = [BPTheme actionColor];
-        [_friendButton setTitle:NSLocalizedString(@"This is Pola's friend", nil)
-                       forState:UIControlStateNormal];
+        [_friendButton setTitle:NSLocalizedString(@"This is Pola's friend", nil) forState:UIControlStateNormal];
         [_friendButton setTitleColor:[BPTheme actionColor] forState:UIControlStateNormal];
         _friendButton.titleLabel.font = [BPTheme normalFont];
         CGFloat buttontitleHorizontalMargin = 7;
@@ -98,7 +97,7 @@ int const CARD_CONTENT_ROW_MARGIN = 14;
 - (void)layoutSubviews {
     [super layoutSubviews];
 
-    const int widthWithPadding = (const int) (CGRectGetWidth(self.bounds) - 2 * self.padding);
+    const int widthWithPadding = (const int)(CGRectGetWidth(self.bounds) - 2 * self.padding);
 
     int bottom = 0;
     if (self.contentType == CompanyContentTypeDefault) {
@@ -151,7 +150,7 @@ int const CARD_CONTENT_ROW_MARGIN = 14;
     rect.origin.y = lastY + CARD_CONTENT_ROW_MARGIN;
     self.notGlobalCheckRow.frame = rect;
     lastY = CGRectGetMaxY(rect);
-    
+
     if (self.friendButtonVisible) {
         rect = self.friendButton.frame;
         rect.size.width = widthWithPadding;
@@ -172,7 +171,7 @@ int const CARD_CONTENT_ROW_MARGIN = 14;
         lastY = CGRectGetMaxY(rect);
     }
 
-    return (int) lastY + CARD_CONTENT_VERTICAL_PADDING;
+    return (int)lastY + CARD_CONTENT_VERTICAL_PADDING;
 }
 
 - (int)layoutAltSubviews:(const int)widthWithPadding {
@@ -183,14 +182,15 @@ int const CARD_CONTENT_ROW_MARGIN = 14;
     rect.origin.y = CARD_CONTENT_VERTICAL_PADDING;
     self.altTextLabel.frame = rect;
 
-    return (int) CGRectGetMaxY(self.altTextLabel.frame);
+    return (int)CGRectGetMaxY(self.altTextLabel.frame);
 }
 
 - (void)setContentType:(CompanyContentType)type {
     _contentType = type;
 
     NSArray *visibleViews = self.typeToViewsDictionary[@(type)];
-    for (UIView *subview in self.allSubviews) { //you cannot user self.subviews because you will hide internal UIScrollView views
+    //you cannot user self.subviews because you will hide internal UIScrollView views
+    for (UIView *subview in self.allSubviews) {
         subview.hidden = ![visibleViews containsObject:subview];
     }
 }
@@ -198,7 +198,7 @@ int const CARD_CONTENT_ROW_MARGIN = 14;
 - (NSDictionary *)typeToViewsDictionary {
     if (_typeToViewsDictionary == nil) {
         _typeToViewsDictionary = @{
-            @(CompanyContentTypeDefault) : @[
+            @(CompanyContentTypeDefault): @[
                 self.capitalTitleLabel,
                 self.capitalProgressView,
                 self.workersCheckRow,
@@ -207,18 +207,15 @@ int const CARD_CONTENT_ROW_MARGIN = 14;
                 self.notGlobalCheckRow,
                 self.descriptionLabel
             ],
-            @(CompanyContentTypeLoading) : @[
-            ],
-            @(CompanyContentTypeAlt) : @[
-                self.altTextLabel
-            ]
+            @(CompanyContentTypeLoading): @[],
+            @(CompanyContentTypeAlt): @[self.altTextLabel]
         };
     }
     return _typeToViewsDictionary;
 }
 
 - (NSArray *)allSubviews {
-    if(_allSubviews == nil) {
+    if (_allSubviews == nil) {
         _allSubviews = @[
             self.capitalTitleLabel,
             self.capitalProgressView,

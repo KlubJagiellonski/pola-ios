@@ -1,6 +1,6 @@
 #import "BPAboutViewControllerSingleCell.h"
-#import "BPTheme.h"
 #import "BPAboutRow.h"
+#import "BPTheme.h"
 
 CGFloat const kLabelXOffset = 20.0f;
 
@@ -10,8 +10,7 @@ CGFloat const kLabelXOffset = 20.0f;
 
 @implementation BPAboutViewControllerSingleCell
 
-- (id)initWithReuseIdentifier:(NSString *)reuseIdentifier
-{
+- (id)initWithReuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithReuseIdentifier:reuseIdentifier];
     if (self) {
         // Configure and insert whiteBackgroundView
@@ -30,7 +29,8 @@ CGFloat const kLabelXOffset = 20.0f;
     [super layoutSubviews];
 
     // Set sizes of view
-    self.whiteBackgroundView.frame = CGRectInset(self.bounds, kAboutCellWhiteBackgroundHorizontalMargin, kAboutCellWhiteBackgroundVerticalMargin);
+    self.whiteBackgroundView.frame =
+        CGRectInset(self.bounds, kAboutCellWhiteBackgroundHorizontalMargin, kAboutCellWhiteBackgroundVerticalMargin);
     self.textLabel.frame = CGRectOffset(self.whiteBackgroundView.frame, kLabelXOffset, 0);
 }
 

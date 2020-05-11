@@ -132,6 +132,7 @@ GEM
       xcodeproj (>= 1.13.0, < 2.0.0)
       xcpretty (~> 0.3.0)
       xcpretty-travis-formatter (>= 0.0.3)
+    fastlane-plugin-clang_format (1.0.0)
     fastlane-plugin-menigit (1.0.1)
     fastlane-plugin-synx (0.1.4)
       synx
@@ -246,6 +247,7 @@ PLATFORMS
 DEPENDENCIES
   cocoapods
   fastlane
+  fastlane-plugin-clang_format
   fastlane-plugin-menigit
   fastlane-plugin-synx
 

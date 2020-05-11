@@ -7,10 +7,9 @@
     UIFont *aLabelFont = [self font];
     return [aLabelTextString boundingRectWithSize:CGSizeMake(width, MAXFLOAT)
                                           options:NSStringDrawingUsesLineFragmentOrigin
-                                       attributes:@{
-                                           NSFontAttributeName : aLabelFont
-                                       }
-                                          context:nil].size.height;
+                                       attributes:@{ NSFontAttributeName: aLabelFont }
+                                          context:nil]
+        .size.height;
 }
 
 @end

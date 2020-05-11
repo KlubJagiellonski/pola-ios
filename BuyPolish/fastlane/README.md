@@ -36,6 +36,16 @@ fastlane ios ui_tests
 fastlane ios check_project_structure
 ```
 
+### ios check_formatting
+```
+fastlane ios check_formatting
+```
+
+### ios format
+```
+fastlane ios format
+```
+
 
 ----
 

@@ -10,8 +10,7 @@
                    originalHeight:(NSNumber *)originalHeight
                             width:(NSNumber *)width
                            height:(NSNumber *)height
-                       deviceName:(NSString *)deviceName
-{
+                       deviceName:(NSString *)deviceName {
     self = [super init];
     if (self) {
         _productID = productID;

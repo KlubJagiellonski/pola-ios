@@ -3,7 +3,7 @@
 
 @interface BPTaskRunner ()
 
-@property(nonatomic, readonly) NSOperationQueue *mainOperationQueue;
+@property (nonatomic, readonly) NSOperationQueue *mainOperationQueue;
 
 @end
 

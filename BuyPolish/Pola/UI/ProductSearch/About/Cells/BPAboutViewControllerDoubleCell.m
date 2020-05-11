@@ -11,8 +11,7 @@
 
 #pragma mark - UITableViewCell
 
-- (id)initWithReuseIdentifier:(NSString *)reuseIdentifier
-{
+- (id)initWithReuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithReuseIdentifier:reuseIdentifier];
     if (self) {
         _firstButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -31,16 +30,14 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     CGFloat buttonHeight = self.contentView.frame.size.height - 2 * kAboutCellWhiteBackgroundVerticalMargin;
-    CGFloat buttonWidht = (self.contentView.frame.size.width - 3 * kAboutCellWhiteBackgroundHorizontalMargin)/2;
-    self.firstButton.frame = CGRectMake(kAboutCellWhiteBackgroundHorizontalMargin,
-                                        kAboutCellWhiteBackgroundVerticalMargin,
-                                        buttonWidht,
-                                        buttonHeight);
-    self.secondButton.frame = CGRectMake(kAboutCellWhiteBackgroundHorizontalMargin + CGRectGetMaxX(self.firstButton.frame),
-                                        kAboutCellWhiteBackgroundVerticalMargin,
-                                        buttonWidht,
-                                        buttonHeight);
-
+    CGFloat buttonWidht = (self.contentView.frame.size.width - 3 * kAboutCellWhiteBackgroundHorizontalMargin) / 2;
+    self.firstButton.frame = CGRectMake(
+        kAboutCellWhiteBackgroundHorizontalMargin, kAboutCellWhiteBackgroundVerticalMargin, buttonWidht, buttonHeight);
+    self.secondButton.frame =
+        CGRectMake(kAboutCellWhiteBackgroundHorizontalMargin + CGRectGetMaxX(self.firstButton.frame),
+                   kAboutCellWhiteBackgroundVerticalMargin,
+                   buttonWidht,
+                   buttonHeight);
 }
 
 #pragma mark - Getters/Setters
@@ -51,10 +48,14 @@
         BPDoubleAboutRow *doubleRowInfo = (BPDoubleAboutRow *)aboutRowInfo;
 
         [self.firstButton setTitle:doubleRowInfo.title forState:UIControlStateNormal];
-        [self.firstButton addTarget:doubleRowInfo.target action:doubleRowInfo.action forControlEvents:UIControlEventTouchUpInside];
+        [self.firstButton addTarget:doubleRowInfo.target
+                             action:doubleRowInfo.action
+                   forControlEvents:UIControlEventTouchUpInside];
 
         [self.secondButton setTitle:doubleRowInfo.secondTitle forState:UIControlStateNormal];
-        [self.secondButton addTarget:doubleRowInfo.target action:doubleRowInfo.secondAction forControlEvents:UIControlEventTouchUpInside];
+        [self.secondButton addTarget:doubleRowInfo.target
+                              action:doubleRowInfo.secondAction
+                    forControlEvents:UIControlEventTouchUpInside];
     }
 }
 

@@ -1,5 +1,5 @@
-#import <Foundation/Foundation.h>
 #import "BPAboutViewController.h"
+#import <Foundation/Foundation.h>
 
 @class BPAboutNavigationController;
 
@@ -9,6 +9,6 @@
 
 @interface BPAboutNavigationController : UINavigationController <BPInfoViewControllerDelegate>
 
-@property(weak, nonatomic) id <BPInfoNavigationControllerDelegate> infoDelegate;
+@property (weak, nonatomic) id<BPInfoNavigationControllerDelegate> infoDelegate;
 
 @end

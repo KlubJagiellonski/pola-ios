@@ -1,28 +1,26 @@
+#import <AVFoundation/AVFoundation.h>
 #import <Foundation/Foundation.h>
 
 @class BPStackView;
 
-typedef NS_ENUM(NSInteger, BPScanCodeViewLabelMode) {
-    BPScanCodeViewLabelModeScan,
-    BPScanCodeViewLabelModeKeyboard
-};
+typedef NS_ENUM(NSInteger, BPScanCodeViewLabelMode) { BPScanCodeViewLabelModeScan, BPScanCodeViewLabelModeKeyboard };
 
 @interface BPScanCodeView : UIView
 
-@property(nonatomic, readonly) BPStackView *stackView;
+@property (nonatomic, readonly) BPStackView *stackView;
 
-@property(nonatomic) AVCaptureVideoPreviewLayer *videoLayer;
+@property (nonatomic) AVCaptureVideoPreviewLayer *videoLayer;
 
-@property(nonatomic, readonly) UILabel *infoTextLabel;
-@property(nonatomic, readonly) UIView *rectangleView;
-@property(nonatomic, readonly) UIImageView *logoImageView;
-@property(nonatomic, readonly) UIButton *menuButton;
-@property(nonatomic, readonly) UIButton *flashButton;
-@property(nonatomic, readonly) UIButton *keyboardButton;
-@property(nonatomic, readonly) UIButton *teachButton;
+@property (nonatomic, readonly) UILabel *infoTextLabel;
+@property (nonatomic, readonly) UIView *rectangleView;
+@property (nonatomic, readonly) UIImageView *logoImageView;
+@property (nonatomic, readonly) UIButton *menuButton;
+@property (nonatomic, readonly) UIButton *flashButton;
+@property (nonatomic, readonly) UIButton *keyboardButton;
+@property (nonatomic, readonly) UIButton *teachButton;
 
-@property(nonatomic, getter=isFlashlightButtonHidden) BOOL flashlightButtonHidden;
-@property(nonatomic, readonly) CGFloat cardsHeight;
+@property (nonatomic, getter=isFlashlightButtonHidden) BOOL flashlightButtonHidden;
+@property (nonatomic, readonly) CGFloat cardsHeight;
 
 - (void)setInfoTextVisible:(BOOL)visible;
 - (void)configureInfoLabelForMode:(BPScanCodeViewLabelMode)mode;

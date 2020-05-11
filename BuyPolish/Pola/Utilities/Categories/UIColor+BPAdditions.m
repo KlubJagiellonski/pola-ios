@@ -2,15 +2,19 @@
 
 @implementation UIColor (BPAdditions)
 + (UIColor *)colorWithHexString:(NSString *)hex {
-    NSString *cString = [[hex stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
+    NSString *cString =
+        [[hex stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
 
     // String should be 6 or 8 characters
-    if ([cString length] < 6) return [UIColor grayColor];
+    if ([cString length] < 6)
+        return [UIColor grayColor];
 
     // strip 0X if it appears
-    if ([cString hasPrefix:@"0X"]) cString = [cString substringFromIndex:2];
+    if ([cString hasPrefix:@"0X"])
+        cString = [cString substringFromIndex:2];
 
-    if ([cString length] != 6) return [UIColor grayColor];
+    if ([cString length] != 6)
+        return [UIColor grayColor];
 
     // Separate into r, g, b substrings
     NSRange range;
@@ -30,9 +34,6 @@
     [[NSScanner scannerWithString:gString] scanHexInt:&g];
     [[NSScanner scannerWithString:bString] scanHexInt:&b];
 
-    return [UIColor colorWithRed:((float) r / 255.0f)
-                           green:((float) g / 255.0f)
-                            blue:((float) b / 255.0f)
-                           alpha:1.0f];
+    return [UIColor colorWithRed:((float)r / 255.0f) green:((float)g / 255.0f) blue:((float)b / 255.0f) alpha:1.0f];
 }
 @end

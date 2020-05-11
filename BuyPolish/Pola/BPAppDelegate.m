@@ -1,16 +1,15 @@
 
 #import "BPAppDelegate.h"
-#import "JSObjection.h"
 #import "BPObjectionModule.h"
 #import "BPRootViewController.h"
 #import "BPTheme.h"
+#import "JSObjection.h"
 #import <AVFoundation/AVFoundation.h>
 #import <Pola-Swift.h>
 
 @implementation BPAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-
     [BPAnalyticsHelper configure];
     [self configureObjection];
 
@@ -19,50 +18,52 @@
     JSObjectionInjector *injector = [JSObjection defaultInjector];
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.rootViewController = injector[[BPRootViewController class]];
+    self.window.rootViewController = injector [[BPRootViewController class]];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
-    
+
     if ([NSProcessInfo.processInfo.arguments containsObject:@"--disableAnimations"]) {
         self.window.layer.speed = 0.0f;
         [UIView setAnimationsEnabled:NO];
     }
-    
+
     if ([UIApplicationShortcutItem class]) {
-        UIApplicationShortcutItem *shortcutItem = [launchOptions objectForKey:UIApplicationLaunchOptionsShortcutItemKey];
+        UIApplicationShortcutItem *shortcutItem =
+            [launchOptions objectForKey:UIApplicationLaunchOptionsShortcutItemKey];
         if (shortcutItem) {
             [self handleShortcutItem:shortcutItem];
         }
     }
-    
+
     return YES;
 }
 
 - (void)configureObjection {
-    JSObjectionInjector *defaultInjector = [JSObjection createInjectorWithModulesArray:@[
-        [BPObjectionModule new],
-    ]];
+    JSObjectionInjector *defaultInjector = [JSObjection createInjectorWithModulesArray:@ [[BPObjectionModule new], ]];
     [JSObjection setDefaultInjector:defaultInjector];
 }
 
 - (void)applyAppearance {
     [[UINavigationBar appearance] setBarTintColor:[BPTheme mediumBackgroundColor]];
     [[UINavigationBar appearance] setTintColor:[UIColor blackColor]];
-    [[UINavigationBar appearance] setTitleTextAttributes:@{NSFontAttributeName: [BPTheme titleFont]}];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{ NSFontAttributeName: [BPTheme titleFont] }];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     if ([AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo] == AVAuthorizationStatusDenied) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Camera Privacy Title", nil)
-                                                            message:NSLocalizedString(@"Camera Privacy Scan Barcode Description", nil)
-                                                           delegate:self
-                                                  cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
-                                                  otherButtonTitles:NSLocalizedString(@"Settings", nil), nil];
+        UIAlertView *alertView =
+            [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Camera Privacy Title", nil)
+                                       message:NSLocalizedString(@"Camera Privacy Scan Barcode Description", nil)
+                                      delegate:self
+                             cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
+                             otherButtonTitles:NSLocalizedString(@"Settings", nil), nil];
         [alertView show];
     }
 }
 
-- (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
+- (void)application:(UIApplication *)application
+    performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem
+               completionHandler:(void (^)(BOOL))completionHandler {
     completionHandler([self handleShortcutItem:shortcutItem]);
 }
 
@@ -70,7 +71,7 @@
     NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
     NSString *scanType = [NSString stringWithFormat:@"%@.ScanCode", bundleIdentifier];
     NSString *writeType = [NSString stringWithFormat:@"%@.WriteCode", bundleIdentifier];
-    BPRootViewController *rootViewController = (BPRootViewController *) self.window.rootViewController;
+    BPRootViewController *rootViewController = (BPRootViewController *)self.window.rootViewController;
     if ([item.type isEqualToString:scanType]) {
         [rootViewController showScanCodeView];
         return YES;

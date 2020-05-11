@@ -4,9 +4,7 @@
 
 - (NSString *)jsonString {
     NSError *error;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self
-                                                       options:0
-                                                         error:&error];
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self options:0 error:&error];
     if (error) {
         BPLog(@"Error while parsing dict to json: %@", error);
         return nil;

@@ -475,7 +475,7 @@
 			children = (
 				37B64DD9591909AF06832339 /* Manager */,
 				37B64AE3A38FEC08E6CDE873 /* Model */,
-				1D08E82F19A7621A00879BD2 /* Supporting Files */,
+				1D08E82F19A7621A00879BD2 /* SupportingFiles */,
 				37B64C9D505D36B4936A79BA /* UI */,
 				37B6461671AB44842A0700D7 /* Utilities */,
 				1D08E83719A7621A00879BD2 /* BPAppDelegate.h */,
@@ -488,7 +488,7 @@
 			path = Pola;
 			sourceTree = "<group>";
 		};
-		1D08E82F19A7621A00879BD2 /* Supporting Files */ = {
+		1D08E82F19A7621A00879BD2 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
 				1D08E83119A7621A00879BD2 /* InfoPlist.strings */,
@@ -501,13 +501,13 @@
 				C0D829781F3D11A600902F79 /* capture_video_instruction.mov */,
 				1D08E83419A7621A00879BD2 /* main.m */,
 			);
-			path = "Supporting Files";
+			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
 		1D08E84B19A7621A00879BD2 /* PolaTests */ = {
 			isa = PBXGroup;
 			children = (
-				1D08E84C19A7621A00879BD2 /* Supporting Files */,
+				1D08E84C19A7621A00879BD2 /* SupportingFiles */,
 				BDA76B6521DFDD04003E9FD6 /* Encodable_DictionaryTests.swift */,
 				848C6921225D044300D39E90 /* LaunchScreenSnapshotTests.swift */,
 				374B5B891C71C14100E74BBB /* NSDictionary_ParsingTests.m */,
@@ -517,13 +517,13 @@
 			path = PolaTests;
 			sourceTree = "<group>";
 		};
-		1D08E84C19A7621A00879BD2 /* Supporting Files */ = {
+		1D08E84C19A7621A00879BD2 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
 				1D08E84E19A7621A00879BD2 /* InfoPlist.strings */,
 				1D08E84D19A7621A00879BD2 /* PolaTests-Info.plist */,
 			);
-			path = "Supporting Files";
+			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
 		3784331B1C739009008E392B /* Cells */ = {
@@ -1610,11 +1610,11 @@
 					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Pola/Supporting Files/Pola-Prefix.pch";
+				GCC_PREFIX_HEADER = "Pola/SupportingFiles/Pola-Prefix.pch";
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
 				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
-				INFOPLIST_FILE = "Pola/Supporting Files/Pola-Info.plist";
+				INFOPLIST_FILE = "Pola/SupportingFiles/Pola-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kj.$(PRODUCT_NAME:rfc1034identifier)";
@@ -1644,11 +1644,11 @@
 					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Pola/Supporting Files/Pola-Prefix.pch";
+				GCC_PREFIX_HEADER = "Pola/SupportingFiles/Pola-Prefix.pch";
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
 				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
-				INFOPLIST_FILE = "Pola/Supporting Files/Pola-Info.plist";
+				INFOPLIST_FILE = "Pola/SupportingFiles/Pola-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kj.$(PRODUCT_NAME:rfc1034identifier)";
@@ -1675,12 +1675,12 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Pola/Supporting Files/Pola-Prefix.pch";
+				GCC_PREFIX_HEADER = "Pola/SupportingFiles/Pola-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "PolaTests/Supporting Files/PolaTests-Info.plist";
+				INFOPLIST_FILE = "PolaTests/SupportingFiles/PolaTests-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kj.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1706,8 +1706,8 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Pola/Supporting Files/Pola-Prefix.pch";
-				INFOPLIST_FILE = "PolaTests/Supporting Files/PolaTests-Info.plist";
+				GCC_PREFIX_HEADER = "Pola/SupportingFiles/Pola-Prefix.pch";
+				INFOPLIST_FILE = "PolaTests/SupportingFiles/PolaTests-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kj.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";

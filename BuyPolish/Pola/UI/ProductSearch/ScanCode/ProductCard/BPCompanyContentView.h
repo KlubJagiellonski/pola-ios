@@ -1,5 +1,5 @@
-#import <Foundation/Foundation.h>
 #import "BPScanResult.h"
+#import <Foundation/Foundation.h>
 
 typedef enum {
     CompanyContentTypeDefault,
@@ -9,9 +9,9 @@ typedef enum {
 
 @interface BPCompanyContentView : UIScrollView
 
-@property(nonatomic) int padding;
+@property (nonatomic) int padding;
 
-@property(nonatomic) CompanyContentType contentType;
+@property (nonatomic) CompanyContentType contentType;
 
 - (void)setCapitalPercent:(NSNumber *)capitalPercent;
 

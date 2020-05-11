@@ -1,5 +1,5 @@
-#import "UIView+SafeAreaInsets.h"
 #import "UIApplication+BPStatusBarHeight.h"
+#import "UIView+SafeAreaInsets.h"
 
 @implementation UIView (SafeAreaInsets)
 

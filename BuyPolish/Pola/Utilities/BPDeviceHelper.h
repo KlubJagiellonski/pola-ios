@@ -4,9 +4,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BPDeviceHelper : NSObject
 
-@property (class, nonatomic, readonly) NSString* deviceId;
-@property (class, nonatomic, readonly) NSString* deviceInfo;
-@property (class, nonatomic, readonly) NSString* deviceName;
+@property (class, nonatomic, readonly) NSString *deviceId;
+@property (class, nonatomic, readonly) NSString *deviceInfo;
+@property (class, nonatomic, readonly) NSString *deviceName;
 
 @end
 

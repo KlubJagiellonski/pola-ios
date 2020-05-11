@@ -1,5 +1,5 @@
-#import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
+#import <Foundation/Foundation.h>
 
 @class AVCaptureSession;
 @class AVCaptureVideoPreviewLayer;
@@ -12,9 +12,9 @@
 
 @interface BPCameraSessionManager : NSObject <AVCaptureMetadataOutputObjectsDelegate>
 
-@property(nonatomic, readonly) AVCaptureSession *captureSession;
-@property(nonatomic, readonly) AVCaptureVideoPreviewLayer *videoPreviewLayer;
-@property(weak, nonatomic) id <BPCameraSessionManagerDelegate> delegate;
+@property (nonatomic, readonly) AVCaptureSession *captureSession;
+@property (nonatomic, readonly) AVCaptureVideoPreviewLayer *videoPreviewLayer;
+@property (weak, nonatomic) id<BPCameraSessionManagerDelegate> delegate;
 
 - (void)start;
 

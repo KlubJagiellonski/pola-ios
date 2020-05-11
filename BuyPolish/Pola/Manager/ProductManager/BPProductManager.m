@@ -1,31 +1,33 @@
 #import "BPProductManager.h"
-#import "BPScanResult.h"
-#import "BPTaskRunner.h"
-#import "BPAPIAccessor.h"
-#import "BPTask.h"
-#import "BPScanResult+Utilities.h"
 #import "BPAPIAccessor+BPScan.h"
+#import "BPAPIAccessor.h"
+#import "BPScanResult+Utilities.h"
+#import "BPScanResult.h"
+#import "BPTask.h"
+#import "BPTaskRunner.h"
 
 @import Objection;
 
 @interface BPProductManager ()
 
-@property(nonatomic, readonly) BPTaskRunner *taskRunner;
-@property(nonatomic, readonly) BPAPIAccessor *apiAccessor;
+@property (nonatomic, readonly) BPTaskRunner *taskRunner;
+@property (nonatomic, readonly) BPAPIAccessor *apiAccessor;
 
 @end
 
 @implementation BPProductManager
 
-objection_requires_sel(@selector(taskRunner), @selector(apiAccessor))
+objection_requires_sel(@selector(taskRunner), @selector(apiAccessor));
 
-- (void)retrieveProductWithBarcode:(NSString *)barcode completion:(void (^)(BPScanResult *, NSError *))completion completionQueue:(NSOperationQueue *)completionQueue {
+- (void)retrieveProductWithBarcode:(NSString *)barcode
+                        completion:(void (^)(BPScanResult *, NSError *))completion
+                   completionQueue:(NSOperationQueue *)completionQueue {
     __block BPScanResult *product;
     __block NSError *error;
 
-    weakify()
+    weakify();
     void (^block)() = ^{
-        strongify()
+        strongify();
 
         NSDictionary *productDictionary = [strongSelf.apiAccessor retrieveProductWithBarcode:barcode error:&error];
 

@@ -16,7 +16,7 @@ const float LARGE_IMAGE_WIDTH = 800;
 
 - (void)removeImageforKey:(NSNumber *)key index:(int)index {
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    
+
     [fileManager removeItemAtPath:[self imagePathForKey:key index:index small:NO] error:nil];
     [fileManager removeItemAtPath:[self imagePathForKey:key index:index small:YES] error:nil];
 }
@@ -33,15 +33,14 @@ const float LARGE_IMAGE_WIDTH = 800;
 }
 
 - (NSString *)imagePathForKey:(NSNumber *)key index:(int)index small:(BOOL)small {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains
-        (NSCachesDirectory, NSUserDomainMask, YES);
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     NSString *directory = paths[0];
     NSString *filename = [NSString stringWithFormat:@"%@_%i_%i", key, index, small];
     return [directory stringByAppendingPathComponent:filename];
 }
 
 - (NSArray *)createImagePathArrayForKey:(NSNumber *)key imageCount:(int)imageCount {
-    NSMutableArray *pathArray = [NSMutableArray arrayWithCapacity:(NSUInteger) imageCount];
+    NSMutableArray *pathArray = [NSMutableArray arrayWithCapacity:(NSUInteger)imageCount];
     for (int i = 0; i < imageCount; ++i) {
         NSString *imagePath = [self imagePathForKey:key index:i small:NO];
         [pathArray addObject:imagePath];

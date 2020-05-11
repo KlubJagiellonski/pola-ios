@@ -21,7 +21,8 @@
     NSNumber *animationCurve = userInfo[UIKeyboardAnimationCurveUserInfoKey];
     NSNumber *animationDuration = userInfo[UIKeyboardAnimationDurationUserInfoKey];
 
-    [self.delegate keyboardWillHideWithAnimationDuration:animationDuration.doubleValue animationCurve:(NSUInteger) animationCurve.integerValue];
+    [self.delegate keyboardWillHideWithAnimationDuration:animationDuration.doubleValue
+                                          animationCurve:(NSUInteger)animationCurve.integerValue];
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
@@ -32,7 +33,9 @@
     NSNumber *animationCurve = userInfo[UIKeyboardAnimationCurveUserInfoKey];
     NSNumber *animationDuration = userInfo[UIKeyboardAnimationDurationUserInfoKey];
 
-    [self.delegate keyboardWillShowWithHeight:keyboardSize.height animationDuration:animationDuration.doubleValue animationCurve:(NSUInteger) animationCurve.integerValue];
+    [self.delegate keyboardWillShowWithHeight:keyboardSize.height
+                            animationDuration:animationDuration.doubleValue
+                               animationCurve:(NSUInteger)animationCurve.integerValue];
 }
 
 - (void)turnOff {

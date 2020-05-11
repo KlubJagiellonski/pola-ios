@@ -1,11 +1,11 @@
 #import "BPAboutViewController.h"
-#import "BPAboutViewControllerSingleCell.h"
-#import "BPAboutViewControllerDoubleCell.h"
-#import "BPWebAboutRow.h"
-#import "BPDoubleAboutRow.h"
-#import "BPDeviceHelper.h"
-#import "BPTheme.h"
 #import "BPAboutFooterView.h"
+#import "BPAboutViewControllerDoubleCell.h"
+#import "BPAboutViewControllerSingleCell.h"
+#import "BPDeviceHelper.h"
+#import "BPDoubleAboutRow.h"
+#import "BPTheme.h"
+#import "BPWebAboutRow.h"
 #import <Pola-Swift.h>
 
 @import Objection;
@@ -19,7 +19,7 @@ CGFloat const TABLE_HEADER_HEIGHT = 16.0f;
 CGFloat const CELL_HEIGHT = 49;
 
 @interface BPAboutViewController ()
-@property(copy, nonatomic, readonly) NSArray *rowList;
+@property (copy, nonatomic, readonly) NSArray *rowList;
 @end
 
 @implementation BPAboutViewController
@@ -28,7 +28,10 @@ CGFloat const CELL_HEIGHT = 49;
     [super viewDidLoad];
 
     self.title = NSLocalizedString(@"Info", nil);
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"CloseIcon"] style:UIBarButtonItemStylePlain target:self action:@selector(didTapCloseButton:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"CloseIcon"]
+                                                                              style:UIBarButtonItemStylePlain
+                                                                             target:self
+                                                                             action:@selector(didTapCloseButton:)];
     self.navigationItem.rightBarButtonItem.accessibilityLabel = NSLocalizedString(@"Accessibility.Close", nil);
 
     _rowList = [self createRowList];
@@ -40,35 +43,37 @@ CGFloat const CELL_HEIGHT = 49;
 
 - (NSArray *)createRowList {
     NSMutableArray *rowList = [NSMutableArray array];
-    [rowList addObject:
-            [BPWebAboutRow rowWithTitle:NSLocalizedString(@"About Pola application", nil) action:@selector(didTapWebRow:) url:@"https://www.pola-app.pl/m/about" analyticsName:@"O aplikacji Pola"]
-    ];
-    [rowList addObject:
-            [BPWebAboutRow rowWithTitle:NSLocalizedString(@"InstructionSet", nil) action:@selector(didTapWebRow:) url:@"https://www.pola-app.pl/m/method" analyticsName:@"Metodologia"]
-    ];
-    [rowList addObject:
-            [BPWebAboutRow rowWithTitle:NSLocalizedString(@"About KJ", nil) action:@selector(didTapWebRow:) url:@"https://www.pola-app.pl/m/kj" analyticsName:@"O Klubie Jagiellońskim"]
-    ];
-    [rowList addObject:
-            [BPWebAboutRow rowWithTitle:NSLocalizedString(@"Team", nil) action:@selector(didTapWebRow:) url:@"https://www.pola-app.pl/m/team" analyticsName:@"Zespół"]
-    ];
-    [rowList addObject:
-            [BPWebAboutRow rowWithTitle:NSLocalizedString(@"Partners", nil) action:@selector(didTapWebRow:) url:@"https://www.pola-app.pl/m/partners" analyticsName:@"Partnerzy"]
-    ];
-    [rowList addObject:
-     [BPWebAboutRow rowWithTitle:NSLocalizedString(@"Pola's friends", nil) action:@selector(didTapWebRow:) url:@"https://www.pola-app.pl/m/friends" analyticsName:@"Przyjaciele Poli"]
-     ];
-    [rowList addObject:
-        [BPAboutRow rowWithTitle:NSLocalizedString(@"Report error in data", nil) action:@selector(didTapReportError:)]
-    ];
+    [rowList addObject:[BPWebAboutRow rowWithTitle:NSLocalizedString(@"About Pola application", nil)
+                                            action:@selector(didTapWebRow:)
+                                               url:@"https://www.pola-app.pl/m/about"
+                                     analyticsName:@"O aplikacji Pola"]];
+    [rowList addObject:[BPWebAboutRow rowWithTitle:NSLocalizedString(@"InstructionSet", nil)
+                                            action:@selector(didTapWebRow:)
+                                               url:@"https://www.pola-app.pl/m/method"
+                                     analyticsName:@"Metodologia"]];
+    [rowList addObject:[BPWebAboutRow rowWithTitle:NSLocalizedString(@"About KJ", nil)
+                                            action:@selector(didTapWebRow:)
+                                               url:@"https://www.pola-app.pl/m/kj"
+                                     analyticsName:@"O Klubie Jagiellońskim"]];
+    [rowList addObject:[BPWebAboutRow rowWithTitle:NSLocalizedString(@"Team", nil)
+                                            action:@selector(didTapWebRow:)
+                                               url:@"https://www.pola-app.pl/m/team"
+                                     analyticsName:@"Zespół"]];
+    [rowList addObject:[BPWebAboutRow rowWithTitle:NSLocalizedString(@"Partners", nil)
+                                            action:@selector(didTapWebRow:)
+                                               url:@"https://www.pola-app.pl/m/partners"
+                                     analyticsName:@"Partnerzy"]];
+    [rowList addObject:[BPWebAboutRow rowWithTitle:NSLocalizedString(@"Pola's friends", nil)
+                                            action:@selector(didTapWebRow:)
+                                               url:@"https://www.pola-app.pl/m/friends"
+                                     analyticsName:@"Przyjaciele Poli"]];
+    [rowList addObject:[BPAboutRow rowWithTitle:NSLocalizedString(@"Report error in data", nil)
+                                         action:@selector(didTapReportError:)]];
     if ([MFMailComposeViewController canSendMail]) {
-        [rowList addObject:
-                [BPAboutRow rowWithTitle:NSLocalizedString(@"Write to us", nil) action:@selector(didTapWriteToUs:)]
-        ];
+        [rowList addObject:[BPAboutRow rowWithTitle:NSLocalizedString(@"Write to us", nil)
+                                             action:@selector(didTapWriteToUs:)]];
     }
-    [rowList addObject:
-            [BPAboutRow rowWithTitle:NSLocalizedString(@"Rate us", nil) action:@selector(didTapRateUs:)]
-    ];
+    [rowList addObject:[BPAboutRow rowWithTitle:NSLocalizedString(@"Rate us", nil) action:@selector(didTapRateUs:)]];
     [rowList addObject:[BPDoubleAboutRow rowWithTitle:NSLocalizedString(@"Pola on Facebook", nil)
                                                action:@selector(didTapFacebook:)
                                           secondTitle:NSLocalizedString(@"Pola on Twitter", nil)
@@ -81,7 +86,7 @@ CGFloat const CELL_HEIGHT = 49;
     // Creation of UIView with 15px height.
     // It's added to table view as header.
     UIView *tableViewHeader = [UIView new];
-    tableViewHeader.frame = CGRectMake(0, 0, self.tableView.frame.size.width, TABLE_HEADER_HEIGHT/2);
+    tableViewHeader.frame = CGRectMake(0, 0, self.tableView.frame.size.width, TABLE_HEADER_HEIGHT / 2);
     tableViewHeader.backgroundColor = [BPTheme mediumBackgroundColor];
     self.tableView.tableHeaderView = tableViewHeader;
 
@@ -89,8 +94,9 @@ CGFloat const CELL_HEIGHT = 49;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     // Set background color
     self.tableView.backgroundColor = [BPTheme mediumBackgroundColor];
-    
-    self.tableView.tableFooterView = [[BPAboutFooterView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 70)];
+
+    self.tableView.tableFooterView =
+        [[BPAboutFooterView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 70)];
 }
 
 #pragma mark - table view actions
@@ -99,7 +105,8 @@ CGFloat const CELL_HEIGHT = 49;
     [BPAnalyticsHelper aboutOpened:@"Zgłoś błąd w danych"];
 
     JSObjectionInjector *injector = [JSObjection defaultInjector];
-    BPReportProblemViewController *reportProblemViewController = [injector getObject:[BPReportProblemViewController class]];
+    BPReportProblemViewController *reportProblemViewController =
+        [injector getObject:[BPReportProblemViewController class]];
     reportProblemViewController.delegate = self;
     [self presentViewController:reportProblemViewController animated:YES completion:nil];
 }
@@ -122,7 +129,8 @@ CGFloat const CELL_HEIGHT = 49;
 - (void)didTapWriteToUs:(BPAboutRow *)row {
     [BPAnalyticsHelper aboutOpened:@"Napisz do nas"];
 
-    MFMailComposeViewController *composeViewController = [[MFMailComposeViewController alloc] initWithNibName:nil bundle:nil];
+    MFMailComposeViewController *composeViewController = [[MFMailComposeViewController alloc] initWithNibName:nil
+                                                                                                       bundle:nil];
     composeViewController.delegate = self;
     [composeViewController setMailComposeDelegate:self];
     [composeViewController setToRecipients:@[ABOUT_MAIL]];
@@ -153,7 +161,8 @@ CGFloat const CELL_HEIGHT = 49;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     BPAboutRow *rowInfo = self.rowList[indexPath.row];
     // Cell class depends on rowInfo style
-    Class cellClass = rowInfo.style == BPAboutRowStyleDouble ? [BPAboutViewControllerDoubleCell class] : [BPAboutViewControllerSingleCell class];
+    Class cellClass = rowInfo.style == BPAboutRowStyleDouble ? [BPAboutViewControllerDoubleCell class]
+                                                             : [BPAboutViewControllerSingleCell class];
 
     NSString *const identifier = NSStringFromClass(cellClass);
     BPAboutViewControllerBaseCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
@@ -169,7 +178,7 @@ CGFloat const CELL_HEIGHT = 49;
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    BPAboutRow *infoRow = self.rowList[(NSUInteger) indexPath.row];
+    BPAboutRow *infoRow = self.rowList[(NSUInteger)indexPath.row];
     if (infoRow.style == BPAboutRowStyleSingle) {
         [self performSelector:infoRow.action withObject:infoRow];
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -179,8 +188,9 @@ CGFloat const CELL_HEIGHT = 49;
 
 #pragma mark - MFMailComposeViewControllerDelegate
 
-- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
-{
+- (void)mailComposeController:(MFMailComposeViewController *)controller
+          didFinishWithResult:(MFMailComposeResult)result
+                        error:(NSError *)error {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

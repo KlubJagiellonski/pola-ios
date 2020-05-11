@@ -33,7 +33,6 @@
 - (void)toggleWithCompletionBlock:(void (^)(BOOL))completion {
     BOOL success = [self.flashlight lockForConfiguration:nil];
     if (success) {
-
         if ([self.flashlight isTorchActive]) {
             [self.flashlight setTorchMode:AVCaptureTorchModeOff];
         } else {

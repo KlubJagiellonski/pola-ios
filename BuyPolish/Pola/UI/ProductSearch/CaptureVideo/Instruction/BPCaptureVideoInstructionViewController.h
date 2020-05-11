@@ -1,19 +1,20 @@
-#import <Foundation/Foundation.h>
 #import "BPCaptureVideoInstructionView.h"
 #import "BPScanResult.h"
+#import <Foundation/Foundation.h>
 
 @class BPCaptureVideoInstructionViewController;
 
 @protocol BPCaptureVideoInstructionViewControllerDelegate <NSObject>
 
-- (void)captureVideoInstructionViewControllerWantsCaptureVideo:(BPCaptureVideoInstructionViewController *) viewController;
-- (void)captureVideoInstructionViewControllerWantsDismiss:(BPCaptureVideoInstructionViewController *) viewController;
+- (void)captureVideoInstructionViewControllerWantsCaptureVideo:
+    (BPCaptureVideoInstructionViewController *)viewController;
+- (void)captureVideoInstructionViewControllerWantsDismiss:(BPCaptureVideoInstructionViewController *)viewController;
 @end
 
 @interface BPCaptureVideoInstructionViewController : UIViewController <BPCaptureVideoInstructionViewDelegate>
 
-@property(weak, nonatomic) id <BPCaptureVideoInstructionViewControllerDelegate> delegate;
+@property (weak, nonatomic) id<BPCaptureVideoInstructionViewControllerDelegate> delegate;
 
-- (instancetype)initWithScanResult:(BPScanResult*)scanResult;
+- (instancetype)initWithScanResult:(BPScanResult *)scanResult;
 
 @end

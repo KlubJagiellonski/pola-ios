@@ -10,20 +10,19 @@
 }
 
 - (NSArray<NSData *> *)retrieveImagesDataForCaptureSessionTimestamp:(int)timestamp imageCount:(int)imageCount {
-    NSMutableArray *imagesDataArray = [NSMutableArray arrayWithCapacity:(NSUInteger) imageCount];
-    
-    for (int i=0; i<imageCount; i++) {
+    NSMutableArray *imagesDataArray = [NSMutableArray arrayWithCapacity:(NSUInteger)imageCount];
+
+    for (int i = 0; i < imageCount; i++) {
         NSString *path = [self imagePathForSessionTimestamp:timestamp index:i];
         NSLog(@"retrieve image data with index: %d path: %@", i, path);
-        [imagesDataArray addObject: [NSData dataWithContentsOfFile:path]];
+        [imagesDataArray addObject:[NSData dataWithContentsOfFile:path]];
     }
-    
+
     return imagesDataArray;
 }
-    
 
 - (void)removeImagesDataForCaptureSessionTimestamp:(int)timestamp imageCount:(int)imageCount {
-    for (int i=0; i<imageCount; i++) {
+    for (int i = 0; i < imageCount; i++) {
         [self removeImageDataForCaptureSessionTimestamp:timestamp imageIndex:i];
     }
 }

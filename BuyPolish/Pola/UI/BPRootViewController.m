@@ -11,7 +11,7 @@
         self.navigationBarHidden = YES;
 
         JSObjectionInjector *injector = [JSObjection defaultInjector];
-        BPScanCodeViewController *scanCodeViewController = injector[[BPScanCodeViewController class]];
+        BPScanCodeViewController *scanCodeViewController = injector [[BPScanCodeViewController class]];
         self.viewControllers = @[scanCodeViewController];
     }
 
@@ -19,12 +19,12 @@
 }
 
 - (void)showScanCodeView {
-    BPScanCodeViewController *scanCodeViewController = (BPScanCodeViewController *) self.viewControllers.firstObject;
+    BPScanCodeViewController *scanCodeViewController = (BPScanCodeViewController *)self.viewControllers.firstObject;
     [scanCodeViewController showScanCodeView];
 }
 
 - (void)showWriteCodeView {
-    BPScanCodeViewController *scanCodeViewController = (BPScanCodeViewController *) self.viewControllers.firstObject;
+    BPScanCodeViewController *scanCodeViewController = (BPScanCodeViewController *)self.viewControllers.firstObject;
     [scanCodeViewController showWriteCodeView];
 }
 
