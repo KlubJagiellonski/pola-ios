@@ -1,10 +1,10 @@
 #import "BPObjectionModule.h"
 #import "BPAPIAccessor.h"
-#import "BPProductManager.h"
-#import "BPTaskRunner.h"
 #import "BPCameraSessionManager.h"
 #import "BPProductImageManager.h"
+#import "BPProductManager.h"
 #import "BPReportManager.h"
+#import "BPTaskRunner.h"
 
 @implementation BPObjectionModule
 

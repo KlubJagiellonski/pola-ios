@@ -1,10 +1,10 @@
 #import "BPReportProblemView.h"
 #import "BPImageContainerView.h"
-#import "UITextView+Placeholder.h"
+#import "BPTheme.h"
 #import "UIColor+BPAdditions.h"
 #import "UIImage+KVNImageEffects.h"
-#import "BPTheme.h"
 #import "UILabel+BPAdditions.h"
+#import "UITextView+Placeholder.h"
 #import "UIView+SafeAreaInsets.h"
 
 const int REPORT_PADDING = 16;
@@ -14,12 +14,12 @@ const int REPORT_TITLE_MARGIN = 10;
 const int REPORT_DESCRIPTIONSHADOW_HEIGHT = 1;
 
 @interface BPReportProblemView ()
-@property(nonatomic, readonly) UILabel *titleLabel;
-@property(nonatomic, readonly) UILabel *photoTitleLable;
-@property(nonatomic, readonly) UILabel *descriptionTitleLabel;
-@property(nonatomic) CGFloat bottomMargin;
-@property(nonatomic, readonly) UIView *descriptionBottomShadowView;
-@property(nonatomic, readonly) UILabel *helpLabel;
+@property (nonatomic, readonly) UILabel *titleLabel;
+@property (nonatomic, readonly) UILabel *photoTitleLable;
+@property (nonatomic, readonly) UILabel *descriptionTitleLabel;
+@property (nonatomic) CGFloat bottomMargin;
+@property (nonatomic, readonly) UIView *descriptionBottomShadowView;
+@property (nonatomic, readonly) UILabel *helpLabel;
 @end
 
 @implementation BPReportProblemView
@@ -38,7 +38,9 @@ const int REPORT_DESCRIPTIONSHADOW_HEIGHT = 1;
 
         _closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _closeButton.accessibilityLabel = NSLocalizedString(@"Accessibility.Close", nil);
-        [_closeButton setImage:[[UIImage imageNamed:@"CloseIcon"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
+        [_closeButton
+            setImage:[[UIImage imageNamed:@"CloseIcon"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]
+            forState:UIControlStateNormal];
         _closeButton.tintColor = [BPTheme defaultTextColor];
         [_closeButton sizeToFit];
         [self addSubview:_closeButton];
@@ -78,17 +80,18 @@ const int REPORT_DESCRIPTIONSHADOW_HEIGHT = 1;
         _descriptionTextView.placeholderColor = [UIColor colorWithHexString:@"C3C3C3"];
         [self addSubview:_descriptionTextView];
 
-        _descriptionBottomShadowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, REPORT_DESCRIPTIONSHADOW_HEIGHT)];
+        _descriptionBottomShadowView =
+            [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, REPORT_DESCRIPTIONSHADOW_HEIGHT)];
         _descriptionBottomShadowView.backgroundColor = [UIColor colorWithHexString:@"C3C3C3"];
         [self addSubview:_descriptionBottomShadowView];
 
         _sendButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _sendButton.titleLabel.font = [BPTheme buttonFont];
         [_sendButton setTitle:[NSLocalizedString(@"Send", nil) uppercaseString] forState:UIControlStateNormal];
-        [_sendButton setBackgroundImage:[BPUtilities imageWithColor:[BPTheme actionColor]] forState:UIControlStateNormal];
+        [_sendButton setBackgroundImage:[BPUtilities imageWithColor:[BPTheme actionColor]]
+                               forState:UIControlStateNormal];
         [_sendButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self addSubview:_sendButton];
-
     }
 
     return self;
@@ -104,7 +107,8 @@ const int REPORT_DESCRIPTIONSHADOW_HEIGHT = 1;
 
     rect = self.titleLabel.frame;
     rect.origin.x = REPORT_PADDING;
-    rect.origin.y = (CGRectGetMinY(self.closeButton.frame) + CGRectGetHeight(self.closeButton.frame) / 2) - CGRectGetHeight(rect) / 2;
+    rect.origin.y = (CGRectGetMinY(self.closeButton.frame) + CGRectGetHeight(self.closeButton.frame) / 2)
+                    - CGRectGetHeight(rect) / 2;
     self.titleLabel.frame = rect;
 
     rect = self.helpLabel.frame;
@@ -126,7 +130,8 @@ const int REPORT_DESCRIPTIONSHADOW_HEIGHT = 1;
 
     rect = self.descriptionTitleLabel.frame;
     rect.origin.x = REPORT_PADDING;
-    rect.origin.y = MAX(CGRectGetMaxY(self.imageContainerView.frame) + VERTICAL_MARGIN - self.bottomMargin, REPORT_PADDING + self.topSafeAreaInset);
+    rect.origin.y = MAX(CGRectGetMaxY(self.imageContainerView.frame) + VERTICAL_MARGIN - self.bottomMargin,
+                        REPORT_PADDING + self.topSafeAreaInset);
     self.descriptionTitleLabel.frame = rect;
 
     rect.size = CGSizeMake(CGRectGetWidth(self.bounds) - 2 * REPORT_PADDING, SEND_BUTTON_HEIGHT);
@@ -134,12 +139,15 @@ const int REPORT_DESCRIPTIONSHADOW_HEIGHT = 1;
     rect.origin.y = CGRectGetHeight(self.bounds) - REPORT_PADDING - CGRectGetHeight(rect) - self.bottomMargin;
     self.sendButton.frame = rect;
 
-    rect.size = CGSizeMake(CGRectGetWidth(self.bounds) - 2 * REPORT_PADDING, CGRectGetMinY(self.sendButton.frame) - VERTICAL_MARGIN - CGRectGetMaxY(self.descriptionTitleLabel.frame));
+    rect.size = CGSizeMake(CGRectGetWidth(self.bounds) - 2 * REPORT_PADDING,
+                           CGRectGetMinY(self.sendButton.frame) - VERTICAL_MARGIN
+                               - CGRectGetMaxY(self.descriptionTitleLabel.frame));
     rect.origin.x = REPORT_PADDING;
     rect.origin.y = CGRectGetMaxY(self.descriptionTitleLabel.frame) + REPORT_TITLE_MARGIN;
     self.descriptionTextView.frame = rect;
 
-    rect.size = CGSizeMake(CGRectGetWidth(self.descriptionTextView.bounds), CGRectGetHeight(self.descriptionBottomShadowView.bounds));
+    rect.size = CGSizeMake(CGRectGetWidth(self.descriptionTextView.bounds),
+                           CGRectGetHeight(self.descriptionBottomShadowView.bounds));
     rect.origin.x = CGRectGetMinX(self.descriptionTextView.frame);
     rect.origin.y = CGRectGetMaxY(self.descriptionTextView.frame);
     self.descriptionBottomShadowView.frame = rect;
@@ -148,20 +156,28 @@ const int REPORT_DESCRIPTIONSHADOW_HEIGHT = 1;
 - (void)keyboardWillShowWithHeight:(CGFloat)height duration:(double)duration curve:(NSUInteger)curve {
     self.bottomMargin = height;
 
-    [UIView animateWithDuration:duration delay:0 options:curve animations:^{
-        self.imageContainerView.alpha = 0.0f;
-        [self setNeedsLayout];
-        [self layoutIfNeeded];
-    } completion:nil];
+    [UIView animateWithDuration:duration
+                          delay:0
+                        options:curve
+                     animations:^{
+                         self.imageContainerView.alpha = 0.0f;
+                         [self setNeedsLayout];
+                         [self layoutIfNeeded];
+                     }
+                     completion:nil];
 }
 
 - (void)keyboardWillHideWithDuration:(double)duration curve:(NSUInteger)curve {
     self.bottomMargin = 0;
-    [UIView animateWithDuration:duration delay:0 options:curve animations:^{
-        self.imageContainerView.alpha = 1.0f;
-        [self setNeedsLayout];
-        [self layoutIfNeeded];
-    } completion:nil];
+    [UIView animateWithDuration:duration
+                          delay:0
+                        options:curve
+                     animations:^{
+                         self.imageContainerView.alpha = 1.0f;
+                         [self setNeedsLayout];
+                         [self layoutIfNeeded];
+                     }
+                     completion:nil];
 }
 
 @end

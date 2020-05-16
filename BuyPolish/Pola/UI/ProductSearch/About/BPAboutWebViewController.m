@@ -24,8 +24,10 @@
 
 #pragma mark - UIWebViewDelegate
 
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    if(navigationType == UIWebViewNavigationTypeOther) {
+- (BOOL)webView:(UIWebView *)webView
+    shouldStartLoadWithRequest:(NSURLRequest *)request
+                navigationType:(UIWebViewNavigationType)navigationType {
+    if (navigationType == UIWebViewNavigationTypeOther) {
         return YES;
     }
 
@@ -36,7 +38,7 @@
 #pragma mark - Helpers
 
 - (UIWebView *)castView {
-    return (UIWebView *) self.view;
+    return (UIWebView *)self.view;
 }
 
 @end

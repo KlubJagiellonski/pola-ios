@@ -1,10 +1,10 @@
 #import "BPCaptureVideoViewController.h"
 #import "BPCapturedImageManager.h"
-#import "UIImage+Scaling.h"
-#import "BPWeakTimerTarget.h"
-#import "BPDeviceHelper.h"
 #import "BPCapturedImagesUploadManager.h"
+#import "BPDeviceHelper.h"
+#import "BPWeakTimerTarget.h"
 #import "KVNProgress.h"
+#import "UIImage+Scaling.h"
 #import <Pola-Swift.h>
 
 @import Objection;
@@ -13,23 +13,23 @@ const int INITIAL_TIMER_SEC = 6;
 
 @interface BPCaptureVideoViewController ()
 
-@property(nonatomic) BPScanResult *scanResult;
-@property(nonatomic) int timerSeconds;
-@property(nonatomic) NSTimer *timer;
-@property(nonatomic, readonly) BPCaptureVideoManager *videoManager;
-@property(nonatomic) int sessionTimestamp;      // seconds since 1970
-@property(nonatomic, readonly) BPCapturedImageManager *imageManager;
-@property(nonatomic, readonly) BPCapturedImagesUploadManager *uploadManager;
-@property(nonatomic) int savedImagesCount;
+@property (nonatomic) BPScanResult *scanResult;
+@property (nonatomic) int timerSeconds;
+@property (nonatomic) NSTimer *timer;
+@property (nonatomic, readonly) BPCaptureVideoManager *videoManager;
+@property (nonatomic) int sessionTimestamp; // seconds since 1970
+@property (nonatomic, readonly) BPCapturedImageManager *imageManager;
+@property (nonatomic, readonly) BPCapturedImagesUploadManager *uploadManager;
+@property (nonatomic) int savedImagesCount;
 
 @end
 
 @implementation BPCaptureVideoViewController
 
-objection_requires_sel(@selector(videoManager), @selector(imageManager), @selector(uploadManager))
-objection_initializer_sel(@selector(initWithScanResult:))
+objection_requires_sel(@selector(videoManager), @selector(imageManager), @selector(uploadManager));
+objection_initializer_sel(@selector(initWithScanResult:));
 
-- (instancetype)initWithScanResult:(BPScanResult*)scanResult {
+- (instancetype)initWithScanResult:(BPScanResult *)scanResult {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
         _scanResult = scanResult;
@@ -37,12 +37,14 @@ objection_initializer_sel(@selector(initWithScanResult:))
         _savedImagesCount = 0;
         _sessionTimestamp = 0;
     }
-    
+
     return self;
 }
 
 - (void)loadView {
-    self.view = [[BPCaptureVideoView alloc] initWithFrame:CGRectZero productLabelText:self.scanResult.askForPicsProduct initialTimerSeconds:INITIAL_TIMER_SEC];
+    self.view = [[BPCaptureVideoView alloc] initWithFrame:CGRectZero
+                                         productLabelText:self.scanResult.askForPicsProduct
+                                      initialTimerSeconds:INITIAL_TIMER_SEC];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -68,11 +70,12 @@ objection_initializer_sel(@selector(initWithScanResult:))
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     if ([AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo] == AVAuthorizationStatusDenied) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Camera Privacy Title", nil)
-                                                            message:NSLocalizedString(@"Camera Privacy Capture Video Description", nil)
-                                                           delegate:self
-                                                  cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
-                                                  otherButtonTitles:NSLocalizedString(@"Settings", nil), nil];
+        UIAlertView *alertView =
+            [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Camera Privacy Title", nil)
+                                       message:NSLocalizedString(@"Camera Privacy Capture Video Description", nil)
+                                      delegate:self
+                             cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
+                             otherButtonTitles:NSLocalizedString(@"Settings", nil), nil];
         [alertView show];
     }
 }
@@ -90,14 +93,15 @@ objection_initializer_sel(@selector(initWithScanResult:))
         [self invalidateTimer];
         return;
     }
-    
+
     [self captureImage];
 }
 
 - (void)reset {
     [self invalidateTimer];
-    if ( (self.sessionTimestamp != 0) && (self.savedImagesCount != INITIAL_TIMER_SEC) ) {
-        [self.imageManager removeImagesDataForCaptureSessionTimestamp:self.sessionTimestamp imageCount:self.savedImagesCount];
+    if ((self.sessionTimestamp != 0) && (self.savedImagesCount != INITIAL_TIMER_SEC)) {
+        [self.imageManager removeImagesDataForCaptureSessionTimestamp:self.sessionTimestamp
+                                                           imageCount:self.savedImagesCount];
     }
     self.sessionTimestamp = 0;
     self.savedImagesCount = 0;
@@ -119,25 +123,28 @@ objection_initializer_sel(@selector(initWithScanResult:))
 }
 
 - (void)sendImagesWithScaledLastImage:(UIImage *)scaledImage originalImage:(UIImage *)originalImage {
-    BPCapturedImagesData *imagesData = [[BPCapturedImagesData alloc]
-                                        initWithProductID:self.scanResult.productId
-                                        filesCount:[[NSNumber alloc] initWithInt: self.savedImagesCount]
-                                        fileExtension:@"jpg"
-                                        mimeType:@"image/jpeg"
-                                        originalWidth:[[NSNumber alloc] initWithInt: [originalImage widthInPixels]]
-                                        originalHeight:[[NSNumber alloc] initWithInt: [originalImage heightInPixels]]
-                                        width:[[NSNumber alloc] initWithInt: [scaledImage widthInPixels]]
-                                        height:[[NSNumber alloc] initWithInt: [scaledImage heightInPixels]]
-                                        deviceName:[BPDeviceHelper deviceName]];
-    
+    BPCapturedImagesData *imagesData =
+        [[BPCapturedImagesData alloc] initWithProductID:self.scanResult.productId
+                                             filesCount:[[NSNumber alloc] initWithInt:self.savedImagesCount]
+                                          fileExtension:@"jpg"
+                                               mimeType:@"image/jpeg"
+                                          originalWidth:[[NSNumber alloc] initWithInt:[originalImage widthInPixels]]
+                                         originalHeight:[[NSNumber alloc] initWithInt:[originalImage heightInPixels]]
+                                                  width:[[NSNumber alloc] initWithInt:[scaledImage widthInPixels]]
+                                                 height:[[NSNumber alloc] initWithInt:[scaledImage heightInPixels]]
+                                             deviceName:[BPDeviceHelper deviceName]];
+
     [KVNProgress showWithStatus:NSLocalizedString(@"CaptureVideo.Sending", nil)];
-    
+
     weakify();
-    void (^progress)(BPCapturedImageResult *, NSError*) = ^void(BPCapturedImageResult *result, NSError *error) {
-        BPLog(@"[CaputerVideoUpload] progress, state: %i, imageIndex: %i, error: %@", result.state, result.imageIndex, error);
+    void (^progress)(BPCapturedImageResult *, NSError *) = ^void(BPCapturedImageResult *result, NSError *error) {
+        BPLog(@"[CaputerVideoUpload] progress, state: %i, imageIndex: %i, error: %@",
+              result.state,
+              result.imageIndex,
+              error);
     };
-    
-    void (^completion)(NSError*) = ^void(NSError *error) {
+
+    void (^completion)(NSError *) = ^void(NSError *error) {
         strongify();
         BPLog(@"[CaputerVideoUpload] completed, error: %@", error);
         if (error) {
@@ -148,8 +155,12 @@ objection_initializer_sel(@selector(initWithScanResult:))
         }
         [strongSelf.delegate captureVideoViewController:strongSelf wantsDismissWithSuccess:true];
     };
-    
-    [self.uploadManager sendImagesWithData:imagesData captureSessionTimestamp:self.sessionTimestamp progress:progress completion:completion dispatchQueue:[NSOperationQueue mainQueue]];
+
+    [self.uploadManager sendImagesWithData:imagesData
+                   captureSessionTimestamp:self.sessionTimestamp
+                                  progress:progress
+                                completion:completion
+                             dispatchQueue:[NSOperationQueue mainQueue]];
 }
 
 #pragma mark - BPCaptureVideoViewDelegate
@@ -164,7 +175,11 @@ objection_initializer_sel(@selector(initWithScanResult:))
     self.sessionTimestamp = [[NSDate date] timeIntervalSince1970];
     [self captureImage];
     BPWeakTimerTarget *target = [[BPWeakTimerTarget alloc] initWithTarget:self selector:@selector(timerAction)];
-    self.timer = [NSTimer timerWithTimeInterval:1.0f target:target selector:@selector(timerDidFire:) userInfo:nil repeats:YES];
+    self.timer = [NSTimer timerWithTimeInterval:1.0f
+                                         target:target
+                                       selector:@selector(timerDidFire:)
+                                       userInfo:nil
+                                        repeats:YES];
     [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
 }
 
@@ -173,10 +188,12 @@ objection_initializer_sel(@selector(initWithScanResult:))
 - (void)captureVideoManager:(BPCaptureVideoManager *)captureManager didCaptureImage:(UIImage *)originalImage {
     UIImage *scaledImage = [self scaledImage:originalImage withMaxSide:self.scanResult.maxPicSize.doubleValue];
     NSData *imageData = UIImageJPEGRepresentation(scaledImage, 0.9);
-    [self.imageManager saveImageData:imageData captureSessionTimestamp:self.sessionTimestamp index:self.savedImagesCount];
-    
+    [self.imageManager saveImageData:imageData
+             captureSessionTimestamp:self.sessionTimestamp
+                               index:self.savedImagesCount];
+
     self.savedImagesCount += 1;
-    
+
     if (self.savedImagesCount == INITIAL_TIMER_SEC) {
         [self sendImagesWithScaledLastImage:scaledImage originalImage:originalImage];
     }
@@ -193,11 +210,11 @@ objection_initializer_sel(@selector(initWithScanResult:))
 #pragma mark - Helpers
 
 - (BPCaptureVideoView *)castView {
-    return (BPCaptureVideoView *) self.view;
+    return (BPCaptureVideoView *)self.view;
 }
 
-- (UIImage *)scaledImage:(UIImage*)originalImage withMaxSide:(double)maxSide {
-    if ( originalImage.size.height > originalImage.size.width ) {
+- (UIImage *)scaledImage:(UIImage *)originalImage withMaxSide:(double)maxSide {
+    if (originalImage.size.height > originalImage.size.width) {
         return [originalImage scaledToHeight:maxSide];
     } else {
         return [originalImage scaledToWidth:maxSide];

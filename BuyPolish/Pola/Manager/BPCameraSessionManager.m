@@ -46,13 +46,15 @@
 
 #pragma mark - AVCaptureMetadataOutputObjectsDelegate
 
-- (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection {
+- (void)captureOutput:(AVCaptureOutput *)captureOutput
+    didOutputMetadataObjects:(NSArray *)metadataObjects
+              fromConnection:(AVCaptureConnection *)connection {
     if (metadataObjects != nil && [metadataObjects count] > 0) {
         NSObject *metadataObj = metadataObjects.firstObject;
         if (![metadataObj isKindOfClass:[AVMetadataMachineReadableCodeObject class]]) {
             return;
         }
-        AVMetadataMachineReadableCodeObject *readableMetadataObj = (AVMetadataMachineReadableCodeObject *) metadataObj;
+        AVMetadataMachineReadableCodeObject *readableMetadataObj = (AVMetadataMachineReadableCodeObject *)metadataObj;
 
         NSString *barcode = readableMetadataObj.stringValue;
         BPLog(@"Found barcode: %@", barcode);

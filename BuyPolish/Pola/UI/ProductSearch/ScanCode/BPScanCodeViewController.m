@@ -1,14 +1,14 @@
 #import "BPScanCodeViewController.h"
-#import "BPScanCodeView.h"
-#import "BPProductManager.h"
-#import "UIAlertView+BPUtilities.h"
-#import "NSString+BPUtilities.h"
+#import "BPAboutWebViewController.h"
+#import "BPCaptureVideoNavigationController.h"
+#import "BPCapturedImageResult.h"
 #import "BPFlashlightManager.h"
 #import "BPKeyboardViewController.h"
-#import "BPCaptureVideoNavigationController.h"
+#import "BPProductManager.h"
+#import "BPScanCodeView.h"
 #import "BPScanResult.h"
-#import "BPCapturedImageResult.h"
-#import "BPAboutWebViewController.h"
+#import "NSString+BPUtilities.h"
+#import "UIAlertView+BPUtilities.h"
 #import <Pola-Swift.h>
 
 @import Objection;
@@ -17,20 +17,20 @@ static NSTimeInterval const kAnimationTime = 0.15;
 
 @interface BPScanCodeViewController ()
 
-@property(nonatomic) BPKeyboardViewController *keyboardViewController;
-@property(nonatomic, readonly) BPCameraSessionManager *cameraSessionManager;
-@property(nonatomic, readonly) BPFlashlightManager *flashlightManager;
-@property(nonatomic, readonly) BPProductManager *productManager;
-@property(copy, nonatomic) NSString *lastBardcodeScanned;
-@property(nonatomic, readonly) NSMutableArray *scannedBarcodes;
-@property(nonatomic, readonly) NSMutableDictionary *barcodeToProductResult;
-@property(nonatomic) BOOL addingCardEnabled;
+@property (nonatomic) BPKeyboardViewController *keyboardViewController;
+@property (nonatomic, readonly) BPCameraSessionManager *cameraSessionManager;
+@property (nonatomic, readonly) BPFlashlightManager *flashlightManager;
+@property (nonatomic, readonly) BPProductManager *productManager;
+@property (copy, nonatomic) NSString *lastBardcodeScanned;
+@property (nonatomic, readonly) NSMutableArray *scannedBarcodes;
+@property (nonatomic, readonly) NSMutableDictionary *barcodeToProductResult;
+@property (nonatomic) BOOL addingCardEnabled;
 
 @end
 
 @implementation BPScanCodeViewController
 
-objection_requires_sel(@selector(productManager), @selector(cameraSessionManager), @selector(flashlightManager))
+objection_requires_sel(@selector(productManager), @selector(cameraSessionManager), @selector(flashlightManager));
 
 - (void)loadView {
     self.view = [[BPScanCodeView alloc] initWithFrame:CGRectZero];
@@ -51,12 +51,20 @@ objection_requires_sel(@selector(productManager), @selector(cameraSessionManager
     self.addingCardEnabled = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.castView.stackView.delegate = self;
-    [self.castView.menuButton addTarget:self action:@selector(didTapMenuButton:) forControlEvents:UIControlEventTouchUpInside];
-    [self.castView.keyboardButton addTarget:self action:@selector(didTapKeyboardButton:) forControlEvents:UIControlEventTouchUpInside];
-    [self.castView.teachButton addTarget:self action:@selector(didTapTeachButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self.castView.menuButton addTarget:self
+                                 action:@selector(didTapMenuButton:)
+                       forControlEvents:UIControlEventTouchUpInside];
+    [self.castView.keyboardButton addTarget:self
+                                     action:@selector(didTapKeyboardButton:)
+                           forControlEvents:UIControlEventTouchUpInside];
+    [self.castView.teachButton addTarget:self
+                                  action:@selector(didTapTeachButton:)
+                        forControlEvents:UIControlEventTouchUpInside];
 
     if (self.flashlightManager.isAvailable) {
-        [self.castView.flashButton addTarget:self action:@selector(didTapFlashlightButton:) forControlEvents:UIControlEventTouchUpInside];
+        [self.castView.flashButton addTarget:self
+                                      action:@selector(didTapFlashlightButton:)
+                            forControlEvents:UIControlEventTouchUpInside];
     } else {
         self.castView.flashlightButtonHidden = YES;
     }
@@ -67,16 +75,11 @@ objection_requires_sel(@selector(productManager), @selector(cameraSessionManager
 
     self.castView.videoLayer = self.cameraSessionManager.videoPreviewLayer;
     [self.cameraSessionManager start];
-    
+
     [self.flashlightManager addObserver:self
                              forKeyPath:NSStringFromSelector(@selector(isOn))
                                 options:NSKeyValueObservingOptionInitial
                                 context:nil];
-
-//    [self didFindBarcode:@"5900396019813"];
-//    [self performSelector:@selector(didFindBarcode:) withObject:@"5901234123457" afterDelay:1.5f];
-//    [self performSelector:@selector(didFindBarcode:) withObject:@"5900396019813" afterDelay:3.f];
-//    [self showReportProblem:productId:@"3123123"];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -87,7 +90,7 @@ objection_requires_sel(@selector(productManager), @selector(cameraSessionManager
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    
+
     self.keyboardViewController.view.frame = self.view.bounds;
 }
 
@@ -116,20 +119,26 @@ objection_requires_sel(@selector(productManager), @selector(cameraSessionManager
     cardView.tag = [self.scannedBarcodes count];
     [self.scannedBarcodes addObject:barcode];
 
-    [self.productManager retrieveProductWithBarcode:barcode completion:^(BPScanResult *productResult, NSError *error) {
-        if (!error) {
-            [BPAnalyticsHelper receivedProductResult:productResult];
+    [self.productManager
+        retrieveProductWithBarcode:barcode
+                        completion:^(BPScanResult *productResult, NSError *error) {
+                            if (!error) {
+                                [BPAnalyticsHelper receivedProductResult:productResult];
 
-            self.barcodeToProductResult[barcode] = productResult;
-            [self fillCard:cardView withData:productResult];
-        } else {
-            self.lastBardcodeScanned = nil;
-            self.addingCardEnabled = NO;
-            UIAlertView *alertView = [UIAlertView showErrorAlert:NSLocalizedString(@"Cannot fetch product info from server. Please try again.", nil)];
-            alertView.delegate = self;
-            [self.castView.stackView removeCard:cardView];
-        }
-    }                               completionQueue:[NSOperationQueue mainQueue]];
+                                self.barcodeToProductResult[barcode] = productResult;
+                                [self fillCard:cardView withData:productResult];
+                            } else {
+                                self.lastBardcodeScanned = nil;
+                                self.addingCardEnabled = NO;
+                                UIAlertView *alertView = [UIAlertView
+                                    showErrorAlert:NSLocalizedString(@"Cannot fetch product info from server. "
+                                                                     @"Please try again.",
+                                                                     nil)];
+                                alertView.delegate = self;
+                                [self.castView.stackView removeCard:cardView];
+                            }
+                        }
+                   completionQueue:[NSOperationQueue mainQueue]];
 
     return YES;
 }
@@ -150,39 +159,42 @@ objection_requires_sel(@selector(productManager), @selector(cameraSessionManager
         [cardView setContentType:CompanyContentTypeAlt];
         [cardView setAltText:productResult.altText];
     }
-    
+
     if (productResult.askForPics) {
         [cardView setTeachButtonText:productResult.askForPicsPreview];
     } else {
         [cardView setTeachButtonText:nil];
     }
-    
+
     [cardView setCardType:productResult.cardType];
     [cardView setReportButtonType:productResult.reportButtonType];
     [cardView setReportButtonText:productResult.reportButtonText];
     [cardView setReportText:productResult.reportText];
     [cardView setTitleText:productResult.name];
     [cardView setMarkAsFriend:productResult.isFriend];
-    
-    UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification,
-                                    cardView.titleLabel);
-    
+
+    UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, cardView.titleLabel);
+
     BOOL visible = productResult.askForPics;
-    [self.castView updateTeachButtonWithVisible:visible title:productResult.askForPicsPreview cardsHeight: self.castView.cardsHeight];
+    [self.castView updateTeachButtonWithVisible:visible
+                                          title:productResult.askForPicsPreview
+                                    cardsHeight:self.castView.cardsHeight];
 }
 
 - (void)showReportProblem:(NSString *)barcode productId:(NSNumber *)productId {
     [BPAnalyticsHelper reportShown:barcode];
 
     JSObjectionInjector *injector = [JSObjection defaultInjector];
-    BPReportProblemViewController *reportProblemViewController = [injector getObject:[BPReportProblemViewController class] argumentList:@[productId, barcode]];
+    BPReportProblemViewController *reportProblemViewController =
+        [injector getObject:[BPReportProblemViewController class] argumentList:@[productId, barcode]];
     reportProblemViewController.delegate = self;
     [self presentViewController:reportProblemViewController animated:YES completion:nil];
 }
 
 - (void)showCaptureVideoWithScanResult:(BPScanResult *)scanResult {
     [BPAnalyticsHelper teachReportShow:self.lastBardcodeScanned];
-    BPCaptureVideoNavigationController *captureVideoNavigationController = [[BPCaptureVideoNavigationController alloc] initWithScanResult: scanResult];
+    BPCaptureVideoNavigationController *captureVideoNavigationController =
+        [[BPCaptureVideoNavigationController alloc] initWithScanResult:scanResult];
     captureVideoNavigationController.captureDelegate = self;
     [self presentViewController:captureVideoNavigationController animated:YES completion:nil];
 }
@@ -197,7 +209,6 @@ objection_requires_sel(@selector(productManager), @selector(cameraSessionManager
 }
 
 - (void)didTapKeyboardButton:(UIButton *)button {
-
     if (self.keyboardViewController.view.superview == nil) {
         [self showKeyboardController];
     } else {
@@ -215,8 +226,8 @@ objection_requires_sel(@selector(productManager), @selector(cameraSessionManager
 }
 
 - (void)didTapFlashlightButton:(UIButton *)button {
-    [self.flashlightManager toggleWithCompletionBlock:^(BOOL success) {
-        //TODO: Add error message after consultation with UX
+    [self.flashlightManager toggleWithCompletionBlock:^(BOOL success){
+        // TODO: Add error message after consultation with UX
     }];
 }
 
@@ -233,19 +244,20 @@ objection_requires_sel(@selector(productManager), @selector(cameraSessionManager
     if (!self.addingCardEnabled) {
         return;
     }
-    
+
     if (![barcode isValidBarcode]) {
         self.addingCardEnabled = NO;
-        
-        UIAlertView *alertView = [UIAlertView showErrorAlert:NSLocalizedString(@"Not valid barcode. Please try again.", nil)];
+
+        UIAlertView *alertView =
+            [UIAlertView showErrorAlert:NSLocalizedString(@"Not valid barcode. Please try again.", nil)];
         [alertView setDelegate:self];
         return;
     }
-    
+
     if ([barcode isEqualToString:self.lastBardcodeScanned]) {
         return;
     }
-    
+
     if ([self addCardAndDownloadDetails:barcode]) {
         [BPAnalyticsHelper barcodeScanned:barcode type:sourceType];
         [self.castView setInfoTextVisible:NO];
@@ -258,7 +270,7 @@ objection_requires_sel(@selector(productManager), @selector(cameraSessionManager
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object
-                        change:(NSDictionary<NSKeyValueChangeKey,id> *)change
+                        change:(NSDictionary<NSKeyValueChangeKey, id> *)change
                        context:(void *)context {
     if (object == self.flashlightManager && keyPath == NSStringFromSelector(@selector(isOn))) {
         [self updateFlashlightButton];
@@ -267,42 +279,44 @@ objection_requires_sel(@selector(productManager), @selector(cameraSessionManager
 
 #pragma mark - Keyboard Controller
 
-- (void) hideKeyboardController {
+- (void)hideKeyboardController {
     if (self.keyboardViewController == nil) {
         return;
     }
-    
+
     [self.castView.keyboardButton setSelected:NO];
 
     [self.keyboardViewController willMoveToParentViewController:nil];
 
-    [UIView animateWithDuration:kAnimationTime animations:^{
-        self.castView.infoTextLabel.alpha = self.castView.stackView.cardCount > 0 ? 0.0 : 1.0;
-        self.castView.rectangleView.alpha = 1.0;
-        self.castView.stackView.alpha = 1.0;
-        self.castView.teachButton.alpha = 1.0;
-        self.keyboardViewController.view.alpha = 0.0;
-    } completion:^(BOOL finished) {
-        [self.keyboardViewController.view removeFromSuperview];
-        [self.keyboardViewController removeFromParentViewController];
-
-        [self.castView configureInfoLabelForMode:BPScanCodeViewLabelModeScan];
-        self.keyboardViewController = nil;
-        
-        if (self.castView.stackView.cardCount != 0) {
-            [self.castView setInfoTextVisible:NO];
+    [UIView animateWithDuration:kAnimationTime
+        animations:^{
+            self.castView.infoTextLabel.alpha = self.castView.stackView.cardCount > 0 ? 0.0 : 1.0;
+            self.castView.rectangleView.alpha = 1.0;
+            self.castView.stackView.alpha = 1.0;
+            self.castView.teachButton.alpha = 1.0;
+            self.keyboardViewController.view.alpha = 0.0;
         }
-    }];
+        completion:^(BOOL finished) {
+            [self.keyboardViewController.view removeFromSuperview];
+            [self.keyboardViewController removeFromParentViewController];
+
+            [self.castView configureInfoLabelForMode:BPScanCodeViewLabelModeScan];
+            self.keyboardViewController = nil;
+
+            if (self.castView.stackView.cardCount != 0) {
+                [self.castView setInfoTextVisible:NO];
+            }
+        }];
 }
 
 - (void)showKeyboardController {
     if (self.keyboardViewController != nil) {
         return;
     }
-    
+
     self.keyboardViewController = [[BPKeyboardViewController alloc] init];
     self.keyboardViewController.delegate = self;
-    
+
     [self.castView.keyboardButton setSelected:YES];
 
     [self addChildViewController:self.keyboardViewController];
@@ -310,15 +324,17 @@ objection_requires_sel(@selector(productManager), @selector(cameraSessionManager
     self.keyboardViewController.view.alpha = 0.0;
     [self.view insertSubview:self.keyboardViewController.view belowSubview:self.castView.logoImageView];
 
-    [UIView animateWithDuration:kAnimationTime animations:^{
-        self.keyboardViewController.view.alpha = 1.0;
+    [UIView animateWithDuration:kAnimationTime
+        animations:^{
+            self.keyboardViewController.view.alpha = 1.0;
 
-        self.castView.rectangleView.alpha = 0.0;
-        self.castView.stackView.alpha = 0.0;
-        self.castView.teachButton.alpha = 0.0;
-    } completion:^(BOOL finished) {
-        [self.keyboardViewController didMoveToParentViewController:self];
-    }];
+            self.castView.rectangleView.alpha = 0.0;
+            self.castView.stackView.alpha = 0.0;
+            self.castView.teachButton.alpha = 0.0;
+        }
+        completion:^(BOOL finished) {
+            [self.keyboardViewController didMoveToParentViewController:self];
+        }];
 
     [self.castView configureInfoLabelForMode:BPScanCodeViewLabelModeKeyboard];
     [self.castView setInfoTextVisible:YES];
@@ -333,7 +349,7 @@ objection_requires_sel(@selector(productManager), @selector(cameraSessionManager
 #pragma mark - Helpers
 
 - (BPScanCodeView *)castView {
-    return (BPScanCodeView *) self.view;
+    return (BPScanCodeView *)self.view;
 }
 
 #pragma mark - BPStackViewDelegate
@@ -343,7 +359,6 @@ objection_requires_sel(@selector(productManager), @selector(cameraSessionManager
 }
 
 - (void)stackView:(BPStackView *)stackView didRemoveCard:(UIView *)cardView {
-
 }
 
 - (void)stackView:(BPStackView *)stackView willExpandWithCard:(UIView *)cardView {
@@ -351,7 +366,7 @@ objection_requires_sel(@selector(productManager), @selector(cameraSessionManager
 
     [self.castView setButtonsVisible:NO animation:YES];
 
-    NSString *barcode = self.scannedBarcodes[(NSUInteger) cardView.tag];
+    NSString *barcode = self.scannedBarcodes[(NSUInteger)cardView.tag];
     if (!barcode) {
         return;
     }
@@ -380,35 +395,38 @@ objection_requires_sel(@selector(productManager), @selector(cameraSessionManager
 #pragma mark - BPProductCardViewDelegate
 
 - (void)productCardViewDidTapReportProblem:(BPCompanyCardView *)productCardView {
-    NSString *barcode = self.scannedBarcodes[(NSUInteger) productCardView.tag];
+    NSString *barcode = self.scannedBarcodes[(NSUInteger)productCardView.tag];
     BPScanResult *scanResult = self.barcodeToProductResult[barcode];
     [self showReportProblem:barcode productId:scanResult.productId];
 }
 
 - (void)productCardViewDidTapTeach:(BPCompanyCardView *)productCardView {
-    NSString *barcode = self.scannedBarcodes[(NSUInteger) productCardView.tag];
+    NSString *barcode = self.scannedBarcodes[(NSUInteger)productCardView.tag];
     BPScanResult *scanResult = self.barcodeToProductResult[barcode];
     [self showCaptureVideoWithScanResult:scanResult];
 }
 
 - (void)productCardViewDidTapFriendButton:(BPCompanyCardView *)productCardView {
     BPAboutWebViewController *webViewController =
-    [[BPAboutWebViewController alloc] initWithUrl:@"https://www.pola-app.pl/m/friends" title:NSLocalizedString(@"Pola's friends", nil)];
+        [[BPAboutWebViewController alloc] initWithUrl:@"https://www.pola-app.pl/m/friends"
+                                                title:NSLocalizedString(@"Pola's friends", nil)];
     webViewController.navigationItem.rightBarButtonItem =
-    [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"CloseIcon"]
-                                     style:UIBarButtonItemStylePlain
-                                    target:self
-                                    action:@selector(didTapWebViewCloseButton:)];
-    webViewController.navigationItem.rightBarButtonItem.accessibilityLabel = NSLocalizedString(@"Accessibility.Close", nil);
+        [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"CloseIcon"]
+                                         style:UIBarButtonItemStylePlain
+                                        target:self
+                                        action:@selector(didTapWebViewCloseButton:)];
+    webViewController.navigationItem.rightBarButtonItem.accessibilityLabel =
+        NSLocalizedString(@"Accessibility.Close", nil);
 
     UINavigationController *navigationController =
-    [[UINavigationController alloc] initWithRootViewController:webViewController];
+        [[UINavigationController alloc] initWithRootViewController:webViewController];
     [self presentViewController:navigationController animated:YES completion:nil];
 }
 
 #pragma mark - BPCaptureVideoNavigationControllerDelegate
 
-- (void)captureVideoNavigationController:(BPCaptureVideoNavigationController *)controller wantsDismissWithSuccess:(BOOL)success {
+- (void)captureVideoNavigationController:(BPCaptureVideoNavigationController *)controller
+                 wantsDismissWithSuccess:(BOOL)success {
     if (success) {
         [self.castView updateTeachButtonWithVisible:NO title:nil cardsHeight:0.0];
     }
@@ -433,10 +451,10 @@ objection_requires_sel(@selector(productManager), @selector(cameraSessionManager
 
 #pragma mark - BPKeyboardViewControllerDelegate
 
-- (void)keyboardViewController:(BPKeyboardViewController *) viewController didConfirmWithCode:(NSString *) code {
+- (void)keyboardViewController:(BPKeyboardViewController *)viewController didConfirmWithCode:(NSString *)code {
     [self hideKeyboardController];
-    
-    [self didFindBarcode:code sourceType: @"Keyboard"];
+
+    [self didFindBarcode:code sourceType:@"Keyboard"];
 }
 
 @end

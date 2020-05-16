@@ -2,7 +2,7 @@
 
 typedef NS_ENUM(NSInteger, BPAboutRowStyle) {
     BPAboutRowStyleSingle,
-    BPAboutRowStyleDouble
+    BPAboutRowStyleDouble,
 };
 
 @interface BPAboutRow : NSObject

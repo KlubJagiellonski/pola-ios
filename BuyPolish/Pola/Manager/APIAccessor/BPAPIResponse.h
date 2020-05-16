@@ -4,11 +4,11 @@
 
 @interface BPAPIResponse : NSObject
 
-@property(nonatomic, readonly) id responseObject;
-@property(copy, nonatomic, readonly) NSDictionary *headerFields;
-@property(copy, nonatomic, readonly) NSString *responseString;
-@property(nonatomic, readonly) NSUInteger length;
-@property(nonatomic, readonly) NSInteger statusCode;
+@property (nonatomic, readonly) id responseObject;
+@property (copy, nonatomic, readonly) NSDictionary *headerFields;
+@property (copy, nonatomic, readonly) NSString *responseString;
+@property (nonatomic, readonly) NSUInteger length;
+@property (nonatomic, readonly) NSInteger statusCode;
 
 + (instancetype)responseWithOperation:(AFHTTPRequestOperation *)operation responseObject:(id)responseObject;
 + (instancetype)emptyResponse;

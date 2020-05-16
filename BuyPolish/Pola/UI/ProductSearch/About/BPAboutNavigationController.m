@@ -10,7 +10,7 @@
     self = [super init];
     if (self) {
         JSObjectionInjector *injector = [JSObjection defaultInjector];
-        BPAboutViewController *infoViewController = injector[[BPAboutViewController class]];
+        BPAboutViewController *infoViewController = injector [[BPAboutViewController class]];
         infoViewController.delegate = self;
         self.viewControllers = @[infoViewController];
     }

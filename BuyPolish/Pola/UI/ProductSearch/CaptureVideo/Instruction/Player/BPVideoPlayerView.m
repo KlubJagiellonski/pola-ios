@@ -2,18 +2,18 @@
 #import <AVFoundation/AVFoundation.h>
 
 @interface BPVideoPlayerView ()
-@property(nonatomic) AVPlayer *player;
+@property (nonatomic) AVPlayer *player;
 @end
 
 @implementation BPVideoPlayerView
 
-- (void)playInLoopURL:(NSURL*)url {
+- (void)playInLoopURL:(NSURL *)url {
     self.player = [[AVPlayer alloc] initWithURL:url];
     self.player.muted = YES;
     self.playerLayer.player = self.player;
-    
+
     self.player.actionAtItemEnd = AVPlayerActionAtItemEndNone;
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(playerItemDidReachEnd:)
                                                  name:AVPlayerItemDidPlayToEndTimeNotification
@@ -29,7 +29,6 @@
 
 - (void)stop {
     [self.player pause];
-    
 }
 
 #pragma mark helper methods

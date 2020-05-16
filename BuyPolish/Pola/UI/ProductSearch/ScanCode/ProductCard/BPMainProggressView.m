@@ -5,8 +5,8 @@ const int MAIN_PROGRESS_HEIGHT = 20;
 const int MAIN_PROGRESS_TITLE_MARGIN = 10;
 
 @interface BPMainProggressView ()
-@property(nonatomic, readonly) UIView *filledProgressView;
-@property(nonatomic, readonly) UILabel *percentLabel;
+@property (nonatomic, readonly) UIView *filledProgressView;
+@property (nonatomic, readonly) UILabel *percentLabel;
 @end
 
 @implementation BPMainProggressView
@@ -24,7 +24,7 @@ const int MAIN_PROGRESS_TITLE_MARGIN = 10;
         _percentLabel.font = [BPTheme captionFont];
         _percentLabel.textColor = [BPTheme clearColor];
         [self addSubview:_percentLabel];
-        
+
         self.isAccessibilityElement = true;
         self.accessibilityTraits = UIAccessibilityTraitStaticText;
     }
@@ -49,10 +49,10 @@ const int MAIN_PROGRESS_TITLE_MARGIN = 10;
 - (void)setProgress:(CGFloat)progress {
     _progress = progress;
 
-    int progressInt = (int) (progress * 100);
+    int progressInt = (int)(progress * 100);
     self.percentLabel.text = [NSString stringWithFormat:@"%i pkt.", progressInt];
     [self.percentLabel sizeToFit];
-    
+
     [self setNeedsLayout];
     [self layoutIfNeeded];
 }
@@ -63,7 +63,8 @@ const int MAIN_PROGRESS_TITLE_MARGIN = 10;
 }
 
 - (NSString *)accessibilityValue {
-    return [NSString stringWithFormat:NSLocalizedString(@"Accessibility.MainProgressValue", nil), self.percentLabel.text];
+    return
+        [NSString stringWithFormat:NSLocalizedString(@"Accessibility.MainProgressValue", nil), self.percentLabel.text];
 }
 
 @end

@@ -6,15 +6,16 @@ const int CAPTURED_IMAGE_STATE_FINISHED = 2;
 
 @implementation BPCapturedImageResult
 
-- (instancetype)initWithState:(int)state capturedImagesData:(BPCapturedImagesData *)imagesData imageIndex:(int)imageIndex {
-    
+- (instancetype)initWithState:(int)state
+           capturedImagesData:(BPCapturedImagesData *)imagesData
+                   imageIndex:(int)imageIndex {
     self = [super init];
     if (self) {
         self.state = state;
         self.imagesData = imagesData;
         self.imageIndex = imageIndex;
     }
-    
+
     return self;
 }
 

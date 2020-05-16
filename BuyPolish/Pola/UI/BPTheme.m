@@ -1,9 +1,8 @@
 #import "BPTheme.h"
 #import "UIColor+BPAdditions.h"
 
-@implementation BPTheme {
+@implementation BPTheme
 
-}
 + (UIColor *)lightBackgroundColor {
     return [UIColor colorWithHexString:@"CCCCCC"];
 }

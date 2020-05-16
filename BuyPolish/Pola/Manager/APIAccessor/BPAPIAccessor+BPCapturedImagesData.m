@@ -14,13 +14,16 @@
     jsonBody[@"width"] = imagesData.width;
     jsonBody[@"height"] = imagesData.height;
     jsonBody[@"device_name"] = imagesData.deviceName;
-    
-    BPAPIResponse *response = [self post: [NSString stringWithFormat:@"add_ai_pics"] jsonBody:jsonBody error:error];
+
+    BPAPIResponse *response = [self post:[NSString stringWithFormat:@"add_ai_pics"] jsonBody:jsonBody error:error];
     NSDictionary *result = response.responseObject;
     return result;
 }
 
-- (NSDictionary *)uploadImage:(NSData *)imageData toUrl:(NSString *)uploadUrl mimeType:(NSString *)mimeType error:(NSError **)error {
+- (NSDictionary *)uploadImage:(NSData *)imageData
+                        toUrl:(NSString *)uploadUrl
+                     mimeType:(NSString *)mimeType
+                        error:(NSError **)error {
     BPAPIResponse *response = [self putAmazonMultipart:uploadUrl data:imageData mimeType:mimeType error:error];
     NSDictionary *result = response.responseObject;
     return result;

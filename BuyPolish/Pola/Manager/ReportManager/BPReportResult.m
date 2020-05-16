@@ -5,9 +5,8 @@ const int REPORT_STATE_ADD = 0;
 const int REPORT_STATE_IMAGE_ADD = 1;
 const int REPORT_STATE_FINSIHED = 2;
 
-@implementation BPReportResult {
+@implementation BPReportResult
 
-}
 - (instancetype)initWithState:(int)state report:(BPReport *)report imageDownloadedIndex:(int)imageDownloadedIndex {
     self = [super init];
     if (self) {

@@ -1,7 +1,7 @@
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-#define weakify() __weak typeof(self)weakSelf = self;
-#define strongify() __strong typeof(weakSelf)strongSelf = weakSelf;
+#define weakify() __weak typeof(self) weakSelf = self;
+#define strongify() __strong typeof(weakSelf) strongSelf = weakSelf;
 
 @interface BPUtilities : NSObject
 

@@ -4,5 +4,7 @@
 @class BPReportResult;
 
 @interface BPReportManager : NSObject
-- (void)sendReport:(BPReport *)report completion:(void (^)(BPReportResult *, NSError *))completion completionQueue:(NSOperationQueue *)completionQueue;
+- (void)sendReport:(BPReport *)report
+         completion:(void (^)(BPReportResult *, NSError *))completion
+    completionQueue:(NSOperationQueue *)completionQueue;
 @end

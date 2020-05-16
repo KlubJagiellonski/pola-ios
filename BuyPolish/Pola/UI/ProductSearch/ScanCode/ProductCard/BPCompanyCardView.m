@@ -1,7 +1,7 @@
 #import "BPCompanyCardView.h"
 #import "BPMainProggressView.h"
-#import "UILabel+BPAdditions.h"
 #import "BPTheme.h"
+#import "UILabel+BPAdditions.h"
 
 NSInteger const CARD_PADDING = 10;
 int const CARD_SEPARATOR_HEIGHT = 1;
@@ -12,16 +12,16 @@ int const CARD_TEACH_BUTTON_HEIGHT = 30;
 int const CARD_CONTENT_PROGRESS_IN_HEADER = 6;
 
 @interface BPCompanyCardView ()
-@property(nonatomic, readonly) UIActivityIndicatorView *loadingProgressView;
-@property(nonatomic, readonly) BPMainProggressView *mainProgressView;
-@property(nonatomic, readonly) BPCompanyContentView *contentView;
-@property(nonatomic) BOOL teachButtonVisible;
-@property(nonatomic, readonly) UIButton *teachButton;
-@property(nonatomic, readonly) UIButton *reportProblemButton;
-@property(nonatomic, readonly) UILabel *reportInfoLabel;
-@property(nonatomic, readonly) UIView *separatorView;
-@property(nonatomic) BOOL heartImageVisible;
-@property(nonatomic, readonly) UIImageView *heartImageView;
+@property (nonatomic, readonly) UIActivityIndicatorView *loadingProgressView;
+@property (nonatomic, readonly) BPMainProggressView *mainProgressView;
+@property (nonatomic, readonly) BPCompanyContentView *contentView;
+@property (nonatomic) BOOL teachButtonVisible;
+@property (nonatomic, readonly) UIButton *teachButton;
+@property (nonatomic, readonly) UIButton *reportProblemButton;
+@property (nonatomic, readonly) UILabel *reportInfoLabel;
+@property (nonatomic, readonly) UIView *separatorView;
+@property (nonatomic) BOOL heartImageVisible;
+@property (nonatomic, readonly) UIImageView *heartImageView;
 
 @end
 
@@ -36,10 +36,11 @@ int const CARD_CONTENT_PROGRESS_IN_HEADER = 6;
         self.layer.masksToBounds = NO;
         self.layer.shadowRadius = 1.f;
         self.layer.shadowOpacity = 0.2f;
-        
+
         self.accessibilityViewIsModal = true;
 
-        _loadingProgressView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        _loadingProgressView =
+            [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         [_loadingProgressView sizeToFit];
         [self addSubview:_loadingProgressView];
 
@@ -49,7 +50,7 @@ int const CARD_CONTENT_PROGRESS_IN_HEADER = 6;
         _titleLabel.accessibilityTraits = UIAccessibilityTraitHeader;
         _titleLabel.accessibilityHint = NSLocalizedString(@"Accessibility.CardHint", nil);
         [self addSubview:_titleLabel];
-        
+
         UIImage *heartImage = [UIImage imageNamed:@"HeartFilled"];
         _heartImageView = [[UIImageView alloc] initWithImage:heartImage];
         _heartImageView.tintColor = [BPTheme actionColor];
@@ -64,7 +65,7 @@ int const CARD_CONTENT_PROGRESS_IN_HEADER = 6;
         _contentView.padding = CARD_PADDING;
         [_contentView addTargetOnFriendButton:self action:@selector(didTapFriendButton)];
         [self addSubview:_contentView];
-        
+
         _teachButtonVisible = NO;
         _teachButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_teachButton addTarget:self action:@selector(didTapTeach) forControlEvents:UIControlEventTouchUpInside];
@@ -73,13 +74,17 @@ int const CARD_CONTENT_PROGRESS_IN_HEADER = 6;
         _teachButton.layer.borderWidth = 1;
         [_teachButton setTitleColor:[BPTheme actionColor] forState:UIControlStateNormal];
         [_teachButton setTitleColor:[BPTheme clearColor] forState:UIControlStateHighlighted];
-        [_teachButton setBackgroundImage:[BPUtilities imageWithColor:[UIColor clearColor]] forState:UIControlStateNormal];
-        [_teachButton setBackgroundImage:[BPUtilities imageWithColor:[BPTheme actionColor]] forState:UIControlStateHighlighted];
+        [_teachButton setBackgroundImage:[BPUtilities imageWithColor:[UIColor clearColor]]
+                                forState:UIControlStateNormal];
+        [_teachButton setBackgroundImage:[BPUtilities imageWithColor:[BPTheme actionColor]]
+                                forState:UIControlStateHighlighted];
         [_teachButton sizeToFit];
         [self addSubview:_teachButton];
 
         _reportProblemButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_reportProblemButton addTarget:self action:@selector(didTapReportProblem) forControlEvents:UIControlEventTouchUpInside];
+        [_reportProblemButton addTarget:self
+                                 action:@selector(didTapReportProblem)
+                       forControlEvents:UIControlEventTouchUpInside];
         _reportProblemButton.titleLabel.font = [BPTheme buttonFont];
         [_reportProblemButton sizeToFit];
         [self addSubview:_reportProblemButton];
@@ -114,22 +119,21 @@ int const CARD_CONTENT_PROGRESS_IN_HEADER = 6;
 - (void)layoutSubviews {
     [super layoutSubviews];
 
-    const int verticalTitleSpace = (const int) (self.titleHeight - CARD_CONTENT_PROGRESS_IN_HEADER);
-    const int widthWithPadding = (const int) (CGRectGetWidth(self.bounds) - 2 * CARD_PADDING);
+    const int verticalTitleSpace = (const int)(self.titleHeight - CARD_CONTENT_PROGRESS_IN_HEADER);
+    const int widthWithPadding = (const int)(CGRectGetWidth(self.bounds) - 2 * CARD_PADDING);
 
     CGRect rect = self.titleLabel.frame;
     rect.origin.x = CARD_PADDING;
     rect.origin.y = verticalTitleSpace / 2 - CGRectGetHeight(rect) / 2;
     rect.size.width = widthWithPadding;
     self.titleLabel.frame = rect;
-    
+
     if (self.heartImageVisible) {
         CGFloat imageWidth = CGRectGetWidth(self.heartImageView.frame);
         rect.size.width -= imageWidth + CARD_PADDING;
         self.titleLabel.frame = rect;
-        
-        rect.origin.y -=
-        (CGRectGetHeight(self.heartImageView.frame) - CGRectGetHeight(self.titleLabel.frame)) / 2;
+
+        rect.origin.y -= (CGRectGetHeight(self.heartImageView.frame) - CGRectGetHeight(self.titleLabel.frame)) / 2;
         rect.origin.x = CGRectGetMaxX(self.titleLabel.frame) + CARD_PADDING;
         rect.size = self.heartImageView.frame.size;
         self.heartImageView.frame = rect;
@@ -173,7 +177,7 @@ int const CARD_CONTENT_PROGRESS_IN_HEADER = 6;
         rect.origin.y = CGRectGetMinY(self.reportInfoLabel.frame);
         self.teachButton.frame = rect;
     }
-    
+
     rect = self.separatorView.frame;
     rect.size.width = CGRectGetWidth(self.bounds);
     rect.origin.x = 0;
@@ -211,7 +215,7 @@ int const CARD_CONTENT_PROGRESS_IN_HEADER = 6;
 - (void)setMainPercent:(CGFloat)mainPercent {
     self.mainProgressView.progress = mainPercent;
     [self.mainProgressView setNeedsLayout];
-    
+
     self.titleLabel.accessibilityValue = self.mainProgressView.accessibilityValue;
 }
 
@@ -269,14 +273,17 @@ int const CARD_CONTENT_PROGRESS_IN_HEADER = 6;
 - (void)setReportButtonType:(ReportButtonType)type {
     if (type == ReportButtonTypeRed) {
         [self.reportProblemButton setTitleColor:[BPTheme clearColor] forState:UIControlStateNormal];
-        [self.reportProblemButton setBackgroundImage:[BPUtilities imageWithColor:[BPTheme actionColor]] forState:UIControlStateNormal];
+        [self.reportProblemButton setBackgroundImage:[BPUtilities imageWithColor:[BPTheme actionColor]]
+                                            forState:UIControlStateNormal];
     } else {
         self.reportProblemButton.layer.borderColor = [[BPTheme actionColor] CGColor];
         self.reportProblemButton.layer.borderWidth = 1;
         [self.reportProblemButton setTitleColor:[BPTheme actionColor] forState:UIControlStateNormal];
         [self.reportProblemButton setTitleColor:[BPTheme clearColor] forState:UIControlStateHighlighted];
-        [self.reportProblemButton setBackgroundImage:[BPUtilities imageWithColor:[UIColor clearColor]] forState:UIControlStateNormal];
-        [self.reportProblemButton setBackgroundImage:[BPUtilities imageWithColor:[BPTheme actionColor]] forState:UIControlStateHighlighted];
+        [self.reportProblemButton setBackgroundImage:[BPUtilities imageWithColor:[UIColor clearColor]]
+                                            forState:UIControlStateNormal];
+        [self.reportProblemButton setBackgroundImage:[BPUtilities imageWithColor:[BPTheme actionColor]]
+                                            forState:UIControlStateHighlighted];
     }
 }
 

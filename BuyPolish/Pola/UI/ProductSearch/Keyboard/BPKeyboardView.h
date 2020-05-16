@@ -11,7 +11,7 @@
 
 @interface BPKeyboardView : UIView
 
-@property (weak, nonatomic) id <BPKeyboardViewDelegate> delegate;
+@property (weak, nonatomic) id<BPKeyboardViewDelegate> delegate;
 
 - (void)showErrorMessage;
 - (void)hideErrorMessage;

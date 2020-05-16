@@ -1,5 +1,5 @@
-#import <Foundation/Foundation.h>
 #import "BPAPIAccessor.h"
+#import <Foundation/Foundation.h>
 
 @interface BPAPIAccessor (BPScan)
 

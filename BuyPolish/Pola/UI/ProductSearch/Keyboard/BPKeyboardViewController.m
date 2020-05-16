@@ -1,6 +1,6 @@
 #import "BPKeyboardViewController.h"
-#import "BPKeyboardView.h"
 #import "BPKeyboardTextView.h"
+#import "BPKeyboardView.h"
 #import "NSString+BPUtilities.h"
 #import <AudioToolbox/AudioToolbox.h>
 

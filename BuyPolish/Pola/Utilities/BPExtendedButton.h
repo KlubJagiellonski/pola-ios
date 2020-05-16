@@ -2,6 +2,6 @@
 
 @interface BPExtendedButton : UIButton
 
-@property(nonatomic) CGFloat extendedTouchSize;
+@property (nonatomic) CGFloat extendedTouchSize;
 
 @end

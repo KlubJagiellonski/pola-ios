@@ -1,5 +1,5 @@
-#import <XCTest/XCTest.h>
 #import "NSDictionary+Parsing.h"
+#import <XCTest/XCTest.h>
 
 @interface NSDictionary_ParsingTests : XCTestCase
 @property (nonatomic, strong) NSDictionary *sut;
@@ -19,12 +19,12 @@
 }
 
 - (void)testThatReturnedStringWillBeCorrectIfItsString {
-    self.sut = @{@"key": @"test"};
+    self.sut = @{ @"key": @"test" };
     XCTAssertEqual([self.sut nilOrStringForKey:@"key"], @"test");
 }
 
 - (void)testThatReturnedStringWillBeNilIfItsNotString {
-    self.sut = @{@"key": @5};
+    self.sut = @{ @"key": @5 };
     XCTAssertNil([self.sut nilOrStringForKey:@"key"]);
 }
 
@@ -35,12 +35,12 @@
 }
 
 - (void)testThatReturnedNumberWillBeCorrectIfItsString {
-    self.sut = @{@"key": @5};
+    self.sut = @{ @"key": @5 };
     XCTAssertEqual([self.sut nilOrNumberForKey:@"key"], @5);
 }
 
 - (void)testThatReturnedNumberWillBeNilIfItsNotString {
-    self.sut = @{@"key": @"string"};
+    self.sut = @{ @"key": @"string" };
     XCTAssertNil([self.sut nilOrNumberForKey:@"key"]);
 }
 

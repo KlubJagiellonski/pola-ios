@@ -3,10 +3,13 @@
 
 @implementation BPAPIAccessor (BPReport)
 
-- (NSDictionary *)addReportWithDescription:(NSString *)description productId:(NSNumber *)productId filesCount:(NSUInteger)filesCount error:(NSError **)error {
+- (NSDictionary *)addReportWithDescription:(NSString *)description
+                                 productId:(NSNumber *)productId
+                                filesCount:(NSUInteger)filesCount
+                                     error:(NSError **)error {
     NSMutableDictionary *jsonBody = [NSMutableDictionary dictionary];
     jsonBody[@"description"] = description;
-    if(productId) {
+    if (productId) {
         jsonBody[@"product_id"] = productId;
     }
     jsonBody[@"files_count"] = @(filesCount);

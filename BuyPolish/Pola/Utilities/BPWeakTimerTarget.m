@@ -1,8 +1,8 @@
 #import "BPWeakTimerTarget.h"
 
 @interface BPWeakTimerTarget ()
-@property(nonatomic, weak) NSObject *target;
-@property(nonatomic) SEL selector;
+@property (nonatomic, weak) NSObject *target;
+@property (nonatomic) SEL selector;
 @end
 
 @implementation BPWeakTimerTarget
@@ -12,17 +12,16 @@
         _target = target;
         _selector = selector;
     }
-    
+
     return self;
 }
 
 - (void)timerDidFire:(NSTimer *)timer {
-    if(self.target) {
+    if (self.target) {
         IMP imp = [self.target methodForSelector:self.selector];
         void (*func)(id, SEL) = (void *)imp;
         func(self.target, self.selector);
-    }
-    else {
+    } else {
         [timer invalidate];
     }
 }

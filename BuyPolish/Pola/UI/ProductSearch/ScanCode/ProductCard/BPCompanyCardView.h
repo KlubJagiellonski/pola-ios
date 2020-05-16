@@ -1,7 +1,7 @@
-#import <Foundation/Foundation.h>
-#import "BPScanResult.h"
 #import "BPCompanyContentView.h"
+#import "BPScanResult.h"
 #import "BPStackView.h"
+#import <Foundation/Foundation.h>
 
 @class BPCompanyCardView;
 @class BPMainProggressView;
@@ -18,10 +18,10 @@
 
 @interface BPCompanyCardView : UIView <BPStackViewCardProtocol>
 
-@property(nonatomic) CGFloat titleHeight;
-@property(nonatomic, readonly) UILabel *titleLabel;
+@property (nonatomic) CGFloat titleHeight;
+@property (nonatomic, readonly) UILabel *titleLabel;
 
-@property(weak, nonatomic) id <BPCompanyCardViewDelegate> delegate;
+@property (weak, nonatomic) id<BPCompanyCardViewDelegate> delegate;
 
 - (void)setContentType:(CompanyContentType)contentType;
 

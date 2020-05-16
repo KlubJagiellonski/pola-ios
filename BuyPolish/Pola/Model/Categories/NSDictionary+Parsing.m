@@ -5,15 +5,15 @@
 
 #pragma mark - Public
 
-- (NSString *)nilOrStringForKey:(NSString *)key{
+- (NSString *)nilOrStringForKey:(NSString *)key {
     return [self validateObjectForKey:key andClass:[NSString class]];
 }
 
-- (NSNumber *)nilOrNumberForKey:(NSString *)key{
+- (NSNumber *)nilOrNumberForKey:(NSString *)key {
     return [self validateObjectForKey:key andClass:[NSNumber class]];
 }
 
-- (NSDictionary *)nilOrDictionaryForKey:(NSString *)key{
+- (NSDictionary *)nilOrDictionaryForKey:(NSString *)key {
     return [self validateObjectForKey:key andClass:[NSDictionary class]];
 }
 

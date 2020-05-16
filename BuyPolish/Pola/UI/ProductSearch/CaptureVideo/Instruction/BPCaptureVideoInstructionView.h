@@ -9,11 +9,14 @@
 
 @interface BPCaptureVideoInstructionView : UIView
 
-@property(weak, nonatomic) id <BPCaptureVideoInstructionViewDelegate> delegate;
+@property (weak, nonatomic) id<BPCaptureVideoInstructionViewDelegate> delegate;
 
-- (instancetype)initWithFrame:(CGRect)frame title:(NSString*)title instruction:(NSString*)instruction captureButtonText:(NSString*)captureButtonText;
+- (instancetype)initWithFrame:(CGRect)frame
+                        title:(NSString *)title
+                  instruction:(NSString *)instruction
+            captureButtonText:(NSString *)captureButtonText;
 
--(void)playVideoWithURL:(NSURL*)URL;
--(void)stopVideo;
+- (void)playVideoWithURL:(NSURL *)URL;
+- (void)stopVideo;
 
 @end

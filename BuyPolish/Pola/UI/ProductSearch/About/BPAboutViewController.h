@@ -1,6 +1,6 @@
-#import <MessageUI/MessageUI.h>
-#import <Foundation/Foundation.h>
 #import "BPReportProblemViewController.h"
+#import <Foundation/Foundation.h>
+#import <MessageUI/MessageUI.h>
 
 @class BPAboutViewController;
 
@@ -10,8 +10,10 @@
 - (void)showWebWithUrl:(NSString *)url title:(NSString *)title;
 @end
 
-@interface BPAboutViewController : UITableViewController <MFMailComposeViewControllerDelegate, UINavigationControllerDelegate, BPReportProblemViewControllerDelegate>
+@interface BPAboutViewController : UITableViewController <MFMailComposeViewControllerDelegate,
+                                                          UINavigationControllerDelegate,
+                                                          BPReportProblemViewControllerDelegate>
 
-@property(weak, nonatomic) id <BPInfoViewControllerDelegate> delegate;
+@property (weak, nonatomic) id<BPInfoViewControllerDelegate> delegate;
 
 @end

@@ -5,25 +5,28 @@
 
 @interface BPCaptureVideoInstructionViewController ()
 
-@property(nonatomic) BPScanResult *scanResult;
+@property (nonatomic) BPScanResult *scanResult;
 
 @end
 
 @implementation BPCaptureVideoInstructionViewController
 
-objection_initializer_sel(@selector(initWithScanResult:))
+objection_initializer_sel(@selector(initWithScanResult:));
 
-- (instancetype)initWithScanResult:(BPScanResult*)scanResult {
+- (instancetype)initWithScanResult:(BPScanResult *)scanResult {
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
         _scanResult = scanResult;
     }
-    
+
     return self;
 }
 
 - (void)loadView {
-    self.view = [[BPCaptureVideoInstructionView alloc] initWithFrame:CGRectZero title:self.scanResult.askForPicsTitle instruction: self.scanResult.askForPicsText captureButtonText: self.scanResult.askForPicsButtonStart];
+    self.view = [[BPCaptureVideoInstructionView alloc] initWithFrame:CGRectZero
+                                                               title:self.scanResult.askForPicsTitle
+                                                         instruction:self.scanResult.askForPicsText
+                                                   captureButtonText:self.scanResult.askForPicsButtonStart];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -37,14 +40,14 @@ objection_initializer_sel(@selector(initWithScanResult:))
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
+
     NSString *videoFileName = @"capture_video_instruction";
     NSString *videoFileExt = @"mov";
     NSString *videoPath = [[NSBundle mainBundle] pathForResource:videoFileName ofType:videoFileExt];
     if (videoPath != nil) {
         NSURL *videoUrl = [NSURL fileURLWithPath:videoPath];
         [self.castView playVideoWithURL:videoUrl];
-        
+
     } else {
         BPLog(@"Failed to play instruction video, no file at bundle: %@.%@", videoFileName, videoFileExt);
     }
@@ -68,7 +71,7 @@ objection_initializer_sel(@selector(initWithScanResult:))
 #pragma mark - Helpers
 
 - (BPCaptureVideoInstructionView *)castView {
-    return (BPCaptureVideoInstructionView *) self.view;
+    return (BPCaptureVideoInstructionView *)self.view;
 }
 
 @end

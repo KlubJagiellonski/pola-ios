@@ -1,8 +1,8 @@
 #import "BPAPIAccessor.h"
 #import "AFHTTPRequestOperation.h"
 #import "BPAPIResponse.h"
-#import "NSDictionary+BPJSON.h"
 #import "BPDeviceHelper.h"
+#import "NSDictionary+BPJSON.h"
 
 @import Objection;
 
@@ -11,7 +11,7 @@ NSString *const BPAPIAccessorAPIDeviceId = @"device_id";
 
 @interface BPAPIAccessor ()
 
-@property(nonatomic, readonly) NSOperationQueue *operationsQueue;
+@property (nonatomic, readonly) NSOperationQueue *operationsQueue;
 
 @end
 
@@ -61,7 +61,10 @@ NSString *const BPAPIAccessorAPIDeviceId = @"device_id";
     return [self post:apiFunction body:body parameters:nil error:error];
 }
 
-- (BPAPIResponse *)post:(NSString *)apiFunction body:(NSData *)body parameters:(NSDictionary *)parameters error:(NSError **)error {
+- (BPAPIResponse *)post:(NSString *)apiFunction
+                   body:(NSData *)body
+             parameters:(NSDictionary *)parameters
+                  error:(NSError **)error {
     NSString *url = [[self baseUrl] stringByAppendingPathComponent:apiFunction];
     parameters = [self addDefaultParameters:parameters];
     url = [url stringByAppendingFormat:@"?%@", [self stringFromParameters:parameters]];
@@ -72,7 +75,10 @@ NSString *const BPAPIAccessorAPIDeviceId = @"device_id";
     return [self performRequest:request error:error];
 }
 
-- (BPAPIResponse *)putAmazonMultipart:(NSString *)url data:(NSData *)data mimeType:(NSString *)mimeType error:(NSError **)error {
+- (BPAPIResponse *)putAmazonMultipart:(NSString *)url
+                                 data:(NSData *)data
+                             mimeType:(NSString *)mimeType
+                                error:(NSError **)error {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[[NSURL alloc] initWithString:url]];
     [request addValue:@"public-read" forHTTPHeaderField:@"x-amz-acl"];
     [request addValue:mimeType forHTTPHeaderField:@"Content-Type"];
@@ -86,8 +92,10 @@ NSString *const BPAPIAccessorAPIDeviceId = @"device_id";
     return [self performRequest:request defaultConfiguration:YES error:error];
 }
 
-- (BPAPIResponse *)performRequest:(NSURLRequest *)request defaultConfiguration:(BOOL)defaultConfiguration error:(NSError **)error {
-    if(defaultConfiguration) {
+- (BPAPIResponse *)performRequest:(NSURLRequest *)request
+             defaultConfiguration:(BOOL)defaultConfiguration
+                            error:(NSError **)error {
+    if (defaultConfiguration) {
         request = [self configureRequest:request];
     }
 
@@ -136,7 +144,9 @@ NSString *const BPAPIAccessorAPIDeviceId = @"device_id";
 
 - (void)setError:(NSError **)error onBadResponse:(BPAPIResponse *)response {
     if (![response isSuccess]) {
-        *error = [NSError errorWithDomain:NSStringFromClass(self.class) code:response.statusCode userInfo:@{NSLocalizedDescriptionKey : [response description]}];
+        *error = [NSError errorWithDomain:NSStringFromClass(self.class)
+                                     code:response.statusCode
+                                 userInfo:@{ NSLocalizedDescriptionKey: [response description] }];
     }
 }
 

@@ -1,8 +1,8 @@
 #import "BPReportProblemViewController.h"
 #import "BPProductImageManager.h"
-#import "BPReportProblemView.h"
-#import "BPReportManager.h"
 #import "BPReport.h"
+#import "BPReportManager.h"
+#import "BPReportProblemView.h"
 #import "BPReportResult.h"
 #import "KVNProgress.h"
 #import <Pola-Swift.h>
@@ -10,17 +10,17 @@
 @import Objection;
 
 @interface BPReportProblemViewController ()
-@property(nonatomic) BPProductImageManager *productImageManager;
-@property(nonatomic) BPReportManager *reportManager;
-@property(nonatomic) BPKeyboardManager *keyboardManager;
-@property(nonatomic) int imageCount;
-@property(nonatomic) UIImagePickerController *imagePickerController;
+@property (nonatomic) BPProductImageManager *productImageManager;
+@property (nonatomic) BPReportManager *reportManager;
+@property (nonatomic) BPKeyboardManager *keyboardManager;
+@property (nonatomic) int imageCount;
+@property (nonatomic) UIImagePickerController *imagePickerController;
 @end
 
 @implementation BPReportProblemViewController
-objection_initializer_sel(@selector(initWithProductId:barcode:))
+objection_initializer_sel(@selector(initWithProductId:barcode:));
 
-objection_requires_sel(@selector(productImageManager), @selector(reportManager), @selector(keyboardManager))
+objection_requires_sel(@selector(productImageManager), @selector(reportManager), @selector(keyboardManager));
 
 - (instancetype)initWithProductId:(NSNumber *)productId barcode:(NSString *)barcode {
     self = [super init];
@@ -41,8 +41,12 @@ objection_requires_sel(@selector(productImageManager), @selector(reportManager),
     self.keyboardManager.delegate = self;
 
     self.castView.imageContainerView.delegate = self;
-    [self.castView.closeButton addTarget:self action:@selector(didTapCloseButton:) forControlEvents:UIControlEventTouchUpInside];
-    [self.castView.sendButton addTarget:self action:@selector(didTapSendButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self.castView.closeButton addTarget:self
+                                  action:@selector(didTapCloseButton:)
+                        forControlEvents:UIControlEventTouchUpInside];
+    [self.castView.sendButton addTarget:self
+                                 action:@selector(didTapSendButton:)
+                       forControlEvents:UIControlEventTouchUpInside];
 
     [self initializeImages];
 
@@ -87,23 +91,28 @@ objection_requires_sel(@selector(productImageManager), @selector(reportManager),
 - (void)didTapSendButton:(UIButton *)button {
     [self.view endEditing:YES];
 
-    NSArray *imagePathArray = [self.productImageManager createImagePathArrayForKey:self.productId imageCount:self.imageCount];
-    BPReport *report = [BPReport reportWithProductId:self.productId description:self.castView.descriptionTextView.text imagePathArray:imagePathArray];
+    NSArray *imagePathArray = [self.productImageManager createImagePathArrayForKey:self.productId
+                                                                        imageCount:self.imageCount];
+    BPReport *report = [BPReport reportWithProductId:self.productId
+                                         description:self.castView.descriptionTextView.text
+                                      imagePathArray:imagePathArray];
 
     [KVNProgress showWithStatus:NSLocalizedString(@"Sending...", nil)];
 
-    weakify()
-    [self.reportManager sendReport:report completion:^(BPReportResult *result, NSError *error) {
-        strongify()
-        if (result.state == REPORT_STATE_FINSIHED && error == nil) {
-            [KVNProgress showSuccessWithStatus:NSLocalizedString(@"Report sent", nil)];
-            [BPAnalyticsHelper reportSent:self.barcode];
-            [self removeSendedImages];
-            [strongSelf.delegate reportProblem:strongSelf finishedWithResult:YES];
-        } else if (error != nil) {
-            [KVNProgress showErrorWithStatus:NSLocalizedString(@"Error occured", nil)];
-        }
-    }              completionQueue:[NSOperationQueue mainQueue]];
+    weakify();
+    [self.reportManager sendReport:report
+                        completion:^(BPReportResult *result, NSError *error) {
+                            strongify();
+                            if (result.state == REPORT_STATE_FINSIHED && error == nil) {
+                                [KVNProgress showSuccessWithStatus:NSLocalizedString(@"Report sent", nil)];
+                                [BPAnalyticsHelper reportSent:self.barcode];
+                                [self removeSendedImages];
+                                [strongSelf.delegate reportProblem:strongSelf finishedWithResult:YES];
+                            } else if (error != nil) {
+                                [KVNProgress showErrorWithStatus:NSLocalizedString(@"Error occured", nil)];
+                            }
+                        }
+                   completionQueue:[NSOperationQueue mainQueue]];
 }
 
 - (void)removeSendedImages {
@@ -126,7 +135,7 @@ objection_requires_sel(@selector(productImageManager), @selector(reportManager),
 #pragma mark - helpers
 
 - (BPReportProblemView *)castView {
-    return (BPReportProblemView *) self.view;
+    return (BPReportProblemView *)self.view;
 }
 
 #pragma mark - BPImageContainerViewDelegate
@@ -138,7 +147,9 @@ objection_requires_sel(@selector(productImageManager), @selector(reportManager),
                                             delegate:self
                                    cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
                               destructiveButtonTitle:nil
-                                   otherButtonTitles:NSLocalizedString(@"Take a photo", nil), NSLocalizedString(@"Choose from library", nil), nil];
+                                   otherButtonTitles:NSLocalizedString(@"Take a photo", nil),
+                                                     NSLocalizedString(@"Choose from library", nil),
+                                                     nil];
     } else {
         sheet = [[UIActionSheet alloc] initWithTitle:nil
                                             delegate:self
@@ -198,7 +209,9 @@ objection_requires_sel(@selector(productImageManager), @selector(reportManager),
 
 #pragma mark - BPKeyboardManagerDelegate
 
-- (void)keyboardWillShowWithHeight:(CGFloat)height animationDuration:(double)animationDuration animationCurve:(NSUInteger)animationCurve {
+- (void)keyboardWillShowWithHeight:(CGFloat)height
+                 animationDuration:(double)animationDuration
+                    animationCurve:(NSUInteger)animationCurve {
     [self.castView keyboardWillShowWithHeight:height duration:animationDuration curve:animationCurve];
 }
 

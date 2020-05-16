@@ -1,5 +1,5 @@
-#import "UIAlertView+BPUtilities.h"
 #import "UIAlertView+AFNetworking.h"
+#import "UIAlertView+BPUtilities.h"
 
 @implementation UIAlertView (BPUtilities)
 

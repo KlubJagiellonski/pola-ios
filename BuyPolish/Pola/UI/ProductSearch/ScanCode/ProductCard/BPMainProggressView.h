@@ -2,6 +2,6 @@
 
 @interface BPMainProggressView : UIView
 
-@property(nonatomic) CGFloat progress;
+@property (nonatomic) CGFloat progress;
 
 @end

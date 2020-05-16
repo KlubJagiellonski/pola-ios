@@ -1,4 +1,3 @@
-#import <AVFoundation/AVFoundation.h>
 #import "BPScanCodeView.h"
 #import "BPStackView.h"
 #import "BPTheme.h"
@@ -11,7 +10,7 @@ const int SCAN_CODE_TEACH_BUTTON_OFFSET = 10;
 const int SCAN_CODE_TEACH_BUTTON_HEIGHT = 35;
 
 @interface BPScanCodeView ()
-@property(nonatomic, readonly) UIView *dimView;
+@property (nonatomic, readonly) UIView *dimView;
 @end
 
 @implementation BPScanCodeView
@@ -66,15 +65,17 @@ const int SCAN_CODE_TEACH_BUTTON_HEIGHT = 35;
         [_keyboardButton setImage:[UIImage imageNamed:@"KeyboardSelectedIcon"] forState:UIControlStateSelected];
         [_keyboardButton sizeToFit];
         [self addSubview:_keyboardButton];
-        
+
         _teachButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _teachButton.accessibilityLabel = NSLocalizedString(@"Accessibility.TeachPola", nil);
         _teachButton.titleLabel.font = [BPTheme buttonFont];
         _teachButton.layer.borderColor = [[BPTheme defaultTextColor] CGColor];
         _teachButton.layer.borderWidth = 1;
         [_teachButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [_teachButton setBackgroundImage:[BPUtilities imageWithColor:[[UIColor whiteColor] colorWithAlphaComponent:0.7]] forState:UIControlStateNormal];
-        [_teachButton setBackgroundImage:[BPUtilities imageWithColor:[UIColor whiteColor]] forState:UIControlStateHighlighted];
+        [_teachButton setBackgroundImage:[BPUtilities imageWithColor:[[UIColor whiteColor] colorWithAlphaComponent:0.7]]
+                                forState:UIControlStateNormal];
+        [_teachButton setBackgroundImage:[BPUtilities imageWithColor:[UIColor whiteColor]]
+                                forState:UIControlStateHighlighted];
         [_teachButton sizeToFit];
         [_teachButton setHidden:YES];
         [self addSubview:_teachButton];
@@ -115,7 +116,8 @@ const int SCAN_CODE_TEACH_BUTTON_HEIGHT = 35;
 
     rect = self.logoImageView.frame;
     rect.origin.x = CGRectGetWidth(self.bounds) / 2 - CGRectGetWidth(rect) / 2;
-    rect.origin.y = CGRectGetMinY(self.menuButton.frame) + CGRectGetHeight(self.menuButton.bounds) / 2 - CGRectGetHeight(rect) / 2;
+    rect.origin.y =
+        CGRectGetMinY(self.menuButton.frame) + CGRectGetHeight(self.menuButton.bounds) / 2 - CGRectGetHeight(rect) / 2;
     self.logoImageView.frame = rect;
 
     rect = self.infoTextLabel.frame;
@@ -124,10 +126,10 @@ const int SCAN_CODE_TEACH_BUTTON_HEIGHT = 35;
     rect.origin.x = SCAN_CODE_MARGIN;
     rect.origin.y = CGRectGetHeight(self.bounds) - INFO_TEXT_LABEL_BOTTOM_MARGIN - CGRectGetHeight(rect);
     self.infoTextLabel.frame = rect;
-    
+
     rect = self.teachButton.frame;
     rect.size.height = SCAN_CODE_TEACH_BUTTON_HEIGHT;
-    rect.size.width = CGRectGetWidth(self.bounds) - (SCAN_CODE_MARGIN*2);
+    rect.size.width = CGRectGetWidth(self.bounds) - (SCAN_CODE_MARGIN * 2);
     rect.origin.x = SCAN_CODE_MARGIN;
     self.teachButton.frame = rect;
 }
@@ -144,9 +146,10 @@ const int SCAN_CODE_TEACH_BUTTON_HEIGHT = 35;
 }
 
 - (void)setInfoTextVisible:(BOOL)visible {
-    [UIView animateWithDuration:0.3f animations:^{
-        self.infoTextLabel.alpha = visible ? 1.f : 0.f;
-    }];
+    [UIView animateWithDuration:0.3f
+                     animations:^{
+                         self.infoTextLabel.alpha = visible ? 1.f : 0.f;
+                     }];
 }
 
 - (void)configureInfoLabelForMode:(BPScanCodeViewLabelMode)mode {
@@ -159,15 +162,16 @@ const int SCAN_CODE_TEACH_BUTTON_HEIGHT = 35;
 
 - (void)setButtonsVisible:(BOOL)visible animation:(BOOL)animation {
     CGFloat alpha = visible ? 1.f : 0.f;
-    [UIView animateWithDuration:animation ? 0.2f : 0.f animations:^{
-        self.menuButton.alpha = alpha;
-        self.flashButton.alpha = alpha;
-        self.keyboardButton.alpha = alpha;
-        if (visible) {
-            self.teachButton.alpha = alpha;
-        }
-    }];
-    
+    [UIView animateWithDuration:animation ? 0.2f : 0.f
+                     animations:^{
+                         self.menuButton.alpha = alpha;
+                         self.flashButton.alpha = alpha;
+                         self.keyboardButton.alpha = alpha;
+                         if (visible) {
+                             self.teachButton.alpha = alpha;
+                         }
+                     }];
+
     if (!visible) {
         self.teachButton.alpha = alpha;
     }
@@ -186,7 +190,8 @@ const int SCAN_CODE_TEACH_BUTTON_HEIGHT = 35;
     if (visible) {
         [self.teachButton setTitle:title forState:UIControlStateNormal];
         CGRect rect = self.teachButton.frame;
-        rect.origin.y = CGRectGetHeight(self.bounds) - cardsHeight - SCAN_CODE_TEACH_BUTTON_HEIGHT - SCAN_CODE_TEACH_BUTTON_OFFSET;
+        rect.origin.y =
+            CGRectGetHeight(self.bounds) - cardsHeight - SCAN_CODE_TEACH_BUTTON_HEIGHT - SCAN_CODE_TEACH_BUTTON_OFFSET;
         self.teachButton.frame = rect;
     }
     [self.teachButton setHidden:!visible];

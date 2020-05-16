@@ -20,13 +20,13 @@ static CGFloat const kAnimationTime = 0.2;
     if (self) {
         self.layer.cornerRadius = kCornerRadious;
         self.layer.masksToBounds = YES;
-        
+
         _topView = [UIView new];
         self.topView.backgroundColor = [BPTheme clearColor];
         self.topView.layer.cornerRadius = kCornerRadious;
         self.topView.layer.masksToBounds = YES;
         [self addSubview:self.topView];
-        
+
         _codeLabel = [UILabel new];
         self.codeLabel.font = [BPTheme titleFont];
         self.codeLabel.textColor = [BPTheme defaultTextColor];
@@ -34,20 +34,22 @@ static CGFloat const kAnimationTime = 0.2;
         [self.codeLabel sizeToFit];
         self.codeLabel.text = @"";
         [self.topView addSubview:self.codeLabel];
-        
+
         _removeButton = [UIButton new];
         _removeButton.accessibilityLabel = NSLocalizedString(@"Accessibility.Keyboard.Delete", nil);
-        [self.removeButton addTarget:self action:@selector(didTapRemoveButton) forControlEvents:UIControlEventTouchUpInside];
+        [self.removeButton addTarget:self
+                              action:@selector(didTapRemoveButton)
+                    forControlEvents:UIControlEventTouchUpInside];
         [self.removeButton setImage:[UIImage imageNamed:@"kb_delete"] forState:UIControlStateNormal];
         [self.removeButton setImage:[UIImage imageNamed:@"kb_delete_highlighted"] forState:UIControlStateHighlighted];
         [self.removeButton sizeToFit];
         [self.topView addSubview:self.removeButton];
-        
+
         _errorView = [UIView new];
         self.errorView.alpha = 0.0;
         self.errorView.backgroundColor = [BPTheme lightBackgroundColor];
         [self addSubview:self.errorView];
-        
+
         _errorLabel = [UILabel new];
         self.errorLabel.text = NSLocalizedString(@"Write code error", @"");
         self.errorLabel.font = [BPTheme titleFont];
@@ -60,31 +62,32 @@ static CGFloat const kAnimationTime = 0.2;
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    
+
     CGFloat width = self.bounds.size.width;
-    
+
     CGRect rect = self.topView.frame;
     rect.origin = CGPointMake(0, 0);
     rect.size = CGSizeMake(self.bounds.size.width, 38);
     self.topView.frame = rect;
-    
+
     rect = self.removeButton.frame;
     rect.origin = CGPointMake(width - 6 - CGRectGetWidth(self.removeButton.bounds) - 6, 0);
     rect.size = CGSizeMake(CGRectGetWidth(self.removeButton.bounds) + 12, CGRectGetHeight(self.topView.bounds));
     self.removeButton.frame = rect;
-    
+
     rect = self.codeLabel.frame;
     rect.origin = CGPointMake(8, self.topView.bounds.size.height / 2 - rect.size.height / 2);
     rect.size = CGSizeMake(CGRectGetMinX(self.removeButton.frame) - 11, rect.size.height);
     self.codeLabel.frame = rect;
-    
+
     rect = self.errorView.frame;
     rect.origin = CGPointMake(0, CGRectGetMaxY(self.topView.frame));
     rect.size = CGSizeMake(width, 27);
     self.errorView.frame = rect;
-    
+
     rect = self.errorLabel.frame;
-    rect.origin = CGPointMake(CGRectGetWidth(self.errorView.bounds) / 2 -  rect.size.width / 2, CGRectGetHeight(self.errorView.bounds) / 2 - rect.size.height / 2);
+    rect.origin = CGPointMake(CGRectGetWidth(self.errorView.bounds) / 2 - rect.size.width / 2,
+                              CGRectGetHeight(self.errorView.bounds) / 2 - rect.size.height / 2);
     self.errorLabel.frame = rect;
 }
 
@@ -123,9 +126,10 @@ static CGFloat const kAnimationTime = 0.2;
         return;
     }
 
-    [UIView animateWithDuration:kAnimationTime animations:^{
-        self.errorView.alpha = newAlpha;
-    }];
+    [UIView animateWithDuration:kAnimationTime
+                     animations:^{
+                         self.errorView.alpha = newAlpha;
+                     }];
 }
 
 - (void)didTapRemoveButton {

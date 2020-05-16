@@ -4,8 +4,8 @@
 const int CHECK_ROW_HORIZONTAL_MARGIN = 7;
 
 @interface BPCheckRow ()
-@property(nonatomic, readonly) UIImageView *checkImageView;
-@property(nonatomic, readonly) UILabel *textLabel;
+@property (nonatomic, readonly) UIImageView *checkImageView;
+@property (nonatomic, readonly) UILabel *textLabel;
 @end
 
 @implementation BPCheckRow
@@ -21,10 +21,10 @@ const int CHECK_ROW_HORIZONTAL_MARGIN = 7;
         _textLabel.font = [BPTheme normalFont];
         _textLabel.textColor = [BPTheme defaultTextColor];
         [self addSubview:_textLabel];
-        
+
         self.accessibilityTraits = UIAccessibilityTraitStaticText;
         self.isAccessibilityElement = true;
-        
+
         [self setChecked:nil];
     }
 
@@ -59,7 +59,8 @@ const int CHECK_ROW_HORIZONTAL_MARGIN = 7;
         accessibilityValueKey = @"Accessibility.CheckRow.Unknow";
     } else {
         image = [UIImage imageNamed:checked.boolValue ? @"TrueIcon" : @"FalseIcon"];
-        accessibilityValueKey = checked.boolValue ? @"Accessibility.CheckRow.Selected" : @"Accessibility.CheckRow.NotSelected";
+        accessibilityValueKey =
+            checked.boolValue ? @"Accessibility.CheckRow.Selected" : @"Accessibility.CheckRow.NotSelected";
     }
     self.checkImageView.image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     self.checkImageView.accessibilityValue = NSLocalizedString(accessibilityValueKey, @"");
@@ -68,7 +69,8 @@ const int CHECK_ROW_HORIZONTAL_MARGIN = 7;
 }
 
 - (CGSize)sizeThatFits:(CGSize)size {
-    size.width = CGRectGetWidth(self.checkImageView.bounds) + CHECK_ROW_HORIZONTAL_MARGIN + CGRectGetWidth(self.textLabel.bounds);
+    size.width = CGRectGetWidth(self.checkImageView.bounds) + CHECK_ROW_HORIZONTAL_MARGIN
+                 + CGRectGetWidth(self.textLabel.bounds);
     size.height = MAX(CGRectGetHeight(self.checkImageView.bounds), CGRectGetHeight(self.textLabel.bounds));
     return size;
 }
