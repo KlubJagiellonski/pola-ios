@@ -199,7 +199,6 @@
 		1D08E82A19A7621A00879BD2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		1D08E82C19A7621A00879BD2 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		1D08E83019A7621A00879BD2 /* Pola-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Pola-Info.plist"; sourceTree = "<group>"; };
-		1D08E83619A7621A00879BD2 /* Pola-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pola-Prefix.pch"; sourceTree = "<group>"; };
 		1D08E83D19A7621A00879BD2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		1D08E84319A7621A00879BD2 /* PolaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PolaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D08E84419A7621A00879BD2 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -472,7 +471,6 @@
 				1DEFA1BA1BD9920600938C81 /* Lato-Semibold.ttf */,
 				37B645C93F848A6F598F96E2 /* Localizable.strings */,
 				1D08E83019A7621A00879BD2 /* Pola-Info.plist */,
-				1D08E83619A7621A00879BD2 /* Pola-Prefix.pch */,
 				C0D829781F3D11A600902F79 /* capture_video_instruction.mov */,
 			);
 			path = SupportingFiles;
@@ -1587,7 +1585,6 @@
 					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Pola/SupportingFiles/Pola-Prefix.pch";
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
 				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
@@ -1620,7 +1617,6 @@
 					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Pola/SupportingFiles/Pola-Prefix.pch";
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
 				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
@@ -1650,7 +1646,6 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Pola/SupportingFiles/Pola-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1680,7 +1675,6 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Pola/SupportingFiles/Pola-Prefix.pch";
 				INFOPLIST_FILE = "PolaTests/SupportingFiles/PolaTests-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kj.${PRODUCT_NAME:rfc1034identifier}";
