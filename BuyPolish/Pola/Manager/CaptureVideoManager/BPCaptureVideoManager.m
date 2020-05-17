@@ -85,6 +85,7 @@
             createCGImage:ciImage
                  fromRect:CGRectMake(0, 0, CVPixelBufferGetWidth(pixelBuffer), CVPixelBufferGetHeight(pixelBuffer))];
         UIImage *uiImage = [UIImage imageWithCGImage:myImage];
+        CGImageRelease(myImage);
 
         weakify();
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
