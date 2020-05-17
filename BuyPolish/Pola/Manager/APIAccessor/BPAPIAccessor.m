@@ -136,18 +136,22 @@ NSString *const BPAPIAccessorAPIDeviceId = @"device_id";
     return [getParameters substringWithRange:NSMakeRange(0, getParameters.length - 1)];
 }
 
-- (void)setError:(NSError **)error onBadResponseInOperation:(AFHTTPRequestOperation *)operation {
+- (BOOL)setError:(NSError **)error onBadResponseInOperation:(AFHTTPRequestOperation *)operation {
     if ((operation.error != nil || !operation.responseData) && error != NULL) {
         *error = operation.error;
+        return true;
     }
+    return false;
 }
 
-- (void)setError:(NSError **)error onBadResponse:(BPAPIResponse *)response {
-    if (![response isSuccess]) {
+- (BOOL)setError:(NSError **)error onBadResponse:(BPAPIResponse *)response {
+    if (![response isSuccess] && error != NULL) {
         *error = [NSError errorWithDomain:NSStringFromClass(self.class)
                                      code:response.statusCode
                                  userInfo:@{ NSLocalizedDescriptionKey: [response description] }];
+        return true;
     }
+    return false;
 }
 
 @end

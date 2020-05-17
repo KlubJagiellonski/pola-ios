@@ -9,7 +9,18 @@ platform :ios do
   end
   
   lane :unit_tests do
-    scan(scheme:"Pola")
+    analyze_output_dir= "analyze_results"
+		xcodebuild(
+			scheme: "Pola",
+			destination: "name=iPhone 8",
+			analyze: true,
+			test: true,
+			xcargs: "CLANG_ANALYZER_OTHER_FLAGS= CLANG_ANALYZER_OUTPUT=html CLANG_ANALYZER_OUTPUT_DIR=#{analyze_output_dir} RUN_CLANG_STATIC_ANALYZER=YES"
+		)
+		ensure_no_results_from_xcodebuild_analyze(
+			path: analyze_output_dir,
+			prune: true
+		)
   end
 
   lane :ui_tests do
