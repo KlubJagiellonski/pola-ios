@@ -7,20 +7,20 @@ platform :ios do
     unit_tests
     ui_tests
   end
-  
+
   lane :unit_tests do
     analyze_output_dir= "analyze_results"
-		xcodebuild(
-			scheme: "Pola",
-			destination: "name=iPhone 8",
-			analyze: true,
-			test: true,
-			xcargs: "CLANG_ANALYZER_OTHER_FLAGS= CLANG_ANALYZER_OUTPUT=html CLANG_ANALYZER_OUTPUT_DIR=#{analyze_output_dir} RUN_CLANG_STATIC_ANALYZER=YES"
-		)
-		ensure_no_results_from_xcodebuild_analyze(
-			path: analyze_output_dir,
-			prune: true
-		)
+    xcodebuild(
+      scheme: "Pola",
+      destination: "name=iPhone 8",
+      analyze: true,
+      test: true,
+      xcargs: "CLANG_ANALYZER_OTHER_FLAGS= CLANG_ANALYZER_OUTPUT=html CLANG_ANALYZER_OUTPUT_DIR=#{analyze_output_dir} RUN_CLANG_STATIC_ANALYZER=YES"
+    )
+    ensure_no_results_from_xcodebuild_analyze(
+      path: analyze_output_dir,
+      prune: true
+    )
   end
 
   lane :ui_tests do
@@ -29,30 +29,29 @@ platform :ios do
 
   lane :check_project_structure do
     synx
-		ensure_no_changes(
-			path: "Pola.xcodeproj",
-			show_diff: false,
-			error_message: "Project structure is different than synx output. Run `fastlane ios format` to synchronize project with file structure."
-		)
+    ensure_no_changes(
+      path: "Pola.xcodeproj",
+      show_diff: false,
+      error_message: "Project structure is different than synx output. Run `fastlane ios format` to synchronize project with file structure."
+    )
   end
 
   lane :check_formatting do
-		run_clang_format(
-			script_path: "clang-format/run-clang-format.py",
-			extensions: "h,m,pch",
-			paths: ["Pola", "PolaTests"],
-			executable: "clang-format/clang-format"
-		)
+    run_clang_format(
+      script_path: "clang-format/run-clang-format.py",
+      extensions: "h,m,pch",
+      paths: ["Pola", "PolaTests"],
+      executable: "clang-format/clang-format"
+    )
   end
 
   lane :format do
     synx
-    
+
     files = []
     Dir.chdir("..") do
       files = Dir.glob("{Pola,PolaTests}/**/*.{h,m,pch}")
-    end
-              
+    end       
     clang_format(
       clang_format_path: "clang-format/clang-format",
       inplace: true,
