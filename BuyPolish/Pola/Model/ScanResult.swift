@@ -18,7 +18,7 @@ struct ScanResult: Decodable {
     let reportButtonType: ButtonType
     let isFriend: Bool?
     let ai: AskForAIResult?
-    
+
     enum CodingKeys: String, CodingKey {
         case productId = "product_id"
         case code
@@ -38,12 +38,12 @@ struct ScanResult: Decodable {
         case isFriend = "is_friend"
         case ai
     }
-    
+
     enum CardType: String, Decodable {
         case white = "type_white"
         case grey = "type_grey"
     }
-    
+
     enum ButtonType: String, Decodable {
         case white = "type_white"
         case red = "type_red"

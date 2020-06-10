@@ -1,7 +1,6 @@
 import AVFoundation
 
 final class CameraSessionCodeScannerManager: NSObject, CodeScannerManager {
-    
     var delegate: CodeScannerManagerDelegate?
     private let captureSession = AVCaptureSession()
     private let sessionQueue = DispatchQueue(label: "CameraSessionCodeScannerManager")
@@ -11,22 +10,21 @@ final class CameraSessionCodeScannerManager: NSObject, CodeScannerManager {
         layer.videoGravity = .resizeAspectFill
         return layer
     }()
-    
+
     override init() {
         super.init()
         guard let captureDevice = AVCaptureDevice.default(for: .video),
             let input = try? AVCaptureDeviceInput(device: captureDevice) else {
-                return
+            return
         }
-        
+
         captureSession.addInput(input)
         let output = AVCaptureMetadataOutput()
         captureSession.addOutput(output)
         output.metadataObjectTypes = [.ean13, .ean8]
         output.setMetadataObjectsDelegate(self, queue: sessionQueue)
-        
     }
-    
+
     func start() {
         guard !isSessionRunning else {
             return
@@ -36,7 +34,7 @@ final class CameraSessionCodeScannerManager: NSObject, CodeScannerManager {
             captureSession.startRunning()
         }
     }
-    
+
     func stop() {
         guard isSessionRunning else {
             return
@@ -46,17 +44,15 @@ final class CameraSessionCodeScannerManager: NSObject, CodeScannerManager {
             captureSession.stopRunning()
         }
     }
-    
 }
 
 extension CameraSessionCodeScannerManager: AVCaptureMetadataOutputObjectsDelegate {
-    func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
-        
+    func metadataOutput(_: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from _: AVCaptureConnection) {
         guard let metadataObject = metadataObjects.first as? AVMetadataMachineReadableCodeObject,
             let barcode = metadataObject.stringValue else {
-                return
+            return
         }
-        
+
         DispatchQueue.main.async { [delegate] in
             BPLog("Found barcode \(barcode)")
             delegate?.didScan(barcode: barcode)

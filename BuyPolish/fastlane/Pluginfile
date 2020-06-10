@@ -1,4 +1,4 @@
-gem 'fastlane-plugin-clang_format'
 gem 'fastlane-plugin-menigit'
 gem 'fastlane-plugin-synx'
+gem 'fastlane-plugin-swiftformat'
 gem 'fastlane-plugin-xcodebuild_analyze'

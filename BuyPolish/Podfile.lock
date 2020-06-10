@@ -70,6 +70,7 @@ PODS:
     - R.swift.Library (~> 5.0.0)
   - R.swift.Library (5.0.1)
   - Swifter (1.4.7)
+  - SwiftFormat/CLI (0.44.4)
   - Swinject (2.7.1)
   - "UITextView+Placeholder (1.3.3)"
 
@@ -84,6 +85,7 @@ DEPENDENCIES:
   - PromiseKit/Alamofire
   - R.swift
   - Swifter (~> 1.4.7)
+  - SwiftFormat/CLI
   - Swinject
   - "UITextView+Placeholder"
 
@@ -106,6 +108,7 @@ SPEC REPOS:
     - R.swift
     - R.swift.Library
     - Swifter
+    - SwiftFormat
     - Swinject
     - "UITextView+Placeholder"
 
@@ -127,9 +130,10 @@ SPEC CHECKSUMS:
   R.swift: f5a87643b91ea569d23d6afb3eee9c743edde239
   R.swift.Library: cfe85d569d9bae6cb262922db130e7c3a7a5fad1
   Swifter: 2327ef5d872c638aebab79646ce494af508b0c8f
+  SwiftFormat: 8b3c6b69454305a61c221355095f62dacc0811bf
   Swinject: ddf78b8486dd9b71a667b852cad919ab4484478e
   "UITextView+Placeholder": c407b27599ea23cca425946fee3cf1db5d547008
 
-PODFILE CHECKSUM: 0bf7e8d0b6d2b449c8715f45f4f3ed6364704004
+PODFILE CHECKSUM: ba331cda42a75eccd0cfcc50d473e7208d3d2f24
 
 COCOAPODS: 1.9.0

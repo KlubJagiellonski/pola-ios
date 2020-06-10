@@ -1,5 +1,5 @@
-import PromiseKit
 import Alamofire
+import PromiseKit
 
 final class CapturedImagesUploadManager {
     private let dataRequestFactory: DataRequestFactory
@@ -16,21 +16,21 @@ final class CapturedImagesUploadManager {
                      method: .post,
                      parameters: AddAiPicsRequestBody(capturedImages: images),
                      encoding: JSONEncoding())
-        .responseDecodable(AddAiPicsResponseBody.self)
+            .responseDecodable(AddAiPicsResponseBody.self)
             .then { [uploadMediaRequestFactory] response -> Promise<Void> in
                 let promises =
                     try response.signedRequests.enumerated().map { (i, stringUrl) -> Promise<Void> in
-                        try uploadMediaRequestFactory.request(url: stringUrl, mediaData: images.dataImages[i], mimeType: .jpg)
-                            .responseData()
-                            .asVoid()
-                }
-                return when(fulfilled: promises).asVoid()        }
-
+                            try uploadMediaRequestFactory.request(url: stringUrl, mediaData: images.dataImages[i], mimeType: .jpg)
+                                .responseData()
+                                .asVoid()
+                        }
+                return when(fulfilled: promises).asVoid()
+            }
     }
 }
 
-fileprivate extension AddAiPicsRequestBody {
-    init(capturedImages: CapturedImages ) {
+private extension AddAiPicsRequestBody {
+    init(capturedImages: CapturedImages) {
         self.init(productId: capturedImages.productId,
                   filesCount: capturedImages.dataImages.count,
                   fileExtension: .jpg,
@@ -42,4 +42,3 @@ fileprivate extension AddAiPicsRequestBody {
                   deviceName: capturedImages.deviceName)
     }
 }
-

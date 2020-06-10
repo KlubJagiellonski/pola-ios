@@ -1,6 +1,6 @@
+import AVFoundation
 import Foundation
 import Observable
-import AVFoundation
 
 final class FlashlightManager: NSObject {
     @objc private dynamic let flashlightDevice = AVCaptureDevice.default(for: .video)
@@ -12,7 +12,7 @@ final class FlashlightManager: NSObject {
 
     override init() {
         super.init()
-        flashlightObservation = observe(\.flashlightDevice?.torchMode, changeHandler: {(manager, _) in
+        flashlightObservation = observe(\.flashlightDevice?.torchMode, changeHandler: { manager, _ in
             manager.updateIsOn()
         })
     }
@@ -20,20 +20,20 @@ final class FlashlightManager: NSObject {
     var isOn: Observable<Bool> {
         isOnSubject
     }
-        
+
     var isAvailable: Bool {
         guard let flashlightDevice = flashlightDevice else {
             return false
         }
         return flashlightDevice.isTorchAvailable && flashlightDevice.isTorchModeSupported(.on)
     }
-    
+
     func toggle(completionBlock: ((Bool) -> Void)?) {
         guard let flashlightDevice = flashlightDevice else {
             completionBlock?(false)
             return
         }
-        
+
         do {
             try flashlightDevice.lockForConfiguration()
             if flashlightDevice.isTorchActive {
@@ -46,7 +46,5 @@ final class FlashlightManager: NSObject {
         } catch {
             completionBlock?(false)
         }
-        
     }
-    
 }

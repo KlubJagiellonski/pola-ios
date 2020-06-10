@@ -1,7 +1,6 @@
 import Alamofire
 
 final class PutAmazonRequestFactory: MediaUploadRequestFactory {
-    
     func request(url stringUrl: String, mediaData: Data, mimeType: MediaUploadMimeType) throws -> DataRequest {
         guard let url = URL(string: stringUrl) else {
             throw InvalidStringUrlError(url: stringUrl)
@@ -13,5 +12,4 @@ final class PutAmazonRequestFactory: MediaUploadRequestFactory {
         request.httpBody = mediaData
         return Alamofire.request(request)
     }
-
 }

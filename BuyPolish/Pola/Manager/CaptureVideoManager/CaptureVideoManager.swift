@@ -1,5 +1,5 @@
-import UIKit
 import PromiseKit
+import UIKit
 
 protocol CaptureVideoManager {
     var previewLayer: CALayer { get }
@@ -10,7 +10,6 @@ protocol CaptureVideoManager {
 }
 
 struct CreateCaptureImageError: Error, LocalizedError {
-    
     var errorDescription: String? {
         "Failed create capture image"
     }

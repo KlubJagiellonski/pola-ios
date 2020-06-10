@@ -1,8 +1,7 @@
-import XCTest
 @testable import Pola
+import XCTest
 
 final class Encodable_DictionaryTests: XCTestCase {
-
     private struct TestObject: Encodable {
         let question: String?
         let answer: Int?
@@ -50,5 +49,4 @@ final class Encodable_DictionaryTests: XCTestCase {
         let nestedDict = dict?["object"] as! [String: Any]
         XCTAssertEqual(nestedDict.count, 2)
     }
-
 }

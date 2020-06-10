@@ -1,6 +1,6 @@
 import UIKit
 
-enum ProductImageManagerError : Error {
+enum ProductImageManagerError: Error {
     case convertDataToImage
     case convertImageToData
 }

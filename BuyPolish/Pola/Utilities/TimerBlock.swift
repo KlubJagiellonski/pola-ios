@@ -3,8 +3,8 @@ import Foundation
 final class TimerBlock: NSObject {
     fileprivate let timer: Timer
     private let blockHandler: TimerBlockHandler
-    
-    init(timeInterval interval: TimeInterval, repeats: Bool, block: @escaping (Timer) -> Void) {
+
+    init(timeInterval interval: TimeInterval, repeats _: Bool, block: @escaping (Timer) -> Void) {
         blockHandler = TimerBlockHandler(block)
         timer = Timer(timeInterval: interval,
                       target: blockHandler,
@@ -12,11 +12,10 @@ final class TimerBlock: NSObject {
                       userInfo: nil,
                       repeats: true)
     }
-    
+
     @objc
-    func callBlock(timer: Timer) {
-    }
-    
+    func callBlock(timer _: Timer) {}
+
     func invalidate() {
         timer.invalidate()
     }
@@ -28,7 +27,7 @@ final class TimerBlockHandler: NSObject {
         self.block = block
         super.init()
     }
-    
+
     @objc
     func callBlock(timer: Timer) {
         block(timer)

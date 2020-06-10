@@ -1,7 +1,6 @@
 import UIKit
 
 final class AboutDoubleCell: AboutBaseCell {
-    
     enum Segment: Int {
         case first
         case second
@@ -10,14 +9,14 @@ final class AboutDoubleCell: AboutBaseCell {
 
     private let firstButton = UIButton(type: .custom)
     private let secondButton = UIButton(type: .custom)
-    
+
     var selectedSegment = Segment.none
 
     func configure(rowInfo: DoubleAboutRow) {
         firstButton.setTitle(rowInfo.0.title, for: .normal)
         secondButton.setTitle(rowInfo.1.title, for: .normal)
     }
-    
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         applyStyle(for: firstButton)
@@ -26,23 +25,23 @@ final class AboutDoubleCell: AboutBaseCell {
         contentView.addSubview(secondButton)
         selectionStyle = .none
     }
-    
-    required init?(coder: NSCoder) {
+
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
-        
+
         var frame = CGRect(x: backgroundHorizontalMargin,
-                        y: backgroundVerticalMargin,
-                        width: (contentView.frame.width - (3 * backgroundHorizontalMargin)) / 2,
-                        height: contentView.frame.height - (2 * backgroundVerticalMargin))
+                           y: backgroundVerticalMargin,
+                           width: (contentView.frame.width - (3 * backgroundHorizontalMargin)) / 2,
+                           height: contentView.frame.height - (2 * backgroundVerticalMargin))
         firstButton.frame = frame
         frame.origin.x += frame.maxX
         secondButton.frame = frame
     }
-    
+
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         let hitted = super.hitTest(point, with: event)
         if hitted == firstButton {

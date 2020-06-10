@@ -1,6 +1,6 @@
 import Foundation
 
-struct CreateReportResponseBody : Decodable {
+struct CreateReportResponseBody: Decodable {
     let id: Int
     let signedRequests: [String]
 
@@ -8,6 +8,4 @@ struct CreateReportResponseBody : Decodable {
         case id
         case signedRequests = "signed_requests"
     }
-
 }
-

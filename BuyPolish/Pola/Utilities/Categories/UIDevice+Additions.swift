@@ -1,11 +1,10 @@
 import UIKit
 
 extension UIDevice {
-    
     var deviceId: String {
         identifierForVendor?.uuidString ?? ""
     }
-    
+
     var deviceInfo: String {
         var deviceInfo = "\n\n-------App & Device info--------\n"
         deviceInfo.append("- system: \(systemName), \(systemVersion)\n")
@@ -14,7 +13,7 @@ extension UIDevice {
         deviceInfo.append("-------End-------")
         return deviceInfo
     }
-    
+
     var deviceName: String {
         var sysinfo = utsname()
         uname(&sysinfo)

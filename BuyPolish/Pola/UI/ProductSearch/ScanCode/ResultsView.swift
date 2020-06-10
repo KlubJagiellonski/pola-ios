@@ -4,11 +4,11 @@ final class ResultsView: UIView {
     private let stackView: CardStackView
     let infoTextLabel = UILabel()
     let teachButton = UIButton(type: .custom)
-    
+
     init(frame: CGRect, stackView: CardStackView) {
         self.stackView = stackView
         super.init(frame: frame)
-        
+
         infoTextLabel.text = R.string.localizable.scanBarcode()
         infoTextLabel.numberOfLines = 4
         infoTextLabel.font = Theme.titleFont
@@ -16,9 +16,9 @@ final class ResultsView: UIView {
         infoTextLabel.textAlignment = .center
         infoTextLabel.sizeToFit()
         addSubview(infoTextLabel)
-        
+
         addSubview(stackView)
-        
+
         teachButton.accessibilityLabel = R.string.localizable.accessibilityTeachPola()
         teachButton.titleLabel?.font = Theme.buttonFont
         teachButton.layer.borderColor = Theme.defaultTextColor.cgColor
@@ -30,11 +30,11 @@ final class ResultsView: UIView {
         teachButton.isHidden = true
         addSubview(teachButton)
     }
-    
-    required init?(coder: NSCoder) {
+
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     var infoTextVisible = true {
         didSet {
             UIView.animate(withDuration: 0.3) {
@@ -45,14 +45,14 @@ final class ResultsView: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        
+
         let scanCodeMargin = CGFloat(15.0)
         let infoTextLabelBottomMargin = CGFloat(50.0)
         let scanCodeTechButtonOffset = CGFloat(10.0)
         let scanCodeTechButtonHeight = CGFloat(35.0)
 
         stackView.frame = bounds
-    
+
         let widthLabel = bounds.width - (2 * scanCodeMargin)
         let heightLabel = infoTextLabel.height(forWidth: widthLabel)
         infoTextLabel.frame = CGRect(
@@ -61,7 +61,7 @@ final class ResultsView: UIView {
             width: widthLabel,
             height: heightLabel
         )
-        
+
         teachButton.frame = CGRect(
             x: scanCodeMargin,
             y: bounds.height - stackView.cardsHeight - scanCodeTechButtonHeight - scanCodeTechButtonOffset,
@@ -69,5 +69,4 @@ final class ResultsView: UIView {
             height: scanCodeTechButtonHeight
         )
     }
-    
 }

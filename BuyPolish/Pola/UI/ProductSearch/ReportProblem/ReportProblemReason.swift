@@ -10,14 +10,14 @@ extension ReportProblemReason {
         switch self {
         case .general:
             return nil
-        case .product(_, let barcode):
+        case let .product(_, barcode):
             return barcode
         }
     }
-    
+
     var productId: Int? {
         switch self {
-        case .product(let id, _):
+        case let .product(id, _):
             return id
         default:
             return nil

@@ -1,11 +1,10 @@
-import Foundation
-import Firebase
 import Crashlytics
+import Firebase
+import Foundation
 
 final class AnalyticsHelper {
-
     class func configure() {
-        if (firebaseAvailable) {
+        if firebaseAvailable {
             FirebaseApp.configure()
         }
         Crashlytics.sharedInstance().setUserIdentifier(UIDevice.current.deviceId)
@@ -14,29 +13,29 @@ final class AnalyticsHelper {
     class func barcodeScanned(_ barcode: String, type: AnalyticsBarcodeSource) {
         logEvent(name: .scanCode,
                  parameters:
-            AnalyticsScanCodeParameters(code: barcode,
-                                        device_id: UIDevice.current.deviceId,
-                                        source: type.rawValue))
+                 AnalyticsScanCodeParameters(code: barcode,
+                                             device_id: UIDevice.current.deviceId,
+                                             source: type.rawValue))
     }
 
     class func received(productResult: ScanResult) {
         logEvent(name: .companyReceived,
                  parameters:
-            AnalyticsProductResultParameters(code: productResult.code,
-                                            company: productResult.code,
-                                            device_id: UIDevice.current.deviceId,
-                                            product_id: "\(productResult.productId)",
-                                            ai_requested: (productResult.ai?.askForPics ?? false) ? 1 : 0))
+                 AnalyticsProductResultParameters(code: productResult.code,
+                                                  company: productResult.code,
+                                                  device_id: UIDevice.current.deviceId,
+                                                  product_id: "\(productResult.productId)",
+                                                  ai_requested: (productResult.ai?.askForPics ?? false) ? 1 : 0))
     }
 
     class func opensCard(productResult: ScanResult) {
         logEvent(name: .cardOpened,
                  parameters:
-            AnalyticsProductResultParameters(code: productResult.code,
-                                             company: productResult.code,
-                                             device_id: UIDevice.current.deviceId,
-                                             product_id: "\(productResult.productId)",
-                                             ai_requested: nil))
+                 AnalyticsProductResultParameters(code: productResult.code,
+                                                  company: productResult.code,
+                                                  device_id: UIDevice.current.deviceId,
+                                                  product_id: "\(productResult.productId)",
+                                                  ai_requested: nil))
     }
 
     class func reportShown(barcode: String) {
@@ -48,13 +47,14 @@ final class AnalyticsHelper {
         logEvent(name: .reportFinished,
                  parameters: reportParameters(barcode: barcode))
     }
-    
+
     class func aboutOpened(windowName: AnalitycsAboutRow) {
         logEvent(name: .menuItemOpened,
                  parameters:
-            AnalyticsAboutParameters(item: windowName.rawValue,
-                                      device_id: UIDevice.current.deviceId))
+                 AnalyticsAboutParameters(item: windowName.rawValue,
+                                          device_id: UIDevice.current.deviceId))
     }
+
     class func teachReportShow(barcode: String) {
         logEvent(name: .aipicsStarted,
                  parameters: reportParameters(barcode: barcode))
@@ -73,7 +73,7 @@ final class AnalyticsHelper {
     private class func logEvent(name: AnalyticsEventName, parameters: AnalyticsParameters) {
         let nameString = name.rawValue
         let dictionary = parameters.dictionary
-        if (firebaseAvailable) {
+        if firebaseAvailable {
             Analytics.logEvent(nameString, parameters: dictionary)
         }
         CLSLogv("%@: %@", getVaList([nameString, dictionary ?? [:]]))

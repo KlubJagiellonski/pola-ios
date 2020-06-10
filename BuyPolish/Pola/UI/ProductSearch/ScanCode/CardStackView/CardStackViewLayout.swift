@@ -1,9 +1,9 @@
 import UIKit
 
-protocol CardStackViewLayout: class {
+protocol CardStackViewLayout: AnyObject {
     var stackView: CardStackView! { get set }
     var layoutContext: CardStackViewLayoutContext! { get set }
-    
+
     func willBecomeActive()
     func didBecomeInactive()
     func didBecomeActive()

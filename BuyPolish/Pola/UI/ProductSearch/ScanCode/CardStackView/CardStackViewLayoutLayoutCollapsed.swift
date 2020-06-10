@@ -1,26 +1,23 @@
 import UIKit
 
-final class CardStackViewLayoutLayoutCollapsed : CardStackViewLayout {
+final class CardStackViewLayoutLayoutCollapsed: CardStackViewLayout {
     var stackView: CardStackView!
     var layoutContext: CardStackViewLayoutContext!
     private let offScreenCard: UIView?
-    
+
     init(offScreenCard: UIView? = nil) {
         self.offScreenCard = offScreenCard
     }
-    
-    func willBecomeActive() {
-    }
-    
-    func didBecomeInactive() {
-    }
-    
-    func didBecomeActive() {
-    }
-    
+
+    func willBecomeActive() {}
+
+    func didBecomeInactive() {}
+
+    func didBecomeActive() {}
+
     func layout(cards: [UIView]) {
         var cardFromBottom = 0
-        cards.forEach { (card) in
+        cards.forEach { card in
             let y: CGFloat
             if card == offScreenCard {
                 y = stackView.bounds.height
@@ -36,23 +33,22 @@ final class CardStackViewLayoutLayoutCollapsed : CardStackViewLayout {
             cardFromBottom += 1
         }
     }
-    
+
     func didTap(cardView: UIView, recognizer: UITapGestureRecognizer) {
         guard recognizer.state == .recognized else {
-                return
+            return
         }
-        
+
         let newLayout = CardStackViewLayoutLayoutExpanded(selectedCard: cardView)
         stackView.setCurrentLayout(newLayout, animated: true, completionBlock: nil)
     }
-    
+
     func didPan(cardView: UIView, recognizer: UIPanGestureRecognizer) {
         guard recognizer.state == .began else {
             return
         }
-        
+
         let newLayout = CardStackViewLayoutPick(selectedCard: cardView, panGestureRecognizer: recognizer)
         stackView.setCurrentLayout(newLayout, animated: false, completionBlock: nil)
     }
-    
 }

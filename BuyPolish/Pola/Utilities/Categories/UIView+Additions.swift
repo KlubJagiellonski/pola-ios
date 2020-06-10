@@ -8,7 +8,7 @@ extension UIView {
             return UIApplication.statusBarHeight
         }
     }
-    
+
     var frameOrigin: CGPoint {
         get {
             frame.origin
@@ -17,7 +17,7 @@ extension UIView {
             frame = CGRect(origin: newValue, size: frame.size)
         }
     }
-    
+
     var frameSize: CGSize {
         get {
             frame.size

@@ -26,3 +26,5 @@ target :Pola do
     end
 
 end
+
+pod 'SwiftFormat/CLI'

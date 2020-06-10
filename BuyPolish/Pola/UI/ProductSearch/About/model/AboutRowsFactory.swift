@@ -2,7 +2,6 @@ import Foundation
 import MessageUI
 
 final class AboutRowsFactory {
-    
     class func create() -> AboutRows {
         let strings = R.string.localizable.self
         var rows =
@@ -27,18 +26,17 @@ final class AboutRowsFactory {
                          action: .link("https://www.pola-app.pl/m/friends", true)),
                 AboutRow(title: strings.reportErrorInData(),
                          analitycsName: .reportError,
-                         action: .reportProblem)
-        ]
+                         action: .reportProblem),
+            ]
         if MFMailComposeViewController.canSendMail() {
             rows.append(
                 AboutRow(title: strings.writeToUs(),
                          analitycsName: .writeToUs,
                          action: .mail(
-                            "aplikacja.pola@gmail.com",
-                            strings.mail_title(),
-                            UIDevice.current.deviceInfo
-                    )
-                )
+                             "aplikacja.pola@gmail.com",
+                             strings.mail_title(),
+                             UIDevice.current.deviceInfo
+                         ))
             )
         }
         rows.append(
@@ -55,9 +53,9 @@ final class AboutRowsFactory {
                     AboutRow(title: strings.polaOnTwitter(),
                              analitycsName: .twitter,
                              action: .link("https://www.twitter.com/pola_app", false))
-                )
-        ]
-        
+                ),
+            ]
+
         return AboutRows(rows: rows, doubleRows: doubleRows)
     }
 }

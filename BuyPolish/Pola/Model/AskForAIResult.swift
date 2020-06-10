@@ -8,7 +8,7 @@ struct AskForAIResult: Decodable {
     let askForPicsButtonStart: String
     let askForPicsProduct: String
     let maxPicSize: Double
-    
+
     enum CodingKeys: String, CodingKey {
         case askForPics = "ask_for_pics"
         case askForPicsPreview = "ask_for_pics_preview"

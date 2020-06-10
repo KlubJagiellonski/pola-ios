@@ -10,7 +10,7 @@ struct AddAiPicsRequestBody: Encodable {
     let width: Int
     let height: Int
     let deviceName: String
-    
+
     enum CodingKeys: String, CodingKey {
         case productId = "product_id"
         case filesCount = "files_count"
@@ -21,13 +21,12 @@ struct AddAiPicsRequestBody: Encodable {
         case height
         case deviceName = "device_name"
     }
-    
+
     enum FileExtension: String, Encodable {
         case jpg
     }
-    
+
     enum MimeType: String, Encodable {
         case imageJpeg = "image/jpeg"
     }
-    
 }

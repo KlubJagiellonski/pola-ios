@@ -1,29 +1,28 @@
-import UIKit
 import AudioToolbox
+import UIKit
 
-protocol KeyboardViewControllerDelegate: class {
+protocol KeyboardViewControllerDelegate: AnyObject {
     func keyboardViewController(_ keyboardViewController: KeyboardViewController, didConfirmWithCode code: String)
 }
 
 final class KeyboardViewController: UIViewController {
-    
     let barcodeValidator: BarcodeValidator
-    
+
     weak var delegate: KeyboardViewControllerDelegate?
-    
+
     init(barcodeValidator: BarcodeValidator) {
         self.barcodeValidator = barcodeValidator
         super.init(nibName: nil, bundle: nil)
     }
-    
-    required init?(coder: NSCoder) {
+
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     private var castedView: KeyboardView {
         view as! KeyboardView
     }
-    
+
     override func loadView() {
         view = KeyboardView()
     }
@@ -31,11 +30,11 @@ final class KeyboardViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        castedView.numberButtons.forEach({$0.addTarget(self, action: #selector(enterNumber(sender:)), for: .touchUpInside)})
+        castedView.numberButtons.forEach { $0.addTarget(self, action: #selector(enterNumber(sender:)), for: .touchUpInside) }
         castedView.okButton.addTarget(self, action: #selector(confirm), for: .touchUpInside)
         castedView.textView.removeButton.addTarget(self, action: #selector(playSoundAtRemove), for: .touchUpInside)
     }
-    
+
     @objc
     private func enterNumber(sender: UIButton) {
         playSound()
@@ -43,7 +42,7 @@ final class KeyboardViewController: UIViewController {
         castedView.textView.insert(value: number)
         castedView.textView.hideErrorMessage()
     }
-    
+
     @objc
     private func confirm() {
         playSound()
@@ -54,14 +53,13 @@ final class KeyboardViewController: UIViewController {
             castedView.textView.showErrorMessage()
         }
     }
-    
+
     @objc
     private func playSoundAtRemove() {
         playSound()
     }
-    
+
     private func playSound() {
         AudioServicesPlaySystemSound(1104)
     }
-
 }

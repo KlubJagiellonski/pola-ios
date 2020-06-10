@@ -11,7 +11,7 @@ protocol MediaUploadRequestFactory {
 
 struct InvalidStringUrlError: Error, LocalizedError {
     let url: String
-    
+
     var errorDescription: String? {
         "Invalid string url: \(url)"
     }
