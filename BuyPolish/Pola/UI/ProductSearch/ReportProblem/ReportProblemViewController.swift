@@ -9,8 +9,8 @@ final class ReportProblemViewController: UIViewController {
     private let reason: ReportProblemReason
     private var imageCount: Int = 0
 
-    private var castedView: ReportProblemView {
-        view as! ReportProblemView
+    private var castedView: ReportProblemView! {
+        view as? ReportProblemView
     }
 
     init(reason: ReportProblemReason,

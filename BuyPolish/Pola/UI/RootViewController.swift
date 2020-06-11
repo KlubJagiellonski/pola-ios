@@ -11,8 +11,8 @@ final class RootViewController: UINavigationController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    var scanCodeViewController: ScanCodeViewController {
-        viewControllers.first as! ScanCodeViewController
+    var scanCodeViewController: ScanCodeViewController! {
+        viewControllers.first as? ScanCodeViewController
     }
 
     func showScanCodeView() {

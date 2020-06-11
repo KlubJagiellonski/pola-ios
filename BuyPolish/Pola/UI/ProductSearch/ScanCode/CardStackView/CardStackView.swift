@@ -99,12 +99,12 @@ final class CardStackView: UIView {
                                    return
                                }
                                self.forceLayout()
-            }) { [weak self] _ in
-                guard let self = self else {
-                    return
-                }
-                self.layoutChanged(oldLayout: oldLayout, completionBlock: completionBlock)
-            }
+                           }, completion: { [weak self] _ in
+                               guard let self = self else {
+                                   return
+                               }
+                               self.layoutChanged(oldLayout: oldLayout, completionBlock: completionBlock)
+            })
 
         } else {
             forceLayout()

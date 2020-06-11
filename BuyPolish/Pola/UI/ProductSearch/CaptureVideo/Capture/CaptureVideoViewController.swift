@@ -40,8 +40,8 @@ final class CaptureVideoViewController: UIViewController {
         view = CaptureVideoView()
     }
 
-    private var castedView: CaptureVideoView {
-        view as! CaptureVideoView
+    private var castedView: CaptureVideoView! {
+        view as? CaptureVideoView
     }
 
     override func viewDidLoad() {

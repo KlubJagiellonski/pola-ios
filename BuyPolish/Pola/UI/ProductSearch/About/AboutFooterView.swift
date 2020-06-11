@@ -10,7 +10,7 @@ final class AboutFooterView: UIView {
         infoLabel.textColor = Theme.defaultTextColor
         infoLabel.numberOfLines = 3
         let bundle = Bundle.main
-        let versionString = "\(bundle.shortVersion) (\(bundle.version))"
+        let versionString = "\(bundle.shortVersion ?? "") (\(bundle.version ?? ""))"
         infoLabel.text = R.string.localizable.aboutInfo(versionString)
         addSubview(infoLabel)
     }

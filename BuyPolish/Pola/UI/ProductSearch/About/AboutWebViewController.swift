@@ -2,6 +2,9 @@ import UIKit
 
 final class AboutWebViewController: UIViewController {
     private let url: String
+    private var webView: UIWebView! {
+        view as? UIWebView
+    }
 
     init(url: String, title: String) {
         self.url = url
@@ -22,7 +25,6 @@ final class AboutWebViewController: UIViewController {
         guard let url = URL(string: url) else {
             return
         }
-        let webView = view as! UIWebView
         webView.loadRequest(URLRequest(url: url))
         webView.delegate = self
     }

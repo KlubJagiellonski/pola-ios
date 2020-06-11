@@ -2,6 +2,9 @@ import UIKit
 
 final class CompanyContentViewController: UIViewController {
     let result: ScanResult
+    private var companyView: CompanyContentView! {
+        view as? CompanyContentView
+    }
 
     init(result: ScanResult) {
         self.result = result
@@ -17,8 +20,6 @@ final class CompanyContentViewController: UIViewController {
     }
 
     override func viewDidLoad() {
-        let companyView = view as! CompanyContentView
-
         companyView.friendButton.addTarget(self, action: #selector(friendTapped), for: .touchUpInside)
         if let plCapital = result.plCapital {
             companyView.capitalProgressView.progress = CGFloat(plCapital) / 100.0

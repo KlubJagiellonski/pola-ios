@@ -2,13 +2,15 @@ import AVFoundation
 import UIKit
 
 final class VideoPlayerView: UIView {
+    private var notificationToken: NSObjectProtocol?
+
     func playInLoop(url: URL) {
         let player = AVPlayer(url: url)
         player.isMuted = true
         playerLayer.player = player
         player.actionAtItemEnd = .none
 
-        NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: player.currentItem, queue: .main) { notification in
+        notificationToken = NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: player.currentItem, queue: .main) { notification in
             guard let playerItem = notification.object as? AVPlayerItem else {
                 return
             }
@@ -26,7 +28,7 @@ final class VideoPlayerView: UIView {
         AVPlayerLayer.self
     }
 
-    private var playerLayer: AVPlayerLayer {
-        layer as! AVPlayerLayer
+    private var playerLayer: AVPlayerLayer! {
+        layer as? AVPlayerLayer
     }
 }

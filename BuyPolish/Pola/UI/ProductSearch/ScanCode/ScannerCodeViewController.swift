@@ -29,8 +29,8 @@ final class ScannerCodeViewController: UIViewController {
         view = ScannerCodeView()
     }
 
-    private var castView: ScannerCodeView {
-        view as! ScannerCodeView
+    private var castView: ScannerCodeView! {
+        view as? ScannerCodeView
     }
 
     override func viewWillAppear(_ animated: Bool) {

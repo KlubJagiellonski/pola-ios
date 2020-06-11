@@ -29,8 +29,8 @@ final class ScanCodeViewController: UIViewController {
         .lightContent
     }
 
-    fileprivate var castedView: ScanCodeView {
-        view as! ScanCodeView
+    fileprivate var castedView: ScanCodeView! {
+        view as? ScanCodeView
     }
 
     override func viewDidLoad() {
@@ -126,10 +126,10 @@ final class ScanCodeViewController: UIViewController {
             resultsViewController.view.alpha = 1.0
             scannerCodeViewController.view.alpha = 1.0
             keyboardViewController.view.alpha = 0.0
-        }) { [weak self, keyboardViewController] _ in
+        }, completion: { [weak self, keyboardViewController] _ in
             keyboardViewController.view.removeFromSuperview()
             self?.keyboardViewController = nil
-        }
+        })
     }
 
     fileprivate func showKeyboardController() {
@@ -151,9 +151,9 @@ final class ScanCodeViewController: UIViewController {
                            keyboardViewController.view.alpha = 1.0
                            resultsViewController.view.alpha = 0.0
                            scannerCodeViewController.view.alpha = 0.0
-        }) { _ in
-            keyboardViewController.didMove(toParent: self)
-        }
+                       }, completion: { _ in
+                           keyboardViewController.didMove(toParent: self)
+        })
         self.keyboardViewController = keyboardViewController
     }
 }

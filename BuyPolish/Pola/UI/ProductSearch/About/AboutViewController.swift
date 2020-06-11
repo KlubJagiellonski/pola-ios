@@ -79,11 +79,15 @@ final class AboutViewController: UITableViewController {
         let row = indexPath.row
         switch Section(rawValue: indexPath.section) {
         case .single:
-            let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.single.rawValue, for: indexPath) as! AboutSingleCell
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.single.rawValue, for: indexPath) as? AboutSingleCell else {
+                return UITableViewCell()
+            }
             cell.configure(rowInfo: model.rows[row])
             return cell
         case .double:
-            let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.double.rawValue, for: indexPath) as! AboutDoubleCell
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.double.rawValue, for: indexPath) as? AboutDoubleCell else {
+                return UITableViewCell()
+            }
             cell.configure(rowInfo: model.doubleRows[row])
             return cell
         default:

@@ -17,8 +17,8 @@ final class CaptureVideoInstructionViewController: UIViewController {
         view = CaptureVideoInstructionView()
     }
 
-    private var castedView: CaptureVideoInstructionView {
-        view as! CaptureVideoInstructionView
+    private var castedView: CaptureVideoInstructionView! {
+        view as? CaptureVideoInstructionView
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {

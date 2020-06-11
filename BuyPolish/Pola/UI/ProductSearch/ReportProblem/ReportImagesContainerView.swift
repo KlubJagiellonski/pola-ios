@@ -77,9 +77,9 @@ final class ReportImagesContainerView: UIView {
             imageView.alpha = 0.0
             self.setNeedsLayout()
             self.layoutIfNeeded()
-        }) { _ in
+        }, completion: { _ in
             imageView.removeFromSuperview()
-        }
+        })
     }
 
     override func layoutSubviews() {

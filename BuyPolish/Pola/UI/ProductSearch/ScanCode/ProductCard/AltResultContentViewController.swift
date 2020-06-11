@@ -17,7 +17,9 @@ final class AltResultContentViewController: UIViewController {
     }
 
     override func viewDidLoad() {
-        let altView = view as! AltResultContentView
+        guard let altView = view as? AltResultContentView else {
+            return
+        }
         altView.textLabel.text = result.altText
     }
 }

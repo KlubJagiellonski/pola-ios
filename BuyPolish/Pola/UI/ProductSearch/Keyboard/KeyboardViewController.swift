@@ -19,8 +19,8 @@ final class KeyboardViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private var castedView: KeyboardView {
-        view as! KeyboardView
+    private var castedView: KeyboardView! {
+        view as? KeyboardView
     }
 
     override func loadView() {

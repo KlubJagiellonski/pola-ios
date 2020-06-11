@@ -28,3 +28,4 @@ target :Pola do
 end
 
 pod 'SwiftFormat/CLI'
+pod 'SwiftLint'

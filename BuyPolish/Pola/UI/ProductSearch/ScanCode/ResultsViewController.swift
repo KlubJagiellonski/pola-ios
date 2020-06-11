@@ -33,12 +33,12 @@ final class ResultsViewController: UIViewController {
 
     override func loadView() {
         addChild(stackViewController)
-        view = ResultsView(frame: .zero, stackView: stackViewController.view as! CardStackView)
+        view = ResultsView(frame: .zero, stackView: stackViewController.castedView)
         stackViewController.didMove(toParent: self)
     }
 
-    var castedView: ResultsView {
-        view as! ResultsView
+    var castedView: ResultsView! {
+        view as? ResultsView
     }
 
     override func viewDidLoad() {

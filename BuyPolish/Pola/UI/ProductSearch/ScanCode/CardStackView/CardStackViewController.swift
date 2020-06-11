@@ -2,8 +2,8 @@ import UIKit
 
 final class CardStackViewController: UIViewController {
     private(set) var cards = [UIViewController]()
-    private var castedView: CardStackView {
-        view as! CardStackView
+    var castedView: CardStackView! {
+        view as? CardStackView
     }
 
     var cardCount: Int {

@@ -32,8 +32,8 @@ final class ScanResultViewController: UIViewController {
         view = ScanResultView()
     }
 
-    private var castedView: ScanResultView {
-        return view as! ScanResultView
+    private var castedView: ScanResultView! {
+        return view as? ScanResultView
     }
 
     override func viewDidLoad() {
@@ -57,7 +57,7 @@ final class ScanResultViewController: UIViewController {
                 self.delegate?.scanResultViewController(self, didFetchResult: scanResult)
             }
         }.ensure { [castedView] in
-            castedView.loadingProgressView.stopAnimating()
+            castedView?.loadingProgressView.stopAnimating()
         }.catch { [weak self] error in
             if let self = self {
                 self.delegate?.scanResultViewController(self, didFailFetchingScanResultWithError: error)
