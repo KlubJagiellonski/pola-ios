@@ -1,6 +1,6 @@
 # Pola iOS
 
-[![Build Status](https://travis-ci.org/KlubJagiellonski/pola-ios.svg?branch=master)](https://travis-ci.org/KlubJagiellonski/pola-ios)
+[![Build Status](https://travis-ci.org/KlubJagiellonski/pola-ios.svg?branch=master)](https://travis-ci.org/KlubJagiellonski/pola-ios)  [![codecov.io](https://codecov.io/gh/KlubJagiellonski/pola-ios/branch/master/graphs/badge.svg)](https://codecov.io/gh/KlubJagiellonski/pola-ios/branch/master)
 
 ## Chcesz pomóc?
 
