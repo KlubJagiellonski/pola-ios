@@ -1,12 +1,12 @@
 import Foundation
 
 enum AnalyticsEventName: String {
-    case scan_code
-    case company_received
-    case card_opened
-    case report_started
-    case report_finished
-    case menu_item_opened
-    case aipics_started
-    case aipics_finished
+    case scanCode = "scan_code"
+    case companyReceived = "company_received"
+    case cardOpened = "card_opened"
+    case reportStarted = "report_started"
+    case reportFinished = "report_finished"
+    case menuItemOpened = "menu_item_opened"
+    case aipicsStarted = "aipics_started"
+    case aipicsFinished = "aipics_finished"
 }

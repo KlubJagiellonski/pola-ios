@@ -1,25 +1,5 @@
 PODS:
-  - AFNetworking (2.3.1):
-    - AFNetworking/NSURLConnection (= 2.3.1)
-    - AFNetworking/NSURLSession (= 2.3.1)
-    - AFNetworking/Reachability (= 2.3.1)
-    - AFNetworking/Security (= 2.3.1)
-    - AFNetworking/Serialization (= 2.3.1)
-    - AFNetworking/UIKit (= 2.3.1)
-  - AFNetworking/NSURLConnection (2.3.1):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.3.1):
-    - AFNetworking/Reachability
-    - AFNetworking/Security
-    - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.3.1)
-  - AFNetworking/Security (2.3.1)
-  - AFNetworking/Serialization (2.3.1)
-  - AFNetworking/UIKit (2.3.1):
-    - AFNetworking/NSURLConnection
-    - AFNetworking/NSURLSession
+  - Alamofire (4.9.1)
   - Crashlytics (3.12.0):
     - Fabric (~> 1.9.0)
   - Fabric (1.9.0)
@@ -81,24 +61,39 @@ PODS:
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
-  - Objection (1.4)
+  - Observable (2.0.1)
+  - PromiseKit/Alamofire (6.12.0):
+    - Alamofire (~> 4.0)
+    - PromiseKit/CorePromise
+  - PromiseKit/CorePromise (6.12.0)
+  - R.swift (5.0.3):
+    - R.swift.Library (~> 5.0.0)
+  - R.swift.Library (5.0.1)
   - Swifter (1.4.7)
+  - SwiftFormat/CLI (0.44.4)
+  - SwiftLint (0.39.1)
+  - Swinject (2.7.1)
   - "UITextView+Placeholder (1.3.3)"
 
 DEPENDENCIES:
-  - AFNetworking (= 2.3.1)
+  - Alamofire
   - Crashlytics (~> 3.12.0)
   - Fabric (~> 1.9.0)
   - Firebase/Analytics (~> 6.1.0)
   - iOSSnapshotTestCase
   - KVNProgress
-  - Objection (= 1.4)
+  - Observable
+  - PromiseKit/Alamofire
+  - R.swift
   - Swifter (~> 1.4.7)
+  - SwiftFormat/CLI
+  - SwiftLint
+  - Swinject
   - "UITextView+Placeholder"
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
-    - AFNetworking
+    - Alamofire
     - Crashlytics
     - Fabric
     - Firebase
@@ -110,12 +105,18 @@ SPEC REPOS:
     - iOSSnapshotTestCase
     - KVNProgress
     - nanopb
-    - Objection
+    - Observable
+    - PromiseKit
+    - R.swift
+    - R.swift.Library
     - Swifter
+    - SwiftFormat
+    - SwiftLint
+    - Swinject
     - "UITextView+Placeholder"
 
 SPEC CHECKSUMS:
-  AFNetworking: 05b9f6e3aa5ac45bc383b4bb108ef338080a26c7
+  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
   Fabric: f988e33c97f08930a413e08123064d2e5f68d655
   Firebase: 8d77bb33624ae9b62d745d82ec023de5f70f7e4f
@@ -127,10 +128,16 @@ SPEC CHECKSUMS:
   iOSSnapshotTestCase: 415bd84f9dbba4ff45fede49d800bc7332fbedac
   KVNProgress: 4697347e21e37fdaa5264ebc24e377c205a50328
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
-  Objection: aa9875dbf1b121a077f7e13d504a6ed01816a7f1
+  Observable: c94150db5a2e43391d46a247bd395ce1a544b81a
+  PromiseKit: c06835ba442ce5454ce3cdde470232804a6e4ff8
+  R.swift: f5a87643b91ea569d23d6afb3eee9c743edde239
+  R.swift.Library: cfe85d569d9bae6cb262922db130e7c3a7a5fad1
   Swifter: 2327ef5d872c638aebab79646ce494af508b0c8f
+  SwiftFormat: 8b3c6b69454305a61c221355095f62dacc0811bf
+  SwiftLint: 55e96a4a4d537d4a3156859fc1c54bd24851a046
+  Swinject: ddf78b8486dd9b71a667b852cad919ab4484478e
   "UITextView+Placeholder": c407b27599ea23cca425946fee3cf1db5d547008
 
-PODFILE CHECKSUM: fb12a12fffed2a6c1f0906fc8c69eda73f211b7d
+PODFILE CHECKSUM: 480036c85a5ff60a9d464b607f65ef59ea584d02
 
-COCOAPODS: 1.9.0
+COCOAPODS: 1.9.3

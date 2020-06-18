@@ -1,90 +1,79 @@
-import Foundation
-import Firebase
 import Crashlytics
+import Firebase
+import Foundation
 
-@objc(BPAnalyticsHelper)
-final class AnalyticsHelper: NSObject {
-
-    @objc
+final class AnalyticsHelper {
     class func configure() {
-        if (firebaseAvailable) {
+        if firebaseAvailable {
             FirebaseApp.configure()
         }
-        Crashlytics.sharedInstance().setUserIdentifier(BPDeviceHelper.deviceId)
+        Crashlytics.sharedInstance().setUserIdentifier(UIDevice.current.deviceId)
     }
 
-    @objc
-    class func barcodeScanned(_ barcode: String, type: String) {
-        logEvent(name: .scan_code,
+    class func barcodeScanned(_ barcode: String, type: AnalyticsBarcodeSource) {
+        logEvent(name: .scanCode,
                  parameters:
-            AnalyticsScanCodeParameters(code: barcode,
-                                        device_id: BPDeviceHelper.deviceId,
-                                        source: type))
+                 AnalyticsScanCodeParameters(code: barcode,
+                                             device_id: UIDevice.current.deviceId,
+                                             source: type.rawValue))
     }
 
-    @objc(receivedProductResult:)
-    class func received(productResult: BPScanResult) {
-        logEvent(name: .company_received,
+    class func received(productResult: ScanResult) {
+        logEvent(name: .companyReceived,
                  parameters:
-            AnalyticsProductResultParameters(code: productResult.code,
-                                               company: productResult.code,
-                                               device_id: BPDeviceHelper.deviceId,
-                                               product_id: productResult.productId?.stringValue,
-                                               ai_requested: productResult.askForPics ? 1 : 0))
+                 AnalyticsProductResultParameters(code: productResult.code,
+                                                  company: productResult.code,
+                                                  device_id: UIDevice.current.deviceId,
+                                                  product_id: "\(productResult.productId)",
+                                                  ai_requested: (productResult.ai?.askForPics ?? false) ? 1 : 0))
     }
 
-    @objc(opensCard:)
-    class func opensCard(productResult: BPScanResult) {
-        logEvent(name: .card_opened,
+    class func opensCard(productResult: ScanResult) {
+        logEvent(name: .cardOpened,
                  parameters:
-            AnalyticsProductResultParameters(code: productResult.code,
-                                             company: productResult.code,
-                                             device_id: BPDeviceHelper.deviceId,
-                                             product_id: productResult.productId?.stringValue,
-                                             ai_requested: nil))
+                 AnalyticsProductResultParameters(code: productResult.code,
+                                                  company: productResult.code,
+                                                  device_id: UIDevice.current.deviceId,
+                                                  product_id: "\(productResult.productId)",
+                                                  ai_requested: nil))
     }
 
-    @objc(reportShown:)
     class func reportShown(barcode: String) {
-        logEvent(name: .report_started,
+        logEvent(name: .reportStarted,
                  parameters: reportParameters(barcode: barcode))
     }
 
-    @objc(reportSent:)
     class func reportSent(barcode: String?) {
-        logEvent(name: .report_finished,
+        logEvent(name: .reportFinished,
                  parameters: reportParameters(barcode: barcode))
     }
 
-    @objc(aboutOpened:)
-    class func aboutOpened(windowName: String) {
-        logEvent(name: .menu_item_opened,
+    class func aboutOpened(windowName: AnalitycsAboutRow) {
+        logEvent(name: .menuItemOpened,
                  parameters:
-            AnalyticsAboutParameters(item: windowName,
-                                      device_id: BPDeviceHelper.deviceId))
+                 AnalyticsAboutParameters(item: windowName.rawValue,
+                                          device_id: UIDevice.current.deviceId))
     }
 
-    @objc(teachReportShow:)
     class func teachReportShow(barcode: String) {
-        logEvent(name: .aipics_started,
+        logEvent(name: .aipicsStarted,
                  parameters: reportParameters(barcode: barcode))
     }
 
-    @objc(teachReportSent:)
     class func teachReportSent(barcode: String) {
-        logEvent(name: .aipics_finished,
+        logEvent(name: .aipicsFinished,
                  parameters: reportParameters(barcode: barcode))
     }
 
     private class func reportParameters(barcode: String?) -> AnalyticsReportParameters {
         return AnalyticsReportParameters(code: barcode ?? "No Code",
-                                         device_id: BPDeviceHelper.deviceId)
+                                         device_id: UIDevice.current.deviceId)
     }
 
     private class func logEvent(name: AnalyticsEventName, parameters: AnalyticsParameters) {
         let nameString = name.rawValue
         let dictionary = parameters.dictionary
-        if (firebaseAvailable) {
+        if firebaseAvailable {
             Analytics.logEvent(nameString, parameters: dictionary)
         }
         CLSLogv("%@: %@", getVaList([nameString, dictionary ?? [:]]))

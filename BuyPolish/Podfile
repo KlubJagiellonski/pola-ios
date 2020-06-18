@@ -4,24 +4,28 @@ platform :ios, '8.0'
 inhibit_all_warnings!
 
 target :Pola do
-    use_modular_headers!
-    pod 'AFNetworking', '2.3.1'
-    pod 'Objection', '1.4'
+    use_frameworks!
     pod 'Fabric', '~> 1.9.0'
     pod 'Crashlytics', '~> 3.12.0'
     pod 'Firebase/Analytics', '~> 6.1.0'
     pod 'UITextView+Placeholder'
     pod 'KVNProgress'
+    pod 'R.swift'
+    pod 'Alamofire'
+    pod 'Swinject'
+    pod 'PromiseKit/Alamofire'
+    pod 'Observable'
     
     target :PolaTests do
-      use_frameworks!
       pod 'iOSSnapshotTestCase'
     end
     
     target :PolaUITests do
-      use_frameworks!
       pod 'iOSSnapshotTestCase'
       pod 'Swifter', '~> 1.4.7'
     end
 
 end
+
+pod 'SwiftFormat/CLI'
+pod 'SwiftLint'

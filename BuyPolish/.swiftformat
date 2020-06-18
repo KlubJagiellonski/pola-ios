@@ -1,0 +1,3 @@
+--exclude Pods,Pola/R.generated.swift,Pola/Manager/DIContainer.swift
+
+--trimwhitespace always

@@ -4,8 +4,8 @@ struct CodeData {
     let barcode: String
     let result: String
     let responseFile: String
-    
-    static let Radziemska = CodeData(barcode: "5904284420903",result: "RADZIEMSKA", responseFile: "radziemska" )
+
+    static let Radziemska = CodeData(barcode: "5904284420903", result: "RADZIEMSKA", responseFile: "radziemska")
     static let Gustaw = CodeData(barcode: "5904277719045", result: "GUSTAW", responseFile: "gustaw")
     static let Staropramen = CodeData(barcode: "8593868002832", result: "Pivovary Staropramen", responseFile: "staropramen")
     static let ISBN = CodeData(barcode: "9788328053045", result: "Kod ISBN/ISSN/ISMN", responseFile: "isbn")

@@ -1,6 +1,5 @@
+#import <Pola-Swift.h>
 #import <UIKit/UIKit.h>
-
-#import "BPAppDelegate.h"
 
 int main(int argc, char *argv[]) {
     @autoreleasepool {

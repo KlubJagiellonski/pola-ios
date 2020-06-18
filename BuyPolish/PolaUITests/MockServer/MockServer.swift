@@ -5,20 +5,20 @@ final class MockServer {
     static let shared = MockServer()
     private let server = HttpServer()
     private(set) var loggedRequest = [HttpRequest]()
-    
+
     func start() throws {
         configureResponses()
         try server.start(8888)
     }
-    
+
     func stop() {
         server.stop()
     }
-    
+
     func clearLogs() {
         loggedRequest.removeAll()
     }
-    
+
     private let codeDatas = [
         CodeData.Radziemska,
         CodeData.Gustaw,
@@ -27,46 +27,45 @@ final class MockServer {
         CodeData.Lomza,
         CodeData.Staropramen,
         CodeData.Tymbark,
-        CodeData.Naleczowianka
+        CodeData.Naleczowianka,
     ]
-    
+
     private func configureResponses() {
-        server["/get_by_code"] =
-            { request in
-                self.record(request: request)
-                let code = self.code(from: request)
-                let responseFilename = self.responseFilename(for: code)
-                return self.response(from: responseFilename)
+        server["/get_by_code"] = {
+            request in
+            self.record(request: request)
+            let code = self.code(from: request)
+            let responseFilename = self.responseFilename(for: code)
+            return self.response(from: responseFilename)
         }
         server["/create_report"] = {
             request in
             self.record(request: request)
             return self.response(from: "create_report")
         }
-        
+
         server["/image"] = {
             request in
             self.record(request: request)
             return HttpResponse.ok(.text(""))
         }
-
     }
-    
+
     private func record(request: HttpRequest) {
         loggedRequest.append(request)
         print("Mock server handle request \(request.path)")
     }
-    
+
     private func code(from request: HttpRequest) -> String {
-        return request.queryParams.first(where: { (key, value) -> Bool in
-            return key == "code"
+        return request.queryParams.first(where: { (key, _) -> Bool in
+            key == "code"
         })!.1
     }
-    
+
     private func responseFilename(for code: String) -> String {
-        return codeDatas.first(where: {$0.barcode == code})!.responseFile
+        return codeDatas.first(where: { $0.barcode == code })!.responseFile
     }
-    
+
     private func response(from filename: String) -> HttpResponse {
         let path = Bundle(for: MockServer.self).path(forResource: filename, ofType: "json")!
         let data: Data
@@ -78,5 +77,4 @@ final class MockServer {
         }
         return HttpResponse.ok(.data(data))
     }
-    
 }

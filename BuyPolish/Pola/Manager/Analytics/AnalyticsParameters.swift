@@ -1,7 +1,6 @@
 import Foundation
 
-protocol AnalyticsParameters : Encodable {
-}
+protocol AnalyticsParameters: Encodable {}
 
 struct AnalyticsScanCodeParameters: AnalyticsParameters {
     let code: String
