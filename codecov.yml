@@ -1,0 +1,3 @@
+ignore:
+  - "BuyPolish/PolaTests"
+  - "BuyPolish/PolaUITests"

@@ -10,6 +10,9 @@ cache:
   bundler: true
   cocoapods: true
 
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
 after_failure:
   - npm install imgur-upload-cli
   - ./node_modules/.bin/imgur-upload BuyPolish/PolaUITests/SnapshotFailedTests/*.png
