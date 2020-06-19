@@ -15,8 +15,8 @@ after_success:
 
 after_failure:
   - npm install imgur-upload-cli
-  - ./node_modules/.bin/imgur-upload BuyPolish/PolaUITests/SnapshotFailedTests/*.png
-  - ./node_modules/.bin/imgur-upload BuyPolish/PolaUITests/FailureDiffs/**/*.png
+  - ./node_modules/.bin/imgur-upload PolaUITests/SnapshotFailedTests/*.png
+  - ./node_modules/.bin/imgur-upload PolaUITests/FailureDiffs/**/*.png
 
 notifications:
   email: false
