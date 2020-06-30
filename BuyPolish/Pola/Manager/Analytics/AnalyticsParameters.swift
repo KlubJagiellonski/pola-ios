@@ -13,7 +13,6 @@ struct AnalyticsProductResultParameters: AnalyticsParameters {
     let company: String?
     let device_id: String
     let product_id: String?
-    let ai_requested: Int?
 }
 
 struct AnalyticsReportParameters: AnalyticsParameters {

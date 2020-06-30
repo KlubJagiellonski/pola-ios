@@ -14,7 +14,7 @@ final class ScanBarcodeWithResultPageUITests: PolaUITestCase {
         testResultPage(codeData: CodeData.Staropramen)
     }
 
-    func testKoralCompanyShouldShowAskForPicsButton() {
+    func testKoralCompanyShouldShowAskForDonateButton() {
         testResultPage(codeData: CodeData.Koral)
     }
 

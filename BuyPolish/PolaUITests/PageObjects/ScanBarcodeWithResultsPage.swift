@@ -13,8 +13,8 @@ final class ScanBarcodeWithResultsPage: ScanBarcodePage {
         return T(app: app)
     }
 
-    func tapHelpPolaButton() -> TeachPolaPage {
-        app.staticTexts["Naciśnij aby pomóc Poli"].firstMatch.tap()
-        return TeachPolaPage(openFrom: self)
+    func tapDonatePolaButton() -> SafariPage {
+        app.staticTexts["Wspieraj aplikację Pola"].firstMatch.tap()
+        return SafariPage(openFrom: self)
     }
 }

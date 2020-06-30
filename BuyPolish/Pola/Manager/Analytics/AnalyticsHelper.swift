@@ -24,8 +24,7 @@ final class AnalyticsHelper {
                  AnalyticsProductResultParameters(code: productResult.code,
                                                   company: productResult.code,
                                                   device_id: UIDevice.current.deviceId,
-                                                  product_id: "\(productResult.productId)",
-                                                  ai_requested: (productResult.ai?.askForPics ?? false) ? 1 : 0))
+                                                  product_id: "\(productResult.productId)"))
     }
 
     class func opensCard(productResult: ScanResult) {
@@ -34,8 +33,7 @@ final class AnalyticsHelper {
                  AnalyticsProductResultParameters(code: productResult.code,
                                                   company: productResult.code,
                                                   device_id: UIDevice.current.deviceId,
-                                                  product_id: "\(productResult.productId)",
-                                                  ai_requested: nil))
+                                                  product_id: "\(productResult.productId)"))
     }
 
     class func reportShown(barcode: String) {
@@ -48,21 +46,16 @@ final class AnalyticsHelper {
                  parameters: reportParameters(barcode: barcode))
     }
 
+    class func donateOpened(barcode: String?) {
+        logEvent(name: .donateOpened,
+                 parameters: reportParameters(barcode: barcode))
+    }
+
     class func aboutOpened(windowName: AnalitycsAboutRow) {
         logEvent(name: .menuItemOpened,
                  parameters:
                  AnalyticsAboutParameters(item: windowName.rawValue,
                                           device_id: UIDevice.current.deviceId))
-    }
-
-    class func teachReportShow(barcode: String) {
-        logEvent(name: .aipicsStarted,
-                 parameters: reportParameters(barcode: barcode))
-    }
-
-    class func teachReportSent(barcode: String) {
-        logEvent(name: .aipicsFinished,
-                 parameters: reportParameters(barcode: barcode))
     }
 
     private class func reportParameters(barcode: String?) -> AnalyticsReportParameters {

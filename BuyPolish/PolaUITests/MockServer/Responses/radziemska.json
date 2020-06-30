@@ -1,1 +1,30 @@
-{"product_id": 5078799, "code": "5904284420903", "name": "RADZIEMSKA", "card_type": "type_white", "plScore": 100, "altText": null, "plCapital": 100, "plCapital_notes": "", "plWorkers": 100, "plWorkers_notes": "", "plRnD": 100, "plRnD_notes": "", "plRegistered": 100, "plRegistered_notes": "", "plNotGlobEnt": 100, "plNotGlobEnt_notes": "", "report_text": "Zg\u0142o\u015b je\u015bli posiadasz bardziej aktualne dane na temat tego produktu", "report_button_text": "Zg\u0142o\u015b", "report_button_type": "type_white", "is_friend": true, "friend_text": "To jest przyjaciel Poli", "description": "Rodzime przedsi\u0119biorstwo chemiczne powsta\u0142e w 1982 roku. Firma specjalizuje si\u0119 w produkcji chemii gospodarczej, w tym odplamiaczy, proszk\u00f3w do prania czy wybielaczy. Sp\u00f3\u0142ka jest laureatem wielu nagr\u00f3d konsumenckich, a jej siedziba znajduje si\u0119 w \u0141omiankach pod Warszaw\u0105.", "sources": {"Strona g\u0142\u00f3wna Firmy": "https://www.radziemska.pl/", "O Firmie": "https://www.radziemska.pl/", "Kontakt": "https://www.radziemska.pl/kontakt", "KRS": "https://mojepanstwo.pl/radziemska"}}
+{
+  "product_id": 5078799,
+  "code": "5904284420903",
+  "name": "RADZIEMSKA",
+  "card_type": "type_white",
+  "plScore": 100,
+  "altText": null,
+  "plCapital": 100,
+  "plCapital_notes": "",
+  "plWorkers": 100,
+  "plWorkers_notes": "",
+  "plRnD": 100,
+  "plRnD_notes": "",
+  "plRegistered": 100,
+  "plRegistered_notes": "",
+  "plNotGlobEnt": 100,
+  "plNotGlobEnt_notes": "",
+  "report_text": "Zgłoś jeśli posiadasz bardziej aktualne dane na temat tego produktu",
+  "report_button_text": "Zgłoś",
+  "report_button_type": "type_white",
+  "is_friend": true,
+  "friend_text": "To jest przyjaciel Poli",
+  "description": "Rodzime przedsiębiorstwo chemiczne powstałe w 1982 roku. Firma specjalizuje się w produkcji chemii gospodarczej, w tym odplamiaczy, proszków do prania czy wybielaczy. Spółka jest laureatem wielu nagród konsumenckich, a jej siedziba znajduje się w Łomiankach pod Warszawą.",
+  "sources": {
+    "Strona główna Firmy": "https://www.radziemska.pl/",
+    "O Firmie": "https://www.radziemska.pl/",
+    "Kontakt": "https://www.radziemska.pl/kontakt",
+    "KRS": "https://mojepanstwo.pl/radziemska"
+  }
+}

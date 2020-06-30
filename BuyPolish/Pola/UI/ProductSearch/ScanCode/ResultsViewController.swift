@@ -9,6 +9,7 @@ protocol ResultsViewControllerDelegate: AnyObject {
 final class ResultsViewController: UIViewController {
     private let stackViewController = CardStackViewController()
     private let barcodeValidator: BarcodeValidator
+    private var donateURL: URL?
 
     weak var delegate: ResultsViewControllerDelegate?
 
@@ -44,7 +45,7 @@ final class ResultsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         stackViewController.delegate = self
-        castedView.teachButton.addTarget(self, action: #selector(teachTapped), for: .touchUpInside)
+        castedView.donateButton.addTarget(self, action: #selector(donateTapped), for: .touchUpInside)
     }
 
     func add(barcodeCard barcode: String, sourceType: AnalyticsBarcodeSource) {
@@ -74,28 +75,27 @@ final class ResultsViewController: UIViewController {
     }
 
     @objc
-    private func teachTapped() {
-        lastResultViewController?.teachTapped()
+    private func donateTapped() {
+        AnalyticsHelper.donateOpened(barcode: lastResultViewController?.barcode)
+        if let donateURL = donateURL {
+            UIApplication.shared.openURL(donateURL)
+        }
     }
 }
 
 extension ResultsViewController: ScanResultViewControllerDelegate {
     func scanResultViewController(_: ScanResultViewController, didFetchResult result: ScanResult) {
-        let visible = result.ai?.askForPics ?? false
-        castedView.teachButton.isHidden = !visible
-        castedView.teachButton.setTitle(result.ai?.askForPicsPreview, for: .normal)
-        castedView.teachButton.setNeedsLayout()
+        let visible = result.donate?.showButton ?? false
+        castedView.donateButton.isHidden = !visible
+        castedView.donateButton.setTitle(result.donate?.title, for: .normal)
+        donateURL = result.donate?.url
+        castedView.donateButton.setNeedsLayout()
     }
 
     func scanResultViewController(_ vc: ScanResultViewController, didFailFetchingScanResultWithError _: Error) {
         let alertView = UIAlertView.showErrorAlert(R.string.localizable.cannotFetchProductInfoFromServerPleaseTryAgain())
         alertView.delegate = self
         stackViewController.remove(card: vc)
-    }
-
-    func scanResultViewControllerDidSentTeachReport(_: ScanResultViewController) {
-        castedView.teachButton.isHidden = true
-        castedView.setNeedsLayout()
     }
 }
 
@@ -108,18 +108,18 @@ extension ResultsViewController: UIAlertViewDelegate {
 extension ResultsViewController: CardStackViewControllerDelegate {
     func stackViewControllerDidCollapse(_: CardStackViewController) {
         delegate?.resultsViewControllerDidCollapse()
-        castedView.teachButton.isHidden = !(lastResultViewController?.scanResult?.ai?.askForPics ?? false)
+        castedView.donateButton.isHidden = !(lastResultViewController?.scanResult?.donate?.showButton ?? false)
         isAddingCardEnabled = true
     }
 
     func stackViewController(_: CardStackViewController, willAddCard _: UIViewController) {
-        castedView.teachButton.isHidden = true
+        castedView.donateButton.isHidden = true
         castedView.setNeedsLayout()
     }
 
     func stackViewController(_: CardStackViewController, willExpandCard _: UIViewController) {
         delegate?.resultsViewControllerWillExpandResult()
-        castedView.teachButton.isHidden = true
+        castedView.donateButton.isHidden = true
         isAddingCardEnabled = false
     }
 }

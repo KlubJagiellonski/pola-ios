@@ -1,1 +1,27 @@
-{"product_id": 1489, "code": "5900635001111", "name": "NESTLE WATERS POLSKA", "card_type": "type_white", "plScore": 55, "altText": null, "plCapital": 0, "plCapital_notes": "\r\n", "plWorkers": 100, "plWorkers_notes": "", "plRnD": 100, "plRnD_notes": "", "plRegistered": 100, "plRegistered_notes": "Sp\u00f3\u0142ka zarejestrowana na terenie Polski. ", "plNotGlobEnt": 0, "plNotGlobEnt_notes": "", "report_text": "Zg\u0142o\u015b je\u015bli posiadasz bardziej aktualne dane na temat tego produktu", "report_button_text": "Zg\u0142o\u015b", "report_button_type": "type_white", "is_friend": false, "description": "Nestl\u00e9 Waters Polska - oferuj\u0105ce r\u00f3\u017cne rodzaje w\u00f3d mineralnych i napoj\u00f3w - nale\u017cy do mi\u0119dzynarodowej grupy Nestl\u00e9, dzia\u0142aj\u0105cej na rynku spo\u017cywczym. Nestl\u00e9 w Polsce wsp\u00f3\u0142tworzy 5042 pracownik\u00f3w. W 9 zak\u0142adach zlokalizowanych w r\u00f3\u017cnych regionach Polski wytwarzanych jest ponad 1500 produkt\u00f3w spo\u017cywczych.", "sources": {"Dane z KRS": "http://mojepanstwo.pl/dane/krs_podmioty/32045", "Strona producenta": "http://www.nestle.pl/pl/aboutus/nestlepolska"}, "ai": {"ask_for_pics": true, "ask_for_pics_preview": "Naci\u015bnij aby pom\u00f3c Poli", "ask_for_pics_title": "Naucz Pol\u0119 tego produktu", "ask_for_pics_text": "Pom\u00f3\u017c nauczy\u0107 Pol\u0119 rozpoznawania produkt\u00f3w po wygl\u0105dzie. Nakr\u0119\u0107 film obracaj\u0105c produkt tak jak na przyk\u0142adzie poni\u017cej. Postaraj si\u0119 nie zas\u0142ania\u0107 produktu.", "ask_for_pics_product": "Uczysz Pol\u0119 produktu: Na\u0142eczowianka 1,5 l dgaz P - butelka", "ask_for_pics_button_start": "Nakr\u0119\u0107 film", "max_pic_size": 800}}
+{
+  "product_id": 1489,
+  "code": "5900635001111",
+  "name": "NESTLE WATERS POLSKA",
+  "card_type": "type_white",
+  "plScore": 55,
+  "altText": null,
+  "plCapital": 0,
+  "plCapital_notes": "\r\n",
+  "plWorkers": 100,
+  "plWorkers_notes": "",
+  "plRnD": 100,
+  "plRnD_notes": "",
+  "plRegistered": 100,
+  "plRegistered_notes": "Spółka zarejestrowana na terenie Polski. ",
+  "plNotGlobEnt": 0,
+  "plNotGlobEnt_notes": "",
+  "report_text": "Zgłoś jeśli posiadasz bardziej aktualne dane na temat tego produktu",
+  "report_button_text": "Zgłoś",
+  "report_button_type": "type_white",
+  "is_friend": false,
+  "description": "Nestlé Waters Polska - oferujące różne rodzaje wód mineralnych i napojów - należy do międzynarodowej grupy Nestlé, działającej na rynku spożywczym. Nestlé w Polsce współtworzy 5042 pracowników. W 9 zakładach zlokalizowanych w różnych regionach Polski wytwarzanych jest ponad 1500 produktów spożywczych.",
+  "sources": {
+    "Dane z KRS": "http://mojepanstwo.pl/dane/krs_podmioty/32045",
+    "Strona producenta": "http://www.nestle.pl/pl/aboutus/nestlepolska"
+  }
+}
