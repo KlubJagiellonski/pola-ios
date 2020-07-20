@@ -24,3 +24,7 @@ struct AnalyticsAboutParameters: AnalyticsParameters {
     let item: String
     let device_id: String
 }
+
+struct AnalitycsPolasFriendsParameters: AnalyticsParameters {
+    let device_id: String
+}

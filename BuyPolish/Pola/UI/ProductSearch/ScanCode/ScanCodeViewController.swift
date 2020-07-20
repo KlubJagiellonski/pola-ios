@@ -42,13 +42,14 @@ final class ScanCodeViewController: UIViewController {
         scannerCodeViewController.scannerDelegate = self
 
         addChild(resultsViewController)
-        view.insertSubview(resultsViewController.view, aboveSubview: castedView.logoImageView)
+        view.insertSubview(resultsViewController.view, belowSubview: castedView.logoButton)
         resultsViewController.didMove(toParent: self)
         resultsViewController.delegate = self
 
         automaticallyAdjustsScrollViewInsets = false
         castedView.menuButton.addTarget(self, action: #selector(tapMenuButton), for: .touchUpInside)
         castedView.keyboardButton.addTarget(self, action: #selector(tapKeyboardButton), for: .touchUpInside)
+        castedView.logoButton.addTarget(self, action: #selector(tapLogoButton), for: .touchUpInside)
 
         if flashlightManager.isAvailable {
             castedView.flashButton.addTarget(self, action: #selector(tapFlashlightButton), for: .touchUpInside)
@@ -115,6 +116,16 @@ final class ScanCodeViewController: UIViewController {
         }
     }
 
+    @objc
+    func tapLogoButton() {
+        AnalyticsHelper.polasFriendsOpened()
+        let vc = AboutWebViewController(url: "https://www.pola-app.pl/m/friends",
+                                        title: R.string.localizable.polaSFriends())
+        vc.addCloseButton()
+        let nvc = UINavigationController(rootViewController: vc)
+        present(nvc, animated: true, completion: nil)
+    }
+
     fileprivate func hideKeyboardController() {
         guard let keyboardViewController = keyboardViewController else {
             return
@@ -144,7 +155,7 @@ final class ScanCodeViewController: UIViewController {
         addChild(keyboardViewController)
         keyboardViewController.view.frame = view.bounds
         keyboardViewController.view.alpha = 0.0
-        view.insertSubview(keyboardViewController.view, belowSubview: castedView.logoImageView)
+        view.insertSubview(keyboardViewController.view, belowSubview: castedView.logoButton)
 
         UIView.animate(withDuration: animationTime,
                        animations: { [resultsViewController, scannerCodeViewController] in
