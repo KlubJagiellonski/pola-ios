@@ -4,7 +4,6 @@ import UIKit
 protocol ScanResultViewControllerDelegate: AnyObject {
     func scanResultViewController(_ vc: ScanResultViewController, didFetchResult result: ScanResult)
     func scanResultViewController(_ vc: ScanResultViewController, didFailFetchingScanResultWithError error: Error)
-    func scanResultViewControllerDidSentTeachReport(_ vc: ScanResultViewController)
 }
 
 final class ScanResultViewController: UIViewController {
@@ -40,7 +39,6 @@ final class ScanResultViewController: UIViewController {
         super.viewDidLoad()
 
         castedView.reportProblemButton.addTarget(self, action: #selector(reportProblemTapped), for: .touchUpInside)
-        castedView.teachButton.addTarget(self, action: #selector(teachTapped), for: .touchUpInside)
 
         downloadScanResult()
     }
@@ -76,15 +74,6 @@ final class ScanResultViewController: UIViewController {
 
         if let plScore = scanResult.plScore {
             castedView.mainProgressView.progress = CGFloat(plScore) / 100.0
-        }
-
-        if let ai = scanResult.ai,
-            ai.askForPics,
-            !ai.askForPicsPreview.isEmpty {
-            castedView.teachButton.setTitle(ai.askForPicsPreview, for: .normal)
-            castedView.teachButton.isHidden = false
-        } else {
-            castedView.teachButton.isHidden = true
         }
 
         switch scanResult.cardType {
@@ -125,25 +114,6 @@ final class ScanResultViewController: UIViewController {
         let vc = DI.container.resolve(ReportProblemViewController.self,
                                       argument: ReportProblemReason.product(productId, barcode))!
         present(vc, animated: true, completion: nil)
-    }
-
-    @objc
-    func teachTapped() {
-        guard let scanResult = scanResult else {
-            return
-        }
-        AnalyticsHelper.teachReportShow(barcode: barcode)
-        let vc = DI.container.resolve(CaptureVideoInstructionViewController.self, argument: scanResult)!
-        vc.delegate = self
-        let navigationVC = UINavigationController(rootViewController: vc)
-        navigationVC.setNavigationBarHidden(true, animated: false)
-        present(navigationVC, animated: true, completion: nil)
-    }
-}
-
-extension ScanResultViewController: CaptureVideoViewControllerDelegate {
-    func captureVideoViewControllerSentImages() {
-        delegate?.scanResultViewControllerDidSentTeachReport(self)
     }
 }
 

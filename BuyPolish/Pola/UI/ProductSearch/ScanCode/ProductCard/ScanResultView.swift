@@ -16,7 +16,6 @@ final class ScanResultView: UIView {
         }
     }
 
-    let teachButton = UIButton(type: .custom)
     let reportProblemButton = UIButton(type: .custom)
     let reportInfoLabel = UILabel()
     let separatorView = UIView()
@@ -52,16 +51,6 @@ final class ScanResultView: UIView {
 
         mainProgressView.sizeToFit()
         addSubview(mainProgressView)
-
-        teachButton.titleLabel?.font = Theme.buttonFont
-        teachButton.layer.borderColor = Theme.actionColor.cgColor
-        teachButton.layer.borderWidth = 1
-        teachButton.setTitleColor(Theme.actionColor, for: .normal)
-        teachButton.setTitleColor(Theme.clearColor, for: .highlighted)
-        teachButton.setBackgroundImage(UIImage.image(color: UIColor.clear), for: .normal)
-        teachButton.setBackgroundImage(UIImage.image(color: Theme.actionColor), for: .highlighted)
-        teachButton.sizeToFit()
-        addSubview(teachButton)
 
         reportProblemButton.titleLabel?.font = Theme.buttonFont
         reportProblemButton.sizeToFit()
@@ -136,20 +125,11 @@ final class ScanResultView: UIView {
         rect.origin.y = reportProblemButton.frame.minY - verticalPadding - rect.height
         reportInfoLabel.frame = rect
 
-        if !teachButton.isHidden {
-            rect = teachButton.frame
-            rect.size = CGSize(width: widthWithPadding, height: buttonHeight)
-            rect.origin.x = horizontalPadding
-            rect.origin.y = reportInfoLabel.frame.minY - verticalPadding - rect.height
-            teachButton.frame = rect
-        }
-
         rect = separatorView.frame
         rect.size.width = bounds.width
         rect.size.height = 1
         rect.origin.x = 0
-        let viewUnderSeparator = teachButton.isHidden ? reportInfoLabel : teachButton
-        rect.origin.y = viewUnderSeparator.frame.minY - 15 - rect.height
+        rect.origin.y = reportInfoLabel.frame.minY - 15 - rect.height
         separatorView.frame = rect
 
         rect = scrollViewForContentView.frame

@@ -7,6 +7,5 @@ enum AnalyticsEventName: String {
     case reportStarted = "report_started"
     case reportFinished = "report_finished"
     case menuItemOpened = "menu_item_opened"
-    case aipicsStarted = "aipics_started"
-    case aipicsFinished = "aipics_finished"
+    case donateOpened = "donate_opened"
 }

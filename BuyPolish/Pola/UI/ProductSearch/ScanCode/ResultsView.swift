@@ -3,7 +3,7 @@ import UIKit
 final class ResultsView: UIView {
     private let stackView: CardStackView
     let infoTextLabel = UILabel()
-    let teachButton = UIButton(type: .custom)
+    let donateButton = UIButton(type: .custom)
 
     init(frame: CGRect, stackView: CardStackView) {
         self.stackView = stackView
@@ -19,16 +19,16 @@ final class ResultsView: UIView {
 
         addSubview(stackView)
 
-        teachButton.accessibilityLabel = R.string.localizable.accessibilityTeachPola()
-        teachButton.titleLabel?.font = Theme.buttonFont
-        teachButton.layer.borderColor = Theme.defaultTextColor.cgColor
-        teachButton.layer.borderWidth = 1
-        teachButton.setTitleColor(UIColor.black, for: .normal)
-        teachButton.setBackgroundImage(UIImage.image(color: UIColor.white.withAlphaComponent(0.7)), for: .normal)
-        teachButton.setBackgroundImage(UIImage.image(color: UIColor.white), for: .highlighted)
-        teachButton.sizeToFit()
-        teachButton.isHidden = true
-        addSubview(teachButton)
+        donateButton.accessibilityLabel = R.string.localizable.accessibilityTeachPola()
+        donateButton.titleLabel?.font = Theme.buttonFont
+        donateButton.layer.borderColor = Theme.defaultTextColor.cgColor
+        donateButton.layer.borderWidth = 1
+        donateButton.setTitleColor(UIColor.black, for: .normal)
+        donateButton.setBackgroundImage(UIImage.image(color: UIColor.white.withAlphaComponent(0.7)), for: .normal)
+        donateButton.setBackgroundImage(UIImage.image(color: UIColor.white), for: .highlighted)
+        donateButton.sizeToFit()
+        donateButton.isHidden = true
+        addSubview(donateButton)
     }
 
     required init?(coder _: NSCoder) {
@@ -62,7 +62,7 @@ final class ResultsView: UIView {
             height: heightLabel
         )
 
-        teachButton.frame = CGRect(
+        donateButton.frame = CGRect(
             x: scanCodeMargin,
             y: bounds.height - stackView.cardsHeight - scanCodeTechButtonHeight - scanCodeTechButtonOffset,
             width: bounds.width - (2 * scanCodeMargin),
