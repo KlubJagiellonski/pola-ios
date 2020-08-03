@@ -1,7 +1,7 @@
 import UIKit
 
 final class ScanCodeView: UIView {
-    let logoImageView = UIImageView(image: R.image.logoIcon())
+    let logoButton = UIButton(type: .custom)
     let menuButton = UIButton(type: .custom)
     let flashButton = UIButton(type: .custom)
     let keyboardButton = UIButton(type: .custom)
@@ -10,6 +10,7 @@ final class ScanCodeView: UIView {
         didSet {
             let alpha = CGFloat(buttonsVisible ? 1.0 : 0.0)
             UIView.animate(withDuration: 0.3) {
+                self.logoButton.alpha = alpha
                 self.menuButton.alpha = alpha
                 self.flashButton.alpha = alpha
                 self.keyboardButton.alpha = alpha
@@ -24,8 +25,10 @@ final class ScanCodeView: UIView {
 
         addSubview(dimView)
 
-        logoImageView.sizeToFit()
-        addSubview(logoImageView)
+        logoButton.accessibilityLabel = R.string.localizable.accessibilityPolaFriends()
+        logoButton.setImage(R.image.logoIcon(), for: .normal)
+        logoButton.sizeToFit()
+        addSubview(logoButton)
 
         flashButton.accessibilityLabel = R.string.localizable.accessibilityFlash()
         flashButton.setImage(R.image.flashIcon(), for: .normal)
@@ -69,11 +72,11 @@ final class ScanCodeView: UIView {
             y: topY
         )
 
-        logoImageView.frameOrigin = CGPoint(
-            x: (bounds.width / 2) - (logoImageView.bounds.width / 2),
+        logoButton.frameOrigin = CGPoint(
+            x: (bounds.width / 2) - (logoButton.bounds.width / 2),
             y: menuButton.frame.minY
                 + (menuButton.bounds.height / 2)
-                - (logoImageView.bounds.height / 2)
+                - (logoButton.bounds.height / 2)
         )
     }
 }

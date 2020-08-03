@@ -48,17 +48,9 @@ final class CompanyContentViewController: UIViewController {
     private func friendTapped() {
         let webViewController = AboutWebViewController(url: "https://www.pola-app.pl/m/friends",
                                                        title: R.string.localizable.polaSFriends())
-        let closeButtonItem =
-            UIBarButtonItem(image: R.image.closeIcon(), style: .plain, target: self, action: #selector(closeWebViewTapped))
-        closeButtonItem.accessibilityLabel = R.string.localizable.accessibilityClose()
-        webViewController.navigationItem.rightBarButtonItem = closeButtonItem
+        webViewController.addCloseButton()
         let navigationController = UINavigationController(rootViewController: webViewController)
         present(navigationController, animated: true, completion: nil)
-    }
-
-    @objc
-    private func closeWebViewTapped() {
-        dismiss(animated: true, completion: nil)
     }
 
     private func bool(from int: Int?) -> Bool? {

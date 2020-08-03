@@ -95,6 +95,7 @@
 		84F177E122CAD3F700238266 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F177E022CAD3F700238266 /* R.generated.swift */; };
 		8C9A524C67006D5D87D36FEE /* Pods_Pola_PolaUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6C1969BFE86FEF4E186B26D /* Pods_Pola_PolaUITests.framework */; };
 		9E188D93223063ED00325383 /* LaunchScreen.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E188D91223063EC00325383 /* LaunchScreen.xcassets */; };
+		9E35D7AA24C627C000C63C11 /* UIViewController+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E35D7A924C627C000C63C11 /* UIViewController+Additions.swift */; };
 		9E43AF74242798780093627B /* ResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E43AF73242798780093627B /* ResultsView.swift */; };
 		9E43AF7624279F3D0093627B /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E43AF7524279F3D0093627B /* ResultsViewController.swift */; };
 		9E43AF78242BBC4C0093627B /* ScanCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E43AF77242BBC4C0093627B /* ScanCodeViewController.swift */; };
@@ -287,6 +288,7 @@
 		84F177DB22CABFF700238266 /* CheckRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckRow.swift; sourceTree = "<group>"; };
 		84F177E022CAD3F700238266 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
 		9E188D91223063EC00325383 /* LaunchScreen.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = LaunchScreen.xcassets; sourceTree = "<group>"; };
+		9E35D7A924C627C000C63C11 /* UIViewController+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Additions.swift"; sourceTree = "<group>"; };
 		9E43AF73242798780093627B /* ResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsView.swift; sourceTree = "<group>"; };
 		9E43AF7524279F3D0093627B /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		9E43AF77242BBC4C0093627B /* ScanCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanCodeViewController.swift; sourceTree = "<group>"; };
@@ -557,6 +559,7 @@
 				8406E630233D6A6C00B7313C /* UIImage+Additions.swift */,
 				84AAEDDF230B49DD006CA7EB /* UILabel+Additions.swift */,
 				841F7D9D235675A2007BE3F6 /* UIView+Additions.swift */,
+				9E35D7A924C627C000C63C11 /* UIViewController+Additions.swift */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -1277,6 +1280,7 @@
 				9EC3BC5B23CDFA2500242B1E /* AboutBaseCell.swift in Sources */,
 				9EC3BC4723CDF4FD00242B1E /* CardStackViewLayoutLayoutCollapsed.swift in Sources */,
 				84735A6423BB63B00053D1E5 /* AnalitycsAboutRow.swift in Sources */,
+				9E35D7AA24C627C000C63C11 /* UIViewController+Additions.swift in Sources */,
 				9EC3BC4623CDF4FD00242B1E /* CardStackViewLayoutContext.swift in Sources */,
 				9EC3BC5D23CDFA2500242B1E /* AboutSingleCell.swift in Sources */,
 				8406E631233D6A6C00B7313C /* UIImage+Additions.swift in Sources */,
