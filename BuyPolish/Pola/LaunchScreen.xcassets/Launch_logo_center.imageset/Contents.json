@@ -6,12 +6,12 @@
     },
     {
       "idiom" : "universal",
-      "filename" : "Launch_logo_centerx2.png",
+      "filename" : "Launch_logo_center_2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Launch_logo_centerx3.png",
+      "filename" : "Launch_logo_center_3x.png",
       "scale" : "3x"
     }
   ],
