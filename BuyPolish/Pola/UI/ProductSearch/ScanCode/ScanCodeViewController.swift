@@ -118,8 +118,8 @@ final class ScanCodeViewController: UIViewController {
 
     @objc
     func tapLogoButton() {
-        AnalyticsHelper.polasFriendsOpened()
-        let vc = AboutWebViewController(url: "https://www.pola-app.pl/m/friends",
+        AnalyticsHelper.aboutPolaOpened()
+        let vc = AboutWebViewController(url: "https://www.pola-app.pl/m/about",
                                         title: R.string.localizable.polaSFriends())
         vc.addCloseButton()
         let nvc = UINavigationController(rootViewController: vc)
