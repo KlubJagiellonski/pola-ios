@@ -39,6 +39,7 @@ final class ScanResultViewController: UIViewController {
         super.viewDidLoad()
 
         castedView.reportProblemButton.addTarget(self, action: #selector(reportProblemTapped), for: .touchUpInside)
+        castedView.polasFriendsButton.addTarget(self, action: #selector(polasFriendsButtonTapped), for: .touchUpInside)
 
         downloadScanResult()
     }
@@ -114,6 +115,16 @@ final class ScanResultViewController: UIViewController {
         let vc = DI.container.resolve(ReportProblemViewController.self,
                                       argument: ReportProblemReason.product(productId, barcode))!
         present(vc, animated: true, completion: nil)
+    }
+
+    @objc
+    func polasFriendsButtonTapped() {
+        AnalyticsHelper.polasFriendsOpened()
+        let vc = AboutWebViewController(url: "https://www.pola-app.pl/m/friends",
+                                        title: R.string.localizable.polaSFriends())
+        vc.addCloseButton()
+        let nvc = UINavigationController(rootViewController: vc)
+        present(nvc, animated: true, completion: nil)
     }
 }
 
