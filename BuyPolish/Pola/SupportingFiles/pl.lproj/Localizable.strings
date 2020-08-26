@@ -22,6 +22,7 @@
 "created rich salary work places" = "prowadzi badania i rozwój w Polsce";
 "producing in PL" = "produkuje w Polsce";
 "This is Pola's friend" = "To jest przyjaciel Poli";
+"look at Pola's friends" = "ZOBACZ PRZYJACIÓŁ POLI";
 "Loading..." = "Pobieranie danych...";
 "Sending..." = "Wysyłanie...";
 "Report sent" = "Raport wysłany";
@@ -67,6 +68,7 @@
 "Accessibility.Close" = "Zamknij";
 "Accessibility.CardHint" = "Otwórz lub zamknij poprzez kliknięcie";
 "Accessibility.Report.AddPhoto" = "Dodaj zdjęcie";
+"Accessibility.Logo" = "Strona główna";
 "CaptureVideo.Timer.Seconds" = "sek.";
 "CaptureVideo.Start" = "START";
 "CaptureVideo.Sending" = "Wysyłanie zdjęć";
