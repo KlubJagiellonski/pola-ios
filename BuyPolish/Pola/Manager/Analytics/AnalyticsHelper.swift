@@ -63,6 +63,11 @@ final class AnalyticsHelper {
                  parameters: AnalitycsPolasFriendsParameters(device_id: UIDevice.current.deviceId))
     }
 
+    class func aboutPolaOpened() {
+        logEvent(name: .aboutPola,
+                 parameters: AnalitycsPolasFriendsParameters(device_id: UIDevice.current.deviceId))
+    }
+
     private class func reportParameters(barcode: String?) -> AnalyticsReportParameters {
         return AnalyticsReportParameters(code: barcode ?? "No Code",
                                          device_id: UIDevice.current.deviceId)

@@ -16,6 +16,7 @@ final class ScanResultView: UIView {
         }
     }
 
+    let polasFriendsButton = UIButton(type: .custom)
     let reportProblemButton = UIButton(type: .custom)
     let reportInfoLabel = UILabel()
     let separatorView = UIView()
@@ -51,6 +52,17 @@ final class ScanResultView: UIView {
 
         mainProgressView.sizeToFit()
         addSubview(mainProgressView)
+
+        polasFriendsButton.setTitle(R.string.localizable.lookAtPolaSFriends(), for: .normal)
+        polasFriendsButton.titleLabel?.font = Theme.buttonFont
+        polasFriendsButton.layer.borderColor = Theme.actionColor.cgColor
+        polasFriendsButton.layer.borderWidth = 1
+        polasFriendsButton.setTitleColor(Theme.actionColor, for: .normal)
+        polasFriendsButton.setTitleColor(Theme.clearColor, for: .highlighted)
+        polasFriendsButton.setBackgroundImage(UIImage.image(color: UIColor.clear), for: .normal)
+        polasFriendsButton.setBackgroundImage(UIImage.image(color: Theme.actionColor), for: .highlighted)
+        polasFriendsButton.sizeToFit()
+        addSubview(polasFriendsButton)
 
         reportProblemButton.titleLabel?.font = Theme.buttonFont
         reportProblemButton.sizeToFit()
@@ -125,11 +137,20 @@ final class ScanResultView: UIView {
         rect.origin.y = reportProblemButton.frame.minY - verticalPadding - rect.height
         reportInfoLabel.frame = rect
 
+        if !polasFriendsButton.isHidden {
+            rect = polasFriendsButton.frame
+            rect.size = CGSize(width: widthWithPadding, height: buttonHeight)
+            rect.origin.x = horizontalPadding
+            rect.origin.y = reportInfoLabel.frame.minY - verticalPadding - rect.height
+            polasFriendsButton.frame = rect
+        }
+
         rect = separatorView.frame
         rect.size.width = bounds.width
         rect.size.height = 1
         rect.origin.x = 0
-        rect.origin.y = reportInfoLabel.frame.minY - 15 - rect.height
+        let viewUnderSeparator = polasFriendsButton.isHidden ? reportInfoLabel : polasFriendsButton
+        rect.origin.y = viewUnderSeparator.frame.minY - 15 - rect.height
         separatorView.frame = rect
 
         rect = scrollViewForContentView.frame

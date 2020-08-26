@@ -25,7 +25,7 @@ final class ScanCodeView: UIView {
 
         addSubview(dimView)
 
-        logoButton.accessibilityLabel = R.string.localizable.accessibilityPolaFriends()
+        logoButton.accessibilityLabel = R.string.localizable.accessibilityLogo()
         logoButton.setImage(R.image.logoIcon(), for: .normal)
         logoButton.sizeToFit()
         addSubview(logoButton)
