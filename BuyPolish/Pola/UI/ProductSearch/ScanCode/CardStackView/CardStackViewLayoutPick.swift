@@ -15,7 +15,9 @@ final class CardStackViewLayoutPick: CardStackViewLayout {
 
     func didBecomeInactive() {}
 
-    func didBecomeActive() {}
+    func didBecomeActive() {
+        stackView.delegate?.stackView(stackView, startPickingCard: selectedCard)
+    }
 
     func layout(cards: [UIView]) {
         cards.enumerated().forEach { (i: Int, card: UIView) in

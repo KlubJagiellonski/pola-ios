@@ -2,6 +2,7 @@ import AudioToolbox
 import UIKit
 
 protocol ResultsViewControllerDelegate: AnyObject {
+    func resultsViewControllerDidExpandResult()
     func resultsViewControllerWillExpandResult()
     func resultsViewControllerDidCollapse()
 }
@@ -121,5 +122,14 @@ extension ResultsViewController: CardStackViewControllerDelegate {
         delegate?.resultsViewControllerWillExpandResult()
         castedView.donateButton.isHidden = true
         isAddingCardEnabled = false
+    }
+
+    func stackViewController(_: CardStackViewController, didExpandCard _: UIViewController) {
+        delegate?.resultsViewControllerDidExpandResult()
+        castedView.donateButton.isHidden = true
+    }
+
+    func stackViewController(_: CardStackViewController, startPickingCard _: UIViewController) {
+        castedView.donateButton.isHidden = true
     }
 }

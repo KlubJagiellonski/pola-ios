@@ -6,15 +6,23 @@ final class ScanCodeView: UIView {
     let flashButton = UIButton(type: .custom)
     let keyboardButton = UIButton(type: .custom)
 
-    var buttonsVisible = true {
-        didSet {
-            let alpha = CGFloat(buttonsVisible ? 1.0 : 0.0)
-            UIView.animate(withDuration: 0.3) {
-                self.logoButton.alpha = alpha
-                self.menuButton.alpha = alpha
-                self.flashButton.alpha = alpha
-                self.keyboardButton.alpha = alpha
-            }
+    func setButtonsVisible(_ buttonsVisible: Bool, animated: Bool) {
+        let alpha = CGFloat(buttonsVisible ? 1.0 : 0.0)
+        let animationBlock = { [] in
+            self.logoButton.alpha = alpha
+            self.menuButton.alpha = alpha
+            self.flashButton.alpha = alpha
+            self.keyboardButton.alpha = alpha
+        }
+
+        if animated {
+            UIView.animate(withDuration: 0.3,
+                           delay: 0.0,
+                           options: [.beginFromCurrentState],
+                           animations: animationBlock,
+                           completion: nil)
+        } else {
+            animationBlock()
         }
     }
 

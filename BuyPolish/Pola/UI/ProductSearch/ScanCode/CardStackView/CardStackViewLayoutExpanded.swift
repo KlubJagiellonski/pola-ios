@@ -10,21 +10,16 @@ final class CardStackViewLayoutLayoutExpanded: CardStackViewLayout {
         self.selectedCard = selectedCard
     }
 
-    private func changeSelectedCardFocus(_: Bool) {
-        stackView.delegate?.stackView(stackView, didExpandCard: selectedCard)
-    }
-
     func willBecomeActive() {
         stackView.delegate?.stackView(stackView, willExpandCard: selectedCard)
     }
 
     func didBecomeInactive() {
         stackView.delegate?.stackViewDidCollapse(stackView)
-        changeSelectedCardFocus(false)
     }
 
     func didBecomeActive() {
-        changeSelectedCardFocus(true)
+        stackView.delegate?.stackView(stackView, didExpandCard: selectedCard)
     }
 
     private func dump(_ x: CGFloat) -> CGFloat {
