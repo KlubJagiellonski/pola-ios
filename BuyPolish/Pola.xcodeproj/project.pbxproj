@@ -94,6 +94,9 @@
 		84F177DC22CABFF700238266 /* CheckRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F177DB22CABFF700238266 /* CheckRow.swift */; };
 		84F177E122CAD3F700238266 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F177E022CAD3F700238266 /* R.generated.swift */; };
 		8C9A524C67006D5D87D36FEE /* Pods_Pola_PolaUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6C1969BFE86FEF4E186B26D /* Pods_Pola_PolaUITests.framework */; };
+		9E0FE73A251C0001005D98B3 /* KeyboardLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0FE739251C0001005D98B3 /* KeyboardLabel.swift */; };
+		9E0FE73C251C02C6005D98B3 /* String+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0FE73B251C02C6005D98B3 /* String+Additions.swift */; };
+		9E0FE73E251C0DA4005D98B3 /* KeyboardBarcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0FE73D251C0DA4005D98B3 /* KeyboardBarcode.swift */; };
 		9E188D93223063ED00325383 /* LaunchScreen.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E188D91223063EC00325383 /* LaunchScreen.xcassets */; };
 		9E35D7AA24C627C000C63C11 /* UIViewController+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E35D7A924C627C000C63C11 /* UIViewController+Additions.swift */; };
 		9E43AF74242798780093627B /* ResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E43AF73242798780093627B /* ResultsView.swift */; };
@@ -287,6 +290,9 @@
 		84F11A1F240087D60029A1BC /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
 		84F177DB22CABFF700238266 /* CheckRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckRow.swift; sourceTree = "<group>"; };
 		84F177E022CAD3F700238266 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
+		9E0FE739251C0001005D98B3 /* KeyboardLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardLabel.swift; sourceTree = "<group>"; };
+		9E0FE73B251C02C6005D98B3 /* String+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Additions.swift"; sourceTree = "<group>"; };
+		9E0FE73D251C0DA4005D98B3 /* KeyboardBarcode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardBarcode.swift; sourceTree = "<group>"; };
 		9E188D91223063EC00325383 /* LaunchScreen.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = LaunchScreen.xcassets; sourceTree = "<group>"; };
 		9E35D7A924C627C000C63C11 /* UIViewController+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Additions.swift"; sourceTree = "<group>"; };
 		9E43AF73242798780093627B /* ResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsView.swift; sourceTree = "<group>"; };
@@ -552,6 +558,7 @@
 				84CE3E6323BA982900FE8D66 /* Bundle+Additions.swift */,
 				BDA76B5021DCD718003E9FD6 /* Encodable+Utilities.swift */,
 				842E762D23E0D4CA00A5534B /* FileManager+Extension.swift */,
+				9E0FE73B251C02C6005D98B3 /* String+Additions.swift */,
 				84114A0F233E19480081C531 /* UIAlertView+Additions.swift */,
 				841F7D9F23567740007BE3F6 /* UIApplication+Additions.swift */,
 				841BB98C22D136AE00234946 /* UIColor+Additions.swift */,
@@ -774,6 +781,8 @@
 		9EC3BC5E23CDFA4D00242B1E /* Keyboard */ = {
 			isa = PBXGroup;
 			children = (
+				9E0FE73D251C0DA4005D98B3 /* KeyboardBarcode.swift */,
+				9E0FE739251C0001005D98B3 /* KeyboardLabel.swift */,
 				84633B3323F8113F0069219C /* KeyboardTextView.swift */,
 				845D354823FD93B5002C4232 /* KeyboardView.swift */,
 				84F11A1F240087D60029A1BC /* KeyboardViewController.swift */,
@@ -1209,6 +1218,7 @@
 				9EC3BC6923D50BD000242B1E /* ProductImageManager.swift in Sources */,
 				84601A3A2405B5B900AD2A2D /* BarcodeValidator.swift in Sources */,
 				9EDFECF5242FB773009D8893 /* FlashlightManager.swift in Sources */,
+				9E0FE73A251C0001005D98B3 /* KeyboardLabel.swift in Sources */,
 				849E40C32413F024006E1B76 /* TimerBlock.swift in Sources */,
 				84A81C4E23EE11B000464745 /* PolaRequestFactory.swift in Sources */,
 				845F78D523BA28F8008DDFDF /* ScanResult.swift in Sources */,
@@ -1232,6 +1242,7 @@
 				9EC3BC4823CDF4FD00242B1E /* CardStackViewLayoutPick.swift in Sources */,
 				84633B3423F8113F0069219C /* KeyboardTextView.swift in Sources */,
 				9EC3BC4E23CDF4FD00242B1E /* CardStackViewLayoutExpanded.swift in Sources */,
+				9E0FE73C251C02C6005D98B3 /* String+Additions.swift in Sources */,
 				842E762C23E0CDA500A5534B /* LocalDocumentsProductImageManager.swift in Sources */,
 				842E763023E434CD00A5534B /* KeyboardManager.swift in Sources */,
 				9EC3BC4D23CDF4FD00242B1E /* CardStackViewController.swift in Sources */,
@@ -1270,6 +1281,7 @@
 				84A81C5423EF30CF00464745 /* ScannerCodeView.swift in Sources */,
 				9EC3BC5C23CDFA2500242B1E /* AboutDoubleCell.swift in Sources */,
 				8477CFC823CE137D00C72542 /* AboutRowsFactory.swift in Sources */,
+				9E0FE73E251C0DA4005D98B3 /* KeyboardBarcode.swift in Sources */,
 				8477CFC923CE137D00C72542 /* AboutRow.swift in Sources */,
 				849E40CD24143DE5006E1B76 /* CapturedImageManager.swift in Sources */,
 				BDA76B5C21DE64AB003E9FD6 /* AnalyticsEventName.swift in Sources */,

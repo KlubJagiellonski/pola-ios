@@ -2,7 +2,7 @@ import UIKit
 
 final class KeyboardTextView: UIView {
     private let topView = UIView()
-    let codeLabel = UILabel()
+    let codeLabel = KeyboardLabel()
     let removeButton = UIButton()
     private let errorView = UIView()
     private let errorLabel = UILabel()
@@ -87,12 +87,9 @@ final class KeyboardTextView: UIView {
     }
 
     func insert(value: Int) {
-        let currentText = codeLabel.text ?? ""
-        guard currentText.count < 13 else {
-            return
-        }
-
-        codeLabel.text = currentText.appending("\(value)")
+        let barcode = KeyboardBarcode(code: codeLabel.nonNullText)
+        barcode.append(number: value)
+        codeLabel.text = barcode.code
     }
 
     func showErrorMessage() {
