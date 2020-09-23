@@ -1099,7 +1099,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "${PODS_ROOT}/SwiftLint/swiftlint --strict\n";
+			shellScript = "${PODS_ROOT}/SwiftLint/swiftlint\n";
 		};
 		84F177DF22CAD36500238266 /* Run R.Swift */ = {
 			isa = PBXShellScriptBuildPhase;
