@@ -27,4 +27,15 @@ class KeyboardBarcode {
             append(number: number)
         }
     }
+
+    func removeLast() {
+        guard code.isNotEmpty else {
+            return
+        }
+        code.removeLast()
+    }
+
+    func removeAll() {
+        code = ""
+    }
 }
