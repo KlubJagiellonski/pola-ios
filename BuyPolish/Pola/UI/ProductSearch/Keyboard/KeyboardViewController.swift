@@ -35,6 +35,8 @@ final class KeyboardViewController: UIViewController {
         castedView.okButton.addTarget(self, action: #selector(confirm), for: .touchUpInside)
         castedView.textView.removeButton.addTarget(self, action: #selector(removeLastNumber), for: .touchUpInside)
         castedView.textView.codeLabel.delegate = self
+        castedView.textView.codeLabel.accessibilityIdentifier =
+            NSStringFromClass(KeyboardLabel.self)
     }
 
     @objc

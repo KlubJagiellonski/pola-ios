@@ -98,6 +98,7 @@
 		9E0FE73A251C0001005D98B3 /* KeyboardLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0FE739251C0001005D98B3 /* KeyboardLabel.swift */; };
 		9E0FE73C251C02C6005D98B3 /* String+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0FE73B251C02C6005D98B3 /* String+Additions.swift */; };
 		9E0FE73E251C0DA4005D98B3 /* KeyboardBarcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0FE73D251C0DA4005D98B3 /* KeyboardBarcode.swift */; };
+		9E0FE7402523D9EC005D98B3 /* XCUIElement+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0FE73F2523D9EC005D98B3 /* XCUIElement+Additions.swift */; };
 		9E188D93223063ED00325383 /* LaunchScreen.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E188D91223063EC00325383 /* LaunchScreen.xcassets */; };
 		9E35D7AA24C627C000C63C11 /* UIViewController+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E35D7A924C627C000C63C11 /* UIViewController+Additions.swift */; };
 		9E43AF74242798780093627B /* ResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E43AF73242798780093627B /* ResultsView.swift */; };
@@ -295,6 +296,7 @@
 		9E0FE739251C0001005D98B3 /* KeyboardLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardLabel.swift; sourceTree = "<group>"; };
 		9E0FE73B251C02C6005D98B3 /* String+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Additions.swift"; sourceTree = "<group>"; };
 		9E0FE73D251C0DA4005D98B3 /* KeyboardBarcode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardBarcode.swift; sourceTree = "<group>"; };
+		9E0FE73F2523D9EC005D98B3 /* XCUIElement+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCUIElement+Additions.swift"; sourceTree = "<group>"; };
 		9E188D91223063EC00325383 /* LaunchScreen.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = LaunchScreen.xcassets; sourceTree = "<group>"; };
 		9E35D7A924C627C000C63C11 /* UIViewController+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Additions.swift"; sourceTree = "<group>"; };
 		9E43AF73242798780093627B /* ResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsView.swift; sourceTree = "<group>"; };
@@ -674,6 +676,7 @@
 				847AE94623072E9B00E645ED /* ReferenceImages_64 */,
 				84034B7D23CCA48000E01157 /* SnapshotFailedTests */,
 				84E708312280A40300402E26 /* TestData.swift */,
+				9E0FE73F2523D9EC005D98B3 /* XCUIElement+Additions.swift */,
 			);
 			path = PolaUITests;
 			sourceTree = "<group>";
@@ -1346,6 +1349,7 @@
 				9EC3BC2A23CDD9D100242B1E /* SafariPage.swift in Sources */,
 				9EC3BC0E23CDD76C00242B1E /* CompanyPageUITests.swift in Sources */,
 				9EC3BC0F23CDD76C00242B1E /* InformationPageUITests.swift in Sources */,
+				9E0FE7402523D9EC005D98B3 /* XCUIElement+Additions.swift in Sources */,
 				9EC3BC1123CDD76C00242B1E /* ScanBarcodeWithResultPageUITests.swift in Sources */,
 				9EC3BC1323CDD76C00242B1E /* ISBNPageUITests.swift in Sources */,
 				849E40D82415204C006E1B76 /* ScanBarcodePageUITests.swift in Sources */,
