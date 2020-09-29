@@ -183,11 +183,15 @@ extension ScanCodeViewController: KeyboardViewControllerDelegate {
 }
 
 extension ScanCodeViewController: ResultsViewControllerDelegate {
+    func resultsViewControllerDidExpandResult() {
+        castedView.setButtonsVisible(false, animated: false)
+    }
+
     func resultsViewControllerWillExpandResult() {
-        castedView.buttonsVisible = false
+        castedView.setButtonsVisible(false, animated: true)
     }
 
     func resultsViewControllerDidCollapse() {
-        castedView.buttonsVisible = true
+        castedView.setButtonsVisible(true, animated: true)
     }
 }
