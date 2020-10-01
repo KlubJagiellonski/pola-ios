@@ -2,7 +2,7 @@ import UIKit
 
 final class KeyboardTextView: UIView {
     private let topView = UIView()
-    let codeLabel = UILabel()
+    let codeLabel = KeyboardLabel()
     let removeButton = UIButton()
     private let errorView = UIView()
     private let errorLabel = UILabel()
@@ -21,15 +21,12 @@ final class KeyboardTextView: UIView {
         topView.layer.masksToBounds = true
         addSubview(topView)
 
-        codeLabel.font = Theme.titleFont
-        codeLabel.textColor = Theme.defaultTextColor
         codeLabel.text = "1"
         codeLabel.sizeToFit()
         codeLabel.text = nil
         topView.addSubview(codeLabel)
 
         removeButton.accessibilityLabel = R.string.localizable.accessibilityKeyboardDelete()
-        removeButton.addTarget(self, action: #selector(tapRemove), for: .touchUpInside)
         removeButton.setImage(R.image.kb_delete(), for: .normal)
         removeButton.setImage(R.image.kb_delete_highlighted(), for: .highlighted)
         removeButton.sizeToFit()
@@ -86,15 +83,6 @@ final class KeyboardTextView: UIView {
         CGSize(width: size.width, height: topViewHeight + errorViewHeight)
     }
 
-    func insert(value: Int) {
-        let currentText = codeLabel.text ?? ""
-        guard currentText.count < 13 else {
-            return
-        }
-
-        codeLabel.text = currentText.appending("\(value)")
-    }
-
     func showErrorMessage() {
         setHiddenErrorView(false)
     }
@@ -115,15 +103,5 @@ final class KeyboardTextView: UIView {
         UIView.animate(withDuration: 0.2) { [errorView] in
             errorView.alpha = newAlpha
         }
-    }
-
-    @objc
-    private func tapRemove() {
-        var text = codeLabel.text ?? ""
-        guard text.count > 0 else {
-            return
-        }
-        text.removeLast()
-        codeLabel.text = text
     }
 }

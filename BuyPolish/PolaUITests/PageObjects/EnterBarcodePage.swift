@@ -1,6 +1,9 @@
 import XCTest
 
 final class EnterBarcodePage: BasePage {
+    private let deleteActionKey = "Usuń"
+    private let pasteActionKey = "Wklej"
+
     func tapEnterBarcodeButton() -> ScanBarcodePage {
         app.buttons["Wpisz kod kreskowy"].tap()
         return ScanBarcodePage(app: app)
@@ -19,6 +22,46 @@ final class EnterBarcodePage: BasePage {
     func inputBarcode(_ barcode: String) -> EnterBarcodePage {
         barcode.forEach { character in
             app.buttons[String(character)].tap()
+        }
+        return self
+    }
+
+    func longTapOnBarcodeLabe() -> EnterBarcodePage {
+        let polaKeyboardbarcodeButton = app.buttons["Pola.KeyboardLabel"]
+        polaKeyboardbarcodeButton.press(forDuration: 1.0)
+        return self
+    }
+
+    func tapCopyAction() -> EnterBarcodePage {
+        app.staticTexts["Kopiuj"].tap()
+        return self
+    }
+
+    func tapCutAction() -> EnterBarcodePage {
+        app.staticTexts["Wytnij"].tap()
+        return self
+    }
+
+    func tapPasteAction() -> EnterBarcodePage {
+        app.staticTexts[pasteActionKey].tap()
+        return self
+    }
+
+    func tapDeleteAction() -> EnterBarcodePage {
+        app.staticTexts[deleteActionKey].tap()
+        return self
+    }
+
+    func waitForDeleteActionDisappear(file: StaticString = #file, line: UInt = #line) -> EnterBarcodePage {
+        if !app.staticTexts[deleteActionKey].waitForDisappear(timeout: waitForExistanceTimeout) {
+            XCTFail("Delete action still visible", file: file, line: line)
+        }
+        return self
+    }
+
+    func waitForPasteActionDisappear(file: StaticString = #file, line: UInt = #line) -> EnterBarcodePage {
+        if !app.staticTexts[pasteActionKey].waitForDisappear(timeout: waitForExistanceTimeout) {
+            XCTFail("Paste action still visible", file: file, line: line)
         }
         return self
     }

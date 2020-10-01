@@ -7,6 +7,7 @@ protocol KeyboardViewControllerDelegate: AnyObject {
 
 final class KeyboardViewController: UIViewController {
     let barcodeValidator: BarcodeValidator
+    fileprivate let barcode = KeyboardBarcode(code: "")
 
     weak var delegate: KeyboardViewControllerDelegate?
 
@@ -32,15 +33,27 @@ final class KeyboardViewController: UIViewController {
 
         castedView.numberButtons.forEach { $0.addTarget(self, action: #selector(enterNumber(sender:)), for: .touchUpInside) }
         castedView.okButton.addTarget(self, action: #selector(confirm), for: .touchUpInside)
-        castedView.textView.removeButton.addTarget(self, action: #selector(playSoundAtRemove), for: .touchUpInside)
+        castedView.textView.removeButton.addTarget(self, action: #selector(removeLastNumber), for: .touchUpInside)
+        castedView.textView.codeLabel.delegate = self
+        castedView.textView.codeLabel.accessibilityIdentifier =
+            NSStringFromClass(KeyboardLabel.self)
     }
 
     @objc
     private func enterNumber(sender: UIButton) {
         playSound()
         let number = sender.tag
-        castedView.textView.insert(value: number)
-        castedView.textView.hideErrorMessage()
+        barcode.append(number: number)
+        castedView.textView.codeLabel.text = barcode.code
+        updateCodeLabel()
+        playSound()
+    }
+
+    @objc
+    private func removeLastNumber() {
+        playSound()
+        barcode.removeLast()
+        updateCodeLabel()
     }
 
     @objc
@@ -54,12 +67,32 @@ final class KeyboardViewController: UIViewController {
         }
     }
 
-    @objc
-    private func playSoundAtRemove() {
-        playSound()
-    }
-
     private func playSound() {
         AudioServicesPlaySystemSound(1104)
+    }
+
+    fileprivate func updateCodeLabel() {
+        castedView.textView.codeLabel.text = barcode.code
+        castedView.textView.hideErrorMessage()
+    }
+}
+
+extension KeyboardViewController: KeyboardLabelDelegate {
+    func keyboardLabelIsPasteAvailable(_: KeyboardLabel, pasteboardContent: String?) -> Bool {
+        let isPasteboardNotEmpty = pasteboardContent?.isNotEmpty ?? false
+        return isPasteboardNotEmpty && barcode.isAppendable
+    }
+
+    func keyboardLabelUserDidTapPaste(_: KeyboardLabel, pasteboardContent: String?) {
+        guard let pasteboardContent = pasteboardContent else {
+            return
+        }
+        barcode.append(string: pasteboardContent)
+        updateCodeLabel()
+    }
+
+    func keyboardLabelUserDidRemoveContent(_: KeyboardLabel) {
+        barcode.removeAll()
+        updateCodeLabel()
     }
 }

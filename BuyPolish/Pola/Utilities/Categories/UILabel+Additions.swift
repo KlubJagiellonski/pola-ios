@@ -12,4 +12,12 @@ extension UILabel {
                                    attributes: [NSAttributedString.Key.font: font],
                                    context: nil).size.height
     }
+
+    var textIsNotEmpty: Bool {
+        text?.isNotEmpty ?? false
+    }
+
+    var nonNullText: String {
+        text ?? ""
+    }
 }
