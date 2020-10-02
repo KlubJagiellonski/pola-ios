@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>GOOGLE_ANALYTICS_REGISTRATION_WITH_AD_NETWORK_ENABLED</key>
+	<false/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>pl</string>
 	<key>CFBundleDisplayName</key>
@@ -33,20 +35,6 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>60</string>
-	<key>Fabric</key>
-	<dict>
-		<key>APIKey</key>
-		<string>6a4f6710db1c4c62907f73a43eb5e68675cd2c7a</string>
-		<key>Kits</key>
-		<array>
-			<dict>
-				<key>KitInfo</key>
-				<dict/>
-				<key>KitName</key>
-				<string>Crashlytics</string>
-			</dict>
-		</array>
-	</dict>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>

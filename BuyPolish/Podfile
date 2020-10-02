@@ -5,9 +5,8 @@ inhibit_all_warnings!
 
 target :Pola do
     use_frameworks!
-    pod 'Fabric', '~> 1.9.0'
-    pod 'Crashlytics', '~> 3.12.0'
-    pod 'Firebase/Analytics', '~> 6.1.0'
+    pod 'Firebase/Crashlytics', '~> 6.33.0'
+    pod 'Firebase/Analytics', '~> 6.33.0'
     pod 'UITextView+Placeholder'
     pod 'KVNProgress'
     pod 'R.swift'

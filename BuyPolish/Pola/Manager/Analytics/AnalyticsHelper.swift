@@ -1,4 +1,3 @@
-import Crashlytics
 import Firebase
 import Foundation
 
@@ -6,8 +5,8 @@ final class AnalyticsHelper {
     class func configure() {
         if firebaseAvailable {
             FirebaseApp.configure()
+            Crashlytics.crashlytics().setUserID(UIDevice.current.deviceId)
         }
-        Crashlytics.sharedInstance().setUserIdentifier(UIDevice.current.deviceId)
     }
 
     class func barcodeScanned(_ barcode: String, type: AnalyticsBarcodeSource) {
@@ -74,12 +73,13 @@ final class AnalyticsHelper {
     }
 
     private class func logEvent(name: AnalyticsEventName, parameters: AnalyticsParameters) {
+        guard firebaseAvailable else {
+            return
+        }
         let nameString = name.rawValue
         let dictionary = parameters.dictionary
-        if firebaseAvailable {
-            Analytics.logEvent(nameString, parameters: dictionary)
-        }
-        CLSLogv("%@: %@", getVaList([nameString, dictionary ?? [:]]))
+        Analytics.logEvent(nameString, parameters: dictionary)
+        Crashlytics.crashlytics().log("\(nameString): \(dictionary ?? [:])")
     }
 
     private class var firebaseAvailable: Bool {
