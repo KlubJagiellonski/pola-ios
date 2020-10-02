@@ -25,7 +25,7 @@ jobs:
             ${{ runner.os }}-gems-
       - uses: actions/cache@v2
         with:
-          path: Pods
+          path: BuyPolish/Pods
           key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-pods-
@@ -39,7 +39,6 @@ jobs:
         run: bundle exec fastlane tests
       - name: Codecov
         uses: codecov/codecov-action@v1.0.13
-      - run: find . -type d
       - name: "Upload PolaUITests-SnapshotFailedTests"
         uses: actions/upload-artifact@v2
         if: failure()
