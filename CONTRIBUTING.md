@@ -16,7 +16,8 @@ git checkout -b feature/423_added_new_feature
 
 ### 3. Konfiguracja aplikacji
 
-Wykorzystujemy CocoaPods jako narzędzia do pobierania i konfigurowania zależności. Więcej info znajdzesz na [ich stronie](https://cocoapods.org)
+Wykorzystujemy [ich CocoaPods](https://cocoapods.org) jako narzędzia do pobierania i konfigurowania zależności.
+Do uruchamiana testów i linterów na CI oraz lokalnie używamy [fastlane](https://fastlane.tools/). W testach wykorzystywane jest porównywanie snapshotów z uzyciem biblioteki [iOSSnapshotTestCase](https://github.com/uber/ios-snapshot-test-case). Snapshoty nagrane są na symulatorze urządzenia iPhone 8 z systemem iOS 13.6, do nagrywania wykorzystano system macOS Catalina. Jeśli masz problem z nagraniem przechodzących snapshotów nie bój się wystawić PR, pomożemy :)
 
 ### 4. Stwórz Pull Request'a
 
