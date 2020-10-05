@@ -3,6 +3,7 @@ swiftformat_executable = "Pods/SwiftFormat/CommandLineTool/swiftformat"
 
 platform :ios do
   lane :tests do
+    xcode_select("/Applications/Xcode_11.6.app")
     check_project_structure
     check_formatting
     unit_tests
