@@ -1,1 +1,1 @@
-devices(["iPhone 8"])
+destination('platform=iOS Simulator,name=iPhone 8,OS=13.6')
