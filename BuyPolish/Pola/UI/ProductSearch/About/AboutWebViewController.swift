@@ -1,9 +1,10 @@
 import UIKit
+import WebKit
 
 final class AboutWebViewController: UIViewController {
     private let url: String
-    private var webView: UIWebView! {
-        view as? UIWebView
+    private var webView: WKWebView! {
+        view as? WKWebView
     }
 
     init(url: String, title: String) {
@@ -17,7 +18,7 @@ final class AboutWebViewController: UIViewController {
     }
 
     override func loadView() {
-        view = UIWebView()
+        view = WKWebView()
     }
 
     override func viewDidLoad() {
@@ -25,20 +26,22 @@ final class AboutWebViewController: UIViewController {
         guard let url = URL(string: url) else {
             return
         }
-        webView.loadRequest(URLRequest(url: url))
-        webView.delegate = self
+        webView.load(URLRequest(url: url))
+        webView.navigationDelegate = self
     }
 }
 
-extension AboutWebViewController: UIWebViewDelegate {
-    func webView(_: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebView.NavigationType) -> Bool {
-        if navigationType == .other {
-            return true
-        } else {
-            if let url = request.url {
-                UIApplication.shared.openURL(url)
-            }
-            return false
+extension AboutWebViewController: WKNavigationDelegate {
+    func webView(_: WKWebView,
+                 decidePolicyFor navigationAction: WKNavigationAction,
+                 decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        guard navigationAction.navigationType != .other else {
+            decisionHandler(.allow)
+            return
+        }
+        decisionHandler(.cancel)
+        if let url = navigationAction.request.url {
+            UIApplication.shared.openURL(url)
         }
     }
 }
