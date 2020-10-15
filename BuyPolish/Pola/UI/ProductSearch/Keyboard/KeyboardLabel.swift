@@ -3,6 +3,7 @@ import UIKit
 protocol KeyboardLabelDelegate: AnyObject {
     func keyboardLabelIsPasteAvailable(_ label: KeyboardLabel, pasteboardContent: String?) -> Bool
     func keyboardLabelUserDidTapPaste(_ label: KeyboardLabel, pasteboardContent: String?)
+    func keyboardLabelUserDidTapPasteAndActivate(_ label: KeyboardLabel, pasteboardContent: String?)
     func keyboardLabelUserDidRemoveContent(_ label: KeyboardLabel)
 }
 
@@ -27,6 +28,9 @@ class KeyboardLabel: UILabel {
         becomeFirstResponder()
 
         if !menu.isMenuVisible {
+            let pasteAndActivate = UIMenuItem(title: R.string.localizable.pasteAndActivate(),
+                                              action: #selector(pasteAndActivate(_:)))
+            menu.menuItems = [pasteAndActivate]
             menu.setTargetRect(bounds, in: self)
             menu.setMenuVisible(true, animated: true)
         }
@@ -48,6 +52,11 @@ class KeyboardLabel: UILabel {
         menu.setMenuVisible(false, animated: true)
     }
 
+    @objc private func pasteAndActivate(_: Any?) {
+        delegate?.keyboardLabelUserDidTapPasteAndActivate(self, pasteboardContent: pasteboard.string)
+        menu.setMenuVisible(false, animated: true)
+    }
+
     override func delete(_: Any?) {
         text = nil
         delegate?.keyboardLabelUserDidRemoveContent(self)
@@ -59,13 +68,12 @@ class KeyboardLabel: UILabel {
 
     override func canPerformAction(_ action: Selector, withSender _: Any?) -> Bool {
         switch action {
-        case #selector(UIResponderStandardEditActions.copy):
+        case #selector(UIResponderStandardEditActions.copy),
+             #selector(UIResponderStandardEditActions.cut),
+             #selector(UIResponderStandardEditActions.delete):
             return textIsNotEmpty
-        case #selector(UIResponderStandardEditActions.cut):
-            return textIsNotEmpty
-        case #selector(UIResponderStandardEditActions.delete):
-            return textIsNotEmpty
-        case #selector(UIResponderStandardEditActions.paste):
+        case #selector(UIResponderStandardEditActions.paste),
+             #selector(KeyboardLabel.pasteAndActivate(_:)):
             return delegate?.keyboardLabelIsPasteAvailable(self, pasteboardContent: pasteboard.string) ?? false
         default:
             return false

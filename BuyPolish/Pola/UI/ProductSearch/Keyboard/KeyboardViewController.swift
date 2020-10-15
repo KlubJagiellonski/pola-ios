@@ -91,6 +91,11 @@ extension KeyboardViewController: KeyboardLabelDelegate {
         updateCodeLabel()
     }
 
+    func keyboardLabelUserDidTapPasteAndActivate(_ label: KeyboardLabel, pasteboardContent: String?) {
+        keyboardLabelUserDidTapPaste(label, pasteboardContent: pasteboardContent)
+        confirm()
+    }
+
     func keyboardLabelUserDidRemoveContent(_: KeyboardLabel) {
         barcode.removeAll()
         updateCodeLabel()

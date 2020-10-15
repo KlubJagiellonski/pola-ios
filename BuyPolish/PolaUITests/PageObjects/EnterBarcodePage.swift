@@ -26,7 +26,7 @@ final class EnterBarcodePage: BasePage {
         return self
     }
 
-    func longTapOnBarcodeLabe() -> EnterBarcodePage {
+    func longTapOnBarcodeLabel() -> EnterBarcodePage {
         let polaKeyboardbarcodeButton = app.buttons["Pola.KeyboardLabel"]
         polaKeyboardbarcodeButton.press(forDuration: 1.0)
         return self
@@ -44,6 +44,11 @@ final class EnterBarcodePage: BasePage {
 
     func tapPasteAction() -> EnterBarcodePage {
         app.staticTexts[pasteActionKey].tap()
+        return self
+    }
+
+    func tapPasteAndActivateAction() -> EnterBarcodePage {
+        app.staticTexts["Wklej i aktywuj"].tap()
         return self
     }
 
