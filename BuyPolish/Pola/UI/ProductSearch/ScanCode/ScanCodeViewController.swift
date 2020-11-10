@@ -46,7 +46,6 @@ final class ScanCodeViewController: UIViewController {
         resultsViewController.didMove(toParent: self)
         resultsViewController.delegate = self
 
-        automaticallyAdjustsScrollViewInsets = false
         castedView.menuButton.addTarget(self, action: #selector(tapMenuButton), for: .touchUpInside)
         castedView.keyboardButton.addTarget(self, action: #selector(tapKeyboardButton), for: .touchUpInside)
         castedView.logoButton.addTarget(self, action: #selector(tapLogoButton), for: .touchUpInside)

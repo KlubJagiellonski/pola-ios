@@ -2,11 +2,7 @@ import UIKit
 
 extension UIView {
     var topSafeAreaInset: CGFloat {
-        if #available(iOS 11, *) {
-            return safeAreaInsets.top
-        } else {
-            return UIApplication.statusBarHeight
-        }
+        return safeAreaInsets.top
     }
 
     var frameOrigin: CGPoint {

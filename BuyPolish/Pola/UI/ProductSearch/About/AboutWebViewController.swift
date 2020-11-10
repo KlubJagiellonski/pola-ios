@@ -41,7 +41,7 @@ extension AboutWebViewController: WKNavigationDelegate {
         }
         decisionHandler(.cancel)
         if let url = navigationAction.request.url {
-            UIApplication.shared.openURL(url)
+            UIApplication.shared.open(url)
         }
     }
 }

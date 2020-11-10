@@ -39,19 +39,17 @@ class PolaUITestCase: FBSnapshotTestCase {
         XCTAssertEqual(result, XCTWaiter.Result.completed, "Expected request \(path) not appear", file: file, line: line)
     }
 
-    override func recordFailure(
-        withDescription description: String,
-        inFile filePath: String,
-        atLine lineNumber: Int,
-        expected: Bool
-    ) {
+    override func record(_ issue: XCTIssue) {
         let imageData = app.screenshot().image.pngData()
-        if let path = failureImageDirectoryPath?
-            .appendingPathComponent("\(classForCoder.description())_line_\(lineNumber).png") {
+        var filename = classForCoder.description()
+        if let lineNumber = issue.sourceCodeContext.location?.lineNumber {
+            filename.append("_line_\(lineNumber)")
+        }
+        filename.append(".png")
+        if let path = failureImageDirectoryPath?.appendingPathComponent(filename) {
             try? imageData?.write(to: path)
         }
-
-        super.recordFailure(withDescription: description, inFile: filePath, atLine: lineNumber, expected: expected)
+        super.record(issue)
     }
 
     private var failureImageDirectoryPath: URL? {

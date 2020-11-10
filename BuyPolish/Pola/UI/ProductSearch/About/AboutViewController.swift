@@ -135,7 +135,7 @@ final class AboutViewController: UITableViewController {
             navigationController?.pushViewController(vc, animated: true)
         } else {
             if let url = URL(string: url) {
-                UIApplication.shared.openURL(url)
+                UIApplication.shared.open(url)
             }
         }
     }

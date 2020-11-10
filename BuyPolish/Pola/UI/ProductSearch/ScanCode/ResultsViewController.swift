@@ -57,8 +57,7 @@ final class ResultsViewController: UIViewController {
 
         guard barcodeValidator.isValid(barcode: barcode) else {
             isAddingCardEnabled = false
-            let alertView = UIAlertView.showErrorAlert(R.string.localizable.notValidBarcodePleaseTryAgain())
-            alertView.delegate = self
+            showError(message: R.string.localizable.notValidBarcodePleaseTryAgain())
             return
         }
 
@@ -79,7 +78,13 @@ final class ResultsViewController: UIViewController {
     private func donateTapped() {
         AnalyticsHelper.donateOpened(barcode: lastResultViewController?.barcode)
         if let donateURL = donateURL {
-            UIApplication.shared.openURL(donateURL)
+            UIApplication.shared.open(donateURL)
+        }
+    }
+
+    fileprivate func showError(message: String) {
+        showAlert(message: message) { [weak self] in
+            self?.isAddingCardEnabled = true
         }
     }
 }
@@ -94,15 +99,8 @@ extension ResultsViewController: ScanResultViewControllerDelegate {
     }
 
     func scanResultViewController(_ vc: ScanResultViewController, didFailFetchingScanResultWithError _: Error) {
-        let alertView = UIAlertView.showErrorAlert(R.string.localizable.cannotFetchProductInfoFromServerPleaseTryAgain())
-        alertView.delegate = self
+        showError(message: R.string.localizable.cannotFetchProductInfoFromServerPleaseTryAgain())
         stackViewController.remove(card: vc)
-    }
-}
-
-extension ResultsViewController: UIAlertViewDelegate {
-    func alertView(_: UIAlertView, clickedButtonAt _: Int) {
-        isAddingCardEnabled = true
     }
 }
 

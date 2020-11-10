@@ -117,7 +117,7 @@ PODS:
   - R.swift (5.0.3):
     - R.swift.Library (~> 5.0.0)
   - R.swift.Library (5.0.1)
-  - Swifter (1.4.7)
+  - Swifter (1.5.0)
   - SwiftFormat/CLI (0.44.4)
   - SwiftLint (0.39.1)
   - Swinject (2.7.1)
@@ -133,27 +133,15 @@ DEPENDENCIES:
   - Observable
   - PromiseKit/Alamofire
   - R.swift
-  - Swifter (~> 1.4.7)
+  - Swifter
   - SwiftFormat/CLI
   - SwiftLint
   - Swinject
   - "UITextView+Placeholder"
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
-    - Alamofire
-    - iOSSnapshotTestCase
-    - KVNProgress
-    - Observable
-    - PromiseKit
-    - R.swift
-    - R.swift.Library
-    - Swifter
-    - SwiftFormat
-    - SwiftLint
-    - Swinject
-    - "UITextView+Placeholder"
   trunk:
+    - Alamofire
     - Firebase
     - FirebaseABTesting
     - FirebaseAnalytics
@@ -168,9 +156,20 @@ SPEC REPOS:
     - GoogleToolboxForMac
     - GoogleUtilities
     - GTMSessionFetcher
+    - iOSSnapshotTestCase
+    - KVNProgress
     - nanopb
+    - Observable
+    - PromiseKit
     - PromisesObjC
     - Protobuf
+    - R.swift
+    - R.swift.Library
+    - Swifter
+    - SwiftFormat
+    - SwiftLint
+    - Swinject
+    - "UITextView+Placeholder"
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
@@ -197,12 +196,12 @@ SPEC CHECKSUMS:
   Protobuf: 3dac39b34a08151c6d949560efe3f86134a3f748
   R.swift: f5a87643b91ea569d23d6afb3eee9c743edde239
   R.swift.Library: cfe85d569d9bae6cb262922db130e7c3a7a5fad1
-  Swifter: 2327ef5d872c638aebab79646ce494af508b0c8f
+  Swifter: e71dd674404923d7f03ebb03f3f222d1c570bc8e
   SwiftFormat: 8b3c6b69454305a61c221355095f62dacc0811bf
   SwiftLint: 55e96a4a4d537d4a3156859fc1c54bd24851a046
   Swinject: ddf78b8486dd9b71a667b852cad919ab4484478e
   "UITextView+Placeholder": c407b27599ea23cca425946fee3cf1db5d547008
 
-PODFILE CHECKSUM: 33c7b66c0a08e0ed324a25eb31fd26b4a9213698
+PODFILE CHECKSUM: 05f69d82b3fbd48ad6f8bd04ab2e416e46d39996
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.10.0
