@@ -114,9 +114,9 @@ PODS:
   - PromiseKit/CorePromise (6.12.0)
   - PromisesObjC (1.2.11)
   - Protobuf (3.13.0)
-  - R.swift (5.0.3):
-    - R.swift.Library (~> 5.0.0)
-  - R.swift.Library (5.0.1)
+  - R.swift (5.3.0):
+    - R.swift.Library (~> 5.3.0)
+  - R.swift.Library (5.3.0)
   - Swifter (1.5.0)
   - SwiftFormat/CLI (0.44.4)
   - SwiftLint (0.39.1)
@@ -194,8 +194,8 @@ SPEC CHECKSUMS:
   PromiseKit: c06835ba442ce5454ce3cdde470232804a6e4ff8
   PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
   Protobuf: 3dac39b34a08151c6d949560efe3f86134a3f748
-  R.swift: f5a87643b91ea569d23d6afb3eee9c743edde239
-  R.swift.Library: cfe85d569d9bae6cb262922db130e7c3a7a5fad1
+  R.swift: 4170fb7161c67be3bc1a847040b79367d69c419f
+  R.swift.Library: 0fc583cb55a99e28901299cc451614cad1161962
   Swifter: e71dd674404923d7f03ebb03f3f222d1c570bc8e
   SwiftFormat: 8b3c6b69454305a61c221355095f62dacc0811bf
   SwiftLint: 55e96a4a4d537d4a3156859fc1c54bd24851a046
