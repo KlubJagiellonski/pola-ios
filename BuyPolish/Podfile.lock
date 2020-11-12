@@ -101,7 +101,7 @@ PODS:
   - iOSSnapshotTestCase/Core (2.2.0)
   - iOSSnapshotTestCase/SwiftSupport (2.2.0):
     - iOSSnapshotTestCase/Core
-  - KVNProgress (2.2.2)
+  - KVNProgress (2.3.5)
   - nanopb (2.30906.0):
     - nanopb/decode (= 2.30906.0)
     - nanopb/encode (= 2.30906.0)
@@ -188,7 +188,7 @@ SPEC CHECKSUMS:
   GoogleUtilities: f734da554aade8cc7928a31c2f3311897933a1bd
   GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
   iOSSnapshotTestCase: 415bd84f9dbba4ff45fede49d800bc7332fbedac
-  KVNProgress: 4697347e21e37fdaa5264ebc24e377c205a50328
+  KVNProgress: d7046cce142f1aeb740db39dc3cacfe910fac354
   nanopb: 1bf24dd71191072e120b83dd02d08f3da0d65e53
   Observable: c94150db5a2e43391d46a247bd395ce1a544b81a
   PromiseKit: c06835ba442ce5454ce3cdde470232804a6e4ff8
