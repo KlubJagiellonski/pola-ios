@@ -121,7 +121,7 @@ PODS:
   - SwiftFormat/CLI (0.44.4)
   - SwiftLint (0.39.1)
   - Swinject (2.7.1)
-  - "UITextView+Placeholder (1.3.3)"
+  - "UITextView+Placeholder (1.4.0)"
 
 DEPENDENCIES:
   - Alamofire
@@ -200,7 +200,7 @@ SPEC CHECKSUMS:
   SwiftFormat: 8b3c6b69454305a61c221355095f62dacc0811bf
   SwiftLint: 55e96a4a4d537d4a3156859fc1c54bd24851a046
   Swinject: ddf78b8486dd9b71a667b852cad919ab4484478e
-  "UITextView+Placeholder": c407b27599ea23cca425946fee3cf1db5d547008
+  "UITextView+Placeholder": d7b0c400921f66523f3a85d74f774512e14f6502
 
 PODFILE CHECKSUM: 05f69d82b3fbd48ad6f8bd04ab2e416e46d39996
 
