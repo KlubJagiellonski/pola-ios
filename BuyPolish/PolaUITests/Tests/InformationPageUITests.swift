@@ -5,8 +5,6 @@ final class InformationPageUITests: PolaUITestCase {
 
     override func setUp() {
         super.setUp()
-        recordMode = false
-
         page = startingPageObject.tapInformationButton()
     }
 

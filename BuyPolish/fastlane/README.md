@@ -31,6 +31,11 @@ fastlane ios unit_tests
 fastlane ios ui_tests
 ```
 
+### ios record_snapshots
+```
+fastlane ios record_snapshots
+```
+
 ### ios check_project_structure
 ```
 fastlane ios check_project_structure

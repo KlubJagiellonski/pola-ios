@@ -17,12 +17,12 @@ target :Pola do
     pod 'Observable'
     
     target :PolaTests do
-      pod 'iOSSnapshotTestCase'
+      pod 'SnapshotTesting'
     end
     
     target :PolaUITests do
-      pod 'iOSSnapshotTestCase'
       pod 'Swifter'
+      pod 'SnapshotTesting'
     end
 
 end

@@ -1,5 +1,6 @@
 default_platform(:ios)
 swiftformat_executable = "Pods/SwiftFormat/CommandLineTool/swiftformat"
+derived_data_path = "build"
 
 platform :ios do
   lane :tests do
@@ -16,6 +17,7 @@ platform :ios do
       destination: "name=iPhone 8",
       analyze: true,
       test: true,
+      derivedDataPath: derived_data_path,
       xcargs: "CLANG_ANALYZER_OTHER_FLAGS= CLANG_ANALYZER_OUTPUT=html CLANG_ANALYZER_OUTPUT_DIR=#{analyze_output_dir} RUN_CLANG_STATIC_ANALYZER=YES"
     )
     ensure_no_results_from_xcodebuild_analyze(
@@ -25,7 +27,37 @@ platform :ios do
   end
 
   lane :ui_tests do
-    scan(scheme:"PolaUITests")
+    scan(
+      scheme: "PolaUITests",
+      derived_data_path: derived_data_path
+    )
+  end
+
+  lane :record_snapshots do
+    snapshots_paths = [
+      "PolaTests/__Snapshots__",
+      "PolaTests/UI/__Snapshots__",
+      "PolaUITests/Tests/__Snapshots__"
+    ]
+
+    snapshots_paths.each {|path| clear_derived_data(derived_data_path:path)}
+    scan(
+      scheme: "Pola",
+      derived_data_path: derived_data_path,
+      fail_build: false
+    )
+    scan(
+      scheme: "PolaUITests",
+      derived_data_path: derived_data_path,
+      fail_build: false
+    )
+    if is_ci
+      git_commit(
+        message: "Record snapshot :camera:",
+        path: snapshots_paths
+      )
+      push_to_git_remote
+    end
   end
 
   lane :check_project_structure do

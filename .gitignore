@@ -11,3 +11,5 @@ package-lock.json
 vendor/bundle
 .bundle
 R.generated.swift
+BuyPolish/build
+.vscode

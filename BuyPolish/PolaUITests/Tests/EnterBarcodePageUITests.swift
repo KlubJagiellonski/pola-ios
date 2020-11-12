@@ -5,8 +5,6 @@ final class EnterBarcodePageUITests: PolaUITestCase {
 
     override func setUp() {
         super.setUp()
-        recordMode = false
-
         page = startingPageObject.tapEnterBarcodeButton().setPasteboard(nil)
     }
 
@@ -65,9 +63,12 @@ final class EnterBarcodePageUITests: PolaUITestCase {
         snapshotVerifyView()
     }
 
-    func testContextMenu_whenNothingIsTypedAndPasteboardIsNotClear() {
+    func testContextMenu_whenNothingIsTypedAndPasteboardIsNotClear() throws {
+        throw skipTest(issueNumber: 151)
         page.setPasteboard("123456")
             .longTapOnBarcodeLabel()
+            .waitForPasteboardInfoDissappear()
+            .wait(time: 20)
             .done()
 
         snapshotVerifyView()

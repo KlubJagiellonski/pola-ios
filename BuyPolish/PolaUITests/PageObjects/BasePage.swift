@@ -23,4 +23,21 @@ class BasePage {
         self.pasteboard = pasteboard
         return self
     }
+
+    func waitForPasteboardInfoDissappear(file: StaticString = #file, line: UInt = #line) -> Self {
+        let elements = [
+            "Pola pasted from PolaUITests-Runner",
+            "CoreSimulatorBridge pasted from Pola",
+        ].map { app.staticTexts[$0] }
+        if !elements.waitForDisappear(timeout: waitForExistanceTimeout) {
+            XCTFail("Pasteboard info still visible", file: file, line: line)
+        }
+
+        return self
+    }
+
+    func wait(time: TimeInterval) -> Self {
+        Thread.sleep(forTimeInterval: time)
+        return self
+    }
 }

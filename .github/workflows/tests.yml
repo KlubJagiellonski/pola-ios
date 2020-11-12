@@ -7,9 +7,9 @@ on:
     branches: ['master']
 
 jobs:
-  build:
+  tests:
     name: Lint, unit & ui tests
-    runs-on: macos-10.14
+    runs-on: macos-10.15
     defaults:
       run:
         working-directory: BuyPolish
@@ -41,23 +41,11 @@ jobs:
         run: bundle exec fastlane tests
       - name: Codecov
         uses: codecov/codecov-action@v1.0.13
-      - name: "Upload PolaUITests-SnapshotFailedTests"
+      - name: "Upload Tests results"
+        if: always()
         uses: actions/upload-artifact@v2
-        if: failure()
         with:
-          name: PolaUITests-SnapshotFailedTests
-          path: BuyPolish/PolaUITests/SnapshotFailedTests
-      - name: "Upload PolaUITests-FailureDiffs"
-        uses: actions/upload-artifact@v2
-        if: failure()
-        with:
-          name: PolaUITests-FailureDiffs
-          path: BuyPolish/PolaUITests/FailureDiffs
-      - name: "Upload PolaTests-FailureDiffs"
-        uses: actions/upload-artifact@v2
-        if: failure()
-        with:
-          name: PolaTests-FailureDiffs
-          path: BuyPolish/PolaTests/FailureDiffs
+          name: xcresult
+          path: BuyPolish/build/Logs/Test
 
 
