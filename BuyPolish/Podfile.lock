@@ -108,10 +108,10 @@ PODS:
   - nanopb/decode (2.30906.0)
   - nanopb/encode (2.30906.0)
   - Observable (2.0.1)
-  - PromiseKit/Alamofire (6.12.0):
+  - PromiseKit/Alamofire (6.13.1):
     - Alamofire (~> 4.0)
     - PromiseKit/CorePromise
-  - PromiseKit/CorePromise (6.12.0)
+  - PromiseKit/CorePromise (6.13.1)
   - PromisesObjC (1.2.11)
   - Protobuf (3.13.0)
   - R.swift (5.3.0):
@@ -191,7 +191,7 @@ SPEC CHECKSUMS:
   KVNProgress: d7046cce142f1aeb740db39dc3cacfe910fac354
   nanopb: 1bf24dd71191072e120b83dd02d08f3da0d65e53
   Observable: c94150db5a2e43391d46a247bd395ce1a544b81a
-  PromiseKit: c06835ba442ce5454ce3cdde470232804a6e4ff8
+  PromiseKit: 28fda91c973cc377875d8c0ea4f973013c05b6db
   PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
   Protobuf: 3dac39b34a08151c6d949560efe3f86134a3f748
   R.swift: 4170fb7161c67be3bc1a847040b79367d69c419f
