@@ -1,11 +1,11 @@
-import FBSnapshotTestCase
+import SnapshotTesting
+import XCTest
 
-final class LaunchScreenSnapshotTests: FBSnapshotTestCase {
+final class LaunchScreenSnapshotTests: XCTestCase {
     var sut: UIViewController!
 
     override func setUp() {
         super.setUp()
-        recordMode = false
         let bundle = Bundle(identifier: "Pola")
         let storyboard = UIStoryboard(name: "LaunchScreen", bundle: bundle)
         sut = storyboard.instantiateInitialViewController()
@@ -16,39 +16,37 @@ final class LaunchScreenSnapshotTests: FBSnapshotTestCase {
         super.tearDown()
     }
 
-    func testView(width: CGFloat, height: CGFloat) {
-        sut.view.frame = CGRect(origin: .zero, size: CGSize(width: width, height: height))
-
-        FBSnapshotVerifyView(sut.view)
-    }
-
-    // iPhone 4, 4s
-    func testViewOnIPhone4() {
-        testView(width: 320, height: 480)
+    func testView(on config: ViewImageConfig, file: StaticString = #file, testName: String = #function, line: UInt = #line) {
+        assertSnapshot(matching: sut, as: .image(on: config), file: file, testName: testName, line: line)
     }
 
     // iPhone 5, 5s, 5c, SE
-    func testViewOnIPhone5() {
-        testView(width: 320, height: 568)
+    func testViewOnIPhoneSE() {
+        testView(on: .iPhoneSe)
     }
 
     // iPhone 6, 6s, 7, 8
-    func testViewOnIPhone6() {
-        testView(width: 375, height: 667)
+    func testViewOnIPhone8() {
+        testView(on: .iPhone8)
     }
 
     // iPhone 6+, 6s+, 7+, 8+
-    func testViewOnIPhone6Plus() {
-        testView(width: 414, height: 736)
+    func testViewOnIPhone8Plus() {
+        testView(on: .iPhone8Plus)
     }
 
-    // iPhone X, Xs
+    // iPhone X, Xs, 11 Pro
     func testViewOnIPhoneX() {
-        testView(width: 375, height: 812)
+        testView(on: .iPhoneX)
     }
 
-    // iPhone Xr, Xs Max
+    // iPhone Xr, 11
     func testViewOnIPhoneXr() {
-        testView(width: 414, height: 896)
+        testView(on: .iPhoneXr)
+    }
+
+    // iPhone Xs Max, 11 Pro Max
+    func testViewOnIPhoneXsMax() {
+        testView(on: .iPhoneXsMax)
     }
 }

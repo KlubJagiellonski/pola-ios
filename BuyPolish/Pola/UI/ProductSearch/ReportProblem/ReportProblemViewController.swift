@@ -110,37 +110,26 @@ extension ReportProblemViewController: ReportImagesContainerViewDelegate {
     }
 
     func imagesContainerTapAddButton() {
-        let cancelTitle = R.string.localizable.cancel()
-        let chooseTitle = R.string.localizable.chooseFromLibrary()
-        let sheet: UIActionSheet
+        let strings = R.string.localizable.self
+        let alertVC = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            sheet = UIActionSheet(title: nil,
-                                  delegate: self,
-                                  cancelButtonTitle: cancelTitle,
-                                  destructiveButtonTitle: nil,
-                                  otherButtonTitles: R.string.localizable.takeAPhoto(), chooseTitle)
-        } else {
-            sheet = UIActionSheet(title: nil,
-                                  delegate: self,
-                                  cancelButtonTitle: cancelTitle,
-                                  destructiveButtonTitle: nil,
-                                  otherButtonTitles: chooseTitle)
+            alertVC.addAction(UIAlertAction(title: strings.takeAPhoto(),
+                                            style: .default) { [weak self] _ in
+                    self?.openImagePicker(source: .camera)
+          })
         }
-        sheet.show(in: view)
+        alertVC.addAction(UIAlertAction(title: strings.chooseFromLibrary(),
+                                        style: .default) { [weak self] _ in
+                self?.openImagePicker(source: .photoLibrary)
+        })
+        alertVC.addAction(UIAlertAction(title: strings.cancel(), style: .cancel))
+        present(alertVC, animated: true, completion: nil)
     }
-}
 
-extension ReportProblemViewController: UIActionSheetDelegate {
-    func actionSheet(_ actionSheet: UIActionSheet, clickedButtonAt buttonIndex: Int) {
-        guard actionSheet.cancelButtonIndex != buttonIndex else {
-            return
-        }
-
-        let isCamera = UIImagePickerController.isSourceTypeAvailable(.camera) && buttonIndex == 1
-
+    private func openImagePicker(source: UIImagePickerController.SourceType) {
         let imagePicker = UIImagePickerController()
         imagePicker.modalPresentationStyle = .currentContext
-        imagePicker.sourceType = isCamera ? .camera : .photoLibrary
+        imagePicker.sourceType = source
         imagePicker.delegate = self
         present(imagePicker, animated: true, completion: nil)
     }

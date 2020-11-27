@@ -1,6 +1,6 @@
 source 'https://cdn.cocoapods.org/'
 
-platform :ios, '8.0'
+platform :ios, '11.0'
 inhibit_all_warnings!
 
 target :Pola do
@@ -17,14 +17,22 @@ target :Pola do
     pod 'Observable'
     
     target :PolaTests do
-      pod 'iOSSnapshotTestCase'
+      pod 'SnapshotTesting'
     end
     
     target :PolaUITests do
-      pod 'iOSSnapshotTestCase'
-      pod 'Swifter', '~> 1.4.7'
+      pod 'Swifter'
+      pod 'SnapshotTesting'
     end
 
+end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings.delete 'IPHONEOS_DEPLOYMENT_TARGET'
+    end
+  end
 end
 
 pod 'SwiftFormat/CLI'

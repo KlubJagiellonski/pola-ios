@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -31,7 +31,6 @@
 		8406E62D233D59A700B7313C /* MainProggressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8406E62C233D59A700B7313C /* MainProggressView.swift */; };
 		8406E62F233D5FC000B7313C /* SecondaryProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8406E62E233D5FC000B7313C /* SecondaryProgressView.swift */; };
 		8406E631233D6A6C00B7313C /* UIImage+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8406E630233D6A6C00B7313C /* UIImage+Additions.swift */; };
-		84114A10233E19480081C531 /* UIAlertView+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84114A0F233E19480081C531 /* UIAlertView+Additions.swift */; };
 		841BB98B22D133A900234946 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841BB98A22D133A900234946 /* Theme.swift */; };
 		841BB98D22D136AE00234946 /* UIColor+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841BB98C22D136AE00234946 /* UIColor+Additions.swift */; };
 		841DDD682311583E00CB82DC /* ScanResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841DDD672311583E00CB82DC /* ScanResultViewController.swift */; };
@@ -63,7 +62,6 @@
 		8477CFCD23CF201D00C72542 /* ReportImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477CFCC23CF201D00C72542 /* ReportImageView.swift */; };
 		8477CFCF23CF2BC500C72542 /* ReportProblemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477CFCE23CF2BC500C72542 /* ReportProblemView.swift */; };
 		8477CFD123CF2E9B00C72542 /* ReportImagesContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8477CFD023CF2E9B00C72542 /* ReportImagesContainerView.swift */; };
-		847AE94723072E9B00E645ED /* ReferenceImages_64 in Resources */ = {isa = PBXBuildFile; fileRef = 847AE94623072E9B00E645ED /* ReferenceImages_64 */; };
 		8488E20F23D1067000817671 /* ReportProblemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8488E20E23D1067000817671 /* ReportProblemViewController.swift */; };
 		848C6922225D044300D39E90 /* LaunchScreenSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848C6921225D044300D39E90 /* LaunchScreenSnapshotTests.swift */; };
 		849577D4230B53FC00FC9591 /* CompanyContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849577D3230B53FC00FC9591 /* CompanyContentView.swift */; };
@@ -208,14 +206,11 @@
 		53F3B599F258259843E2755D /* Pods_Pola_PolaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pola_PolaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D7DD012073B8CCDD821A2D0 /* Pods-Pola-PolaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola-PolaTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pola-PolaTests/Pods-Pola-PolaTests.release.xcconfig"; sourceTree = "<group>"; };
 		8402E1D52309BB610065E850 /* AltResultContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AltResultContentView.swift; sourceTree = "<group>"; };
-		84034B7D23CCA48000E01157 /* SnapshotFailedTests */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SnapshotFailedTests; sourceTree = "<group>"; };
-		84034B7E23CCA49600E01157 /* FailureDiffs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = FailureDiffs; sourceTree = "<group>"; };
 		8406E62C233D59A700B7313C /* MainProggressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainProggressView.swift; sourceTree = "<group>"; };
 		8406E62E233D5FC000B7313C /* SecondaryProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryProgressView.swift; sourceTree = "<group>"; };
 		8406E630233D6A6C00B7313C /* UIImage+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Additions.swift"; sourceTree = "<group>"; };
 		840938B0231F0202003FC0E1 /* ScanBarcodePage+TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ScanBarcodePage+TestData.swift"; sourceTree = "<group>"; };
 		840938B2231F088F003FC0E1 /* ResultPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultPage.swift; sourceTree = "<group>"; };
-		84114A0F233E19480081C531 /* UIAlertView+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertView+Additions.swift"; sourceTree = "<group>"; };
 		841BB98A22D133A900234946 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		841BB98C22D136AE00234946 /* UIColor+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Additions.swift"; sourceTree = "<group>"; };
 		841DDD652311582800CB82DC /* ScanResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanResultView.swift; sourceTree = "<group>"; };
@@ -240,6 +235,9 @@
 		84601A3D2405C47600AD2A2D /* EANBarcodeValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EANBarcodeValidatorTests.swift; sourceTree = "<group>"; };
 		846036F0241856DB00982FC6 /* UIDevice+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+Additions.swift"; sourceTree = "<group>"; };
 		84633B3323F8113F0069219C /* KeyboardTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardTextView.swift; sourceTree = "<group>"; };
+		8464A34F25641F7800861FDB /* __Snapshots__ */ = {isa = PBXFileReference; lastKnownFileType = folder; path = __Snapshots__; sourceTree = "<group>"; };
+		8464A35025641F8800861FDB /* __Snapshots__ */ = {isa = PBXFileReference; lastKnownFileType = folder; path = __Snapshots__; sourceTree = "<group>"; };
+		8464A35125641F9200861FDB /* __Snapshots__ */ = {isa = PBXFileReference; lastKnownFileType = folder; path = __Snapshots__; sourceTree = "<group>"; };
 		847071D0251DFD21009E296A /* KeyboardBarcodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardBarcodeTests.swift; sourceTree = "<group>"; };
 		84735A6323BB63B00053D1E5 /* AnalitycsAboutRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalitycsAboutRow.swift; sourceTree = "<group>"; };
 		84735A6923BB92C80053D1E5 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
@@ -250,8 +248,6 @@
 		8477CFCC23CF201D00C72542 /* ReportImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportImageView.swift; sourceTree = "<group>"; };
 		8477CFCE23CF2BC500C72542 /* ReportProblemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportProblemView.swift; sourceTree = "<group>"; };
 		8477CFD023CF2E9B00C72542 /* ReportImagesContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportImagesContainerView.swift; sourceTree = "<group>"; };
-		847AE94523072E8F00E645ED /* ReferenceImages_64 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ReferenceImages_64; sourceTree = "<group>"; };
-		847AE94623072E9B00E645ED /* ReferenceImages_64 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ReferenceImages_64; sourceTree = "<group>"; };
 		847AE94823093E7700E645ED /* ISBNPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ISBNPage.swift; sourceTree = "<group>"; };
 		8488E20E23D1067000817671 /* ReportProblemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportProblemViewController.swift; sourceTree = "<group>"; };
 		848C6921225D044300D39E90 /* LaunchScreenSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenSnapshotTests.swift; sourceTree = "<group>"; };
@@ -467,7 +463,7 @@
 				84601A3D2405C47600AD2A2D /* EANBarcodeValidatorTests.swift */,
 				847071D0251DFD21009E296A /* KeyboardBarcodeTests.swift */,
 				848C6921225D044300D39E90 /* LaunchScreenSnapshotTests.swift */,
-				847AE94523072E8F00E645ED /* ReferenceImages_64 */,
+				8464A35125641F9200861FDB /* __Snapshots__ */,
 			);
 			path = PolaTests;
 			sourceTree = "<group>";
@@ -564,7 +560,6 @@
 				BDA76B5021DCD718003E9FD6 /* Encodable+Utilities.swift */,
 				842E762D23E0D4CA00A5534B /* FileManager+Extension.swift */,
 				9E0FE73B251C02C6005D98B3 /* String+Additions.swift */,
-				84114A0F233E19480081C531 /* UIAlertView+Additions.swift */,
 				841F7D9F23567740007BE3F6 /* UIApplication+Additions.swift */,
 				841BB98C22D136AE00234946 /* UIColor+Additions.swift */,
 				846036F0241856DB00982FC6 /* UIDevice+Additions.swift */,
@@ -670,11 +665,8 @@
 				9EC3BC0123CDD76C00242B1E /* MockServer */,
 				84E708262280A40300402E26 /* PageObjects */,
 				9EC3BBFA23CDD76C00242B1E /* Tests */,
-				84034B7E23CCA49600E01157 /* FailureDiffs */,
 				84B1B366225F975A009FA909 /* Info.plist */,
 				84E7082F2280A40300402E26 /* PolaUITestCase.swift */,
-				847AE94623072E9B00E645ED /* ReferenceImages_64 */,
-				84034B7D23CCA48000E01157 /* SnapshotFailedTests */,
 				84E708312280A40300402E26 /* TestData.swift */,
 				9E0FE73F2523D9EC005D98B3 /* XCUIElement+Additions.swift */,
 			);
@@ -706,6 +698,7 @@
 			isa = PBXGroup;
 			children = (
 				9EC3BC5023CDF55E00242B1E /* CheckRowSnapshotTests.swift */,
+				8464A35025641F8800861FDB /* __Snapshots__ */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -737,6 +730,7 @@
 				9EC3BBFF23CDD76C00242B1E /* ReportBugPageUITests.swift */,
 				849E40D62415204C006E1B76 /* ScanBarcodePageUITests.swift */,
 				9EC3BBFE23CDD76C00242B1E /* ScanBarcodeWithResultPageUITests.swift */,
+				8464A34F25641F7800861FDB /* __Snapshots__ */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -970,7 +964,6 @@
 				9EC3BC1823CDD76C00242B1E /* nestle_waters.json in Resources */,
 				9EC3BC1C23CDD76C00242B1E /* lomza.json in Resources */,
 				9EC3BC1623CDD76C00242B1E /* gustaw.json in Resources */,
-				847AE94723072E9B00E645ED /* ReferenceImages_64 in Resources */,
 				9EC3BC1A23CDD76C00242B1E /* create_report.json in Resources */,
 				9EC3BC1923CDD76C00242B1E /* koral.json in Resources */,
 			);
@@ -984,12 +977,55 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Pola-PolaUITests/Pods-Pola-PolaUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Pola-PolaUITests/Pods-Pola-PolaUITests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseABTesting/FirebaseABTesting.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseCore/FirebaseCore.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseCoreDiagnostics/FirebaseCoreDiagnostics.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseCrashlytics/FirebaseCrashlytics.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseInstallations/FirebaseInstallations.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseRemoteConfig/FirebaseRemoteConfig.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleDataTransport/GoogleDataTransport.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/KVNProgress/KVNProgress.framework",
+				"${BUILT_PRODUCTS_DIR}/Observable/Observable.framework",
+				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
+				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
+				"${BUILT_PRODUCTS_DIR}/Swinject/Swinject.framework",
+				"${BUILT_PRODUCTS_DIR}/UITextView+Placeholder/UITextView_Placeholder.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapshotTesting/SnapshotTesting.framework",
+				"${BUILT_PRODUCTS_DIR}/Swifter/Swifter.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Pola-PolaUITests/Pods-Pola-PolaUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseABTesting.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCoreDiagnostics.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCrashlytics.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseInstallations.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseRemoteConfig.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleDataTransport.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KVNProgress.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Observable.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Swinject.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITextView_Placeholder.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapshotTesting.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Swifter.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1023,12 +1059,53 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Pola-PolaTests/Pods-Pola-PolaTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Pola-PolaTests/Pods-Pola-PolaTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseABTesting/FirebaseABTesting.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseCore/FirebaseCore.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseCoreDiagnostics/FirebaseCoreDiagnostics.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseCrashlytics/FirebaseCrashlytics.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseInstallations/FirebaseInstallations.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseRemoteConfig/FirebaseRemoteConfig.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleDataTransport/GoogleDataTransport.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/KVNProgress/KVNProgress.framework",
+				"${BUILT_PRODUCTS_DIR}/Observable/Observable.framework",
+				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
+				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
+				"${BUILT_PRODUCTS_DIR}/Swinject/Swinject.framework",
+				"${BUILT_PRODUCTS_DIR}/UITextView+Placeholder/UITextView_Placeholder.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapshotTesting/SnapshotTesting.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Pola-PolaTests/Pods-Pola-PolaTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseABTesting.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCoreDiagnostics.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCrashlytics.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseInstallations.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseRemoteConfig.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleDataTransport.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KVNProgress.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Observable.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Swinject.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITextView_Placeholder.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapshotTesting.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1148,12 +1225,51 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Pola/Pods-Pola-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Pola/Pods-Pola-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseABTesting/FirebaseABTesting.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseCore/FirebaseCore.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseCoreDiagnostics/FirebaseCoreDiagnostics.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseCrashlytics/FirebaseCrashlytics.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseInstallations/FirebaseInstallations.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseRemoteConfig/FirebaseRemoteConfig.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleDataTransport/GoogleDataTransport.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/KVNProgress/KVNProgress.framework",
+				"${BUILT_PRODUCTS_DIR}/Observable/Observable.framework",
+				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
+				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
+				"${BUILT_PRODUCTS_DIR}/Swinject/Swinject.framework",
+				"${BUILT_PRODUCTS_DIR}/UITextView+Placeholder/UITextView_Placeholder.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Pola/Pods-Pola-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseABTesting.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCoreDiagnostics.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCrashlytics.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseInstallations.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseRemoteConfig.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleDataTransport.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KVNProgress.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Observable.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Swinject.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITextView_Placeholder.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1205,7 +1321,6 @@
 				845F78D323BA28E2008DDFDF /* ProductManager.swift in Sources */,
 				84AAEDE0230B49DD006CA7EB /* UILabel+Additions.swift in Sources */,
 				841BB98B22D133A900234946 /* Theme.swift in Sources */,
-				84114A10233E19480081C531 /* UIAlertView+Additions.swift in Sources */,
 				9E43AF7624279F3D0093627B /* ResultsViewController.swift in Sources */,
 				84BDC4A823EB774F00F462A0 /* MediaUploadRequestFactory.swift in Sources */,
 				84A81C5223EE21F300464745 /* ReportProblemReason.swift in Sources */,
@@ -1400,7 +1515,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1448,7 +1563,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1475,11 +1590,8 @@
 				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = "Pola/SupportingFiles/Pola-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kj.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1511,11 +1623,8 @@
 				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = "Pola/SupportingFiles/Pola-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kj.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1545,11 +1654,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "PolaTests/SupportingFiles/PolaTests-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kj.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1574,11 +1679,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				INFOPLIST_FILE = "PolaTests/SupportingFiles/PolaTests-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kj.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1612,11 +1713,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = PolaUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = pl.kj.PolaUITests;
@@ -1656,18 +1753,13 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = PolaUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = pl.kj.PolaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "11650f5b-2426-4072-b3e3-857e6e5267e1";
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Pola;

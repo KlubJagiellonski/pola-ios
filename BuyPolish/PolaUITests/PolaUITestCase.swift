@@ -1,7 +1,7 @@
-import FBSnapshotTestCase
+import SnapshotTesting
 import XCTest
 
-class PolaUITestCase: FBSnapshotTestCase {
+class PolaUITestCase: XCTestCase {
     var startingPageObject: ScanBarcodePage!
     private var app: XCUIApplication!
 
@@ -24,9 +24,10 @@ class PolaUITestCase: FBSnapshotTestCase {
         super.tearDown()
     }
 
-    func snapshotVerifyView(file: StaticString = #file, line: UInt = #line) {
+    func snapshotVerifyView(file: StaticString = #file, testName: String = #function, line: UInt = #line) {
+        startingPageObject.waitForPasteboardInfoDissappear().done()
         let fullscreen = app.screenshot().image
-        FBSnapshotVerifyView(UIImageView(image: fullscreen), file: file, line: line)
+        assertSnapshot(matching: fullscreen, as: .image, file: file, testName: testName, line: line)
     }
 
     func expectRequest(path: String, file: StaticString = #file, line: UInt = #line) {
@@ -39,35 +40,9 @@ class PolaUITestCase: FBSnapshotTestCase {
         XCTAssertEqual(result, XCTWaiter.Result.completed, "Expected request \(path) not appear", file: file, line: line)
     }
 
-    override func recordFailure(
-        withDescription description: String,
-        inFile filePath: String,
-        atLine lineNumber: Int,
-        expected: Bool
-    ) {
-        let imageData = app.screenshot().image.pngData()
-        if let path = failureImageDirectoryPath?
-            .appendingPathComponent("\(classForCoder.description())_line_\(lineNumber).png") {
-            try? imageData?.write(to: path)
-        }
-
-        super.recordFailure(withDescription: description, inFile: filePath, atLine: lineNumber, expected: expected)
-    }
-
-    private var failureImageDirectoryPath: URL? {
-        let fileManager = FileManager.default
-        guard let pathString = ProcessInfo.processInfo.environment["FAILED_UI_TEST_DIR"] else {
-            return nil
-        }
-
-        let path = URL(fileURLWithPath: pathString)
-        if !fileManager.fileExists(atPath: path.absoluteString) {
-            try? fileManager.createDirectory(
-                at: path,
-                withIntermediateDirectories: true,
-                attributes: nil
-            )
-        }
-        return path
+    func skipTest(issueNumber: UInt, file: StaticString = #filePath, line: UInt = #line) -> XCTSkip {
+        return XCTSkip("Test to fix more info at https://github.com/KlubJagiellonski/pola-ios/issues/\(issueNumber)",
+                       file: file,
+                       line: line)
     }
 }

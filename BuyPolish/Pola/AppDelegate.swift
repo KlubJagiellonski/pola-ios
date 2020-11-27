@@ -19,28 +19,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UIView.setAnimationsEnabled(false)
         }
 
-        if #available(iOS 9.0, *) {
-            if let shortcutItem = launchOptions?[.shortcutItem] as? UIApplicationShortcutItem {
-                _ = handleShortcutItem(shortcutItem)
-            }
+        if let shortcutItem = launchOptions?[.shortcutItem] as? UIApplicationShortcutItem {
+            _ = handleShortcutItem(shortcutItem)
         }
 
         return true
     }
 
-    func applicationDidBecomeActive(_: UIApplication) {
+    func applicationDidBecomeActive(_ app: UIApplication) {
         if AVCaptureDevice.authorizationStatus(for: .video) == .denied {
+            guard let rootViewController = window?.rootViewController else {
+                return
+            }
             let strings = R.string.localizable.self
-            let alertView = UIAlertView(title: strings.cameraPrivacyTitle(),
-                                        message: strings.cameraPrivacyScanBarcodeDescription(),
-                                        delegate: self,
-                                        cancelButtonTitle: strings.cancel(),
-                                        otherButtonTitles: strings.settings())
-            alertView.show()
+            let alertVC = UIAlertController(title: strings.cameraPrivacyTitle(),
+                                            message: strings.cameraPrivacyScanBarcodeDescription(),
+                                            preferredStyle: .alert)
+            alertVC.addAction(UIAlertAction(title: strings.settings(),
+                                            style: .default,
+                                            handler: { [weak self] _ in
+                                                self?.openSettings(app: app)
+                                            }))
+            alertVC.addAction(UIAlertAction(title: strings.cancel(), style: .destructive))
+            rootViewController.present(alertVC, animated: true, completion: nil)
         }
     }
 
-    @available(iOS 9.0, *)
+    private func openSettings(app: UIApplication) {
+        guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+            return
+        }
+        app.open(settingsUrl)
+    }
+
     func application(_: UIApplication,
                      performActionFor shortcutItem: UIApplicationShortcutItem,
                      completionHandler: @escaping (Bool) -> Void) {
@@ -53,7 +64,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().titleTextAttributes = [.font: Theme.titleFont]
     }
 
-    @available(iOS 9.0, *)
     private func handleShortcutItem(_ item: UIApplicationShortcutItem) -> Bool {
         guard let bundleIdentifier = Bundle.main.bundleIdentifier,
             let rootViewController = window?.rootViewController as? RootViewController else {
@@ -71,15 +81,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         default:
             return false
         }
-    }
-}
-
-extension AppDelegate: UIAlertViewDelegate {
-    func alertView(_ alertView: UIAlertView, clickedButtonAt buttonIndex: Int) {
-        guard alertView.cancelButtonIndex != buttonIndex,
-            let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
-            return
-        }
-        UIApplication.shared.openURL(settingsUrl)
     }
 }

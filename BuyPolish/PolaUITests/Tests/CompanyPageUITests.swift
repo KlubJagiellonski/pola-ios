@@ -1,11 +1,6 @@
 import XCTest
 
 final class CompanyPageUITests: PolaUITestCase {
-    override func setUp() {
-        super.setUp()
-        recordMode = false
-    }
-
     func testRadziemskaCompanyShouldBeMarkedAsPolaFriends() {
         let isPolaFriend =
             startingPageObject

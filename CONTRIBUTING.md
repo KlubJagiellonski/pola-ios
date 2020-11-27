@@ -18,9 +18,8 @@ git checkout -b feature/423_added_new_feature
 
 Wykorzystujemy [CocoaPods](https://cocoapods.org) jako narzędzie do pobierania i konfigurowania zależności.
 Do uruchamiana testów i linterów na CI oraz lokalnie używamy [fastlane](https://fastlane.tools/).
-W testach wykorzystywane jest porównywanie snapshotów z uzyciem biblioteki [iOSSnapshotTestCase](https://github.com/uber/ios-snapshot-test-case). Snapshoty nagrane są na symulatorze urządzenia iPhone 8 z systemem iOS 13.6, do nagrywania wykorzystano system macOS Mohave.
-W przypadku niepowodzenia testów snapshoty ze wskazaniem różnicy przechowywane są w artefaktach Github Actions.
-Jeśli masz problem z nagraniem przechodzących snapshotów nie bój się wystawić PR, pomożemy :) 
+W testach wykorzystywane jest porównywanie snapshotów z uzyciem biblioteki [SnapshotTesting](https://github.com/pointfreeco/swift-snapshot-testing). Obrazy referencyjne nagrane są na symulatorze urządzenia iPhone 8 z systemem iOS 14. Ze względu na zmiany w symulatorze od Xcode'a 10 związanym z rendenerowaniem obrazu symulatora na GPU, obraz nagrany na różnych komputerach mac może nieznacznie się różnić. W celu uniknięcia tego problemu można użyć [Github Actions i workflow Snapshot](https://github.com/KlubJagiellonski/pola-ios/actions?query=workflow%3ASnapshots), który na danym branchu nagrywa obraz referencyjny i pushuje do repozytoriun
+W przypadku niepowodzenia testów snapshoty ze wskazaniem różnicy przechowywane są w artefaktach Github Actions w pliku xcresults razem z całym przebiegiem testów.
 
 ### 4. Stwórz Pull Request'a
 

@@ -1,12 +1,12 @@
-import FBSnapshotTestCase
 @testable import Pola
+import SnapshotTesting
+import XCTest
 
-class CheckRowSnapshotTests: FBSnapshotTestCase {
+class CheckRowSnapshotTests: XCTestCase {
     var sut: CheckRow!
 
     override func setUp() {
         super.setUp()
-        recordMode = false
         sut = CheckRow(frame: .zero)
     }
 
@@ -15,9 +15,10 @@ class CheckRowSnapshotTests: FBSnapshotTestCase {
         super.tearDown()
     }
 
-    func verifyView(file: StaticString = #file, line: UInt = #line) {
+    func verifyView(file: StaticString = #file, testName: String = #function, line: UInt = #line) {
         sut.sizeToFit()
-        FBSnapshotVerifyView(sut, file: file, line: line)
+
+        assertSnapshot(matching: sut, as: .image, file: file, testName: testName, line: line)
     }
 
     func testView_WhenCheckedIsNil() {
