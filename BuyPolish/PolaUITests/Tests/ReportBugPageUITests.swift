@@ -21,7 +21,8 @@ final class ReportBugPageUITests: PolaUITestCase {
         snapshotVerifyView()
     }
 
-    func testCloseReportBugPage() {
+    func testCloseReportBugPage() throws {
+        throw skipTest(issueNumber: 159)
         page.tapCloseButton().done()
 
         snapshotVerifyView()
