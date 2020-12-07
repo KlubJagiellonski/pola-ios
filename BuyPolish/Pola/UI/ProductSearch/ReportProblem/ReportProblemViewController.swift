@@ -7,6 +7,7 @@ final class ReportProblemViewController: UIViewController {
     private let reportManager: ReportManager
     private let keyboardManager: KeyboardManager
     private let reason: ReportProblemReason
+    private let analytics: AnalyticsHelper
     private var imageCount: Int = 0
 
     private var castedView: ReportProblemView! {
@@ -16,11 +17,13 @@ final class ReportProblemViewController: UIViewController {
     init(reason: ReportProblemReason,
          productImageManager: ProductImageManager,
          reportManager: ReportManager,
-         keyboardManager: KeyboardManager) {
+         keyboardManager: KeyboardManager,
+         analyticsProvider: AnalyticsProvider) {
         self.reason = reason
         self.productImageManager = productImageManager
         self.reportManager = reportManager
         self.keyboardManager = keyboardManager
+        analytics = AnalyticsHelper(provider: analyticsProvider)
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -80,9 +83,9 @@ final class ReportProblemViewController: UIViewController {
 
         reportManager
             .send(report: report)
-            .done { [weak self, reason, productImageManager] _ in
+            .done { [weak self, reason, productImageManager, analytics] _ in
                 KVNProgress.showSuccess(withStatus: R.string.localizable.reportSent())
-                AnalyticsHelper.reportSent(barcode: reason.barcode)
+                analytics.reportSent(barcode: reason.barcode)
                 _ = productImageManager.removeImages(for: reason)
                 self?.close()
             }.catch { error in

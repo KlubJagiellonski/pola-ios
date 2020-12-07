@@ -9,18 +9,16 @@ protocol ScanResultViewControllerDelegate: AnyObject {
 final class ScanResultViewController: UIViewController {
     let barcode: String
     private let productManager: ProductManager
+    private let analytics: AnalyticsHelper
     private(set) var scanResult: ScanResult?
 
     weak var delegate: ScanResultViewControllerDelegate?
 
-    init(barcode: String, productManager: ProductManager) {
+    init(barcode: String, productManager: ProductManager, analyticsProvider: AnalyticsProvider) {
         self.barcode = barcode
         self.productManager = productManager
+        analytics = AnalyticsHelper(provider: analyticsProvider)
         super.init(nibName: nil, bundle: nil)
-    }
-
-    convenience init(barcode: String) {
-        self.init(barcode: barcode, productManager: DI.container.resolve(ProductManager.self)!)
     }
 
     required init?(coder _: NSCoder) {
@@ -49,8 +47,8 @@ final class ScanResultViewController: UIViewController {
         castedView.loadingProgressView.startAnimating()
         firstly {
             productManager.retrieveProduct(barcode: barcode)
-        }.done { [weak self] scanResult in
-            AnalyticsHelper.received(productResult: scanResult)
+        }.done { [weak self, analytics] scanResult in
+            analytics.received(productResult: scanResult)
             if let self = self {
                 self.fillViewWithData(scanResult: scanResult)
                 self.delegate?.scanResultViewController(self, didFetchResult: scanResult)
@@ -111,7 +109,7 @@ final class ScanResultViewController: UIViewController {
         guard let productId = scanResult?.productId else {
             return
         }
-        AnalyticsHelper.reportShown(barcode: barcode)
+        analytics.reportShown(barcode: barcode)
         let vc = DI.container.resolve(ReportProblemViewController.self,
                                       argument: ReportProblemReason.product(productId, barcode))!
         present(vc, animated: true, completion: nil)
@@ -119,7 +117,7 @@ final class ScanResultViewController: UIViewController {
 
     @objc
     func polasFriendsButtonTapped() {
-        AnalyticsHelper.polasFriendsOpened()
+        analytics.polasFriendsOpened()
         let vc = AboutWebViewController(url: "https://www.pola-app.pl/m/friends",
                                         title: R.string.localizable.polaSFriends())
         vc.addCloseButton()
@@ -141,7 +139,7 @@ extension ScanResultViewController: CardStackViewControllerCard {
     func didBecameExpandedCard() {
         castedView.scrollViewForContentView.flashScrollIndicators()
         if let scanResult = scanResult {
-            AnalyticsHelper.opensCard(productResult: scanResult)
+            analytics.opensCard(productResult: scanResult)
         }
     }
 }

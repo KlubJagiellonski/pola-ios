@@ -8,9 +8,11 @@ final class ScanCodeViewController: UIViewController {
     fileprivate let resultsViewController: ResultsViewController
     private let animationTime = TimeInterval(0.15)
     private var disposable: Disposable?
+    private let analytics: AnalyticsHelper
 
-    init(flashlightManager: FlashlightManager) {
+    init(flashlightManager: FlashlightManager, analyticsProvider: AnalyticsProvider) {
         self.flashlightManager = flashlightManager
+        analytics = AnalyticsHelper(provider: analyticsProvider)
         scannerCodeViewController = DI.container.resolve(ScannerCodeViewController.self)!
         resultsViewController = DI.container.resolve(ResultsViewController.self)!
 
@@ -92,9 +94,9 @@ final class ScanCodeViewController: UIViewController {
 
     @objc
     private func tapMenuButton() {
-        AnalyticsHelper.aboutOpened(windowName: .menu)
+        analytics.aboutOpened(windowName: .menu)
 
-        let vc = AboutViewController()
+        let vc = AboutViewController(analyticsProvider: DI.container.resolve(AnalyticsProvider.self)!)
         let nvc = UINavigationController(rootViewController: vc)
         present(nvc, animated: true, completion: nil)
     }
@@ -117,7 +119,7 @@ final class ScanCodeViewController: UIViewController {
 
     @objc
     func tapLogoButton() {
-        AnalyticsHelper.aboutPolaOpened()
+        analytics.aboutPolaOpened()
         let vc = AboutWebViewController(url: "https://www.pola-app.pl/m/about",
                                         title: R.string.localizable.aboutPolaApplication())
         vc.addCloseButton()

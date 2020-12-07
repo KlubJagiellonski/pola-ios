@@ -10,6 +10,7 @@ protocol ResultsViewControllerDelegate: AnyObject {
 final class ResultsViewController: UIViewController {
     private let stackViewController = CardStackViewController()
     private let barcodeValidator: BarcodeValidator
+    private let analytics: AnalyticsHelper
     private var donateURL: URL?
 
     weak var delegate: ResultsViewControllerDelegate?
@@ -24,8 +25,9 @@ final class ResultsViewController: UIViewController {
         stackViewController.cards.last as? ScanResultViewController
     }
 
-    init(barcodeValidator: BarcodeValidator) {
+    init(barcodeValidator: BarcodeValidator, analyticsProvider: AnalyticsProvider) {
         self.barcodeValidator = barcodeValidator
+        analytics = AnalyticsHelper(provider: analyticsProvider)
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -62,7 +64,7 @@ final class ResultsViewController: UIViewController {
         }
 
         if addCardAndDownloadDetails(barcode) {
-            AnalyticsHelper.barcodeScanned(barcode, type: sourceType)
+            analytics.barcodeScanned(barcode, type: sourceType)
             castedView.infoTextVisible = false
             AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
         }
@@ -76,7 +78,7 @@ final class ResultsViewController: UIViewController {
 
     @objc
     private func donateTapped() {
-        AnalyticsHelper.donateOpened(barcode: lastResultViewController?.barcode)
+        analytics.donateOpened(barcode: lastResultViewController?.barcode)
         if let donateURL = donateURL {
             UIApplication.shared.open(donateURL)
         }
