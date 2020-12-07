@@ -42,4 +42,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: xcresult
-          path: BuyPolish/build/Logs/Test
+          path: BuyPolish/fastlane/test_output

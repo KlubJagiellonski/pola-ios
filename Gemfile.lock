@@ -136,7 +136,6 @@ GEM
     fastlane-plugin-swiftformat (0.1.0)
     fastlane-plugin-synx (0.1.4)
       synx
-    fastlane-plugin-xcodebuild_analyze (1.0.0)
     ffi (1.13.1)
     fourflusher (2.3.1)
     fuzzy_match (2.0.4)
@@ -254,7 +253,6 @@ DEPENDENCIES
   fastlane-plugin-menigit
   fastlane-plugin-swiftformat
   fastlane-plugin-synx
-  fastlane-plugin-xcodebuild_analyze
 
 BUNDLED WITH
    2.1.4

@@ -40,12 +40,10 @@ jobs:
       - name: Run tests
         run: bundle exec fastlane tests
       - name: Codecov
-        uses: codecov/codecov-action@v1.0.13
+        uses: codecov/codecov-action@v1
       - name: "Upload Tests results"
         if: always()
         uses: actions/upload-artifact@v2
         with:
           name: xcresult
-          path: BuyPolish/build/Logs/Test
-
-
+          path: BuyPolish/fastlane/test_output
