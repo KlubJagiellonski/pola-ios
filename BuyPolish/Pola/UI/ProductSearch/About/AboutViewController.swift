@@ -12,7 +12,17 @@ final class AboutViewController: UITableViewController {
         case double
     }
 
-    private var model = AboutRowsFactory.create()
+    private let analytics: AnalyticsHelper
+    private let model = AboutRowsFactory.create()
+
+    init(analyticsProvider: AnalyticsProvider) {
+        analytics = AnalyticsHelper(provider: analyticsProvider)
+        super.init(style: .plain)
+    }
+
+    required init?(coder _: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -118,7 +128,7 @@ final class AboutViewController: UITableViewController {
     // MARK: - Private
 
     private func performAction(row: AboutRow) {
-        AnalyticsHelper.aboutOpened(windowName: row.analitycsName)
+        analytics.aboutOpened(windowName: row.analyticsName)
         switch row.action {
         case let .link(url, openInternal):
             performLinkAction(title: row.title, url: url, openInternal: openInternal)

@@ -1,88 +1,70 @@
-import Firebase
 import Foundation
 
 final class AnalyticsHelper {
-    class func configure() {
-        if firebaseAvailable {
-            FirebaseApp.configure()
-            Crashlytics.crashlytics().setUserID(UIDevice.current.deviceId)
-        }
+    let provider: AnalyticsProvider
+
+    init(provider: AnalyticsProvider) {
+        self.provider = provider
     }
 
-    class func barcodeScanned(_ barcode: String, type: AnalyticsBarcodeSource) {
+    func barcodeScanned(_ barcode: String, type: AnalyticsBarcodeSource) {
         logEvent(name: .scanCode,
                  parameters:
                  AnalyticsScanCodeParameters(code: barcode,
-                                             device_id: UIDevice.current.deviceId,
                                              source: type.rawValue))
     }
 
-    class func received(productResult: ScanResult) {
+    func received(productResult: ScanResult) {
         logEvent(name: .companyReceived,
                  parameters:
                  AnalyticsProductResultParameters(code: productResult.code,
-                                                  company: productResult.code,
-                                                  device_id: UIDevice.current.deviceId,
+                                                  company: productResult.name,
                                                   product_id: "\(productResult.productId)"))
     }
 
-    class func opensCard(productResult: ScanResult) {
+    func opensCard(productResult: ScanResult) {
         logEvent(name: .cardOpened,
                  parameters:
                  AnalyticsProductResultParameters(code: productResult.code,
-                                                  company: productResult.code,
-                                                  device_id: UIDevice.current.deviceId,
+                                                  company: productResult.name,
                                                   product_id: "\(productResult.productId)"))
     }
 
-    class func reportShown(barcode: String) {
+    func reportShown(barcode: String) {
         logEvent(name: .reportStarted,
                  parameters: reportParameters(barcode: barcode))
     }
 
-    class func reportSent(barcode: String?) {
+    func reportSent(barcode: String?) {
         logEvent(name: .reportFinished,
                  parameters: reportParameters(barcode: barcode))
     }
 
-    class func donateOpened(barcode: String?) {
+    func donateOpened(barcode: String?) {
         logEvent(name: .donateOpened,
                  parameters: reportParameters(barcode: barcode))
     }
 
-    class func aboutOpened(windowName: AnalitycsAboutRow) {
+    func aboutOpened(windowName: AnalyticsAboutRow) {
         logEvent(name: .menuItemOpened,
                  parameters:
-                 AnalyticsAboutParameters(item: windowName.rawValue,
-                                          device_id: UIDevice.current.deviceId))
+                 AnalyticsAboutParameters(item: windowName.rawValue))
     }
 
-    class func polasFriendsOpened() {
-        logEvent(name: .polasFriends,
-                 parameters: AnalitycsPolasFriendsParameters(device_id: UIDevice.current.deviceId))
+    func polasFriendsOpened() {
+        logEvent(name: .polasFriends)
     }
 
-    class func aboutPolaOpened() {
-        logEvent(name: .aboutPola,
-                 parameters: AnalitycsPolasFriendsParameters(device_id: UIDevice.current.deviceId))
+    func aboutPolaOpened() {
+        logEvent(name: .aboutPola)
     }
 
-    private class func reportParameters(barcode: String?) -> AnalyticsReportParameters {
-        return AnalyticsReportParameters(code: barcode ?? "No Code",
-                                         device_id: UIDevice.current.deviceId)
+    private func reportParameters(barcode: String?) -> AnalyticsReportParameters {
+        return AnalyticsReportParameters(code: barcode ?? "No Code")
     }
 
-    private class func logEvent(name: AnalyticsEventName, parameters: AnalyticsParameters) {
-        guard firebaseAvailable else {
-            return
-        }
-        let nameString = name.rawValue
-        let dictionary = parameters.dictionary
-        Analytics.logEvent(nameString, parameters: dictionary)
-        Crashlytics.crashlytics().log("\(nameString): \(dictionary ?? [:])")
-    }
-
-    private class var firebaseAvailable: Bool {
-        return Bundle(for: self).path(forResource: "GoogleService-Info", ofType: "plist") != nil
+    private func logEvent(name: AnalyticsEventName, parameters: AnalyticsParameters? = nil) {
+        let dictionary = parameters?.dictionary as? [String: String]
+        provider.logEvent(name: name.rawValue, parameters: dictionary)
     }
 }

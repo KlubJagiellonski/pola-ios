@@ -41,6 +41,10 @@ final class DI {
             FlashlightManager()
         }
 
+        container.register(AnalyticsProvider.self) { _ in
+            FirebaseAnalyticsProvider()
+        }
+
         container.register(ProductManager.self) { resolver in
             ProductManager(dataRequestFactory: resolver.resolve(DataRequestFactory.self)!)
         }
@@ -76,20 +80,22 @@ final class DI {
             ReportProblemViewController(reason: reason,
                                         productImageManager: resolver.resolve(ProductImageManager.self)!,
                                         reportManager: resolver.resolve(ReportManager.self)!,
-                                        keyboardManager: resolver.resolve(KeyboardManager.self)!)
+                                        keyboardManager: resolver.resolve(KeyboardManager.self)!,
+                                        analyticsProvider: resolver.resolve(AnalyticsProvider.self)!)
         }
 
         container.register(ScanResultViewController.self) { resolver, barcode in
             ScanResultViewController(barcode: barcode,
-                                     productManager: resolver.resolve(ProductManager.self)!)
+                                     productManager: resolver.resolve(ProductManager.self)!,
+                                     analyticsProvider: resolver.resolve(AnalyticsProvider.self)!)
         }
 
         container.register(ResultsViewController.self) { resolver in
-            ResultsViewController(barcodeValidator: resolver.resolve(BarcodeValidator.self)!)
+            ResultsViewController(barcodeValidator: resolver.resolve(BarcodeValidator.self)!, analyticsProvider: resolver.resolve(AnalyticsProvider.self)!)
         }
 
         container.register(ScanCodeViewController.self) { resolver in
-            ScanCodeViewController(flashlightManager: resolver.resolve(FlashlightManager.self)!)
+            ScanCodeViewController(flashlightManager: resolver.resolve(FlashlightManager.self)!, analyticsProvider: resolver.resolve(AnalyticsProvider.self)!)
         }
 
         return container
