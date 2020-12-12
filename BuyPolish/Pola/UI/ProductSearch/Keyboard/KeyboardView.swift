@@ -31,7 +31,7 @@ final class KeyboardView: UIView {
         okButton.setImage(R.image.kb_ok_highlighted(), for: .highlighted)
         contentView.addSubview(okButton)
 
-        infoTextLabel.text = R.string.localizable.type13Digits()
+        infoTextLabel.text = R.string.localizable.typeOrPasteCode()
         infoTextLabel.numberOfLines = 4
         infoTextLabel.font = Theme.titleFont
         infoTextLabel.textColor = Theme.clearColor
