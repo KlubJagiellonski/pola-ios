@@ -10,7 +10,7 @@ extension UIDevice {
         deviceInfo.append("- system: \(systemName), \(systemVersion)\n")
         let bundle = Bundle.main
         if let version = bundle.version, let shortVersion = bundle.shortVersion {
-            deviceInfo.append("- app: \(String(describing: version)), \(String(describing: shortVersion))\n")
+            deviceInfo.append("- app: \(version), \(shortVersion))\n")
         }
         deviceInfo.append("-------End-------")
         return deviceInfo
