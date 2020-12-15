@@ -9,7 +9,9 @@ extension UIDevice {
         var deviceInfo = "\n\n-------App & Device info--------\n"
         deviceInfo.append("- system: \(systemName), \(systemVersion)\n")
         let bundle = Bundle.main
-        deviceInfo.append("- app: \(bundle.version ?? ""), \(bundle.shortVersion ?? "")\n")
+        if let version = bundle.version, let shortVersion = bundle.shortVersion {
+            deviceInfo.append("- app: \(version), \(shortVersion))\n")
+        }
         deviceInfo.append("-------End-------")
         return deviceInfo
     }
