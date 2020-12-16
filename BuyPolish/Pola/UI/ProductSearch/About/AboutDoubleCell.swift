@@ -57,7 +57,7 @@ final class AboutDoubleCell: AboutBaseCell {
     private func applyStyle(for button: UIButton) {
         button.contentHorizontalAlignment = .left
         button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
-        button.backgroundColor = .white
+        button.backgroundColor = Theme.lightBackgroundColor
         button.setTitleColor(Theme.defaultTextColor, for: .normal)
         button.titleLabel?.font = Theme.normalFont
     }

@@ -52,7 +52,7 @@ final class ReportProblemView: UIView {
         addSubview(descriptionTitleLabel)
 
         descriptionTextView.textContainerInset = UIEdgeInsets(top: 10, left: 5, bottom: 10, right: 5)
-        descriptionTextView.backgroundColor = Theme.clearColor
+        descriptionTextView.backgroundColor = Theme.textViewBackgroundColor
         descriptionTextView.font = Theme.normalFont
         descriptionTextView.textColor = Theme.defaultTextColor
         descriptionTextView.placeholder = R.string.localizable.additionalInfo()

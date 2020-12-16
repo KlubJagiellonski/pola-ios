@@ -1,7 +1,7 @@
 import UIKit
 
 final class AboutSingleCell: AboutBaseCell {
-    private let whiteBackgroundView = UIView()
+    private let themeBackgroundView = UIView()
 
     func configure(rowInfo: AboutRow) {
         textLabel?.text = rowInfo.title
@@ -10,8 +10,8 @@ final class AboutSingleCell: AboutBaseCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        whiteBackgroundView.backgroundColor = .white
-        contentView.insertSubview(whiteBackgroundView, belowSubview: textLabel!)
+      themeBackgroundView.backgroundColor = Theme.lightBackgroundColor
+        contentView.insertSubview(themeBackgroundView, belowSubview: textLabel!)
 
         textLabel?.textColor = Theme.defaultTextColor
         textLabel?.font = Theme.normalFont
@@ -24,7 +24,7 @@ final class AboutSingleCell: AboutBaseCell {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        whiteBackgroundView.frame = bounds.insetBy(dx: backgroundHorizontalMargin, dy: backgroundVerticalMargin)
-        textLabel?.frame = whiteBackgroundView.frame.offsetBy(dx: 20.0, dy: .zero)
+        themeBackgroundView.frame = bounds.insetBy(dx: backgroundHorizontalMargin, dy: backgroundVerticalMargin)
+        textLabel?.frame = themeBackgroundView.frame.offsetBy(dx: 20.0, dy: .zero)
     }
 }
