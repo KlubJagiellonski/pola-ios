@@ -116,6 +116,7 @@ extension ResultsViewController: CardStackViewControllerDelegate {
         delegate?.resultsViewControllerDidCollapse()
         castedView.donateButton.isHidden = !(lastResultViewController?.scanResult?.donate?.showButton ?? false)
         isAddingCardEnabled = true
+
         if cardCount >= 3 {
             SKStoreReviewController.requestReview()
         }
