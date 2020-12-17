@@ -11,4 +11,9 @@ class ScanBarcodePage: BasePage {
         _ = app.staticTexts["OCEŃ NAS"].waitForExistence(timeout: waitForExistanceTimeout)
         return InformationPage(openFrom: self)
     }
+    
+    func isReviewRequestVisible() -> Bool {
+        let element = app.scrollViews.otherElements.containing(.staticText, identifier: "Podoba Ci się aplikacja „Pola”?").element
+        return element.waitForExistence(timeout: 10)
+    }
 }

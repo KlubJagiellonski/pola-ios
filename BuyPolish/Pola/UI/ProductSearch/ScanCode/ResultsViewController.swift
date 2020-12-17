@@ -1,5 +1,6 @@
 import AudioToolbox
 import UIKit
+import StoreKit
 
 protocol ResultsViewControllerDelegate: AnyObject {
     func resultsViewControllerDidExpandResult()
@@ -23,6 +24,10 @@ final class ResultsViewController: UIViewController {
 
     private var lastResultViewController: ScanResultViewController? {
         stackViewController.cards.last as? ScanResultViewController
+    }
+    
+    private var cardCount: Int {
+        stackViewController.cardCount
     }
 
     init(barcodeValidator: BarcodeValidator, analyticsProvider: AnalyticsProvider) {
@@ -111,6 +116,9 @@ extension ResultsViewController: CardStackViewControllerDelegate {
         delegate?.resultsViewControllerDidCollapse()
         castedView.donateButton.isHidden = !(lastResultViewController?.scanResult?.donate?.showButton ?? false)
         isAddingCardEnabled = true
+        if cardCount >= 3 {
+            SKStoreReviewController.requestReview()
+        }
     }
 
     func stackViewController(_: CardStackViewController, willAddCard _: UIViewController) {

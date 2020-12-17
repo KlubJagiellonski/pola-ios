@@ -45,4 +45,17 @@ final class ScanBarcodeWithResultPageUITests: PolaUITestCase {
 
         snapshotVerifyView()
     }
+    
+    func testThreeCardCollapse() {
+        let result = startingPageObject
+            .enterCodeAndWaitForResult(codeData: CodeData.Gustaw)
+            .enterCodeAndWaitForResult(codeData: CodeData.Koral)
+            .enterCodeAndOpenCompanyResult(codeData: CodeData.Naleczowianka)
+            .tapToCollapse()
+            .isReviewRequestVisible()
+        
+        XCTAssertTrue(result)
+        
+        snapshotVerifyView()
+    }
 }
