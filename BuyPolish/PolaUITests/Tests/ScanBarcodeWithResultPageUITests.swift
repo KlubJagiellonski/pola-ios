@@ -51,9 +51,9 @@ final class ScanBarcodeWithResultPageUITests: PolaUITestCase {
             .enterCodeAndWaitForResult(codeData: CodeData.Gustaw)
             .enterCodeAndWaitForResult(codeData: CodeData.Koral)
             .enterCodeAndOpenCompanyResult(codeData: CodeData.Naleczowianka)
-            .tapToCollapse()
+            .swipeToCollapse()
             .isReviewRequestVisible()
 
-        XCTAssertTrue(result)
+        XCTAssert(result, "Application rating alert did not appear")
     }
 }

@@ -10,8 +10,8 @@ final class CompanyPage: ResultPage {
         return ReportBugPage(app: app)
     }
 
-    func tapToCollapse() -> ScanBarcodePage {
-        app.scrollViews.otherElements.staticTexts["udział polskiego kapitału"].firstMatch.tap()
+    func swipeToCollapse() -> ScanBarcodePage {
+        app.swipeDown()
         return ScanBarcodePage(app: app)
     }
 }
