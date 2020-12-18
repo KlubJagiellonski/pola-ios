@@ -54,6 +54,6 @@ final class ScanBarcodeWithResultPageUITests: PolaUITestCase {
             .tapToCollapse()
             .isReviewRequestVisible()
 
-         XCTAssertTrue(result)
+        XCTAssertTrue(result)
     }
 }

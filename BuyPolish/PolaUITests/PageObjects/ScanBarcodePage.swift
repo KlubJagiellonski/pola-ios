@@ -13,7 +13,7 @@ class ScanBarcodePage: BasePage {
     }
 
     func isReviewRequestVisible() -> Bool {
-             let element = app.scrollViews.otherElements.containing(.staticText, identifier: "Podoba Ci się aplikacja „Pola”?").element
-             return element.waitForExistence(timeout: 2)
+        let element = app.scrollViews.otherElements.containing(.staticText, identifier: "Podoba Ci się aplikacja „Pola”?").element
+        return element.waitForExistence(timeout: waitForExistanceTimeout)
     }
 }

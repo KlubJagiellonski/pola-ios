@@ -1,6 +1,6 @@
 import AudioToolbox
-import UIKit
 import StoreKit
+import UIKit
 
 protocol ResultsViewControllerDelegate: AnyObject {
     func resultsViewControllerDidExpandResult()
@@ -95,7 +95,7 @@ final class ResultsViewController: UIViewController {
         }
     }
 
-    fileprivate  func requestReview() {
+    fileprivate func requestReview() {
         SKStoreReviewController.requestReview()
     }
 }
