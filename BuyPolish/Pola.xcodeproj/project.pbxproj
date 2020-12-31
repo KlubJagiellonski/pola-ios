@@ -100,6 +100,12 @@
 		84A81C5823EFF42200464745 /* CameraSessionCodeScannerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A81C5723EFF42200464745 /* CameraSessionCodeScannerManager.swift */; };
 		84A81C5A23EFF91300464745 /* ScannerCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A81C5923EFF91300464745 /* ScannerCodeViewController.swift */; };
 		84AAEDE0230B49DD006CA7EB /* UILabel+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AAEDDF230B49DD006CA7EB /* UILabel+Additions.swift */; };
+		84AB4BAF2599E9BE0008A6B2 /* OwnBrandContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB4BAD2599E9BE0008A6B2 /* OwnBrandContentViewController.swift */; };
+		84AB4BB52599E9E50008A6B2 /* OwnBrandContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB4BB42599E9E50008A6B2 /* OwnBrandContentView.swift */; };
+		84AB4BBD259A04A50008A6B2 /* OwnBrandCompanyTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB4BBC259A04A50008A6B2 /* OwnBrandCompanyTitleView.swift */; };
+		84AB4BC2259A0C660008A6B2 /* OwnBrandCompanyTitleViewSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB4BC1259A0C660008A6B2 /* OwnBrandCompanyTitleViewSnapshotTests.swift */; };
+		84AB4C32259B13140008A6B2 /* MainProggressViewSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB4C31259B13140008A6B2 /* MainProggressViewSnapshotTests.swift */; };
+		84AB4C3A259CB1260008A6B2 /* OwnBrandContentViewSnapshotTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB4C39259CB1260008A6B2 /* OwnBrandContentViewSnapshotTesting.swift */; };
 		84B87FCA2344084E007A6BFF /* ScanCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B87FC92344084E007A6BFF /* ScanCodeView.swift */; };
 		84BDC4A823EB774F00F462A0 /* MediaUploadRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BDC4A723EB774F00F462A0 /* MediaUploadRequestFactory.swift */; };
 		84CE3E6023BA895100FE8D66 /* AboutWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CE3E5F23BA895100FE8D66 /* AboutWebViewController.swift */; };
@@ -299,6 +305,12 @@
 		84A81C5723EFF42200464745 /* CameraSessionCodeScannerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraSessionCodeScannerManager.swift; sourceTree = "<group>"; };
 		84A81C5923EFF91300464745 /* ScannerCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerCodeViewController.swift; sourceTree = "<group>"; };
 		84AAEDDF230B49DD006CA7EB /* UILabel+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Additions.swift"; sourceTree = "<group>"; };
+		84AB4BAD2599E9BE0008A6B2 /* OwnBrandContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnBrandContentViewController.swift; sourceTree = "<group>"; };
+		84AB4BB42599E9E50008A6B2 /* OwnBrandContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnBrandContentView.swift; sourceTree = "<group>"; };
+		84AB4BBC259A04A50008A6B2 /* OwnBrandCompanyTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnBrandCompanyTitleView.swift; sourceTree = "<group>"; };
+		84AB4BC1259A0C660008A6B2 /* OwnBrandCompanyTitleViewSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnBrandCompanyTitleViewSnapshotTests.swift; sourceTree = "<group>"; };
+		84AB4C31259B13140008A6B2 /* MainProggressViewSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainProggressViewSnapshotTests.swift; sourceTree = "<group>"; };
+		84AB4C39259CB1260008A6B2 /* OwnBrandContentViewSnapshotTesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnBrandContentViewSnapshotTesting.swift; sourceTree = "<group>"; };
 		84B1B362225F975A009FA909 /* PolaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PolaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		84B1B366225F975A009FA909 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84B87FC92344084E007A6BFF /* ScanCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanCodeView.swift; sourceTree = "<group>"; };
@@ -576,11 +588,10 @@
 		37B64697C3925583CD36B426 /* ProductCard */ = {
 			isa = PBXGroup;
 			children = (
-				8402E1D52309BB610065E850 /* AltResultContentView.swift */,
-				84D8879E2336601700681C64 /* AltResultContentViewController.swift */,
+				84AB4BA42599E9400008A6B2 /* AltResultContent */,
+				84AB4BA52599E9570008A6B2 /* CompanyContent */,
+				84AB4BAC2599E9710008A6B2 /* OwnBrandContent */,
 				84F177DB22CABFF700238266 /* CheckRow.swift */,
-				849577D3230B53FC00FC9591 /* CompanyContentView.swift */,
-				84D887A0233669D800681C64 /* CompanyContentViewController.swift */,
 				8406E62C233D59A700B7313C /* MainProggressView.swift */,
 				84D887A42337A4B300681C64 /* ResultContentViewControllerFactory.swift */,
 				841DDD652311582800CB82DC /* ScanResultView.swift */,
@@ -734,6 +745,34 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		84AB4BA42599E9400008A6B2 /* AltResultContent */ = {
+			isa = PBXGroup;
+			children = (
+				8402E1D52309BB610065E850 /* AltResultContentView.swift */,
+				84D8879E2336601700681C64 /* AltResultContentViewController.swift */,
+			);
+			path = AltResultContent;
+			sourceTree = "<group>";
+		};
+		84AB4BA52599E9570008A6B2 /* CompanyContent */ = {
+			isa = PBXGroup;
+			children = (
+				849577D3230B53FC00FC9591 /* CompanyContentView.swift */,
+				84D887A0233669D800681C64 /* CompanyContentViewController.swift */,
+			);
+			path = CompanyContent;
+			sourceTree = "<group>";
+		};
+		84AB4BAC2599E9710008A6B2 /* OwnBrandContent */ = {
+			isa = PBXGroup;
+			children = (
+				84AB4BBC259A04A50008A6B2 /* OwnBrandCompanyTitleView.swift */,
+				84AB4BB42599E9E50008A6B2 /* OwnBrandContentView.swift */,
+				84AB4BAD2599E9BE0008A6B2 /* OwnBrandContentViewController.swift */,
+			);
+			path = OwnBrandContent;
+			sourceTree = "<group>";
+		};
 		84B1B363225F975A009FA909 /* PolaUITests */ = {
 			isa = PBXGroup;
 			children = (
@@ -772,6 +811,9 @@
 			isa = PBXGroup;
 			children = (
 				9EC3BC5023CDF55E00242B1E /* CheckRowSnapshotTests.swift */,
+				84AB4C31259B13140008A6B2 /* MainProggressViewSnapshotTests.swift */,
+				84AB4BC1259A0C660008A6B2 /* OwnBrandCompanyTitleViewSnapshotTests.swift */,
+				84AB4C39259CB1260008A6B2 /* OwnBrandContentViewSnapshotTesting.swift */,
 				846A991125EBA116007DFF88 /* ReportProblemViewControllerSnapshotTests.swift */,
 				8464A35025641F8800861FDB /* __Snapshots__ */,
 			);
@@ -1380,6 +1422,7 @@
 				84D8B77223EA202800CD0ECB /* DataRequestFactory.swift in Sources */,
 				841F7D9E235675A2007BE3F6 /* UIView+Additions.swift in Sources */,
 				84A81C4C23EE118300464745 /* PutAmazonRequestFactory.swift in Sources */,
+				84AB4BBD259A04A50008A6B2 /* OwnBrandCompanyTitleView.swift in Sources */,
 				849E40CF24143E54006E1B76 /* InMemoryCapturedImageManager.swift in Sources */,
 				8477CFC723CE137D00C72542 /* AboutRows.swift in Sources */,
 				8477CFCB23CE17B100C72542 /* DIContainer.swift in Sources */,
@@ -1433,6 +1476,8 @@
 				9EC3BC5C23CDFA2500242B1E /* AboutDoubleCell.swift in Sources */,
 				8477CFC823CE137D00C72542 /* AboutRowsFactory.swift in Sources */,
 				9E0FE73E251C0DA4005D98B3 /* KeyboardBarcode.swift in Sources */,
+				84AB4BAF2599E9BE0008A6B2 /* OwnBrandContentViewController.swift in Sources */,
+				84AB4BB52599E9E50008A6B2 /* OwnBrandContentView.swift in Sources */,
 				8477CFC923CE137D00C72542 /* AboutRow.swift in Sources */,
 				849E40CD24143DE5006E1B76 /* CapturedImageManager.swift in Sources */,
 				BDA76B5C21DE64AB003E9FD6 /* AnalyticsEventName.swift in Sources */,
@@ -1463,10 +1508,12 @@
 				846A991225EBA116007DFF88 /* ReportProblemViewControllerSnapshotTests.swift in Sources */,
 				841EC039257F7C9A008D8EC9 /* CodeData.swift in Sources */,
 				841EC028257F767C008D8EC9 /* AnalyticsHelperTests.swift in Sources */,
+				84AB4C32259B13140008A6B2 /* MainProggressViewSnapshotTests.swift in Sources */,
 				9EC3BBF823CDD74000242B1E /* UIColor_AdditionsTests.swift in Sources */,
 				841EC045257F7CC2008D8EC9 /* TestData+ScanResult.swift in Sources */,
 				846A995825EBA72C007DFF88 /* MockKeyboardManager.swift in Sources */,
 				846A995325EBA668007DFF88 /* MockReportManager.swift in Sources */,
+				84AB4C3A259CB1260008A6B2 /* OwnBrandContentViewSnapshotTesting.swift in Sources */,
 				9EC3BC5123CDF55F00242B1E /* CheckRowSnapshotTests.swift in Sources */,
 				848C6922225D044300D39E90 /* LaunchScreenSnapshotTests.swift in Sources */,
 				841EC020257F75E1008D8EC9 /* AnalyticsProviderMock.swift in Sources */,
@@ -1474,6 +1521,7 @@
 				846A991925EBA323007DFF88 /* MockProductImageManager.swift in Sources */,
 				846A992925EBA4CB007DFF88 /* MockAnalyticsProvider.swift in Sources */,
 				9EC3BBF923CDD74000242B1E /* Encodable_DictionaryTests.swift in Sources */,
+				84AB4BC2259A0C660008A6B2 /* OwnBrandCompanyTitleViewSnapshotTests.swift in Sources */,
 				847071D1251DFD21009E296A /* KeyboardBarcodeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

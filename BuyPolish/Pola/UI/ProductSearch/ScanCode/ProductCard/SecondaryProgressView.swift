@@ -72,6 +72,10 @@ final class SecondaryProgressView: UIView {
         percentLabel.frame = rect
     }
 
+    override var intrinsicContentSize: CGSize {
+        return CGSize(width: percentLabel.intrinsicContentSize.width, height: 20)
+    }
+
     override func sizeThatFits(_ size: CGSize) -> CGSize {
         return CGSize(width: size.width, height: 20)
     }
