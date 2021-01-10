@@ -9,4 +9,9 @@ final class CompanyPage: ResultPage {
         app.buttons["ZGŁOŚ"].tap()
         return ReportBugPage(app: app)
     }
+
+    func swipeToCollapse() -> ScanBarcodePage {
+        app.swipeDown()
+        return ScanBarcodePage(app: app)
+    }
 }
