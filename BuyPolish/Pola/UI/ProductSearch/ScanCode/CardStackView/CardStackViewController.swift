@@ -74,7 +74,7 @@ extension CardStackViewController: CardStackViewDelegate {
         delegate?.stackViewController(self, startPickingCard: viewControllerForView(card))
     }
 
-    func stackView(_ stackView: CardStackView, willCollapseCard card: UIView) {
+    func stackView(_: CardStackView, willCollapseCard card: UIView) {
         let vc = viewControllerForView(card)
         if let vc = vc as? CardStackViewControllerCard {
             vc.willBecameCollapsedCard()
