@@ -104,6 +104,20 @@ final class ScanResultViewController: UIViewController {
         UIAccessibility.post(notification: .screenChanged, argument: castedView.titleLabel)
     }
 
+    func setExpandedCard() {
+        castedView.titleLabel.numberOfLines = 0
+        castedView.heartImageView.isHidden = true
+        castedView.setNeedsLayout()
+    }
+
+    func setCollapsedCard() {
+        if let scanResult = self.scanResult {
+        castedView.titleLabel.numberOfLines = 1
+        castedView.heartImageView.isHidden = !(scanResult.isFriend ?? false)
+        castedView.setNeedsLayout()
+        }
+    }
+
     @objc
     private func reportProblemTapped() {
         guard let productId = scanResult?.productId else {
@@ -141,5 +155,13 @@ extension ScanResultViewController: CardStackViewControllerCard {
         if let scanResult = scanResult {
             analytics.opensCard(productResult: scanResult)
         }
+    }
+
+    func willBecameExpandedCard() {
+        setExpandedCard()
+    }
+
+    func willBecameCollapsedCard() {
+        setCollapsedCard()
     }
 }

@@ -93,11 +93,14 @@ final class ScanResultView: UIView {
         let horizontalPadding = CGFloat(10)
         let verticalPadding = CGFloat(14)
 
-        let verticalTitleSpace = titleHeight - contentProgreassInHeaderHeight
+        var verticalTitleSpace = titleHeight - contentProgreassInHeaderHeight
         let widthWithPadding = bounds.width - (2 * horizontalPadding)
 
         titleLabel.sizeToFit()
         var rect = titleLabel.frame
+        if rect.size.height + verticalPadding > verticalTitleSpace {
+            verticalTitleSpace = rect.size.height + verticalPadding
+        }
         rect.origin.x = horizontalPadding
         rect.origin.y = (verticalTitleSpace / 2) - (rect.height / 2)
         rect.size.width = widthWithPadding
