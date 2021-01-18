@@ -81,7 +81,7 @@ extension CardStackViewController: CardStackViewDelegate {
         }
     }
 
-    func stackView(_: CardStackView, didCollapseCard card: UIView) {
+    func stackView(_: CardStackView, didCollapseCard _: UIView) {
         delegate?.stackViewControllerDidCollapse(self)
     }
 }
