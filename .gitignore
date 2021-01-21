@@ -13,3 +13,4 @@ vendor/bundle
 R.generated.swift
 BuyPolish/build
 .vscode
+.DS_Store
