@@ -695,18 +695,19 @@
 		3BC2B7D925BA2DD6005B5B4D /* PolaTestsData */ = {
 			isa = PBXGroup;
 			children = (
-				3BC2B7DA25BA2DD6005B5B4D /* staropramen.json */,
+				3BC2B7DF25BA2DD6005B5B4D /* CodeData.swift */,
 				3BC2B7DB25BA2DD6005B5B4D /* gustaw.json */,
 				3BC2B7DC25BA2DD6005B5B4D /* isbn.json */,
-				3BC2B7DD25BA2DD6005B5B4D /* nestle_waters.json */,
 				3BC2B7DE25BA2DD6005B5B4D /* koral.json */,
-				3BC2B7DF25BA2DD6005B5B4D /* CodeData.swift */,
-				3BC2B7E025BA2DD6005B5B4D /* radziemska.json */,
-				3BC2B7E125BA2DD6005B5B4D /* lomza.json */,
 				3BC2B7E225BA2DD6005B5B4D /* krasnystaw.json */,
+				3BC2B7E125BA2DD6005B5B4D /* lomza.json */,
+				3BC2B7DD25BA2DD6005B5B4D /* nestle_waters.json */,
+				3BC2B7E025BA2DD6005B5B4D /* radziemska.json */,
+				3BC2B7DA25BA2DD6005B5B4D /* staropramen.json */,
 				3BC2B7E325BA2DD6005B5B4D /* tymbark.json */,
 			);
 			name = PolaTestsData;
+			path = PolaTestsData;
 			sourceTree = "<group>";
 		};
 		7B71219F6F5A578A5DE23F85 /* Pods */ = {
@@ -735,13 +736,13 @@
 		841EC034257F7C6F008D8EC9 /* PolaTestsData */ = {
 			isa = PBXGroup;
 			children = (
-				84E708312280A40300402E26 /* CodeData.swift */,
 				3BC2B7D925BA2DD6005B5B4D /* PolaTestsData */,
+				84E708312280A40300402E26 /* CodeData.swift */,
 				9EC3BC0523CDD76C00242B1E /* gustaw.json */,
 				9EC3BC0623CDD76C00242B1E /* isbn.json */,
 				9EC3BC0823CDD76C00242B1E /* koral.json */,
-				9EC3BC0B23CDD76C00242B1E /* lomza.json */,
 				3BC2B7D125BA2A88005B5B4D /* krasnystaw.json */,
+				9EC3BC0B23CDD76C00242B1E /* lomza.json */,
 				9EC3BC0723CDD76C00242B1E /* nestle_waters.json */,
 				9EC3BC0A23CDD76C00242B1E /* radziemska.json */,
 				9EC3BC0423CDD76C00242B1E /* staropramen.json */,
