@@ -28,6 +28,26 @@
 		37B645454FC2ACC155CB1538 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B6472FF4603F63771FADE6 /* AVFoundation.framework */; };
 		37B64B7D226FBFA23FFCA1C1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 37B645C93F848A6F598F96E2 /* Localizable.strings */; };
 		3BC2B7D225BA2A88005B5B4D /* krasnystaw.json in Resources */ = {isa = PBXBuildFile; fileRef = 3BC2B7D125BA2A88005B5B4D /* krasnystaw.json */; };
+		3BC2B7E425BA2DD6005B5B4D /* staropramen.json in Resources */ = {isa = PBXBuildFile; fileRef = 3BC2B7DA25BA2DD6005B5B4D /* staropramen.json */; };
+		3BC2B7E525BA2DD6005B5B4D /* staropramen.json in Resources */ = {isa = PBXBuildFile; fileRef = 3BC2B7DA25BA2DD6005B5B4D /* staropramen.json */; };
+		3BC2B7E625BA2DD6005B5B4D /* gustaw.json in Resources */ = {isa = PBXBuildFile; fileRef = 3BC2B7DB25BA2DD6005B5B4D /* gustaw.json */; };
+		3BC2B7E725BA2DD6005B5B4D /* gustaw.json in Resources */ = {isa = PBXBuildFile; fileRef = 3BC2B7DB25BA2DD6005B5B4D /* gustaw.json */; };
+		3BC2B7E825BA2DD6005B5B4D /* isbn.json in Resources */ = {isa = PBXBuildFile; fileRef = 3BC2B7DC25BA2DD6005B5B4D /* isbn.json */; };
+		3BC2B7E925BA2DD6005B5B4D /* isbn.json in Resources */ = {isa = PBXBuildFile; fileRef = 3BC2B7DC25BA2DD6005B5B4D /* isbn.json */; };
+		3BC2B7EA25BA2DD6005B5B4D /* nestle_waters.json in Resources */ = {isa = PBXBuildFile; fileRef = 3BC2B7DD25BA2DD6005B5B4D /* nestle_waters.json */; };
+		3BC2B7EB25BA2DD6005B5B4D /* nestle_waters.json in Resources */ = {isa = PBXBuildFile; fileRef = 3BC2B7DD25BA2DD6005B5B4D /* nestle_waters.json */; };
+		3BC2B7EC25BA2DD6005B5B4D /* koral.json in Resources */ = {isa = PBXBuildFile; fileRef = 3BC2B7DE25BA2DD6005B5B4D /* koral.json */; };
+		3BC2B7ED25BA2DD6005B5B4D /* koral.json in Resources */ = {isa = PBXBuildFile; fileRef = 3BC2B7DE25BA2DD6005B5B4D /* koral.json */; };
+		3BC2B7EE25BA2DD6005B5B4D /* CodeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC2B7DF25BA2DD6005B5B4D /* CodeData.swift */; };
+		3BC2B7EF25BA2DD6005B5B4D /* CodeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC2B7DF25BA2DD6005B5B4D /* CodeData.swift */; };
+		3BC2B7F025BA2DD6005B5B4D /* radziemska.json in Resources */ = {isa = PBXBuildFile; fileRef = 3BC2B7E025BA2DD6005B5B4D /* radziemska.json */; };
+		3BC2B7F125BA2DD6005B5B4D /* radziemska.json in Resources */ = {isa = PBXBuildFile; fileRef = 3BC2B7E025BA2DD6005B5B4D /* radziemska.json */; };
+		3BC2B7F225BA2DD6005B5B4D /* lomza.json in Resources */ = {isa = PBXBuildFile; fileRef = 3BC2B7E125BA2DD6005B5B4D /* lomza.json */; };
+		3BC2B7F325BA2DD6005B5B4D /* lomza.json in Resources */ = {isa = PBXBuildFile; fileRef = 3BC2B7E125BA2DD6005B5B4D /* lomza.json */; };
+		3BC2B7F425BA2DD6005B5B4D /* krasnystaw.json in Resources */ = {isa = PBXBuildFile; fileRef = 3BC2B7E225BA2DD6005B5B4D /* krasnystaw.json */; };
+		3BC2B7F525BA2DD6005B5B4D /* krasnystaw.json in Resources */ = {isa = PBXBuildFile; fileRef = 3BC2B7E225BA2DD6005B5B4D /* krasnystaw.json */; };
+		3BC2B7F625BA2DD6005B5B4D /* tymbark.json in Resources */ = {isa = PBXBuildFile; fileRef = 3BC2B7E325BA2DD6005B5B4D /* tymbark.json */; };
+		3BC2B7F725BA2DD6005B5B4D /* tymbark.json in Resources */ = {isa = PBXBuildFile; fileRef = 3BC2B7E325BA2DD6005B5B4D /* tymbark.json */; };
 		8402E1D62309BB610065E850 /* AltResultContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402E1D52309BB610065E850 /* AltResultContentView.swift */; };
 		8406E62D233D59A700B7313C /* MainProggressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8406E62C233D59A700B7313C /* MainProggressView.swift */; };
 		8406E62F233D5FC000B7313C /* SecondaryProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8406E62E233D5FC000B7313C /* SecondaryProgressView.swift */; };
@@ -218,7 +238,17 @@
 		353A5B3434B75B4C54FB4DBB /* Pods-Pola-PolaUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola-PolaUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pola-PolaUITests/Pods-Pola-PolaUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		3785987405128CA0B1DA9512 /* Pods-Pola.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pola/Pods-Pola.release.xcconfig"; sourceTree = "<group>"; };
 		37B6472FF4603F63771FADE6 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		3BC2B7D125BA2A88005B5B4D /* krasnystaw.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = krasnystaw.json; path = PolaTestsData/krasnystaw.json; sourceTree = "<group>"; };
+		3BC2B7D125BA2A88005B5B4D /* krasnystaw.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = krasnystaw.json; sourceTree = "<group>"; };
+		3BC2B7DA25BA2DD6005B5B4D /* staropramen.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = staropramen.json; sourceTree = "<group>"; };
+		3BC2B7DB25BA2DD6005B5B4D /* gustaw.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = gustaw.json; sourceTree = "<group>"; };
+		3BC2B7DC25BA2DD6005B5B4D /* isbn.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = isbn.json; sourceTree = "<group>"; };
+		3BC2B7DD25BA2DD6005B5B4D /* nestle_waters.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = nestle_waters.json; sourceTree = "<group>"; };
+		3BC2B7DE25BA2DD6005B5B4D /* koral.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = koral.json; sourceTree = "<group>"; };
+		3BC2B7DF25BA2DD6005B5B4D /* CodeData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeData.swift; sourceTree = "<group>"; };
+		3BC2B7E025BA2DD6005B5B4D /* radziemska.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = radziemska.json; sourceTree = "<group>"; };
+		3BC2B7E125BA2DD6005B5B4D /* lomza.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lomza.json; sourceTree = "<group>"; };
+		3BC2B7E225BA2DD6005B5B4D /* krasnystaw.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = krasnystaw.json; sourceTree = "<group>"; };
+		3BC2B7E325BA2DD6005B5B4D /* tymbark.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = tymbark.json; sourceTree = "<group>"; };
 		5310C93A6052FC9BA4E8C020 /* Pods-Pola.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pola/Pods-Pola.debug.xcconfig"; sourceTree = "<group>"; };
 		53F3B599F258259843E2755D /* Pods_Pola_PolaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pola_PolaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D7DD012073B8CCDD821A2D0 /* Pods-Pola-PolaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola-PolaTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pola-PolaTests/Pods-Pola-PolaTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -411,7 +441,6 @@
 		1D08E81A19A7621A00879BD2 = {
 			isa = PBXGroup;
 			children = (
-				3BC2B7D125BA2A88005B5B4D /* krasnystaw.json */,
 				1D08E82519A7621A00879BD2 /* Frameworks */,
 				7B71219F6F5A578A5DE23F85 /* Pods */,
 				1D08E82E19A7621A00879BD2 /* Pola */,
@@ -663,6 +692,23 @@
 			path = ScanCode;
 			sourceTree = "<group>";
 		};
+		3BC2B7D925BA2DD6005B5B4D /* PolaTestsData */ = {
+			isa = PBXGroup;
+			children = (
+				3BC2B7DA25BA2DD6005B5B4D /* staropramen.json */,
+				3BC2B7DB25BA2DD6005B5B4D /* gustaw.json */,
+				3BC2B7DC25BA2DD6005B5B4D /* isbn.json */,
+				3BC2B7DD25BA2DD6005B5B4D /* nestle_waters.json */,
+				3BC2B7DE25BA2DD6005B5B4D /* koral.json */,
+				3BC2B7DF25BA2DD6005B5B4D /* CodeData.swift */,
+				3BC2B7E025BA2DD6005B5B4D /* radziemska.json */,
+				3BC2B7E125BA2DD6005B5B4D /* lomza.json */,
+				3BC2B7E225BA2DD6005B5B4D /* krasnystaw.json */,
+				3BC2B7E325BA2DD6005B5B4D /* tymbark.json */,
+			);
+			name = PolaTestsData;
+			sourceTree = "<group>";
+		};
 		7B71219F6F5A578A5DE23F85 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -690,10 +736,12 @@
 			isa = PBXGroup;
 			children = (
 				84E708312280A40300402E26 /* CodeData.swift */,
+				3BC2B7D925BA2DD6005B5B4D /* PolaTestsData */,
 				9EC3BC0523CDD76C00242B1E /* gustaw.json */,
 				9EC3BC0623CDD76C00242B1E /* isbn.json */,
 				9EC3BC0823CDD76C00242B1E /* koral.json */,
 				9EC3BC0B23CDD76C00242B1E /* lomza.json */,
+				3BC2B7D125BA2A88005B5B4D /* krasnystaw.json */,
 				9EC3BC0723CDD76C00242B1E /* nestle_waters.json */,
 				9EC3BC0A23CDD76C00242B1E /* radziemska.json */,
 				9EC3BC0423CDD76C00242B1E /* staropramen.json */,
@@ -992,11 +1040,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BC2B7F025BA2DD6005B5B4D /* radziemska.json in Resources */,
 				841EC03A257F7C9A008D8EC9 /* staropramen.json in Resources */,
 				841EC03C257F7C9A008D8EC9 /* lomza.json in Resources */,
 				841EC036257F7C9A008D8EC9 /* isbn.json in Resources */,
+				3BC2B7EA25BA2DD6005B5B4D /* nestle_waters.json in Resources */,
 				841EC035257F7C9A008D8EC9 /* tymbark.json in Resources */,
+				3BC2B7EC25BA2DD6005B5B4D /* koral.json in Resources */,
 				1D08E85019A7621A00879BD2 /* InfoPlist.strings in Resources */,
+				3BC2B7F625BA2DD6005B5B4D /* tymbark.json in Resources */,
 				1DEFA1C01BD9920600938C81 /* Lato-Semibold.ttf in Resources */,
 				841EC03D257F7C9A008D8EC9 /* radziemska.json in Resources */,
 				1DEFA1BE1BD9920600938C81 /* Lato-Regular.ttf in Resources */,
@@ -1004,6 +1056,11 @@
 				1DEFA1BC1BD9920600938C81 /* Lato-Light.ttf in Resources */,
 				841EC03B257F7C9A008D8EC9 /* nestle_waters.json in Resources */,
 				841EC037257F7C9A008D8EC9 /* gustaw.json in Resources */,
+				3BC2B7E425BA2DD6005B5B4D /* staropramen.json in Resources */,
+				3BC2B7E825BA2DD6005B5B4D /* isbn.json in Resources */,
+				3BC2B7F225BA2DD6005B5B4D /* lomza.json in Resources */,
+				3BC2B7F425BA2DD6005B5B4D /* krasnystaw.json in Resources */,
+				3BC2B7E625BA2DD6005B5B4D /* gustaw.json in Resources */,
 				841EC02D257F78C4008D8EC9 /* __Snapshots__ in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1012,15 +1069,24 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BC2B7F325BA2DD6005B5B4D /* lomza.json in Resources */,
 				3BC2B7D225BA2A88005B5B4D /* krasnystaw.json in Resources */,
 				9EC3BC1D23CDD76C00242B1E /* tymbark.json in Resources */,
+				3BC2B7F125BA2DD6005B5B4D /* radziemska.json in Resources */,
+				3BC2B7ED25BA2DD6005B5B4D /* koral.json in Resources */,
 				9EC3BC1523CDD76C00242B1E /* staropramen.json in Resources */,
+				3BC2B7F525BA2DD6005B5B4D /* krasnystaw.json in Resources */,
 				9EC3BC1723CDD76C00242B1E /* isbn.json in Resources */,
+				3BC2B7E525BA2DD6005B5B4D /* staropramen.json in Resources */,
 				9EC3BC1B23CDD76C00242B1E /* radziemska.json in Resources */,
 				9EC3BC1823CDD76C00242B1E /* nestle_waters.json in Resources */,
 				9EC3BC1C23CDD76C00242B1E /* lomza.json in Resources */,
 				9EC3BC1623CDD76C00242B1E /* gustaw.json in Resources */,
+				3BC2B7E925BA2DD6005B5B4D /* isbn.json in Resources */,
+				3BC2B7EB25BA2DD6005B5B4D /* nestle_waters.json in Resources */,
 				9EC3BC1A23CDD76C00242B1E /* create_report.json in Resources */,
+				3BC2B7F725BA2DD6005B5B4D /* tymbark.json in Resources */,
+				3BC2B7E725BA2DD6005B5B4D /* gustaw.json in Resources */,
 				9EC3BC1923CDD76C00242B1E /* koral.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1437,6 +1503,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BC2B7EE25BA2DD6005B5B4D /* CodeData.swift in Sources */,
 				841EC039257F7C9A008D8EC9 /* CodeData.swift in Sources */,
 				841EC028257F767C008D8EC9 /* AnalyticsHelperTests.swift in Sources */,
 				9EC3BBF823CDD74000242B1E /* UIColor_AdditionsTests.swift in Sources */,
@@ -1468,6 +1535,7 @@
 				9EC3BC2223CDD9D100242B1E /* CompanyPage.swift in Sources */,
 				9EC3BC2C23CDD9D100242B1E /* ScanBarcodePage.swift in Sources */,
 				9EC3BC1423CDD76C00242B1E /* MockServerRunner.swift in Sources */,
+				3BC2B7EF25BA2DD6005B5B4D /* CodeData.swift in Sources */,
 				9EC3BC2123CDD9D100242B1E /* BasePage.swift in Sources */,
 				9EC3BC1E23CDD76C00242B1E /* MockServer.swift in Sources */,
 				9EC3BC2923CDD9D100242B1E /* ResultPage.swift in Sources */,
