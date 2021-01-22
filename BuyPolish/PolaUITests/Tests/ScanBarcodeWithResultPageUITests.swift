@@ -64,12 +64,4 @@ final class ScanBarcodeWithResultPageUITests: PolaUITestCase {
 
         snapshotVerifyView()
     }
-
-    func testLongNameCollapsed() {
-        startingPageObject
-            .enterCodeAndWaitForResult(codeData: CodeData.Krasnystaw)
-            .done()
-
-        snapshotVerifyView()
-    }
 }
