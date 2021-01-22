@@ -14,8 +14,12 @@ final class CardStackViewLayoutLayoutExpanded: CardStackViewLayout {
         stackView.delegate?.stackView(stackView, willExpandCard: selectedCard)
     }
 
+    func willBecomeInactive() {
+        stackView.delegate?.stackView(stackView, willCollapseCard: selectedCard)
+    }
+
     func didBecomeInactive() {
-        stackView.delegate?.stackViewDidCollapse(stackView)
+        stackView.delegate?.stackView(stackView, didCollapseCard: selectedCard)
     }
 
     func didBecomeActive() {
@@ -54,6 +58,7 @@ final class CardStackViewLayoutLayoutExpanded: CardStackViewLayout {
             return
         }
         let newLayout = CardStackViewLayoutLayoutCollapsed()
+        willBecomeInactive()
         stackView.setCurrentLayout(newLayout, animated: true, completionBlock: nil)
     }
 
@@ -65,6 +70,7 @@ final class CardStackViewLayoutLayoutExpanded: CardStackViewLayout {
         case .recognized:
             if drag > 100 {
                 let newLayout = CardStackViewLayoutLayoutCollapsed()
+                willBecomeInactive()
                 stackView.setCurrentLayout(newLayout, animated: true, completionBlock: nil)
             } else {
                 drag = 0

@@ -45,4 +45,12 @@ final class CompanyPageUITests: PolaUITestCase {
 
         snapshotVerifyView()
     }
+
+    func testLongName() {
+        startingPageObject
+            .enterCodeAndOpenCompanyResult(codeData: CodeData.Krasnystaw)
+            .done()
+
+        snapshotVerifyView()
+    }
 }

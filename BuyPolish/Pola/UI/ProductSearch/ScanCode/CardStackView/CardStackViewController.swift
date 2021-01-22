@@ -56,6 +56,10 @@ extension CardStackViewController: CardStackViewDelegate {
 
     func stackView(_: CardStackView, willExpandCard card: UIView) {
         delegate?.stackViewController(self, willExpandCard: viewControllerForView(card))
+        let vc = viewControllerForView(card)
+        if let vc = vc as? CardStackViewControllerCard {
+            vc.willBecameExpandedCard()
+        }
     }
 
     func stackView(_: CardStackView, didExpandCard card: UIView) {
@@ -70,7 +74,14 @@ extension CardStackViewController: CardStackViewDelegate {
         delegate?.stackViewController(self, startPickingCard: viewControllerForView(card))
     }
 
-    func stackViewDidCollapse(_: CardStackView) {
+    func stackView(_: CardStackView, willCollapseCard card: UIView) {
+        let vc = viewControllerForView(card)
+        if let vc = vc as? CardStackViewControllerCard {
+            vc.willBecameCollapsedCard()
+        }
+    }
+
+    func stackView(_: CardStackView, didCollapseCard _: UIView) {
         delegate?.stackViewControllerDidCollapse(self)
     }
 }
