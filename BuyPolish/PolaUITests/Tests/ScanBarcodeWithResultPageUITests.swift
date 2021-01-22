@@ -57,9 +57,9 @@ final class ScanBarcodeWithResultPageUITests: PolaUITestCase {
         XCTAssert(result, "Application rating alert did not appear")
     }
 
-    func testLongName() {
+    func testLongNameCollapsed() {
         startingPageObject
-            .enterCodeAndOpenCompanyResult(codeData: CodeData.Krasnystaw)
+            .enterCodeAndWaitForResult(codeData: CodeData.Krasnystaw)
             .done()
 
         snapshotVerifyView()

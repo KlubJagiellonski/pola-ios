@@ -46,10 +46,9 @@ final class CompanyPageUITests: PolaUITestCase {
         snapshotVerifyView()
     }
 
-
-    func testLongNameCollapsed() {
+    func testLongName() {
         startingPageObject
-            .enterCodeAndWaitForResult(codeData: CodeData.Krasnystaw)
+            .enterCodeAndOpenCompanyResult(codeData: CodeData.Krasnystaw)
             .done()
 
         snapshotVerifyView()

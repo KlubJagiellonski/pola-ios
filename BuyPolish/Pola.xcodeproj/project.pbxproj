@@ -996,7 +996,6 @@
 				841EC03C257F7C9A008D8EC9 /* lomza.json in Resources */,
 				841EC036257F7C9A008D8EC9 /* isbn.json in Resources */,
 				841EC035257F7C9A008D8EC9 /* tymbark.json in Resources */,
-				3B88A23B25BB139D00EFE032 /* krasnystaw.json in Resources */,
 				1D08E85019A7621A00879BD2 /* InfoPlist.strings in Resources */,
 				1DEFA1C01BD9920600938C81 /* Lato-Semibold.ttf in Resources */,
 				841EC03D257F7C9A008D8EC9 /* radziemska.json in Resources */,
