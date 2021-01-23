@@ -12,6 +12,7 @@ final class ReportProblemView: UIView {
     private let descriptionBottomShadowView = UIView()
     let sendButtom = UIButton(type: .custom)
     fileprivate var bottomMargin = CGFloat.zero
+    fileprivate var isImageContainerHidden = false
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -103,42 +104,79 @@ final class ReportProblemView: UIView {
             height: helpLabel.height(forWidth: widthWithoutPadding)
         )
 
-        photoTitleLable.frameOrigin = CGPoint(
-            x: padding,
-            y: helpLabel.frame.maxY + verticalMargin
-        )
+        if isImageContainerHidden {
+            descriptionTitleLabel.frameOrigin = CGPoint(
+                x: padding,
+                y: helpLabel.frame.maxY + verticalMargin
+            )
 
-        imagesContainer.frameOrigin = CGPoint(
-            x: padding,
-            y: photoTitleLable.frame.maxY + titleMargin
-        )
-        imagesContainer.frameSize = imagesContainer.sizeThatFits(CGSize(width: widthWithoutPadding, height: .zero))
+            sendButtom.frame = CGRect(
+                x: padding,
+                y: bounds.height - padding - sendButtomHeight - bottomMargin,
+                width: widthWithoutPadding,
+                height: sendButtomHeight
+            )
 
-        descriptionTitleLabel.frameOrigin = CGPoint(
-            x: padding,
-            y: max(imagesContainer.frame.maxY + verticalMargin - bottomMargin, padding + topSafeAreaInset)
-        )
+            descriptionTextView.frame = CGRect(
+                x: padding,
+                y: descriptionTitleLabel.frame.maxY + titleMargin,
+                width: widthWithoutPadding,
+                height: sendButtom.frame.minY - verticalMargin - descriptionTitleLabel.frame.maxY
+            )
 
-        sendButtom.frame = CGRect(
-            x: padding,
-            y: bounds.height - padding - sendButtomHeight - bottomMargin,
-            width: widthWithoutPadding,
-            height: sendButtomHeight
-        )
+            descriptionBottomShadowView.frame = CGRect(
+                x: descriptionTextView.frame.minX,
+                y: descriptionTextView.frame.maxY,
+                width: descriptionTextView.frame.width,
+                height: descriptionShadowHeight
+            )
+        } else {
+            photoTitleLable.frameOrigin = CGPoint(
+                x: padding,
+                y: helpLabel.frame.maxY + verticalMargin
+            )
 
-        descriptionTextView.frame = CGRect(
-            x: padding,
-            y: descriptionTitleLabel.frame.maxY + titleMargin,
-            width: widthWithoutPadding,
-            height: sendButtom.frame.minY - verticalMargin - descriptionTitleLabel.frame.maxY
-        )
+            imagesContainer.frameOrigin = CGPoint(
+                x: padding,
+                y: photoTitleLable.frame.maxY + titleMargin
+            )
+            imagesContainer.frameSize = imagesContainer.sizeThatFits(CGSize(width: widthWithoutPadding, height: .zero))
 
-        descriptionBottomShadowView.frame = CGRect(
-            x: descriptionTextView.frame.minX,
-            y: descriptionTextView.frame.maxY,
-            width: descriptionTextView.frame.width,
-            height: descriptionShadowHeight
-        )
+            descriptionTitleLabel.frameOrigin = CGPoint(
+                x: padding,
+                y: max(imagesContainer.frame.maxY + verticalMargin - bottomMargin, padding + topSafeAreaInset)
+            )
+
+            sendButtom.frame = CGRect(
+                x: padding,
+                y: bounds.height - padding - sendButtomHeight - bottomMargin,
+                width: widthWithoutPadding,
+                height: sendButtomHeight
+            )
+
+            descriptionTextView.frame = CGRect(
+                x: padding,
+                y: descriptionTitleLabel.frame.maxY + titleMargin,
+                width: widthWithoutPadding,
+                height: sendButtom.frame.minY - verticalMargin - descriptionTitleLabel.frame.maxY
+            )
+
+            descriptionBottomShadowView.frame = CGRect(
+                x: descriptionTextView.frame.minX,
+                y: descriptionTextView.frame.maxY,
+                width: descriptionTextView.frame.width,
+                height: descriptionShadowHeight
+            )
+        }
+    }
+
+    func hideImageContainer() {
+        imagesContainer.isHidden = true
+        photoTitleLable.isHidden = true
+        helpLabel.text = R.string.localizable.writeADataErrorRaport()
+        descriptionTitleLabel.text = R.string.localizable.description()
+        isImageContainerHidden = true
+        layoutSubviews()
     }
 }
 

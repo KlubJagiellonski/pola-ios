@@ -9,6 +9,7 @@ final class ReportProblemViewController: UIViewController {
     private let reason: ReportProblemReason
     private let analytics: AnalyticsHelper
     private var imageCount: Int = 0
+    private var sendImageEnabled: Bool = false
 
     private var castedView: ReportProblemView! {
         view as? ReportProblemView
@@ -42,6 +43,11 @@ final class ReportProblemViewController: UIViewController {
         castedView.sendButtom.addTarget(self, action: #selector(sendRaport), for: .touchUpInside)
         castedView.closeButton.addTarget(self, action: #selector(close), for: .touchUpInside)
         castedView.imagesContainer.delegate = self
+        castedView.descriptionTextView.delegate = self
+
+        if !sendImageEnabled {
+            castedView.hideImageContainer()
+        }
 
         initializeImages()
         updateReportButtonState()
@@ -69,7 +75,11 @@ final class ReportProblemViewController: UIViewController {
     }
 
     private func updateReportButtonState() {
-        castedView.sendButtom.isEnabled = imageCount > 0
+        if sendImageEnabled {
+            castedView.sendButtom.isEnabled = imageCount > 0
+        } else {
+            castedView.sendButtom.isEnabled = !castedView.descriptionTextView.text.isEmpty
+        }
     }
 
     @objc
@@ -154,6 +164,12 @@ extension ReportProblemViewController: UIImagePickerControllerDelegate {
         imageCount += 1
         updateReportButtonState()
         dismiss(animated: true, completion: nil)
+    }
+}
+
+extension ReportProblemViewController: UITextViewDelegate {
+    func textViewDidChange(_: UITextView) {
+        updateReportButtonState()
     }
 }
 
