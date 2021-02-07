@@ -37,8 +37,6 @@ class OwnBrandContentView: UIView {
         descriptionView.numberOfLines = 0
         descriptionView.sizeToFit()
         descriptionView.lineBreakMode = .byWordWrapping
-//        descriptionView.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-//        descriptionView.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
         addSubview(descriptionView)
 
         let verticalPadding = CGFloat(20)

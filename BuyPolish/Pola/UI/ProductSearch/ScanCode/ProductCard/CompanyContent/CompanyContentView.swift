@@ -27,31 +27,25 @@ final class CompanyContentView: UIView {
         capitalTitleLabel.font = Theme.normalFont
         capitalTitleLabel.textColor = Theme.defaultTextColor
         capitalTitleLabel.text = localizable.percentOfPolishHolders()
-        capitalTitleLabel.sizeToFit()
         capitalTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         stackView.addArrangedSubview(capitalTitleLabel)
 
-        capitalProgressView.sizeToFit()
         capitalProgressView.translatesAutoresizingMaskIntoConstraints = false
         stackView.addArrangedSubview(capitalProgressView)
 
         notGlobalCheckRow.text = localizable.notPartOfGlobalCompany()
-        notGlobalCheckRow.sizeToFit()
         notGlobalCheckRow.translatesAutoresizingMaskIntoConstraints = false
         stackView.addArrangedSubview(notGlobalCheckRow)
 
         registeredCheckRow.text = localizable.isRegisteredInPoland()
-        registeredCheckRow.sizeToFit()
         registeredCheckRow.translatesAutoresizingMaskIntoConstraints = false
         stackView.addArrangedSubview(registeredCheckRow)
 
         rndCheckRow.text = localizable.createdRichSalaryWorkPlaces()
-        rndCheckRow.sizeToFit()
         rndCheckRow.translatesAutoresizingMaskIntoConstraints = false
         stackView.addArrangedSubview(rndCheckRow)
 
         workersCheckRow.text = localizable.producingInPL()
-        workersCheckRow.sizeToFit()
         workersCheckRow.translatesAutoresizingMaskIntoConstraints = false
         stackView.addArrangedSubview(workersCheckRow)
 
@@ -68,7 +62,6 @@ final class CompanyContentView: UIView {
         friendButton.adjustsImageWhenHighlighted = false
         friendButton.isHidden = true
         friendButton.translatesAutoresizingMaskIntoConstraints = false
-        friendButton.sizeToFit()
         stackView.addArrangedSubview(friendButton)
 
         descriptionLabel.font = Theme.normalFont
@@ -76,8 +69,6 @@ final class CompanyContentView: UIView {
         descriptionLabel.numberOfLines = 0
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         stackView.addArrangedSubview(descriptionLabel)
-
-        stackView.sizeToFit()
 
         createConstraints()
     }
@@ -91,7 +82,7 @@ final class CompanyContentView: UIView {
             stackView.topAnchor.constraint(equalTo: topAnchor),
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            stackView.bottomAnchor.constraint(greaterThanOrEqualTo: bottomAnchor),
         ])
     }
 }

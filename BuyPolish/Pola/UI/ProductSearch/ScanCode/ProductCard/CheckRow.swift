@@ -32,7 +32,7 @@ final class CheckRow: UIView {
             accessibilityLabel = text
             textLabel.sizeToFit()
             setNeedsLayout()
-        invalidateIntrinsicContentSize()
+            invalidateIntrinsicContentSize()
         }
     }
 
