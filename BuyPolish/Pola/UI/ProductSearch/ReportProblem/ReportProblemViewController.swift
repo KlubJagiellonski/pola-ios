@@ -75,11 +75,7 @@ final class ReportProblemViewController: UIViewController {
     }
 
     private func updateReportButtonState() {
-        if sendImageEnabled {
-            castedView.sendButtom.isEnabled = imageCount > 0
-        } else {
-            castedView.sendButtom.isEnabled = !castedView.descriptionTextView.text.isEmpty
-        }
+        castedView.sendButtom.isEnabled = imageCount > 0 || !castedView.descriptionTextView.text.isEmpty
     }
 
     @objc
