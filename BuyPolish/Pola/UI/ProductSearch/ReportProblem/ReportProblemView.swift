@@ -104,7 +104,7 @@ final class ReportProblemView: UIView {
         ]
 
         imagesContainerHiddenConstraint = [
-            descriptionTitleLabel.topAnchor.constraint(equalTo: helpLabel.bottomAnchor, constant: verticalMargin)
+            descriptionTitleLabel.topAnchor.constraint(equalTo: helpLabel.bottomAnchor, constant: verticalMargin),
         ]
 
         NSLayoutConstraint.activate([
