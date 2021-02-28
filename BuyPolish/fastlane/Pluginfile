@@ -1,3 +1,4 @@
 gem 'fastlane-plugin-menigit'
 gem 'fastlane-plugin-synx'
 gem 'fastlane-plugin-swiftformat'
+gem 'fastlane-plugin-test_center'

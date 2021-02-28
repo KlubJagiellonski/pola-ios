@@ -10,11 +10,14 @@ platform :ios do
   end
 
   lane :unit_tests do
-    scan(scheme: "Pola")
+    multi_scan(scheme: "Pola")
   end
 
   lane :ui_tests do
-    scan(scheme: "PolaUITests")
+    multi_scan(
+      scheme: "PolaUITests",
+      try_count: 3
+    )
   end
 
   lane :record_snapshots do
