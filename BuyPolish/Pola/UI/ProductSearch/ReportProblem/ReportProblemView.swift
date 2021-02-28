@@ -44,7 +44,7 @@ final class ReportProblemView: UIView {
 
         helpLabel.font = Theme.normalFont
         helpLabel.textColor = Theme.defaultTextColor
-        helpLabel.text = R.string.localizable.writeADataErrorRaport()
+        helpLabel.text = isImageEnabled ? R.string.localizable.writeADataErrorRaportOrSendImages() : R.string.localizable.writeADataErrorRaport()
         helpLabel.numberOfLines = 0
         helpLabel.translatesAutoresizingMaskIntoConstraints = false
         helpLabel.sizeToFit()
