@@ -66,6 +66,11 @@
 		84601A3E2405C47600AD2A2D /* EANBarcodeValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84601A3D2405C47600AD2A2D /* EANBarcodeValidatorTests.swift */; };
 		846036F22418574A00982FC6 /* UIDevice+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846036F0241856DB00982FC6 /* UIDevice+Additions.swift */; };
 		84633B3423F8113F0069219C /* KeyboardTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84633B3323F8113F0069219C /* KeyboardTextView.swift */; };
+		846A991225EBA116007DFF88 /* ReportProblemViewControllerSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846A991125EBA116007DFF88 /* ReportProblemViewControllerSnapshotTests.swift */; };
+		846A991925EBA323007DFF88 /* MockProductImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846A991825EBA323007DFF88 /* MockProductImageManager.swift */; };
+		846A992925EBA4CB007DFF88 /* MockAnalyticsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846A992825EBA4CB007DFF88 /* MockAnalyticsProvider.swift */; };
+		846A995325EBA668007DFF88 /* MockReportManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846A995225EBA668007DFF88 /* MockReportManager.swift */; };
+		846A995825EBA72C007DFF88 /* MockKeyboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846A995725EBA72C007DFF88 /* MockKeyboardManager.swift */; };
 		847071D1251DFD21009E296A /* KeyboardBarcodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847071D0251DFD21009E296A /* KeyboardBarcodeTests.swift */; };
 		84735A6423BB63B00053D1E5 /* AnalyticsAboutRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84735A6323BB63B00053D1E5 /* AnalyticsAboutRow.swift */; };
 		84735A6A23BB92C80053D1E5 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84735A6923BB92C80053D1E5 /* AboutViewController.swift */; };
@@ -259,6 +264,11 @@
 		8464A34F25641F7800861FDB /* __Snapshots__ */ = {isa = PBXFileReference; lastKnownFileType = folder; path = __Snapshots__; sourceTree = "<group>"; };
 		8464A35025641F8800861FDB /* __Snapshots__ */ = {isa = PBXFileReference; lastKnownFileType = folder; path = __Snapshots__; sourceTree = "<group>"; };
 		8464A35125641F9200861FDB /* __Snapshots__ */ = {isa = PBXFileReference; lastKnownFileType = folder; path = __Snapshots__; sourceTree = "<group>"; };
+		846A991125EBA116007DFF88 /* ReportProblemViewControllerSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportProblemViewControllerSnapshotTests.swift; sourceTree = "<group>"; };
+		846A991825EBA323007DFF88 /* MockProductImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockProductImageManager.swift; sourceTree = "<group>"; };
+		846A992825EBA4CB007DFF88 /* MockAnalyticsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAnalyticsProvider.swift; sourceTree = "<group>"; };
+		846A995225EBA668007DFF88 /* MockReportManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockReportManager.swift; sourceTree = "<group>"; };
+		846A995725EBA72C007DFF88 /* MockKeyboardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockKeyboardManager.swift; sourceTree = "<group>"; };
 		847071D0251DFD21009E296A /* KeyboardBarcodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardBarcodeTests.swift; sourceTree = "<group>"; };
 		84735A6323BB63B00053D1E5 /* AnalyticsAboutRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsAboutRow.swift; sourceTree = "<group>"; };
 		84735A6923BB92C80053D1E5 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
@@ -482,6 +492,7 @@
 			isa = PBXGroup;
 			children = (
 				841EC010257F75B7008D8EC9 /* Manager */,
+				846A991725EBA317007DFF88 /* Mocks */,
 				1D08E84C19A7621A00879BD2 /* SupportingFiles */,
 				84F177E222CB6FDC00238266 /* UI */,
 				9EC3BBF423CDD74000242B1E /* Utilities */,
@@ -702,6 +713,17 @@
 			path = PolaTestsData;
 			sourceTree = "<group>";
 		};
+		846A991725EBA317007DFF88 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				846A992825EBA4CB007DFF88 /* MockAnalyticsProvider.swift */,
+				846A995725EBA72C007DFF88 /* MockKeyboardManager.swift */,
+				846A991825EBA323007DFF88 /* MockProductImageManager.swift */,
+				846A995225EBA668007DFF88 /* MockReportManager.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
 		8477CFC323CE137D00C72542 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -750,6 +772,7 @@
 			isa = PBXGroup;
 			children = (
 				9EC3BC5023CDF55E00242B1E /* CheckRowSnapshotTests.swift */,
+				846A991125EBA116007DFF88 /* ReportProblemViewControllerSnapshotTests.swift */,
 				8464A35025641F8800861FDB /* __Snapshots__ */,
 			);
 			path = UI;
@@ -1437,14 +1460,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				846A991225EBA116007DFF88 /* ReportProblemViewControllerSnapshotTests.swift in Sources */,
 				841EC039257F7C9A008D8EC9 /* CodeData.swift in Sources */,
 				841EC028257F767C008D8EC9 /* AnalyticsHelperTests.swift in Sources */,
 				9EC3BBF823CDD74000242B1E /* UIColor_AdditionsTests.swift in Sources */,
 				841EC045257F7CC2008D8EC9 /* TestData+ScanResult.swift in Sources */,
+				846A995825EBA72C007DFF88 /* MockKeyboardManager.swift in Sources */,
+				846A995325EBA668007DFF88 /* MockReportManager.swift in Sources */,
 				9EC3BC5123CDF55F00242B1E /* CheckRowSnapshotTests.swift in Sources */,
 				848C6922225D044300D39E90 /* LaunchScreenSnapshotTests.swift in Sources */,
 				841EC020257F75E1008D8EC9 /* AnalyticsProviderMock.swift in Sources */,
 				84601A3E2405C47600AD2A2D /* EANBarcodeValidatorTests.swift in Sources */,
+				846A991925EBA323007DFF88 /* MockProductImageManager.swift in Sources */,
+				846A992925EBA4CB007DFF88 /* MockAnalyticsProvider.swift in Sources */,
 				9EC3BBF923CDD74000242B1E /* Encodable_DictionaryTests.swift in Sources */,
 				847071D1251DFD21009E296A /* KeyboardBarcodeTests.swift in Sources */,
 			);

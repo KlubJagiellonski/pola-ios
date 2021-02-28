@@ -35,7 +35,7 @@ final class ReportProblemViewController: UIViewController {
     }
 
     override func loadView() {
-        view = ReportProblemView(isImageEnabled: false)
+        view = ReportProblemView(isImageEnabled: isImageEnabled)
     }
 
     override func viewDidLoad() {
