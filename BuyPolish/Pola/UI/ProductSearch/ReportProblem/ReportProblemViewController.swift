@@ -8,8 +8,8 @@ final class ReportProblemViewController: UIViewController {
     private let keyboardManager: KeyboardManager
     private let reason: ReportProblemReason
     private let analytics: AnalyticsHelper
+    private let isImageEnabled: Bool
     private var imageCount: Int = 0
-    private var sendImageEnabled: Bool = false
 
     private var castedView: ReportProblemView! {
         view as? ReportProblemView
@@ -19,11 +19,13 @@ final class ReportProblemViewController: UIViewController {
          productImageManager: ProductImageManager,
          reportManager: ReportManager,
          keyboardManager: KeyboardManager,
-         analyticsProvider: AnalyticsProvider) {
+         analyticsProvider: AnalyticsProvider,
+         isImageEnabled: Bool = false) {
         self.reason = reason
         self.productImageManager = productImageManager
         self.reportManager = reportManager
         self.keyboardManager = keyboardManager
+        self.isImageEnabled = isImageEnabled
         analytics = AnalyticsHelper(provider: analyticsProvider)
         super.init(nibName: nil, bundle: nil)
     }
@@ -33,21 +35,17 @@ final class ReportProblemViewController: UIViewController {
     }
 
     override func loadView() {
-        view = ReportProblemView()
+        view = ReportProblemView(isImageEnabled: false)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         keyboardManager.delegate = castedView
-        castedView.sendButtom.addTarget(self, action: #selector(sendRaport), for: .touchUpInside)
+        castedView.sendButton.addTarget(self, action: #selector(sendRaport), for: .touchUpInside)
         castedView.closeButton.addTarget(self, action: #selector(close), for: .touchUpInside)
         castedView.imagesContainer.delegate = self
         castedView.descriptionTextView.delegate = self
-
-        if !sendImageEnabled {
-            castedView.hideImageContainer()
-        }
 
         initializeImages()
         updateReportButtonState()
@@ -75,7 +73,7 @@ final class ReportProblemViewController: UIViewController {
     }
 
     private func updateReportButtonState() {
-        castedView.sendButtom.isEnabled = imageCount > 0 || !castedView.descriptionTextView.text.isEmpty
+        castedView.sendButton.isEnabled = imageCount > 0 || !castedView.descriptionTextView.text.isEmpty
     }
 
     @objc

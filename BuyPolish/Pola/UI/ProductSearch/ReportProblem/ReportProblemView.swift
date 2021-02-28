@@ -10,24 +10,24 @@ final class ReportProblemView: UIView {
     private let descriptionTitleLabel = UILabel()
     let descriptionTextView = UITextView()
     private let descriptionBottomShadowView = UIView()
-    let sendButtom = UIButton(type: .custom)
+    let sendButton = UIButton(type: .custom)
     fileprivate var bottomMargin = CGFloat.zero
     fileprivate let padding = CGFloat(16.0)
     var imagesContainerHiddenConstraint = [NSLayoutConstraint]()
     var imagesContainerVisibleConstraint = [NSLayoutConstraint]()
     var imagesContainerHeightConstraint: NSLayoutConstraint?
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(isImageEnabled: Bool = false) {
+        super.init(frame: .zero)
+
         translatesAutoresizingMaskIntoConstraints = false
-
-        let titleMargin = CGFloat(10.0)
-        let verticalMargin = CGFloat(25.0)
-        let sendButtomHeight = CGFloat(30.0)
-        let descriptionShadowHeight = CGFloat(1.0)
-
         backgroundColor = Theme.mediumBackgroundColor
 
+        setupViews(isImageEnabled: isImageEnabled)
+        setupAutoLayout(isImageEnabled: isImageEnabled)
+    }
+
+    private func setupViews(isImageEnabled: Bool) {
         titleLabel.font = Theme.titleFont
         titleLabel.textColor = Theme.defaultTextColor
         titleLabel.text = R.string.localizable.report()
@@ -50,17 +50,17 @@ final class ReportProblemView: UIView {
         helpLabel.sizeToFit()
         addSubview(helpLabel)
 
-        photoTitleLable.font = Theme.normalFont
-        photoTitleLable.textColor = Theme.defaultTextColor
-        photoTitleLable.text = R.string.localizable.photos()
-        photoTitleLable.translatesAutoresizingMaskIntoConstraints = false
-        photoTitleLable.sizeToFit()
-        addSubview(photoTitleLable)
+        if isImageEnabled {
+            photoTitleLable.font = Theme.normalFont
+            photoTitleLable.textColor = Theme.defaultTextColor
+            photoTitleLable.text = R.string.localizable.photos()
+            photoTitleLable.translatesAutoresizingMaskIntoConstraints = false
+            photoTitleLable.sizeToFit()
+            addSubview(photoTitleLable)
 
-        imagesContainer.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(imagesContainer)
-
-        imagesContainerHeightConstraint = imagesContainer.heightAnchor.constraint(equalToConstant: .zero)
+            imagesContainer.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(imagesContainer)
+        }
 
         descriptionTitleLabel.font = Theme.normalFont
         descriptionTitleLabel.textColor = Theme.defaultTextColor
@@ -68,13 +68,6 @@ final class ReportProblemView: UIView {
         descriptionTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionTitleLabel.sizeToFit()
         addSubview(descriptionTitleLabel)
-
-        sendButtom.setTitle(R.string.localizable.send(), for: .normal)
-        sendButtom.titleLabel?.font = Theme.buttonFont
-        sendButtom.setBackgroundImage(UIImage.image(color: Theme.actionColor), for: .normal)
-        sendButtom.setTitleColor(Theme.clearColor, for: .normal)
-        sendButtom.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(sendButtom)
 
         descriptionTextView.textContainerInset = UIEdgeInsets(top: 10, left: 5, bottom: 10, right: 5)
         descriptionTextView.backgroundColor = Theme.clearColor
@@ -88,18 +81,31 @@ final class ReportProblemView: UIView {
 
         descriptionBottomShadowView.backgroundColor = Theme.placeholderTextColor
         descriptionBottomShadowView.translatesAutoresizingMaskIntoConstraints = false
-
         addSubview(descriptionBottomShadowView)
+
+        sendButton.setTitle(R.string.localizable.send(), for: .normal)
+        sendButton.titleLabel?.font = Theme.buttonFont
+        sendButton.setBackgroundImage(UIImage.image(color: Theme.actionColor), for: .normal)
+        sendButton.setTitleColor(Theme.clearColor, for: .normal)
+        sendButton.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(sendButton)
+    }
+
+    private func setupAutoLayout(isImageEnabled: Bool) {
+        let titleMargin = CGFloat(10.0)
+        let verticalMargin = CGFloat(25.0)
+        let sendButtonHeight = CGFloat(30.0)
+        let descriptionShadowHeight = CGFloat(1.0)
+
+        imagesContainerHeightConstraint = imagesContainer.heightAnchor.constraint(equalToConstant: .zero)
 
         imagesContainerVisibleConstraint = [
             photoTitleLable.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: padding),
             photoTitleLable.topAnchor.constraint(equalTo: helpLabel.bottomAnchor, constant: verticalMargin),
-
             imagesContainer.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: padding),
             imagesContainer.topAnchor.constraint(equalTo: photoTitleLable.bottomAnchor, constant: titleMargin),
             imagesContainer.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -padding),
             imagesContainerHeightConstraint!,
-
             descriptionTitleLabel.topAnchor.constraint(equalTo: imagesContainer.bottomAnchor, constant: verticalMargin),
         ]
 
@@ -112,29 +118,24 @@ final class ReportProblemView: UIView {
             titleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: padding - bottomMargin),
             closeButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -padding),
             closeButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: padding - bottomMargin),
-
-            sendButtom.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: padding),
-            sendButtom.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -padding),
-            sendButtom.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -padding - bottomMargin),
-            sendButtom.heightAnchor.constraint(equalToConstant: sendButtomHeight),
-
             helpLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: padding),
             helpLabel.topAnchor.constraint(equalTo: closeButton.bottomAnchor, constant: verticalMargin),
-
             descriptionTitleLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: padding),
-
             descriptionTextView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: padding),
             descriptionTextView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -padding),
             descriptionTextView.topAnchor.constraint(equalTo: descriptionTitleLabel.bottomAnchor, constant: titleMargin),
-            descriptionTextView.bottomAnchor.constraint(equalTo: sendButtom.topAnchor, constant: -verticalMargin),
-
+            descriptionTextView.bottomAnchor.constraint(equalTo: sendButton.topAnchor, constant: -verticalMargin),
             descriptionBottomShadowView.widthAnchor.constraint(equalTo: descriptionTextView.widthAnchor),
             descriptionBottomShadowView.heightAnchor.constraint(equalToConstant: descriptionShadowHeight),
             descriptionBottomShadowView.bottomAnchor.constraint(equalTo: descriptionTextView.bottomAnchor),
             descriptionBottomShadowView.centerXAnchor.constraint(equalTo: descriptionTextView.centerXAnchor),
+            sendButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: padding),
+            sendButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -padding),
+            sendButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -padding - bottomMargin),
+            sendButton.heightAnchor.constraint(equalToConstant: sendButtonHeight),
         ])
 
-        NSLayoutConstraint.activate(imagesContainerVisibleConstraint)
+        NSLayoutConstraint.activate(isImageEnabled ? imagesContainerVisibleConstraint : imagesContainerHiddenConstraint)
     }
 
     required init?(coder _: NSCoder) {
@@ -144,19 +145,11 @@ final class ReportProblemView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        if !imagesContainer.isHidden {
+        if imagesContainerHeightConstraint != nil {
             let imagesContainerSize = imagesContainer.sizeThatFits(CGSize(width: safeAreaLayoutGuide.layoutFrame.width - (2.0 * padding), height: .zero))
             imagesContainerHeightConstraint?.constant = imagesContainerSize.height
             updateConstraintsIfNeeded()
         }
-    }
-
-    func hideImageContainer() {
-        imagesContainer.isHidden = true
-        photoTitleLable.isHidden = true
-        NSLayoutConstraint.deactivate(imagesContainerVisibleConstraint)
-        NSLayoutConstraint.activate(imagesContainerHiddenConstraint)
-        updateConstraintsIfNeeded()
     }
 }
 
