@@ -9,7 +9,11 @@ struct ReadMediaFileError: Error, LocalizedError {
     }
 }
 
-final class ReportManager {
+protocol ReportManager {
+    func send(report: Report) -> Promise<Void>
+}
+
+final class PolaReportManager: ReportManager {
     private let dataRequestFactory: DataRequestFactory
     private let uploadMediaRequestFactory: MediaUploadRequestFactory
     private let fileManager: FileManager
