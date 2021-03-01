@@ -16,6 +16,13 @@ class ReportProblemViewControllerSnapshotTests: XCTestCase {
     }
 
     func vc(isImageEnabled: Bool) -> ReportProblemViewController {
-        return ReportProblemViewController(reason: .general, productImageManager: MockProductImageManager(), reportManager: MockReportManager(), keyboardManager: MockKeyboardManager(), analyticsProvider: MockAnalyticsProvider(), isImageEnabled: isImageEnabled)
+        return ReportProblemViewController(
+            reason: .general,
+            productImageManager: MockProductImageManager(),
+            reportManager: MockReportManager(),
+            keyboardManager: MockKeyboardManager(),
+            analyticsProvider: MockAnalyticsProvider(),
+            isImageEnabled: isImageEnabled
+        )
     }
 }
