@@ -73,6 +73,7 @@
 		846A992925EBA4CB007DFF88 /* MockAnalyticsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846A992825EBA4CB007DFF88 /* MockAnalyticsProvider.swift */; };
 		846A995325EBA668007DFF88 /* MockReportManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846A995225EBA668007DFF88 /* MockReportManager.swift */; };
 		846A995825EBA72C007DFF88 /* MockKeyboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846A995725EBA72C007DFF88 /* MockKeyboardManager.swift */; };
+		846A996F25EBC7D4007DFF88 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846A996E25EBC7D4007DFF88 /* Company.swift */; };
 		847071D1251DFD21009E296A /* KeyboardBarcodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847071D0251DFD21009E296A /* KeyboardBarcodeTests.swift */; };
 		84735A6423BB63B00053D1E5 /* AnalyticsAboutRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84735A6323BB63B00053D1E5 /* AnalyticsAboutRow.swift */; };
 		84735A6A23BB92C80053D1E5 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84735A6923BB92C80053D1E5 /* AboutViewController.swift */; };
@@ -92,7 +93,10 @@
 		849E40CD24143DE5006E1B76 /* CapturedImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849E40CC24143DE5006E1B76 /* CapturedImageManager.swift */; };
 		849E40CF24143E54006E1B76 /* InMemoryCapturedImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849E40CE24143E54006E1B76 /* InMemoryCapturedImageManager.swift */; };
 		849E40D82415204C006E1B76 /* ScanBarcodePageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849E40D62415204C006E1B76 /* ScanBarcodePageUITests.swift */; };
-		849E50DB24A623A80064F269 /* AskForDonateResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849E50DA24A623A80064F269 /* AskForDonateResult.swift */; };
+		849E50DB24A623A80064F269 /* AskForDonate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849E50DA24A623A80064F269 /* AskForDonate.swift */; };
+		84A6A93425EDAAAE004199B9 /* AskForReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A6A93325EDAAAE004199B9 /* AskForReport.swift */; };
+		84A6A93F25EDAE40004199B9 /* UIButton+ReportType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A6A93E25EDAE40004199B9 /* UIButton+ReportType.swift */; };
+		84A6A97525EDB6F7004199B9 /* ScanResult+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A6A97425EDB6F7004199B9 /* ScanResult+Additions.swift */; };
 		84A81C4C23EE118300464745 /* PutAmazonRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A81C4B23EE118300464745 /* PutAmazonRequestFactory.swift */; };
 		84A81C4E23EE11B000464745 /* PolaRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A81C4D23EE11B000464745 /* PolaRequestFactory.swift */; };
 		84A81C5023EE1DBE00464745 /* BaseGalleryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A81C4F23EE1DBE00464745 /* BaseGalleryPage.swift */; };
@@ -279,6 +283,7 @@
 		846A992825EBA4CB007DFF88 /* MockAnalyticsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAnalyticsProvider.swift; sourceTree = "<group>"; };
 		846A995225EBA668007DFF88 /* MockReportManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockReportManager.swift; sourceTree = "<group>"; };
 		846A995725EBA72C007DFF88 /* MockKeyboardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockKeyboardManager.swift; sourceTree = "<group>"; };
+		846A996E25EBC7D4007DFF88 /* Company.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
 		847071D0251DFD21009E296A /* KeyboardBarcodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardBarcodeTests.swift; sourceTree = "<group>"; };
 		84735A6323BB63B00053D1E5 /* AnalyticsAboutRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsAboutRow.swift; sourceTree = "<group>"; };
 		84735A6923BB92C80053D1E5 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
@@ -299,7 +304,10 @@
 		849E40CC24143DE5006E1B76 /* CapturedImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapturedImageManager.swift; sourceTree = "<group>"; };
 		849E40CE24143E54006E1B76 /* InMemoryCapturedImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryCapturedImageManager.swift; sourceTree = "<group>"; };
 		849E40D62415204C006E1B76 /* ScanBarcodePageUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanBarcodePageUITests.swift; sourceTree = "<group>"; };
-		849E50DA24A623A80064F269 /* AskForDonateResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskForDonateResult.swift; sourceTree = "<group>"; };
+		849E50DA24A623A80064F269 /* AskForDonate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskForDonate.swift; sourceTree = "<group>"; };
+		84A6A93325EDAAAE004199B9 /* AskForReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskForReport.swift; sourceTree = "<group>"; };
+		84A6A93E25EDAE40004199B9 /* UIButton+ReportType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+ReportType.swift"; sourceTree = "<group>"; };
+		84A6A97425EDB6F7004199B9 /* ScanResult+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ScanResult+Additions.swift"; sourceTree = "<group>"; };
 		84A81C4B23EE118300464745 /* PutAmazonRequestFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PutAmazonRequestFactory.swift; sourceTree = "<group>"; };
 		84A81C4D23EE11B000464745 /* PolaRequestFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolaRequestFactory.swift; sourceTree = "<group>"; };
 		84A81C4F23EE1DBE00464745 /* BaseGalleryPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseGalleryPage.swift; sourceTree = "<group>"; };
@@ -601,6 +609,7 @@
 				841DDD652311582800CB82DC /* ScanResultView.swift */,
 				841DDD672311583E00CB82DC /* ScanResultViewController.swift */,
 				8406E62E233D5FC000B7313C /* SecondaryProgressView.swift */,
+				84A6A93E25EDAE40004199B9 /* UIButton+ReportType.swift */,
 			);
 			path = ProductCard;
 			sourceTree = "<group>";
@@ -634,12 +643,15 @@
 		37B64AE3A38FEC08E6CDE873 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				849E50DA24A623A80064F269 /* AskForDonateResult.swift */,
+				849E50DA24A623A80064F269 /* AskForDonate.swift */,
+				84A6A93325EDAAAE004199B9 /* AskForReport.swift */,
+				846A996E25EBC7D4007DFF88 /* Company.swift */,
 				84D8B77123EA202800CD0ECB /* DataRequestFactory.swift */,
 				84BDC4A723EB774F00F462A0 /* MediaUploadRequestFactory.swift */,
 				84A81C4D23EE11B000464745 /* PolaRequestFactory.swift */,
 				84A81C4B23EE118300464745 /* PutAmazonRequestFactory.swift */,
 				845F78D423BA28F8008DDFDF /* ScanResult.swift */,
+				84A6A97425EDB6F7004199B9 /* ScanResult+Additions.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1291,7 +1303,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$SRCROOT/Pola/R.generated.swift",
+				$SRCROOT/Pola/R.generated.swift,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1427,6 +1439,7 @@
 				BDA76B5E21DE64FD003E9FD6 /* AnalyticsParameters.swift in Sources */,
 				84D8B77223EA202800CD0ECB /* DataRequestFactory.swift in Sources */,
 				841F7D9E235675A2007BE3F6 /* UIView+Additions.swift in Sources */,
+				84A6A97525EDB6F7004199B9 /* ScanResult+Additions.swift in Sources */,
 				84A81C4C23EE118300464745 /* PutAmazonRequestFactory.swift in Sources */,
 				84AB4BBD259A04A50008A6B2 /* OwnBrandCompanyTitleView.swift in Sources */,
 				849E40CF24143E54006E1B76 /* InMemoryCapturedImageManager.swift in Sources */,
@@ -1448,6 +1461,7 @@
 				846036F22418574A00982FC6 /* UIDevice+Additions.swift in Sources */,
 				845F78D323BA28E2008DDFDF /* ProductManager.swift in Sources */,
 				84AAEDE0230B49DD006CA7EB /* UILabel+Additions.swift in Sources */,
+				846A996F25EBC7D4007DFF88 /* Company.swift in Sources */,
 				841BB98B22D133A900234946 /* Theme.swift in Sources */,
 				9E43AF7624279F3D0093627B /* ResultsViewController.swift in Sources */,
 				84BDC4A823EB774F00F462A0 /* MediaUploadRequestFactory.swift in Sources */,
@@ -1488,8 +1502,10 @@
 				849E40CD24143DE5006E1B76 /* CapturedImageManager.swift in Sources */,
 				BDA76B5C21DE64AB003E9FD6 /* AnalyticsEventName.swift in Sources */,
 				84D887A1233669D800681C64 /* CompanyContentViewController.swift in Sources */,
+				84A6A93425EDAAAE004199B9 /* AskForReport.swift in Sources */,
 				84CE3E6023BA895100FE8D66 /* AboutWebViewController.swift in Sources */,
-				849E50DB24A623A80064F269 /* AskForDonateResult.swift in Sources */,
+				849E50DB24A623A80064F269 /* AskForDonate.swift in Sources */,
+				84A6A93F25EDAE40004199B9 /* UIButton+ReportType.swift in Sources */,
 				9E43AF74242798780093627B /* ResultsView.swift in Sources */,
 				9EC3BC5B23CDFA2500242B1E /* AboutBaseCell.swift in Sources */,
 				9EC3BC4723CDF4FD00242B1E /* CardStackViewLayoutLayoutCollapsed.swift in Sources */,

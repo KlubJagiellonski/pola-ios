@@ -10,7 +10,7 @@ final class PolaRequestFactory: DataRequestFactory {
     }
 
     private var baseURL: String {
-        processInfo.environment["POLA_URL"] ?? "https://www.pola-app.pl/a/v3"
+        processInfo.environment["POLA_URL"] ?? "https://www.pola-app.pl/a/v4"
     }
 
     func request(path: String,
