@@ -27,7 +27,7 @@ final class ReportBugPage: BasePage {
     }
 
     func tapDescriptionLabel() -> ReportBugPage {
-        app.staticTexts["opis (opcjonalny):"].tap()
+        app.staticTexts["opis:"].tap()
         return self
     }
 
