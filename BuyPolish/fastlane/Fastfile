@@ -14,7 +14,11 @@ platform :ios do
   end
 
   lane :ui_tests do
-    scan(scheme: "PolaUITests")
+    try_scan(
+      scheme: "PolaUITests",
+      try_count: 3,
+      try_parallel: false
+    )
   end
 
   lane :record_snapshots do
@@ -34,6 +38,10 @@ platform :ios do
       fail_build: false
     )
     if is_ci
+      set_git_config_user(
+        name: "pola-ci",
+        email: "pola@klubjagiellonski.pl"
+      )
       git_commit(
         message: "Record snapshot :camera:",
         path: snapshots_paths
