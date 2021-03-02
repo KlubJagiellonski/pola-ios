@@ -34,6 +34,10 @@ platform :ios do
       fail_build: false
     )
     if is_ci
+      set_git_config_user(
+        name: "pola-ci",
+        email: "pola@klubjagiellonski.pl"
+      )
       git_commit(
         message: "Record snapshot :camera:",
         path: snapshots_paths
