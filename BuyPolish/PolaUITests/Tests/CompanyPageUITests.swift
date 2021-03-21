@@ -19,7 +19,15 @@ final class CompanyPageUITests: PolaUITestCase {
 
     func testKoralCompanyShouldNotShowReportButton() {
         startingPageObject
-            .enterCodeAndOpenCompanyResult(codeData: CodeData.Koral)
+            .enterCodeAndOpenCompanyResult(codeData: .Koral)
+            .done()
+
+        snapshotVerifyView()
+    }
+
+    func testOwnBrand() {
+        startingPageObject
+            .enterCodeAndOpenCompanyResult(codeData: .Lidl)
             .done()
 
         snapshotVerifyView()
@@ -27,7 +35,7 @@ final class CompanyPageUITests: PolaUITestCase {
 
     func testTapReportButton() {
         startingPageObject
-            .enterCodeAndOpenCompanyResult(codeData: CodeData.Koral)
+            .enterCodeAndOpenCompanyResult(codeData: .Radziemska)
             .tapReportButton()
             .done()
 
@@ -36,7 +44,7 @@ final class CompanyPageUITests: PolaUITestCase {
 
     func testLongName() {
         startingPageObject
-            .enterCodeAndOpenCompanyResult(codeData: CodeData.Krasnystaw)
+            .enterCodeAndOpenCompanyResult(codeData: .Krasnystaw)
             .done()
 
         snapshotVerifyView()

@@ -111,7 +111,7 @@
 		84AB4BBD259A04A50008A6B2 /* OwnBrandCompanyTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB4BBC259A04A50008A6B2 /* OwnBrandCompanyTitleView.swift */; };
 		84AB4BC2259A0C660008A6B2 /* OwnBrandCompanyTitleViewSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB4BC1259A0C660008A6B2 /* OwnBrandCompanyTitleViewSnapshotTests.swift */; };
 		84AB4C32259B13140008A6B2 /* MainProggressViewSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB4C31259B13140008A6B2 /* MainProggressViewSnapshotTests.swift */; };
-		84AB4C3A259CB1260008A6B2 /* OwnBrandContentViewSnapshotTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB4C39259CB1260008A6B2 /* OwnBrandContentViewSnapshotTesting.swift */; };
+		84AB4C3A259CB1260008A6B2 /* OwnBrandContentViewControllerSnapshotTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB4C39259CB1260008A6B2 /* OwnBrandContentViewControllerSnapshotTesting.swift */; };
 		84B87FCA2344084E007A6BFF /* ScanCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B87FC92344084E007A6BFF /* ScanCodeView.swift */; };
 		84BDC4A823EB774F00F462A0 /* MediaUploadRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BDC4A723EB774F00F462A0 /* MediaUploadRequestFactory.swift */; };
 		84CE3E6023BA895100FE8D66 /* AboutWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CE3E5F23BA895100FE8D66 /* AboutWebViewController.swift */; };
@@ -194,6 +194,8 @@
 		BDA76B5C21DE64AB003E9FD6 /* AnalyticsEventName.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA76B5B21DE64AB003E9FD6 /* AnalyticsEventName.swift */; };
 		BDA76B5E21DE64FD003E9FD6 /* AnalyticsParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA76B5D21DE64FD003E9FD6 /* AnalyticsParameters.swift */; };
 		C0D829791F3D11A600902F79 /* capture_video_instruction.mov in Resources */ = {isa = PBXBuildFile; fileRef = C0D829781F3D11A600902F79 /* capture_video_instruction.mov */; };
+		D346F9C32607D76B00F11ABD /* lidl.json in Resources */ = {isa = PBXBuildFile; fileRef = D346F9C22607D76B00F11ABD /* lidl.json */; };
+		D346F9C42607D76B00F11ABD /* lidl.json in Resources */ = {isa = PBXBuildFile; fileRef = D346F9C22607D76B00F11ABD /* lidl.json */; };
 		EE6DCD82B12208A085E935F9 /* Pods_Pola_PolaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53F3B599F258259843E2755D /* Pods_Pola_PolaTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -322,7 +324,7 @@
 		84AB4BBC259A04A50008A6B2 /* OwnBrandCompanyTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnBrandCompanyTitleView.swift; sourceTree = "<group>"; };
 		84AB4BC1259A0C660008A6B2 /* OwnBrandCompanyTitleViewSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnBrandCompanyTitleViewSnapshotTests.swift; sourceTree = "<group>"; };
 		84AB4C31259B13140008A6B2 /* MainProggressViewSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainProggressViewSnapshotTests.swift; sourceTree = "<group>"; };
-		84AB4C39259CB1260008A6B2 /* OwnBrandContentViewSnapshotTesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnBrandContentViewSnapshotTesting.swift; sourceTree = "<group>"; };
+		84AB4C39259CB1260008A6B2 /* OwnBrandContentViewControllerSnapshotTesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnBrandContentViewControllerSnapshotTesting.swift; sourceTree = "<group>"; };
 		84B1B362225F975A009FA909 /* PolaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PolaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		84B1B366225F975A009FA909 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84B87FC92344084E007A6BFF /* ScanCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanCodeView.swift; sourceTree = "<group>"; };
@@ -401,6 +403,7 @@
 		BDA76B5D21DE64FD003E9FD6 /* AnalyticsParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsParameters.swift; sourceTree = "<group>"; };
 		C0D829781F3D11A600902F79 /* capture_video_instruction.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = capture_video_instruction.mov; sourceTree = "<group>"; };
 		C62ECF2EDD7295D219A497A1 /* Pods-Pola-PolaUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola-PolaUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pola-PolaUITests/Pods-Pola-PolaUITests.release.xcconfig"; sourceTree = "<group>"; };
+		D346F9C22607D76B00F11ABD /* lidl.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = lidl.json; sourceTree = "<group>"; };
 		E0D971BD205A9438D64EBADE /* Pods-Pola-PolaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola-PolaTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pola-PolaTests/Pods-Pola-PolaTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F6C1969BFE86FEF4E186B26D /* Pods_Pola_PolaUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pola_PolaUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -650,8 +653,8 @@
 				84BDC4A723EB774F00F462A0 /* MediaUploadRequestFactory.swift */,
 				84A81C4D23EE11B000464745 /* PolaRequestFactory.swift */,
 				84A81C4B23EE118300464745 /* PutAmazonRequestFactory.swift */,
-				845F78D423BA28F8008DDFDF /* ScanResult.swift */,
 				84A6A97425EDB6F7004199B9 /* ScanResult+Additions.swift */,
+				845F78D423BA28F8008DDFDF /* ScanResult.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -731,6 +734,7 @@
 				9EC3BC0623CDD76C00242B1E /* isbn.json */,
 				9EC3BC0823CDD76C00242B1E /* koral.json */,
 				3B88A23A25BB139D00EFE032 /* krasnystaw.json */,
+				D346F9C22607D76B00F11ABD /* lidl.json */,
 				9EC3BC0B23CDD76C00242B1E /* lomza.json */,
 				9EC3BC0723CDD76C00242B1E /* nestle_waters.json */,
 				9EC3BC0A23CDD76C00242B1E /* radziemska.json */,
@@ -831,7 +835,7 @@
 				8430819225CFE8F600B96981 /* CompanyContentViewControllerSnapshotTests.swift */,
 				84AB4C31259B13140008A6B2 /* MainProggressViewSnapshotTests.swift */,
 				84AB4BC1259A0C660008A6B2 /* OwnBrandCompanyTitleViewSnapshotTests.swift */,
-				84AB4C39259CB1260008A6B2 /* OwnBrandContentViewSnapshotTesting.swift */,
+				84AB4C39259CB1260008A6B2 /* OwnBrandContentViewControllerSnapshotTesting.swift */,
 				846A991125EBA116007DFF88 /* ReportProblemViewControllerSnapshotTests.swift */,
 				8464A35025641F8800861FDB /* __Snapshots__ */,
 			);
@@ -1083,6 +1087,7 @@
 				1DEFA1C01BD9920600938C81 /* Lato-Semibold.ttf in Resources */,
 				841EC03D257F7C9A008D8EC9 /* radziemska.json in Resources */,
 				1DEFA1BE1BD9920600938C81 /* Lato-Regular.ttf in Resources */,
+				D346F9C32607D76B00F11ABD /* lidl.json in Resources */,
 				841EC038257F7C9A008D8EC9 /* koral.json in Resources */,
 				1DEFA1BC1BD9920600938C81 /* Lato-Light.ttf in Resources */,
 				841EC03B257F7C9A008D8EC9 /* nestle_waters.json in Resources */,
@@ -1098,6 +1103,7 @@
 				9EC3BC1D23CDD76C00242B1E /* tymbark.json in Resources */,
 				9EC3BC1523CDD76C00242B1E /* staropramen.json in Resources */,
 				9EC3BC1723CDD76C00242B1E /* isbn.json in Resources */,
+				D346F9C42607D76B00F11ABD /* lidl.json in Resources */,
 				9EC3BC1B23CDD76C00242B1E /* radziemska.json in Resources */,
 				3B88A23C25BB139D00EFE032 /* krasnystaw.json in Resources */,
 				9EC3BC1823CDD76C00242B1E /* nestle_waters.json in Resources */,
@@ -1536,7 +1542,7 @@
 				841EC045257F7CC2008D8EC9 /* TestData+ScanResult.swift in Sources */,
 				846A995825EBA72C007DFF88 /* MockKeyboardManager.swift in Sources */,
 				846A995325EBA668007DFF88 /* MockReportManager.swift in Sources */,
-				84AB4C3A259CB1260008A6B2 /* OwnBrandContentViewSnapshotTesting.swift in Sources */,
+				84AB4C3A259CB1260008A6B2 /* OwnBrandContentViewControllerSnapshotTesting.swift in Sources */,
 				9EC3BC5123CDF55F00242B1E /* CheckRowSnapshotTests.swift in Sources */,
 				848C6922225D044300D39E90 /* LaunchScreenSnapshotTests.swift in Sources */,
 				841EC020257F75E1008D8EC9 /* AnalyticsProviderMock.swift in Sources */,

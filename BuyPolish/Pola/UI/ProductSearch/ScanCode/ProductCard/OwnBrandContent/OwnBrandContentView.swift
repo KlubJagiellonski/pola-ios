@@ -1,36 +1,26 @@
 import UIKit
 
 class OwnBrandContentView: UIView {
-    private let primaryCompanyTitleView = OwnBrandCompanyTitleView(frame: .zero)
-    private let secondaryCompanyTitleView = OwnBrandCompanyTitleView(frame: .zero)
+    let primaryCompanyTitleView = OwnBrandCompanyTitleView(frame: .zero)
+    let secondaryCompanyTitleView = OwnBrandCompanyTitleView(frame: .zero)
 
-    private let descriptionView = UILabel(frame: .zero)
+    let descriptionView = UILabel(frame: .zero)
 
     override init(frame: CGRect) {
         super.init(frame: frame)
 
         translatesAutoresizingMaskIntoConstraints = false
-        primaryCompanyTitleView.title = "LIDL Polska Sp z o.o."
-        primaryCompanyTitleView.progress = 0.1
         primaryCompanyTitleView.translatesAutoresizingMaskIntoConstraints = false
         primaryCompanyTitleView.sizeToFit()
         primaryCompanyTitleView.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         addSubview(primaryCompanyTitleView)
 
-        secondaryCompanyTitleView.title = "TYMBARK - MWS Sp z o.o."
-        secondaryCompanyTitleView.progress = 1
         secondaryCompanyTitleView.translatesAutoresizingMaskIntoConstraints = false
         secondaryCompanyTitleView.sizeToFit()
         secondaryCompanyTitleView.setContentHuggingPriority(.defaultHigh, for: .horizontal)
 
         addSubview(secondaryCompanyTitleView)
 
-        descriptionView.text =
-            """
-            Produkt wyprodukowany dla marki własnej Pilos należącej do Lidl Polska sp z o.o. przez firmę Tymbark - MWS Sp z o.o.
-
-            Tapnij w nazwę firmy powyżej, aby dowiedzieć się o niej więcej.
-            """
         descriptionView.font = Theme.normalFont
         descriptionView.textColor = Theme.defaultTextColor
         descriptionView.translatesAutoresizingMaskIntoConstraints = false

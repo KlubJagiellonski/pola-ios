@@ -2,8 +2,8 @@ import UIKit
 
 final class ResultContentViewControllerFactory {
     static func create(scanResult: ScanResult) -> UIViewController {
-        if scanResult.code == "20820299" {
-            return OwnBrandContentViewController()
+        if scanResult.companies?.count == 2 {
+            return OwnBrandContentViewController(result: scanResult)
         }
 
         if let altText = scanResult.altText,

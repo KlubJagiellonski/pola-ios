@@ -1,0 +1,63 @@
+{
+  "product_id": 36984,
+  "code": "20268190",
+  "name": "Marka własna - Sieć Lidl",
+  "card_type": "type_white",
+  "altText": null,
+  "companies": [
+    {
+      "name": "MAZOWIECKA SPÓŁKA MLECZARSKA",
+      "plCapital": 100,
+      "plCapital_notes": "Spółka rodzima, notowana na Giełdzie Papierów Wartościowych. ",
+      "plWorkers": 100,
+      "plWorkers_notes": "Spółka produkuje swoje produkty w fabryce w Makowie Mazowieckim. ",
+      "plRnD": 0,
+      "plRnD_notes": "Brak informacji na temat działu BiR spółki. ",
+      "plRegistered": 100,
+      "plRegistered_notes": "Spółka zarejestrowana na terenie Polski, z siedzibą w Warszawie.",
+      "plNotGlobEnt": 100,
+      "plNotGlobEnt_notes": "Brak informacji na temat zależności spółki od zagranicznego kapitału. ",
+      "plScore": 85,
+      "is_friend": false,
+      "description": "Spółka notowana na Giełdzie Papierów Wartościowych. Firma posiada zakład produkcyjny pod Warszawą. ",
+      "sources": {
+        "Dane z KRS": "http://mojepanstwo.pl/dane/krs_podmioty/483801",
+        "Strona firmy": "http://msmsa.eu/"
+      }
+    },
+    {
+      "name": "Lidl Polska",
+      "plCapital": 0,
+      "plCapital_notes": "",
+      "plWorkers": 0,
+      "plWorkers_notes": "",
+      "plRnD": 0,
+      "plRnD_notes": "",
+      "plRegistered": 100,
+      "plRegistered_notes": "",
+      "plNotGlobEnt": 0,
+      "plNotGlobEnt_notes": "",
+      "plScore": 10,
+      "is_friend": false,
+      "description": "Niemiecka sieć handlowa. Polski oddział Spółki należy do Frf-beteiligungs-gesellschaft Mit Beschrankter Haftung. Marka „Lidl” należy do rodzinnej spółki Schwarz Beteiligungs GmbH, która jest także właścicielem sieci sklepów „Kaufland”. Spółka posiada ponad 500 sklepów na terenie całego kraju. Brak informacji na temat produkcji oraz prac badawczo - rozwojowych prowadzonych na terenie Polski.",
+      "sources": {
+        "Strona główna Firmy": "http://www.lidl.pl/pl/index.htm",
+        "O Firmie": "http://www.lidl.pl/pl/przedsiebiorstwo.htm",
+        "Historia": "http://www.lidl.pl/pl/historia.htm",
+        "Kontakt": "http://www.lidl.pl/pl/3166.htm",
+        "KRS": "https://mojepanstwo.pl/dane/krs_podmioty/172407,lidl-polska-sklepy-spozywcze-spolka-ograniczona-odpowiedzialnoscia",
+        "Wikipedia": "https://pl.wikipedia.org/wiki/Lidl"
+      }
+    }
+  ],
+  "report": {
+    "text": "Zgłoś jeśli posiadasz bardziej aktualne dane na temat tego produktu",
+    "button_text": "Zgłoś",
+    "button_type": "type_white"
+  },
+  "donate": {
+    "show_button": true,
+    "url": "https://klubjagiellonski.pl/zbiorka/wspieraj-aplikacje-pola/",
+    "title": "Wspieraj aplikację Pola"
+  }
+}

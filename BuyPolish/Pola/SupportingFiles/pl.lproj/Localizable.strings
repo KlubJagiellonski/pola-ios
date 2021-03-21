@@ -23,6 +23,7 @@
 "producing in PL" = "produkuje w Polsce";
 "This is Pola's friend" = "To jest przyjaciel Poli";
 "look at Pola's friends" = "ZOBACZ PRZYJACIÓŁ POLI";
+"Own brand description" = "Produkt wyprodukowany dla marki własnej należącej do %@ przez firmę %@";
 "Loading..." = "Pobieranie danych...";
 "Sending..." = "Wysyłanie...";
 "Report sent" = "Raport wysłany";

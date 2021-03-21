@@ -14,4 +14,5 @@ struct CodeData {
     static let Koral = CodeData(barcode: "5902121022303", result: "P. P. L. KORAL Józef Koral S.J.", responseFile: "koral")
     static let Naleczowianka = CodeData(barcode: "5900635001111", result: "Nestle Waters Polska S.A.", responseFile: "nestle_waters")
     static let Krasnystaw = CodeData(barcode: "5902057000475", result: "OKRĘGOWA SPÓŁDZIELNIA MLECZARSKA W KRASNYMSTAWIE", responseFile: "krasnystaw")
+    static let Lidl = CodeData(barcode: "20268190", result: "Marka własna - Sieć Lidl", responseFile: "lidl")
 }
