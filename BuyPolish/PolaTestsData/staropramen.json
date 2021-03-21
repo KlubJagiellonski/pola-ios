@@ -1,24 +1,38 @@
 {
   "product_id": 5126290,
   "code": "8593868002832",
-  "name": "Pivovary Staropramen",
-  "card_type": "type_grey",
-  "plScore": null,
+  "name": null,
+  "card_type": "type_white",
   "altText": null,
-  "plCapital": null,
-  "plCapital_notes": null,
-  "plWorkers": null,
-  "plWorkers_notes": null,
-  "plRnD": null,
-  "plRnD_notes": null,
-  "plRegistered": null,
-  "plRegistered_notes": null,
-  "plNotGlobEnt": null,
-  "plNotGlobEnt_notes": null,
-  "report_text": "Zgłoś jeśli posiadasz bardziej aktualne dane na temat tego produktu",
-  "report_button_text": "Zgłoś",
-  "report_button_type": "type_white",
-  "is_friend": false,
-  "description": "",
-  "sources": {}
+  "companies": [
+    {
+      "name": "Pivovary Staropramen sro",
+      "plCapital": 0,
+      "plCapital_notes": null,
+      "plWorkers": 0,
+      "plWorkers_notes": null,
+      "plRnD": 0,
+      "plRnD_notes": null,
+      "plRegistered": 0,
+      "plRegistered_notes": null,
+      "plNotGlobEnt": 0,
+      "plNotGlobEnt_notes": null,
+      "plScore": null,
+      "is_friend": false,
+      "description": "Wywodzący się z Czech producent piwa należący do grupy Molson Coors Group.",
+      "sources": {
+        "www": "https://pivovary-staropramen.cz/cs/o-nas/o-spolecnosti/"
+      }
+    }
+  ],
+  "report": {
+    "text": "Zgłoś jeśli posiadasz bardziej aktualne dane na temat tego produktu",
+    "button_text": "Zgłoś",
+    "button_type": "type_white"
+  },
+  "donate": {
+    "show_button": true,
+    "url": "https://klubjagiellonski.pl/zbiorka/wspieraj-aplikacje-pola/",
+    "title": "Wspieraj aplikację Pola"
+  }
 }

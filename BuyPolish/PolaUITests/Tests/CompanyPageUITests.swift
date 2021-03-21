@@ -17,7 +17,7 @@ final class CompanyPageUITests: PolaUITestCase {
         snapshotVerifyView()
     }
 
-    func testKoralCompanyShouldShowAskForDonateButton() {
+    func testKoralCompanyShouldNotShowReportButton() {
         startingPageObject
             .enterCodeAndOpenCompanyResult(codeData: CodeData.Koral)
             .done()
