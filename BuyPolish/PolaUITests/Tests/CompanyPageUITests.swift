@@ -2,22 +2,18 @@ import XCTest
 
 final class CompanyPageUITests: PolaUITestCase {
     func testRadziemskaCompanyShouldBeMarkedAsPolaFriends() {
-        let isPolaFriend =
-            startingPageObject
-                .enterCodeAndOpenCompanyResult(codeData: CodeData.Radziemska)
-                .isPolaFriend
+        startingPageObject
+            .enterCodeAndOpenCompanyResult(codeData: CodeData.Radziemska)
+            .done()
 
-        XCTAssertTrue(isPolaFriend)
         snapshotVerifyView()
     }
 
     func testStaropramenCompanyShouldNotBeMarkedAsPolaFriends() {
-        let isPolaFriend =
-            startingPageObject
-                .enterCodeAndOpenCompanyResult(codeData: CodeData.Staropramen)
-                .isPolaFriend
+        startingPageObject
+            .enterCodeAndOpenCompanyResult(codeData: CodeData.Staropramen)
+            .done()
 
-        XCTAssertFalse(isPolaFriend)
         snapshotVerifyView()
     }
 
