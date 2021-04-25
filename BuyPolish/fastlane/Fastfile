@@ -14,10 +14,8 @@ platform :ios do
   end
 
   lane :ui_tests do
-    try_scan(
+    scan(
       scheme: "PolaUITests",
-      try_count: 3,
-      try_parallel: false
     )
   end
 
