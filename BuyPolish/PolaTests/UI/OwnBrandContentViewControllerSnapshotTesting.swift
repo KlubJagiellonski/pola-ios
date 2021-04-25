@@ -3,7 +3,6 @@ import SnapshotTesting
 import XCTest
 
 class OwnBrandContentViewSnapshotTesting: XCTestCase {
-
     func testView_whenResultIsLidl() {
         testView(data: .Lidl)
     }
