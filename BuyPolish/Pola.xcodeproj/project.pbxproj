@@ -195,6 +195,7 @@
 		BDA76B5E21DE64FD003E9FD6 /* AnalyticsParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA76B5D21DE64FD003E9FD6 /* AnalyticsParameters.swift */; };
 		C0D829791F3D11A600902F79 /* capture_video_instruction.mov in Resources */ = {isa = PBXBuildFile; fileRef = C0D829781F3D11A600902F79 /* capture_video_instruction.mov */; };
 		D340FA53263B53E500121AAA /* UIButton+ReportTypeSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D340FA52263B53E500121AAA /* UIButton+ReportTypeSnapshotTests.swift */; };
+		D340FA60263B5D0000121AAA /* krasnystaw.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B88A23A25BB139D00EFE032 /* krasnystaw.json */; };
 		D346F9C32607D76B00F11ABD /* lidl.json in Resources */ = {isa = PBXBuildFile; fileRef = D346F9C22607D76B00F11ABD /* lidl.json */; };
 		D346F9C42607D76B00F11ABD /* lidl.json in Resources */ = {isa = PBXBuildFile; fileRef = D346F9C22607D76B00F11ABD /* lidl.json */; };
 		EE6DCD82B12208A085E935F9 /* Pods_Pola_PolaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53F3B599F258259843E2755D /* Pods_Pola_PolaTests.framework */; };
@@ -1091,6 +1092,7 @@
 				841EC03D257F7C9A008D8EC9 /* radziemska.json in Resources */,
 				1DEFA1BE1BD9920600938C81 /* Lato-Regular.ttf in Resources */,
 				D346F9C32607D76B00F11ABD /* lidl.json in Resources */,
+				D340FA60263B5D0000121AAA /* krasnystaw.json in Resources */,
 				841EC038257F7C9A008D8EC9 /* koral.json in Resources */,
 				1DEFA1BC1BD9920600938C81 /* Lato-Light.ttf in Resources */,
 				841EC03B257F7C9A008D8EC9 /* nestle_waters.json in Resources */,
