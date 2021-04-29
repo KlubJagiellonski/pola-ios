@@ -17,7 +17,6 @@ class MainProggressViewSnapshotTests: XCTestCase {
 
     func testView(progress: CGFloat, file: StaticString = #file, testName: String = #function, line: UInt = #line) {
         sut.progress = progress
-//        sut.layoutSubviews()
         sut.sizeToFit()
         sut.frameSize = CGSize(width: 100, height: sut.frameSize.height)
 
