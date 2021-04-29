@@ -27,11 +27,10 @@ class OwnBrandContentViewController: UIViewController {
             return
         }
 
-        setupCompanyTitleView(ownBrandView.primaryCompanyTitleView, company: companies[0])
-        setupCompanyTitleView(ownBrandView.secondaryCompanyTitleView, company: companies[1])
+        setupCompanyTitleView(ownBrandView.primaryCompanyTitleView, company: companies[1])
+        setupCompanyTitleView(ownBrandView.secondaryCompanyTitleView, company: companies[0])
 
-        ownBrandView.descriptionView.text =
-            R.string.localizable.ownBrandDescription(companies[1].name, companies[0].name)
+        ownBrandView.descriptionView.text = companies[0].description
     }
 
     private func setupCompanyTitleView(_ titleView: OwnBrandCompanyTitleView, company: Company) {
