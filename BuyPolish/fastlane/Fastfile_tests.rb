@@ -1,3 +1,6 @@
+import 'Fastfile_git.rb'
+import 'shared_constants.rb'
+
 swiftformat_executable = "Pods/SwiftFormat/CommandLineTool/swiftformat"
 testplan_full = "Full"
 
@@ -20,17 +23,10 @@ platform :ios do
       testplan: testplan_full,
       fail_build: false
     )
-    if is_ci
-      set_git_config_user(
-        name: "pola-ci",
-        email: "pola@klubjagiellonski.pl"
-      )
-      git_commit(
-        message: "Record snapshot :camera:",
-        path: snapshots_paths
-      )
-      push_to_git_remote
-    end
+    commit_and_push_if_ci(
+      message: "Record snapshot :camera:",
+      path: snapshots_paths
+    )
   end
 
   lane :check_project_structure do
