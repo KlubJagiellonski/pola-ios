@@ -410,6 +410,7 @@
 		D3E3CA0C264085A4002979E1 /* Unit.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Unit.xctestplan; sourceTree = "<group>"; };
 		D3E3CA0E264085CB002979E1 /* UI.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = UI.xctestplan; sourceTree = "<group>"; };
 		D3E3CA0F264085D8002979E1 /* Full.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Full.xctestplan; sourceTree = "<group>"; };
+		D3E3CA2526409BB4002979E1 /* BumpVersion.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = BumpVersion.xctestplan; sourceTree = "<group>"; };
 		E0D971BD205A9438D64EBADE /* Pods-Pola-PolaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola-PolaTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pola-PolaTests/Pods-Pola-PolaTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F6C1969BFE86FEF4E186B26D /* Pods_Pola_PolaUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pola_PolaUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -955,6 +956,7 @@
 		D3E3CA0D264085B0002979E1 /* PolaTestPlans */ = {
 			isa = PBXGroup;
 			children = (
+				D3E3CA2526409BB4002979E1 /* BumpVersion.xctestplan */,
 				D3E3CA0F264085D8002979E1 /* Full.xctestplan */,
 				D3E3CA0E264085CB002979E1 /* UI.xctestplan */,
 				D3E3CA0C264085A4002979E1 /* Unit.xctestplan */,

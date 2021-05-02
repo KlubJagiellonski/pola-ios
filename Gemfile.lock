@@ -140,6 +140,7 @@ GEM
       xcodeproj (>= 1.13.0, < 2.0.0)
       xcpretty (~> 0.3.0)
       xcpretty-travis-formatter (>= 0.0.3)
+    fastlane-plugin-delete_files (0.1.1)
     fastlane-plugin-menigit (1.0.1)
     fastlane-plugin-swiftformat (0.1.0)
     fastlane-plugin-synx (0.1.4)
@@ -277,6 +278,7 @@ PLATFORMS
 DEPENDENCIES
   cocoapods
   fastlane
+  fastlane-plugin-delete_files
   fastlane-plugin-menigit
   fastlane-plugin-swiftformat
   fastlane-plugin-synx
