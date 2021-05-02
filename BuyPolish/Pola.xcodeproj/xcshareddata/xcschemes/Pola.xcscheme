@@ -57,6 +57,9 @@
             default = "YES">
          </TestPlanReference>
          <TestPlanReference
+            reference = "container:PolaTestPlans/BumpVersion.xctestplan">
+         </TestPlanReference>
+         <TestPlanReference
             reference = "container:PolaTestPlans/UI.xctestplan">
          </TestPlanReference>
          <TestPlanReference

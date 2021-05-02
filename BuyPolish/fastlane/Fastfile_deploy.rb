@@ -18,6 +18,13 @@ platform :ios do
         target: 'Pola'
       )
 
+      delete_files(file_pattern:"PolaUITests/Tests/__Snapshots__/InformationPageUITests/testOpenInformationPage.1.png")
+      scan(
+        scheme: "Pola",
+        testplan: "BumpVersion",
+        fail_build: false
+      )
+
     end
 
   end

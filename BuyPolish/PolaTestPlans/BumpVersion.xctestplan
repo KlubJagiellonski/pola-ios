@@ -1,0 +1,34 @@
+{
+  "configurations" : [
+    {
+      "id" : "D46B4E4A-0FBD-4513-BB3C-D01C779D2F24",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "skippedTests" : [
+        "CompanyPageUITests",
+        "EnterBarcodePageUITests",
+        "ISBNPageUITests",
+        "InformationPageUITests\/testCloseInformationPage()",
+        "PolaUITestCase",
+        "ReportBugPageUITests",
+        "ScanBarcodePageUITests",
+        "ScanBarcodeWithResultPageUITests"
+      ],
+      "target" : {
+        "containerPath" : "container:Pola.xcodeproj",
+        "identifier" : "84B1B361225F975A009FA909",
+        "name" : "PolaUITests"
+      }
+    }
+  ],
+  "version" : 1
+}
