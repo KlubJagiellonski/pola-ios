@@ -3,6 +3,7 @@ import UIKit
 final class SecondaryProgressView: UIView {
     private let filledProgressView = UIView()
     private let percentLabel = UILabel()
+    private let titleVerticalMargin = CGFloat(10)
 
     var fillColor = Theme.lightBackgroundColor {
         didSet {
@@ -59,20 +60,31 @@ final class SecondaryProgressView: UIView {
         }
         filledProgressView.frame = rect
 
-        let titleMargin = CGFloat(10)
-        let percentLabelRequiredSpace = CGFloat(percentLabel.bounds.width + (2 * titleMargin))
+        let percentLabelRequiredSpace = CGFloat(percentLabel.bounds.width + (2 * titleVerticalMargin))
 
         rect = percentLabel.frame
         if percentLabelRequiredSpace > filledProgressView.frame.width {
-            rect.origin.x = filledProgressView.frame.maxX + titleMargin
+            rect.origin.x = filledProgressView.frame.maxX + titleVerticalMargin
         } else {
-            rect.origin.x = filledProgressView.frame.maxX - titleMargin - percentLabel.frame.width
+            rect.origin.x = filledProgressView.frame.maxX - titleVerticalMargin - percentLabel.frame.width
         }
         rect.origin.y = (bounds.height - percentLabel.bounds.height) / 2
         percentLabel.frame = rect
     }
 
+    override var intrinsicContentSize: CGSize {
+        return addMargins(to: percentLabel.intrinsicContentSize)
+    }
+
     override func sizeThatFits(_ size: CGSize) -> CGSize {
-        return CGSize(width: size.width, height: 20)
+        return addMargins(to: percentLabel.sizeThatFits(size))
+    }
+
+    private func addMargins(to size: CGSize) -> CGSize {
+        let preferredHorizontalMargin = CGFloat(2)
+        return CGSize(
+            width: size.width + 2 * titleVerticalMargin,
+            height: size.height + 2 * preferredHorizontalMargin
+        )
     }
 }

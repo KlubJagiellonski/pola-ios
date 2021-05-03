@@ -32,6 +32,7 @@ final class CheckRow: UIView {
             accessibilityLabel = text
             textLabel.sizeToFit()
             setNeedsLayout()
+            invalidateIntrinsicContentSize()
         }
     }
 
@@ -79,6 +80,12 @@ final class CheckRow: UIView {
     override func sizeThatFits(_: CGSize) -> CGSize {
         let width = checkImageView.bounds.width + horizontalMargin + textLabel.bounds.width
         let height = max(checkImageView.bounds.height, textLabel.bounds.height)
+        return CGSize(width: width, height: height)
+    }
+
+    override var intrinsicContentSize: CGSize {
+        let width = checkImageView.intrinsicContentSize.width + horizontalMargin + textLabel.intrinsicContentSize.width
+        let height = max(checkImageView.intrinsicContentSize.height, textLabel.intrinsicContentSize.height)
         return CGSize(width: width, height: height)
     }
 }

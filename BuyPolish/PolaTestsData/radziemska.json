@@ -1,30 +1,42 @@
 {
   "product_id": 5078799,
   "code": "5904284420903",
-  "name": "RADZIEMSKA",
+  "name": null,
   "card_type": "type_white",
-  "plScore": 100,
   "altText": null,
-  "plCapital": 100,
-  "plCapital_notes": "",
-  "plWorkers": 100,
-  "plWorkers_notes": "",
-  "plRnD": 100,
-  "plRnD_notes": "",
-  "plRegistered": 100,
-  "plRegistered_notes": "",
-  "plNotGlobEnt": 100,
-  "plNotGlobEnt_notes": "",
-  "report_text": "Zgłoś jeśli posiadasz bardziej aktualne dane na temat tego produktu",
-  "report_button_text": "Zgłoś",
-  "report_button_type": "type_white",
-  "is_friend": true,
-  "friend_text": "To jest przyjaciel Poli",
-  "description": "Rodzime przedsiębiorstwo chemiczne powstałe w 1982 roku. Firma specjalizuje się w produkcji chemii gospodarczej, w tym odplamiaczy, proszków do prania czy wybielaczy. Spółka jest laureatem wielu nagród konsumenckich, a jej siedziba znajduje się w Łomiankach pod Warszawą.",
-  "sources": {
-    "Strona główna Firmy": "https://www.radziemska.pl/",
-    "O Firmie": "https://www.radziemska.pl/",
-    "Kontakt": "https://www.radziemska.pl/kontakt",
-    "KRS": "https://mojepanstwo.pl/radziemska"
+  "companies": [
+    {
+      "name": "Radziemska Wyrób art. Chemii Gospodarczej",
+      "plCapital": 100,
+      "plCapital_notes": "",
+      "plWorkers": 100,
+      "plWorkers_notes": "",
+      "plRnD": 100,
+      "plRnD_notes": "",
+      "plRegistered": 100,
+      "plRegistered_notes": "",
+      "plNotGlobEnt": 100,
+      "plNotGlobEnt_notes": "",
+      "plScore": 100,
+      "is_friend": true,
+      "friend_text": "To jest przyjaciel Poli",
+      "description": "Radziemska Wyrób art. Chemii Gospodarczej to rodzime przedsiębiorstwo chemiczne powstałe w 1982 roku. Firma specjalizuje się w produkcji chemii gospodarczej, w tym odplamiaczy, proszków do prania czy wybielaczy. Spółka jest laureatem wielu nagród konsumenckich, a jej siedziba znajduje się w Łomiankach pod Warszawą.",
+      "sources": {
+        "Strona główna Firmy": "https://www.radziemska.pl/",
+        "O Firmie": "https://www.radziemska.pl/",
+        "Kontakt": "https://www.radziemska.pl/kontakt",
+        "KRS": "https://mojepanstwo.pl/radziemska"
+      }
+    }
+  ],
+  "report": {
+    "text": "Zgłoś jeśli posiadasz bardziej aktualne dane na temat tego produktu",
+    "button_text": "Zgłoś",
+    "button_type": "type_white"
+  },
+  "donate": {
+    "show_button": true,
+    "url": "https://klubjagiellonski.pl/zbiorka/wspieraj-aplikacje-pola/",
+    "title": "Wspieraj aplikację Pola"
   }
 }

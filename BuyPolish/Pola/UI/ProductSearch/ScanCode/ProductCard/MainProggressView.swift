@@ -3,6 +3,8 @@ import UIKit
 final class MainProggressView: UIView {
     private let filledProgressView = UIView()
     private let percentLabel = UILabel()
+    private let titleMargin = CGFloat(10)
+    private let barHeight = CGFloat(20)
 
     var progress = CGFloat(0) {
         didSet {
@@ -11,6 +13,7 @@ final class MainProggressView: UIView {
             percentLabel.text = text
             percentLabel.sizeToFit()
             accessibilityValue = R.string.localizable.accessibilityMainProgressValue(text)
+            invalidateIntrinsicContentSize()
             setNeedsLayout()
         }
     }
@@ -40,14 +43,23 @@ final class MainProggressView: UIView {
         rect.size.height = bounds.height
         filledProgressView.frame = rect
 
-        let titleMargin = CGFloat(10)
         rect = percentLabel.frame
         rect.origin.x = bounds.width - titleMargin - percentLabel.frame.width
         rect.origin.y = (bounds.height - percentLabel.bounds.height) / 2
         percentLabel.frame = rect
     }
 
+    override var intrinsicContentSize: CGSize {
+        return CGSize(
+            width: percentLabel.intrinsicContentSize.width + titleMargin,
+            height: barHeight
+        )
+    }
+
     override func sizeThatFits(_ size: CGSize) -> CGSize {
-        return CGSize(width: size.width, height: 20)
+        return CGSize(
+            width: percentLabel.sizeThatFits(size).width + titleMargin,
+            height: barHeight
+        )
     }
 }

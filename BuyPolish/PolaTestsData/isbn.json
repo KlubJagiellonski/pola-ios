@@ -1,21 +1,17 @@
 {
-  "product_id": 5341473,
-  "code": "9788328053045",
+  "product_id": 5449354,
+  "code": "9788310131539",
   "name": "Kod ISBN/ISSN/ISMN",
   "card_type": "type_white",
-  "plScore": null,
   "altText": "Zeskanowany kod jest kodem ISBN/ISSN/ISMN dotyczącym książki,  czasopisma lub albumu muzycznego. Wydawnictwa tego typu nie są aktualnie w obszarze zainteresowań Poli.",
-  "plCapital": null,
-  "plCapital_notes": null,
-  "plWorkers": null,
-  "plWorkers_notes": null,
-  "plRnD": null,
-  "plRnD_notes": null,
-  "plRegistered": null,
-  "plRegistered_notes": null,
-  "plNotGlobEnt": null,
-  "plNotGlobEnt_notes": null,
-  "report_text": "To nie jest książka, czasopismo lub album muzyczny? Prosimy o zgłoszenie",
-  "report_button_text": "Zgłoś",
-  "report_button_type": "type_white"
+  "report": {
+    "text": "To nie jest książka, czasopismo lub album muzyczny? Prosimy o zgłoszenie",
+    "button_text": "Zgłoś",
+    "button_type": "type_white"
+  },
+  "donate": {
+    "show_button": true,
+    "url": "https://klubjagiellonski.pl/zbiorka/wspieraj-aplikacje-pola/",
+    "title": "Wspieraj aplikację Pola"
+  }
 }

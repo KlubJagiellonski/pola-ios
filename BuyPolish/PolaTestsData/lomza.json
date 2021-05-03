@@ -1,27 +1,39 @@
 {
   "product_id": 5295098,
   "code": "5900535015171",
-  "name": "VAN PUR",
+  "name": null,
   "card_type": "type_white",
-  "plScore": 100,
   "altText": null,
-  "plCapital": 100,
-  "plCapital_notes": "Spółka najprawdopodobniej w większości kontrolowana przez polski kapitał.\r\n\r\nhttp://www.vanpur.com.pl/historia.html\r\nhttp://www.pb.pl/3205111,7266,van-bez-pura-czyli-browar-dla-inwestora",
-  "plWorkers": 100,
-  "plWorkers_notes": "Spółka produkuje swoje produkty w kilku browarach umiejscowionych na terenie Polski. \r\n\r\nhttp://www.vanpur.com.pl/\r\nhttp://www.vanpur.com.pl/historia.html",
-  "plRnD": 100,
-  "plRnD_notes": "Spółka inwestuje w BiR.\r\n\r\nhttp://www.vanpur.com.pl/nasze-standardy.html\r\nhttp://www.vanpur.com.pl/historia.html",
-  "plRegistered": 100,
-  "plRegistered_notes": "Spółka zarejestrowana na terenie Polski.\r\n\r\nhttp://www.krs-online.com.pl/msig-4180-48171.html\r\nhttp://www.krs-online.com.pl/van-pur-sp-z-o-o-w-likwidacji-krs-153087.html",
-  "plNotGlobEnt": 100,
-  "plNotGlobEnt_notes": "Spółka niezależna. \r\n\r\nhttp://www.vanpur.com.pl/",
-  "report_text": "Zgłoś jeśli posiadasz bardziej aktualne dane na temat tego produktu",
-  "report_button_text": "Zgłoś",
-  "report_button_type": "type_white",
-  "is_friend": false,
-  "description": "Spółka Van Pur powstała 1989 roku. Trzy lata później, w 1992 roku uruchomiła w Rakszawie pod Rzeszowem jedną z pierwszych w Polsce linii do rozlewu piwa puszkowego. Przez pierwszy rok spółka zajmowała się wyłącznie konfekcjonowaniem piwa. Rok później, w 1993 roku, Van Pur zaczął produkować własne piwo.W 2000 roku doszło do zmian właścicielskich – od 2000 do 2003 roku browary były własnością austriackiego koncernu Brau Union. Po trzech latach, w 2003 roku, firma została wykupiona przez pierwotnych właścicieli i Van Pur ponownie stał się niezależną, polską firmą piwowarską.",
-  "sources": {
-    "Dane z KRS": "http://mojepanstwo.pl/dane/krs_podmioty/231094",
-    "strona producenta": "http://www.vanpur.com.pl/historia.html"
+  "companies": [
+    {
+      "name": "Van Pur S.A.",
+      "plCapital": 100,
+      "plCapital_notes": "Spółka najprawdopodobniej w większości kontrolowana przez polski kapitał.\r\n\r\nhttp://www.vanpur.com.pl/historia.html\r\nhttp://www.pb.pl/3205111,7266,van-bez-pura-czyli-browar-dla-inwestora",
+      "plWorkers": 100,
+      "plWorkers_notes": "Spółka produkuje swoje produkty w kilku browarach umiejscowionych na terenie Polski. \r\n\r\nhttp://www.vanpur.com.pl/\r\nhttp://www.vanpur.com.pl/historia.html",
+      "plRnD": 100,
+      "plRnD_notes": "Spółka inwestuje w BiR.\r\n\r\nhttp://www.vanpur.com.pl/nasze-standardy.html\r\nhttp://www.vanpur.com.pl/historia.html",
+      "plRegistered": 100,
+      "plRegistered_notes": "Spółka zarejestrowana na terenie Polski.\r\n\r\nhttp://www.krs-online.com.pl/msig-4180-48171.html\r\nhttp://www.krs-online.com.pl/van-pur-sp-z-o-o-w-likwidacji-krs-153087.html",
+      "plNotGlobEnt": 100,
+      "plNotGlobEnt_notes": "Spółka niezależna. \r\n\r\nhttp://www.vanpur.com.pl/",
+      "plScore": 100,
+      "is_friend": false,
+      "description": "Spółka Van Pur powstała 1989 roku. Trzy lata później, w 1992 roku uruchomiła w Rakszawie pod Rzeszowem jedną z pierwszych w Polsce linii do rozlewu piwa puszkowego. Przez pierwszy rok spółka zajmowała się wyłącznie konfekcjonowaniem piwa. Rok później, w 1993 roku, Van Pur zaczął produkować własne piwo.W 2000 roku doszło do zmian właścicielskich – od 2000 do 2003 roku browary były własnością austriackiego koncernu Brau Union. Po trzech latach, w 2003 roku, firma została wykupiona przez pierwotnych właścicieli i Van Pur ponownie stał się niezależną, polską firmą piwowarską.",
+      "sources": {
+        "Produkcja & Kapitał": "http://www.vanpur.com.pl/historia.html",
+        "Rejestracja": "https://krs-pobierz.pl/van-pur-i50463"
+      }
+    }
+  ],
+  "report": {
+    "text": "Zgłoś jeśli posiadasz bardziej aktualne dane na temat tego produktu",
+    "button_text": "Zgłoś",
+    "button_type": "type_white"
+  },
+  "donate": {
+    "show_button": true,
+    "url": "https://klubjagiellonski.pl/zbiorka/wspieraj-aplikacje-pola/",
+    "title": "Wspieraj aplikację Pola"
   }
 }
