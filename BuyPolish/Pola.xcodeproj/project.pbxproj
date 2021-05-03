@@ -407,6 +407,9 @@
 		C62ECF2EDD7295D219A497A1 /* Pods-Pola-PolaUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola-PolaUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pola-PolaUITests/Pods-Pola-PolaUITests.release.xcconfig"; sourceTree = "<group>"; };
 		D340FA52263B53E500121AAA /* UIButton+ReportTypeSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+ReportTypeSnapshotTests.swift"; sourceTree = "<group>"; };
 		D346F9C22607D76B00F11ABD /* lidl.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = lidl.json; sourceTree = "<group>"; };
+		D3E3CA0C264085A4002979E1 /* Unit.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Unit.xctestplan; sourceTree = "<group>"; };
+		D3E3CA0E264085CB002979E1 /* UI.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = UI.xctestplan; sourceTree = "<group>"; };
+		D3E3CA0F264085D8002979E1 /* Full.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Full.xctestplan; sourceTree = "<group>"; };
 		E0D971BD205A9438D64EBADE /* Pods-Pola-PolaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola-PolaTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pola-PolaTests/Pods-Pola-PolaTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F6C1969BFE86FEF4E186B26D /* Pods_Pola_PolaUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pola_PolaUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -454,6 +457,7 @@
 				1D08E82519A7621A00879BD2 /* Frameworks */,
 				7B71219F6F5A578A5DE23F85 /* Pods */,
 				1D08E82E19A7621A00879BD2 /* Pola */,
+				D3E3CA0D264085B0002979E1 /* PolaTestPlans */,
 				1D08E84B19A7621A00879BD2 /* PolaTests */,
 				841EC034257F7C6F008D8EC9 /* PolaTestsData */,
 				84B1B363225F975A009FA909 /* PolaUITests */,
@@ -946,6 +950,16 @@
 				849E40CE24143E54006E1B76 /* InMemoryCapturedImageManager.swift */,
 			);
 			path = CapturedImageManager;
+			sourceTree = "<group>";
+		};
+		D3E3CA0D264085B0002979E1 /* PolaTestPlans */ = {
+			isa = PBXGroup;
+			children = (
+				D3E3CA0F264085D8002979E1 /* Full.xctestplan */,
+				D3E3CA0E264085CB002979E1 /* UI.xctestplan */,
+				D3E3CA0C264085A4002979E1 /* Unit.xctestplan */,
+			);
+			path = PolaTestPlans;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

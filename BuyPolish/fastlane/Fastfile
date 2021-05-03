@@ -1,22 +1,12 @@
 default_platform(:ios)
 swiftformat_executable = "Pods/SwiftFormat/CommandLineTool/swiftformat"
+testplan_full = "Full"
 
 platform :ios do
   lane :tests do
     check_project_structure
     check_formatting
-    unit_tests
-    ui_tests
-  end
-
-  lane :unit_tests do
-    scan(scheme: "Pola")
-  end
-
-  lane :ui_tests do
-    scan(
-      scheme: "PolaUITests",
-    )
+    scan(testplan: testplan_full)
   end
 
   lane :record_snapshots do
@@ -28,11 +18,7 @@ platform :ios do
 
     snapshots_paths.each {|path| clear_derived_data(derived_data_path:path)}
     scan(
-      scheme: "Pola",
-      fail_build: false
-    )
-    scan(
-      scheme: "PolaUITests",
+      testplan: testplan_full,
       fail_build: false
     )
     if is_ci
