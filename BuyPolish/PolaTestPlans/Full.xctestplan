@@ -1,0 +1,31 @@
+{
+  "configurations" : [
+    {
+      "id" : "A98C30EF-F95A-43EA-8852-C63D6F33DBC8",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Pola.xcodeproj",
+        "identifier" : "1D08E84219A7621A00879BD2",
+        "name" : "PolaTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Pola.xcodeproj",
+        "identifier" : "84B1B361225F975A009FA909",
+        "name" : "PolaUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

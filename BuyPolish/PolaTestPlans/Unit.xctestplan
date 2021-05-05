@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "35888566-F06E-45B9-B6F3-8542F03F26C2",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Pola.xcodeproj",
+        "identifier" : "1D08E84219A7621A00879BD2",
+        "name" : "PolaTests"
+      }
+    }
+  ],
+  "version" : 1
+}
