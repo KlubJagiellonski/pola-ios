@@ -1,10 +1,11 @@
 name: Bump version
 
-on: workflow_dispatch
-  inputs:
-    version:
-      description: 'Number version to bump'
-      required: true
+on: 
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Number version to bump'
+        required: true
 
 jobs:
   bump_version:
