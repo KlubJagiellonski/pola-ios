@@ -1,4 +1,3 @@
-import 'Fastfile_git.rb'
 import 'shared_constants.rb'
 
 swiftformat_executable = "Pods/SwiftFormat/CommandLineTool/swiftformat"

@@ -41,14 +41,12 @@ PR może być tylko zmergowany gdy:
 
 Przed zbudowaniem aplikacji do wydania należy:
 
+* Ustawić odpowiednią wersję:
+    * Uruchamiamy workflow [Bump version](https://github.com/KlubJagiellonski/pola-ios/actions/workflows/bump.yml) z odpowiednim parametrem wersji
+
  * Skonfigurować Firebase:
     * Pobieramy plik `GoogleService-Info.plist` dla projektu Pola z [konsoli Firebase](https://console.firebase.google.com).
     * Edytujemy plik zmieniając wartość dla klucza `IS_ANALYTICS_ENABLED` na `YES`.
     * Dodajemy plik do projektu.
     * Pliku, ani powyższych zmian nie dodajemy do repozytorium!
 
-* Ustawić odpowiednią wersję:
-    * Ustawiamy wcześniej ustaloną z zespołem wersję aplikacji (pole `Version`).
-    * Zwiększamy o jeden numer budowania (pole `Build`). Każdorazowe wysłanie aplikacji do [App Store Connect](ttps://appstoreconnect.apple.com) powinno skutkować zwiększeniem tej liczby.
-    * Nagrywamy na nowo testy dla klasy `InformationPageUITests`.
-    * Powyższe zmiany powinny znaleźć się w repozytorium!

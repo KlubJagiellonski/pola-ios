@@ -1,4 +1,5 @@
 default_platform(:ios)
 
-import('Fastfile_tests.rb')
 import('Fastfile_deploy.rb')
+import('Fastfile_git.rb')
+import('Fastfile_tests.rb')
