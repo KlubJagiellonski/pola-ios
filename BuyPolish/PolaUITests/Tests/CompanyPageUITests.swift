@@ -42,7 +42,8 @@ final class CompanyPageUITests: PolaUITestCase {
         snapshotVerifyView()
     }
 
-    func testLongName() {
+    func testLongName() throws {
+        throw skipTest(issueNumber: 206)
         startingPageObject
             .enterCodeAndOpenCompanyResult(codeData: .Krasnystaw)
             .done()
