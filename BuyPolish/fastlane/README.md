@@ -41,6 +41,14 @@ fastlane ios check_formatting
 fastlane ios format
 ```
 
+### ios bump_version
+```
+fastlane ios bump_version
+```
+Bump version and build number
+    Options:  
+    - version - new version number
+    
 
 ----
 
