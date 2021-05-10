@@ -5,6 +5,17 @@ final class ScanCodeView: UIView {
     let menuButton = UIButton(type: .custom)
     let flashButton = UIButton(type: .custom)
     let keyboardButton = UIButton(type: .custom)
+    lazy var galleryButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.accessibilityLabel = "todo"
+        if #available(iOS 13.0, *) {
+            button.setImage(UIImage(systemName: "photo.on.rectangle.angled"), for: .normal)
+        } else {
+            //TODO
+        }
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
 
     func setButtonsVisible(_ buttonsVisible: Bool, animated: Bool) {
         let alpha = CGFloat(buttonsVisible ? 1.0 : 0.0)
@@ -13,6 +24,7 @@ final class ScanCodeView: UIView {
             self.menuButton.alpha = alpha
             self.flashButton.alpha = alpha
             self.keyboardButton.alpha = alpha
+            self.galleryButton.alpha = alpha
         }
 
         if animated {
@@ -54,6 +66,8 @@ final class ScanCodeView: UIView {
         keyboardButton.setImage(R.image.keyboardSelectedIcon(), for: .selected)
         keyboardButton.sizeToFit()
         addSubview(keyboardButton)
+        
+        addSubview(galleryButton)
     }
 
     required init?(coder _: NSCoder) {
@@ -86,5 +100,10 @@ final class ScanCodeView: UIView {
                 + (menuButton.bounds.height / 2)
                 - (logoButton.bounds.height / 2)
         )
+        
+        NSLayoutConstraint.activate([
+            galleryButton.centerYAnchor.constraint(equalTo: keyboardButton.centerYAnchor, constant: 50),
+            galleryButton.centerXAnchor.constraint(equalTo: keyboardButton.centerXAnchor)
+        ])
     }
 }

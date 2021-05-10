@@ -9,6 +9,16 @@ final class ScanCodeViewController: UIViewController {
     private let animationTime = TimeInterval(0.15)
     private var disposable: Disposable?
     private let analytics: AnalyticsHelper
+    private lazy var imagePicker: UIImagePickerController = {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.allowsEditing = false
+        picker.mediaTypes = ["public.image"]
+        picker.sourceType = .photoLibrary
+        return picker
+    }()
+
+    private lazy var barcodeDetector = BarcodeDetector()
 
     init(flashlightManager: FlashlightManager, analyticsProvider: AnalyticsProvider) {
         self.flashlightManager = flashlightManager
@@ -51,6 +61,7 @@ final class ScanCodeViewController: UIViewController {
         castedView.menuButton.addTarget(self, action: #selector(tapMenuButton), for: .touchUpInside)
         castedView.keyboardButton.addTarget(self, action: #selector(tapKeyboardButton), for: .touchUpInside)
         castedView.logoButton.addTarget(self, action: #selector(tapLogoButton), for: .touchUpInside)
+        castedView.galleryButton.addTarget(self, action: #selector(tapGalleryButton), for: .touchUpInside)
 
         if flashlightManager.isAvailable {
             castedView.flashButton.addTarget(self, action: #selector(tapFlashlightButton), for: .touchUpInside)
@@ -127,6 +138,11 @@ final class ScanCodeViewController: UIViewController {
         present(nvc, animated: true, completion: nil)
     }
 
+    @objc
+    private func tapGalleryButton() {
+        self.present(imagePicker, animated: true, completion: nil)
+    }
+
     fileprivate func hideKeyboardController() {
         guard let keyboardViewController = keyboardViewController else {
             return
@@ -196,3 +212,22 @@ extension ScanCodeViewController: ResultsViewControllerDelegate {
         castedView.setButtonsVisible(true, animated: true)
     }
 }
+
+extension ScanCodeViewController: UIImagePickerControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        if let originalImage = info[.originalImage] as? UIImage {
+            barcodeDetector.getBarcodeFromImage(originalImage) { [weak self] code in
+                if let code = code {
+                    self?.didScan(barcode: code)
+                } else {
+                    print("Code not found")
+                }
+                self?.imagePicker.dismiss(animated: true)
+            }
+        } else {
+            print("image not found")
+        }
+    }
+}
+
+extension ScanCodeViewController: UINavigationControllerDelegate {}
