@@ -187,8 +187,8 @@ final class ScanCodeViewController: UIViewController {
 }
 
 extension ScanCodeViewController: CodeScannerManagerDelegate {
-    func didScan(barcode: String) {
-        resultsViewController.add(barcodeCard: barcode, sourceType: .camera)
+    func didScan(barcode: String, sourceType: AnalyticsBarcodeSource) {
+        resultsViewController.add(barcodeCard: barcode, sourceType: sourceType)
     }
 }
 
@@ -215,10 +215,12 @@ extension ScanCodeViewController: ResultsViewControllerDelegate {
 
 extension ScanCodeViewController: UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        imagePicker.dismiss(animated: true)
+
         if let originalImage = info[.originalImage] as? UIImage {
             barcodeDetector.getBarcodeFromImage(originalImage) { [weak self] code in
                 if let code = code {
-                    self?.didScan(barcode: code)
+                    self?.didScan(barcode: code, sourceType: .photos)
                 } else {
                     print("Code not found")
                 }
