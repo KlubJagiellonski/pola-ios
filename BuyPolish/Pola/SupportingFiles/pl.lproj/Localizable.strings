@@ -53,6 +53,8 @@
 "Camera Privacy Capture Video Description" = "Pola wymaga dostępu do kamery aby móc nagrać film. Przejść do ustawień?";
 "Settings" = "Ustawienia";
 "Write code error" = "błędny kod";
+"Searching for barcode" = "Szukam kodu kreskowego...";
+"Barcode not found" = "Kod kreskowy nie został odnaleziony.";
 "About.Info" = "Aplikacja Pola\nwersja %@\n© Klub Jagielloński";
 "Accessibility.CheckRow.Unknown" = "Brak informacji";
 "Accessibility.CheckRow.Selected" = "Zaznaczone";
@@ -76,3 +78,4 @@
 "CaptureVideo.Sending" = "Wysyłanie zdjęć";
 "CaptureVideo.Thanks" = "Dziękujemy";
 "CaptureVideo.Failed" = "Wystąpił błąd";
+"Accessibility.Gallery" = "Galeria";

@@ -66,6 +66,8 @@ final class ScanCodeView: UIView {
         keyboardButton.setImage(R.image.keyboardSelectedIcon(), for: .selected)
         keyboardButton.sizeToFit()
         addSubview(keyboardButton)
+
+        galleryButton.accessibilityLabel = R.string.localizable.accessibilityGallery()
         addSubview(galleryButton)
     }
 
