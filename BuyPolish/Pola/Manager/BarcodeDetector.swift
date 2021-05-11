@@ -34,10 +34,16 @@ final class BarcodeDetector {
     }
 
     func getBarcodeFromImage(_ image: UIImage, completion: @escaping (String?) -> Void) {
-        guard let ciImage = image.cgImage else { return }
+        guard let ciImage = image.cgImage else {
+            completion(nil)
+            return
+        }
         let handler = VNImageRequestHandler(cgImage: ciImage, options: [.properties: ""])
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            guard let self = self else { return }
+            guard let self = self else {
+                completion(nil)
+                return
+            }
             do {
                 try handler.perform([self.vnBarcodeRequest])
                 DispatchQueue.main.async {
