@@ -66,7 +66,6 @@ final class ScanCodeView: UIView {
         keyboardButton.setImage(R.image.keyboardSelectedIcon(), for: .selected)
         keyboardButton.sizeToFit()
         addSubview(keyboardButton)
-        
         addSubview(galleryButton)
     }
 
@@ -100,7 +99,7 @@ final class ScanCodeView: UIView {
                 + (menuButton.bounds.height / 2)
                 - (logoButton.bounds.height / 2)
         )
-        
+
         NSLayoutConstraint.activate([
             galleryButton.centerYAnchor.constraint(equalTo: keyboardButton.centerYAnchor, constant: 50),
             galleryButton.centerXAnchor.constraint(equalTo: keyboardButton.centerXAnchor)

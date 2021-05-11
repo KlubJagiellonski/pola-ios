@@ -10,7 +10,7 @@ import UIKit
 import Vision
 
 final class BarcodeDetector {
-    private var barcodeText: String? = nil
+    private var barcodeText: String?
 
     private let barcodeDetector = VNDetectBarcodesRequest { request, error in
         guard error == nil else { return }

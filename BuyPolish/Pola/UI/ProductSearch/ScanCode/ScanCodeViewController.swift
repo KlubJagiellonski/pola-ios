@@ -17,6 +17,13 @@ final class ScanCodeViewController: UIViewController {
         picker.sourceType = .photoLibrary
         return picker
     }()
+    private lazy var loadingIndicator: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView(style: .whiteLarge)
+        view.color = .gray
+        view.isHidden = true
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
 
     private lazy var barcodeDetector = BarcodeDetector()
 
@@ -68,6 +75,12 @@ final class ScanCodeViewController: UIViewController {
         } else {
             castedView.flashButton.isHidden = true
         }
+
+        view.addSubview(loadingIndicator)
+        NSLayoutConstraint.activate([
+            loadingIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            loadingIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -217,6 +230,9 @@ extension ScanCodeViewController: UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         imagePicker.dismiss(animated: true)
 
+        loadingIndicator.isHidden = false
+        loadingIndicator.startAnimating()
+
         if let originalImage = info[.originalImage] as? UIImage {
             barcodeDetector.getBarcodeFromImage(originalImage) { [weak self] code in
                 if let code = code {
@@ -224,7 +240,9 @@ extension ScanCodeViewController: UIImagePickerControllerDelegate {
                 } else {
                     print("Code not found")
                 }
-                self?.imagePicker.dismiss(animated: true)
+
+                self?.loadingIndicator.isHidden = true
+                self?.loadingIndicator.stopAnimating()
             }
         } else {
             print("image not found")
