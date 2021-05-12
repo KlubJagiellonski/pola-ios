@@ -11,7 +11,6 @@ import XCTest
 
 class BarcodeDetectorTests: XCTestCase {
     var sut: BarcodeDetector!
-    let validBarcodeImage = UIImage(named: "test_image.png")!
     let barcode = "5901696000457"
 
     override func setUp() {
@@ -24,7 +23,20 @@ class BarcodeDetectorTests: XCTestCase {
         super.tearDown()
     }
 
+    private func getImagePath(file: StaticString = #file) -> UIImage? {
+        let fileUrl = URL(fileURLWithPath: "\(file)", isDirectory: false)
+        let dirPath = fileUrl.deletingLastPathComponent()
+        let imagePath = dirPath.appendingPathComponent("test_image.png")
+        let imageData = try! Data(contentsOf: imagePath)
+        return UIImage(data: imageData)
+    }
+
     func test_imageDetected() {
+        guard let validBarcodeImage = getImagePath() else {
+            XCTFail("Image couldn't be read.")
+            return
+        }
+
         let expectation = XCTestExpectation()
         sut.getBarcodeFromImage(validBarcodeImage) { code in
             if code == self.barcode {

@@ -25,6 +25,7 @@
 		1DEFA1BF1BD9920600938C81 /* Lato-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1DEFA1BA1BD9920600938C81 /* Lato-Semibold.ttf */; };
 		1DEFA1C01BD9920600938C81 /* Lato-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1DEFA1BA1BD9920600938C81 /* Lato-Semibold.ttf */; };
 		2D7017F5264AE42C0012EBAB /* BarcodeDetectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7017F4264AE42C0012EBAB /* BarcodeDetectorTests.swift */; };
+		2DA7C643264BB8190075B57A /* test_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 2DA7C642264BB8190075B57A /* test_image.png */; };
 		2DF8F60E26492EE100D3C62E /* BarcodeDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF8F60D26492EE100D3C62E /* BarcodeDetector.swift */; };
 		3560B0CDF331B5B648D8B830 /* Pods_Pola.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21497E85EBCABF56D8745512 /* Pods_Pola.framework */; };
 		37B645454FC2ACC155CB1538 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B6472FF4603F63771FADE6 /* AVFoundation.framework */; };
@@ -239,6 +240,7 @@
 		1DEFA1C31BD99B8900938C81 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		21497E85EBCABF56D8745512 /* Pods_Pola.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pola.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D7017F4264AE42C0012EBAB /* BarcodeDetectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeDetectorTests.swift; sourceTree = "<group>"; };
+		2DA7C642264BB8190075B57A /* test_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test_image.png; sourceTree = "<group>"; };
 		2DF8F60D26492EE100D3C62E /* BarcodeDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeDetector.swift; sourceTree = "<group>"; };
 		353A5B3434B75B4C54FB4DBB /* Pods-Pola-PolaUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola-PolaUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pola-PolaUITests/Pods-Pola-PolaUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		3785987405128CA0B1DA9512 /* Pods-Pola.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pola/Pods-Pola.release.xcconfig"; sourceTree = "<group>"; };
@@ -735,6 +737,7 @@
 				841EC027257F767C008D8EC9 /* AnalyticsHelperTests.swift */,
 				841EC01F257F75E1008D8EC9 /* AnalyticsProviderMock.swift */,
 				2D7017F4264AE42C0012EBAB /* BarcodeDetectorTests.swift */,
+				2DA7C642264BB8190075B57A /* test_image.png */,
 				841EC02C257F78C4008D8EC9 /* __Snapshots__ */,
 			);
 			path = Manager;
@@ -1108,6 +1111,7 @@
 				841EC03A257F7C9A008D8EC9 /* staropramen.json in Resources */,
 				841EC03C257F7C9A008D8EC9 /* lomza.json in Resources */,
 				841EC036257F7C9A008D8EC9 /* isbn.json in Resources */,
+				2DA7C643264BB8190075B57A /* test_image.png in Resources */,
 				841EC035257F7C9A008D8EC9 /* tymbark.json in Resources */,
 				1D08E85019A7621A00879BD2 /* InfoPlist.strings in Resources */,
 				1DEFA1C01BD9920600938C81 /* Lato-Semibold.ttf in Resources */,
