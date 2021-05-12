@@ -103,8 +103,8 @@ final class ScanCodeView: UIView {
         )
 
         NSLayoutConstraint.activate([
-            galleryButton.centerYAnchor.constraint(equalTo: keyboardButton.centerYAnchor, constant: 50),
-            galleryButton.centerXAnchor.constraint(equalTo: keyboardButton.centerXAnchor)
+            galleryButton.topAnchor.constraint(equalTo: flashButton.bottomAnchor, constant: scanCodeMargin),
+            galleryButton.centerXAnchor.constraint(equalTo: flashButton.centerXAnchor)
         ])
     }
 }

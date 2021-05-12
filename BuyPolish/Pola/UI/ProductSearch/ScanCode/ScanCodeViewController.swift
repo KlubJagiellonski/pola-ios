@@ -67,7 +67,9 @@ final class ScanCodeViewController: UIViewController {
         if flashlightManager.isAvailable {
             castedView.flashButton.addTarget(self, action: #selector(tapFlashlightButton), for: .touchUpInside)
         } else {
-            castedView.flashButton.isHidden = true
+            #if !targetEnvironment(simulator)
+                castedView.flashButton.isHidden = true
+            #endif
         }
     }
 
@@ -225,12 +227,15 @@ extension ScanCodeViewController: UIImagePickerControllerDelegate {
                 KVNProgress.dismiss()
                 if let code = code {
                     self?.didScan(barcode: code, sourceType: .photos)
+                    BPLog("Found barcode \(code) on an image from Photos.")
                 } else {
                     KVNProgress.showError(withStatus: R.string.localizable.barcodeNotFound())
+                    BPLog("Error, barcode not found on an image from Photos.")
                 }
             }
         } else {
-            print("image not found")
+            KVNProgress.showError(withStatus: R.string.localizable.barcodeNotFound())
+            BPLog("Error, image not recognized.")
         }
     }
 }
