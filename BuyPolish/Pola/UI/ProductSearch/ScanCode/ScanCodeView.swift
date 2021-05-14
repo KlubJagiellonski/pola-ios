@@ -7,12 +7,9 @@ final class ScanCodeView: UIView {
     let keyboardButton = UIButton(type: .custom)
     lazy var galleryButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.accessibilityLabel = "todo"
-        if #available(iOS 13.0, *) {
-            button.setImage(UIImage(systemName: "photo.on.rectangle.angled"), for: .normal)
-        } else {
-            //TODO
-        }
+        button.accessibilityLabel = R.string.localizable.accessibilityGallery()
+        button.setImage(R.image.galleryIconNormal(), for: .normal)
+        button.setImage(R.image.galleryIconSelected(), for: .selected)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -104,7 +101,9 @@ final class ScanCodeView: UIView {
 
         NSLayoutConstraint.activate([
             galleryButton.topAnchor.constraint(equalTo: flashButton.bottomAnchor, constant: scanCodeMargin),
-            galleryButton.centerXAnchor.constraint(equalTo: flashButton.centerXAnchor)
+            galleryButton.centerXAnchor.constraint(equalTo: flashButton.centerXAnchor),
+            galleryButton.heightAnchor.constraint(equalTo: keyboardButton.heightAnchor),
+            galleryButton.widthAnchor.constraint(equalTo: keyboardButton.widthAnchor)
         ])
     }
 }
