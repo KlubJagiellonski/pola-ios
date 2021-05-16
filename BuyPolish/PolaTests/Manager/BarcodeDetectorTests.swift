@@ -30,34 +30,30 @@ class BarcodeDetectorTests: XCTestCase {
         return UIImage(data: imageData)
     }
 
-    func test_imageDetected() {
-        guard let validBarcodeImage = getImagePath() else {
-            XCTFail("Image couldn't be read.")
-            return
-        }
-
+    func test_shouldDetectBarcode_whenImageIsNotEmpty() {
+        let validBarcodeImage = getImagePath()!
         let expectation = XCTestExpectation()
+        var result: String?
+
         sut.getBarcodeFromImage(validBarcodeImage) { code in
-            if code == self.barcode {
-                expectation.fulfill()
-            } else {
-                XCTFail("Wrong barcode.")
-            }
+            result = code
+            expectation.fulfill()
         }
 
         wait(for: [expectation], timeout: 10)
+        XCTAssertEqual(result, barcode)
     }
 
-    func test_imageNotDetected() {
+    func test_shouldNotDetectBarcode_whenImageIsEmpty() {
         let expectation = XCTestExpectation()
+        var result: String?
+
         sut.getBarcodeFromImage(UIImage()) { code in
-            if code == nil {
-                expectation.fulfill()
-            } else {
-                XCTFail("Barcode should be nil.")
-            }
+            result = code
+            expectation.fulfill()
         }
 
         wait(for: [expectation], timeout: 10)
+        XCTAssertNil(result)
     }
 }
