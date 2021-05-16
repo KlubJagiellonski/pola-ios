@@ -5,14 +5,7 @@ final class ScanCodeView: UIView {
     let menuButton = UIButton(type: .custom)
     let flashButton = UIButton(type: .custom)
     let keyboardButton = UIButton(type: .custom)
-    lazy var galleryButton: UIButton = {
-        let button = UIButton(type: .custom)
-        button.accessibilityLabel = R.string.localizable.accessibilityGallery()
-        button.setImage(R.image.galleryIconNormal(), for: .normal)
-        button.setImage(R.image.galleryIconSelected(), for: .selected)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
+    let galleryButton = UIButton(type: .custom)
 
     func setButtonsVisible(_ buttonsVisible: Bool, animated: Bool) {
         let alpha = CGFloat(buttonsVisible ? 1.0 : 0.0)
@@ -65,6 +58,10 @@ final class ScanCodeView: UIView {
         addSubview(keyboardButton)
 
         galleryButton.accessibilityLabel = R.string.localizable.accessibilityGallery()
+        galleryButton.accessibilityLabel = R.string.localizable.accessibilityGallery()
+        galleryButton.setImage(R.image.galleryIconNormal(), for: .normal)
+        galleryButton.setImage(R.image.galleryIconSelected(), for: .selected)
+        galleryButton.translatesAutoresizingMaskIntoConstraints = false
         addSubview(galleryButton)
     }
 
