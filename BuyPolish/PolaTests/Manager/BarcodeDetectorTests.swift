@@ -1,4 +1,3 @@
-//
 //  BarcodeDetectorTests.swift
 //  PolaTests
 //
