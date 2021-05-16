@@ -1,6 +1,7 @@
 import Observable
 import UIKit
 import KVNProgress
+import MobileCoreServices
 
 final class ScanCodeViewController: UIViewController {
     private var keyboardViewController: KeyboardViewController?
@@ -14,7 +15,7 @@ final class ScanCodeViewController: UIViewController {
         let picker = UIImagePickerController()
         picker.delegate = self
         picker.allowsEditing = false
-        picker.mediaTypes = ["public.image"]
+        picker.mediaTypes = [String(kUTTypeImage)]
         picker.sourceType = .photoLibrary
         return picker
     }()
