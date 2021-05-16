@@ -143,7 +143,9 @@ final class ScanCodeViewController: UIViewController {
 
     @objc
     private func tapGalleryButton() {
-        self.present(imagePicker, animated: true, completion: nil)
+        castedView.galleryButton.isSelected = true
+        present(imagePicker, animated: true, completion: nil)
+        imagePicker.presentationController?.delegate = self
     }
 
     fileprivate func hideKeyboardController() {
@@ -238,6 +240,17 @@ extension ScanCodeViewController: UIImagePickerControllerDelegate {
             BPLog("Error, image not recognized.")
         }
     }
+
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true)
+        castedView.galleryButton.isSelected = false
+    }
 }
 
 extension ScanCodeViewController: UINavigationControllerDelegate {}
+
+extension ScanCodeViewController: UIAdaptivePresentationControllerDelegate {
+    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        castedView.galleryButton.isSelected = false
+    }
+}
