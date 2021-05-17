@@ -35,10 +35,11 @@ class BarcodeDetectorTests: XCTestCase {
         let expectation = XCTestExpectation()
         var result: String?
 
-        sut.getBarcodeFromImage(validBarcodeImage) { code in
-            result = code
-            expectation.fulfill()
-        }
+        _ = sut.getBarcodeFromImage(validBarcodeImage)
+            .done { code in
+                result = code
+                expectation.fulfill()
+            }
 
         wait(for: [expectation], timeout: 10)
         XCTAssertEqual(result, barcode)
@@ -48,10 +49,11 @@ class BarcodeDetectorTests: XCTestCase {
         let expectation = XCTestExpectation()
         var result: String?
 
-        sut.getBarcodeFromImage(UIImage()) { code in
-            result = code
-            expectation.fulfill()
-        }
+        _ = sut.getBarcodeFromImage(UIImage())
+            .done { code in
+                result = code
+                expectation.fulfill()
+            }
 
         wait(for: [expectation], timeout: 10)
         XCTAssertNil(result)

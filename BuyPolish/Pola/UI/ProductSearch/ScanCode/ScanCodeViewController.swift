@@ -2,6 +2,7 @@ import Observable
 import UIKit
 import KVNProgress
 import MobileCoreServices
+import PromiseKit
 
 final class ScanCodeViewController: UIViewController {
     private var keyboardViewController: KeyboardViewController?
@@ -222,11 +223,19 @@ extension ScanCodeViewController: ResultsViewControllerDelegate {
 extension ScanCodeViewController: UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         imagePicker.dismiss(animated: true)
+        castedView.galleryButton.isSelected = false
 
         KVNProgress.show(withStatus: R.string.localizable.searchingForBarcode())
 
-        if let originalImage = info[.originalImage] as? UIImage {
-            barcodeDetector.getBarcodeFromImage(originalImage) { [weak self] code in
+        guard let originalImage = info[.originalImage] as? UIImage else {
+            KVNProgress.showError(withStatus: R.string.localizable.barcodeNotFound())
+            BPLog("Error, image not recognized.")
+            return
+        }
+
+        barcodeDetector
+             .getBarcodeFromImage(originalImage)
+             .done(on: .main) { [weak self] code in
                 KVNProgress.dismiss()
                 if let code = code {
                     self?.didScan(barcode: code, sourceType: .photos)
@@ -235,11 +244,11 @@ extension ScanCodeViewController: UIImagePickerControllerDelegate {
                     KVNProgress.showError(withStatus: R.string.localizable.barcodeNotFound())
                     BPLog("Error, barcode not found on an image from Photos.")
                 }
-            }
-        } else {
-            KVNProgress.showError(withStatus: R.string.localizable.barcodeNotFound())
-            BPLog("Error, image not recognized.")
-        }
+             }
+             .catch { _ in
+                KVNProgress.showError(withStatus: R.string.localizable.barcodeNotFound())
+                BPLog("Error, image not recognized.")
+             }
     }
 
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {

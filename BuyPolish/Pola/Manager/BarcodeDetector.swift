@@ -1,4 +1,3 @@
-//
 //  BarcodeDetector.swift
 //  Pola
 //
@@ -8,19 +7,19 @@
 
 import UIKit
 import Vision
+import PromiseKit
+
+class CustomVNDetectBarcodesRequest: VNDetectBarcodesRequest {
+    var payload: ((String) -> Void)?
+
+    convenience init(completionHandler: @escaping VNRequestCompletionHandler, secondComletionHandler: @escaping (String) -> Void) {
+        self.init(completionHandler: completionHandler)
+        self.payload = secondComletionHandler
+    }
+}
 
 final class BarcodeDetector {
     private var barcodeText: String?
-
-    private let barcodeDetector = VNDetectBarcodesRequest { request, error in
-        guard error == nil else { return }
-        guard let results = request.results,
-              let barcode = results
-                .compactMap({ $0 as? VNBarcodeObservation })
-                .first,
-              let barcodePayload = barcode.payloadStringValue else { return }
-
-    }
 
     private lazy var vnBarcodeRequest: VNDetectBarcodesRequest = .init(completionHandler: barcodeHandler)
 
@@ -33,27 +32,19 @@ final class BarcodeDetector {
         barcodeText = barcodePayload
     }
 
-    func getBarcodeFromImage(_ image: UIImage, completion: @escaping (String?) -> Void) {
-        guard let ciImage = image.cgImage else {
-            completion(nil)
-            return
-        }
-        let handler = VNImageRequestHandler(cgImage: ciImage, options: [.properties: ""])
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            guard let self = self else {
-                completion(nil)
+    func getBarcodeFromImage(_ image: UIImage) -> Promise<String?> {
+        barcodeText = nil
+        return Promise { seal in
+            guard let ciImage = image.cgImage else {
+                seal.fulfill(nil)
                 return
             }
-            do {
-                try handler.perform([self.vnBarcodeRequest])
-                DispatchQueue.main.async {
-                    completion(self.barcodeText)
-                    self.barcodeText = nil
-                }
-            } catch {
-                DispatchQueue.main.async {
-                    completion(nil)
-                }
+            let handler = VNImageRequestHandler(cgImage: ciImage, options: [.properties: ""])
+
+            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+                guard let self = self else { return }
+                try? handler.perform([self.vnBarcodeRequest])
+                seal.fulfill(self.barcodeText)
             }
         }
     }
