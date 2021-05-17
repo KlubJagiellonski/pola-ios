@@ -1,16 +1,32 @@
 import XCTest
 
 final class ScanBarcodePageUITests: PolaUITestCase {
+    private var page: ScanBarcodePage!
+
+    override func setUp() {
+        super.setUp()
+        continueAfterFailure = true
+
+        page = startingPageObject
+    }
+
+    override func tearDown() {
+        page = nil
+        super.tearDown()
+    }
+
     func testOpenApp() {
         snapshotVerifyView()
     }
 
-    func testTapGalleryButton() {
-        startingPageObject
-            .tapGalleryButton()
-            .wait(time: 10)
-            .done()
+    private func isGalleryVisible() -> Bool {
+        page.app.navigationBars["Photos"].waitForExistence(timeout: 10)
+    }
 
-        snapshotVerifyView()
+    func testTapGalleryButton() {
+        _ = startingPageObject
+            .tapGalleryButton()
+
+        XCTAssertTrue(isGalleryVisible())
     }
 }
