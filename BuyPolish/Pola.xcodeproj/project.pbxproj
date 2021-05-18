@@ -690,6 +690,7 @@
 				C092CF351F1F8007003174D1 /* CapturedImageManager */,
 				37B64977613F0A577613F7E4 /* ProductManager */,
 				37B641361E13BB0824D5828D /* ReportManager */,
+				2DF8F60D26492EE100D3C62E /* BarcodeDetector.swift */,
 				84601A392405B5B900AD2A2D /* BarcodeValidator.swift */,
 				84A81C5723EFF42200464745 /* CameraSessionCodeScannerManager.swift */,
 				84A81C5523EFF2CA00464745 /* CodeScannerManager.swift */,
@@ -698,7 +699,6 @@
 				842E762F23E434CD00A5534B /* KeyboardManager.swift */,
 				842E762B23E0CDA500A5534B /* LocalDocumentsProductImageManager.swift */,
 				9EC3BC6823D50BD000242B1E /* ProductImageManager.swift */,
-				2DF8F60D26492EE100D3C62E /* BarcodeDetector.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -737,8 +737,8 @@
 				841EC027257F767C008D8EC9 /* AnalyticsHelperTests.swift */,
 				841EC01F257F75E1008D8EC9 /* AnalyticsProviderMock.swift */,
 				2D7017F4264AE42C0012EBAB /* BarcodeDetectorTests.swift */,
-				2DA7C642264BB8190075B57A /* test_image_with_barcode.png */,
 				841EC02C257F78C4008D8EC9 /* __Snapshots__ */,
+				2DA7C642264BB8190075B57A /* test_image_with_barcode.png */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -1340,7 +1340,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				$SRCROOT/Pola/R.generated.swift,
+				"$SRCROOT/Pola/R.generated.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

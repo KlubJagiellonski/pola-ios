@@ -1,8 +1,8 @@
-import Observable
-import UIKit
 import KVNProgress
 import MobileCoreServices
+import Observable
 import PromiseKit
+import UIKit
 
 final class ScanCodeViewController: UIViewController {
     private var keyboardViewController: KeyboardViewController?
@@ -221,7 +221,7 @@ extension ScanCodeViewController: ResultsViewControllerDelegate {
 }
 
 extension ScanCodeViewController: UIImagePickerControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+    func imagePickerController(_: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         imagePicker.dismiss(animated: true)
         castedView.galleryButton.isSelected = false
 
@@ -234,8 +234,8 @@ extension ScanCodeViewController: UIImagePickerControllerDelegate {
         }
 
         barcodeDetector
-             .getBarcodeFromImage(originalImage)
-             .done(on: .main) { [weak self] code in
+            .getBarcodeFromImage(originalImage)
+            .done(on: .main) { [weak self] code in
                 KVNProgress.dismiss()
                 if let code = code {
                     self?.didScan(barcode: code, sourceType: .photos)
@@ -244,11 +244,11 @@ extension ScanCodeViewController: UIImagePickerControllerDelegate {
                     KVNProgress.showError(withStatus: R.string.localizable.barcodeNotFound())
                     BPLog("Error, barcode not found on an image from Photos.")
                 }
-             }
-             .catch { _ in
+            }
+            .catch { _ in
                 KVNProgress.showError(withStatus: R.string.localizable.barcodeNotFound())
                 BPLog("Error, image not recognized.")
-             }
+            }
     }
 
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -260,7 +260,7 @@ extension ScanCodeViewController: UIImagePickerControllerDelegate {
 extension ScanCodeViewController: UINavigationControllerDelegate {}
 
 extension ScanCodeViewController: UIAdaptivePresentationControllerDelegate {
-    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+    func presentationControllerDidDismiss(_: UIPresentationController) {
         castedView.galleryButton.isSelected = false
     }
 }

@@ -1,18 +1,18 @@
+import PromiseKit
 import UIKit
 import Vision
-import PromiseKit
 
 final class BarcodeDetector {
     private var barcodeText: String?
 
     private lazy var vnBarcodeRequest: VNDetectBarcodesRequest = .init(completionHandler: barcodeHandler)
 
-    private func barcodeHandler(request: VNRequest, error: Error?) {
+    private func barcodeHandler(request: VNRequest, error _: Error?) {
         guard let results = request.results,
-              let barcode = results
-                .compactMap({ $0 as? VNBarcodeObservation })
-                .first,
-              let barcodePayload = barcode.payloadStringValue else { return }
+            let barcode = results
+            .compactMap({ $0 as? VNBarcodeObservation })
+            .first,
+            let barcodePayload = barcode.payloadStringValue else { return }
         barcodeText = barcodePayload
     }
 

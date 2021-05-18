@@ -99,7 +99,7 @@ final class ScanCodeView: UIView {
             galleryButton.widthAnchor.constraint(equalToConstant: keyboardButton.frame.width),
 
             flashButton.topAnchor.constraint(equalTo: galleryButton.bottomAnchor, constant: scanCodeMargin),
-            flashButton.centerXAnchor.constraint(equalTo: galleryButton.centerXAnchor)
+            flashButton.centerXAnchor.constraint(equalTo: galleryButton.centerXAnchor),
         ])
     }
 }
