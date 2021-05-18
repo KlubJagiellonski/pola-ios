@@ -1,9 +1,19 @@
 import Swinject
 
+protocol DependencyRegistrant {
+    func registerDependency(container: Container)
+}
+
 final class DI {
 
     static let container: Resolver = {
         let container = Container()
+
+        let registrants: [DependencyRegistrant] = [
+            AnalyticsRegistrant(),
+            LoggerRegistrant()
+        ]
+        registrants.forEach({$0.registerDependency(container: container)})
 
         container.register(NotificationCenter.self) { _ in
             NotificationCenter.default
@@ -39,10 +49,6 @@ final class DI {
 
         container.register(FlashlightManager.self) { _ in
             FlashlightManager()
-        }
-
-        container.register(AnalyticsProvider.self) { _ in
-            FirebaseAnalyticsProvider()
         }
 
         container.register(ProductManager.self) { resolver in

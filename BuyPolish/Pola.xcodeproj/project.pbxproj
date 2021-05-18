@@ -196,6 +196,12 @@
 		BDA76B5C21DE64AB003E9FD6 /* AnalyticsEventName.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA76B5B21DE64AB003E9FD6 /* AnalyticsEventName.swift */; };
 		BDA76B5E21DE64FD003E9FD6 /* AnalyticsParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA76B5D21DE64FD003E9FD6 /* AnalyticsParameters.swift */; };
 		C0D829791F3D11A600902F79 /* capture_video_instruction.mov in Resources */ = {isa = PBXBuildFile; fileRef = C0D829781F3D11A600902F79 /* capture_video_instruction.mov */; };
+		D3201C3E2675111C00E683EC /* CrashlitycsLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3201C3D2675111C00E683EC /* CrashlitycsLogger.swift */; };
+		D3201C402675113E00E683EC /* ConsoleLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3201C3F2675113E00E683EC /* ConsoleLogger.swift */; };
+		D3201C42267511FA00E683EC /* ConsoleAnalyticsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3201C41267511FA00E683EC /* ConsoleAnalyticsProvider.swift */; };
+		D3201C44267512A400E683EC /* FirebaseApp+isAvailable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3201C43267512A400E683EC /* FirebaseApp+isAvailable.swift */; };
+		D3201C462675136900E683EC /* LoggerRegistrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3201C452675136900E683EC /* LoggerRegistrant.swift */; };
+		D3201C482675319C00E683EC /* AnalyticsRegistrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3201C472675319C00E683EC /* AnalyticsRegistrant.swift */; };
 		D340FA53263B53E500121AAA /* UIButton+ReportTypeSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D340FA52263B53E500121AAA /* UIButton+ReportTypeSnapshotTests.swift */; };
 		D340FA60263B5D0000121AAA /* krasnystaw.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B88A23A25BB139D00EFE032 /* krasnystaw.json */; };
 		D346F9C32607D76B00F11ABD /* lidl.json in Resources */ = {isa = PBXBuildFile; fileRef = D346F9C22607D76B00F11ABD /* lidl.json */; };
@@ -409,6 +415,12 @@
 		BDA76B5D21DE64FD003E9FD6 /* AnalyticsParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsParameters.swift; sourceTree = "<group>"; };
 		C0D829781F3D11A600902F79 /* capture_video_instruction.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = capture_video_instruction.mov; sourceTree = "<group>"; };
 		C62ECF2EDD7295D219A497A1 /* Pods-Pola-PolaUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola-PolaUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pola-PolaUITests/Pods-Pola-PolaUITests.release.xcconfig"; sourceTree = "<group>"; };
+		D3201C3D2675111C00E683EC /* CrashlitycsLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashlitycsLogger.swift; sourceTree = "<group>"; };
+		D3201C3F2675113E00E683EC /* ConsoleLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleLogger.swift; sourceTree = "<group>"; };
+		D3201C41267511FA00E683EC /* ConsoleAnalyticsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleAnalyticsProvider.swift; sourceTree = "<group>"; };
+		D3201C43267512A400E683EC /* FirebaseApp+isAvailable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FirebaseApp+isAvailable.swift"; sourceTree = "<group>"; };
+		D3201C452675136900E683EC /* LoggerRegistrant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerRegistrant.swift; sourceTree = "<group>"; };
+		D3201C472675319C00E683EC /* AnalyticsRegistrant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsRegistrant.swift; sourceTree = "<group>"; };
 		D340FA52263B53E500121AAA /* UIButton+ReportTypeSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+ReportTypeSnapshotTests.swift"; sourceTree = "<group>"; };
 		D346F9C22607D76B00F11ABD /* lidl.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = lidl.json; sourceTree = "<group>"; };
 		D3E3CA0C264085A4002979E1 /* Unit.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Unit.xctestplan; sourceTree = "<group>"; };
@@ -606,7 +618,6 @@
 			children = (
 				37B646DCA0870AD66E5EB92B /* Categories */,
 				9E7BE9442401503F0070BF8D /* ExtendedButton.swift */,
-				842E763923E4727D00A5534B /* Logger.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -634,6 +645,7 @@
 				84CE3E6323BA982900FE8D66 /* Bundle+Additions.swift */,
 				BDA76B5021DCD718003E9FD6 /* Encodable+Utilities.swift */,
 				842E762D23E0D4CA00A5534B /* FileManager+Extension.swift */,
+				D3201C43267512A400E683EC /* FirebaseApp+isAvailable.swift */,
 				9E0FE73B251C02C6005D98B3 /* String+Additions.swift */,
 				841F7D9F23567740007BE3F6 /* UIApplication+Additions.swift */,
 				841BB98C22D136AE00234946 /* UIColor+Additions.swift */,
@@ -685,6 +697,7 @@
 			children = (
 				BDA76B5821DE622E003E9FD6 /* Analytics */,
 				C092CF351F1F8007003174D1 /* CapturedImageManager */,
+				D3201C3C2675110000E683EC /* Logger */,
 				37B64977613F0A577613F7E4 /* ProductManager */,
 				37B641361E13BB0824D5828D /* ReportManager */,
 				2DF8F60D26492EE100D3C62E /* BarcodeDetector.swift */,
@@ -945,6 +958,8 @@
 				BDA76B5921DE6248003E9FD6 /* AnalyticsHelper.swift */,
 				BDA76B5D21DE64FD003E9FD6 /* AnalyticsParameters.swift */,
 				8492DF80257E7CED00094624 /* AnalyticsProvider.swift */,
+				D3201C472675319C00E683EC /* AnalyticsRegistrant.swift */,
+				D3201C41267511FA00E683EC /* ConsoleAnalyticsProvider.swift */,
 				8492DF85257E7E0E00094624 /* FirebaseAnalyticsProvider.swift */,
 			);
 			path = Analytics;
@@ -957,6 +972,17 @@
 				849E40CE24143E54006E1B76 /* InMemoryCapturedImageManager.swift */,
 			);
 			path = CapturedImageManager;
+			sourceTree = "<group>";
+		};
+		D3201C3C2675110000E683EC /* Logger */ = {
+			isa = PBXGroup;
+			children = (
+				D3201C3F2675113E00E683EC /* ConsoleLogger.swift */,
+				D3201C3D2675111C00E683EC /* CrashlitycsLogger.swift */,
+				842E763923E4727D00A5534B /* Logger.swift */,
+				D3201C452675136900E683EC /* LoggerRegistrant.swift */,
+			);
+			path = Logger;
 			sourceTree = "<group>";
 		};
 		D3E3CA0D264085B0002979E1 /* PolaTestPlans */ = {
@@ -1467,6 +1493,8 @@
 				845F78D523BA28F8008DDFDF /* ScanResult.swift in Sources */,
 				842E762E23E0D4CA00A5534B /* FileManager+Extension.swift in Sources */,
 				8477CFCD23CF201D00C72542 /* ReportImageView.swift in Sources */,
+				D3201C3E2675111C00E683EC /* CrashlitycsLogger.swift in Sources */,
+				D3201C402675113E00E683EC /* ConsoleLogger.swift in Sources */,
 				9E43AF7A242BE5FF0093627B /* AnalyticsBarcodeSource.swift in Sources */,
 				9E43AF78242BBC4C0093627B /* ScanCodeViewController.swift in Sources */,
 				BDA76B5E21DE64FD003E9FD6 /* AnalyticsParameters.swift in Sources */,
@@ -1492,6 +1520,7 @@
 				842E763023E434CD00A5534B /* KeyboardManager.swift in Sources */,
 				9EC3BC4D23CDF4FD00242B1E /* CardStackViewController.swift in Sources */,
 				846036F22418574A00982FC6 /* UIDevice+Additions.swift in Sources */,
+				D3201C482675319C00E683EC /* AnalyticsRegistrant.swift in Sources */,
 				845F78D323BA28E2008DDFDF /* ProductManager.swift in Sources */,
 				2DF8F60E26492EE100D3C62E /* BarcodeDetector.swift in Sources */,
 				84AAEDE0230B49DD006CA7EB /* UILabel+Additions.swift in Sources */,
@@ -1507,6 +1536,7 @@
 				8488E20F23D1067000817671 /* ReportProblemViewController.swift in Sources */,
 				9EC3BC4F23CDF4FD00242B1E /* CardStackViewControllerCard.swift in Sources */,
 				841F7DA023567740007BE3F6 /* UIApplication+Additions.swift in Sources */,
+				D3201C42267511FA00E683EC /* ConsoleAnalyticsProvider.swift in Sources */,
 				845D354923FD93B5002C4232 /* KeyboardView.swift in Sources */,
 				84CE3E6423BA982900FE8D66 /* Bundle+Additions.swift in Sources */,
 				8406E62D233D59A700B7313C /* MainProggressView.swift in Sources */,
@@ -1527,6 +1557,7 @@
 				842E763A23E4727D00A5534B /* Logger.swift in Sources */,
 				84F11A20240087D60029A1BC /* KeyboardViewController.swift in Sources */,
 				84A81C5423EF30CF00464745 /* ScannerCodeView.swift in Sources */,
+				D3201C462675136900E683EC /* LoggerRegistrant.swift in Sources */,
 				9EC3BC5C23CDFA2500242B1E /* AboutDoubleCell.swift in Sources */,
 				8477CFC823CE137D00C72542 /* AboutRowsFactory.swift in Sources */,
 				9E0FE73E251C0DA4005D98B3 /* KeyboardBarcode.swift in Sources */,
@@ -1543,6 +1574,7 @@
 				9E43AF74242798780093627B /* ResultsView.swift in Sources */,
 				9EC3BC5B23CDFA2500242B1E /* AboutBaseCell.swift in Sources */,
 				9EC3BC4723CDF4FD00242B1E /* CardStackViewLayoutLayoutCollapsed.swift in Sources */,
+				D3201C44267512A400E683EC /* FirebaseApp+isAvailable.swift in Sources */,
 				84735A6423BB63B00053D1E5 /* AnalyticsAboutRow.swift in Sources */,
 				9E35D7AA24C627C000C63C11 /* UIViewController+Additions.swift in Sources */,
 				9EC3BC4623CDF4FD00242B1E /* CardStackViewLayoutContext.swift in Sources */,
