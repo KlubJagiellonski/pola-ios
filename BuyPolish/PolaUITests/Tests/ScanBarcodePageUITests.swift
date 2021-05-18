@@ -5,7 +5,6 @@ final class ScanBarcodePageUITests: PolaUITestCase {
 
     override func setUp() {
         super.setUp()
-        continueAfterFailure = true
 
         page = startingPageObject
     }
@@ -19,14 +18,11 @@ final class ScanBarcodePageUITests: PolaUITestCase {
         snapshotVerifyView()
     }
 
-    private func isGalleryVisible() -> Bool {
-        page.app.navigationBars["Photos"].waitForExistence(timeout: 10)
-    }
-
     func testTapGalleryButton() {
-        _ = startingPageObject
+        let isGalleryVisible = startingPageObject
             .tapGalleryButton()
+            .isGalleryVisible()
 
-        XCTAssertTrue(isGalleryVisible())
+        XCTAssertTrue(isGalleryVisible)
     }
 }

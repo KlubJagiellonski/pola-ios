@@ -12,9 +12,9 @@ class ScanBarcodePage: BasePage {
         return InformationPage(openFrom: self)
     }
 
-    func tapGalleryButton() -> EnterBarcodePage {
+    func tapGalleryButton() -> MainGalleryPage {
         app.buttons["Galeria"].tap()
-        return EnterBarcodePage(app: app)
+        return MainGalleryPage(openFrom: self)
     }
 
     func isReviewRequestVisible() -> Bool {
