@@ -1,10 +1,3 @@
-//  BarcodeDetector.swift
-//  Pola
-//
-//  Created by Damian on 10/05/2021.
-//  Copyright © 2021 PJMS. All rights reserved.
-//
-
 import UIKit
 import Vision
 import PromiseKit
