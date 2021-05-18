@@ -22,16 +22,16 @@ class BarcodeDetectorTests: XCTestCase {
         super.tearDown()
     }
 
-    private func getImagePath(file: StaticString = #file) -> UIImage? {
+    private func getTestImage(file: StaticString = #file) -> UIImage? {
         let fileUrl = URL(fileURLWithPath: "\(file)", isDirectory: false)
         let dirPath = fileUrl.deletingLastPathComponent()
-        let imagePath = dirPath.appendingPathComponent("test_image.png")
+        let imagePath = dirPath.appendingPathComponent("test_image_with_barcode.png")
         let imageData = try! Data(contentsOf: imagePath)
         return UIImage(data: imageData)
     }
 
     func test_shouldDetectBarcode_whenImageIsNotEmpty() {
-        let validBarcodeImage = getImagePath()!
+        let validBarcodeImage = getTestImage()!
         let expectation = XCTestExpectation()
         var result: String?
 
