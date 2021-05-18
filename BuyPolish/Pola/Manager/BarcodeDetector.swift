@@ -9,15 +9,6 @@ import UIKit
 import Vision
 import PromiseKit
 
-class CustomVNDetectBarcodesRequest: VNDetectBarcodesRequest {
-    var payload: ((String) -> Void)?
-
-    convenience init(completionHandler: @escaping VNRequestCompletionHandler, secondComletionHandler: @escaping (String) -> Void) {
-        self.init(completionHandler: completionHandler)
-        self.payload = secondComletionHandler
-    }
-}
-
 final class BarcodeDetector {
     private var barcodeText: String?
 
