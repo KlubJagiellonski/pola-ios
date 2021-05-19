@@ -5,6 +5,7 @@ final class ScanCodeView: UIView {
     let menuButton = UIButton(type: .custom)
     let flashButton = UIButton(type: .custom)
     let keyboardButton = UIButton(type: .custom)
+    let galleryButton = UIButton(type: .custom)
 
     func setButtonsVisible(_ buttonsVisible: Bool, animated: Bool) {
         let alpha = CGFloat(buttonsVisible ? 1.0 : 0.0)
@@ -13,6 +14,7 @@ final class ScanCodeView: UIView {
             self.menuButton.alpha = alpha
             self.flashButton.alpha = alpha
             self.keyboardButton.alpha = alpha
+            self.galleryButton.alpha = alpha
         }
 
         if animated {
@@ -31,60 +33,73 @@ final class ScanCodeView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
+        dimView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(dimView)
 
         logoButton.accessibilityLabel = R.string.localizable.accessibilityLogo()
         logoButton.setImage(R.image.logoIcon(), for: .normal)
+        logoButton.translatesAutoresizingMaskIntoConstraints = false
         logoButton.sizeToFit()
         addSubview(logoButton)
 
         flashButton.accessibilityLabel = R.string.localizable.accessibilityFlash()
         flashButton.setImage(R.image.flashIcon(), for: .normal)
         flashButton.setImage(R.image.flashSelectedIcon(), for: .selected)
+        flashButton.translatesAutoresizingMaskIntoConstraints = false
         flashButton.sizeToFit()
         addSubview(flashButton)
 
         menuButton.accessibilityLabel = R.string.localizable.accessibilityInfo()
         menuButton.setImage(R.image.burgerIcon(), for: .normal)
+        menuButton.translatesAutoresizingMaskIntoConstraints = false
         menuButton.sizeToFit()
         addSubview(menuButton)
 
         keyboardButton.accessibilityLabel = R.string.localizable.accessibilityWriteCode()
         keyboardButton.setImage(R.image.keyboardIcon(), for: .normal)
         keyboardButton.setImage(R.image.keyboardSelectedIcon(), for: .selected)
+        keyboardButton.translatesAutoresizingMaskIntoConstraints = false
         keyboardButton.sizeToFit()
         addSubview(keyboardButton)
+
+        galleryButton.accessibilityLabel = R.string.localizable.accessibilityGallery()
+        galleryButton.setImage(R.image.galleryIconNormal(), for: .normal)
+        galleryButton.setImage(R.image.galleryIconSelected(), for: .selected)
+        galleryButton.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(galleryButton)
+
+        setupConstraints()
     }
 
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func layoutSubviews() {
-        super.layoutSubviews()
-
+    private func setupConstraints() {
         let scanCodeMargin = CGFloat(15.0)
 
-        dimView.frame = bounds
+        NSLayoutConstraint.activate([
+            dimView.topAnchor.constraint(equalTo: topAnchor),
+            dimView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            dimView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            dimView.trailingAnchor.constraint(equalTo: trailingAnchor),
 
-        let topY = topSafeAreaInset + scanCodeMargin
-        keyboardButton.frameOrigin = CGPoint(x: scanCodeMargin, y: topY)
+            menuButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: scanCodeMargin),
+            menuButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -scanCodeMargin),
 
-        flashButton.frameOrigin = CGPoint(
-            x: scanCodeMargin,
-            y: scanCodeMargin + keyboardButton.frame.maxY
-        )
+            logoButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: scanCodeMargin),
+            logoButton.centerXAnchor.constraint(equalTo: centerXAnchor),
 
-        menuButton.frameOrigin = CGPoint(
-            x: bounds.width - scanCodeMargin - menuButton.bounds.width,
-            y: topY
-        )
+            keyboardButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: scanCodeMargin),
+            keyboardButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: scanCodeMargin),
 
-        logoButton.frameOrigin = CGPoint(
-            x: (bounds.width / 2) - (logoButton.bounds.width / 2),
-            y: menuButton.frame.minY
-                + (menuButton.bounds.height / 2)
-                - (logoButton.bounds.height / 2)
-        )
+            galleryButton.topAnchor.constraint(equalTo: keyboardButton.bottomAnchor, constant: scanCodeMargin),
+            galleryButton.centerXAnchor.constraint(equalTo: keyboardButton.centerXAnchor),
+            galleryButton.heightAnchor.constraint(equalToConstant: keyboardButton.frame.height),
+            galleryButton.widthAnchor.constraint(equalToConstant: keyboardButton.frame.width),
+
+            flashButton.topAnchor.constraint(equalTo: galleryButton.bottomAnchor, constant: scanCodeMargin),
+            flashButton.centerXAnchor.constraint(equalTo: galleryButton.centerXAnchor),
+        ])
     }
 }

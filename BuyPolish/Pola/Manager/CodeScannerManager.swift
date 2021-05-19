@@ -1,7 +1,7 @@
 import UIKit
 
 protocol CodeScannerManagerDelegate: AnyObject {
-    func didScan(barcode: String)
+    func didScan(barcode: String, sourceType: AnalyticsBarcodeSource)
 }
 
 protocol CodeScannerManager: AnyObject {

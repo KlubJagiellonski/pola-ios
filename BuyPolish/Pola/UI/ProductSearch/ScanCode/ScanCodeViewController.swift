@@ -1,4 +1,7 @@
+import KVNProgress
+import MobileCoreServices
 import Observable
+import PromiseKit
 import UIKit
 
 final class ScanCodeViewController: UIViewController {
@@ -9,6 +12,16 @@ final class ScanCodeViewController: UIViewController {
     private let animationTime = TimeInterval(0.15)
     private var disposable: Disposable?
     private let analytics: AnalyticsHelper
+    private lazy var imagePicker: UIImagePickerController = {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.allowsEditing = false
+        picker.mediaTypes = [String(kUTTypeImage)]
+        picker.sourceType = .photoLibrary
+        return picker
+    }()
+
+    private lazy var barcodeDetector = BarcodeDetector()
 
     init(flashlightManager: FlashlightManager, analyticsProvider: AnalyticsProvider) {
         self.flashlightManager = flashlightManager
@@ -51,11 +64,14 @@ final class ScanCodeViewController: UIViewController {
         castedView.menuButton.addTarget(self, action: #selector(tapMenuButton), for: .touchUpInside)
         castedView.keyboardButton.addTarget(self, action: #selector(tapKeyboardButton), for: .touchUpInside)
         castedView.logoButton.addTarget(self, action: #selector(tapLogoButton), for: .touchUpInside)
+        castedView.galleryButton.addTarget(self, action: #selector(tapGalleryButton), for: .touchUpInside)
 
         if flashlightManager.isAvailable {
             castedView.flashButton.addTarget(self, action: #selector(tapFlashlightButton), for: .touchUpInside)
         } else {
-            castedView.flashButton.isHidden = true
+            #if !targetEnvironment(simulator)
+                castedView.flashButton.isHidden = true
+            #endif
         }
     }
 
@@ -127,6 +143,13 @@ final class ScanCodeViewController: UIViewController {
         present(nvc, animated: true, completion: nil)
     }
 
+    @objc
+    private func tapGalleryButton() {
+        castedView.galleryButton.isSelected = true
+        present(imagePicker, animated: true, completion: nil)
+        imagePicker.presentationController?.delegate = self
+    }
+
     fileprivate func hideKeyboardController() {
         guard let keyboardViewController = keyboardViewController else {
             return
@@ -171,8 +194,8 @@ final class ScanCodeViewController: UIViewController {
 }
 
 extension ScanCodeViewController: CodeScannerManagerDelegate {
-    func didScan(barcode: String) {
-        resultsViewController.add(barcodeCard: barcode, sourceType: .camera)
+    func didScan(barcode: String, sourceType: AnalyticsBarcodeSource) {
+        resultsViewController.add(barcodeCard: barcode, sourceType: sourceType)
     }
 }
 
@@ -194,5 +217,50 @@ extension ScanCodeViewController: ResultsViewControllerDelegate {
 
     func resultsViewControllerDidCollapse() {
         castedView.setButtonsVisible(true, animated: true)
+    }
+}
+
+extension ScanCodeViewController: UIImagePickerControllerDelegate {
+    func imagePickerController(_: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        imagePicker.dismiss(animated: true)
+        castedView.galleryButton.isSelected = false
+
+        KVNProgress.show(withStatus: R.string.localizable.searchingForBarcode())
+
+        guard let originalImage = info[.originalImage] as? UIImage else {
+            KVNProgress.showError(withStatus: R.string.localizable.barcodeNotFound())
+            BPLog("Error, image not recognized.")
+            return
+        }
+
+        barcodeDetector
+            .getBarcodeFromImage(originalImage)
+            .done(on: .main) { [weak self] code in
+                KVNProgress.dismiss()
+                if let code = code {
+                    self?.didScan(barcode: code, sourceType: .photos)
+                    BPLog("Found barcode \(code) on an image from Photos.")
+                } else {
+                    KVNProgress.showError(withStatus: R.string.localizable.barcodeNotFound())
+                    BPLog("Error, barcode not found on an image from Photos.")
+                }
+            }
+            .catch { _ in
+                KVNProgress.showError(withStatus: R.string.localizable.barcodeNotFound())
+                BPLog("Error, image not recognized.")
+            }
+    }
+
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true)
+        castedView.galleryButton.isSelected = false
+    }
+}
+
+extension ScanCodeViewController: UINavigationControllerDelegate {}
+
+extension ScanCodeViewController: UIAdaptivePresentationControllerDelegate {
+    func presentationControllerDidDismiss(_: UIPresentationController) {
+        castedView.galleryButton.isSelected = false
     }
 }

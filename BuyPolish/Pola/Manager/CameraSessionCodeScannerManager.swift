@@ -55,7 +55,7 @@ extension CameraSessionCodeScannerManager: AVCaptureMetadataOutputObjectsDelegat
 
         DispatchQueue.main.async { [delegate] in
             BPLog("Found barcode \(barcode)")
-            delegate?.didScan(barcode: barcode)
+            delegate?.didScan(barcode: barcode, sourceType: .camera)
         }
     }
 }
