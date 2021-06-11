@@ -15,7 +15,7 @@ final class ScanCodeViewController: UIViewController {
     private lazy var imagePicker: UIImagePickerController = {
         let picker = UIImagePickerController()
         picker.delegate = self
-        picker.allowsEditing = false
+        picker.allowsEditing = true
         picker.mediaTypes = [String(kUTTypeImage)]
         picker.sourceType = .photoLibrary
         return picker
@@ -227,14 +227,14 @@ extension ScanCodeViewController: UIImagePickerControllerDelegate {
 
         KVNProgress.show(withStatus: R.string.localizable.searchingForBarcode())
 
-        guard let originalImage = info[.originalImage] as? UIImage else {
+        guard let editedImage = info[.editedImage] as? UIImage else {
             KVNProgress.showError(withStatus: R.string.localizable.barcodeNotFound())
             BPLog("Error, image not recognized.")
             return
         }
 
         barcodeDetector
-            .getBarcodeFromImage(originalImage)
+            .getBarcodeFromImage(editedImage)
             .done(on: .main) { [weak self] code in
                 KVNProgress.dismiss()
                 if let code = code {
