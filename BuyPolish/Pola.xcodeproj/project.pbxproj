@@ -141,7 +141,6 @@
 		9E43AF7A242BE5FF0093627B /* AnalyticsBarcodeSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E43AF79242BE5FF0093627B /* AnalyticsBarcodeSource.swift */; };
 		9E43AF7C242BE8720093627B /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E43AF7B242BE8720093627B /* RootViewController.swift */; };
 		9E43AF7E242BEB2C0093627B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E43AF7D242BEB2C0093627B /* AppDelegate.swift */; };
-		9E7BE9452401503F0070BF8D /* ExtendedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7BE9442401503F0070BF8D /* ExtendedButton.swift */; };
 		9EC3BBF823CDD74000242B1E /* UIColor_AdditionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC3BBF623CDD74000242B1E /* UIColor_AdditionsTests.swift */; };
 		9EC3BBF923CDD74000242B1E /* Encodable_DictionaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC3BBF723CDD74000242B1E /* Encodable_DictionaryTests.swift */; };
 		9EC3BC0E23CDD76C00242B1E /* CompanyPageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC3BBFB23CDD76C00242B1E /* CompanyPageUITests.swift */; };
@@ -368,7 +367,6 @@
 		9E43AF79242BE5FF0093627B /* AnalyticsBarcodeSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsBarcodeSource.swift; sourceTree = "<group>"; };
 		9E43AF7B242BE8720093627B /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		9E43AF7D242BEB2C0093627B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9E7BE9442401503F0070BF8D /* ExtendedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedButton.swift; sourceTree = "<group>"; };
 		9EC3BBF623CDD74000242B1E /* UIColor_AdditionsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor_AdditionsTests.swift; sourceTree = "<group>"; };
 		9EC3BBF723CDD74000242B1E /* Encodable_DictionaryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Encodable_DictionaryTests.swift; sourceTree = "<group>"; };
 		9EC3BBFB23CDD76C00242B1E /* CompanyPageUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanyPageUITests.swift; sourceTree = "<group>"; };
@@ -607,7 +605,6 @@
 			isa = PBXGroup;
 			children = (
 				37B646DCA0870AD66E5EB92B /* Categories */,
-				9E7BE9442401503F0070BF8D /* ExtendedButton.swift */,
 				842E763923E4727D00A5534B /* Logger.swift */,
 				849E40C22413F024006E1B76 /* TimerBlock.swift */,
 			);
@@ -1519,7 +1516,6 @@
 				9EC3BC3323CDE3F800242B1E /* AltResultContentViewController.swift in Sources */,
 				9EC3BC4A23CDF4FD00242B1E /* CardStackView.swift in Sources */,
 				849577D4230B53FC00FC9591 /* CompanyContentView.swift in Sources */,
-				9E7BE9452401503F0070BF8D /* ExtendedButton.swift in Sources */,
 				BDA76B5121DCD718003E9FD6 /* Encodable+Utilities.swift in Sources */,
 				8492DF81257E7CED00094624 /* AnalyticsProvider.swift in Sources */,
 				9EC3BC3123CDE3D600242B1E /* ScanResultView.swift in Sources */,

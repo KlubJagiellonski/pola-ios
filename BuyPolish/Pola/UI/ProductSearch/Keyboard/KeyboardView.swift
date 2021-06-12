@@ -3,7 +3,7 @@ import UIKit
 final class KeyboardView: UIView {
     private let contentView = UIView()
     let textView = KeyboardTextView()
-    let numberButtons = (1 ... 10).map { _ in ExtendedButton() }
+    let numberButtons = (1 ... 10).map { _ in UIButton() }
     let okButton = UIButton()
     let infoTextLabel = UILabel()
 
@@ -18,7 +18,11 @@ final class KeyboardView: UIView {
         numberButtons.enumerated().forEach { offset, button in
             let number = (offset + 1) % 10
 
-            button.extendedTouchSize = 4
+            let extendedTouchSize = CGFloat(4)
+            button.contentEdgeInsets = UIEdgeInsets(top: extendedTouchSize,
+                                                    left: extendedTouchSize,
+                                                    bottom: extendedTouchSize,
+                                                    right: extendedTouchSize)
             button.tag = number
             button.accessibilityLabel = "\(number)"
             button.setImage(UIImage(named: "kb_\(number)"), for: .normal)
