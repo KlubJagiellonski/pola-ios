@@ -6,11 +6,11 @@ final class AnalyticsRegistrant: DependencyRegistrant {
         if FirebaseApp.isFirebaseAvailable {
             container.register(AnalyticsProvider.self) { _ in
                 FirebaseAnalyticsProvider()
-            }
+            }.inObjectScope(.container)
         } else {
             container.register(AnalyticsProvider.self) { _ in
                 ConsoleAnalyticsProvider()
-            }
+            }.inObjectScope(.container)
         }
     }
 }
