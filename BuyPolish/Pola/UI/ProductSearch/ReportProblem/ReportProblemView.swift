@@ -138,6 +138,7 @@ final class ReportProblemView: UIView {
         NSLayoutConstraint.activate(isImageEnabled ? imagesContainerVisibleConstraint : imagesContainerHiddenConstraint)
     }
 
+    @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -172,6 +173,6 @@ extension ReportProblemView: KeyboardManagerDelegate {
                            self.imagesContainer.alpha = imageAlpha
                            self.setNeedsLayout()
                            self.layoutIfNeeded()
-        }, completion: nil)
+                       }, completion: nil)
     }
 }

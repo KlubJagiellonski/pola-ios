@@ -9,10 +9,10 @@ final class BarcodeDetector {
 
     private func barcodeHandler(request: VNRequest, error _: Error?) {
         guard let results = request.results,
-            let barcode = results
-            .compactMap({ $0 as? VNBarcodeObservation })
-            .first,
-            let barcodePayload = barcode.payloadStringValue else { return }
+              let barcode = results
+              .compactMap({ $0 as? VNBarcodeObservation })
+              .first,
+              let barcodePayload = barcode.payloadStringValue else { return }
         barcodeText = barcodePayload
     }
 

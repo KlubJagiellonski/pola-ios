@@ -9,6 +9,7 @@ class AboutBaseCell: UITableViewCell {
         contentView.backgroundColor = Theme.mediumBackgroundColor
     }
 
+    @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

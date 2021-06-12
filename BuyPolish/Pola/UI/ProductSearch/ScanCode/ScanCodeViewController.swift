@@ -32,6 +32,7 @@ final class ScanCodeViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
 
+    @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -188,7 +189,7 @@ final class ScanCodeViewController: UIViewController {
                            scannerCodeViewController.view.alpha = 0.0
                        }, completion: { _ in
                            keyboardViewController.didMove(toParent: self)
-        })
+                       })
         self.keyboardViewController = keyboardViewController
     }
 }

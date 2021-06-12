@@ -1,7 +1,7 @@
 import XCTest
 
 class ResultPage: BasePage {
-    required override init(app: XCUIApplication) {
+    override required init(app: XCUIApplication) {
         super.init(app: app)
     }
 }

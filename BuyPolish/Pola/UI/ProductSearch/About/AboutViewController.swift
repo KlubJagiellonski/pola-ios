@@ -20,6 +20,7 @@ final class AboutViewController: UITableViewController {
         super.init(style: .plain)
     }
 
+    @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -115,7 +116,7 @@ final class AboutViewController: UITableViewController {
             performAction(row: model.rows[indexPath.row])
         case .double:
             guard let cell = tableView.cellForRow(at: indexPath) as? AboutDoubleCell,
-                cell.selectedSegment != .none else {
+                  cell.selectedSegment != .none else {
                 break
             }
             let doubleRow = model.doubleRows[indexPath.row]

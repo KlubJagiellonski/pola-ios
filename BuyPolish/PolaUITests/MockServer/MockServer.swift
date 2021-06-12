@@ -56,7 +56,7 @@ final class MockServer {
     }
 
     private func code(from request: HttpRequest) -> String {
-        return request.queryParams.first(where: { (key, _) -> Bool in
+        return request.queryParams.first(where: { key, _ -> Bool in
             key == "code"
         })!.1
     }

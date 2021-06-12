@@ -13,7 +13,6 @@ opt_in_rules:
   - nimble_operator
   - attributes
   - operator_usage_whitespace
-  - closure_end_indentation
   - first_where
   - sorted_imports
   - prohibited_super_call

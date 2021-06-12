@@ -30,6 +30,7 @@ final class ReportProblemViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
 
+    @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -123,12 +124,12 @@ extension ReportProblemViewController: ReportImagesContainerViewDelegate {
             alertVC.addAction(UIAlertAction(title: strings.takeAPhoto(),
                                             style: .default) { [weak self] _ in
                     self?.openImagePicker(source: .camera)
-            })
+                })
         }
         alertVC.addAction(UIAlertAction(title: strings.chooseFromLibrary(),
                                         style: .default) { [weak self] _ in
                 self?.openImagePicker(source: .photoLibrary)
-        })
+            })
         alertVC.addAction(UIAlertAction(title: strings.cancel(), style: .cancel))
         present(alertVC, animated: true, completion: nil)
     }
@@ -146,8 +147,8 @@ extension ReportProblemViewController: UIImagePickerControllerDelegate {
     func imagePickerController(_: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         guard let image = info[.originalImage] as? UIImage,
-            productImageManager.saveImage(image, for: reason, index: imageCount),
-            let smallImage = productImageManager.retrieveThumbnail(for: reason, index: imageCount) else {
+              productImageManager.saveImage(image, for: reason, index: imageCount),
+              let smallImage = productImageManager.retrieveThumbnail(for: reason, index: imageCount) else {
             BPLog("Error occured during obtaining image from image picker")
             KVNProgress.showError(withStatus: R.string.localizable.errorOccured())
             dismiss(animated: true, completion: nil)
