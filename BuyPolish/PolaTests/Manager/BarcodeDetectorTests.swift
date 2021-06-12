@@ -1,10 +1,3 @@
-//  BarcodeDetectorTests.swift
-//  PolaTests
-//
-//  Created by Damian on 11/05/2021.
-//  Copyright © 2021 PJMS. All rights reserved.
-//
-
 @testable import Pola
 import XCTest
 

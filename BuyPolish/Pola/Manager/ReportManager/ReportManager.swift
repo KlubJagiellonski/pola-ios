@@ -43,7 +43,7 @@ final class PolaReportManager: ReportManager {
                             return try uploadMediaRequestFactory.request(url: stringUrl, mediaData: data, mimeType: .png)
                                 .responseData()
                                 .asVoid()
-                        }
+                    }
                 return when(fulfilled: promises).asVoid()
             }
     }

@@ -33,21 +33,18 @@ final class MockServer {
     ]
 
     private func configureResponses() {
-        server["/get_by_code"] = {
-            request in
+        server["/get_by_code"] = { request in
             self.record(request: request)
             let code = self.code(from: request)
             let responseFilename = self.responseFilename(for: code)
             return self.response(from: responseFilename)
         }
-        server["/create_report"] = {
-            request in
+        server["/create_report"] = { request in
             self.record(request: request)
             return self.response(from: "create_report")
         }
 
-        server["/image"] = {
-            request in
+        server["/image"] = { request in
             self.record(request: request)
             return HttpResponse.ok(.text(""))
         }

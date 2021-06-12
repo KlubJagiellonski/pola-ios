@@ -24,7 +24,8 @@ class KeyboardLabel: UILabel {
         fatalError("init(coder:) has not been implemented")
     }
 
-    @objc func showMenu(sender _: AnyObject?) {
+    @objc
+    func showMenu(sender _: AnyObject?) {
         becomeFirstResponder()
 
         if !menu.isMenuVisible {
@@ -52,7 +53,8 @@ class KeyboardLabel: UILabel {
         menu.setMenuVisible(false, animated: true)
     }
 
-    @objc private func pasteAndActivate(_: Any?) {
+    @objc
+    private func pasteAndActivate(_: Any?) {
         delegate?.keyboardLabelUserDidTapPasteAndActivate(self, pasteboardContent: pasteboard.string)
         menu.setMenuVisible(false, animated: true)
     }

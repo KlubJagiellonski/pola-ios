@@ -9,6 +9,7 @@ final class InformationPageUITests: PolaUITestCase {
     }
 
     override func tearDown() {
+        super.tearDown()
         page = nil
     }
 

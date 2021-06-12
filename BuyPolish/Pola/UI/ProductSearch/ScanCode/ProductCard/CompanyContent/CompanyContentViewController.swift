@@ -20,6 +20,7 @@ final class CompanyContentViewController: UIViewController {
     }
 
     override func viewDidLoad() {
+        super.viewDidLoad()
         guard let company = result.companies?.first else {
             return
         }

@@ -123,7 +123,7 @@ extension ReportProblemViewController: ReportImagesContainerViewDelegate {
             alertVC.addAction(UIAlertAction(title: strings.takeAPhoto(),
                                             style: .default) { [weak self] _ in
                     self?.openImagePicker(source: .camera)
-          })
+            })
         }
         alertVC.addAction(UIAlertAction(title: strings.chooseFromLibrary(),
                                         style: .default) { [weak self] _ in

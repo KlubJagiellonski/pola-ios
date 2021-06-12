@@ -17,6 +17,7 @@ final class AltResultContentViewController: UIViewController {
     }
 
     override func viewDidLoad() {
+        super.viewDidLoad()
         guard let altView = view as? AltResultContentView else {
             return
         }
