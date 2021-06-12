@@ -26,11 +26,6 @@ final class AboutDoubleCell: AboutBaseCell {
         selectionStyle = .none
     }
 
-    @available(*, unavailable)
-    required init?(coder _: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
     override func layoutSubviews() {
         super.layoutSubviews()
 

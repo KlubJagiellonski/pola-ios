@@ -9,14 +9,14 @@ class AnalyticsHelperTests: XCTestCase {
     let testBarcode = CodeData.Radziemska.barcode
     let testScanResult = CodeData.Radziemska.scanResult
 
-    override func setUpWithError() throws {
-        super.setUpWithError()
+    override func setUp() {
+        super.setUp()
         analyticsMock = AnalyticsProviderMock()
         sut = AnalyticsHelper(provider: analyticsMock)
     }
 
-    override func tearDownWithError() throws {
-        super.tearDownWithError()
+    override func tearDown() {
+        super.tearDown()
         analyticsMock = nil
         sut = nil
     }
