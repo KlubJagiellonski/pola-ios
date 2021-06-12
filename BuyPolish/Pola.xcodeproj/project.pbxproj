@@ -92,7 +92,6 @@
 		8492DF81257E7CED00094624 /* AnalyticsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8492DF80257E7CED00094624 /* AnalyticsProvider.swift */; };
 		8492DF86257E7E0E00094624 /* FirebaseAnalyticsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8492DF85257E7E0E00094624 /* FirebaseAnalyticsProvider.swift */; };
 		849577D4230B53FC00FC9591 /* CompanyContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849577D3230B53FC00FC9591 /* CompanyContentView.swift */; };
-		849E40C32413F024006E1B76 /* TimerBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849E40C22413F024006E1B76 /* TimerBlock.swift */; };
 		849E40CD24143DE5006E1B76 /* CapturedImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849E40CC24143DE5006E1B76 /* CapturedImageManager.swift */; };
 		849E40CF24143E54006E1B76 /* InMemoryCapturedImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849E40CE24143E54006E1B76 /* InMemoryCapturedImageManager.swift */; };
 		849E40D82415204C006E1B76 /* ScanBarcodePageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849E40D62415204C006E1B76 /* ScanBarcodePageUITests.swift */; };
@@ -310,7 +309,6 @@
 		8492DF80257E7CED00094624 /* AnalyticsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsProvider.swift; sourceTree = "<group>"; };
 		8492DF85257E7E0E00094624 /* FirebaseAnalyticsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAnalyticsProvider.swift; sourceTree = "<group>"; };
 		849577D3230B53FC00FC9591 /* CompanyContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyContentView.swift; sourceTree = "<group>"; };
-		849E40C22413F024006E1B76 /* TimerBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerBlock.swift; sourceTree = "<group>"; };
 		849E40CC24143DE5006E1B76 /* CapturedImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapturedImageManager.swift; sourceTree = "<group>"; };
 		849E40CE24143E54006E1B76 /* InMemoryCapturedImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryCapturedImageManager.swift; sourceTree = "<group>"; };
 		849E40D62415204C006E1B76 /* ScanBarcodePageUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanBarcodePageUITests.swift; sourceTree = "<group>"; };
@@ -609,7 +607,6 @@
 				37B646DCA0870AD66E5EB92B /* Categories */,
 				9E7BE9442401503F0070BF8D /* ExtendedButton.swift */,
 				842E763923E4727D00A5534B /* Logger.swift */,
-				849E40C22413F024006E1B76 /* TimerBlock.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1466,7 +1463,6 @@
 				84601A3A2405B5B900AD2A2D /* BarcodeValidator.swift in Sources */,
 				9EDFECF5242FB773009D8893 /* FlashlightManager.swift in Sources */,
 				9E0FE73A251C0001005D98B3 /* KeyboardLabel.swift in Sources */,
-				849E40C32413F024006E1B76 /* TimerBlock.swift in Sources */,
 				84A81C4E23EE11B000464745 /* PolaRequestFactory.swift in Sources */,
 				845F78D523BA28F8008DDFDF /* ScanResult.swift in Sources */,
 				842E762E23E0D4CA00A5534B /* FileManager+Extension.swift in Sources */,
