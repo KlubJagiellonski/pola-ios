@@ -15,6 +15,7 @@ final class AboutFooterView: UIView {
         addSubview(infoLabel)
     }
 
+    @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

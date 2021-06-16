@@ -64,7 +64,7 @@ final class LocalDocumentsProductImageManager: ProductImageManager {
     private func retrieveThumbnail(for key: ReportProblemReason, id: Int) -> UIImage? {
         let path = fullPath(relativePath: key.pathToImage(id: id, size: .thumbnail))
         guard let data = fileManager.contents(atPath: path),
-            let image = UIImage(data: data) else {
+              let image = UIImage(data: data) else {
             return nil
         }
         return image
@@ -74,8 +74,8 @@ final class LocalDocumentsProductImageManager: ProductImageManager {
         let path = fullPath(relativePath: key.directoryName)
         var isDir: ObjCBool = false
         guard fileManager.fileExists(atPath: path, isDirectory: &isDir),
-            isDir.boolValue,
-            let contents = try? fileManager.contentsOfDirectory(atPath: path) else {
+              isDir.boolValue,
+              let contents = try? fileManager.contentsOfDirectory(atPath: path) else {
             return []
         }
 

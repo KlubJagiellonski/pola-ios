@@ -3,7 +3,7 @@ import UIKit
 extension UILabel {
     func height(forWidth width: CGFloat) -> CGFloat {
         guard let text = text,
-            let font = font else {
+              let font = font else {
             return 0
         }
         let string = NSString(string: text)

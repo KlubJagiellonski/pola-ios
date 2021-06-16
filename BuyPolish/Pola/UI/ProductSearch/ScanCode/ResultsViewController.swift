@@ -36,6 +36,7 @@ final class ResultsViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
 
+    @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -58,7 +59,7 @@ final class ResultsViewController: UIViewController {
 
     func add(barcodeCard barcode: String, sourceType: AnalyticsBarcodeSource) {
         guard isAddingCardEnabled,
-            lastResultViewController?.barcode != barcode else {
+              lastResultViewController?.barcode != barcode else {
             return
         }
 

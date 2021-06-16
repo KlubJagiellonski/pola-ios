@@ -13,6 +13,7 @@ final class AboutWebViewController: UIViewController {
         self.title = title
     }
 
+    @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

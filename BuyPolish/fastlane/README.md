@@ -49,6 +49,11 @@ fastlane ios check_formatting
 fastlane ios format
 ```
 
+### ios lint
+```
+fastlane ios lint
+```
+
 
 ----
 

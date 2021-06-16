@@ -21,6 +21,7 @@ final class ScanResultViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
 
+    @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -83,8 +84,8 @@ final class ScanResultViewController: UIViewController {
 
     private func fillProgressView(scanResult: ScanResult) {
         if scanResult.companies?.count == 1,
-            let company = scanResult.companies?.first,
-            let plScore = company.plScore {
+           let company = scanResult.companies?.first,
+           let plScore = company.plScore {
             castedView.mainProgressView.progress = CGFloat(plScore) / 100.0
         }
     }

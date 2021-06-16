@@ -49,8 +49,8 @@ final class NotificationCenterKeyboardManager: KeyboardManager {
 
     private func keyboardWillHide(notification: Notification) {
         guard let userInfo = notification.userInfo,
-            let animationOptions = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt,
-            let animationDuration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval else {
+              let animationOptions = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt,
+              let animationDuration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval else {
             return
         }
 
@@ -60,9 +60,9 @@ final class NotificationCenterKeyboardManager: KeyboardManager {
 
     private func keyboardWillShow(notification: Notification) {
         guard let userInfo = notification.userInfo,
-            let keyboardRect = userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? CGRect,
-            let animationOptions = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt,
-            let animationDuration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval else {
+              let keyboardRect = userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? CGRect,
+              let animationOptions = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt,
+              let animationDuration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval else {
             return
         }
 

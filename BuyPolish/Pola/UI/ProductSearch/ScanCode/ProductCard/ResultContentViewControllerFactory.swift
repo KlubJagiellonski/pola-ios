@@ -7,7 +7,7 @@ final class ResultContentViewControllerFactory {
         }
 
         if let altText = scanResult.altText,
-            !altText.isEmpty {
+           !altText.isEmpty {
             return AltResultContentViewController(result: scanResult)
         }
         return CompanyContentViewController(result: scanResult)

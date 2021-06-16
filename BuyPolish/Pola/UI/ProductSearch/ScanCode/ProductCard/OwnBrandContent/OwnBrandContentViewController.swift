@@ -11,6 +11,7 @@ class OwnBrandContentViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
 
+    @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -23,7 +24,7 @@ class OwnBrandContentViewController: UIViewController {
         super.viewDidLoad()
 
         guard let companies = result.companies,
-            companies.count == 2 else {
+              companies.count == 2 else {
             return
         }
 

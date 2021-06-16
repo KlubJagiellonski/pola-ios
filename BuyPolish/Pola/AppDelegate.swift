@@ -66,7 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     private func handleShortcutItem(_ item: UIApplicationShortcutItem) -> Bool {
         guard let bundleIdentifier = Bundle.main.bundleIdentifier,
-            let rootViewController = window?.rootViewController as? RootViewController else {
+              let rootViewController = window?.rootViewController as? RootViewController else {
             return false
         }
         let scanType = "\(bundleIdentifier).ScanCode"

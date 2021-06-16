@@ -5,6 +5,7 @@ testplan_full = "Full"
 
 platform :ios do
   lane :tests do
+    lint
     check_project_structure
     check_formatting
     scan(testplan: testplan_full)
@@ -42,7 +43,6 @@ platform :ios do
       executable: swiftformat_executable,
       lint: true
     )
-
   end
 
   lane :format do
@@ -50,6 +50,13 @@ platform :ios do
 
     swiftformat(
       executable: swiftformat_executable,
+    )
+  end
+
+  lane :lint do
+    swiftlint(
+      executable: "Pods/SwiftLint/swiftlint",
+      strict: true
     )
   end
 

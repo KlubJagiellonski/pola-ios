@@ -13,6 +13,7 @@ final class CardStackView: UIView {
         setCurrentLayout(CardStackViewLayoutLayoutCollapsed(), animated: false, completionBlock: nil)
     }
 
+    @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -44,7 +45,7 @@ final class CardStackView: UIView {
         setCurrentLayout(CardStackViewLayoutLayoutCollapsed(offScreenCard: toBeRemovedCard),
                          animated: true) { [weak self, weak toBeRemovedCard] in
             guard let self = self,
-                let toBeRemovedCard = toBeRemovedCard else {
+                  let toBeRemovedCard = toBeRemovedCard else {
                 return
             }
             self.cardRemovedFromUI(toBeRemovedCard)
@@ -61,7 +62,7 @@ final class CardStackView: UIView {
         setCurrentLayout(CardStackViewLayoutLayoutCollapsed(offScreenCard: card),
                          animated: true) { [weak self, weak card] in
             guard let self = self,
-                let card = card else {
+                  let card = card else {
                 return
             }
             self.cardRemovedFromUI(card)
@@ -104,7 +105,7 @@ final class CardStackView: UIView {
                                    return
                                }
                                self.layoutChanged(oldLayout: oldLayout, completionBlock: completionBlock)
-            })
+                           })
 
         } else {
             forceLayout()
@@ -170,7 +171,7 @@ final class CardStackView: UIView {
     }
 
     override func point(inside point: CGPoint, with _: UIEvent?) -> Bool {
-        return subviews.contains { (view) -> Bool in
+        return subviews.contains { view -> Bool in
             view.frame.contains(point)
         }
     }
