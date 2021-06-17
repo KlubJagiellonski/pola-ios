@@ -10,7 +10,7 @@ final class AboutSingleCell: AboutBaseCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-      themeBackgroundView.backgroundColor = Theme.lightBackgroundColor
+        themeBackgroundView.backgroundColor = Theme.lightBackgroundColor
         contentView.insertSubview(themeBackgroundView, belowSubview: textLabel!)
 
         textLabel?.textColor = Theme.defaultTextColor
