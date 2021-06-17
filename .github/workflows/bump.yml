@@ -1,0 +1,45 @@
+name: Bump version
+
+on: 
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Number version to bump'
+        required: true
+
+jobs:
+  bump_version:
+    name: Record snapshots for unit & ui tests
+    runs-on: macos-10.15
+    defaults:
+      run:
+        working-directory: BuyPolish
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 
+          token: ${{ secrets.WORKFLOW_ACCESS_TOKEN_GITHUB }}
+      - name: Cache bundler gems
+        uses: actions/cache@v2
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+      - name: Cache pods
+        uses: actions/cache@v2
+        with:
+          path: BuyPolish/Pods
+          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pods-
+      - name: Bundler
+        run: |
+          bundle config path vendor/bundle
+          bundle install --jobs 4 --retry 3
+      - name: Pod install
+        run: bundle exec pod install
+      - name: Bump version
+        run: bundle exec fastlane bump_version version:${{ github.event.inputs.version }}

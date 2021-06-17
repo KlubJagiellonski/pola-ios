@@ -16,19 +16,17 @@ or alternatively using `brew install fastlane`
 
 # Available Actions
 ## iOS
+### ios bump_version
+```
+fastlane ios bump_version
+```
+Bump version and build number
+    Options:  
+    - version - new version number
+    
 ### ios tests
 ```
 fastlane ios tests
-```
-
-### ios unit_tests
-```
-fastlane ios unit_tests
-```
-
-### ios ui_tests
-```
-fastlane ios ui_tests
 ```
 
 ### ios record_snapshots
@@ -49,6 +47,11 @@ fastlane ios check_formatting
 ### ios format
 ```
 fastlane ios format
+```
+
+### ios lint
+```
+fastlane ios lint
 ```
 
 

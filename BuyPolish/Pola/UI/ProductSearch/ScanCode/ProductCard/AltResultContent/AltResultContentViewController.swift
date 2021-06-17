@@ -8,6 +8,7 @@ final class AltResultContentViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
 
+    @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -17,6 +18,7 @@ final class AltResultContentViewController: UIViewController {
     }
 
     override func viewDidLoad() {
+        super.viewDidLoad()
         guard let altView = view as? AltResultContentView else {
             return
         }

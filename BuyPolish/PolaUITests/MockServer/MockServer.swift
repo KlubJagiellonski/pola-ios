@@ -28,24 +28,23 @@ final class MockServer {
         CodeData.Staropramen,
         CodeData.Tymbark,
         CodeData.Naleczowianka,
+        CodeData.Krasnystaw,
+        CodeData.Lidl,
     ]
 
     private func configureResponses() {
-        server["/get_by_code"] = {
-            request in
+        server["/get_by_code"] = { request in
             self.record(request: request)
             let code = self.code(from: request)
             let responseFilename = self.responseFilename(for: code)
             return self.response(from: responseFilename)
         }
-        server["/create_report"] = {
-            request in
+        server["/create_report"] = { request in
             self.record(request: request)
             return self.response(from: "create_report")
         }
 
-        server["/image"] = {
-            request in
+        server["/image"] = { request in
             self.record(request: request)
             return HttpResponse.ok(.text(""))
         }
@@ -57,7 +56,7 @@ final class MockServer {
     }
 
     private func code(from request: HttpRequest) -> String {
-        return request.queryParams.first(where: { (key, _) -> Bool in
+        return request.queryParams.first(where: { key, _ -> Bool in
             key == "code"
         })!.1
     }

@@ -1,27 +1,40 @@
 {
   "product_id": 1489,
   "code": "5900635001111",
-  "name": "NESTLE WATERS POLSKA",
+  "name": null,
   "card_type": "type_white",
-  "plScore": 55,
   "altText": null,
-  "plCapital": 0,
-  "plCapital_notes": "\r\n",
-  "plWorkers": 100,
-  "plWorkers_notes": "",
-  "plRnD": 100,
-  "plRnD_notes": "",
-  "plRegistered": 100,
-  "plRegistered_notes": "Spółka zarejestrowana na terenie Polski. ",
-  "plNotGlobEnt": 0,
-  "plNotGlobEnt_notes": "",
-  "report_text": "Zgłoś jeśli posiadasz bardziej aktualne dane na temat tego produktu",
-  "report_button_text": "Zgłoś",
-  "report_button_type": "type_white",
-  "is_friend": false,
-  "description": "Nestlé Waters Polska - oferujące różne rodzaje wód mineralnych i napojów - należy do międzynarodowej grupy Nestlé, działającej na rynku spożywczym. Nestlé w Polsce współtworzy 5042 pracowników. W 9 zakładach zlokalizowanych w różnych regionach Polski wytwarzanych jest ponad 1500 produktów spożywczych.",
-  "sources": {
-    "Dane z KRS": "http://mojepanstwo.pl/dane/krs_podmioty/32045",
-    "Strona producenta": "http://www.nestle.pl/pl/aboutus/nestlepolska"
+  "companies": [
+    {
+      "name": "Nestle Waters Polska S.A.",
+      "plCapital": 0,
+      "plCapital_notes": "\r\n",
+      "plWorkers": 100,
+      "plWorkers_notes": "",
+      "plRnD": 100,
+      "plRnD_notes": "",
+      "plRegistered": 100,
+      "plRegistered_notes": "Spółka zarejestrowana na terenie Polski. ",
+      "plNotGlobEnt": 0,
+      "plNotGlobEnt_notes": "",
+      "plScore": 55,
+      "is_friend": false,
+      "description": "Nestlé Waters Polska - oferujące różne rodzaje wód mineralnych i napojów - należy do międzynarodowej grupy Nestlé, działającej na rynku spożywczym.",
+      "sources": {
+        "Rejestracja": "https://krs-pobierz.pl/nestle-polska-i50439",
+        "Produkcja": "http://www.nestle.pl/pl/aboutus/nestlepolska",
+        "Badania i Rozwój": "http://nestle.media.pl/pr/276028/rzeszowskie-centrum-badawcze-nestle-nqac-podsumowuje-pierwszy-rok-dzialalnosci"
+      }
+    }
+  ],
+  "report": {
+    "text": "Zgłoś jeśli posiadasz bardziej aktualne dane na temat tego produktu",
+    "button_text": "Zgłoś",
+    "button_type": "type_white"
+  },
+  "donate": {
+    "show_button": true,
+    "url": "https://klubjagiellonski.pl/zbiorka/wspieraj-aplikacje-pola/",
+    "title": "Wspieraj aplikację Pola"
   }
 }

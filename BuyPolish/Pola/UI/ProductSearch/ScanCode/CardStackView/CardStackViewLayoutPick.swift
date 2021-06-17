@@ -15,6 +15,8 @@ final class CardStackViewLayoutPick: CardStackViewLayout {
 
     func didBecomeInactive() {}
 
+    func willBecomeInactive() {}
+
     func didBecomeActive() {
         stackView.delegate?.stackView(stackView, startPickingCard: selectedCard)
     }

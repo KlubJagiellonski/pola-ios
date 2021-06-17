@@ -14,7 +14,7 @@ final class CameraSessionCodeScannerManager: NSObject, CodeScannerManager {
     override init() {
         super.init()
         guard let captureDevice = AVCaptureDevice.default(for: .video),
-            let input = try? AVCaptureDeviceInput(device: captureDevice) else {
+              let input = try? AVCaptureDeviceInput(device: captureDevice) else {
             return
         }
 
@@ -49,13 +49,13 @@ final class CameraSessionCodeScannerManager: NSObject, CodeScannerManager {
 extension CameraSessionCodeScannerManager: AVCaptureMetadataOutputObjectsDelegate {
     func metadataOutput(_: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from _: AVCaptureConnection) {
         guard let metadataObject = metadataObjects.first as? AVMetadataMachineReadableCodeObject,
-            let barcode = metadataObject.stringValue else {
+              let barcode = metadataObject.stringValue else {
             return
         }
 
         DispatchQueue.main.async { [delegate] in
             BPLog("Found barcode \(barcode)")
-            delegate?.didScan(barcode: barcode)
+            delegate?.didScan(barcode: barcode, sourceType: .camera)
         }
     }
 }

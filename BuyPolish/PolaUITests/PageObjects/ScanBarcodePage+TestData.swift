@@ -23,6 +23,6 @@ extension ScanBarcodePage {
     }
 
     func enterCodeAndOpenISBNResult() -> ISBNPage {
-        return enterCodeAndOpenResult(codeData: CodeData.ISBN, expectedResultType: ISBNPage.self)
+        return enterCodeAndOpenResult(codeData: .ISBN, expectedResultType: ISBNPage.self)
     }
 }

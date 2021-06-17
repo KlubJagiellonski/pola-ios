@@ -9,7 +9,11 @@ struct ReadMediaFileError: Error, LocalizedError {
     }
 }
 
-final class ReportManager {
+protocol ReportManager {
+    func send(report: Report) -> Promise<Void>
+}
+
+final class PolaReportManager: ReportManager {
     private let dataRequestFactory: DataRequestFactory
     private let uploadMediaRequestFactory: MediaUploadRequestFactory
     private let fileManager: FileManager
@@ -29,17 +33,17 @@ final class ReportManager {
                      parameters: CreateReportRequestBody(report: report),
                      encoding: JSONEncoding())
             .responseDecodable(CreateReportResponseBody.self)
-            .then { [uploadMediaRequestFactory] (createReportResponse) -> Promise<Void> in
+            .then { [uploadMediaRequestFactory] createReportResponse -> Promise<Void> in
                 let promises =
-                    try createReportResponse.signedRequests.enumerated().map { (i, stringUrl) -> Promise<Void> in
-                            let mediaPath = report.imagePaths[i]
-                            guard let data = self.fileManager.contents(atPath: mediaPath) else {
-                                throw ReadMediaFileError(path: mediaPath)
-                            }
-                            return try uploadMediaRequestFactory.request(url: stringUrl, mediaData: data, mimeType: .png)
-                                .responseData()
-                                .asVoid()
+                    try createReportResponse.signedRequests.enumerated().map { i, stringUrl -> Promise<Void> in
+                        let mediaPath = report.imagePaths[i]
+                        guard let data = self.fileManager.contents(atPath: mediaPath) else {
+                            throw ReadMediaFileError(path: mediaPath)
                         }
+                        return try uploadMediaRequestFactory.request(url: stringUrl, mediaData: data, mimeType: .png)
+                            .responseData()
+                            .asVoid()
+                    }
                 return when(fulfilled: promises).asVoid()
             }
     }

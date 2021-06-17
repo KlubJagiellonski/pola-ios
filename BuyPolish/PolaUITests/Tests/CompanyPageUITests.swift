@@ -2,36 +2,32 @@ import XCTest
 
 final class CompanyPageUITests: PolaUITestCase {
     func testRadziemskaCompanyShouldBeMarkedAsPolaFriends() {
-        let isPolaFriend =
-            startingPageObject
-                .enterCodeAndOpenCompanyResult(codeData: CodeData.Radziemska)
-                .isPolaFriend
-
-        XCTAssertTrue(isPolaFriend)
-        snapshotVerifyView()
-    }
-
-    func testStaropramenCompanyShouldNotBeMarkedAsPolaFriends() {
-        let isPolaFriend =
-            startingPageObject
-                .enterCodeAndOpenCompanyResult(codeData: CodeData.Staropramen)
-                .isPolaFriend
-
-        XCTAssertFalse(isPolaFriend)
-        snapshotVerifyView()
-    }
-
-    func testKoralCompanyShouldShowAskForDonateButton() {
         startingPageObject
-            .enterCodeAndOpenCompanyResult(codeData: CodeData.Koral)
+            .enterCodeAndOpenCompanyResult(codeData: CodeData.Radziemska)
             .done()
 
         snapshotVerifyView()
     }
 
-    func testNaleczowiankaCompanyShouldHas0PolishCapital() {
+    func testStaropramenCompanyShouldNotBeMarkedAsPolaFriends() {
         startingPageObject
-            .enterCodeAndOpenCompanyResult(codeData: CodeData.Naleczowianka)
+            .enterCodeAndOpenCompanyResult(codeData: CodeData.Staropramen)
+            .done()
+
+        snapshotVerifyView()
+    }
+
+    func testKoralCompanyShouldNotShowReportButton() {
+        startingPageObject
+            .enterCodeAndOpenCompanyResult(codeData: .Koral)
+            .done()
+
+        snapshotVerifyView()
+    }
+
+    func testOwnBrand() {
+        startingPageObject
+            .enterCodeAndOpenCompanyResult(codeData: .Lidl)
             .done()
 
         snapshotVerifyView()
@@ -39,8 +35,17 @@ final class CompanyPageUITests: PolaUITestCase {
 
     func testTapReportButton() {
         startingPageObject
-            .enterCodeAndOpenCompanyResult(codeData: CodeData.Koral)
+            .enterCodeAndOpenCompanyResult(codeData: .Radziemska)
             .tapReportButton()
+            .done()
+
+        snapshotVerifyView()
+    }
+
+    func testLongName() throws {
+        throw skipTest(issueNumber: 206)
+        startingPageObject
+            .enterCodeAndOpenCompanyResult(codeData: .Krasnystaw)
             .done()
 
         snapshotVerifyView()

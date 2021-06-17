@@ -1,28 +1,31 @@
 {
   "product_id": 470398,
   "code": "5902121022303",
-  "name": "Lody Koral",
+  "name": null,
   "card_type": "type_white",
-  "plScore": 100,
   "altText": null,
-  "plCapital": 100,
-  "plCapital_notes": "Spółka rodzima, należąca do braci Koral. \r\n\r\nhttp://www.koral.com.pl/pl/o-nas,17.htm\r\n\r\n",
-  "plWorkers": 100,
-  "plWorkers_notes": "Spółka produkuje w trzech zakładach ulokowanych w Rzeszowie, Limanowej i Nowym Sączu. \r\n\r\nhttp://www.koral.com.pl/pl/o-nas,17.htm",
-  "plRnD": 100,
-  "plRnD_notes": "Ze względu na swoją specyfikę można przyjąć, że spółka tworzy miejsca w obszarze BiR na terenie Polski. \r\n\r\nhttp://www.koral.com.pl/",
-  "plRegistered": 100,
-  "plRegistered_notes": "Spółka zarejestrowana na terenie Polski. \r\n\r\nhttp://www.krs-online.com.pl/przedsiebiorstwo-produkcji-lodow-koral-krs-80781.html",
-  "plNotGlobEnt": 100,
-  "plNotGlobEnt_notes": "Firma nie jest częścią zagranicznego koncernu. Spółka polska. ",
-  "report_text": "Zgłoś jeśli posiadasz bardziej aktualne dane na temat tego produktu",
-  "report_button_text": "Zgłoś",
-  "report_button_type": "type_white",
-  "is_friend": false,
-  "description": "Przedsiębiorstwo Produkcji Lodów KORAL z siedzibą w Nowym Sączu będące własnością braci Józefa i Mariana Koral rozpoczęło swoją działalność w 1979 roku. Z małego zakładu rzemieślniczego produkującego lody cukiernicze na przestrzeni wielu lat firma przekształciła się w największego w Polsce producenta lodów.\r\nP.P.L. KORAL posiada zakłady w Nowym Sączu, Limanowej i Rzeszowie. Sprzedaż prowadzona jest na terenie całego kraju poprzez własną sieć dystrybucji oraz poprzez sieć hurtowni. \r\nObecnie produkowanych jest ponad 50 asortymentów lodów, każdy w kilku smakach.",
-  "sources": {
-    "Strona producenta": "http://www.koral.com.pl/pl/o-nas,17.htm"
-  },
+  "companies": [
+    {
+      "name": "P. P. L. KORAL Józef Koral S.J.",
+      "plCapital": 100,
+      "plCapital_notes": "Spółka rodzima, należąca do braci Koral. \r\n\r\nhttp://www.koral.com.pl/pl/o-nas,17.htm\r\n\r\n",
+      "plWorkers": 100,
+      "plWorkers_notes": "Spółka produkuje w trzech zakładach ulokowanych w Rzeszowie, Limanowej i Nowym Sączu. \r\n\r\nhttp://www.koral.com.pl/pl/o-nas,17.htm",
+      "plRnD": 100,
+      "plRnD_notes": "Ze względu na swoją specyfikę można przyjąć, że spółka tworzy miejsca w obszarze BiR na terenie Polski. \r\n\r\nhttp://www.koral.com.pl/",
+      "plRegistered": 100,
+      "plRegistered_notes": "Spółka zarejestrowana na terenie Polski. \r\n\r\nhttp://www.krs-online.com.pl/przedsiebiorstwo-produkcji-lodow-koral-krs-80781.html",
+      "plNotGlobEnt": 100,
+      "plNotGlobEnt_notes": "Firma nie jest częścią zagranicznego koncernu. Spółka polska. ",
+      "plScore": 100,
+      "is_friend": false,
+      "description": "Przedsiębiorstwo Produkcji Lodów KORAL z siedzibą w Nowym Sączu zostało założone przez braci Mariana i Józefa Koral w 1979 roku w Limanowej. Z małego zakładu rzemieślniczego produkującego lody cukiernicze na przestrzeni wielu lat firma przekształciła się w największego w Polsce producenta lodów oraz jednego z największych w Europie. Jest właścicielem marek Koral i Bracia Koral - Lody Jak Dawniej.\r\nP.P.L. KORAL posiada zakłady w Nowym Sączu, Limanowej i Rzeszowie. Sprzedaż prowadzona jest na terenie całego kraju poprzez własną sieć dystrybucji oraz poprzez sieć hurtowni.",
+      "sources": {
+        "kapitał": "https://krs-pobierz.pl/przedsiebiorstwo-produkcji-lodow-koral-jozef-koral-spolka-jawna-i148618",
+        "produkcja": "https://koral.com.pl/o-nas/o-firmie"
+      }
+    }
+  ],
   "donate": {
     "show_button": true,
     "url": "https://klubjagiellonski.pl/zbiorka/wspieraj-aplikacje-pola/",

@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "68BC6F58-2327-415E-A864-6EC512AB51C8",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Pola.xcodeproj",
+        "identifier" : "84B1B361225F975A009FA909",
+        "name" : "PolaUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

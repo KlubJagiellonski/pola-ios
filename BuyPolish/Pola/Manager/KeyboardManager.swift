@@ -5,7 +5,13 @@ protocol KeyboardManagerDelegate: AnyObject {
     func keyboardWillHide(animationDuration: TimeInterval, animationOptions: UIView.AnimationOptions)
 }
 
-final class KeyboardManager {
+protocol KeyboardManager: AnyObject {
+    var delegate: KeyboardManagerDelegate? { get set }
+    func turnOn()
+    func turnOff()
+}
+
+final class NotificationCenterKeyboardManager: KeyboardManager {
     weak var delegate: KeyboardManagerDelegate?
     private let notificationCenter: NotificationCenter
     private var notificationTokens = [NSObjectProtocol]()
@@ -43,8 +49,8 @@ final class KeyboardManager {
 
     private func keyboardWillHide(notification: Notification) {
         guard let userInfo = notification.userInfo,
-            let animationOptions = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt,
-            let animationDuration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval else {
+              let animationOptions = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt,
+              let animationDuration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval else {
             return
         }
 
@@ -54,9 +60,9 @@ final class KeyboardManager {
 
     private func keyboardWillShow(notification: Notification) {
         guard let userInfo = notification.userInfo,
-            let keyboardRect = userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? CGRect,
-            let animationOptions = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt,
-            let animationDuration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval else {
+              let keyboardRect = userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? CGRect,
+              let animationOptions = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt,
+              let animationDuration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval else {
             return
         }
 

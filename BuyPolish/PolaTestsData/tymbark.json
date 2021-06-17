@@ -1,27 +1,41 @@
 {
   "product_id": 5231003,
   "code": "5901067405119",
-  "name": "MWS Sp. z o.o.",
+  "name": null,
   "card_type": "type_white",
-  "plScore": 100,
   "altText": null,
-  "plCapital": 100,
-  "plCapital_notes": "",
-  "plWorkers": 100,
-  "plWorkers_notes": "",
-  "plRnD": 100,
-  "plRnD_notes": "",
-  "plRegistered": 100,
-  "plRegistered_notes": "",
-  "plNotGlobEnt": 100,
-  "plNotGlobEnt_notes": "",
-  "report_text": "Zgłoś jeśli posiadasz bardziej aktualne dane na temat tego produktu",
-  "report_button_text": "Zgłoś",
-  "report_button_type": "type_white",
-  "is_friend": false,
-  "description": "Tymbark jest obecny na polskim rynku od 1936 r. Obecnie Tymbark to zdecydowany lider rynkowy w kategorii soków, nektarów i napojów w Polsce, którego produkty trafiają do prawie 30 krajów na całym świecie. Według prestiżowego „Rankingu Najbardziej Wartościowych Polskich Marek 2014” Dziennika „Rzeczpospolita” Tymbark jest najsilniejszą marką napojową w Polsce w „Kategorii napojów bezalkoholowych”. W Tymbarku opracowano i zainstalowano pierwszą w Polsce stację wyparną do zagęszczania soków, opracowano w 1967 roku pierwszą w Polsce recepturę soku z czarnej porzeczki oraz wprowadzono w 2004 roku Top Aseptic – nowoczesną technologię aseptycznego rozlewu soków i napojów do opakowań plastikowych.",
-  "sources": {
-    "Dane z KRS": "http://mojepanstwo.pl/dane/krs_podmioty/498181",
-    "Strona producenta": "https://tymbark.com/o-firmie/o-firmie/o-firmie/"
+  "companies": [
+    {
+      "name": "Tymbark - MWS Sp. z o.o. Sp. k.",
+      "plCapital": 100,
+      "plCapital_notes": "",
+      "plWorkers": 100,
+      "plWorkers_notes": "",
+      "plRnD": 100,
+      "plRnD_notes": "",
+      "plRegistered": 100,
+      "plRegistered_notes": "",
+      "plNotGlobEnt": 100,
+      "plNotGlobEnt_notes": "",
+      "plScore": 100,
+      "is_friend": false,
+      "description": "Tymbark jest obecny na polskim rynku od 1936 r. Obecnie Tymbark to zdecydowany lider rynkowy w kategorii soków, nektarów i napojów w Polsce, którego produkty trafiają do prawie 30 krajów na całym świecie. W Tymbarku opracowano i zainstalowano pierwszą w Polsce stację wyparną do zagęszczania soków, opracowano w 1967 roku pierwszą w Polsce recepturę soku z czarnej porzeczki oraz wprowadzono w 2004 roku Top Aseptic – nowoczesną technologię aseptycznego rozlewu soków i napojów do opakowań plastikowych.",
+      "sources": {
+        "Marki": "https://maspex.com/aktualnosc,zakup-aktywow-agros-nova,252.html",
+        "Rejestracja": "http://www.krs-online.com.pl/maspex-gmw-sp-z-o-o-spolka-komandytowa-krs-1089369.html",
+        "Produkcja": "https://maspex.com/maspex,struktura-firmy,13.html",
+        "Kapitał": "https://krs-pobierz.pl/maspex-gmw-spolka-z-ograniczona-odpowiedzialnoscia-i4684518"
+      }
+    }
+  ],
+  "report": {
+    "text": "Zgłoś jeśli posiadasz bardziej aktualne dane na temat tego produktu",
+    "button_text": "Zgłoś",
+    "button_type": "type_white"
+  },
+  "donate": {
+    "show_button": true,
+    "url": "https://klubjagiellonski.pl/zbiorka/wspieraj-aplikacje-pola/",
+    "title": "Wspieraj aplikację Pola"
   }
 }

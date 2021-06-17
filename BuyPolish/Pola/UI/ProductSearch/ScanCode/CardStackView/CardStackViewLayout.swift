@@ -6,6 +6,7 @@ protocol CardStackViewLayout: AnyObject {
 
     func willBecomeActive()
     func didBecomeInactive()
+    func willBecomeInactive()
     func didBecomeActive()
     func layout(cards: [UIView])
     func didTap(cardView: UIView, recognizer: UITapGestureRecognizer)

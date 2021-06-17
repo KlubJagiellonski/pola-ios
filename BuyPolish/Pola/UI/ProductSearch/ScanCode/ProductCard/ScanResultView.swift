@@ -11,6 +11,11 @@ final class ScanResultView: UIView {
             }
             if let contentView = contentView {
                 scrollViewForContentView.addSubview(contentView)
+                addConstraints([
+                    contentView.topAnchor.constraint(equalTo: scrollViewForContentView.topAnchor, constant: verticalPadding),
+                    contentView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: horizontalPadding),
+                    contentView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -horizontalPadding),
+                ])
             }
             setNeedsLayout()
         }
@@ -24,6 +29,9 @@ final class ScanResultView: UIView {
     let scrollViewForContentView = UIScrollView()
 
     var titleHeight = CGFloat(50)
+
+    private let horizontalPadding = CGFloat(10)
+    private let verticalPadding = CGFloat(14)
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -81,6 +89,7 @@ final class ScanResultView: UIView {
         addSubview(separatorView)
     }
 
+    @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -90,14 +99,15 @@ final class ScanResultView: UIView {
 
         let contentProgreassInHeaderHeight = CGFloat(6)
         let buttonHeight = CGFloat(30)
-        let horizontalPadding = CGFloat(10)
-        let verticalPadding = CGFloat(14)
 
-        let verticalTitleSpace = titleHeight - contentProgreassInHeaderHeight
+        var verticalTitleSpace = titleHeight - contentProgreassInHeaderHeight
         let widthWithPadding = bounds.width - (2 * horizontalPadding)
 
         titleLabel.sizeToFit()
         var rect = titleLabel.frame
+        if rect.size.height + verticalPadding > verticalTitleSpace {
+            verticalTitleSpace = rect.size.height + verticalPadding
+        }
         rect.origin.x = horizontalPadding
         rect.origin.y = (verticalTitleSpace / 2) - (rect.height / 2)
         rect.size.width = widthWithPadding
@@ -161,12 +171,8 @@ final class ScanResultView: UIView {
         scrollViewForContentView.frame = rect
 
         if let contentView = contentView {
-            rect = contentView.frame
-            rect.origin.x = horizontalPadding
-            rect.origin.y = verticalPadding
-            rect.size = contentView.sizeThatFits(CGSize(width: widthWithPadding, height: 0))
-            contentView.frame = rect
-            scrollViewForContentView.contentSize = CGSize(width: bounds.width, height: rect.maxY + verticalPadding)
+            contentView.layoutSubviews()
+            scrollViewForContentView.contentSize = CGSize(width: bounds.width, height: contentView.frame.maxY + verticalPadding)
         } else {
             scrollViewForContentView.contentSize = .zero
         }

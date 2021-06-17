@@ -17,10 +17,6 @@ final class AboutSingleCell: AboutBaseCell {
         textLabel?.font = Theme.normalFont
     }
 
-    required init?(coder _: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
     override func layoutSubviews() {
         super.layoutSubviews()
 

@@ -27,6 +27,7 @@ final class ScannerCodeView: UIView {
         addSubview(rectangleView)
     }
 
+    @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

@@ -12,6 +12,11 @@ class ScanBarcodePage: BasePage {
         return InformationPage(openFrom: self)
     }
 
+    func tapGalleryButton() -> MainGalleryPage {
+        app.buttons["Galeria"].tap()
+        return MainGalleryPage(openFrom: self)
+    }
+
     func isReviewRequestVisible() -> Bool {
         let element = app.scrollViews.otherElements.containing(.staticText, identifier: "Enjoying Pola?").element
         return element.waitForExistence(timeout: waitForExistanceTimeout)

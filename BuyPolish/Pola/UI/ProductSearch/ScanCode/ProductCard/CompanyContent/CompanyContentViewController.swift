@@ -11,6 +11,7 @@ final class CompanyContentViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
 
+    @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -20,18 +21,22 @@ final class CompanyContentViewController: UIViewController {
     }
 
     override func viewDidLoad() {
+        super.viewDidLoad()
+        guard let company = result.companies?.first else {
+            return
+        }
         companyView.friendButton.addTarget(self, action: #selector(friendTapped), for: .touchUpInside)
-        if let plCapital = result.plCapital {
+        if let plCapital = company.plCapital {
             companyView.capitalProgressView.progress = CGFloat(plCapital) / 100.0
         } else {
             companyView.capitalProgressView.progress = nil
         }
-        companyView.notGlobalCheckRow.checked = bool(from: result.plNotGlobEnt)
-        companyView.workersCheckRow.checked = bool(from: result.plWorkers)
-        companyView.registeredCheckRow.checked = bool(from: result.plRegistered)
-        companyView.rndCheckRow.checked = bool(from: result.plRnD)
-        companyView.descriptionLabel.text = result.description
-        companyView.friendButton.isHidden = !(result.isFriend ?? false)
+        companyView.notGlobalCheckRow.checked = bool(from: company.plNotGlobEnt)
+        companyView.workersCheckRow.checked = bool(from: company.plWorkers)
+        companyView.registeredCheckRow.checked = bool(from: company.plRegistered)
+        companyView.rndCheckRow.checked = bool(from: company.plRnD)
+        companyView.descriptionLabel.text = company.description
+        companyView.friendButton.isHidden = !(company.isFriend ?? false)
 
         switch result.cardType {
         case .grey:

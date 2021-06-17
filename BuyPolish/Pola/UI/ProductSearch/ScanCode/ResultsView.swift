@@ -31,6 +31,7 @@ final class ResultsView: UIView {
         addSubview(donateButton)
     }
 
+    @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

@@ -10,9 +10,8 @@ final class CardStackViewLayoutLayoutCollapsed: CardStackViewLayout {
     }
 
     func willBecomeActive() {}
-
     func didBecomeInactive() {}
-
+    func willBecomeInactive() {}
     func didBecomeActive() {}
 
     func layout(cards: [UIView]) {

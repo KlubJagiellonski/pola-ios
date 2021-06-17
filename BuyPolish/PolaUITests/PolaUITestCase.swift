@@ -31,7 +31,7 @@ class PolaUITestCase: XCTestCase {
     }
 
     func expectRequest(path: String, file: StaticString = #file, line: UInt = #line) {
-        let predicate = NSPredicate { (object, _) -> Bool in
+        let predicate = NSPredicate { object, _ -> Bool in
             let mockServer = object as! MockServer
             return mockServer.loggedRequest.contains(where: { $0.path == path })
         }

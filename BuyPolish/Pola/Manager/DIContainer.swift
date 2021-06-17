@@ -18,7 +18,7 @@ final class DI {
         }
 
         container.register(KeyboardManager.self) { resolver in
-            KeyboardManager(notificationCenter: resolver.resolve(NotificationCenter.self)!)
+            NotificationCenterKeyboardManager(notificationCenter: resolver.resolve(NotificationCenter.self)!)
         }
 
         container.register(FileManager.self) { _ in
@@ -63,7 +63,7 @@ final class DI {
         }
 
         container.register(ReportManager.self) { resolver in
-            ReportManager(dataRequestFactory: resolver.resolve(DataRequestFactory.self)!,
+            PolaReportManager(dataRequestFactory: resolver.resolve(DataRequestFactory.self)!,
                           uploadMediaRequestFactory: resolver.resolve(MediaUploadRequestFactory.self)!,
                           fileManager: resolver.resolve(FileManager.self)!)
         }

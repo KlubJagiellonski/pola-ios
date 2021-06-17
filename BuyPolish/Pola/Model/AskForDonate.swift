@@ -1,6 +1,6 @@
 import Foundation
 
-struct AskForDonateResult: Decodable {
+struct AskForDonate: Decodable {
     let showButton: Bool
     let url: URL
     let title: String

@@ -1,30 +1,42 @@
 {
   "product_id": 646052,
   "code": "5904277719045",
-  "name": "GUSTAW",
+  "name": null,
   "card_type": "type_white",
-  "plScore": 100,
   "altText": null,
-  "plCapital": 100,
-  "plCapital_notes": "",
-  "plWorkers": 100,
-  "plWorkers_notes": "",
-  "plRnD": 100,
-  "plRnD_notes": "",
-  "plRegistered": 100,
-  "plRegistered_notes": "",
-  "plNotGlobEnt": 100,
-  "plNotGlobEnt_notes": "",
-  "report_text": "Zgłoś jeśli posiadasz bardziej aktualne dane na temat tego produktu",
-  "report_button_text": "Zgłoś",
-  "report_button_type": "type_white",
-  "is_friend": true,
-  "friend_text": "To jest przyjaciel Poli",
-  "description": "Polski producent wody mineralnej, pochodzący z Iłży. Jest to firma rodzinna o ponad 30-letniej tradycji, która specjalizuje się w produkcji wód mineralnych pod marką \"Staropolska\", bogatych w magnez i wapń.",
-  "sources": {
-    "KRS": "http://www.krs-online.com.pl/gustaw-s-c-krs-838859.html",
-    "Strona główna Firmy": "http://www.wodastaropolska.pl",
-    "O Firmie": "http://www.wodastaropolska.pl/#nasze_produkty",
-    "Kontakt": "http://www.wodastaropolska.pl/#kontakt"
+  "companies": [
+    {
+      "name": "Woda dla firmy",
+      "plCapital": 100,
+      "plCapital_notes": "",
+      "plWorkers": 100,
+      "plWorkers_notes": "",
+      "plRnD": 100,
+      "plRnD_notes": "",
+      "plRegistered": 100,
+      "plRegistered_notes": "",
+      "plNotGlobEnt": 100,
+      "plNotGlobEnt_notes": "",
+      "plScore": 100,
+      "is_friend": true,
+      "friend_text": "To jest przyjaciel Poli",
+      "description": "Polski producent wody mineralnej, pochodzący z Iłży. Jest to firma rodzinna o ponad 30-letniej tradycji, która specjalizuje się w produkcji wód mineralnych pod marką \"Staropolska\", bogatych w magnez i wapń.",
+      "sources": {
+        "KRS": "http://www.krs-online.com.pl/gustaw-s-c-krs-838859.html",
+        "Strona główna Firmy": "http://www.wodastaropolska.pl",
+        "O Firmie": "http://www.wodastaropolska.pl/#nasze_produkty",
+        "Kontakt": "http://www.wodastaropolska.pl/#kontakt"
+      }
+    }
+  ],
+  "report": {
+    "text": "Zgłoś jeśli posiadasz bardziej aktualne dane na temat tego produktu",
+    "button_text": "Zgłoś",
+    "button_type": "type_white"
+  },
+  "donate": {
+    "show_button": true,
+    "url": "https://klubjagiellonski.pl/zbiorka/wspieraj-aplikacje-pola/",
+    "title": "Wspieraj aplikację Pola"
   }
 }

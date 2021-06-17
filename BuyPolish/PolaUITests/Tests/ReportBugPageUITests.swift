@@ -59,7 +59,7 @@ final class ReportBugPageUITests: PolaUITestCase {
     }
 
     func testTypeDescription() {
-        page.typeDescription("Kawał dobrej aplikacji ;)")
+        page.typeDescription(";)")
             .tapDescriptionLabel()
             .done()
 

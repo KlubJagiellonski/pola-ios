@@ -13,10 +13,11 @@ jobs:
     defaults:
       run:
         working-directory: BuyPolish
-
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: Cache bundler gems
         uses: actions/cache@v2
         with:

@@ -1,0 +1,39 @@
+{
+  "product_id": 9002,
+  "code": "5902057000475",
+  "name": null,
+  "card_type": "type_white",
+  "altText": null,
+  "companies": [
+    {
+      "name": "OKRĘGOWA SPÓŁDZIELNIA MLECZARSKA W KRASNYMSTAWIE",
+      "plCapital": 100,
+      "plCapital_notes": "Spółka rodzima. \r\n\r\nhttp://krasnystaw.eu/?page_id=12",
+      "plWorkers": 100,
+      "plWorkers_notes": "Spółka produkuje swoje produkty na terenie Polski, w Krasnymstawie. \r\n\r\nhttp://krasnystaw.eu/?page_id=23",
+      "plRnD": 100,
+      "plRnD_notes": "Spółka posiada na miejsca pracy w obszarze BiR ulokowane na terenie Polski.\r\n\r\nhttp://krasnystaw.eu/?page_id=23\r\nhttp://krasnystaw.eu/?page_id=12\r\nhttp://krasnystaw.eu/",
+      "plRegistered": 100,
+      "plRegistered_notes": "Spółka zarejestrowana na terenie Polski.\r\n\r\nhttp://www.krs-online.com.pl/okregowa-spoldzielnia-mleczarska-w-krs-102714.html",
+      "plNotGlobEnt": 100,
+      "plNotGlobEnt_notes": "Firma polska.\r\n\r\nhttp://krasnystaw.eu/?page_id=12",
+      "plScore": 100,
+      "is_friend": false,
+      "description": "Krasnystaw OSM to nowoczesna, polska firma współpracująca z ponad trzystoma dystrybutorami produktów nabiałowych z całej Polski. Jej tradycja sięga początków minionego wieku – została bowiem założona w 1913 roku. Obecnie odbiera mleko od ponad 2000 dostawców, przetwarza rocznie 160 mln litrów mleka",
+      "sources": {
+        "Dane z KRS": "http://mojepanstwo.pl/dane/krs_podmioty/107925",
+        "Strona producenta": "http://krasnystaw.eu/?page_id=12"
+      }
+    }
+  ],
+  "report": {
+    "text": "Zgłoś jeśli posiadasz bardziej aktualne dane na temat tego produktu",
+    "button_text": "Zgłoś",
+    "button_type": "type_white"
+  },
+  "donate": {
+    "show_button": true,
+    "url": "https://klubjagiellonski.pl/zbiorka/wspieraj-aplikacje-pola/",
+    "title": "Wspieraj aplikację Pola"
+  }
+}

@@ -16,6 +16,7 @@ final class KeyboardViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
 
+    @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -60,7 +61,7 @@ final class KeyboardViewController: UIViewController {
     private func confirm() {
         playSound()
         if let code = castedView.textView.code,
-            barcodeValidator.isValid(barcode: code) {
+           barcodeValidator.isValid(barcode: code) {
             delegate?.keyboardViewController(self, didConfirmWithCode: code)
         } else {
             castedView.textView.showErrorMessage()
