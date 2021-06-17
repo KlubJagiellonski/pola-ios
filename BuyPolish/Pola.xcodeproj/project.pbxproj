@@ -25,6 +25,7 @@
 		1DEFA1BF1BD9920600938C81 /* Lato-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1DEFA1BA1BD9920600938C81 /* Lato-Semibold.ttf */; };
 		1DEFA1C01BD9920600938C81 /* Lato-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1DEFA1BA1BD9920600938C81 /* Lato-Semibold.ttf */; };
 		2D7017F5264AE42C0012EBAB /* BarcodeDetectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7017F4264AE42C0012EBAB /* BarcodeDetectorTests.swift */; };
+		2D70D223267BAB6D00682EF8 /* Theme.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2D70D222267BAB6D00682EF8 /* Theme.xcassets */; };
 		2DA7C643264BB8190075B57A /* test_image_with_barcode.png in Resources */ = {isa = PBXBuildFile; fileRef = 2DA7C642264BB8190075B57A /* test_image_with_barcode.png */; };
 		2DF8F60E26492EE100D3C62E /* BarcodeDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF8F60D26492EE100D3C62E /* BarcodeDetector.swift */; };
 		3560B0CDF331B5B648D8B830 /* Pods_Pola.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21497E85EBCABF56D8745512 /* Pods_Pola.framework */; };
@@ -239,6 +240,7 @@
 		1DEFA1C31BD99B8900938C81 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		21497E85EBCABF56D8745512 /* Pods_Pola.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pola.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D7017F4264AE42C0012EBAB /* BarcodeDetectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeDetectorTests.swift; sourceTree = "<group>"; };
+		2D70D222267BAB6D00682EF8 /* Theme.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Theme.xcassets; sourceTree = "<group>"; };
 		2DA7C642264BB8190075B57A /* test_image_with_barcode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test_image_with_barcode.png; sourceTree = "<group>"; };
 		2DF8F60D26492EE100D3C62E /* BarcodeDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeDetector.swift; sourceTree = "<group>"; };
 		353A5B3434B75B4C54FB4DBB /* Pods-Pola-PolaUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola-PolaUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pola-PolaUITests/Pods-Pola-PolaUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -507,6 +509,7 @@
 				9E43AF7D242BEB2C0093627B /* AppDelegate.swift */,
 				1D08E83D19A7621A00879BD2 /* Images.xcassets */,
 				8455A7EE220D527200F30845 /* LaunchScreen.storyboard */,
+				2D70D222267BAB6D00682EF8 /* Theme.xcassets */,
 				9E188D91223063EC00325383 /* LaunchScreen.xcassets */,
 				84F177E022CAD3F700238266 /* R.generated.swift */,
 			);
@@ -1096,6 +1099,7 @@
 				C0D829791F3D11A600902F79 /* capture_video_instruction.mov in Resources */,
 				9E188D93223063ED00325383 /* LaunchScreen.xcassets in Resources */,
 				37B64B7D226FBFA23FFCA1C1 /* Localizable.strings in Resources */,
+				2D70D223267BAB6D00682EF8 /* Theme.xcassets in Resources */,
 				1DEFA1BB1BD9920600938C81 /* Lato-Light.ttf in Resources */,
 				1DEFA1BF1BD9920600938C81 /* Lato-Semibold.ttf in Resources */,
 			);
@@ -1337,7 +1341,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$SRCROOT/Pola/R.generated.swift",
+				$SRCROOT/Pola/R.generated.swift,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
