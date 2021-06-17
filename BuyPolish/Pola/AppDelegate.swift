@@ -11,7 +11,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = RootViewController()
-        window?.backgroundColor = .white
+        window?.backgroundColor = R.color.backgroundWindowColor()
         window?.makeKeyAndVisible()
 
         if ProcessInfo.processInfo.arguments.contains("--disableAnimations") {
@@ -60,7 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     private func applyAppearance() {
         UINavigationBar.appearance().barTintColor = Theme.mediumBackgroundColor
-        UINavigationBar.appearance().tintColor = UIColor.black
+        UINavigationBar.appearance().tintColor = .systemBlue
         UINavigationBar.appearance().titleTextAttributes = [.font: Theme.titleFont]
     }
 

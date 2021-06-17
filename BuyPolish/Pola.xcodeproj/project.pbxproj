@@ -30,8 +30,8 @@
 		3560B0CDF331B5B648D8B830 /* Pods_Pola.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21497E85EBCABF56D8745512 /* Pods_Pola.framework */; };
 		37B645454FC2ACC155CB1538 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B6472FF4603F63771FADE6 /* AVFoundation.framework */; };
 		37B64B7D226FBFA23FFCA1C1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 37B645C93F848A6F598F96E2 /* Localizable.strings */; };
-		40AFE71A258A01FC0078C763 /* Theme.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40AFE719258A01FC0078C763 /* Theme.xcassets */; };
 		3B88A23C25BB139D00EFE032 /* krasnystaw.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B88A23A25BB139D00EFE032 /* krasnystaw.json */; };
+		40AFE71A258A01FC0078C763 /* Theme.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40AFE719258A01FC0078C763 /* Theme.xcassets */; };
 		8402E1D62309BB610065E850 /* AltResultContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402E1D52309BB610065E850 /* AltResultContentView.swift */; };
 		8406E62D233D59A700B7313C /* MainProggressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8406E62C233D59A700B7313C /* MainProggressView.swift */; };
 		8406E62F233D5FC000B7313C /* SecondaryProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8406E62E233D5FC000B7313C /* SecondaryProgressView.swift */; };
@@ -245,8 +245,8 @@
 		353A5B3434B75B4C54FB4DBB /* Pods-Pola-PolaUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola-PolaUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pola-PolaUITests/Pods-Pola-PolaUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		3785987405128CA0B1DA9512 /* Pods-Pola.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pola/Pods-Pola.release.xcconfig"; sourceTree = "<group>"; };
 		37B6472FF4603F63771FADE6 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		40AFE719258A01FC0078C763 /* Theme.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Theme.xcassets; sourceTree = "<group>"; };
 		3B88A23A25BB139D00EFE032 /* krasnystaw.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = krasnystaw.json; sourceTree = "<group>"; };
+		40AFE719258A01FC0078C763 /* Theme.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Theme.xcassets; sourceTree = "<group>"; };
 		5310C93A6052FC9BA4E8C020 /* Pods-Pola.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pola/Pods-Pola.debug.xcconfig"; sourceTree = "<group>"; };
 		53F3B599F258259843E2755D /* Pods_Pola_PolaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pola_PolaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D7DD012073B8CCDD821A2D0 /* Pods-Pola-PolaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola-PolaTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pola-PolaTests/Pods-Pola-PolaTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -1051,7 +1051,7 @@
 				ORGANIZATIONNAME = PJMS;
 				TargetAttributes = {
 					1D08E82219A7621A00879BD2 = {
-						DevelopmentTeam = 9NBWKG2G3X;
+						DevelopmentTeam = CKTAY6L2JP;
 						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 					};
@@ -1781,7 +1781,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = NO;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9NBWKG2G3X;
+				DEVELOPMENT_TEAM = CKTAY6L2JP;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1794,7 +1794,7 @@
 				INFOPLIST_FILE = "Pola/SupportingFiles/Pola-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kj.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kj.Polateststs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1814,7 +1814,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = NO;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9NBWKG2G3X;
+				DEVELOPMENT_TEAM = CKTAY6L2JP;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1827,7 +1827,7 @@
 				INFOPLIST_FILE = "Pola/SupportingFiles/Pola-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kj.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kj.Polateststs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
