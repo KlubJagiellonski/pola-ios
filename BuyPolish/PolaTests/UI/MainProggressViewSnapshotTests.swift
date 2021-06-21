@@ -38,4 +38,28 @@ class MainProggressViewSnapshotTests: XCTestCase {
     func testView_whenProgressIs1() {
         testView(progress: 1)
     }
+
+    @available(iOS 13.0, *)
+    func testView_whenProgressIs0_dark() {
+        sut.overrideUserInterfaceStyle = .dark
+        testView(progress: 0)
+    }
+
+    @available(iOS 13.0, *)
+    func testView_whenProgressIs0dot1_dark() {
+        sut.overrideUserInterfaceStyle = .dark
+        testView(progress: 0.1)
+    }
+
+    @available(iOS 13.0, *)
+    func testView_whenProgressIs0dot5_dark() {
+        sut.overrideUserInterfaceStyle = .dark
+        testView(progress: 0.5)
+    }
+
+    @available(iOS 13.0, *)
+    func testView_whenProgressIs1_dark() {
+        sut.overrideUserInterfaceStyle = .dark
+        testView(progress: 1)
+    }
 }

@@ -12,6 +12,8 @@ class PolaUITestCase: XCTestCase {
         app = XCUIApplication()
         app.launchEnvironment = ["POLA_URL": "http://localhost:8888"]
         app.launchArguments += ["--disableAnimations"]
+        app.launchArguments.append("-AppleInterfaceStyle")
+        app.launchArguments.append("Dark")
         app.launch()
 
         startingPageObject = ScanBarcodePage(app: app)

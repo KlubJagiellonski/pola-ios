@@ -40,4 +40,33 @@ class CheckRowSnapshotTests: XCTestCase {
         sut.text = "produkuje w Polsce"
         verifyView()
     }
+
+    @available(iOS 13.0, *)
+    func testView_WhenCheckedIsNil_dark() {
+        sut.checked = nil
+        sut.overrideUserInterfaceStyle = .dark
+        verifyView()
+    }
+
+    @available(iOS 13.0, *)
+    func testView_WhenCheckedIsTrue_dark() {
+        sut.checked = true
+        sut.overrideUserInterfaceStyle = .dark
+        verifyView()
+    }
+
+    @available(iOS 13.0, *)
+    func testView_WhenCheckedIsFalse_dark() {
+        sut.checked = false
+        sut.overrideUserInterfaceStyle = .dark
+        verifyView()
+    }
+
+    @available(iOS 13.0, *)
+    func testView_WhenTextIsNotNil_dark() {
+        sut.text = "produkuje w Polsce"
+        sut.overrideUserInterfaceStyle = .dark
+        verifyView()
+    }
+
 }
