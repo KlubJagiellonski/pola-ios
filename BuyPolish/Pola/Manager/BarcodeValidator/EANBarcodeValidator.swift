@@ -1,9 +1,5 @@
 import Foundation
 
-protocol BarcodeValidator {
-    func isValid(barcode: String) -> Bool
-}
-
 final class EANBarcodeValidator: BarcodeValidator {
     func isValid(barcode: String) -> Bool {
         let characters = Array(barcode)
