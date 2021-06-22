@@ -3,7 +3,7 @@ import XCTest
 
 class PolaUITestCase: XCTestCase {
     var startingPageObject: ScanBarcodePage!
-    var app: XCUIApplication!
+    private var app: XCUIApplication!
 
     override func setUp() {
         super.setUp()

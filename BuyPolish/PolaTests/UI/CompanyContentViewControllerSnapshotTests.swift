@@ -26,7 +26,7 @@ final class CompanyContentViewControllerSnapshotTests: XCTestCase {
     func test_whenResultIsStaropramen() {
         testView(data: .Staropramen)
     }
-    
+
     func test_whenResultIsRadziemska_dark() {
         testView(data: .Radziemska, enableDarkMode: true)
     }
@@ -53,11 +53,11 @@ final class CompanyContentViewControllerSnapshotTests: XCTestCase {
 
     private func testView(data: CodeData, enableDarkMode: Bool = false, file: StaticString = #file, testName: String = #function, line: UInt = #line) {
         let sut = CompanyContentViewController(result: data.scanResult)
-        
+
         if enableDarkMode, #available(iOS 13.0, *) {
             sut.overrideUserInterfaceStyle = .dark
         }
-        
+
         sut.view.addConstraint(sut.view.widthAnchor.constraint(equalToConstant: 320))
 
         assertSnapshot(matching: sut.view, as: .image, file: file, testName: testName, line: line)

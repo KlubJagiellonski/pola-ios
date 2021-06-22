@@ -33,7 +33,7 @@ class OwnBrandCompanyTitleViewSnapshotTests: XCTestCase {
         sut.progress = 1
         verifyView()
     }
-    
+
     @available(iOS 13.0, *)
     func testView_whenCompanyHave10Points_dark() {
         sut.overrideUserInterfaceStyle = .dark

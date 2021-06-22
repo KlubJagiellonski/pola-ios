@@ -49,7 +49,7 @@ final class LaunchScreenSnapshotTests: XCTestCase {
     func testViewOnIPhoneXsMax() {
         testView(on: .iPhoneXsMax)
     }
-    
+
     // iPhone 5, 5s, 5c, SE
     @available(iOS 13.0, *)
     func testViewOnIPhoneSE_dark() {
