@@ -1,6 +1,6 @@
 import XCTest
 
-final class ReportBugPageUITests: PolaUITestCase {
+class DarkModeReportBugPageUITests: PolaDarkModeUITestCase {
     private var page: ReportBugPage!
 
     override func setUp() {
@@ -82,15 +82,5 @@ final class ReportBugPageUITests: PolaUITestCase {
             .done()
 
         snapshotVerifyView()
-    }
-}
-
-extension ReportBugPage {
-    func addPhoto() -> ReportBugPage {
-        tapAddImageButton()
-            .tapChooseFromLibrarySheetAction()
-            .tapAllPhotosCell()
-            .pickFirstPhoto().done()
-        return waitForDeleteButton()
     }
 }

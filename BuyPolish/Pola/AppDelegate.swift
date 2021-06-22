@@ -19,6 +19,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UIView.setAnimationsEnabled(false)
         }
 
+        if ProcessInfo.processInfo.arguments.contains("--enableDarkMode") {
+            if #available(iOS 13.0, *) {
+                window?.overrideUserInterfaceStyle = .dark
+            }
+        }
+
         if let shortcutItem = launchOptions?[.shortcutItem] as? UIApplicationShortcutItem {
             _ = handleShortcutItem(shortcutItem)
         }

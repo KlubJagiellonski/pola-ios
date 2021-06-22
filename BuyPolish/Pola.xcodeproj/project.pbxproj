@@ -27,6 +27,14 @@
 		2D7017F5264AE42C0012EBAB /* BarcodeDetectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7017F4264AE42C0012EBAB /* BarcodeDetectorTests.swift */; };
 		2D70D223267BAB6D00682EF8 /* Theme.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2D70D222267BAB6D00682EF8 /* Theme.xcassets */; };
 		2DA7C643264BB8190075B57A /* test_image_with_barcode.png in Resources */ = {isa = PBXBuildFile; fileRef = 2DA7C642264BB8190075B57A /* test_image_with_barcode.png */; };
+		2DF396182681EB6800FE4066 /* PolaDarkModeUITestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF396172681EB6800FE4066 /* PolaDarkModeUITestCase.swift */; };
+		2DF3961A2681EC6000FE4066 /* DarkModeCompanyPageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF396192681EC6000FE4066 /* DarkModeCompanyPageUITests.swift */; };
+		2DF3961D2681F4DD00FE4066 /* DarkModeEnterBarcodePageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF3961C2681F4DD00FE4066 /* DarkModeEnterBarcodePageUITests.swift */; };
+		2DF3961F2681F51900FE4066 /* DarkModeISBNPageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF3961E2681F51900FE4066 /* DarkModeISBNPageUITests.swift */; };
+		2DF396212681F53D00FE4066 /* DarkModeInformationPageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF396202681F53D00FE4066 /* DarkModeInformationPageUITests.swift */; };
+		2DF396232681F55F00FE4066 /* DarkModeReportBugPageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF396222681F55F00FE4066 /* DarkModeReportBugPageUITests.swift */; };
+		2DF396252681F5DC00FE4066 /* DarkModeScanBarcodePageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF396242681F5DC00FE4066 /* DarkModeScanBarcodePageUITests.swift */; };
+		2DF396272681F5FE00FE4066 /* DarkModeScanBarcodeWithResultPageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF396262681F5FE00FE4066 /* DarkModeScanBarcodeWithResultPageUITests.swift */; };
 		2DF8F60E26492EE100D3C62E /* BarcodeDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DF8F60D26492EE100D3C62E /* BarcodeDetector.swift */; };
 		3560B0CDF331B5B648D8B830 /* Pods_Pola.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21497E85EBCABF56D8745512 /* Pods_Pola.framework */; };
 		37B645454FC2ACC155CB1538 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B6472FF4603F63771FADE6 /* AVFoundation.framework */; };
@@ -242,6 +250,14 @@
 		2D7017F4264AE42C0012EBAB /* BarcodeDetectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeDetectorTests.swift; sourceTree = "<group>"; };
 		2D70D222267BAB6D00682EF8 /* Theme.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Theme.xcassets; sourceTree = "<group>"; };
 		2DA7C642264BB8190075B57A /* test_image_with_barcode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test_image_with_barcode.png; sourceTree = "<group>"; };
+		2DF396172681EB6800FE4066 /* PolaDarkModeUITestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolaDarkModeUITestCase.swift; sourceTree = "<group>"; };
+		2DF396192681EC6000FE4066 /* DarkModeCompanyPageUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeCompanyPageUITests.swift; sourceTree = "<group>"; };
+		2DF3961C2681F4DD00FE4066 /* DarkModeEnterBarcodePageUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeEnterBarcodePageUITests.swift; sourceTree = "<group>"; };
+		2DF3961E2681F51900FE4066 /* DarkModeISBNPageUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeISBNPageUITests.swift; sourceTree = "<group>"; };
+		2DF396202681F53D00FE4066 /* DarkModeInformationPageUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeInformationPageUITests.swift; sourceTree = "<group>"; };
+		2DF396222681F55F00FE4066 /* DarkModeReportBugPageUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeReportBugPageUITests.swift; sourceTree = "<group>"; };
+		2DF396242681F5DC00FE4066 /* DarkModeScanBarcodePageUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeScanBarcodePageUITests.swift; sourceTree = "<group>"; };
+		2DF396262681F5FE00FE4066 /* DarkModeScanBarcodeWithResultPageUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkModeScanBarcodeWithResultPageUITests.swift; sourceTree = "<group>"; };
 		2DF8F60D26492EE100D3C62E /* BarcodeDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeDetector.swift; sourceTree = "<group>"; };
 		353A5B3434B75B4C54FB4DBB /* Pods-Pola-PolaUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola-PolaUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pola-PolaUITests/Pods-Pola-PolaUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		3785987405128CA0B1DA9512 /* Pods-Pola.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pola/Pods-Pola.release.xcconfig"; sourceTree = "<group>"; };
@@ -556,6 +572,20 @@
 			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
+		2DF3961B2681EC6600FE4066 /* DarkMode */ = {
+			isa = PBXGroup;
+			children = (
+				2DF396192681EC6000FE4066 /* DarkModeCompanyPageUITests.swift */,
+				2DF3961C2681F4DD00FE4066 /* DarkModeEnterBarcodePageUITests.swift */,
+				2DF3961E2681F51900FE4066 /* DarkModeISBNPageUITests.swift */,
+				2DF396202681F53D00FE4066 /* DarkModeInformationPageUITests.swift */,
+				2DF396222681F55F00FE4066 /* DarkModeReportBugPageUITests.swift */,
+				2DF396242681F5DC00FE4066 /* DarkModeScanBarcodePageUITests.swift */,
+				2DF396262681F5FE00FE4066 /* DarkModeScanBarcodeWithResultPageUITests.swift */,
+			);
+			path = DarkMode;
+			sourceTree = "<group>";
+		};
 		37B641361E13BB0824D5828D /* ReportManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -818,6 +848,7 @@
 				9EC3BBFA23CDD76C00242B1E /* Tests */,
 				84B1B366225F975A009FA909 /* Info.plist */,
 				84E7082F2280A40300402E26 /* PolaUITestCase.swift */,
+				2DF396172681EB6800FE4066 /* PolaDarkModeUITestCase.swift */,
 				9E0FE73F2523D9EC005D98B3 /* XCUIElement+Additions.swift */,
 			);
 			path = PolaUITests;
@@ -880,6 +911,7 @@
 		9EC3BBFA23CDD76C00242B1E /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				2DF3961B2681EC6600FE4066 /* DarkMode */,
 				9EC3BBFB23CDD76C00242B1E /* CompanyPageUITests.swift */,
 				9EC3BBFD23CDD76C00242B1E /* EnterBarcodePageUITests.swift */,
 				9EC3BC0023CDD76C00242B1E /* ISBNPageUITests.swift */,
@@ -1594,29 +1626,37 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2DF3961D2681F4DD00FE4066 /* DarkModeEnterBarcodePageUITests.swift in Sources */,
 				84A81C5023EE1DBE00464745 /* BaseGalleryPage.swift in Sources */,
 				84E7083B2280A40400402E26 /* ScanBarcodeWithResultsPage.swift in Sources */,
 				84E708402280A40400402E26 /* CodeData.swift in Sources */,
 				9EC3BC1023CDD76C00242B1E /* EnterBarcodePageUITests.swift in Sources */,
 				9EC3BC2B23CDD9D100242B1E /* ScanBarcodePage+TestData.swift in Sources */,
 				9EC3BC2623CDD9D100242B1E /* MainGalleryPage.swift in Sources */,
+				2DF3961A2681EC6000FE4066 /* DarkModeCompanyPageUITests.swift in Sources */,
 				9EC3BC2723CDD9D100242B1E /* PhotosGalleryPage.swift in Sources */,
 				84E7083E2280A40400402E26 /* PolaUITestCase.swift in Sources */,
 				9EC3BC1223CDD76C00242B1E /* ReportBugPageUITests.swift in Sources */,
 				9EC3BC2423CDD9D100242B1E /* ISBNPage.swift in Sources */,
 				9EC3BC2523CDD9D100242B1E /* InformationPage.swift in Sources */,
+				2DF396252681F5DC00FE4066 /* DarkModeScanBarcodePageUITests.swift in Sources */,
 				9EC3BC2223CDD9D100242B1E /* CompanyPage.swift in Sources */,
 				9EC3BC2C23CDD9D100242B1E /* ScanBarcodePage.swift in Sources */,
+				2DF396182681EB6800FE4066 /* PolaDarkModeUITestCase.swift in Sources */,
 				9EC3BC1423CDD76C00242B1E /* MockServerRunner.swift in Sources */,
+				2DF396272681F5FE00FE4066 /* DarkModeScanBarcodeWithResultPageUITests.swift in Sources */,
 				9EC3BC2123CDD9D100242B1E /* BasePage.swift in Sources */,
 				9EC3BC1E23CDD76C00242B1E /* MockServer.swift in Sources */,
+				2DF3961F2681F51900FE4066 /* DarkModeISBNPageUITests.swift in Sources */,
 				9EC3BC2923CDD9D100242B1E /* ResultPage.swift in Sources */,
 				9EC3BC2323CDD9D100242B1E /* EnterBarcodePage.swift in Sources */,
 				9EC3BC2A23CDD9D100242B1E /* SafariPage.swift in Sources */,
+				2DF396212681F53D00FE4066 /* DarkModeInformationPageUITests.swift in Sources */,
 				9EC3BC0E23CDD76C00242B1E /* CompanyPageUITests.swift in Sources */,
 				9EC3BC0F23CDD76C00242B1E /* InformationPageUITests.swift in Sources */,
 				9E0FE7402523D9EC005D98B3 /* XCUIElement+Additions.swift in Sources */,
 				9EC3BC1123CDD76C00242B1E /* ScanBarcodeWithResultPageUITests.swift in Sources */,
+				2DF396232681F55F00FE4066 /* DarkModeReportBugPageUITests.swift in Sources */,
 				9EC3BC1323CDD76C00242B1E /* ISBNPageUITests.swift in Sources */,
 				849E40D82415204C006E1B76 /* ScanBarcodePageUITests.swift in Sources */,
 				9EC3BC2823CDD9D100242B1E /* ReportBugPage.swift in Sources */,
