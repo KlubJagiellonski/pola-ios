@@ -525,9 +525,9 @@
 				9E43AF7D242BEB2C0093627B /* AppDelegate.swift */,
 				1D08E83D19A7621A00879BD2 /* Images.xcassets */,
 				8455A7EE220D527200F30845 /* LaunchScreen.storyboard */,
-				2D70D222267BAB6D00682EF8 /* Theme.xcassets */,
 				9E188D91223063EC00325383 /* LaunchScreen.xcassets */,
 				84F177E022CAD3F700238266 /* R.generated.swift */,
+				2D70D222267BAB6D00682EF8 /* Theme.xcassets */,
 			);
 			path = Pola;
 			sourceTree = "<group>";
@@ -1373,7 +1373,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				$SRCROOT/Pola/R.generated.swift,
+				"$SRCROOT/Pola/R.generated.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
