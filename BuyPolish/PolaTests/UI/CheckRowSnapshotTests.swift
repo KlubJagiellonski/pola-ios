@@ -68,5 +68,4 @@ class CheckRowSnapshotTests: XCTestCase {
         sut.overrideUserInterfaceStyle = .dark
         verifyView()
     }
-
 }

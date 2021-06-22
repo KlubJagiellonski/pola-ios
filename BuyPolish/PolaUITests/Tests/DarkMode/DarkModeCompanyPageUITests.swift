@@ -1,7 +1,6 @@
 import XCTest
 
 class DarkModeCompanyPageUITests: PolaDarkModeUITestCase {
-
     func testRadziemskaCompanyShouldBeMarkedAsPolaFriends() {
         startingPageObject
             .enterCodeAndOpenCompanyResult(codeData: CodeData.Radziemska)

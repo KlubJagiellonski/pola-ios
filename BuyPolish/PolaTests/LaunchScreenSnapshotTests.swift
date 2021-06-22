@@ -91,5 +91,4 @@ final class LaunchScreenSnapshotTests: XCTestCase {
         sut.overrideUserInterfaceStyle = .dark
         testView(on: .iPhoneXsMax)
     }
-
 }

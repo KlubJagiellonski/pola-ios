@@ -847,8 +847,8 @@
 				84E708262280A40300402E26 /* PageObjects */,
 				9EC3BBFA23CDD76C00242B1E /* Tests */,
 				84B1B366225F975A009FA909 /* Info.plist */,
-				84E7082F2280A40300402E26 /* PolaUITestCase.swift */,
 				2DF396172681EB6800FE4066 /* PolaDarkModeUITestCase.swift */,
+				84E7082F2280A40300402E26 /* PolaUITestCase.swift */,
 				9E0FE73F2523D9EC005D98B3 /* XCUIElement+Additions.swift */,
 			);
 			path = PolaUITests;
