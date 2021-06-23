@@ -46,17 +46,6 @@ class DarkModeScanBarcodeWithResultPageUITests: PolaDarkModeUITestCase {
         snapshotVerifyView()
     }
 
-    func testRequestReview() {
-        let result = startingPageObject
-            .enterCodeAndWaitForResult(codeData: CodeData.Gustaw)
-            .enterCodeAndWaitForResult(codeData: CodeData.Koral)
-            .enterCodeAndOpenCompanyResult(codeData: CodeData.Naleczowianka)
-            .swipeToCollapse()
-            .isReviewRequestVisible()
-
-        XCTAssert(result, "Application rating alert did not appear")
-    }
-
     func testLongNameCollapsed() {
         startingPageObject
             .enterCodeAndWaitForResult(codeData: CodeData.Krasnystaw)

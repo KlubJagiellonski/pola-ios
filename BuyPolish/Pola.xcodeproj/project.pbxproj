@@ -24,6 +24,7 @@
 		1DEFA1BE1BD9920600938C81 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1DEFA1B91BD9920600938C81 /* Lato-Regular.ttf */; };
 		1DEFA1BF1BD9920600938C81 /* Lato-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1DEFA1BA1BD9920600938C81 /* Lato-Semibold.ttf */; };
 		1DEFA1C01BD9920600938C81 /* Lato-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1DEFA1BA1BD9920600938C81 /* Lato-Semibold.ttf */; };
+		2D39B95F2683156600053744 /* __Snapshots__ in Resources */ = {isa = PBXBuildFile; fileRef = 2D39B95E2683156600053744 /* __Snapshots__ */; };
 		2D7017F5264AE42C0012EBAB /* BarcodeDetectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7017F4264AE42C0012EBAB /* BarcodeDetectorTests.swift */; };
 		2D70D223267BAB6D00682EF8 /* Theme.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2D70D222267BAB6D00682EF8 /* Theme.xcassets */; };
 		2DA7C643264BB8190075B57A /* test_image_with_barcode.png in Resources */ = {isa = PBXBuildFile; fileRef = 2DA7C642264BB8190075B57A /* test_image_with_barcode.png */; };
@@ -247,6 +248,7 @@
 		1DEFA1C21BD99B8900938C81 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1DEFA1C31BD99B8900938C81 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		21497E85EBCABF56D8745512 /* Pods_Pola.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pola.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D39B95E2683156600053744 /* __Snapshots__ */ = {isa = PBXFileReference; lastKnownFileType = folder; path = __Snapshots__; sourceTree = "<group>"; };
 		2D7017F4264AE42C0012EBAB /* BarcodeDetectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeDetectorTests.swift; sourceTree = "<group>"; };
 		2D70D222267BAB6D00682EF8 /* Theme.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Theme.xcassets; sourceTree = "<group>"; };
 		2DA7C642264BB8190075B57A /* test_image_with_barcode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test_image_with_barcode.png; sourceTree = "<group>"; };
@@ -582,6 +584,7 @@
 				2DF396222681F55F00FE4066 /* DarkModeReportBugPageUITests.swift */,
 				2DF396242681F5DC00FE4066 /* DarkModeScanBarcodePageUITests.swift */,
 				2DF396262681F5FE00FE4066 /* DarkModeScanBarcodeWithResultPageUITests.swift */,
+				2D39B95E2683156600053744 /* __Snapshots__ */,
 			);
 			path = DarkMode;
 			sourceTree = "<group>";
@@ -1164,6 +1167,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D39B95F2683156600053744 /* __Snapshots__ in Resources */,
 				9EC3BC1D23CDD76C00242B1E /* tymbark.json in Resources */,
 				9EC3BC1523CDD76C00242B1E /* staropramen.json in Resources */,
 				9EC3BC1723CDD76C00242B1E /* isbn.json in Resources */,
