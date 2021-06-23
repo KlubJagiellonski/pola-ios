@@ -15,8 +15,7 @@ platform :ios do
     snapshots_paths = [
       "PolaTests/__Snapshots__",
       "PolaTests/UI/__Snapshots__",
-      "PolaUITests/Tests/__Snapshots__",
-      "PolaUITests/Tests/DarkMode/__Snapshots__"
+      "PolaUITests/Tests/__Snapshots__"
     ]
 
     snapshots_paths.each {|path| clear_derived_data(derived_data_path:path)}
