@@ -4,6 +4,7 @@ import XCTest
 class PolaUITestCase: XCTestCase {
     var startingPageObject: ScanBarcodePage!
     private var app: XCUIApplication!
+    var appLaunchArguments: [String] = ["--disableAnimations"]
 
     override func setUp() {
         super.setUp()
@@ -11,7 +12,7 @@ class PolaUITestCase: XCTestCase {
 
         app = XCUIApplication()
         app.launchEnvironment = ["POLA_URL": "http://localhost:8888"]
-        app.launchArguments += ["--disableAnimations"]
+        app.launchArguments += appLaunchArguments
         app.launch()
 
         startingPageObject = ScanBarcodePage(app: app)
