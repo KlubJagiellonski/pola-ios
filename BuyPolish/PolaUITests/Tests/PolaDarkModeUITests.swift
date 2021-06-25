@@ -30,6 +30,7 @@ class PolaDarkModeUITests: PolaUITestCase {
     func testEnterBarcodePage() {
         startingPageObject
             .tapEnterBarcodeButton()
+            .waitForPasteboardInfoDissappear()
             .done()
 
         snapshotVerifyView()
