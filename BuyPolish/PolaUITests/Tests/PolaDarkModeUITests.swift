@@ -27,15 +27,6 @@ class PolaDarkModeUITests: PolaUITestCase {
         snapshotVerifyView()
     }
 
-    func testEnterBarcodePage() {
-        startingPageObject
-            .tapEnterBarcodeButton()
-            .waitForPasteboardInfoDissappear()
-            .done()
-
-        snapshotVerifyView()
-    }
-
     func testISBNPage() {
         startingPageObject
             .enterCodeAndOpenISBNResult()
@@ -48,6 +39,14 @@ class PolaDarkModeUITests: PolaUITestCase {
         startingPageObject
             .tapInformationButton()
             .tapReportBugButton()
+            .done()
+
+        snapshotVerifyView()
+    }
+
+    func testEnterBarcodePage() {
+        startingPageObject
+            .tapEnterBarcodeButton()
             .done()
 
         snapshotVerifyView()
