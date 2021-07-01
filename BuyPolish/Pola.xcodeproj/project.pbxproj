@@ -69,7 +69,7 @@
 		845D354923FD93B5002C4232 /* KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845D354823FD93B5002C4232 /* KeyboardView.swift */; };
 		845F78D323BA28E2008DDFDF /* ProductManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845F78D223BA28E2008DDFDF /* ProductManager.swift */; };
 		845F78D523BA28F8008DDFDF /* ScanResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845F78D423BA28F8008DDFDF /* ScanResult.swift */; };
-		84601A3A2405B5B900AD2A2D /* BarcodeValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84601A392405B5B900AD2A2D /* BarcodeValidator.swift */; };
+		84601A3A2405B5B900AD2A2D /* EANBarcodeValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84601A392405B5B900AD2A2D /* EANBarcodeValidator.swift */; };
 		84601A3E2405C47600AD2A2D /* EANBarcodeValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84601A3D2405C47600AD2A2D /* EANBarcodeValidatorTests.swift */; };
 		846036F22418574A00982FC6 /* UIDevice+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846036F0241856DB00982FC6 /* UIDevice+Additions.swift */; };
 		84633B3423F8113F0069219C /* KeyboardTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84633B3323F8113F0069219C /* KeyboardTextView.swift */; };
@@ -198,6 +198,29 @@
 		BDA76B5C21DE64AB003E9FD6 /* AnalyticsEventName.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA76B5B21DE64AB003E9FD6 /* AnalyticsEventName.swift */; };
 		BDA76B5E21DE64FD003E9FD6 /* AnalyticsParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA76B5D21DE64FD003E9FD6 /* AnalyticsParameters.swift */; };
 		C0D829791F3D11A600902F79 /* capture_video_instruction.mov in Resources */ = {isa = PBXBuildFile; fileRef = C0D829781F3D11A600902F79 /* capture_video_instruction.mov */; };
+		D3201C3E2675111C00E683EC /* CrashlitycsLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3201C3D2675111C00E683EC /* CrashlitycsLogger.swift */; };
+		D3201C402675113E00E683EC /* ConsoleLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3201C3F2675113E00E683EC /* ConsoleLogger.swift */; };
+		D3201C42267511FA00E683EC /* ConsoleAnalyticsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3201C41267511FA00E683EC /* ConsoleAnalyticsProvider.swift */; };
+		D3201C44267512A400E683EC /* FirebaseApp+isAvailable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3201C43267512A400E683EC /* FirebaseApp+isAvailable.swift */; };
+		D3201C462675136900E683EC /* LoggerRegistrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3201C452675136900E683EC /* LoggerRegistrant.swift */; };
+		D3201C482675319C00E683EC /* AnalyticsRegistrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3201C472675319C00E683EC /* AnalyticsRegistrant.swift */; };
+		D3201C4B2675359900E683EC /* DependencyRegistrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3201C4A2675359900E683EC /* DependencyRegistrant.swift */; };
+		D3201C4D267535BA00E683EC /* FoundationRegistrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3201C4C267535BA00E683EC /* FoundationRegistrant.swift */; };
+		D3201C4F2675368E00E683EC /* UIKitRegistrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3201C4E2675368E00E683EC /* UIKitRegistrant.swift */; };
+		D3201C512675380100E683EC /* ProductManagerRegistrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3201C502675380100E683EC /* ProductManagerRegistrant.swift */; };
+		D3201C532675386A00E683EC /* ReportManagerRegistrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3201C522675386A00E683EC /* ReportManagerRegistrant.swift */; };
+		D3201C562675394000E683EC /* BarcodeValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3201C552675394000E683EC /* BarcodeValidator.swift */; };
+		D3201C582675396500E683EC /* BarcodeValidatorRegistrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3201C572675396500E683EC /* BarcodeValidatorRegistrant.swift */; };
+		D3201C5B26753A1900E683EC /* CodeScannerManagerRegistrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3201C5A26753A1900E683EC /* CodeScannerManagerRegistrant.swift */; };
+		D3201C5E26753A7B00E683EC /* FlashlightManagerRegistrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3201C5D26753A7B00E683EC /* FlashlightManagerRegistrant.swift */; };
+		D3201C6126753BAA00E683EC /* NotificationCenterKeyboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3201C6026753BAA00E683EC /* NotificationCenterKeyboardManager.swift */; };
+		D3201C6326753BCF00E683EC /* KeyboardManagerRegistrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3201C6226753BCF00E683EC /* KeyboardManagerRegistrant.swift */; };
+		D3201C6626753C3500E683EC /* ProductImageManagerRegistrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3201C6526753C3500E683EC /* ProductImageManagerRegistrant.swift */; };
+		D3201C6926753CAF00E683EC /* RequestFactoryRegistrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3201C6826753CAF00E683EC /* RequestFactoryRegistrant.swift */; };
+		D3201C6B2675402900E683EC /* KeyboardViewControllerRegistrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3201C6A2675402900E683EC /* KeyboardViewControllerRegistrant.swift */; };
+		D3201C6D267540D400E683EC /* ReportProblemViewControllerRegistrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3201C6C267540D400E683EC /* ReportProblemViewControllerRegistrant.swift */; };
+		D3201C6F2675414F00E683EC /* ScanCodeRegistrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3201C6E2675414F00E683EC /* ScanCodeRegistrant.swift */; };
+		D3201C712675418800E683EC /* CapturedImageManagerRegistrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3201C702675418800E683EC /* CapturedImageManagerRegistrant.swift */; };
 		D340FA53263B53E500121AAA /* UIButton+ReportTypeSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D340FA52263B53E500121AAA /* UIButton+ReportTypeSnapshotTests.swift */; };
 		D340FA60263B5D0000121AAA /* krasnystaw.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B88A23A25BB139D00EFE032 /* krasnystaw.json */; };
 		D346F9C32607D76B00F11ABD /* lidl.json in Resources */ = {isa = PBXBuildFile; fileRef = D346F9C22607D76B00F11ABD /* lidl.json */; };
@@ -284,7 +307,7 @@
 		845D354823FD93B5002C4232 /* KeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
 		845F78D223BA28E2008DDFDF /* ProductManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductManager.swift; sourceTree = "<group>"; };
 		845F78D423BA28F8008DDFDF /* ScanResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanResult.swift; sourceTree = "<group>"; };
-		84601A392405B5B900AD2A2D /* BarcodeValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeValidator.swift; sourceTree = "<group>"; };
+		84601A392405B5B900AD2A2D /* EANBarcodeValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EANBarcodeValidator.swift; sourceTree = "<group>"; };
 		84601A3D2405C47600AD2A2D /* EANBarcodeValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EANBarcodeValidatorTests.swift; sourceTree = "<group>"; };
 		846036F0241856DB00982FC6 /* UIDevice+Additions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+Additions.swift"; sourceTree = "<group>"; };
 		84633B3323F8113F0069219C /* KeyboardTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardTextView.swift; sourceTree = "<group>"; };
@@ -413,6 +436,29 @@
 		BDA76B5D21DE64FD003E9FD6 /* AnalyticsParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsParameters.swift; sourceTree = "<group>"; };
 		C0D829781F3D11A600902F79 /* capture_video_instruction.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = capture_video_instruction.mov; sourceTree = "<group>"; };
 		C62ECF2EDD7295D219A497A1 /* Pods-Pola-PolaUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola-PolaUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pola-PolaUITests/Pods-Pola-PolaUITests.release.xcconfig"; sourceTree = "<group>"; };
+		D3201C3D2675111C00E683EC /* CrashlitycsLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashlitycsLogger.swift; sourceTree = "<group>"; };
+		D3201C3F2675113E00E683EC /* ConsoleLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleLogger.swift; sourceTree = "<group>"; };
+		D3201C41267511FA00E683EC /* ConsoleAnalyticsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleAnalyticsProvider.swift; sourceTree = "<group>"; };
+		D3201C43267512A400E683EC /* FirebaseApp+isAvailable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FirebaseApp+isAvailable.swift"; sourceTree = "<group>"; };
+		D3201C452675136900E683EC /* LoggerRegistrant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerRegistrant.swift; sourceTree = "<group>"; };
+		D3201C472675319C00E683EC /* AnalyticsRegistrant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsRegistrant.swift; sourceTree = "<group>"; };
+		D3201C4A2675359900E683EC /* DependencyRegistrant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyRegistrant.swift; sourceTree = "<group>"; };
+		D3201C4C267535BA00E683EC /* FoundationRegistrant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationRegistrant.swift; sourceTree = "<group>"; };
+		D3201C4E2675368E00E683EC /* UIKitRegistrant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitRegistrant.swift; sourceTree = "<group>"; };
+		D3201C502675380100E683EC /* ProductManagerRegistrant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductManagerRegistrant.swift; sourceTree = "<group>"; };
+		D3201C522675386A00E683EC /* ReportManagerRegistrant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportManagerRegistrant.swift; sourceTree = "<group>"; };
+		D3201C552675394000E683EC /* BarcodeValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeValidator.swift; sourceTree = "<group>"; };
+		D3201C572675396500E683EC /* BarcodeValidatorRegistrant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeValidatorRegistrant.swift; sourceTree = "<group>"; };
+		D3201C5A26753A1900E683EC /* CodeScannerManagerRegistrant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeScannerManagerRegistrant.swift; sourceTree = "<group>"; };
+		D3201C5D26753A7B00E683EC /* FlashlightManagerRegistrant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashlightManagerRegistrant.swift; sourceTree = "<group>"; };
+		D3201C6026753BAA00E683EC /* NotificationCenterKeyboardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenterKeyboardManager.swift; sourceTree = "<group>"; };
+		D3201C6226753BCF00E683EC /* KeyboardManagerRegistrant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardManagerRegistrant.swift; sourceTree = "<group>"; };
+		D3201C6526753C3500E683EC /* ProductImageManagerRegistrant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductImageManagerRegistrant.swift; sourceTree = "<group>"; };
+		D3201C6826753CAF00E683EC /* RequestFactoryRegistrant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestFactoryRegistrant.swift; sourceTree = "<group>"; };
+		D3201C6A2675402900E683EC /* KeyboardViewControllerRegistrant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewControllerRegistrant.swift; sourceTree = "<group>"; };
+		D3201C6C267540D400E683EC /* ReportProblemViewControllerRegistrant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportProblemViewControllerRegistrant.swift; sourceTree = "<group>"; };
+		D3201C6E2675414F00E683EC /* ScanCodeRegistrant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanCodeRegistrant.swift; sourceTree = "<group>"; };
+		D3201C702675418800E683EC /* CapturedImageManagerRegistrant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapturedImageManagerRegistrant.swift; sourceTree = "<group>"; };
 		D340FA52263B53E500121AAA /* UIButton+ReportTypeSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+ReportTypeSnapshotTests.swift"; sourceTree = "<group>"; };
 		D346F9C22607D76B00F11ABD /* lidl.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = lidl.json; sourceTree = "<group>"; };
 		D3E3CA0C264085A4002979E1 /* Unit.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Unit.xctestplan; sourceTree = "<group>"; };
@@ -565,6 +611,7 @@
 				842E763D23E4839B00A5534B /* CreateReportResponseBody.swift */,
 				842E763623E4703500A5534B /* Report.swift */,
 				842E763523E4703500A5534B /* ReportManager.swift */,
+				D3201C522675386A00E683EC /* ReportManagerRegistrant.swift */,
 			);
 			path = ReportManager;
 			sourceTree = "<group>";
@@ -591,6 +638,7 @@
 				84A81C5123EE21F300464745 /* ReportProblemReason.swift */,
 				8477CFCE23CF2BC500C72542 /* ReportProblemView.swift */,
 				8488E20E23D1067000817671 /* ReportProblemViewController.swift */,
+				D3201C6C267540D400E683EC /* ReportProblemViewControllerRegistrant.swift */,
 			);
 			path = ReportProblem;
 			sourceTree = "<group>";
@@ -611,7 +659,6 @@
 			children = (
 				37B646DCA0870AD66E5EB92B /* Categories */,
 				9E7BE9442401503F0070BF8D /* ExtendedButton.swift */,
-				842E763923E4727D00A5534B /* Logger.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -639,6 +686,7 @@
 				84CE3E6323BA982900FE8D66 /* Bundle+Additions.swift */,
 				BDA76B5021DCD718003E9FD6 /* Encodable+Utilities.swift */,
 				842E762D23E0D4CA00A5534B /* FileManager+Extension.swift */,
+				D3201C43267512A400E683EC /* FirebaseApp+isAvailable.swift */,
 				9E0FE73B251C02C6005D98B3 /* String+Additions.swift */,
 				841F7D9F23567740007BE3F6 /* UIApplication+Additions.swift */,
 				841BB98C22D136AE00234946 /* UIColor+Additions.swift */,
@@ -655,6 +703,7 @@
 			isa = PBXGroup;
 			children = (
 				845F78D223BA28E2008DDFDF /* ProductManager.swift */,
+				D3201C502675380100E683EC /* ProductManagerRegistrant.swift */,
 			);
 			path = ProductManager;
 			sourceTree = "<group>";
@@ -662,13 +711,10 @@
 		37B64AE3A38FEC08E6CDE873 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D3201C6726753C9500E683EC /* RequestFactory */,
 				849E50DA24A623A80064F269 /* AskForDonate.swift */,
 				84A6A93325EDAAAE004199B9 /* AskForReport.swift */,
 				846A996E25EBC7D4007DFF88 /* Company.swift */,
-				84D8B77123EA202800CD0ECB /* DataRequestFactory.swift */,
-				84BDC4A723EB774F00F462A0 /* MediaUploadRequestFactory.swift */,
-				84A81C4D23EE11B000464745 /* PolaRequestFactory.swift */,
-				84A81C4B23EE118300464745 /* PutAmazonRequestFactory.swift */,
 				84A6A97425EDB6F7004199B9 /* ScanResult+Additions.swift */,
 				845F78D423BA28F8008DDFDF /* ScanResult.swift */,
 			);
@@ -689,18 +735,17 @@
 			isa = PBXGroup;
 			children = (
 				BDA76B5821DE622E003E9FD6 /* Analytics */,
+				D3201C542675393900E683EC /* BarcodeValidator */,
 				C092CF351F1F8007003174D1 /* CapturedImageManager */,
+				D3201C5926753A0600E683EC /* CodeScannerManager */,
+				D3201C492675358A00E683EC /* DI */,
+				D3201C5C26753A6600E683EC /* FlashlightManager */,
+				D3201C5F26753B9E00E683EC /* KeyboardManager */,
+				D3201C3C2675110000E683EC /* Logger */,
+				D3201C6426753C2600E683EC /* ProductImageManager */,
 				37B64977613F0A577613F7E4 /* ProductManager */,
 				37B641361E13BB0824D5828D /* ReportManager */,
 				2DF8F60D26492EE100D3C62E /* BarcodeDetector.swift */,
-				84601A392405B5B900AD2A2D /* BarcodeValidator.swift */,
-				84A81C5723EFF42200464745 /* CameraSessionCodeScannerManager.swift */,
-				84A81C5523EFF2CA00464745 /* CodeScannerManager.swift */,
-				8477CFCA23CE17B100C72542 /* DIContainer.swift */,
-				9EDFECF4242FB773009D8893 /* FlashlightManager.swift */,
-				842E762F23E434CD00A5534B /* KeyboardManager.swift */,
-				842E762B23E0CDA500A5534B /* LocalDocumentsProductImageManager.swift */,
-				9EC3BC6823D50BD000242B1E /* ProductImageManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -712,6 +757,7 @@
 				37B64697C3925583CD36B426 /* ProductCard */,
 				9E43AF73242798780093627B /* ResultsView.swift */,
 				9E43AF7524279F3D0093627B /* ResultsViewController.swift */,
+				D3201C6E2675414F00E683EC /* ScanCodeRegistrant.swift */,
 				84B87FC92344084E007A6BFF /* ScanCodeView.swift */,
 				9E43AF77242BBC4C0093627B /* ScanCodeViewController.swift */,
 				84A81C5323EF30CF00464745 /* ScannerCodeView.swift */,
@@ -938,6 +984,7 @@
 				84633B3323F8113F0069219C /* KeyboardTextView.swift */,
 				845D354823FD93B5002C4232 /* KeyboardView.swift */,
 				84F11A1F240087D60029A1BC /* KeyboardViewController.swift */,
+				D3201C6A2675402900E683EC /* KeyboardViewControllerRegistrant.swift */,
 			);
 			path = Keyboard;
 			sourceTree = "<group>";
@@ -951,6 +998,8 @@
 				BDA76B5921DE6248003E9FD6 /* AnalyticsHelper.swift */,
 				BDA76B5D21DE64FD003E9FD6 /* AnalyticsParameters.swift */,
 				8492DF80257E7CED00094624 /* AnalyticsProvider.swift */,
+				D3201C472675319C00E683EC /* AnalyticsRegistrant.swift */,
+				D3201C41267511FA00E683EC /* ConsoleAnalyticsProvider.swift */,
 				8492DF85257E7E0E00094624 /* FirebaseAnalyticsProvider.swift */,
 			);
 			path = Analytics;
@@ -960,9 +1009,93 @@
 			isa = PBXGroup;
 			children = (
 				849E40CC24143DE5006E1B76 /* CapturedImageManager.swift */,
+				D3201C702675418800E683EC /* CapturedImageManagerRegistrant.swift */,
 				849E40CE24143E54006E1B76 /* InMemoryCapturedImageManager.swift */,
 			);
 			path = CapturedImageManager;
+			sourceTree = "<group>";
+		};
+		D3201C3C2675110000E683EC /* Logger */ = {
+			isa = PBXGroup;
+			children = (
+				D3201C3F2675113E00E683EC /* ConsoleLogger.swift */,
+				D3201C3D2675111C00E683EC /* CrashlitycsLogger.swift */,
+				842E763923E4727D00A5534B /* Logger.swift */,
+				D3201C452675136900E683EC /* LoggerRegistrant.swift */,
+			);
+			path = Logger;
+			sourceTree = "<group>";
+		};
+		D3201C492675358A00E683EC /* DI */ = {
+			isa = PBXGroup;
+			children = (
+				8477CFCA23CE17B100C72542 /* DIContainer.swift */,
+				D3201C4A2675359900E683EC /* DependencyRegistrant.swift */,
+				D3201C4C267535BA00E683EC /* FoundationRegistrant.swift */,
+				D3201C4E2675368E00E683EC /* UIKitRegistrant.swift */,
+			);
+			path = DI;
+			sourceTree = "<group>";
+		};
+		D3201C542675393900E683EC /* BarcodeValidator */ = {
+			isa = PBXGroup;
+			children = (
+				D3201C552675394000E683EC /* BarcodeValidator.swift */,
+				D3201C572675396500E683EC /* BarcodeValidatorRegistrant.swift */,
+				84601A392405B5B900AD2A2D /* EANBarcodeValidator.swift */,
+			);
+			path = BarcodeValidator;
+			sourceTree = "<group>";
+		};
+		D3201C5926753A0600E683EC /* CodeScannerManager */ = {
+			isa = PBXGroup;
+			children = (
+				84A81C5723EFF42200464745 /* CameraSessionCodeScannerManager.swift */,
+				84A81C5523EFF2CA00464745 /* CodeScannerManager.swift */,
+				D3201C5A26753A1900E683EC /* CodeScannerManagerRegistrant.swift */,
+			);
+			path = CodeScannerManager;
+			sourceTree = "<group>";
+		};
+		D3201C5C26753A6600E683EC /* FlashlightManager */ = {
+			isa = PBXGroup;
+			children = (
+				9EDFECF4242FB773009D8893 /* FlashlightManager.swift */,
+				D3201C5D26753A7B00E683EC /* FlashlightManagerRegistrant.swift */,
+			);
+			path = FlashlightManager;
+			sourceTree = "<group>";
+		};
+		D3201C5F26753B9E00E683EC /* KeyboardManager */ = {
+			isa = PBXGroup;
+			children = (
+				842E762F23E434CD00A5534B /* KeyboardManager.swift */,
+				D3201C6226753BCF00E683EC /* KeyboardManagerRegistrant.swift */,
+				D3201C6026753BAA00E683EC /* NotificationCenterKeyboardManager.swift */,
+			);
+			path = KeyboardManager;
+			sourceTree = "<group>";
+		};
+		D3201C6426753C2600E683EC /* ProductImageManager */ = {
+			isa = PBXGroup;
+			children = (
+				842E762B23E0CDA500A5534B /* LocalDocumentsProductImageManager.swift */,
+				9EC3BC6823D50BD000242B1E /* ProductImageManager.swift */,
+				D3201C6526753C3500E683EC /* ProductImageManagerRegistrant.swift */,
+			);
+			path = ProductImageManager;
+			sourceTree = "<group>";
+		};
+		D3201C6726753C9500E683EC /* RequestFactory */ = {
+			isa = PBXGroup;
+			children = (
+				84D8B77123EA202800CD0ECB /* DataRequestFactory.swift */,
+				84BDC4A723EB774F00F462A0 /* MediaUploadRequestFactory.swift */,
+				84A81C4D23EE11B000464745 /* PolaRequestFactory.swift */,
+				84A81C4B23EE118300464745 /* PutAmazonRequestFactory.swift */,
+				D3201C6826753CAF00E683EC /* RequestFactoryRegistrant.swift */,
+			);
+			path = RequestFactory;
 			sourceTree = "<group>";
 		};
 		D3E3CA0D264085B0002979E1 /* PolaTestPlans */ = {
@@ -1467,14 +1600,19 @@
 				84D887A52337A4B300681C64 /* ResultContentViewControllerFactory.swift in Sources */,
 				9EC3BC4C23CDF4FD00242B1E /* CardStackViewControllerDelegate.swift in Sources */,
 				9EC3BC6923D50BD000242B1E /* ProductImageManager.swift in Sources */,
-				84601A3A2405B5B900AD2A2D /* BarcodeValidator.swift in Sources */,
+				D3201C5E26753A7B00E683EC /* FlashlightManagerRegistrant.swift in Sources */,
+				84601A3A2405B5B900AD2A2D /* EANBarcodeValidator.swift in Sources */,
 				9EDFECF5242FB773009D8893 /* FlashlightManager.swift in Sources */,
 				9E0FE73A251C0001005D98B3 /* KeyboardLabel.swift in Sources */,
 				84A81C4E23EE11B000464745 /* PolaRequestFactory.swift in Sources */,
 				845F78D523BA28F8008DDFDF /* ScanResult.swift in Sources */,
 				842E762E23E0D4CA00A5534B /* FileManager+Extension.swift in Sources */,
 				8477CFCD23CF201D00C72542 /* ReportImageView.swift in Sources */,
+				D3201C6D267540D400E683EC /* ReportProblemViewControllerRegistrant.swift in Sources */,
+				D3201C3E2675111C00E683EC /* CrashlitycsLogger.swift in Sources */,
+				D3201C402675113E00E683EC /* ConsoleLogger.swift in Sources */,
 				9E43AF7A242BE5FF0093627B /* AnalyticsBarcodeSource.swift in Sources */,
+				D3201C4D267535BA00E683EC /* FoundationRegistrant.swift in Sources */,
 				9E43AF78242BBC4C0093627B /* ScanCodeViewController.swift in Sources */,
 				BDA76B5E21DE64FD003E9FD6 /* AnalyticsParameters.swift in Sources */,
 				84D8B77223EA202800CD0ECB /* DataRequestFactory.swift in Sources */,
@@ -1483,6 +1621,7 @@
 				84A81C4C23EE118300464745 /* PutAmazonRequestFactory.swift in Sources */,
 				84AB4BBD259A04A50008A6B2 /* OwnBrandCompanyTitleView.swift in Sources */,
 				849E40CF24143E54006E1B76 /* InMemoryCapturedImageManager.swift in Sources */,
+				D3201C582675396500E683EC /* BarcodeValidatorRegistrant.swift in Sources */,
 				8477CFC723CE137D00C72542 /* AboutRows.swift in Sources */,
 				8477CFCB23CE17B100C72542 /* DIContainer.swift in Sources */,
 				BDA76B5A21DE6248003E9FD6 /* AnalyticsHelper.swift in Sources */,
@@ -1490,21 +1629,27 @@
 				842E763823E4703500A5534B /* Report.swift in Sources */,
 				84A81C5623EFF2CA00464745 /* CodeScannerManager.swift in Sources */,
 				9EC3BC4B23CDF4FD00242B1E /* CardStackViewDelegate.swift in Sources */,
+				D3201C5B26753A1900E683EC /* CodeScannerManagerRegistrant.swift in Sources */,
 				9EC3BC4923CDF4FD00242B1E /* CardStackViewLayout.swift in Sources */,
 				9EC3BC4823CDF4FD00242B1E /* CardStackViewLayoutPick.swift in Sources */,
 				84633B3423F8113F0069219C /* KeyboardTextView.swift in Sources */,
+				D3201C562675394000E683EC /* BarcodeValidator.swift in Sources */,
 				9EC3BC4E23CDF4FD00242B1E /* CardStackViewLayoutExpanded.swift in Sources */,
 				9E0FE73C251C02C6005D98B3 /* String+Additions.swift in Sources */,
 				842E762C23E0CDA500A5534B /* LocalDocumentsProductImageManager.swift in Sources */,
+				D3201C6326753BCF00E683EC /* KeyboardManagerRegistrant.swift in Sources */,
 				842E763023E434CD00A5534B /* KeyboardManager.swift in Sources */,
 				9EC3BC4D23CDF4FD00242B1E /* CardStackViewController.swift in Sources */,
+				D3201C6F2675414F00E683EC /* ScanCodeRegistrant.swift in Sources */,
 				846036F22418574A00982FC6 /* UIDevice+Additions.swift in Sources */,
+				D3201C482675319C00E683EC /* AnalyticsRegistrant.swift in Sources */,
 				845F78D323BA28E2008DDFDF /* ProductManager.swift in Sources */,
 				2DF8F60E26492EE100D3C62E /* BarcodeDetector.swift in Sources */,
 				84AAEDE0230B49DD006CA7EB /* UILabel+Additions.swift in Sources */,
 				846A996F25EBC7D4007DFF88 /* Company.swift in Sources */,
 				841BB98B22D133A900234946 /* Theme.swift in Sources */,
 				9E43AF7624279F3D0093627B /* ResultsViewController.swift in Sources */,
+				D3201C712675418800E683EC /* CapturedImageManagerRegistrant.swift in Sources */,
 				84BDC4A823EB774F00F462A0 /* MediaUploadRequestFactory.swift in Sources */,
 				84A81C5223EE21F300464745 /* ReportProblemReason.swift in Sources */,
 				8492DF86257E7E0E00094624 /* FirebaseAnalyticsProvider.swift in Sources */,
@@ -1514,8 +1659,10 @@
 				8488E20F23D1067000817671 /* ReportProblemViewController.swift in Sources */,
 				9EC3BC4F23CDF4FD00242B1E /* CardStackViewControllerCard.swift in Sources */,
 				841F7DA023567740007BE3F6 /* UIApplication+Additions.swift in Sources */,
+				D3201C42267511FA00E683EC /* ConsoleAnalyticsProvider.swift in Sources */,
 				845D354923FD93B5002C4232 /* KeyboardView.swift in Sources */,
 				84CE3E6423BA982900FE8D66 /* Bundle+Additions.swift in Sources */,
+				D3201C6126753BAA00E683EC /* NotificationCenterKeyboardManager.swift in Sources */,
 				8406E62D233D59A700B7313C /* MainProggressView.swift in Sources */,
 				8477CFCF23CF2BC500C72542 /* ReportProblemView.swift in Sources */,
 				841BB98D22D136AE00234946 /* UIColor+Additions.swift in Sources */,
@@ -1525,37 +1672,46 @@
 				9E7BE9452401503F0070BF8D /* ExtendedButton.swift in Sources */,
 				BDA76B5121DCD718003E9FD6 /* Encodable+Utilities.swift in Sources */,
 				8492DF81257E7CED00094624 /* AnalyticsProvider.swift in Sources */,
+				D3201C6626753C3500E683EC /* ProductImageManagerRegistrant.swift in Sources */,
 				9EC3BC3123CDE3D600242B1E /* ScanResultView.swift in Sources */,
 				84735A6A23BB92C80053D1E5 /* AboutViewController.swift in Sources */,
 				9E43AF7E242BEB2C0093627B /* AppDelegate.swift in Sources */,
 				8402E1D62309BB610065E850 /* AltResultContentView.swift in Sources */,
+				D3201C6926753CAF00E683EC /* RequestFactoryRegistrant.swift in Sources */,
 				84B87FCA2344084E007A6BFF /* ScanCodeView.swift in Sources */,
 				841DDD682311583E00CB82DC /* ScanResultViewController.swift in Sources */,
 				842E763A23E4727D00A5534B /* Logger.swift in Sources */,
 				84F11A20240087D60029A1BC /* KeyboardViewController.swift in Sources */,
 				84A81C5423EF30CF00464745 /* ScannerCodeView.swift in Sources */,
+				D3201C4F2675368E00E683EC /* UIKitRegistrant.swift in Sources */,
+				D3201C462675136900E683EC /* LoggerRegistrant.swift in Sources */,
 				9EC3BC5C23CDFA2500242B1E /* AboutDoubleCell.swift in Sources */,
 				8477CFC823CE137D00C72542 /* AboutRowsFactory.swift in Sources */,
 				9E0FE73E251C0DA4005D98B3 /* KeyboardBarcode.swift in Sources */,
+				D3201C6B2675402900E683EC /* KeyboardViewControllerRegistrant.swift in Sources */,
 				84AB4BAF2599E9BE0008A6B2 /* OwnBrandContentViewController.swift in Sources */,
+				D3201C512675380100E683EC /* ProductManagerRegistrant.swift in Sources */,
 				84AB4BB52599E9E50008A6B2 /* OwnBrandContentView.swift in Sources */,
 				8477CFC923CE137D00C72542 /* AboutRow.swift in Sources */,
 				849E40CD24143DE5006E1B76 /* CapturedImageManager.swift in Sources */,
 				BDA76B5C21DE64AB003E9FD6 /* AnalyticsEventName.swift in Sources */,
 				84D887A1233669D800681C64 /* CompanyContentViewController.swift in Sources */,
 				84A6A93425EDAAAE004199B9 /* AskForReport.swift in Sources */,
+				D3201C4B2675359900E683EC /* DependencyRegistrant.swift in Sources */,
 				84CE3E6023BA895100FE8D66 /* AboutWebViewController.swift in Sources */,
 				849E50DB24A623A80064F269 /* AskForDonate.swift in Sources */,
 				84A6A93F25EDAE40004199B9 /* UIButton+ReportType.swift in Sources */,
 				9E43AF74242798780093627B /* ResultsView.swift in Sources */,
 				9EC3BC5B23CDFA2500242B1E /* AboutBaseCell.swift in Sources */,
 				9EC3BC4723CDF4FD00242B1E /* CardStackViewLayoutLayoutCollapsed.swift in Sources */,
+				D3201C44267512A400E683EC /* FirebaseApp+isAvailable.swift in Sources */,
 				84735A6423BB63B00053D1E5 /* AnalyticsAboutRow.swift in Sources */,
 				9E35D7AA24C627C000C63C11 /* UIViewController+Additions.swift in Sources */,
 				9EC3BC4623CDF4FD00242B1E /* CardStackViewLayoutContext.swift in Sources */,
 				9EC3BC5D23CDFA2500242B1E /* AboutSingleCell.swift in Sources */,
 				8406E631233D6A6C00B7313C /* UIImage+Additions.swift in Sources */,
 				84F177E122CAD3F700238266 /* R.generated.swift in Sources */,
+				D3201C532675386A00E683EC /* ReportManagerRegistrant.swift in Sources */,
 				84A81C5823EFF42200464745 /* CameraSessionCodeScannerManager.swift in Sources */,
 				842E763723E4703500A5534B /* ReportManager.swift in Sources */,
 				8477CFD123CF2E9B00C72542 /* ReportImagesContainerView.swift in Sources */,
