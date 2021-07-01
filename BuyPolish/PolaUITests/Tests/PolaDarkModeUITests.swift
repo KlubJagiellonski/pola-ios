@@ -51,4 +51,12 @@ class PolaDarkModeUITests: PolaUITestCase {
 
         snapshotVerifyView()
     }
+
+    func testInformationPage() {
+        startingPageObject
+            .tapInformationButton()
+            .done()
+
+        snapshotVerifyView()
+    }
 }
