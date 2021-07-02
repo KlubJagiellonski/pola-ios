@@ -55,8 +55,8 @@ final class AnalyticsHelper {
         logEvent(name: .openGallery)
     }
     
-    func barcodeNotFoundDisplayed() {
-        logEvent(name: .barcodeNotFound)
+    func barcodeNotOnPhotoFoundDisplayed() {
+        logEvent(name: .barcodeNotFoundL)
     }
 
     func polasFriendsOpened() {

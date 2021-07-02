@@ -11,5 +11,5 @@ enum AnalyticsEventName: String {
     case aboutPola = "about_pola"
     case polasFriends = "polas_friends"
     case openGallery = "open_gallery"
-    case barcodeNotFound = "barcode_not_found"
+    case barcodeNotFoundOnPhoto = "barcode_not_found_on_photo"
 }
