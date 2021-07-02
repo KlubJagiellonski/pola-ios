@@ -11,12 +11,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = RootViewController()
-        window?.backgroundColor = .white
+        window?.backgroundColor = R.color.backgroundWindowColor()
         window?.makeKeyAndVisible()
 
         if ProcessInfo.processInfo.arguments.contains("--disableAnimations") {
             window?.layer.speed = 0.0
             UIView.setAnimationsEnabled(false)
+        }
+
+        if ProcessInfo.processInfo.arguments.contains("--enableDarkMode") {
+            if #available(iOS 13.0, *) {
+                window?.overrideUserInterfaceStyle = .dark
+            }
         }
 
         if let shortcutItem = launchOptions?[.shortcutItem] as? UIApplicationShortcutItem {
@@ -60,7 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     private func applyAppearance() {
         UINavigationBar.appearance().barTintColor = Theme.mediumBackgroundColor
-        UINavigationBar.appearance().tintColor = UIColor.black
+        UINavigationBar.appearance().tintColor = .systemBlue
         UINavigationBar.appearance().titleTextAttributes = [.font: Theme.titleFont]
     }
 

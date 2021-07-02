@@ -85,7 +85,7 @@ final class ReportBugPageUITests: PolaUITestCase {
     }
 }
 
-private extension ReportBugPage {
+extension ReportBugPage {
     func addPhoto() -> ReportBugPage {
         tapAddImageButton()
             .tapChooseFromLibrarySheetAction()

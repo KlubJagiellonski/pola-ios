@@ -105,7 +105,7 @@ final class ScanResultViewController: UIViewController {
             view.backgroundColor = Theme.mediumBackgroundColor
             castedView.mainProgressView.backgroundColor = Theme.strongBackgroundColor
         case .white:
-            view.backgroundColor = Theme.clearColor
+            view.backgroundColor = Theme.clearBackgroundColor
             castedView.mainProgressView.backgroundColor = Theme.lightBackgroundColor
         }
 

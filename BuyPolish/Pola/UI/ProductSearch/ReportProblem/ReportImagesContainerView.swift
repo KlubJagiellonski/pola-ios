@@ -36,7 +36,7 @@ final class ReportImagesContainerView: UIView {
         super.init(frame: frame)
 
         clipsToBounds = true
-        backgroundColor = Theme.clearColor
+        backgroundColor = Theme.textViewBackgroundColor
 
         addImageButton.addTarget(self, action: #selector(tapAdd), for: .touchUpInside)
         addImageButton.accessibilityLabel = R.string.localizable.accessibilityReportAddPhoto()

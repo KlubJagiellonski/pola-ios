@@ -1,3 +1,4 @@
+import KVNProgress
 import UIKit
 
 final class RootViewController: UINavigationController {
@@ -5,6 +6,17 @@ final class RootViewController: UINavigationController {
         super.init(rootViewController: DI.container.resolve(ScanCodeViewController.self)!)
 
         isNavigationBarHidden = true
+
+        let config = KVNProgressConfiguration.default()
+        config?.stopColor = R.color.clearColor()
+        config?.errorColor = R.color.clearColor()
+        config?.statusColor = R.color.clearColor()
+        config?.successColor = R.color.clearColor()
+        config?.backgroundTintColor = R.color.strongBackgroundColor()
+        config?.circleFillBackgroundColor = R.color.strongBackgroundColor()
+        config?.circleStrokeForegroundColor = R.color.clearColor()
+
+        KVNProgress.setConfiguration(config)
     }
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {

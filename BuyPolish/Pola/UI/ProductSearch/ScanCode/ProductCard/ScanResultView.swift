@@ -36,7 +36,7 @@ final class ScanResultView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        backgroundColor = Theme.clearColor
+        backgroundColor = Theme.clearBackgroundColor
 
         layer.cornerRadius = 8
         layer.masksToBounds = false

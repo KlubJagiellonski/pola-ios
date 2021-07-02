@@ -5,6 +5,7 @@ extension UIViewController {
         let closeButtonItem =
             UIBarButtonItem(image: R.image.closeIcon(), style: .plain, target: self, action: #selector(closeTapped))
         closeButtonItem.accessibilityLabel = R.string.localizable.accessibilityClose()
+        closeButtonItem.tintColor = Theme.defaultTextColor
         navigationItem.rightBarButtonItem = closeButtonItem
     }
 
