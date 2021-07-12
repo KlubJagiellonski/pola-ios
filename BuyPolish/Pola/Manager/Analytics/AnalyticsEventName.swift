@@ -10,4 +10,6 @@ enum AnalyticsEventName: String {
     case donateOpened = "donate_opened"
     case aboutPola = "about_pola"
     case polasFriends = "polas_friends"
+    case openGallery = "open_gallery"
+    case barcodeNotFoundOnPhoto = "barcode_not_found_on_photo"
 }
