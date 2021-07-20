@@ -245,7 +245,7 @@ extension ScanCodeViewController: UIImagePickerControllerDelegate {
                 } else {
                     KVNProgress.showError(withStatus: R.string.localizable.barcodeNotFound())
                     BPLog("Error, barcode not found on an image from Photos.")
-                    self?.analytics.barcodeNotOnPhotoFoundDisplayed()
+                    self?.analytics.barcodeNotFoundOnPhotoDisplayed()
                 }
             }
             .catch { _ in
