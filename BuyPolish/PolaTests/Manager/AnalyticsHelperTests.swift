@@ -77,4 +77,16 @@ class AnalyticsHelperTests: XCTestCase {
 
         assertProviderInvocation(eventName: "about_pola", parametersShouldBeNil: true)
     }
+
+    func testOpenGallery() {
+        sut.openGallery()
+
+        assertProviderInvocation(eventName: "open_gallery", parametersShouldBeNil: true)
+    }
+
+    func testBarcodeNotFoundOnPhotoDisplayed() {
+        sut.barcodeNotFoundOnPhotoDisplayed()
+
+        assertProviderInvocation(eventName: "barcode_not_found_on_photo", parametersShouldBeNil: true)
+    }
 }

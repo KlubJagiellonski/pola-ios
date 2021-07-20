@@ -51,6 +51,14 @@ final class AnalyticsHelper {
                  AnalyticsAboutParameters(item: windowName.rawValue))
     }
 
+    func openGallery() {
+        logEvent(name: .openGallery)
+    }
+
+    func barcodeNotFoundOnPhotoDisplayed() {
+        logEvent(name: .barcodeNotFoundOnPhoto)
+    }
+
     func polasFriendsOpened() {
         logEvent(name: .polasFriends)
     }
