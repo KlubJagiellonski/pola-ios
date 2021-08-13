@@ -44,7 +44,8 @@ class PolaDarkModeUITests: PolaUITestCase {
         snapshotVerifyView()
     }
 
-    func testEnterBarcodePage() {
+    func testEnterBarcodePage() throws {
+        throw skipTest(issueNumber: 248)
         startingPageObject
             .tapEnterBarcodeButton()
             .done()
