@@ -33,4 +33,20 @@ class OwnBrandCompanyTitleViewSnapshotTests: XCTestCase {
         sut.progress = 1
         verifyView()
     }
+
+    @available(iOS 13.0, *)
+    func testView_whenCompanyHave10Points_dark() {
+        sut.overrideUserInterfaceStyle = .dark
+        sut.title = "LIDL Polska Sp z o.o."
+        sut.progress = 0.1
+        verifyView()
+    }
+
+    @available(iOS 13.0, *)
+    func testView_whenCompanyHave100Points_dark() {
+        sut.overrideUserInterfaceStyle = .dark
+        sut.title = "TYMBARK - MWS Sp z o.o."
+        sut.progress = 1
+        verifyView()
+    }
 }

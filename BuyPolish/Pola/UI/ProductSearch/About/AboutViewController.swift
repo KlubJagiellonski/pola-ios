@@ -35,6 +35,7 @@ final class AboutViewController: UITableViewController {
                             target: self,
                             action: #selector(close))
         barItem.accessibilityLabel = R.string.localizable.accessibilityClose()
+        barItem.tintColor = Theme.defaultTextColor
         navigationItem.rightBarButtonItem = barItem
         configureTableView()
     }
@@ -143,6 +144,7 @@ final class AboutViewController: UITableViewController {
     private func performLinkAction(title: String, url: String, openInternal: Bool) {
         if openInternal {
             let vc = AboutWebViewController(url: url, title: title)
+            navigationController?.navigationBar.tintColor = Theme.defaultTextColor
             navigationController?.pushViewController(vc, animated: true)
         } else {
             if let url = URL(string: url) {

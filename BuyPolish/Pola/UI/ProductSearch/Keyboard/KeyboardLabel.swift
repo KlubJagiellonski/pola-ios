@@ -17,7 +17,7 @@ class KeyboardLabel: UILabel {
         isUserInteractionEnabled = true
         addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(showMenu)))
         font = Theme.titleFont
-        textColor = Theme.defaultTextColor
+        textColor = Theme.onlyBlackTextColor
     }
 
     @available(*, unavailable)
