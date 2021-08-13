@@ -149,6 +149,7 @@ final class ScanCodeViewController: UIViewController {
         castedView.galleryButton.isSelected = true
         present(imagePicker, animated: true, completion: nil)
         imagePicker.presentationController?.delegate = self
+        analytics.openGallery()
     }
 
     fileprivate func hideKeyboardController() {
@@ -244,6 +245,7 @@ extension ScanCodeViewController: UIImagePickerControllerDelegate {
                 } else {
                     KVNProgress.showError(withStatus: R.string.localizable.barcodeNotFound())
                     BPLog("Error, barcode not found on an image from Photos.")
+                    self?.analytics.barcodeNotFoundOnPhotoDisplayed()
                 }
             }
             .catch { _ in
