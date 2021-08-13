@@ -41,7 +41,7 @@ jobs:
       - name: Run tests
         run: bundle exec fastlane tests
       - name: Codecov
-        uses: codecov/codecov-action@v1
+        uses: codecov/codecov-action@v2.0.2
       - name: "Upload Tests results"
         if: always()
         uses: actions/upload-artifact@v2
