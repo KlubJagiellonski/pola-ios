@@ -1,7 +1,8 @@
 import XCTest
 
 final class CompanyPageUITests: PolaUITestCase {
-    func testRadziemskaCompanyShouldBeMarkedAsPolaFriends() {
+    func testRadziemskaCompanyShouldBeMarkedAsPolaFriends() throws {
+        throw skipTest(issueNumber: 246)
         startingPageObject
             .enterCodeAndOpenCompanyResult(codeData: CodeData.Radziemska)
             .done()
