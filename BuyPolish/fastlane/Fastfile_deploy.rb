@@ -1,4 +1,4 @@
-import 'shared_constants.rb'
+require_relative 'shared_constants'
 
 platform :ios do
 
