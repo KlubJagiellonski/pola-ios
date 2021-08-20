@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>488158574714-ha8vlna21no4b1tiituo5p10k9sai2vo.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.488158574714-ha8vlna21no4b1tiituo5p10k9sai2vo</string>
+	<key>API_KEY</key>
+	<string>AIzaSyD5RhMzZFk2vTIBuZP6PKs8BqVLDRDpduk</string>
+	<key>GCM_SENDER_ID</key>
+	<string>488158574714</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.kj.Pola</string>
+	<key>PROJECT_ID</key>
+	<string>pola-test</string>
+	<key>STORAGE_BUCKET</key>
+	<string>pola-test.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:488158574714:ios:5aee525269cc5cad5263c3</string>
+</dict>
+</plist>
