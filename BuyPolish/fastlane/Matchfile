@@ -1,0 +1,3 @@
+app_identifier "com.kj.Pola"
+git_url "git@github.com:KlubJagiellonski/ios_certificates.git"
+type "appstore"
