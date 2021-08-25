@@ -1,11 +1,13 @@
 name: Deploy to TestFlight
 
-on: 
-  workflow_dispatch:
-    inputs:
-      version:
-        description: 'Number version to deploy'
-        required: true
+on:
+  push:
+    branches: ['feature/cd'] 
+# workflow_dispatch:
+  #   inputs:
+  #     version:
+  #       description: 'Number version to deploy'
+  #       required: true
 
 jobs:
   bump_version:
