@@ -23,6 +23,11 @@ jobs:
         with:
           fetch-depth: 0 
           token: ${{ secrets.WORKFLOW_ACCESS_TOKEN_GITHUB }}
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_KEY }}
+          known_hosts: ${{ secrets.KNOWN_HOSTS }}
       - name: Cache bundler gems
         uses: actions/cache@v2
         with:
