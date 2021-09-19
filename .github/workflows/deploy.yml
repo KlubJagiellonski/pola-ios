@@ -11,7 +11,7 @@ on:
 
 jobs:
   bump_version:
-    name: Record snapshots for unit & ui tests
+    name: Deploy 
     runs-on: macos-10.15
     defaults:
       run:
@@ -56,13 +56,12 @@ jobs:
         shell: bash
         env:
           DEV_ENV_FILE : ${{secrets.GOOGLE_SERVICE_INFO_CONTENT}}
-      - name: Bump version
+      - name: Deploy to TestFlight
         run: bundle exec fastlane deploy version:${{ github.event.inputs.version }}
         env:
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
           FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
-          # FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
+          FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
           FASTLANE_SESSION: ${{ secrets.FASTLANE_SESSION }}
-          RELEASE_VERSION: ${{ github.event.release.tag_name }}
-          CHANGELOG: ${{ github.event.release.body }}
+          # CHANGELOG: ${{ github.event.release.body }}
