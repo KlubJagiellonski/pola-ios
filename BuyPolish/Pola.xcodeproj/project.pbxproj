@@ -1463,7 +1463,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				$SRCROOT/Pola/R.generated.swift,
+				"$SRCROOT/Pola/R.generated.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
