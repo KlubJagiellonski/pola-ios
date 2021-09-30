@@ -1,13 +1,11 @@
 name: Deploy to TestFlight
 
 on:
-  push:
-    branches: ['feature/deploy-workflow'] 
-# workflow_dispatch:
-  #   inputs:
-  #     version:
-  #       description: 'Number version to deploy'
-  #       required: true
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Number version to deploy'
+        required: true
 
 jobs:
   bump_version:
@@ -57,8 +55,7 @@ jobs:
         env:
           DEV_ENV_FILE : ${{secrets.GOOGLE_SERVICE_INFO_CONTENT}}
       - name: Deploy to TestFlight
-        run: bundle exec fastlane deploy version:1.10
-        # ${{ github.event.inputs.version }}
+        run: bundle exec fastlane deploy version:${{ github.event.inputs.version }}
         env:
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
