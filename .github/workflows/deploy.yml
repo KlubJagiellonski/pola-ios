@@ -50,7 +50,6 @@ jobs:
         run: |
           rm Pola/GoogleService-Info.plist
           echo $DEV_ENV_FILE >> Pola/GoogleService-Info.plist
-          cat Pola/GoogleService-Info.plist
         shell: bash
         env:
           DEV_ENV_FILE : ${{secrets.GOOGLE_SERVICE_INFO_CONTENT}}
