@@ -39,6 +39,12 @@ PR może być tylko zmergowany gdy:
 
 ### 6. Wydawanie aplikacji (tylko opiekunowie)
 
+## Automatyczne
+
+Uruchamiamy workflow [deploy](https://github.com/KlubJagiellonski/pola-ios/actions/workflows/deploy.yml) z odpowiednim parametrem wersji
+
+## Ręczne 
+
 Przed zbudowaniem aplikacji do wydania należy:
 
 * Ustawić odpowiednią wersję:
@@ -47,6 +53,7 @@ Przed zbudowaniem aplikacji do wydania należy:
  * Skonfigurować Firebase:
     * Pobieramy plik `GoogleService-Info.plist` dla projektu Pola z [konsoli Firebase](https://console.firebase.google.com).
     * Edytujemy plik zmieniając wartość dla klucza `IS_ANALYTICS_ENABLED` na `YES`.
-    * Dodajemy plik do projektu.
+    * Podmieniamy istniejący plik w projekcie na pobrany.
     * Pliku, ani powyższych zmian nie dodajemy do repozytorium!
 
+ * Ściągnąć wymagane certyfikaty przy pomocy komendy `bundle exec fastlane match`

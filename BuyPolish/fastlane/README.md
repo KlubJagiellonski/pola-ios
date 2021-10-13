@@ -24,6 +24,14 @@ Bump version and build number
     Options:  
     - version - new version number
     
+### ios deploy
+```
+fastlane ios deploy
+```
+Bump version and build number
+    Options:  
+    - version - new version number
+    
 ### ios tests
 ```
 fastlane ios tests
