@@ -44,6 +44,11 @@ final class AboutRowsFactory {
                      analyticsName: .rateUs,
                      action: .link("itms-apps://itunes.apple.com/app/id1038401148", false))
         )
+        rows.append(
+            AboutRow(title: strings.polaOnGitHub(),
+                     analyticsName: .github,
+                     action: .link("https://github.com/KlubJagiellonski/pola-ios", false))
+        )
         let doubleRows =
             [
                 (
