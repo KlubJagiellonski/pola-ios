@@ -11,6 +11,7 @@ enum AnalyticsAboutRow: String {
     case writeToUs = "Napisz do nas"
     case rateUs = "Oceń Polę"
     case reportError = "Zgłoś błąd w danych"
+    case github = "Pola na GitHubie"
     case twitter = "Pola na Twitterze"
     case facebook = "Pola na Facebooku"
 }
