@@ -1,11 +1,13 @@
 import AVFoundation
+import FirebaseMessaging
 import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
+    let gcmMessageIDKey = "gcm.message_id"
 
-    func application(_: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
         DI.container.resolve(AnalyticsProvider.self)!.configure()
         applyAppearance()
 
@@ -28,6 +30,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let shortcutItem = launchOptions?[.shortcutItem] as? UIApplicationShortcutItem {
             _ = handleShortcutItem(shortcutItem)
         }
+
+        UNUserNotificationCenter.current().delegate = self
+
+        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+        UNUserNotificationCenter.current().requestAuthorization(
+            options: authOptions,
+            completionHandler: { _, _ in }
+        )
+
+        application.registerForRemoteNotifications()
 
         return true
     }
@@ -89,3 +101,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 }
+
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    func userNotificationCenter(_: UNUserNotificationCenter,
+                                willPresent _: UNNotification,
+                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions)
+                                    -> Void) {
+        completionHandler([[.alert, .sound]])
+    }
+
+    func userNotificationCenter(_: UNUserNotificationCenter,
+                                didReceive _: UNNotificationResponse,
+                                withCompletionHandler completionHandler: @escaping () -> Void) {
+        completionHandler()
+    }
+}
+
+extension AppDelegate: MessagingDelegate {}

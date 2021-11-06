@@ -10,6 +10,9 @@ PODS:
   - Firebase/Crashlytics (8.6.0):
     - Firebase/CoreOnly
     - FirebaseCrashlytics (~> 8.6.0)
+  - Firebase/Messaging (8.6.0):
+    - Firebase/CoreOnly
+    - FirebaseMessaging (~> 8.6.0)
   - Firebase/Performance (8.6.0):
     - Firebase/CoreOnly
     - FirebasePerformance (~> 8.6.0)
@@ -54,6 +57,15 @@ PODS:
     - GoogleUtilities/Environment (~> 7.4)
     - GoogleUtilities/UserDefaults (~> 7.4)
     - PromisesObjC (< 3.0, >= 1.2)
+  - FirebaseMessaging (8.6.0):
+    - FirebaseCore (~> 8.0)
+    - FirebaseInstallations (~> 8.0)
+    - GoogleDataTransport (~> 9.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.4)
+    - GoogleUtilities/Environment (~> 7.4)
+    - GoogleUtilities/Reachability (~> 7.4)
+    - GoogleUtilities/UserDefaults (~> 7.4)
+    - nanopb (~> 2.30908.0)
   - FirebasePerformance (8.6.0):
     - FirebaseCore (~> 8.0)
     - FirebaseInstallations (~> 8.0)
@@ -132,6 +144,7 @@ DEPENDENCIES:
   - Alamofire
   - Firebase/Analytics
   - Firebase/Crashlytics
+  - Firebase/Messaging
   - Firebase/Performance
   - KVNProgress
   - Observable
@@ -154,6 +167,7 @@ SPEC REPOS:
     - FirebaseCoreDiagnostics
     - FirebaseCrashlytics
     - FirebaseInstallations
+    - FirebaseMessaging
     - FirebasePerformance
     - FirebaseRemoteConfig
     - GoogleAppMeasurement
@@ -182,6 +196,7 @@ SPEC CHECKSUMS:
   FirebaseCoreDiagnostics: 3721920bde3a9a6d5aa093c1d25e9d3e47f694af
   FirebaseCrashlytics: 58f8ecea7c799c61c50e8111d2e438424a8a1d2e
   FirebaseInstallations: 0ede6ffcd215b8f93c19d9b06c1c54e2d4107e98
+  FirebaseMessaging: ce0a5ee974f7bfe83b6cc5acce88c2d969e37c41
   FirebasePerformance: 868249ceda5e3399f581b5b53454d963feaa8164
   FirebaseRemoteConfig: 9ee4672d4eacf646256e26cfac61021b3a390ea4
   GoogleAppMeasurement: 2c0c6e2a7ab3fe730ade6379f732bdefb46f50b0
@@ -201,6 +216,6 @@ SPEC CHECKSUMS:
   Swinject: ddf78b8486dd9b71a667b852cad919ab4484478e
   "UITextView+Placeholder": d7b0c400921f66523f3a85d74f774512e14f6502
 
-PODFILE CHECKSUM: d5f344273737eb063204ad291d08bc7f3f844830
+PODFILE CHECKSUM: d4b2053dd9d80eee1bb552e69e5fa50fdc99198d
 
 COCOAPODS: 1.11.2
