@@ -5,10 +5,10 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
+    private var notificationProvider: NotificationProvider?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
         DI.container.resolve(AnalyticsProvider.self)!.configure()
-        DI.container.resolve(NotificationProvider.self)!.register(in: application)
         applyAppearance()
 
         window = UIWindow(frame: UIScreen.main.bounds)
@@ -30,6 +30,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let shortcutItem = launchOptions?[.shortcutItem] as? UIApplicationShortcutItem {
             _ = handleShortcutItem(shortcutItem)
         }
+
+        notificationProvider = DI.container.resolve(NotificationProvider.self)
+        notificationProvider?.register(in: application)
 
         return true
     }
