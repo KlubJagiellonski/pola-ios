@@ -33,6 +33,13 @@
 		37B645454FC2ACC155CB1538 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B6472FF4603F63771FADE6 /* AVFoundation.framework */; };
 		37B64B7D226FBFA23FFCA1C1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 37B645C93F848A6F598F96E2 /* Localizable.strings */; };
 		3B88A23C25BB139D00EFE032 /* krasnystaw.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B88A23A25BB139D00EFE032 /* krasnystaw.json */; };
+		6285A0082737F53100D19C88 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6285A0072737F53100D19C88 /* NotificationManager.swift */; };
+		6285A0092737F53100D19C88 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6285A0072737F53100D19C88 /* NotificationManager.swift */; };
+		6285A00A2737F53100D19C88 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6285A0072737F53100D19C88 /* NotificationManager.swift */; };
+		6285A00C2737F8DC00D19C88 /* NotificationRegistrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6285A00B2737F8DC00D19C88 /* NotificationRegistrant.swift */; };
+		6299A5752737F239005464A5 /* NotificationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6299A5742737F239005464A5 /* NotificationProvider.swift */; };
+		6299A5762737F239005464A5 /* NotificationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6299A5742737F239005464A5 /* NotificationProvider.swift */; };
+		6299A5772737F239005464A5 /* NotificationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6299A5742737F239005464A5 /* NotificationProvider.swift */; };
 		8402E1D62309BB610065E850 /* AltResultContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402E1D52309BB610065E850 /* AltResultContentView.swift */; };
 		8406E62D233D59A700B7313C /* MainProggressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8406E62C233D59A700B7313C /* MainProggressView.swift */; };
 		8406E62F233D5FC000B7313C /* SecondaryProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8406E62E233D5FC000B7313C /* SecondaryProgressView.swift */; };
@@ -274,6 +281,9 @@
 		53F3B599F258259843E2755D /* Pods_Pola_PolaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pola_PolaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6276F99F2732B6AC0077C9E8 /* Pola.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pola.entitlements; sourceTree = "<group>"; };
 		6276F9A02732B6C10077C9E8 /* PolaRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PolaRelease.entitlements; sourceTree = "<group>"; };
+		6285A0072737F53100D19C88 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		6285A00B2737F8DC00D19C88 /* NotificationRegistrant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRegistrant.swift; sourceTree = "<group>"; };
+		6299A5742737F239005464A5 /* NotificationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationProvider.swift; sourceTree = "<group>"; };
 		6D7DD012073B8CCDD821A2D0 /* Pods-Pola-PolaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola-PolaTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pola-PolaTests/Pods-Pola-PolaTests.release.xcconfig"; sourceTree = "<group>"; };
 		8402E1D52309BB610065E850 /* AltResultContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AltResultContentView.swift; sourceTree = "<group>"; };
 		8406E62C233D59A700B7313C /* MainProggressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainProggressView.swift; sourceTree = "<group>"; };
@@ -734,6 +744,7 @@
 		37B64DD9591909AF06832339 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				6299A5732737F1FD005464A5 /* NotificationManager */,
 				BDA76B5821DE622E003E9FD6 /* Analytics */,
 				D3201C542675393900E683EC /* BarcodeValidator */,
 				C092CF351F1F8007003174D1 /* CapturedImageManager */,
@@ -764,6 +775,16 @@
 				84A81C5923EFF91300464745 /* ScannerCodeViewController.swift */,
 			);
 			path = ScanCode;
+			sourceTree = "<group>";
+		};
+		6299A5732737F1FD005464A5 /* NotificationManager */ = {
+			isa = PBXGroup;
+			children = (
+				6299A5742737F239005464A5 /* NotificationProvider.swift */,
+				6285A0072737F53100D19C88 /* NotificationManager.swift */,
+				6285A00B2737F8DC00D19C88 /* NotificationRegistrant.swift */,
+			);
+			path = NotificationManager;
 			sourceTree = "<group>";
 		};
 		7B71219F6F5A578A5DE23F85 /* Pods */ = {
@@ -1471,7 +1492,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$SRCROOT/Pola/R.generated.swift",
+				$SRCROOT/Pola/R.generated.swift,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1593,6 +1614,7 @@
 				9E43AF78242BBC4C0093627B /* ScanCodeViewController.swift in Sources */,
 				BDA76B5E21DE64FD003E9FD6 /* AnalyticsParameters.swift in Sources */,
 				84D8B77223EA202800CD0ECB /* DataRequestFactory.swift in Sources */,
+				6285A00C2737F8DC00D19C88 /* NotificationRegistrant.swift in Sources */,
 				841F7D9E235675A2007BE3F6 /* UIView+Additions.swift in Sources */,
 				84A6A97525EDB6F7004199B9 /* ScanResult+Additions.swift in Sources */,
 				84A81C4C23EE118300464745 /* PutAmazonRequestFactory.swift in Sources */,
@@ -1602,6 +1624,7 @@
 				8477CFC723CE137D00C72542 /* AboutRows.swift in Sources */,
 				8477CFCB23CE17B100C72542 /* DIContainer.swift in Sources */,
 				BDA76B5A21DE6248003E9FD6 /* AnalyticsHelper.swift in Sources */,
+				6299A5752737F239005464A5 /* NotificationProvider.swift in Sources */,
 				84A81C5A23EFF91300464745 /* ScannerCodeViewController.swift in Sources */,
 				842E763823E4703500A5534B /* Report.swift in Sources */,
 				84A81C5623EFF2CA00464745 /* CodeScannerManager.swift in Sources */,
@@ -1675,6 +1698,7 @@
 				84A6A93425EDAAAE004199B9 /* AskForReport.swift in Sources */,
 				D3201C4B2675359900E683EC /* DependencyRegistrant.swift in Sources */,
 				84CE3E6023BA895100FE8D66 /* AboutWebViewController.swift in Sources */,
+				6285A0082737F53100D19C88 /* NotificationManager.swift in Sources */,
 				849E50DB24A623A80064F269 /* AskForDonate.swift in Sources */,
 				84A6A93F25EDAE40004199B9 /* UIButton+ReportType.swift in Sources */,
 				9E43AF74242798780093627B /* ResultsView.swift in Sources */,
@@ -1705,6 +1729,7 @@
 				D340FA53263B53E500121AAA /* UIButton+ReportTypeSnapshotTests.swift in Sources */,
 				8430819B25CFEE0900B96981 /* AltResultContentViewControllerSnapshotTests.swift in Sources */,
 				84AB4C32259B13140008A6B2 /* MainProggressViewSnapshotTests.swift in Sources */,
+				6285A0092737F53100D19C88 /* NotificationManager.swift in Sources */,
 				9EC3BBF823CDD74000242B1E /* UIColor_AdditionsTests.swift in Sources */,
 				841EC045257F7CC2008D8EC9 /* TestData+ScanResult.swift in Sources */,
 				846A995825EBA72C007DFF88 /* MockKeyboardManager.swift in Sources */,
@@ -1719,6 +1744,7 @@
 				846A992925EBA4CB007DFF88 /* MockAnalyticsProvider.swift in Sources */,
 				9EC3BBF923CDD74000242B1E /* Encodable_DictionaryTests.swift in Sources */,
 				84AB4BC2259A0C660008A6B2 /* OwnBrandCompanyTitleViewSnapshotTests.swift in Sources */,
+				6299A5762737F239005464A5 /* NotificationProvider.swift in Sources */,
 				8430819325CFE8F600B96981 /* CompanyContentViewControllerSnapshotTests.swift in Sources */,
 				847071D1251DFD21009E296A /* KeyboardBarcodeTests.swift in Sources */,
 			);
@@ -1735,6 +1761,7 @@
 				9EC3BC2B23CDD9D100242B1E /* ScanBarcodePage+TestData.swift in Sources */,
 				9EC3BC2623CDD9D100242B1E /* MainGalleryPage.swift in Sources */,
 				9EC3BC2723CDD9D100242B1E /* PhotosGalleryPage.swift in Sources */,
+				6299A5772737F239005464A5 /* NotificationProvider.swift in Sources */,
 				84E7083E2280A40400402E26 /* PolaUITestCase.swift in Sources */,
 				9EC3BC1223CDD76C00242B1E /* ReportBugPageUITests.swift in Sources */,
 				9EC3BC2423CDD9D100242B1E /* ISBNPage.swift in Sources */,
@@ -1754,6 +1781,7 @@
 				9EC3BC1123CDD76C00242B1E /* ScanBarcodeWithResultPageUITests.swift in Sources */,
 				9EC3BC1323CDD76C00242B1E /* ISBNPageUITests.swift in Sources */,
 				849E40D82415204C006E1B76 /* ScanBarcodePageUITests.swift in Sources */,
+				6285A00A2737F53100D19C88 /* NotificationManager.swift in Sources */,
 				9EC3BC2823CDD9D100242B1E /* ReportBugPage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

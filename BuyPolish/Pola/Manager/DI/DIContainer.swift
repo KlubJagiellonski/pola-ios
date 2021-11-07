@@ -21,6 +21,7 @@ final class DI {
             RequestFactoryRegistrant(),
             ScanCodeRegistrant(),
             UIKitRegistrant(),
+            NotificationRegistrant()
         ]
         registrants.forEach { $0.registerDependency(container: container) }
         return container
