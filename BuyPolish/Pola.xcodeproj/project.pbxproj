@@ -744,7 +744,6 @@
 		37B64DD9591909AF06832339 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				6299A5732737F1FD005464A5 /* NotificationManager */,
 				BDA76B5821DE622E003E9FD6 /* Analytics */,
 				D3201C542675393900E683EC /* BarcodeValidator */,
 				C092CF351F1F8007003174D1 /* CapturedImageManager */,
@@ -753,6 +752,7 @@
 				D3201C5C26753A6600E683EC /* FlashlightManager */,
 				D3201C5F26753B9E00E683EC /* KeyboardManager */,
 				D3201C3C2675110000E683EC /* Logger */,
+				6299A5732737F1FD005464A5 /* NotificationManager */,
 				D3201C6426753C2600E683EC /* ProductImageManager */,
 				37B64977613F0A577613F7E4 /* ProductManager */,
 				37B641361E13BB0824D5828D /* ReportManager */,
@@ -780,8 +780,8 @@
 		6299A5732737F1FD005464A5 /* NotificationManager */ = {
 			isa = PBXGroup;
 			children = (
-				6299A5742737F239005464A5 /* NotificationProvider.swift */,
 				6285A0072737F53100D19C88 /* NotificationManager.swift */,
+				6299A5742737F239005464A5 /* NotificationProvider.swift */,
 				6285A00B2737F8DC00D19C88 /* NotificationRegistrant.swift */,
 			);
 			path = NotificationManager;
@@ -1492,7 +1492,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				$SRCROOT/Pola/R.generated.swift,
+				"$SRCROOT/Pola/R.generated.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
