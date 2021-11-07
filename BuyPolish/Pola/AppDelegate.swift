@@ -1,11 +1,13 @@
 import AVFoundation
+import FirebaseMessaging
 import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
+    private var notificationProvider: NotificationProvider?
 
-    func application(_: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
         DI.container.resolve(AnalyticsProvider.self)!.configure()
         applyAppearance()
 
@@ -28,6 +30,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let shortcutItem = launchOptions?[.shortcutItem] as? UIApplicationShortcutItem {
             _ = handleShortcutItem(shortcutItem)
         }
+
+        notificationProvider = DI.container.resolve(NotificationProvider.self)
+        notificationProvider?.register(in: application)
 
         return true
     }
