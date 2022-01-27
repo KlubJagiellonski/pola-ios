@@ -22,11 +22,12 @@ class AnalyticsHelperTests: XCTestCase {
     }
 
     func assertProviderInvocation(eventName: String, parametersShouldBeNil: Bool = false, file: StaticString = #file, testName: String = #function, line: UInt = #line) {
-        XCTAssertEqual(analyticsMock.lastEventName, eventName)
+        let lastEvent = analyticsMock.logEventNameParametersReceivedArguments
+        XCTAssertEqual(lastEvent?.name, eventName)
         if parametersShouldBeNil {
-            XCTAssertNil(analyticsMock.lastEventParameters)
+            XCTAssertNil(lastEvent?.parameters)
         } else {
-            assertSnapshot(matching: analyticsMock.lastEventParameters, as: .json, file: file, testName: testName, line: line)
+            assertSnapshot(matching: lastEvent?.parameters, as: .json, file: file, testName: testName, line: line)
         }
     }
 

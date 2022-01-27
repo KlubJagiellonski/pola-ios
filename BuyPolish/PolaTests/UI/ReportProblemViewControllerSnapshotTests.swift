@@ -30,12 +30,14 @@ class ReportProblemViewControllerSnapshotTests: XCTestCase {
     }
 
     func vc(isImageEnabled: Bool) -> ReportProblemViewController {
+        let imageManagerMock = ProductImageManagerMock()
+        imageManagerMock.retrieveThumbnailsForReturnValue = []
         return ReportProblemViewController(
             reason: .general,
-            productImageManager: MockProductImageManager(),
-            reportManager: MockReportManager(),
-            keyboardManager: MockKeyboardManager(),
-            analyticsProvider: MockAnalyticsProvider(),
+            productImageManager: imageManagerMock,
+            reportManager: ReportManagerMock(),
+            keyboardManager: KeyboardManagerMock(),
+            analyticsProvider: AnalyticsProviderMock(),
             isImageEnabled: isImageEnabled
         )
     }
