@@ -7,9 +7,9 @@ platform :ios do
     - version - new version number
     )
     lane :deploy do |options|
-        # bump_version(
-        #     version: options[:version]
-        # )
+        bump_version(
+            version: options[:version]
+        )
         match
         build_app
         upload_to_testflight(
