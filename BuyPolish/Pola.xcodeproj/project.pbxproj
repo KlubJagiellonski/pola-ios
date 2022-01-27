@@ -584,11 +584,11 @@
 		1D08E84B19A7621A00879BD2 /* PolaTests */ = {
 			isa = PBXGroup;
 			children = (
-				D343F9A92792FAFD00065054 /* AutoMockable.generated.swift */,
 				841EC010257F75B7008D8EC9 /* Manager */,
 				1D08E84C19A7621A00879BD2 /* SupportingFiles */,
 				84F177E222CB6FDC00238266 /* UI */,
 				9EC3BBF423CDD74000242B1E /* Utilities */,
+				D343F9A92792FAFD00065054 /* AutoMockable.generated.swift */,
 				84601A3D2405C47600AD2A2D /* EANBarcodeValidatorTests.swift */,
 				847071D0251DFD21009E296A /* KeyboardBarcodeTests.swift */,
 				848C6921225D044300D39E90 /* LaunchScreenSnapshotTests.swift */,
@@ -1472,7 +1472,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				$SRCROOT/Pola/R.generated.swift,
+				"$SRCROOT/Pola/R.generated.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

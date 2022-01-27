@@ -1,4 +1,4 @@
---exclude Pods,Pola/R.generated.swift,Pola/Manager/DIContainer.swift
+--exclude Pods,Pola/R.generated.swift,Pola/Manager/DIContainer.swift,PolaTests/AutoMockable.generated.swift
 
 --trimwhitespace always
 --enable braces
