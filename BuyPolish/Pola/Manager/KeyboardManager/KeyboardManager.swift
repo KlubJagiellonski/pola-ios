@@ -5,6 +5,7 @@ protocol KeyboardManagerDelegate: AnyObject {
     func keyboardWillHide(animationDuration: TimeInterval, animationOptions: UIView.AnimationOptions)
 }
 
+// sourcery: AutoMockable
 protocol KeyboardManager: AnyObject {
     var delegate: KeyboardManagerDelegate? { get set }
     func turnOn()

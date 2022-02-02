@@ -2,5 +2,6 @@ default_platform(:ios)
 
 import('Fastfile_bump_version.rb')
 import('Fastfile_deploy.rb')
+import('Fastfile_generate_code.rb')
 import('Fastfile_git.rb')
 import('Fastfile_tests.rb')

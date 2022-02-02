@@ -38,3 +38,4 @@ end
 
 pod 'SwiftFormat/CLI'
 pod 'SwiftLint'
+pod 'Sourcery'

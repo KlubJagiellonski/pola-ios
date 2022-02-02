@@ -1,6 +1,7 @@
 excluded: # paths to ignore during linting. overridden by `included`.
   - Pods
   - Pola/R.generated.swift
+  - PolaTests/AutoMockable.generated.swift
 
 opt_in_rules:
   - empty_count

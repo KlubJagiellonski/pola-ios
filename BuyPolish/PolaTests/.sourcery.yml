@@ -1,0 +1,9 @@
+sources:
+  - ../Pola
+templates:
+  - ../Pods/Sourcery/Templates/AutoMockable.stencil
+output:
+  .
+args:
+  autoMockableImports: ["PromiseKit"]
+  autoMockableTestableImports: ["Pola"]

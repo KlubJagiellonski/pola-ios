@@ -5,6 +5,7 @@ enum ProductImageManagerError: Error {
     case convertImageToData
 }
 
+// sourcery: AutoMockable
 protocol ProductImageManager {
     func saveImage(_ image: UIImage, for key: ReportProblemReason, index: Int) -> Bool
     func removeImage(for key: ReportProblemReason, index: Int) -> Bool

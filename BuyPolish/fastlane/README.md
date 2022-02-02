@@ -32,6 +32,11 @@ Bump version and build number
     Options:  
     - version - new version number
     
+### ios generate_code
+```
+fastlane ios generate_code
+```
+Generate code using Sourcery. Require pod installation before.
 ### ios tests
 ```
 fastlane ios tests

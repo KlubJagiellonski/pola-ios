@@ -9,6 +9,7 @@ struct ReadMediaFileError: Error, LocalizedError {
     }
 }
 
+// sourcery: AutoMockable
 protocol ReportManager {
     func send(report: Report) -> Promise<Void>
 }
