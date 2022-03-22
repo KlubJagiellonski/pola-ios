@@ -6,7 +6,6 @@ final class PutAmazonRequestFactory: MediaUploadRequestFactory {
             throw InvalidStringUrlError(url: stringUrl)
         }
         var request = URLRequest(url: url)
-        request.addValue("public-read", forHTTPHeaderField: "x-amx-acl")
         request.addValue(mimeType.rawValue, forHTTPHeaderField: "Content-Type")
         request.httpMethod = HTTPMethod.put.rawValue
         request.httpBody = mediaData

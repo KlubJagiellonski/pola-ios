@@ -1181,7 +1181,7 @@
 			attributes = {
 				CLASSPREFIX = BP;
 				LastSwiftUpdateCheck = 1020;
-				LastUpgradeCheck = 1310;
+				LastUpgradeCheck = 1320;
 				ORGANIZATIONNAME = PJMS;
 				TargetAttributes = {
 					1D08E82219A7621A00879BD2 = {
