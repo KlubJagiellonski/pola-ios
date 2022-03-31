@@ -16,6 +16,7 @@ target :Pola do
     pod 'Swinject'
     pod 'PromiseKit/Alamofire'
     pod 'Observable'
+    pod 'ScanditBarcodeCapture'
     
     target :PolaTests do
       pod 'SnapshotTesting'
