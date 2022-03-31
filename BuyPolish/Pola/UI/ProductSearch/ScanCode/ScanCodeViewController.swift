@@ -81,7 +81,9 @@ final class ScanCodeViewController: UIViewController {
 
         let flashButton = castedView.flashButton
         disposable = flashlightManager.isOn.observe { [flashButton] newValue, _ in
-            flashButton.isSelected = newValue
+            DispatchQueue.main.async {
+                flashButton.isSelected = newValue
+            }
         }
     }
 

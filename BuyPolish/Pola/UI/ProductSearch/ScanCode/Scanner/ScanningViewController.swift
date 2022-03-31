@@ -1,3 +1,4 @@
+import Swinject
 import UIKit
 
 protocol ScanningDelegate: AnyObject {
@@ -6,4 +7,13 @@ protocol ScanningDelegate: AnyObject {
 
 protocol ScanningViewController: UIViewController {
     var scannerDelegate: ScanningDelegate? { get set }
+}
+
+final class ScanningViewControllerRegistrant: DependencyRegistrant {
+    func registerDependency(container: Container) {
+        container.register(ScanningViewController.self) { _ in
+            ScanditScannerViewController()
+//            ScannerCodeViewController(codeScannerManager: CameraSessionCodeScannerManager())
+        }
+    }
 }

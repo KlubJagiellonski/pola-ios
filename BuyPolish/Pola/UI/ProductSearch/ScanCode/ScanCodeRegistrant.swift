@@ -3,10 +3,6 @@ import UIKit
 
 final class ScanCodeRegistrant: DependencyRegistrant {
     func registerDependency(container: Container) {
-        container.register(ScanningViewController.self) { resolver in
-            ScannerCodeViewController(codeScannerManager: resolver.resolve(CodeScannerManager.self)!)
-        }
-
         container.register(ScanResultViewController.self) { resolver, barcode in
             ScanResultViewController(barcode: barcode,
                                      productManager: resolver.resolve(ProductManager.self)!,

@@ -210,7 +210,6 @@
 		D3201C532675386A00E683EC /* ReportManagerRegistrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3201C522675386A00E683EC /* ReportManagerRegistrant.swift */; };
 		D3201C562675394000E683EC /* BarcodeValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3201C552675394000E683EC /* BarcodeValidator.swift */; };
 		D3201C582675396500E683EC /* BarcodeValidatorRegistrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3201C572675396500E683EC /* BarcodeValidatorRegistrant.swift */; };
-		D3201C5B26753A1900E683EC /* CodeScannerManagerRegistrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3201C5A26753A1900E683EC /* CodeScannerManagerRegistrant.swift */; };
 		D3201C5E26753A7B00E683EC /* FlashlightManagerRegistrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3201C5D26753A7B00E683EC /* FlashlightManagerRegistrant.swift */; };
 		D3201C6126753BAA00E683EC /* NotificationCenterKeyboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3201C6026753BAA00E683EC /* NotificationCenterKeyboardManager.swift */; };
 		D3201C6326753BCF00E683EC /* KeyboardManagerRegistrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3201C6226753BCF00E683EC /* KeyboardManagerRegistrant.swift */; };
@@ -227,6 +226,7 @@
 		D346F9C42607D76B00F11ABD /* lidl.json in Resources */ = {isa = PBXBuildFile; fileRef = D346F9C22607D76B00F11ABD /* lidl.json */; };
 		D365D83826D03FF500DB946F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D365D83726D03FF500DB946F /* GoogleService-Info.plist */; };
 		D3EA97CF27F654F6001E06E0 /* ScanningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EA97CE27F654F6001E06E0 /* ScanningViewController.swift */; };
+		D3EA97D527F65BC6001E06E0 /* ScanditScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EA97D427F65BC6001E06E0 /* ScanditScannerViewController.swift */; };
 		EE6DCD82B12208A085E935F9 /* Pods_Pola_PolaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53F3B599F258259843E2755D /* Pods_Pola_PolaTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -448,7 +448,6 @@
 		D3201C522675386A00E683EC /* ReportManagerRegistrant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportManagerRegistrant.swift; sourceTree = "<group>"; };
 		D3201C552675394000E683EC /* BarcodeValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeValidator.swift; sourceTree = "<group>"; };
 		D3201C572675396500E683EC /* BarcodeValidatorRegistrant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeValidatorRegistrant.swift; sourceTree = "<group>"; };
-		D3201C5A26753A1900E683EC /* CodeScannerManagerRegistrant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeScannerManagerRegistrant.swift; sourceTree = "<group>"; };
 		D3201C5D26753A7B00E683EC /* FlashlightManagerRegistrant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashlightManagerRegistrant.swift; sourceTree = "<group>"; };
 		D3201C6026753BAA00E683EC /* NotificationCenterKeyboardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenterKeyboardManager.swift; sourceTree = "<group>"; };
 		D3201C6226753BCF00E683EC /* KeyboardManagerRegistrant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardManagerRegistrant.swift; sourceTree = "<group>"; };
@@ -467,6 +466,7 @@
 		D3E3CA0F264085D8002979E1 /* Full.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Full.xctestplan; sourceTree = "<group>"; };
 		D3E3CA2526409BB4002979E1 /* BumpVersion.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = BumpVersion.xctestplan; sourceTree = "<group>"; };
 		D3EA97CE27F654F6001E06E0 /* ScanningViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanningViewController.swift; sourceTree = "<group>"; };
+		D3EA97D427F65BC6001E06E0 /* ScanditScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanditScannerViewController.swift; sourceTree = "<group>"; };
 		E0D971BD205A9438D64EBADE /* Pods-Pola-PolaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola-PolaTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pola-PolaTests/Pods-Pola-PolaTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F6C1969BFE86FEF4E186B26D /* Pods_Pola_PolaUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pola_PolaUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -758,9 +758,9 @@
 		37B64F458C8BF4C8D672DAE5 /* ScanCode */ = {
 			isa = PBXGroup;
 			children = (
-				D3EA97CC27F65452001E06E0 /* Scanner */,
 				9EC3BC3B23CDF4FC00242B1E /* CardStackView */,
 				37B64697C3925583CD36B426 /* ProductCard */,
+				D3EA97CC27F65452001E06E0 /* Scanner */,
 				9E43AF73242798780093627B /* ResultsView.swift */,
 				9E43AF7524279F3D0093627B /* ResultsViewController.swift */,
 				D3201C6E2675414F00E683EC /* ScanCodeRegistrant.swift */,
@@ -1052,7 +1052,6 @@
 			children = (
 				84A81C5723EFF42200464745 /* CameraSessionCodeScannerManager.swift */,
 				84A81C5523EFF2CA00464745 /* CodeScannerManager.swift */,
-				D3201C5A26753A1900E683EC /* CodeScannerManagerRegistrant.swift */,
 			);
 			path = CodeScannerManager;
 			sourceTree = "<group>";
@@ -1113,6 +1112,7 @@
 			isa = PBXGroup;
 			children = (
 				D3EA97CD27F6545B001E06E0 /* Native */,
+				D3EA97D327F65BC6001E06E0 /* Scandit */,
 				D3EA97CE27F654F6001E06E0 /* ScanningViewController.swift */,
 			);
 			path = Scanner;
@@ -1125,6 +1125,14 @@
 				84A81C5923EFF91300464745 /* ScannerCodeViewController.swift */,
 			);
 			path = Native;
+			sourceTree = "<group>";
+		};
+		D3EA97D327F65BC6001E06E0 /* Scandit */ = {
+			isa = PBXGroup;
+			children = (
+				D3EA97D427F65BC6001E06E0 /* ScanditScannerViewController.swift */,
+			);
+			path = Scandit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1499,7 +1507,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				$SRCROOT/Pola/R.generated.swift,
+				"$SRCROOT/Pola/R.generated.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1639,9 +1647,9 @@
 				6299A5752737F239005464A5 /* NotificationProvider.swift in Sources */,
 				84A81C5A23EFF91300464745 /* ScannerCodeViewController.swift in Sources */,
 				842E763823E4703500A5534B /* Report.swift in Sources */,
+				D3EA97D527F65BC6001E06E0 /* ScanditScannerViewController.swift in Sources */,
 				84A81C5623EFF2CA00464745 /* CodeScannerManager.swift in Sources */,
 				9EC3BC4B23CDF4FD00242B1E /* CardStackViewDelegate.swift in Sources */,
-				D3201C5B26753A1900E683EC /* CodeScannerManagerRegistrant.swift in Sources */,
 				9EC3BC4923CDF4FD00242B1E /* CardStackViewLayout.swift in Sources */,
 				9EC3BC4823CDF4FD00242B1E /* CardStackViewLayoutPick.swift in Sources */,
 				84633B3423F8113F0069219C /* KeyboardTextView.swift in Sources */,
