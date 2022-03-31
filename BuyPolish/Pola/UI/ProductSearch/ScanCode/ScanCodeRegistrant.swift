@@ -3,7 +3,7 @@ import UIKit
 
 final class ScanCodeRegistrant: DependencyRegistrant {
     func registerDependency(container: Container) {
-        container.register(ScannerCodeViewController.self) { resolver in
+        container.register(ScanningViewController.self) { resolver in
             ScannerCodeViewController(codeScannerManager: resolver.resolve(CodeScannerManager.self)!)
         }
 

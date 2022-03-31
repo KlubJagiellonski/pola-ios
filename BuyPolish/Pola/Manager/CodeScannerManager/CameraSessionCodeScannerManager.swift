@@ -1,7 +1,7 @@
 import AVFoundation
 
 final class CameraSessionCodeScannerManager: NSObject, CodeScannerManager {
-    weak var delegate: CodeScannerManagerDelegate?
+    weak var delegate: ScanningDelegate?
     private let captureSession = AVCaptureSession()
     private let sessionQueue = DispatchQueue(label: "CameraSessionCodeScannerManager")
     private var isSessionRunning = false

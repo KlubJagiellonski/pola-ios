@@ -226,6 +226,7 @@
 		D346F9C32607D76B00F11ABD /* lidl.json in Resources */ = {isa = PBXBuildFile; fileRef = D346F9C22607D76B00F11ABD /* lidl.json */; };
 		D346F9C42607D76B00F11ABD /* lidl.json in Resources */ = {isa = PBXBuildFile; fileRef = D346F9C22607D76B00F11ABD /* lidl.json */; };
 		D365D83826D03FF500DB946F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D365D83726D03FF500DB946F /* GoogleService-Info.plist */; };
+		D3EA97CF27F654F6001E06E0 /* ScanningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EA97CE27F654F6001E06E0 /* ScanningViewController.swift */; };
 		EE6DCD82B12208A085E935F9 /* Pods_Pola_PolaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53F3B599F258259843E2755D /* Pods_Pola_PolaTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -465,6 +466,7 @@
 		D3E3CA0E264085CB002979E1 /* UI.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = UI.xctestplan; sourceTree = "<group>"; };
 		D3E3CA0F264085D8002979E1 /* Full.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Full.xctestplan; sourceTree = "<group>"; };
 		D3E3CA2526409BB4002979E1 /* BumpVersion.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = BumpVersion.xctestplan; sourceTree = "<group>"; };
+		D3EA97CE27F654F6001E06E0 /* ScanningViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanningViewController.swift; sourceTree = "<group>"; };
 		E0D971BD205A9438D64EBADE /* Pods-Pola-PolaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola-PolaTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pola-PolaTests/Pods-Pola-PolaTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F6C1969BFE86FEF4E186B26D /* Pods_Pola_PolaUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pola_PolaUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -756,6 +758,7 @@
 		37B64F458C8BF4C8D672DAE5 /* ScanCode */ = {
 			isa = PBXGroup;
 			children = (
+				D3EA97CC27F65452001E06E0 /* Scanner */,
 				9EC3BC3B23CDF4FC00242B1E /* CardStackView */,
 				37B64697C3925583CD36B426 /* ProductCard */,
 				9E43AF73242798780093627B /* ResultsView.swift */,
@@ -763,8 +766,6 @@
 				D3201C6E2675414F00E683EC /* ScanCodeRegistrant.swift */,
 				84B87FC92344084E007A6BFF /* ScanCodeView.swift */,
 				9E43AF77242BBC4C0093627B /* ScanCodeViewController.swift */,
-				84A81C5323EF30CF00464745 /* ScannerCodeView.swift */,
-				84A81C5923EFF91300464745 /* ScannerCodeViewController.swift */,
 			);
 			path = ScanCode;
 			sourceTree = "<group>";
@@ -1106,6 +1107,24 @@
 				D3E3CA0C264085A4002979E1 /* Unit.xctestplan */,
 			);
 			path = PolaTestPlans;
+			sourceTree = "<group>";
+		};
+		D3EA97CC27F65452001E06E0 /* Scanner */ = {
+			isa = PBXGroup;
+			children = (
+				D3EA97CD27F6545B001E06E0 /* Native */,
+				D3EA97CE27F654F6001E06E0 /* ScanningViewController.swift */,
+			);
+			path = Scanner;
+			sourceTree = "<group>";
+		};
+		D3EA97CD27F6545B001E06E0 /* Native */ = {
+			isa = PBXGroup;
+			children = (
+				84A81C5323EF30CF00464745 /* ScannerCodeView.swift */,
+				84A81C5923EFF91300464745 /* ScannerCodeViewController.swift */,
+			);
+			path = Native;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1480,7 +1499,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$SRCROOT/Pola/R.generated.swift",
+				$SRCROOT/Pola/R.generated.swift,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1606,6 +1625,7 @@
 				9E43AF78242BBC4C0093627B /* ScanCodeViewController.swift in Sources */,
 				BDA76B5E21DE64FD003E9FD6 /* AnalyticsParameters.swift in Sources */,
 				84D8B77223EA202800CD0ECB /* DataRequestFactory.swift in Sources */,
+				D3EA97CF27F654F6001E06E0 /* ScanningViewController.swift in Sources */,
 				6285A00C2737F8DC00D19C88 /* NotificationRegistrant.swift in Sources */,
 				841F7D9E235675A2007BE3F6 /* UIView+Additions.swift in Sources */,
 				84A6A97525EDB6F7004199B9 /* ScanResult+Additions.swift in Sources */,

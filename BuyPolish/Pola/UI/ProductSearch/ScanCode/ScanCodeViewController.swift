@@ -7,7 +7,7 @@ import UIKit
 final class ScanCodeViewController: UIViewController {
     private var keyboardViewController: KeyboardViewController?
     private let flashlightManager: FlashlightManager
-    private let scannerCodeViewController: ScannerCodeViewController
+    private let scanningCodeViewController: ScanningViewController
     fileprivate let resultsViewController: ResultsViewController
     private let animationTime = TimeInterval(0.15)
     private var disposable: Disposable?
@@ -26,7 +26,7 @@ final class ScanCodeViewController: UIViewController {
     init(flashlightManager: FlashlightManager, analyticsProvider: AnalyticsProvider) {
         self.flashlightManager = flashlightManager
         analytics = AnalyticsHelper(provider: analyticsProvider)
-        scannerCodeViewController = DI.container.resolve(ScannerCodeViewController.self)!
+        scanningCodeViewController = DI.container.resolve(ScanningViewController.self)!
         resultsViewController = DI.container.resolve(ResultsViewController.self)!
 
         super.init(nibName: nil, bundle: nil)
@@ -52,10 +52,10 @@ final class ScanCodeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        addChild(scannerCodeViewController)
-        view.insertSubview(scannerCodeViewController.view, at: 0)
-        scannerCodeViewController.didMove(toParent: self)
-        scannerCodeViewController.scannerDelegate = self
+        addChild(scanningCodeViewController)
+        view.insertSubview(scanningCodeViewController.view, at: 0)
+        scanningCodeViewController.didMove(toParent: self)
+        scanningCodeViewController.scannerDelegate = self
 
         addChild(resultsViewController)
         view.insertSubview(resultsViewController.view, belowSubview: castedView.logoButton)
@@ -95,7 +95,7 @@ final class ScanCodeViewController: UIViewController {
         super.viewDidLayoutSubviews()
 
         keyboardViewController?.view.frame = view.bounds
-        scannerCodeViewController.view.frame = view.bounds
+        scanningCodeViewController.view.frame = view.bounds
         resultsViewController.view.frame = view.bounds
     }
 
@@ -159,9 +159,9 @@ final class ScanCodeViewController: UIViewController {
 
         castedView.keyboardButton.isSelected = false
         keyboardViewController.willMove(toParent: nil)
-        UIView.animate(withDuration: animationTime, animations: { [resultsViewController, scannerCodeViewController] in
+        UIView.animate(withDuration: animationTime, animations: { [resultsViewController, scanningCodeViewController] in
             resultsViewController.view.alpha = 1.0
-            scannerCodeViewController.view.alpha = 1.0
+            scanningCodeViewController.view.alpha = 1.0
             keyboardViewController.view.alpha = 0.0
         }, completion: { [weak self, keyboardViewController] _ in
             keyboardViewController.view.removeFromSuperview()
@@ -184,10 +184,10 @@ final class ScanCodeViewController: UIViewController {
         view.insertSubview(keyboardViewController.view, belowSubview: castedView.logoButton)
 
         UIView.animate(withDuration: animationTime,
-                       animations: { [resultsViewController, scannerCodeViewController] in
+                       animations: { [resultsViewController, scanningCodeViewController] in
                            keyboardViewController.view.alpha = 1.0
                            resultsViewController.view.alpha = 0.0
-                           scannerCodeViewController.view.alpha = 0.0
+                           scanningCodeViewController.view.alpha = 0.0
                        }, completion: { _ in
                            keyboardViewController.didMove(toParent: self)
                        })
@@ -195,7 +195,7 @@ final class ScanCodeViewController: UIViewController {
     }
 }
 
-extension ScanCodeViewController: CodeScannerManagerDelegate {
+extension ScanCodeViewController: ScanningDelegate {
     func didScan(barcode: String, sourceType: AnalyticsBarcodeSource) {
         resultsViewController.add(barcodeCard: barcode, sourceType: sourceType)
     }

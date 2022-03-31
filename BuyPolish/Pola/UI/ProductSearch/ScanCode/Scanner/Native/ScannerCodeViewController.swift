@@ -1,13 +1,13 @@
 import UIKit
 
-final class ScannerCodeViewController: UIViewController {
+final class ScannerCodeViewController: UIViewController, ScanningViewController {
     private let codeScannerManager: CodeScannerManager
 
     var hudView: UIView {
         castView.rectangleView
     }
 
-    var scannerDelegate: CodeScannerManagerDelegate? {
+    var scannerDelegate: ScanningDelegate? {
         get {
             codeScannerManager.delegate
         }
