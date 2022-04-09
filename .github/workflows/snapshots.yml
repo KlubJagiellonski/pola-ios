@@ -40,7 +40,7 @@ jobs:
         run: bundle exec fastlane record_snapshots
       - name: "Upload Tests results"
         if: always()
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: xcresult
           path: BuyPolish/fastlane/test_output
