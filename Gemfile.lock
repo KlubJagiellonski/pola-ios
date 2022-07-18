@@ -160,7 +160,7 @@ GEM
     fastlane-plugin-delete_files (0.1.1)
     fastlane-plugin-menigit (1.0.1)
     fastlane-plugin-sourcery (1.0.0)
-    fastlane-plugin-swiftformat (0.2.0)
+    fastlane-plugin-swiftformat (0.3.0)
     fastlane-plugin-synx (0.1.4)
       synx
     fastlane-plugin-versioning (0.5.0)
