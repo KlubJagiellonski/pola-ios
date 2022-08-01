@@ -163,7 +163,7 @@ GEM
     fastlane-plugin-swiftformat (0.3.0)
     fastlane-plugin-synx (0.1.4)
       synx
-    fastlane-plugin-versioning (0.5.0)
+    fastlane-plugin-versioning (0.5.1)
     ffi (1.15.5)
     fourflusher (2.3.1)
     fuzzy_match (2.0.4)
