@@ -114,7 +114,7 @@ final class ScanCodeViewController: UIViewController {
         analytics.aboutOpened(windowName: .menu)
 
         let vc = AboutViewController(analyticsProvider: DI.container.resolve(AnalyticsProvider.self)!)
-        let nvc = UINavigationController(rootViewController: vc)
+        let nvc = UINavigationController.makeForWebView(rootViewController: vc)
         present(nvc, animated: true, completion: nil)
     }
 
@@ -140,7 +140,7 @@ final class ScanCodeViewController: UIViewController {
         let vc = AboutWebViewController(url: "https://www.pola-app.pl/m/about",
                                         title: R.string.localizable.aboutPolaApplication())
         vc.addCloseButton()
-        let nvc = UINavigationController(rootViewController: vc)
+        let nvc = UINavigationController.makeForWebView(rootViewController: vc)
         present(nvc, animated: true, completion: nil)
     }
 

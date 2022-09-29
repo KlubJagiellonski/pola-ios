@@ -146,7 +146,7 @@ final class ScanResultViewController: UIViewController {
         let vc = AboutWebViewController(url: "https://www.pola-app.pl/m/friends",
                                         title: R.string.localizable.polaSFriends())
         vc.addCloseButton()
-        let nvc = UINavigationController(rootViewController: vc)
+        let nvc = UINavigationController.makeForWebView(rootViewController: vc)
         present(nvc, animated: true, completion: nil)
     }
 }

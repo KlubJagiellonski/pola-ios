@@ -144,7 +144,6 @@ final class AboutViewController: UITableViewController {
     private func performLinkAction(title: String, url: String, openInternal: Bool) {
         if openInternal {
             let vc = AboutWebViewController(url: url, title: title)
-            navigationController?.navigationBar.tintColor = Theme.defaultTextColor
             navigationController?.pushViewController(vc, animated: true)
         } else {
             if let url = URL(string: url) {

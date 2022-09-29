@@ -222,6 +222,7 @@
 		D3201C712675418800E683EC /* CapturedImageManagerRegistrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3201C702675418800E683EC /* CapturedImageManagerRegistrant.swift */; };
 		D340FA53263B53E500121AAA /* UIButton+ReportTypeSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D340FA52263B53E500121AAA /* UIButton+ReportTypeSnapshotTests.swift */; };
 		D340FA60263B5D0000121AAA /* krasnystaw.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B88A23A25BB139D00EFE032 /* krasnystaw.json */; };
+		D34381A728E33DD6004E018B /* UINavigationViewController+WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34381A628E33DD6004E018B /* UINavigationViewController+WebView.swift */; };
 		D343F9AA2792FAFD00065054 /* AutoMockable.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = D343F9A92792FAFD00065054 /* AutoMockable.generated.swift */; };
 		D346F9C32607D76B00F11ABD /* lidl.json in Resources */ = {isa = PBXBuildFile; fileRef = D346F9C22607D76B00F11ABD /* lidl.json */; };
 		D346F9C42607D76B00F11ABD /* lidl.json in Resources */ = {isa = PBXBuildFile; fileRef = D346F9C22607D76B00F11ABD /* lidl.json */; };
@@ -458,6 +459,7 @@
 		D3201C6E2675414F00E683EC /* ScanCodeRegistrant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanCodeRegistrant.swift; sourceTree = "<group>"; };
 		D3201C702675418800E683EC /* CapturedImageManagerRegistrant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapturedImageManagerRegistrant.swift; sourceTree = "<group>"; };
 		D340FA52263B53E500121AAA /* UIButton+ReportTypeSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+ReportTypeSnapshotTests.swift"; sourceTree = "<group>"; };
+		D34381A628E33DD6004E018B /* UINavigationViewController+WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationViewController+WebView.swift"; sourceTree = "<group>"; };
 		D343F9A92792FAFD00065054 /* AutoMockable.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoMockable.generated.swift; sourceTree = "<group>"; };
 		D346F9C22607D76B00F11ABD /* lidl.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = lidl.json; sourceTree = "<group>"; };
 		D365D83726D03FF500DB946F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -695,6 +697,7 @@
 				846036F0241856DB00982FC6 /* UIDevice+Additions.swift */,
 				8406E630233D6A6C00B7313C /* UIImage+Additions.swift */,
 				84AAEDDF230B49DD006CA7EB /* UILabel+Additions.swift */,
+				D34381A628E33DD6004E018B /* UINavigationViewController+WebView.swift */,
 				841F7D9D235675A2007BE3F6 /* UIView+Additions.swift */,
 				9E35D7A924C627C000C63C11 /* UIViewController+Additions.swift */,
 			);
@@ -1181,7 +1184,7 @@
 			attributes = {
 				CLASSPREFIX = BP;
 				LastSwiftUpdateCheck = 1020;
-				LastUpgradeCheck = 1320;
+				LastUpgradeCheck = 1400;
 				ORGANIZATIONNAME = PJMS;
 				TargetAttributes = {
 					1D08E82219A7621A00879BD2 = {
@@ -1617,6 +1620,7 @@
 				9EC3BC4E23CDF4FD00242B1E /* CardStackViewLayoutExpanded.swift in Sources */,
 				9E0FE73C251C02C6005D98B3 /* String+Additions.swift in Sources */,
 				842E762C23E0CDA500A5534B /* LocalDocumentsProductImageManager.swift in Sources */,
+				D34381A728E33DD6004E018B /* UINavigationViewController+WebView.swift in Sources */,
 				D3201C6326753BCF00E683EC /* KeyboardManagerRegistrant.swift in Sources */,
 				842E763023E434CD00A5534B /* KeyboardManager.swift in Sources */,
 				9EC3BC4D23CDF4FD00242B1E /* CardStackViewController.swift in Sources */,

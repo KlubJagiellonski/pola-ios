@@ -54,7 +54,7 @@ final class CompanyContentViewController: UIViewController {
         let webViewController = AboutWebViewController(url: "https://www.pola-app.pl/m/friends",
                                                        title: R.string.localizable.polaSFriends())
         webViewController.addCloseButton()
-        let navigationController = UINavigationController(rootViewController: webViewController)
+        let navigationController = UINavigationController.makeForWebView(rootViewController: webViewController)
         present(navigationController, animated: true, completion: nil)
     }
 
