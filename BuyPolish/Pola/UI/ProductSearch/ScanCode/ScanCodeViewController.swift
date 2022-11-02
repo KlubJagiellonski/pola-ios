@@ -74,6 +74,9 @@ final class ScanCodeViewController: UIViewController {
                 castedView.flashButton.isHidden = true
             #endif
         }
+        
+        addConstraint(to: scannerCodeViewController)
+        addConstraint(to: resultsViewController)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -93,10 +96,6 @@ final class ScanCodeViewController: UIViewController {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-
-        keyboardViewController?.view.frame = view.bounds
-        scannerCodeViewController.view.frame = view.bounds
-        resultsViewController.view.frame = view.bounds
     }
 
     func showScanCodeView() {
@@ -182,6 +181,7 @@ final class ScanCodeViewController: UIViewController {
         keyboardViewController.view.frame = view.bounds
         keyboardViewController.view.alpha = 0.0
         view.insertSubview(keyboardViewController.view, belowSubview: castedView.logoButton)
+        addConstraint(to: keyboardViewController)
 
         UIView.animate(withDuration: animationTime,
                        animations: { [resultsViewController, scannerCodeViewController] in
@@ -192,6 +192,16 @@ final class ScanCodeViewController: UIViewController {
                            keyboardViewController.didMove(toParent: self)
                        })
         self.keyboardViewController = keyboardViewController
+    }
+    
+    private func addConstraint(to childViewController: UIViewController) {
+        childViewController.view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            childViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
+            childViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            childViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            childViewController.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+        ])
     }
 }
 

@@ -8,14 +8,14 @@ final class RootViewController: UITabBarController {
         scanCodeViewController = DI.container.resolve(ScanCodeViewController.self)!
         super.init()
 
-        let scanNVC = UINavigationController(rootViewController: scanCodeViewController)
+        let scanNVC = scanCodeViewController
         let searchVC = AboutWebViewController(url: "https://www.pola-app.pl/", title: "Wyszukiwarka")
         let newsVC = AboutWebViewController(url: "https://www.pola-app.pl/news", title: "Wiadomości")
 
         if #available(iOS 13.0, *) {
             scanNVC.tabBarItem = UITabBarItem(title: "Skaner kodów",
                                               image: UIImage(systemName: "iphone"), selectedImage: nil)
-            searchVC.tabBarItem = UITabBarItem(title: "Wiadomości",
+            searchVC.tabBarItem = UITabBarItem(title: "Wyszukiwarka",
                                                image: UIImage(systemName: "magnifyingglass"),
                                                selectedImage: nil)
             newsVC.tabBarItem = UITabBarItem(title: "Wiadomości",
@@ -48,10 +48,16 @@ final class RootViewController: UITabBarController {
     }
 
     func showScanCodeView() {
+        switchToScanCodeViewController()
         scanCodeViewController.showScanCodeView()
     }
 
     func showWriteCodeView() {
+        switchToScanCodeViewController()
         scanCodeViewController.showWriteCodeView()
+    }
+    
+    private func switchToScanCodeViewController() {
+        selectedIndex = 0
     }
 }
