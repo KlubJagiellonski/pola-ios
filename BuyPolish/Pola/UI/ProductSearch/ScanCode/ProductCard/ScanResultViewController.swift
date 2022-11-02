@@ -122,7 +122,7 @@ final class ScanResultViewController: UIViewController {
     }
 
     func setCollapsedCard() {
-        if let scanResult = self.scanResult {
+        if let scanResult = scanResult {
             castedView.titleLabel.numberOfLines = 1
             castedView.heartImageView.isHidden = scanResult.isNotFriend
             castedView.setNeedsLayout()
