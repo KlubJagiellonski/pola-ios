@@ -2,8 +2,12 @@ import KVNProgress
 import UIKit
 
 final class RootViewController: UINavigationController {
+    private let scanCodeViewController: ScanCodeViewController
+    
     init() {
-        super.init(rootViewController: DI.container.resolve(ScanCodeViewController.self)!)
+        scanCodeViewController = DI.container.resolve(ScanCodeViewController.self)!
+        super.init(rootViewController: scanCodeViewController)
+        
 
         isNavigationBarHidden = true
 
@@ -20,16 +24,13 @@ final class RootViewController: UINavigationController {
     }
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        scanCodeViewController = DI.container.resolve(ScanCodeViewController.self)!
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
 
     @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    var scanCodeViewController: ScanCodeViewController! {
-        viewControllers.first as? ScanCodeViewController
     }
 
     func showScanCodeView() {
