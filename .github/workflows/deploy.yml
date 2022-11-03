@@ -10,7 +10,7 @@ on:
 jobs:
   bump_version:
     name: Deploy 
-    runs-on: macos-10.15
+    runs-on: macos-12
     defaults:
       run:
         working-directory: BuyPolish
