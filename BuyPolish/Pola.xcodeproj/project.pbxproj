@@ -227,6 +227,8 @@
 		D346F9C32607D76B00F11ABD /* lidl.json in Resources */ = {isa = PBXBuildFile; fileRef = D346F9C22607D76B00F11ABD /* lidl.json */; };
 		D346F9C42607D76B00F11ABD /* lidl.json in Resources */ = {isa = PBXBuildFile; fileRef = D346F9C22607D76B00F11ABD /* lidl.json */; };
 		D365D83826D03FF500DB946F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D365D83726D03FF500DB946F /* GoogleService-Info.plist */; };
+		D3AF33CF2913B58500201014 /* TabWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AF33CE2913B58500201014 /* TabWebViewController.swift */; };
+		D3AF33D12913B72800201014 /* UITabBarItem+ImageSystemName.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AF33D02913B72800201014 /* UITabBarItem+ImageSystemName.swift */; };
 		EE6DCD82B12208A085E935F9 /* Pods_Pola_PolaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53F3B599F258259843E2755D /* Pods_Pola_PolaTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -463,6 +465,8 @@
 		D343F9A92792FAFD00065054 /* AutoMockable.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoMockable.generated.swift; sourceTree = "<group>"; };
 		D346F9C22607D76B00F11ABD /* lidl.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = lidl.json; sourceTree = "<group>"; };
 		D365D83726D03FF500DB946F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D3AF33CE2913B58500201014 /* TabWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabWebViewController.swift; sourceTree = "<group>"; };
+		D3AF33D02913B72800201014 /* UITabBarItem+ImageSystemName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBarItem+ImageSystemName.swift"; sourceTree = "<group>"; };
 		D3E3CA0C264085A4002979E1 /* Unit.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Unit.xctestplan; sourceTree = "<group>"; };
 		D3E3CA0E264085CB002979E1 /* UI.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = UI.xctestplan; sourceTree = "<group>"; };
 		D3E3CA0F264085D8002979E1 /* Full.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Full.xctestplan; sourceTree = "<group>"; };
@@ -698,6 +702,7 @@
 				8406E630233D6A6C00B7313C /* UIImage+Additions.swift */,
 				84AAEDDF230B49DD006CA7EB /* UILabel+Additions.swift */,
 				D34381A628E33DD6004E018B /* UINavigationViewController+WebView.swift */,
+				D3AF33D02913B72800201014 /* UITabBarItem+ImageSystemName.swift */,
 				841F7D9D235675A2007BE3F6 /* UIView+Additions.swift */,
 				9E35D7A924C627C000C63C11 /* UIViewController+Additions.swift */,
 			);
@@ -731,6 +736,7 @@
 			children = (
 				37B64540723CF4EABBB3AC70 /* ProductSearch */,
 				9E43AF7B242BE8720093627B /* RootViewController.swift */,
+				D3AF33CE2913B58500201014 /* TabWebViewController.swift */,
 				841BB98A22D133A900234946 /* Theme.swift */,
 			);
 			path = UI;
@@ -1657,6 +1663,7 @@
 				8492DF81257E7CED00094624 /* AnalyticsProvider.swift in Sources */,
 				D3201C6626753C3500E683EC /* ProductImageManagerRegistrant.swift in Sources */,
 				9EC3BC3123CDE3D600242B1E /* ScanResultView.swift in Sources */,
+				D3AF33CF2913B58500201014 /* TabWebViewController.swift in Sources */,
 				84735A6A23BB92C80053D1E5 /* AboutViewController.swift in Sources */,
 				9E43AF7E242BEB2C0093627B /* AppDelegate.swift in Sources */,
 				8402E1D62309BB610065E850 /* AltResultContentView.swift in Sources */,
@@ -1679,6 +1686,7 @@
 				849E40CD24143DE5006E1B76 /* CapturedImageManager.swift in Sources */,
 				BDA76B5C21DE64AB003E9FD6 /* AnalyticsEventName.swift in Sources */,
 				84D887A1233669D800681C64 /* CompanyContentViewController.swift in Sources */,
+				D3AF33D12913B72800201014 /* UITabBarItem+ImageSystemName.swift in Sources */,
 				84A6A93425EDAAAE004199B9 /* AskForReport.swift in Sources */,
 				D3201C4B2675359900E683EC /* DependencyRegistrant.swift in Sources */,
 				84CE3E6023BA895100FE8D66 /* AboutWebViewController.swift in Sources */,
@@ -1961,6 +1969,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 9NBWKG2G3X;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 9NBWKG2G3X;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1976,6 +1985,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kj.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.kj.Pola";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "match AppStore com.kj.Pola";
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

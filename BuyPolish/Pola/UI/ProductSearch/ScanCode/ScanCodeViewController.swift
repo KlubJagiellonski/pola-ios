@@ -74,7 +74,7 @@ final class ScanCodeViewController: UIViewController {
                 castedView.flashButton.isHidden = true
             #endif
         }
-        
+
         addConstraint(to: scannerCodeViewController)
         addConstraint(to: resultsViewController)
     }
@@ -193,7 +193,7 @@ final class ScanCodeViewController: UIViewController {
                        })
         self.keyboardViewController = keyboardViewController
     }
-    
+
     private func addConstraint(to childViewController: UIViewController) {
         childViewController.view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
