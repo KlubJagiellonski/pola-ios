@@ -7,6 +7,10 @@ final class ScanCodeView: UIView {
     let keyboardButton = UIButton(type: .custom)
     let galleryButton = UIButton(type: .custom)
 
+    private let leftButtonsStackView = UIStackView()
+    private let buttonMargin = CGFloat(15.0)
+    private let buttonSize = CGFloat(31.0)
+
     func setButtonsVisible(_ buttonsVisible: Bool, animated: Bool) {
         let alpha = CGFloat(buttonsVisible ? 1.0 : 0.0)
         let animationBlock = { [] in
@@ -36,18 +40,17 @@ final class ScanCodeView: UIView {
         dimView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(dimView)
 
+        leftButtonsStackView.translatesAutoresizingMaskIntoConstraints = false
+        leftButtonsStackView.distribution = .fillEqually
+        leftButtonsStackView.axis = .vertical
+        leftButtonsStackView.spacing = buttonMargin
+        addSubview(leftButtonsStackView)
+
         logoButton.accessibilityLabel = R.string.localizable.accessibilityLogo()
         logoButton.setImage(R.image.logoIcon(), for: .normal)
         logoButton.translatesAutoresizingMaskIntoConstraints = false
         logoButton.sizeToFit()
         addSubview(logoButton)
-
-        flashButton.accessibilityLabel = R.string.localizable.accessibilityFlash()
-        flashButton.setImage(R.image.flashIcon(), for: .normal)
-        flashButton.setImage(R.image.flashSelectedIcon(), for: .selected)
-        flashButton.translatesAutoresizingMaskIntoConstraints = false
-        flashButton.sizeToFit()
-        addSubview(flashButton)
 
         menuButton.accessibilityLabel = R.string.localizable.accessibilityInfo()
         menuButton.setImage(R.image.burgerIcon(), for: .normal)
@@ -59,14 +62,19 @@ final class ScanCodeView: UIView {
         keyboardButton.setImage(R.image.keyboardIcon(), for: .normal)
         keyboardButton.setImage(R.image.keyboardSelectedIcon(), for: .selected)
         keyboardButton.translatesAutoresizingMaskIntoConstraints = false
-        keyboardButton.sizeToFit()
-        addSubview(keyboardButton)
+        leftButtonsStackView.addArrangedSubview(keyboardButton)
 
         galleryButton.accessibilityLabel = R.string.localizable.accessibilityGallery()
         galleryButton.setImage(R.image.galleryIconNormal(), for: .normal)
         galleryButton.setImage(R.image.galleryIconSelected(), for: .selected)
         galleryButton.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(galleryButton)
+        leftButtonsStackView.addArrangedSubview(galleryButton)
+
+        flashButton.accessibilityLabel = R.string.localizable.accessibilityFlash()
+        flashButton.setImage(R.image.flashIcon(), for: .normal)
+        flashButton.setImage(R.image.flashSelectedIcon(), for: .selected)
+        flashButton.translatesAutoresizingMaskIntoConstraints = false
+        leftButtonsStackView.addArrangedSubview(flashButton)
 
         setupConstraints()
     }
@@ -77,7 +85,7 @@ final class ScanCodeView: UIView {
     }
 
     private func setupConstraints() {
-        let scanCodeMargin = CGFloat(15.0)
+        let scanCodeMargin = buttonMargin
 
         NSLayoutConstraint.activate([
             dimView.topAnchor.constraint(equalTo: topAnchor),
@@ -91,16 +99,11 @@ final class ScanCodeView: UIView {
             logoButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: scanCodeMargin),
             logoButton.centerXAnchor.constraint(equalTo: centerXAnchor),
 
-            keyboardButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: scanCodeMargin),
-            keyboardButton.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: scanCodeMargin),
+            leftButtonsStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: scanCodeMargin),
+            leftButtonsStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: scanCodeMargin),
 
-            galleryButton.topAnchor.constraint(equalTo: keyboardButton.bottomAnchor, constant: scanCodeMargin),
-            galleryButton.centerXAnchor.constraint(equalTo: keyboardButton.centerXAnchor),
-            galleryButton.heightAnchor.constraint(equalToConstant: keyboardButton.frame.height),
-            galleryButton.widthAnchor.constraint(equalToConstant: keyboardButton.frame.width),
-
-            flashButton.topAnchor.constraint(equalTo: galleryButton.bottomAnchor, constant: scanCodeMargin),
-            flashButton.centerXAnchor.constraint(equalTo: galleryButton.centerXAnchor),
+            galleryButton.heightAnchor.constraint(equalToConstant: buttonSize),
+            galleryButton.widthAnchor.constraint(equalToConstant: buttonSize),
         ])
     }
 }
