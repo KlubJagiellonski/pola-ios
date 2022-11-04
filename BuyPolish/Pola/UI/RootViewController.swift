@@ -12,9 +12,10 @@ final class RootViewController: UITabBarController {
         let searchVC = TabWebViewController(url: "https://www.pola-app.pl/")
         let newsVC = TabWebViewController(url: "https://www.pola-app.pl/news")
 
-        scanNVC.tabBarItem = UITabBarItem(title: "Skaner kodów", imageSystemName: "iphone")
-        searchVC.tabBarItem = UITabBarItem(title: "Wyszukiwarka", imageSystemName: "magnifyingglass")
-        newsVC.tabBarItem = UITabBarItem(title: "Wiadomości", imageSystemName: "newspaper")
+        let strings = R.string.localizable.self
+        scanNVC.tabBarItem = UITabBarItem(title: strings.mainTabScanner(), imageSystemName: "iphone")
+        searchVC.tabBarItem = UITabBarItem(title: strings.mainTabSearch(), imageSystemName: "magnifyingglass")
+        newsVC.tabBarItem = UITabBarItem(title: strings.mainTabNews(), imageSystemName: "newspaper")
 
         viewControllers = [scanNVC, searchVC, newsVC]
 

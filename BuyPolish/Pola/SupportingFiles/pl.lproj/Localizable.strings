@@ -81,3 +81,7 @@
 "CaptureVideo.Thanks" = "Dziękujemy";
 "CaptureVideo.Failed" = "Wystąpił błąd";
 "Accessibility.Gallery" = "Galeria";
+
+"MainTab.Scanner" = "Skaner kodów";
+"MainTab.Search" = "Wyszukiwarka";
+"MainTab.News" = "Wiadomości";
