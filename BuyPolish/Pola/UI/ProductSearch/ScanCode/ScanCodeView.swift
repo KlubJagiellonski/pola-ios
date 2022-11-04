@@ -39,18 +39,18 @@ final class ScanCodeView: UIView {
 
         dimView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(dimView)
+        
+        logoButton.accessibilityLabel = R.string.localizable.accessibilityLogo()
+        logoButton.setImage(R.image.logoIcon(), for: .normal)
+        logoButton.translatesAutoresizingMaskIntoConstraints = false
+        logoButton.sizeToFit()
+        addSubview(logoButton)
 
         leftButtonsStackView.translatesAutoresizingMaskIntoConstraints = false
         leftButtonsStackView.distribution = .fillEqually
         leftButtonsStackView.axis = .vertical
         leftButtonsStackView.spacing = buttonMargin
         addSubview(leftButtonsStackView)
-
-        logoButton.accessibilityLabel = R.string.localizable.accessibilityLogo()
-        logoButton.setImage(R.image.logoIcon(), for: .normal)
-        logoButton.translatesAutoresizingMaskIntoConstraints = false
-        logoButton.sizeToFit()
-        addSubview(logoButton)
 
         menuButton.accessibilityLabel = R.string.localizable.accessibilityInfo()
         menuButton.setImage(R.image.burgerIcon(), for: .normal)
