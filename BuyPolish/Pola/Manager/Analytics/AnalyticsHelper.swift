@@ -11,7 +11,7 @@ final class AnalyticsHelper {
         logEvent(name: .scanCode,
                  parameters:
                  AnalyticsScanCodeParameters(code: barcode,
-                                             source: type.rawValue))
+                                             source: type))
     }
 
     func received(productResult: ScanResult) {
@@ -65,6 +65,10 @@ final class AnalyticsHelper {
 
     func aboutPolaOpened() {
         logEvent(name: .aboutPola)
+    }
+
+    func tabChanged(_ newTab: AnalyticsMainTab) {
+        logEvent(name: .mainTabChanged, parameters: AnalyticsMainTabParameters(tab: newTab))
     }
 
     private func reportParameters(barcode: String?) -> AnalyticsReportParameters {

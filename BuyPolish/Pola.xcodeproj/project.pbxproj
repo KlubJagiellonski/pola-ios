@@ -200,6 +200,7 @@
 		BDA76B5C21DE64AB003E9FD6 /* AnalyticsEventName.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA76B5B21DE64AB003E9FD6 /* AnalyticsEventName.swift */; };
 		BDA76B5E21DE64FD003E9FD6 /* AnalyticsParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA76B5D21DE64FD003E9FD6 /* AnalyticsParameters.swift */; };
 		C0D829791F3D11A600902F79 /* capture_video_instruction.mov in Resources */ = {isa = PBXBuildFile; fileRef = C0D829781F3D11A600902F79 /* capture_video_instruction.mov */; };
+		D313237829154C5E00DEFB23 /* AnalyticsMainTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = D313237729154C5E00DEFB23 /* AnalyticsMainTab.swift */; };
 		D3201C3E2675111C00E683EC /* CrashlitycsLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3201C3D2675111C00E683EC /* CrashlitycsLogger.swift */; };
 		D3201C462675136900E683EC /* LoggerRegistrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3201C452675136900E683EC /* LoggerRegistrant.swift */; };
 		D3201C482675319C00E683EC /* AnalyticsRegistrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3201C472675319C00E683EC /* AnalyticsRegistrant.swift */; };
@@ -440,6 +441,7 @@
 		BDA76B5D21DE64FD003E9FD6 /* AnalyticsParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsParameters.swift; sourceTree = "<group>"; };
 		C0D829781F3D11A600902F79 /* capture_video_instruction.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = capture_video_instruction.mov; sourceTree = "<group>"; };
 		C62ECF2EDD7295D219A497A1 /* Pods-Pola-PolaUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola-PolaUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pola-PolaUITests/Pods-Pola-PolaUITests.release.xcconfig"; sourceTree = "<group>"; };
+		D313237729154C5E00DEFB23 /* AnalyticsMainTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsMainTab.swift; sourceTree = "<group>"; };
 		D3201C3D2675111C00E683EC /* CrashlitycsLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashlitycsLogger.swift; sourceTree = "<group>"; };
 		D3201C452675136900E683EC /* LoggerRegistrant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerRegistrant.swift; sourceTree = "<group>"; };
 		D3201C472675319C00E683EC /* AnalyticsRegistrant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsRegistrant.swift; sourceTree = "<group>"; };
@@ -1006,6 +1008,7 @@
 				9E43AF79242BE5FF0093627B /* AnalyticsBarcodeSource.swift */,
 				BDA76B5B21DE64AB003E9FD6 /* AnalyticsEventName.swift */,
 				BDA76B5921DE6248003E9FD6 /* AnalyticsHelper.swift */,
+				D313237729154C5E00DEFB23 /* AnalyticsMainTab.swift */,
 				BDA76B5D21DE64FD003E9FD6 /* AnalyticsParameters.swift */,
 				8492DF80257E7CED00094624 /* AnalyticsProvider.swift */,
 				D3201C472675319C00E683EC /* AnalyticsRegistrant.swift */,
@@ -1690,6 +1693,7 @@
 				84A6A93425EDAAAE004199B9 /* AskForReport.swift in Sources */,
 				D3201C4B2675359900E683EC /* DependencyRegistrant.swift in Sources */,
 				84CE3E6023BA895100FE8D66 /* AboutWebViewController.swift in Sources */,
+				D313237829154C5E00DEFB23 /* AnalyticsMainTab.swift in Sources */,
 				6285A0082737F53100D19C88 /* NotificationManager.swift in Sources */,
 				849E50DB24A623A80064F269 /* AskForDonate.swift in Sources */,
 				84A6A93F25EDAE40004199B9 /* UIButton+ReportType.swift in Sources */,

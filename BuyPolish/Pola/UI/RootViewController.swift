@@ -3,21 +3,41 @@ import UIKit
 
 final class RootViewController: UITabBarController {
     private let scanCodeViewController: ScanCodeViewController
+    private let analytics: AnalyticsHelper
 
-    init() {
+    private enum TabOrder: Int, CaseIterable {
+        case scan = 0
+        case search
+        case news
+    }
+
+    init(analyticsProvider: AnalyticsProvider) {
+        analytics = AnalyticsHelper(provider: analyticsProvider)
         scanCodeViewController = DI.container.resolve(ScanCodeViewController.self)!
-        super.init()
-
-        let scanNVC = scanCodeViewController
-        let searchVC = TabWebViewController(url: "https://www.pola-app.pl/")
-        let newsVC = TabWebViewController(url: "https://www.pola-app.pl/news")
+        super.init(nibName: nil, bundle: nil)
 
         let strings = R.string.localizable.self
-        scanNVC.tabBarItem = UITabBarItem(title: strings.mainTabScanner(), imageSystemName: "iphone")
-        searchVC.tabBarItem = UITabBarItem(title: strings.mainTabSearch(), imageSystemName: "magnifyingglass")
-        newsVC.tabBarItem = UITabBarItem(title: strings.mainTabNews(), imageSystemName: "newspaper")
-
-        viewControllers = [scanNVC, searchVC, newsVC]
+        viewControllers = TabOrder
+            .allCases
+            .map { order in
+                let vc: UIViewController
+                switch order {
+                case .scan:
+                    vc = scanCodeViewController
+                    vc.tabBarItem = UITabBarItem(title: strings.mainTabScanner(),
+                                                 imageSystemName: "iphone")
+                case .search:
+                    vc = TabWebViewController(url: "https://www.pola-app.pl/")
+                    vc.tabBarItem = UITabBarItem(title: strings.mainTabSearch(),
+                                                 imageSystemName: "magnifyingglass")
+                case .news:
+                    vc = TabWebViewController(url: "https://www.pola-app.pl/news")
+                    vc.tabBarItem = UITabBarItem(title: strings.mainTabNews(),
+                                                 imageSystemName: "newspaper")
+                }
+                vc.tabBarItem.tag = order.rawValue
+                return vc
+            }
 
         let config = KVNProgressConfiguration.default()
         config?.stopColor = R.color.clearColor()
@@ -29,11 +49,6 @@ final class RootViewController: UITabBarController {
         config?.circleStrokeForegroundColor = R.color.clearColor()
 
         KVNProgress.setConfiguration(config)
-    }
-
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        scanCodeViewController = DI.container.resolve(ScanCodeViewController.self)!
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
 
     @available(*, unavailable)
@@ -53,5 +68,22 @@ final class RootViewController: UITabBarController {
 
     private func switchToScanCodeViewController() {
         selectedIndex = 0
+    }
+
+    override func tabBar(_: UITabBar, didSelect item: UITabBarItem) {
+        let tab = TabOrder(rawValue: item.tag).map { order -> AnalyticsMainTab in
+            switch order {
+            case .scan:
+                return .scanner
+            case .search:
+                return .search
+            case .news:
+                return .news
+            }
+        }
+        guard let tab else {
+            return
+        }
+        analytics.tabChanged(tab)
     }
 }

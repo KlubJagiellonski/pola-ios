@@ -4,7 +4,7 @@ protocol AnalyticsParameters: Encodable {}
 
 struct AnalyticsScanCodeParameters: AnalyticsParameters {
     let code: String
-    let source: String
+    let source: AnalyticsBarcodeSource
 }
 
 struct AnalyticsProductResultParameters: AnalyticsParameters {
@@ -19,4 +19,8 @@ struct AnalyticsReportParameters: AnalyticsParameters {
 
 struct AnalyticsAboutParameters: AnalyticsParameters {
     let item: String
+}
+
+struct AnalyticsMainTabParameters: AnalyticsParameters {
+    let tab: AnalyticsMainTab
 }

@@ -8,11 +8,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private var notificationProvider: NotificationProvider?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
-        DI.container.resolve(AnalyticsProvider.self)!.configure()
+        let analyticsProvider = DI.container.resolve(AnalyticsProvider.self)!
+        analyticsProvider.configure()
         applyAppearance()
 
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = RootViewController()
+        window?.rootViewController = RootViewController(analyticsProvider: analyticsProvider)
         window?.backgroundColor = R.color.backgroundWindowColor()
         window?.makeKeyAndVisible()
 

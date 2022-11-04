@@ -90,4 +90,22 @@ class AnalyticsHelperTests: XCTestCase {
 
         assertProviderInvocation(eventName: "barcode_not_found_on_photo", parametersShouldBeNil: true)
     }
+
+    func testTabChanged_whenTabIsSearch() {
+        sut.tabChanged(.search)
+
+        assertProviderInvocation(eventName: "main_tab_changed")
+    }
+
+    func testTabChanged_whenTabIsNews() {
+        sut.tabChanged(.news)
+
+        assertProviderInvocation(eventName: "main_tab_changed")
+    }
+
+    func testTabChanged_whenTabIsScanner() {
+        sut.tabChanged(.scanner)
+
+        assertProviderInvocation(eventName: "main_tab_changed")
+    }
 }
