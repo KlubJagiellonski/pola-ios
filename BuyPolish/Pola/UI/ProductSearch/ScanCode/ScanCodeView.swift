@@ -39,7 +39,7 @@ final class ScanCodeView: UIView {
 
         dimView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(dimView)
-        
+
         logoButton.accessibilityLabel = R.string.localizable.accessibilityLogo()
         logoButton.setImage(R.image.logoIcon(), for: .normal)
         logoButton.translatesAutoresizingMaskIntoConstraints = false
