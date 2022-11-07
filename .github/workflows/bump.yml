@@ -10,7 +10,7 @@ on:
 jobs:
   bump_version:
     name: Record snapshots for unit & ui tests
-    runs-on: macos-10.15
+    runs-on: macos-11
     defaults:
       run:
         working-directory: BuyPolish
