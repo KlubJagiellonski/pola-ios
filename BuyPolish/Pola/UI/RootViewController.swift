@@ -81,7 +81,7 @@ final class RootViewController: UITabBarController {
                 return .news
             }
         }
-        guard let tab else {
+        guard let tab = tab else {
             return
         }
         analytics.tabChanged(tab)
