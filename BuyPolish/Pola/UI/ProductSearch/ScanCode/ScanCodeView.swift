@@ -9,7 +9,6 @@ final class ScanCodeView: UIView {
 
     private let leftButtonsStackView = UIStackView()
     private let buttonMargin = CGFloat(15.0)
-    private let buttonSize = CGFloat(31.0)
 
     func setButtonsVisible(_ buttonsVisible: Bool, animated: Bool) {
         let alpha = CGFloat(buttonsVisible ? 1.0 : 0.0)
@@ -86,6 +85,7 @@ final class ScanCodeView: UIView {
 
     private func setupConstraints() {
         let scanCodeMargin = buttonMargin
+        let buttonSize = R.image.flashIcon()?.size.width ?? 31
 
         NSLayoutConstraint.activate([
             dimView.topAnchor.constraint(equalTo: topAnchor),
