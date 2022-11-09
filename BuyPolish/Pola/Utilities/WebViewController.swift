@@ -1,13 +1,11 @@
 import UIKit
 import WebKit
 
-final class AboutWebViewController: UIViewController {
+final class WebViewController: UIViewController {
     private let url: String
-    private var webView: WKWebView! {
-        view as? WKWebView
-    }
+    private let webView = WKWebView()
 
-    init(url: String, title: String) {
+    init(url: String, title: String? = nil) {
         self.url = url
         super.init(nibName: nil, bundle: nil)
         self.title = title
@@ -19,7 +17,9 @@ final class AboutWebViewController: UIViewController {
     }
 
     override func loadView() {
-        view = WKWebView()
+        view = UIView()
+        view.addSubview(webView)
+        webView.translatesAutoresizingMaskIntoConstraints = false
     }
 
     override func viewDidLoad() {
@@ -27,12 +27,19 @@ final class AboutWebViewController: UIViewController {
         guard let url = URL(string: url) else {
             return
         }
+
+        NSLayoutConstraint.activate([
+            webView.topAnchor.constraint(equalTo: view.topAnchor),
+            webView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+        ])
         webView.load(URLRequest(url: url))
         webView.navigationDelegate = self
     }
 }
 
-extension AboutWebViewController: WKNavigationDelegate {
+extension WebViewController: WKNavigationDelegate {
     func webView(_: WKWebView,
                  decidePolicyFor navigationAction: WKNavigationAction,
                  decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {

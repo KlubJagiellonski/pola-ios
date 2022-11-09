@@ -27,11 +27,11 @@ final class RootViewController: UITabBarController {
                     vc.tabBarItem = UITabBarItem(title: strings.mainTabScanner(),
                                                  imageSystemName: "iphone")
                 case .search:
-                    vc = TabWebViewController(url: "https://www.pola-app.pl/")
+                    vc = WebViewController(url: "https://pola-staging.herokuapp.com/m/search/")
                     vc.tabBarItem = UITabBarItem(title: strings.mainTabSearch(),
                                                  imageSystemName: "magnifyingglass")
                 case .news:
-                    vc = TabWebViewController(url: "https://www.pola-app.pl/news")
+                    vc = WebViewController(url: "https://pola-staging.herokuapp.com/m/blog/")
                     vc.tabBarItem = UITabBarItem(title: strings.mainTabNews(),
                                                  imageSystemName: "newspaper")
                 }

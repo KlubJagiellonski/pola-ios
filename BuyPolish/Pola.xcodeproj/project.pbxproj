@@ -120,7 +120,6 @@
 		84AB4C3A259CB1260008A6B2 /* OwnBrandContentViewControllerSnapshotTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AB4C39259CB1260008A6B2 /* OwnBrandContentViewControllerSnapshotTesting.swift */; };
 		84B87FCA2344084E007A6BFF /* ScanCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B87FC92344084E007A6BFF /* ScanCodeView.swift */; };
 		84BDC4A823EB774F00F462A0 /* MediaUploadRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BDC4A723EB774F00F462A0 /* MediaUploadRequestFactory.swift */; };
-		84CE3E6023BA895100FE8D66 /* AboutWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CE3E5F23BA895100FE8D66 /* AboutWebViewController.swift */; };
 		84CE3E6423BA982900FE8D66 /* Bundle+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CE3E6323BA982900FE8D66 /* Bundle+Additions.swift */; };
 		84D887A1233669D800681C64 /* CompanyContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D887A0233669D800681C64 /* CompanyContentViewController.swift */; };
 		84D887A52337A4B300681C64 /* ResultContentViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D887A42337A4B300681C64 /* ResultContentViewControllerFactory.swift */; };
@@ -201,6 +200,7 @@
 		BDA76B5E21DE64FD003E9FD6 /* AnalyticsParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA76B5D21DE64FD003E9FD6 /* AnalyticsParameters.swift */; };
 		C0D829791F3D11A600902F79 /* capture_video_instruction.mov in Resources */ = {isa = PBXBuildFile; fileRef = C0D829781F3D11A600902F79 /* capture_video_instruction.mov */; };
 		D313237829154C5E00DEFB23 /* AnalyticsMainTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = D313237729154C5E00DEFB23 /* AnalyticsMainTab.swift */; };
+		D317D189291B98F800FDFDB4 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D317D188291B98F800FDFDB4 /* WebViewController.swift */; };
 		D3201C3E2675111C00E683EC /* CrashlitycsLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3201C3D2675111C00E683EC /* CrashlitycsLogger.swift */; };
 		D3201C462675136900E683EC /* LoggerRegistrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3201C452675136900E683EC /* LoggerRegistrant.swift */; };
 		D3201C482675319C00E683EC /* AnalyticsRegistrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3201C472675319C00E683EC /* AnalyticsRegistrant.swift */; };
@@ -228,7 +228,6 @@
 		D346F9C32607D76B00F11ABD /* lidl.json in Resources */ = {isa = PBXBuildFile; fileRef = D346F9C22607D76B00F11ABD /* lidl.json */; };
 		D346F9C42607D76B00F11ABD /* lidl.json in Resources */ = {isa = PBXBuildFile; fileRef = D346F9C22607D76B00F11ABD /* lidl.json */; };
 		D365D83826D03FF500DB946F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D365D83726D03FF500DB946F /* GoogleService-Info.plist */; };
-		D3AF33CF2913B58500201014 /* TabWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AF33CE2913B58500201014 /* TabWebViewController.swift */; };
 		D3AF33D12913B72800201014 /* UITabBarItem+ImageSystemName.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AF33D02913B72800201014 /* UITabBarItem+ImageSystemName.swift */; };
 		EE6DCD82B12208A085E935F9 /* Pods_Pola_PolaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53F3B599F258259843E2755D /* Pods_Pola_PolaTests.framework */; };
 /* End PBXBuildFile section */
@@ -367,7 +366,6 @@
 		84B1B366225F975A009FA909 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84B87FC92344084E007A6BFF /* ScanCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanCodeView.swift; sourceTree = "<group>"; };
 		84BDC4A723EB774F00F462A0 /* MediaUploadRequestFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaUploadRequestFactory.swift; sourceTree = "<group>"; };
-		84CE3E5F23BA895100FE8D66 /* AboutWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutWebViewController.swift; sourceTree = "<group>"; };
 		84CE3E6323BA982900FE8D66 /* Bundle+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Additions.swift"; sourceTree = "<group>"; };
 		84D8879E2336601700681C64 /* AltResultContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AltResultContentViewController.swift; sourceTree = "<group>"; };
 		84D887A0233669D800681C64 /* CompanyContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyContentViewController.swift; sourceTree = "<group>"; };
@@ -442,6 +440,7 @@
 		C0D829781F3D11A600902F79 /* capture_video_instruction.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = capture_video_instruction.mov; sourceTree = "<group>"; };
 		C62ECF2EDD7295D219A497A1 /* Pods-Pola-PolaUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola-PolaUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pola-PolaUITests/Pods-Pola-PolaUITests.release.xcconfig"; sourceTree = "<group>"; };
 		D313237729154C5E00DEFB23 /* AnalyticsMainTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsMainTab.swift; sourceTree = "<group>"; };
+		D317D188291B98F800FDFDB4 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		D3201C3D2675111C00E683EC /* CrashlitycsLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashlitycsLogger.swift; sourceTree = "<group>"; };
 		D3201C452675136900E683EC /* LoggerRegistrant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerRegistrant.swift; sourceTree = "<group>"; };
 		D3201C472675319C00E683EC /* AnalyticsRegistrant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsRegistrant.swift; sourceTree = "<group>"; };
@@ -467,7 +466,6 @@
 		D343F9A92792FAFD00065054 /* AutoMockable.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoMockable.generated.swift; sourceTree = "<group>"; };
 		D346F9C22607D76B00F11ABD /* lidl.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = lidl.json; sourceTree = "<group>"; };
 		D365D83726D03FF500DB946F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		D3AF33CE2913B58500201014 /* TabWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabWebViewController.swift; sourceTree = "<group>"; };
 		D3AF33D02913B72800201014 /* UITabBarItem+ImageSystemName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBarItem+ImageSystemName.swift"; sourceTree = "<group>"; };
 		D3E3CA0C264085A4002979E1 /* Unit.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Unit.xctestplan; sourceTree = "<group>"; };
 		D3E3CA0E264085CB002979E1 /* UI.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = UI.xctestplan; sourceTree = "<group>"; };
@@ -636,7 +634,6 @@
 				9EC3BC5623CDFA2500242B1E /* AboutFooterView.swift */,
 				9EC3BC5923CDFA2500242B1E /* AboutSingleCell.swift */,
 				84735A6923BB92C80053D1E5 /* AboutViewController.swift */,
-				84CE3E5F23BA895100FE8D66 /* AboutWebViewController.swift */,
 			);
 			path = About;
 			sourceTree = "<group>";
@@ -670,6 +667,7 @@
 			children = (
 				37B646DCA0870AD66E5EB92B /* Categories */,
 				9E7BE9442401503F0070BF8D /* ExtendedButton.swift */,
+				D317D188291B98F800FDFDB4 /* WebViewController.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -738,7 +736,6 @@
 			children = (
 				37B64540723CF4EABBB3AC70 /* ProductSearch */,
 				9E43AF7B242BE8720093627B /* RootViewController.swift */,
-				D3AF33CE2913B58500201014 /* TabWebViewController.swift */,
 				841BB98A22D133A900234946 /* Theme.swift */,
 			);
 			path = UI;
@@ -1666,7 +1663,6 @@
 				8492DF81257E7CED00094624 /* AnalyticsProvider.swift in Sources */,
 				D3201C6626753C3500E683EC /* ProductImageManagerRegistrant.swift in Sources */,
 				9EC3BC3123CDE3D600242B1E /* ScanResultView.swift in Sources */,
-				D3AF33CF2913B58500201014 /* TabWebViewController.swift in Sources */,
 				84735A6A23BB92C80053D1E5 /* AboutViewController.swift in Sources */,
 				9E43AF7E242BEB2C0093627B /* AppDelegate.swift in Sources */,
 				8402E1D62309BB610065E850 /* AltResultContentView.swift in Sources */,
@@ -1685,6 +1681,7 @@
 				84AB4BAF2599E9BE0008A6B2 /* OwnBrandContentViewController.swift in Sources */,
 				D3201C512675380100E683EC /* ProductManagerRegistrant.swift in Sources */,
 				84AB4BB52599E9E50008A6B2 /* OwnBrandContentView.swift in Sources */,
+				D317D189291B98F800FDFDB4 /* WebViewController.swift in Sources */,
 				8477CFC923CE137D00C72542 /* AboutRow.swift in Sources */,
 				849E40CD24143DE5006E1B76 /* CapturedImageManager.swift in Sources */,
 				BDA76B5C21DE64AB003E9FD6 /* AnalyticsEventName.swift in Sources */,
@@ -1692,7 +1689,6 @@
 				D3AF33D12913B72800201014 /* UITabBarItem+ImageSystemName.swift in Sources */,
 				84A6A93425EDAAAE004199B9 /* AskForReport.swift in Sources */,
 				D3201C4B2675359900E683EC /* DependencyRegistrant.swift in Sources */,
-				84CE3E6023BA895100FE8D66 /* AboutWebViewController.swift in Sources */,
 				D313237829154C5E00DEFB23 /* AnalyticsMainTab.swift in Sources */,
 				6285A0082737F53100D19C88 /* NotificationManager.swift in Sources */,
 				849E50DB24A623A80064F269 /* AskForDonate.swift in Sources */,
