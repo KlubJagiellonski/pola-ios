@@ -3,7 +3,9 @@ import WebKit
 
 final class WebViewController: UIViewController {
     private let url: String
-    private let webView = WKWebView()
+    private var webView: WebView! {
+        view as? WebView
+    }
 
     init(url: String, title: String? = nil) {
         self.url = url
@@ -17,9 +19,7 @@ final class WebViewController: UIViewController {
     }
 
     override func loadView() {
-        view = UIView()
-        view.addSubview(webView)
-        webView.translatesAutoresizingMaskIntoConstraints = false
+        view = WebView()
     }
 
     override func viewDidLoad() {
@@ -28,14 +28,8 @@ final class WebViewController: UIViewController {
             return
         }
 
-        NSLayoutConstraint.activate([
-            webView.topAnchor.constraint(equalTo: view.topAnchor),
-            webView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-        ])
-        webView.load(URLRequest(url: url))
-        webView.navigationDelegate = self
+        webView.webView.load(URLRequest(url: url))
+        webView.webView.navigationDelegate = self
     }
 }
 
