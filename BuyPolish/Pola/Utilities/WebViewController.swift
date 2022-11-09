@@ -3,12 +3,14 @@ import WebKit
 
 final class WebViewController: UIViewController {
     private let url: String
+    private let ignoreSafeArea: Bool
     private var webView: WebView! {
         view as? WebView
     }
 
-    init(url: String, title: String? = nil) {
+    init(url: String, title: String? = nil, ignoreSafeArea: Bool = true) {
         self.url = url
+        self.ignoreSafeArea = ignoreSafeArea
         super.init(nibName: nil, bundle: nil)
         self.title = title
     }
@@ -19,7 +21,7 @@ final class WebViewController: UIViewController {
     }
 
     override func loadView() {
-        view = WebView()
+        view = WebView(ignoreSafeArea: ignoreSafeArea)
     }
 
     override func viewDidLoad() {

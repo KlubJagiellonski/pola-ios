@@ -4,14 +4,15 @@ import WebKit
 final class WebView: UIView {
     let webView = WKWebView()
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(ignoreSafeArea: Bool) {
+        super.init(frame: .zero)
         addSubview(webView)
         webView.translatesAutoresizingMaskIntoConstraints = false
 
+        let webViewBottomAnchor = ignoreSafeArea ? bottomAnchor : safeAreaLayoutGuide.bottomAnchor
         NSLayoutConstraint.activate([
             webView.topAnchor.constraint(equalTo: topAnchor),
-            webView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+            webView.bottomAnchor.constraint(equalTo: webViewBottomAnchor),
             webView.leadingAnchor.constraint(equalTo: leadingAnchor),
             webView.trailingAnchor.constraint(equalTo: trailingAnchor),
         ])
