@@ -8,6 +8,7 @@ final class ResultsView: UIView {
     init(frame: CGRect, stackView: CardStackView) {
         self.stackView = stackView
         super.init(frame: frame)
+        clipsToBounds = true
 
         infoTextLabel.text = R.string.localizable.scanBarcode()
         infoTextLabel.numberOfLines = 4

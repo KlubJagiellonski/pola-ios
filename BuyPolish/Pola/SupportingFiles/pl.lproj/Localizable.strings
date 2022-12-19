@@ -32,7 +32,6 @@
 "Progress Points" = "%i pkt.";
 "About Pola application" = "O APLIKACJI POLA";
 "InstructionSet" = "INSTRUKCJA OBSŁUGI";
-"Text Search" = "WYSZUKIWARKA TEKSTOWA";
 "About KJ" = "O KLUBIE JAGIELLOŃSKIM";
 "Team" = "ZESPÓŁ";
 "Partners" = "PARTNERZY";
@@ -81,3 +80,7 @@
 "CaptureVideo.Thanks" = "Dziękujemy";
 "CaptureVideo.Failed" = "Wystąpił błąd";
 "Accessibility.Gallery" = "Galeria";
+
+"MainTab.Scanner" = "Skaner kodów";
+"MainTab.Search" = "Wyszukiwarka";
+"MainTab.News" = "Wiadomości";

@@ -143,7 +143,7 @@ final class AboutViewController: UITableViewController {
 
     private func performLinkAction(title: String, url: String, openInternal: Bool) {
         if openInternal {
-            let vc = AboutWebViewController(url: url, title: title)
+            let vc = WebViewController(url: url, title: title)
             navigationController?.pushViewController(vc, animated: true)
         } else {
             if let url = URL(string: url) {

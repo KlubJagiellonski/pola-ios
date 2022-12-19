@@ -3,7 +3,6 @@ import Foundation
 enum AnalyticsAboutRow: String {
     case menu = "About Menu"
     case aboutPola = "O aplikacji Pola"
-    case textSearch = "Wyszukiwarka tekstowa"
     case instructionSet = "Metodologia"
     case aboutKJ = "O Klubie Jagiellońskim"
     case team = "Zespół"

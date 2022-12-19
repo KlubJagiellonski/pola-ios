@@ -122,7 +122,7 @@ final class ScanResultViewController: UIViewController {
     }
 
     func setCollapsedCard() {
-        if let scanResult = self.scanResult {
+        if let scanResult = scanResult {
             castedView.titleLabel.numberOfLines = 1
             castedView.heartImageView.isHidden = scanResult.isNotFriend
             castedView.setNeedsLayout()
@@ -143,8 +143,8 @@ final class ScanResultViewController: UIViewController {
     @objc
     func polasFriendsButtonTapped() {
         analytics.polasFriendsOpened()
-        let vc = AboutWebViewController(url: "https://www.pola-app.pl/m/friends",
-                                        title: R.string.localizable.polaSFriends())
+        let vc = WebViewController(url: "https://www.pola-app.pl/m/friends",
+                                   title: R.string.localizable.polaSFriends())
         vc.addCloseButton()
         let nvc = UINavigationController.makeForWebView(rootViewController: vc)
         present(nvc, animated: true, completion: nil)

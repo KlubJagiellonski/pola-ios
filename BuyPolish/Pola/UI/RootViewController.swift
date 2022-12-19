@@ -1,11 +1,43 @@
 import KVNProgress
 import UIKit
 
-final class RootViewController: UINavigationController {
-    init() {
-        super.init(rootViewController: DI.container.resolve(ScanCodeViewController.self)!)
+final class RootViewController: UITabBarController {
+    private let scanCodeViewController: ScanCodeViewController
+    private let analytics: AnalyticsHelper
 
-        isNavigationBarHidden = true
+    private enum TabOrder: Int, CaseIterable {
+        case scan = 0
+        case search
+        case news
+    }
+
+    init(analyticsProvider: AnalyticsProvider) {
+        analytics = AnalyticsHelper(provider: analyticsProvider)
+        scanCodeViewController = DI.container.resolve(ScanCodeViewController.self)!
+        super.init(nibName: nil, bundle: nil)
+
+        let strings = R.string.localizable.self
+        viewControllers = TabOrder
+            .allCases
+            .map { order in
+                let vc: UIViewController
+                switch order {
+                case .scan:
+                    vc = scanCodeViewController
+                    vc.tabBarItem = UITabBarItem(title: strings.mainTabScanner(),
+                                                 imageSystemName: "iphone")
+                case .search:
+                    vc = WebViewController(url: "https://pola-app.pl/m/search", ignoreSafeArea: false)
+                    vc.tabBarItem = UITabBarItem(title: strings.mainTabSearch(),
+                                                 imageSystemName: "magnifyingglass")
+                case .news:
+                    vc = WebViewController(url: "https://pola-app.pl/m/blog", ignoreSafeArea: false)
+                    vc.tabBarItem = UITabBarItem(title: strings.mainTabNews(),
+                                                 imageSystemName: "newspaper")
+                }
+                vc.tabBarItem.tag = order.rawValue
+                return vc
+            }
 
         let config = KVNProgressConfiguration.default()
         config?.stopColor = R.color.clearColor()
@@ -19,24 +51,39 @@ final class RootViewController: UINavigationController {
         KVNProgress.setConfiguration(config)
     }
 
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    }
-
     @available(*, unavailable)
     required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    var scanCodeViewController: ScanCodeViewController! {
-        viewControllers.first as? ScanCodeViewController
-    }
-
     func showScanCodeView() {
+        switchToScanCodeViewController()
         scanCodeViewController.showScanCodeView()
     }
 
     func showWriteCodeView() {
+        switchToScanCodeViewController()
         scanCodeViewController.showWriteCodeView()
+    }
+
+    private func switchToScanCodeViewController() {
+        selectedIndex = 0
+    }
+
+    override func tabBar(_: UITabBar, didSelect item: UITabBarItem) {
+        let tab = TabOrder(rawValue: item.tag).map { order -> AnalyticsMainTab in
+            switch order {
+            case .scan:
+                return .scanner
+            case .search:
+                return .search
+            case .news:
+                return .news
+            }
+        }
+        guard let tab = tab else {
+            return
+        }
+        analytics.tabChanged(tab)
     }
 }
