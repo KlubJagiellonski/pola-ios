@@ -19,6 +19,7 @@ target :Pola do
     
     target :PolaTests do
       pod 'SnapshotTesting'
+      pod 'DataDrivenTesting'
     end
     
     target :PolaUITests do
