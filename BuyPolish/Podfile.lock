@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (4.9.1)
+  - DataDrivenTesting (1.0.0)
   - Firebase/Analytics (8.6.0):
     - Firebase/Core
   - Firebase/Core (8.6.0):
@@ -143,6 +144,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - DataDrivenTesting
   - Firebase/Analytics
   - Firebase/Crashlytics
   - Firebase/Messaging
@@ -162,6 +164,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - DataDrivenTesting
     - Firebase
     - FirebaseABTesting
     - FirebaseAnalytics
@@ -192,6 +195,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  DataDrivenTesting: 4fe7d0077ceb88be43b16471fb413f3f072c094c
   Firebase: 21ac9f28b09a8bdfc005f34c984fca84e7e8786d
   FirebaseABTesting: c3e48ebf5e7e5c674c5a131c68e941d7921d83dc
   FirebaseAnalytics: 8f32ae54ad42754f503354782575c4ddfc1425c3
@@ -220,6 +224,6 @@ SPEC CHECKSUMS:
   Swinject: ddf78b8486dd9b71a667b852cad919ab4484478e
   "UITextView+Placeholder": d7b0c400921f66523f3a85d74f774512e14f6502
 
-PODFILE CHECKSUM: e1cf482d233392e6f8a2cce81612eaa0491d70b3
+PODFILE CHECKSUM: 7446a051dc73c3d5f8b58ea3e0c97196c57dffe2
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.12.0
