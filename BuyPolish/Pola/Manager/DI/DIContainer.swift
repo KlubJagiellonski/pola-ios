@@ -22,6 +22,7 @@ final class DI {
             ScanCodeRegistrant(),
             UIKitRegistrant(),
             NotificationRegistrant(),
+            ApplicationShortcutRegistrant(),
         ]
         registrants.forEach { $0.registerDependency(container: container) }
         return container
