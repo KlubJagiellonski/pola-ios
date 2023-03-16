@@ -3,16 +3,27 @@ import Foundation
 import UIKit
 
 final class NotificationManager: NSObject, NotificationProvider {
+    weak var application: UIApplication?
     func register(in application: UIApplication) {
         UNUserNotificationCenter.current().delegate = self
 
+        self.application = application
+    }
+
+    func requestAuthorization() {
         let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
         UNUserNotificationCenter.current().requestAuthorization(
-            options: authOptions,
-            completionHandler: { _, _ in }
-        )
+            options: authOptions) { [weak self] success, _ in
+                if success {
+                    DispatchQueue.main.async {
+                        self?.authorizationGranted()
+                    }
+                }
+        }
+    }
 
-        application.registerForRemoteNotifications()
+    private func authorizationGranted() {
+        application?.registerForRemoteNotifications()
 
         Messaging.messaging().token { token, error in
             if let error = error {
