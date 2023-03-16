@@ -12,8 +12,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         analyticsProvider.configure()
         applyAppearance()
 
+        let notificationProvider = DI.container.resolve(NotificationProvider.self)!
+        notificationProvider.register(in: application)
+        self.notificationProvider = notificationProvider
+
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = RootViewController(analyticsProvider: analyticsProvider)
+        window?.rootViewController = RootViewController(analyticsProvider: analyticsProvider, notificationProvider: notificationProvider)
         window?.backgroundColor = R.color.backgroundWindowColor()
         window?.makeKeyAndVisible()
 
@@ -31,9 +35,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let shortcutItem = launchOptions?[.shortcutItem] as? UIApplicationShortcutItem {
             _ = handleShortcutItem(shortcutItem)
         }
-
-        notificationProvider = DI.container.resolve(NotificationProvider.self)
-        notificationProvider?.register(in: application)
 
         return true
     }

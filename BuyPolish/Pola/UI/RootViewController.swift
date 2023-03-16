@@ -4,6 +4,7 @@ import UIKit
 final class RootViewController: UITabBarController {
     private let scanCodeViewController: ScanCodeViewController
     private let analytics: AnalyticsHelper
+    private let notificationProvider: NotificationProvider
 
     private enum TabOrder: Int, CaseIterable {
         case scan = 0
@@ -11,9 +12,11 @@ final class RootViewController: UITabBarController {
         case news
     }
 
-    init(analyticsProvider: AnalyticsProvider) {
+    init(analyticsProvider: AnalyticsProvider,
+         notificationProvider: NotificationProvider) {
         analytics = AnalyticsHelper(provider: analyticsProvider)
         scanCodeViewController = DI.container.resolve(ScanCodeViewController.self)!
+        self.notificationProvider = notificationProvider
         super.init(nibName: nil, bundle: nil)
 
         let strings = R.string.localizable.self
@@ -71,6 +74,18 @@ final class RootViewController: UITabBarController {
     }
 
     override func tabBar(_: UITabBar, didSelect item: UITabBarItem) {
+        requestNotifictionAuthorizationIfNeeded(selectedTab: item)
+        trackTabChanged(item: item)
+    }
+
+    private func requestNotifictionAuthorizationIfNeeded(selectedTab: UITabBarItem) {
+        guard TabOrder(rawValue: selectedTab.tag) == .news else {
+            return
+        }
+        notificationProvider.requestAuthorization()
+    }
+
+    private func trackTabChanged(item: UITabBarItem) {
         let tab = TabOrder(rawValue: item.tag).map { order -> AnalyticsMainTab in
             switch order {
             case .scan:
