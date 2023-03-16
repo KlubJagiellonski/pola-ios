@@ -2,9 +2,13 @@ source 'https://cdn.cocoapods.org/'
 
 platform :ios, '11.0'
 inhibit_all_warnings!
+use_frameworks!
+
+target :NotificationServiceExtension do
+  pod 'Firebase/Messaging'
+end
 
 target :Pola do
-    use_frameworks!
     pod 'Firebase/Analytics'
     pod 'Firebase/Crashlytics'
     pod 'Firebase/Performance'
@@ -16,7 +20,7 @@ target :Pola do
     pod 'Swinject'
     pod 'PromiseKit/Alamofire'
     pod 'Observable'
-    
+
     target :PolaTests do
       pod 'SnapshotTesting'
       pod 'DataDrivenTesting'
