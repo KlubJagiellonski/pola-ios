@@ -70,7 +70,15 @@ final class RootViewController: UITabBarController {
     }
 
     private func switchToScanCodeViewController() {
-        selectedIndex = 0
+        selectedIndex = TabOrder.scan.rawValue
+    }
+
+    func showSearch() {
+        selectedIndex = TabOrder.search.rawValue
+    }
+
+    func showNews() {
+        selectedIndex = TabOrder.news.rawValue
     }
 
     override func tabBar(_: UITabBar, didSelect item: UITabBarItem) {

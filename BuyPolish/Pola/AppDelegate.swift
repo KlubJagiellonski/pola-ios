@@ -78,21 +78,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     private func handleShortcutItem(_ item: UIApplicationShortcutItem) -> Bool {
-        guard let bundleIdentifier = Bundle.main.bundleIdentifier,
-              let rootViewController = window?.rootViewController as? RootViewController else {
-            return false
-        }
-        let scanType = "\(bundleIdentifier).ScanCode"
-        let writeType = "\(bundleIdentifier).WriteCode"
-        switch item.type {
-        case scanType:
-            rootViewController.showScanCodeView()
-            return true
-        case writeType:
-            rootViewController.showWriteCodeView()
-            return true
-        default:
-            return false
-        }
+        DI.container.resolve(ApplicationShortcutHandling.self)!.handleShortcutItem(item, window: window)
     }
 }

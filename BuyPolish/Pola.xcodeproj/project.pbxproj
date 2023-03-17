@@ -197,7 +197,6 @@
 		BDA76B5A21DE6248003E9FD6 /* AnalyticsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA76B5921DE6248003E9FD6 /* AnalyticsHelper.swift */; };
 		BDA76B5C21DE64AB003E9FD6 /* AnalyticsEventName.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA76B5B21DE64AB003E9FD6 /* AnalyticsEventName.swift */; };
 		BDA76B5E21DE64FD003E9FD6 /* AnalyticsParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA76B5D21DE64FD003E9FD6 /* AnalyticsParameters.swift */; };
-		C0D829791F3D11A600902F79 /* capture_video_instruction.mov in Resources */ = {isa = PBXBuildFile; fileRef = C0D829781F3D11A600902F79 /* capture_video_instruction.mov */; };
 		D313237829154C5E00DEFB23 /* AnalyticsMainTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = D313237729154C5E00DEFB23 /* AnalyticsMainTab.swift */; };
 		D317D189291B98F800FDFDB4 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D317D188291B98F800FDFDB4 /* WebViewController.swift */; };
 		D317D18B291B99E200FDFDB4 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D317D18A291B99E200FDFDB4 /* WebView.swift */; };
@@ -229,6 +228,8 @@
 		D346F9C42607D76B00F11ABD /* lidl.json in Resources */ = {isa = PBXBuildFile; fileRef = D346F9C22607D76B00F11ABD /* lidl.json */; };
 		D353572729C37E06000C94EF /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D353572629C37E06000C94EF /* NotificationService.swift */; };
 		D353572B29C37E06000C94EF /* NotificationServiceExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = D353572429C37E06000C94EF /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D353573829C3D8A3000C94EF /* ApplicationShortcutRegistrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D353573629C3D8A3000C94EF /* ApplicationShortcutRegistrant.swift */; };
+		D353573929C3D8A3000C94EF /* ApplicationShortcutHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = D353573729C3D8A3000C94EF /* ApplicationShortcutHandling.swift */; };
 		D365D83826D03FF500DB946F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D365D83726D03FF500DB946F /* GoogleService-Info.plist */; };
 		D3AF33D12913B72800201014 /* UITabBarItem+ImageSystemName.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AF33D02913B72800201014 /* UITabBarItem+ImageSystemName.swift */; };
 		EE6DCD82B12208A085E935F9 /* Pods_Pola_PolaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53F3B599F258259843E2755D /* Pods_Pola_PolaTests.framework */; };
@@ -463,7 +464,6 @@
 		BDA76B5921DE6248003E9FD6 /* AnalyticsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsHelper.swift; sourceTree = "<group>"; };
 		BDA76B5B21DE64AB003E9FD6 /* AnalyticsEventName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsEventName.swift; sourceTree = "<group>"; };
 		BDA76B5D21DE64FD003E9FD6 /* AnalyticsParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsParameters.swift; sourceTree = "<group>"; };
-		C0D829781F3D11A600902F79 /* capture_video_instruction.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = capture_video_instruction.mov; sourceTree = "<group>"; };
 		C62ECF2EDD7295D219A497A1 /* Pods-Pola-PolaUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola-PolaUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pola-PolaUITests/Pods-Pola-PolaUITests.release.xcconfig"; sourceTree = "<group>"; };
 		C8F05CEEA6029570468D76F7 /* Pods_NotificationServiceExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NotificationServiceExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D313237729154C5E00DEFB23 /* AnalyticsMainTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsMainTab.swift; sourceTree = "<group>"; };
@@ -496,6 +496,8 @@
 		D353572429C37E06000C94EF /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		D353572629C37E06000C94EF /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		D353572829C37E06000C94EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D353573629C3D8A3000C94EF /* ApplicationShortcutRegistrant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationShortcutRegistrant.swift; sourceTree = "<group>"; };
+		D353573729C3D8A3000C94EF /* ApplicationShortcutHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationShortcutHandling.swift; sourceTree = "<group>"; };
 		D365D83726D03FF500DB946F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D3AF33D02913B72800201014 /* UITabBarItem+ImageSystemName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBarItem+ImageSystemName.swift"; sourceTree = "<group>"; };
 		D3E3CA0C264085A4002979E1 /* Unit.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Unit.xctestplan; sourceTree = "<group>"; };
@@ -625,7 +627,6 @@
 				1DEFA1BA1BD9920600938C81 /* Lato-Semibold.ttf */,
 				37B645C93F848A6F598F96E2 /* Localizable.strings */,
 				1D08E83019A7621A00879BD2 /* Pola-Info.plist */,
-				C0D829781F3D11A600902F79 /* capture_video_instruction.mov */,
 			);
 			path = SupportingFiles;
 			sourceTree = "<group>";
@@ -789,6 +790,7 @@
 			isa = PBXGroup;
 			children = (
 				BDA76B5821DE622E003E9FD6 /* Analytics */,
+				D353573529C3D8A3000C94EF /* ApplicationShortcut */,
 				D3201C542675393900E683EC /* BarcodeValidator */,
 				C092CF351F1F8007003174D1 /* CapturedImageManager */,
 				D3201C5926753A0600E683EC /* CodeScannerManager */,
@@ -1163,6 +1165,15 @@
 			path = NotificationServiceExtension;
 			sourceTree = "<group>";
 		};
+		D353573529C3D8A3000C94EF /* ApplicationShortcut */ = {
+			isa = PBXGroup;
+			children = (
+				D353573729C3D8A3000C94EF /* ApplicationShortcutHandling.swift */,
+				D353573629C3D8A3000C94EF /* ApplicationShortcutRegistrant.swift */,
+			);
+			path = ApplicationShortcut;
+			sourceTree = "<group>";
+		};
 		D3E3CA0D264085B0002979E1 /* PolaTestPlans */ = {
 			isa = PBXGroup;
 			children = (
@@ -1322,7 +1333,6 @@
 				8455A7EF220D527200F30845 /* LaunchScreen.storyboard in Resources */,
 				1D08E83E19A7621A00879BD2 /* Images.xcassets in Resources */,
 				1DEFA1BD1BD9920600938C81 /* Lato-Regular.ttf in Resources */,
-				C0D829791F3D11A600902F79 /* capture_video_instruction.mov in Resources */,
 				9E188D93223063ED00325383 /* LaunchScreen.xcassets in Resources */,
 				37B64B7D226FBFA23FFCA1C1 /* Localizable.strings in Resources */,
 				2D70D223267BAB6D00682EF8 /* Theme.xcassets in Resources */,
@@ -1713,6 +1723,7 @@
 				D3201C6D267540D400E683EC /* ReportProblemViewControllerRegistrant.swift in Sources */,
 				D3201C3E2675111C00E683EC /* CrashlitycsLogger.swift in Sources */,
 				9E43AF7A242BE5FF0093627B /* AnalyticsBarcodeSource.swift in Sources */,
+				D353573829C3D8A3000C94EF /* ApplicationShortcutRegistrant.swift in Sources */,
 				D3201C4D267535BA00E683EC /* FoundationRegistrant.swift in Sources */,
 				9E43AF78242BBC4C0093627B /* ScanCodeViewController.swift in Sources */,
 				BDA76B5E21DE64FD003E9FD6 /* AnalyticsParameters.swift in Sources */,
@@ -1764,6 +1775,7 @@
 				9EC3BC4F23CDF4FD00242B1E /* CardStackViewControllerCard.swift in Sources */,
 				841F7DA023567740007BE3F6 /* UIApplication+Additions.swift in Sources */,
 				845D354923FD93B5002C4232 /* KeyboardView.swift in Sources */,
+				D353573929C3D8A3000C94EF /* ApplicationShortcutHandling.swift in Sources */,
 				84CE3E6423BA982900FE8D66 /* Bundle+Additions.swift in Sources */,
 				D3201C6126753BAA00E683EC /* NotificationCenterKeyboardManager.swift in Sources */,
 				8406E62D233D59A700B7313C /* MainProggressView.swift in Sources */,
