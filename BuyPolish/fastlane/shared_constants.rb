@@ -1,2 +1,4 @@
 
-App_sheme = "Pola"
+App_target = "Pola"
+
+Notification_extension_target = "NotificationServiceExtension"
