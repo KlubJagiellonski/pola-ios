@@ -4,33 +4,38 @@ platform :ios, '11.0'
 inhibit_all_warnings!
 use_frameworks!
 
-target :NotificationServiceExtension do
+def firebase_pods
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Crashlytics'
+  pod 'Firebase/Performance'
   pod 'Firebase/Messaging'
 end
 
 target :Pola do
-    pod 'Firebase/Analytics'
-    pod 'Firebase/Crashlytics'
-    pod 'Firebase/Performance'
-    pod 'Firebase/Messaging'
-    pod 'UITextView+Placeholder'
-    pod 'KVNProgress'
-    pod 'R.swift'
-    pod 'Alamofire'
-    pod 'Swinject'
-    pod 'PromiseKit/Alamofire'
-    pod 'Observable'
 
-    target :PolaTests do
-      pod 'SnapshotTesting'
-      pod 'DataDrivenTesting'
-    end
+  firebase_pods
+  pod 'UITextView+Placeholder'
+  pod 'KVNProgress'
+  pod 'R.swift'
+  pod 'Alamofire'
+  pod 'Swinject'
+  pod 'PromiseKit/Alamofire'
+  pod 'Observable'
+
+  target :PolaTests do
+    pod 'SnapshotTesting'
+    pod 'DataDrivenTesting'
+  end
     
-    target :PolaUITests do
-      pod 'Swifter'
-      pod 'SnapshotTesting'
-    end
+  target :PolaUITests do
+    pod 'Swifter'
+    pod 'SnapshotTesting'
+  end
 
+end
+
+target :NotificationServiceExtension do
+  firebase_pods
 end
 
 post_install do |installer|
