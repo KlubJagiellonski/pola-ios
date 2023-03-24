@@ -38,10 +38,11 @@ platform :ios do
         fail_build: false
       )
 
-      plist_path = "Pola/SupportingFiles/Pola-Info.plist"
+      app_plist_path = "Pola/SupportingFiles/Pola-Info.plist"
+      service_plist_path = "NotificationServiceExtension/Info.plist"
       commit_and_push_if_ci(
         message: "Bump version to #{version} build number to #{build_number}",
-        path: [plist_path, snapshot_path]
+        path: [app_plist_path, service_plist_path, snapshot_path]
       )
 
     end
