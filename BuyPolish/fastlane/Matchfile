@@ -1,3 +1,4 @@
-app_identifier "com.kj.Pola"
+app_identifier ["com.kj.Pola", "com.kj.Pola.NotificationServiceExtension"]
 git_url "git@github.com:KlubJagiellonski/ios_certificates.git"
 type "appstore"
+team_id "9NBWKG2G3X"
