@@ -119,6 +119,7 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (7.5.1):
     - GoogleUtilities/Logger
+  - Kingfisher (6.3.1)
   - KVNProgress (2.3.5)
   - nanopb (2.30908.0):
     - nanopb/decode (= 2.30908.0)
@@ -149,6 +150,7 @@ DEPENDENCIES:
   - Firebase/Crashlytics
   - Firebase/Messaging
   - Firebase/Performance
+  - Kingfisher
   - KVNProgress
   - Observable
   - PromiseKit/Alamofire
@@ -178,6 +180,7 @@ SPEC REPOS:
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleUtilities
+    - Kingfisher
     - KVNProgress
     - nanopb
     - Observable
@@ -209,6 +212,7 @@ SPEC CHECKSUMS:
   GoogleAppMeasurement: 2c0c6e2a7ab3fe730ade6379f732bdefb46f50b0
   GoogleDataTransport: 85fd18ff3019bb85d3f2c551d04c481dedf71fc9
   GoogleUtilities: 3df19e3c24f7bbc291d8b5809aa6b0d41e642437
+  Kingfisher: 016c8b653a35add51dd34a3aba36b580041acc74
   KVNProgress: d7046cce142f1aeb740db39dc3cacfe910fac354
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   Observable: bdfa770fc9d925b997d186b09860a0bcdd6f9690
@@ -224,6 +228,6 @@ SPEC CHECKSUMS:
   Swinject: ddf78b8486dd9b71a667b852cad919ab4484478e
   "UITextView+Placeholder": d7b0c400921f66523f3a85d74f774512e14f6502
 
-PODFILE CHECKSUM: 083e0cfbba36b948315bc422aca5ac67f8e9a04e
+PODFILE CHECKSUM: f551c044affec3eb0ba6b94d85c79bbaa8968c13
 
 COCOAPODS: 1.14.3
