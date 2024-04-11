@@ -47,6 +47,13 @@ final class CompanyContentViewController: UIViewController {
             companyView.capitalProgressView.fillColor = Theme.lightBackgroundColor
             companyView.capitalProgressView.percentColor = Theme.defaultTextColor
         }
+
+        if let logotypeUrl = company.logotypeUrl {
+            companyView.logotypeImage.load(from: logotypeUrl, resizeToHeight: 100)
+        } else {
+            companyView.logotypeImage.isHidden = true
+        }
+        view.setNeedsLayout()
     }
 
     @objc

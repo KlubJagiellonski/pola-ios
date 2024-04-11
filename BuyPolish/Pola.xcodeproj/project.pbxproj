@@ -232,6 +232,7 @@
 		D353573929C3D8A3000C94EF /* ApplicationShortcutHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = D353573729C3D8A3000C94EF /* ApplicationShortcutHandling.swift */; };
 		D365D83826D03FF500DB946F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D365D83726D03FF500DB946F /* GoogleService-Info.plist */; };
 		D3AF33D12913B72800201014 /* UITabBarItem+ImageSystemName.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AF33D02913B72800201014 /* UITabBarItem+ImageSystemName.swift */; };
+		D3EE72E02BC85EA300F2121C /* UIImageView+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EE72DF2BC85EA300F2121C /* UIImageView+URL.swift */; };
 		FEFE21389C3EF115073AE9C8 /* Pods_NotificationServiceExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F935919CB27E33A3C391B98 /* Pods_NotificationServiceExtension.framework */; };
 /* End PBXBuildFile section */
 
@@ -504,6 +505,7 @@
 		D3E3CA0E264085CB002979E1 /* UI.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = UI.xctestplan; sourceTree = "<group>"; };
 		D3E3CA0F264085D8002979E1 /* Full.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Full.xctestplan; sourceTree = "<group>"; };
 		D3E3CA2526409BB4002979E1 /* BumpVersion.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = BumpVersion.xctestplan; sourceTree = "<group>"; };
+		D3EE72DF2BC85EA300F2121C /* UIImageView+URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+URL.swift"; sourceTree = "<group>"; };
 		FF3EB6C061C2D3F7F32F9E08 /* Pods-Pola-PolaUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola-PolaUITests.debug.xcconfig"; path = "Target Support Files/Pods-Pola-PolaUITests/Pods-Pola-PolaUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -763,6 +765,7 @@
 				D3AF33D02913B72800201014 /* UITabBarItem+ImageSystemName.swift */,
 				841F7D9D235675A2007BE3F6 /* UIView+Additions.swift */,
 				9E35D7A924C627C000C63C11 /* UIViewController+Additions.swift */,
+				D3EE72DF2BC85EA300F2121C /* UIImageView+URL.swift */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -1791,6 +1794,7 @@
 				D3201C562675394000E683EC /* BarcodeValidator.swift in Sources */,
 				9EC3BC4E23CDF4FD00242B1E /* CardStackViewLayoutExpanded.swift in Sources */,
 				9E0FE73C251C02C6005D98B3 /* String+Additions.swift in Sources */,
+				D3EE72E02BC85EA300F2121C /* UIImageView+URL.swift in Sources */,
 				842E762C23E0CDA500A5534B /* LocalDocumentsProductImageManager.swift in Sources */,
 				D34381A728E33DD6004E018B /* UINavigationViewController+WebView.swift in Sources */,
 				D3201C6326753BCF00E683EC /* KeyboardManagerRegistrant.swift in Sources */,
