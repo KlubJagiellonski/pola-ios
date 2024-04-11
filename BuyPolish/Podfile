@@ -18,7 +18,6 @@ target :Pola do
   pod 'Swinject'
   pod 'PromiseKit/Alamofire'
   pod 'Observable'
-  pod 'Kingfisher'
 
   target :PolaTests do
     pod 'SnapshotTesting'
