@@ -1,19 +1,16 @@
 source 'https://cdn.cocoapods.org/'
 
-platform :ios, '11.0'
+platform :ios, '12.0'
 inhibit_all_warnings!
 use_frameworks!
 
-def firebase_pods
-  pod 'Firebase/Analytics'
-  pod 'Firebase/Crashlytics'
-  pod 'Firebase/Performance'
-  pod 'Firebase/Messaging'
-end
-
 target :Pola do
 
-  firebase_pods
+  pod 'Firebase/Messaging'
+  pod 'Firebase/Performance'
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Crashlytics'
+
   pod 'UITextView+Placeholder'
   pod 'KVNProgress'
   pod 'R.swift'
@@ -36,7 +33,7 @@ target :Pola do
 end
 
 target :NotificationServiceExtension do
-  firebase_pods
+  pod 'Firebase/Messaging'
 end
 
 post_install do |installer|
