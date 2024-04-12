@@ -233,6 +233,8 @@
 		D365D83826D03FF500DB946F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D365D83726D03FF500DB946F /* GoogleService-Info.plist */; };
 		D3AF33D12913B72800201014 /* UITabBarItem+ImageSystemName.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AF33D02913B72800201014 /* UITabBarItem+ImageSystemName.swift */; };
 		D3EE72E02BC85EA300F2121C /* UIImageView+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EE72DF2BC85EA300F2121C /* UIImageView+URL.swift */; };
+		D3EE72E22BC94F7300F2121C /* Brand.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EE72E12BC94F7300F2121C /* Brand.swift */; };
+		D3EE72E42BC9513300F2121C /* BrandLogotypesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EE72E32BC9513300F2121C /* BrandLogotypesView.swift */; };
 		FEFE21389C3EF115073AE9C8 /* Pods_NotificationServiceExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F935919CB27E33A3C391B98 /* Pods_NotificationServiceExtension.framework */; };
 /* End PBXBuildFile section */
 
@@ -506,6 +508,8 @@
 		D3E3CA0F264085D8002979E1 /* Full.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Full.xctestplan; sourceTree = "<group>"; };
 		D3E3CA2526409BB4002979E1 /* BumpVersion.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = BumpVersion.xctestplan; sourceTree = "<group>"; };
 		D3EE72DF2BC85EA300F2121C /* UIImageView+URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+URL.swift"; sourceTree = "<group>"; };
+		D3EE72E12BC94F7300F2121C /* Brand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brand.swift; sourceTree = "<group>"; };
+		D3EE72E32BC9513300F2121C /* BrandLogotypesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandLogotypesView.swift; sourceTree = "<group>"; };
 		FF3EB6C061C2D3F7F32F9E08 /* Pods-Pola-PolaUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola-PolaUITests.debug.xcconfig"; path = "Target Support Files/Pods-Pola-PolaUITests/Pods-Pola-PolaUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -788,6 +792,7 @@
 				846A996E25EBC7D4007DFF88 /* Company.swift */,
 				84A6A97425EDB6F7004199B9 /* ScanResult+Additions.swift */,
 				845F78D423BA28F8008DDFDF /* ScanResult.swift */,
+				D3EE72E12BC94F7300F2121C /* Brand.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -902,6 +907,7 @@
 			children = (
 				849577D3230B53FC00FC9591 /* CompanyContentView.swift */,
 				84D887A0233669D800681C64 /* CompanyContentViewController.swift */,
+				D3EE72E32BC9513300F2121C /* BrandLogotypesView.swift */,
 			);
 			path = CompanyContent;
 			sourceTree = "<group>";
@@ -1643,7 +1649,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$SRCROOT/Pola/R.generated.swift",
+				$SRCROOT/Pola/R.generated.swift,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1759,6 +1765,7 @@
 				842E762E23E0D4CA00A5534B /* FileManager+Extension.swift in Sources */,
 				8477CFCD23CF201D00C72542 /* ReportImageView.swift in Sources */,
 				D3201C6D267540D400E683EC /* ReportProblemViewControllerRegistrant.swift in Sources */,
+				D3EE72E22BC94F7300F2121C /* Brand.swift in Sources */,
 				D3201C3E2675111C00E683EC /* CrashlitycsLogger.swift in Sources */,
 				9E43AF7A242BE5FF0093627B /* AnalyticsBarcodeSource.swift in Sources */,
 				D353573829C3D8A3000C94EF /* ApplicationShortcutRegistrant.swift in Sources */,
@@ -1820,6 +1827,7 @@
 				8406E62D233D59A700B7313C /* MainProggressView.swift in Sources */,
 				8477CFCF23CF2BC500C72542 /* ReportProblemView.swift in Sources */,
 				841BB98D22D136AE00234946 /* UIColor+Additions.swift in Sources */,
+				D3EE72E42BC9513300F2121C /* BrandLogotypesView.swift in Sources */,
 				9EC3BC3323CDE3F800242B1E /* AltResultContentViewController.swift in Sources */,
 				9EC3BC4A23CDF4FD00242B1E /* CardStackView.swift in Sources */,
 				849577D4230B53FC00FC9591 /* CompanyContentView.swift in Sources */,

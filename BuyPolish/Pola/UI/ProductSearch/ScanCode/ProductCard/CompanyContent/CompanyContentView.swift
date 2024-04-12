@@ -10,6 +10,7 @@ final class CompanyContentView: UIView {
     let friendButton = UIButton()
     let descriptionLabel = UILabel()
     let logotypeImage = UIImageView()
+    let brandLogotypesView = BrandLogotypesView()
     private let stackView = UIStackView()
     private let padding = CGFloat(14)
 
@@ -75,6 +76,9 @@ final class CompanyContentView: UIView {
         logotypeImage.contentMode = .scaleAspectFit
         logotypeImage.isHidden = true
         stackView.addArrangedSubview(logotypeImage)
+
+        brandLogotypesView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.addArrangedSubview(brandLogotypesView)
 
         createConstraints()
     }

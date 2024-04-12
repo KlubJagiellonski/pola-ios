@@ -53,6 +53,9 @@ final class CompanyContentViewController: UIViewController {
         } else {
             companyView.logotypeImage.isHidden = true
         }
+
+        companyView.brandLogotypesView.brands = result.allCompanyBrands
+
         view.setNeedsLayout()
     }
 
