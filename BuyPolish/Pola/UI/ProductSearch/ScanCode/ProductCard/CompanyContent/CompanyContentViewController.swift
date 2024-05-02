@@ -4,13 +4,15 @@ import UIKit
 final class CompanyContentViewController: UIViewController {
     private let result: ScanResult
     private let logoHeight = CGFloat(100.0)
+    private let analytics: AnalyticsHelper
 
     private var companyView: CompanyContentView! {
         view as? CompanyContentView
     }
 
-    init(result: ScanResult) {
+    init(result: ScanResult, analyticsProvider: AnalyticsProvider) {
         self.result = result
+        analytics = AnalyticsHelper(provider: analyticsProvider)
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -71,6 +73,7 @@ final class CompanyContentViewController: UIViewController {
         guard let officialUrl = result.companies?.first?.officialUrl
         else { return }
 
+        analytics.readMore(productResult: result, url: officialUrl)
         UIApplication.shared.open(officialUrl)
     }
 
