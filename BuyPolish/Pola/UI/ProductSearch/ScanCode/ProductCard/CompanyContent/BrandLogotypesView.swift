@@ -56,8 +56,6 @@ final class BrandLogotypesView: UIView {
             stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
 
-            stackView.heightAnchor.constraint(equalTo: scrollView.heightAnchor),
-            stackView.widthAnchor.constraint(greaterThanOrEqualTo: scrollView.widthAnchor),
 
             heightAnchor.constraint(equalToConstant: logoHeight)
         ])
