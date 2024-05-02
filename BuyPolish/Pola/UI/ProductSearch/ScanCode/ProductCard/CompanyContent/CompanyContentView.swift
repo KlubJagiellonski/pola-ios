@@ -9,7 +9,7 @@ final class CompanyContentView: UIView {
     let workersCheckRow = CheckRow()
     let friendButton = UIButton()
     let descriptionLabel = UILabel()
-    let logotypeImage = UIImageView()
+    let logotypeButton = UIButton()
     let brandLogotypesView = BrandLogotypesView()
     private let stackView = UIStackView()
     private let padding = CGFloat(14)
@@ -72,10 +72,10 @@ final class CompanyContentView: UIView {
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         stackView.addArrangedSubview(descriptionLabel)
 
-        logotypeImage.translatesAutoresizingMaskIntoConstraints = false
-        logotypeImage.contentMode = .scaleAspectFit
-        logotypeImage.isHidden = true
-        stackView.addArrangedSubview(logotypeImage)
+        logotypeButton.translatesAutoresizingMaskIntoConstraints = false
+        logotypeButton.contentMode = .scaleAspectFit
+        logotypeButton.isHidden = true
+        stackView.addArrangedSubview(logotypeButton)
 
         brandLogotypesView.translatesAutoresizingMaskIntoConstraints = false
         stackView.addArrangedSubview(brandLogotypesView)

@@ -1,3 +1,4 @@
+import PromiseKit
 import UIKit
 
 final class CompanyContentViewController: UIViewController {
@@ -49,14 +50,45 @@ final class CompanyContentViewController: UIViewController {
         }
 
         if let logotypeUrl = company.logotypeUrl {
-            companyView.logotypeImage.load(from: logotypeUrl, resizeToHeight: 100)
+            UIImage.load(url: logotypeUrl)
+                .map { $0?.scaled(toHeight: 100.0) }
+                .done(on: .main) { [weak self] image in
+                    self?.logotypeLoaded(image)
+                }
+                .catch { error in
+                    BPLog("Error loading company logotype: \(error)")
+                }
         } else {
-            companyView.logotypeImage.isHidden = true
+            companyView.logotypeButton.isHidden = true
         }
 
         companyView.brandLogotypesView.brands = result.allCompanyBrands
 
         view.setNeedsLayout()
+    }
+
+    private func logotypeLoaded(_ image: UIImage?) {
+        guard let image else { return }
+
+        companyView.logotypeButton.setImage(image, for: .normal)
+        companyView.logotypeButton.isHidden = false
+
+        if result.companies?.first?.officialUrl != nil {
+            companyView.logotypeButton.addTarget(self, action: #selector(logotypeTapped), for: .touchUpInside)
+            companyView.logotypeButton.isUserInteractionEnabled = true
+            companyView.logotypeButton.accessibilityTraits.insert(.button)
+        } else {
+            companyView.logotypeButton.isUserInteractionEnabled = false
+            companyView.logotypeButton.accessibilityTraits.remove(.button)
+        }
+    }
+
+    @objc
+    private func logotypeTapped() {
+        guard let officialUrl = result.companies?.first?.officialUrl
+        else { return }
+
+        UIApplication.shared.open(officialUrl)
     }
 
     @objc

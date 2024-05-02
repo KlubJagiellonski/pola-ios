@@ -235,6 +235,7 @@
 		D3EE72E02BC85EA300F2121C /* UIImageView+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EE72DF2BC85EA300F2121C /* UIImageView+URL.swift */; };
 		D3EE72E22BC94F7300F2121C /* Brand.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EE72E12BC94F7300F2121C /* Brand.swift */; };
 		D3EE72E42BC9513300F2121C /* BrandLogotypesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EE72E32BC9513300F2121C /* BrandLogotypesView.swift */; };
+		D3EE72E62BC9603A00F2121C /* UIImage+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EE72E52BC9603A00F2121C /* UIImage+URL.swift */; };
 		FEFE21389C3EF115073AE9C8 /* Pods_NotificationServiceExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F935919CB27E33A3C391B98 /* Pods_NotificationServiceExtension.framework */; };
 /* End PBXBuildFile section */
 
@@ -510,6 +511,7 @@
 		D3EE72DF2BC85EA300F2121C /* UIImageView+URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+URL.swift"; sourceTree = "<group>"; };
 		D3EE72E12BC94F7300F2121C /* Brand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brand.swift; sourceTree = "<group>"; };
 		D3EE72E32BC9513300F2121C /* BrandLogotypesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandLogotypesView.swift; sourceTree = "<group>"; };
+		D3EE72E52BC9603A00F2121C /* UIImage+URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+URL.swift"; sourceTree = "<group>"; };
 		FF3EB6C061C2D3F7F32F9E08 /* Pods-Pola-PolaUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pola-PolaUITests.debug.xcconfig"; path = "Target Support Files/Pods-Pola-PolaUITests/Pods-Pola-PolaUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -770,6 +772,7 @@
 				841F7D9D235675A2007BE3F6 /* UIView+Additions.swift */,
 				9E35D7A924C627C000C63C11 /* UIViewController+Additions.swift */,
 				D3EE72DF2BC85EA300F2121C /* UIImageView+URL.swift */,
+				D3EE72E52BC9603A00F2121C /* UIImage+URL.swift */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -1870,6 +1873,7 @@
 				9EC3BC5B23CDFA2500242B1E /* AboutBaseCell.swift in Sources */,
 				D317D18B291B99E200FDFDB4 /* WebView.swift in Sources */,
 				9EC3BC4723CDF4FD00242B1E /* CardStackViewLayoutLayoutCollapsed.swift in Sources */,
+				D3EE72E62BC9603A00F2121C /* UIImage+URL.swift in Sources */,
 				84735A6423BB63B00053D1E5 /* AnalyticsAboutRow.swift in Sources */,
 				9E35D7AA24C627C000C63C11 /* UIViewController+Additions.swift in Sources */,
 				9EC3BC4623CDF4FD00242B1E /* CardStackViewLayoutContext.swift in Sources */,
