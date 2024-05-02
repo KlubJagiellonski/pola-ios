@@ -25,12 +25,15 @@ final class BrandLogotypesView: UIView {
         super.init(frame: frame)
         translatesAutoresizingMaskIntoConstraints = false
 
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(scrollView)
+
         stackView.axis = .horizontal
         stackView.spacing = .zero
         stackView.distribution = .fillProportionally
         stackView.alignment = .fill
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(stackView)
+        scrollView.addSubview(stackView)
 
         createConstraints()
     }
@@ -41,10 +44,19 @@ final class BrandLogotypesView: UIView {
 
     private func createConstraints() {
         addConstraints([
-            stackView.topAnchor.constraint(equalTo: topAnchor),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            scrollView.topAnchor.constraint(equalTo: topAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
+
+            stackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+
+            stackView.heightAnchor.constraint(equalTo: scrollView.heightAnchor),
+            stackView.widthAnchor.constraint(greaterThanOrEqualTo: scrollView.widthAnchor),
+
             heightAnchor.constraint(equalToConstant: logoHeight)
         ])
     }
