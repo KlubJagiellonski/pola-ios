@@ -11,6 +11,7 @@ final class CompanyContentView: UIView {
     let descriptionLabel = UILabel()
     let logotypeButton = UIButton()
     let brandLogotypesView = BrandLogotypesView()
+    let readMoreButton = UIButton()
     private let stackView = UIStackView()
     private let padding = CGFloat(14)
 
@@ -79,6 +80,14 @@ final class CompanyContentView: UIView {
 
         brandLogotypesView.translatesAutoresizingMaskIntoConstraints = false
         stackView.addArrangedSubview(brandLogotypesView)
+
+        readMoreButton.translatesAutoresizingMaskIntoConstraints = false
+        readMoreButton.isHidden = true
+        readMoreButton.setTitle(R.string.localizable.readMore(), for: .normal)
+        readMoreButton.setReportType(.red)
+        readMoreButton.titleLabel?.font = Theme.buttonFont
+
+        stackView.addArrangedSubview(readMoreButton)
 
         createConstraints()
     }

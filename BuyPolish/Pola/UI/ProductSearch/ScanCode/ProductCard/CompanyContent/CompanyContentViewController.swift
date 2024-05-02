@@ -63,6 +63,10 @@ final class CompanyContentViewController: UIViewController {
         }
 
         companyView.brandLogotypesView.brands = result.allCompanyBrands
+        if company.officialUrl != nil {
+            companyView.readMoreButton.isHidden = false
+            companyView.readMoreButton.addTarget(self, action: #selector(logotypeTapped), for: .touchUpInside)
+        }
 
         view.setNeedsLayout()
     }
