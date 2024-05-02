@@ -2,4 +2,4 @@
 
 --trimwhitespace always
 --enable braces
---disable wrapMultilineStatementBraces
+--disable wrapMultilineStatementBraces, enumNamespaces, preferForLoop

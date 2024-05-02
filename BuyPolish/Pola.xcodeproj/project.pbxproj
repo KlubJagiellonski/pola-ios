@@ -766,13 +766,13 @@
 				841BB98C22D136AE00234946 /* UIColor+Additions.swift */,
 				846036F0241856DB00982FC6 /* UIDevice+Additions.swift */,
 				8406E630233D6A6C00B7313C /* UIImage+Additions.swift */,
+				D3EE72E52BC9603A00F2121C /* UIImage+URL.swift */,
+				D3EE72DF2BC85EA300F2121C /* UIImageView+URL.swift */,
 				84AAEDDF230B49DD006CA7EB /* UILabel+Additions.swift */,
 				D34381A628E33DD6004E018B /* UINavigationViewController+WebView.swift */,
 				D3AF33D02913B72800201014 /* UITabBarItem+ImageSystemName.swift */,
 				841F7D9D235675A2007BE3F6 /* UIView+Additions.swift */,
 				9E35D7A924C627C000C63C11 /* UIViewController+Additions.swift */,
-				D3EE72DF2BC85EA300F2121C /* UIImageView+URL.swift */,
-				D3EE72E52BC9603A00F2121C /* UIImage+URL.swift */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -792,10 +792,10 @@
 				D3201C6726753C9500E683EC /* RequestFactory */,
 				849E50DA24A623A80064F269 /* AskForDonate.swift */,
 				84A6A93325EDAAAE004199B9 /* AskForReport.swift */,
+				D3EE72E12BC94F7300F2121C /* Brand.swift */,
 				846A996E25EBC7D4007DFF88 /* Company.swift */,
 				84A6A97425EDB6F7004199B9 /* ScanResult+Additions.swift */,
 				845F78D423BA28F8008DDFDF /* ScanResult.swift */,
-				D3EE72E12BC94F7300F2121C /* Brand.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -908,9 +908,9 @@
 		84AB4BA52599E9570008A6B2 /* CompanyContent */ = {
 			isa = PBXGroup;
 			children = (
+				D3EE72E32BC9513300F2121C /* BrandLogotypesView.swift */,
 				849577D3230B53FC00FC9591 /* CompanyContentView.swift */,
 				84D887A0233669D800681C64 /* CompanyContentViewController.swift */,
-				D3EE72E32BC9513300F2121C /* BrandLogotypesView.swift */,
 			);
 			path = CompanyContent;
 			sourceTree = "<group>";
@@ -1652,7 +1652,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				$SRCROOT/Pola/R.generated.swift,
+				"$SRCROOT/Pola/R.generated.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

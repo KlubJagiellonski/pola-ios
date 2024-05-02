@@ -16,6 +16,5 @@ extension UIImageView {
             .catch { error in
                 BPLog("Error loading image from \(url): \(error)")
             }
-
     }
 }
