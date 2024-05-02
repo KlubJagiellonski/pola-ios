@@ -15,8 +15,10 @@ final class BrandLogotypesView: UIView {
                 }
                 let imageView = UIImageView()
                 imageView.contentMode = .scaleAspectFit
-                imageView.load(from: logotypeUrl, resizeToHeight: logoHeight)
                 imageView.isHidden = true
+                imageView.accessibilityLabel =
+                    R.string.localizable.accessibilityCompanyBrandLogotype(brand.name)
+                imageView.load(from: logotypeUrl, resizeToHeight: logoHeight)
                 stackView.addArrangedSubview(imageView)
             }
         }

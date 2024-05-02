@@ -73,10 +73,18 @@ final class CompanyContentViewController: UIViewController {
         companyView.logotypeButton.setImage(image, for: .normal)
         companyView.logotypeButton.isHidden = false
 
-        if result.companies?.first?.officialUrl != nil {
+        let company = result.companies?.first
+        let companyName = company?.name ?? ""
+        let strings = R.string.localizable.self
+
+        companyView.logotypeButton.accessibilityLabel = strings.accessibilityCompanyLogotype(companyName)
+        companyView.logotypeButton.accessibilityTraits.insert(.image)
+
+        if company?.officialUrl != nil {
             companyView.logotypeButton.addTarget(self, action: #selector(logotypeTapped), for: .touchUpInside)
             companyView.logotypeButton.isUserInteractionEnabled = true
             companyView.logotypeButton.accessibilityTraits.insert(.button)
+            companyView.logotypeButton.accessibilityHint = strings.accessibilityCompanyLogotypeHint()
         } else {
             companyView.logotypeButton.isUserInteractionEnabled = false
             companyView.logotypeButton.accessibilityTraits.remove(.button)

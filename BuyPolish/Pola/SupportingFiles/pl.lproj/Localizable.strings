@@ -72,6 +72,9 @@
 "Accessibility.Keyboard.Delete" = "Usuń ostatnią cyfrę";
 "Accessibility.Close" = "Zamknij";
 "Accessibility.CardHint" = "Otwórz lub zamknij poprzez kliknięcie";
+"Accessibility.Company.Logotype" = "Logo firmy %@";
+"Accessibility.Company.Logotype.Hint" = "Dotknij, aby otworzyć stronę internetową firmy";
+"Accessibility.Company.BrandLogotype" = "Logo marki %@";
 "Accessibility.Report.AddPhoto" = "Dodaj zdjęcie";
 "Accessibility.Logo" = "Strona główna";
 "CaptureVideo.Timer.Seconds" = "sek.";
