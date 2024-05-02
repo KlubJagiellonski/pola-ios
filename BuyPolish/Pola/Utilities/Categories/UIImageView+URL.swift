@@ -1,17 +1,21 @@
-import Alamofire
+import PromiseKit
 import UIKit
 
 extension UIImageView {
     func load(from url: URL, resizeToHeight height: CGFloat) {
-        Alamofire.request(url).responseData { [weak self] dataResponse in
-            guard let data = dataResponse.data,
-                  let image = UIImage(data: data) else {
-                return
+        UIImage
+            .load(url: url)
+            .map { $0?.scaled(toHeight: height) }
+            .done(on: .main) { image in
+                guard let image else {
+                    return
+                }
+                self.image = image
+                self.isHidden = false
             }
-            DispatchQueue.main.async {
-                self?.image = image.scaled(toHeight: height)
-                self?.isHidden = false
+            .catch { error in
+                BPLog("Error loading image from \(url): \(error)")
             }
-        }
+
     }
 }
