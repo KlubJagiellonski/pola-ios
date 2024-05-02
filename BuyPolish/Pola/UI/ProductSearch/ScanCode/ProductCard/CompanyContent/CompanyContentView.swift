@@ -9,7 +9,7 @@ final class CompanyContentView: UIView {
     let workersCheckRow = CheckRow()
     let friendButton = UIButton()
     let descriptionLabel = UILabel()
-    let logotypeButton = UIButton()
+    let logotypeImageView = UIImageView()
     let brandLogotypesView = BrandLogotypesView()
     let readMoreButton = UIButton()
     private let stackView = UIStackView()
@@ -73,10 +73,10 @@ final class CompanyContentView: UIView {
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         stackView.addArrangedSubview(descriptionLabel)
 
-        logotypeButton.translatesAutoresizingMaskIntoConstraints = false
-        logotypeButton.contentMode = .scaleAspectFit
-        logotypeButton.isHidden = true
-        stackView.addArrangedSubview(logotypeButton)
+        logotypeImageView.translatesAutoresizingMaskIntoConstraints = false
+        logotypeImageView.contentMode = .scaleAspectFit
+        logotypeImageView.isHidden = true
+        stackView.addArrangedSubview(logotypeImageView)
 
         brandLogotypesView.translatesAutoresizingMaskIntoConstraints = false
         stackView.addArrangedSubview(brandLogotypesView)
@@ -84,6 +84,7 @@ final class CompanyContentView: UIView {
         readMoreButton.translatesAutoresizingMaskIntoConstraints = false
         readMoreButton.isHidden = true
         readMoreButton.setTitle(R.string.localizable.readMore(), for: .normal)
+        readMoreButton.contentEdgeInsets = UIEdgeInsets(top: 6, left: 0, bottom: 6, right: 0)
         readMoreButton.setReportType(.red)
         readMoreButton.titleLabel?.font = Theme.buttonFont
 
