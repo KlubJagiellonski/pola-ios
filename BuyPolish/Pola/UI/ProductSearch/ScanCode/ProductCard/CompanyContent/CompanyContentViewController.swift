@@ -2,7 +2,9 @@ import PromiseKit
 import UIKit
 
 final class CompanyContentViewController: UIViewController {
-    let result: ScanResult
+    private let result: ScanResult
+    private let logoHeight = CGFloat(100.0)
+
     private var companyView: CompanyContentView! {
         view as? CompanyContentView
     }
