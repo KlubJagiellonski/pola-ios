@@ -7,7 +7,7 @@ on:
 jobs:
   tests:
     name: Lint, unit & ui tests
-    runs-on: macos-11
+    runs-on: macos-14
     defaults:
       run:
         working-directory: BuyPolish
