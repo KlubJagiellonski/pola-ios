@@ -94,10 +94,6 @@ final class ScanCodeViewController: UIViewController {
         disposable = nil
     }
 
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-    }
-
     func showScanCodeView() {
         dismiss(animated: true, completion: nil)
         hideKeyboardController()

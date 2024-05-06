@@ -1,9 +1,6 @@
 import XCTest
 
 final class ScanBarcodeWithResultPageUITests: PolaUITestCase {
-    override func setUp() {
-        super.setUp()
-    }
 
     func testGustawCompanyShouldBeMarkedAsPolaFriends() {
         testResultPage(codeData: CodeData.Gustaw)
