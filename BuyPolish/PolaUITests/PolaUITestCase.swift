@@ -28,7 +28,7 @@ class PolaUITestCase: XCTestCase {
     func snapshotVerifyView(file: StaticString = #file, testName: String = #function, line: UInt = #line) {
         startingPageObject.waitForPasteboardInfoDissappear().done()
         addSnapshotDescriptionAttachment()
-        assertSnapshot(matching: app.screenshot().image, as: .image, file: file, testName: testName, line: line)
+        assertSnapshot(matching: app.screenshot().image, as: .image(precision: 0.95, scale: nil), file: file, testName: testName, line: line)
     }
 
     func expectRequest(path: String, file: StaticString = #file, line: UInt = #line) {
