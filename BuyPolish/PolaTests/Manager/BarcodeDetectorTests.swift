@@ -24,7 +24,7 @@ class BarcodeDetectorTests: XCTestCase {
     }
 
     func test_shouldDetectBarcode_whenImageIsNotEmpty() throws {
-        XCTSkip("To fix")
+        throw XCTSkip("To fix")
         let validBarcodeImage = getTestImage()!
         let expectation = XCTestExpectation()
         var result: String?
