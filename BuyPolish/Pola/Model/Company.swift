@@ -12,6 +12,8 @@ struct Company: Decodable {
     let description: String?
     let friendText: String?
     let isFriend: Bool?
+    let officialUrl: URL?
+    let logotypeUrl: URL?
 
     enum CodingKeys: String, CodingKey {
         case name
@@ -25,5 +27,7 @@ struct Company: Decodable {
         case description
         case friendText = "friend_text"
         case isFriend = "is_friend"
+        case officialUrl = "official_url"
+        case logotypeUrl = "logotype_url"
     }
 }

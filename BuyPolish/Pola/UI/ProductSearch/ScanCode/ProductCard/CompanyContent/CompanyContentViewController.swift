@@ -1,13 +1,18 @@
+import PromiseKit
 import UIKit
 
 final class CompanyContentViewController: UIViewController {
-    let result: ScanResult
+    private let result: ScanResult
+    private let logoHeight = CGFloat(100.0)
+    private let analytics: AnalyticsHelper
+
     private var companyView: CompanyContentView! {
         view as? CompanyContentView
     }
 
-    init(result: ScanResult) {
+    init(result: ScanResult, analyticsProvider: AnalyticsProvider) {
         self.result = result
+        analytics = AnalyticsHelper(provider: analyticsProvider)
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -47,6 +52,29 @@ final class CompanyContentViewController: UIViewController {
             companyView.capitalProgressView.fillColor = Theme.lightBackgroundColor
             companyView.capitalProgressView.percentColor = Theme.defaultTextColor
         }
+
+        if let logotypeUrl = company.logotypeUrl {
+            companyView.logotypeImageView.accessibilityLabel =
+                R.string.localizable.accessibilityCompanyLogotype(company.name)
+            companyView.logotypeImageView.load(from: logotypeUrl, resizeToHeight: 100.0)
+        }
+
+        companyView.brandLogotypesView.brands = result.allCompanyBrands
+        if company.officialUrl != nil {
+            companyView.readMoreButton.isHidden = false
+            companyView.readMoreButton.addTarget(self, action: #selector(readMoreTapped), for: .touchUpInside)
+        }
+
+        view.setNeedsLayout()
+    }
+
+    @objc
+    private func readMoreTapped() {
+        guard let officialUrl = result.companies?.first?.officialUrl
+        else { return }
+
+        analytics.readMore(productResult: result, url: officialUrl)
+        UIApplication.shared.open(officialUrl)
     }
 
     @objc

@@ -38,11 +38,10 @@ extension UIImage {
     }
 
     func scaled(toSize newSize: CGSize) -> UIImage {
-        UIGraphicsBeginImageContext(newSize)
-        draw(in: CGRect(origin: .zero, size: newSize))
-        let image = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
-        return image
+        let renderer = UIGraphicsImageRenderer(size: newSize)
+        return renderer.image { _ in
+            draw(in: CGRect(origin: .zero, size: newSize))
+        }
     }
 
     var sizeInPixels: CGSize {

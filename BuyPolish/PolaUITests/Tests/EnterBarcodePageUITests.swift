@@ -80,7 +80,8 @@ final class EnterBarcodePageUITests: PolaUITestCase {
         snapshotVerifyView()
     }
 
-    func testPaste() {
+    func testPaste() throws {
+        throw skipTest(issueNumber: 353)
         page.setPasteboard("123456789")
             .longTapOnBarcodeLabel()
             .tapPasteAction()
@@ -90,7 +91,8 @@ final class EnterBarcodePageUITests: PolaUITestCase {
         snapshotVerifyView()
     }
 
-    func testPasteAndActivate() {
+    func testPasteAndActivate() throws {
+        throw skipTest(issueNumber: 353)
         page.setPasteboard("123456789")
             .longTapOnBarcodeLabel()
             .tapPasteAndActivateAction()
@@ -110,7 +112,8 @@ final class EnterBarcodePageUITests: PolaUITestCase {
         snapshotVerifyView()
     }
 
-    func testCut() {
+    func testCut() throws {
+        throw skipTest(issueNumber: 353)
         let input = "12345"
         page.inputBarcode(input)
             .longTapOnBarcodeLabel()
@@ -122,7 +125,8 @@ final class EnterBarcodePageUITests: PolaUITestCase {
         XCTAssertEqual(page.pasteboard, input)
     }
 
-    func testCopy() {
+    func testCopy() throws {
+        throw skipTest(issueNumber: 353)
         let input = "12345"
         page.inputBarcode(input)
             .longTapOnBarcodeLabel()

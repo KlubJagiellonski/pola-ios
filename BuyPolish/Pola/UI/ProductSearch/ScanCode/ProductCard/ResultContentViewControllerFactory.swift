@@ -10,6 +10,9 @@ final class ResultContentViewControllerFactory {
            !altText.isEmpty {
             return AltResultContentViewController(result: scanResult)
         }
-        return CompanyContentViewController(result: scanResult)
+        return CompanyContentViewController(
+            result: scanResult,
+            analyticsProvider: DI.container.resolve(AnalyticsProvider.self)!
+        )
     }
 }

@@ -1,14 +1,13 @@
 require_relative 'shared_constants'
 
 swiftformat_executable = "Pods/SwiftFormat/CommandLineTool/swiftformat"
-testplan_full = "Full"
 
 platform :ios do
   lane :tests do
     lint
     check_project_structure
     check_formatting
-    scan(testplan: testplan_full)
+    scan(testplan: "Unit")
   end
 
   lane :record_snapshots do
@@ -20,7 +19,7 @@ platform :ios do
 
     snapshots_paths.each {|path| clear_derived_data(derived_data_path:path)}
     scan(
-      testplan: testplan_full,
+      testplan: "Full",
       fail_build: false
     )
     commit_and_push_if_ci(

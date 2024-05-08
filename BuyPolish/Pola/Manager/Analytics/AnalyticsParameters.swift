@@ -13,6 +13,13 @@ struct AnalyticsProductResultParameters: AnalyticsParameters {
     let product_id: String?
 }
 
+struct AnalyticsReadMoreParameters: AnalyticsParameters {
+    let code: String?
+    let company: String?
+    let product_id: String?
+    let url: String
+}
+
 struct AnalyticsReportParameters: AnalyticsParameters {
     let code: String
 }

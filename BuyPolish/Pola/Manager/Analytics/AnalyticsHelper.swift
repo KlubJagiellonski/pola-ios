@@ -30,6 +30,15 @@ final class AnalyticsHelper {
                                                   product_id: "\(productResult.productId)"))
     }
 
+    func readMore(productResult: ScanResult, url: URL) {
+        logEvent(name: .readMore,
+                 parameters:
+                 AnalyticsReadMoreParameters(code: productResult.code,
+                                             company: productResult.name,
+                                             product_id: "\(productResult.productId)",
+                                             url: url.absoluteString))
+    }
+
     func reportShown(barcode: String) {
         logEvent(name: .reportStarted,
                  parameters: reportParameters(barcode: barcode))

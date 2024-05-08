@@ -52,7 +52,10 @@ final class CompanyContentViewControllerSnapshotTests: XCTestCase {
     }
 
     private func testView(data: CodeData, enableDarkMode: Bool = false, file: StaticString = #file, testName: String = #function, line: UInt = #line) {
-        let sut = CompanyContentViewController(result: data.scanResult)
+        let sut = CompanyContentViewController(
+            result: data.scanResult,
+            analyticsProvider: AnalyticsProviderMock()
+        )
 
         if enableDarkMode, #available(iOS 13.0, *) {
             sut.overrideUserInterfaceStyle = .dark

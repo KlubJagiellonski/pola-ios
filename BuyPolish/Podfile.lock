@@ -1,145 +1,178 @@
 PODS:
   - Alamofire (4.9.1)
   - DataDrivenTesting (1.0.0)
-  - Firebase/Analytics (8.6.0):
+  - Firebase/Analytics (10.24.0):
     - Firebase/Core
-  - Firebase/Core (8.6.0):
+  - Firebase/Core (10.24.0):
     - Firebase/CoreOnly
-    - FirebaseAnalytics (~> 8.6.0)
-  - Firebase/CoreOnly (8.6.0):
-    - FirebaseCore (= 8.6.0)
-  - Firebase/Crashlytics (8.6.0):
+    - FirebaseAnalytics (~> 10.24.0)
+  - Firebase/CoreOnly (10.24.0):
+    - FirebaseCore (= 10.24.0)
+  - Firebase/Crashlytics (10.24.0):
     - Firebase/CoreOnly
-    - FirebaseCrashlytics (~> 8.6.0)
-  - Firebase/Messaging (8.6.0):
+    - FirebaseCrashlytics (~> 10.24.0)
+  - Firebase/Messaging (10.24.0):
     - Firebase/CoreOnly
-    - FirebaseMessaging (~> 8.6.0)
-  - Firebase/Performance (8.6.0):
+    - FirebaseMessaging (~> 10.24.0)
+  - Firebase/Performance (10.24.0):
     - Firebase/CoreOnly
-    - FirebasePerformance (~> 8.6.0)
-  - FirebaseABTesting (8.6.0):
-    - FirebaseCore (~> 8.0)
-  - FirebaseAnalytics (8.6.0):
-    - FirebaseAnalytics/AdIdSupport (= 8.6.0)
-    - FirebaseCore (~> 8.0)
-    - FirebaseInstallations (~> 8.0)
-    - GoogleUtilities/AppDelegateSwizzler (~> 7.4)
-    - GoogleUtilities/MethodSwizzler (~> 7.4)
-    - GoogleUtilities/Network (~> 7.4)
-    - "GoogleUtilities/NSData+zlib (~> 7.4)"
-    - nanopb (~> 2.30908.0)
-  - FirebaseAnalytics/AdIdSupport (8.6.0):
-    - FirebaseCore (~> 8.0)
-    - FirebaseInstallations (~> 8.0)
-    - GoogleAppMeasurement (= 8.6.0)
-    - GoogleUtilities/AppDelegateSwizzler (~> 7.4)
-    - GoogleUtilities/MethodSwizzler (~> 7.4)
-    - GoogleUtilities/Network (~> 7.4)
-    - "GoogleUtilities/NSData+zlib (~> 7.4)"
-    - nanopb (~> 2.30908.0)
-  - FirebaseCore (8.6.0):
-    - FirebaseCoreDiagnostics (~> 8.0)
-    - GoogleUtilities/Environment (~> 7.4)
-    - GoogleUtilities/Logger (~> 7.4)
-  - FirebaseCoreDiagnostics (8.6.0):
-    - GoogleDataTransport (~> 9.0)
-    - GoogleUtilities/Environment (~> 7.4)
-    - GoogleUtilities/Logger (~> 7.4)
-    - nanopb (~> 2.30908.0)
-  - FirebaseCrashlytics (8.6.0):
-    - FirebaseCore (~> 8.0)
-    - FirebaseInstallations (~> 8.0)
-    - GoogleDataTransport (~> 9.0)
-    - GoogleUtilities/Environment (~> 7.4)
-    - nanopb (~> 2.30908.0)
+    - FirebasePerformance (~> 10.24.0)
+  - FirebaseABTesting (10.24.0):
+    - FirebaseCore (~> 10.0)
+  - FirebaseAnalytics (10.24.0):
+    - FirebaseAnalytics/AdIdSupport (= 10.24.0)
+    - FirebaseCore (~> 10.0)
+    - FirebaseInstallations (~> 10.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.11)
+    - GoogleUtilities/MethodSwizzler (~> 7.11)
+    - GoogleUtilities/Network (~> 7.11)
+    - "GoogleUtilities/NSData+zlib (~> 7.11)"
+    - nanopb (< 2.30911.0, >= 2.30908.0)
+  - FirebaseAnalytics/AdIdSupport (10.24.0):
+    - FirebaseCore (~> 10.0)
+    - FirebaseInstallations (~> 10.0)
+    - GoogleAppMeasurement (= 10.24.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.11)
+    - GoogleUtilities/MethodSwizzler (~> 7.11)
+    - GoogleUtilities/Network (~> 7.11)
+    - "GoogleUtilities/NSData+zlib (~> 7.11)"
+    - nanopb (< 2.30911.0, >= 2.30908.0)
+  - FirebaseCore (10.24.0):
+    - FirebaseCoreInternal (~> 10.0)
+    - GoogleUtilities/Environment (~> 7.12)
+    - GoogleUtilities/Logger (~> 7.12)
+  - FirebaseCoreExtension (10.24.0):
+    - FirebaseCore (~> 10.0)
+  - FirebaseCoreInternal (10.24.0):
+    - "GoogleUtilities/NSData+zlib (~> 7.8)"
+  - FirebaseCrashlytics (10.24.0):
+    - FirebaseCore (~> 10.5)
+    - FirebaseInstallations (~> 10.0)
+    - FirebaseRemoteConfigInterop (~> 10.23)
+    - FirebaseSessions (~> 10.5)
+    - GoogleDataTransport (~> 9.2)
+    - GoogleUtilities/Environment (~> 7.8)
+    - nanopb (< 2.30911.0, >= 2.30908.0)
+    - PromisesObjC (~> 2.1)
+  - FirebaseInstallations (10.24.0):
+    - FirebaseCore (~> 10.0)
+    - GoogleUtilities/Environment (~> 7.8)
+    - GoogleUtilities/UserDefaults (~> 7.8)
+    - PromisesObjC (~> 2.1)
+  - FirebaseMessaging (10.24.0):
+    - FirebaseCore (~> 10.0)
+    - FirebaseInstallations (~> 10.0)
+    - GoogleDataTransport (~> 9.3)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.8)
+    - GoogleUtilities/Environment (~> 7.8)
+    - GoogleUtilities/Reachability (~> 7.8)
+    - GoogleUtilities/UserDefaults (~> 7.8)
+    - nanopb (< 2.30911.0, >= 2.30908.0)
+  - FirebasePerformance (10.24.0):
+    - FirebaseCore (~> 10.5)
+    - FirebaseInstallations (~> 10.0)
+    - FirebaseRemoteConfig (~> 10.0)
+    - FirebaseSessions (~> 10.5)
+    - GoogleDataTransport (~> 9.2)
+    - GoogleUtilities/Environment (~> 7.8)
+    - GoogleUtilities/ISASwizzler (~> 7.8)
+    - GoogleUtilities/MethodSwizzler (~> 7.8)
+    - nanopb (< 2.30911.0, >= 2.30908.0)
+  - FirebaseRemoteConfig (10.24.0):
+    - FirebaseABTesting (~> 10.0)
+    - FirebaseCore (~> 10.0)
+    - FirebaseInstallations (~> 10.0)
+    - FirebaseRemoteConfigInterop (~> 10.23)
+    - FirebaseSharedSwift (~> 10.0)
+    - GoogleUtilities/Environment (~> 7.8)
+    - "GoogleUtilities/NSData+zlib (~> 7.8)"
+  - FirebaseRemoteConfigInterop (10.24.0)
+  - FirebaseSessions (10.24.0):
+    - FirebaseCore (~> 10.5)
+    - FirebaseCoreExtension (~> 10.0)
+    - FirebaseInstallations (~> 10.0)
+    - GoogleDataTransport (~> 9.2)
+    - GoogleUtilities/Environment (~> 7.10)
+    - nanopb (< 2.30911.0, >= 2.30908.0)
+    - PromisesSwift (~> 2.1)
+  - FirebaseSharedSwift (10.24.0)
+  - GoogleAppMeasurement (10.24.0):
+    - GoogleAppMeasurement/AdIdSupport (= 10.24.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.11)
+    - GoogleUtilities/MethodSwizzler (~> 7.11)
+    - GoogleUtilities/Network (~> 7.11)
+    - "GoogleUtilities/NSData+zlib (~> 7.11)"
+    - nanopb (< 2.30911.0, >= 2.30908.0)
+  - GoogleAppMeasurement/AdIdSupport (10.24.0):
+    - GoogleAppMeasurement/WithoutAdIdSupport (= 10.24.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.11)
+    - GoogleUtilities/MethodSwizzler (~> 7.11)
+    - GoogleUtilities/Network (~> 7.11)
+    - "GoogleUtilities/NSData+zlib (~> 7.11)"
+    - nanopb (< 2.30911.0, >= 2.30908.0)
+  - GoogleAppMeasurement/WithoutAdIdSupport (10.24.0):
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.11)
+    - GoogleUtilities/MethodSwizzler (~> 7.11)
+    - GoogleUtilities/Network (~> 7.11)
+    - "GoogleUtilities/NSData+zlib (~> 7.11)"
+    - nanopb (< 2.30911.0, >= 2.30908.0)
+  - GoogleDataTransport (9.4.1):
+    - GoogleUtilities/Environment (~> 7.7)
+    - nanopb (< 2.30911.0, >= 2.30908.0)
     - PromisesObjC (< 3.0, >= 1.2)
-  - FirebaseInstallations (8.6.0):
-    - FirebaseCore (~> 8.0)
-    - GoogleUtilities/Environment (~> 7.4)
-    - GoogleUtilities/UserDefaults (~> 7.4)
-    - PromisesObjC (< 3.0, >= 1.2)
-  - FirebaseMessaging (8.6.0):
-    - FirebaseCore (~> 8.0)
-    - FirebaseInstallations (~> 8.0)
-    - GoogleDataTransport (~> 9.0)
-    - GoogleUtilities/AppDelegateSwizzler (~> 7.4)
-    - GoogleUtilities/Environment (~> 7.4)
-    - GoogleUtilities/Reachability (~> 7.4)
-    - GoogleUtilities/UserDefaults (~> 7.4)
-    - nanopb (~> 2.30908.0)
-  - FirebasePerformance (8.6.0):
-    - FirebaseCore (~> 8.0)
-    - FirebaseInstallations (~> 8.0)
-    - FirebaseRemoteConfig (~> 8.0)
-    - GoogleDataTransport (~> 9.0)
-    - GoogleUtilities/Environment (~> 7.4)
-    - GoogleUtilities/ISASwizzler (~> 7.4)
-    - GoogleUtilities/MethodSwizzler (~> 7.4)
-    - nanopb (~> 2.30908.0)
-  - FirebaseRemoteConfig (8.6.0):
-    - FirebaseABTesting (~> 8.0)
-    - FirebaseCore (~> 8.0)
-    - FirebaseInstallations (~> 8.0)
-    - GoogleUtilities/Environment (~> 7.4)
-    - "GoogleUtilities/NSData+zlib (~> 7.4)"
-  - GoogleAppMeasurement (8.6.0):
-    - GoogleAppMeasurement/AdIdSupport (= 8.6.0)
-    - GoogleUtilities/AppDelegateSwizzler (~> 7.4)
-    - GoogleUtilities/MethodSwizzler (~> 7.4)
-    - GoogleUtilities/Network (~> 7.4)
-    - "GoogleUtilities/NSData+zlib (~> 7.4)"
-    - nanopb (~> 2.30908.0)
-  - GoogleAppMeasurement/AdIdSupport (8.6.0):
-    - GoogleUtilities/AppDelegateSwizzler (~> 7.4)
-    - GoogleUtilities/MethodSwizzler (~> 7.4)
-    - GoogleUtilities/Network (~> 7.4)
-    - "GoogleUtilities/NSData+zlib (~> 7.4)"
-    - nanopb (~> 2.30908.0)
-  - GoogleDataTransport (9.1.0):
-    - GoogleUtilities/Environment (~> 7.2)
-    - nanopb (~> 2.30908.0)
-    - PromisesObjC (< 3.0, >= 1.2)
-  - GoogleUtilities/AppDelegateSwizzler (7.5.1):
+  - GoogleUtilities/AppDelegateSwizzler (7.13.0):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
     - GoogleUtilities/Network
-  - GoogleUtilities/Environment (7.5.1):
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/Environment (7.13.0):
+    - GoogleUtilities/Privacy
     - PromisesObjC (< 3.0, >= 1.2)
-  - GoogleUtilities/ISASwizzler (7.5.1)
-  - GoogleUtilities/Logger (7.5.1):
+  - GoogleUtilities/ISASwizzler (7.13.0):
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/Logger (7.13.0):
     - GoogleUtilities/Environment
-  - GoogleUtilities/MethodSwizzler (7.5.1):
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/MethodSwizzler (7.13.0):
     - GoogleUtilities/Logger
-  - GoogleUtilities/Network (7.5.1):
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/Network (7.13.0):
     - GoogleUtilities/Logger
     - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/Privacy
     - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (7.5.1)"
-  - GoogleUtilities/Reachability (7.5.1):
+  - "GoogleUtilities/NSData+zlib (7.13.0)":
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/Privacy (7.13.0)
+  - GoogleUtilities/Reachability (7.13.0):
     - GoogleUtilities/Logger
-  - GoogleUtilities/UserDefaults (7.5.1):
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/UserDefaults (7.13.0):
     - GoogleUtilities/Logger
+    - GoogleUtilities/Privacy
   - KVNProgress (2.3.5)
-  - nanopb (2.30908.0):
-    - nanopb/decode (= 2.30908.0)
-    - nanopb/encode (= 2.30908.0)
-  - nanopb/decode (2.30908.0)
-  - nanopb/encode (2.30908.0)
-  - Observable (2.1.0)
-  - PromiseKit/Alamofire (6.13.1):
+  - nanopb (2.30910.0):
+    - nanopb/decode (= 2.30910.0)
+    - nanopb/encode (= 2.30910.0)
+  - nanopb/decode (2.30910.0)
+  - nanopb/encode (2.30910.0)
+  - Observable (2.2.0)
+  - PromiseKit/Alamofire (6.18.1):
     - Alamofire (~> 4.0)
     - PromiseKit/CorePromise
-  - PromiseKit/CorePromise (6.13.1)
-  - PromisesObjC (2.0.0)
-  - R.swift (5.3.0):
-    - R.swift.Library (~> 5.3.0)
-  - R.swift.Library (5.3.0)
-  - SnapshotTesting (1.8.2)
-  - Sourcery (1.6.0)
+  - PromiseKit/CorePromise (6.18.1)
+  - PromisesObjC (2.4.0)
+  - PromisesSwift (2.4.0):
+    - PromisesObjC (= 2.4.0)
+  - R.swift (7.3.2)
+  - SnapshotTesting (1.9.0)
+  - Sourcery (2.2.2):
+    - Sourcery/CLI-Only (= 2.2.2)
+  - Sourcery/CLI-Only (2.2.2)
   - Swifter (1.5.0)
-  - SwiftFormat/CLI (0.48.4)
-  - SwiftLint (0.43.1)
-  - Swinject (2.7.1)
+  - SwiftFormat/CLI (0.53.6)
+  - SwiftLint (0.54.0)
+  - Swinject (2.8.5)
   - "UITextView+Placeholder (1.4.0)"
 
 DEPENDENCIES:
@@ -169,12 +202,16 @@ SPEC REPOS:
     - FirebaseABTesting
     - FirebaseAnalytics
     - FirebaseCore
-    - FirebaseCoreDiagnostics
+    - FirebaseCoreExtension
+    - FirebaseCoreInternal
     - FirebaseCrashlytics
     - FirebaseInstallations
     - FirebaseMessaging
     - FirebasePerformance
     - FirebaseRemoteConfig
+    - FirebaseRemoteConfigInterop
+    - FirebaseSessions
+    - FirebaseSharedSwift
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleUtilities
@@ -183,8 +220,8 @@ SPEC REPOS:
     - Observable
     - PromiseKit
     - PromisesObjC
+    - PromisesSwift
     - R.swift
-    - R.swift.Library
     - SnapshotTesting
     - Sourcery
     - Swifter
@@ -196,34 +233,38 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   DataDrivenTesting: 4fe7d0077ceb88be43b16471fb413f3f072c094c
-  Firebase: 21ac9f28b09a8bdfc005f34c984fca84e7e8786d
-  FirebaseABTesting: c3e48ebf5e7e5c674c5a131c68e941d7921d83dc
-  FirebaseAnalytics: 8f32ae54ad42754f503354782575c4ddfc1425c3
-  FirebaseCore: 620b677f70f5470a8e59cb77f3ddc666f6f09785
-  FirebaseCoreDiagnostics: 3721920bde3a9a6d5aa093c1d25e9d3e47f694af
-  FirebaseCrashlytics: 58f8ecea7c799c61c50e8111d2e438424a8a1d2e
-  FirebaseInstallations: 0ede6ffcd215b8f93c19d9b06c1c54e2d4107e98
-  FirebaseMessaging: ce0a5ee974f7bfe83b6cc5acce88c2d969e37c41
-  FirebasePerformance: 868249ceda5e3399f581b5b53454d963feaa8164
-  FirebaseRemoteConfig: 9ee4672d4eacf646256e26cfac61021b3a390ea4
-  GoogleAppMeasurement: 2c0c6e2a7ab3fe730ade6379f732bdefb46f50b0
-  GoogleDataTransport: 85fd18ff3019bb85d3f2c551d04c481dedf71fc9
-  GoogleUtilities: 3df19e3c24f7bbc291d8b5809aa6b0d41e642437
+  Firebase: 91fefd38712feb9186ea8996af6cbdef41473442
+  FirebaseABTesting: 4431c2c56ac6e56f463b9cab05cc111078639f99
+  FirebaseAnalytics: b5efc493eb0f40ec560b04a472e3e1a15d39ca13
+  FirebaseCore: 11dc8a16dfb7c5e3c3f45ba0e191a33ac4f50894
+  FirebaseCoreExtension: af5fd85e817ea9d19f9a2659a376cf9cf99f03c0
+  FirebaseCoreInternal: bcb5acffd4ea05e12a783ecf835f2210ce3dc6af
+  FirebaseCrashlytics: af38ea4adfa606f6e63fcc22091b61e7938fcf66
+  FirebaseInstallations: 8f581fca6478a50705d2bd2abd66d306e0f5736e
+  FirebaseMessaging: 4d52717dd820707cc4eadec5eb981b4832ec8d5d
+  FirebasePerformance: 78fed7cf7907f67af3c1e9667d2d1881765f11e2
+  FirebaseRemoteConfig: 95dddc50496b37eef199dadce850d5652b534b43
+  FirebaseRemoteConfigInterop: 6c349a466490aeace3ce9c091c86be1730711634
+  FirebaseSessions: 2651b464e241c93fd44112f995d5ab663c970487
+  FirebaseSharedSwift: 76e1529c32101d80e4f1ca2fba7c39d59f0a390a
+  GoogleAppMeasurement: f3abf08495ef2cba7829f15318c373b8d9226491
+  GoogleDataTransport: 6c09b596d841063d76d4288cc2d2f42cc36e1e2a
+  GoogleUtilities: d053d902a8edaa9904e1bd00c37535385b8ed152
   KVNProgress: d7046cce142f1aeb740db39dc3cacfe910fac354
-  nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
-  Observable: bdfa770fc9d925b997d186b09860a0bcdd6f9690
-  PromiseKit: 28fda91c973cc377875d8c0ea4f973013c05b6db
-  PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
-  R.swift: 4170fb7161c67be3bc1a847040b79367d69c419f
-  R.swift.Library: 0fc583cb55a99e28901299cc451614cad1161962
-  SnapshotTesting: 38947050d13960d57a4a9c166fcf51bca7d56970
-  Sourcery: 744f43178637c79bf23127dfe34e2103b3f28499
+  nanopb: 438bc412db1928dac798aa6fd75726007be04262
+  Observable: d5369c555eae9d022cb066867786f6b9470de33c
+  PromiseKit: 49d70c53d5d20e346beaea4b276b5dd2ab446bb4
+  PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
+  PromisesSwift: 9d77319bbe72ebf6d872900551f7eeba9bce2851
+  R.swift: 0af0d882f49f03711415cb4e5215daa977d8a480
+  SnapshotTesting: 6141c48b6aa76ead61431ca665c14ab9a066c53b
+  Sourcery: 40610fe0d6edf71c7a2f984c96727fae99b94d08
   Swifter: e71dd674404923d7f03ebb03f3f222d1c570bc8e
-  SwiftFormat: c6f52d7e4a91b01d7941172135ef7761d7e36615
-  SwiftLint: 99f82d07b837b942dd563c668de129a03fc3fb52
-  Swinject: ddf78b8486dd9b71a667b852cad919ab4484478e
+  SwiftFormat: 9780a52cd57113cb87d4b4599c6e85d24c3d4ed0
+  SwiftLint: c1de071d9d08c8aba837545f6254315bc900e211
+  Swinject: 79eb1aba4cd25e1b649492e3600c878af2484bfc
   "UITextView+Placeholder": d7b0c400921f66523f3a85d74f774512e14f6502
 
-PODFILE CHECKSUM: 083e0cfbba36b948315bc422aca5ac67f8e9a04e
+PODFILE CHECKSUM: 5f3b7209261fb63e8b87ccd927ea5e99b7fa3df4
 
-COCOAPODS: 1.14.3
+COCOAPODS: 1.15.2

@@ -19,7 +19,7 @@ final class NotificationManager: NSObject, NotificationProvider {
                         self?.authorizationGranted()
                     }
                 }
-        }
+            }
     }
 
     private func authorizationGranted() {

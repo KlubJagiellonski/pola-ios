@@ -9,6 +9,9 @@ final class CompanyContentView: UIView {
     let workersCheckRow = CheckRow()
     let friendButton = UIButton()
     let descriptionLabel = UILabel()
+    let logotypeImageView = UIImageView()
+    let brandLogotypesView = BrandLogotypesView()
+    let readMoreButton = UIButton()
     private let stackView = UIStackView()
     private let padding = CGFloat(14)
 
@@ -70,6 +73,23 @@ final class CompanyContentView: UIView {
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         stackView.addArrangedSubview(descriptionLabel)
 
+        logotypeImageView.translatesAutoresizingMaskIntoConstraints = false
+        logotypeImageView.contentMode = .scaleAspectFit
+        logotypeImageView.isHidden = true
+        stackView.addArrangedSubview(logotypeImageView)
+
+        brandLogotypesView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.addArrangedSubview(brandLogotypesView)
+
+        readMoreButton.translatesAutoresizingMaskIntoConstraints = false
+        readMoreButton.isHidden = true
+        readMoreButton.setTitle(R.string.localizable.readMore(), for: .normal)
+        readMoreButton.contentEdgeInsets = UIEdgeInsets(top: 6, left: 0, bottom: 6, right: 0)
+        readMoreButton.setReportType(.red)
+        readMoreButton.titleLabel?.font = Theme.buttonFont
+
+        stackView.addArrangedSubview(readMoreButton)
+
         createConstraints()
     }
 
@@ -83,7 +103,7 @@ final class CompanyContentView: UIView {
             stackView.topAnchor.constraint(equalTo: topAnchor),
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            stackView.bottomAnchor.constraint(greaterThanOrEqualTo: bottomAnchor),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
     }
 }

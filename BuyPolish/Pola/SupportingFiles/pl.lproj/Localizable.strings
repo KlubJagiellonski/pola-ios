@@ -22,6 +22,7 @@
 "created rich salary work places" = "prowadzi badania i rozwój w Polsce";
 "producing in PL" = "produkuje w Polsce";
 "This is Pola's friend" = "To jest przyjaciel Poli";
+"Read more" = "Czytaj więcej!";
 "look at Pola's friends" = "ZOBACZ PRZYJACIÓŁ POLI";
 "Loading..." = "Pobieranie danych...";
 "Sending..." = "Wysyłanie...";
@@ -72,6 +73,8 @@
 "Accessibility.Keyboard.Delete" = "Usuń ostatnią cyfrę";
 "Accessibility.Close" = "Zamknij";
 "Accessibility.CardHint" = "Otwórz lub zamknij poprzez kliknięcie";
+"Accessibility.Company.Logotype" = "Logo firmy %@";
+"Accessibility.Company.BrandLogotype" = "Logo marki %@";
 "Accessibility.Report.AddPhoto" = "Dodaj zdjęcie";
 "Accessibility.Logo" = "Strona główna";
 "CaptureVideo.Timer.Seconds" = "sek.";

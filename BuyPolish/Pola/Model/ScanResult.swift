@@ -9,6 +9,7 @@ struct ScanResult: Decodable {
     let companies: [Company]?
     let report: AskForReport?
     let donate: AskForDonate?
+    let allCompanyBrands: [Brand]?
 
     enum CodingKeys: String, CodingKey {
         case productId = "product_id"
@@ -19,6 +20,7 @@ struct ScanResult: Decodable {
         case companies
         case report
         case donate
+        case allCompanyBrands = "all_company_brands"
     }
 
     enum CardType: String, Decodable {

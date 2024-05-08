@@ -33,4 +33,4 @@ colon:
   severity: error
 
 file_header:
-  required_pattern:
+  forbidden_pattern: //
